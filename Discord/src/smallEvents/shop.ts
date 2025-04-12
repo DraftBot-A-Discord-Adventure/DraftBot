@@ -36,8 +36,7 @@ export async function smallShopCollector(context: PacketContext, packet: Reactio
 			type: `${DraftBotIcons.itemCategories[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
 				lng
-			})[data.item.category]}`,
-			interpolation: { escapeValue: false }
+			})[data.item.category]}`
 		}),
 		interaction.user,
 		lng

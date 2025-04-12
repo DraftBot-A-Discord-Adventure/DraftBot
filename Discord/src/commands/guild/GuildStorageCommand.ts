@@ -25,8 +25,7 @@ export async function handleSuccess(packet: CommandGuildStoragePacketRes, contex
 	const embed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:guildStorage.embed.title", {
 			lng,
-			guildName: packet.guildName,
-			interpolation: { escapeValue: false }
+			guildName: packet.guildName
 		}))
 		.setThumbnail(GuildConstants.ICON)
 		.addFields({

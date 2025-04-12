@@ -27,6 +27,7 @@ import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { MessageFlags } from "discord-api-types/v10";
+import { escapeUsername } from "../../utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -82,8 +83,7 @@ function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.title", {
 				lng,
-				pseudo,
-				interpolation: { escapeValue: false }
+				pseudo
 			}))
 			.addFields([
 				DiscordItemUtils.getWeaponField(packet.data.weapon, lng),
@@ -101,8 +101,7 @@ function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: 
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.stockTitle", {
 				lng,
-				pseudo,
-				interpolation: { escapeValue: false }
+				pseudo
 			}))
 			.addFields([
 				getBackupField(lng, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField, "weapons"),
@@ -144,8 +143,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		.setCustomId(buttonId)
 		.setLabel(backupButtonLabel)
 		.setStyle(ButtonStyle.Primary);
-	const equippedEmbed = getEquippedEmbed(packet, keycloakUser.attributes.gameUsername[0], lng);
-	const backupEmbed = getBackupEmbed(packet, keycloakUser.attributes.gameUsername[0], lng);
+	const equippedEmbed = getEquippedEmbed(packet, escapeUsername(keycloakUser.attributes.gameUsername[0]), lng);
+	const backupEmbed = getBackupEmbed(packet, escapeUsername(keycloakUser.attributes.gameUsername[0]), lng);
 	const msg = await interaction.reply({
 		embeds: [equippedEmbed],
 		components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]

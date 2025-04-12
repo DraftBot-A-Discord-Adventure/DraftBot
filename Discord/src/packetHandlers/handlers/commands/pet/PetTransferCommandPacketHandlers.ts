@@ -3,7 +3,8 @@ import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket"
 import { handleClassicError } from "../../../../utils/ErrorUtils";
 import {
 	CommandPetTransferAnotherMemberTransferringErrorPacket,
-	CommandPetTransferCancelErrorPacket, CommandPetTransferFeistyErrorPacket,
+	CommandPetTransferCancelErrorPacket,
+	CommandPetTransferFeistyErrorPacket,
 	CommandPetTransferNoPetErrorPacket,
 	CommandPetTransferSituationChangedErrorPacket,
 	CommandPetTransferSuccessPacket
@@ -11,12 +12,13 @@ import {
 import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../../../bot/DraftBotShard";
 import { handlePetTransferSuccess } from "../../../../commands/pet/PetTransferCommand";
+import { escapeUsername } from "../../../../utils/StringUtils";
 
 export default class PetTransferCommandPacketHandlers {
 	@packetHandler(CommandPetTransferAnotherMemberTransferringErrorPacket)
 	async anotherPlayerTransferring(context: PacketContext, packet: CommandPetTransferAnotherMemberTransferringErrorPacket): Promise<void> {
 		await handleClassicError(context, "commands:petTransfer.anotherPlayerTransferring", {
-			playerName: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))?.attributes.gameUsername[0],
+			playerName: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!.attributes.gameUsername[0]),
 			lng: context.discord!.language
 		});
 	}

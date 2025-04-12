@@ -33,8 +33,7 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 			lng,
 			guildName: packet.guildName,
 			count: packet.pets.length,
-			max: packet.maxCount,
-			interpolation: { escapeValue: false }
+			max: packet.maxCount
 		}))
 		.addFields(packet.pets.map((pet, index) => ({
 			name: i18n.t("commands:guildShelter.petFieldName", {

@@ -24,6 +24,7 @@ import {
 import { Language } from "../../../../Lib/src/Language";
 import { EmbedField } from "discord.js";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the switch command packet
@@ -51,8 +52,7 @@ export async function handleItemSwitch(packet: CommandSwitchSuccess, context: Pa
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:switch.titleSuccess", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t(`commands:switch.${packet.itemBackedUp.id === 0 ? "switchingSingle" : "switchingDouble"}`, {
 					lng,
@@ -89,8 +89,7 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:switch.switchSelectionTitle", {
 			lng,
-			pseudo: interaction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName)
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:switch.switchSelectionDescription", { lng })}\n\n`);
 	const reactions: ReactionCollectorSwitchItemReaction[] = packet.reactions

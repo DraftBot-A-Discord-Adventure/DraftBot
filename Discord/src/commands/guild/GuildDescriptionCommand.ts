@@ -17,6 +17,7 @@ import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorGuildDescriptionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildDescription";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 
 export async function createGuildDescriptionCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
@@ -26,8 +27,7 @@ export async function createGuildDescriptionCollector(context: PacketContext, pa
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildDescription.confirmDesc", {
@@ -50,8 +50,7 @@ export async function handleCommandGuildDescriptionRefusePacketRes(_packet: Comm
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildDescription.canceledDesc", {
@@ -72,8 +71,7 @@ export async function handleCommandGuildDescriptionAcceptPacketRes(_packet: Comm
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildDescription.successDescriptionTitle", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildDescription.acceptedDesc", { lng })

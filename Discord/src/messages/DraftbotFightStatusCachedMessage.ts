@@ -6,6 +6,7 @@ import { keycloakConfig } from "../bot/DraftBotShard";
 import { DraftBotEmbed } from "./DraftBotEmbed";
 import i18n from "../translations/i18n";
 import { CommandFightStatusPacket } from "../../../Lib/src/packets/fights/FightStatusPacket";
+import { escapeUsername } from "../utils/StringUtils";
 
 export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<CommandFightStatusPacket> {
 	readonly duration = 30;
@@ -18,10 +19,10 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const lng = interaction.userLanguage;
 		const attacker = packet.activeFighter.keycloakId
-			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0]
+			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.activeFighter.keycloakId))!.attributes.gameUsername[0])
 			: i18n.t(`models:monsters.${packet.activeFighter.monsterId}.name`, { lng });
 		const defender = packet.defendingFighter.keycloakId
-			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.defendingFighter.keycloakId))!.attributes.gameUsername[0]
+			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.defendingFighter.keycloakId))!.attributes.gameUsername[0])
 			: i18n.t(`models:monsters.${packet.defendingFighter.monsterId}.name`, { lng });
 		const keyProlongation = packet.numberOfTurn > packet.maxNumberOfTurn ? "prolongation" : "noProlongation";
 
@@ -33,10 +34,8 @@ export class DraftbotFightStatusCachedMessage extends DraftbotCachedMessage<Comm
 					state: i18n.t(`commands:fight.summarize.intro.${keyProlongation}`, {
 						lng,
 						currentTurn: packet.numberOfTurn,
-						maxTurn: packet.maxNumberOfTurn,
-						interpolation: { escapeValue: false }
-					}),
-					interpolation: { escapeValue: false }
+						maxTurn: packet.maxNumberOfTurn
+					})
 				})
 				+ i18n.t("commands:fight.summarize.attacker", {
 					lng,

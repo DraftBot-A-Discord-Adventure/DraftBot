@@ -17,6 +17,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Create a collector to confirm the demotion
@@ -31,15 +32,13 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildElderRemove.confirmDesc", {
 				lng,
-				elderPseudo: elderPlayer.attributes.gameUsername[0],
-				guildName: data.guildName,
-				interpolation: { escapeValue: false }
+				elderPseudo: escapeUsername(elderPlayer.attributes.gameUsername[0]),
+				guildName: data.guildName
 			})
 		);
 
@@ -64,14 +63,12 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildElderRemove.canceledDesc", {
 						lng,
-						elderPseudo: promotedPlayer.attributes.gameUsername[0],
-						interpolation: { escapeValue: false }
+						elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0])
 					})
 				)
 				.setErrorColor()
@@ -95,9 +92,8 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.successElderRemoveTitle", {
 					lng,
-					elderPseudo: promotedPlayer.attributes.gameUsername[0],
-					guildName: packet.guildName,
-					interpolation: { escapeValue: false }
+					elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0]),
+					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildElderRemove.acceptedDesc", { lng })

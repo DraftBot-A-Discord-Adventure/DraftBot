@@ -17,6 +17,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorDrinkData } from "../../../../Lib/src/packets/interaction/ReactionCollectorDrink";
 import { minutesDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -41,9 +42,8 @@ export async function drinkAcceptCollector(context: PacketContext, packet: React
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
 			i18n.t("commands:drink.confirmationTitle", {
-				pseudo: interaction.user.displayName,
-				lng,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(interaction.user.displayName),
+				lng
 			}),
 			interaction.user
 		)
@@ -92,7 +92,7 @@ export async function handleDrinkConsumePotion(context: PacketContext, packet: C
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:drink.drinkSuccessTitle", {
-					pseudo: interaction.user.displayName,
+					pseudo: escapeUsername(interaction.user.displayName),
 					lng
 				}), interaction.user)
 				.setDescription(msg)
@@ -112,7 +112,7 @@ export async function handleDrinkCancellation(context: PacketContext): Promise<v
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:drink.cancelledTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:drink.cancelled", { lng }))
 		]

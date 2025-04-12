@@ -20,6 +20,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFree";
 import { PetUtils } from "../../utils/PetUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Destroy a pet forever... RIP
@@ -74,8 +75,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 					interaction,
 					i18n.t("error:cooldownPetFree", {
 						lng,
-						remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf()),
-						interpolation: { escapeValue: false }
+						remainingTime: printTimeBeforeDate(packet.cooldownRemainingTimeMs! + new Date().valueOf())
 					})
 				)
 			]
@@ -91,14 +91,12 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFree.confirmDesc", {
 				lng,
-				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex),
-				interpolation: { escapeValue: false }
+				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex)
 			})
 		);
 
@@ -114,8 +112,7 @@ export async function handleCommandPetFreeRefusePacketRes(context: PacketContext
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:petFree.canceledDesc", { lng })
@@ -135,14 +132,12 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:petFree.acceptedDesc", {
 							lng,
-							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petId, packet.petSex),
-							interpolation: { escapeValue: false }
+							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petId, packet.petSex)
 						})
 					)
 			]

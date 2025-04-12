@@ -4,7 +4,9 @@ import { SmallEventAdvanceTimePacket } from "../../../../Lib/src/packets/smallEv
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed";
 import { Language } from "../../../../Lib/src/Language";
-import { StringUtils } from "../../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
 import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {
 	SmallEventBadIssue,
@@ -375,7 +377,6 @@ export default class SmallEventsHandler {
 		const lng = interaction.userLanguage;
 		const endMessage = i18n.t(`smallEvents:leagueReward.${packet.rewardToday ? "rewardToday" : packet.enoughFights ? "endMessage" : "notEnoughFight"}`, {
 			lng,
-			interpolation: { escapeValue: false },
 			league: i18n.t(`models:leagues.${packet.leagueId}`, { lng }),
 			rewards: i18n.t("smallEvents:leagueReward.reward", {
 				lng,
@@ -450,10 +451,8 @@ export default class SmallEventsHandler {
 					+ StringUtils.getRandomTranslation("smallEvents:staffMember.context", lng, {
 						pseudo: staffMember,
 						sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
-							lng,
-							interpolation: { escapeValue: false }
-						}),
-						interpolation: { escapeValue: false }
+							lng
+						})
 					}),
 					interaction.user,
 					lng
@@ -591,8 +590,7 @@ export default class SmallEventsHandler {
 							name: StringUtils.getRandomTranslation("smallEvents:space.names", lng)
 						}),
 						searchAction: StringUtils.getRandomTranslation("smallEvents:space.searchAction", lng),
-						search: StringUtils.getRandomTranslation("smallEvents:space.search", lng),
-						interpolation: { escapeValue: false }
+						search: StringUtils.getRandomTranslation("smallEvents:space.search", lng)
 					}),
 					interaction.user,
 					lng
@@ -643,8 +641,7 @@ export default class SmallEventsHandler {
 							randomObjectDistance: packet.values.randomObjectDistance,
 							randomObjectDiameter: packet.values.randomObjectDiameter
 						}),
-						outro: StringUtils.getRandomTranslation("smallEvents:space.outro", lng),
-						interpolation: { escapeValue: false }
+						outro: StringUtils.getRandomTranslation("smallEvents:space.outro", lng)
 					}),
 					interaction.user,
 					lng
@@ -667,10 +664,8 @@ export default class SmallEventsHandler {
 							lng,
 							count: packet.infoNumber,
 							infoNumber: packet.infoNumber,
-							infoComplement: DisplayUtils.getClassDisplay(packet.infoComplement ? packet.infoComplement : 0, lng),
-							interpolation: { escapeValue: false }
-						}),
-						interpolation: { escapeValue: false }
+							infoComplement: DisplayUtils.getClassDisplay(packet.infoComplement ? packet.infoComplement : 0, lng)
+						})
 					}),
 					interaction.user,
 					lng
@@ -844,8 +839,7 @@ export default class SmallEventsHandler {
 					+ (packet.isSuccess
 						? i18n.t("smallEvents:fightPet.rageUpFormat", {
 							lng,
-							rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", lng),
-							interpolation: { escapeValue: false }
+							rageUpDescription: StringUtils.getRandomTranslation("smallEvents:fightPet.rageUpDescriptions", lng)
 						})
 						: ""),
 					interaction.user,
@@ -868,7 +862,7 @@ export default class SmallEventsHandler {
 					.formatAuthor(
 						i18n.t("commands:report.journal", {
 							lng,
-							pseudo: interaction.user.displayName
+							pseudo: escapeUsername(interaction.user.displayName)
 						}),
 						interaction.user
 					)

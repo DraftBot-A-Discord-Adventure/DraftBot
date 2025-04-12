@@ -96,8 +96,7 @@ export async function sendInteractionNotForYou(
 				.setErrorColor()
 				.formatAuthor(i18n.t("error:titleDidntWork", {
 					lng,
-					pseudo: user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(user.displayName)
 				}), user)
 		],
 		flags: MessageFlags.Ephemeral
@@ -137,8 +136,7 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 	return {
 		title: i18n.t(`error:effects.${effectId}.${self ? "self" : "other"}`, {
 			lng,
-			pseudo: escapeUsername(user.attributes.gameUsername[0]),
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
 		}),
 		description: i18n.t(`{emote:effects.${effectId}} $t(${getDescriptionTranslationKey(effectId, self)})`, {
 			lng,
@@ -171,8 +169,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interactionToRespondTo,
 				i18n.t(errorKey, {
 					lng: interactionToRespondTo.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE,
-					...replacements,
-					interpolation: { escapeValue: false }
+					...replacements
 				})
 			)
 		],

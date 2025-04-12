@@ -8,6 +8,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
+import { escapeUsername } from "../../utils/StringUtils";
 
 export default class ItemHandler {
 	@packetHandler(ItemAcceptPacket)
@@ -20,7 +21,7 @@ export default class ItemHandler {
 		const menuEmbed = new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:inventory.acceptedTitle", {
 				lng,
-				pseudo: interaction.user.displayName
+				pseudo: escapeUsername(interaction.user.displayName)
 			}), interaction.user)
 			.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, lng));
 		await interaction.channel.send({ embeds: [menuEmbed] });
@@ -38,7 +39,7 @@ export default class ItemHandler {
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:inventory.randomItemTitle", {
 						lng,
-						pseudo: interaction.user.displayName
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(DisplayUtils.getItemDisplayWithStats(packet.itemWithDetails, lng))
 			]
@@ -61,19 +62,18 @@ export default class ItemHandler {
 					packet.autoSell
 						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
 							lng,
-							pseudo: interaction.user.displayName
+							pseudo: escapeUsername(interaction.user.displayName)
 						})
 						: i18n.t("commands:sell.soldMessageTitle", {
 							lng,
-							pseudo: interaction.user.displayName
+							pseudo: escapeUsername(interaction.user.displayName)
 						}),
 					interaction.user
 				)
 				.setDescription(i18n.t("commands:sell.soldMessage", {
 					lng,
 					item: DisplayUtils.getItemDisplay(packet.item, lng),
-					value: packet.soldMoney,
-					interpolation: { escapeValue: false }
+					value: packet.soldMoney
 				}));
 		}
 		else {
@@ -82,18 +82,17 @@ export default class ItemHandler {
 					packet.autoSell
 						? i18n.t("commands:sell.soldMessageAlreadyOwnTitle", {
 							lng,
-							pseudo: interaction.user.displayName
+							pseudo: escapeUsername(interaction.user.displayName)
 						})
 						: i18n.t("commands:sell.potionDestroyedTitle", {
 							lng,
-							pseudo: interaction.user.displayName
+							pseudo: escapeUsername(interaction.user.displayName)
 						}),
 					interaction.user
 				)
 				.setDescription(i18n.t("commands:sell.potionDestroyedMessage", {
 					lng,
-					item: DisplayUtils.getItemDisplay(packet.item, lng),
-					interpolation: { escapeValue: false }
+					item: DisplayUtils.getItemDisplay(packet.item, lng)
 				}));
 		}
 

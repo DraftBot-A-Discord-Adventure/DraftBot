@@ -34,8 +34,7 @@ export async function epicItemShopCollector(context: PacketContext, packet: Reac
 			type: `${DraftBotIcons.itemCategories[data.item.category]}${i18n.t("smallEvents:shop.types", {
 				returnObjects: true,
 				lng
-			})[data.item.category]}`,
-			interpolation: { escapeValue: false }
+			})[data.item.category]}`
 		}),
 		interaction.user,
 		lng

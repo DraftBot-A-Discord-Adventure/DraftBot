@@ -12,8 +12,7 @@ export default class ClassesCommandPacketHandlers {
 	@packetHandler(CommandClassesCooldownErrorPacket)
 	async classesCooldownError(context: PacketContext, packet: CommandClassesCooldownErrorPacket): Promise<void> {
 		await handleClassicError(context, "commands:classes.error.changeClassTooEarly", {
-			time: dateDisplay(new Date(packet.timestamp)),
-			interpolation: { escapeValue: false }
+			time: dateDisplay(new Date(packet.timestamp))
 		});
 	}
 

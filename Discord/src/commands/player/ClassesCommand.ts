@@ -39,6 +39,7 @@ import { dateDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the packet
@@ -58,8 +59,7 @@ export async function handleCommandClassesChangeSuccessPacket(packet: CommandCla
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:classes.success", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	});
 	const description = i18n.t("commands:classes.newClass", {
 		lng,
@@ -160,8 +160,7 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 		const validateClassChangeEmbed = new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:classes.confirm", {
 				lng,
-				pseudo: interaction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(interaction.user.displayName)
 			}), interaction.user)
 			.setDescription(i18n.t("commands:classes.display", {
 				lng,
@@ -175,15 +174,12 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 					initialBreath: classDetails.initialBreath,
 					maxBreath: classDetails.maxBreath,
 					breathRegen: classDetails.breathRegen,
-					health: classDetails.health,
-					interpolation: { escapeValue: false }
+					health: classDetails.health
 				}),
 				description: i18n.t(`commands:classes.description.${classDetails.id}`, {
-					lng,
-					interpolation: { escapeValue: false }
+					lng
 				}),
-				time: dateDisplay(new Date(Date.now() + data.cooldownSeconds * 1000)),
-				interpolation: { escapeValue: false }
+				time: dateDisplay(new Date(Date.now() + data.cooldownSeconds * 1000))
 			}));
 
 		const validateRow = new ActionRowBuilder<ButtonBuilder>()

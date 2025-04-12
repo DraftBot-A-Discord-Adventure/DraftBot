@@ -9,6 +9,7 @@ import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { TopWeekFightAnnouncementPacket } from "../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
+import { escapeUsername } from "../utils/StringUtils";
 
 export abstract class DiscordAnnouncement {
 	private static async announceTop(messageFr: string, messageEn: string): Promise<void> {
@@ -38,16 +39,14 @@ export abstract class DiscordAnnouncement {
 		if (topWeekAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekAnnouncementPacket.winnerKeycloakId);
 			if (winner) {
-				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : winner.attributes.gameUsername;
+				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : escapeUsername(winner.attributes.gameUsername[0]);
 				const messageFr = i18n.t("bot:topWeekAnnouncement", {
 					lng: LANGUAGE.FRENCH,
-					mention,
-					interpolation: { escapeValue: false }
+					mention
 				});
 				const messageEn = i18n.t("bot:topWeekAnnouncement", {
 					lng: LANGUAGE.ENGLISH,
-					mention,
-					interpolation: { escapeValue: false }
+					mention
 				});
 				await this.announceTop(messageFr, messageEn);
 			}
@@ -67,16 +66,14 @@ export abstract class DiscordAnnouncement {
 		if (topWeekFightAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekFightAnnouncementPacket.winnerKeycloakId);
 			if (winner) {
-				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : winner.attributes.gameUsername;
+				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : escapeUsername(winner.attributes.gameUsername[0]);
 				const messageFr = i18n.t("bot:seasonEndAnnouncement", {
 					lng: LANGUAGE.FRENCH,
-					mention,
-					interpolation: { escapeValue: false }
+					mention
 				});
 				const messageEn = i18n.t("bot:seasonEndAnnouncement", {
 					lng: LANGUAGE.ENGLISH,
-					mention,
-					interpolation: { escapeValue: false }
+					mention
 				});
 				await this.announceTop(messageFr, messageEn);
 			}

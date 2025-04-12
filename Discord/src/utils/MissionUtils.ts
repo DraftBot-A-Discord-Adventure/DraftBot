@@ -18,8 +18,7 @@ export class MissionUtils {
 		return i18n.t(`models:missions.${mission.missionId}`, {
 			lng,
 			count: mission.missionObjective,
-			variantText: this.getVariantText(mission, lng),
-			interpolation: { escapeValue: false }
+			variantText: this.getVariantText(mission, lng)
 		});
 	}
 
@@ -54,8 +53,7 @@ export class MissionUtils {
 		return i18n.t("notifications:missions.completed.missionDisplay", {
 			lng,
 			missionDescription: this.formatBaseMission(mission, lng),
-			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`,
-			interpolation: { escapeValue: false }
+			missionsReward: rewardDisplays.length === 0 ? "" : ` (${rewardDisplays.join(", ")})`
 		});
 	}
 
@@ -131,8 +129,7 @@ export class MissionUtils {
 		return i18n.t("models:missionVariants.fromPlaceToPlace_secondPart", {
 			lng,
 			place: i18n.t(`models:map_locations.${saveData.startMap === params.fromMap ? params.toMap : params.fromMap}.name`, { lng }),
-			time: dateDisplay(new Date(saveData.startTimestamp + hoursToMilliseconds(params.time))),
-			interpolation: { escapeValue: false }
+			time: dateDisplay(new Date(saveData.startTimestamp + hoursToMilliseconds(params.time)))
 		});
 	}
 }

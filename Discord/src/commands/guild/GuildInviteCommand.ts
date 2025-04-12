@@ -26,6 +26,7 @@ import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants.js"
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildInvitePacketReq | null> {
 	const invitedUser = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -41,6 +42,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 	if (!interaction) {
 		return;
 	}
+	const lng = interaction.userLanguage;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const params = {
 		embeds: [
@@ -50,9 +52,8 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 				i18n.t(errorKey, {
 					level: GuildConstants.REQUIRED_LEVEL,
 					guildName: packet.guildName,
-					pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId))?.attributes.gameUsername![0],
-					lng: interaction.userLanguage,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId))?.attributes.gameUsername![0] ?? i18n.t("error:unknownPlayer", { lng })),
+					lng
 				})
 			)
 		]
@@ -73,14 +74,12 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.title", {
 		lng,
-		pseudo: invitedUser.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(invitedUser.displayName)
 	}), invitedUser)
 		.setDescription(
 			i18n.t("commands:guildInvite.confirmDesc", {
 				lng,
-				guildName: data.guildName,
-				interpolation: { escapeValue: false }
+				guildName: data.guildName
 			})
 		);
 
@@ -102,8 +101,7 @@ export async function handleCommandGuildInviteRefusePacketRes(packet: CommandGui
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.refusedTitle", {
 					lng: originalInteraction.userLanguage,
-					guildName: packet.guildName,
-					interpolation: { escapeValue: false }
+					guildName: packet.guildName
 				}), invitedUser)
 					.setErrorColor()
 			]
@@ -123,15 +121,13 @@ export async function handleCommandGuildInviteAcceptPacketRes(packet: CommandGui
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.successTitle", {
 					lng,
-					pseudo: invitedUser.displayName,
-					guildName: packet.guildName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(invitedUser.displayName),
+					guildName: packet.guildName
 				}), invitedUser)
 					.setDescription(
 						i18n.t("commands:guildInvite.successDesc", {
 							lng,
-							guildName: packet.guildName,
-							interpolation: { escapeValue: false }
+							guildName: packet.guildName
 						})
 					)
 			]

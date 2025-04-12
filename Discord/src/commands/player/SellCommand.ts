@@ -36,6 +36,7 @@ import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the packet
@@ -55,8 +56,7 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:sell.soldMessageTitle", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	});
 	const description = i18n.t(
 		packet.item.category === ItemCategory.POTION && packet.price === 0
@@ -65,8 +65,7 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 		{
 			lng,
 			item: DisplayUtils.getItemDisplay(packet.item, lng),
-			value: packet.price,
-			interpolation: { escapeValue: false }
+			value: packet.price
 		}
 	);
 
@@ -91,14 +90,12 @@ async function validateSell(
 	const validateClassChangeEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.sellTitle", {
 			lng,
-			pseudo: interaction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName)
 		}), interaction.user)
 		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.confirmThrowAway" : "commands:sell.confirmSell", {
 			lng,
 			item: DisplayUtils.getItemDisplay(reactionsInfo.reaction.item, lng),
-			value: reactionsInfo.reaction.price,
-			interpolation: { escapeValue: false }
+			value: reactionsInfo.reaction.price
 		}));
 
 	const refuseCustomId = "refuse";
@@ -186,8 +183,7 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	const mainEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", {
 			lng,
-			pseudo: interaction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName)
 		}), interaction.user)
 		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 

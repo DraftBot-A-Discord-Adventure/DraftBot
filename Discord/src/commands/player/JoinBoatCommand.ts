@@ -15,6 +15,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { ICommand } from "../ICommand";
+import { escapeUsername } from "../../utils/StringUtils";
 
 export async function createJoinBoatCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -23,8 +24,7 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmation", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:joinBoat.confirmationMessage.description.confirmation.text", {
@@ -51,8 +51,7 @@ export async function handleCommandJoinBoatAcceptPacketRes(packet: CommandJoinBo
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {
@@ -81,8 +80,7 @@ export async function handleCommandJoinBoatRefusePacketRes(_packet: CommandJoinB
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(i18n.t("commands:joinBoat.refuse", { lng }))
 				.setErrorColor()

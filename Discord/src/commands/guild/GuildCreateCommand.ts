@@ -22,6 +22,7 @@ import { ReactionCollectorGuildCreateData } from "../../../../Lib/src/packets/in
 import { GuildCreateConstants } from "../../../../Lib/src/constants/GuildCreateConstants";
 import { LANGUAGE } from "../../../../Lib/src/Language";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Create a new guild
@@ -94,14 +95,13 @@ export async function createGuildCreateCollector(context: PacketContext, packet:
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildCreate.confirmDesc", {
 				lng,
 				guildName: data.guildName,
-				price: GuildCreateConstants.PRICE,
-				interpolation: { escapeValue: false }
+				price: GuildCreateConstants.PRICE
 			})
 		);
 
@@ -117,8 +117,7 @@ export async function handleCommandGuildCreateRefusePacketRes(context: PacketCon
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.canceledTitle", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildCreate.canceledDesc", { lng })
@@ -138,8 +137,7 @@ export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGui
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildCreate.acceptedDesc", {

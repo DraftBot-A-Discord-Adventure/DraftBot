@@ -22,6 +22,7 @@ import { progressBar } from "../../../../Lib/src/utils/StringUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { Language } from "../../../../Lib/src/Language";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Display all the information about a guild
@@ -102,11 +103,10 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		membersInfos += i18n.t("commands:guild.memberInfos", {
 			lng,
 			icon: getMemberTypeIcon(member, packet),
-			pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
+			pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))!.attributes.gameUsername[0]),
 			ranking: member.rank,
 			score: member.score,
-			islandStatusIcon: getIslandStatusIcon(member, lng),
-			interpolation: { escapeValue: false }
+			islandStatusIcon: getIslandStatusIcon(member, lng)
 		});
 	}
 	const guildCommandEmbed = new DraftBotEmbed()
@@ -114,8 +114,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		.setTitle(i18n.t("commands:guild.embedTitle", {
 			lng,
 			guildName: packet.data?.name,
-			level: packet.data?.level,
-			interpolation: { escapeValue: false }
+			level: packet.data?.level
 		}))
 		.addFields({
 			name: i18n.t("commands:guild.members", {

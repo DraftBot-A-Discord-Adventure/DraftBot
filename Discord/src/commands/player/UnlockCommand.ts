@@ -26,6 +26,7 @@ import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { UnlockConstants } from "../../../../Lib/src/constants/UnlockConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Free a player from the prison
@@ -72,14 +73,13 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.unlockedKeycloakId))!;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
 				lng,
-				pseudo: unlockedPlayer.attributes.gameUsername,
-				price: UnlockConstants.PRICE_FOR_UNLOCK,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0]),
+				price: UnlockConstants.PRICE_FOR_UNLOCK
 			})
 		);
 
@@ -101,8 +101,7 @@ export async function handleCommandUnlockRefusePacketRes(context: PacketContext)
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.canceledDesc", { lng })
@@ -130,14 +129,12 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
 						lng,
-						pseudo: unlockedPlayer.attributes.gameUsername,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
 					})
 				)
 		]

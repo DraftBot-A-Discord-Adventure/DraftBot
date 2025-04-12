@@ -15,6 +15,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Change the nickname of a player pet.
@@ -79,8 +80,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:petNick.successTitle", {
 						lng,
-						pseudo: interaction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(i18n.t("commands:petNick.successNoName", { lng }))
 			]
@@ -92,13 +92,11 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:petNick.successTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:petNick.success", {
 					lng,
-					name: packet.newNickname,
-					interpolation: { escapeValue: false }
+					name: packet.newNickname
 				}))
 		]
 	});

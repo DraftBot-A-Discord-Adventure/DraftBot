@@ -245,8 +245,7 @@ export class DisplayUtils {
 				lng,
 				context: ownedPet.sex
 			}),
-			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng),
-			interpolation: { escapeValue: false }
+			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng)
 		});
 	}
 
@@ -303,21 +302,18 @@ export class DisplayUtils {
 		return i18n.t("items:itemsField", {
 			lng,
 			name: i18n.t(`models:${itemType}.${itemWithDetails.id}`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons[itemType][itemWithDetails.id]),
 			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, { lng }),
-			values: values.join(" "),
-			interpolation: { escapeValue: false }
+			values: values.join(" ")
 		});
 	}
 
 	private static getPotionDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
 			name: i18n.t(`models:potions.${itemWithDetails.id}`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DisplayUtils.getItemIcon({
 				category: itemWithDetails.category,
@@ -328,7 +324,6 @@ export class DisplayUtils {
 				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
 				lng
 			}),
-			interpolation: { escapeValue: false },
 			lng
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
@@ -374,14 +369,12 @@ export class DisplayUtils {
 	private static getObjectDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
 		const itemField: string = i18n.t("items:itemsField", {
 			name: i18n.t(`models:objects.${itemWithDetails.id}`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[itemWithDetails.id]),
 			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, { lng }),
 			values: DisplayUtils.getObjectNatureTranslation(itemWithDetails, lng),
-			lng,
-			interpolation: { escapeValue: false }
+			lng
 		});
 		return itemWithDetails.id === 0 ? itemField.split("|")[0] : itemField;
 	}

@@ -16,6 +16,7 @@ import { PacketUtils } from "../../utils/PacketUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Display all the information about a Pet
@@ -48,8 +49,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				.formatAuthor(
 					i18n.t("commands:pet.embedTitle", {
 						lng,
-						pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName)
 					}),
 					interaction.user
 				)

@@ -10,6 +10,7 @@ import i18n from "../../../../translations/i18n";
 import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../../../bot/DraftBotShard";
 import { handleClassicError } from "../../../../utils/ErrorUtils";
+import { escapeUsername } from "../../../../utils/StringUtils";
 
 export default class SetPlayerInfoCommandPacketHandlers {
 	@packetHandler(CommandSetPlayerInfoRes)
@@ -27,12 +28,12 @@ export default class SetPlayerInfoCommandPacketHandlers {
 				new DraftBotEmbed()
 					.setTitle(i18n.t("commands:setPlayerInfo.playerModifiedTitle", {
 						lng,
-						pseudo: interaction.user.displayName
+						pseudo: escapeUsername(interaction.user.displayName)
 					}))
 					.setDescription(i18n.t("commands:setPlayerInfo.playerModifiedDesc", {
 						lng,
 						keycloakId: packet.keycloakId,
-						pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))?.attributes.gameUsername[0]
+						pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!.attributes.gameUsername[0])
 					}))
 			],
 			components: []

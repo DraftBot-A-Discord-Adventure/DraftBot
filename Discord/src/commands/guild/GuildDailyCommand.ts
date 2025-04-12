@@ -26,8 +26,7 @@ function manageGivenReward(rewardKey: string, quantity: number | undefined, lng:
 	return quantity
 		? `${i18n.t(`commands:guildDaily.rewards.${rewardKey}`, {
 			lng,
-			quantity,
-			interpolation: { escapeValue: false }
+			quantity
 		})}\n`
 		: "";
 }
@@ -56,8 +55,7 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 			lng,
 			context: packet.pet.isFemale ? StringConstants.SEX.FEMALE.long : StringConstants.SEX.MALE.long,
 			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.isFemale ? StringConstants.SEX.FEMALE.short : StringConstants.SEX.MALE.short, lng),
-			petId: packet.pet.typeId,
-			interpolation: { escapeValue: false }
+			petId: packet.pet.typeId
 		})}\n`;
 	}
 
@@ -71,8 +69,7 @@ export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDa
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", {
 			lng,
-			guildName: packet.guildName,
-			interpolation: { escapeValue: false }
+			guildName: packet.guildName
 		}), interaction.user)
 		.setDescription(getCommandGuildDailyRewardPacketString(packet, lng));
 
@@ -100,8 +97,7 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 					{
 						lng: interaction.userLanguage,
 						coolDownTime: packet.totalTime,
-						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime)),
-						interpolation: { escapeValue: false }
+						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime))
 					}
 				)
 			)

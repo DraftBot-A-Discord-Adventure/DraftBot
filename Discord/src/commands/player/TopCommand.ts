@@ -30,6 +30,7 @@ import {
 	SlashCommandBuilder, SlashCommandSubcommandBuilder
 } from "@discordjs/builders";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { escapeUsername } from "../../utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandTopPacketReq> {
 	await interaction.deferReply();
@@ -189,7 +190,7 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 	textKeys: TopTextKeys,
 	formatAttributes: (element: TopElementKind, lng: Language) => string,
 	lng: Language,
-	playerUsernames: string[]
+	playerUsername: string
 ): string {
 	if (packet.elements.length <= 0) {
 		return i18n.t(textKeys.nobodyInTop, { lng });
@@ -208,7 +209,7 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 		desc += i18n.t(textKeys.yourRank, {
 			lng,
 			badge: getBadgeForPosition(packet.contextRank, true, packet.contextRank),
-			pseudo: playerUsernames,
+			pseudo: playerUsername,
 			rank: packet.contextRank,
 			total: packet.totalElements,
 			count: packet.totalElements
@@ -224,9 +225,8 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 	else if (packet.canBeRanked) {
 		desc += i18n.t(textKeys.yourRankNone.key, {
 			lng,
-			pseudo: playerUsernames,
-			...textKeys.yourRankNone.replacements,
-			interpolation: { escapeValue: false }
+			pseudo: playerUsername,
+			...textKeys.yourRankNone.replacements
 		});
 	}
 	else if (textKeys.cantBeRanked) {
@@ -255,14 +255,14 @@ async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U,
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(title)
-				.setDescription(getTopDescription(packet, textKeys, formatAttributes, lng, user.attributes.gameUsername))
+				.setDescription(getTopDescription(packet, textKeys, formatAttributes, lng, escapeUsername(user.attributes.gameUsername[0])))
 		]
 	});
 }
 
 async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V, W>[], lng: Language): Promise<string[]> {
 	return (await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text)))
-		.map(u => (u ? u.attributes.gameUsername[0] : i18n.t("error:unknownPlayer", { lng })));
+		.map(u => (u ? escapeUsername(u.attributes.gameUsername[0]) : i18n.t("error:unknownPlayer", { lng })));
 }
 
 export async function handleCommandTopPacketResScore(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {

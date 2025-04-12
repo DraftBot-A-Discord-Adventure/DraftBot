@@ -13,7 +13,9 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { PetUtils } from "../../utils/PetUtils";
-import { StringUtils } from "../../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
 import { MissionUtils } from "../../utils/MissionUtils";
 import {
 	ReactionCollectorSkipMissionShopItemCloseReaction,
@@ -44,13 +46,11 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t(descriptionString, {
 					lng,
-					...descriptionFormat,
-					interpolation: { escapeValue: false }
+					...descriptionFormat
 				}))
 		]
 	});
@@ -79,8 +79,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.lovePointsValue.giveTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.shopItems.lovePointsValue.giveDesc", {
 					lng,
@@ -94,8 +93,7 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					diet: PetUtils.getDietDisplay(packet.diet, lng),
 					nextFeed: PetUtils.getFeedCooldownDisplay(packet.nextFeed, lng),
 					commentOnFightEffect: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.commentOnFightEffect.${packet.fightAssistId}`, lng),
-					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
-					interpolation: { escapeValue: false }
+					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng)
 				}))
 		]
 	});
@@ -110,8 +108,7 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.giveTitle", {
 			lng,
-			pseudo: interaction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName)
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.giveDesc", {
 			lng
@@ -144,17 +141,14 @@ export async function skipMissionShopResult(packet: CommandMissionShopSkipMissio
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.successTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.successDescription", {
 					lng,
-					mission: MissionUtils.formatBaseMission(packet.oldMission, lng),
-					interpolation: { escapeValue: false }
+					mission: MissionUtils.formatBaseMission(packet.oldMission, lng)
 				})}\n${i18n.t("commands:shop.shopItems.skipMission.getNewMission", {
 					lng,
-					mission: MissionUtils.formatBaseMission(packet.newMission, lng),
-					interpolation: { escapeValue: false }
+					mission: MissionUtils.formatBaseMission(packet.newMission, lng)
 				})}`)
 		]
 	});

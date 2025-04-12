@@ -29,6 +29,7 @@ import {
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { Badge } from "../../../../Lib/src/types/Badge";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Display the profile of a player
@@ -61,8 +62,7 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: B
 			new DraftBotEmbed()
 				.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
 					lng,
-					pseudo: gameUsername,
-					interpolation: { escapeValue: false }
+					pseudo: gameUsername
 				}))
 				.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
 					lng,
@@ -170,15 +170,13 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 
 	addField(fields, "guild", Boolean(packet.playerData.guild), {
 		lng,
-		guild: packet.playerData.guild,
-		interpolation: { escapeValue: false }
+		guild: packet.playerData.guild
 	});
 
 	addField(fields, "map", Boolean(packet.playerData.destinationId && packet.playerData.mapTypeId), {
 		lng,
 		mapTypeId: packet.playerData.mapTypeId,
-		mapName: packet.playerData.destinationId,
-		interpolation: { escapeValue: false }
+		mapName: packet.playerData.destinationId
 	});
 
 	addField(fields, "pet", Boolean(packet.playerData.pet), {
@@ -186,8 +184,7 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity)
 			.repeat(packet.playerData.pet?.rarity ?? 0),
 		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
-		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
-		interpolation: { escapeValue: false }
+		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
 	});
 
 	return fields;
@@ -214,9 +211,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 				.setTitle(i18n.t("commands:profile.title", {
 					lng,
 					effectId: titleEffect,
-					pseudo: keycloakUser.attributes.gameUsername,
-					level: packet.playerData?.level,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(keycloakUser.attributes.gameUsername[0]),
+					level: packet.playerData?.level
 				}))
 				.addFields(generateFields(packet, lng))
 		],
@@ -235,7 +231,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 	collector.on("collect", async reaction => {
 		if (reaction.emoji.name === DraftBotIcons.profile.displayAllBadgeEmote) {
 			collector.stop(); // Only one is allowed to avoid spam
-			await sendMessageAllBadgesTooMuchBadges(keycloakUser.attributes.gameUsername[0], packet.playerData!.badges!, interaction);
+			await sendMessageAllBadgesTooMuchBadges(escapeUsername(keycloakUser.attributes.gameUsername[0]), packet.playerData!.badges!, interaction);
 		}
 		else {
 			const badge = Object.entries(DraftBotIcons.badges).find(badgeEntry => badgeEntry[1] === reaction.emoji.name);

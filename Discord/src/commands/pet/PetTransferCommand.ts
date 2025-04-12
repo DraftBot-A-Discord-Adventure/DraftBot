@@ -44,6 +44,7 @@ import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 import { MessagesUtils } from "../../utils/MessagesUtils";
+import { escapeUsername } from "../../utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTransferPacketReq> {
 	await interaction.deferReply();
@@ -68,14 +69,12 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:petTransfer.confirmTransferTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t(i18nDescriptionKey, {
 					lng,
 					oldPet: oldPetDisplay,
-					newPet: newPetDisplay,
-					interpolation: { escapeValue: false }
+					newPet: newPetDisplay
 				}))
 		]
 	});
@@ -113,8 +112,7 @@ function getMainMenuComponents(
 				.setEmoji(parseEmoji(DraftBotIcons.petTransfer.deposit)!)
 				.setLabel(i18n.t("commands:petTransfer.depositButton", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
-					interpolation: { escapeValue: false }
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
 				}))
 				.setStyle(ButtonStyle.Secondary)
 				.setCustomId(depositCustomId)
@@ -127,8 +125,7 @@ function getMainMenuComponents(
 				.setEmoji(parseEmoji(DraftBotIcons.petTransfer.switch)!)
 				.setLabel(i18n.t("commands:petTransfer.switchButton", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
-					interpolation: { escapeValue: false }
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
 				}))
 				.setStyle(ButtonStyle.Secondary)
 				.setCustomId(switchCustomId)
@@ -203,8 +200,7 @@ function getSwitchComponents(
 				reactions,
 				i18n.t("commands:petTransfer.switchPlaceholder", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
-					interpolation: { escapeValue: false }
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
 				}),
 				lng
 			)

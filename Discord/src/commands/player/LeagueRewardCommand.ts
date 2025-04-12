@@ -11,6 +11,7 @@ import {
 	CommandLeagueRewardSuccessPacketRes
 } from "../../../../Lib/src/packets/commands/CommandLeagueRewardPacket";
 import i18n from "../../translations/i18n";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the packet
@@ -33,8 +34,7 @@ export async function handleCommandLeagueRewardSuccessPacket(packet: CommandLeag
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:leagueReward.title", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t(`commands:leagueReward.description.${packet.rank === 1 ? "first" : "other"}`, {
 					lng,

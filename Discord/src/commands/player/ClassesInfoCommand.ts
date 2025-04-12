@@ -56,8 +56,7 @@ function getListEmbed(lng: Language, classList: {
 				baseBreath: foundClass.stats.baseBreath,
 				maxBreath: foundClass.stats.maxBreath,
 				breathRegen: foundClass.stats.breathRegen,
-				fightPoint: foundClass.stats.fightPoint,
-				interpolation: { escapeValue: false }
+				fightPoint: foundClass.stats.fightPoint
 			}),
 			inline: false
 		});
@@ -65,8 +64,7 @@ function getListEmbed(lng: Language, classList: {
 
 	embed
 		.setDescription(i18n.t("commands:classesInfo.description.list", {
-			lng,
-			interpolation: { escapeValue: false }
+			lng
 		}))
 		.addFields(classesFields);
 
@@ -99,8 +97,7 @@ function getDetailsEmbed(lng: Language, classDetails: {
 				lng,
 				emote: DraftBotIcons.fightActions[attack.id],
 				name: attack.name,
-				cost: attack.cost,
-				interpolation: { escapeValue: false }
+				cost: attack.cost
 			}),
 			value: attack.description,
 			inline: false
@@ -110,8 +107,7 @@ function getDetailsEmbed(lng: Language, classDetails: {
 	embed
 		.setDescription(i18n.t("commands:classesInfo.displays.details", {
 			lng,
-			classDetails: classDetails.description,
-			interpolation: { escapeValue: false }
+			classDetails: classDetails.description
 		}))
 		.setFields(attackFields);
 	return embed;

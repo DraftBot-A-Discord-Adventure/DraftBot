@@ -13,6 +13,7 @@ import i18n from "../../translations/i18n";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { EmoteUtils } from "../../utils/EmoteUtils";
+import { escapeUsername } from "../../utils/StringUtils";
 
 function getPacket(interaction: DraftbotInteraction): CommandMapPacketReq {
 	return makePacket(CommandMapPacketReq, { language: interaction.userLanguage });
@@ -71,17 +72,15 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:map.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user);
 	await setEmbedMap(embed, packet.mapLink);
 	const mapName = i18n.t(`models:map_locations.${packet.mapId}.name`, {
-		lng,
-		interpolation: { escapeValue: false }
+		lng
 	});
 	const mapParticle = i18n.t(`models:map_locations.${packet.mapId}.particle`, { lng });
 	const mapDescription = i18n.t(`models:map_locations.${packet.mapId}.description`, {
-		lng,
-		interpolation: { escapeValue: false }
+		lng
 	});
 	embed.setDescription(i18n.t(packet.inEvent
 		? "commands:map.description.arrived"
@@ -90,8 +89,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 		destination: mapName,
 		particle: mapParticle,
 		emote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapType]),
-		description: mapDescription,
-		interpolation: { escapeValue: false }
+		description: mapDescription
 	}));
 	await interaction.reply({ embeds: [embed] });
 }

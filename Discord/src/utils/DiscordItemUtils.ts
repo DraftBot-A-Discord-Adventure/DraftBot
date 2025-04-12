@@ -176,13 +176,11 @@ export class DiscordItemUtils {
 		const itemField: string = i18n.t("items:itemsField", {
 			lng,
 			name: i18n.t(`models:${model}.${displayPacket.id}`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			}),
 			emote: EmoteUtils.translateEmojiToDiscord(emote),
 			rarity: i18n.t(`items:rarities.${displayPacket.rarity}`, { lng }),
-			values,
-			interpolation: { escapeValue: false }
+			values
 		});
 		return {
 			name: i18n.t(`items:${model}FieldName`, { lng }),
