@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Displays information about badges.",
+    "description": "Afficher des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
   "help": {
-    "description": "Displays the list of commands or detailed information about a specific command.",
+    "description": "Afficher la liste des commandes disponibles ou les informations détaillées sur une commande.",
     "name": "help",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "idea"
   },
   "inventory": {
-    "description": "Displays the player's inventory.",
+    "description": "Afficher l'inventaire du joueur.",
     "name": "inventory",
     "options": {
       "rank": {
@@ -36,11 +36,11 @@
     "name": "invitedraftbot"
   },
   "language": {
-    "description": "Change the bot language in the Discord server where the command was executed.",
+    "description": "Changer la langue du bot pour vos prochaines intéractions.",
     "name": "language"
   },
   "ping": {
-    "description": "Displays the ping of the bot and allow the player to check if the bot is online.",
+    "description": "Afficher la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"
   },
   "pet": {
@@ -96,13 +96,13 @@
     "name": "guildinvite",
     "options": {
       "user": {
-        "description": "The user concerned by the command.",
+        "description": "L'utilisateur à recruter.",
         "name": "user"
       }
     }
   },
   "guild": {
-    "description": "Displays information about a guild.",
+    "description": "Afficher des informations sur une guilde.",
     "name": "guild",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Displays the different equipment rarities.",
+    "description": "Afficher les différentes raretés des équipements.",
     "name": "rarity"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Displays the bot's latest version.",
+    "description": "Afficher la version actuelle du bot.",
     "name": "update"
   },
   "vote": {
@@ -160,15 +160,15 @@
     "name": "vote"
   },
   "map": {
-    "description": "Displays the map to indicate where you are going.",
+    "description": "Afficher la carte pour indiquer où vous allez.",
     "name": "map"
   },
   "shop": {
-    "description": "Displays the shop.",
+    "description": "Afficher le magasin.",
     "name": "shop"
   },
   "classesInfo": {
-    "description": "Displays information about selectable classes.",
+    "description": "Afficher des informations sur les classes sélectionnables pour votre personnage.",
     "name": "classesinfo"
   },
   "respawn": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Displays the guild shop.",
+    "description": "Afficher le magasin de guilde.",
     "name": "guildshop"
   },
   "guildKick": {
@@ -272,23 +272,23 @@
     }
   },
   "missionsshop": {
-    "description": "Display the missions shop.",
+    "description": "Afficher le magasin de missions.",
     "name": "missionsshop"
   },
   "top": {
-    "description": "Displays the game rankings.",
+    "description": "Afficher les classements du jeu.",
     "name": "top",
     "subcommands": {
       "score": {
-        "description": "Displays the player rankings based on their score.",
+        "description": "Afficher le classement des joueurs en fonction de leur score.",
         "name": "score"
       },
       "glory": {
-        "description": "Displays the guild rankings based on their glory.",
+        "description": "Afficher le classement des guildes en fonction de leur gloire.",
         "name": "glory"
       },
       "guild": {
-        "description": "Displays the guild rankings based on their points.",
+        "description": "Afficher le classement des guildes en fonction de leurs points.",
         "name": "guild"
       }
     },
@@ -321,7 +321,7 @@
     "options": {
       "force": {
         "name": "force",
-        "description": "If true, skips the validation phase if you are really sure you want to drink the potion"
+        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion."
       }
     }
   },
@@ -357,7 +357,7 @@
   },
   "guildShelter": {
     "name": "guildshelter",
-    "description": "Display information about the guild shelter."
+    "description": "Afficher les informations sur l'abri de guilde."
   },
   "leagueReward": {
     "name": "leaguebonus",
@@ -365,11 +365,11 @@
   },
   "guildStorage": {
     "name": "guildstorage",
-    "description": "Displays the guild's storage content."
+    "description": "Afficher le contenu de l'entrepôt de guilde."
   },
   "joinBoat": {
     "name": "joinboat",
-    "description": "Allow you to join the boat if a guild's member in on it."
+    "description": "Rejoindre le bateau si un membre de votre guilde est dessus."
   },
   "giveBadge": {
     "name": "givebadge",
