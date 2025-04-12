@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Distintivo Maestro delle missioni",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "Riceverete il badge entro poche ore dal pagamento. {command:help}Per ulteriori informazioni sui badge, utilizzare il comando ."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| La gilda ha acquisito esperienza `+ `",
       "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| I membri della Gilda hanno ricevuto ` `.",
       "item": "{emote:rewards:item} | I membri della Gilda hanno ricevuto un oggetto a caso.",
-      "badge": "{emote:badges.guildBadge} | I membri della Gilda hanno ricevuto un distintivo.",
-      "superBadge": "{emote:badges.superGuildBadge} | I membri della Gilda hanno ricevuto un distintivo.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | I membri della gilda sono completamente guariti.",
       "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
       "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| I membri della gilda sono stati parzialmente guariti. `+ `",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Scegliere un oggetto da equipaggiare dall'elenco sottostante:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "Non hai bevuto la tua pozione!",
     "noActiveObject": "Purtroppo non avete nulla da bere nel vostro inventario!",
     "objectIsActiveDuringFights": "Questa bevanda non può essere bevuta ora. Verrà utilizzata automaticamente al prossimo combattimento!",
