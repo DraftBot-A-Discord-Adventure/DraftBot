@@ -276,7 +276,12 @@ export class CommandsManager {
 			if (!discordInteraction.isCommand() || discordInteraction.user.bot || discordInteraction.user.id === draftBotClient!.user!.id) {
 				return;
 			}
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(keycloakConfig, discordInteraction.user.id, escapeUsername(discordInteraction.user.displayName), discordInteraction.locale.substring(0, 2));
+			const user = await KeycloakUtils.getOrRegisterDiscordUser(
+				keycloakConfig,
+				discordInteraction.user.id,
+				escapeUsername(discordInteraction.user.displayName),
+				discordInteraction.locale.substring(0, 2)
+			);
 			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
 			const lng = KeycloakUtils.getUserLanguage(user);
 			interaction.userLanguage = lng;
