@@ -25,6 +25,7 @@ import {
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Kick a player from a guild
@@ -90,15 +91,13 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildKick.confirmDesc", {
 				lng,
-				kickedPseudo: kickedPlayer.attributes.gameUsername,
-				guildName: data.guildName,
-				interpolation: { escapeValue: false }
+				kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0]),
+				guildName: data.guildName
 			})
 		);
 
@@ -123,14 +122,12 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildKick.canceledDesc", {
 						lng,
-						kickedPseudo: kickedPlayer.attributes.gameUsername,
-						interpolation: { escapeValue: false }
+						kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0])
 					})
 				)
 				.setErrorColor()
@@ -154,15 +151,13 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(originalInteraction.user.displayName)
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
 							lng,
-							kickedPseudo: kickedPlayer.attributes.gameUsername,
-							guildName: packet.guildName,
-							interpolation: { escapeValue: false }
+							kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0]),
+							guildName: packet.guildName
 						})
 					)
 			]

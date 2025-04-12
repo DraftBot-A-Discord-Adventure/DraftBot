@@ -13,11 +13,13 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorFightChooseActionData, ReactionCollectorFightChooseActionReaction
+	ReactionCollectorFightChooseActionData,
+	ReactionCollectorFightChooseActionReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
+import { escapeUsername } from "../utils/StringUtils";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
 	readonly duration = 30;
@@ -29,7 +31,7 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const data = packet.data.data as ReactionCollectorFightChooseActionData;
-		const fighter = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0];
+		const fighter = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0]);
 		const lng = interaction.userLanguage;
 		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightActionChoose.turnIndicationTitle", {
 			lng,

@@ -20,6 +20,7 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import { GuildDailyNotificationPacket } from "../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import { getCommandGuildDailyRewardPacketString } from "../commands/guild/GuildDailyCommand";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
+import { escapeUsername } from "../utils/StringUtils";
 
 export abstract class NotificationsHandler {
 	/**
@@ -52,9 +53,8 @@ export abstract class NotificationsHandler {
 							const packet = notification.packet as GuildDailyNotificationPacket;
 							notificationContent = i18n.t("bot:notificationGuildDaily", {
 								lng,
-								pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0],
-								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng),
-								interpolation: { escapeValue: false }
+								pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
+								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
 							});
 							notificationType = NotificationsTypes.GUILD_DAILY;
 							break;
@@ -68,9 +68,7 @@ export abstract class NotificationsHandler {
 							discordUser,
 							await NotificationsConfigurations.getOrRegister(discordId),
 							notificationType,
-							i18n.t(notificationContent, {
-								lng, interpolation: { escapeValue: false }
-							}),
+							i18n.t(notificationContent, { lng }),
 							lng
 						);
 					});

@@ -12,7 +12,9 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { FightAlterationState } from "../../../Lib/src/types/FightAlterationResult";
 import { FightConstants } from "../../../Lib/src/constants/FightConstants";
 import { DraftbotFightStatusCachedMessage } from "./DraftbotFightStatusCachedMessage";
-import { StringUtils } from "../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../utils/StringUtils";
 import { DraftbotActionChooseCachedMessage } from "./DraftbotActionChooseCachedMessage";
 import { PetAssistanceState } from "../../../Lib/src/types/PetAssistanceResult";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
@@ -37,7 +39,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const lng = interaction.userLanguage;
 		const fighter = packet.fighterKeycloakId
-			? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0]
+			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0])
 			: i18n.t(`models:monsters.${packet.monsterId}.name`, { lng });
 
 		let newLine = i18n.t("commands:fight.actions.intro", {
@@ -103,7 +105,6 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			// The fightAction is an alteration or pet assistance
 			return i18n.t(`models:fight_actions.${packet.fightActionId}.${packet.status}`, {
 				lng,
-				interpolation: { escapeValue: false },
 				petNickname: packet.pet
 					? packet.pet.nickname
 						? packet.pet.nickname
@@ -113,8 +114,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 		}
 		else if (packet.customMessage) {
 			return i18n.t(`models:fight_actions.${packet.fightActionId}.customMessage`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			});
 		}
 
@@ -125,10 +125,8 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			{
 				attack: i18n.t(`models:fight_actions.${packet.fightActionId}.name`, {
 					lng,
-					interpolation: { escapeValue: false },
 					count: 1
-				}),
-				interpolation: { escapeValue: false }
+				})
 			}
 		);
 	}

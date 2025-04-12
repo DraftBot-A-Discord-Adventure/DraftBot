@@ -14,8 +14,7 @@ export default class RespawnCommandPacketHandlers {
 	@packetHandler(CommandLeagueRewardNotSundayPacketRes)
 	async leagueRewardNotSundayError(context: PacketContext, packet: CommandLeagueRewardNotSundayPacketRes): Promise<void> {
 		await handleClassicError(context, "commands:leagueReward.errors.notSunday", {
-			nextSunday: printTimeBeforeDate(packet.nextSunday),
-			interpolation: { escapeValue: false }
+			nextSunday: printTimeBeforeDate(packet.nextSunday)
 		});
 	}
 

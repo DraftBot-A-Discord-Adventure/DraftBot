@@ -15,6 +15,7 @@ import {
 } from "../../bot/DraftBotShard";
 import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
+import { escapeUsername } from "../../utils/StringUtils";
 
 const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 
@@ -96,13 +97,11 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 	} = getCommandByCategories(lng);
 	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user);
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {
-			lng,
-			interpolation: { escapeValue: false }
+			lng
 		})}\n\u200b`
 	);
 	helpMessage.addFields([
@@ -245,8 +244,7 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 			.setDescription(i18n.t(`commands:help.commands.${command}.description`, {
 				lng: interaction.userLanguage,
 				petSellMinPrice: PetConstants.SELL_PRICE.MIN,
-				petSellMaxPrice: PetConstants.SELL_PRICE.MAX,
-				interpolation: { escapeValue: false }
+				petSellMaxPrice: PetConstants.SELL_PRICE.MAX
 			}))
 			.addFields({
 				name: i18n.t("commands:help.usageFieldTitle", { lng }),

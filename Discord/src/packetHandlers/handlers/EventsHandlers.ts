@@ -25,6 +25,7 @@ import { MissionType } from "../../../../Lib/src/types/CompletedMission";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
+import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 
 export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
@@ -40,7 +41,7 @@ export default class EventsHandlers {
 		const embed = new DraftBotEmbed();
 		embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
 			lng,
-			pseudo: user.attributes.gameUsername
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
 		}), interaction.user);
 		let time = packet.tripDuration;
 		let i18nTr: string;
@@ -58,8 +59,7 @@ export default class EventsHandlers {
 			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
 			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapTypeId]),
 			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
-			time,
-			interpolation: { escapeValue: false }
+			time
 		}));
 		try {
 			if (context.discord!.buttonInteraction) {
@@ -89,8 +89,7 @@ export default class EventsHandlers {
 				new DraftBotEmbed()
 					.setTitle(i18n.t("models:guilds.levelUpTitle", {
 						lng,
-						guild: packet.guildName,
-						interpolation: { escapeValue: false }
+						guild: packet.guildName
 					}))
 					.setDescription(i18n.t("models:guilds.levelUpDesc", {
 						lng,
@@ -116,8 +115,7 @@ export default class EventsHandlers {
 		const completedMissionsEmbed = new DraftBotEmbed().formatAuthor(i18n.t("notifications:missions.completed.title", {
 			lng,
 			count: packet.missions.length,
-			pseudo: discordUser.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(discordUser.displayName)
 		}), discordUser);
 
 		const missionLists: Record<MissionType, string[]> = {
@@ -177,14 +175,12 @@ export default class EventsHandlers {
 					.formatAuthor(i18n.t("notifications:missions.expired.title", {
 						count: packet.missions.length,
 						lng,
-						pseudo: user.attributes.gameUsername[0],
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(user.attributes.gameUsername[0])
 					}), discordUser)
 					.setDescription(i18n.t("notifications:missions.expired.description", {
 						lng,
 						count: packet.missions.length,
-						missionsExpired: missionsExpiredDescription,
-						interpolation: { escapeValue: false }
+						missionsExpired: missionsExpiredDescription
 					}))
 			]
 		});
@@ -205,8 +201,7 @@ export default class EventsHandlers {
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("models:players.koTitle", {
 						lng,
-						pseudo: interaction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(i18n.t("models:players.koDesc", { lng }))
 					.setErrorColor()
@@ -250,8 +245,7 @@ export default class EventsHandlers {
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("models:players.leavePVEIslandTitle", {
 						lng,
-						pseudo: interaction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(desc)
 			]
@@ -320,8 +314,7 @@ export default class EventsHandlers {
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("models:players.levelUp.title", {
 						lng,
-						pseudo: interaction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(desc)
 			]
@@ -346,8 +339,7 @@ export default class EventsHandlers {
 		const embed = new DraftBotEmbed()
 			.formatAuthor(i18n.t("models:petReceived.genericGiveTitle", {
 				lng,
-				pseudo: interaction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(interaction.user.displayName)
 			}), interaction.user)
 			.setDescription(i18n.t(descTr, {
 				lng,

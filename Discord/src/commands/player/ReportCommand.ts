@@ -43,7 +43,9 @@ import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../../DiscordConstants";
 import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import { StringUtils } from "../../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { Language } from "../../../../Lib/src/Language";
 
@@ -66,8 +68,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 
 	const rows = [new ActionRowBuilder<ButtonBuilder>()];
 	let eventText = `${i18n.t(`events:${data.eventId}.text`, {
-		lng,
-		interpolation: { escapeValue: false }
+		lng
 	})}\n\n`;
 	for (const possibility of reactions) {
 		if (possibility.name !== ReportConstants.END_POSSIBILITY_ID) {
@@ -84,8 +85,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 			rows[rows.length - 1].addComponents(button);
 
 			const reactionText = `${emoji} ${i18n.t(`events:${data.eventId}.possibilities.${possibility.name}.text`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			})}`;
 			eventText += `${reactionText}\n`;
 		}
@@ -95,8 +95,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		content: i18n.t("commands:report.doEvent", {
 			lng,
 			event: eventText,
-			pseudo: user.attributes.gameUsername,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
 		}),
 		components: rows
 	}))!;
@@ -215,8 +214,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 
 	const content = i18n.t("commands:report.doPossibility", {
 		lng,
-		interpolation: { escapeValue: false },
-		pseudo: user.attributes.gameUsername,
+		pseudo: escapeUsername(user.attributes.gameUsername[0]),
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng }),
 		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
@@ -248,8 +246,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 	const embed = new DraftBotEmbed();
 	embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
 		lng,
-		pseudo: user.attributes.gameUsername,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(user.attributes.gameUsername[0])
 	}), interaction.user);
 	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng })}\n\n`);
 
@@ -348,7 +345,7 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 	const lng = interaction.userLanguage;
 	const msg = i18n.t("commands:report.pveEvent", {
 		lng,
-		pseudo: interaction.user.displayName,
+		pseudo: escapeUsername(interaction.user.displayName),
 		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", lng),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
 			lng,
@@ -359,10 +356,8 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 			energy: data.monster.energy,
 			attack: data.monster.attack,
 			defense: data.monster.defense,
-			speed: data.monster.speed,
-			interpolation: { escapeValue: false }
-		}),
-		interpolation: { escapeValue: false }
+			speed: data.monster.speed
+		})
 	});
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, msg, packet, context, {
@@ -387,8 +382,7 @@ export async function refusePveFight(_packet: CommandReportRefusePveFightRes, co
 	await buttonInteraction?.editReply({
 		content: i18n.t("commands:report.pveFightRefused", {
 			lng: originalInteraction.userLanguage,
-			pseudo: originalInteraction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(originalInteraction.user.displayName)
 		})
 	});
 }
@@ -445,8 +439,7 @@ export async function displayMonsterReward(
 		.formatAuthor(
 			i18n.t("commands:report.rewardEmbedTitle", {
 				lng,
-				pseudo: user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(user.displayName)
 			}),
 			user
 		)
@@ -485,13 +478,11 @@ function manageMainSummaryText({
 			? i18n.t("commands:report.travellingDescription", {
 				lng,
 				smallEventEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.smallEvents[packet.lastSmallEventId]),
-				time: timeBeforeSmallEvent,
-				interpolation: { escapeValue: false }
+				time: timeBeforeSmallEvent
 			})
 			: i18n.t("commands:report.travellingDescriptionWithoutSmallEvent", {
 				lng,
-				time: timeBeforeSmallEvent,
-				interpolation: { escapeValue: false }
+				time: timeBeforeSmallEvent
 			})
 	});
 }

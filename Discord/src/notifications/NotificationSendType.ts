@@ -12,8 +12,7 @@ function toString(sendType: NotificationSendTypeEnum, lng: Language, channelId: 
 		? i18n.t("commands:notifications.inDM", { lng })
 		: i18n.t("commands:notifications.inChannel", {
 			lng,
-			channel: getChannelMention(channelId!),
-			interpolation: { escapeValue: false }
+			channel: getChannelMention(channelId!)
 		});
 }
 

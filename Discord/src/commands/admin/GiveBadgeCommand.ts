@@ -35,6 +35,7 @@ import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { CommandSetPlayerInfoReq } from "../../../../Lib/src/packets/commands/CommandSetPlayerInfo";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { escapeUsername } from "../../utils/StringUtils";
 
 async function handleGetPlayerInfoResponse(
 	interaction: DraftbotInteraction,
@@ -85,7 +86,7 @@ async function handleGetPlayerInfoResponse(
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:giveBadge.selectBadgeTitle", {
 						lng: interaction.userLanguage,
-						pseudo: interaction.user.displayName
+						pseudo: escapeUsername(interaction.user.displayName)
 					}), interaction.user)
 					.setDescription(i18n.t("commands:giveBadge.selectBadgeDesc", { lng: interaction.userLanguage }))
 			],

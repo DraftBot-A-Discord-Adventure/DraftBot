@@ -37,6 +37,7 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { DisplayUtils } from "../../utils/DisplayUtils";
+import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -46,13 +47,12 @@ export async function createFightCollector(context: PacketContext, packet: React
 	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:fight.confirmDesc", {
 				lng,
-				pseudo: interaction.user.displayName,
+				pseudo: escapeUsername(interaction.user.displayName),
 				confirmSubText: i18n.t(`commands:fight.confirmSubTexts.${subTextKey}`, { lng }),
 				glory: i18n.t("commands:fight:information.glory", {
 					lng,
@@ -72,8 +72,7 @@ export async function createFightCollector(context: PacketContext, packet: React
 					cumulativeSpeed: data.playerStats.speed,
 					cumulativeMaxHealth: data.playerStats.energy.max,
 					maxBreath: data.playerStats.breath.max
-				}),
-				interpolation: { escapeValue: false }
+				})
 			})
 		);
 
@@ -96,8 +95,7 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:fight.canceledDesc", {
@@ -126,7 +124,6 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 			lng,
 			count: 1
 		}),
-		interpolation: { escapeValue: false },
 		breathCost
 	}))
 		.join("\n");
@@ -139,8 +136,7 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 	const petDisplay = pet
 		? `\n\n${i18n.t("commands:fight.petOf", {
 			lng,
-			pseudo: fighterName,
-			interpolation: { escapeValue: false }
+			pseudo: fighterName
 		})}\n${DisplayUtils.getOwnedPetInlineDisplay(pet, lng)}`
 		: "";
 
@@ -148,8 +144,7 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 		name: "_ _",
 		value: `${i18n.t("commands:fight.actionsOf", {
 			lng,
-			pseudo: fighterName,
-			interpolation: { escapeValue: false }
+			pseudo: fighterName
 		})}\n${fightActionsDisplay}${petDisplay}`,
 		inline: true
 	});
@@ -165,17 +160,16 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const lng = interaction.userLanguage;
 	const opponentDisplayName = packet.fightOpponentKeycloakId
-		? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0]
+		? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0])
 		: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng });
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 		lng,
-		fightInitiator: interaction.user.displayName,
-		opponent: opponentDisplayName,
-		interpolation: { escapeValue: false }
+		fightInitiator: escapeUsername(interaction.user.displayName),
+		opponent: escapeUsername(opponentDisplayName)
 	}), interaction.user);
 
-	addFightProfileFor(embed, lng, interaction.user.displayName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
-	addFightProfileFor(embed, lng, opponentDisplayName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+	addFightProfileFor(embed, lng, escapeUsername(interaction.user.displayName), packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
+	addFightProfileFor(embed, lng, escapeUsername(opponentDisplayName), packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
 
 	await buttonInteraction?.editReply({ embeds: [embed] });
 	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
@@ -259,7 +253,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 
 	// Get names of fighters
 	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId
-		? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0]
+		? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0])
 		: i18n.t(`models:monsters.${monsterId}.name`, { lng }));
 
 	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
@@ -270,8 +264,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 		lng,
 		turn: packet.turns,
 		maxTurn: packet.maxTurns,
-		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp), lng),
-		interpolation: { escapeValue: false }
+		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp), lng)
 	});
 
 	// Add fighter statistics for both fighters
@@ -289,8 +282,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 			lng,
 			pseudo: fighter.name,
 			energy: fighter.stats.finalEnergy,
-			maxEnergy: fighter.stats.maxEnergy,
-			interpolation: { escapeValue: false }
+			maxEnergy: fighter.stats.maxEnergy
 		});
 	});
 
@@ -300,14 +292,12 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 			? i18n.t("commands:fight.end.draw", {
 				lng,
 				player1: winnerName,
-				player2: looserName,
-				interpolation: { escapeValue: false }
+				player2: looserName
 			})
 			: i18n.t("commands:fight.end.win", {
 				lng,
 				winner: winnerName,
-				loser: looserName,
-				interpolation: { escapeValue: false }
+				loser: looserName
 			}))
 		.setDescription(description);
 
@@ -329,8 +319,7 @@ function generateFightRewardField(embed: DraftBotEmbed, packet: FightRewardPacke
 			if (packet.money <= 0 && packet.points <= 0) {
 				return i18n.t("commands:fight.fightReward.noReward", {
 					lng,
-					player: player1Username,
-					interpolation: { escapeValue: false }
+					player: player1Username
 				});
 			}
 			return [
@@ -338,16 +327,14 @@ function generateFightRewardField(embed: DraftBotEmbed, packet: FightRewardPacke
 					? i18n.t("commands:fight.fightReward.money", {
 						lng,
 						player: player1Username,
-						count: packet.money,
-						interpolation: { escapeValue: false }
+						count: packet.money
 					})
 					: "",
 				packet.points > 0
 					? i18n.t("commands:fight.fightReward.points", {
 						lng,
 						player: player1Username,
-						count: packet.points,
-						interpolation: { escapeValue: false }
+						count: packet.points
 					})
 					: ""
 			].filter(Boolean)
@@ -385,8 +372,7 @@ function generateGloryChangesField(embed: DraftBotEmbed, packet: FightRewardPack
 				i18n.t(`commands:fight.fightReward.glory${change >= 0 ? "Positive" : "Negative"}`, {
 					lng,
 					count: Math.abs(change),
-					player,
-					interpolation: { escapeValue: false }
+					player
 				}))
 		].join(""),
 		inline: false
@@ -411,8 +397,7 @@ function displayLeagueChangesIfNeeded(embed: DraftBotEmbed, packet: FightRewardP
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.newLeagueId]),
 					oldLeague: i18n.t(`models:leagues.${packet.player1.oldLeagueId}`, { lng }),
-					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng }),
-					interpolation: { escapeValue: false }
+					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng })
 				})
 			]
 			: [],
@@ -424,8 +409,7 @@ function displayLeagueChangesIfNeeded(embed: DraftBotEmbed, packet: FightRewardP
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.newLeagueId]),
 					oldLeague: i18n.t(`models:leagues.${packet.player2.oldLeagueId}`, { lng }),
-					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng }),
-					interpolation: { escapeValue: false }
+					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng })
 				})
 			]
 			: []
@@ -502,8 +486,8 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 	const lng = interaction.userLanguage;
 
 	// Get usernames for both players
-	const player1Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown";
-	const player2Username = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown";
+	const player1Username = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown");
+	const player2Username = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown");
 
 	// Create an embed to show glory and league changes
 	const embed = new DraftBotEmbed()

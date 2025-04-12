@@ -12,6 +12,7 @@ import i18n from "../../translations/i18n";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the respawn packet to send it to the server
@@ -35,9 +36,8 @@ export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacket
 			lng: interaction.userLanguage,
 			respawnEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.commands.respawn),
 			scoreEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.score),
-			pseudo: interaction.user.displayName,
-			count: packet.lostScore,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName),
+			count: packet.lostScore
 		})
 	});
 }

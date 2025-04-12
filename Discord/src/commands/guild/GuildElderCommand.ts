@@ -21,6 +21,7 @@ import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Create a collector to confirm the promotion
@@ -35,15 +36,13 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildElder.confirmDesc", {
 				lng,
-				elderPseudo: elderPlayer.attributes.gameUsername[0],
-				guildName: data.guildName,
-				interpolation: { escapeValue: false }
+				elderPseudo: escapeUsername(elderPlayer.attributes.gameUsername[0]),
+				guildName: data.guildName
 			})
 		);
 
@@ -68,14 +67,12 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildElder.canceledDesc", {
 						lng,
-						elderPseudo: promotedPlayer.attributes.gameUsername[0],
-						interpolation: { escapeValue: false }
+						elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0])
 					})
 				)
 				.setErrorColor()
@@ -100,9 +97,8 @@ export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuil
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.successElderAddTitle", {
 					lng,
-					elderPseudo: promotedPlayer.attributes.gameUsername[0],
-					guildName: packet.guildName,
-					interpolation: { escapeValue: false }
+					elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0]),
+					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildElder.acceptedDesc", { lng })

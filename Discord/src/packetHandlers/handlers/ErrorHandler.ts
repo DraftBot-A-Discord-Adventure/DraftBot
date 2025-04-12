@@ -11,6 +11,7 @@ import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { LANGUAGE } from "../../../../Lib/src/Language";
 import { handleClassicError } from "../../utils/ErrorUtils";
+import { escapeUsername } from "../../utils/StringUtils";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
@@ -39,8 +40,7 @@ export default class ErrorHandler {
 		let errorReasons = "";
 		packet.reasons.forEach(reason => {
 			errorReasons = errorReasons.concat(`${i18n.t(`error:blockedContext.${reason}`, {
-				lng,
-				interpolation: { escapeValue: false }
+				lng
 			})}, `);
 		});
 		errorReasons = errorReasons.slice(0, -2);
@@ -49,20 +49,18 @@ export default class ErrorHandler {
 			.setErrorColor()
 			.setTitle(i18n.t("error:titleDidntWork", {
 				lng,
-				pseudo: originalUser.attributes.gameUsername
+				pseudo: escapeUsername(originalUser.attributes.gameUsername[0])
 			}))
 			.setDescription(
 				otherPlayer
 					? i18n.t("error:anotherPlayerBlocked", {
 						lng,
-						username: blockedUser.attributes.gameUsername,
-						reasons: errorReasons,
-						interpolation: { escapeValue: false }
+						username: escapeUsername(blockedUser.attributes.gameUsername[0]),
+						reasons: errorReasons
 					})
 					: i18n.t("error:playerBlocked", {
 						lng,
-						reasons: errorReasons,
-						interpolation: { escapeValue: false }
+						reasons: errorReasons
 					})
 			);
 

@@ -16,6 +16,7 @@ import { ReactionCollectorGuildLeaveData } from "../../../../Lib/src/packets/int
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Create a collector to accept/refuse to leave the guild
@@ -26,20 +27,18 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
-	const newChiefPseudo = data.newChiefKeycloakId ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername : "";
+	const newChiefPseudo = data.newChiefKeycloakId ? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername[0]) : "";
 	const keyDesc = data.isGuildDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId ? "confirmChiefDescWithElder" : "confirmDesc";
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t(`commands:guildLeave.${keyDesc}`, {
 				lng,
 				newChiefPseudo,
-				guildName: data.guildName,
-				interpolation: { escapeValue: false }
+				guildName: data.guildName
 			})
 		);
 
@@ -56,23 +55,21 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
-	const newChiefPseudo = packet.newChiefKeycloakId ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername : "";
+	const newChiefPseudo = packet.newChiefKeycloakId ? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername[0]) : "";
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.${keyTitle}`, {
 					lng,
-					pseudo: originalInteraction.user.displayName,
+					pseudo: escapeUsername(originalInteraction.user.displayName),
 					newChiefPseudo,
-					guildName: packet.guildName,
-					interpolation: { escapeValue: false }
+					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t(`commands:guildLeave.${keyDesc}`, {
 							lng,
-							guildName: packet.guildName,
-							interpolation: { escapeValue: false }
+							guildName: packet.guildName
 						})
 					)
 			]
@@ -95,8 +92,7 @@ export async function handleCommandGuildLeaveRefusePacketRes(context: PacketCont
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName,
-				interpolation: { escapeValue: false }
+				pseudo: escapeUsername(originalInteraction.user.displayName)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildLeave.canceledDesc", {

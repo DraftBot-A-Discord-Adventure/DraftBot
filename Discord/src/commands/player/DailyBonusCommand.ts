@@ -18,6 +18,7 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
 	ItemConstants, ItemNature
 } from "../../../../Lib/src/constants/ItemConstants";
+import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -44,8 +45,7 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 				i18n.t("commands:daily.errors.cooldown", {
 					cooldownTime,
 					time: printTimeBeforeDate(hoursToMilliseconds(cooldownTime) - lastDailyTimestamp),
-					lng: interaction.userLanguage,
-					interpolation: { escapeValue: false }
+					lng: interaction.userLanguage
 				})
 			)
 		]
@@ -67,9 +67,8 @@ export async function handleDailyBonusRes(context: PacketContext, packet: Comman
 		embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:daily.title", {
-					pseudo: interaction.user.displayName,
-					lng,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName),
+					lng
 				}), interaction.user)
 				.setDescription(
 					i18n.t("commands:daily.description", {

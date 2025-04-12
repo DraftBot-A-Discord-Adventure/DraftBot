@@ -27,6 +27,7 @@ import {
 import { PacketUtils } from "../../utils/PacketUtils";
 import { MessageFlags } from "discord-api-types/v10";
 import { Language } from "../../../../Lib/src/Language";
+import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 
 /**
  * Get the packet to send to the server
@@ -72,8 +73,7 @@ function getCampaignMissionPart(packet: CommandMissionsPacketRes, lng: Language)
 			progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
 			current: campaignMission.numberDone,
 			objective: campaignMission.missionObjective,
-			context: "campaign",
-			interpolation: { escapeValue: false }
+			context: "campaign"
 		})}`
 		: ""
 	}`;
@@ -102,8 +102,7 @@ function getDailyMissionPart(packet: CommandMissionsPacketRes, lng: Language): s
 		progressionBar: MissionUtils.generateDisplayProgression(dailyMission.numberDone, dailyMission.missionObjective),
 		current: dailyMission.numberDone,
 		objective: dailyMission.missionObjective,
-		context: "other",
-		interpolation: { escapeValue: false }
+		context: "other"
 	})}`;
 }
 
@@ -126,8 +125,7 @@ function getSideMissionsPart(packet: CommandMissionsPacketRes, lng: Language): s
 			current: mission.numberDone,
 			objective: mission.missionObjective,
 			time: finishInTimeDisplay(new Date(mission.expiresAt!)),
-			context: "other",
-			interpolation: { escapeValue: false }
+			context: "other"
 		}))
 			.join("\n")
 		: i18n.t("commands:missions.noCurrentMissions", {
@@ -155,8 +153,7 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 
 	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
 		lng,
-		pseudo: discordUser.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(discordUser.displayName)
 	}), discordUser);
 
 	missionCommandEmbed.setDescription([

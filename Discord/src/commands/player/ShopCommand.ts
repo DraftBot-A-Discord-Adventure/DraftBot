@@ -47,6 +47,7 @@ import {
 } from "../../../../Lib/src/utils/ShopUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
+import { escapeUsername } from "../../utils/StringUtils";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -116,8 +117,7 @@ export async function handleCommandShopHealAlterationDone(context: PacketContext
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.healAlteration", { lng }))
 		]
@@ -135,8 +135,7 @@ export async function handleCommandShopFullRegen(context: PacketContext): Promis
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.fullRegen", { lng }))
 		]
@@ -155,8 +154,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
 					lng,
@@ -198,8 +196,7 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.chooseSlotTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(slotExtensionText)
 		],
@@ -252,8 +249,7 @@ export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: 
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.buyCategorySlotSuccess", { lng }))
 		]
@@ -272,8 +268,7 @@ export async function handleCommandShopClosed(context: PacketContext): Promise<v
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.closeShop", { lng }))
 		]
@@ -333,8 +328,7 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t(amounts.length === 1 && amounts[0] === 1 ? "commands:shop.shopConfirmationTitle" : "commands:shop.shopConfirmationTitleMultiple", {
 					lng,
-					pseudo: interaction.user.displayName,
-					interpolation: { escapeValue: false }
+					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
 				.setDescription(`${
 					getShopItemDisplay(data, reaction, lng, shopItemNames, amounts)
@@ -399,8 +393,7 @@ function getShopItemNames(data: ReactionCollectorShopData, shopItemId: ShopItemT
 		};
 	}
 	const bothNames = i18n.t(`commands:shop.shopItems.${shopItemTypeToId(shopItemId)}.name`, {
-		lng,
-		interpolation: { escapeValue: false }
+		lng
 	});
 	return {
 		normal: `**${bothNames}**`,
@@ -415,7 +408,6 @@ function getShopItemDisplay(data: ReactionCollectorShopData, reaction: ReactionC
 			name: shopItemNames.normal,
 			price: reaction.price,
 			currency: data.currency,
-			interpolation: { escapeValue: false },
 			remainingPotions: data.additionnalShopData!.remainingPotions
 		})}\n`;
 	}

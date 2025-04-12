@@ -21,6 +21,7 @@ import { ReactionCollectorPetSellData } from "../../../../Lib/src/packets/intera
 import { handleCommandGuildDailyRewardPacket } from "../guild/GuildDailyCommand";
 import { CommandGuildDailyRewardPacket } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSellPacketReq> {
 	const price = <number>interaction.options.get("price", true).value;
@@ -42,9 +43,8 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 
 	let description = i18n.t("commands:petSell.sellDescription", {
 		lng,
-		pseudo: interaction.user.displayName,
-		price: data.price,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName),
+		price: data.price
 	});
 	if (data.isGuildAtMaxLevel) {
 		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", { lng })}`;
@@ -96,16 +96,14 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 				.formatAuthor(
 					i18n.t("commands:petSell.successTitle", {
 						lng,
-						pseudo: buttonInteraction.user.displayName,
-						interpolation: { escapeValue: false }
+						pseudo: escapeUsername(buttonInteraction.user.displayName)
 					}),
 					buttonInteraction.user
 				)
 				.setDescription(
 					i18n.t("commands:petSell.successDescription", {
 						lng,
-						pet: DisplayUtils.getOwnedPetInlineDisplay(packet.pet, lng),
-						interpolation: { escapeValue: false }
+						pet: DisplayUtils.getOwnedPetInlineDisplay(packet.pet, lng)
 					})
 				)
 		]

@@ -21,7 +21,9 @@ import {
 	ReactionCollectorPetFeedWithGuildFoodReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
-import { StringUtils } from "../../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
 	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message
@@ -45,8 +47,7 @@ export async function handleCommandPetFeedSuccessPacket(packet: CommandPetFeedSu
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:petFeed.resultTitle", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	});
 	const description = i18n.t(`commands:petFeed.result.${packet.result}`, { lng });
 
@@ -103,13 +104,11 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:petFeed.feedTitle", {
 			lng,
-			pseudo: interaction.user.displayName,
-			interpolation: { escapeValue: false }
+			pseudo: escapeUsername(interaction.user.displayName)
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:petFeed.feedDescription", {
 			lng,
-			pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng),
-			interpolation: { escapeValue: false }
+			pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng)
 		})}\n\n${foodsList}`);
 
 	const msg = await interaction?.editReply({
@@ -170,16 +169,14 @@ export async function handleCommandPetFeedWithoutGuildCollector(context: PacketC
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFeed.feedTitle", {
 		lng,
-		pseudo: interaction.user.displayName,
-		interpolation: { escapeValue: false }
+		pseudo: escapeUsername(interaction.user.displayName)
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFeed.feedWithoutGuildDesc", {
 				lng,
 				pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng),
 				food: StringUtils.capitalizeFirstLetter(DisplayUtils.getFoodDisplay(data.food, 1, lng, true)),
-				price: data.price,
-				interpolation: { escapeValue: false }
+				price: data.price
 			})
 		);
 

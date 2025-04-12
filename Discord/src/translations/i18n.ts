@@ -25,6 +25,7 @@ function getI18nOptions(): i18next.InitOptions<unknown> {
 
 	return {
 		fallbackLng: LANGUAGE.DEFAULT_LANGUAGE,
+		interpolation: { escapeValue: false },
 		resources
 	};
 }
