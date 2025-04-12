@@ -58,15 +58,19 @@ export default class EventsHandlers {
 			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
 			mapEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.mapTypeId]),
 			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
-			time
+			time,
+			interpolation: { escapeValue: false }
 		}));
-		if (context.discord!.buttonInteraction) {
-			await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)
-				?.editReply({ embeds: [embed] });
+		try {
+			if (context.discord!.buttonInteraction) {
+				await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)
+					?.editReply({ embeds: [embed] });
+				return;
+			}
 		}
-		else {
-			await interaction.channel.send({ embeds: [embed] });
-		}
+		catch {}
+
+		await interaction.channel.send({ embeds: [embed] });
 	}
 
 	@packetHandler(GuildLevelUpPacket)
