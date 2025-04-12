@@ -12,7 +12,10 @@ import {
 } from "../../utils/ErrorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandShopNotEnoughCurrency, ReactionCollectorShopData, ReactionCollectorShopItemReaction
+	CommandShopNotEnoughCurrency,
+	ReactionCollectorShopCloseReaction,
+	ReactionCollectorShopData,
+	ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
 import {
 	ActionRowBuilder,
@@ -35,7 +38,8 @@ import { EmoteUtils } from "../../utils/EmoteUtils";
 import { Language } from "../../../../Lib/src/Language";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import {
-	ReactionCollectorBuyCategorySlotCancelReaction, ReactionCollectorBuyCategorySlotReaction
+	ReactionCollectorBuyCategorySlotCancelReaction,
+	ReactionCollectorBuyCategorySlotReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBuyCategorySlot";
 import { ShopItemType } from "../../../../Lib/src/constants/LogsConstants";
 import {
@@ -353,13 +357,9 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		}
 		await buttonInteraction.update({ components: [] });
 
-		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-			oldReason: BlockingConstants.REASONS.SHOP_CONFIRMATION,
-			newReason: BlockingConstants.REASONS.NONE
-		}));
-
 		if (buttonInteraction.customId === "refuse") {
-			await handleCommandShopClosed(context);
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, packet.reactions.findIndex(r =>
+				r.type === ReactionCollectorShopCloseReaction.name));
 			return;
 		}
 
@@ -516,11 +516,8 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		await msgComponentInteraction.update({ components: [] });
 
 		if (msgComponentInteraction.customId === "closeShop") {
-			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-				oldReason: BlockingConstants.REASONS.SHOP,
-				newReason: BlockingConstants.REASONS.NONE
-			}));
-			await handleCommandShopClosed(context);
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, msgComponentInteraction, packet.reactions.findIndex(r =>
+				r.type === ReactionCollectorShopCloseReaction.name));
 			return;
 		}
 
