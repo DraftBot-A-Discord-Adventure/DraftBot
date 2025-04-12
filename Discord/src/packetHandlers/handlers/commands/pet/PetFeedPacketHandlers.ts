@@ -26,7 +26,7 @@ export default class PetFeedCommandPacketHandlers {
 	@packetHandler(CommandPetFeedNotHungryErrorPacket)
 	async notHungry(context: PacketContext, packet: CommandPetFeedNotHungryErrorPacket): Promise<void> {
 		await handleClassicError(context, "commands:petFeed.notHungry", {
-			pet: DisplayUtils.getOwnedPetFieldDisplay(packet.pet, context.discord!.language)
+			pet: DisplayUtils.getOwnedPetInlineDisplay(packet.pet, context.discord!.language)
 		});
 	}
 
