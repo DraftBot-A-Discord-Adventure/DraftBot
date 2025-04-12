@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Distintivo de Mestre de Missões",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "Receberá o seu crachá dentro de algumas horas após o pagamento. {command:help}Para mais informações sobre os crachás, utilize o comando ."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| O grémio ganhou experiência `+ `",
       "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| Os membros do Grémio receberam ` `.",
       "item": "{emote:rewards:item} | Os membros do Grémio receberam um artigo ao acaso.",
-      "badge": "{emote:badges.guildBadge} | Os membros do Grémio receberam um crachá.",
-      "superBadge": "{emote:badges.superGuildBadge} | Os membros do Grémio receberam um crachá.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Os membros da guilda estão completamente curados.",
       "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
       "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| Os membros da Guilda foram parcialmente curados `+ `",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Escolhe um item para equipar da lista abaixo:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "Não bebeste a tua poção!",
     "noActiveObject": "Infelizmente, não tens nada para beber no teu inventário!",
     "objectIsActiveDuringFights": "Esta bebida não pode ser bebida agora. Será usada automaticamente na próxima vez que lutares!",
