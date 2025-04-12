@@ -13,11 +13,13 @@ import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import {
-	ReactionCollectorSwitchItemCloseReaction, ReactionCollectorSwitchItemReaction
+	ReactionCollectorSwitchItemCloseReaction,
+	ReactionCollectorSwitchItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSwitchItem";
 import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import {
-	MainItemDisplayPacket, SupportItemDisplayPacket
+	MainItemDisplayPacket,
+	SupportItemDisplayPacket
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import { Language } from "../../../../Lib/src/Language";
 import { EmbedField } from "discord.js";
@@ -49,7 +51,8 @@ export async function handleItemSwitch(packet: CommandSwitchSuccess, context: Pa
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:switch.titleSuccess", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t(`commands:switch.${packet.itemBackedUp.id === 0 ? "switchingSingle" : "switchingDouble"}`, {
 					lng,
@@ -86,7 +89,8 @@ export async function switchItemCollector(context: PacketContext, packet: Reacti
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:switch.switchSelectionTitle", {
 			lng,
-			pseudo: interaction.user.displayName
+			pseudo: interaction.user.displayName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:switch.switchSelectionDescription", { lng })}\n\n`);
 	const reactions: ReactionCollectorSwitchItemReaction[] = packet.reactions

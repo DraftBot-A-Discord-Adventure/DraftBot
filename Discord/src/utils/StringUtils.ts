@@ -6,7 +6,8 @@ export class StringUtils {
 		const intros: string[] = i18n.t(tr, {
 			returnObjects: true,
 			lng,
-			...replacements
+			...replacements,
+			interpolation: { escapeValue: false }
 		});
 		return intros[Math.floor(Math.random() * intros.length)];
 	}

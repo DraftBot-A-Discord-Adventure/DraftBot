@@ -96,7 +96,8 @@ export async function sendInteractionNotForYou(
 				.setErrorColor()
 				.formatAuthor(i18n.t("error:titleDidntWork", {
 					lng,
-					pseudo: user.displayName
+					pseudo: user.displayName,
+					interpolation: { escapeValue: false }
 				}), user)
 		],
 		flags: MessageFlags.Ephemeral
@@ -136,11 +137,12 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
 	return {
 		title: i18n.t(`error:effects.${effectId}.${self ? "self" : "other"}`, {
 			lng,
-			pseudo: escapeUsername(user.attributes.gameUsername[0])
+			pseudo: escapeUsername(user.attributes.gameUsername[0]),
+			interpolation: { escapeValue: false }
 		}),
 		description: i18n.t(`{emote:effects.${effectId}} $t(${getDescriptionTranslationKey(effectId, self)})`, {
 			lng,
-			time: minutesDisplay(millisecondsToMinutes(effectRemainingTime))
+			time: minutesDisplay(millisecondsToMinutes(effectRemainingTime), lng)
 		})
 	};
 }
@@ -152,7 +154,9 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
  * @param replacements
  * @param ephemeral
  */
-export async function handleClassicError(context: PacketContext, errorKey: string, replacements: { [key: string]: unknown } = {}, ephemeral = false): Promise<void> {
+export async function handleClassicError(context: PacketContext, errorKey: string, replacements: {
+	[key: string]: unknown;
+} = {}, ephemeral = false): Promise<void> {
 	const interactionToRespondTo = MessagesUtils.getCurrentInteraction(context);
 
 	await (!interactionToRespondTo.replied
@@ -167,7 +171,8 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interactionToRespondTo,
 				i18n.t(errorKey, {
 					lng: interactionToRespondTo.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE,
-					...replacements
+					...replacements,
+					interpolation: { escapeValue: false }
 				})
 			)
 		],

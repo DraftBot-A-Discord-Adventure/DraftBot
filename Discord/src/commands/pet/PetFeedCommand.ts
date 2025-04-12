@@ -5,17 +5,20 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandPetFeedPacketReq, CommandPetFeedSuccessPacket
+	CommandPetFeedPacketReq,
+	CommandPetFeedSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetFeedPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
-	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket,
+	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	ReactionCollectorPetFeedWithGuildData, ReactionCollectorPetFeedWithGuildFoodReaction
+	ReactionCollectorPetFeedWithGuildData,
+	ReactionCollectorPetFeedWithGuildFoodReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPetFeedWithGuild";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { StringUtils } from "../../utils/StringUtils";
@@ -42,7 +45,8 @@ export async function handleCommandPetFeedSuccessPacket(packet: CommandPetFeedSu
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:petFeed.resultTitle", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	});
 	const description = i18n.t(`commands:petFeed.result.${packet.result}`, { lng });
 
@@ -99,11 +103,13 @@ export async function handleCommandPetFeedWithGuildCollector(context: PacketCont
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:petFeed.feedTitle", {
 			lng,
-			pseudo: interaction.user.displayName
+			pseudo: interaction.user.displayName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:petFeed.feedDescription", {
 			lng,
-			pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng)
+			pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng),
+			interpolation: { escapeValue: false }
 		})}\n\n${foodsList}`);
 
 	const msg = await interaction?.editReply({
@@ -164,14 +170,16 @@ export async function handleCommandPetFeedWithoutGuildCollector(context: PacketC
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFeed.feedTitle", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFeed.feedWithoutGuildDesc", {
 				lng,
 				pet: DisplayUtils.getOwnedPetInlineDisplay(data.pet, lng),
 				food: StringUtils.capitalizeFirstLetter(DisplayUtils.getFoodDisplay(data.food, 1, lng, true)),
-				price: data.price
+				price: data.price,
+				interpolation: { escapeValue: false }
 			})
 		);
 

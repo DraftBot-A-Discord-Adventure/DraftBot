@@ -13,7 +13,6 @@ import {
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	CommandShopNotEnoughCurrency,
-	ReactionCollectorShopCloseReaction,
 	ReactionCollectorShopData,
 	ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
@@ -116,7 +115,8 @@ export async function handleCommandShopHealAlterationDone(context: PacketContext
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.healAlteration", { lng }))
 		]
@@ -134,7 +134,8 @@ export async function handleCommandShopFullRegen(context: PacketContext): Promis
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.fullRegen", { lng }))
 		]
@@ -153,7 +154,8 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
 					lng,
@@ -195,7 +197,8 @@ export async function shopInventoryExtensionCollector(context: PacketContext, pa
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.chooseSlotTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(slotExtensionText)
 		],
@@ -248,7 +251,8 @@ export async function handleReactionCollectorBuyCategorySlotBuySuccess(context: 
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.success", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.buyCategorySlotSuccess", { lng }))
 		]
@@ -267,7 +271,8 @@ export async function handleCommandShopClosed(context: PacketContext): Promise<v
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.closeShopTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.closeShop", { lng }))
 		]
@@ -327,7 +332,8 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t(amounts.length === 1 && amounts[0] === 1 ? "commands:shop.shopConfirmationTitle" : "commands:shop.shopConfirmationTitleMultiple", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(`${
 					getShopItemDisplay(data, reaction, lng, shopItemNames, amounts)
@@ -357,9 +363,13 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		}
 		await buttonInteraction.update({ components: [] });
 
+		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
+			oldReason: BlockingConstants.REASONS.SHOP_CONFIRMATION,
+			newReason: BlockingConstants.REASONS.NONE
+		}));
+
 		if (buttonInteraction.customId === "refuse") {
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, packet.reactions.findIndex(r =>
-				r.type === ReactionCollectorShopCloseReaction.name));
+			await handleCommandShopClosed(context);
 			return;
 		}
 
@@ -516,8 +526,11 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		await msgComponentInteraction.update({ components: [] });
 
 		if (msgComponentInteraction.customId === "closeShop") {
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, msgComponentInteraction, packet.reactions.findIndex(r =>
-				r.type === ReactionCollectorShopCloseReaction.name));
+			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
+				oldReason: BlockingConstants.REASONS.SHOP,
+				newReason: BlockingConstants.REASONS.NONE
+			}));
+			await handleCommandShopClosed(context);
 			return;
 		}
 

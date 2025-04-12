@@ -5,7 +5,8 @@ import {
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandDailyBonusPacketReq, CommandDailyBonusPacketRes
+	CommandDailyBonusPacketReq,
+	CommandDailyBonusPacketRes
 } from "../../../../Lib/src/packets/commands/CommandDailyBonusPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
@@ -67,11 +68,12 @@ export async function handleDailyBonusRes(context: PacketContext, packet: Comman
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:daily.title", {
 					pseudo: interaction.user.displayName,
-					lng
+					lng,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(
 					i18n.t("commands:daily.description", {
-						value: packet.itemNature === ItemNature.TIME_SPEEDUP ? minutesDisplay(packet.value) : packet.value,
+						value: packet.itemNature === ItemNature.TIME_SPEEDUP ? minutesDisplay(packet.value, lng) : packet.value,
 						nature: ItemConstants.NATURE_ID_TO_NAME[packet.itemNature],
 						lng
 					})

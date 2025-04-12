@@ -5,7 +5,8 @@ import {
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import {
-	CommandGuildStoragePacketReq, CommandGuildStoragePacketRes
+	CommandGuildStoragePacketReq,
+	CommandGuildStoragePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildStoragePacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
@@ -24,7 +25,8 @@ export async function handleSuccess(packet: CommandGuildStoragePacketRes, contex
 	const embed = new DraftBotEmbed()
 		.setTitle(i18n.t("commands:guildStorage.embed.title", {
 			lng,
-			guildName: packet.guildName
+			guildName: packet.guildName,
+			interpolation: { escapeValue: false }
 		}))
 		.setThumbnail(GuildConstants.ICON)
 		.addFields({

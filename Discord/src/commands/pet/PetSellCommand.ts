@@ -43,7 +43,8 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 	let description = i18n.t("commands:petSell.sellDescription", {
 		lng,
 		pseudo: interaction.user.displayName,
-		price: data.price
+		price: data.price,
+		interpolation: { escapeValue: false }
 	});
 	if (data.isGuildAtMaxLevel) {
 		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", { lng })}`;
@@ -95,14 +96,16 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 				.formatAuthor(
 					i18n.t("commands:petSell.successTitle", {
 						lng,
-						pseudo: buttonInteraction.user.displayName
+						pseudo: buttonInteraction.user.displayName,
+						interpolation: { escapeValue: false }
 					}),
 					buttonInteraction.user
 				)
 				.setDescription(
 					i18n.t("commands:petSell.successDescription", {
 						lng,
-						pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, lng)
+						pet: DisplayUtils.getOwnedPetInlineDisplay(packet.pet, lng),
+						interpolation: { escapeValue: false }
 					})
 				)
 		]

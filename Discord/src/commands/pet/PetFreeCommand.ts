@@ -6,7 +6,9 @@ import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import i18n from "../../translations/i18n";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandPetFreeAcceptPacketRes, CommandPetFreePacketReq, CommandPetFreePacketRes
+	CommandPetFreeAcceptPacketRes,
+	CommandPetFreePacketReq,
+	CommandPetFreePacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetFreePacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
@@ -89,12 +91,14 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:petFree.confirmDesc", {
 				lng,
-				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex)
+				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex),
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -110,7 +114,8 @@ export async function handleCommandPetFreeRefusePacketRes(context: PacketContext
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.canceledTitle", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:petFree.canceledDesc", { lng })
@@ -130,12 +135,14 @@ export async function handleCommandPetFreeAcceptPacketRes(packet: CommandPetFree
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:petFree.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:petFree.acceptedDesc", {
 							lng,
-							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petId, packet.petSex)
+							pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petId, packet.petSex),
+							interpolation: { escapeValue: false }
 						})
 					)
 			]

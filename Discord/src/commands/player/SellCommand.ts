@@ -8,12 +8,14 @@ import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandSellItemSuccessPacket, CommandSellPacketReq
+	CommandSellItemSuccessPacket,
+	CommandSellPacketReq
 } from "../../../../Lib/src/packets/commands/CommandSellPacket";
 import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
-	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket,
+	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorSellItemReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorSell";
@@ -53,7 +55,8 @@ export async function handleCommandSellSuccessPacket(packet: CommandSellItemSucc
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:sell.soldMessageTitle", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	});
 	const description = i18n.t(
 		packet.item.category === ItemCategory.POTION && packet.price === 0
@@ -88,7 +91,8 @@ async function validateSell(
 	const validateClassChangeEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.sellTitle", {
 			lng,
-			pseudo: interaction.user.displayName
+			pseudo: interaction.user.displayName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(i18n.t(reactionsInfo.reaction.item.category === ItemCategory.POTION && reactionsInfo.reaction.price === 0 ? "commands:sell.confirmThrowAway" : "commands:sell.confirmSell", {
 			lng,
@@ -182,7 +186,8 @@ export async function handleSellReactionCollector(context: PacketContext, packet
 	const mainEmbed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:sell.titleChoiceEmbed", {
 			lng,
-			pseudo: interaction.user.displayName
+			pseudo: interaction.user.displayName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(i18n.t("commands:sell.sellIndication", { lng }));
 

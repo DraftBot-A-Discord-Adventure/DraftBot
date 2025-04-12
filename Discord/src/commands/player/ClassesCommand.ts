@@ -1,5 +1,6 @@
 import {
-	CommandClassesChangeSuccessPacket, CommandClassesPacketReq
+	CommandClassesChangeSuccessPacket,
+	CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
 import {
 	makePacket, PacketContext
@@ -10,11 +11,13 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import {
-	ReactionCollectorCreationPacket, ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket,
+	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	ReactionCollectorChangeClassData, ReactionCollectorChangeClassReaction
+	ReactionCollectorChangeClassData,
+	ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
@@ -55,7 +58,8 @@ export async function handleCommandClassesChangeSuccessPacket(packet: CommandCla
 	const lng = context.discord!.language;
 	const title = i18n.t("commands:classes.success", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	});
 	const description = i18n.t("commands:classes.newClass", {
 		lng,
@@ -156,7 +160,8 @@ export async function handleChangeClassReactionCollector(context: PacketContext,
 		const validateClassChangeEmbed = new DraftBotEmbed()
 			.formatAuthor(i18n.t("commands:classes.confirm", {
 				lng,
-				pseudo: interaction.user.displayName
+				pseudo: interaction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), interaction.user)
 			.setDescription(i18n.t("commands:classes.display", {
 				lng,

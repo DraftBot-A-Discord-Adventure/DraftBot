@@ -48,7 +48,8 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				.formatAuthor(
 					i18n.t("commands:pet.embedTitle", {
 						lng,
-						pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName
+						pseudo: foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName,
+						interpolation: { escapeValue: false }
 					}),
 					interaction.user
 				)

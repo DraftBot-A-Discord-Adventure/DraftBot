@@ -245,7 +245,8 @@ export class DisplayUtils {
 				lng,
 				context: ownedPet.sex
 			}),
-			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng)
+			loveLevel: DisplayUtils.getPetLoveLevelDisplay(ownedPet.loveLevel, ownedPet.sex, lng),
+			interpolation: { escapeValue: false }
 		});
 	}
 

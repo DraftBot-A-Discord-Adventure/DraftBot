@@ -2,7 +2,9 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildDailyCooldownErrorPacket, CommandGuildDailyPacketReq, CommandGuildDailyRewardPacket
+	CommandGuildDailyCooldownErrorPacket,
+	CommandGuildDailyPacketReq,
+	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
@@ -69,7 +71,8 @@ export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDa
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:guildDaily.rewardTitle", {
 			lng,
-			guildName: packet.guildName
+			guildName: packet.guildName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(getCommandGuildDailyRewardPacketString(packet, lng));
 

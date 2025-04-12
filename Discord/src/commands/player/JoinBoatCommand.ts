@@ -9,7 +9,9 @@ import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
-	CommandJoinBoatAcceptPacketRes, CommandJoinBoatPacketReq, CommandJoinBoatRefusePacketRes
+	CommandJoinBoatAcceptPacketRes,
+	CommandJoinBoatPacketReq,
+	CommandJoinBoatRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { ICommand } from "../ICommand";
@@ -21,7 +23,8 @@ export async function createJoinBoatCollector(context: PacketContext, packet: Re
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmation", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:joinBoat.confirmationMessage.description.confirmation.text", {
@@ -48,7 +51,8 @@ export async function handleCommandJoinBoatAcceptPacketRes(packet: CommandJoinBo
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:joinBoat.confirmationMessage.description.confirmed", {
@@ -77,7 +81,8 @@ export async function handleCommandJoinBoatRefusePacketRes(_packet: CommandJoinB
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:joinBoat.confirmationMessage.title.confirmed", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(i18n.t("commands:joinBoat.refuse", { lng }))
 				.setErrorColor()

@@ -5,7 +5,9 @@ import {
 	CommandPetFeedCancelErrorPacket,
 	CommandPetFeedGuildStorageEmptyErrorPacket,
 	CommandPetFeedNoMoneyFeedErrorPacket,
-	CommandPetFeedNoPetErrorPacket, CommandPetFeedNotHungryErrorPacket, CommandPetFeedSuccessPacket
+	CommandPetFeedNoPetErrorPacket,
+	CommandPetFeedNotHungryErrorPacket,
+	CommandPetFeedSuccessPacket
 } from "../../../../../../Lib/src/packets/commands/CommandPetFeedPacket";
 import { DisplayUtils } from "../../../../utils/DisplayUtils";
 import { handleCommandPetFeedSuccessPacket } from "../../../../commands/pet/PetFeedCommand";
@@ -24,7 +26,7 @@ export default class PetFeedCommandPacketHandlers {
 	@packetHandler(CommandPetFeedNotHungryErrorPacket)
 	async notHungry(context: PacketContext, packet: CommandPetFeedNotHungryErrorPacket): Promise<void> {
 		await handleClassicError(context, "commands:petFeed.notHungry", {
-			pet: DisplayUtils.getPetDisplay(packet.pet.typeId, packet.pet.sex, context.discord!.language)
+			pet: DisplayUtils.getOwnedPetFieldDisplay(packet.pet, context.discord!.language)
 		});
 	}
 

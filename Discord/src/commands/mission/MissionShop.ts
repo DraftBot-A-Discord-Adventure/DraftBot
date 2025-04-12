@@ -16,7 +16,8 @@ import { PetUtils } from "../../utils/PetUtils";
 import { StringUtils } from "../../utils/StringUtils";
 import { MissionUtils } from "../../utils/MissionUtils";
 import {
-	ReactionCollectorSkipMissionShopItemCloseReaction, ReactionCollectorSkipMissionShopItemReaction
+	ReactionCollectorSkipMissionShopItemCloseReaction,
+	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -43,11 +44,13 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t(descriptionString, {
 					lng,
-					...descriptionFormat
+					...descriptionFormat,
+					interpolation: { escapeValue: false }
 				}))
 		]
 	});
@@ -76,7 +79,8 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.lovePointsValue.giveTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.shopItems.lovePointsValue.giveDesc", {
 					lng,
@@ -106,7 +110,8 @@ export async function skipMissionShopItemCollector(context: PacketContext, packe
 	const embed = new DraftBotEmbed()
 		.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.giveTitle", {
 			lng,
-			pseudo: interaction.user.displayName
+			pseudo: interaction.user.displayName,
+			interpolation: { escapeValue: false }
 		}), interaction.user)
 		.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.giveDesc", {
 			lng
@@ -139,14 +144,17 @@ export async function skipMissionShopResult(packet: CommandMissionShopSkipMissio
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:shop.shopItems.skipMission.successTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(`${i18n.t("commands:shop.shopItems.skipMission.successDescription", {
 					lng,
-					mission: MissionUtils.formatBaseMission(packet.oldMission, lng)
+					mission: MissionUtils.formatBaseMission(packet.oldMission, lng),
+					interpolation: { escapeValue: false }
 				})}\n${i18n.t("commands:shop.shopItems.skipMission.getNewMission", {
 					lng,
-					mission: MissionUtils.formatBaseMission(packet.newMission, lng)
+					mission: MissionUtils.formatBaseMission(packet.newMission, lng),
+					interpolation: { escapeValue: false }
 				})}`)
 		]
 	});

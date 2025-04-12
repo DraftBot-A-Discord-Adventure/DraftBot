@@ -36,7 +36,8 @@ export async function handleCommandRespawnPacketRes(packet: CommandRespawnPacket
 			respawnEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.commands.respawn),
 			scoreEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.score),
 			pseudo: interaction.user.displayName,
-			count: packet.lostScore
+			count: packet.lostScore,
+			interpolation: { escapeValue: false }
 		})
 	});
 }

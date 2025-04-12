@@ -10,7 +10,9 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandGuildCreateAcceptPacketRes, CommandGuildCreatePacketReq, CommandGuildCreatePacketRes
+	CommandGuildCreateAcceptPacketRes,
+	CommandGuildCreatePacketReq,
+	CommandGuildCreatePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildCreatePacket";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -98,7 +100,8 @@ export async function createGuildCreateCollector(context: PacketContext, packet:
 			i18n.t("commands:guildCreate.confirmDesc", {
 				lng,
 				guildName: data.guildName,
-				price: GuildCreateConstants.PRICE
+				price: GuildCreateConstants.PRICE,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -114,7 +117,8 @@ export async function handleCommandGuildCreateRefusePacketRes(context: PacketCon
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.canceledTitle", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildCreate.canceledDesc", { lng })
@@ -134,7 +138,8 @@ export async function handleCommandGuildCreateAcceptPacketRes(packet: CommandGui
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildCreate.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildCreate.acceptedDesc", {

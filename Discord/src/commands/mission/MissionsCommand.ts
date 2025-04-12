@@ -14,7 +14,8 @@ import {
 	draftBotClient, keycloakConfig
 } from "../../bot/DraftBotShard";
 import {
-	CommandMissionsPacketReq, CommandMissionsPacketRes
+	CommandMissionsPacketReq,
+	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { User } from "discord.js";
@@ -154,7 +155,8 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 
 	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
 		lng,
-		pseudo: discordUser.displayName
+		pseudo: discordUser.displayName,
+		interpolation: { escapeValue: false }
 	}), discordUser);
 
 	missionCommandEmbed.setDescription([

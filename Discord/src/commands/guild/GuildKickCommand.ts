@@ -9,7 +9,10 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandGuildKickAcceptPacketRes, CommandGuildKickPacketReq, CommandGuildKickPacketRes, CommandGuildKickRefusePacketRes
+	CommandGuildKickAcceptPacketRes,
+	CommandGuildKickPacketReq,
+	CommandGuildKickPacketRes,
+	CommandGuildKickRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildKickPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -87,13 +90,15 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildKick.confirmDesc", {
 				lng,
 				kickedPseudo: kickedPlayer.attributes.gameUsername,
-				guildName: data.guildName
+				guildName: data.guildName,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -118,12 +123,14 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildKick.canceledDesc", {
 						lng,
-						kickedPseudo: kickedPlayer.attributes.gameUsername
+						kickedPseudo: kickedPlayer.attributes.gameUsername,
+						interpolation: { escapeValue: false }
 					})
 				)
 				.setErrorColor()
@@ -147,13 +154,15 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 					lng,
-					pseudo: originalInteraction.user.displayName
+					pseudo: originalInteraction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
 							lng,
 							kickedPseudo: kickedPlayer.attributes.gameUsername,
-							guildName: packet.guildName
+							guildName: packet.guildName,
+							interpolation: { escapeValue: false }
 						})
 					)
 			]

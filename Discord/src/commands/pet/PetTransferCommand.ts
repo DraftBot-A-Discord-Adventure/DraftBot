@@ -3,7 +3,8 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandPetTransferPacketReq, CommandPetTransferSuccessPacket
+	CommandPetTransferPacketReq,
+	CommandPetTransferSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetTransferPacket";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
@@ -15,7 +16,9 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import {
-	ReactionCollectorCreationPacket, ReactionCollectorReaction, ReactionCollectorRefuseReaction
+	ReactionCollectorCreationPacket,
+	ReactionCollectorReaction,
+	ReactionCollectorRefuseReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import {
@@ -65,12 +68,14 @@ export async function handlePetTransferSuccess(context: PacketContext, packet: C
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:petTransfer.confirmTransferTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t(i18nDescriptionKey, {
 					lng,
 					oldPet: oldPetDisplay,
-					newPet: newPetDisplay
+					newPet: newPetDisplay,
+					interpolation: { escapeValue: false }
 				}))
 		]
 	});
@@ -108,7 +113,8 @@ function getMainMenuComponents(
 				.setEmoji(parseEmoji(DraftBotIcons.petTransfer.deposit)!)
 				.setLabel(i18n.t("commands:petTransfer.depositButton", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
+					interpolation: { escapeValue: false }
 				}))
 				.setStyle(ButtonStyle.Secondary)
 				.setCustomId(depositCustomId)
@@ -121,7 +127,8 @@ function getMainMenuComponents(
 				.setEmoji(parseEmoji(DraftBotIcons.petTransfer.switch)!)
 				.setLabel(i18n.t("commands:petTransfer.switchButton", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
+					interpolation: { escapeValue: false }
 				}))
 				.setStyle(ButtonStyle.Secondary)
 				.setCustomId(switchCustomId)
@@ -196,7 +203,8 @@ function getSwitchComponents(
 				reactions,
 				i18n.t("commands:petTransfer.switchPlaceholder", {
 					lng,
-					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng)
+					pet: DisplayUtils.getOwnedPetInlineDisplay(data.ownPet!, lng),
+					interpolation: { escapeValue: false }
 				}),
 				lng
 			)
