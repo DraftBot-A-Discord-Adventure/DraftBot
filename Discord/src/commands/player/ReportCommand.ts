@@ -210,7 +210,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 				...triplet[2]
 			})
 			: ""))
-		.join();
+		.join("");
 
 	const content = i18n.t("commands:report.doPossibility", {
 		lng,

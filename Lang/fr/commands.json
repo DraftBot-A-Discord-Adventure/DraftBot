@@ -635,7 +635,7 @@
         "name": "{emote:shopItems.lovePointsValue} Vétérinaire de la cour",
         "info": "Obtenir des informations détaillées sur votre familier.",
         "giveTitle": "{{pseudo}}, achat effectué !",
-        "giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}\n{emote:petInformation.age} **Âge** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Effet de combat** : {{commentOnFightEffect}}",
+        "giveDesc": "Après avoir longuement étudié votre animal et son état de santé, le vétérinaire vous donne son rapport :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}\n{emote:petInformation.age} **Âge** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Effet de combat** : {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} affamé",
         "commentOnFightEffect": {
           "bite": [
@@ -1205,8 +1205,7 @@
   "switch": {
     "titleSuccess": "{{pseudo}}, commande effectuée !",
     "switchingDouble": "{{item1}} et {{item2}} ont été échangés !",
-    "switchingSingle_male": "{{item1}} a été équipé !",
-    "switchingSingle_female": "{{item1}} a été équipée !",
+    "switchingSingle": "Vous avez équipé : {{item1}} !",
     "noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
     "cancelled": "Action annulée !",
     "switchSelectionTitle": "{{pseudo}}, équipement d'un objet",

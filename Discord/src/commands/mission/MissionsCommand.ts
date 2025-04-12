@@ -127,7 +127,7 @@ function getSideMissionsPart(packet: CommandMissionsPacketRes, lng: Language): s
 			time: finishInTimeDisplay(new Date(mission.expiresAt!)),
 			context: "other"
 		}))
-			.join("\n")
+			.join("\n\n")
 		: i18n.t("commands:missions.noCurrentMissions", {
 			lng
 		})}`;
