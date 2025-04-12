@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Queen's Maiden Badge",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "You will receive the badge within hours of payment. For more information about badges use the {command:help} order."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} | The guild has received the expedition. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Guild members got `{{quantity}} {emote:unitValues.money}`.",
       "item": "{emote:rewards:item} | Guild members picked up a random item.",
-      "badge": "{emote:badges.guildBadge} | Guild members have received a badge.",
-      "superBadge": "{emote:badges.superGuildBadge} | Guild members have received a badge.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Guild members have been fully healed.",
       "advanceTime": "{emote:unitValues.time} | Guild members advanced {{quantity}}h.",
       "partialHeal": "{emote:rewards.partialHeal} | Guild members have been partially healed. `+ {{quantity}} {emote:unitValues.health}`",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Choose an item from the list below:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "",
     "noActiveObject": "Unfortunately, you don't have anything to drink in your inventory!",
     "objectIsActiveDuringFights": "This beverage can't be drunk right now. It'll be automatically consumed during your next fight!",
