@@ -11,10 +11,13 @@ import { SmallEventFuncs } from "../../data/SmallEvent";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 import Player from "../database/game/models/Player";
 import {
-	SmallEventEpicItemShopAcceptPacket, SmallEventEpicItemShopCannotBuyPacket, SmallEventEpicItemShopRefusePacket
+	SmallEventEpicItemShopAcceptPacket,
+	SmallEventEpicItemShopCannotBuyPacket,
+	SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import {
-	ReactionCollectorEpicShopSmallEvent, ReactionCollectorEpicShopSmallEventData
+	ReactionCollectorEpicShopSmallEvent,
+	ReactionCollectorEpicShopSmallEventData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorEpicShopSmallEvent";
 
 class ShopSmallEvent extends Shop<
@@ -37,10 +40,11 @@ class ShopSmallEvent extends Shop<
 	getRandomItem(): GenericItem {
 		return generateRandomItem({
 			// We exclude potions from the list of possible items
-			itemCategory: RandomUtils.draftbotRandom.pick(Object.values(ItemCategory)
-				.filter(
-					(value): value is ItemCategory => value !== ItemCategory.POTION
-				)),
+			itemCategory: RandomUtils.draftbotRandom.pick([
+				ItemCategory.WEAPON,
+				ItemCategory.ARMOR,
+				ItemCategory.OBJECT
+			]),
 			minRarity: ItemRarity.EPIC,
 			maxRarity: ItemRarity.LEGENDARY
 		});
