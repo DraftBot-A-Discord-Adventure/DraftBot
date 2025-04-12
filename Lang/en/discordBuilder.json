@@ -321,7 +321,7 @@
     "options": {
       "force": {
         "name": "force",
-        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion."
+        "description": "If true, skips the validation phase if you are really sure you want to drink the potion."
       }
     }
   },
