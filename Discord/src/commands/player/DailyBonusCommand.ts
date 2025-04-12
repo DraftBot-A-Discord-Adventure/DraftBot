@@ -44,7 +44,7 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 				interaction,
 				i18n.t("commands:daily.errors.cooldown", {
 					cooldownTime,
-					time: printTimeBeforeDate(hoursToMilliseconds(cooldownTime) - lastDailyTimestamp),
+					time: printTimeBeforeDate(lastDailyTimestamp + hoursToMilliseconds(cooldownTime)),
 					lng: interaction.userLanguage
 				})
 			)
