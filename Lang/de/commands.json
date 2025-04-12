@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Abzeichen \"Meister der Quests",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "Sie erhalten den Abzeichen innerhalb weniger Stunden nach der Zahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} | Die Gilde hat Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Die Mitglieder der Gilde haben `{{quantity}} {emote:unitValues.money}` erhalten.",
       "item": "{emote:rewards:item} | Die Mitglieder der Gilde haben einen zufälligen Gegenstand erhalten.",
-      "badge": "{emote:badges.guildBadge} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
-      "superBadge": "{emote:badges.superGuildBadge} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Die Mitglieder der Gilde wurden vollständig geheilt.",
       "advanceTime": "{emote:unitValues.time} | Die Mitglieder der Gilde sind um {{quantity}}h vorgerückt.",
       "partialHeal": "{emote:rewards.partialHeal} | Die Mitglieder der Gilde wurden teilweise geheilt. `+ {{quantity}} {emote:unitValues.health}`",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "Sie haben Ihren Trank nicht getrunken!",
     "noActiveObject": "Sie haben leider nichts zu trinken in Ihrem Inventar!",
     "objectIsActiveDuringFights": "Dieses Getränk kann jetzt nicht getrunken werden. Es wird automatisch bei Ihrem nächsten Kampf verwendet!",
