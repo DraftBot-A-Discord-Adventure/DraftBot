@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Choisissez un objet à équiper dans la liste ci-dessous :"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "Vous n'avez pas bu votre potion !",
     "noActiveObject": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
     "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",

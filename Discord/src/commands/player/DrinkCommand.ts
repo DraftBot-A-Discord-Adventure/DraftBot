@@ -5,7 +5,8 @@ import {
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	CommandDrinkConsumePotionRes, CommandDrinkPacketReq
+	CommandDrinkConsumePotionRes,
+	CommandDrinkPacketReq
 } from "../../../../Lib/src/packets/commands/CommandDrinkPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
@@ -94,6 +95,25 @@ export async function handleDrinkConsumePotion(context: PacketContext, packet: C
 					lng
 				}), interaction.user)
 				.setDescription(msg)
+		]
+	});
+}
+
+export async function handleDrinkCancellation(context: PacketContext): Promise<void> {
+	const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (!interaction) {
+		return;
+	}
+	const lng = context.discord!.language;
+
+	await interaction.editReply({
+		embeds: [
+			new DraftBotEmbed()
+				.formatAuthor(i18n.t("commands:drink.cancelledTitle", {
+					lng,
+					pseudo: interaction.user.displayName
+				}), interaction.user)
+				.setDescription(i18n.t("commands:drink.cancelled", { lng }))
 		]
 	});
 }

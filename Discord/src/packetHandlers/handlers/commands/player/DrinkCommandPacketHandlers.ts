@@ -1,10 +1,14 @@
 import { packetHandler } from "../../../PacketHandler";
 import {
 	CommandDrinkCancelDrink,
-	CommandDrinkConsumePotionRes, CommandDrinkNoActiveObjectError, CommandDrinkObjectIsActiveDuringFights
+	CommandDrinkConsumePotionRes,
+	CommandDrinkNoActiveObjectError,
+	CommandDrinkObjectIsActiveDuringFights
 } from "../../../../../../Lib/src/packets/commands/CommandDrinkPacket";
 import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
-import { handleDrinkConsumePotion } from "../../../../commands/player/DrinkCommand";
+import {
+	handleDrinkCancellation, handleDrinkConsumePotion
+} from "../../../../commands/player/DrinkCommand";
 import { handleClassicError } from "../../../../utils/ErrorUtils";
 
 export default class DrinkCommandPacketHandlers {
@@ -15,7 +19,7 @@ export default class DrinkCommandPacketHandlers {
 
 	@packetHandler(CommandDrinkCancelDrink)
 	async drinkCancelDrink(context: PacketContext, _packet: CommandDrinkCancelDrink): Promise<void> {
-		await handleClassicError(context, "commands:drink.cancelled");
+		await handleDrinkCancellation(context);
 	}
 
 	@packetHandler(CommandDrinkNoActiveObjectError)
