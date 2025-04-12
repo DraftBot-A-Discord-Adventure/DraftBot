@@ -109,6 +109,16 @@ export class I18nDraftbot {
 
 	/**
 	 * Translate the given key with the given options
+	 * @param key
+	 * @param options
+	 */
+	static t(key: string | string[], options: {
+		lng: Language;
+		returnObjects: true;
+	} & i18next.TOptions): Record<string, string>;
+
+	/**
+	 * Translate the given key with the given options
 	 * Override of the i18next.t function to allow the following :
 	 * - replace the "{command:...}" format by the corresponding discord command
 	 * - force lng to be a Language value and being required
@@ -116,8 +126,14 @@ export class I18nDraftbot {
 	 * @param key
 	 * @param options
 	 */
-	static t(key: string | string[], options: TranslationOption): string | string[] {
-		const value: string | string[] = i18next.t(key, options);
+	static t(key: string | string[], options: TranslationOption): string | string[] | Record<string, string> {
+		const value: string | string[] | object = i18next.t(key, options);
+		if (options.returnObjects && !Array.isArray(value)) {
+			return Object.entries(value).reduce((acc, [k, v]) => {
+				acc[k] = draftbotFormat(v as string);
+				return acc;
+			}, {} as Record<string, string>);
+		}
 		if (Array.isArray(value)) {
 			return (value as string[]).map(draftbotFormat);
 		}
