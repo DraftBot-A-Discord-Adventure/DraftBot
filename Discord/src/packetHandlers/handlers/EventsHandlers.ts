@@ -68,7 +68,9 @@ export default class EventsHandlers {
 				return;
 			}
 		}
-		catch {}
+		catch {
+			// Do nothing
+		}
 
 		await interaction.channel.send({ embeds: [embed] });
 	}
