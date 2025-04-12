@@ -57,7 +57,7 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 }
 
 export async function handleMissionShopBadge(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", { badgeName: "questMasterBadge" });
+	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", { badgeName: "mission_completer" });
 }
 
 export async function handleMissionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
