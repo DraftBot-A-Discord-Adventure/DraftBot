@@ -158,7 +158,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
 					lng,
-					badgeName: "richPerson"
+					badgeName: "rich"
 				}))
 		]
 	});

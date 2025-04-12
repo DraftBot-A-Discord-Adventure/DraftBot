@@ -231,8 +231,8 @@
     ],
     "poor": [
       "À la vue des vêtements que porte {{playerDisplay}}, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collector.refuse} Ne pas lui donner une pièce",
-      "En marchant, vous rencontrez ce pauvre vagabond de {{playerDisplay}}. Celui-ci vous demande quelques pièces:\n\n{emote:collectors.interactPoorCoin} Donner une pièce, car vous en avez déjà assez\n{emote:collector.refuse} Ne pas lui donner une pièce",
-      "La misère touche tout le monde un jour, et aujourd'hui c'est {{playerDisplay}} qui peut à peine se payer un repas.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collector.refuse} Ne pas lui donner une pièce"
+      "En marchant, vous rencontrez ce pauvre vagabond de {{playerDisplay}}. Celui-ci vous demande quelques pièces:\n\n{emote:collectors.interactPoorCoin} Donner une pièce, car vous en avez déjà assez\n{emote:collectors.refuse} Ne pas lui donner une pièce",
+      "La misère touche tout le monde un jour, et aujourd'hui c'est {{playerDisplay}} qui peut à peine se payer un repas.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collectors.refuse} Ne pas lui donner une pièce"
     ],
     "poor_give_money": [
       "Vous vous sentez bien après avoir fait ce geste humanitaire.",
@@ -794,7 +794,7 @@
       "nbPlayersWithGivenClass_other": "d'après un récent recensement des aventuriers, il y aurait **{{infoNumber}}** joueurs avec la classe **{{infoComplement}}**. Étonné par cette nouvelle,",
       "nbPlayersOnYourMap_zero": "les chevaliers aux alentours n'ont croisé **personne d'autre que vous** sur cette route. Surpris par cette nouvelle,",
       "nbPlayersOnYourMap_one": "les chevaliers aux alentours ont n'ont croisé qu'**une personne** en train de circuler sur votre route. Surpris par cette nouvelle,",
-      "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{infoNumber} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
+      "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{{infoNumber}} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
     }
   },
   "smallBad": {

@@ -9,13 +9,13 @@
       },
       "end": {
         "outcomes": {
-          "0": "L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !"
+          "0": "L'arbre a bien été coupé et la route est dégagée, mais malheureusement, des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !"
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
-          "1": "Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
+          "0": "Passer par un autre chemin semblait être une bonne solution, vous n'avez pas perdu de temps !",
+          "1": "Passer par un autre chemin semblait être une bonne solution, mais malheureusement, vous vous êtes blessé en marchant."
         },
         "text": "Passer par un autre chemin."
       }
@@ -57,21 +57,21 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port."
+          "0": "Après avoir passé de longues minutes à discuter avec l'inconnue, vous finissez par repartir ! En suivant ses indications, vous arrivez rapidement à bon port."
         }
       },
       "followHint": {
         "outcomes": {
           "0": "C'était en effet un raccourci !",
-          "1": "Vous tombez dans une embuscade ! Après vous avoir volé tous vos biens, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui."
+          "1": "Vous tombez dans une embuscade ! Après vous avoir volé tous vos biens, les brigands s'enfuient lâchement. Gravement blessé, vous tombez, évanoui."
         },
         "text": "Suivre les conseils de l'inconnue."
       },
       "forest": {
         "outcomes": {
           "0": "Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégâts.",
-          "1": "Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
-          "2": "En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner !"
+          "1": "Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant, vous ramassez un objet qui pourra peut être vous être utile !",
+          "2": "En traversant la forêt, vous faites une grosse chute dans un fossé. La blessure est profonde, il faut absolument vous soigner !"
         },
         "text": "Traverser quand même la forêt."
       },
@@ -88,9 +88,9 @@
     "possibilities": {
       "craftBoat": {
         "outcomes": {
-          "0": "En tentant de fabriquer votre embarcation vous vous blessez légèrement ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
+          "0": "En tentant de fabriquer votre embarcation, vous vous blessez légèrement ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
           "1": "Après avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer !",
-          "2": "Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défaut de vous servir, sera facile à revendre !"
+          "2": "Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau, vous ramassez un objet qui, à défaut de vous servir, sera facile à revendre !"
         },
         "text": "Tenter de bricoler un petit bateau."
       },
@@ -107,10 +107,10 @@
       },
       "searchBridge": {
         "outcomes": {
-          "0": "Au bout de 30 minutes vous finissez par abandonner et vous reprenez votre route dans une autre direction...",
+          "0": "Au bout de 30 minutes, vous finissez par abandonner et vous reprenez votre route dans une autre direction...",
           "1": "Au bout de 60 minutes, vous finissez par trouver un passage à gué. Vous décidez alors de ne pas rejoindre le village qui est maintenant trop loin et vous reprenez votre route.",
-          "2": "Au bout de quelques minutes vous trouvez un petit pont en bois, vous arrivez rapidement au village où les habitants, heureux de rencontrer un étranger pour la première fois depuis des années, vous offrent quelques pièces.",
-          "3": "Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement, il est délabré car personne ne l'a emprunté depuis des années, après quelques pas une planche s'effondre sous votre poids ! Vous parvenez à vous accrocher au garde-fou de justesse et retrouvez la terre ferme. Sonné, il faudra cependant aller vous soigner !"
+          "2": "Au bout de quelques minutes, vous trouvez un petit pont en bois. Vous arrivez rapidement au village où les habitants, heureux de rencontrer un étranger pour la première fois depuis des années, vous offrent quelques pièces.",
+          "3": "Au bout de quelques minutes, vous trouvez un petit pont en bois. Malheureusement, il est délabré car personne ne l'a emprunté depuis des années. Après quelques pas, une planche s'effondre sous votre poids ! Vous parvenez à vous accrocher au garde-fou de justesse et retrouvez la terre ferme. Sonné, il faudra cependant aller vous soigner !"
         },
         "text": "Chercher un pont plus loin."
       },
@@ -122,7 +122,7 @@
         "text": "Traverser la rivière en nageant."
       }
     },
-    "text": "Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village."
+    "text": "Vous voyez une rivière devant vous. De l'autre côté du rivage, vous apercevez un village."
   },
   "13": {
     "possibilities": {
@@ -133,7 +133,7 @@
       },
       "goAway": {
         "outcomes": {
-          "0": "Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
+          "0": "Vous traversez le petit bourg en une petite demi-heure et continuez votre route.",
           "1": "Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement."
         },
         "text": "Repartir."
@@ -150,7 +150,7 @@
       },
       "goInn": {
         "outcomes": {
-          "0": "Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
+          "0": "Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profiter d'une bonne nuit de repos.",
           "1": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure.",
           "2": "L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions."
         },
@@ -228,7 +228,7 @@
       },
       "trade": {
         "outcomes": {
-          "0": " Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
+          "0": "Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
           "1": "Malheureusement pour vous, le groupe de marchands n'a rien à vendre, vous passez donc votre chemin.",
           "2": "Moins accueillant que vous ne l'espériez, le groupe d'hommes vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
           "3": "Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamants que l'on vous a promis semble plutôt faite de mousse molle. Vous revenez rapidement sur vos pas mais la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
@@ -250,7 +250,7 @@
         "outcomes": {
           "0": "Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé.",
           "1": "Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
-          "2": "Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
+          "2": "Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée, vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
         },
         "text": "Entrer pour fouiller le château."
       },
@@ -314,7 +314,7 @@
       "skip": {
         "outcomes": {
           "0": "Vous continuez votre route sans perdre plus de temps.",
-          "1": "Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route."
+          "1": "Vous décidez de ne pas vous repaître, mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route."
         },
         "text": "Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître."
       }
@@ -325,7 +325,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous observez le chantier quelques minutes puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route."
+          "0": "Vous observez le chantier quelques minutes, puis réalisez qu'il est vraiment désert. Vous reprenez votre route."
         }
       },
       "searchScaffolding": {
@@ -360,7 +360,7 @@
         "outcomes": {
           "0": "Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez.",
           "1": "Vous dépecez le renard et partez en quête d'un moyen de vendre sa peau. Quelques minutes plus tard vous croisez un marchand qui vous propose de la troquer contre un de ses objets de qualité, et vous acceptez.",
-          "2": "Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point !"
+          "2": "Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement, elle pourrit bien vite et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point !"
         },
         "text": "Dépecer le renard pour revendre sa peau."
       },
@@ -368,14 +368,14 @@
         "outcomes": {
           "0": "Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation.",
           "1": "Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri.",
-          "2": "Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
-          "3": "Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué."
+          "2": "Vous vous approchez du renard afin de le ramasser, quand tout à coup, il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
+          "3": "Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé, vous vous sentez requinqué."
         },
         "text": "Tenter de cuisiner le renard."
       },
       "end": {
         "outcomes": {
-          "0": "Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin."
+          "0": "Vous regardez un moment la bête étendue au sol, hésitant. Finalement, vous reprenez votre chemin."
         }
       },
       "skip": {
@@ -411,7 +411,7 @@
         "text": "Continuer sans se préoccuper du chien."
       }
     },
-    "text": "Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !"
+    "text": "Devant vous, un chien arrive et tourne autour de vous. Il semble vouloir que vous le suiviez !"
   },
   "20": {
     "possibilities": {
@@ -439,7 +439,7 @@
         "outcomes": {
           "0": "Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait.",
           "1": "Au dernier moment, le garde se retourne et vous attaque. Après un féroce combat durant lequel la femme s'est enfuie, vous échouez à dévier une de ses attaques. Victorieux, le garde vous laisse néanmoins en vie et prend également la fuite.",
-          "2": "Le garde esquive et la femme parvient à s'enfuir. Après avoir fait fuir le garde, vous la retrouvez hors de danger. Pour vous remercier elle vous offre quelques pièces d'or."
+          "2": "Le garde esquive et la femme parvient à s'enfuir. Après avoir fait fuir le garde, vous la retrouvez hors de danger. Pour vous remercier, elle vous offre quelques pièces d'or."
         },
         "text": "Attaquer le garde par surprise dans l'optique d'aider la femme."
       }
@@ -450,24 +450,24 @@
     "possibilities": {
       "crossBridge": {
         "outcomes": {
-          "0": "La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont vous arrivez au bout sain et sauf.",
-          "1": "En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces.",
-          "2": "En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec.",
-          "3": "Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une planche plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route."
+          "0": "La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont, vous arrivez au bout sain et sauf.",
+          "1": "En traversant ce pont vous voyez un petit sac. En l'ouvrant, vous remarquez un nombre conséquent de pièces.",
+          "2": "En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe et vous tombez avec.",
+          "3": "Au cours de votre traversée, une planche tombe. Heureusement, vous réussissez à vous accrocher à une planche plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route."
         },
         "text": "Prendre le risque d'emprunter ce pont."
       },
       "end": {
         "outcomes": {
-          "0": "Vous attendez une vingtaine de minutes en observant ce pont. Puis vous continuez votre route.",
-          "1": "Pas de temps à perdre, vous continuez votre chemin, sans vous préoccuper de ce dangereux chemin."
+          "0": "Vous attendez une vingtaine de minutes en observant ce pont, puis continuez votre route.",
+          "1": "Pas de temps à perdre, vous continuez votre chemin sans vous préoccuper de ce dangereux chemin."
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Après une bonne heure de marche, vous trouvez un autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
-          "1": "Durant votre chemin, vous remarquez une petite caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
-          "2": "Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez."
+          "0": "Après une bonne heure de marche, vous trouvez un autre pont qui, lui, semble en bien meilleur état et décidez de l'emprunter.",
+          "1": "Durant votre chemin, vous remarquez une petite caisse et l'ouvrez. Dans celle-ci se trouve un objet semblant utile. Vous le récupérez et continuez votre route.",
+          "2": "Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite. Cependant, vous trébuchez sur un tronc d'arbre et vous blessez."
         },
         "text": "Chercher un autre chemin un peu plus loin."
       }
@@ -531,7 +531,7 @@
         "text": "Ne pas se préoccuper de ces individus vous semblant suspects."
       }
     },
-    "text": "Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point."
+    "text": "Vous vous baladez en forêt, quand soudain, vous apercevez un chariot qui semble cassé. Autour, le groupe de personnes semble mal en point."
   },
   "24": {
     "possibilities": {
@@ -544,8 +544,8 @@
       "foodStand": {
         "outcomes": {
           "0": "Cette nourriture est incroyable ! De votre vie, jamais vous n'avez mangé quelque chose d'aussi bon. Vous vous sentez revigoré et apaisé.",
-          "1": "Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
-          "2": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût."
+          "1": "Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À en voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
+          "2": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini, puis en oubliez vite le goût."
         },
         "text": "Aller à un stand de nourriture."
       },
@@ -579,26 +579,26 @@
       },
       "end": {
         "outcomes": {
-          "0": "Ayant jeté un rapide coup d'œil aux soldats occupés par leurs fouilles vous décidez de reprendre votre route.",
+          "0": "Ayant jeté un rapide coup d'œil aux soldats occupés par leurs fouilles, vous décidez de reprendre votre route.",
           "1": "Fatigué, vous tombez raide et vous endormez au sol."
         }
       },
       "help": {
         "outcomes": {
-          "0": "Vous décidez d'aller voir les soldats, et vous leur proposez votre aide pour chercher des survivants. Après 45 minutes d'aide, un soldat vous offre un peu d'argent pour vous remercier de votre aide si précieuse.",
+          "0": "Vous décidez d'aller voir les soldats et leur proposez votre aide pour chercher des survivants. Après 45 minutes d'aide, un soldat vous offre un peu d'argent pour vous remercier de votre aide si précieuse.",
           "1": "En allant chercher des survivants, vous vous faites attaquer par une personne étant en train de piller des corps ! Après vous être débattu, vous fuyez et continuez votre route."
         },
         "text": "Proposer son aide."
       },
       "steal": {
         "outcomes": {
-          "0": "Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
+          "0": "Vous décidez de contourner les soldats et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
           "1": "En pillant les corps, vous vous faites attraper brusquement par un soldat. Celui-ci profite de votre situation pour vous détrousser avant de vous sommer de continuer votre route rapidement."
         },
         "text": "Piller les corps."
       }
     },
-    "text": "Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants."
+    "text": "Après plusieurs jours de voyage sans encombre, vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants."
   },
   "26": {
     "possibilities": {
@@ -610,9 +610,9 @@
       "goAway": {
         "outcomes": {
           "0": "Horrifié par cet acte de barbarie, vous continuez rapidement votre route.",
-          "1": "En vous éloignant, vous apercevez au loin un coffret. Après quelques minutes de marche, vous atteignez le coffret. Vous l'ouvrez et découvrez un sac rempli d'argent."
+          "1": "En vous éloignant, vous apercevez au loin un coffret. Après quelques minutes de marche, vous l'atteignez, l'ouvrez et découvrez un sac rempli d'argent."
         },
-        "text": "Continuer votre route paisiblement."
+        "text": "S'éloigner du massacre."
       },
       "steal": {
         "outcomes": {
@@ -623,8 +623,8 @@
       },
       "trySave": {
         "outcomes": {
-          "0": "Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
-          "1": "Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer, et tombez au sol.",
+          "0": "Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant, vous offre un objet qui vous servira pour la suite de votre aventure.",
+          "1": "Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer et tombez au sol.",
           "2": "Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
           "3": "Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale."
         },
@@ -638,14 +638,14 @@
       "end": {
         "outcomes": {
           "0": "Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
-          "1": "Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter non sans vous être sévèrement blessé."
+          "1": "Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez. Heureusement, vous arrivez rapidement à remonter, non sans vous être sévèrement blessé."
         }
       },
       "goDown": {
         "outcomes": {
           "0": "Vous vous blessez grièvement lors de la descente et restez bloqué au fond plusieurs heures avant que quelqu'un ne vous retrouve.",
-          "1": "Vous arrivez en bas sans soucis, récupérez l'objet, et continuez votre route.",
-          "2": "Vous sautez dans le puits mais n'y trouvez rien, vous remontez donc sans perdre davantage de temps.",
+          "1": "Vous arrivez en bas sans soucis, récupérez l'objet et continuez votre route.",
+          "2": "Vous sautez dans le puits mais n'y trouvez rien. Vous remontez donc sans perdre davantage de temps.",
           "3": "Une fois en bas, vous découvrez une grande quantité de pièces d'or que vous récupérez avant de continuer votre périple."
         },
         "text": "Tenter de descendre pour récupérer l'objet."
@@ -661,7 +661,7 @@
         "outcomes": {
           "0": "Après une heure de tentatives, vous obtenez enfin cet objet, qui se révèle être en réalité un simple bout de ferraille.",
           "1": "Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs minutes plus tard.",
-          "2": "Rapidement, vous récupérez l'argent qui se trouvait au fond, et continuez votre route."
+          "2": "Rapidement, vous récupérez l'argent qui se trouvait au fond et continuez votre route."
         },
         "text": "Tenter d'attraper l'objet avec le seau du puits."
       }
