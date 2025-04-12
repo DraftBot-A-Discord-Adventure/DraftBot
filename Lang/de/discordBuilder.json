@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Zeigt Informationen zu den Ausbeinen und deren Funktion an.",
+    "description": "Afficher des informations sur les badges et leur fonctionnement.",
     "name": "Badges"
   },
   "help": {
-    "description": "Zeigt eine Liste der verfügbaren Befehle oder die ausführlichen Informationen zu einem Befehl an.",
+    "description": "Afficher la liste des commandes disponibles ou les informations détaillées sur une commande.",
     "name": "Hilfe",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "Vorschlag"
   },
   "inventory": {
-    "description": "Zeigt den Bestand des Spielers an.",
+    "description": "Afficher l'inventaire du joueur.",
     "name": "Bestandsaufnahme",
     "options": {
       "rank": {
@@ -36,11 +36,11 @@
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Ändere die Sprache des Bots auf dem Discord-Server, auf dem der Befehl ausgeführt wurde.",
+    "description": "Changer la langue du bot pour vos prochaines intéractions.",
     "name": "Sprache"
   },
   "ping": {
-    "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
+    "description": "Afficher la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "Ping"
   },
   "pet": {
@@ -96,13 +96,13 @@
     "name": "Einladungguilde",
     "options": {
       "user": {
-        "description": "Der Nutzer, der von der Bestellung betroffen ist.",
+        "description": "L'utilisateur à recruter.",
         "name": "Benutzer"
       }
     }
   },
   "guild": {
-    "description": "Zeigt Informationen über eine Gilde an.",
+    "description": "Afficher des informations sur une guilde.",
     "name": "Gilde",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Zeigt die verschiedenen Knappheit der Geräte an.",
+    "description": "Afficher les différentes raretés des équipements.",
     "name": "Seltenheit"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Zeigt die aktuelle Version des Bots an.",
+    "description": "Afficher la version actuelle du bot.",
     "name": "Neuigkeiten"
   },
   "vote": {
@@ -160,15 +160,15 @@
     "name": "Abstimmung"
   },
   "map": {
-    "description": "Zeigt die Karte an, um anzuzeigen, wohin du gehst.",
+    "description": "Afficher la carte pour indiquer où vous allez.",
     "name": "Karte"
   },
   "shop": {
-    "description": "Zeigt das Magazin an.",
+    "description": "Afficher le magasin.",
     "name": "Laden"
   },
   "classesInfo": {
-    "description": "Zeigt Informationen über die auswählbaren Klassen für Ihren Charakter an.",
+    "description": "Afficher des informations sur les classes sélectionnables pour votre personnage.",
     "name": "infosclasses"
   },
   "respawn": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Zeigt den Gildenladen an.",
+    "description": "Afficher le magasin de guilde.",
     "name": "magasinguilde"
   },
   "guildKick": {
@@ -272,23 +272,23 @@
     }
   },
   "missionsshop": {
-    "description": "Zeigt den Missionsladen an.",
+    "description": "Afficher le magasin de missions.",
     "name": "magasinmissions"
   },
   "top": {
-    "description": "Zeigt die Ranglisten des Spiels an.",
+    "description": "Afficher les classements du jeu.",
     "name": "Rangliste",
     "subcommands": {
       "score": {
-        "description": "Zeigt die Rangliste der Spieler anhand ihrer Punktzahl an.",
+        "description": "Afficher le classement des joueurs en fonction de leur score.",
         "name": "Punktestand"
       },
       "glory": {
-        "description": "Zeigt die Rangliste der Gilden nach ihrem Ruhm an.",
+        "description": "Afficher le classement des guildes en fonction de leur gloire.",
         "name": "Ruhm"
       },
       "guild": {
-        "description": "Zeigt die Rangfolge der Gilden nach Punkten an.",
+        "description": "Afficher le classement des guildes en fonction de leurs points.",
         "name": "Gilde"
       }
     },
@@ -321,7 +321,7 @@
     "options": {
       "force": {
         "name": "erzwingen",
-        "description": "Wenn wahr, überspringe die Bestätigungsphase, wenn du dir sicher bist, dass du den Trank trinken willst."
+        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion."
       }
     }
   },
@@ -357,7 +357,7 @@
   },
   "guildShelter": {
     "name": "abriguilde",
-    "description": "Zeigt Informationen über den Gildenunterstand an."
+    "description": "Afficher les informations sur l'abri de guilde."
   },
   "leagueReward": {
     "name": "bonusliga",
@@ -365,11 +365,11 @@
   },
   "guildStorage": {
     "name": "entrepotguilde",
-    "description": "Zeigt den Inhalt des Gildenlagers an."
+    "description": "Afficher le contenu de l'entrepôt de guilde."
   },
   "joinBoat": {
     "name": "joinbateau",
-    "description": "Ermöglicht es, das Schiff zu erreichen, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
+    "description": "Rejoindre le bateau si un membre de votre guilde est dessus."
   },
   "giveBadge": {
     "name": "donnerbadge",
