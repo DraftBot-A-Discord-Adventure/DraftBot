@@ -53,7 +53,7 @@
   },
   "guildInvite": {
     "title": "{{pseudo}}Está convidado a juntar-se a um grémio!",
-    "confirmDesc": "{emote:collectors.question}{{guildName}}Gostarias de te juntar ao grémio?",
+    "confirmDesc": "{emote:collectors.question} Souhaitez-vous rejoindre la guilde `{{guildName}}` ?",
     "successTitle": "{{pseudo}} {{guildName}} juntou-se à associação!",
     "successDesc": "O atraso antes da próxima recompensa diária da guilda foi reiniciado.",
     "refusedTitle": "{{guildName}} Ainda não entraste para a guilda!",
@@ -65,7 +65,7 @@
   },
   "guildKick": {
     "title": "Expulsão do grémio",
-    "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}Tens a certeza de que queres ser expulso do grémio?",
+    "confirmDesc": "{emote:collectors.question} Êtes-vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",
     "acceptedDesc": "{{kickedPseudo}} foi expulso do grémio!",
     "canceledTitle": "Cancelamento da expulsão",
     "canceledDesc": "{{kickedPseudo}} não foi expulso do grémio!",
@@ -84,20 +84,20 @@
     "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}tornar-se-á o membro mais velho do grémio.",
     "successElderAddTitle": "{{elderPseudo}} {{guildName}} é o mais recente membro da associação!",
     "acceptedDesc": "O mais velho ajuda o líder a gerir o grémio. Por isso, escolhe-o com cuidado! {command:guildelder} {command:guildelderremove}Mas não te preocupes, se não estiveres satisfeito com o teu ancião, podes substituí-lo com o comando , ou se te sentires um ditador, podes removê-lo para sempre com o .",
-    "canceledDesc": "O mais velho não foi promovido.",
+    "canceledDesc": "Le joueur n'a pas été promu en tant qu'aîné.",
     "canceledTitle": "Cancelamento tido em conta."
   },
   "guildLeave": {
     "title": "{{pseudo}}confirmação :",
-    "confirmDesc": "{emote:collectors.question}{{guildName}}Queres mesmo deixar o grémio?",
-    "confirmChiefDesc": "{emote:collectors.question}{{guildName}}Queres mesmo **destruir definitivamente** o grémio ` `?",
-    "confirmChiefDescWithElder": "{emote:collectors.question}{{guildName}} {{newChiefPseudo}} Queres mesmo deixar o grémio? será o seu líder.",
+    "confirmDesc": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?",
+    "confirmChiefDesc": "{emote:collectors.question} Souhaitez-vous vraiment **détruire définitivement** la guilde `{{guildName}}` ?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "A sua partida foi cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} deixou o grémio!",
     "leavingSuccess": "És um pobre cowboy solitário e estás muito longe de casa...",
     "destroySuccess": "{{guildName}} O grémio foi dissolvido com sucesso.",
     "newChiefTitle": "{{newChiefPseudo}} {{guildName}} é o novo líder da guilda!",
-    "notInAGuild": "Parece que já não fazes parte de um grémio.",
+    "notInAGuild": "Il semblerait que vous ne fassiez déjà plus partie d'une guilde.",
     "canceledTitle": "Anulação tida em conta"
   },
   "guildElderRemove": {
@@ -115,7 +115,7 @@
   },
   "guildDescription": {
     "title": "{{pseudo}}Está a confirmar a sua escolha?",
-    "confirmDesc": "{emote:collectors.question}  Queres mesmo mudar a descrição da tua guilda?\n {{description}}Nova descrição: .",
+    "confirmDesc": "{emote:collectors.question}  Souhaitez-vous réellement changer la description de votre guilde ?\n Nouvelle description : {{description}}.",
     "acceptedDesc": "A descrição do grémio foi editada!",
     "canceledDesc": "Não editaste a descrição do grémio!",
     "canceledTitle": "Cancelamento tido em conta.",
@@ -135,7 +135,7 @@
         "description": "Permite-te mudar de classe. Mais informações sobre as classes estão disponíveis no guia do jogador: https://guide.draftbot.com"
       },
       "CLASSES_INFO": {
-        "description": "Permite uma comparação rápida das estatísticas das turmas e das informações a ler pelo utilizador que efectua a encomenda."
+        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessibles à l'utilisateur effectuant la commande."
       },
       "DAILY_BONUS": {
         "description": "Alguns itens dão-lhe um bónus diário. Utilize este comando para obter estes bónus. {command:inventory}Para saber se um item lhe dá um bónus diário, utilize o comando ."
@@ -187,7 +187,7 @@
         "description": "Mostra o conteúdo do armazém do grém."
       },
       "GUILD_TOP": {
-        "description": "Apresenta as classificações dos grémios em incrementos de 15 grémios. Os grémios são classificados de acordo com os pontos obtidos nas ilhas misteriosas."
+        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonction des points récoltés sur les îles mystérieuses."
       },
       "HELP": {
         "description": ":expressionless:"
@@ -202,10 +202,10 @@
         "description": "Este comando fornece um link para o servidor de ajuda!"
       },
       "JOIN_BOAT": {
-        "description": "Junte-se a um membro da Guilda num barco com destino a uma ilha misteriosa."
+        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant vers une île mystérieuse."
       },
       "LANGUAGE": {
-        "description": "Altera o idioma usado pelo bot para inglês. Pode ser usado se for um administrador num servidor."
+        "description": "Permet de choisir la langue à utiliser pour vos intéractions avec le bot parmi 6 langues disponibles :\n\n- Français\n- Anglais\n- Espagnol\n- Allemand\n- Italien\n- Portugais"
       },
       "LEAGUE_BONUS": {
         "description": "Receber um prémio da liga todos os domingos."
@@ -214,13 +214,13 @@
         "description": "Apresenta informações sobre o seu destino, bem como o mapa."
       },
       "MISSIONS": {
-        "description": "Apresenta a lista de missões disponíveis."
+        "description": "Affiche la liste des missions qui vous sont assignées."
       },
       "MISSIONS_SHOP": {
         "description": "Apresenta a loja da missão."
       },
       "NOTIFICATIONS": {
-        "description": "Ativa ou desactiva as notificações de bots."
+        "description": "Permet de paramétrer la réception des notifications du bot. Vous pouvez choisir de recevoir des notifications (et déterminer où les afficher) pour les rapports et/ou les récompenses de guilde."
       },
       "PET": {
         "description": "Apresenta informações sobre o seu animal de estimação."
@@ -238,13 +238,13 @@
         "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` {emote:unitValues.money}` e menor que ` {emote:unitValues.money}`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
       },
       "PET_TRANSFER": {
-        "description": "Permite-te transferir uma mascote de ou para o Grémio. Se não for dado um número, a mascote no teu inventário será movida para a cabana da guilda. Caso contrário, ela será trocada com a mascote da guilda cuja localização corresponda ao número dado."
+        "description": "Permet de transférer un familier depuis ou vers la guilde. Vous aurez le choix entre déposer le familier qui vous accompagne dans la refuge, l'échanger avec un autre ou en retirer un du refuge."
       },
       "PING": {
         "description": "Mostra se o bot está online.\n\n(Nota: O tempo mostrado é o tempo de resposta do bot e não o seu ping: um tempo de resposta correto será inferior a 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Mostra informações sobre o seu personagem:\n\n😃 Estado de saúde | Apelido | Nível\n\n឵឵Informações:\n❤️ Vida | ⭐ XP | {emote:unitValues.money} Prata\n\nEstatísticas :\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação\n\nMissões :\n💎 Gemas | 📖 Campanha avançada %\n\nClassificação e pontuação:\n🏆 Classificação | 🏅 Pontuação\n\nClasse:\nVer {command:classes}\n\nGlória e Liga:\n{emote:unitValues.glory} Glória | Ver {{topGloryCommandMention}}\n\nGrémio:\n🏟️ Grémio\n\nDestino:\nVer {{mapCommandMention}}\n\nFamiliar:\nVer {{petCommandMention}}\n\n💡-Os emblemas são apresentados no teu perfil como uma reação."
+        "description": "Affiche des informations sur votre personnage :\n\n{emote:effects.none} État de santé | Pseudo | Niveau\n\n឵឵឵Informations :\n{emote:unitValues.health} Vie | {emote:unitValues.xp} XP | {emote:unitValues.money} Argent\n\nStatistiques :\n{emote:unitValues.energy} Énergie | {emote:unitValues.attack} Attaque | {emote:unitValues.defense} Défense | {emote:unitValues.speed} Vitesse | {emote:unitValues.breath} Souffle | {emote:unitValues.breathRegen} Récupération\n\nMissions :\n{emote:unitValues.gem} Gemmes | {emote:missions.campaign} Avancée de la campagne en %\n\nClassement et score :\n{emote:top.congrats} Classement | {emote:unitValues.score} Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {command:top glory}\n\nGuilde :\n{emote:other.guild} Guilde\n\nDestination :\nVoir {command:map}\n\nFamilier :\nVoir {command:pet}\n\n{emote:other.advice}-Les badges sont affichés sur votre profil sous forme de réactions."
       },
       "RARITY": {
         "description": "Mostra a probabilidade de ter um item de acordo com a sua raridade."
@@ -262,7 +262,7 @@
         "description": "Esta ordem permite-te gastar o teu dinheiro para facilitar a tua aventura. Para além das 4 escolhas básicas que estarão permanentemente disponíveis, poderás desfrutar de uma poção exclusiva todos os dias, disponível para venda apenas durante 24 horas."
       },
       "SWITCH": {
-        "description": "Troca o item na tua reserva com o item na caixa \"item\" do teu inventário."
+        "description": "Échange un équipement de votre réserve avec ce que vous possédez actuellement sous condition qu'il soit de la même catégorie. Si aucun équipement dans la catégorie de l'objet à équiper n'est possédé avant l'exécution de la commande, il ne fera que le déplacer dans l'inventaire."
       },
       "TOP": {
         "description": "Mostra a classificação geral do jogo para cada 15 jogadores. Os jogadores no mesmo servidor que tu estão marcados com um ponto azul."
@@ -289,7 +289,7 @@
     "usageFieldTitle": "Utilização",
     "utilCommands": "{emote:collectors.question} Informações úteis:",
     "needHelp": "Precisa de ajuda?",
-    "needHelpDescription": "{emote:fightCommand.crossedSwords} Olá ! Esta mensagem foi enviada em resposta a um pedido de ajuda.\n\nSe precisares de ajuda para utilizar o jogo, podes juntar-te ao servidor oficial!\n\nPoderás participar no desenvolvimento do jogo e obter todas as informações de que necessitas!\n\nRecomendamos também que consultes o guia detalhado do bot: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Bonjour ! Ce message est envoyé suite à une demande d'aide.\n\nPour toute assistance concernant l'utilisation du jeu, il est possible de rejoindre le serveur officiel du bot !\n\nVous pourrez participer au développement du jeu et obtenir toutes les informations nécessaires !\n\nIl est également recommandé de consulter le guide détaillé du bot : https://guide.draftbot.com/"
   },
   "idea": {
     "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
@@ -311,8 +311,8 @@
     "weapons_one": "{{count}}{{max}}Arma ( / ):",
     "weapons_other": "{{count}}{{max}}Armas ( / ) :",
     "randomItemTitle": "{{pseudo}}encontraste alguma coisa!",
-    "randomItemFooter": "Já possui um equipamento e gostaria de o vender?",
-    "randomItemFooterPotion": "Gostaria de destruir a sua poção atual?",
+    "randomItemFooter": "Vous avez déjà un équipement, souhaitez-vous le vendre ?",
+    "randomItemFooterPotion": "Souhaitez-vous détruire votre potion actuelle ?",
     "acceptedTitle": "{{pseudo}}Foste equipado!",
     "chooseItemToReplaceTitle": "Escolher um objeto para substituir"
   },
@@ -322,7 +322,7 @@
     }
   },
   "language": {
-    "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot neste servidor. Este comando é reservado aos administradores do servidor.",
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot. Cette modification ne s'appliquera que pour vous.",
     "languages": {
       "de": "alemão",
       "en": "Inglês",
@@ -355,16 +355,16 @@
       "top_glory": "{emote:unitValues.glory} A pessoa que ganhou mais glória durante uma época de combates.",
       "support": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
       "translator": ":earth_africa: Tradutor",
-      "advertiser": ":star2: Pessoa que ajudou a colocar o bot num serviço com mais de 2000 membros`",
-      "contest": ":four_leaf_clover: Os crachás podem ser ganhos de vez em quando em competições no servidor do bot ou no twitter.",
-      "christmas": ":christmas_tree: Distintivo que pode ser ganho todos os Natais num concurso.",
+      "advertiser": "Personne ayant aidé à mettre le bot sur un serveur de plus de 2000 membres",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur Twitter",
+      "christmas": "Badge pouvant être gagné chaque Noël lors d'un concours",
       "top_week": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
       "random": ":slot_machine: Crachá distribuído de forma completamente aleatória",
       "top_10_v1": ":medal: Os 10 melhores jogadores na reposição 1.0",
       "top_v1_player": ":trophy: Melhor jogador na altura da reposição 1.0",
       "major_bug_reporter": ":lady_beetle: Pessoas que comunicaram erros graves",
       "bot_owner": ":crown: Proprietário do bot",
-      "mission_completer": ":ring: Distintivo comprado na loja das Missões",
+      "mission_completer": "Badge acheté dans le shop des missions",
       "powerful_guild": ":gem: Membro de um grémio poderoso",
       "legendary_pet": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
       "donor": ":money_with_wings: Doador",
@@ -387,7 +387,7 @@
     },
     "information": {
       "fieldName": "Mais informações :",
-      "fieldValue": ":heart: {{health}}{{maxHealth}} :star: {{experience}}{{experienceNeededToLevelUp}} {emote:unitValues.money} {{money}}/ | / |"
+      "fieldValue": "{emote:unitValues.health} {{health}} / {{maxHealth}} | {emote:unitValues.xp} {{experience}} / {{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destino :",
@@ -411,7 +411,7 @@
     },
     "ranking": {
       "fieldName": "Classificação e pontuação :",
-      "fieldValue": ":trophy: {{rank}}{{numberOfPlayer}} :medal: {{score}}/ |"
+      "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
     },
     "unranked": {
       "fieldName": "Classificação e pontuação :",
@@ -444,7 +444,7 @@
     "commandName": "relatório",
     "destinationTitle": "{{pseudo}}destino de viagem",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: {{pseudo}} {{event}}\n** :** *- Utilizar reacções para realizar uma ação ⚠️ Não responder é considerado uma escolha separada.",
+    "doEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les boutons pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
     "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}}{{event}}{{alte}}",
     "encounterMonster": [
       "Chegas ao teu destino quando, de repente, ouves um barulho atrás de ti... Um monstro está a atacar-vos!"
@@ -572,14 +572,14 @@
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Distintivo \"Money Mouth",
-        "info": "Receberá o crachá automaticamente após o pagamento. {command:help}Para mais informações sobre os crachás, utilize o comando ."
+        "info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges, utilisez la commande {command:help}."
       },
       "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Nova localização do inventário",
-        "info": "É possível selecionar uma categoria de inventário à qual adicionar uma localização"
+        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement."
       },
       "dailyPotion": {
-        "info": "Receberás uma poção que poderás decidir se queres ou não guardar. Se já a tiveres, será deitada fora sem direito a reembolso!"
+        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà, elle sera jetée sans remboursement !"
       },
       "smallGuildXp": {
         "name": "{emote:shopItems.smallGuildXp} Um pouco de xp para a tua guilda",
@@ -635,7 +635,7 @@
         "name": "{emote:shopItems.lovePointsValue} Médico veterinário do tribunal",
         "info": "Obtenha informações pormenorizadas sobre o seu animal de estimação.",
         "giveTitle": "{{pseudo}}compra efectuada!",
-        "giveDesc": "Depois de muito tempo a estudar o estado de saúde do seu animal, recebe finalmente o relatório do veterinário:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Pontuação do amor**: {{actualLP}} / 100\n{emote:petInformation.diet} **Regime dietético** : {{diet}}\n{emote:petInformation.nextFeed} **Próxima fome** : {{nextFeed}}\n{emote:petInformation.age} **Idade**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Efeito de combate**: {{commentOnFightEffect}}",
+        "giveDesc": "Après avoir longuement étudié votre animal et son état de santé, le vétérinaire vous donne son rapport :\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Score d'amour** : {{actualLP}} / 100\n{emote:petInformation.diet} **Régime alimentaire** : {{diet}}\n{emote:petInformation.nextFeed} **Prochaine faim** : {{nextFeed}}\n{emote:petInformation.age} **Âge** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Effet de combat** : {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} faminto",
         "commentOnFightEffect": {
           "bite": [
@@ -679,7 +679,7 @@
             "As escamas deste animal contêm propriedades anti-inflamatórias. Protege-o contra as queimaduras."
           ],
           "goesWild": [
-            "Cuidado, esta mascote tem um temperamento selvagem! Em combate, pode entrar em fúria berserker, atacando os adversários próximos.",
+            "Attention, ce familier possède un tempérament sauvage ! En combat, il pourra entrer dans une rage destructrice, frappant tous les adversaires à proximité.",
             "O seu instinto primitivo pode ser despertado a qualquer momento. Esta fúria natural será formidável contra os seus inimigos, mas tenha cuidado!",
             "Detecto o potencial para um frenesim extraordinário. A tua mascote poderá libertar a sua natureza selvagem nos teus adversários."
           ],
@@ -851,12 +851,12 @@
             "parece estar em grandes apuros. Devias tentar alimentar o teu animal de estimação."
           ],
           "2": [
-            "ainda parece selvagem. Cuide do seu animal de estimação e ganhe a sua confiança!",
+            "semble encore sauvage. Occupez-vous de votre familier afin de gagner sa confiance !",
             "parece não gostar de si. Se não cuidares do teu animal de estimação, nunca terás o seu amor!",
             "não parece feliz. Devias tentar alimentar o teu animal de estimação."
           ],
           "3": [
-            "ainda parece um pouco apreensivo. Cuide do seu animal de estimação e ganhe a sua confiança!",
+            "semble encore un peu craintif. Occupez-vous de votre familier afin de gagner toute sa confiance !",
             "parece desconfiar sempre de si. Continue a cuidar do seu animal de estimação para ganhar o seu amor!",
             "parece estar a habituar-se a si. Tente alimentar o seu animal regularmente."
           ],
@@ -935,7 +935,7 @@
   },
   "guildShop": {
     "noFoodStorageSpace": "Não tem espaço suficiente no seu armazém para guardar estes alimentos.",
-    "empty": "Não há mais nada para comprar neste momento. O teu grémio está no nível máximo e o seu stock de comida está cheio.",
+    "empty": "Il n'y a plus rien à acheter pour le moment. Votre guilde est au niveau maximum et son stock de nourriture est plein.",
     "giveXpTitle": "Compra bem sucedida",
     "giveXp": "{emote:unitValues.xp}{{xp}}A tua guilda recebeu ** ** pontos de experiência."
   },
@@ -1021,8 +1021,8 @@
     "yourRankNoneGuild": "{emote:top.error} | Infelizmente, a tua guilda não aparece no topo porque não tem pontos de guilda!",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Pode encontrá-lo em / )",
     "noGuild": "{emote:top.error} | Não apareces neste ranking porque não fazes parte de uma associação!",
-    "nobodyInTopPlayers": "Atualmente não há ninguém no top 10! Aproveitem enquanto podem.",
-    "nobodyInTopGuilds": "Atualmente não existem guildas no topo! Aproveita enquanto podes.",
+    "nobodyInTopPlayers": "Il n'y a actuellement personne dans le top ! Profitez-en tant que vous le pouvez.",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez-en tant que vous le pouvez.",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
   },
   "fight": {
@@ -1030,7 +1030,7 @@
     "canceledTitle": "{{pseudo}}anulou a pesquisa",
     "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Fighter : {{pseudo}}| {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
-      "common": "Estás à procura de uma luta?",
+      "common": ", souhaitez-vous lancer une recherche de combat ?",
       "rare": "Gostarias de participar na procura de um lutador com a tua força pessoal para o duelo seguinte?"
     },
     "canceledDesc": "Anulou a busca de combate.",
@@ -1107,7 +1107,7 @@
         ],
         "missed": [
           "faz um {{attack}} ! Já vimos melhor...",
-          "lançar um {{attack}} ! Medíocre",
+          "lance une {{attack}} ! Médiocre.",
           "faz um {{attack}} ! Não parece muito bom.",
           "faz um {{attack}} ! Não é muito eficaz...",
           "escolhe um {{attack}} ! O resultado é bastante patético.",
@@ -1183,7 +1183,7 @@
         "{{winner}} deu um importante passo em frente na sua carreira ao vencer este difícil jogo."
       ],
       "draw": [
-        "Foi um jogo muito disputado entre dois jogadores talentosos.",
+        "Ce match a été un duel très disputé entre deux joueurs talentueux.",
         "{{player1}} e {{player2}} mostraram uma determinação inabalável durante todo o jogo.",
         "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate inesperado.",
         "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
@@ -1195,9 +1195,9 @@
         "{{player1}} e {{player2}} mostraram porque é que são considerados concorrentes talentosos neste combate épico."
       ],
       "sameElo": [
-        "Foi um jogo emocionante entre dois jogadores do mesmo nível.",
+        "Ce match a été un duel passionnant entre deux joueurs de même niveau.",
         "{{player1}} e {{player2}} tiveram desempenhos sólidos e equilibrados.",
-        "Foi um jogo muito disputado, com algumas tácticas inteligentes de ambas as partes.",
+        "Ce match a été très serré avec des tactiques astucieuses des deux côtés.",
         "Os espectadores assistiram a um jogo épico entre dois jogadores talentosos que se defrontaram em igualdade de circunstâncias."
       ]
     }
@@ -1205,8 +1205,7 @@
   "switch": {
     "titleSuccess": "{{pseudo}}Encomendar agora!",
     "switchingDouble": "{{item1}} {{item2}} e foram trocados!",
-    "switchingSingle_male": "{{item1}} foi equipado!",
-    "switchingSingle_female": "{{item1}} foi equipada!",
+    "switchingSingle": "Vous avez équipé : {{item1}} !",
     "noItemToSwitch": "Não é preciso equipar nada!",
     "cancelled": "Ação cancelada!",
     "switchSelectionTitle": "{{pseudo}}equipar um objeto",
@@ -1237,7 +1236,7 @@
     "noOneAvailable": "Infelizmente, ninguém parece estar disponível para comprar o seu animal de estimação. A sua venda foi anulada.",
     "sameGuild": "Não podes comprar esta mascote porque o vendedor faz parte da tua guilda.",
     "alreadyHavePet": "Já tens um animal de estimação no teu inventário.",
-    "noEnoughMoney": "Não tem dinheiro suficiente para efetuar esta transação. Falta-lhe `{{missingMoney}}{emote:unitValues.money}`.",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "O vendedor já não pode vender o seu animal de estimação. A venda foi anulada.",
     "sellTitle": "Vender um animal de estimação",
     "sellDescription": "{{pseudo}} gostaria de vender um animal de estimação para{{price}}{emote:unitValues.money}",
@@ -1279,7 +1278,7 @@
     "desc": "Para mais informações, selecione um curso da lista abaixo.\n",
     "display": "{{name}}\n\n{emote:commands.classesDescription}{{description}}\n\nGostaria de mudar para esta turma? Não será possível mudar de turma antes de {{time}}.",
     "success": "{{pseudo}}a sua turma foi modificada!",
-    "newClass": "A sua nova classe é: {{name}}",
+    "newClass": "Votre nouvelle classe est : **{{name}}**",
     "confirm": "{{pseudo}}selecionou a classe seguinte:",
     "error": {
       "canceledPurchase": "Mudança de turma cancelada.",
@@ -1348,7 +1347,7 @@
     "feedDescription": "Escolha um alimento para **{{pet}}** :",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
     "cancelButton": "Cancelar",
-    "feedWithoutGuildDesc": "Gostaria de comprar uma guloseima para {{pet}} ?\n\n{{food}} |{{price}}{emote:unitValues.money}`"
+    "feedWithoutGuildDesc": "Souhaitez-vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
@@ -1388,7 +1387,7 @@
       },
       "description": {
         "confirmation": {
-          "text": "{emote:guild.isOnBoat} Tens a certeza que queres juntar-te ao teu grupo no barco?\nO capitão diz-te que a viagem **{{priceText}}**.\n\nQueres ir para a ilha? Tens {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "text": "{emote:guild.isOnBoat} Êtes-vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
           "priceText_zero": "é gratuito",
           "priceText_other": "custará {{gemsCost}} {emote:unitValues.gem}"
         },
