@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Insignia de maestro de misiones",
+        "name": "{emote:badges.mission_completer} Badge \"Maître des quêtes\"",
         "info": "Recibirá su insignia en las horas siguientes al pago. {command:help}Para obtener más información sobre las insignias, utilice el comando ."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| El gremio ha ganado experiencia `+ `",
       "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| Los miembros del Gremio han recibido ``.",
       "item": "{emote:rewards:item} | Los miembros del Gremio recibieron un objeto al azar.",
-      "badge": "{emote:badges.guildBadge} | Los miembros del Gremio han recibido una insignia.",
-      "superBadge": "{emote:badges.superGuildBadge} | Los miembros del Gremio han recibido una insignia.",
+      "badge": "{emote:badges.powerful_guild} | Les membres de la guilde ont reçu un badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Les membres de la guilde ont reçu un badge.",
       "fullHeal": "{emote:shopItems.regen} | Los miembros del gremio se han curado por completo.",
       "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
       "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| Los miembros del gremio han sido parcialmente curados.",
@@ -1213,6 +1213,7 @@
     "switchSelectionDescription": "Elige un objeto para equipar de la siguiente lista:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}, vous avez annulé l'action",
     "cancelled": "¡No has bebido tu poción!",
     "noActiveObject": "Por desgracia, ¡no tienes nada para beber en tu inventario!",
     "objectIsActiveDuringFights": "Esta bebida no se puede beber ahora. Se utilizará automáticamente durante tu próximo combate.",
