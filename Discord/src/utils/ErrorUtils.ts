@@ -2,7 +2,9 @@ import {
 	MessageComponentInteraction, User
 } from "discord.js";
 import { DraftBotErrorEmbed } from "../messages/DraftBotErrorEmbed";
-import { Language } from "../../../Lib/src/Language";
+import {
+	LANGUAGE, Language
+} from "../../../Lib/src/Language";
 import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import i18n from "../translations/i18n";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
@@ -164,7 +166,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 				interactionToRespondTo.user,
 				interactionToRespondTo,
 				i18n.t(errorKey, {
-					lng: interactionToRespondTo.userLanguage,
+					lng: interactionToRespondTo.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE,
 					...replacements
 				})
 			)
