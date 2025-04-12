@@ -10,7 +10,9 @@ import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorGuildElderData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElder";
 import {
-	CommandGuildElderAcceptPacketRes, CommandGuildElderPacketReq, CommandGuildElderRefusePacketRes
+	CommandGuildElderAcceptPacketRes,
+	CommandGuildElderPacketReq,
+	CommandGuildElderRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderPacket";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
@@ -33,13 +35,15 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildElder.confirmDesc", {
 				lng,
 				elderPseudo: elderPlayer.attributes.gameUsername[0],
-				guildName: data.guildName
+				guildName: data.guildName,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -64,12 +68,14 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildElder.canceledDesc", {
 						lng,
-						elderPseudo: promotedPlayer.attributes.gameUsername[0]
+						elderPseudo: promotedPlayer.attributes.gameUsername[0],
+						interpolation: { escapeValue: false }
 					})
 				)
 				.setErrorColor()
@@ -95,7 +101,8 @@ export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuil
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.successElderAddTitle", {
 					lng,
 					elderPseudo: promotedPlayer.attributes.gameUsername[0],
-					guildName: packet.guildName
+					guildName: packet.guildName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildElder.acceptedDesc", { lng })

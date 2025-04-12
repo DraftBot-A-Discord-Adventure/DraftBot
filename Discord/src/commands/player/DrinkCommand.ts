@@ -42,7 +42,8 @@ export async function drinkAcceptCollector(context: PacketContext, packet: React
 		.formatAuthor(
 			i18n.t("commands:drink.confirmationTitle", {
 				pseudo: interaction.user.displayName,
-				lng
+				lng,
+				interpolation: { escapeValue: false }
 			}),
 			interaction.user
 		)
@@ -68,7 +69,7 @@ export async function handleDrinkConsumePotion(context: PacketContext, packet: C
 	if (packet.time) {
 		msg = i18n.t("commands:drink.timeBonus", {
 			lng,
-			value: minutesDisplay(packet.time)
+			value: minutesDisplay(packet.time, lng)
 		});
 	}
 	else if (packet.energy) {

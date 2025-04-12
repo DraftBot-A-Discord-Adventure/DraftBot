@@ -144,7 +144,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 type Condition = boolean | number | undefined;
 type ConditionTriplet = [Condition, string, Omit<TranslationOption, "lng">];
 
-function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes): ConditionTriplet[] {
+function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes, lng: Language): ConditionTriplet[] {
 	return [
 		[
 			packet.score,
@@ -189,7 +189,7 @@ function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes
 		[
 			packet.effect?.name === Effect.OCCUPIED.id,
 			"timeLost",
-			{ timeLost: packet.effect ? minutesDisplay(packet.effect.time) : 0 }
+			{ timeLost: packet.effect ? minutesDisplay(packet.effect.time, lng) : 0 }
 		]
 	];
 }
@@ -204,7 +204,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 
-	const result = getReportResultConditionTriplets(packet)
+	const result = getReportResultConditionTriplets(packet, lng)
 		.map(triplet => (triplet[0]
 			? i18n.t(`commands:report.${triplet[1]}`, {
 				lng,
@@ -248,7 +248,8 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 	const embed = new DraftBotEmbed();
 	embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
 		lng,
-		pseudo: user.attributes.gameUsername
+		pseudo: user.attributes.gameUsername,
+		interpolation: { escapeValue: false }
 	}), interaction.user);
 	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng })}\n\n`);
 
@@ -386,7 +387,8 @@ export async function refusePveFight(_packet: CommandReportRefusePveFightRes, co
 	await buttonInteraction?.editReply({
 		content: i18n.t("commands:report.pveFightRefused", {
 			lng: originalInteraction.userLanguage,
-			pseudo: originalInteraction.user.displayName
+			pseudo: originalInteraction.user.displayName,
+			interpolation: { escapeValue: false }
 		})
 	});
 }
@@ -443,7 +445,8 @@ export async function displayMonsterReward(
 		.formatAuthor(
 			i18n.t("commands:report.rewardEmbedTitle", {
 				lng,
-				pseudo: user.displayName
+				pseudo: user.displayName,
+				interpolation: { escapeValue: false }
 			}),
 			user
 		)
@@ -506,12 +509,12 @@ function manageEndPathDescriptions({
 }: FieldsArguments): void {
 	travelEmbed.addFields({
 		name: i18n.t("commands:report.startPoint", { lng }),
-		value: `${DraftBotIcons.mapTypes[packet.startMap.type]} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng })}`,
+		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.startMap.type])} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng })}`,
 		inline: true
 	});
 	travelEmbed.addFields({
 		name: i18n.t("commands:report.endPoint", { lng }),
-		value: `${DraftBotIcons.mapTypes[packet.endMap.type]} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng })}`,
+		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.endMap.type])} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng })}`,
 		inline: true
 	});
 }

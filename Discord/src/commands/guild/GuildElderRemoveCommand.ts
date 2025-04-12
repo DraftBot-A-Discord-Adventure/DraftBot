@@ -11,7 +11,9 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandGuildElderRemoveAcceptPacketRes, CommandGuildElderRemovePacketReq, CommandGuildElderRemoveRefusePacketRes
+	CommandGuildElderRemoveAcceptPacketRes,
+	CommandGuildElderRemovePacketReq,
+	CommandGuildElderRemoveRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildElderRemovePacket";
 import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
@@ -29,13 +31,15 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:guildElderRemove.confirmDesc", {
 				lng,
 				elderPseudo: elderPlayer.attributes.gameUsername[0],
-				guildName: data.guildName
+				guildName: data.guildName,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -60,12 +64,14 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildElderRemove.canceledDesc", {
 						lng,
-						elderPseudo: promotedPlayer.attributes.gameUsername[0]
+						elderPseudo: promotedPlayer.attributes.gameUsername[0],
+						interpolation: { escapeValue: false }
 					})
 				)
 				.setErrorColor()
@@ -90,7 +96,8 @@ export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: Comma
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.successElderRemoveTitle", {
 					lng,
 					elderPseudo: promotedPlayer.attributes.gameUsername[0],
-					guildName: packet.guildName
+					guildName: packet.guildName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t("commands:guildElderRemove.acceptedDesc", { lng })

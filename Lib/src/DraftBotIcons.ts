@@ -223,7 +223,8 @@ export const DraftBotIcons: {
 		"confounded": "😖",
 		"scared:": "😱",
 		"lost": "🧐",
-		"healed": "🏥"
+		"healed": "🏥",
+		"fished": "🐟"
 	},
 	events: {
 		1: {

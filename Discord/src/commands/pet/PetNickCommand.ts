@@ -10,7 +10,8 @@ import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import {
-	CommandPetNickPacketReq, CommandPetNickPacketRes
+	CommandPetNickPacketReq,
+	CommandPetNickPacketRes
 } from "../../../../Lib/src/packets/commands/CommandPetNickPacket";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -78,7 +79,8 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("commands:petNick.successTitle", {
 						lng,
-						pseudo: interaction.user.displayName
+						pseudo: interaction.user.displayName,
+						interpolation: { escapeValue: false }
 					}), interaction.user)
 					.setDescription(i18n.t("commands:petNick.successNoName", { lng }))
 			]
@@ -90,11 +92,13 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 			new DraftBotEmbed()
 				.formatAuthor(i18n.t("commands:petNick.successTitle", {
 					lng,
-					pseudo: interaction.user.displayName
+					pseudo: interaction.user.displayName,
+					interpolation: { escapeValue: false }
 				}), interaction.user)
 				.setDescription(i18n.t("commands:petNick.success", {
 					lng,
-					name: packet.newNickname
+					name: packet.newNickname,
+					interpolation: { escapeValue: false }
 				}))
 		]
 	});

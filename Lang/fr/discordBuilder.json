@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Affiche des informations sur les badges et leur fonctionnement.",
+    "description": "Afficher des informations sur les badges et leur fonctionnement.",
     "name": "badges"
   },
   "help": {
-    "description": "Affiche la liste des commandes disponibles ou les informations détaillées sur une commande.",
+    "description": "Afficher la liste des commandes disponibles ou les informations détaillées sur une commande.",
     "name": "aide",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "suggestion"
   },
   "inventory": {
-    "description": "Affiche l'inventaire du joueur.",
+    "description": "Afficher l'inventaire du joueur.",
     "name": "inventaire",
     "options": {
       "rank": {
@@ -36,11 +36,11 @@
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Changer la langue du bot dans le serveur Discord ou la commande a été exécutée.",
+    "description": "Changer la langue du bot pour vos prochaines intéractions.",
     "name": "langage"
   },
   "ping": {
-    "description": "Affiche la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "description": "Afficher la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
     "name": "ping"
   },
   "pet": {
@@ -96,13 +96,13 @@
     "name": "invitationguilde",
     "options": {
       "user": {
-        "description": "L'utilisateur concerné par la commande.",
+        "description": "L'utilisateur à recruter.",
         "name": "utilisateur"
       }
     }
   },
   "guild": {
-    "description": "Affiche des informations sur une guilde.",
+    "description": "Afficher des informations sur une guilde.",
     "name": "guilde",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Affiche les différentes raretés des équipements.",
+    "description": "Afficher les différentes raretés des équipements.",
     "name": "rarete"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Affiche la version actuelle du bot.",
+    "description": "Afficher la version actuelle du bot.",
     "name": "nouveautes"
   },
   "vote": {
@@ -160,15 +160,15 @@
     "name": "vote"
   },
   "map": {
-    "description": "Affiche la carte pour indiquer où vous allez.",
+    "description": "Afficher la carte pour indiquer où vous allez.",
     "name": "carte"
   },
   "shop": {
-    "description": "Affiche le magasin.",
+    "description": "Afficher le magasin.",
     "name": "magasin"
   },
   "classesInfo": {
-    "description": "Affiche des informations sur les classes sélectionnables pour votre personnage.",
+    "description": "Afficher des informations sur les classes sélectionnables pour votre personnage.",
     "name": "infosclasses"
   },
   "respawn": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Affiche le magasin de guilde.",
+    "description": "Afficher le magasin de guilde.",
     "name": "magasinguilde"
   },
   "guildKick": {
@@ -272,23 +272,23 @@
     }
   },
   "missionsshop": {
-    "description": "Affiche le magasin de missions.",
+    "description": "Afficher le magasin de missions.",
     "name": "magasinmissions"
   },
   "top": {
-    "description": "Affiche les classements du jeu.",
+    "description": "Afficher les classements du jeu.",
     "name": "classement",
     "subcommands": {
       "score": {
-        "description": "Affiche le classement des joueurs en fonction de leur score.",
+        "description": "Afficher le classement des joueurs en fonction de leur score.",
         "name": "score"
       },
       "glory": {
-        "description": "Affiche le classement des guildes en fonction de leur gloire.",
+        "description": "Afficher le classement des guildes en fonction de leur gloire.",
         "name": "gloire"
       },
       "guild": {
-        "description": "Affiche le classement des guildes en fonction de leur points.",
+        "description": "Afficher le classement des guildes en fonction de leurs points.",
         "name": "guilde"
       }
     },
@@ -321,7 +321,7 @@
     "options": {
       "force": {
         "name": "forcer",
-        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion"
+        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion."
       }
     }
   },
@@ -357,7 +357,7 @@
   },
   "guildShelter": {
     "name": "abriguilde",
-    "description": "Affiche les informations sur l'abri de guilde."
+    "description": "Afficher les informations sur l'abri de guilde."
   },
   "leagueReward": {
     "name": "bonusligue",
@@ -365,11 +365,11 @@
   },
   "guildStorage": {
     "name": "entrepotguilde",
-    "description": "Affiche le contenu de l'entrepôt de guilde."
+    "description": "Afficher le contenu de l'entrepôt de guilde."
   },
   "joinBoat": {
     "name": "rejoindrebateau",
-    "description": "Permet de rejoindre le bateau si un membre de votre guilde est dessus."
+    "description": "Rejoindre le bateau si un membre de votre guilde est dessus."
   },
   "giveBadge": {
     "name": "donnerbadge",

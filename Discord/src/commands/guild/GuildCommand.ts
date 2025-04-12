@@ -105,7 +105,8 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			pseudo: (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))?.attributes.gameUsername,
 			ranking: member.rank,
 			score: member.score,
-			islandStatusIcon: getIslandStatusIcon(member, lng)
+			islandStatusIcon: getIslandStatusIcon(member, lng),
+			interpolation: { escapeValue: false }
 		});
 	}
 	const guildCommandEmbed = new DraftBotEmbed()
@@ -113,7 +114,8 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		.setTitle(i18n.t("commands:guild.embedTitle", {
 			lng,
 			guildName: packet.data?.name,
-			level: packet.data?.level
+			level: packet.data?.level,
+			interpolation: { escapeValue: false }
 		}))
 		.addFields({
 			name: i18n.t("commands:guild.members", {

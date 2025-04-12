@@ -225,7 +225,8 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 		desc += i18n.t(textKeys.yourRankNone.key, {
 			lng,
 			pseudo: playerUsernames,
-			...textKeys.yourRankNone.replacements
+			...textKeys.yourRankNone.replacements,
+			interpolation: { escapeValue: false }
 		});
 	}
 	else if (textKeys.cantBeRanked) {

@@ -96,7 +96,8 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 	} = getCommandByCategories(lng);
 	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user);
 	helpMessage.setDescription(
 		`${i18n.t("commands:help.helpEmbedDescription", {

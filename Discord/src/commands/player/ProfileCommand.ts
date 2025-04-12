@@ -61,7 +61,8 @@ async function sendMessageAllBadgesTooMuchBadges(gameUsername: string, badges: B
 			new DraftBotEmbed()
 				.setTitle(i18n.t("commands:profile.badgeDisplay.title", {
 					lng,
-					pseudo: gameUsername
+					pseudo: gameUsername,
+					interpolation: { escapeValue: false }
 				}))
 				.setDescription(content + i18n.t("commands:profile.badgeDisplay.numberBadge", {
 					lng,
@@ -169,7 +170,8 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 
 	addField(fields, "guild", Boolean(packet.playerData.guild), {
 		lng,
-		guild: packet.playerData.guild
+		guild: packet.playerData.guild,
+		interpolation: { escapeValue: false }
 	});
 
 	addField(fields, "map", Boolean(packet.playerData.destinationId && packet.playerData.mapTypeId), {
@@ -184,7 +186,8 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 		rarity: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.unitValues.petRarity)
 			.repeat(packet.playerData.pet?.rarity ?? 0),
 		emote: packet.playerData.pet ? DisplayUtils.getPetIcon(packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
-		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : ""
+		name: packet.playerData.pet ? packet.playerData.pet?.nickname ?? DisplayUtils.getPetTypeName(lng, packet.playerData.pet?.typeId, packet.playerData.pet?.sex) : "",
+		interpolation: { escapeValue: false }
 	});
 
 	return fields;
@@ -212,7 +215,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 					lng,
 					effectId: titleEffect,
 					pseudo: keycloakUser.attributes.gameUsername,
-					level: packet.playerData?.level
+					level: packet.playerData?.level,
+					interpolation: { escapeValue: false }
 				}))
 				.addFields(generateFields(packet, lng))
 		],

@@ -53,7 +53,7 @@
   },
   "guildInvite": {
     "title": "{{pseudo}}, vous êtes invité à rejoindre une guilde !",
-    "confirmDesc": "{emote:collectors.question} Souhaitez vous rejoindre la guilde `{{guildName}}` ?",
+    "confirmDesc": "{emote:collectors.question} Souhaitez-vous rejoindre la guilde `{{guildName}}` ?",
     "successTitle": "{{pseudo}} a rejoint la guilde {{guildName}} !",
     "successDesc": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
     "refusedTitle": "Vous n'avez pas rejoint la guilde {{guildName}} !",
@@ -65,7 +65,7 @@
   },
   "guildKick": {
     "title": "Expulsion de la guilde",
-    "confirmDesc": "{emote:collectors.question} Êtes vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",
+    "confirmDesc": "{emote:collectors.question} Êtes-vous sur de vouloir expulser {{kickedPseudo}} de la guilde `{{guildName}}`?",
     "acceptedDesc": "{{kickedPseudo}} a bien été expulsé de la guilde !",
     "canceledTitle": "Expulsion annulée",
     "canceledDesc": "{{kickedPseudo}} n'a pas été expulsé de la guilde !",
@@ -84,20 +84,20 @@
     "confirmDesc": "{emote:collectors.question} {{elderPseudo}} deviendra l'aîné de la guilde `{{guildName}}`.",
     "successElderAddTitle": "{{elderPseudo}} est le nouvel aîné de la guilde {{guildName}} !",
     "acceptedDesc": "L'aîné sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre aîné, vous pouvez le remplacer avec la commande {command:guildelder}, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec {command:guildelderremove}.",
-    "canceledDesc": "L'aîné n'a pas été promu.",
+    "canceledDesc": "Le joueur n'a pas été promu en tant qu'aîné.",
     "canceledTitle": "Annulation prise en compte."
   },
   "guildLeave": {
     "title": "{{pseudo}}, confirmation :",
-    "confirmDesc": "{emote:collectors.question} Souhaitez vous vraiment quitter la guilde `{{guildName}}` ?",
-    "confirmChiefDesc": "{emote:collectors.question} Souhaitez vous vraiment **détruire définitivement** la guilde `{{guildName}}` ?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
+    "confirmDesc": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?",
+    "confirmChiefDesc": "{emote:collectors.question} Souhaitez-vous vraiment **détruire définitivement** la guilde `{{guildName}}` ?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "Votre départ a été annulé.",
     "successTitle": "{{pseudo}} a quitté la guilde {{guildName}} !",
     "leavingSuccess": "Vous êtes un pauvre cow-boy solitaire et vous êtes très loin de chez vous...",
     "destroySuccess": "La guilde {{guildName}} a correctement été dissoute.",
     "newChiefTitle": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
-    "notInAGuild": "Il semblerait que vous ne fassiez déjà plus parti d'une guilde.",
+    "notInAGuild": "Il semblerait que vous ne fassiez déjà plus partie d'une guilde.",
     "canceledTitle": "Annulation prise en compte"
   },
   "guildElderRemove": {
@@ -115,7 +115,7 @@
   },
   "guildDescription": {
     "title": "{{pseudo}}, confirmez-vous votre choix ?",
-    "confirmDesc": "{emote:collectors.question}  Souhaitez vous réellement changer la description de votre guilde ?\n Nouvelle description : {{description}}.",
+    "confirmDesc": "{emote:collectors.question}  Souhaitez-vous réellement changer la description de votre guilde ?\n Nouvelle description : {{description}}.",
     "acceptedDesc": "La description de la guilde a bien été éditée !",
     "canceledDesc": "Vous n'avez pas édité la description de la guilde !",
     "canceledTitle": "Annulation prise en compte.",
@@ -135,7 +135,7 @@
         "description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
       },
       "CLASSES_INFO": {
-        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessible à l'utilisateur effectuant la commande."
+        "description": "Permet de lire une comparaison rapide des statistiques et des informations des classes qui sont accessibles à l'utilisateur effectuant la commande."
       },
       "DAILY_BONUS": {
         "description": "Certains items vous donnent un bonus journalier. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande {command:inventory}."
@@ -187,7 +187,7 @@
         "description": "Affiche le contenu de l'entrepôt de la guilde."
       },
       "GUILD_TOP": {
-        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonctions des points récoltés sur les îles mystérieuses."
+        "description": "Affiche le classement des guildes par tranche de 15 guildes. Les guildes sont classées en fonction des points récoltés sur les îles mystérieuses."
       },
       "HELP": {
         "description": "{emote:other.expressionless}"
@@ -202,10 +202,10 @@
         "description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
       },
       "JOIN_BOAT": {
-        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant sur une île mystérieuse."
+        "description": "Permet de rejoindre un membre de la guilde dans un bateau allant vers une île mystérieuse."
       },
       "LANGUAGE": {
-        "description": "Change la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur."
+        "description": "Permet de choisir la langue à utiliser pour vos intéractions avec le bot parmi 6 langues disponibles :\n\n- Français\n- Anglais\n- Espagnol\n- Allemand\n- Italien\n- Portugais"
       },
       "LEAGUE_BONUS": {
         "description": "Permet d'obtenir une récompense de ligue chaque dimanche."
@@ -214,13 +214,13 @@
         "description": "Affiche des informations sur votre destination, ainsi que la carte."
       },
       "MISSIONS": {
-        "description": "Affiche la liste des missions qui vous sont proposées."
+        "description": "Affiche la liste des missions qui vous sont assignées."
       },
       "MISSIONS_SHOP": {
         "description": "Affiche le magasin des missions."
       },
       "NOTIFICATIONS": {
-        "description": "Permet d'activer ou de désactiver les notifications du bot."
+        "description": "Permet de paramétrer la réception des notifications du bot. Vous pouvez choisir de recevoir des notifications (et déterminer où les afficher) pour les rapports et/ou les récompenses de guilde."
       },
       "PET": {
         "description": "Affiche les informations relatives à votre familier."
@@ -238,13 +238,13 @@
         "description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix de vente doit être être supérieur à `{{petSellMinPrice}}{emote:unitValues.money}` et inférieur à `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
       },
       "PET_TRANSFER": {
-        "description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fourni, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Sinon, il sera échangé avec celui de la guilde dont la position correspond au numéro donné."
+        "description": "Permet de transférer un familier depuis ou vers la guilde. Vous aurez le choix entre déposer le familier qui vous accompagne dans la refuge, l'échanger avec un autre ou en retirer un du refuge."
       },
       "PING": {
         "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clock.1}"
       },
       "PROFILE": {
-        "description": "Affiche des informations sur votre personnage :\n\n{emote:effects.none} État de santé | Pseudo | Level\n\n឵឵឵Informations :\n{emote:unitValues.health} Vie | {emote:unitValues.xp} XP | {emote:unitValues.money} Argent\n\nStatistiques :\n{emote:unitValues.energy} Énergie | {emote:unitValues.attack} Attaque | {emote:unitValues.defense} Défense | {emote:unitValues.speed} Vitesse | {emote:unitValues.breath} Souffle | {emote:unitValues.breathRegen} Récupération\n\nMissions :\n{emote:unitValues.gem} Gemmes | {emote:missions.campaign} Avancé de la campagne %\n\nClassement et score :\n{emote:top.congrats} Classement | {emote:unitValues.score} Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {command:top glory}\n\nGuilde :\n{emote:other.guild} Guilde\n\nDestination :\nVoir {command:map}\n\nFamilier :\nVoir {command:pet}\n\n{emote:other.advice}-Les badges sont affichés sur votre profil sous forme de réaction."
+        "description": "Affiche des informations sur votre personnage :\n\n{emote:effects.none} État de santé | Pseudo | Niveau\n\n឵឵឵Informations :\n{emote:unitValues.health} Vie | {emote:unitValues.xp} XP | {emote:unitValues.money} Argent\n\nStatistiques :\n{emote:unitValues.energy} Énergie | {emote:unitValues.attack} Attaque | {emote:unitValues.defense} Défense | {emote:unitValues.speed} Vitesse | {emote:unitValues.breath} Souffle | {emote:unitValues.breathRegen} Récupération\n\nMissions :\n{emote:unitValues.gem} Gemmes | {emote:missions.campaign} Avancée de la campagne en %\n\nClassement et score :\n{emote:top.congrats} Classement | {emote:unitValues.score} Score\n\nClasse :\nVoir {command:classes}\n\nGloire et Ligue :\n{emote:unitValues.glory} Gloire | Voir {command:top glory}\n\nGuilde :\n{emote:other.guild} Guilde\n\nDestination :\nVoir {command:map}\n\nFamilier :\nVoir {command:pet}\n\n{emote:other.advice}-Les badges sont affichés sur votre profil sous forme de réactions."
       },
       "RARITY": {
         "description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
@@ -262,7 +262,7 @@
         "description": "Cette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
       },
       "SWITCH": {
-        "description": "Échange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire."
+        "description": "Échange un équipement de votre réserve avec ce que vous possédez actuellement sous condition qu'il soit de la même catégorie. Si aucun équipement dans la catégorie de l'objet à équiper n'est possédé avant l'exécution de la commande, il ne fera que le déplacer dans l'inventaire."
       },
       "TOP": {
         "description": "Affiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
@@ -289,7 +289,7 @@
     "usageFieldTitle": "Utilisation",
     "utilCommands": "{emote:collectors.question} Utiles :",
     "needHelp": "Besoin d'aide ?",
-    "needHelpDescription": "{emote:fightCommand.crossedSwords} Bonjour ! Ce message est envoyé suite à une demande d'aide.\n\nPour toute assistance concernant l'utilisation du jeu, il est possible de rejoindre le serveur du officiel !\n\nVous pourrez participer au développement du jeu et obtenir toutes les informations nécessaires !\n\nIl est également recommandé de consulter le guide détaillé du bot : https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Bonjour ! Ce message est envoyé suite à une demande d'aide.\n\nPour toute assistance concernant l'utilisation du jeu, il est possible de rejoindre le serveur officiel du bot !\n\nVous pourrez participer au développement du jeu et obtenir toutes les informations nécessaires !\n\nIl est également recommandé de consulter le guide détaillé du bot : https://guide.draftbot.com/"
   },
   "idea": {
     "description": "Vous pouvez proposer des suggestions et voter pour vos idées préférées via ce lien:\nhttps://feedback.draftbot.com/",
@@ -311,8 +311,8 @@
     "weapons_one": "Arme ({{count}}/{{max}}) :",
     "weapons_other": "Armes ({{count}}/{{max}}) :",
     "randomItemTitle": "{{pseudo}}, vous avez trouvé quelque chose !",
-    "randomItemFooter": "Vous avez déjà un équipement, souhaitez vous le vendre ?",
-    "randomItemFooterPotion": "Souhaitez vous détruire votre potion actuelle ?",
+    "randomItemFooter": "Vous avez déjà un équipement, souhaitez-vous le vendre ?",
+    "randomItemFooterPotion": "Souhaitez-vous détruire votre potion actuelle ?",
     "acceptedTitle": "{{pseudo}}, vous avez reçu un équipement !",
     "chooseItemToReplaceTitle": "Choisissez un objet à remplacer"
   },
@@ -322,7 +322,7 @@
     }
   },
   "language": {
-    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot sur ce serveur. Cette commande est réservée aux administrateurs du serveur.",
+    "description": "Utilisez le menu ci-dessous pour changer la langue utilisée par le bot. Cette modification ne s'appliquera que pour vous.",
     "languages": {
       "de": "Allemand",
       "en": "Anglais",
@@ -355,16 +355,16 @@
       "top_glory": "Personne ayant remporté le plus de gloire durant une saison de combat",
       "support": "Personne ayant le grade Soutien sur le serveur du bot",
       "translator": "Traducteur",
-      "advertiser": "Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres",
-      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter",
-      "christmas": "Badge pouvant être gagné chaque noël lors d'un concours",
+      "advertiser": "Personne ayant aidé à mettre le bot sur un serveur de plus de 2000 membres",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur Twitter",
+      "christmas": "Badge pouvant être gagné chaque Noël lors d'un concours",
       "top_week": "Personne ayant dominé un classement de la semaine",
       "random": "Badge donné de manière totalement random",
       "top_10_v1": "Joueur dans le top 10 au reset de la 1.0",
       "top_v1_player": "Meilleur joueur au moment du reset de la 1.0",
       "major_bug_reporter": "Personne ayant signalé des bugs majeurs",
       "bot_owner": "Propriétaire du bot",
-      "mission_completer": "Badge acheté dans le shop des Missions",
+      "mission_completer": "Badge acheté dans le shop des missions",
       "powerful_guild": "Membre d'une guilde puissante",
       "legendary_pet": "Joueur ayant dressé un familier légendaire",
       "donor": "Donateur",
@@ -387,7 +387,7 @@
     },
     "information": {
       "fieldName": "Informations :",
-      "fieldValue": "{emote:unitValues.health} {{health}}/{{maxHealth}} | {emote:unitValues.xp} {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
+      "fieldValue": "{emote:unitValues.health} {{health}} / {{maxHealth}} | {emote:unitValues.xp} {{experience}} / {{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destination :",
@@ -411,7 +411,7 @@
     },
     "ranking": {
       "fieldName": "Classement et Score :",
-      "fieldValue": "{emote:announcements.trophy} {{rank}}/{{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
+      "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
     },
     "unranked": {
       "fieldName": "Classement et Score :",
@@ -444,7 +444,7 @@
     "commandName": "rapport",
     "destinationTitle": "{{pseudo}}, destination du voyage",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les réactions pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
+    "doEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les boutons pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",
     "doPossibility": "{emote:commands.report} **Journal de {{pseudo}} {{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "Vous arrivez à votre destination quand soudain, vous entendez un bruit derrière vous... Un monstre vous attaque !"
@@ -572,14 +572,14 @@
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Badge \"Money Mouth\"",
-        "info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges utilisez la commande {command:help}."
+        "info": "Vous recevrez le badge automatiquement après le paiement. Pour plus d'informations sur les badges, utilisez la commande {command:help}."
       },
       "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Nouvel emplacement d'inventaire",
-        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement"
+        "info": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement."
       },
       "dailyPotion": {
-        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !"
+        "info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà, elle sera jetée sans remboursement !"
       },
       "smallGuildXp": {
         "name": "{emote:shopItems.smallGuildXp} Un peu d'xp pour votre guilde",
@@ -679,7 +679,7 @@
             "Les écailles de ce familier contiennent des propriétés anti-inflammatoires. Il vous enveloppera de sa protection contre les brûlures."
           ],
           "goesWild": [
-            "Attention, ce familier possède un tempérament sauvage ! En combat, il pourra entrer dans une rage berserker, frappant tous les adversaires à proximité.",
+            "Attention, ce familier possède un tempérament sauvage ! En combat, il pourra entrer dans une rage destructrice, frappant tous les adversaires à proximité.",
             "Son instinct primitif peut se réveiller à tout moment. Cette furie naturelle sera redoutable contre vos ennemis, mais restez prudent !",
             "Je détecte un potentiel de frénésie extraordinaire. Votre familier pourra déchaîner sa nature sauvage contre vos opposants."
           ],
@@ -851,12 +851,12 @@
             "semble être dans un profond mal-être. Vous devriez essayer de nourrir votre familier."
           ],
           "2": [
-            "semble encore sauvage. Occupez vous de votre familier afin de gagner sa confiance !",
+            "semble encore sauvage. Occupez-vous de votre familier afin de gagner sa confiance !",
             "semble ne pas vous apprécier. Si vous ne vous occupez pas de votre familier, vous n'obtiendrez jamais son amour !",
             "ne semble pas heureux. Vous devriez essayer de nourrir votre familier."
           ],
           "3": [
-            "semble encore un peu craintif. Occupez vous de votre familier afin de gagner toute sa confiance !",
+            "semble encore un peu craintif. Occupez-vous de votre familier afin de gagner toute sa confiance !",
             "semble toujours se méfier de vous. Continuez de vous occuper de votre familier afin d'obtenir son amour !",
             "semble commencer à se faire à vous. Essayez de nourrir votre familier régulièrement."
           ],
@@ -935,7 +935,7 @@
   },
   "guildShop": {
     "noFoodStorageSpace": "Vous n'avez pas assez de place dans votre réserve pour stocker cette nourriture.",
-    "empty": "Il n'y a plus rien à acheter pour le moment. Votre guilde est au niveau maximum et son stockde nourriture est plein.",
+    "empty": "Il n'y a plus rien à acheter pour le moment. Votre guilde est au niveau maximum et son stock de nourriture est plein.",
     "giveXpTitle": "Succès de l'achat",
     "giveXp": "{emote:unitValues.xp} Votre guilde a reçu **{{xp}}** points d'expérience."
   },
@@ -1021,8 +1021,8 @@
     "yourRankNoneGuild": "{emote:top.error} | Votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de points de guilde !",
     "yourRankAtPageGuild": "(Vous la trouverez à la page {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | Vous n'apparaissez pas dans ce classement puisque vous ne faites pas partie d'une guilde !",
-    "nobodyInTopPlayers": "Il n'y a actuellement personne dans le top ! Profitez en tant que vous le pouvez.",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez en tant que vous le pouvez.",
+    "nobodyInTopPlayers": "Il n'y a actuellement personne dans le top ! Profitez-en tant que vous le pouvez.",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez-en tant que vous le pouvez.",
     "invalidPage": "La page demandée n'existe pas. Veuillez réessayer avec une page comprise entre {{minPage}} et {{maxPage}}."
   },
   "fight": {
@@ -1030,7 +1030,7 @@
     "canceledTitle": "{{pseudo}}, vous avez annulé la recherche",
     "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Combattant : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
-      "common": ", vous souhaitez lancer une recherche de combat ?",
+      "common": ", souhaitez-vous lancer une recherche de combat ?",
       "rare": ", voudriez-vous participer à la recherche d'un combattant adéquat à votre puissance personnelle afin d'effectuer le duel subséquent ?"
     },
     "canceledDesc": "Vous avez annulé la recherche de combat.",
@@ -1107,7 +1107,7 @@
         ],
         "missed": [
           "réalise une {{attack}} ! On a vu mieux...",
-          "lance une {{attack}} ! Médiocre",
+          "lance une {{attack}} ! Médiocre.",
           "effectue une {{attack}} ! C'est pas très réussi.",
           "effectue une {{attack}} ! Ça n'est pas très efficace...",
           "choisit une {{attack}} ! Le résultat est assez pitoyable.",
@@ -1183,7 +1183,7 @@
         "{{winner}} a certainement fait un pas en avant significatif dans sa carrière en remportant ce match difficile."
       ],
       "draw": [
-        "Ce match a été un match très disputé entre deux joueurs talentueux.",
+        "Ce match a été un duel très disputé entre deux joueurs talentueux.",
         "{{player1}} et {{player2}} ont montré une détermination sans faille tout au long du match.",
         "Aucun des deux joueurs n'a pu prendre l'avantage décisif, ce qui a abouti à une égalité inattendue.",
         "Ce match sera probablement considéré comme l'un des plus serrés et des plus passionnants de l'histoire.",
@@ -1195,9 +1195,9 @@
         "{{player1}} et {{player2}} ont tous les deux montré pourquoi ils sont considérés comme de talentueux compétiteurs dans ce match épique."
       ],
       "sameElo": [
-        "Ce match a été un match passionnant entre deux joueurs de même niveau.",
+        "Ce match a été un duel passionnant entre deux joueurs de même niveau.",
         "{{player1}} et {{player2}} ont tous les deux livré une performance solide et équilibrée.",
-        "Ce match a été un match très serré avec des tactiques astucieuses des deux côtés.",
+        "Ce match a été très serré avec des tactiques astucieuses des deux côtés.",
         "Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
       ]
     }
@@ -1237,7 +1237,7 @@
     "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée.",
     "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
     "alreadyHavePet": "Vous avez déjà un familier dans votre inventaire.",
-    "noEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
+    "notEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
     "sellTitle": "Vente d'un familier",
     "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
@@ -1279,7 +1279,7 @@
     "desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.\n\u200B",
     "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nSouhaitez-vous changer pour cette classe ? Vous ne pourrez pas changer de classe avant le {{time}}.",
     "success": "{{pseudo}}, votre classe a été modifiée !",
-    "newClass": "Votre nouvelle classe est : {{name}}",
+    "newClass": "Votre nouvelle classe est : **{{name}}**",
     "confirm": "{{pseudo}}, vous avez sélectionné la classe suivante :",
     "error": {
       "canceledPurchase": "Changement de classe annulé.",
@@ -1348,7 +1348,7 @@
     "feedDescription": "Choisissez une nourriture pour **{{pet}}** :",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
     "cancelButton": "Annuler",
-    "feedWithoutGuildDesc": "Souhaitez vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+    "feedWithoutGuildDesc": "Souhaitez-vous acheter une friandise pour {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
@@ -1388,7 +1388,7 @@
       },
       "description": {
         "confirmation": {
-          "text": "{emote:guild.isOnBoat} Êtes vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "text": "{emote:guild.isOnBoat} Êtes-vous sûr de vouloir rejoindre votre guilde sur le bateau ?\nLe capitaine vous indique que le voyage **{{priceText}}**.\n\nVoulez-vous partir sur l'île ? Vous avez {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
           "priceText_zero": "est gratuit",
           "priceText_other": "coûtera {{gemsCost}} {emote:unitValues.gem}"
         },

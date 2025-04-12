@@ -18,7 +18,10 @@ import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
-	CommandInventoryPacketReq, CommandInventoryPacketRes, MainItemDisplayPacket, SupportItemDisplayPacket
+	CommandInventoryPacketReq,
+	CommandInventoryPacketRes,
+	MainItemDisplayPacket,
+	SupportItemDisplayPacket
 } from "../../../../Lib/src/packets/commands/CommandInventoryPacket";
 import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
@@ -79,7 +82,8 @@ function getEquippedEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.title", {
 				lng,
-				pseudo
+				pseudo,
+				interpolation: { escapeValue: false }
 			}))
 			.addFields([
 				DiscordItemUtils.getWeaponField(packet.data.weapon, lng),
@@ -97,7 +101,8 @@ function getBackupEmbed(packet: CommandInventoryPacketRes, pseudo: string, lng: 
 		return new DraftBotEmbed()
 			.setTitle(i18n.t("commands:inventory.stockTitle", {
 				lng,
-				pseudo
+				pseudo,
+				interpolation: { escapeValue: false }
 			}))
 			.addFields([
 				getBackupField(lng, packet.data.backupWeapons, packet.data.slots.weapons, DiscordItemUtils.getWeaponField, "weapons"),

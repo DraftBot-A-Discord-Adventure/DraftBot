@@ -1,5 +1,6 @@
 import {
-	CommandGuildShelterPacketReq, CommandGuildShelterPacketRes
+	CommandGuildShelterPacketReq,
+	CommandGuildShelterPacketRes
 } from "../../../../Lib/src/packets/commands/CommandGuildShelterPacket";
 import {
 	makePacket, PacketContext
@@ -32,7 +33,8 @@ export async function handleCommandGuildShelterRes(packet: CommandGuildShelterPa
 			lng,
 			guildName: packet.guildName,
 			count: packet.pets.length,
-			max: packet.maxCount
+			max: packet.maxCount,
+			interpolation: { escapeValue: false }
 		}))
 		.addFields(packet.pets.map((pet, index) => ({
 			name: i18n.t("commands:guildShelter.petFieldName", {

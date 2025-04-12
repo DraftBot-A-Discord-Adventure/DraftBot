@@ -4,7 +4,8 @@ import {
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
-	CommandGuildLeaveAcceptPacketRes, CommandGuildLeavePacketReq
+	CommandGuildLeaveAcceptPacketRes,
+	CommandGuildLeavePacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildLeavePacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
@@ -30,13 +31,15 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t(`commands:guildLeave.${keyDesc}`, {
 				lng,
 				newChiefPseudo,
-				guildName: data.guildName
+				guildName: data.guildName,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -62,12 +65,14 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 					lng,
 					pseudo: originalInteraction.user.displayName,
 					newChiefPseudo,
-					guildName: packet.guildName
+					guildName: packet.guildName,
+					interpolation: { escapeValue: false }
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t(`commands:guildLeave.${keyDesc}`, {
 							lng,
-							guildName: packet.guildName
+							guildName: packet.guildName,
+							interpolation: { escapeValue: false }
 						})
 					)
 			]
@@ -90,7 +95,8 @@ export async function handleCommandGuildLeaveRefusePacketRes(context: PacketCont
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:guildLeave.canceledDesc", {

@@ -9,7 +9,9 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import {
-	CommandUnlockAcceptPacketRes, CommandUnlockNotEnoughMoney, CommandUnlockPacketReq
+	CommandUnlockAcceptPacketRes,
+	CommandUnlockNotEnoughMoney,
+	CommandUnlockPacketReq
 } from "../../../../Lib/src/packets/commands/CommandUnlockPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
@@ -76,7 +78,8 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 			i18n.t("commands:unlock.confirmDesc", {
 				lng,
 				pseudo: unlockedPlayer.attributes.gameUsername,
-				price: UnlockConstants.PRICE_FOR_UNLOCK
+				price: UnlockConstants.PRICE_FOR_UNLOCK,
+				interpolation: { escapeValue: false }
 			})
 		);
 
@@ -98,7 +101,8 @@ export async function handleCommandUnlockRefusePacketRes(context: PacketContext)
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.canceledDesc", { lng })
@@ -126,12 +130,14 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
 						lng,
-						pseudo: unlockedPlayer.attributes.gameUsername
+						pseudo: unlockedPlayer.attributes.gameUsername,
+						interpolation: { escapeValue: false }
 					})
 				)
 		]

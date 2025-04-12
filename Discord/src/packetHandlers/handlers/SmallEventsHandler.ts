@@ -6,7 +6,10 @@ import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed"
 import { Language } from "../../../../Lib/src/Language";
 import { StringUtils } from "../../utils/StringUtils";
 import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
-import { SmallEventSmallBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
+import {
+	SmallEventBadIssue,
+	SmallEventSmallBadPacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
 import { SmallEventBigBadKind } from "../../../../Lib/src/types/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -30,7 +33,9 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
 import { interactOtherPlayerGetPlayerDisplay } from "../../smallEvents/interactOtherPlayers";
 import { SmallEventLeagueRewardPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
-import { printTimeBeforeDate } from "../../../../Lib/src/utils/TimeUtils";
+import {
+	minutesDisplay, printTimeBeforeDate
+} from "../../../../Lib/src/utils/TimeUtils";
 import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import { SmallEventBonusGuildPVEIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
 import { SmallEventBotFactsPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
@@ -607,6 +612,10 @@ export default class SmallEventsHandler {
 			return;
 		}
 		const lng = interaction.userLanguage;
+		const oneOrMoreDays = packet.values.mainValue > 1
+			? i18n.t("smallEvents:space.days_other", { lng })
+			: i18n.t("smallEvents:space.days_one", { lng });
+
 		await interaction.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
@@ -629,7 +638,7 @@ export default class SmallEventsHandler {
 								lng,
 								count: packet.values.mainValue
 							}),
-							days: i18n.t("smallEvents:space.days", { lng }),
+							days: oneOrMoreDays,
 							randomObjectName: packet.values.randomObjectName,
 							randomObjectDistance: packet.values.randomObjectDistance,
 							randomObjectDiameter: packet.values.randomObjectDiameter
@@ -674,12 +683,15 @@ export default class SmallEventsHandler {
 	async smallEventSmallBad(context: PacketContext, packet: SmallEventSmallBadPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const lng = interaction!.userLanguage;
+		const amountDisplay = packet.issue === SmallEventBadIssue.TIME
+			? minutesDisplay(packet.amount, lng)
+			: packet.amount;
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"smallBad",
 					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation(`smallEvents:smallBad.${packet.issue}.stories`, lng, { amount: packet.amount }),
+					+ StringUtils.getRandomTranslation(`smallEvents:smallBad.${packet.issue}.stories`, lng, { amount: amountDisplay }),
 					interaction.user,
 					lng
 				)

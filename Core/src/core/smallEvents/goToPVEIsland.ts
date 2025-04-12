@@ -6,7 +6,8 @@ import {
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventGoToPVEIslandAcceptPacket,
-	SmallEventGoToPVEIslandNotEnoughGemsPacket, SmallEventGoToPVEIslandRefusePacket
+	SmallEventGoToPVEIslandNotEnoughGemsPacket,
+	SmallEventGoToPVEIslandRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGoToPVEIslandPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import {
@@ -70,7 +71,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					reason: NumberChangeReason.SMALL_EVENT
 				});
 				response.push(makePacket(SmallEventGoToPVEIslandAcceptPacket, {
-					alone: !anotherMemberOnBoat, pointsWon: gainScore
+					alone: !anotherMemberOnBoat.length, pointsWon: gainScore
 				}));
 			}
 			else {

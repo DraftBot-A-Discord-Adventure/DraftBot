@@ -46,7 +46,8 @@ export async function createFightCollector(context: PacketContext, packet: React
 	const subTextKey = RandomUtils.draftbotRandom.bool(FightConstants.RARE_SUB_TEXT_INTRO) ? "rare" : "common";
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.title", {
 		lng,
-		pseudo: interaction.user.displayName
+		pseudo: interaction.user.displayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:fight.confirmDesc", {
@@ -95,7 +96,8 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.canceledTitle", {
 				lng,
-				pseudo: originalInteraction.user.displayName
+				pseudo: originalInteraction.user.displayName,
+				interpolation: { escapeValue: false }
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:fight.canceledDesc", {
@@ -137,7 +139,8 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 	const petDisplay = pet
 		? `\n\n${i18n.t("commands:fight.petOf", {
 			lng,
-			pseudo: fighterName
+			pseudo: fighterName,
+			interpolation: { escapeValue: false }
 		})}\n${DisplayUtils.getOwnedPetInlineDisplay(pet, lng)}`
 		: "";
 
@@ -145,7 +148,8 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 		name: "_ _",
 		value: `${i18n.t("commands:fight.actionsOf", {
 			lng,
-			pseudo: fighterName
+			pseudo: fighterName,
+			interpolation: { escapeValue: false }
 		})}\n${fightActionsDisplay}${petDisplay}`,
 		inline: true
 	});
@@ -166,7 +170,8 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 		lng,
 		fightInitiator: interaction.user.displayName,
-		opponent: opponentDisplayName
+		opponent: opponentDisplayName,
+		interpolation: { escapeValue: false }
 	}), interaction.user);
 
 	addFightProfileFor(embed, lng, interaction.user.displayName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
@@ -265,7 +270,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 		lng,
 		turn: packet.turns,
 		maxTurn: packet.maxTurns,
-		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp)),
+		time: minutesDisplay(millisecondsToMinutes(new Date().valueOf() - interaction.createdTimestamp), lng),
 		interpolation: { escapeValue: false }
 	});
 
@@ -284,7 +289,8 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 			lng,
 			pseudo: fighter.name,
 			energy: fighter.stats.finalEnergy,
-			maxEnergy: fighter.stats.maxEnergy
+			maxEnergy: fighter.stats.maxEnergy,
+			interpolation: { escapeValue: false }
 		});
 	});
 
@@ -294,12 +300,14 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 			? i18n.t("commands:fight.end.draw", {
 				lng,
 				player1: winnerName,
-				player2: looserName
+				player2: looserName,
+				interpolation: { escapeValue: false }
 			})
 			: i18n.t("commands:fight.end.win", {
 				lng,
 				winner: winnerName,
-				loser: looserName
+				loser: looserName,
+				interpolation: { escapeValue: false }
 			}))
 		.setDescription(description);
 
@@ -321,7 +329,8 @@ function generateFightRewardField(embed: DraftBotEmbed, packet: FightRewardPacke
 			if (packet.money <= 0 && packet.points <= 0) {
 				return i18n.t("commands:fight.fightReward.noReward", {
 					lng,
-					player: player1Username
+					player: player1Username,
+					interpolation: { escapeValue: false }
 				});
 			}
 			return [
@@ -329,14 +338,16 @@ function generateFightRewardField(embed: DraftBotEmbed, packet: FightRewardPacke
 					? i18n.t("commands:fight.fightReward.money", {
 						lng,
 						player: player1Username,
-						count: packet.money
+						count: packet.money,
+						interpolation: { escapeValue: false }
 					})
 					: "",
 				packet.points > 0
 					? i18n.t("commands:fight.fightReward.points", {
 						lng,
 						player: player1Username,
-						count: packet.points
+						count: packet.points,
+						interpolation: { escapeValue: false }
 					})
 					: ""
 			].filter(Boolean)
@@ -374,7 +385,8 @@ function generateGloryChangesField(embed: DraftBotEmbed, packet: FightRewardPack
 				i18n.t(`commands:fight.fightReward.glory${change >= 0 ? "Positive" : "Negative"}`, {
 					lng,
 					count: Math.abs(change),
-					player
+					player,
+					interpolation: { escapeValue: false }
 				}))
 		].join(""),
 		inline: false
@@ -399,7 +411,8 @@ function displayLeagueChangesIfNeeded(embed: DraftBotEmbed, packet: FightRewardP
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player1.newLeagueId]),
 					oldLeague: i18n.t(`models:leagues.${packet.player1.oldLeagueId}`, { lng }),
-					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng })
+					newLeague: i18n.t(`models:leagues.${packet.player1.newLeagueId}`, { lng }),
+					interpolation: { escapeValue: false }
 				})
 			]
 			: [],
@@ -411,7 +424,8 @@ function displayLeagueChangesIfNeeded(embed: DraftBotEmbed, packet: FightRewardP
 					oldLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.oldLeagueId]),
 					newLeagueEmoji: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.leagues[packet.player2.newLeagueId]),
 					oldLeague: i18n.t(`models:leagues.${packet.player2.oldLeagueId}`, { lng }),
-					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng })
+					newLeague: i18n.t(`models:leagues.${packet.player2.newLeagueId}`, { lng }),
+					interpolation: { escapeValue: false }
 				})
 			]
 			: []
