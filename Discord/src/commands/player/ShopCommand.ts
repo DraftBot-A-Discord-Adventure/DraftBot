@@ -13,6 +13,7 @@ import {
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
 	CommandShopNotEnoughCurrency,
+	ReactionCollectorShopCloseReaction,
 	ReactionCollectorShopData,
 	ReactionCollectorShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorShop";
@@ -369,7 +370,8 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		}));
 
 		if (buttonInteraction.customId === "refuse") {
-			await handleCommandShopClosed(context);
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, packet.reactions.findIndex(r =>
+				r.type === ReactionCollectorShopCloseReaction.name));
 			return;
 		}
 
@@ -526,11 +528,8 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 		await msgComponentInteraction.update({ components: [] });
 
 		if (msgComponentInteraction.customId === "closeShop") {
-			PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-				oldReason: BlockingConstants.REASONS.SHOP,
-				newReason: BlockingConstants.REASONS.NONE
-			}));
-			await handleCommandShopClosed(context);
+			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, msgComponentInteraction, packet.reactions.findIndex(r =>
+				r.type === ReactionCollectorShopCloseReaction.name));
 			return;
 		}
 
