@@ -364,11 +364,6 @@ async function manageBuyoutConfirmation(packet: ReactionCollectorCreationPacket,
 		}
 		await buttonInteraction.update({ components: [] });
 
-		PacketUtils.sendPacketToBackend(context, makePacket(ChangeBlockingReasonPacket, {
-			oldReason: BlockingConstants.REASONS.SHOP_CONFIRMATION,
-			newReason: BlockingConstants.REASONS.NONE
-		}));
-
 		if (buttonInteraction.customId === "refuse") {
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, packet.reactions.findIndex(r =>
 				r.type === ReactionCollectorShopCloseReaction.name));
