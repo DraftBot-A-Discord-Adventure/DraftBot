@@ -672,9 +672,9 @@
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
-          "1": "Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi.",
-          "2": "Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups.",
+          "0": "Vous les rejoignez... et perdez 3 heures à assister à une cérémonie religieuse.",
+          "1": "Vous les rejoignez... mais vous décidez de repartir au bout de 30 minutes, vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi.",
+          "2": "Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups.",
           "3": "Vous les rejoignez puis repartez aussi vite en volant un objet qui pourra vous être utile."
         },
         "text": "Accepter de la rejoindre."
