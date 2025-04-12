@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n Ce joueur possède {{badge}} badge au total !",
-      "numberBadge_other": "\n Ce joueur possède {{badge}} badges au total !",
+      "numberBadge_one": "\n Ce joueur possède {{count}} badge au total !",
+      "numberBadge_other": "\n Ce joueur possède {{count}} badges au total !",
       "title": "Liste des badges de {{pseudo}}"
     },
     "badges": {
-      "⚔️": "Vainqueur d'un tournoi",
-      "⚙️": "Équipe technique",
-      "⛑️": "Personne faisant partie des 20 premières à avoir rejoint le serveur du bot",
-      "✨": "Personne ayant remporté le plus de gloire durant une saison de combat",
-      "❤️": "Personne ayant le grade Soutien sur le serveur du bot",
-      "🌍": "Traducteur",
-      "🌟": "Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres",
-      "🍀": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter",
-      "🎄": "Badge pouvant être gagné chaque noël lors d'un concours",
-      "🎗️": "Personne ayant dominé un classement de la semaine",
-      "🎰": "Badge donné de manière totalement random",
-      "🏅": "Joueur dans le top 10 au reset de la 1.0",
-      "🏆": "Meilleur joueur au moment du reset de la 1.0",
-      "🐞": "Personne ayant signalé des bugs majeurs",
-      "👑": "Propriétaire du bot",
-      "💍": "Badge acheté dans le shop des Missions",
-      "💎": "Membre d'une guilde puissante",
-      "💞": "Joueur ayant dressé un familier légendaire",
-      "💸": "Donateur",
-      "🔖": "Adopteur de classes de la première heure",
-      "🕊️": "Personne ayant rapporté un bug exploitable sans en profiter",
-      "🖋️": "Rédacteur du bot",
-      "🗳️": "Personne ayant voté dans les 12 dernières heures",
-      "😂": "Badge offert à une personne drôle",
-      "🤑": "Badge acheté dans le shop",
-      "🥇": "Personne ayant atteint la première place du classement après le reset",
-      "🪩": "Membre d'une guilde très puissante"
+      "tournament_winner": "Vainqueur d'un tournoi",
+      "technical_team": "Équipe technique",
+      "first_20_members": "Personne faisant partie des 20 premières à avoir rejoint le serveur du bot",
+      "top_glory": "Personne ayant remporté le plus de gloire durant une saison de combat",
+      "support": "Personne ayant le grade Soutien sur le serveur du bot",
+      "translator": "Traducteur",
+      "advertiser": "Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter",
+      "christmas": "Badge pouvant être gagné chaque noël lors d'un concours",
+      "top_week": "Personne ayant dominé un classement de la semaine",
+      "random": "Badge donné de manière totalement random",
+      "top_10_v1": "Joueur dans le top 10 au reset de la 1.0",
+      "top_v1_player": "Meilleur joueur au moment du reset de la 1.0",
+      "major_bug_reporter": "Personne ayant signalé des bugs majeurs",
+      "bot_owner": "Propriétaire du bot",
+      "mission_completer": "Badge acheté dans le shop des Missions",
+      "powerful_guild": "Membre d'une guilde puissante",
+      "legendary_pet": "Joueur ayant dressé un familier légendaire",
+      "donor": "Donateur",
+      "early_class_adopter": "Adopteur de classes de la première heure",
+      "good_bug_reporter": "Personne ayant rapporté un bug exploitable sans en profiter",
+      "redactor": "Rédacteur du bot",
+      "voter": "Personne ayant voté dans les 12 dernières heures",
+      "funny": "Badge offert à une personne drôle",
+      "rich": "Badge acheté dans le shop",
+      "top_1_before_reset": "Personne ayant atteint la première place du classement après le reset",
+      "very_powerful_guild": "Membre d'une guilde très puissante"
     },
     "fightRanking": {
       "fieldName": "Gloire et ligue :",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familier n°{{number}}",
     "noPetMessage": "Il semblerait qu'aucun familier ne soit dans le refuge.",
     "warningFull": "Le refuge est plein ! Aucun nouveau familier ne pourra être accueilli tant qu'aucun familier du refuge n'aura été libéré ou vendu."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Le joueur a déjà tous les badges qui existent dans le jeu.",
+    "selectBadgePlaceholder": "Sélectionnez un badge à donner au joueur",
+    "selectBadgeTitle": "{{pseudo}}, sélection d'un badge à donner",
+    "selectBadgeDesc": "Choisissez un badge à donner au joueur dans une des listes ci-dessous :"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
+    "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
   }
 }
