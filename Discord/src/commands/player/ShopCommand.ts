@@ -48,6 +48,7 @@ import {
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { ReactionCollectorResetTimerPacketReq } from "../../../../Lib/src/packets/interaction/ReactionCollectorResetTimer";
 import { escapeUsername } from "../../utils/StringUtils";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 function getPacket(): CommandShopPacketReq {
 	return makePacket(CommandShopPacketReq, {});
@@ -158,7 +159,7 @@ export async function handleCommandShopBadgeBought(context: PacketContext): Prom
 				}), interaction.user)
 				.setDescription(i18n.t("commands:shop.badgeBought", {
 					lng,
-					badgeName: "rich"
+					badgeName: Badge.RICH
 				}))
 		]
 	});
