@@ -12,25 +12,27 @@ import { WitchActionOutcomeType } from "../../../Lib/src/types/WitchActionOutcom
 import { GenerateRandomItemOptions } from "../core/utils/ItemUtils";
 
 /**
- * The base class for the different events that can happen after the player encounters a feral pet
+ * Base class for all witch actions
  */
 export class WitchAction extends Data<string> {
 	public readonly isIngredient: boolean;
 
 	public readonly forceEffect: boolean;
 
-	public readonly effectType: string;
+	public readonly effectName: string;
 
 	public readonly timePenalty: number;
 
 	private outcomeProbabilities: OutcomeProbabilities;
 
+	/**
+	 * Use the function stored in the witchAction ts file to generate the potion following specific characteristics
+	 */
 	public generatePotionWitchAction(): GenerateRandomItemOptions | null {
 		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
 		if (withActionFunctions && withActionFunctions.generatePotion) {
 			return withActionFunctions.generatePotion();
 		}
-
 		return null;
 	}
 
@@ -51,17 +53,30 @@ export class WitchAction extends Data<string> {
 		);
 	}
 
+	/**
+	 * Generate a random outcome based on the defined probabilities of the witch action
+	 */
 	public generateOutcome(): WitchActionOutcomeType {
-		const outcomeTypesKeys = Object.keys(WitchActionOutcomeType)
-			.map(k => k.toLowerCase());
-		let outcome = 0;
-		let seed = RandomUtils.randInt(0, SmallEventConstants.WITCH.MAX_PROBABILITY)
-			- this.outcomeProbabilities[outcomeTypesKeys[WitchActionOutcomeType.POTION] as keyof WitchActionOutcomeType];
-		while (seed > 0) {
-			seed -= this.outcomeProbabilities[outcomeTypesKeys[outcome] as keyof WitchActionOutcomeType] ?? 0;
-			outcome++;
+		// Get total probability weight
+		const totalProbability = Object.values(this.outcomeProbabilities).reduce((sum, prob) => sum + prob, 0);
+
+		// Generate a random number between 0 and total probability
+		const random = RandomUtils.randInt(0, totalProbability);
+
+		// Track cumulative probability as we check each outcome
+		let cumulativeProbability = 0;
+
+		// Check each outcome type
+		for (const [outcomeKey, probability] of Object.entries(this.outcomeProbabilities)) {
+			cumulativeProbability += probability;
+
+			if (random <= cumulativeProbability) {
+				return WitchActionOutcomeType[outcomeKey.toUpperCase() as keyof typeof WitchActionOutcomeType];
+			}
 		}
-		return outcome;
+
+		// Fallback to the first outcome if nothing matched (shouldn't happen)
+		return WitchActionOutcomeType[Object.keys(WitchActionOutcomeType)[0] as keyof typeof WitchActionOutcomeType];
 	}
 
 	public checkOutcomeProbabilities(): void {
@@ -72,7 +87,7 @@ export class WitchAction extends Data<string> {
 	}
 
 	private getEffectType(): Effect {
-		return Effect.getById(this.effectType) ?? Effect.OCCUPIED;
+		return Effect.getById(this.effectName) ?? Effect.OCCUPIED;
 	}
 }
 
@@ -93,6 +108,10 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 
 	private static witchActionsFunctionsCache: Map<string, WitchActionFuncs>;
 
+	/**
+	 * Load the witch action functions from the folder witch these functions describe potion characteristics and missions
+	 * @param id
+	 */
 	public static getWitchActionFunction(id: string): WitchActionFuncs {
 		if (!WitchActionDataController.witchActionsFunctionsCache) {
 			WitchActionDataController.witchActionsFunctionsCache = new Map<string, WitchActionFuncs>();
@@ -109,7 +128,7 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
+				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).witchSmallEvent;
 				const fightActionName = file.substring(0, file.length - 3);
 				WitchActionDataController.witchActionsFunctionsCache.set(fightActionName, defaultFunc);
 			}

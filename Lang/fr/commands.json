@@ -1297,7 +1297,7 @@
     "soldMessage": "Vous avez vendu {{item}} pour **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}, vous avez vendu un équipement.",
     "potionDestroyedTitle": "Vous avez détruit une potion.",
-    "potionDestroyedMessage": "Votre potion \"{{item}}\" a été versée dans un évier.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}, vous avez reçu un équipement que vous possédiez déjà.",
     "titleChoiceEmbed": "{{pseudo}}, vente d'objet",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",

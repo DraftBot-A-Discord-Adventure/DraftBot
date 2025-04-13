@@ -127,10 +127,9 @@ function getEndCallback(player: Player): EndCallback {
 			outcome,
 			ingredientId: selectedEvent.id,
 			isIngredient: selectedEvent.isIngredient,
-			effectId: selectedEvent.effectType ?? Effect.OCCUPIED.id,
+			effectId: selectedEvent.effectName ?? Effect.OCCUPIED.id,
 			timeLost: selectedEvent.timePenalty,
-			lifeLoss: SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT,
-			forceEffect: selectedEvent.forceEffect ?? false
+			lifeLoss: SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT
 		});
 
 		// There is a chance that the player will get a no effect potion, no matter what he chose
