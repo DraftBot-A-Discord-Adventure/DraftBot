@@ -48,11 +48,11 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
 			sender.getAttack(),
-			350 - sender.getSpeed()
+			receiver.getSpeed()
 		],
 		defenderStats: [
 			receiver.getDefense() * 2,
-			350 - receiver.getSpeed()
+			sender.getSpeed() * 0.75
 		],
 		statsEffect: [
 			0.8,
