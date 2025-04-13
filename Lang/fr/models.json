@@ -188,7 +188,7 @@
       "name_other": "Attaques gourdin"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Si l’attaquant dispose de plus de 45% de son énergie, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
     },
@@ -709,7 +709,7 @@
       "particle": "vers le"
     },
     "1100": {
-      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Evidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Rivage gla-gla",
       "particle": "vers le"
     },
@@ -759,7 +759,7 @@
       "particle": "vers le"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Mont Célestrum",
       "particle": "vers le"
     },
@@ -809,7 +809,7 @@
       "particle": "vers le"
     },
     "22222": {
-      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu",
+      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu.",
       "name": "Zone de test des monstres",
       "particle": "vers la"
     },
@@ -839,12 +839,12 @@
       "particle": "vers la"
     },
     "28": {
-      "description": "Entrée du château du roi, entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
+      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Portes du château",
       "particle": "vers les"
     },
     "29": {
-      "description": "Immense salle ornée de nombreuses oeuvres d'art",
+      "description": "Immense salle ornée de nombreuses oeuvres d'art.",
       "name": "Salle de réception",
       "particle": "vers la"
     },
@@ -854,7 +854,7 @@
       "particle": "vers"
     },
     "32": {
-      "description": "La route qui mène au château du Roi",
+      "description": "La route qui mène au château du Roi.",
       "name": "Route vers le château du Roi",
       "particle": "vers"
     },
@@ -1594,13 +1594,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} La guilde {{guild}} monte de niveau !",
-    "levelUpDesc": "La guilde est désormais niveau **{{level}}**"
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}, vous avez été mis K.O. !",
     "koDesc": "{emote:effects.dead} Utilisez la commande {command:respawn} pour recommencer à jouer.",
     "koDmTitle": "Bonjour Combattant !",
-    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}, évanouissement",
     "leavePVEIslandDescStart": "{emote:effects.confounded} Vous sentez vos forces vous quitter, vous êtes à bout. Vous vous évanouissez par terre...\n\n{emote:unitValues.lostMoney} Argent perdu : **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Points de guilde perdus : **{{guildPointsLost}}**",
