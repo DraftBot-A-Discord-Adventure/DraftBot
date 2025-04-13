@@ -6,6 +6,6 @@ import {
 export const witchSmallEvent: WitchActionFuncs = {
 	generatePotion: () => ({
 		maxRarity: ItemRarity.RARE,
-		nature: ItemNature.ATTACK
+		subType: ItemNature.ATTACK
 	})
 };

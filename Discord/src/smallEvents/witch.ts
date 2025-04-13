@@ -99,9 +99,9 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 	const lng = context.discord!.language;
 	const introToLoad = packet.isIngredient ? "smallEvents:witch.witchEventResults.ingredientIntros" : "smallEvents:witch.witchEventResults.adviceIntros";
 	const timeOutro = packet.effectId === Effect.OCCUPIED.id && packet.timeLost > 0
-		? StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", lng, { lostTime: packet.timeLost })
+		? ` ${StringUtils.getRandomTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", lng, { lostTime: packet.timeLost })}`
 		: "";
-	const outcomeTranslationToLoad = packet.forceEffect || packet.outcome === WitchActionOutcomeType.EFFECT
+	const outcomeTranslationToLoad = packet.outcome === WitchActionOutcomeType.EFFECT
 		? `smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}`
 		: `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
 	await interaction.editReply({

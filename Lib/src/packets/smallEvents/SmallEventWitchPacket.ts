@@ -16,6 +16,4 @@ export class SmallEventWitchResultPacket extends SmallEventPacket {
 	lifeLoss!: number;
 
 	outcome!: number;
-
-	forceEffect!: boolean;
 }

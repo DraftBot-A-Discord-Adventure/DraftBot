@@ -8,6 +8,6 @@ export const witchSmallEvent: WitchActionFuncs = {
 	generatePotion: () => ({
 		minRarity: ItemRarity.RARE,
 		maxRarity: ItemRarity.SPECIAL,
-		nature: RandomUtils.draftbotRandom.bool(0.625) ? ItemNature.SPEED : ItemNature.TIME_SPEEDUP
+		subType: RandomUtils.draftbotRandom.bool(0.625) ? ItemNature.SPEED : ItemNature.TIME_SPEEDUP
 	})
 };
