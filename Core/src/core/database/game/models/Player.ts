@@ -55,8 +55,6 @@ import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../../../Lib/src/types/Badge";
-
-// todo: convert below to import ?
 import moment = require("moment");
 import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
 
