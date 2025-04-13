@@ -53,7 +53,7 @@
   },
   "guildInvite": {
     "title": "{{pseudo}}Está convidado a juntar-se a um grémio!",
-    "confirmDesc": "{emote:collectors.question}{{guildName}}Gostarias de te juntar ao grémio?",
+    "confirmDesc": "{emote:collectors.question} Gostarias de te juntar à guilda{{guildName}}?",
     "successTitle": "{{pseudo}} {{guildName}} juntou-se à associação!",
     "successDesc": "O atraso antes da próxima recompensa diária da guilda foi reiniciado.",
     "refusedTitle": "{{guildName}} Ainda não entraste para a guilda!",
@@ -65,7 +65,7 @@
   },
   "guildKick": {
     "title": "Expulsão do grémio",
-    "confirmDesc": "{emote:collectors.question} {{kickedPseudo}}{{guildName}}Tens a certeza de que queres ser expulso do grémio?",
+    "confirmDesc": "{emote:collectors.question} Tens a certeza de que queres expulsar o {{kickedPseudo}} da associação{{guildName}}?",
     "acceptedDesc": "{{kickedPseudo}} foi expulso do grémio!",
     "canceledTitle": "Cancelamento da expulsão",
     "canceledDesc": "{{kickedPseudo}} não foi expulso do grémio!",
@@ -84,14 +84,14 @@
     "confirmDesc": "{emote:collectors.question} {{elderPseudo}}{{guildName}}tornar-se-á o membro mais velho do grémio.",
     "successElderAddTitle": "{{elderPseudo}} {{guildName}} é o mais recente membro da associação!",
     "acceptedDesc": "O mais velho ajuda o líder a gerir o grémio. Por isso, escolhe-o com cuidado! {command:guildelder} {command:guildelderremove}Mas não te preocupes, se não estiveres satisfeito com o teu ancião, podes substituí-lo com o comando , ou se te sentires um ditador, podes removê-lo para sempre com o .",
-    "canceledDesc": "O mais velho não foi promovido.",
+    "canceledDesc": "O jogador não foi promovido a sénior.",
     "canceledTitle": "Cancelamento tido em conta."
   },
   "guildLeave": {
     "title": "{{pseudo}}confirmação :",
-    "confirmDesc": "{emote:collectors.question}{{guildName}}Queres mesmo deixar o grémio?",
-    "confirmChiefDesc": "{emote:collectors.question}{{guildName}}Queres mesmo **destruir definitivamente** o grémio ` `?",
-    "confirmChiefDescWithElder": "{emote:collectors.question}{{guildName}} {{newChiefPseudo}} Queres mesmo deixar o grémio? será o seu líder.",
+    "confirmDesc": "{emote:collectors.question} Queres mesmo deixar a{{guildName}}guild?",
+    "confirmChiefDesc": "{emote:collectors.question} Queres mesmo **destruir permanentemente** a guilda{{guildName}}?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Queres mesmo deixar a associação{{guildName}}? {{newChiefPseudo}} será o seu líder.",
     "canceledDesc": "A sua partida foi cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} deixou o grémio!",
     "leavingSuccess": "És um pobre cowboy solitário e estás muito longe de casa...",
@@ -115,7 +115,7 @@
   },
   "guildDescription": {
     "title": "{{pseudo}}Está a confirmar a sua escolha?",
-    "confirmDesc": "{emote:collectors.question}  Queres mesmo mudar a descrição da tua guilda?\n {{description}}Nova descrição: .",
+    "confirmDesc": "{emote:collectors.question}  Querem mesmo mudar a descrição do vosso grémio?\n Nova descrição: {{description}}.",
     "acceptedDesc": "A descrição do grémio foi editada!",
     "canceledDesc": "Não editaste a descrição do grémio!",
     "canceledTitle": "Cancelamento tido em conta.",
@@ -135,7 +135,7 @@
         "description": "Permite-te mudar de classe. Mais informações sobre as classes estão disponíveis no guia do jogador: https://guide.draftbot.com"
       },
       "CLASSES_INFO": {
-        "description": "Permite uma comparação rápida das estatísticas das turmas e das informações a ler pelo utilizador que efectua a encomenda."
+        "description": "Permite uma comparação rápida de estatísticas e informações de classe a serem lidas pelo utilizador que executa o comando."
       },
       "DAILY_BONUS": {
         "description": "Alguns itens dão-lhe um bónus diário. Utilize este comando para obter estes bónus. {command:inventory}Para saber se um item lhe dá um bónus diário, utilize o comando ."
@@ -205,7 +205,7 @@
         "description": "Junte-se a um membro da Guilda num barco com destino a uma ilha misteriosa."
       },
       "LANGUAGE": {
-        "description": "Altera o idioma usado pelo bot para inglês. Pode ser usado se for um administrador num servidor."
+        "description": "Escolha o idioma a ser utilizado para as suas interações com o bot de entre 6 idiomas disponíveis:\n\n- Francês\n- Inglês\n- Espanhol\n- Alemão\n- Italiano\n- Português"
       },
       "LEAGUE_BONUS": {
         "description": "Receber um prémio da liga todos os domingos."
@@ -214,13 +214,13 @@
         "description": "Apresenta informações sobre o seu destino, bem como o mapa."
       },
       "MISSIONS": {
-        "description": "Apresenta a lista de missões disponíveis."
+        "description": "Apresenta a lista das missões que lhe foram atribuídas."
       },
       "MISSIONS_SHOP": {
         "description": "Apresenta a loja da missão."
       },
       "NOTIFICATIONS": {
-        "description": "Ativa ou desactiva as notificações de bots."
+        "description": "Permite-te definir como queres receber as notificações do bot. Podes escolher se queres receber notificações (e onde as mostrar) para relatórios e/ou recompensas de guildas."
       },
       "PET": {
         "description": "Apresenta informações sobre o seu animal de estimação."
@@ -238,13 +238,13 @@
         "description": "Permite-lhe vender um animal de estimação. Aplicam-se as seguintes condições: \n{{petSellMinPrice}}{{petSellMaxPrice}}- o preço de venda deve ser maior que ` {emote:unitValues.money}` e menor que ` {emote:unitValues.money}`. \n- O vendedor não ganhará dinheiro com a transação, apenas experiência de guilda. \n- O vendedor e o comprador não podem ser membros da mesma guilda."
       },
       "PET_TRANSFER": {
-        "description": "Permite-te transferir uma mascote de ou para o Grémio. Se não for dado um número, a mascote no teu inventário será movida para a cabana da guilda. Caso contrário, ela será trocada com a mascote da guilda cuja localização corresponda ao número dado."
+        "description": "Permite-te transferir uma mascote de ou para o Grémio. Podes escolher entre deixar a tua mascote na cabana, trocá-la por outra ou retirar uma da cabana."
       },
       "PING": {
         "description": "Mostra se o bot está online.\n\n(Nota: O tempo mostrado é o tempo de resposta do bot e não o seu ping: um tempo de resposta correto será inferior a 500ms. :clock1:"
       },
       "PROFILE": {
-        "description": "Mostra informações sobre o seu personagem:\n\n😃 Estado de saúde | Apelido | Nível\n\n឵឵Informações:\n❤️ Vida | ⭐ XP | {emote:unitValues.money} Prata\n\nEstatísticas :\n⚡ Energia | 🗡️ Ataque | 🛡️ Defesa | 🚀 Velocidade | 🌬️ Respiração | 🫁 Recuperação\n\nMissões :\n💎 Gemas | 📖 Campanha avançada %\n\nClassificação e pontuação:\n🏆 Classificação | 🏅 Pontuação\n\nClasse:\nVer {command:classes}\n\nGlória e Liga:\n{emote:unitValues.glory} Glória | Ver {{topGloryCommandMention}}\n\nGrémio:\n🏟️ Grémio\n\nDestino:\nVer {{mapCommandMention}}\n\nFamiliar:\nVer {{petCommandMention}}\n\n💡-Os emblemas são apresentados no teu perfil como uma reação."
+        "description": "Apresenta informações sobre a tua personagem:\n\n{emote:effects.none} Saúde | Apelido | Nível\n\n឵឵Informações :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinheiro Estatísticas :\n{emote:unitValues.energy} Energia | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defesa | {emote:unitValues.breath} Respiração | {emote:unitValues.breathRegen} Recuperação :\n\nMissões :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progresso da campanha em %\n\nClassificação e pontuação :\n{emote:top.congrats} Classificação | {emote:unitValues.score} Pontuação\n\nClasse:\nVer {command:classes}\n\nGlória e Liga:\n{emote:unitValues.glory} Glória | Ver {command:top glory}\n\nGrémio:\n{emote:other.guild} Grémio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Os emblemas são apresentados no seu perfil sob a forma de reacções."
       },
       "RARITY": {
         "description": "Mostra a probabilidade de ter um item de acordo com a sua raridade."
@@ -262,7 +262,7 @@
         "description": "Esta ordem permite-te gastar o teu dinheiro para facilitar a tua aventura. Para além das 4 escolhas básicas que estarão permanentemente disponíveis, poderás desfrutar de uma poção exclusiva todos os dias, disponível para venda apenas durante 24 horas."
       },
       "SWITCH": {
-        "description": "Troca o item na tua reserva com o item na caixa \"item\" do teu inventário."
+        "description": "Troca uma peça de equipamento da tua reserva pelo que tens atualmente, desde que seja da mesma categoria. Se não tiveres nenhum equipamento da mesma categoria que o item que queres equipar, ele irá simplesmente movê-lo para o teu inventário."
       },
       "TOP": {
         "description": "Mostra a classificação geral do jogo para cada 15 jogadores. Os jogadores no mesmo servidor que tu estão marcados com um ponto azul."
@@ -289,7 +289,7 @@
     "usageFieldTitle": "Utilização",
     "utilCommands": "{emote:collectors.question} Informações úteis:",
     "needHelp": "Precisa de ajuda?",
-    "needHelpDescription": "{emote:fightCommand.crossedSwords} Olá ! Esta mensagem foi enviada em resposta a um pedido de ajuda.\n\nSe precisares de ajuda para utilizar o jogo, podes juntar-te ao servidor oficial!\n\nPoderás participar no desenvolvimento do jogo e obter todas as informações de que necessitas!\n\nRecomendamos também que consultes o guia detalhado do bot: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Olá ! Esta mensagem foi enviada em resposta a um pedido de ajuda.\n\nSe precisares de ajuda para usar o jogo, podes juntar-te ao servidor oficial de bots!\n\nPoderás participar no desenvolvimento do jogo e obter todas as informações de que necessitas!\n\nRecomendamos também que consultes o guia detalhado do bot: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "\nPode fazer sugestões e votar nas suas ideias favoritas através desta ligação: https://feedback.draftbot.com/",
@@ -322,7 +322,7 @@
     }
   },
   "language": {
-    "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot neste servidor. Este comando é reservado aos administradores do servidor.",
+    "description": "Utilize o menu abaixo para alterar o idioma utilizado pelo bot. Esta alteração só se aplicará a si.",
     "languages": {
       "de": "alemão",
       "en": "Inglês",
@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n {{badge}} Este jogador tem um total de emblemas!",
-      "numberBadge_other": "\n {{badge}} Este jogador tem um total de emblemas!",
+      "numberBadge_one": "\n Este jogador tem um total de {{count}} emblemas!",
+      "numberBadge_other": "\n Este jogador tem {{count}} emblemas no total!",
       "title": "{{pseudo}}Lista de distintivos"
     },
     "badges": {
-      "⚔️": ":crossed_swords: Vencedor do torneio",
-      "⚙️": ":gear: Equipa técnica",
-      "⛑️": ":helmet_with_cross: Uma das primeiras 20 pessoas a juntar-se ao servidor bot.",
-      "✨": "{emote:unitValues.glory} A pessoa que ganhou mais glória durante uma época de combates.",
-      "❤️": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
-      "🌍": ":earth_africa: Tradutor",
-      "🌟": ":star2: Pessoa que ajudou a colocar o bot num serviço com mais de 2000 membros`",
-      "🍀": ":four_leaf_clover: Os crachás podem ser ganhos de vez em quando em competições no servidor do bot ou no twitter.",
-      "🎄": ":christmas_tree: Distintivo que pode ser ganho todos os Natais num concurso.",
-      "🎗️": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
-      "🎰": ":slot_machine: Crachá distribuído de forma completamente aleatória",
-      "🏅": ":medal: Os 10 melhores jogadores na reposição 1.0",
-      "🏆": ":trophy: Melhor jogador na altura da reposição 1.0",
-      "🐞": ":lady_beetle: Pessoas que comunicaram erros graves",
-      "👑": ":crown: Proprietário do bot",
-      "💍": ":ring: Distintivo comprado na loja das Missões",
-      "💎": ":gem: Membro de um grémio poderoso",
-      "💞": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
-      "💸": ":money_with_wings: Doador",
-      "🔖": ":bookmark: Adoção precoce das aulas",
-      "🕊️": ":dove: Pessoa que comunicou uma falha explorável sem tirar partido dela`.",
-      "🖋️": ":pen_fountain: editor de bots",
-      "🗳️": ":ballot_box: Quem votou nas últimas 12 horas?",
-      "😂": ":joy: Distintivo dado a uma pessoa engraçada",
-      "🤑": ":money_mouth: Distintivo comprado na loja",
-      "🥇": ":first_place: Pessoa que atingiu o topo da classificação após o reset`.",
-      "🪩": ":mirror_ball: Membro de um grémio muito poderoso"
+      "tournament_winner": ":crossed_swords: Vencedor do torneio",
+      "technical_team": ":gear: Equipa técnica",
+      "first_20_members": ":helmet_with_cross: Uma das primeiras 20 pessoas a juntar-se ao servidor bot.",
+      "top_glory": "{emote:unitValues.glory} A pessoa que ganhou mais glória durante uma época de combates.",
+      "support": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
+      "translator": ":earth_africa: Tradutor",
+      "advertiser": "Pessoa que ajudou a colocar o bot num servidor com mais de 2000 membros",
+      "contest": "Os crachás podem ser ganhos ocasionalmente em concursos no servidor bot ou no Twitter",
+      "christmas": "Distintivo a ganhar todos os Natais num concurso",
+      "top_week": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
+      "random": ":slot_machine: Crachá distribuído de forma completamente aleatória",
+      "top_10_v1": ":medal: Os 10 melhores jogadores na reposição 1.0",
+      "top_v1_player": ":trophy: Melhor jogador na altura da reposição 1.0",
+      "major_bug_reporter": ":lady_beetle: Pessoas que comunicaram erros graves",
+      "bot_owner": ":crown: Proprietário do bot",
+      "mission_completer": "Distintivo adquirido na loja de missões",
+      "powerful_guild": ":gem: Membro de um grémio poderoso",
+      "legendary_pet": ":revolving_hearts: Jogador que treinou um animal de estimação lendário",
+      "donor": ":money_with_wings: Doador",
+      "early_class_adopter": ":bookmark: Adoção precoce das aulas",
+      "good_bug_reporter": ":dove: Pessoa que comunicou uma falha explorável sem tirar partido dela`.",
+      "redactor": ":pen_fountain: editor de bots",
+      "voter": ":ballot_box: Quem votou nas últimas 12 horas?",
+      "funny": ":joy: Distintivo dado a uma pessoa engraçada",
+      "rich": ":money_mouth: Distintivo comprado na loja",
+      "top_1_before_reset": ":first_place: Pessoa que atingiu o topo da classificação após o reset`.",
+      "very_powerful_guild": ":mirror_ball: Membro de um grémio muito poderoso"
     },
     "fightRanking": {
       "fieldName": "Glória e campeonato :",
@@ -387,7 +387,7 @@
     },
     "information": {
       "fieldName": "Mais informações :",
-      "fieldValue": ":heart: {{health}}{{maxHealth}} :star: {{experience}}{{experienceNeededToLevelUp}} {emote:unitValues.money} {{money}}/ | / |"
+      "fieldValue": "{emote:unitValues.health} {{health}} / {{maxHealth}} | {emote:unitValues.xp} {{experience}} / {{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destino :",
@@ -411,7 +411,7 @@
     },
     "ranking": {
       "fieldName": "Classificação e pontuação :",
-      "fieldValue": ":trophy: {{rank}}{{numberOfPlayer}} :medal: {{score}}/ |"
+      "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
     },
     "unranked": {
       "fieldName": "Classificação e pontuação :",
@@ -444,7 +444,7 @@
     "commandName": "relatório",
     "destinationTitle": "{{pseudo}}destino de viagem",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: {{pseudo}} {{event}}\n** :** *- Utilizar reacções para realizar uma ação ⚠️ Não responder é considerado uma escolha separada.",
+    "doEvent": "{emote:commands.report} ** {{pseudo}} :** {{event}}\n*- Utilize os botões para realizar uma ação {emote:collectors.warning} Não responder é considerado uma escolha separada.*",
     "doPossibility": ":newspaper: **Journal de {{pseudo}} {{result}}** | {{emoji}}{{event}}{{alte}}",
     "encounterMonster": [
       "Chegas ao teu destino quando, de repente, ouves um barulho atrás de ti... Um monstro está a atacar-vos!"
@@ -572,11 +572,11 @@
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Distintivo \"Money Mouth",
-        "info": "Receberá o crachá automaticamente após o pagamento. {command:help}Para mais informações sobre os crachás, utilize o comando ."
+        "info": "Receberá o crachá automaticamente após o pagamento. Para mais informações sobre os crachás, utilize o comando {command:help}."
       },
       "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} Nova localização do inventário",
-        "info": "É possível selecionar uma categoria de inventário à qual adicionar uma localização"
+        "info": "É possível selecionar uma categoria de inventário à qual adicionar uma localização."
       },
       "dailyPotion": {
         "info": "Receberás uma poção que poderás decidir se queres ou não guardar. Se já a tiveres, será deitada fora sem direito a reembolso!"
@@ -635,7 +635,7 @@
         "name": "{emote:shopItems.lovePointsValue} Médico veterinário do tribunal",
         "info": "Obtenha informações pormenorizadas sobre o seu animal de estimação.",
         "giveTitle": "{{pseudo}}compra efectuada!",
-        "giveDesc": "Depois de muito tempo a estudar o estado de saúde do seu animal, recebe finalmente o relatório do veterinário:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Pontuação do amor**: {{actualLP}} / 100\n{emote:petInformation.diet} **Regime dietético** : {{diet}}\n{emote:petInformation.nextFeed} **Próxima fome** : {{nextFeed}}\n{emote:petInformation.age} **Idade**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Efeito de combate**: {{commentOnFightEffect}}",
+        "giveDesc": "Após um exame minucioso do seu animal de estimação e do seu estado de saúde, o veterinário dar-lhe-á o seu relatório:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Pontuação do amor**: {{actualLP}} / 100\n{emote:petInformation.diet} **Regime alimentar** : {{diet}}\n{emote:petInformation.nextFeed} **Próxima fome** : {{nextFeed}}\n{emote:petInformation.age} **Idade**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Efeito de luta**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} faminto",
         "commentOnFightEffect": {
           "bite": [
@@ -679,7 +679,7 @@
             "As escamas deste animal contêm propriedades anti-inflamatórias. Protege-o contra as queimaduras."
           ],
           "goesWild": [
-            "Cuidado, esta mascote tem um temperamento selvagem! Em combate, pode entrar em fúria berserker, atacando os adversários próximos.",
+            "Cuidado, este animal de estimação tem um temperamento selvagem! Em combate, pode entrar numa fúria destrutiva, atacando os adversários próximos.",
             "O seu instinto primitivo pode ser despertado a qualquer momento. Esta fúria natural será formidável contra os seus inimigos, mas tenha cuidado!",
             "Detecto o potencial para um frenesim extraordinário. A tua mascote poderá libertar a sua natureza selvagem nos teus adversários."
           ],
@@ -856,7 +856,7 @@
             "não parece feliz. Devias tentar alimentar o teu animal de estimação."
           ],
           "3": [
-            "ainda parece um pouco apreensivo. Cuide do seu animal de estimação e ganhe a sua confiança!",
+            "ainda parece um pouco apreensivo. Cuide do seu animal de estimação para ganhar a sua total confiança!",
             "parece desconfiar sempre de si. Continue a cuidar do seu animal de estimação para ganhar o seu amor!",
             "parece estar a habituar-se a si. Tente alimentar o seu animal regularmente."
           ],
@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Distintivo de Mestre de Missões",
+        "name": "{emote:badges.mission_completer} Distintivo de Mestre de Missões",
         "info": "Receberá o seu crachá dentro de algumas horas após o pagamento. {command:help}Para mais informações sobre os crachás, utilize o comando ."
       }
     }
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| O grémio ganhou experiência `+ `",
       "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| Os membros do Grémio receberam ` `.",
       "item": "{emote:rewards:item} | Os membros do Grémio receberam um artigo ao acaso.",
-      "badge": "{emote:badges.guildBadge} | Os membros do Grémio receberam um crachá.",
-      "superBadge": "{emote:badges.superGuildBadge} | Os membros do Grémio receberam um crachá.",
+      "badge": "{emote:badges.powerful_guild} | Os membros do Grémio receberam um crachá.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Os membros do Grémio receberam um crachá.",
       "fullHeal": "{emote:shopItems.regen} | Os membros da guilda estão completamente curados.",
       "advanceTime": "{emote:unitValues.time} {{quantity}}| h.",
       "partialHeal": "{emote:rewards.partialHeal} {{quantity}} {emote:unitValues.health}| Os membros da Guilda foram parcialmente curados `+ `",
@@ -1030,7 +1030,7 @@
     "canceledTitle": "{{pseudo}}anulou a pesquisa",
     "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Fighter : {{pseudo}}| {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
-      "common": "Estás à procura de uma luta?",
+      "common": "Gostaria de iniciar uma pesquisa de combate?",
       "rare": "Gostarias de participar na procura de um lutador com a tua força pessoal para o duelo seguinte?"
     },
     "canceledDesc": "Anulou a busca de combate.",
@@ -1107,7 +1107,7 @@
         ],
         "missed": [
           "faz um {{attack}} ! Já vimos melhor...",
-          "lançar um {{attack}} ! Medíocre",
+          "lançar um {{attack}} ! Medíocre.",
           "faz um {{attack}} ! Não parece muito bom.",
           "faz um {{attack}} ! Não é muito eficaz...",
           "escolhe um {{attack}} ! O resultado é bastante patético.",
@@ -1183,7 +1183,7 @@
         "{{winner}} deu um importante passo em frente na sua carreira ao vencer este difícil jogo."
       ],
       "draw": [
-        "Foi um jogo muito disputado entre dois jogadores talentosos.",
+        "Este jogo foi um duelo muito disputado entre dois jogadores talentosos.",
         "{{player1}} e {{player2}} mostraram uma determinação inabalável durante todo o jogo.",
         "Nenhum dos jogadores foi capaz de assumir a liderança decisiva, resultando num empate inesperado.",
         "Este jogo ficará provavelmente registado como um dos mais renhidos e emocionantes da história.",
@@ -1195,7 +1195,7 @@
         "{{player1}} e {{player2}} mostraram porque é que são considerados concorrentes talentosos neste combate épico."
       ],
       "sameElo": [
-        "Foi um jogo emocionante entre dois jogadores do mesmo nível.",
+        "Este jogo foi um duelo emocionante entre dois jogadores do mesmo nível.",
         "{{player1}} e {{player2}} tiveram desempenhos sólidos e equilibrados.",
         "Foi um jogo muito disputado, com algumas tácticas inteligentes de ambas as partes.",
         "Os espectadores assistiram a um jogo épico entre dois jogadores talentosos que se defrontaram em igualdade de circunstâncias."
@@ -1205,14 +1205,14 @@
   "switch": {
     "titleSuccess": "{{pseudo}}Encomendar agora!",
     "switchingDouble": "{{item1}} {{item2}} e foram trocados!",
-    "switchingSingle_male": "{{item1}} foi equipado!",
-    "switchingSingle_female": "{{item1}} foi equipada!",
+    "switchingSingle": "Está equipado: {{item1}} .",
     "noItemToSwitch": "Não é preciso equipar nada!",
     "cancelled": "Ação cancelada!",
     "switchSelectionTitle": "{{pseudo}}equipar um objeto",
     "switchSelectionDescription": "Escolhe um item para equipar da lista abaixo:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}anulou a ação",
     "cancelled": "Não bebeste a tua poção!",
     "noActiveObject": "Infelizmente, não tens nada para beber no teu inventário!",
     "objectIsActiveDuringFights": "Esta bebida não pode ser bebida agora. Será usada automaticamente na próxima vez que lutares!",
@@ -1236,7 +1236,7 @@
     "noOneAvailable": "Infelizmente, ninguém parece estar disponível para comprar o seu animal de estimação. A sua venda foi anulada.",
     "sameGuild": "Não podes comprar esta mascote porque o vendedor faz parte da tua guilda.",
     "alreadyHavePet": "Já tens um animal de estimação no teu inventário.",
-    "noEnoughMoney": "Não tem dinheiro suficiente para efetuar esta transação. Falta-lhe `{{missingMoney}}{emote:unitValues.money}`.",
+    "notEnoughMoney": "Não tem dinheiro suficiente para efetuar esta transação. Falta-lhe `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "O vendedor já não pode vender o seu animal de estimação. A venda foi anulada.",
     "sellTitle": "Vender um animal de estimação",
     "sellDescription": "{{pseudo}} gostaria de vender um animal de estimação para{{price}}{emote:unitValues.money}",
@@ -1278,7 +1278,7 @@
     "desc": "Para mais informações, selecione um curso da lista abaixo.\n",
     "display": "{{name}}\n\n{emote:commands.classesDescription}{{description}}\n\nGostaria de mudar para esta turma? Não será possível mudar de turma antes de {{time}}.",
     "success": "{{pseudo}}a sua turma foi modificada!",
-    "newClass": "A sua nova classe é: {{name}}",
+    "newClass": "A vossa nova turma é : **{{name}}**",
     "confirm": "{{pseudo}}selecionou a classe seguinte:",
     "error": {
       "canceledPurchase": "Mudança de turma cancelada.",
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familiar n°{{number}}",
     "noPetMessage": "Parece que não há animais de estimação no refúgio.",
     "warningFull": "O refúgio está cheio! Não serão aceites novos animais de estimação até que todos os animais de estimação do refúgio tenham sido libertados ou vendidos."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "O jogador já tem todos os emblemas do jogo.",
+    "selectBadgePlaceholder": "Selecionar um crachá para oferecer ao jogador",
+    "selectBadgeTitle": "{{pseudo}}selecionar um crachá para doar",
+    "selectBadgeDesc": "Escolhe um crachá para oferecer ao jogador de uma das listas abaixo:"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}modificar um jogador",
+    "playerModifiedDesc": "O jogador foi modificado com sucesso!\n\nID: **{{keycloakId}}**\nApelido: **{{pseudo}}**"
   }
 }
