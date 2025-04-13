@@ -460,7 +460,7 @@
     "money": "** | {emote:unitValues.money} Argent gagné : **{{money}}",
     "moneyLoose": "** | {emote:unitValues.lostMoney} Argent perdu : **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}, récompenses de combat",
-    "monsterRewardGuildXp": "{emote:unitValues.xp} XP de guilde gagnée: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} XP de guilde gagnée : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Argent gagné : **{{money}}**\n{emote:unitValues.xp} XP gagnée : **{{experience}}**",
     "monsterRewardsGuildPoints": "{emote:unitValues.guildPoint} Points de guilde gagnés : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, récompenses de combat",
@@ -686,12 +686,12 @@
           "healEveryone": [
             "Ce familier possède des capacités curatives remarquables ! Il pourra soigner vos blessures et celles de vos alliés en plein combat.",
             "Ses sécrétions contiennent des enzymes régénérantes puissantes. Il les utilisera pour vous maintenir en forme pendant les affrontements.",
-            "J'observe des propriétés biorégénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
+            "J'observe des propriétés bio-régénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
           ],
           "helpBreathe": [
             "Sa capacité respiratoire est extraordinaire ! Il pourra vous partager son oxygène lors des combats éprouvants ou sous l'eau.",
             "Ce spécimen possède des branchies modifiées fascinantes. Il vous aidera à reprendre votre souffle dans les moments critiques.",
-            "Son système pulmonaire hyperévolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
+            "Son système pulmonaire hyper évolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
           ],
           "horn": [
             "Cette corne est une arme naturelle redoutable ! Votre familier l'utilisera pour empaler vos adversaires avec une force impressionnante.",
@@ -714,7 +714,7 @@
             "Sa biochimie unique lui permet de produire des agents paralysants. Vos opposants seront figés, incapables de riposter."
           ],
           "peck": [
-            "Le bec de votre familier est affûté comme une dague ! Il lui permettera d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
+            "Le bec de votre familier est affûté comme une dague ! Il lui permettra d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
             "La structure osseuse de son bec est parfaitement adaptée pour frapper. Il piquera vos ennemis aux points sensibles avec précision.",
             "Ce familier maîtrise l'art d'être pénible avec son bec. Vos opposants seront affaiblis par ses attaques incessantes."
           ],
@@ -756,7 +756,7 @@
           "protectAgainstCold": [
             "Son pelage possède des propriétés isolantes exceptionnelles ! Il vous protégera efficacement contre les attaques de glace.",
             "Sa température corporelle est naturellement élevée. À vos côtés, vous résisterez parfaitement aux environnements glacials et aux sorts de froid.",
-            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givréès."
+            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givrées."
           ],
           "rainbowPower": [
             "Ce familier peut canaliser l'énergie prismatique environnante ! Il convertira les attaques magiques récentes en soins pour vous.",
@@ -786,7 +786,7 @@
           "smallClaws": [
             "Malgré leur taille modeste, ses griffes sont remarquablement acérées ! Il infligera des égratignures précises et irritantes.",
             "Ce petit familier compense sa taille par la finesse de ses griffes. Il visera les points sensibles de vos adversaires.",
-            "Ses petites griffes sont parfaites pour harceler l'adversare. Il déconcentrera vos ennemis avec des égratignures stratégiques."
+            "Ses petites griffes sont parfaites pour harceler l'adversaire. Il déconcentrera vos ennemis avec des égratignures stratégiques."
           ],
           "smallRegen": [
             "Son métabolisme régénérateur est contagieux ! Il partagera ses capacités de guérison avec vous pendant les combats.",
@@ -821,7 +821,7 @@
           "swallow": [
             "Les observations cliniques montrent que son appareil digestif est capable d'avaler des proies, neutralisant ainsi l'adversaire.",
             "Ses capacités digestives permettent l'ingestion complète de l'ennemi, constituant une méthode de défense alternative intéressante.",
-            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accuellir un adversaire..."
+            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accueillir un adversaire..."
           ],
           "triesToHelp": [
             "Les tests comportementaux suggèrent que le familier tente d'assister son maître en apportant une aide mesurée, bien que ses contributions restent limitées.",
@@ -1304,7 +1304,7 @@
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "Êtes-vous sûr de vouloir jeter {{item}} ?",
     "sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :",
-    "menuPlaceholder": "Choississez un objet à vendre",
+    "menuPlaceholder": "Choisissez un objet à vendre",
     "cancel": "Annuler",
     "selectMenuDescSell": "Vendre pour {{value}} {emote:unitValues.money}",
     "selectMenuDescThrow": "Jeter {emote:other.trash}"
