@@ -16,7 +16,6 @@ const use: FightActionFunc = (sender, receiver) => {
 	);
 	playerSender.player.setRage(0, NumberChangeReason.RAGE_EXPLOSION_ACTION)
 		.then();
-	receiver.damage(damages);
 	return {
 		attackStatus: FightActionStatus.NORMAL,
 		customMessage: true,
