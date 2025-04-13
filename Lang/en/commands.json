@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Use this command to challenge other players on the same server as you.\nBattles take place on a turn-by-turn basis. Each turn, you can choose an action to perform.\n\nFor more information, please visit the guide page: https://guide.draftbot.com/v/en/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Displays the ranking of the fights in 15 player intervals. Player's league is also displayed. Players in the same server as you are shown by a blue dot."
@@ -460,14 +460,14 @@
     "money": "** | {emote:unitValues.money} Money earned: **{{money}}",
     "moneyLoose": "** | :money_with_wings: Money lost: **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}, fight rewards",
-    "monsterRewardGuildXp": ":star: Guild XP earned: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} Guild XP earned: **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Money earned: **{{money}}**\n:star: XP earned: **{{experience}}**",
     "monsterRewardsGuildPoints": ":mirror_ball: Guild points earned: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, fight rewards",
     "newBigEvent": ":flag_gb: You have reached **{{destination}}**!",
     "noFight": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | You make a quick getaway and find a little hiding place! The monster is waiting patiently outside...",
     "points": ":** {emote:unitValues.score} Points earned: **{{score}}",
-    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Start the fight\n{emote:pveFights.waitABit} Wait a while before starting the fight\n\n*- Use reactions to perform an action*.",
+    "pveEvent": "{emote:commands.report} **{{pseudo}}'s log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Start the battle\n{emote:pveFights.waitABit} Wait a while before starting the battle\n\n*- Use the buttons to select an action*",
     "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | You decide not to engage in combat for the time being, and take refuge in a nearby hiding place. You'll have to face the beast eventually, as you can find no other way out.",
     "remainingEnergyTitle": "Remaining energy:",
     "startPoint": "Start point:",
@@ -686,12 +686,12 @@
           "healEveryone": [
             "This pet has remarkable healing powers! It can heal your wounds and those of your allies in the midst of battle.",
             "Its secretions contain powerful regenerating enzymes. He'll use them to keep you in shape during confrontations.",
-            "I observe unique bioregenerative properties in his body. Your pet will share this vital energy with you and your companions."
+            "I observe unique bio-regenerative properties in its body. Your pet will share this vital energy with you and your companions."
           ],
           "helpBreathe": [
             "Its breathing capacity is extraordinary! It can share its oxygen with you during tough battles or underwater.",
             "This specimen has fascinating modified gills. It will help you catch your breath in critical moments.",
-            "Its hyper-evolved pulmonary system enables it to store oxygen. It will transfer it to you when you're out of breath."
+            "Its highly evolved pulmonary system enables it to store oxygen. It'll transfer it to you when you'll run out of breath."
           ],
           "horn": [
             "This horn is a formidable natural weapon! Your pet will use it to impale your opponents with impressive force.",
@@ -714,7 +714,7 @@
             "Its unique biochemistry enables it to produce paralyzing agents. Your opponents will be frozen, unable to retaliate."
           ],
           "peck": [
-            "Your pet's beak is as sharp as a dagger! It will enable him to harass your opponents with precise, painful blows during combat.",
+            "Your pet's beak is as sharp as a dagger! It will help it harass your opponents with precise, painful blows during a fight.",
             "The bone structure of its beak is perfectly suited to striking. It will sting your enemies at sensitive points with precision.",
             "This pet has mastered the art of being annoying with its beak. Your opponents will be weakened by its relentless attacks."
           ],
@@ -756,7 +756,7 @@
           "protectAgainstCold": [
             "Its coat has exceptional insulating properties! It will protect you effectively against ice attacks.",
             "His body temperature is naturally high. By your side, you'll be perfectly equipped to withstand icy environments and cold spells.",
-            "This pet generates a remarkable thermal field. It will envelop you in its protective warmth against icy attacks."
+            "This pet generates a remarkable thermal field. It'll envelop you in its protective warmth against cold attacks."
           ],
           "rainbowPower": [
             "This pet can channel the surrounding prismatic energy! It will convert recent magical attacks into healing for you.",
@@ -786,7 +786,7 @@
           "smallClaws": [
             "Despite their modest size, their claws are remarkably sharp! They inflict precise, irritating scratches.",
             "This little pet makes up for its size with its slender claws. He'll target your opponents' sensitive points.",
-            "Its small claws are perfect for harassing opponents. He'll distract your enemies with strategic scratches."
+            "Its tiny claws are perfect for harassing opponents. It'll distract your enemies with strategic scratches."
           ],
           "smallRegen": [
             "His regenerative metabolism is contagious! He'll share his healing abilities with you in battle.",
@@ -821,7 +821,7 @@
           "swallow": [
             "Clinical observations show that its digestive tract is capable of swallowing prey, thus neutralizing its adversary.",
             "Its digestive capacity allows it to completely ingest the enemy, making it an interesting alternative defense method.",
-            "Anatomical studies reveal a particularly elastic throat, suitable for accuating an opponent..."
+            "Anatomical studies reveal a particularly elastic throat, suitable for accommodating an opponent..."
           ],
           "triesToHelp": [
             "Behavioral tests suggest that the pet tries to assist its master by providing measured help, although its contributions remain limited.",
