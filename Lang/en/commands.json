@@ -36,8 +36,8 @@
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
     "members": "{emote:guild.membersCount} {{memberCount}}/{{maxGuildMembers}} members",
     "infoTitle": "Information",
-    "islandInfo": ":island: Number of members on the mysterious island: {{membersOnPveIsland}}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "islandInfo": "{emote:guild.isOnPveIsland} Number of members on the mysterious island: {{membersOnPveIsland}}\n",
+    "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
@@ -53,23 +53,23 @@
   },
   "guildInvite": {
     "title": "{{pseudo}}, you were invited to join a guild!",
-    "confirmDesc": "{emote:collectors.question} Would you like to join the{{guildName}}guild?",
+    "confirmDesc": "{emote:collectors.question} Would you like to join the {{guildName}} guild?",
     "successTitle": "{{pseudo}} joined the {{guildName}} guild!",
-    "successDesc": "The delay before the next guild daily reward has been reset",
+    "successDesc": "The delay before the next guild daily reward has been reset.",
     "refusedTitle": "You haven't joined the {{guildName}} guild!",
     "errors": {
-      "guildIsFull": "Your guild is full and cannot accommodate more members.",
+      "guildIsFull": "Your guild is full and cannot welcome more members.",
       "playerIsAlreadyInAGuild": "This player already belongs to a guild.",
-      "playerIsOnPveIsland": "{{pseudo}} cannot join the guild as it is currently on a boat or mystery. {{pseudo}} must be located on the main continent in order to join a guild."
+      "playerIsOnPveIsland": "{{pseudo}} cannot join the guild as it is currently on a boat or in a mystery island. {{pseudo}} must be located in the main continent in order to join a guild."
     }
   },
   "guildKick": {
-    "title": "Kick Guild",
-    "confirmDesc": "{emote:collectors.question} Are you sure you want to expel {{kickedPseudo}} from the{{guildName}}guild?",
+    "title": "Kick from a guild",
+    "confirmDesc": "{emote:collectors.question} Are you sure you want to expel {{kickedPseudo}} from the {{guildName}} guild?",
     "acceptedDesc": "{{kickedPseudo}} has been expelled from the guild!",
-    "canceledTitle": "Kick canceled",
+    "canceledTitle": "Kick cancelled",
     "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
-    "noPlayer": "Player is not in guild.",
+    "noPlayer": "The player is not in the guild.",
     "notSameGuild": "You cannot kick a player who is not in your guild.",
     "himself": "You cannot kick yourself from the guild.",
     "blocked": "The player you are trying to expel is currently blocked. Please wait a while before trying again."
@@ -78,50 +78,50 @@
     "playerNotFound": "This player was not found.",
     "notSameGuild": "This player does not belong to your guild.",
     "notChiefError": "You must be the leader of the guild to perform this order.",
-    "chiefError": "As the leader of the guild, you may not be able to use the Wing.",
+    "chiefError": "As the leader of the guild, you may not be able to be the elder.",
     "alreadyElder": "The player is already in your guild.",
-    "title": "{{pseudo}}, confirm your choice?",
-    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} will become the wing of the `{{guildName}}` guild.",
-    "successElderAddTitle": "{{elderPseudo}} is the new wing of the {{guildName}} guild!",
-    "acceptedDesc": "The Warrior is used to assist the leader in the management of the guild. We must therefore choose it with caution. But rest assured, if you were not satisfied with your wing, you can replace it with the {command:guildelder}command, or if you have a dictator status, you can definitively delete it with {command:guildelderremove}.",
-    "canceledDesc": "The player has not been promoted as a senior.",
+    "title": "{{pseudo}}, do you confirm your choice?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} will become the elder of the `{{guildName}}` guild.",
+    "successElderAddTitle": "{{elderPseudo}} is the new elder of the {{guildName}} guild!",
+    "acceptedDesc": "The elder assits the leader in the management of the guild. You must therefore choose it with caution. But rest assured, if you were not satisfied with your elder, you can replace it with the {command:guildelder} command, or if you have a dictator's mindset, you can definitively remove it with {command:guildelderremove}.",
+    "canceledDesc": "The player has not been promoted as an elder.",
     "canceledTitle": "Cancellation taken into account."
   },
   "guildLeave": {
     "title": "{{pseudo}}, confirmation:",
-    "confirmDesc": "{emote:collectors.question} Do you really want to leave the{{guildName}}guild?",
-    "confirmChiefDesc": "{emote:collectors.question} Do you really want to **destroy** the{{guildName}}guild for good?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the{{guildName}}guild? {{newChiefPseudo}} will become its leader.",
+    "confirmDesc": "{emote:collectors.question} Do you really want to leave the {{guildName}} guild?",
+    "confirmChiefDesc": "{emote:collectors.question} Do you really want to **destroy** the {{guildName}} guild for good?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the {{guildName}} guild? {{newChiefPseudo}} will become its leader.",
     "canceledDesc": "Your departure was cancelled.",
     "successTitle": "{{pseudo}} left the {{guildName}} guild!",
     "leavingSuccess": "You are a poor lonely cowboy and you are far away from home...",
     "destroySuccess": "The guild {{guildName}} was successfully disbanded.",
     "newChiefTitle": "{{newChiefPseudo}} is the new leader of the {{guildName}} guild!",
     "notInAGuild": "It would appear that you are no longer part of a guild.",
-    "canceledTitle": "Cancellation"
+    "canceledTitle": "Cancellation taken into account"
   },
   "guildElderRemove": {
-    "noElder": "The guild does not have a wing.",
+    "noElder": "The guild does not have an elder.",
     "notSameGuild": "This player does not belong to your guild.",
-    "notChiefError": "You must be the leader of the guild to perform this order.",
-    "chiefError": "As a guild leader, you cannot be recovered from the Wing position.",
-    "notElder": "The player is not your guild's wing.",
-    "title": "{{pseudo}}, confirm your choice?",
+    "notChiefError": "You must be the leader of the guild to use this command.",
+    "chiefError": "As a guild leader, you cannot be downgraded to an elder.",
+    "notElder": "The player is not your guild's elder.",
+    "title": "{{pseudo}}, do you confirm your choice?",
     "confirmDesc": "{emote:collectors.question} {{elderPseudo}} will become a simple member of the `{{guildName}}` guild.",
-    "successElderRemoveTitle": "Guild {{guildName}} loses its wing",
-    "acceptedDesc": "The wings lost their rank.",
-    "canceledDesc": "Wings were not recovered.",
+    "successElderRemoveTitle": "Guild {{guildName}} loses its elder",
+    "acceptedDesc": "The elder lost their rank.",
+    "canceledDesc": "The elder hasn't been downgraded.",
     "canceledTitle": "Cancellation taken into account."
   },
   "guildDescription": {
-    "title": "{{pseudo}}, confirm your choice?",
+    "title": "{{pseudo}}, do you confirm your choice?",
     "confirmDesc": "{emote:collectors.question}  Do you really want to change your guild description?\n New description: {{description}}.",
-    "acceptedDesc": "The guild description has been successfully edited!",
-    "canceledDesc": "You did not edit the guild description!",
+    "acceptedDesc": "The guild's description has been successfully edited!",
+    "canceledDesc": "You did not edit the guild's description!",
     "canceledTitle": "Cancellation taken into account.",
     "successDescriptionTitle": "{{pseudo}}, confirmation:",
     "noGuild": "Looks like you are no longer in a guild.",
-    "notAnElder": "You no longer have permission to perform this command."
+    "notAnElder": "You no longer have permission to use this command."
   },
   "help": {
     "aliasFieldTitle": "Alias",
@@ -135,7 +135,7 @@
         "description": "Change your class. More information about class is available through the player guide: https://guide.draftbot.com/v/en"
       },
       "CLASSES_INFO": {
-        "description": "Reads a quick comparison of statistics and class information available to the user placing the order."
+        "description": "Reads a quick comparison of statistics and class information available to the user using the command."
       },
       "DAILY_BONUS": {
         "description": "Some items give you a daily bonus. Use this command to obtain said bonuses. You can learn if an item gives you a daily bonus by using the command {command:inventory}."
@@ -190,7 +190,7 @@
         "description": "Displays guild rankings in increments of 15 guilds. Guilds are ranked according to points collected on mysterious islands."
       },
       "HELP": {
-        "description": ":expressionless:"
+        "description": "{emote:other.expressionless}"
       },
       "IDEA": {
         "description": "Give a link to submit suggestions and vote for those already submitted."
@@ -235,7 +235,7 @@
         "description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
       },
       "PET_SELL": {
-        "description": "Can sell a pet. The following conditions apply: \n - the selling price must be higher at `{{petSellMinPrice}}{emote:unitValues.money}` and `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- The vendor will not earn money during the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+        "description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{{petSellMinPrice}}{emote:unitValues.money}` and lower than `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRANSFER": {
         "description": "Allows you to transfer a pet to or from the guild. You'll have the choice of dropping the pet you're with into the shelter, swapping it with another, or removing one from the shelter."
@@ -277,10 +277,10 @@
         "description": "Allows you to get the link to vote for the bot."
       }
     },
-    "forMoreHelp": ":arrow_forward: For more help: ",
+    "forMoreHelp": "{emote:messages.item} For more help: ",
     "forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/)!",
-    "guildCommands": ":stadium: Guild:",
-    "helpEmbedDescription": ":arrow_forward: If you want more information about a specific command click here: {{helpCommandMention}}, and complete the parameter with a command. :wink:",
+    "guildCommands": "{emote:guild.icon} Guild:",
+    "helpEmbedDescription": "{emote:messages.item} If you want more information about a particular order, click here: {command:help}, and give the command you are having problems with in parameters. {emote:other.wink}",
     "helpEmbedTitle": "{{pseudo}}, here is the list of available commands:",
     "missionCommands": "{emote:missions.sideMission} Mission:",
     "petCommands": "{emote:userKind.pet} Pets:",
@@ -311,14 +311,14 @@
     "weapons_one": "Weapon ({{count}}/{{max}}):",
     "weapons_other": "Weapons ({{count}}/{{max}}):",
     "randomItemTitle": "{{pseudo}}, you found something!",
-    "randomItemFooter": "Do you already own a piece of equipment? Would you like to sell it?",
+    "randomItemFooter": "You already have an equipment, would you like to sell it?",
     "randomItemFooterPotion": "Would you like to destroy your current potion?",
-    "acceptedTitle": "{{pseudo}}, you have received an equipment!",
-    "chooseItemToReplaceTitle": "Choose an object to replace"
+    "acceptedTitle": "{{pseudo}}, you have received an item!",
+    "chooseItemToReplaceTitle": "Choose an item to replace"
   },
   "invite": {
     "discord": {
-      "main": "Join the community ! Use this link: https://discord.gg/acGNvzEY92 :smiley:"
+      "main": "Join the community! Use this link: https://discord.gg/acGNvzEY92 {emote:effects.none}"
     }
   },
   "language": {
@@ -334,11 +334,11 @@
     "newLanguageSetDescription": "DraftBot will now speak in English with you ! {emote:languageFlavors.en}",
     "newLanguageSetTitle": "Language changed",
     "selectLanguage": "Select a language",
-    "title": ":earth_africa: Language selection"
+    "title": "{emote:commands.language} Language selection"
   },
   "ping": {
     "discord": {
-      "create": ":ping_pong: Pong",
+      "create": "{emote:commands.ping} Pong",
       "edit": ":ping_pong: Pong\n\n**Total latency:** {{totalLatency}} ms\n**Discord latency:** {{discordApiLatency}} ms\n**Shard number:** {{shardId}}\n**Total shards:** {{totalShards}} (+main shard)"
     }
   },
@@ -349,23 +349,23 @@
       "title": "List of {{pseudo}}'s badges"
     },
     "badges": {
-      "tournament_winner": ":crossed_swords: `Winner of a tournament`",
-      "technical_team": ":gear: `Technical team`",
-      "first_20_members": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
-      "top_glory": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
-      "support": ":heart: `Person who has the Support role on the bot server`",
-      "translator": ":earth_africa: `Translator`",
+      "tournament_winner": "Tournament winner",
+      "technical_team": "Member of the technical team",
+      "first_20_members": "One of the 20 first members of the bot's server",
+      "top_glory": "Person who has won the most glory during a fighting season",
+      "support": "Person who has the Support role on the bot's server",
+      "translator": "Translator",
       "advertiser": "Person who helped put the bot on a server with over 2000 members",
-      "contest": "Badge can be earned from time to time in contests on the bot server or on Twitter",
-      "christmas": "Badge to be won every Christmas in a competition",
-      "top_week": ":reminder_ribbon: `Person who dominated a weekly ranking`",
-      "random": ":slot_machine: `Badge given in a completely random way`",
-      "top_10_v1": "{emote:unitValues.score} `Player in top 10 to reset 1.0`",
-      "top_v1_player": ":trophy: `Best player by rank at the 1.0 reset`",
-      "major_bug_reporter": ":lady_beetle: `Person who reported major bugs`",
-      "bot_owner": ":crown: `Bot owner`",
+      "contest": "Badge winnable from time to time in contests on the bot's server or on Twitter",
+      "christmas": "Badge winnable each Christmas in a contest",
+      "top_week": "Person who dominated a weekly ranking",
+      "random": "Badge given in a completely random way",
+      "top_10_v1": "Player in top 10 before the 1.0 reset",
+      "top_v1_player": "Best player by rank at the 1.0 reset",
+      "major_bug_reporter": "Person who reported major bugs",
+      "bot_owner": "Bot owner",
       "mission_completer": "Badge purchased in the missions shop",
-      "powerful_guild": ":gem: `Member of a powerful guild`",
+      "powerful_guild": "Member of a powerful guild",
       "legendary_pet": "Player who trained a legendary pet",
       "donor": "Donator",
       "early_class_adopter": "Early class adopter",
