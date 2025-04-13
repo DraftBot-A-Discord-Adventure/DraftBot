@@ -188,7 +188,7 @@
       "name_other": "Ataques a clubes"
     },
     "chargeUltimateAttack": {
-      "description": "Requiere un turno para cargar el ataque Si el atacante tiene menos del 45% de su energía, este ataque no puede fallar. Si el atacante tiene más del 45% de su energía, la precisión de este ataque es de 70. Este ataque sólo se puede utilizar una vez por jugador y por batalla.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Ataque definitivo",
       "name_other": "Ataques definitivos"
     },
@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Repite la misma acción que tu oponente. No funciona con ataques mágicos o divinos, o si el oponente no ha atacado.",
       "name_one": "Réplica de ataque",
-      "customMessage": "no puede defenderse.",
+      "customMessage": "ne parvient pas à riposter.",
       "name_other": "Los ataques contraatacan"
     },
     "createBomb": {
@@ -709,7 +709,7 @@
       "particle": "a la"
     },
     "1100": {
-      "description": "Esta orilla es lo primero que se ve al llegar a la isla de hielo. Debe su nombre al ruido que hacían los marineros al desembarcar. Obviamente, regresaban de la isla volcánica, donde la temperatura es mucho más cálida.",
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Gla-gla litoral",
       "particle": "a la"
     },
@@ -759,7 +759,7 @@
       "particle": "a la"
     },
     "15": {
-      "description": "El monte Celestrum es la montaña dominante de la región. Con varios kilómetros de altura, Celestrum es visible para todos. Se dice que lleva el nombre de la antigua diosa. De hecho, sólo una persona ha conseguido escalar hasta la cima. De ella sólo quedan sus iniciales: M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Monte Celestrum",
       "particle": "a la"
     },
@@ -809,7 +809,7 @@
       "particle": "a la"
     },
     "22222": {
-      "description": "Una zona de pruebas para monstruos. Se supone que nunca aparecerán en el juego",
+      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu.",
       "name": "Zona de pruebas de monstruos",
       "particle": "a la"
     },
@@ -839,12 +839,12 @@
       "particle": "a la"
     },
     "28": {
-      "description": "La entrada al castillo del rey, rodeada por una gruesa muralla, parece capaz de resistir cualquier ataque imaginable.",
+      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Puertas del castillo",
       "particle": "a la"
     },
     "29": {
-      "description": "Una enorme sala decorada con numerosas obras de arte",
+      "description": "Immense salle ornée de nombreuses oeuvres d'art.",
       "name": "Sala de recepción",
       "particle": "a la"
     },
@@ -854,7 +854,7 @@
       "particle": "a"
     },
     "32": {
-      "description": "El camino al castillo del Rey",
+      "description": "La route qui mène au château du Roi.",
       "name": "Ruta al castillo del Rey",
       "particle": "a"
     },
@@ -1594,13 +1594,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} ¡El gremio {{guild}} sube de nivel!",
-    "levelUpDesc": "El gremio es ahora de nivel **{{level}}**"
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}¡te han noqueado!",
     "koDesc": "{emote:effects.dead} Utiliza el comando {command:respawn} para empezar a jugar de nuevo.",
     "koDmTitle": "¡Hola Fighter!",
-    "koDmDesc": "Parece que te han noqueado... {emote:effects.dead}\nGracias a nuestras avanzadas tecnologías, ¡hemos podido alterar los acontecimientos de tal forma que te hemos salvado de una muerte agónica! {emote:other.tada}\nPor desgracia, se trata de una operación costosa y tu puntuación se ha visto afectada por esta muerte... \n\nPara empezar a jugar de nuevo, ve a {command:respawn}.",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}desmayos",
     "leavePVEIslandDescStart": "{emote:effects.confounded} Sientes que tus fuerzas se agotan, que no puedes más. Te desmayas en el suelo...\n\n{emote:unitValues.lostMoney} Dinero perdido: **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Puntos de gremio perdidos: **{{guildPointsLost}}**",
