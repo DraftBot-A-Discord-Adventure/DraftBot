@@ -812,9 +812,7 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"bonusGuildPVEIsland",
-					`${
-						getRandomSmallEventIntro(lng) + i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.intro`, { lng })
-					}\n\n${
+					`${i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.intro`, { lng })}\n\n${
 						i18n.t(`smallEvents:bonusGuildPVEIsland.events.${packet.event}.${packet.result}.${packet.surrounding}`, {
 							lng,
 							amount: packet.amount,
