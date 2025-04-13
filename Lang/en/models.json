@@ -188,7 +188,7 @@
       "name_other": "Club smashes"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l'attaque Si l'attaquant dispose de moins de 45% de ses points de combat, cette attaque ne peut pas échouer. Si l'attaquant dispose de plus de 45% de ses points de combat, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu'une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Ultimate attack",
       "name_other": "Ultimate attacks"
     },
@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Reply with the same action your opponent just played. Does not work on magical or divine attacks, nor if your opponent did not attack.",
       "name_one": "Counterattack",
-      "customMessage": "can't fight back.",
+      "customMessage": "ne parvient pas à riposter.",
       "name_other": "Counterattacks"
     },
     "createBomb": {
@@ -709,7 +709,7 @@
       "particle": "of the"
     },
     "1100": {
-      "description": "This shoreline is the first thing you see when you arrive on the ice island. It takes its name from the noise the sailors made when they landed. Obviously, they were coming back from the volcanic island where the temperature is much warmer.",
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Cool cool shore",
       "particle": "of the"
     },
@@ -759,7 +759,7 @@
       "particle": "of the"
     },
     "15": {
-      "description": "Mount Celestrum is the dominant mountain in the region. Several kilometers high, Celestrum is visible to all. It is said to be named after the ancient goddess. In addition, only one person managed to climb to the top. The only thing that is remembered is these initials: M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Mount Celestrum",
       "particle": "of"
     },
@@ -809,7 +809,7 @@
       "particle": "of the"
     },
     "22222": {
-      "description": "A test zone for monsters. Should never appear in the game",
+      "description": "A test zone for monsters. Should never appear in the game.",
       "name": "Monsters test zone",
       "particle": "of the"
     },
@@ -839,12 +839,12 @@
       "particle": "of"
     },
     "28": {
-      "description": "Entrance to the king's castle, surrounded by a thick wall, it seems to be able to resist all imaginable attacks.",
+      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Castle's entrance",
       "particle": "of"
     },
     "29": {
-      "description": "The reception room of the King's castle",
+      "description": "The reception room of the King's castle.",
       "name": "Reception room",
       "particle": "of the"
     },
@@ -854,7 +854,7 @@
       "particle": "of"
     },
     "32": {
-      "description": "The road which leads to the King's castle",
+      "description": "The road which leads to the King's castle.",
       "name": "Road to the King's castle",
       "particle": "of"
     },
@@ -1594,13 +1594,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} The {{guild}} guild goes up a level!",
-    "levelUpDesc": "The guild is now level **{{level}}**"
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}you've been knocked out!",
     "koDesc": "{emote:effects.dead} Use the {command:respawn} command to start playing again.",
     "koDmTitle": "Hello Fighter!",
-    "koDmDesc": "It looks like you've been knocked out... {emote:effects.dead}\nThanks to our advanced technologies, we've been able to alter events in such a way as to save you from an agonizing death! {emote:other.tada}\nUnfortunately, this is a costly operation, and your score has been impacted by this death... \n\nTo start playing again, go to {command:respawn}.",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}fainting",
     "leavePVEIslandDescStart": "{emote:effects.confounded} You feel your strength leave you, you're at your wits' end. You faint on the floor...\n\n{emote:unitValues.lostMoney} Money lost: **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Guild points lost: **{{guildPointsLost}}**",
