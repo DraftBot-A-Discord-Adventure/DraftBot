@@ -62,7 +62,7 @@ export abstract class MapCache {
 		// All PVE links
 		this.allPveMapLinks = MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY)
 			.concat(MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_ISLAND, MapConstants.MAP_ATTRIBUTES.PVE_EXIT))
-			.concat(MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT))
+			.concat(MapLinkDataController.instance.getFromAttributeToAttribute(MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1))
 			.map(pveLink => pveLink.id)
 			.concat(this.pveIslandMapLinks);
 
