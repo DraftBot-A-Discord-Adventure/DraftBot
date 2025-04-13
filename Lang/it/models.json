@@ -1058,7 +1058,7 @@
     "recoverAlteration_other": "Recuperarsi da {{count}} alterazione di stato",
     "sellItemWithGivenCost_one": "{{count}} {{variantText}} {emote:unitValues.money}Vendere attrezzature per più di",
     "sellItemWithGivenCost_other": "{{count}} {{variantText}} {emote:unitValues.money}Vendere attrezzature per più di",
-    "sellOrTradePet": "Vendere o scambiare un animale domestico con un altro giocatore",
+    "sellOrTradePet": "Vendere un animale domestico a un altro giocatore",
     "spendGems": "Spendere delle gemme nel negozio delle missioni",
     "spendMoney": "Spendere {{count}} monete",
     "tamedPet": "Avere un animale domestico addomesticato o allenato",
@@ -1076,7 +1076,7 @@
     "haveItemRarity": "$t(items:rarities.{{variant}})",
     "fromPlaceToPlace_order": "{{place1}}{{place2}} {{time}} Realizzare - in meno di ore",
     "fromPlaceToPlace_noOrder": "{{place1}}{{place2}} {{time}} - (o viceversa) in meno di ore",
-    "fromPlaceToPlace_secondPart": "{{place1}}{{timestamp}}Raggiungere prima della <t: :f>",
+    "fromPlaceToPlace_secondPart": "Raggiungere {{place}} prima di {{time}}",
     "goToPlace": "{emote:mapTypes.{{mapType}} $t(models:map_locations.{{variant}}.name)}",
     "fightAttacks": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}",
     "finishWithAttack": "{emote:fightActions.{{variant}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})}"

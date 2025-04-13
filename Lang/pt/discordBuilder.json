@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Apresenta informações sobre os crachás e o seu funcionamento.",
+    "description": "Apresentar informações sobre os crachás e o seu funcionamento.",
     "name": "distintivos"
   },
   "help": {
-    "description": "Apresenta a lista de comandos disponíveis ou informações detalhadas sobre um comando.",
+    "description": "Apresenta a lista de encomendas disponíveis ou informações pormenorizadas sobre uma encomenda.",
     "name": "ajuda",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "sugestão"
   },
   "inventory": {
-    "description": "Apresenta o inventário do jogador.",
+    "description": "Mostra o inventário do jogador.",
     "name": "inventário",
     "options": {
       "rank": {
@@ -36,7 +36,7 @@
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Alterar o idioma do bot no servidor Discord onde o comando foi executado.",
+    "description": "Alterar o idioma do bot para futuras interações.",
     "name": "língua"
   },
   "ping": {
@@ -96,13 +96,13 @@
     "name": "conviteguilde",
     "options": {
       "user": {
-        "description": "O utilizador a quem a ordem diz respeito.",
+        "description": "O utilizador a recrutar.",
         "name": "utilizador"
       }
     }
   },
   "guild": {
-    "description": "Apresenta informações sobre um grémio.",
+    "description": "Mostrar informações sobre um grémio.",
     "name": "grémio",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Apresenta as diferentes raridades do equipamento.",
+    "description": "Mostrar as diferentes raridades do equipamento.",
     "name": "raridade"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Apresenta a versão atual do bot.",
+    "description": "Mostra a versão atual do bot.",
     "name": "novos produtos"
   },
   "vote": {
@@ -160,15 +160,15 @@
     "name": "votação"
   },
   "map": {
-    "description": "Apresenta o mapa para mostrar para onde está a ir.",
+    "description": "Mostrar o mapa para indicar o local para onde se dirige.",
     "name": "cartão"
   },
   "shop": {
-    "description": "Apresenta a loja.",
+    "description": "Exibir a loja.",
     "name": "loja"
   },
   "classesInfo": {
-    "description": "Apresenta informações sobre as classes que podem ser selecionadas para a sua personagem.",
+    "description": "Mostra informações sobre as classes que podem ser selecionadas para a sua personagem.",
     "name": "aulas de informação"
   },
   "respawn": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Apresenta a loja do grémio.",
+    "description": "Exibir a loja do grémio.",
     "name": "magasinguilde"
   },
   "guildKick": {
@@ -272,23 +272,23 @@
     }
   },
   "missionsshop": {
-    "description": "Apresenta a loja da missão.",
+    "description": "Mostrar a loja da missão.",
     "name": "loja"
   },
   "top": {
-    "description": "Apresenta as classificações dos jogos.",
+    "description": "Apresentar as classificações dos jogos.",
     "name": "classificação",
     "subcommands": {
       "score": {
-        "description": "Apresenta a classificação dos jogadores de acordo com a sua pontuação.",
+        "description": "Apresentar as classificações dos jogadores com base na sua pontuação.",
         "name": "pontuação"
       },
       "glory": {
-        "description": "Apresenta a classificação das guildas de acordo com a sua glória.",
+        "description": "Mostra a classificação das guildas de acordo com a sua glória.",
         "name": "glória"
       },
       "guild": {
-        "description": "Apresenta a classificação das guildas de acordo com os seus pontos.",
+        "description": "Mostra a classificação das guildas de acordo com os seus pontos.",
         "name": "grémio"
       }
     },
@@ -365,10 +365,20 @@
   },
   "guildStorage": {
     "name": "entrepotguilde",
-    "description": "Mostra o conteúdo do armazém do grém."
+    "description": "Mostrar o conteúdo do armazém do grém."
   },
   "joinBoat": {
     "name": "juntar-se ao barco",
-    "description": "Permite-te entrar no barco se um membro do teu grémio estiver nele."
+    "description": "Junta-te ao barco se um membro do teu grémio estiver nele."
+  },
+  "giveBadge": {
+    "name": "givebadge",
+    "description": "Dar um crachá a um jogador.",
+    "options": {
+      "user": {
+        "name": "utilizador",
+        "description": "O jogador a quem dar o crachá."
+      }
+    }
   }
 }

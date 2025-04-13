@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Locandina d'informazione sui badge e loro funzionamento.",
+    "description": "Mostrare informazioni sui badge e sul loro funzionamento.",
     "name": "badge"
   },
   "help": {
-    "description": "Visualizza l'elenco dei comandi disponibili o informazioni dettagliate su un comando.",
+    "description": "Visualizza l'elenco degli ordini disponibili o le informazioni dettagliate su un ordine.",
     "name": "aiuto",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "suggerimento"
   },
   "inventory": {
-    "description": "Mostra l'inventario del giocatore.",
+    "description": "Visualizza l'inventario del giocatore.",
     "name": "inventario",
     "options": {
       "rank": {
@@ -36,11 +36,11 @@
     "name": "invitoDraftBot"
   },
   "language": {
-    "description": "Cambiare la lingua del bot sul server Discord in cui è stato eseguito il comando.",
+    "description": "Modificare la lingua del bot per le interazioni future.",
     "name": "lingua"
   },
   "ping": {
-    "description": "Locandina della latenza del bot e permette ai giocatori di verificare se il bot è connesso.",
+    "description": "Visualizza la latenza del bot e consente al giocatore di verificare se il bot è online.",
     "name": "ping"
   },
   "pet": {
@@ -96,7 +96,7 @@
     "name": "invitoguilde",
     "options": {
       "user": {
-        "description": "L'utente interessato dall'ordine.",
+        "description": "L'utente da reclutare.",
         "name": "utilizzatore"
       }
     }
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Visualizza le varie rarità dell'equipaggiamento.",
+    "description": "Visualizzare le diverse rarità dell'attrezzatura.",
     "name": "rarità"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Mostrare la versione attuale del bot.",
+    "description": "Visualizza la versione attuale del bot.",
     "name": "novità"
   },
   "vote": {
@@ -160,11 +160,11 @@
     "name": "voto"
   },
   "map": {
-    "description": "Visualizza la mappa per mostrare dove si sta andando.",
+    "description": "Visualizzare la mappa per mostrare dove si sta andando.",
     "name": "mappa"
   },
   "shop": {
-    "description": "Visualizza il negozio.",
+    "description": "Esporre il negozio.",
     "name": "negozio"
   },
   "classesInfo": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Visualizza il negozio della gilda.",
+    "description": "Visualizzare il negozio della gilda.",
     "name": "magasinguilde"
   },
   "guildKick": {
@@ -272,11 +272,11 @@
     }
   },
   "missionsshop": {
-    "description": "Visualizza il negozio di missioni.",
+    "description": "Visualizzare il negozio della missione.",
     "name": "negozio"
   },
   "top": {
-    "description": "Visualizza le classifiche delle partite.",
+    "description": "Visualizzare le classifiche di gioco.",
     "name": "classifica",
     "subcommands": {
       "score": {
@@ -369,6 +369,16 @@
   },
   "joinBoat": {
     "name": "unirsi alla barca",
-    "description": "Permette di unirsi alla barca se un membro della propria gilda è a bordo."
+    "description": "Unisciti alla barca se un membro della tua gilda è a bordo."
+  },
+  "giveBadge": {
+    "name": "dare il distintivo",
+    "description": "Dare un distintivo a un giocatore.",
+    "options": {
+      "user": {
+        "name": "utilizzatore",
+        "description": "Il giocatore a cui consegnare il distintivo."
+      }
+    }
   }
 }

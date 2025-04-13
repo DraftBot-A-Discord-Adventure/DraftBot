@@ -4,7 +4,7 @@
     "name": "insignias"
   },
   "help": {
-    "description": "Muestra la lista de comandos disponibles o información detallada sobre un comando.",
+    "description": "Mostrar la lista de pedidos disponibles o información detallada sobre un pedido.",
     "name": "asistencia",
     "options": {
       "commandName": {
@@ -36,7 +36,7 @@
     "name": "invitacióndraftbot"
   },
   "language": {
-    "description": "Cambia el idioma del bot en el servidor Discord donde se ejecutó el comando.",
+    "description": "Cambia el idioma del bot para futuras interacciones.",
     "name": "idioma"
   },
   "ping": {
@@ -96,13 +96,13 @@
     "name": "invitaciónguilde",
     "options": {
       "user": {
-        "description": "El usuario afectado por la orden.",
+        "description": "El usuario a reclutar.",
         "name": "usuario"
       }
     }
   },
   "guild": {
-    "description": "Muestra información sobre un gremio.",
+    "description": "Mostrar información sobre un gremio.",
     "name": "gremio",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Muestra las distintas rarezas de los equipos.",
+    "description": "Mostrar las diferentes rarezas de los equipos.",
     "name": "rareza"
   },
   "report": {
@@ -160,7 +160,7 @@
     "name": "vote"
   },
   "map": {
-    "description": "Muestra el mapa para indicarte por dónde vas.",
+    "description": "Visualiza el mapa para saber hacia dónde te diriges.",
     "name": "tarjeta"
   },
   "shop": {
@@ -272,15 +272,15 @@
     }
   },
   "missionsshop": {
-    "description": "Muestra la tienda de la misión.",
+    "description": "Mostrar la tienda de la misión.",
     "name": "tienda"
   },
   "top": {
-    "description": "Muestra la clasificación del juego.",
+    "description": "Mostrar la clasificación de los partidos.",
     "name": "clasificación",
     "subcommands": {
       "score": {
-        "description": "Muestra la clasificación de los jugadores según su puntuación.",
+        "description": "Muestra la clasificación de los jugadores en función de su puntuación.",
         "name": "puntuación"
       },
       "glory": {
@@ -369,6 +369,16 @@
   },
   "joinBoat": {
     "name": "unirse al barco",
-    "description": "Te permite unirte al barco si un miembro de tu gremio está en él."
+    "description": "Únete al barco si un miembro de tu gremio está en él."
+  },
+  "giveBadge": {
+    "name": "gafete",
+    "description": "Dar una insignia a un jugador.",
+    "options": {
+      "user": {
+        "name": "usuario",
+        "description": "El jugador al que entregar la insignia."
+      }
+    }
   }
 }

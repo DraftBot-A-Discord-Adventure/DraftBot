@@ -53,7 +53,7 @@
   },
   "guildInvite": {
     "title": "{{pseudo}}, you were invited to join a guild!",
-    "confirmDesc": "{emote:collectors.question} Would you like to join the guild `{{guildName}}`?",
+    "confirmDesc": "{emote:collectors.question} Would you like to join the{{guildName}}guild?",
     "successTitle": "{{pseudo}} joined the {{guildName}} guild!",
     "successDesc": "The delay before the next guild daily reward has been reset",
     "refusedTitle": "You haven't joined the {{guildName}} guild!",
@@ -65,7 +65,7 @@
   },
   "guildKick": {
     "title": "Kick Guild",
-    "confirmDesc": "{emote:collectors.question} Are you sure you want to kick {{kickedPseudo}} from the guild `{{guildName}}`?",
+    "confirmDesc": "{emote:collectors.question} Are you sure you want to expel {{kickedPseudo}} from the{{guildName}}guild?",
     "acceptedDesc": "{{kickedPseudo}} has been expelled from the guild!",
     "canceledTitle": "Kick canceled",
     "canceledDesc": "{{kickedPseudo}} was not kicked from the guild!",
@@ -84,20 +84,20 @@
     "confirmDesc": "{emote:collectors.question} {{elderPseudo}} will become the wing of the `{{guildName}}` guild.",
     "successElderAddTitle": "{{elderPseudo}} is the new wing of the {{guildName}} guild!",
     "acceptedDesc": "The Warrior is used to assist the leader in the management of the guild. We must therefore choose it with caution. But rest assured, if you were not satisfied with your wing, you can replace it with the {command:guildelder}command, or if you have a dictator status, you can definitively delete it with {command:guildelderremove}.",
-    "canceledDesc": "Wants were not promoted.",
+    "canceledDesc": "The player has not been promoted as a senior.",
     "canceledTitle": "Cancellation taken into account."
   },
   "guildLeave": {
     "title": "{{pseudo}}, confirmation:",
-    "confirmDesc": "{emote:collectors.question} Do you really want to leave the guild `{{guildName}}`?",
-    "confirmChiefDesc": "{emote:collectors.question} Do you really want to **definitively** the guild `{{guildName}}` ?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the guild `{{guildName}}`? {{newChiefPseudo}} will become its leader.",
+    "confirmDesc": "{emote:collectors.question} Do you really want to leave the{{guildName}}guild?",
+    "confirmChiefDesc": "{emote:collectors.question} Do you really want to **destroy** the{{guildName}}guild for good?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the{{guildName}}guild? {{newChiefPseudo}} will become its leader.",
     "canceledDesc": "Your departure was cancelled.",
     "successTitle": "{{pseudo}} left the {{guildName}} guild!",
     "leavingSuccess": "You are a poor lonely cowboy and you are far away from home...",
     "destroySuccess": "The guild {{guildName}} was successfully disbanded.",
     "newChiefTitle": "{{newChiefPseudo}} is the new leader of the {{guildName}} guild!",
-    "notInAGuild": "It looks like you are no longer in a guild.",
+    "notInAGuild": "It would appear that you are no longer part of a guild.",
     "canceledTitle": "Cancellation"
   },
   "guildElderRemove": {
@@ -115,7 +115,7 @@
   },
   "guildDescription": {
     "title": "{{pseudo}}, confirm your choice?",
-    "confirmDesc": "{emote:collectors.question}  Would you like to change your guild description?\n New description: {{description}}.",
+    "confirmDesc": "{emote:collectors.question}  Do you really want to change your guild description?\n New description: {{description}}.",
     "acceptedDesc": "The guild description has been successfully edited!",
     "canceledDesc": "You did not edit the guild description!",
     "canceledTitle": "Cancellation taken into account.",
@@ -135,7 +135,7 @@
         "description": "Change your class. More information about class is available through the player guide: https://guide.draftbot.com/v/en"
       },
       "CLASSES_INFO": {
-        "description": "Read a quick comparison of the statistics between all the classes you can have."
+        "description": "Reads a quick comparison of statistics and class information available to the user placing the order."
       },
       "DAILY_BONUS": {
         "description": "Some items give you a daily bonus. Use this command to obtain said bonuses. You can learn if an item gives you a daily bonus by using the command {command:inventory}."
@@ -187,7 +187,7 @@
         "description": "Show the guild's storage."
       },
       "GUILD_TOP": {
-        "description": "Displays the ranking of the guilds in 15 guild intervals. Guilds are ranked based on points acquired on mysterious islands."
+        "description": "Displays guild rankings in increments of 15 guilds. Guilds are ranked according to points collected on mysterious islands."
       },
       "HELP": {
         "description": ":expressionless:"
@@ -202,10 +202,10 @@
         "description": "This command allows you to get an invitation link to join the support server!"
       },
       "JOIN_BOAT": {
-        "description": "Allows you to join a guild member on a boat going to a mysterious island."
+        "description": "Join a guild member on a boat bound for a mysterious island."
       },
       "LANGUAGE": {
-        "description": "Change the language the bot uses to French. You can use this command if you are an admin of a server."
+        "description": "Choose the language to be used for your interactions with the bot from 6 available languages:\n\n- French\n- English\n- Spanish\n- German\n- Italian\n- Portuguese"
       },
       "LEAGUE_BONUS": {
         "description": "Lets you claim your league's reward each Sunday."
@@ -214,13 +214,13 @@
         "description": "Display information about your destination, and also the map."
       },
       "MISSIONS": {
-        "description": "Displays the list of the quests you have to achieve."
+        "description": "Displays the list of missions assigned to you."
       },
       "MISSIONS_SHOP": {
         "description": "Display the mission's shop."
       },
       "NOTIFICATIONS": {
-        "description": "Allows enabling or disabling private messages from the bot."
+        "description": "Allows you to set up the reception of bot notifications. You can choose to receive notifications (and determine where to display them) for reports and/or guild rewards."
       },
       "PET": {
         "description": "Show information about your pet."
@@ -238,13 +238,13 @@
         "description": "Can sell a pet. The following conditions apply: \n - the selling price must be higher at `{{petSellMinPrice}}{emote:unitValues.money}` and `{{petSellMaxPrice}}{emote:unitValues.money}`. \n- The vendor will not earn money during the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
       },
       "PET_TRANSFER": {
-        "description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet which position corresponds to the given number."
+        "description": "Allows you to transfer a pet to or from the guild. You'll have the choice of dropping the pet you're with into the shelter, swapping it with another, or removing one from the shelter."
       },
       "PING": {
         "description": "Check if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. {emote:clock.1})"
       },
       "PROFILE": {
-        "description": "Displays information about your character:\n\n😃 Health status | Nickname | Level\n\n឵឵឵Information:\n❤️ Life | ⭐ XP | {emote:unitValues.money} Silver\n\nStatistics :\n⚡ Energy | 🗡️ Attack | 🛡️ Defense | 🚀 Speed | 🌬️ Breath | 🫁 Recovery\n\nMissions :\n💎 Gems | 📖 Advanced campaign %\n\nRank and score:\n🏆 Rank | 🏅 Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n{emote:unitValues.glory} Glory | See {{topGloryCommandMention}}\n\nGuild:\n🏟️ Guild\n\nDestination:\nSee {{mapCommandMention}}\n\nFamiliar:\nSee {{petCommandMention}}\n\n💡-Badges are displayed on your profile as a reaction."
+        "description": "Displays information about your character:\n\n{emote:effects.none} Health status | Nickname | Level\n\n឵឵Information :\n{emote:unitValues.health} Life | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nMoney Statistics:\n{emote:unitValues.energy} Energy | {emote:unitValues.attack} Attack | {emote:unitValues.defense} {emote:unitValues.speed} Defense | {emote:unitValues.breath} Breath | {emote:unitValues.breathRegen} Recovery\n\nMissions:\n{emote:unitValues.gem} Gems | {emote:missions.campaign} Campaign progress in %\n\nRank and score :\n{emote:top.congrats} Rank | {emote:unitValues.score} Score\n\nClass:\nSee {command:classes}\n\nGlory and League:\n{emote:unitValues.glory} Glory | See {command:top glory}\n\nGuild:\n{emote:other.guild} Guild\n\nDestination:\nSee {command:map}\n\nFamiliar:\nSee {command:pet}\n\n{emote:other.advice}-Badges are displayed on your profile as reactions."
       },
       "RARITY": {
         "description": "Allows you to see the probability of getting an item by its rarity."
@@ -262,7 +262,7 @@
         "description": "This command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
       },
       "SWITCH": {
-        "description": "Switches the item currently in use with the one in your inventory."
+        "description": "Exchanges a piece of equipment from your stockpile with what you currently own, provided it is of the same category. If no equipment in the category of the item to be equipped is owned before the order is executed, it will simply move it into the inventory."
       },
       "TOP": {
         "description": "Displays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot."
@@ -289,7 +289,7 @@
     "usageFieldTitle": "Usage",
     "utilCommands": "{emote:collectors.question} Utility:",
     "needHelp": "Need help?",
-    "needHelpDescription": "{emote:fightCommand.crossedSwords} Hello ! This message is sent following a request for help.\n\nFor any assistance concerning the use of the game, it is possible to join the official server!\n\nYou'll be able to take part in the game's development and get all the information you need!\n\nWe also recommend that you consult the detailed bot guide: https://guide.draftbot.com/"
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Hello ! This message has been sent in response to a request for help.\n\nIf you need any help with the game, you can join the official bot server!\n\nYou'll be able to take part in the game's development and get all the information you need!\n\nWe also recommend that you consult the detailed bot guide: https://guide.draftbot.com/"
   },
   "idea": {
     "description": "You can submit suggestions and vote for your favorites via this link:\nhttps://feedback.draftbot.com/",
@@ -311,8 +311,8 @@
     "weapons_one": "Weapon ({{count}}/{{max}}):",
     "weapons_other": "Weapons ({{count}}/{{max}}):",
     "randomItemTitle": "{{pseudo}}, you found something!",
-    "randomItemFooter": "You already have an equipment, would you like to sell it?",
-    "randomItemFooterPotion": "Do you want to destroy your current potion?",
+    "randomItemFooter": "Do you already own a piece of equipment? Would you like to sell it?",
+    "randomItemFooterPotion": "Would you like to destroy your current potion?",
     "acceptedTitle": "{{pseudo}}, you have received an equipment!",
     "chooseItemToReplaceTitle": "Choose an object to replace"
   },
@@ -322,7 +322,7 @@
     }
   },
   "language": {
-    "description": "Use the menu below to change the language used by the bot on this discord server. This command can only be used by server administrators.",
+    "description": "Use the menu below to change the language used by the bot. This change will only apply to you.",
     "languages": {
       "de": "German",
       "en": "English",
@@ -344,38 +344,38 @@
   },
   "profile": {
     "badgeDisplay": {
-      "numberBadge_one": "\n This player has a total of {{badge}} badge!",
-      "numberBadge_other": "\n This player has a total of {{badge}} badges!",
+      "numberBadge_one": "\n This player has a total of {{count}} badges!",
+      "numberBadge_other": "\n This player has a total of {{count}} badges!",
       "title": "List of {{pseudo}}'s badges"
     },
     "badges": {
-      "⚔️": ":crossed_swords: `Winner of a tournament`",
-      "⚙️": ":gear: `Technical team`",
-      "⛑️": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
-      "✨": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
-      "❤️": ":heart: `Person who has the Support role on the bot server`",
-      "🌍": ":earth_africa: `Translator`",
-      "🌟": ":star2: `Person who helped put the bot on a server with over 2000 members`",
-      "🍀": ":four_leaf_clover: `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
-      "🎄": ":christmas_tree: `Badge that can be won every Christmas during a contest`",
-      "🎗️": ":reminder_ribbon: `Person who dominated a weekly ranking`",
-      "🎰": ":slot_machine: `Badge given in a completely random way`",
-      "🏅": "{emote:unitValues.score} `Player in top 10 to reset 1.0`",
-      "🏆": ":trophy: `Best player by rank at the 1.0 reset`",
-      "🐞": ":lady_beetle: `Person who reported major bugs`",
-      "👑": ":crown: `Bot owner`",
-      "💍": ":ring: `Badge bought in the Missions shop`",
-      "💎": ":gem: `Member of a powerful guild`",
-      "💞": ":revolving_hearts: `Player who trained a legendary pet`",
-      "💸": ":money_with_wings: `Donor`",
-      "🔖": ":bookmark: `Early class adopter`",
-      "🕊️": ":dove: `Person who reported an exploitable bug without taking advantage of it`",
-      "🖋️": ":pen_fountain: `Bot's redactor`",
-      "🗳️": ":ballot_box: `Person who voted in the last 12 hours`",
-      "😂": ":joy: `Badge given to funny people`",
-      "🤑": ":money_mouth: `Badge bought in the shop`",
-      "🥇": ":first_place: `Person who has reached the top of the ranking after the reset`",
-      "🪩": ":mirror_ball: `Member of a very powerful team`"
+      "tournament_winner": ":crossed_swords: `Winner of a tournament`",
+      "technical_team": ":gear: `Technical team`",
+      "first_20_members": ":helmet_with_cross: `People who are one of the 20 first members of the bot's server`",
+      "top_glory": "{emote:unitValues.glory} Person who has won the most glory during a fighting season`.",
+      "support": ":heart: `Person who has the Support role on the bot server`",
+      "translator": ":earth_africa: `Translator`",
+      "advertiser": "Person who helped put the bot on a server with over 2000 members",
+      "contest": "Badge can be earned from time to time in contests on the bot server or on Twitter",
+      "christmas": "Badge to be won every Christmas in a competition",
+      "top_week": ":reminder_ribbon: `Person who dominated a weekly ranking`",
+      "random": ":slot_machine: `Badge given in a completely random way`",
+      "top_10_v1": "{emote:unitValues.score} `Player in top 10 to reset 1.0`",
+      "top_v1_player": ":trophy: `Best player by rank at the 1.0 reset`",
+      "major_bug_reporter": ":lady_beetle: `Person who reported major bugs`",
+      "bot_owner": ":crown: `Bot owner`",
+      "mission_completer": "Badge purchased in the missions shop",
+      "powerful_guild": ":gem: `Member of a powerful guild`",
+      "legendary_pet": ":revolving_hearts: `Player who trained a legendary pet`",
+      "donor": ":money_with_wings: `Donor`",
+      "early_class_adopter": ":bookmark: `Early class adopter`",
+      "good_bug_reporter": ":dove: `Person who reported an exploitable bug without taking advantage of it`",
+      "redactor": ":pen_fountain: `Bot's redactor`",
+      "voter": ":ballot_box: `Person who voted in the last 12 hours`",
+      "funny": ":joy: `Badge given to funny people`",
+      "rich": ":money_mouth: `Badge bought in the shop`",
+      "top_1_before_reset": ":first_place: `Person who has reached the top of the ranking after the reset`",
+      "very_powerful_guild": ":mirror_ball: `Member of a very powerful team`"
     },
     "fightRanking": {
       "fieldName": "Glory points and league:",
@@ -387,7 +387,7 @@
     },
     "information": {
       "fieldName": "Information:",
-      "fieldValue": ":heart: {{health}}/{{maxHealth}} | :star: {{experience}}/{{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
+      "fieldValue": "{emote:unitValues.health} {{health}} / {{maxHealth}} | {emote:unitValues.xp} {{experience}} / {{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
     },
     "map": {
       "fieldName": "Destination:",
@@ -411,7 +411,7 @@
     },
     "ranking": {
       "fieldName": "Ranking and score:",
-      "fieldValue": ":trophy: {{rank}}/{{numberOfPlayer}} | :medal: {{score}}"
+      "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
     },
     "unranked": {
       "fieldName": "Ranking and score:",
@@ -444,7 +444,7 @@
     "commandName": "report",
     "destinationTitle": "{{pseudo}}, travel destination",
     "doChoice": "{{emoji}} {{choiceText}}\n",
-    "doEvent": ":newspaper: **Journal of {{pseudo}}:** {{event}}\n*- Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
+    "doEvent": "{emote:commands.report} ** {{pseudo}} :** {{event}}\n*- Use the buttons to perform an action {emote:collectors.warning} Do not answer is considered a separate choice.*",
     "doPossibility": ":newspaper: ** {{pseudo}} Log {{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
@@ -572,14 +572,14 @@
       },
       "moneyMouthBadge": {
         "name": "{emote:shopItems.moneyMouthBadge} Money Mouse Badge",
-        "info": "You will receive the badge automatically after payment. For more information about badges use the {command:help} command."
+        "info": "You will receive the badge automatically after payment. For more information on badges, use the command {command:help}."
       },
       "slotExtension": {
         "name": "{emote:shopItems.inventoryExtension} New Inventory Location",
-        "info": "You will be able to choose an inventory category to add a location"
+        "info": "You can choose an inventory category to which to add a location."
       },
       "dailyPotion": {
-        "info": "You will get a potion that you decide to keep or not. If you already have it discarded without a refund!"
+        "info": "You'll get a potion that you can decide whether or not to keep. If you already have it, it will be thrown away without refund!"
       },
       "smallGuildXp": {
         "name": "{emote:shopItems.smallGuildXp} A bit of xp for your guild",
@@ -635,7 +635,7 @@
         "name": "{emote:shopItems.lovePointsValue} Court Veterinary",
         "info": "Get detailed information about your pet.",
         "giveTitle": "{{pseudo}}, purchase done!",
-        "giveDesc": "After a long time spent studying your pet's state of health, you finally receive the vet's report:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love score** : {{actualLP}} / 100\n{emote:petInformation.diet} **Dietary regime** : {{diet}}\n{emote:petInformation.nextFeed} **Next hunger** : {{nextFeed}}\n{emote:petInformation.age} **Age** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Fighting effect**: {{commentOnFightEffect}}",
+        "giveDesc": "After a thorough examination of your pet and its state of health, the vet will give you his report:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love score** : {{actualLP}} / 100\n{emote:petInformation.diet} **Dietary regime** : {{diet}}\n{emote:petInformation.nextFeed} **Next hunger** : {{nextFeed}}\n{emote:petInformation.age} **Age** : {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Fighting effect**: {{commentOnFightEffect}}",
         "petIsHungry": "{emote:effects.starving} hungry",
         "commentOnFightEffect": {
           "bite": [
@@ -679,7 +679,7 @@
             "This pet's scales contain anti-inflammatory properties. It will wrap you in its protection against burns."
           ],
           "goesWild": [
-            "Beware, this pet has a wild temperament! In combat, it can go into a berserker rage, striking all nearby opponents.",
+            "Beware, this pet has a savage temperament! In combat, it can go into a destructive rage, striking at all nearby opponents.",
             "Its primitive instinct can be awakened at any moment. This natural fury will be formidable against your enemies, but be careful!",
             "I detect the potential for extraordinary frenzy. Your pet can unleash its wild nature against your opponents."
           ],
@@ -851,12 +851,12 @@
             "seems to be in a deep evil. You should try to feed your pet."
           ],
           "2": [
-            "seems still wild. Take care of your pet to earn its trust!",
+            "still seems wild. Take care of your pet and earn its trust!",
             "seems to be unapprehended. If you don't care about your pet, you will never get his love!",
             "doesn't seem to be happy. You should try feeding your pet."
           ],
           "3": [
-            "seems a bit feared. Take care of your pet to earn all its trust!",
+            "still seems a little apprehensive. Take care of your pet and earn its trust!",
             "still seems to be trusting you. Keep caring for your pet to get his love!",
             "seems to be getting started on you. Try feeding your pet regularly."
           ],
@@ -872,7 +872,7 @@
         }
       },
       "questMasterBadge": {
-        "name": "{emote:badges.questMasterBadge} Queen's Maiden Badge",
+        "name": "{emote:badges.mission_completer} Master of Quests\" badge",
         "info": "You will receive the badge within hours of payment. For more information about badges use the {command:help} order."
       }
     }
@@ -935,7 +935,7 @@
   },
   "guildShop": {
     "noFoodStorageSpace": "You don't have enough room in your reserve to store this food.",
-    "empty": "There is nothing left to buy at the moment. Your guild is at maximum level and its food storage is full.",
+    "empty": "There's nothing left to buy at the moment. Your guild is at maximum level and its food stock is full.",
     "giveXpTitle": "Purchase Success",
     "giveXp": "{emote:unitValues.xp} Your guild has recovered **{{xp}}** experience points."
   },
@@ -948,8 +948,8 @@
       "guildXP": "{emote:unitValues.xp} | The guild has received the expedition. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Guild members got `{{quantity}} {emote:unitValues.money}`.",
       "item": "{emote:rewards:item} | Guild members picked up a random item.",
-      "badge": "{emote:badges.guildBadge} | Guild members have received a badge.",
-      "superBadge": "{emote:badges.superGuildBadge} | Guild members have received a badge.",
+      "badge": "{emote:badges.powerful_guild} | Guild members receive a badge.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Guild members receive a badge.",
       "fullHeal": "{emote:shopItems.regen} | Guild members have been fully healed.",
       "advanceTime": "{emote:unitValues.time} | Guild members advanced {{quantity}}h.",
       "partialHeal": "{emote:rewards.partialHeal} | Guild members have been partially healed. `+ {{quantity}} {emote:unitValues.health}`",
@@ -1021,8 +1021,8 @@
     "yourRankNoneGuild": "{emote:top.error} | Unfortunately, your guild does not appear in the top because it has no guild points!",
     "yourRankAtPageGuild": "(You can find it on page {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | You do not appear in this ranking as you are not part of a guild!",
-    "nobodyInTopPlayers": "There is currently no one in the top! Enjoy as you can.",
-    "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy as you can.",
+    "nobodyInTopPlayers": "There's currently no one on top! Enjoy it while you can.",
+    "nobodyInTopGuilds": "There are currently no guilds in the top! Enjoy it while you can.",
     "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
   },
   "fight": {
@@ -1030,7 +1030,7 @@
     "canceledTitle": "{{pseudo}}you have cancelled the search",
     "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | **Fighter : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
     "confirmSubTexts": {
-      "common": "Are you looking for a fight?",
+      "common": "Would you like to start a fight search?",
       "rare": "Would you like to participate in the search for a fighter of your personal strength for the subsequent duel?"
     },
     "canceledDesc": "You've cancelled the combat search.",
@@ -1107,7 +1107,7 @@
         ],
         "missed": [
           "makes a {{attack}} ! We've seen better...",
-          "launch a {{attack}} ! Mediocre",
+          "launch a {{attack}} ! Mediocre.",
           "performs a {{attack}} ! It's not very successful.",
           "performs a {{attack}} ! It's not very efficient...",
           "chooses a {{attack}} ! The result is pretty pathetic.",
@@ -1183,7 +1183,7 @@
         "{{winner}} certainly took a significant step forward in his career by winning this difficult match."
       ],
       "draw": [
-        "It was a hard-fought match between two talented players.",
+        "The match was a hotly contested duel between two talented players.",
         "{{player1}} and {{player2}} showed unfailing determination throughout the match.",
         "Neither player was able to gain the decisive advantage, resulting in an unexpected tie.",
         "This match will probably go down as one of the tightest and most exciting in history.",
@@ -1195,9 +1195,9 @@
         "{{player1}} and {{player2}} both showed why they are considered talented competitors in this epic match."
       ],
       "sameElo": [
-        "It was an exciting match between two players of the same level.",
+        "This match was an exciting duel between two players of the same level.",
         "{{player1}} and {{player2}} both delivered solid, balanced performances.",
-        "This was a very close match with some clever tactics from both sides.",
+        "The match was very close, with clever tactics from both sides.",
         "Spectators witnessed an epic match between two talented players on equal terms."
       ]
     }
@@ -1205,14 +1205,14 @@
   "switch": {
     "titleSuccess": "{{pseudo}}, order completed!",
     "switchingDouble": "{{item1}} and {{item2}} were exchanged!",
-    "switchingSingle_male": "{{item1}} was equipped!",
-    "switchingSingle_female": "{{item1}} has been equipped!",
+    "switchingSingle": "You have equipped: {{item1}} !",
     "noItemToSwitch": "You have no equipment at the equipment!",
     "cancelled": "Action canceled!",
     "switchSelectionTitle": "{{pseudo}}, Item Gear",
     "switchSelectionDescription": "Choose an item from the list below:"
   },
   "drink": {
+    "cancelledTitle": "{{pseudo}}you have cancelled the",
     "cancelled": "",
     "noActiveObject": "Unfortunately, you don't have anything to drink in your inventory!",
     "objectIsActiveDuringFights": "This beverage can't be drunk right now. It'll be automatically consumed during your next fight!",
@@ -1236,7 +1236,7 @@
     "noOneAvailable": "Sadly, no one seems to be interested in your offer. Your request has been cancelled.",
     "sameGuild": "You can't buy this pet since the seller is part of your guild.",
     "alreadyHavePet": "You already have a pet with you.",
-    "noEnoughMoney": "You don't have enough money to buy it. You're missing **{{missingMoney}}{emote:unitValues.money}**.",
+    "notEnoughMoney": "You don't have enough money to buy it. You're missing **{{missingMoney}}{emote:unitValues.money}**.",
     "initiatorSituationChanged": "The seller is no longer able to sell their pet. The request has been cancelled.",
     "sellTitle": "Pet selling",
     "sellDescription": "{{pseudo}} would like to sell a pet for **{{price}}{emote:unitValues.money}**",
@@ -1278,7 +1278,7 @@
     "desc": "Choose a class from the list below for more information.\n",
     "display": "{{name}}\n\n{emote:commands.classesDescription}{{description}}\n\nWould you like to change to this class? You won't be able to change class until {{time}}.",
     "success": "{{pseudo}}your class has been modified!",
-    "newClass": "Your new class is: {{name}}",
+    "newClass": "Your new class is : **{{name}}**",
     "confirm": "{{pseudo}}you have selected the following class:",
     "error": {
       "canceledPurchase": "Class change cancelled.",
@@ -1347,7 +1347,7 @@
     "feedDescription": "Choose a food for **{{pet}}** :",
     "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
     "cancelButton": "Cancel",
-    "feedWithoutGuildDesc": "Would you like to buy a treat for {{pet}} ?\n\n{{food}} |{{price}}{emote:unitValues.money}`"
+    "feedWithoutGuildDesc": "Would you like to buy a treat for {{pet}} ?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
   },
   "leagueReward": {
     "errors": {
@@ -1402,5 +1402,15 @@
     "petFieldName": "Familiar n°{{number}}",
     "noPetMessage": "It seems that no pets are in the shelter.",
     "warningFull": "The shelter is full! No new pets will be accepted until all the shelter's pets have been released or sold."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "The player already has all the badges in the game.",
+    "selectBadgePlaceholder": "Select a badge to give to the player",
+    "selectBadgeTitle": "{{pseudo}}select a badge to give",
+    "selectBadgeDesc": "Choose a badge to give to the player from one of the lists below:"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}player modification",
+    "playerModifiedDesc": "The player has been successfully modified!\n\nID: **{{keycloakId}}**\nNickname: **{{pseudo}}**"
   }
 }

@@ -1058,7 +1058,7 @@
     "recoverAlteration_other": "Sich von {{count}} Zustandsveränderungen erholen",
     "sellItemWithGivenCost_one": "Verkaufen Sie {{count}} Ausrüstung für mehr als {{variantText}} {emote:unitValues.money}",
     "sellItemWithGivenCost_other": "Verkaufen Sie {{count}} Ausrüstungen für mehr als {{variantText}} {emote:unitValues.money}",
-    "sellOrTradePet": "Einen Begleiter an einen anderen Spieler verkaufen oder austauschen",
+    "sellOrTradePet": "Einen Vertrauten an einen anderen Spieler verkaufen",
     "spendGems": "Lastenaufstellung im Missionsgeschäft",
     "spendMoney": "Ausgeben {{count}} Münzen",
     "tamedPet": "Ein vertrauter oder aufrichtigeter Begleiter",
@@ -1076,7 +1076,7 @@
     "haveItemRarity": "$t(items:rarities.{{variant}})",
     "fromPlaceToPlace_order": "Mache {{place1}}-{{place2}} in weniger als {{time}} Stunden",
     "fromPlaceToPlace_noOrder": "Mache {{place1}}-{{place2}} (oder umgekehrt) in weniger als {{time}} Stunden",
-    "fromPlaceToPlace_secondPart": "Erreichen von {{place1}} vor dem <t:{{timestamp}}:f>.",
+    "fromPlaceToPlace_secondPart": "Erreichen Sie {{place}} vor dem {{time}}",
     "goToPlace": "{emote:mapTypes.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
     "fightAttacks": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
     "finishWithAttack": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
