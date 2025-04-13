@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Réplique avec la même action que celle que vient de jouer votre adversaire. Ne fonctionne pas sur les attaques magiques ou divines, ni si l'adversaire n'a pas attaqué.",
       "name_one": "Attaque riposte",
-      "customMessage": "ne parviens pas à riposter.",
+      "customMessage": "ne parvient pas à riposter.",
       "name_other": "Attaques riposte"
     },
     "createBomb": {
