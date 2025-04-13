@@ -188,7 +188,7 @@
       "name_other": "Gourdin-Attacke"
     },
     "chargeUltimateAttack": {
-      "description": "Benötigt eine Runde, um den Angriff aufzuladen Wenn der Angreifer über weniger als 45% seiner Energie verfügt, kann dieser Angriff nicht fehlschlagen. Wenn der Angreifer über mehr als 45% seiner Energie verfügt, beträgt die Genauigkeit dieses Angriffs 70. Dieser Angriff kann nur einmal pro Spieler und Kampf eingesetzt werden.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Letzter Angriff",
       "name_other": "Ultima-Attacken"
     },
@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Replique mit der gleichen Aktion wie die, die Ihr Gegner gespielt hat. Funktioniert nicht auf magischen oder götkischen Angriffen, oder wenn der Gegner nicht angegriffen hat.",
       "name_one": "Anrider",
-      "customMessage": "kann nicht zurückschlagen.",
+      "customMessage": "ne parvient pas à riposter.",
       "name_other": "Post-Attacken"
     },
     "createBomb": {
@@ -709,7 +709,7 @@
       "particle": "in Richtung"
     },
     "1100": {
-      "description": "Dieser Ufer ist das erste, was man sieht, wenn man auf der Eisinsel ankommt. Er hat seinen Namen aus dem Geräusch gemacht, das die Matrosen gemacht haben, als sie angelickten. Offensichtlich kamen sie von der vulkanischen Insel zurück, wo die Temperatur viel heißer ist.",
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Gletscher Ravela",
       "particle": "in Richtung"
     },
@@ -759,7 +759,7 @@
       "particle": "in Richtung"
     },
     "15": {
-      "description": "Mont Celestrum ist der dominierende Berg in der Region. Die hohe Meile von Celestrum ist für alle sichtbar. Man sagt, sie trägt den Namen der alten Göttin. Im Übrigen ist es einer einzigen Person gelungen, bis zum Gipfel zu klettern. Sie hält nur ihre Initialen zurück: M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Mont Célestrum",
       "particle": "in Richtung"
     },
@@ -809,7 +809,7 @@
       "particle": "in Richtung"
     },
     "22222": {
-      "description": "Ein Testzone für Monster. Im Spiel sollte niemals sein.",
+      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu.",
       "name": "Teszone für Monster",
       "particle": "in Richtung"
     },
@@ -839,12 +839,12 @@
       "particle": "in Richtung"
     },
     "28": {
-      "description": "Eingang zum Schloss des Königs, umgeben von dicken Mauern, scheint es möglich zu sein, allen denkbaren Angriffen standhalten zu können.",
+      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Burg-Portes",
       "particle": "in die"
     },
     "29": {
-      "description": "Immense Ornees von vielen Kunstwerken",
+      "description": "Immense salle ornée de nombreuses oeuvres d'art.",
       "name": "Empfangsraum",
       "particle": "in Richtung"
     },
@@ -854,7 +854,7 @@
       "particle": "in"
     },
     "32": {
-      "description": "Die Straße, die zum Schloss des Königs führt",
+      "description": "La route qui mène au château du Roi.",
       "name": "Straße zum Schloss des Königs",
       "particle": "in"
     },
@@ -1594,13 +1594,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} Die Gilde {{guild}} steigt auf!",
-    "levelUpDesc": "Die Gilde ist jetzt auf Stufe **{{level}}**."
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}Sie wurden k.o. geschlagen!",
     "koDesc": "{emote:effects.dead} Verwenden Sie den Befehl {command:respawn} , um das Spiel erneut zu starten.",
     "koDmTitle": "Hallo Kämpfer!",
-    "koDmDesc": "Es scheint, dass Sie k.o. geschlagen wurden... {emote:effects.dead}\nDank unserer fortschrittlichen Technologie war es uns möglich, die Ereignisse so zu beeinflussen, dass Sie nicht mehr sterben müssen! {emote:other.tada}\nLeider ist die Operation kostspielig, sodass Ihr Punktestand durch diesen Tod beeinflusst wurde... \n\nUm das Spiel neu zu starten, gehen Sie auf {command:respawn}.",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}Ohnmacht",
     "leavePVEIslandDescStart": "{emote:effects.confounded} Sie spüren, wie Ihre Kräfte Sie verlassen, Sie sind am Ende. Sie fallen ohnmächtig auf den Boden...\n\n{emote:unitValues.lostMoney} Verlorenes Geld: **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Verlorene Gildenpunkte : **{{guildPointsLost}}**",
