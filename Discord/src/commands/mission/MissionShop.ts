@@ -25,6 +25,7 @@ import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Get the packet to send to the server
@@ -57,7 +58,7 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 }
 
 export async function handleMissionShopBadge(context: PacketContext): Promise<void> {
-	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", { badgeName: "mission_completer" });
+	await handleBasicMissionShopItem(context, "commands:shop.badgeBought", { badgeName: Badge.MISSION_COMPLETER });
 }
 
 export async function handleMissionShopMoney(packet: CommandMissionShopMoney, context: PacketContext): Promise<void> {
