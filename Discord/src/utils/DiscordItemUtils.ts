@@ -1,7 +1,8 @@
 import { Language } from "../../../Lib/src/Language";
 import i18n from "../translations/i18n";
 import {
-	MainItemDisplayPacket, SupportItemDisplayPacket
+	MainItemDisplayPacket,
+	SupportItemDisplayPacket
 } from "../../../Lib/src/packets/commands/CommandInventoryPacket";
 import { EmbedField } from "discord.js";
 import {
@@ -30,7 +31,7 @@ export class DiscordItemUtils {
 		if (value.value !== 0) {
 			values.push(i18n.t(`items:${value.typeValue}`, {
 				lng,
-				value: value.maxValue >= value.value
+				value: value.maxValue ?? Infinity >= value.value
 					? value.value
 					: i18n.t("items:nerfDisplay", {
 						lng,
