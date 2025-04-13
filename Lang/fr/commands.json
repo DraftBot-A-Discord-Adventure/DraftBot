@@ -987,7 +987,7 @@
   },
   "missionsshop": {
     "title": "Magasin des Missions",
-    "success": "{pseudo}, transaction réussie !",
+    "success": "{{pseudo}}, transaction réussie !",
     "error": {
       "cannotBuy": "Vous n'avez pas assez de gemmes pour acheter cet objet ! Il vous manque `{missingMoney}{emote:unitValues.gem}`.",
       "canceledPurchase": "Transaction annulée !",
