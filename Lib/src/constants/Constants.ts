@@ -31,22 +31,6 @@ export class Constants {
 		GLORY: "gloryPoints"
 	};
 
-	static readonly CLASS = {
-		REQUIRED_LEVEL: 4,
-		PRICE: 5000,
-		GROUP1LEVEL: 16,
-		GROUP2LEVEL: 32,
-		GROUP3LEVEL: 48,
-		GROUP4LEVEL: 80,
-		TIME_BEFORE_CHANGE_CLASS: [
-			2 * 7 * 24 * 60 * 60, // 2 weeks
-			2 * 7 * 24 * 60 * 60, // 2 weeks
-			4 * 7 * 24 * 60 * 60, // 4 weeks
-			4 * 7 * 24 * 60 * 60, // 4 weeks
-			4 * 7 * 24 * 60 * 60 // 4 weeks
-		]
-	};
-
 	static readonly LOGS = {
 		FILE_MAX_SIZE: "20m",
 		FILE_RETENTION: "30d",

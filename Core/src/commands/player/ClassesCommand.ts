@@ -11,7 +11,6 @@ import {
 	CommandClassesCooldownErrorPacket,
 	CommandClassesPacketReq
 } from "../../../../Lib/src/packets/commands/CommandClassesPacket";
-import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ClassDataController } from "../../data/Class";
 import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
 import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
@@ -27,6 +26,7 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { MissionsController } from "../../core/missions/MissionsController";
 import { draftBotInstance } from "../../index";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
+import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -72,16 +72,16 @@ export default class ClassesCommand {
 	@commandRequires(CommandClassesPacketReq, {
 		notBlocked: true,
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
-		level: Constants.CLASS.REQUIRED_LEVEL,
+		level: ClassConstants.REQUIRED_LEVEL,
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandClassesPacketReq, context: PacketContext): Promise<void> {
 		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);
 		const currentClassGroup = ClassDataController.instance.getById(player.class).classGroup;
 		const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.keycloakId);
-		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
+		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
 			response.push(makePacket(CommandClassesCooldownErrorPacket, {
-				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
+				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
 			}));
 			return;
 		}
@@ -98,7 +98,7 @@ export default class ClassesCommand {
 				breathRegen: c.breathRegen,
 				health: c.getMaxHealthValue(player.level)
 			} as ReactionCollectorChangeClassDetails)),
-			Constants.CLASS.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]
+			ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]
 		);
 
 		const packet = new ReactionCollectorInstance(
