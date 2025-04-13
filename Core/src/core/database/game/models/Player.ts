@@ -55,7 +55,10 @@ import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../../../Lib/src/types/Badge";
+
+// todo: convert below to import ?
 import moment = require("moment");
+import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player;
@@ -307,10 +310,10 @@ export class Player extends Model {
 	 */
 	public getClassGroup(): number {
 		const ranges = [
-			[Constants.CLASS.REQUIRED_LEVEL, Constants.CLASS.GROUP1LEVEL],
-			[Constants.CLASS.GROUP1LEVEL, Constants.CLASS.GROUP2LEVEL],
-			[Constants.CLASS.GROUP2LEVEL, Constants.CLASS.GROUP3LEVEL],
-			[Constants.CLASS.GROUP3LEVEL, Constants.CLASS.GROUP4LEVEL]
+			[ClassConstants.REQUIRED_LEVEL, ClassConstants.GROUP1LEVEL],
+			[ClassConstants.GROUP1LEVEL, ClassConstants.GROUP2LEVEL],
+			[ClassConstants.GROUP2LEVEL, ClassConstants.GROUP3LEVEL],
+			[ClassConstants.GROUP3LEVEL, ClassConstants.GROUP4LEVEL]
 		];
 		const index = ranges.findIndex(([min, max]) => this.level >= min && this.level < max);
 		return index >= 0 ? index : ranges.length;
@@ -329,11 +332,11 @@ export class Player extends Model {
 			fightUnlocked: newLevel === FightConstants.REQUIRED_LEVEL,
 			guildUnlocked: newLevel === GuildConstants.REQUIRED_LEVEL,
 			healthRestored,
-			classesTier1Unlocked: newLevel === Constants.CLASS.REQUIRED_LEVEL,
-			classesTier2Unlocked: newLevel === Constants.CLASS.GROUP1LEVEL,
-			classesTier3Unlocked: newLevel === Constants.CLASS.GROUP2LEVEL,
-			classesTier4Unlocked: newLevel === Constants.CLASS.GROUP3LEVEL,
-			classesTier5Unlocked: newLevel === Constants.CLASS.GROUP4LEVEL,
+			classesTier1Unlocked: newLevel === ClassConstants.REQUIRED_LEVEL,
+			classesTier2Unlocked: newLevel === ClassConstants.GROUP1LEVEL,
+			classesTier3Unlocked: newLevel === ClassConstants.GROUP2LEVEL,
+			classesTier4Unlocked: newLevel === ClassConstants.GROUP3LEVEL,
+			classesTier5Unlocked: newLevel === ClassConstants.GROUP4LEVEL,
 			missionSlotUnlocked: newLevel === Constants.MISSIONS.SLOT_2_LEVEL || newLevel === Constants.MISSIONS.SLOT_3_LEVEL,
 			pveUnlocked: newLevel === PVEConstants.MIN_LEVEL,
 			statsIncreased: true

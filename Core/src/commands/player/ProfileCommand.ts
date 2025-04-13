@@ -15,7 +15,6 @@ import {
 	Player, Players
 } from "../../core/database/game/models/Player";
 import { Guilds } from "../../core/database/game/models/Guild";
-import { Constants } from "../../../../Lib/src/constants/Constants";
 import { PetDataController } from "../../data/Pet";
 import { MapLocationDataController } from "../../data/MapLocation";
 import {
@@ -23,6 +22,7 @@ import {
 } from "../../core/utils/CommandUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { Badge } from "../../../../Lib/src/types/Badge";
+import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 
 /**
  * Get the current campaign progression of the player
@@ -96,7 +96,7 @@ export default class ProfileCommand {
 					gems: missionsInfo.gems,
 					campaignProgression: getCampaignProgression(missionsInfo)
 				},
-				stats: toCheckPlayer.level >= Constants.CLASS.REQUIRED_LEVEL
+				stats: toCheckPlayer.level >= ClassConstants.REQUIRED_LEVEL
 					? {
 						attack: toCheckPlayer.getCumulativeAttack(playerActiveObjects),
 						defense: toCheckPlayer.getCumulativeDefense(playerActiveObjects),

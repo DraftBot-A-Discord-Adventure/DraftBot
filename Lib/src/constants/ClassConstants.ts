@@ -27,6 +27,22 @@ export abstract class ClassConstants {
 		MYSTIC_MAGE: 24
 	};
 
+	static readonly GROUP1LEVEL = 16;
+
+	static readonly GROUP2LEVEL = 32;
+
+	static readonly GROUP3LEVEL = 48;
+
+	static readonly GROUP4LEVEL = 80;
+
+	static readonly TIME_BEFORE_CHANGE_CLASS = [
+		2 * 7 * 24 * 60 * 60, // 2 weeks
+		2 * 7 * 24 * 60 * 60, // 2 weeks
+		4 * 7 * 24 * 60 * 60, // 4 weeks
+		4 * 7 * 24 * 60 * 60, // 4 weeks
+		4 * 7 * 24 * 60 * 60 // 4 weeks
+	];
+
 	static readonly CLASS_KIND = {
 		ATTACK: "attack",
 		DEFENSE: "defense",
@@ -67,5 +83,5 @@ export abstract class ClassConstants {
 			]
 		};
 
-	static readonly REQUIRED_LEVEL = 10;
+	static readonly REQUIRED_LEVEL = 4;
 }
