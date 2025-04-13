@@ -407,7 +407,7 @@
     },
     "playerClass": {
       "fieldName": "Class:",
-      "fieldValue": "$t(templates:classFormat)"
+      "fieldValue": "$t(models:classFormat)"
     },
     "ranking": {
       "fieldName": "Ranking and score:",
