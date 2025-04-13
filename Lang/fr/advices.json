@@ -173,7 +173,6 @@
     "Il est possible de recruter de nouveaux membres pour votre guilde via le Discord officiel du bot.",
     "Il existe 3 types de missions : celles de campagne, les journalières et les secondaires.",
     "La mission journalière est la même pour tous les joueurs.",
-    "Lors de l'échange d'un familier avec un autre joueur, les familiers perdent un peu de points d'amour.",
     "Lors de la vente de familier à un autre joueur, le familier perd beaucoup de points d'amour.",
     "Lire les conseils peut vous permettre de progresser plus rapidement.",
     "Vous pouvez préciser l'argument `force` de la commande {command:drink} à `true` pour éviter d'avoir à confirmer lorsque vous buvez une potion.",
