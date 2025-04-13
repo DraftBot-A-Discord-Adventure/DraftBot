@@ -9,13 +9,13 @@
       },
       "end": {
         "outcomes": {
-          "0": "Der Baum wurde abgeschnitten, und die Straße ist frei, leider haben die Plünderer fast alles gestohlen, was Sie von Ihrer letzten Reise geerntet haben!"
+          "0": "Der Baum wurde zwar gefällt und die Straße ist frei, aber leider haben Plünderer fast alles gestohlen, was Sie seit Ihrer letzten Reise gesammelt hatten!"
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Ein anderer Weg zu gehen schien eine gute Lösung zu sein, Sie haben keine Zeit verschwendet!",
-          "1": "Ein anderer Weg zu gehen schien eine gute Lösung zu sein, leider sind Sie verletzt, als Sie zu einem anderen kommen."
+          "0": "Einen anderen Weg zu gehen, schien eine gute Lösung zu sein, Sie haben keine Zeit verloren!",
+          "1": "Einen anderen Weg zu nehmen, schien eine gute Lösung zu sein, aber leider haben Sie sich beim Gehen verletzt."
         },
         "text": "Sprung durch einen anderen Weg."
       }
@@ -57,21 +57,21 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie haben lange Zeit damit verbracht, mit der Fremden zu chatten, Sie finden an, wieder zu gehen! Nach seinen Anweisungen kommen Sie schnell zu einem guten Hafen."
+          "0": "Nachdem Sie sich minutenlang mit der Unbekannten unterhalten haben, fahren Sie schließlich weiter! Indem Sie ihren Anweisungen folgen, kommen Sie schnell an Ihrem Ziel an."
         }
       },
       "followHint": {
         "outcomes": {
           "0": "Es war in der Tat eine Abkürzung!",
-          "1": "Sie werden in einen Hinterhalt fallen. Nachdem Sie alle Ihre Sachen gestohlen haben, entfliehen die Räuber, die schwer verletzt wurden, Sie wurden fallen gelassen, ohntja."
+          "1": "Sie geraten in einen Hinterhalt! Nachdem die Räuber Ihnen all Ihr Hab und Gut geraubt haben, fliehen sie feige. Sie werden schwer verletzt und fallen ohnmächtig zu Boden."
         },
         "text": "Bitte befolgen Sie die Ratschläge von Unbekannt."
       },
       "forest": {
         "outcomes": {
           "0": "Sie verschwenden mehrere Stunden im Wald, aber beenden Sie sie, ohne Schaden zu nehmen.",
-          "1": "Sie verschwenden viel Zeit, um in den Wald zu kommen, aber Sie schaffen es, sie zu durchqueren! Wenn Sie herauskommen, können Sie ein Objekt, das Sie sich als nützlich erfinden können!",
-          "2": "Wenn man durch den Wald geht, macht man einen großen Sturz in eine Lücke, die Wunde ist tief, man muss unbedingt heilen!"
+          "1": "Sie verlieren viel Zeit, um in den Wald vorzudringen, aber schließlich schaffen Sie es, ihn zu durchqueren! Auf dem Weg nach draußen heben Sie einen Gegenstand auf, der Ihnen vielleicht nützlich sein kann!",
+          "2": "Auf dem Weg durch den Wald stürzen Sie schwer in einen Graben. Die Wunde ist tief, Sie müssen sich unbedingt behandeln lassen!"
         },
         "text": "Sie müssen trotzdem den Wald überqueren."
       },
@@ -88,9 +88,9 @@
     "possibilities": {
       "craftBoat": {
         "outcomes": {
-          "0": "Wenn Sie versuchen, Ihr Schiff zu bauen, verletzen Sie sich leicht. Sie entscheiden sich also, das Gebäude aufzugeben, nachdem Sie mehrere Stunden darauf verbracht haben, und Sie gehen in eine andere Richtung.",
+          "0": "Bei dem Versuch, Ihr Boot zu bauen, verletzen Sie sich leicht! Sie beschließen daher, den Bau abzubrechen, nachdem Sie mehrere Stunden daran gearbeitet haben, und gehen in eine andere Richtung.",
           "1": "Nachdem Sie mehrere Stunden damit verbracht haben, Ihr Boot zu produzieren, ziehen Sie sich auf den Fluss ... und schlügen Sie dann in die Mitte. Das Wasser ist eingefroren, aber es ist so gut wie schwer, das andere Ufer zu erreichen, gefroren und abgeschwächt zu werden. Wir müssen Sie heilen, bevor Sie weitermachen.",
-          "2": "Sie stellen einen kleinen Bart in ein paar Stunden her und erreichen Sie die andere Seite leicht. Wenn Sie aus Ihrem Boot kommen, nehmen Sie ein Objekt, das, wenn es nicht verwendet werden kann, leicht zu verkaufen!"
+          "2": "Sie bauen in wenigen Stunden ein kleines Boot und erreichen die andere Seite leicht. Als du aus dem Boot steigst, sammelst du einen Gegenstand auf, der dir zwar nicht nützt, aber leicht zu verkaufen ist!"
         },
         "text": "Versuchen Sie, ein kleines Boot zu ketteln."
       },
@@ -107,10 +107,10 @@
       },
       "searchBridge": {
         "outcomes": {
-          "0": "Nach 30 Minuten verlassen Sie sich, und Sie nehmen Ihren Weg zurück in eine andere Richtung ...",
+          "0": "Nach 30 Minuten geben Sie schließlich auf und setzen Ihre Reise in eine andere Richtung fort...",
           "1": "Nach 60 Minuten finst du an, einen durchlassenden Durchgang zu finden. Sie entscheiden sich dann, nicht dem Dorf beizutreten, das jetzt zu weit ist, und Sie nehmen Ihren Weg zurück.",
-          "2": "Nach einigen Minuten erreichen Sie eine kleine Holzbrücke, gelangen Sie schnell zu dem Dorf, wo die Bewohner zum ersten Mal seit Jahren mit einem Fremden zusammentrafen, ein paar Münzen.",
-          "3": "Nach ein paar Minuten finden Sie eine kleine Holzbrücke. Leider ist es verwässert, weil niemand es seit Jahren ausgeliehen hat, und nach ein paar Monaten bricht ein Brett unter Ihrem Gewicht ab! Sie können sich an die Wahnsinnige halten und die Erde wieder aufsuchen. Aber wir müssen Sie heilen."
+          "2": "Nach ein paar Minuten finden Sie eine kleine Holzbrücke. Sie erreichen schnell das Dorf, wo Ihnen die Bewohner, die sich freuen, zum ersten Mal seit Jahren einen Fremden zu treffen, ein paar Münzen schenken.",
+          "3": "Nach ein paar Minuten stoßen Sie auf eine kleine Holzbrücke. Leider ist sie baufällig, da sie seit Jahren niemand mehr betreten hat. Nach ein paar Schritten bricht ein Brett unter Ihrem Gewicht zusammen! Sie können sich gerade noch am Geländer festhalten und haben wieder festen Boden unter den Füßen. Sie müssen sich jedoch behandeln lassen."
         },
         "text": "Durchsuche eine Brücke aus der Ferne."
       },
@@ -122,7 +122,7 @@
         "text": "Überquem den Fluss überquem."
       }
     },
-    "text": "Sie sehen einen Fluss vor Ihnen, auf der anderen Seite des Ufers, Sie sehen ein Dorf."
+    "text": "Sie sehen einen Fluss vor sich. Auf der anderen Seite des Ufers sehen Sie ein Dorf."
   },
   "13": {
     "possibilities": {
@@ -133,7 +133,7 @@
       },
       "goAway": {
         "outcomes": {
-          "0": "Sie überquen die kleine Siedlung in einer halben Stunde, und fahren Sie fort.",
+          "0": "Sie durchqueren die kleine Ortschaft in einer knappen halben Stunde und setzen Ihren Weg fort.",
           "1": "Sie vergeuden eine gute Stunde, um die Stadt zu umgehen, aber nehmen Sie Ihre Reise in Ruhe."
         },
         "text": "Zurückgehen."
@@ -150,7 +150,7 @@
       },
       "goInn": {
         "outcomes": {
-          "0": "Nachdem Sie zwei Stunden lang mit der Herberge diskutiert haben, können Sie lernen, dass es für die Nacht kein Zimmer gibt! Sie sind wieder auf der Straße, frustriert, dass Sie nicht von einer guten Nacht ausgenutzt werden konnten.",
+          "0": "Nachdem Sie zwei Stunden lang mit dem Gastwirt diskutiert haben, erfahren Sie schließlich, dass für diese Nacht keine Zimmer mehr frei sind! Sie machen sich wieder auf den Weg und sind frustriert, weil Sie nicht in den Genuss einer erholsamen Nacht gekommen sind.",
           "1": "Sie bezahlen ein Zimmer für die Nacht und fallen auf das Bett. Wir müssen schlafen, bevor wir das Abenteuer wieder aufnehmen.",
           "2": "Die Herberge ist seit mehreren Jahren im Stich gelassen ... Sie fahren weiter, ohne weitere Fragen zu stellen."
         },
@@ -228,7 +228,7 @@
       },
       "trade": {
         "outcomes": {
-          "0": " Sie diskutieren einen Moment mit diesen netten Händlern, die mit Ihnen Handel treiben.",
+          "0": "Sie unterhalten sich eine Weile mit diesen freundlichen Händlern, die sich dazu entschließen, mit Ihnen Handel zu treiben!",
           "1": "Unglücklicherweise hat die Händlergruppe nichts zu verkaufen, also fahren Sie mit Ihrem Weg fort.",
           "2": "Die Gruppe der Männer, die Sie hofften, Sie hofften, Sie würden sich schnell und unter Androhung von Schlägen umkreisen lassen, Sie werden ein paar Monate vor der Flucht sorgen!",
           "3": "Sie hätten sich auf Ihre Intuition verlassen und diesen \"guten Fall\" ablehnen müssen ... Das wunderbare Schwert der Diamanten, das wir Ihnen versprochen haben, scheint aus weichem Schaum zu sein. Sie kommen schnell wieder auf Ihre Schritte zurück, aber die Tür des Schopfs scheint geschlossen zu sein! Wenn Sie schwören, Sie nie wieder zu bekommen, nehmen Sie Ihren Weg zurück."
@@ -250,7 +250,7 @@
         "outcomes": {
           "0": "Kurz nachdem Sie in die Burg eingekommen sind, werden Sie sich der Unruttigkeit der Orte bewusst. Der Bastard ist seit Jahren nicht mehr im Stich gelassen worden. Nach ein paar Minuten der Erkundung, während Sie in einen großen, vernachlässigten Raum begeben, fällt ein riesiges Stück von der Decke über Sie! Bei vielen Schwierigkeiten kommen Sie wieder aus dem Gebäude heraus, verwundet.",
           "1": "Sie begeben sich in die Burg und durchsuchen die Orte schnell. Nach ein paar Minuten finden Sie einen Raum, der anscheinend die alte Rüstung zu sein scheint. Um das Gebäude aus dem Gebäude zu holen, kriegt man das erste Objekt, das Sie unter die Hand nimmt und aus der Hand rauskommt, um den Schritt zu drücken.",
-          "2": "Es sieht so aus, als würde die Burg nicht so einfach so fallen, wie es ist. Kurz nach Ihrer Eingabe hören Sie viele Geräusche aus verschiedenen Räumen. Es ist nicht beruhigt, dass Sie Ihren Weg zurück wollen."
+          "2": "Es scheint, dass dieses Schloss nicht so verlassen ist, wie es scheint! Kurz nachdem du das Schloss betreten hast, hörst du viele Geräusche aus verschiedenen Räumen. Da du dich nicht sicher fühlst, machst du dich lieber wieder auf den Weg."
         },
         "text": "Geben Sie ein, um das Schloss zu durchsuchen."
       },
@@ -314,7 +314,7 @@
       "skip": {
         "outcomes": {
           "0": "Sie fahren weiter, ohne mehr Zeit zu verschwenden.",
-          "1": "Du entscheidest, dass du dich nicht wiederbelaugen kannst. Aber lassen Sie uns diese Entscheidung einige Stunden später bereuen. Verfeinert, Sie entscheiden sich, sich etwas Ruhe zu nehmen, bevor Sie wieder auf die Straße gehen."
+          "1": "Sie beschließen, sich nicht satt zu essen, bereuen diese Entscheidung aber schließlich ein paar Stunden später. Hungrig beschließen Sie, sich ein wenig auszuruhen, bevor Sie sich wieder auf den Weg machen."
         },
         "text": "Vergeben Sie sich die Idee, hier zu essen und wieder in die Hoffnung zu gehen, einen besseren Ort zu finden, um Sie wieder zu belordern."
       }
@@ -325,7 +325,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie beobachten die Baustelle einige Minuten, dann erkennen Sie, dass er wirklich entlogen ist. Sie sind wieder auf dem Weg."
+          "0": "Sie beobachten die Baustelle einige Minuten lang und stellen dann fest, dass sie wirklich menschenleer ist. Sie setzen Ihren Weg fort."
         }
       },
       "searchScaffolding": {
@@ -360,7 +360,7 @@
         "outcomes": {
           "0": "Sie nähern sich der Leiche, und Sie können es abtun. Sie verkaufen sein Fell an den ersten reisenden Händler, den Sie glauben.",
           "1": "Sie sind auf der Suche nach einem Fuchs und suchen nach einem Weg, seine Haut zu verkaufen. Einige Minuten später glauben Sie an einen Händler, der Ihnen die Täuschung gegen eines seiner Qualitätsobjekte anbietet, und Sie akzeptieren.",
-          "2": "Sie suchen den Fuchs und suchen einen Ort, an dem er seinen Pelz verkaufen kann. Leider lacht sie sehr schnell, und Fliegen sammeln sich um Sie herum. Sie enden am Ende des Weges, ein bisschen spät, da Sie sich sehr schnell schlecht fühlen!"
+          "2": "Sie häuten den Fuchs und suchen einen Ort, an dem Sie sein Fell verkaufen können. Leider verrottet es sehr schnell und um Sie herum sammeln sich Fliegen. Sie lassen ihn schließlich am Wegesrand liegen - zu spät, denn Sie fühlen sich schon bald schlecht!"
         },
         "text": "Um den Fuchs zu brechen, um seine Haut zu verkaufen."
       },
@@ -368,14 +368,14 @@
         "outcomes": {
           "0": "Angesichts Ihrer schlechten Fähigkeiten in der Küche, hätten Sie erwarten können, dass Sie krank werden, kurz nachdem Sie Ihre Vorbereitung probiert haben.",
           "1": "Trotz Ihrer in der Küche reduzierten Fertigkeiten hat Ihr Fuchs an der Spindel das Verdienst, Sie gefüttert zu haben.",
-          "2": "Sie nähern sich dem Fuchs, um ihn zu sammeln, wenn er plötzlich aufsteht und beißt! Sie rauchen, verletzt und den Magen in den Fersen.",
-          "3": "Sie haben diesen Fuchs überraschenderweise gut gekocht, nachdem Sie ihn gegessen haben, Sie riechen nach Haie."
+          "2": "Du näherst dich dem Fuchs, um ihn aufzuheben, als er plötzlich aufspringt und dich beißt! Du rennst weg, verletzt und mit dem Magen in den Fersen.",
+          "3": "Sie haben diesen Fuchs überraschend gut gekocht, nachdem Sie ihn gegessen haben, fühlen Sie sich erquickt."
         },
         "text": "Versuchen Sie, den Fuchs zu kochen."
       },
       "end": {
         "outcomes": {
-          "0": "Sie sehen einen Moment, die Bestie, die auf dem Boden liegt, zögerlich. Endlich haben Sie Ihren Weg zurück."
+          "0": "Sie schauen einen Moment lang zögernd auf das Tier, das am Boden liegt. Schließlich setzen Sie Ihren Weg fort."
         }
       },
       "skip": {
@@ -411,7 +411,7 @@
         "text": "Wir wollen weiter, ohne sich um den Hund zu kümmern."
       }
     },
-    "text": "Vor Ihnen kommt ein Hund, der sich um Sie dreht. Er scheint zu wollen, dass Sie ihm folgen."
+    "text": "Vor Ihnen taucht ein Hund auf und umkreist Sie. Er scheint zu wollen, dass Sie ihm folgen!"
   },
   "20": {
     "possibilities": {
@@ -439,7 +439,7 @@
         "outcomes": {
           "0": "Sie werden die Wache anwerben und ein wertvolles Objekt bekommen, das er getragen hat.",
           "1": "Im letzten Moment dreht sich das Sorgerecht um und greift Sie an. Nach einem Kampf, in dem die Frau geflohen ist, scheitern Sie, eine ihrer Angriffe abzulenken. Victorieux, die Wache lässt Sie am Leben und nimmt auch die Flucht.",
-          "2": "Die Leibwächter und die Frau kommen, um zu entkommen. Nachdem Sie die Wache verlassen haben, finden Sie sie nicht in Gefahr. Um Ihnen zu danken, haben Sie ein paar Goldmünzen."
+          "2": "Die Wache weicht aus und der Frau gelingt es zu fliehen. Nachdem Sie die Wache verscheucht haben, finden Sie sie außer Gefahr. Zum Dank bietet sie Ihnen einige Goldmünzen an."
         },
         "text": "Das Sorgerecht für die Frau, die die Frau unterstützt, zu verpassen."
       }
@@ -450,24 +450,24 @@
     "possibilities": {
       "crossBridge": {
         "outcomes": {
-          "0": "Die Überquerung scheint Sie zu riskieren, aber Sie haben keine Zeit zu verlieren, und dann werden Sie es durchmachen. Nach 5 Minuten zu Fuß auf dieser Brücke erreichen Sie die gesunder, aber nicht.",
-          "1": "Wenn Sie durch diese Brücke hindurchgehen, sehen Sie eine kleine Tasche, indem Sie sich eine große Anzahl von Teilen bemerken.",
-          "2": "Wenn man auf der Brücke läuft, hört man kleine Kreizen, wenn plötzlich ein Brett fällt, und Sie gehen mit.",
-          "3": "In Ihrer Reise fällt Ihnen ein Brett zum Glück zu, dass Sie an einem soliden Brett festhalten. Nach ein paar Minuten, um Sie von Ihren Emotionen zu erhitzen, setzen Sie sich weiter."
+          "0": "Die Überquerung erscheint Ihnen riskant, aber Sie haben keine Zeit zu verlieren und gehen deshalb hinüber. Nach einem fünfminütigen Marsch über die Brücke kommen Sie sicher am Ende an.",
+          "1": "Wenn du über die Brücke gehst, siehst du einen kleinen Beutel. Als du ihn öffnest, fällt dir eine beträchtliche Anzahl an Münzen auf.",
+          "2": "Wenn du über die Brücke gehst, hörst du kleine Knackgeräusche, als plötzlich ein Brett herunterfällt und du mit ihm stürzt.",
+          "3": "Während Ihrer Überfahrt fällt ein Brett herunter. Glücklicherweise gelingt es Ihnen, sich an einem stärkeren Brett festzuhalten. Nachdem Sie sich einige Minuten lang von Ihren Strapazen erholt haben, setzen Sie Ihren Weg fort."
         },
         "text": "Nehmen Sie die Gefahr, sich die Brücke zu leihen."
       },
       "end": {
         "outcomes": {
-          "0": "Sie erwarten etwa 20 Minuten, indem Sie diese Brücke beobachten. Und dann fahren Sie weiter.",
-          "1": "Sie haben keine Zeit zu verlieren, Sie gehen weiter, ohne sich um diesen gefährlichen Weg zu kümmern."
+          "0": "Sie warten etwa 20 Minuten, während Sie diese Brücke beobachten, und setzen dann Ihren Weg fort.",
+          "1": "Keine Zeit zu verlieren, Sie setzen Ihren Weg fort, ohne sich um diesen gefährlichen Weg zu kümmern."
         }
       },
       "otherWay": {
         "outcomes": {
-          "0": "Nach einer guten Betriebszeit finden Sie eine andere Brücke, die sich in viel besseren Zustand befindet und sich dazu entschließen kann, sich Geld zu leihen.",
-          "1": "Während Sie auf Ihrem Weg sind, sehen Sie eine kleine Kiste, und öffnen Sie sie, in der Sie ein nützliches Objekt zu sehen. Sie holen ihn zurück und fahren Sie fort.",
-          "2": "Sie entkommen eine Brücke und überstürzen sie so schnell wie möglich, aber Sie stolken auf einem Baumstamm und bleiten Sie."
+          "0": "Nach einer guten Stunde Wanderung finden Sie eine weitere Brücke, die jedoch in einem viel besseren Zustand zu sein scheint, und beschließen, sie zu überqueren.",
+          "1": "Auf deinem Weg bemerkst du eine kleine Kiste und öffnest sie. Darin befindet sich ein scheinbar nützlicher Gegenstand. Sie nehmen ihn an sich und setzen Ihren Weg fort.",
+          "2": "Sie sehen eine Brücke und rennen los, um so schnell wie möglich dorthin zu gelangen. Sie stolpern jedoch über einen Baumstamm und verletzen sich."
         },
         "text": "Einen weiteren Weg ein wenig weiter zu suchen."
       }
@@ -531,7 +531,7 @@
         "text": "Seien Sie nicht besorgt, dass diese Menschen verdächtig sind."
       }
     },
-    "text": "Sie gehen im Wald spazieren, wenn Sie plötzlich einen Wagen nehmen, der kaputt zu sein scheint. Die Gruppe von Menschen scheint in der Sache nicht gut zu sein."
+    "text": "Sie gehen im Wald spazieren, als Sie plötzlich einen Wagen sehen, der kaputt zu sein scheint. Um ihn herum scheint die Gruppe von Menschen in schlechter Verfassung zu sein."
   },
   "24": {
     "possibilities": {
@@ -544,8 +544,8 @@
       "foodStand": {
         "outcomes": {
           "0": "Dieses Essen ist unglaublich! Aus Ihrem Leben haben Sie nie etwas so gutes gegessen. Sie fühlen sich neu belebt und beruf.",
-          "1": "Das Essen ist seltsam. Wenn Sie es schlucken, haben Sie Kopfschmerzen, Halluzinationen und Übelkeit. Wir haben Sie vergiftet! Wenn Sie das Lächeln Ihres Koch sehen wollen, gibt es keinen Zweifel daran. Sie kotzen dieses Gift auf dem Tisch, aber Sie sind nicht sicher, dass Sie alles eliminiert haben.",
-          "2": "Dieses Essen ist ziemlich klassisch. Sie können nichts fühlen, wenn Sie es essen oder nach dem Ende des Geschmacks und dann vergessen Sie Ihren Geschmack."
+          "1": "Dieses Essen ist seltsam. Sobald Sie es schlucken, bekommen Sie Kopfschmerzen, Halluzinationen und Übelkeit. Man hat Sie vergiftet! Wenn man das Lächeln Ihres Kochs sieht, gibt es keinen Zweifel. Sie kotzen das Gift auf den Tisch, sind sich aber nicht sicher, ob Sie alles ausgeschieden haben.",
+          "2": "Dieses Essen ist ziemlich klassisch. Sie spüren nichts, wenn Sie es essen oder wenn Sie es beendet haben, und vergessen dann schnell den Geschmack."
         },
         "text": "Gehen Sie zu einem Essstand."
       },
@@ -585,20 +585,20 @@
       },
       "help": {
         "outcomes": {
-          "0": "Sie entscheiden sich, die Soldaten zu besuchen, und Sie können ihnen helfen, nach Überlebenden zu suchen. Nach 45 Minuten Hilfe bietet Ihnen ein Soldat ein wenig Geld, um Ihnen für Ihre so wertvolle Hilfe zu danken.",
+          "0": "Sie beschließen, zu den Soldaten zu gehen und bieten ihnen Ihre Hilfe bei der Suche nach Überlebenden an. Nachdem Sie 45 Minuten lang geholfen haben, bietet Ihnen ein Soldat etwas Geld an, um Ihnen für Ihre so wertvolle Hilfe zu danken.",
           "1": "Wenn Sie nach Überlebenden suchen, werden Sie von einer Person angegriffen, die die Leichen ausplündert! Nach der Aussprache fliehen Sie und fahren Sie fort."
         },
         "text": "Hilfe vorschlagen."
       },
       "steal": {
         "outcomes": {
-          "0": "Sie entscheiden sich, die Soldaten zu umgehen und die Leichen der armen Leute zu plündern, um zu versuchen, Ihnen ein wenig zu bereichern.",
+          "0": "Sie beschließen, die Soldaten zu umgehen und plündern die Leichen der armen Verstorbenen, um zu versuchen, sich ein wenig zu bereichern.",
           "1": "Wenn Sie die Leichen ausschneiden, fangen Sie mit einem Soldat schlagartig an. Dieses hier nutzt Ihre Situation, um Sie zu entführen, bevor Sie sich schnell dazu aufbringen, Ihren Weg schnell fortzusetzen."
         },
         "text": "Körper anziehen."
       }
     },
-    "text": "Nach mehreren Tagen der unbeschönten Reise beende Sie sich am Tatort einer kleinen Schnurkenfeche zwischen zwei bewaffneten Gruppen. Die Geister scheinen sich jedoch beruhigt zu haben, und Sie sehen mehrere Soldaten, die nach möglichen Überlebenden suchen."
+    "text": "Nach einer mehrtägigen Reise ohne Zwischenfälle erreichen Sie schließlich den Ort, an dem es zu einem kleinen Scharmützel zwischen zwei bewaffneten Gruppen gekommen ist. Die Gemüter scheinen sich jedoch beruhigt zu haben und Sie bemerken mehrere Soldaten, die geschäftig nach möglichen Überlebenden suchen."
   },
   "26": {
     "possibilities": {
@@ -610,9 +610,9 @@
       "goAway": {
         "outcomes": {
           "0": "Mit diesem Akt der Barbarei, machen Sie schnell Ihren Weg fort.",
-          "1": "Wenn Sie sich vom Ausweg entfernen, sehen Sie sich ein Schrank. Nach einem kurzen Spaziergang erreichen Sie das Testpaket. Sie öffnen und entdecken Sie eine Tasche voll mit Silber."
+          "1": "Als Sie sich weiter entfernen, sehen Sie in der Ferne eine Schatulle. Nach ein paar Minuten Fußmarsch erreichst du sie, öffnest sie und entdeckst einen Beutel mit Geld."
         },
-        "text": "Fahren Sie mit Ihrer ruhigen Straße fort."
+        "text": "Sich von dem Massaker entfernen."
       },
       "steal": {
         "outcomes": {
@@ -623,8 +623,8 @@
       },
       "trySave": {
         "outcomes": {
-          "0": "Nach Ihnen, um die Menge zu überqueren, kommen Sie so schnell und erfolgreich, dass Sie diesen Mann von hier aus rausziehen. Nachdem er durch das Dorf gelaufen ist, dieser Mann, sehr dankbar, bietet Ihnen ein Objekt, das Sie als Folge Ihrer Abenteuer verwenden.",
-          "1": "Während Ihrer Reise durch die Menschenmenge, um zu verhindern, dass dieser Mord verhindert wird, werden Sie sich sehr bewegt, und fallen auf den Boden.",
+          "0": "Nachdem Sie sich durch die Menge gekämpft haben, greifen Sie so schnell wie möglich ein und schaffen es, den Mann herauszuziehen. Nachdem Sie durch das Dorf gerannt sind, schenkt Ihnen der Mann, der sehr dankbar ist, einen Gegenstand, den Sie für Ihr weiteres Abenteuer brauchen werden.",
+          "1": "Während Sie durch die Menschenmenge laufen, um den Mord zu verhindern, werden Sie heftig angerempelt und fallen zu Boden.",
           "2": "Nach dem Erfolg von hier mit dem Mann, werden Sie einholen und von einer Gruppe von Menschen treffen. Wenn Sie aufpassen, sehen Sie, dass diese Leute Sie gestohlen haben.",
           "3": "Nachdem Sie sich vergewaltigt haben, Sie zu verlegen, erwischt der Henker Sie mit Gewalt. Sie reden hier, aber es gibt nichts. Sie sind zu Ihrer Verurteilung zu der Todesstrafe verurteilt worden."
         },
@@ -638,14 +638,14 @@
       "end": {
         "outcomes": {
           "0": "Sie beobachten das Objekt 20 Minuten lang und gehen dann wieder zurück.",
-          "1": "Sie beobachten, über dem Brunnen aufgehängt, das Objekt. Es ist so, dass Sie kicken, zum Glück kommen Sie schnell wieder zurück, nicht ohne Sie schwer verletzt zu werden."
+          "1": "Sie beugen sich über den Brunnen und beobachten das Objekt. Dann kippen Sie um. Glücklicherweise gelingt es Ihnen schnell, wieder nach oben zu klettern, allerdings nicht ohne sich dabei schwer zu verletzen."
         }
       },
       "goDown": {
         "outcomes": {
           "0": "Sie beschuldigen Sie während des Absturkens und bleiben mehrere Stunden im Hintergrund geblockt, bevor jemand Sie findet.",
-          "1": "Sie kommen ohne Probleme, holen Sie das Objekt zurück und fahren Sie fort.",
-          "2": "Sie gehen in den Brunnen, aber Sie können nichts finden, Sie gehen also zurück, ohne mehr Zeit zu verlieren.",
+          "1": "Sie kommen ohne Probleme unten an, sammeln den Gegenstand ein und setzen Ihren Weg fort.",
+          "2": "Du springst in den Brunnen, findest aber nichts. Sie klettern wieder hoch, ohne weitere Zeit zu verlieren.",
           "3": "Wenn Sie unten sind, entdecken Sie eine große Menge von Gold-Teilen, die Sie zurückbekommen, bevor Sie mit der Reise fortfahren."
         },
         "text": "Versuch, runter zu gehen, um das Objekt zu bekommen."
@@ -661,7 +661,7 @@
         "outcomes": {
           "0": "Nach einer Stunde der Versuche bekommen Sie endlich dieses Objekt, das sich in Wirklichkeit ein einfaches Stück Schrott erweist.",
           "1": "Konzentriert sich auf Ihr Ziel, wird Ihnen nicht klar, dass ein junger Dorfbegeort Sie fängt und Sie in den Brunnen fallen. Sie weinen Sie nur einige Minuten später.",
-          "2": "Schnell, Sie bekommen das Geld zurück, das im Grunde lag, und fahren Sie fort."
+          "2": "Schnell holen Sie sich das Geld, das sich am Boden befand, und setzen Ihren Weg fort."
         },
         "text": "Versuchen Sie, das Objekt mit dem Eimer des Bohrlochs zu fangen."
       }
@@ -672,9 +672,9 @@
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "Sie werden sich ihnen anschließen. Und Sie verschwenden drei Stunden, um an einer religiösen Zeremonie teilzunehmen.",
-          "1": "Sie werden sich ihnen anschließen. Aber Sie beschließen, nach 30 Minuten zu gehen, um Ihnen zu sagen, dass Sie noch eine Prinzessin sind, die Sie retten können, und dass Sie nicht mehr Zeit für Ihren Glauben haben.",
-          "2": "Die Gruppe fängt an, aggressiv zu sein, wenn Sie ihre mangelnde Sensibilität gegenüber ihren Reden anmerken. Sie haben mehrere Minuten zu entkommen, ohne ein paar Schläge zu bekommen.",
+          "0": "Sie schließen sich ihnen an ... und verschwenden drei Stunden, um einer religiösen Zeremonie beizuwohnen.",
+          "1": "Sie schließen sich ihnen an ... aber nach 30 Minuten beschließen Sie, wieder zu gehen, weil Sie merken, dass Sie noch eine Prinzessin retten müssen und nicht mehr Zeit für Ihren Glauben haben.",
+          "2": "Als die Gruppe merkt, dass Sie nicht auf ihre Reden reagieren, beginnt sie, aggressiv zu werden! Es dauert mehrere Minuten, bis Sie aus dieser Gruppe entkommen, nicht ohne einige Schläge abbekommen zu haben.",
           "3": "Sie schließen sich an, und fahren Sie dann so schnell wie möglich mit einem Objekt, das Ihnen nützlich sein kann."
         },
         "text": "Akzeptieren Sie sie."
@@ -692,20 +692,20 @@
         }
       }
     },
-    "text": "Während Ihrer Reise, eine Gruppe von Männern, die \"das Wort der Götter predigen\", werden Sie aufgefordert, sich an ihre Sache zu beteiligen."
+    "text": "Während Ihrer Reise lädt Sie eine Gruppe von Männern, die \"das Wort der Götter predigen\", dazu ein, sich ihrer Sache anzuschließen."
   },
   "29": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "Sie bleiben an Ihrer Stelle, in der Sonne für 15 Minuten, dann brechen Sie auf.",
-          "1": "Sie entscheiden sich, Ihre Reserven zu putzenden, und fahren Sie fort, damit Sie keine Zeit verschwenden."
+          "1": "Sie beschließen, auf Ihre Reserven zurückzugreifen, und setzen Ihren Weg fort, um keine Zeit zu verlieren."
         }
       },
       "restHere": {
         "outcomes": {
-          "0": "Sie stellen sich jedoch wieder, aber der Boden ist sehr unangenehm.",
-          "1": "Sie stellen sich, nach dem guten Nickerchen, wieder motivierter als je zuvor."
+          "0": "Sie ruhen sich aus. Der Boden ist jedoch sehr unbequem.",
+          "1": "Sie ruhen sich aus. Nach Ihrem ausgiebigen Nickerchen gehen Sie motivierter denn je wieder los."
         },
         "text": "Auf Platz ruhen."
       },
@@ -718,8 +718,8 @@
       },
       "searchWater": {
         "outcomes": {
-          "0": "Sie erinnern sich daran, in der Nähe eines Sees zu sein, so dass Sie sich dort hin bewegen. Sie profitieren von einem erfrischten Baden, Sie sind jetzt frisch und in besserer Form, um Ihre Reise durch das Land zu erhalten.",
-          "1": "Sie erinnern sich daran, in der Nähe eines Sees zu sein, also leiten Sie sich dort hin. Auf dem Weg finden Sie ein Element, das Ihnen sicherlich nützlich sein wird. Sie profitieren von einem erfrischten Baden, Sie sind jetzt frisch und in besserer Form, um Ihre Reise durch das Land zu erhalten.",
+          "0": "Sie erinnern sich daran, an einem See vorbeigekommen zu sein, also machen Sie sich auf den Weg dorthin. Als Sie dort ankommen, genießen Sie ein Bad, das Ihnen sehr gut tut. Sie sind nun erfrischt und in besserer Verfassung, um Ihre Reise durch das Land fortzusetzen.",
+          "1": "Sie erinnern sich daran, an einem See vorbeigekommen zu sein, also machen Sie sich auf den Weg dorthin. Auf dem Weg dorthin finden Sie ein Item, das Ihnen sicher nützlich sein wird. Dort angekommen, nehmen Sie ein erfrischendes Bad, das Ihnen gut tut. Sie sind nun erfrischt und in besserer Verfassung, um Ihre Reise durch das Land fortzusetzen.",
           "2": "Sie suchen nach einem vergeblichen Wasserpunkt ... Wegen dieser Erschöpfung machen Sie ein Unbehagen."
         },
         "text": "Wir suchen einen Wasserpunkt in der Nähe."
@@ -731,14 +731,14 @@
     "possibilities": {
       "abandon": {
         "outcomes": {
-          "0": "Sie gehen auf den Weg: Der Flug ist schlecht, und dieses Paket gehört nicht Ihnen!",
+          "0": "Sie gehen weiter: Diebstahl ist falsch und diese Schatulle gehört Ihnen nicht!",
           "1": "Sie entscheiden sich, sich nicht an den kleinen Kofferraum zu wenden, weil Sie der Meinung sind, dass es nicht zu einem Urteil kommt, das Ihnen wertvolle Zeit verschwenden würde."
         },
         "text": "Das Testpaket an der Stelle ablegen, an der Sie sie gefunden haben."
       },
       "end": {
         "outcomes": {
-          "0": "Es muss eine Falle sein. In jedem Fall ist es außer Frage, dass Sie sich näher an das Testpaket herankommen. Sie sind ruhig auf Ihrem Weg."
+          "0": "Das ist bestimmt eine Falle! Auf jeden Fall dürfen Sie auf keinen Fall näher an die Schatulle herankommen! Sie setzen Ihren Weg ruhig fort."
         }
       },
       "mineIt": {
@@ -751,31 +751,31 @@
       },
       "searchKey": {
         "outcomes": {
-          "0": "Nach 50 Minuten Forschung finden Sie den Schlüssel! Begraben direkt neben dem Safe, erlaubt es Ihnen, viele Teile von Gold zu entdecken!",
-          "1": "Nach einer Stunde der Suche finden Sie den Schlüssel! Begraben direkt neben dem Safe, können Sie einige Teile von Gold entdecken!",
-          "2": "Nach 40 Minuten Nachforschungen finden Sie den Schlüssel! Begraben direkt neben dem Safe, ist so beschämt, dass es Ihnen unmöglich ist, den Safe zu öffnen! Sie beenden das, und lassen Sie das Paket hinter sich.",
+          "0": "Nach 50 Minuten Suche finden Sie den Schlüssel! Er ist direkt neben der Truhe vergraben und gibt Ihnen die Möglichkeit, viele Goldmünzen zu entdecken!",
+          "1": "Nach einer Stunde Suche finden Sie den Schlüssel! Direkt neben der Truhe vergraben, bringt er dir einige Goldmünzen ein!",
+          "2": "Nach 40 Minuten Suche finden Sie den Schlüssel! Er wurde direkt neben der Truhe vergraben und ist so stark beschädigt, dass Sie die Truhe nicht mehr öffnen können. Schließlich geben Sie auf und lassen die Schatulle hinter sich.",
           "3": "Nach 20 Minuten, um den kleinen Kofferraum herum zu graben, verlassen Sie sich im Stile und lassen das Paket hinter sich.",
           "4": "Nach zwei Stunden Nachforschungen geben Sie auf und lassen Sie das Paket hinter sich."
         },
         "text": "Finden Sie den Schlüssel um den Ort der Entdeckung."
       }
     },
-    "text": "Während Sie auf der Route der Merwachles reisen, entdecken Sie ein Paket! Leider ist er gesperrt ..."
+    "text": "Während du auf der Straße der Wunder reist, entdeckst du eine Schatulle! Leider ist sie verschlossen..."
   },
   "30": {
     "possibilities": {
       "duke": {
         "outcomes": {
-          "0": "Sie werden den Herzog sehen, und Sie werden ihn verkomplizieren. Der Rat dankt Ihnen und beschließt, Ihnen ein wenig Ruhe in seinem Haus zu bieten.",
-          "1": "Sie werden den Herzog sehen, und Sie werden ihn verkomplizieren. Der Rat dankt Ihnen und beschließt, Ihnen ein paar Münzen zu geben, indem Sie sich für eine gute Verwendung sorgen, dann setzen Sie sich wieder auf Ihren Weg.",
-          "2": "Sie werden den Herzog sehen, und Sie versuchen es zu erschweren, aber die Rhetorik ist nicht Ihre Stärke, und der Herzog, der beleidigt wird, wird Sie einsperren lassen."
+          "0": "Sie gehen zum Herzog und machen ihm ein Kompliment. Dieser bedankt sich bei Ihnen und beschließt, Ihnen eine Auszeit in seinem Haus zu gewähren.",
+          "1": "Sie gehen zum Herzog und machen ihm ein Kompliment. Der Herzog bedankt sich und schenkt Ihnen ein paar Münzen, die Sie gut gebrauchen können.",
+          "2": "Sie gehen zum Herzog und versuchen, ihm ein Kompliment zu machen. Rhetorik ist jedoch nicht Ihre Stärke und da der Herzog sich beleidigt fühlt, lässt er Sie einsperren."
         },
         "text": "Gehen Sie zu dem Herzog."
       },
       "end": {
         "outcomes": {
-          "0": "Sie fühlen sich heute nicht in der Stimmung, heute feiern zu können, also entscheiden Sie sich für die Fahrt und die Ruhe auf Ihrer Straße.",
-          "1": "Sie sind nicht bereit, heute feiern zu können, Sie sind wieder auf Ihrem Weg. Wenn Sie stolpert und mit einer Banane in die Nase stolken, scheint es, dass diese nicht gut ist."
+          "0": "Ihnen ist heute nicht nach Feiern zumute. Sie beschließen daher, umzukehren und Ihren Weg in aller Ruhe fortzusetzen.",
+          "1": "Sie sind heute nicht bereit für eine Party. Sie setzen Ihren Weg fort, als Sie plötzlich stolpern und mit einer Banane konfrontiert werden. Diese scheint jedoch nicht gut zu sein."
         }
       },
       "gift": {
@@ -789,7 +789,7 @@
       "party": {
         "outcomes": {
           "0": "Sie gehen nach Hause und genießen die Party, die bis spät in die Nacht andauern wird.",
-          "1": "Der Wächter entbete Ihre dreckigen Schuhe und bittet Sie, nur mit einer passenden Abhaltung zurückzukehren. Glücklicherweise gibt es einen jungen Bettler, der sich direkt neben Ihnen befindet, um sie gegen ein paar Münzen zu schlügen. Auf diese Weise genießen Sie den Geburtstag.",
+          "1": "Der Wachmann sieht Ihre schmutzigen Schuhe und bittet Sie, mit besserer Kleidung wiederzukommen. Glücklicherweise bietet Ihnen ein junger Bettler, der neben Ihnen steht, an, Ihre Schuhe für ein paar Münzen zu putzen. So können Sie den Geburtstag genießen.",
           "2": "Das Büfett der Party ist ein Festmahl. Sie regieren mit all diesen Bananen."
         },
         "text": "Bleiben Sie auf der Party."
@@ -803,7 +803,7 @@
         "text": "Raus aus, um ihm Bananen in seinen Betrieb zu stehlen."
       }
     },
-    "text": "Sie sehen ein Schloss in der Nähe, Sie entscheiden sich, sich durch den Haupteingang zu nähern. Dieses Haus scheint das von Duke Benatis zu sein, das für seine Bananenbetriebe bekannt ist. Er veranstaltet eine Feier in der Ehre seiner 21. Wenn Sie sich ein wenig nähern, lädt Sie ein, nach Hause zu gehen, weil der Herzog sich wünscht, dass alle auf der Party mitmachen. Wenn Sie zu Hause sind, stehen Sie vor einem riesigen Festmahl."
+    "text": "Sie sehen in der Ferne ein Schloss und beschließen, sich ihm durch den Haupteingang zu nähern. Bei diesem Anwesen scheint es sich um das des Herzogs Benatis zu handeln, der für seine Bananenfarmen bekannt ist. Er veranstaltet ein Fest zu Ehren seines 21. Als Sie näher kommen, werden Sie von einer Wache aufgefordert, einzutreten, da der Herzog möchte, dass alle an der Feier teilnehmen. Sobald Sie eintreten, sehen Sie sich einem riesigen Festmahl gegenüber."
   },
   "31": {
     "possibilities": {
@@ -815,14 +815,14 @@
       "hide": {
         "outcomes": {
           "0": "Sie werden in der Busch nur zu der Zeit im Busch säußen. Dieser teuflisch-Reiter wollte Sie sich bewegen ... Sie erholen sich von Ihren Emotionen und gehen weg.",
-          "1": "Sie werfen sich in den Busch. Aber Sie haben nicht gemerkt, dass es in der Tat um die Nest ging ...",
+          "1": "Sie stürzen sich in den Busch. Allerdings haben Sie nicht bemerkt, dass es sich in Wirklichkeit um Brombeerranken handelt...",
           "2": "Nachdem Sie in den Busch gesprungen sind, schauen Sie auf den mysteriösen Ritter und sehen ein Objekt von seiner Heiligen. Sie bekommen es zurück."
         },
         "text": "In einem Busch am Straßenrand verbergen."
       },
       "keepGoing": {
         "outcomes": {
-          "0": "Der Ritter kommt mit voller Geschwindigkeit zurück. Sie fliegen auf 5 Meter, bevor Sie am Boden zerschlagen. Der Ritter ist nicht mehr da, es ist nur noch eine Staubwolke.",
+          "0": "Der Ritter rammt Sie mit voller Geschwindigkeit. Sie fliegen fünf Meter weit, bevor Sie auf dem Boden aufschlagen. Der Ritter ist schon nicht mehr da: Es bleibt nur noch eine Staubwolke ...",
           "1": "Der Ritter, der auf Ihre Höhe anhält, sieht sich Ihre Mühe, unter der Sonne von Blei zu kommen. Er bietet Ihnen ein wenig Wasser aus seiner Gourde und fährt seinen Weg fort.",
           "2": "Der Ritter holt Sie ein, und Sie werden nach seinem Weg gefragt. Sie geben ihm einen Weg, und fahren Sie fort."
         },
@@ -851,32 +851,32 @@
       },
       "heal": {
         "outcomes": {
-          "0": "Sie rennen in den Wald, suchen nach medizinischen Pflanzen, finden Sie und pflegen Sie die Person. Der Mann dankt Ihnen mit ein paar Zimmern und Sie entscheiden sich, Ihren Weg wieder aufzunehmen.",
-          "1": "Sie entscheiden sich, nach medizinischen Pflanzen im Wald zu suchen, leider können Sie es nicht heilen, Sie entscheiden sich, Ihren Weg zurück zu nehmen, den Kopf unten.",
+          "0": "Sie laufen durch den Wald auf der Suche nach Heilkräutern. Sie finden welche und heilen die Person. Der Mann bedankt sich bei Ihnen mit ein paar Münzen und Sie beschließen, Ihren Weg fortzusetzen.",
+          "1": "Sie beschließen, im Wald nach Heilpflanzen zu suchen. Leider gelingt es Ihnen nicht, ihn zu heilen ... Sie beschließen, Ihren Weg mit gesenktem Kopf fortzusetzen.",
           "2": "Sie werden sich um Hilfe im nächsten Dorf bemühen. Kommen Sie mit, kommen Sie zurück zur Person, aber Ihr Begleiter entscheidet, Sie zu betäuben. Wenn Sie aufwachen, finden Sie die tote Person, und Sie werden beraubt.",
-          "3": "Sie gehen in die nächste Stadt, um nach Werkzeugen zu suchen, um den Mann zu heilen. Sobald er in der Nähe ist, behandeln Sie ihn: Er überlebt und beschließt, Ihnen einen Ausgleich für Ihren Mut zu geben. Wenn Sie sich davon abfinden, sehen Sie, dass Sie sich im Pfleger verwundet haben."
+          "3": "Sie rennen in die nächstgelegene Stadt, um nach Werkzeugen zu suchen, mit denen Sie den Mann heilen können. Sobald Sie wieder bei ihm sind, heilen Sie ihn: Er überlebt und beschließt, Ihnen eine Entschädigung für Ihren Mut zu geben. Als Sie sich wieder auf den Weg machen, stellen Sie fest, dass Sie sich bei der Behandlung des Mannes verletzt haben."
         },
         "text": "Komm schon, um zu sehen, wie der verletzte Mann behandelt werden kann."
       },
       "kill": {
         "outcomes": {
-          "0": "Sie haben Ihr Schwert aus dem Schwert gelöst und Sie sind fertig mit dem Verletzten. Das war jedoch nicht auf die Zeugen der Szene zu zählen, die Sie durch Ihre Tat errettet haben, um Sie zu erregen.",
-          "1": "Sie lernen, die verletzte Person zu töten, wenn Sie durch eine Passperson unterbrochen werden, also entscheiden Sie sich, diese Idee aufzugeben, und Sie setzen Ihren Weg fort.",
-          "2": "Wenn Sie Ihr Schwert riefen, aber niemand hört es, dann tötet er ihn, bevor er ihn entstaubt."
+          "0": "Sie ziehen Ihr Schwert und erledigen den Verletzten. Die Zeugen des Geschehens sind empört über Ihre Tat und greifen Sie brutal an.",
+          "1": "Sie sind gerade dabei, die verletzte Person zu töten, als Sie von einem Passanten unterbrochen werden. Sie beschließen daher, den Gedanken zu verwerfen und setzen Ihren Weg fort.",
+          "2": "Wenn Sie Ihr Schwert ziehen, schreit der Mann, aber niemand hört ihn. Sie töten ihn, bevor Sie ihn häuten."
         },
         "text": "Kaufen Sie den Mann, um seine Ausrüstung zurückzubekommen."
       },
       "yell": {
         "outcomes": {
-          "0": "Sie schreien immer und immer wieder und dann kommt jemand, der kommt und hilft. Um Ihnen allen zu danken, gibt Ihnen etwas, bevor Sie wieder gehen.",
+          "0": "Sie schreien immer und immer wieder, und schließlich kommt jemand und hilft Ihnen. Zum Dank gibt Ihnen die Person eine Kleinigkeit, bevor Sie wieder gehen.",
           "1": "Sie schreien immer und immer wieder. Unglücklicherweise vergeht niemand, aber Sie ziehen die Tiere an: ein Wildschwein kommt und lädt.",
-          "2": "Sie schreien, bis Sie Ihren Atem wieder annahmen, leider kommt niemand, und die Person stirbt. Wenn Sie ein Gefühl der Impotenz haben, gehen Sie wieder auf Ihren Weg.",
-          "3": "Wenn Sie schreien, Leute aus dem Camp in der Nähe hören Sie, dann entscheiden sie sich, sich mit dem Mann zu befassen. Verrückter, dass Sie versucht haben, ihn zu ermorden, bringen sie zu ihrem Camp unter der Drohung einer Waffe. Nach einer langen Diskussion über den Status quo ist es, und sie schlagen Ihnen vor, sich auf dem Lager zu entspannen. Sie akzeptieren ihren Vorschlag mit Freude."
+          "2": "Sie schreien so lange, bis Sie wieder zu Atem kommen. Leider kommt niemand und die Person stirbt. Von einem Gefühl der Hilflosigkeit gepackt, machen Sie sich wieder auf den Weg.",
+          "3": "Als Sie schreien, hören Sie einige Leute aus dem nahe gelegenen Lager. Sie beschließen, sich um den Mann zu kümmern. Da sie glauben, dass Sie versucht haben, ihn zu ermorden, bringen sie Sie mit vorgehaltener Waffe zu ihrem Lager. Nach einer langen Diskussion klären sie das Missverständnis auf und bieten Ihnen an, sich im Lager auszuruhen. Sie nehmen den Vorschlag gerne an."
         },
         "text": "Mail, um Menschen zu alarmieren."
       }
     },
-    "text": "Sie fahren in einem Regenwald weiter, wenn Sie einen Schrei hören. Die Stimme scheint die Stimme eines Mannes zu sein, Sie beschließen, in den Schrei zu gehen, und Sie finden einen Mann, der in der Nähe einer Art Camp schwer verletzt ist."
+    "text": "Sie setzen Ihren Weg ruhig in einem Wald fort, als Sie einen Schrei hören. Die Stimme scheint die eines Mannes zu sein. Sie beschließen, zu dem Schrei zu gehen und finden einen schwer verletzten Mann in der Nähe einer Art Lager."
   },
   "33": {
     "possibilities": {
@@ -886,7 +886,7 @@
           "1": "Sie haben eine Freundschaft mit Ihrem Nachbarn, der Ihnen ein Objekt als Geschenk macht.",
           "2": "Mit dem Alkohol erwärmen sich die Geister, und Sie erleben einen Kampf, bevor Sie sich einlassen.",
           "3": "Ein großzügiger junger Mann will Ihnen ein Stipendium und einen Drink anbieten.",
-          "4": "Sie erklären sich höflich und bleiben ein paar Minuten, bevor Sie wieder gehen, um es zu eilig zu haben."
+          "4": "Sie nehmen höflich an und bleiben ein paar Minuten, bevor Sie wieder gehen und so tun, als hätten Sie es eilig."
         },
         "text": "Beruhigen Sie sich ruhig, um zu plaudern."
       },
@@ -993,7 +993,7 @@
       "test": {
         "outcomes": {
           "0": "Sie akzeptieren seinen Vorschlag, und trinken Sie die dicke Flüssigkeit, die er Ihnen entspannt. Das ist köstlich, und es breitet sich in einer sanften Hitze aus.",
-          "1": "Sie nehmen ohne weitere Zeremonie die Schlampe, die Sie mit einer dicken und grünlichen Flüssigkeit gefüllt haben. Sie trinken das aus einem Strich. Ein paar Sekunden später, erkennen Sie den grauenvolleren Geschmack, den es hat, und kotzen Sie das alles auf dem Boden. Der Barkeeper entschuldigt sich und verschafft Ihnen eine Handvoll von Ersatzteilen, aber Sie fühlen sich krank.",
+          "1": "Sie nehmen ohne weitere Zeremonie den Krug, den er Ihnen reicht und der mit einer dicken, grünlichen Flüssigkeit gefüllt ist. Sie trinken sie in einem Zug aus. Nach ein paar Sekunden bemerken Sie den schrecklichen Geschmack und erbrechen alles auf den Boden. Der Barkeeper entschuldigt sich und gibt Ihnen eine Handvoll Münzen als Entschädigung, aber Ihnen wird übel.",
           "2": "Sie akzeptieren seine Anfrage, und er gibt Ihnen eine Schlampe. Sie trinken und riechen einen kleinen, kleinen, geschmackvollen Geschmack von den Hannetonen. Sie geben dem Barkeeper Ihre Eindrücke, danken Ihnen, dann gehen Sie wieder auf die Straße."
         },
         "text": "Annehmen, als Cobaye zu dienen."
@@ -1005,8 +1005,8 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie warten eine lange Zeit auf diesem Platz, und plötzlich beginnen die Händler, sich zu installieren. Das ist Ihr Glückstag! Es handelt sich um einen Markt, und Äpfel sind sehr wenig teuer. Kaufen Sie ein paar und nehmen Sie Ihren Weg zurück.",
-          "1": "Sie erwarten eine kleine Weile an dieser Stelle, dann wird Ihnen klar, dass es nichts Interessantes zu tun gibt, und fahren Sie zurück."
+          "0": "Sie warten eine ganze Weile auf diesem Platz und plötzlich fangen Händler an, sich aufzubauen. Heute ist Ihr Glückstag! Es handelt sich um einen Markt und die Äpfel sind sehr billig. Sie kaufen ein paar und setzen Ihren Weg fort.",
+          "1": "Sie warten eine Weile auf diesem Platz, stellen dann aber fest, dass es nichts Interessantes zu tun gibt, und setzen Ihren Weg fort."
         }
       },
       "goAway": {
@@ -1019,26 +1019,26 @@
         "outcomes": {
           "0": "Sie kommen in die Herberge, und Sie erhalten ein wenig Energie durch ein gutes Essen und ein wohlverdientes Nickerchen.",
           "1": "Sie kommen in die Gaststätte, die leider voll ist. Sie nehmen immer noch eine Mahlzeit auf und nehmen Sie Ihren Weg zurück.",
-          "2": "Durch Unglück ist die Herberge geschlossen und Sie entscheiden sich, Ihren hungenen und müden Weg fortzusetzen."
+          "2": "Unglücklicherweise ist das Gasthaus geschlossen und Sie beschließen, Ihren Weg hungrig und müde fortzusetzen."
         },
         "text": "Gehen Sie zur Herberge, um sich auszuruhen."
       },
       "stealJeweler": {
         "outcomes": {
           "0": "Sie vertrauen darauf, dass Sie die Infiltrate haben. Sie gehen, und glücklicherweise war der alte Mann nicht da. Sie können den Inhalt der Kasse stehlen und entgehen.",
-          "1": "Sie kommen direkt vor den Laden und Sie kommen rein, um den Schmuck zu stehlen. Wenn Sie Geld aus dem Juwelier nehmen, wird Ihnen ein persönlicher Wachmann beigebracht. Sie wachen ein paar Stunden später auf, entlang eines Sentels."
+          "1": "Sie kommen vor dem Geschäft an und betreten es mit dem Ziel, den Juwelier zu bestehlen. Als Sie das Geld des Juweliers an sich nehmen, werden Sie von einem persönlichen Wachmann niedergeschlagen. Sie wachen einige Stunden später an einem Pfad auf."
         },
         "text": "Versuchen Sie, den Juwelier zu stehlen."
       },
       "talkJeweler": {
         "outcomes": {
-          "0": "Sie reden mit dem Juwelier, und Sie sprachen mit ihm über Freundschaft. Dann bietet er Ihnen ein Objekt, das Sie für diese neue Freundschaft pfeigen.",
-          "1": "Sie entscheiden sich zu entscheiden, ob Sie einen der Juwelen kaufen wollen, um Ihnen zu sagen, was Sie wollen. Sie diskutieren eine lange Zeit, aber der alte Mann ist ein sehr guter Kaufmann, und er ist nicht in der Heilung. Sie sprechen wieder, nachdem Sie verstanden haben, dass er seine Preise nicht senken will."
+          "0": "Sie unterhalten sich mit dem Juwelier und schließen Freundschaft mit ihm. Er schenkt Ihnen daraufhin einen Gegenstand als Zeichen der neuen Freundschaft.",
+          "1": "Sie beschließen, zu feilschen, um eines der Schmuckstücke für wenig Geld zu kaufen. Sie diskutieren eine ganze Weile, aber der alte Mann ist ein sehr guter Händler und gibt nicht nach. Sie gehen weiter, nachdem Sie gemerkt haben, dass er nicht vorhat, seine Preise zu senken."
         },
         "text": "Gehen Sie zu dem Juwelier und reden Sie."
       }
     },
-    "text": "In Ihrer sehr langen Reise gelangen Sie in ein kleines, charmantes Dorf. Sie erreichen das Zentrum des Dorfes, aber es ist sehr klein und es gibt nur zwei Geschäfte: ein Juwelier und eine Jugendherberge. Sie entdecken durch einen Passer, dass der Schmuck von einem alten Mann verwaltet wird und dass er wunderschöne Schmuck-und Scharfschellen macht. Die Herberge ist, was sie betrifft, von einem Paar geleitet, und es scheint, dass sie einen großen Erfolg hat."
+    "text": "Auf Ihrer sehr langen Reise kommen Sie in ein kleines Dorf, das sehr charmant ist. Sie erreichen das Zentrum des Dorfes, aber es stellt sich heraus, dass es sehr klein ist und nur zwei Geschäfte gibt: ein Juweliergeschäft und ein Gasthaus. Sie finden durch einen Passanten heraus, dass der Juwelierladen von einem alten Mann geführt wird, der wunderschöne Schmuckstücke und Halsketten herstellt. Das Gasthaus hingegen wird von einem Ehepaar geführt und soll sehr erfolgreich sein."
   },
   "37": {
     "possibilities": {
@@ -1050,14 +1050,14 @@
       },
       "run": {
         "outcomes": {
-          "0": "Sie gehen zu rennen, und weniger als ein Viertel von einer Stunde später, kommen Sie ins Dorf.",
-          "1": "Sie müssen sich rennen, zum Glück regnet es schnell. Sie nehmen einen gemäßigteren Schritt zurück und verspäten Sie nicht im Dorf."
+          "0": "Sie beginnen zu rennen und erreichen nach weniger als einer Viertelstunde das Dorf.",
+          "1": "Sie beginnen zu rennen. Zum Glück hört der Regen schnell auf. Sie nehmen wieder einen gemäßigteren Schritt an und es dauert nicht lange, bis Sie das Dorf erreichen."
         },
         "text": "Schnelligkeit zu beschleunigen, um nicht zu nass zu werden."
       },
       "walk": {
         "outcomes": {
-          "0": "Sie gehen in Ruhe, nach allem, was nur ein kleiner Regen ist, und Sie wollen nicht einfach dafür rennen.",
+          "0": "Sie gehen gemütlich spazieren. Schließlich ist es nur ein leichter Regen und Sie haben keine Lust, nur deswegen zu laufen.",
           "1": "Sie gehen einfach weiter, ein paar Minuten später, der leichte Regen, und Sie kommen in die Dorfbeeren.",
           "2": "Sie gehen in Ruhe, um zu laufen."
         },
@@ -1078,8 +1078,8 @@
       "buyExpensive": {
         "outcomes": {
           "0": "Sie entscheiden sich, eines ihrer teueren Gegenstände zu kaufen, um am besten im Austausch für eine bestimmte Menge Gold zu sein. Er gibt Ihnen ein wunderschönes Objekt und Sie können es in Ihre Tasche ressen. Sie grüßen den Verkäufer herzlich, bevor er sich begeht.",
-          "1": "Sie kaufen ein recht kostspieles Objekt, es ist eine sehr gute Qualität, dann sprechen Sie mit zufrieden.",
-          "2": "Man kauft eines seiner teueren Gegenstände, aber wenn Sie ihn inspizieren, wird Ihnen klar, dass er Ihnen ein gerautes, geräuchertes Schwert verkauft hat. Unglücklicherweise ist es zu spät, und der Bewaffenwerber ist weg, wenn Sie Ihr Schwert inspizieren ... Wenn Sie wütend sind, schwören Sie, dass Sie diesen Affront bei der ersten Gelegenheit vergeuden."
+          "1": "Sie kaufen einen ziemlich teuren Gegenstand. Er ist von sehr guter Qualität, so dass Sie zufrieden nach Hause gehen.",
+          "2": "Du kaufst eines seiner teuersten Objekte, aber als du es untersuchst, stellst du fest, dass er dir ein rostiges Schwert verkauft hat, das mit Farbe beschmiert ist. Leider ist es zu spät und der Betrüger hat sich aus dem Staub gemacht und den Moment genutzt, in dem Sie das Schwert inspizieren... Wütend schwören Sie, sich bei der ersten Gelegenheit für diese Beleidigung zu rächen."
         },
         "text": "Er kauft einen seiner teueren Objekte."
       },
@@ -1092,13 +1092,13 @@
       "end": {
         "outcomes": {
           "0": "Wenn Sie ihn nicht mit ihm Geschäfte machen wollen, dann überholen Sie ihn mit einem einfachen Hinweis, aber dieser hält Sie an, um die einzelnen Artikel zu fördern. Da Sie den Händler nicht küssen wollen, warten Sie darauf, dass der Händler fertig ist, um ihn nett zu verkünden, aber fest davon, dass Sie nichts kaufen wollen.",
-          "1": "Sie beenden den Kaufmann, Sie sprechen eine lange Zeit mit ihm, und Sie sprachen über Freundschaft. Bevor Sie gehen, wird Ihnen ein kleines Objekt angeboten, das Sie während Ihrer Reise bedienen können.",
-          "2": "Sie sprechen eine Zeit mit dem Händler, sympathisieren mit ihm, und wenn die Sonne beginnt, sich zu schlafen, dann wird Ihnen bekannt sein, dass es an der Zeit ist, dass Sie gehen. Sie grüßen Sie, und dann gehen Sie alle auf Ihrer Seite."
+          "1": "Sie gehen schließlich zu dem Händler, unterhalten sich eine ganze Weile mit ihm und schließen Freundschaft. Bevor du gehst, schenkt er dir einen kleinen Gegenstand, der dir auf deiner Reise vielleicht von Nutzen sein könnte.",
+          "2": "Sie unterhalten sich eine Weile mit dem Händler, freunden sich mit ihm an und als die Sonne unterzugehen beginnt, teilt er Ihnen mit, dass es für ihn an der Zeit ist zu gehen. Sie grüßen sich und gehen wieder getrennte Wege."
         }
       },
       "steal": {
         "outcomes": {
-          "0": "Sie stehlen unauffällig eines seiner Gegenstände, und nehmen Sie Ihre Beine an Ihrem Hals.",
+          "0": "Sie stehlen unauffällig einen seiner Gegenstände und nehmen eilig die Beine in die Hand.",
           "1": "Der Händler bemerkt, was Sie versuchen zu tun, also bittet er Sie darum, seine Ware zurückzugeben. Er entscheidet sich, dass Sie gehen lassen, was Sie tun, ohne Ihren Rest zu fragen.",
           "2": "Sie fangen an, den Kaufmann zu stehlen, der es bemerkt. Er hat einen gewaltsamen Schlag gegen die Faust, und dann reist er wieder."
         },
@@ -1111,7 +1111,7 @@
     "possibilities": {
       "convoy": {
         "outcomes": {
-          "0": "Gegen ein bisschen Geld, wird er bereit sein, mit Ihnen zu kommen. Sie gehen also, und nur wenige Tage später, fallen Sie auf eine gruselige, gruselige Scheune in einem Felsen. Sie versuchen, sie zu verlassen, aber Ihre Bemühungen waren nicht überzeugend. Price versucht seinen Trick, die Waffe aus seinem Edelsteinkaraket zu entkommen. Wenn Sie wissen, dass er nicht ohne Sie gefallen wäre, zahlt er Ihnen ein Dankeschön, weit mehr als das, was Sie dafür bezahlt haben. Der Rest der Reise geht ohne Geschichte weg, Sie trennen sich nach ein paar Dutzend Meilen.",
+          "0": "Gegen ein wenig Geld erklärt er sich bereit, Sie zu begleiten. Sie machen sich also auf den Weg und stoßen kurz darauf auf ein glänzendes Schwert, das in einem Felsen steckt. Sie versuchen, es herauszuziehen, aber Ihre Bemühungen sind nicht von Erfolg gekrönt. Price versucht, die Waffe aus ihrem Steinpanzer zu lösen. Da er weiß, dass er ohne Sie nicht darauf gestoßen wäre, gibt er Ihnen zum Dank Geld - viel mehr, als Sie ihm gezahlt hatten. Der Rest der Reise verläuft ereignislos, sodass ihr euch nach einigen Dutzend Kilometern trennt.",
           "1": "Gegen ein bisschen Geld, wird er bereit sein, mit Ihnen zu kommen. Während Ihrer Reise werden Sie mit einer Chance auf eine verlassene Straße entlang des Weges gehen. Das Ergebnis dieser Entdeckung ist, dass Sie den Inhalt mit Price gemeinsam nutzen. Damit erhalten Sie ein \"Silber\" -Eskelett und ein Objekt, das Sie für Ihre Abenteuer nützlich halten.",
           "2": "Gegen ein bisschen Geld, wird er bereit sein, mit Ihnen zu kommen. Sie kauf für eine kurze Zeit zusammen, ohne dass nichts Besonderes passiert, mit Ausnahme eines kleinen Zwischenfalls mit Diebe, die nicht lange Feuer auf Price machten. Und dann verlassen Sie sich.",
           "3": "Sie geben ihm ein paar Stücke, damit er Sie bis zur nächsten Stadt begleiten kann. Sie gehen schnell, und wenn die Sonne untergeht, werden Sie getrunken und Sie schlafen. Sie sind plötzlich durch ein Metallgeräusche geweckt worden, um zu erkennen, dass Price Ihr Geld zusammenbringt, und einige Sekunden damit zu tun. Wenn Sie nicht zweimal darüber nachdenken, werden Sie auf ihn stlichen, entschlossen, ihn aufzuhalten. Er ermorden Sie mit einem heftigen Schlag gegen die Schläfe, und Sie sehen, dass Sie ihn mit Ihren Besitzern davonlaufen sehen."
@@ -1121,48 +1121,48 @@
       "end": {
         "outcomes": {
           "0": "Sie bleiben nur ein paar Minuten mit Price reden und dann fahren Sie wieder auf die Straße.",
-          "1": "Nachdem Sie ein wenig besprochen haben, trennen Sie sich. Ein paar Blocks weiter entfernt, Sie werden von einer Gruppe von Personen angegriffen, die nicht in der Luft sind, die Ihr Stipendium unter der Bedrohung ihrer Schläge vergehren."
+          "1": "Nachdem Sie sich ein wenig unterhalten haben, trennen Sie sich. Ein paar Straßen weiter werden Sie von einer Gruppe unfreundlich aussehender Personen überfallen, die unter Androhung von Schlägen Ihren Geldbeutel erleichtern."
         }
       },
       "meal": {
         "outcomes": {
-          "0": "Sie schlagen Price vor, etwas zusammen zu essen, und er akzeptiert. Sie diskutieren einen Moment, trinken Sie ein wenig, lachen Sie, tauschen Sie Tricks aus, beginnen Sie sich zu kennen. Mit einer leichten Einschnürung in das Herz, dass Price Sie nach ein paar Stunden auf Abschied nehmen muss, um einen Vertrag zu ehren.",
+          "0": "Sie schlagen Price vor, gemeinsam etwas zu essen, und er stimmt zu. Ihr unterhaltet euch eine Weile, trinkt ein wenig, lacht viel, tauscht Tipps aus und lernt euch langsam kennen. Mit einem leichten Stich im Herzen verabschiedet sich Price nach ein paar Stunden von Ihnen, da er einen Vertrag erfüllen muss.",
           "1": "Sie fragen Price, ob er mit Ihnen in der örtlichen Taverne zu essen kommen will. Er sagt, er hat Arbeit und geht."
         },
         "text": "Wir müssen uns um ein gutes Essen sorgen."
       },
       "steal": {
         "outcomes": {
-          "0": "Sie versuchen, ihn zu stehlen, aber er bemerkt Sie, und Sie werden sauber.",
+          "0": "Sie versuchen, ihn zu bestehlen, aber er bemerkt Sie und schlägt Sie sauber nieder.",
           "1": "Er bemerkt Sie sofort, aber Sie werden gehen, nicht ohne Sie einen Blick auf die Verachtung werfen zu lassen. Sie können sich herausstellen, ohne Ihren Rest zu fragen, eingeschüchtert."
         },
         "text": "Versuchen Sie, ihr Geld zu stehlen."
       }
     },
-    "text": "Während Ihrer Reise kommen Sie in eine Stadt an Bord des Meeres. Sie treffen dort das Treffen eines Mannes, sagen, \"Price\" zu heißen und Söldner zu sein."
+    "text": "Auf Ihrer Reise kommen Sie in eine Stadt am Meer. Dort treffen Sie auf einen Mann, der sagt, dass er Price heißt und ein Söldner ist."
   },
   "4": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie fahren weiter, ohne auf den Stern zu achten, Sie haben keine Zeit verschwendet!"
+          "0": "Sie setzen Ihren Weg fort, ohne auf die Sternschnuppe zu achten. Sie haben keine Zeit verloren!"
         }
       },
       "skip": {
         "outcomes": {
-          "0": "Sie fahren weiter, ohne auf den Stern zu achten, Sie haben keine Zeit verschwendet!",
-          "1": "Sie fahren weiter, ohne auf den Stern zu achten, Sie haben keine Zeit verschwendet!",
-          "2": "Sie folgen dem Phänomen nicht mehr, aber schauen Sie sich den Himmel mit Bewunderung an. Disträt, Sie werden nicht sofort bemerken, dass die große Garnung vor euch liegt! Sie werden am Boden des Lochs zerquetscht, geschüttelt und geschockt, und Sie beruhigen sich, dass Sie mindestens Sie nicht zu schwer verletzt haben!"
+          "0": "Sie setzen Ihren Weg fort, ohne auf die Sternschnuppe zu achten. Sie haben keine Zeit verloren!",
+          "1": "Sie setzen Ihren Weg fort, ohne auf die Sternschnuppe zu achten. Sie haben keine Zeit verloren!",
+          "2": "Sie gehen weiter, ohne dem Phänomen weitere Aufmerksamkeit zu schenken, schauen aber weiterhin bewundernd in den Himmel ... Abgelenkt bemerken Sie nicht sofort die riesige Felsspalte vor Ihnen! Sie landen zerschmettert am Boden des Lochs. Erschüttert und schockiert trösten Sie sich mit dem Gedanken, dass Sie wenigstens nicht allzu schwer verletzt sind!"
         },
         "text": "Dieses Ereignis überspringen."
       },
       "wish": {
         "outcomes": {
-          "0": "Sie haben einen Wunsch, und schließen Sie Ihre Augen. Durch die Racks entdecken Sie eine Tasche voll mit Geld vor Ihnen! Die 10 Minuten zu verlieren war es wert!",
-          "1": "Sie haben einen Wunsch, und schließen Sie Ihre Augen. Wenn Sie die Tür öffnen, können Sie nichts entdecken! Nachdem Sie 10 Minuten gewartet haben, um nichts zu sagen.",
-          "2": "Sie haben einen Wunsch, und schließen Sie Ihre Augen. Indem Sie sie wieder öffnen, entdecken Sie, dass es nichts passiert ist! Nachdem Sie 10 Minuten gewartet haben, um nichts zu sagen.",
-          "3": "Sie haben einen Wunsch, und schließen Sie Ihre Augen. Wenn Sie die Tür öffnen, entdecken Sie ... Das ist nicht alles. Nachdem Sie 10 Minuten gewartet haben, um nichts zu sagen.",
-          "4": "Sie haben einen Wunsch, und schließen Sie Ihre Augen. In der Regel ist es besser, wenn Sie nicht mit geschlossenen Augen laufen, Sie bleichen Sie auf einen Stein und verlieren 10 Minuten, bevor Sie wieder auf die Straße gehen können."
+          "0": "Sie wünschen sich etwas und schließen Ihre Augen... Als Sie sie wieder öffnen, sehen Sie eine Tasche voller Geld vor sich! Diese 10 Minuten zu verlieren hat sich gelohnt!",
+          "1": "Sie wünschen sich etwas und schließen Ihre Augen... Als Sie sie wieder öffnen, können Sie nichts entdecken! Nachdem Sie zehn Minuten umsonst gewartet haben, gehen Sie wieder.",
+          "2": "Sie wünschen sich etwas und schließen Ihre Augen... Als Sie sie wieder öffnen, stellen Sie fest, dass nichts passiert ist! Nachdem Sie zehn Minuten umsonst gewartet haben, machen Sie sich wieder auf den Weg.",
+          "3": "Sie wünschen sich etwas und schließen Ihre Augen... Als Sie sie wieder öffnen, entdecken Sie ... Nichts! Nachdem Sie zehn Minuten umsonst gewartet haben, gehen Sie wieder.",
+          "4": "Sie wünschen sich etwas und schließen die Augen ... Es ist in der Regel besser, nicht mit geschlossenen Augen weiterzugehen. Sie verletzen sich, weil Sie über einen Stein stolpern, und verlieren 10 Minuten, bevor Sie sich wieder auf den Weg machen können."
         },
         "text": "Einen Wunsch."
       }
@@ -1173,7 +1173,7 @@
     "possibilities": {
       "askAdvices": {
         "outcomes": {
-          "0": "Sie kommen zu Xetrix und warten auf Sie. Nachdem er nach Hause kam, tauschten Sie ein paar Tipps aus und lernen, wo sich die nächste Stadt befindet. Nach langen Stunden der Fahrt verstehen Sie schnell, dass der Ermite bei Ihnen gespielt hat und nicht mehr zu tun hat, dann fahren Sie weiter.",
+          "0": "Sie gehen in Xetrix' Haus und warten auf ihn. Nachdem er nach Hause gekommen ist, tauschen Sie einige Tipps aus und erfahren so, wo sich die nächste Stadt befindet. Nach langen Stunden des Wanderns wird Ihnen schnell klar, dass der Einsiedler Sie ausgetrickst hat, und da Sie nichts anderes zu tun haben, setzen Sie Ihren Weg fort.",
           "1": "Sie gehen in das Haus des Mannes, warten, und fragen Sie nach einem Rat, um eine Mahlzeit mit den Elementen des Waldes zu kochen. Er gibt Ihnen ein Rezept, das Sie so sorgfältig befolgen. Sie trinken ein gutes Essen und gehen wieder zurück.",
           "2": "Sie können ihn nach Hause bringen, also gehen Sie zu seiner Suite, und fragen Sie nach Rat. Endlich sympathisieren Sie und er lädt Sie zum Abendessen ein. Während der Mahlzeit trinken Sie ein bisschen zu viel und finieren Sie betrunken."
         },
@@ -1182,21 +1182,21 @@
       "breakIn": {
         "outcomes": {
           "0": "Sie denken darüber nach, und dann sagen Sie sich, dass es möglich ist, in das Haus einzubrechen. Sie haben also ein paar Teile davon, bevor Sie so schnell wie möglich wieder gehen.",
-          "1": "Sie entscheiden sich, in das Haus dieses Xetrix zu kommen, und Sie beginnen, ihn zu stehlen, wenn er kommt. Er sieht Sie und Sie sind dabei, aber Sie haben es geschafft, nach Ihnen zu fliehen, denn Sie sind viel agiler als er. Aber Sie sind verletzt und haben Ihre Beute in der Auseinandersetzung verloren.",
-          "2": "Sie gehen in das Haus, um auf den Mann zu warten. Wenn Sie einmal hier sind, reden Sie und er beschließt, Sie zum Abendessen einzuladen. Nach einem köstlichen flachen Gericht gehen Sie zurück, der Bauch voll und in der Form."
+          "1": "Sie beschließen, in das Haus dieses Xetrix einzudringen, und beginnen, ihn zu bestehlen, als er gerade ankommt. Er sieht Sie und stürmt auf Sie zu, aber Sie können nach einem Kampf fliehen, da Sie flinker sind als er. Sie werden jedoch verletzt und verlieren bei der Auseinandersetzung Ihre gesamte Beute.",
+          "2": "Sie gehen ins Haus, um auf den Mann zu warten. Als Sie ankommen, unterhalten Sie sich und er beschließt, Sie zum Essen einzuladen. Nach einem köstlichen Gericht gehen Sie mit vollem Bauch und in bester Verfassung nach Hause."
         },
         "text": "Wenn wir in das Haus einbrechen."
       },
       "end": {
         "outcomes": {
           "0": "Sie stehen da und denken: Es ist unmöglich, Ihre Wahl zu treffen, also entscheiden Sie sich, nach einigen Minuten zu gehen.",
-          "1": "Sie entscheiden sich zu gehen. Auf dem Weg finden Sie ein paar Pilze und pflücken sie, dann schlucken Sie sie. Aber Sie wurden krank, weil sie nicht essbar waren."
+          "1": "Sie beschließen, sich auf den Weg zu machen. Unterwegs finden Sie einige Pilze, pflücken sie und schlucken sie. Sie werden jedoch krank, da sie nicht essbar waren."
         }
       },
       "goBack": {
         "outcomes": {
-          "0": "Sie entscheiden sich, von dort aus zu gehen, wo Sie herkommen, auf dem Weg, finden Sie ein paar Teile auf der Erde, neben einem Börsengelder.",
-          "1": "Sie reden wieder, wenn Sie einen verletzten Mann finden. Wenn Sie versuchen, Ihnen zu helfen, erkennen Sie, dass es sich um einen Hinterhalt handelt! Männer werden übergossen und entstaubt, bevor sie wieder gehen."
+          "0": "Sie beschließen, den Weg zurückzugehen, von dem Sie gekommen sind. Auf dem Weg dorthin finden Sie einige Münzen auf dem Boden neben einem löchrigen Geldbeutel.",
+          "1": "Sie machen sich auf den Rückweg, als Sie einen verletzten Mann finden. Als Sie versuchen, ihm zu helfen, stellen Sie fest, dass er in einen Hinterhalt geraten ist. Einige Männer tauchen auf und nehmen Sie aus, bevor sie weiterziehen."
         },
         "text": "Von hier aus, wo Sie herkommen."
       }
@@ -1208,32 +1208,32 @@
       "corrupt": {
         "outcomes": {
           "0": "Die Wache akzeptiert Ihr Geld und beschließt, Sie zu befreien, aber er bemerkt nicht, dass der andere Mann in der Zelle direkt nach ihm stiehlt.",
-          "1": "Der korrupte Markt akzeptiert Ihren Markt, er bringt Ihnen eine Mahlzeit und essen Sie zu Ihrem Hungersnot, und dann gibt er Sie frei.",
-          "2": "Die Wache akzeptiert Ihr Geld und gibt Sie frei. Aber es war nur eine Falle, er lässt Sie glauben, dass Sie sich entkommen lassen, und entschieden, Sie zu verklagen, Sie zu tippen und wieder in eine Zelle zu bringen.",
+          "1": "Der Korrupte geht auf Ihren Deal ein und bringt Ihnen ein köstliches Essen. Sie essen sich satt, dann lässt er Sie frei.",
+          "2": "Der Wächter nimmt Ihr Geld an und lässt Sie frei. Allerdings war das Ganze nur eine Falle! Er lässt Sie glauben, dass Sie ausgebrochen sind und beschließt, Sie zu verfolgen, zu verprügeln und wieder in die Zelle zu stecken.",
           "3": "Das Sorgerecht macht Sie zu verstehen, dass er nicht auf dieser Seite ist und Sie im Gefängnis sitzen. Sie verlassen ein paar Stunden später, nachdem Sie die Geschichte geklärt haben.",
-          "4": "Die Wache lehnt Ihr Geld kategorisch ab. Wenn Sie darauf warten, dass Sie warten, werden Sie schlafen."
+          "4": "Der Wachmann lehnt Ihr Geld kategorisch ab. Da Sie so lange warten, schlafen Sie schließlich ein."
         },
         "text": "Versuchen Sie, die Person, die Sie beobachtet, zu bestechen."
       },
       "end": {
         "outcomes": {
-          "0": "Um die Zeit zu verbringen, beschließen Sie, mit einem anderen Gefangenen zu streiten. Ein paar Stunden später sind Sie frei.",
-          "1": "Sie erwarten, dass Sie sich frei machen können, indem Sie mit dem Sorgerecht darüber reden, dass wir Ihnen die Hexerei beschuldigen. Ungefähr eine Stunde später sind Sie abgelenkt, und der wahre Übeltäter.",
-          "2": "Sie können so viel laufen, wie Sie in der Zelle können. Nach einem Moment schliefen Sie sich ein, und wenn Sie aufwachen, finden Sie in den Wäldern."
+          "0": "Um sich die Zeit zu vertreiben, beschließen Sie, sich mit einem anderen Gefangenen zu unterhalten. Ein paar Stunden später sind Sie frei.",
+          "1": "Sie warten ruhig darauf, dass man Sie freilässt. Im Gespräch mit dem Wachmann erfahren Sie, dass Sie der Hexerei beschuldigt werden. Fast eine Stunde später werden Sie entlastet und der wahre Schuldige eingesperrt.",
+          "2": "Sie laufen so viel wie möglich in der Zelle herum. Nach einer Weile schlafen Sie ein und wenn Sie aufwachen, finden Sie sich in einem Wald wieder."
         }
       },
       "escape": {
         "outcomes": {
-          "0": "Sie versuchen zu entkommen, Sie sagen, dass der andere Teil der Verantwortung für Sie eine Bürde sein wird, und Sie entscheiden sich, ihn nicht über Ihre Flucht zu verpassen. Wenn Sie etwas suchen, das Ihnen für diesen Plan nützlich sein könnte, werden Sie auf eine kaputte Holzlatte fallen. Sie versuchen, die Öffnung ohne Erfolg zu vergrössern, so dass Sie diese Idee aufgeben.",
-          "1": "Sie entscheiden sich, die andere Seite der Flucht zu alarmieren, Sie verpassen, dass Sie die Schlüssel in der Pfanne der Wächter abholen. Er öffnet seine Zelle, wenn der Wächter sich über die Aufsicht über die Wächter begibt. Ein Kämpfer zerbricht, aber Ihr Mitgeist beschließt, Sie zu befreien. Sie gehen dann weit weg, wo Sie eine warme Mahlzeit einnehmen.",
-          "2": "Sie versuchen, auf die Tür klopfen, die zerbrechlich zu sein scheint. Sie können es mit Erfolg versenken, wenn Sie das Sorgerecht sehen. Er löst einen Kampf mit Ihnen auf, um Sie wieder in die Zelle zu bringen, Sie versuchen, sich selbst zu verteidigen, aber Sie tun nicht das Gewicht."
+          "0": "Sie versuchen zu fliehen. Sie denken sich, dass der andere Insasse eine Last für Sie sein wird und beschließen, ihn nicht über Ihre Flucht zu informieren. Als Sie nach etwas suchen, das Ihnen bei Ihrem Plan helfen könnte, stoßen Sie auf eine zerbrochene Holzlatte. Sie versuchen erfolglos, die Öffnung zu vergrößern und geben den Plan daher auf.",
+          "1": "Sie beschließen, den anderen Insassen auf den Ausbruch aufmerksam zu machen und lenken ihn ab, damit er die Schlüssel aus der Tasche des Wärters holt. Er öffnet seine Zelle, als der Wärter den Schwindel bemerkt. Es kommt zu einem Streit, aber Ihr Mithäftling beschließt, Sie freizulassen. Anschließend machen Sie sich auf den Weg in die Ferne, wo Sie eine warme Mahlzeit zu sich nehmen.",
+          "2": "Sie versuchen, gegen die Tür zu klopfen, die brüchig wirkt. Sie können sie erfolgreich aufbrechen, als der Wachmann Sie sieht. Er fängt einen Kampf mit Ihnen an, um Sie wieder in die Zelle zu bringen. Sie versuchen, sich zu wehren, sind aber machtlos."
         },
         "text": "Versuchen Sie, sich zu entkommen."
       },
       "explain": {
         "outcomes": {
-          "0": "Sie sprechen immer und immer wieder. Das Sorgerecht will aber nichts hören und beschließt, Sie zu bauen. Ein paar Stunden später wurden Sie freigelassen, und der Wächter entschuldigt sich, weil er Sie für einen Flüchtling gefangen hielt.",
-          "1": "Sie sprechen, Sie sprechen, und schließlich entscheidet der Wächter über die Münze, um Sie nicht mehr zu hören. Ein paar Stunden später sind Sie frei und aus der Stadt heraus finden Sie ein paar Teile auf dem Boden.",
+          "0": "Sie reden, immer und immer wieder. Der Wachmann will jedoch nichts hören und beschließt, Sie zu knebeln. Einige Stunden später werden Sie freigelassen und der Wachmann entschuldigt sich, weil er Sie für einen Flüchtling gehalten hatte.",
+          "1": "Sie reden und reden, und schließlich beschließt die Wache, den Raum zu verlassen, damit sie Sie nicht mehr hören kann. Einige Stunden später werden Sie entlassen und finden beim Verlassen der Stadt einige Münzen auf dem Boden.",
           "2": "Sie reden lange mit dem Sorgerecht. Wenn Sie Ihr Elend versteht, beschließt er, Sie zu befreien und sich zu verstecken, damit Sie die Stadt diskret verlassen.",
           "3": "Sie haben versucht, mit dem Sorgerecht zu reden. Nach 15 Minuten verliert der letzte sein kaltblütig und beschließt, Sie mit seiner Waffe zu schlagen, um Sie zum Schweigen zu bringen."
         },
@@ -1241,53 +1241,53 @@
       },
       "playDead": {
         "outcomes": {
-          "0": "Sie scheinen in der Hoffnung gestorben zu sein, dass der Wächter Ihre Leiche ausbringt und Sie gehen können. Wie der Wächter dachte, es ist. Sobald Sie abgestellt sind, entscheiden Sie sich für die Herberge, denn Sie sind müde.",
+          "0": "Sie stellen sich tot, in der Hoffnung, dass die Wache Ihre Leiche wegwirft und Sie gehen können. Wie erwartet, tut die Wache dies. Nachdem du wieder aufgestanden bist, beschließt du, ins Gasthaus zu gehen, da du ziemlich müde bist.",
           "1": "Das Sorgerecht wird Sie nicht sofort bemerken, aber sobald er Sie sieht, beschließt er, zu prüfen, ob Sie wirklich tot sind. Ein Schauspieler-Pieter, das Sie sind, wird es berücksichtigen und beschließt, Ihnen eine zusätzliche Zeit in der Zelle zu lassen.",
-          "2": "Der Wächter untersucht Ihren Körper, Sie können ihn täuschen. Er wird aus Ihrer Leiche loswerden. Wenn Sie weg sind, nehmen Sie sich und fahren Sie zurück."
+          "2": "Der Wachmann untersucht Ihren Körper, Sie schaffen es, ihn zu täuschen. Er beseitigt Ihren Leichnam. Nachdem Sie gegangen sind, stehen Sie wieder auf und setzen Ihren Weg fort."
         },
         "text": "Töten Sie den Tod."
       },
       "wait": {
         "outcomes": {
-          "0": "Warten Sie. Während die Zeit für die Minuten vergeht, scheinen Sie stundenlang zu sein. Aber die Person, die Sie beobachtet, scheint nicht bereit zu sein, Sie so früh zu befreien.",
+          "0": "Sie warten. Während die Zeit vergeht, kommen Ihnen die Minuten wie Stunden vor. Aber die Person, die Sie beobachtet, scheint nicht bereit zu sein, Sie so bald zu befreien.",
           "1": "Sie warten schon, die Zeit scheint Ihnen zu lang. Nach ein paar Stunden beschließt der Wächter, Sie zu befreien, und entschuldigt sich für das Missverständnis.",
           "2": "Wir müssen warten, bis der Wächter da ist, und Sie reden mit dem Wachmann und spielen mit dem Letzten. Er versteht, dass Ihre Geschichte wirklich ein Quo ist, und deshalb lädt er Sie ein, zu essen."
         },
         "text": "Warten, bis etwas passiert."
       }
     },
-    "text": "Während Sie Ihren Weg fortsetzen, kommen Sie in eine Stadt. Unmittelbar danach kommt eine Gruppe von Menschen zu sich und fängt euch an und dann bringt Sie in ein Gebäude. Die Leute in der Gruppe werfen Sie in eine Zelle, in der Sie eine Gefangenengehalten haben, Sie verstehen sehr schnell, dass Sie sich in einem Gefängnis befinden, und dass Sie Opfer eines Missverständtseins wurden."
+    "text": "Während Sie Ihren Weg fortsetzen, kommen Sie in eine Stadt. Gleich darauf kommt eine Gruppe von Männern auf Sie zu, packt Sie und bringt Sie in ein Gebäude. Die Personen aus der Gruppe werfen Sie in eine Zelle, in der sich ein Häftling befindet. Ihnen wird schnell klar, dass Sie sich in einem Gefängnis befinden und dass Sie Opfer eines Missverständnisses geworden sind."
   },
   "42": {
     "possibilities": {
       "ask": {
         "outcomes": {
-          "0": "Sie antwortet freundlich und fordert Sie auf, dies zu tun und Sie werden dazu aufgefordert, dies zu tun. Sie erklären sich damit einverstanden, und das ist nach einem Zeitraum von wenigen Minuten, den Sie vor der Herberge ankommen, zu akzeptieren. Es ist nicht Ihre Überraschung, wenn Sie bemerken, dass diese auf der Alub-Höhle eingerichtet ist. Sie bewegen sich von einem Schritt nach unten in Richtung des Bodens, in dem sich eine Suppe, die ein benetzendes Parfüm exhal, einreif. Dann ist ein taube Geräusch zu hören. Sie drehen sich um und sehen, wie ein Kräuter herabgesetzt wird. Auf der anderen Seite erscheinen etwa 15 Personen. Es war eine Falle, und Sie sind da drin gefallen. Zu schwach, um zu entgehen, Sie zu entscheiden, die Suppe an erster Stelle zu probieren. Ihr Kopf wird schwerfällig, Sie hören Ihre Wachen, und schlafen Sie in einem tiefen Schlaf. Sie wachen am Ufer des Flusses, die Taschen leichter und leichter als Sie sich erinnern.",
-          "1": "Sie zeigt Ihnen eine Taverne, nur wenige Kilometer entfernt. Sie haben einen Termin, Sie füllen den Magen und ruhen sich aus. Nachdem Sie die Rechnung eingestellt haben, nehmen Sie Ihren Weg zurück."
+          "0": "Sie antwortet Ihnen freundlich, dass sie selbst ein Gasthaus betreibt, und lädt Sie ein, dort vorbeizuschauen. Sie stimmen zu und nach einigen Minuten erreichen Sie das Gasthaus. Sie sind überrascht, als Sie feststellen, dass sich das Gasthaus in einer Höhle befindet. Sie gehen selbstbewusst auf den Boden der Höhle zu, wo eine Suppe köchelt, die einen betörenden Duft verströmt. Dann ertönt ein dumpfes Geräusch. Sie drehen sich um und sehen, wie ein Fallgitter heruntergelassen wird. Auf der anderen Seite erscheinen etwa 15 Personen. Es war eine Falle und Sie sind hineingetappt. Da Sie zu schwach sind, um zu diskutieren, beschließen Sie, erst einmal die Suppe zu probieren. Ihr Kopf wird schwer, Sie hören Ihre Wachen lachen und fallen in einen tiefen Schlaf. Sie wachen an einem Flussufer auf, Ihre Taschen sind leichter als in Ihrer Erinnerung.",
+          "1": "Sie zeigt Ihnen eine Taverne, die ein paar Kilometer entfernt ist. Sie gehen dorthin, füllen Ihren Magen und ruhen sich aus. Nachdem Sie die Rechnung bezahlt haben, setzen Sie Ihre Wanderung fort."
         },
         "text": "Ihn um die nächstgelegene Herberge zu bitten."
       },
       "end": {
         "outcomes": {
-          "0": "Sie wissen es nicht ganz, und nehmen Sie Ihren Weg zurück. Sie kommen schließlich in eine kleine, sehr hübsche Art von Tari. Wenn Sie in die Tasche kommen, werden Sie auf eine Menge Münzen und ein Objekt, was sich als nützlich für Ihre Abenteuer als nützlich erhalen ließe!",
-          "1": "Sie entscheiden sich zu gehen. Auf dem Weg finden Sie ein paar Pilze und pflücken sie, dann schlucken Sie sie. Aber Sie wurden krank, weil sie nicht essbar waren."
+          "0": "Sie ignorieren ihn völlig und setzen Ihren Weg fort. Sie kommen schließlich in eine kleine Stadt mit dem schönen Namen Tardans. Als Sie den Ort betreten, stoßen Sie auf eine Tasche mit vielen Münzen und einem Gegenstand.",
+          "1": "Sie beschließen, sich auf den Weg zu machen. Unterwegs finden Sie einige Pilze, pflücken sie und essen sie. Sie werden jedoch krank, da sie nicht essbar waren."
         }
       },
       "feign": {
         "outcomes": {
-          "0": "Nachdem Sie die Höhle in einer Stunde gesucht haben, geben Sie die Suche auf und gehen wieder auf die Büchse zurück.",
-          "1": "Wenn Sie auf Ihre eigenen Schritte zurückgehen, bemerken Sie nicht die gespannte Seile zwischen zwei Wurzeln. Sie stolzen drauf, und Sie werden in der Luft suspendiert. Die Plünderer, die durch das Geräusch gewarnt werden, greifen dann an, und Sie machen die Taschen. Die Zeit, Sie aus dem Knoten herauszuholen, sind schon weit weg mit ihren Beute.",
-          "2": "Wenn Sie auf Ihre Schritte zurückgehen, werden Sie das, was sich zu einer Höhle erschienen könnte, in der Ferne sehen. Sie bewegen sich sanft und bescheiden einen sanften Geruch. Durch die Annäherung an die Spitze der Füsse können Sie ein wenig Nahrung anstoßen. Sie reden dann schnell wieder von Angst, von jemandem eingeholt zu werden, der Euren Larven miterlebt hat.",
-          "3": "Sie gehen in die Höhle und fangen an, sie zu erforschen. Nach einem 15 Meter großen Meter finden Sie sich gegen einen vergewaltigen Bären, der auf Sie aufgeschmolzen ist. Sie begeben sich den Kampf, und nach einem harten Kampf, können Sie ihn in den Schädel abschießen. Dann beeilen Sie sich und kochen sein Fleisch. Wenn Sie wieder in der Lage sind, einen Händler zu finden, an dem Sie die Haut verkaufen, gehen Sie zu einem Händler."
+          "0": "Nachdem Sie eine Stunde lang nach der Höhle gesucht haben, geben Sie die Suche auf und gehen leer aus.",
+          "1": "Als Sie zurückgehen, bemerken Sie nicht das Seil, das zwischen zwei Wurzeln gespannt ist. Sie stolpern darüber und hängen in der Luft. Ein paar Plünderer, die durch den Lärm aufmerksam geworden sind, kommen angerannt und greifen Ihnen in die Tasche. Als du dich aus dem Knoten befreien kannst, sind sie mit ihrer Beute schon weg.",
+          "2": "Als Sie zurückgehen, sehen Sie in der Ferne etwas, das wie eine Höhle aussehen könnte. Sie gehen langsam weiter und riechen einen süßen Geruch. Als du dich auf Zehenspitzen näherst, gelingt es dir, etwas Essen zu erbeuten. Sie machen sich schnell wieder auf den Weg, da Sie befürchten, von jemandem eingeholt zu werden, der Ihren Diebstahl beobachtet hat.",
+          "3": "Sie betreten die Höhle mit kleinen Schritten und beginnen, sie zu erforschen. Nach etwa 15 Metern sehen Sie sich einem großen Bären gegenüber, der auf Sie zukommt. Sie nehmen den Kampf auf und schaffen es nach einem harten Kampf, den Bären mit einem Schlag auf den Schädel zu töten. Anschließend häuten Sie den Bären und braten sein Fleisch. Wenn Sie satt sind, machen Sie sich auf die Suche nach einem Händler, dem Sie das Fell des Bären verkaufen."
         },
         "text": "Sei nicht so weit weg, um die Höhle allein zu durchzuziehen."
       },
       "help": {
         "outcomes": {
-          "0": "Sie können Ihre Höhle mit Ihrer Hand in die Hand gehen. Bedauerlicherweise hat die junge Frau die Pest-Pest-Zeit, die Sie in Kontakt gebracht haben, die sie sich in der Knie verfangen hat.",
-          "1": "Nach ein paar Minuten erreichen Sie die Höhle in Frage. Sie bewegen sich von einem Schritt nach unten in Richtung der Unterseite des Fonds. Dann ist ein taube Geräusch zu hören. Sie drehen sich um und sehen, wie ein Kräuter herabgesetzt wird. Auf der anderen Seite erscheinen etwa 15 Personen. Es war eine Falle, und Sie sind da drin gefallen. Nach mehreren Stunden, um mit Ihren Folterer zu parken, beschließen sie, sich gegen ein gutes Paket von Münzen zu befreien. Sie gehen dann wieder zurück, denken und schwören, dass Sie hören, dass wir Sie nicht mehr wiederaufnehmen.",
+          "0": "Sie machen sich mit Ihrer Fackel in der Hand auf den Weg, um ihre Höhle zu erkunden. Leider stellt sich heraus, dass die junge Frau die Pest hatte, und als Sie sie berührten, steckten Sie sich damit an.",
+          "1": "Nach einigen Minuten erreichen Sie die Höhle. Sie gehen selbstbewusst auf den Boden der Höhle zu. Dann ertönt ein dumpfes Geräusch. Sie drehen sich um und sehen, wie ein Fallgitter heruntergelassen wird. Auf der anderen Seite tauchen etwa 15 Personen auf. Es war eine Falle und Sie sind hineingetappt. Nachdem Sie mehrere Stunden mit Ihren Peinigern verhandelt haben, beschließen sie, Sie für einen Haufen Münzen freizulassen. Sie machen sich auf den Weg und schwören allen, die es hören wollen, dass sie Sie nicht wiedersehen werden.",
           "2": "Sie bewegen sich mit einem Warnhinweis, der auf alle Eventualitäten vorbereitet ist. Es ist so, dass die Höhle sehr tief ist, und Sie haben eine gute Zeit damit, den Hintergrund zu suchen. Dies ist der Zeitpunkt, an dem Sie den Weg für die Ecke des Augenblitzes entwürgen, die aus Metall besteht. Wenn Sie sich nähern, wird Ihnen klar, dass es sich dabei um einen geschlossenen Schließfach für ein Seil handelt. Du schießt auf das Seil, das sich ziemlich leicht zurückzieht. Sie öffnen den Safe, der eine Menge unvorstellbarer Teile und ein Objekt enthält, von dem Sie stolz sein können. Wenn Sie wieder in die Höhle zurückkehren, werden Sie die junge Frau beruhigen, die überschlich ist, und Sie werden sich freuen, Sie zu sehen, und Sie freuen sich über Ihre Beute.",
-          "3": "Sie gehen in die Höhle, und fangen Sie an zu erkunden. Nach etwa 15 Metern stehen Sie vor einem aufreenden Bär, der Sie auf die Faust aufzwingt. Sie bezwingen den Kampf, aber Sie lassen sich schnell umziehen. Dann nehmen Sie die Leck-, Blut-und-Entegnung von Schweiß, unter dem unmissbrauchten Blick der Dame."
+          "3": "Sie betreten die Höhle mit kleinen Schritten und beginnen, sie zu erforschen. Nach etwa 15 Metern sehen Sie sich einem großen Bären gegenüber, der auf Sie zukommt. Sie beginnen einen Kampf, werden aber schnell niedergestreckt. Sie flüchten blutend und schweißtriefend, während die junge Frau staunend zuschaut."
         },
         "text": "Sie werden ihn drängen, zu helfen."
       }
@@ -1298,30 +1298,30 @@
     "possibilities": {
       "continue": {
         "outcomes": {
-          "0": "Sie setzen Ihren Weg fort, und Sie sehen, dass es in Wirklichkeit nur ein nordischer Jäger ist. Sie grüßen Sie, und Sie sehen ihn an, wie Sie seine Fallen heben. Sie verstehen, dass es hier um die Flüssigkeit geht, die von ihrer Hand fließt.",
-          "1": "Komisch, Sie nähern sich der Person. Er ist ein nordischer Jäger, der in seine Fallen fällt. Sie begrüßten Sie, und Sie schlagen vor, dass Sie ihm helfen, dass er sich bereit erklärt. Nachdem Sie ihm geholfen haben, alle seine Fallen zu meistern, fragt er Sie, ob Sie den Abend bei ihm verbringen möchten. Der Jäger kocht den Jäger, den er gefangengenommen hat. Sie müssen sich ein gutes Ggot vor dem Feuer seines Kamins essen, und dann lässt er sich auf sein Bett legen. Sie reden von der Morgenröte. Sie danken ihm, indem Sie ihm ein paar Stücke gaben."
+          "0": "Sie setzen Ihren Weg fort und stellen fest, dass es sich in Wirklichkeit um einen nordischen Jäger handelt. Sie begrüßen sich und beobachten ihn, wie er seine Fallen aufstellt. Dann wird Ihnen klar, dass die Flüssigkeit, die aus seiner Hand fließt, von dort kommt.",
+          "1": "Neugierig nähern Sie sich der Person. Es ist ein nordischer Jäger, der seine Fallen aufstellt. Sie begrüßen sich und bieten ihm Ihre Hilfe an, die er gerne annimmt. Nachdem Sie ihm geholfen haben, alle seine Fallen aufzustellen, fragt er Sie, ob Sie den Abend bei ihm verbringen möchten. Der Jäger kocht das Wild, das er gefangen hat. Sie stärken sich mit einer guten Lammkeule vor dem Kaminfeuer, dann lässt er Sie auf seinem Bett ausruhen. Nachdem du dich mit ein paar Münzen bei ihm bedankt hast, machst du dich im Morgengrauen wieder auf den Weg."
         },
         "text": "Fahren Sie weiter fort."
       },
       "end": {
         "outcomes": {
-          "0": "Sie ignorieren die Person, die vor Ihnen liegt, und ein wenig weiter auf Ihrem Weg, finden Sie einen glänzenden Gegenstand, den Sie in Ihrer Tasche ressen.",
-          "1": "Durch Angst sind Sie wieder auf dem Weg und machen einen Umweg, um die Kreatur zu überkreuzen.",
+          "0": "Sie ignorieren die Person vor Ihnen und finden ein Stück weiter auf Ihrem Weg einen glänzenden Gegenstand, den Sie in Ihrer Tasche verstauen.",
+          "1": "Aus Angst kehren Sie um und machen einen Umweg, um der Kreatur nicht zu begegnen.",
           "2": "Sie rennen ohne zu sehen, was es war, aber Sie stolperten in der Dunkelheit auf einem Stein. Sie werden auf Ihre Arme fallen, ganz gekorket."
         }
       },
       "fight": {
         "outcomes": {
           "0": "Du fängt an, mit dem Hurt zu dunkeln, der Mann dreht sich um und Sie sind verhaftet. Nachdem Sie ihm erklärt haben, was Sie dachten, haben Sie gesagt, dass Sie auf dem falschen Weg waren: Er ist ein Jäger, der seine Fallen überprüft, nicht irgendeine dämonische Kreatur! Sie entschuldigen sich schnell, und dann gehen Sie wieder.",
-          "1": "Sie betreten den seltsamen Charakter, indem Sie schreien. Nachdem Sie sich aber näher gerückt haben, erkennen Sie an, dass es sich um einen Jäger handelt, der seine Fallen unterstellt. Confus, Sie entscheiden sich, Ihnen zu helfen, um ihn für den von Ihnen verursachten Riefer zu entschädigen.",
+          "1": "Sie rennen schreiend auf die seltsame Gestalt zu. Als Sie näher kommen, stellen Sie fest, dass es sich um einen Jäger handelt, der seine Fallen aufstellt. Verwirrt beschließen Sie, ihm zu helfen, um ihn für den Schrecken zu entschädigen, den Sie ihm bereitet haben.",
           "2": "Sie lassen Ihr Schwert los, der Mann dreht sich um und sieht, wie er in seine Richtung geht. Er droht, einen Pfeil abzuwählen, wenn Sie einen Schritt weiter machen. Sie entschuldigen sich, dass Sie ihn für einen Dämonen weggenommen haben, und dann fahren Sie wieder auf die Straße, denken Sie an."
         },
         "text": "Schmieren Sie die Kreatur."
       },
       "goBack": {
         "outcomes": {
-          "0": "Sie bevorzugen eine diskret halbe Trick. Wenn Sie weit entfernt sind, laufen Sie schnell und flüchten Sie in das nächste Dorf.",
-          "1": "Sie nehmen das Leck, indem Sie es sanft zurückschrecken, aber Sie gehen auf eine braune Brindille. Apeuré, Sie fangen an, alle Beine zu rennen, aber Sie werden auf dem Boden fallen, und Sie werden die Knie schrennen. Unter der Anwendung von Adrenalin nehmen Sie sofort Ihren verrückten Rennen wieder auf."
+          "0": "Sie ziehen es vor, unauffällig umzukehren. Sobald Sie sich weit genug entfernt haben, rennen Sie so schnell Sie können und flüchten in das nächste Dorf.",
+          "1": "Sie ergreifen die Flucht und gehen langsam rückwärts, aber Sie treten auf einen Zweig, der knackt. Aus Angst beginnen Sie zu rennen, doch Sie fallen auf den Boden und schürfen sich die Knie auf. Unter dem Adrenalinrausch setzen Sie Ihre wilde Fahrt jedoch sofort fort."
         },
         "text": "Drehen Sie sich um."
       },
@@ -1329,7 +1329,7 @@
         "outcomes": {
           "0": "Sie erinnern sich daran, vor ein paar Minuten vor einer Kirche verbracht worden zu sein, dann zögern Sie nicht lange, bevor Sie sich selbst entscheiden, damit Sie vor der Dämonen geschützt werden können. Sie laufen auf die ganze Fahrt und erreichen Sie in weniger als zehn Minuten vor der Kirche. Sie sind ein wenig befreist, aus Angst, dass sie von der Bestie verfolgt wurden. Ein Kyutist öffnet Sie, und nachdem Sie ihm erklärt haben, dass Sie ihn haben, lassen Sie ihn rein. Von großer Güte, die Leute im Inneren der Kirche geben Ihnen was zu essen, und Sie sagen, dass sie ohne Probleme Sie für die Nacht behalten können. Erleben Sie sie bei den Lob in Askeriel, in der alle in der Zeit flüstern, wie Askeriel, der Große Gott, die Existenz, die Materie, die Erde und dann die Menschen und die Tiere erschuf. Wenn Sie fertig sind, gehen Sie alle ins Bett.",
           "1": "Sie erinnern sich, dass Sie eine kleine Kirche verbracht haben. Sie sind dort auf der Suche nach der Hilfe, die Sie dort suchen. Wenn Sie einmal hier sind, sind Sie ein toter. Nach ein paar Sekunden ohne Reaktion entscheiden Sie sich, dass Sie Angst haben, dass Sie von der Bestie verfolgt wurden. In diesem Moment erkennen Sie an, dass die Kirche komplett leer ist, verlassen. Sie schließen die Tür, und Sie installieren den Boden, bevor Sie eingeschlafen sind.",
-          "2": "Sie denken sofort daran, in einer Kirche Zuflucht zu suchen: Was ist das Beste, wenn man es mit einem dämonischen Ding zu tun hat? Aber Sie können sich schnell heilen, da Sie erkennen, dass Sie absolut keine Ahnung haben, wo die engsten Kirchen ist. Dann entscheiden Sie sich, so weit wie möglich von der Kreatur zu flüchten, was Sie tun.",
+          "2": "Sie denken sofort daran, in einer Kirche Zuflucht zu suchen - was könnte angesichts einer scheinbar dämonischen Sache schließlich besser sein? Sie stellen jedoch schnell fest, dass Sie keine Ahnung haben, wo die nächste Kirche ist. Sie beschließen also, so weit wie möglich von der Kreatur wegzulaufen, was Sie auch tun.",
           "3": "Sie denken, dass Sie in eine Kirche gehen, ist eine gute Option. Sie können sich dann in ein paar Minuten in die Kirche einlassen, die Sie früher überschritten hatten. Sie sind willkommen und werden von einem hübschen Priester willkommen geheißen, der Sie sofort reinbringen lässt. Sie können nicht lange mit ihm reden über das, was Sie gesehen haben, und er antwortet, dass es sehr gut wäre, wenn es sich um eine schreckliche, böse Kreatur unter der Kommando von Y' ahnor handelt. Beeindruckend, Sie treffen sich bei der Ode an die Drei, die Zeremonie, wo Orthgard, Fenffa, und Iatneh, die Götter, die die Menschlichkeit leiten und inspirieren die größten Erfindungen und Entdeckungen."
         },
         "text": "Wenn Sie in eine Kyutistenkirche einreiten."
@@ -1347,8 +1347,8 @@
       "help": {
         "outcomes": {
           "0": "Wenn Sie versuchen, ihn zu retten, nimmt er Angst ein und Sie werden mit seinem Stein zusammen sitzen. Sie haben einige Zeit damit, Ihren Verstand zu übernehmen und wieder zurück zu gehen.",
-          "1": "Sie werfen sich auf den Stein und holen ihn ein. Sie schneiden schnell das Seil ab und holen den unglücklichen, der durchtränkt ist. Sie verbringen einige Stunden mit ihm, um ihn davon abzubringen, es wieder anzufangen. In der Nacht, in der er Sie bietet, bietet er Ihnen die Unterkunft und den Schutz für die Nacht.",
-          "2": "Sie werfen sich auf den Stein, aber Sie sind zu langsam. Der arme, dunkle Mann, schnell in den Fluss, durch den Strom. Sie suchen in der Nähe, wenn er keine Geschäfte hinter sich gelassen hat. Sie werden auf ein merkwürdiges Objekt fallen, das szintiliert.",
+          "1": "Sie stürzen sich auf den Stein und fangen ihn auf. Sie schneiden schnell das Seil durch und suchen den Unglücklichen, der völlig durchnässt ist. Sie verbringen mehrere Stunden mit ihm und versuchen, ihn von einer Wiederholung abzuhalten. Dankbar bietet er Ihnen Deckung und Schutz für die Nacht.",
+          "2": "Sie stürzen sich auf den Stein, aber Sie sind zu langsam. Der arme Mann sinkt schnell in den Fluss und wird von der Strömung mitgerissen. Sie sehen sich in der Umgebung um, ob er vielleicht ein paar Sachen zurückgelassen hat. Sie stoßen auf einen seltsamen Gegenstand, der glitzert.",
           "3": "Sie können ihn retten, nur sein Stein werfen, bevor Sie zu ihm kamen. Sie gehen zu seiner Suite und versuchen, ihn wieder auf die Herberge zu bringen, aber er wird mit ihm in den Hintergrund gehen und Sie nehmen ihn in den Hintergrund. Wenn Sie sich einlassen, werden Sie ihn freilassen und gezwungen sein, wieder zu steigen."
         },
         "text": "Sich auf die Couch zu werfen."
@@ -1369,7 +1369,7 @@
         "text": "Den Blick auf den Stein werfen."
       }
     },
-    "text": "Auf Ihrer langen Reise finden Sie am Rande eines großen Flusses. Sie können sich nicht durch die Länge der Brücke bewegen, bis Sie eine Brücke finden. Während Sie entlang der hier entlang gehen, fallen Sie auf eine uneinheitliche Szene: Ein Bauer hält über seinem Kopf einen schweren Stein, der an sein Bein gebunden zu sein scheint. Er war bereit, sie von einer Sekunde auf die andere zu werfen."
+    "text": "Auf Ihrer langen Reise finden Sie sich am Ufer eines breiten Flusses wieder. Da Sie den Fluss nicht überqueren können, beschließen Sie, an ihm entlang zu gehen, bis Sie eine Brücke finden. Als Sie den Fluss entlanggehen, stoßen Sie auf eine ungewöhnliche Szene: Ein Bauer hält einen schweren Stein über seinem Kopf, der an seinem Bein befestigt zu sein scheint. Er scheint bereit zu sein, ihn jeden Moment zu werfen."
   },
   "45": {
     "possibilities": {
@@ -1377,20 +1377,20 @@
         "outcomes": {
           "0": "Die Gruppe ist sehr gastfreundlich, also machen Sie die ganze Reise. Der Führer, der im Zufluchtsort war, verbringt fast zwei Stunden, um die Geschichte zu erobern.",
           "1": "Die Gruppe lehnt sich einfach ab. Dann fahren Sie mit Ihrer Reise fort.",
-          "2": "Die Gruppe hält Sie für einen Dieb, und Sie werden entsprechend Tabak abnehmen."
+          "2": "Die Gruppe hält Sie für einen Dieb und verprügelt Sie dementsprechend."
         },
         "text": "Fragen Sie die Gruppe, sie zu erreichen."
       },
       "end": {
         "outcomes": {
-          "0": "Die Gruppe, die denkt, dass Sie spioniert werden, schlägt Sie heftig zu.",
+          "0": "Die Gruppe, die glaubt, ausspioniert zu werden, schlägt Sie heftig.",
           "1": "Nach 15 Minuten ohne jegliche Reaktion, gehen Sie wieder auf Ihren Weg."
         }
       },
       "goAlone": {
         "outcomes": {
           "0": "Sie entscheiden sich selbst für den Zufluchtsort. Nach 30 Minuten Fahrt fällt der Boden unter den Füßen, und Sie werden heftig gezichtigt.",
-          "1": "Sie entscheiden sich selbst für den Zufluchtsort. Wenn Sie an der Website sind, hören Sie ein seltsames Geräusch, Panik, Sie rennen und stolpert. Sie haben eine böse Krolle an dem Bein, das ist nicht verrückt, wenn man sich infizieren kann.",
+          "1": "Sie beschließen, allein zum Schrein zu gehen. Als Sie an der Stätte ankommen, hören Sie ein seltsames Geräusch. In Panik rennen Sie los und stolpern. Sie haben sich einen hässlichen Kratzer am Bein zugezogen, der sich bald entzündet.",
           "2": "Sie entscheiden sich selbst für den Zufluchtsort. Auf Ihrem Weg finden Sie ein Objekt, das Ihnen nützlich sein könnte. Wenn Sie am Tatort ankommen, finden Sie heraus, dass der Zufluchtsort sich als Höhle erweist. Sie beschließen, nicht weiter zu gehen.",
           "3": "Sie entscheiden sich selbst für den Zufluchtsort. Wenn Sie dort ankommen, entdecken Sie einen wunderschönen Zufluchtsort, dessen Schönheit Sie 30 Minuten lang erobert haben.",
           "4": "Wenn Sie sich die Zeit verschwenden, ändern Sie die Entscheidung, und fahren Sie fort."
@@ -1426,7 +1426,7 @@
       "singCrazyLove": {
         "outcomes": {
           "0": "Sofort gefragt, so schnell wie möglich. Sie befinden sich in einem Bett, ungekleidet, neben dem, was sich in Ihrer Liebe offenbaren. Wenn Sie sich näher ansehen, werden Sie feststellen, dass Sie an der Größe gebunden sind, und es fehlt Ihnen die gesamte Mitgliedschaft Ihrer Mitglieder, ganz gleich, ob es sich um Arme oder Beine handelt. Sie haben die Möglichkeit, sich mit dem Rumkel zu bewegen. Wenn Sie Ihre Verzweiflung sehen, beendet Pérotin sein Lied mit \"all dies war nur ein Traum\", und Sie werden wieder wie früher, ganze Zahl und Abenteuer. Sie müssen sich jedoch ausruhen, um sich von Ihrem Trauma zu erholen.",
-          "1": "Sofort gefragt, so schnell wie möglich. Sie befinden sich am Meer, weit weg von allem, begleitet von einem einzigen und einzigen Matelot, Ihrer Liebe. Auf einer einsamen Insel seht ihr ein Kreuz am Boden. Es handelt sich hier um einen Schatz, der mit einem schönen Beute und einem Objekt gefüllt wird, das Ihnen helfen wird. Cupidität und Bärengier haben recht mit Ihnen, und Sie entscheiden sich, von der Insel zu gehen, allein. Wenn Sie zurück ins Land kommen, werden Sie auf den Pérotin fallen, der singt, um dort das Geld zu geben, das dort gespart wird, wie bei einer Spende an die Melodie. Nach diesen Verfallenen gehen Sie wieder auf die Straße, begleitet von Ihrem Objekt auf der Insel.",
+          "1": "Sofort erbeten, sofort erfüllt. Sie finden sich auf See wieder, weit weg von allem, begleitet von einem einzigen Matrosen, Ihrer Liebe. Als Sie auf einer einsamen Insel ankommen, sehen Sie ein Kreuz auf dem Boden. Es handelt sich um einen Schatz, gefüllt mit Beute und einem Gegenstand, den Sie gut gebrauchen können. Gier und Geiz haben Sie besiegt und Sie beschließen, die Insel allein zu verlassen. Auf dem Weg zurück in die Heimat treffen Sie wieder auf Perotin, der singt, um das dort verdiente Geld als Spende für diese unvergleichliche Melodie zu erhalten. Nach diesen Abenteuern setzen Sie Ihre Reise fort, begleitet von Ihrem auf der Insel gefundenen Gegenstand.",
           "2": "Da die heroische Suche nach der Rettung der Prinzessin heroisch ist, beschließt der Menestrel, eine der möglichen Folgen Ihrer Abenteuer nach der Rettung zu erzählen. Aber nicht viel über Ihre Beziehung zu der Prinzessin zu wissen, hat es vorgezogen, die Geschichte von \"Das alte und das falsche Monster\" zu erzählen, Sie verkörperten das falsche Monster, natürlich. Mit der Erkenntnis, dass die Synopsis bereits erfolgreich war, wird es nicht gelingen, Sie zu ändern, wahrscheinlich aufgrund der Unterdosierung seiner Drogen. Da Sie nicht in seine Elite zurückgekommen sind, entscheiden Sie sich dafür, ihm für diese wunderbare Geschichte zu danken, und Sie folgen Ihrem Weg, dieser Zeitverschwendung, die Sie nicht brauchen, zu wissen."
         },
         "text": "Eine verrückte Liebe singen."
@@ -1443,7 +1443,7 @@
         "outcomes": {
           "0": "In einem alten Kloster, auf dem Land, finden Sie das Land zurück. Ihre Liebe und Sie bleiben an diesem Mitleid, und jeder Monat gelingt es Ihnen, nur genug Ernten zu machen, um dort zu leben. Sie sehen sich so sehr in dieser Geschichte durch die Überdosierung von Drogen aus, die Sie nicht sehen können. Pérotin hat Sie gerade aufgewürfelt und erzählt, dass die Drogen in den Menschen 1 bis 2 Minuten von ihren Geschichten als ein ganzer Monat ihres Lebens empfinden. Zum Glück ist dies der Fall, sonst wären Sie an der Altenwertigkeit gestorben. Median, Sie machen Ihre Reise weiter.",
           "1": "Wenn Sie nicht Ihr plötzliches Verlangen nach Liebe ohne Farbe begeistern, glaubt ihr, dass sie Ihnen depressiv ist, also beschließt sie, einen aufregenden Song zu singen, um Sie zu heilen, um sich von diesem plötzlichen, depressiven Untergang zu heilen. Dieser Song machte Sie zu einem verrückten Mann.",
-          "2": "Wenn Sie Ihr Wissen in Bären ohne Leidenschaft sehen, dann ist der Menestrel Ihnen und Ihnen ein Lied, in dem Ihre Liebe, das ist Ihr. Gefragt durch einen gewaltsamen Streit zwischen Ihnen und Ihnen, hört der Menestrel den Song auf und bittet um eine Last für den ungezügelten Kampf, den Sie mit sich selbst vor seinen Bewunderern hatten. Wieder in der Geschichte, denken Sie, dass Sie sich verlassen, was Sie traurig macht, sehr traurig. Sie gehen also davon aus, dass Sie Pérotin ein wenig Geld zurücklassen, um Sie für die Unannehmliche zu verzeiden."
+          "2": "Als der Minnesänger Ihre Bekanntschaft mit leidenschaftslosen Liebschaften sieht, hängt er sich an Sie und singt Ihnen ein Lied, in dem Ihre Liebe Sie sind. Von einem heftigen Beziehungsstreit zwischen Ihnen und Ihnen ergriffen, bricht der Minnesänger das Lied ab und verlangt von Ihnen eine Ladung für den hemmungslosen Kampf, den Sie vor seinen Verehrern mit sich selbst ausgefochten haben. Noch in der Geschichte denken Sie, dass Sie sich verlassen würden, was Sie traurig macht, sehr traurig. Sie gehen also und hinterlassen Perotin etwas Geld, um sich für die Unannehmlichkeiten zu entschädigen."
         },
         "text": "Eine terne Liebe singen und redundant."
       },
@@ -1487,10 +1487,10 @@
       },
       "help": {
         "outcomes": {
-          "0": "Mit der Hilfe des gesamten Dorfes organisieren Sie den Sitz des Schlosses. Es wird keine Reaktion in dem Schloss beobachtet, in dem die durch die Blockade der Straßen verursachte leichte Unannehmlichkeiten zu accomodieren. Nach ein paar Stunden sind die Gittern der Hefen-Brücke absinken, und ein Trentain von Männern rutschen in Richtung des Campingplatzes, den Sie aufgebaut haben. Ein blutiger Kampf ist dann ein Zufluchtsort. In der Hüte fangen Sie ein Pferd und flüchten Sie.",
+          "0": "Mit der Hilfe des gesamten Dorfes organisieren Sie die Belagerung des Schlosses. In der Burg sind keine Reaktionen zu beobachten und man scheint sich mit den kleinen Unannehmlichkeiten abzufinden, die die Blockade der umliegenden Straßen mit sich bringt. Nach einigen Stunden werden die Tore der Zugbrücke heruntergelassen und etwa 30 Männer stürmen auf das Lager zu, das Sie errichtet haben. Es kommt zu einem blutigen Kampf. In dem Gedränge schnappen Sie sich ein Pferd und fliehen.",
           "1": "Sie und die Dorfbewohner veranstalten eine Rebellion! Unglücklicherweise, wenn Sie sich entscheiden, eine Wache anzugreifen, folgen die Dorfbewohner zu ängstlich und fliehen aus. Ihr Gegner gibt Ihnen einen heftigen Schlag gegen die Faust, die Sie auf die Umkehr bringen, die Wache, um Ihnen die Stipendien zu stehlen.",
           "2": "Sie entscheiden sich dafür, eine Revolte zu organisieren! Aber ein Dorfbewohner verrät Sie, um eine Belohnung zu erhalten. Die Schlossgarden des Schlosses scheren sich um Sie zu verstehen. Sie können ihr Unternehmen verfälschen, nicht ohne ein paar Schläge abgewischt zu haben.",
-          "3": "Sie profitieren von Ihrem Ritter-Status, um Kastanien zu besichtigen, nach den Einleitungen, erfragen Sie den Grund, warum Sie gekommen sind, indem Sie einen Dolch in das Herz vereinen. Die Wachen reagieren sofort und Sie umgeben uns. Das eine von ihnen gibt Ihnen einen Schwert, den Sie gerade umrissen haben, aber ein anderer stürzt sich über Sie aus, und Sie umrissen Sie von der Klinge.",
+          "3": "Sie nutzen Ihren Status als Ritter, um den Schlossherrn zu besuchen. Nach der Vorstellung offenbaren Sie ihm den Grund für Ihr Kommen, indem Sie ihm einen Dolch ins Herz stoßen. Die Wachen reagieren sofort und umringen Sie. Einer von ihnen schlägt mit dem Schwert auf Sie ein und Sie können ausweichen, aber ein anderer stürzt sich auf Sie und durchbohrt Sie mit seiner Klinge.",
           "4": "Sie versuchen, das Schloss des Herrn mit dem Dorf zu belagern, aber die Nacht fällt, so dass Sie sich entscheiden, vor dem Schloss zu schlafen. Der Herr kommt aus dem Weg, um mit seinen Männern zu gehen, und kommt zu Ihrem Camp, aber ein Dorfbewohner warnt alle. Sie überstürzen sich auf den Herrn und verfaulten es mit einem Schwert. Die Wachen begeben sich und die Dorfbewohner geben Ihnen ein Stipendium voll Gold, um Ihnen zu danken, dass Sie geholfen haben!",
           "5": "Sie werden den Herrn sehen und ihm verkünden, dass sein Dorf eine Rebellion veranstalten will. Nachdem Sie lange gesprochen haben, können Sie ihr Vertrauen gewinnen und nutzen, um ihr einen Dolch in das Herz zu stechen. Die treuen Wachen des Herrn überstürzen sich auf Sie und Sie immobilisieren. Der eine von ihnen schlägt vor, Sie vor dem gesamten Dorf zu führen, um die Botschaft zu überbringen, aber die Revolte macht dann Tollwut! Die Dorfbewohner schaffen es, die Wachen zu entkommen, und Sie bieten ein großes Gold-Stipendium an, um Ihnen zu danken.",
           "6": "Sie werden den Herrn sehen und ihm sagen, dass eine Rebellion organisiert ist. Nachdem Sie lange geredet haben, können Sie ihr Vertrauen gewinnen und ihr einen Dolch in das Herz stecken. Die treuen Loyalität des Anführers greifen Sie an, aber andere, die nicht wollen, dass sein Tod Ihnen hilft, zu fliehen. Zurück ins Dorf, wir bieten Ihnen ein wenig Geld und ein nützliches Objekt."
@@ -1500,7 +1500,7 @@
       "tell": {
         "outcomes": {
           "0": "Sie werden den Herrn besuchen, mit ihm über die Nachfrage nach dem Dorfbewohner sprechen und ihm helfen, ihn zu finden. Er dankt Ihnen und geht zurück.",
-          "1": "Sie werden den Herrn besuchen und ihm die Verräterin im nahegelegenen Dorf geben, und Sie sagen ihm, dass Sie bereit sind, ihm die Namen der Dissidenten im Gegenzug für eine große Summe Geld zu geben. Er nimmt Ihre Schuld an und Sie bringen ihn zu den Verrätern, die er unter Ihren Augen ausführt. Auf der Straße überprüfen Sie die Börse, die er Ihnen gegeben hat, und Sie werden sehen, dass sie nur wenige Teile enthält!",
+          "1": "Du besuchst den Fürsten und erzählst ihm von dem Verrat, der im Nachbardorf herrscht. Du kündigst ihm an, dass du bereit bist, ihm die Namen der Dissidenten gegen eine hohe Geldsumme zu verraten. Er nimmt Ihr Angebot an und Sie führen ihn zu den Verrätern, die er vor Ihren Augen hinrichtet. Unterwegs überprüfen Sie den Geldbeutel, den er Ihnen gegeben hat, und stellen fest, dass er nur wenige Münzen enthält!",
           "2": "Sie werden den Herrn besuchen und mit ihm über die Nachfrage des Dorfbewohner sprechen und ihm erklären, dass Sie ihm helfen können, das Rebell zu finden, aber im Gegenzug wollen Sie eine schöne Summe Geld. Er akzeptiert und fordert Sie auf, ihm zu helfen, ihn zu finden. Gemeinsam können Sie das tun, aber wenn Sie das Geld an den Herrn fragen, wird er sich abwenden. Ein Duell verpflichte sich, aber der Herr ist nicht das Gewicht, das Ihren Begabungen in der Mistkerl-Seite gegenübersteht. Er hatte jedoch nicht viel Reichtum an sich.",
           "3": "Sie werden den Herrn besuchen, aber die Wachen lassen Sie nicht durch. Sie werden wissen, dass es wichtig ist, aber sie wollen nichts hören. Unter ihren Drohungen, sprechen Sie mit einer Juron, die machtlos ist.",
           "4": "Sie entscheiden sich, den Herrn zu wiederholen, was Sie gehört haben, aber auf Ihrem Weg glauben Sie an einen Dorfbewohner, der anscheinend Ihre Absicht erraten hat, das Dorf zu verraten. Sie haben versucht, den Durchgang zu erzwingen, aber es sind noch weitere Verstärkungen eingetreten. Umgezauert durch die Menge Hass, Sie sind auf den Boden gelegt und gewaltsam geschlagen."
@@ -1515,21 +1515,21 @@
       "end": {
         "outcomes": {
           "0": "Sie beobachten den Ritter, wissend, was mit diesem Koloss in der Rüstung zu tun hat. Am Ende nehmen Sie Ihren Weg zurück.",
-          "1": "Sie beobachten den Ritter, wissend, was mit diesem Koloss in der Rüstung zu tun hat. Wenn Sie in zwei Händen mutig sind, kämpfen Sie gegen den Duell. Und Sie werden von diesem unbesiegt besiegt. Sie werden Ihr Stipendium im Austausch für Ihr Leben bitten.",
-          "2": "Sie beobachten den Ritter, wissend, was mit diesem Koloss in der Rüstung zu tun hat. Plötzlich, Sie haben eine Idee, Sie erwarten, dass es dunkel wird und sich im Dunkeln befindet, bevor Sie diskret in den Turm gehen. Die Tür ist geschlossen, der Ritter ist verschwunden. Sie können den Turm umspaltet und durch ein Fenster eingeben. Sie durchsuchen das ganze Essen, aber finden Sie nichts von dem Essen. Sie essen an Ort und nehmen so viele wie möglich. Diese gute Mahlzeit hat Ihnen Kraft gegeben, fühlen Sie sich jetzt besser denn je.",
+          "1": "Sie beobachten den Ritter und wissen nicht, was Sie gegen diesen Koloss in Rüstung tun sollen. Sie nehmen all Ihren Mut zusammen und stellen sich ihm in einem Duell... und werden von ihm jämmerlich besiegt. Er verlangt Ihr Stipendium im Austausch für Ihr Leben.",
+          "2": "Sie beobachten den Ritter und wissen nicht, was Sie angesichts dieses Kolosses in Rüstung tun sollen. Plötzlich kommt Ihnen eine Idee. Sie warten, bis es dunkel ist und Sie sich in völliger Dunkelheit befinden, und schleichen sich dann zum Turm. Die Tür ist geschlossen und der Ritter ist verschwunden. Du kletterst auf den Turm und steigst durch ein Fenster ein. Sie durchsuchen es von oben bis unten, finden aber nichts außer Essen. Sie essen an Ort und Stelle und nehmen so viel wie möglich davon mit. Das gute Essen hat Sie gestärkt und Sie fühlen sich jetzt besser als je zuvor.",
           "3": "Sie wissen nicht, was Sie tun sollen, Sie wollen die Diskussion einladen und mit dem Ritter sympathisieren. Sie schärfen die Diskussion über das Artefakt und spielten Ihr Talent als Rednerin voraus. Der Ritter, der davon überzeugt ist, dass Sie es wert sind, es zu besitzen, wird Ihnen das Artefakt abholen. Er meldet es Ihnen, wie versprochen. Sie danken ihm und gehen Sie auf die Suche nach einem Käufer. Sie glauben, was ein Kaufmann zu sein scheint, aber es ist eigentlich ein Dieb, der Ihnen einen Pfeil in das Bein zieht. Er stiehlt Ihnen das Artefakt und geht davon aus. Blend und machtlos, sehen Sie ihn mit Ihrer Beute weglaufen.",
           "4": "Sie wissen nicht, was Sie tun sollen, Sie wollen die Diskussion einladen und mit dem Ritter sympathisieren. Sie schärfen die Diskussion über das Artefakt und spielten Ihr Talent als Rednerin voraus. Gegen alle Erwartungen, wenn Sie ihr das Artefakt fragen, das Artefakt lehnt es ab. Wenn Sie sich nicht wünschen, dass Sie sich nicht aufregen, zögern Sie nicht mehr und reden Sie mit dem Ritter, bevor Sie Ihren Weg zurückbekommen."
         }
       },
       "fight": {
         "outcomes": {
-          "0": "Bereit, um zu kämpfen, aber Sie kennen den Gegner nicht sehr gut, Sie nähern sich dem Vortexten, dass Sie eine Vereinbarung besprechen wollen. Nennen Sie Ihren Feind nah genug, um Ihr Schwert zu schnaden und Sie auf ihn zu schnaden. Unglücklicherweise für Sie, war der Ritter in den Arscheln und hat eine gewaltige Kraft, die er benutzt, um Sie zu entwaffnen, bevor Sie sich auf den Boden schieben.",
-          "1": "Bereit zu kämpfen, aber Sie kennen nicht den Gegner, Sie kommen näher an die Vorreiter, um eine Vereinbarung zu besprechen. Nennen Sie Ihren Feind nah genug, um Ihr Schwert zu schnaden und Sie auf ihn zu schnaden. Der Ritter hat kaum die Zeit, darauf zu reagieren, dass Sie ihn bereits mit dem Apfel Ihres Schwertfauses zu betäuben. Das reicht nicht aus. Sie ermorden einen zweiten Schlag, und dieses Mal fällt es auf den Boden. Dann versuchen Sie, die Türe der Turm zu öffnen, umsonst. Sie überprüfen, ob das Sorgerecht nicht den Schlüssel hat, aber er hat es nicht bei sich. Sie gehen also wieder zurück, beeilen Sie sich.",
-          "2": "Bereit zu kämpfen, aber Sie kennen nicht den Gegner, Sie kommen näher an die Vorreiter, um eine Vereinbarung zu besprechen. Genießen Sie Ihren Feind nah genug, um Ihr Schwert zu schnaden und mit dem Apfel zu betäuben. Sie durchsuchen also die Wache und verspäten Sie nicht, einen Schlüssel zu finden. Sie öffnen die Tür, wenn Sie im Inneren sind, haben Sie keine Schwierigkeiten, das Artefakt zu finden. Sie finden einen Händler nach einer Stunde der Suche. Der hier kauft das Artefakt für die Summe von 5 Cent Gold-Münzen.",
+          "0": "Da Sie bereit sind zu kämpfen, Ihren Gegner aber kaum kennen, nähern Sie sich unter dem Vorwand, eine Abmachung treffen zu wollen. Als Sie nahe genug an Ihrem Feind sind, ziehen Sie Ihr Schwert und stürzen sich auf ihn. Zu Ihrem Pech hat der Ritter auf der Lauer gelegen und verfügt über eine enorme Kraft, die er nutzt, um Sie zu entwaffnen, bevor er Sie zu Boden stößt.",
+          "1": "Da Sie bereit sind zu kämpfen, Ihren Gegner aber kaum kennen, nähern Sie sich unter dem Vorwand, eine Abmachung besprechen zu wollen. Als Sie nahe genug an Ihrem Feind sind, ziehen Sie Ihr Schwert und stürzen sich auf ihn. Der Ritter hat kaum Zeit zu reagieren, als Sie ihn bereits mit dem Knauf Ihres Schwertes niederschlagen. Das reicht nicht aus. Sie schlagen ein zweites Mal zu, und dieses Mal geht er zu Boden. Dann versuchen Sie, die Tür des Turms zu öffnen, aber es gelingt Ihnen nicht. Sie überprüfen, ob die Wache den Schlüssel hat, aber sie hat ihn nicht bei sich. Sie gehen also enttäuscht zurück.",
+          "2": "Da Sie bereit sind zu kämpfen, Ihren Gegner aber kaum kennen, nähern Sie sich unter dem Vorwand, eine Abmachung treffen zu wollen. Als Sie nahe genug an Ihrem Feind sind, ziehen Sie Ihr Schwert und schlagen ihn mit dem Knauf nieder. Sie durchsuchen die Wache und finden bald einen Schlüssel. Sie öffnen die Tür. Sobald Sie im Inneren sind, haben Sie keine Probleme, das Artefakt zu finden. Nach einer Stunde Suche finden Sie einen Händler. Dieser kauft Ihnen das Artefakt für 500 Goldstücke ab.",
           "3": "Bereit zu kämpfen, aber Sie kennen nicht den Gegner, Sie kommen näher an die Vorreiter, um eine Vereinbarung zu besprechen. Nimm den Schwert des Feindes aus und betäubt euer Schwert und betäubt ihn mit dem Apfel. Anschließend versuchen Sie, die Tür des Turms zu öffnen, aber die Tür ist geschlossen ... Sie durchsuchen die Wache und verspäten Sie nicht, den Schlüssel zu finden. Sie öffnen die Tür, im Inneren haben Sie keine Schwierigkeiten, das Artefakt zu finden. Sie gehen also auf die Suche nach einem Händler, den Sie leicht finden können. Er stiehlt das Artefakt von einer klugen Geste, aber Sie können auch ein Objekt stehlen. Ich hoffe, dieser Wert hat einen Wert, Sie schaut auf das, was es ist.",
           "4": "Wenn Sie Ihren Gegner nicht kennen, kommen Sie in die Richtung, indem Sie vortexten, eine Vereinbarung zu besprechen. Wenn Sie nah genug an Ihrem Feind sind, können Sie Ihr Schwert mit dem Apfel abnehmen. Unglücklicherweise für Sie, war der Ritter viel stärker und schneller als Sie. Der hier ist auf dem Boden, Sie machen einen Haken am rechten und Sie stoßen mit einem Tritt auf den Bauch, bevor Sie sich ein mächtiges Hochfahren anstürzen. Auf der Erde, am Rande der Ohnmacht, können Sie sich nicht erheigen.",
-          "5": "Der Ritter schüttet sein Schwert, um Sie einzuschüchtern. Vor diesem Koloss zögern Sie nicht zu fliehen, aber entscheiden Sie sich zu bleiben. Ihr kämpft gegen diesen Ritter, obwohl Ihre Chancen, ihn zu besiegen, gering sind. Ihr Gegner hat Ihre Schläge mit einem ohne jede Anstrengung gebt, bevor Sie sich auf den Boden stürzen. Auf dem Boden, unbewaffnet, wissen Sie, dass der Kampf vorbei ist. Und dann sagt der Ritter: Du bist mutig, das ist also deine Belohnung. Er gibt Ihnen ein Objekt, bevor Sie sich an den Turm-Eintrag setzen.",
-          "6": "Bereit zu kämpfen, Sie werden sich schnell auf Ihren Gegner ausziehen und Ihr Schwert entzaugen. Der Ritter hatte kaum Zeit, seine Waffe zu entbeben, die Sie ihm in die Hand gegeben haben. In diesem Moment haben Sie Ihren Fehler gemacht. Er hat eine Rüstung, Sie nicht. Sie versuchen also, mit dem Augenlid Ihres Schwertes ein paar Mal zu betäuben. Das scheint verwirrt zu sein, und Sie werden beginnen, es wieder anzufangen. Aber bevor Sie das tun können, verletzt Ihr Gegner Ihnen das Bein. Sie sind auf der Erde, nicht in der Lage, Ihnen zu begegnen. Der Ritter kommt über dich und hebt sein Schwert ab. Schließen Sie Ihre Augen und hören Sie Ihren eigenen Schrei."
+          "5": "Der Ritter schwingt sein Schwert, um Sie einzuschüchtern. Angesichts dieses Kolosses zögern Sie, wegzulaufen, entscheiden sich aber, zu bleiben. Sie kämpfen gegen den Ritter, obwohl Ihre Chancen, ihn zu besiegen, gering sind. Ihr Gegner wehrt einen Schlag nach dem anderen ab, ohne sich anzustrengen, bevor er Sie zu Boden wirft. Sie liegen unbewaffnet am Boden und wissen, dass der Kampf vorbei ist. Da sagt der Ritter zu Ihnen: \"Du bist sehr mutig, hier ist deine Belohnung\". Er gibt Ihnen einen Gegenstand, bevor er sich an den Eingang des Turms stellt.",
+          "6": "Kampfbereit stürmten Sie schnell auf Ihren Gegner zu und zogen Ihr Schwert. Der Ritter hatte kaum Zeit, seine Waffe zu ziehen, da stürmten Sie schon auf ihn zu. In diesem Moment bemerken Sie Ihren Fehler. Er hat eine Rüstung, aber Sie nicht. Sie versuchen mehrmals, ihn mit dem Knauf Ihres Schwertes zu betäuben. Das scheint ihn zu verwirren und Sie wollen es noch einmal versuchen. Doch bevor Sie dies tun können, verletzt Ihr Gegner Ihr Bein. Sie liegen am Boden und können nicht mehr aufstehen. Der Ritter stellt sich über Sie und hebt sein Schwert. Sie schließen die Augen und hören Ihren eigenen Schrei."
         },
         "text": "Den Ritter zu besiegen."
       },
@@ -1560,7 +1560,7 @@
       "end": {
         "outcomes": {
           "0": "Sie beobachten die Kreatur über all ihre Kräfte für eine kurze Zeit und dann wieder zurück.",
-          "1": "Dieses Spektakel ist für Sie unsicher, und Sie nehmen Ihren Weg sofort wieder.",
+          "1": "Dieser Anblick ist für Sie uninteressant und Sie setzen Ihren Weg sofort fort.",
           "2": "Sie fahren weiter, ohne auf die Kreatur, ungeschickt, in ein Loch zu gehen, und Sie werden den Knöchel bezaugen. Sie werden sich heilen müssen."
         }
       },
@@ -1568,33 +1568,33 @@
         "outcomes": {
           "0": "Sie bringen ihn wieder auf die Beine, und dann sehen Sie ihn gehen, stolz auf eine gute Tat.",
           "1": "Sie werden kaum auf die Füße gebracht, dass der kleine Krustentiere den Knöchel verknötet und in Richtung Wasser fährt.",
-          "2": "Sie helfen Ihnen dabei, sich zu helfen, und beobachten Sie es wieder in das Wasser. Ein paar Sekunden später sehen Sie eine riesige Masse aus dem Meer, es ist ein Kofferraum voller Gold, der Ihnen von einer Horde dieser kleinen Krustentiere angeboten wird."
+          "2": "Sie eilen ihm zu Hilfe und beobachten, wie er sich wieder ins Wasser begibt. Einige Sekunden später sehen Sie eine riesige Masse aus dem Meer auftauchen. Es ist eine Truhe voller Gold, die Ihnen von einer Horde dieser kleinen Krustentiere angeboten wird."
         },
         "text": "Sie können ihm helfen und es auf die Beine bringen."
       },
       "takeIt": {
         "outcomes": {
-          "0": "Sie entscheiden sich, das kleine Kreaturen mit Ihnen zu führen, aber dieses zauberte Sie heftig ins Gesicht und entkommen Sie zu entkommen.",
-          "1": "Sie entscheiden sich, die kleine Kreatur mit Ihnen zu führen. Ein paar Stunden später, wenn Sie überprüfen, wie die Kreatur ist, entdecken Sie einen blutigen Cluster am Boden Ihrer Tasche, der Hermite wird durch den Inhalt Ihrer Tasche zerquetschen, Sie machen ein Dutzend Minuten, um Ihre Tasche zu reinigen und wieder zurück zu gehen.",
-          "2": "Sie entscheiden sich, die kleine Kreatur mit Ihnen zu führen. Ein paar Stunden später finden Sie einen kleinen Bach. Sie entscheiden sich, Ihren Freund zu verlassen und fahren Sie fort."
+          "0": "Sie beschließen, die kleine Kreatur mitzunehmen, aber sie kneift Sie heftig ins Gesicht und eilt Ihnen davon.",
+          "1": "Sie beschließen, die kleine Kreatur mitzunehmen. Als Sie einige Stunden später nach dem Wohlbefinden der kleinen Kreatur sehen, entdecken Sie einen blutigen Klumpen am Boden Ihrer Tasche. Sie verbringen zehn Minuten damit, Ihre Tasche zu reinigen und machen sich dann auf den Weg.",
+          "2": "Sie beschließen, die kleine Kreatur mitzunehmen. Ein paar Stunden später findest du einen kleinen Bach, beschließt, deinen kleinen Freund dort zurückzulassen und setzt deinen Weg fort."
         },
         "text": "Wir nehmen es mit Ihnen."
       }
     },
-    "text": "Nach einem Spaziergang über den Strand können Sie ein merkwürdiges kleines Kreaturen, das ist ein Hermite-Hirte! Es scheint, als wäre er wieder auf seinem Mantel gewesen."
+    "text": "Nachdem du mehrere Minuten am Strand spazieren gegangen bist, triffst du auf ein seltsames kleines Wesen, es ist ein Einsiedlerkrebs! Er scheint sich in seiner Schale umgedreht zu haben..."
   },
   "5": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie haben eine gute Zeit damit verbracht, die Stücke auf dem Meeresgrund zu sammeln, aber es scheint, dass es die Mühe wert war."
+          "0": "Sie haben eine gute Stunde damit verbracht, die auf dem Meeresboden verstreuten Münzen einzusammeln, aber es scheint sich gelohnt zu haben!"
         }
       },
       "keepGoing": {
         "outcomes": {
-          "0": "Manchmal ist es gut, nicht zu faulig zu sein, Sie haben keine Zeit verschwendet!",
+          "0": "Manchmal ist es gut, nicht zu faul zu sein. Sie haben keine Zeit verschwendet!",
           "1": "Ich habe keine Zeit für die Erholung. Es gibt eine Prinzessin zu retten!",
-          "2": "Sie haben die Wahl, Sie nicht zu verhaften, und Sie werden weiter vorankommen.",
+          "2": "Sie treffen die Entscheidung, nicht stehen zu bleiben, und gehen weiter.",
           "3": "Ihr Abenteuer wird immer noch nicht mehr auf den Brunnen passen.",
           "4": "Man muss sich ausruhen, wenn man müde ist. Ermüdet werden Sie einige Minuten nach dem Springbrunnen übermüdet werden. Wir müssen schlafen, bevor wir weitermachen."
         },
@@ -1603,7 +1603,7 @@
       "rest": {
         "outcomes": {
           "0": "Es ist gut, sich manchmal auszuruhen. Diese 30 Minuten Ruhesinn waren gut.",
-          "1": "Manchmal ist es gut, sich auszuruhen. Sie bleiben nur noch eine Stunde am Fuße des Brunnen, bevor Sie wieder auf den Weg kommen!",
+          "1": "Es tut gut, sich manchmal auszuruhen... Sie bleiben eine knappe Stunde am Fuße des Brunnens, bevor Sie sich wieder auf den Weg machen!",
           "2": "Es ist gut, sich manchmal auszuruhen, aber man darf nicht vergessen, voranzukommen! Nachdem Sie drei Stunden verloren haben, um sich zu erholen, gehen Sie wieder auf die Straße."
         },
         "text": "Sich ausruhen und trinken, um Kräfte zu übernehmen."
@@ -1623,8 +1623,8 @@
       },
       "end": {
         "outcomes": {
-          "0": "Schauen Sie sich einen Moment der Dorfschauspiel an, die diese singulären Früchte ernten, und nehmen Sie Ihren Weg unter die Sonne.",
-          "1": "Diese Früchte fallen in die Nähe von Ihnen. Sie nehmen es in Ihren Händen und prüfen es sorgfältig, bevor Sie Ihren Weg fortsetzen."
+          "0": "Sie beobachten eine Weile das Schauspiel der Dorfbewohner bei der Ernte dieser einzigartigen Früchte und setzen dann Ihren Weg unter der glühenden Sonne fort.",
+          "1": "Eine dieser Früchte fällt neben Ihnen herunter. Sie nehmen sie in Ihre Hände und untersuchen sie genau, bevor Sie Ihren Weg fortsetzen."
         }
       },
       "leave": {
@@ -1637,7 +1637,7 @@
       },
       "nap": {
         "outcomes": {
-          "0": "Sie verfolgen Ihr Nickerchen, aber eines der Früchte nimmt ab und stürzen Sie auf Ihren Kopf. Sie sind verwundet und bluten, Dorfbewohner, die Sie gesehen haben, werden Sie zur Rettung bringen, und Sie werden einen Moment brauchen, um sich zu erholen.",
+          "0": "Sie setzen Ihr Nickerchen fort, aber eine der Früchte löst sich und kracht auf Ihren Kopf. Sie sind verletzt und bluten stark. Einige Dorfbewohner, die Sie gesehen haben, kommen Ihnen zu Hilfe.",
           "1": "Sie schlafen eine Weile. Wenn Sie aufwachen, stellen Sie fest, dass die Sonne beginnt, sich zu schlafen, und die Temperaturen sinken, Sie nehmen Ihren Weg zurück, belebend.",
           "2": "Sie entscheiden sich, Ihr Nickerchen fortzusetzen. Wenn Sie aufwachen, heben Sie sich auf, und beachten Sie, dass Ihnen etwas fehlt in Ihren Taschen, es geht um Ihren Brieftaschen-Geldbeug. Sie entscheiden sich also, wieder zu gehen, enttäuschend."
         },
@@ -1650,7 +1650,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Nachdem Sie sich lange Zeit gezögert haben, die Möglichkeiten, die Ihnen die Sonne bietet, zu schlafen, ist die Sonne auf dem Punkt, sich zu schlafen, also installieren Sie sich, um sich zu erholen.",
+          "0": "Nachdem Sie lange überlegt haben, welche Möglichkeiten Sie haben, ist die Sonne kurz vor dem Untergang, sodass Sie sich niederlassen, um sich auszuruhen.",
           "1": "Nachdem Sie sich lange gezögert haben, entscheiden Sie sich, ein halbes Dutzend Stufen zu gravieren, bevor Sie Ihre Meinung ändern, indem Sie den Aufstieg zu sehr gefährlich schätzen. Während Sie den Fuß drehen, um nach unten zu gehen, rutschen Sie den Fuß ab und fahren Sie mit der Treppe hinunter. Sie sind sehr mühsam, um festzustellen, dass Sie sich selbst als unerwartet eingezogen haben. Sie nehmen Ihren Weg zurück, beeilen Sie sich von diesem unfalllichen Zwischenfall.",
           "2": "Sie sitzen auf dem Boden, um zu überlegen, was Sie tun wollen. Promptes, ein Fuchs macht Sie zu Angesicht. Er nähert sich sanft von Ihnen und endet mit einer Ihrer Hände, legt sein Trüffel auf, japanische Einmischung und entfliehen Sie. Sie entscheiden sich, den Weg zu verfolgen, den dieses freundliche Tier gerade für Sie verfolgt hat."
         }
@@ -1659,7 +1659,7 @@
         "outcomes": {
           "0": "Kurz nachdem Sie an der Reihe sind, treffen Sie einen kleinen Jungen mit einem Knaben und am Rand eines Wegs. Er erklärt sich damit, dass er bei einem Banditen-Angriff auf den Warenkorden seiner Eltern geflohen ist. Sie verzeihen Sie, um Ihre Hilfe anzubieten, das Kind wird sofort akzeptiert. Nach zwei langen Stunden finden Sie die Eltern des Kindes am Leben, aber verletzt. Während Sie auf Abschied nehmen, gibt die Mutter des Kindes Ihnen ein Stipendium, das voll Gold ist.",
           "1": "Kurz nachdem Sie an der Reihe sind, treffen Sie einen kleinen Jungen mit einem Knaben und am Rand eines Wegs. Er erklärt sich damit, dass er bei einem Banditen-Angriff auf den Warenkorden seiner Eltern geflohen ist. Sie verzeihen Sie, um Ihre Hilfe anzubieten, das Kind wird sofort akzeptiert. Nach einigen Minuten haben Sie eine Gruppe schwer bewaffneter Banditen angegriffen, die Sie überraschen. Diese Falle wird Ihnen nicht tödlich sein, aber Sie verlieren viele Goldstücke, wenn Sie auf der Flucht sind.",
-          "2": "Kurz nachdem Sie halfen, hören Sie, dass sich die Geräusche von Täuschungen abschneiden und sich näher an Sie heranführen. Es ist eine Wanderung auf der Suche nach neuen kulinarischen Geschmäckern, die sich darauf befanden, sein Camp zu legen, um sich auszuruhen. Im Laufe der Aufbewahrung entdecken Sie seinen Vornamen: Lucya. Sie bietet Ihnen ein Tourist, das Sie mit dem Palast verwüstet. Repus, rekkiert und zufrieden mit Ihrem Hasarsenmäher treffen Sie sich, Ihren Weg zurück zu bekommen."
+          "2": "Kurz nachdem Sie umgekehrt sind, hören Sie das Klappern von Töpfen und Pfannen, die sich Ihnen nähern. Es handelt sich um eine Reisende auf der Suche nach neuen kulinarischen Genüssen, die gerade dabei war, ihr Lager aufzuschlagen, um sich auszuruhen. Im Laufe der Aufbewahrung erfahren Sie ihren Vornamen: Lucya. Sie bietet Ihnen eine Pastete an, die Ihren Gaumen verwöhnt. Satt, ausgeruht und erfreut über Ihre zufällige Begegnung beschließen Sie dennoch, Ihren Weg fortzusetzen."
         },
         "text": "Drehen Sie sich um."
       },
@@ -1673,7 +1673,7 @@
       },
       "stairs": {
         "outcomes": {
-          "0": "Sie können die Treppe mit der Treppe hinunter zum Einstieg in die Höhle einspannen. Sie betreten ein und entdecken ein sehr altes Lager, das man im Stipendischm gelassen hat. Wenn Sie ein wenig aufsuchen, entdecken Sie ein Objekt, das Ihnen für den Fortschritt Ihrer Suche nützlich erscheint, und beschließen Sie, die Treppe mit Vorsicht zu senken.",
+          "0": "Sie beginnen den gefährlichen Aufstieg über eine Treppe, die Sie zum Eingang einer Höhle führt. Sie betreten die Höhle und entdecken eine uralte, verlassene Siedlung. Als Sie sich umschauen, entdecken Sie einen Gegenstand, der Ihnen für Ihre Suche nützlich erscheint, und beschließen, vorsichtig die Treppe hinunterzusteigen.",
           "1": "Sie können die Treppe mit der Treppe hinunter zum Einstieg in die Höhle einspannen. Sie betreten ein und entdecken ein sehr altes Lager, das man im Stipendischm gelassen hat. Nachdem Sie die gesamte Höhle inspiziert haben, die sich als sicher erweist, entscheiden Sie sich, sich zu entschlafen, da es noch ein bequemes Pailbett ist.",
           "2": "Nachdem Sie vorsichtig ein paar Stufen von Schäumen montiert waren, schieben Sie die wenigen Meter, die Sie vom Boden trennen, und zerbrechen Sie ab. Sie sind stolz und verletzten, Sie verlassen die Idee, Ihre Chance zu wiederholen, und setzen Sie sich weiter."
         },
@@ -1712,15 +1712,15 @@
           "0": "Nach einer Weile haben die Kinder bemerkt, dass die Sonne im Bett ist und sich gezwungen sieht, auf Wiedersehen zu sagen.",
           "1": "Während der Freundlichkeit des Spieles kommt eines der Kinder in die oberflächliche Ausbauchung.",
           "2": "Ohne es absichtlich zu machen, werden Sie die Wange eines der Kinder betreten ... Gêne, Sie geben ihm ein paar Stücke, damit er seine Pflege bezahlen kann.",
-          "3": "Sehr energisch, die Kinder lassen Sie sich einen Moment im Kreis drehen. Nach 20 Minuten enden Sie jedoch am Ende des Spiels."
+          "3": "Die Kinder sind sehr energisch und lassen Sie eine Weile im Kreis laufen. Nach 20 Minuten beendest du das Spiel."
         },
         "text": "Spielen Sie ein, um zu kämpfen."
       },
       "teach": {
         "outcomes": {
-          "0": "Während Sie den Kindern erklären, wie man sich am besten positionieren kann, um zu schießen, einen von ihnen, gelangt ein wenig in die Entfernung von seinem Bogen, und bevor Sie etwas tun können, lassen Sie den Pfeil, der in Ihr Bein abstechen wird. Bless, Sie verlassen sie, um nach einem Ort zu suchen, an dem Sie heilen können.",
+          "0": "Während Sie den Kindern erklären, wie sie sich am besten zum Schießen positionieren sollen, gelingt es einem von ihnen, seinen Bogen zu spannen, und bevor Sie etwas tun können, lässt er den Pfeil los, der sich in Ihr Bein bohrt. Verwundet lassen Sie die beiden zurück und suchen nach einem Ort, an dem Sie sich behandeln lassen können.",
           "1": "Sie erklären den Kindern, wie sie zu schießen, und diese gehen sehr gut aus. Sie verbringen den Rest des Tages damit, sie in den Bogen zu bringen. Bevor Sie sie verlassen haben, danke ich Ihnen für einen kleinen Auszubildenden für Ihre Auszubildenden. Sie sind wieder auf der Straße, und ich bin froh, dass ich Ihnen helfen konnte.",
-          "2": "Sehr schnell, merken Sie, dass die Kinder noch nicht stark genug sind, um das Seil zu spannen, Sie sagen ihnen also, dass Sie zurückkommen, wenn sie größer sind, und nehmen Sie Ihren Weg zurück."
+          "2": "Schon bald stellen Sie fest, dass die Kinder noch nicht stark genug sind, um das Seil zu spannen. Sie sagen ihnen daher, dass Sie wiederkommen werden, um sie zu trainieren, wenn sie älter sind, und machen sich dann wieder auf den Weg."
         },
         "text": "Sie lernen, wie man einen Bogen zieht."
       }
@@ -1770,12 +1770,12 @@
       "bet": {
         "outcomes": {
           "0": "Sie entscheiden sich dafür, Wetten zu organisieren, aber niemand nimmt teil, denn jeder weiß, wer der Gewinner sein wird.",
-          "1": "Sie entscheiden sich dafür, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Jeder wird wetten, weil alle wissen, dass er es nicht verlieren wird. Aber Sie haben einen Plan im Kopf. Sie schlagen dem Herrn der Orte vor, um für ihn zu kämpfen, er nimmt gerne Ihr Angebot an. Wie geplant, gewinnen Sie den Kampf und gewinnen Sie die Wetten. Das ist eine tolle Summe Geld.",
-          "2": "Sie entscheiden sich dafür, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Jeder wird wetten, weil alle wissen, dass er es nicht verlieren wird. Aber Sie haben einen Plan im Kopf. Sie schlagen dem Herrn der Orte vor, um für ihn zu kämpfen, er nimmt gerne Ihr Angebot an. Wie geplant, gewinnen Sie den Kampf. Wenn Sie also Ihr Geld an die Wette fragen, dann entscheiden sie, ob Sie sich das Geld nehmen, das Sie verziehen.",
-          "3": "Sie entscheiden sich dafür, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Jeder wird wetten, weil alle wissen, dass er es nicht verlieren wird. Aber Sie haben einen Plan im Kopf. Sie schlagen dem Herrn der Orte vor, um für ihn zu kämpfen, er nimmt gerne Ihr Angebot an. Sie verlieren den Kampf, aber Sie wollen nicht, dass Sie Ihr Geld spenden. Die Dorfbewohner setzen sich auf Sie und werfen verschiedene Gegenstände auf. Einmal weit entfernt von dem Dorf, haben Sie überall Schmerzen. Sie sind auch am Bein verletzt, Sie werden sich ausruhen, bevor Sie Ihren Weg fortsetzen.",
-          "4": "Sie arrangieren Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele werden wetten, weil alle wissen, dass er es nicht verlieren wird. Die Wachen beobachten Sie, um sichergehen zu können, dass Sie das Geld nicht gestohlen haben. Sie schlagen vor, den Duell mit ihnen zu besuchen, mit Ausnahme von einigen, die den Platz behalten. Sie beginnen sich zu streiten, um zu wissen, wer hier bleiben soll, Sie können es ausnutzen, um einen Teil des Geldes zu nehmen und mit aller Geschwindigkeit zu gehen. Sie verkauf Sie, aber beenden Sie es, so dass sie sich nicht einholen können. Sie schaut sich das Geld an, das Sie gesammelt haben, und das freut Sie auf Ihren Fall.",
-          "5": "Sie arrangieren Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele werden wetten, weil alle wissen, dass er es nicht verlieren wird. Aber Sie haben einen Plan im Kopf. Sie schlagen dem Herrn der Orte vor, um für ihn zu kämpfen, er nimmt gerne Ihr Angebot an. Wie geplant, gewinnen Sie den Kampf, und holen Sie das Geld der Wetten ab. Ein Dorfbewohner greift Sie an den Ausgang des Dorfes an und möchte Ihnen sicherlich Ihr Geld stehlen. Nach einem harten Kampf, können Sie ihm entkommen, nicht ohne ernsthaft verletzt zu werden. Sie müssen sich ausruhen.",
-          "6": "Sie arrangieren Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele werden wetten, weil alle wissen, dass er es nicht verlieren wird. Aber Sie haben einen Plan im Kopf. Sie schlagen dem Herrn der Orte vor, um für ihn zu kämpfen, er nimmt gerne Ihr Angebot an. Sie verlieren den Kampf, aber Sie wollen Ihr Geld nicht verlieren. Sie werden also an den Ort der Wetten ziehen und so viel Geld wie Sie können, von den Dorfbewohnern, bevor es aus dem Dorf fliehen kann."
+          "1": "Sie beschließen, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Alle kommen zum Wetten, weil alle wissen, dass er nicht verlieren wird, aber du hast einen Plan im Kopf. Sie bieten dem Ortsherrn an, für ihn zu kämpfen. Dieser nimmt Ihr Angebot gerne an. Wie erwartet gewinnen Sie den Kampf und die Wetten. Das bringt Ihnen eine schöne Summe Geld ein.",
+          "2": "Sie beschließen, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Alle kommen zum Wetten, weil alle wissen, dass er nicht verlieren wird, aber du hast einen Plan im Kopf. Sie bieten dem Ortsherrn an, für ihn zu kämpfen. Dieser nimmt Ihr Angebot gerne an. Wie erwartet, gewinnen Sie den Kampf. Als Sie die Wettenden um ihr Geld bitten, sind diese verärgert und beschließen, Ihnen das Geld wegzunehmen, das Sie gewettet haben.",
+          "3": "Sie beschließen, Wetten zu organisieren und wetten, dass der Ritter nicht gewinnen wird. Alle kommen zum Wetten, weil alle wissen, dass er nicht verlieren wird, aber du hast einen Plan im Kopf. Sie bieten dem Ortsherrn an, für ihn zu kämpfen. Dieser nimmt Ihr Angebot gerne an. Sie verlieren den Kampf, aber Sie weigern sich, Ihr Geld zu geben. Die Dorfbewohner beginnen, Ihnen zu folgen und werfen mit verschiedenen Gegenständen nach Ihnen. Als Sie sich vom Dorf entfernt haben, tut Ihnen alles weh. Sie sind auch am Bein verletzt und brauchen Ruhe, bevor Sie Ihren Weg fortsetzen können.",
+          "4": "Sie veranstalten Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele kommen zum Wetten, denn alle wissen, dass er nicht verlieren wird. Einige Wachen beobachten Sie, um sicherzugehen, dass Sie das Geld nicht stehlen. Sie bieten ihnen an, sich das Duell mit ihnen anzusehen, bis auf einige wenige, die den Ort bewachen. Sie fangen an, sich darüber zu streiten, wer bleiben soll, und Sie nutzen die Gelegenheit, um einen Teil des Geldes zu nehmen und schnell abzuhauen. Sie verfolgen Sie, geben aber schließlich auf, weil sie merken, dass sie Sie nicht einholen können. Sie sehen sich das Geld an, das Sie eingesammelt haben, und freuen sich über Ihren Coup.",
+          "5": "Sie veranstalten Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele kommen zum Wetten, weil alle wissen, dass er nicht verlieren wird, aber Sie haben einen Plan im Kopf. Sie bieten dem Ortsherrn an, für ihn zu kämpfen. Dieser nimmt Ihr Angebot gerne an. Wie erwartet gewinnen Sie den Kampf und holen sich das Wettgeld ab. Am Dorfausgang werden Sie von einem Dorfbewohner angegriffen, der wahrscheinlich versucht, Ihnen das Geld zu stehlen. Nach einem harten Kampf gelingt es Ihnen, ihm zu entkommen, aber Sie werden dabei schwer verletzt. Sie müssen sich ausruhen.",
+          "6": "Sie veranstalten Wetten und wetten, dass der Ritter nicht gewinnen wird. Viele kommen zum Wetten, weil alle wissen, dass er nicht verlieren wird, aber Sie haben einen Plan im Kopf. Sie bieten dem Ortsherrn an, für ihn zu kämpfen. Dieser nimmt Ihr Angebot gerne an. Sie verlieren den Kampf, aber Sie haben nicht vor, Ihr Geld auf diese Weise zu verlieren. Sie rennen also zum Wettplatz und stehlen so viel Geld wie möglich, wobei Sie von den Dorfbewohnern verfolgt werden, bevor Sie aus dem Dorf fliehen."
         },
         "text": "Wetten organisieren."
       },
@@ -1804,16 +1804,16 @@
           "0": "Sie entscheiden sich, an dem Duell teilzunehmen. Der fremde Ritter gewinnt in nur wenigen Sekunden. Sie sind nicht verrückt zu gehen, enttäuscht von der schlechten Leistung des Verlierer.",
           "1": "Sie entscheiden sich, an dem Duell teilzunehmen. Der fremde Ritter gewinnt in nur wenigen Sekunden. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell wieder zu spielen, aber dieses Mal kämpfen Sie, um zu kämpfen. Ihr Vorschlag wird angenommen, Sie können dagegen kämpfen. Ihr Gegner, zu sicher von ihm, schrumpft seine Wache, während Sie kämpften. Sie warten nicht auf eine Sekunde, um davon zu profitieren und so den Vorteil zu nutzen. Sie besiegen den Ritter und verkünden Ihren Sieg, triumphant. Der Herr des Veranstaltungsortes schlägt Ihnen vor, Ritter zu werden, Sie wollen höflich sein, sein Angebot höflich zu machen und Ihren Weg zurück zu gehen.",
           "2": "Sie entscheiden sich, an dem Duell teilzunehmen. Der fremde Ritter gewinnt in nur wenigen Sekunden. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell wieder zu spielen, aber dieses Mal kämpfen Sie, um zu kämpfen. Ihr Vorschlag wird angenommen. Der Kampf beginnt, und trotz all Ihrer Bemühungen werden Sie nur ein Dutzend Sekunden widerstehen können.",
-          "3": "Sie beschließen, das Duell zu unterstützen, das in ein paar Sekunden abgeschlossen ist. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell wieder zu spielen, aber dieses Mal kämpfen Sie, um zu kämpfen. Ihr Vorschlag wird angenommen, Sie können dagegen kämpfen. Ihr Gegner, zu sicher von ihm, schrumpft seine Wache, während Sie kämpften. Sie warten nicht auf eine Sekunde, um den Vorteil zu nutzen. Sie besiegen den Ritter und verkünden Ihren Sieg, triumphant. Der Herr des Veranstaltungsordes bietet Ihnen eine goldenen Zuschußförderung, die Sie bereitwillig akzeptieren.",
-          "4": "Sie beschließen, das Duell zu unterstützen, das in ein paar Sekunden abgeschlossen ist. Sie qualifizieren den Verlierer der Unkompetenten und schlagen vor, das Duell zu spielen, aber dieses Mal werden Sie kämpfen. Der Verlierer schlägt vor, gegen ihn zu kämpfen, bevor er kritisierte. Sie stimmen seinem Antrag zu, wobei Sie wissen, dass es Ihnen nicht schaden wird, ihn zu besiegen. Da Sie zu sicher sind, kann Ihr Gegner Sie entwaffnen, bevor Sie sich auf den Boden stellen. Dann wird er Sie bis zur Ohnmacht verprühen. Verletzt verletzt, brauchen Sie eine Menge Ruhe.",
-          "5": "Sie beschließen, das Duell zu unterstützen, das in ein paar Sekunden abgeschlossen ist. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell wieder zu spielen, aber dieses Mal kämpfen Sie, um zu kämpfen. Ihr Vorschlag wird angenommen. Der Kampf beginnt, und trotz all Ihrer Bemühungen werden Sie nur ein Dutzend Sekunden widerstehen können. Der Ritter beschließt, Sie immer und immer wieder zuschlagen, damit Sie verstehen können, dass Sie nur ein Insekt sind. Nachdem Sie sich schwer verletzt haben, hört er auf und geht.",
-          "6": "Sie beschließen, dem Duell beizuwohnen, der fremde Ritter gewinnt in nur wenigen Sekunden. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell wieder zu spielen, aber dieses Mal kämpfen Sie, um zu kämpfen. Sie bringen das Duell nach ein paar Minuten Schlacht. Der Herr des Veranstaltungsordes bietet Ihnen die Gelegenheit, ein gutes Essen zu besprechen. Sie erklären sich bereitwillig, das Essen ist köstlich, und es gibt reichlich Überfluss. Einmal mehr, der Herr, der Sie zum Ritter ernannt hat. Sie haben ein höfliche Anderen von seinem Angebot."
+          "3": "Sie beschließen, dem Duell beizuwohnen. Das Duell endet nach wenigen Sekunden. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell zu wiederholen, aber dieses Mal werden Sie selbst kämpfen. Ihr Vorschlag wird angenommen und Sie können kämpfen. Ihr Gegner ist sich seiner Sache zu sicher und lässt seine Deckung fallen, während Sie kämpfen. Sie warten keine Sekunde, um sich einen Vorteil zu verschaffen. Schließlich besiegen Sie den Ritter und verkünden triumphierend Ihren Sieg. Der Hausherr bietet Ihnen einen Beutel voller Gold an, den Sie gerne annehmen.",
+          "4": "Sie beschließen, dem Duell beizuwohnen. Das Duell endet nach wenigen Sekunden. Sie bezeichnen den Verlierer als inkompetent und schlagen vor, das Duell zu wiederholen, aber dieses Mal werden Sie selbst kämpfen. Der Verlierer bietet Ihnen an, gegen ihn zu kämpfen, bevor er Sie kritisiert. Sie gehen auf seine Bitte ein, da Sie wissen, dass Sie keine Probleme haben werden, ihn zu besiegen. Ihr Gegner ist sich seiner Sache zu sicher und entwaffnet Sie, bevor er Sie zu Boden wirft. Dann schlägt er Sie bewusstlos. Sie sind schwer verletzt und brauchen viel Ruhe.",
+          "5": "Sie beschließen, dem Duell beizuwohnen. Das Duell endet nach wenigen Sekunden. Angesichts der schlechten Leistung des Verlierers schlagen Sie vor, das Duell zu wiederholen, aber dieses Mal werden Sie selbst kämpfen. Ihr Vorschlag wird angenommen. Der Kampf beginnt und trotz all Ihrer Bemühungen können Sie nur etwa zehn Sekunden lang standhalten. Der Ritter beschließt, Sie immer wieder zu schlagen, um Ihnen klarzumachen, dass Sie ihm gegenüber nur ein Insekt sind. Nachdem er Sie schwer verletzt hat, hört er auf und geht weg.",
+          "6": "Sie beschließen, dem Duell beizuwohnen. Der fremde Ritter gewinnt in nur wenigen Sekunden. Angesichts der mäßigen Leistung des Verlierers schlagen Sie vor, das Duell zu wiederholen, aber dieses Mal werden Sie selbst kämpfen. Sie gewinnen das Duell nach einigen Minuten Kampf. Der Hausherr schlägt Ihnen vor, sich bei einem guten Essen zu unterhalten. Sie nehmen das Angebot gerne an, denn das Essen ist köstlich und im Überfluss vorhanden. Nachdem Sie sich satt gegessen haben, bietet Ihnen der Fürst an, Sie zum Ritter zu schlagen. Sie lehnen sein Angebot höflich ab."
         },
         "text": "Wir können dem Duell helfen."
       },
       "visit": {
         "outcomes": {
-          "0": "Sie besuchen das Dorf, aber Sie sehen nichts Interessantes an, Sie gehen ohne weitere Verzögerung wieder.",
+          "0": "Sie schauen sich das Dorf an, aber da Sie nichts Interessantes sehen, reisen Sie ohne weitere Verzögerung wieder ab.",
           "1": "Sie besuchen das Dorf. Wenn Sie nichts Interessantes sehen, entscheiden Sie sich, zum Duell zu gehen.",
           "2": "Während Sie das Dorf besuchen, bemerkt der Herr über den Abenteurer, den Sie gerade haben. Er erklärt die Situation und flehe an, am Duell teilzunehmen. Er wird Ihnen ein Stipendium geben, das mit Gold gefüllt ist, wenn Sie es gewinnen. Sie akzeptieren das Angebot gerne und machen es zum Duell. Aber sobald der Kampf begonnen hat, verstehen Sie, dass Sie nicht die geringste Chance haben, Ihren Gegner zu besiegen. Der Ritter verletzt Ihr Bein mit seinem Schwert, und Sie fallen auf den Boden, verwundet. Sie sind nicht in der Lage, sich zu erhellen, Sie haben das Duell verloren.",
           "3": "Sie besuchen das Dorf und entbringen ein Objekt am Boden des Bohrlochs. Sie bringen ihn zurück, bevor Sie wieder auf die Straße gehen."
@@ -1915,14 +1915,14 @@
       },
       "end": {
         "outcomes": {
-          "0": "Sie sitzen am Ufer des Flusses, das Wasser ist frisch und Sie entscheiden sich, die Füße darauf zu legen. Nach ein paar Minuten mit reinem Glück bringen Sie mit einem scharfen Schmerz die Füße des Wassers mit aller Geschwindigkeit. Sie sehen einen riesigen Krabben, der an Ihrem Fuß hängt. Sie fühlen sich sehr schmerzhaft, aber Sie werden ein köstliches Essen machen, das Sie belebt.",
-          "1": "hungern. Sie sehen in den Fluss und sehen diese riesigen crabes-crabes-Krebsen. Es gibt zwei Arten. Eine rote orangefarbene Farbe und eine rot-schwarz-farbige Farbe. Sie zögern und beschließen, mit den großen Roten-Orangel zu versuchen, Ihre Chance zu vergehen. Nachdem Sie sie vorbereitet und verschlungen haben, beginnen Sie, sich warm und schwitzen zu haben. Sie verstehen Ihren Fehler zu spät, Sie wählten die nicht essbare Spezies.",
-          "2": "Gehen Sie in den Fluss, wenn Sie stolpert. Sie nehmen an der Passage teil. Zum Glück ist der Strom stark, und Sie befinden sich am Flussrand. Sie sind ein Schein, aber am Leben."
+          "0": "Sie setzen sich an den Rand des Flusses. Das Wasser ist kühl und Sie beschließen, Ihre Füße hineinzustecken. Nach ein paar Minuten puren Glücks zieht ein heftiger Schmerz Ihre Füße schnell aus dem Wasser. Sie sehen eine riesige Krabbe, die sich an Ihren Fuß klammert. Der Schmerz ist heftig, aber Sie werden eine köstliche Mahlzeit zubereiten können, die Sie beleben wird.",
+          "1": "Sie haben Hunger. Sie schauen in den Fluss und erblicken die berühmten riesigen Krabben. Es gibt zwei Arten. Eine mit orangeroter Farbe und eine mit rot-schwarzen Farben. Sie zögern und entscheiden sich, Ihr Glück mit den großen, orangeroten zu versuchen. Nachdem Sie sie zubereitet und verschlungen haben, wird Ihnen heiß und Sie beginnen zu schwitzen. Sie erkennen Ihren Fehler zu spät, denn Sie haben sich für die nicht essbare Art entschieden.",
+          "2": "Sie gehen durch den Fluss, als Sie stolpern. Sie schlagen sich dabei bewusstlos. Zum Glück ist die Strömung stark und Sie finden sich am Ufer des Flusses wieder. Sie sind betäubt, aber am Leben."
         }
       },
       "findMeal": {
         "outcomes": {
-          "0": "Sie blicken in den Fluss und sehen ein paar Fische und Krabben an. Sie stellen eine Glücksfalle her und bringen es auf Wasser. Nach 10 langen Minuten enthält Ihre Falle zwei schöne Krabben und einen kleinen Fisch. Sie feuerten ein Feuer und machen es zu griller. Sie fühlen sich belebt, nachdem Sie sie gegessen haben.",
+          "0": "Du schaust in den Fluss und entdeckst einige Fische sowie Krabben. Du baust eine provisorische Falle und lässt sie ins Wasser. Nach zehn langen Minuten hat Ihre Falle zwei schöne Krabben und einen kleinen Fisch. Sie machen ein Feuer und grillen sie. Nachdem Sie sie gegessen haben, fühlen Sie sich erfrischt.",
           "1": "Sie sehen sich an der Unterseite des Wassers seltsame Kreaturen, die Sie noch nie gesehen haben. Sie sind mit zwei Greifern versehen und bewegen sich seitwärts. Sie gehen davon aus, dass es sich um diese berühmten Dinge handelt, die ihren Namen in diesem Fluss gaben, und Sie erinnern sich, dass sie essbar sind. Sie entscheiden sich, einige davon zu fangen. Sie stürzen Ihre Hand und Sie können es schaffen, aber sie greifen Sie mit ihren Zangen an. Sie haben einen schönen Schnitt an der Hand verletzt, aber auch mit was Sie ein köstliches Essen machen.",
           "2": "Sie zögern einen Moment zwischen den Fischen des Flusses und den Fischen. Schließlich entscheiden Sie sich für eine Festmahl-Vorbereitung. Sie bereiten eine Fischfalle vor, und nachdem Sie installiert haben, werden Sie einige Reife pflücken. Lachs an die Reife, ein Regal!"
         },
@@ -1950,8 +1950,8 @@
       },
       "end": {
         "outcomes": {
-          "0": "Denken Sie über lange Zeit nach, und wissen Sie nicht, was zu tun ist, setzen Sie Ihren Weg fort.",
-          "1": "Sie entscheiden sich, Ihr Camp hier zu errichten und die Fahrt später weiter zu führen."
+          "0": "Sie denken viele Minuten lang nach und setzen dann, weil Sie nicht wissen, was Sie tun sollen, Ihren Weg fort.",
+          "1": "Sie beschließen, hier Ihr Lager aufzuschlagen und die Reise später fortzusetzen."
         }
       },
       "goAlchemist": {
@@ -1978,7 +1978,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "hum ... Es sieht so aus, als wären Sie hier geblieben, ohne etwas länger zu tun, als wir erwartet haben!"
+          "0": "Ähm ... Es sieht so aus, als hätten Sie länger als erwartet tatenlos dagestanden!"
         }
       },
       "goAway": {
@@ -1991,14 +1991,14 @@
         "outcomes": {
           "0": "Sie vergeuden sich in diesem Labyrinth schnell, aber Sie werden am Ende um ein paar Stunden wieder herauskommen.",
           "1": "Sie verbringen ein paar Minuten damit, die Höhle im Koma zu erkunden, und finden Sie ein Objekt, das Sie vielleicht benutzen können ...",
-          "2": "Die Höhle ist schnell eine Sackgasse, aber aus dem Kopf heraus kommt der Kopf an der Decke und fiel atmisch! -Sie müssen heilen."
+          "2": "Die Höhle entpuppt sich schnell als Sackgasse, aber als Sie wieder herauskommen, stoßen Sie mit dem Kopf an die Decke und fallen schwindelig um! Sie müssen sich heilen!"
         },
         "text": "Ich muss tiefer in die Höhle eindringen."
       },
       "search": {
         "outcomes": {
-          "0": "Nach 30 Minuten haben Sie endlich ein seltsames Objekt entdeckt ...",
-          "1": "Nach 60 Minuten beenden Sie Ihre Suche, ohne dass Sie rausgefunden haben ...",
+          "0": "Nach 30 Minuten entdecken Sie schließlich einen seltsamen Gegenstand...",
+          "1": "Nach 60 Minuten geben Sie Ihre Suche schließlich auf, ohne etwas entdeckt zu haben...",
           "2": "Während Sie Ihre Suche beginnen, werden Sie eine große Tasche von Räumen im Hintergrund eines großen Lochs fallen lassen! Es wird nicht möglich sein, ihn zurückzubekommen ...",
           "3": "Wenn Sie nach Objekten suchen, die Sie aufsammeln möchten, ist ein riesiger Zweig aus dem Baum neben Ihnen und Sie fallen auf das Bein! Sie werden sich selbst anheben, aber Sie müssen heilen!"
         },
@@ -2011,7 +2011,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Hören Sie geduldig auf den König, bevor Sie zu der Einreise zurückkehren. Sie erhalten auch einige Informationen über einige zusätzliche Aufgaben des Königs, um Ihre Suche zu erleichtern (Befehl {command:missions}). und wir bieten Ihnen einen Transport zu einem von Ihnen gewünschten Echefeort."
+          "0": "Sie hören dem König geduldig zu, bevor Sie wieder zum Eingang geführt werden. Sie erhalten einige Informationen über zusätzliche Aufträge, die der König Ihnen erteilt hat, um Ihre Quest zu erleichtern (Befehl {command:missions}) und werden zu einem Hauptort Ihrer Wahl gebracht."
         }
       },
       "start": {
@@ -2027,7 +2027,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie müssen auf die Einladung des Sorgerecht reagieren. Nach ein paar Minuten kommt die junge Dame schließlich in die Höhe und gibt Ihnen einige Tipps. Sie erfahren insbesondere, dass Sie mit dem Befehl {command:report} alle Informationen zu Ihrer Reise abrufen können."
+          "0": "Sie bleiben auf die Aufforderung des Wachmanns regungslos stehen. Nach einer Weile kommt die junge Frau schließlich zu Ihnen und gibt Ihnen einige Tipps. Unter anderem erfahren Sie, dass Sie mit dem Befehl {command:report} alle Informationen über Ihre Reise erhalten können."
         }
       },
       "follow": {
@@ -2065,14 +2065,14 @@
       "searchPatures": {
         "outcomes": {
           "0": "Nachdem Sie die Rinder von weit weg gesehen haben, die frische Gras in der ersten Menge verrückter Kräuter zu kauen, ziehen Sie sich in die zweite Richtung. Es gibt viele Schafe, die friedlich verwirschend sind. Ein eindrucksvoller Chestanant dominiert die Weideland und zieht Ihre Aufmerksamkeit auf sich, so dass Sie sich entscheiden, sich zu nähern. In wenigen Metern von der Welle entfernt befindet sich eine gepflasterte Gabel, die gegen den Rumpf gedrückt wird. Der Bauer scheint sehr glücklich zu sein, wenn Sie ihm die Faust geben. Er erteilt Ihnen dann, wie versprochen, eine kleine Goldbörse mit Gold.",
-          "1": "Als Sie sich den Weiden nähern, bemerken Sie Fußspuren. Sie folgen ihnen und gelangen in einen dunklen Hain, in dem sich eine düstere Hütte befindet. Neugierig geworden, umrunden Sie das Gebäude und finden sich Auge in Auge mit der begehrten Mistgabel wieder! Nachdem Sie den Weg in umgekehrter Richtung zurückgegangen sind, übergeben Sie das Objekt dem Bauern, der sich bedankt und Sie zu seinem Essen einlädt, damit Sie ihm von Ihren Ermittlungen berichten können. Der Abend ist angenehm und Sie verlassen den Bauern spät in der Nacht, gestärkt durch die Produkte der Region.",
+          "1": "Als Sie sich den Weiden nähern, bemerken Sie Fußspuren. Wenn du ihnen folgst, gelangst du in ein dunkles Wäldchen, in dem sich eine düstere Hütte befindet. Neugierig geworden, umrunden Sie das Gebäude und finden sich Auge in Auge mit der begehrten Mistgabel wieder! Nachdem Sie den Weg in umgekehrter Richtung zurückgegangen sind, übergeben Sie das Objekt dem Bauern, der sich bedankt und Sie zu seinem Essen einlädt, damit Sie ihm von Ihren Ermittlungen berichten können. Der Abend ist angenehm und Sie verlassen den Bauern spät in der Nacht, gestärkt durch die Produkte der Region.",
           "2": "Wenn Sie sich der Weideland nähern, sehen Sie Fingerabdrücke, die nicht durch den Boden gehen und bis zum Brechen führen, wo Schafe von dem erfrischenden Schatten der Eichenbäume profitieren. Sie entscheiden sich, sie zu verfolgen, indem Sie denken, dass es sich um eine Spur handelt. Wenn Sie in die Mitte der Schafe kommen, kommt einer von ihnen zu Ihnen. Wenn Sie einen Spieler haben, legen Sie ihm Ihre Hand mit etwas Gras darin vor. Er nutzt die Gelegenheit, um sich zu beruhigen, und Sie glauben an einen Finger auf den Weg. Sie entscheiden sich zu flüchten, wenn Sie nervös sind. Wenn Sie den Rand des Weidelandes sehen, sehen Sie nicht die Gabel auf dem Boden, und gehen Sie auf den Boden. Wenn Sie diese Pech haben, denken Sie daran, niemandem mehr zu helfen, wenn Sie sich abenteuern."
         },
         "text": "Suchen Sie in der Nähe von Weideland."
       },
       "searchVines": {
         "outcomes": {
-          "0": "Nach einer kurzen kurzen Zeit entscheiden Sie sich, die berühmte Gabel auf der Weinberge zu suchen. Ein Trauben-Trauben-Cluster zieht Ihre Aufmerksamkeit auf sich, so dass Sie sich entscheiden können, Sie zu übernehmen. Der Bauer überwindet aus dem Nichts und Sie sehen mit einem Ende seiner Ernte in der Hand, zornig. Wenn Sie Ihren Pflücker loswerden, nehmen Sie das Puderpulver!",
+          "0": "Nach kurzem Zögern beschließen Sie, am Rande des Weinbergs nach der berühmten Gabel zu suchen. Eine verlockende Weintraube erregt Ihre Aufmerksamkeit und Sie beschließen, sie sich zu schnappen. Der Bauer taucht aus dem Nichts auf und schreit vor Wut, als er Sie mit einem Teil seiner Ernte in der Hand sieht. Erschrocken lassen Sie Ihre Ernte fallen und machen sich aus dem Staub!",
           "1": "Sie kamen kaum in die Weinberge, so dass Sie über die berühmte Gabelung gehen. Nach dem Bekenntnis des Bauerndes hat er sein Versprechen an Sie gehalten.",
           "2": "In den Weinbergen gibt es kaum eine kleine Holzhütte, die Sie ablenken. Wenn Sie dort ankommen, entdecken Sie einige Fässer und mehrere Flaschen Wein, von denen eine bereits begonnen hat. Ein paar Schluchten hätten Sie nicht verletzt, wenn Sie es nur geschafft hätten, sich auf eine kleine Menge zu beschränken. Sie finden den leckeren Wein, wollen aber nicht noch mehr Zeit verschwenden, wenn Sie eine Gabel suchen. Sie nehmen Ihren Weg zurück, indem Sie sich darauf achten, dass Sie nicht den Bauer umgehen."
         },
@@ -2093,7 +2093,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie haben sich dafür entschieden, die Ampeln zu sehen und zu bleiben, um das Dorf in die Verzweiflung zu stürzen, die gegen einen Baum direkt außerhalb des Dorfes gedrückt wurde. Aber selbst nach Mitternacht ist nichts passiert. Es scheint so, als ob diese angeblichen Tiere nur ein Einweg sind, und Sie gehen.",
+          "0": "Sie haben sich dafür entschieden, einfach nur das Feuerwerk anzuschauen und zu bleiben, um zu sehen, wie das Dorf in Verzweiflung fällt, während Sie sich an einen Baum lehnen, der etwas außerhalb des Dorfes steht. Doch auch nach Mitternacht passierte nichts. Es scheint, dass die angeblichen Bestien nur ein Schwindel sind und Sie gehen.",
           "1": "Sie entscheiden sich, den Dachboden von der lokalen Taverne zu überwachen, aber Sie lassen sich von einem köstlichen Bier ablenken. Sie sind betrunken und verlieren Ihren Verstand. Wenn Sie aufwachen, bemerken Sie, dass sie einfach Ihren Körper auf die Straße geworfen haben und dass Sie ein paar Münzen weniger haben.",
           "2": "Entscheiden Sie sich, nichts zu tun, Sie gehen in die örtliche Taverne und mieten Sie ein Zimmer für die Nacht. Aber während Ihres Schlafs greifen Sie auf schwarze, schwarze Charaktere an, Sie schlagen vor, Sie zu unterwerfen und zu stehlen. Sie lassen Sie auf dem Boden, und Sie warnen davor, nie wieder in ihre Angelegenheiten zu gehen ...",
           "3": "Da Sie bereits vor Ort sind, denken Sie darüber nach: Warum gehen wir nicht einfach Sachen kaufen? Sie verschwommen auf dem lokalen Markt, und Sie fahren mit dem Pauschon und dem lokalen Rüster ab. Nach einer gewissen Zeit finden Sie etwas."
@@ -2101,7 +2101,7 @@
       },
       "faceThem": {
         "outcomes": {
-          "0": "Sie gehen in den Keller des Dachs und steten mit schwarzen Kleid, die sich in einem Kreis befinden, in die Nase. Es sind überall Regenfälle und Blutgeräuche. Also, wenn Sie versuchen, einen zu schlagen, zögern Sie nicht. Diese Männer sind nur gewöhnliche Kämpfe von Koqs und nicht von den Bestien. Aber die Männer bemerken Sie, und aus Angst, gehen gegen Sie aus, Sie stürzen sich und nehmen schnell die Flucht vor.",
+          "0": "Sie begeben sich in den Keller des Dachbodens und stoßen Auge in Auge auf Gestalten in schwarzen Roben, die im Kreis stehen, mit Federn bedeckt sind und überall Blut haben. Während Sie versuchen, einen von ihnen zu schlagen, zögern Sie. Diese Männer sind nur gewöhnliche Wettende bei Hahnenkämpfen und keine Bestien. Aber die Männer bemerken Sie und verbünden sich aus Angst gegen Sie, stoßen Sie um und ergreifen schnell die Flucht.",
           "1": "Als ich in den Raum betritt, ist ein riecht rick-riecht-rick-rick-rick-Duft- Blut und Detritte sind in dem ganzen Raum verbreitet und eine Art rotes Nebel breitet sich aus. Es hat wahrscheinlich vor ein paar Tagen angefangen zu verrotten. Sie ertragen weder den Blick noch den Geruch, und Sie rauchen den Ort mit einem Gefühl der tiefen Emokerung.",
           "2": "Wenn Sie die Tür öffnen, entdecken Sie drei schwarze Formen von Schwarz auf dem Punkt, ein junges Mädchen zu opfern. Sie können Ihre Klinge schnell abschaffen und die Schuldigen schlachten. Wenn Sie die Klinge aus dem Blut auf der Seite werfen, retten Sie die Dame in Not und holen Sie sie raus. Am nächsten Tag werden Sie wie ein Held und ein Beschützer des Bösen gefeiert.",
           "3": "Wenn Sie die Treppe hinunter gehen, finden Sie sich von Holzstatuen umgeben, die in einer groben, geheimnisvollen, rätselhaften Weise aus Holz verdreht werden. Aber es gibt niemanden. Nachdem Sie das beängstigende Zimmer untersucht haben, finden Sie eine Packung mit etwas im Inneren ..."
@@ -2111,7 +2111,7 @@
       "goAway": {
         "outcomes": {
           "0": "Selbst nachdem Sie diese dunklen Machenschaften entdeckt haben, entscheiden Sie sich, die wehrlosen Menschen aufzugeben und sie ihrem Schicksal überlassen zu lassen.",
-          "1": "Sie gehen davon aus, ohne zu wissen, wann das ganze Dorf mit dem Tod schlucken wird, wenn er es ist. In Ihrer überstürzten Flucht stolpert man in einen Graben und stürzt ab.",
+          "1": "Sie rennen los, ohne zu wissen, wann das ganze Dorf vom Tod verschlungen wird, wenn es überhaupt vom Tod verschlungen wird. Auf Ihrer überstürzten Flucht stolpern Sie und fallen in einen Graben.",
           "2": "Nachdem Sie das Dorf verlassen haben, machen Sie eine kurze Pause, um Ihren Atem zu nehmen. Auf diese Weise sind Sie mit bewaffneten Charakteren und mit schwarzem Bischof angekommen. Sieht so aus, als hätten sie Sie nicht im Dorf durchsucht. Sie rauskommen ihre Waffen und greifen an. Sie überrumpfen und erschöpft, sie kämpfen bis ins Unbewußtsein.",
           "3": "Sie haben es geschafft, lebendig aus diesem Dorf zu kommen. Nach einer Weile, werden Sie auf eine wunderschöne Regenparzelle fallen. Sie können einen Wasserfall und viele tierische Fleischfresser sehen. Sie entscheiden sich, unter der Flut des Wassers zu meditieren. Nach einer Stunde fühlen Sie sich rebelriert und machen weiter auf Ihrer Reise."
         },
@@ -2119,8 +2119,8 @@
       },
       "helpThem": {
         "outcomes": {
-          "0": "Sie finden in diesem Keller schwarze, verkleidene Figuren. Es sieht so aus, als ob er nicht dumm ist, sondern normale Menschen, die auf Koqsämpfe setzen. Sie treffen sie und wetten auf den roten Koq, der am Ende verloren hat. Das macht es Ihnen leichter, ein paar Münzen zu bekommen.",
-          "1": "Sie finden in diesem Keller schwarze, verkleidene Figuren. Es sieht so aus, als ob er nicht dumm ist, sondern normale Menschen, die auf Koqsämpfe setzen. Sie treffen sie und wetten Sie auf den blauen Hahn, der gewonnen hat. Mehr als ein paar Stücke, lassen Sie die Männer in ihre Spiele und Sie gehen.",
+          "0": "In besagtem Keller finden Sie schwarz gekleidete Gestalten. Es scheint sich nicht um Bestien zu handeln, sondern um gewöhnliche Menschen, die auf Hahnenkämpfe wetten. Sie schließen sich ihnen an und wetten auf den roten Hahn, der am Ende verloren hat. Dadurch sind Sie um einige Münzen leichter.",
+          "1": "In besagtem Keller finden Sie schwarz gekleidete Gestalten. Es scheint sich nicht um Bestien zu handeln, sondern um gewöhnliche Menschen, die auf Hahnenkämpfe wetten. Sie schließen sich ihnen an und wetten auf den blauen Hahn, der am Ende gewonnen hat. Um einige Münzen reicher, lassen Sie die Männer bei ihren Spielen zurück und gehen.",
           "2": "Sie treffen vier schwarze Männer in der Keller im Keller. Nachdem Sie sie überzeugt haben, dass Sie sich ihnen anschließen, offenbaren sie ihr Vorhaben, die Lebenskraft der Einwohner zu opfern, die ihnen einen Dämon beehrt, den sie verehrt haben. Hoffentlich profitieren Sie von ihnen, und Sie werden sich freuen, sich zu beteiligen. Sie und die wilden Tiere, die Sie gerade kennengelernt haben, opfern eine Frau und ein paar Tiere. Außerdem verbreiten Sie ihre gegenseitigen Leibausbrüche im ganzen Raum. Aber nichts ist geschehen. Nachdem Sie Ihre Zeit verschwendet haben, gehen Sie, wütend ...",
           "3": "Sie treffen vier schwarze Männer in der Keller im Keller. Nachdem Sie sie überzeugt haben, dass Sie sich ihnen anschließen, offenbaren sie ihr Vorhaben, die Lebenskraft der Einwohner zu opfern, die ihnen einen Dämon beehrt, den sie verehrt haben. Hoffentlich profitieren Sie von ihnen, und Sie werden sich freuen, sich zu beteiligen. Sie und die wilden Tiere, die Sie gerade kennengelernt haben, opfern eine Frau und ein paar Tiere. Außerdem verbreiten Sie ihre gegenseitigen Leibausbrüche im ganzen Raum. Aber nichts ist geschehen. Es ist nur, wenn Sie aus dem Zimmer herauskommen, dass Sie mit Wachen aus der Nase rauskommen ..."
         },
@@ -2128,10 +2128,10 @@
       },
       "warnEveryone": {
         "outcomes": {
-          "0": "Ohne es selbst zu überprüfen, fangen Sie an, im Dorf zu laufen, als ein Verrückter, mit der Erstaunen, dass sie sterben werden, wenn sie bleiben. Eine allgemeine Panik geht weiter, und alle beginnen, den Umkreis zu verlassen. Aber nach einiger Zeit ist nichts passiert, und einige von Ihnen sind nicht sehr zufrieden mit Ihrem schlechten Farce. Sie binden sich gegen Sie, Sie klopfen, und Sie stehlen.",
+          "0": "Ohne es selbst zu überprüfen, beginnen Sie wie ein Verrückter durch das Dorf zu rennen und schreien jeden an, dass sie sterben werden, wenn sie bleiben. Daraufhin bricht eine Massenpanik aus und alle beginnen, die Umgebung zu verlassen. Nach einiger Zeit passiert jedoch nichts mehr und einige sind über Ihren schlechten Streich nicht sehr erfreut. Sie verbünden sich gegen Sie, schlagen Sie und rauben Sie aus.",
           "1": "Nach einer kurzen Untersuchung bringen Sie die örtlichen Wachen in die Lage der Ungnaklichkeiten. Sie folgen Ihrem Rat, und nach ein paar Minuten nähert sich ein weiterer Sorgerecht für Sie. Es sieht so aus, als ob Ketzer an der Tötung eines jungen Mädchens standen, und dank Ihres Vorstands, wurde sie gerettet. Sie haben eine kleine Tasche, bevor Sie sich die Hand schütteln.",
           "2": "Nachdem wir alle das dunkle Unglück verkünden, das sich aufschlägt, das Dorf zu schlagen, packen wir alle seine Geschäfte an und bleiben nur im Wald. Wenn plötzlich ein Erdbeben auftritt, kommt es zu Panik. Sie helfen den Wachen, die Menschen zu beruhigen, die nach einer gewissen Zeit beruhigt sein können. Herzlichen Dank für die Warnung.",
-          "3": "Sie versuchen, alle zu überzeugen, dass sie in Gefahr sind, aber die Leute wollen nichts wissen und Sie wissen einfach nicht. Sie versuchen mehrere Stunden lang, und dann entscheiden Sie sich, sie zu verlassen. Sie fahren mit Ihrer Reise fort, ohne sich um die Menschen zu kümmern, die aus diesem Dorf stammen."
+          "3": "Sie versuchen, alle davon zu überzeugen, dass sie in Gefahr sind, aber die Leute wollen nichts davon wissen und ignorieren Sie einfach. Sie versuchen es mehrere Stunden lang und beschließen schließlich, sie zu verlassen. Sie setzen Ihre Reise fort, ohne sich um die engstirnigen Menschen in diesem Dorf zu kümmern."
         },
         "text": "Sich an alle zu erinnern, was immer er ist."
       }
@@ -2148,7 +2148,7 @@
       },
       "deny": {
         "outcomes": {
-          "0": "Die Partys sind nicht für Sie. Sie entscheiden sich, dass Sie besser zu tun haben, als Sie zu amüsieren. Sie reden wieder auf das Abenteuer."
+          "0": "Partys sind nichts für Sie. Sie beschließen, dass Sie Besseres zu tun haben, als sich zu amüsieren, und machen sich wieder auf den Weg ins Abenteuer."
         },
         "text": "Verweigern Sie die Einladung."
       },
@@ -2164,67 +2164,67 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und sehen ein Stück glänzende Teile im Inneren der Box. Sie nehmen sie und fügen sie zu Ihrem Geldbeutel hinzu. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "1": "Sie öffnen Ihr Geschenk und sehen eine glänzende Dichterpotion von einem roten Funken in der Box. Sie trinken und riechen eine Gelbkraft aus dem Boden Ihres Körpers. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "2": "Sie öffnen Ihr Geschenk und sehen Sie rollende Edelsteine am Ende der Box. Sie nehmen sie und fügen sie zu Ihrer Edelsteinreservetreserve hinzu. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "3": "Sie öffnen Ihr Geschenk und nehmen ein Buch, das darin lag. Er erklärt die Überlebenstechniken, die Sie in die Praxis umsetzen können. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "4": "Sie öffnen Ihr Geschenk und nehmen ein Buch, das darin lag. Er erklärt die Kampfmethoden, die Sie auf die anderen Abenteurer ausprobieren können. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "5": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es ist eine mächtige Waffe, die Sie Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "6": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es ist eine mächtige Rüstung, die Sie Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben.",
-          "7": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es handelt sich um ein leistungsfähiges Objekt, das Sie zu Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und sehen, dass am Boden der Schachtel einige Münzen glänzen. Du nimmst sie und fügst sie deinem Geldbeutel hinzu. Sie verlassen das Schloss und freuen sich über Ihr Geschenk.",
+          "1": "Du öffnest dein Geschenk und siehst in der Schachtel einen Trank, der in einem funkelnden Rot leuchtet. Du trinkst ihn und spürst, wie eine Kraft aus dem Inneren deines Körpers strömt. Du verlässt das Schloss und freust dich, dass du das Geschenk erhalten hast.",
+          "2": "Du öffnest dein Geschenk und siehst, wie ein paar Edelsteine auf den Boden der Schachtel rollen. Du nimmst sie und fügst sie deinem Edelsteinvorrat hinzu. Sie verlassen das Schloss und freuen sich über Ihr Geschenk.",
+          "3": "Sie öffnen Ihr Geschenk und nehmen ein Buch heraus, das sich darin befand. Darin werden Überlebenstechniken erklärt, die Sie unbedingt in die Praxis umsetzen wollen. Sie verlassen das Schloss und freuen sich über das Geschenk.",
+          "4": "Sie öffnen Ihr Geschenk und nehmen ein Buch heraus, das sich darin befand. Darin werden Kampftechniken erklärt, die Sie unbedingt gegen die anderen Abenteurer ausprobieren wollen. Du verlässt das Schloss und freust dich über das Geschenk.",
+          "5": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist eine mächtige Waffe, die du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk.",
+          "6": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist eine mächtige Rüstung, die du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk.",
+          "7": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist ein mächtiger Gegenstand, den du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk."
         }
       },
       "hopeArmor": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es ist eine mächtige Rüstung, die Sie Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist eine mächtige Rüstung, die du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk."
         },
         "text": "Warten und hoffen, eine neue Rüstung zu bekommen."
       },
       "hopeGems": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und sehen Sie rollende Edelsteine am Ende der Box. Sie nehmen sie und fügen sie zu Ihrer Edelsteinreservetreserve hinzu. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Du öffnest dein Geschenk und siehst, wie ein paar Edelsteine auf den Boden der Schachtel rollen. Du nimmst sie und fügst sie deinem Edelsteinvorrat hinzu. Sie verlassen das Schloss und freuen sich über Ihr Geschenk."
         },
         "text": "Warten und hoffen, dass sie gemein werden."
       },
       "hopeGlory": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und nehmen ein Buch, das darin lag. Er erklärt die Kampfmethoden, die Sie auf die anderen Abenteurer ausprobieren können. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und nehmen ein Buch heraus, das sich darin befand. Darin werden Kampftechniken erklärt, die Sie unbedingt gegen die anderen Abenteurer ausprobieren wollen. Du verlässt das Schloss und freust dich über das Geschenk."
         },
         "text": "Warten und hoffen, den Ruhm zu erlangen."
       },
       "hopeHealthy": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und sehen eine glänzende Dichterpotion von einem roten Funken in der Box. Sie trinken und riechen eine Gelbkraft aus dem Boden Ihres Körpers. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Du öffnest dein Geschenk und siehst in der Schachtel einen Trank, der in einem funkelnden Rot leuchtet. Du trinkst ihn und spürst, wie eine Kraft aus dem Inneren deines Körpers strömt. Du verlässt das Schloss und freust dich, dass du das Geschenk erhalten hast."
         },
         "text": "Warten und hoffen, zu bleiben, um gesund zu bleiben."
       },
       "hopeItem": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es handelt sich um ein leistungsfähiges Objekt, das Sie zu Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist ein mächtiger Gegenstand, den du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk."
         },
         "text": "Warten und hoffen, ein neues Objekt zu bekommen."
       },
       "hopeMoney": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und sehen ein Stück glänzende Teile im Inneren der Box. Sie nehmen sie und fügen sie zu Ihrem Geldbeutel hinzu. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und sehen, dass am Boden der Schachtel einige Münzen glänzen. Du nimmst sie und fügst sie deinem Geldbeutel hinzu. Sie verlassen das Schloss und freuen sich über Ihr Geschenk."
         },
         "text": "Warten und hoffen, dass Sie Geld bekommen."
       },
       "hopePet": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und finden dort ein Tier. Sie entscheiden sich, sie mit Ihnen in Ihre großen Abenteuer auf dem Kontinent zu führen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und finden darin ein Tier. Du beschließt, es auf deine großen Abenteuer auf dem Kontinent mitzunehmen. Sie verlassen das Schloss und freuen sich über Ihr Geschenk."
         },
         "text": "Warten und hoffen, einen Begleiter zu bekommen."
       },
       "hopeWeapon": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und holen Sie eine Ausrüstung aus. Es ist eine mächtige Waffe, die Sie Ihrer Sammlung hinzufügen. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und nehmen eine Ausrüstung heraus. Es ist eine mächtige Waffe, die du deiner Sammlung hinzufügst. Sie verlassen das Schloss und freuen sich über das Geschenk."
         },
         "text": "Warten und hoffen, eine neue Waffe zu bekommen."
       },
       "hopeXP": {
         "outcomes": {
-          "0": "Sie öffnen Ihr Geschenk und nehmen ein Buch, das darin lag. Er erklärt die Überlebenstechniken, die Sie in die Praxis umsetzen können. Sie haben das glückliche Schloss, dass Sie dieses Geschenk erhalten haben."
+          "0": "Sie öffnen Ihr Geschenk und nehmen ein Buch heraus, das sich darin befand. Darin werden Überlebenstechniken erklärt, die Sie unbedingt in die Praxis umsetzen wollen. Sie verlassen das Schloss und freuen sich über das Geschenk."
         },
         "text": "Warten und hoffen wir auf die Erfahrung zu kommen."
       }
@@ -2235,14 +2235,14 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Plötzlich liegen Sie auf dem Boden, der Besatzung, die über Sie gehängt wurde. Der Kapitän sagt Ihnen, dass Sie ein Bischotmann sind. Sie greifen Sie an, und wie ein Päckchen werfen Sie über Bord, bevor Sie sich schnell auseinander nehmen.",
+          "0": "Plötzlich liegen Sie auf dem Boden, die Mannschaft ist über Sie gebeugt. Der Kapitän erklärt Ihnen, dass Sie ohnmächtig sind. Sie packen Sie und werfen Sie wie ein Paket über Bord, bevor sie sich schnell entfernen.",
           "1": "Plötzlich liegen Sie auf dem Boden, der Besatzung, die über Sie gehängt wurde. Der Kapitän sagt Ihnen, dass Sie ein Bischotmann sind. Er gibt Ihnen einige zusätzliche Tipps, bevor Sie sich für die Insel verlassen."
         }
       },
       "hints": {
         "outcomes": {
-          "0": "Sie wenden sich langsam an den Kapitän, um ihn zu fragen, ob er die große Freundlichkeit hat, Ihnen eine zusätzliche Information zur Verfügung zu stellen. Er gibt Ihnen ein paar, und Sie gehen mehr als je zuvor, um die Insel zu bekämpfen.",
-          "1": "Inquiet, sehen Sie sich den Captain an und sagen Sie ihm höflich für die Überquerung. Sie bringen ihm Ihre Ängste zum Ausdruck und bitten um Rat. Er gibt Ihnen ein paar, und Sie gehen mehr als je zuvor, um die Insel zu bekämpfen."
+          "0": "Sie wenden sich langsam an den Kapitän und fragen ihn, ob er die große Freundlichkeit hätte, Ihnen weitere Informationen zu geben. Er gibt Ihnen einige davon und Sie brechen auf, bereit wie nie zuvor, um sich der Insel zu stellen.",
+          "1": "Besorgt schauen Sie den Kapitän an und bedanken sich höflich für die Überfahrt. Sie schildern ihm Ihre Befürchtungen und bitten ihn um einige Ratschläge. Er gibt Ihnen einige davon und Sie brechen auf, bereit wie nie zuvor, um sich der Insel zu stellen."
         },
         "text": "Weitere Informationen."
       },
@@ -2267,7 +2267,7 @@
       },
       "deny": {
         "outcomes": {
-          "0": "Sie haben nach dem gefährlichen Abenteuer keinen Kopf zu trinken. Wenn Sie sich nicht in Ihrer unangenehmen Lage lassen, bietet der Kapitän Sie, ohne dass Sie wirklich die Wahl haben, ein gemütlicher Bett in seiner Kabine. Die Bewegung des Schiffs wird Sie bereuen, Sie fühlen sich schnell an Ihren Verfallenen, und Sie werden einige Minuten später schlafen.",
+          "0": "Nach diesem gefährlichen Abenteuer ist Ihnen nicht nach Trinken zumute. Da der Kapitän Sie nicht in Ihrer unbequemen Lage lassen möchte, bietet er Ihnen, ohne dass Sie wirklich eine Wahl haben, ein gemütliches Bett in seiner Kabine an. Die Bewegung des Schiffes wiegt Sie in den Schlaf, Sie spüren, wie Ihre Gedanken schnell zu Ihren Abenteuern abschweifen und schlafen nach wenigen Minuten ein.",
           "1": "Da diese Reise sich bewährt hat, entfliehen Sie, um nicht noch mehr zu entwässern. Sie bitten um das Wasser vom Schiff. Sie wissen aber nicht, dass Sie in einen tiefen Schlaf fallen, bevor er zurückkommt."
         },
         "text": "Das Geschenk wird nicht poliert."
@@ -2354,8 +2354,8 @@
     "possibilities": {
       "check": {
         "outcomes": {
-          "0": "Wenn Sie die Tür zu einer Tür zwingen, verletzen Sie sich sehr, Sie müssen Sie heilen!",
-          "1": "Nachdem Sie fast 1 Stunde damit verbracht haben, nach Hause zu kommen, verlassen Sie sich schließlich auf. Ausgehend von Ihnen finden Sie ein Objekt, das Ihnen vielleicht nützlich sein kann!",
+          "0": "Wenn Sie die Tür aufbrechen, verletzen Sie sich zutiefst. Sie müssen unbedingt behandelt werden!",
+          "1": "Nachdem Sie fast eine Stunde lang versucht haben, in das Haus zu gelangen, geben Sie schließlich auf. Als Sie gehen, finden Sie einen Gegenstand, der Ihnen vielleicht noch nützlich sein kann!",
           "2": "Sie gehen in das Haus und legen Ihr Geschäft auf, um sich auszuruhen. Wenn Sie einen tiefen Schlaf haben, müssen Sie sich ausruhen, bevor Sie das Abenteuer fortsetzen.",
           "3": "Sie gehen in das Haus und durchsuchen Sie rund ein paar Minuten um Sie herum. Wenn Sie herauskommen, finden Sie ein Objekt, das Ihnen vielleicht nützlich sein kann!",
           "4": "Sie gehen in das Haus und durchsuchen Sie rund ein paar Minuten um Sie herum. Sie beenden Ihre Forschung, ohne dass Sie etwas gefunden haben."
@@ -2380,7 +2380,7 @@
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Nach einer kurzen Zeit der Reflexion, entscheiden Sie sich schließlich, in das Grab zu kommen, um sich im Schatten zu erfrischen, und Sie ruhen sich aus.",
+          "0": "Nach einer kurzen Bedenkzeit entscheiden Sie sich schließlich, das Grab zu betreten, um sich im Schatten abzukühlen und auszuruhen.",
           "1": "Während Sie zögern, den Weg zu gehen, wird der Sandsturm angeklagt. Sie werden sich in die Passage einladen, die Zeit, die die Rafes sich beruhigen, sicher in Sicherheit.",
           "2": "Während Sie zögern, zu folgen, eine Frau, die den Gürtel trägt, ist ein Piolett aus der Luke entfernt. Sie bedrohen Sie mit einem bunten Bogen, und dann befehlen Sie, ihm den Rücken zu drehen, was Sie tun. Ein heftiger Schlag gegen die Schläfe lässt Sie viele Minuten lang verwirrt sein."
         }
@@ -2412,9 +2412,9 @@
     "possibilities": {
       "accept": {
         "outcomes": {
-          "0": "Sie folgen dem alten Mann bis zu dem Zelt, der ihm zu Hause dient, und lassen Sie ihn eine seltsame Mixtur servieren, dass er eine köstliche Suppe von peyotl sein soll. Durch Höflichkeit trinken Sie sie. Sie brauchen nur ein paar Augenblicke, um die Auswirkungen dieser dämonischen Suppe zu erfahren: Ihre Vision ist verwirbelt, und die Welt schwingt. Plötzlich verängstigt von der verrückten Ermite, Sie nehmen das Leck in die Wüste. Am frühen Morgen wachen Sie mit einem schwachsamen Migräne auf, die Wirkung von Peyotl wird eine Weile aufgehen, bevor Sie völlig verschwinden.",
+          "0": "Sie folgen dem alten Mann zu dem Zelt, das ihm als Haus dient, und lassen sich von ihm eine seltsame Mischung servieren, von der er sagt, sie sei eine köstliche Peyote-Suppe. Aus Höflichkeit trinken Sie sie. Es dauert nur wenige Augenblicke, bis Sie die Auswirkungen dieser dämonischen Suppe zu spüren bekommen: Ihre Sicht verschwimmt und die Welt schwankt. Plötzlich haben Sie Angst vor dem verrückten Einsiedler und fliehen in die Wüste. Am frühen Morgen wachen Sie mit schrecklichen Kopfschmerzen auf, und es dauert eine Weile, bis die Wirkung des Peyote vollständig nachlässt.",
           "1": "Sie folgen dem alten Mann bis zu dem Zelt, der ihm zu Hause serviert wird, und teilen Sie eine Mahlzeit zusammen, während das Feuer seine Geschichte erobert. Er erklärt, dass sein Bruder und sein Bruder sich wegen einer Katastrophe, die den Tod ihrer ganzen Familie verursacht hat, für ihre Ermmierung trennten, die einzigen übrig waren, die ihr Bruder und ihr Bruder waren. Seine Geschichte berührt Sie tief, und der Name eines anderen Ermites, dessen Name mit einem X beginnt, scheint vertraut zu sein ... Die Wüste ist glazial, wenn Sie in der Nähe des Feuers mit der Ermite einschlafen. Am frühen Morgen, wenn Sie aufwachen, finden Sie einen wunderbaren Skorpion in einem Ihrer Schuhe. Sie werfen ihn weg von sich und nehmen Sie Ihren Weg zurück.",
-          "2": "Sie folgen dem alten Mann bis zu dem Zelt, der ihm zu Hause dient, und teilen Sie eine Mahlzeit zusammen, während Sie Ihre Abenteuer erzählen. Nachdem Sie sich sehr beruhigt fühlen und dankbar sind, nehmen Sie die Überquerung der Wüste wieder auf, indem Sie sich in die Mäander der Wüste einenken."
+          "2": "Sie folgen dem alten Mann zu seinem Zelt, das ihm als Zuhause dient, und essen gemeinsam am Feuer, während Sie von Ihren Abenteuern berichten. Nachdem Sie sich satt gegessen und dem Einsiedler gedankt haben, setzen Sie Ihre Reise durch die Wüste fort, indem Sie immer tiefer in die mäandernde Wüste vordringen."
         },
         "text": "Akzeptieren Sie sich mit ihm."
       },
@@ -2510,7 +2510,7 @@
       "goAway": {
         "outcomes": {
           "0": "Sie sind völlig uninteressiert an diesem Spektakel und wollen vor der Menge flüchten, um die üblichen Diebe vor allem zu vermeiden. In der Tat verpassen sie nie eine Gelegenheit, um von Reichen wie Armen abzuweichen, wenn es um Ereignisse wie die Badauden geht, die sich gegenseitig gegeneinander verärgern, was ihre Missachtung erleichtert.",
-          "1": "Sie nehmen sofort Ihren Weg zurück. Sie haben keine Zeit, um in dieser Art von Clownerien zu verlieren. Sie haben lange damit zu tun, dass Sie wieder auf dem falschen Weg sind, also drehen Sie sich um und wiegen Sie diese kostbare Zeit verloren.",
+          "1": "Sie setzen Ihren Weg sofort fort. Sie haben keine Zeit für diese Art von Clownerie. Es dauert lange, bis Sie merken, dass Sie den falschen Weg eingeschlagen haben.",
           "2": "Sie verlassen schnell die Show und stolpert auf einen von einem Zuschauer hinterließ sackten Sack. Sie haben sich selbst sehr leicht verletzt, wenn Sie fielen. Die Tasche ist braun, und obwohl das Leder verwendet wird, ist das Leder ziemlich gut. Sie entscheiden sich, die Tasche zu durchsuchen in der Hoffnung, dort eine Entschädigung zu finden, und entdecken Sie dort ein kleines Stipendium und ein Objekt, das Ihnen sehr nützlich erscheint.",
           "3": "Sie entscheiden sich, Ihr Abenteuer zu verfolgen, der Show und den Freuden der Menge."
         },
@@ -2550,7 +2550,7 @@
       },
       "run": {
         "outcomes": {
-          "0": "Die Frau scheint durch Ihre Weigerung beleidigt zu sein. Sie wirft Ihnen Beschimpfungen aus dem Meer an den Kopf und bewirft Sie mit toten Fischen. Den meisten können Sie ausweichen, aber ein Exemplar trifft Sie direkt im Gesicht. Sie laufen weiter, ohne sich umzudrehen."
+          "0": "Die Frau scheint durch Ihre Weigerung beleidigt zu sein. Sie wirft Ihnen Beschimpfungen aus dem Meer an den Kopf und bewirft Sie mit toten Fischen. Den meisten können Sie ausweichen, aber ein Exemplar trifft Sie mitten ins Gesicht. Sie laufen weiter, ohne sich umzudrehen."
         },
         "text": "Loslaufen."
       },
@@ -2573,20 +2573,20 @@
       "forest": {
         "outcomes": {
           "0": "Sie verfolgen den Wald ohne zu viele Schwierigkeiten, und fahren Sie fort!",
-          "1": "Sie bewegen sich langsam durch die Tannenbäume, auf dem Weg bringt Sie zu den Tannenbäumen und Sie können kleine Gegenstände herstellen, die Sie benutzen oder verkaufen können ...",
-          "2": "Sie gehen langsam in den Wald. Unglücklicherweise ist der Boden rutschig, und Sie fallen in den Boden einer Lücke! Sie werden wieder rauskommen, aber Sie sind verletzt!"
+          "1": "Sie bewegen sich langsam durch die Tannen. Auf dem Weg sammelst du Tannenzweige und stellst kleine Gegenstände her, die du benutzen oder verkaufen kannst...",
+          "2": "Sie bewegen sich langsam durch den Wald. Leider ist der Boden rutschig und Sie fallen in einen Graben! Sie können zwar wieder herausklettern, aber Sie sind verletzt!"
         },
         "text": "Fahren Sie weiter durch den Wald von Sapin."
       },
       "plains": {
         "outcomes": {
-          "0": "Sie ändern letztendlich die Meinung und beschließen, auf den Ebenen zu bleiben, desto weniger gefährlich ist dieser Weg, Sie verschwenden eine Menge Zeit!",
-          "1": "Sie ändern letztendlich die Meinung und beschließen, auf den Ebenen zu bleiben, desto weniger gefährlich ist dieser Weg, Sie verschwenden eine Menge Zeit! Nach ein paar Kilometern hört man auf, sich in einer Jugendherberge zu erholen."
+          "0": "Schließlich ändern Sie Ihre Meinung und beschließen, auf den Ebenen zu bleiben. Dieser Weg ist zwar weniger gefährlich, aber auch länger, sodass Sie viel Zeit verlieren!",
+          "1": "Schließlich ändern Sie Ihre Meinung und beschließen, auf den Ebenen zu bleiben. Dieser Weg ist zwar weniger gefährlich, aber auch länger, sodass Sie viel Zeit verlieren! Nach einigen Kilometern halten Sie an, um sich in einem Gasthaus auszuruhen."
         },
         "text": "Wir müssen nach oben und in die Nähe der Ebenen klettern."
       }
     },
-    "text": "Sie haben beschlossen, den Sommer zu genießen, um durch die Berge zu gehen, solange die Cols nicht zu heiß sind, aber der Aufstieg ist schwieriger als erwartet ..."
+    "text": "Sie haben beschlossen, den Sommer zu nutzen, um über die Berge zu fahren, solange die Pässe nicht zu schneebedeckt sind. Der Aufstieg erweist sich jedoch als schwieriger als erwartet..."
   },
   "9": {
     "possibilities": {
@@ -2600,7 +2600,7 @@
           "0": "Nach einer Viertelstunde, die Sie suchen, finden Sie die Gabel neben einem Haufen Fin. Um Ihnen zu danken, bietet Ihnen der Bauer ein paar Münzen an.",
           "1": "Nach einer halben Stunde Nachforschungen finden Sie die Gabel nicht. Sie entdecken jedoch ein Objekt, das Ihnen vielleicht nützlich sein kann!",
           "2": "Wenn Sie die Gabel suchen, gehen Sie nach oben und Sie haben eine böse Kerbe.",
-          "3": "Sie suchen die Gabel fast eine Stunde lang, aber Sie können sie nicht finden. Sie verlassen den Bauer höflich und fahren Sie fort."
+          "3": "Sie suchen fast eine Stunde lang nach der Mistgabel, aber Sie können sie nicht finden. Sie verlassen den Bauern höflich und setzen Ihren Weg fort."
         },
         "text": "Den Bauern helfen, seine Gabel zu holen."
       },
