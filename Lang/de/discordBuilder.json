@@ -1,10 +1,10 @@
 {
   "badges": {
-    "description": "Zeigt Informationen zu den Ausbeinen und deren Funktion an.",
+    "description": "Informationen über Abzeichen und ihre Funktionsweise anzeigen.",
     "name": "Badges"
   },
   "help": {
-    "description": "Zeigt eine Liste der verfügbaren Befehle oder die ausführlichen Informationen zu einem Befehl an.",
+    "description": "Eine Liste der verfügbaren Bestellungen oder detaillierte Informationen zu einer Bestellung anzeigen.",
     "name": "Hilfe",
     "options": {
       "commandName": {
@@ -18,7 +18,7 @@
     "name": "Vorschlag"
   },
   "inventory": {
-    "description": "Zeigt den Bestand des Spielers an.",
+    "description": "Zeigt das Inventar des Spielers an.",
     "name": "Bestandsaufnahme",
     "options": {
       "rank": {
@@ -36,11 +36,11 @@
     "name": "invitationdraftbot"
   },
   "language": {
-    "description": "Ändere die Sprache des Bots auf dem Discord-Server, auf dem der Befehl ausgeführt wurde.",
+    "description": "Ändern Sie die Sprache des Bots für Ihre nächsten Interaktionen.",
     "name": "Sprache"
   },
   "ping": {
-    "description": "Zeigt die Latenzzeit des Bots an und ermöglicht dem Spieler, zu prüfen, ob der Bot online ist.",
+    "description": "Zeigt die Latenz des Bots an und ermöglicht es dem Spieler, zu überprüfen, ob der Bot online ist.",
     "name": "Ping"
   },
   "pet": {
@@ -96,13 +96,13 @@
     "name": "Einladungguilde",
     "options": {
       "user": {
-        "description": "Der Nutzer, der von der Bestellung betroffen ist.",
+        "description": "Der zu rekrutierende Nutzer.",
         "name": "Benutzer"
       }
     }
   },
   "guild": {
-    "description": "Zeigt Informationen über eine Gilde an.",
+    "description": "Informationen über eine Gilde anzeigen.",
     "name": "Gilde",
     "options": {
       "rank": {
@@ -134,7 +134,7 @@
     }
   },
   "rarity": {
-    "description": "Zeigt die verschiedenen Knappheit der Geräte an.",
+    "description": "Zeigen Sie die verschiedenen Seltenheiten der Ausrüstung an.",
     "name": "Seltenheit"
   },
   "report": {
@@ -152,7 +152,7 @@
     }
   },
   "update": {
-    "description": "Zeigt die aktuelle Version des Bots an.",
+    "description": "Aktuelle Version des Bots anzeigen.",
     "name": "Neuigkeiten"
   },
   "vote": {
@@ -160,15 +160,15 @@
     "name": "Abstimmung"
   },
   "map": {
-    "description": "Zeigt die Karte an, um anzuzeigen, wohin du gehst.",
+    "description": "Karte anzeigen, um anzuzeigen, wohin Sie gehen.",
     "name": "Karte"
   },
   "shop": {
-    "description": "Zeigt das Magazin an.",
+    "description": "Laden anzeigen.",
     "name": "Laden"
   },
   "classesInfo": {
-    "description": "Zeigt Informationen über die auswählbaren Klassen für Ihren Charakter an.",
+    "description": "Informationen über die für Ihren Charakter auswählbaren Klassen anzeigen.",
     "name": "infosclasses"
   },
   "respawn": {
@@ -214,7 +214,7 @@
     }
   },
   "guildShop": {
-    "description": "Zeigt den Gildenladen an.",
+    "description": "Gildenladen anzeigen.",
     "name": "magasinguilde"
   },
   "guildKick": {
@@ -272,7 +272,7 @@
     }
   },
   "missionsshop": {
-    "description": "Zeigt den Missionsladen an.",
+    "description": "Missionsladen anzeigen.",
     "name": "magasinmissions"
   },
   "top": {
@@ -280,15 +280,15 @@
     "name": "Rangliste",
     "subcommands": {
       "score": {
-        "description": "Zeigt die Rangliste der Spieler anhand ihrer Punktzahl an.",
+        "description": "Zeigt die Rangfolge der Spieler nach ihrer Punktzahl an.",
         "name": "Punktestand"
       },
       "glory": {
-        "description": "Zeigt die Rangliste der Gilden nach ihrem Ruhm an.",
+        "description": "Anzeige der Rangfolge der Gilden nach ihrem Ruhm.",
         "name": "Ruhm"
       },
       "guild": {
-        "description": "Zeigt die Rangfolge der Gilden nach Punkten an.",
+        "description": "Anzeige der Rangfolge der Gilden nach Punkten.",
         "name": "Gilde"
       }
     },
@@ -321,7 +321,7 @@
     "options": {
       "force": {
         "name": "erzwingen",
-        "description": "Wenn wahr, überspringe die Bestätigungsphase, wenn du dir sicher bist, dass du den Trank trinken willst."
+        "description": "Wenn ja, überspringe die Bestätigungsphase, wenn du dir sicher bist, dass du den Trank trinken willst."
       }
     }
   },
@@ -357,7 +357,7 @@
   },
   "guildShelter": {
     "name": "abriguilde",
-    "description": "Zeigt Informationen über den Gildenunterstand an."
+    "description": "Informationen über den Gildenunterstand anzeigen."
   },
   "leagueReward": {
     "name": "bonusliga",
@@ -369,6 +369,16 @@
   },
   "joinBoat": {
     "name": "joinbateau",
-    "description": "Ermöglicht es, das Schiff zu erreichen, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
+    "description": "Schließen Sie sich dem Schiff an, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Einem Spieler ein Abzeichen geben.",
+    "options": {
+      "user": {
+        "name": "Benutzer",
+        "description": "Der Spieler, dem das Abzeichen gegeben werden soll."
+      }
+    }
   }
 }
