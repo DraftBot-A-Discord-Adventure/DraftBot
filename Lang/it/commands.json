@@ -460,14 +460,14 @@
     "money": "** | {emote:unitValues.money} Soldi guadagnati : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Denaro perso : **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}, ricompense per il combattimento",
-    "monsterRewardGuildXp": ":star: XP di gilda guadagnati: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} XP de guilde gagnée : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Argento vinto : **{{money}}**\n:star: XP guadagnati : **{{experience}}**",
     "monsterRewardsGuildPoints": ":mirror_ball: Punti gilda guadagnati : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, ricompense per il combattimento",
     "newBigEvent": ":flag_fr: Avete raggiunto **{{destination}}** !",
     "noFight": ":newspaper: **Giornale di {{pseudo}} :** {{waitABitReaction}} | Fai una rapida fuga e trova un piccolo nascondiglio! Il mostro sta aspettando pazientemente fuori...",
     "points": ":** :medal: Punti vinti : **{{score}}",
-    "pveEvent": ":newspaper: ** Giornale di {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Iniziare il combattimento\n{{waitABitReaction}} Aspettare un po' prima di iniziare il combattimento\n\n*- Usare le reazioni per eseguire un'azione*",
+    "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Commencer le combat\n{emote:pveFights.waitABit} Attendre un peu avant de commencer le combat\n\n*- Utilisez les boutons pour effectuer une action*",
     "pveFightRefused": "{emote:commands.report} **Diario di {{pseudo}} :** {emote:pveFights.waitABit} | Decidete di non combattere per il momento e di rifugiarvi in un nascondiglio nelle vicinanze. Alla fine dovrete affrontare la bestia, perché non riuscite a trovare un'altra via d'uscita.",
     "remainingEnergyTitle": "Energia rimanente :",
     "startPoint": "Punto di partenza :",
@@ -686,12 +686,12 @@
           "healEveryone": [
             "Questo animale ha notevoli poteri di guarigione! Può curare le vostre ferite e quelle dei vostri alleati nel bel mezzo della battaglia.",
             "Le sue secrezioni contengono potenti enzimi rigeneranti. Li userà per mantenervi in forma durante gli scontri.",
-            "Ho osservato proprietà biorigenerative uniche nel suo corpo. Il vostro animale condividerà questa energia vitale con voi e i vostri compagni."
+            "J'observe des propriétés bio-régénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
           ],
           "helpBreathe": [
             "La sua capacità di respirazione è straordinaria! Può condividere il suo ossigeno con voi durante le battaglie più difficili o sott'acqua.",
             "Questo esemplare ha affascinanti branchie modificate. Vi aiuterà a riprendere fiato nei momenti critici.",
-            "Il suo sistema polmonare altamente evoluto gli consente di immagazzinare ossigeno. Lo trasferisce a voi quando vi manca il fiato."
+            "Son système pulmonaire hyper évolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
           ],
           "horn": [
             "Questo corno è una temibile arma naturale! Il vostro animale domestico lo userà per impalare gli avversari con una forza impressionante.",
@@ -714,7 +714,7 @@
             "La sua biochimica unica gli permette di produrre agenti paralizzanti. I vostri avversari saranno congelati, incapaci di reagire."
           ],
           "peck": [
-            "Il becco del vostro animale domestico è affilato come un pugnale! Gli permetterà di tormentare gli avversari con colpi precisi e dolorosi durante i combattimenti.",
+            "Le bec de votre familier est affûté comme une dague ! Il lui permettra d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
             "La struttura ossea del becco è perfettamente adatta a colpire. Punge con precisione i nemici nei punti sensibili.",
             "Questo animale ha imparato l'arte di essere fastidioso con il suo becco. Gli avversari saranno indeboliti dai suoi attacchi incessanti."
           ],
@@ -756,7 +756,7 @@
           "protectAgainstCold": [
             "Il suo mantello ha eccezionali proprietà isolanti! Vi proteggerà efficacemente dagli attacchi del ghiaccio.",
             "La sua temperatura corporea è naturalmente elevata. Al suo fianco, sarà in grado di resistere agli ambienti gelidi e alle ondate di freddo.",
-            "Questo animale genera un notevole campo termico. Vi avvolgerà con il suo calore protettivo contro gli attacchi gelidi."
+            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givrées."
           ],
           "rainbowPower": [
             "Questo animale può incanalare l'energia prismatica circostante! Converte i recenti attacchi magici in cure per voi.",
@@ -786,7 +786,7 @@
           "smallClaws": [
             "Nonostante le dimensioni modeste, i loro artigli sono straordinariamente affilati! Infliggono graffi precisi e irritanti.",
             "Questo animaletto compensa le sue dimensioni con i suoi artigli sottili. Mira ai punti sensibili dell'avversario.",
-            "I suoi piccoli artigli sono perfetti per tormentare gli avversari. Distrae i nemici con graffi strategici."
+            "Ses petites griffes sont parfaites pour harceler l'adversaire. Il déconcentrera vos ennemis avec des égratignures stratégiques."
           ],
           "smallRegen": [
             "Il suo metabolismo rigenerativo è contagioso! Condividerà con voi le sue capacità di guarigione in battaglia.",
@@ -821,7 +821,7 @@
           "swallow": [
             "Osservazioni cliniche dimostrano che il suo apparato digerente è in grado di inghiottire le prede, neutralizzando così l'avversario.",
             "La sua capacità digestiva gli permette di ingerire completamente il nemico, rendendolo un interessante metodo di difesa alternativo.",
-            "Gli studi anatomici rivelano una gola particolarmente elastica, ideale per mettere all'angolo un avversario..."
+            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accueillir un adversaire..."
           ],
           "triesToHelp": [
             "I test comportamentali suggeriscono che l'animale domestico cerca di assistere il padrone fornendo un aiuto misurato, anche se il suo contributo rimane limitato.",
@@ -1304,7 +1304,7 @@
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "{{item}} Sei sicuro di voler buttare via tutto?",
     "sellIndication": "Scegliete un articolo da vendere dall'elenco sottostante:",
-    "menuPlaceholder": "Scegliere un articolo da vendere",
+    "menuPlaceholder": "Choisissez un objet à vendre",
     "cancel": "Annullamento",
     "selectMenuDescSell": "Vendi per {{value}} {emote:unitValues.money}",
     "selectMenuDescThrow": "Scartare {emote:other.trash}"
