@@ -9,15 +9,18 @@ import {
 const use: FightActionFunc = (sender, receiver, _fightAction, turn, fight) => {
 	const lastAttack = receiver.getLastFightActionUsed();
 	if (!lastAttack || FightConstants.UNCOUNTERABLE_ACTIONS.includes(lastAttack.id)) {
-		return customMessageActionResult();
+		return {
+			...customMessageActionResult(),
+			damages: 0
+		};
 	}
-
 	const launchedResult = FightActionDataController.getFightActionFunction(lastAttack.id)(sender, receiver, lastAttack, turn, fight);
 	const result = defaultFightActionResult();
 	result.usedAction = {
 		id: lastAttack.id,
 		result: launchedResult
 	};
+	result.usedAction.result.customMessage = false;
 	return result;
 };
 
