@@ -45,7 +45,7 @@ async function handleBasicMissionShopItem(context: PacketContext, descriptionStr
 	await interaction.followUp({
 		embeds: [
 			new DraftBotEmbed()
-				.formatAuthor(i18n.t("commands:shop.shopItems.basicMission.giveTitle", {
+				.formatAuthor(i18n.t("commands:missionsshop.success", {
 					lng,
 					pseudo: escapeUsername(interaction.user.displayName)
 				}), interaction.user)
