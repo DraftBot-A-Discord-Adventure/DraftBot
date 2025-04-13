@@ -188,7 +188,7 @@
       "name_other": "Attacchi clava"
     },
     "chargeUltimateAttack": {
-      "description": "Richiede un turno per caricare l'attacco Se l'attaccante ha meno del 45% della sua energia, questo attacco non può fallire. Se l'attaccante ha più del 45% della sua energia, la precisione di questo attacco è pari a 70. Questo attacco può essere usato solo una volta per giocatore e per battaglia.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Attacco ultimo",
       "name_other": "Attacchi ultimi"
     },
@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Replica con la stessa azione che quella appena usata da vostro avversario. Non funziona su gli attacchi magiche o divine, neanche se vostro avversario non ha attaccato.",
       "name_one": "Attacco risposto",
-      "customMessage": "non può reagire.",
+      "customMessage": "ne parvient pas à riposter.",
       "name_other": "Attacchi risposto"
     },
     "createBomb": {
@@ -709,7 +709,7 @@
       "particle": "verso lo"
     },
     "1100": {
-      "description": "Questa riva è la prima cosa che si vede quando si arriva sull'isola di ghiaccio. Prende il nome dal rumore che facevano i marinai quando sbarcavano qui. Ovviamente, stavano tornando dall'isola vulcanica, dove la temperatura è molto più calda.",
+      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
       "name": "Litorale Gla-gla",
       "particle": "verso lo"
     },
@@ -759,7 +759,7 @@
       "particle": "verso lo"
     },
     "15": {
-      "description": "Il monte Celestrum è la montagna dominante della regione. Alto diversi chilometri, il Celestrum è visibile a tutti. Si dice che porta il nome dell'antica dea. In realtà, solo una persona è riuscita a salire fino alla cima. Di lei rimangono solo le iniziali: M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
       "name": "Monte Celestrum",
       "particle": "verso lo"
     },
@@ -809,7 +809,7 @@
       "particle": "verso lo"
     },
     "22222": {
-      "description": "Un'area di prova per i mostri. Non dovrebbe mai apparire nel gioco",
+      "description": "Un'area di prova per i mostri. Non dovrebbe mai apparire nel gioco.",
       "name": "Area di prova dei mostri",
       "particle": "verso la"
     },
@@ -839,12 +839,12 @@
       "particle": "verso la"
     },
     "28": {
-      "description": "L'ingresso del castello del re, circondato da uno spesso muro, sembra in grado di resistere a qualsiasi attacco immaginabile.",
+      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
       "name": "Porte del castello",
       "particle": "verso gli"
     },
     "29": {
-      "description": "Un'enorme sala decorata con numerose opere d'arte",
+      "description": "Un'enorme sala decorata con numerose opere d'arte.",
       "name": "Salotto",
       "particle": "verso la"
     },
@@ -854,7 +854,7 @@
       "particle": "verso"
     },
     "32": {
-      "description": "La strada per andare al castello del Re",
+      "description": "La strada per andare al castello del Re.",
       "name": "Percorso verso il castello del Re",
       "particle": "verso"
     },
@@ -1594,13 +1594,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} La gilda {{guild}} sta salendo di livello!",
-    "levelUpDesc": "La gilda è ora di livello **{{level}}**"
+    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}sei stato messo al tappeto!",
     "koDesc": "{emote:effects.dead} Utilizzare il comando {command:respawn} per ricominciare la riproduzione.",
     "koDmTitle": "Ciao Combattente!",
-    "koDmDesc": "Sembra che tu sia stato messo al tappeto... {emote:effects.dead}\nGrazie alle nostre tecnologie avanzate, siamo riusciti ad alterare gli eventi in modo tale da salvarti da una morte agonizzante! {emote:other.tada}\nPurtroppo si tratta di un'operazione costosa e il tuo punteggio è stato influenzato da questa morte... \n\nPer ricominciare a giocare, andare su {command:respawn}.",
+    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}svenimento",
     "leavePVEIslandDescStart": "{emote:effects.confounded} Sentite che le vostre forze si stanno esaurendo, siete allo stremo delle forze. Si sviene sul pavimento...\n\n{emote:unitValues.lostMoney} Denaro perso: **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Punti gilda persi: **{{guildPointsLost}}**",
