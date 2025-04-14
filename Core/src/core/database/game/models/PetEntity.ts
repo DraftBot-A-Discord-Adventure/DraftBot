@@ -26,6 +26,8 @@ import {
 } from "../../../../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../../../../Lib/src/types/OwnedPet";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class PetEntity extends Model {
