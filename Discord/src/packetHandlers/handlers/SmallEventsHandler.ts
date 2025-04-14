@@ -447,8 +447,7 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"staffMember",
-					getRandomSmallEventIntro(lng)
-					+ StringUtils.getRandomTranslation("smallEvents:staffMember.context", lng, {
+					StringUtils.getRandomTranslation("smallEvents:staffMember.context", lng, {
 						pseudo: staffMember,
 						sentence: i18n.t(`smallEvents:staffMember.members.${staffMember}`, {
 							lng
