@@ -2,6 +2,17 @@ import Player from "../../core/database/game/models/Player";
 import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
 import { BigEvent } from "../BigEvent";
 
+const dateFunctions: {
+	[Property in keyof DateFormat]: (date: Date) => number
+} = {
+	year: date => date.getFullYear(),
+	month: date => date.getMonth() + 1, // Starts at 0
+	day: date => date.getDate(),
+	hour: date => date.getHours(),
+	minute: date => date.getMinutes(),
+	second: date => date.getSeconds()
+};
+
 function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	// Don't do the following operations if no date is specified -> save CPU time
 	if (!trigger.date) {
@@ -9,49 +20,13 @@ function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	}
 
 	const date = new Date();
-
-	// Year
-	const fromYear = trigger.date.year?.from ?? -1;
-	const toYear = trigger.date.year?.to ?? 99999;
-	const year = date.getFullYear();
-
-	// Month
-	const fromMonth = trigger.date.month?.from ?? -1;
-	const toMonth = trigger.date.month?.to ?? 99999;
-	const month = date.getMonth() + 1; // Starts at 0
-
-	// Day
-	const fromDay = trigger.date.day?.from ?? -1;
-	const toDay = trigger.date.day?.to ?? 99999;
-	const day = date.getDate();
-
-	// Day of the week
-	const fromDayOfTheWeek = trigger.date.dayOfTheWeek?.from ?? -1;
-	const toDayOfTheWeek = trigger.date.dayOfTheWeek?.to ?? 99999;
-	const dayOfTheWeek = date.getDay(); // 0 = sunday
-
-	// Hour
-	const fromHour = trigger.date.hour?.from ?? -1;
-	const toHour = trigger.date.hour?.to ?? 99999;
-	const hour = date.getHours();
-
-	// Minute
-	const fromMinute = trigger.date.minute?.from ?? -1;
-	const toMinute = trigger.date.minute?.to ?? 99999;
-	const minute = date.getMinutes();
-
-	// Second
-	const fromSecond = trigger.date.second?.from ?? -1;
-	const toSecond = trigger.date.second?.to ?? 99999;
-	const second = date.getSeconds();
-
-	return year >= fromYear && year <= toYear
-		&& month >= fromMonth && month <= toMonth
-		&& day >= fromDay && day <= toDay
-		&& dayOfTheWeek >= fromDayOfTheWeek && dayOfTheWeek <= toDayOfTheWeek
-		&& hour >= fromHour && hour <= toHour
-		&& minute >= fromMinute && minute <= toMinute
-		&& second >= fromSecond && second <= toSecond;
+	for (const [timeScale, timeRange] of Object.entries(trigger.date)) {
+		const value = dateFunctions[timeScale as keyof DateFormat](date);
+		if ((timeRange?.from ?? -1) >= value || (timeRange?.to ?? 99999) <= value) {
+			return false;
+		}
+	}
+	return true;
 }
 
 async function verifyOncePer(bigEvent: BigEvent, trigger: BigEventTrigger, player: Player): Promise<boolean> {
@@ -96,42 +71,28 @@ export async function verifyTrigger(bigEvent: BigEvent, trigger: BigEventTrigger
 		&& await verifyOncePer(bigEvent, trigger, player);
 }
 
+type DatePart = {
+	from?: number;
+	to?: number;
+};
+
+type DateFormat = {
+	year?: DatePart;
+	month?: DatePart;
+	day?: DatePart;
+	dayOfTheWeek?: DatePart;
+	hour?: DatePart;
+	minute?: DatePart;
+	second?: DatePart;
+};
+
 /**
  * A big event trigger is a set of condition to trigger a big event (for instance, a map id, a minimum level etc...)
  */
 export interface BigEventTrigger {
 	mapId?: number;
 	level?: number;
-	date?: {
-		year?: {
-			from?: number;
-			to?: number;
-		};
-		month?: {
-			from?: number;
-			to?: number;
-		};
-		day?: {
-			from?: number;
-			to?: number;
-		};
-		dayOfTheWeek?: {
-			from?: number;
-			to?: number;
-		};
-		hour?: {
-			from?: number;
-			to?: number;
-		};
-		minute?: {
-			from?: number;
-			to?: number;
-		};
-		second?: {
-			from?: number;
-			to?: number;
-		};
-	};
+	date?: DateFormat;
 	oncePer?: "year" | "month" | "week" | "day";
 	mapAttributes?: string[];
 }
