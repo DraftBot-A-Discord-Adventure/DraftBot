@@ -208,23 +208,24 @@ export const DraftBotIcons: {
 	};
 } = {
 	effects: {
-		"not_started": "👶",
-		"dead": "💀",
-		"none": "😃",
-		"sleeping": "😴",
-		"drunk": "🤪",
-		"freezing": "🥶",
-		"hurt": "🤕",
-		"sick": "🤢",
-		"jailed": "🔒",
-		"injured": "😵",
-		"occupied": "🕑",
-		"starving": "🤤",
-		"confounded": "😖",
-		"scared:": "😱",
-		"lost": "🧐",
-		"healed": "🏥",
-		"fished": "🐟"
+		// eslint-disable-next-line camelcase
+		not_started: "👶",
+		dead: "💀",
+		none: "😃",
+		sleeping: "😴",
+		drunk: "🤪",
+		freezing: "🥶",
+		hurt: "🤕",
+		sick: "🤢",
+		jailed: "🔒",
+		injured: "😵",
+		occupied: "🕑",
+		starving: "🤤",
+		confounded: "😖",
+		scared: "😱",
+		lost: "🧐",
+		healed: "🏥",
+		fished: "🐟"
 	},
 	events: {
 		1: {
