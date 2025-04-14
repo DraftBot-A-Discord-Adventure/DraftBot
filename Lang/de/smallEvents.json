@@ -115,11 +115,11 @@
     "intro": "Sie kreuzen den Weg eines Mannes, der Sie anspricht. Sie sind neugierig und bleiben stehen. Dieser bietet Ihnen an, an einem von ihm entwickelten Glücksspiel teilzunehmen. Sie können zwischen verschiedenen Belohnungsstufen wählen.\n\n{emote:collectors.lottery.easy} Kleine Belohnung\n{emote:collectors.lottery.medium} Mittlere Belohnung\n{emote:collectors.lottery.hard} Große Belohnung\n",
     "easy": {
       "success": "Sie nehmen teil und schaffen es, einen Preis zu gewinnen, den der Mann Ihnen überreicht, bevor er geht.",
-      "fail": "Sie verlieren beim Mensch-ärgere-dich-nicht-Spiel, allerdings war die Teilnahme kostenlos. Sie beschließen daher, Ihre Reise fortzusetzen."
+      "fail": "Sie verlieren beim Mensch-ärgere-dich-nicht-Spiel. Die Teilnahme war jedoch kostenlos. Sie beschließen daher, Ihre Reise fortzusetzen."
     },
     "medium": {
-      "success": "Sie versuchen Ihr Glück und gewinnen das Spiel. Der Mann belohnt Sie angemessen. Sie verlieren jedoch **{{lostTime}} Min :clock2:**.",
-      "fail": "Sie nehmen am Spiel des Mannes teil, gewinnen jedoch nicht und verlassen das Spiel in der Hoffnung, dass Sie beim nächsten Mal mehr Glück haben. Durch die Teilnahme an der Lotterie haben Sie **{{lostTime}} Min :clock2:** verloren."
+      "success": "Sie versuchen Ihr Glück und gewinnen das Spiel. Der Mann belohnt Sie angemessen. Allerdings verlieren Sie **{{lostTime}} Min :clock2:**.",
+      "fail": "Sie nehmen am Spiel des Mannes teil. Sie gewinnen jedoch nicht und gehen daher mit der Hoffnung, beim nächsten Mal mehr Glück zu haben, nach Hause. Durch die Teilnahme an der Lotterie haben Sie **{{lostTime}} Min :clock2:** verloren."
     },
     "hard": {
       "success": "Sie gewinnen im Spiel des Menschen. Daraufhin belohnt er Sie gnädig. Sie verlieren jedoch **{{lostTime}} Min :clock2:**.",
@@ -186,12 +186,12 @@
     ],
     "same_guild": [
       "Auf Ihrem Weg begegnet Ihnen ein sehr bekanntes Gesicht... Tatsächlich ist {{playerDisplay}} ein Mitglied Ihrer Gilde!",
-      "Sie nähern sich jemandem, sein vertrautes Gesicht erinnert Sie an etwas? Aber ja! Es ist {{playerDisplay}} ein Mitglied Ihrer Gilde!",
+      "Sie nähern sich einer Person, ihr vertrautes Gesicht erinnert Sie an etwas... Aber ja, es ist {{playerDisplay}} eines der Mitglieder Ihrer Gilde!",
       "Sie treffen {{playerDisplay}} aus Ihrer Gilde! Sie führen den geheimen Handschlag der Gilde durch und gehen dann wieder auf ihre jeweiligen Wege."
     ],
     "staff_member": [
       "{{playerDisplay}}\n\n{{advice}}\n\nSie setzen Ihren Weg fort.",
-      "\"{{advice}}\". Das hat Ihnen {{playerDisplay}}, einer der berühmten Bot-Staffs, gesagt, den Sie auf der Abzweigung eines Weges treffen!",
+      "\"{{advice}}\". Das hat Ihnen {{playerDisplay}}, einer der berühmten Bot-Mitarbeiter, gesagt, den Sie auf einem Weg treffen!",
       "Du unterhältst dich mit {{playerDisplay}} , einem Mitglied des DraftBot-Teams, der gute Ratschläge für dein weiteres Abenteuer hat:\n\n{{advice}}"
     ],
     "top_week": [
@@ -226,13 +226,13 @@
     ],
     "rich": [
       "Sie halten sich die Augen zu, damit Sie nicht von der Sonne geblendet werden, die sich in dem Gold spiegelt, das {{playerDisplay}} trägt! Sie setzen Ihren Weg mit schmerzenden Augen fort.",
-      "Ist das Dagobert Duck? Aber nein! Es ist {{playerDisplay}} ! Er besitzt so viel Gold, dass es Sie blendet! Sie setzen Ihren Weg fort und reiben sich die Augen.",
+      "Ist es Dagobert Duck? Aber nein, es ist {{playerDisplay}} ! Er besitzt so viel Gold, dass es Sie blendet! Sie setzen Ihren Weg fort und reiben sich die Augen.",
       "Münzen fallen aus den Taschen von {{playerDisplay}}, so voll sind sie damit. Das scheint ihn nicht einmal zu beunruhigen. Bevor Sie sie in die Hände bekommen können, werden sie von einem Tier geholt. Sie setzen Ihren Weg etwas enttäuscht fort."
     ],
     "poor": [
       "Beim Anblick der Kleidung, die {{playerDisplay}}trägt, scheint er Geldprobleme zu haben ... Sie denken, dass er sich freuen würde, wenn Sie ihm eine Münze geben würden.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collector.refuse} Ihm keine Münze geben",
-      "Auf Ihrem Weg treffen Sie den armen Landstreicher von {{playerDisplay}}. Er bittet Sie um ein paar Münzen:\n\n{emote:collectors.interactPoorCoin} Geben Sie ihm eine Münze, denn Sie haben schon genug.\n{emote:collector.refuse} Geben Sie ihm keine Münze.",
-      "Das Elend trifft jeden einmal, und heute ist es {{playerDisplay}} , der sich kaum eine Mahlzeit leisten kann.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collector.refuse} Ihm keine Münze geben"
+      "Auf Ihrem Weg treffen Sie den armen Landstreicher von {{playerDisplay}}. Er bittet Sie um ein paar Münzen:\n\n{emote:collectors.interactPoorCoin} Geben Sie ihm eine Münze, denn Sie haben schon genug.\n{emote:collectors.refuse} Geben Sie ihm keine Münze.",
+      "Das Elend trifft jeden einmal, und heute ist es {{playerDisplay}} , der sich kaum eine Mahlzeit leisten kann.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collectors.refuse} Ihm keine Münze geben"
     ],
     "poor_give_money": [
       "Sie fühlen sich gut, nachdem Sie diese humanitäre Geste gemacht haben.",
@@ -251,17 +251,17 @@
     ],
     "guild_chief": [
       "Verfallen Sie nicht in Panik! Sie laufen an {{playerDisplay}}, dem Anführer der Gilde **{{guildName}}**, vorbei.",
-      "Sie kommen an {{playerDisplay}}vorbei , er ist der Anführer der Gilde **{{guildName}}**!",
+      "Sie kommen an {{playerDisplay}}vorbei. Er ist der Anführer der Gilde **{{guildName}}**!",
       "Sie erkennen die Person, die auf Ihrem Weg vorbeikommt... Es ist {{playerDisplay}}, der Leiter der Gilde **{{guildName}}**!"
     ],
     "guild_elder": [
       "{{playerDisplay}} unterhält sich mit Ihnen über seine Gilde **{{guildName}}**. Sie erfahren, dass er der Älteste in dieser Gilde ist!",
-      "Sie kommen an {{playerDisplay}}vorbei , er ist Ältester der Gilde **{{guildName}}** !",
+      "Sie kommen an {{playerDisplay}}vorbei. Er ist Ältester der Gilde **{{guildName}}**!",
       "Die rechte Hand der Gilde **{{guildName}}**, {{playerDisplay}}, grüßt Sie und setzt seinen Weg fort."
     ],
     "class": [
       "Sie streifen {{playerDisplay}}. Sie stellen fest, dass er zum Kreis der **{{class}}s** gehört. Sie unterhalten sich kurz mit ihm und setzen dann Ihren Weg friedlich fort.",
-      "{{playerDisplay}} der Klasse **{{class}}** geht an Ihnen vorbei, Sie grüßen ihn und setzen Ihren Weg fort.",
+      "{{playerDisplay}}{{class}}Sie grüßen ihn und setzen Ihren Weg fort.",
       "Sie stoßen versehentlich gegen den Arm von {{playerDisplay}}, ehrenwerte **{{class}}**. Sie entschuldigen sich beide und setzen Ihren Weg fort."
     ],
     "weapon": [
@@ -272,11 +272,11 @@
     "armor": [
       "Sie treffen {{playerDisplay}} , der Ihnen seine prächtige Rüstung \"**{{armor}} **\" zeigt.",
       "Ein Wachmann spricht Sie an: Es ist {{playerDisplay}}, er kommt, um Ihnen seine Rüstung \"**{{armor}}**\" zu zeigen!",
-      "{{playerDisplay}} fordert Sie heraus, \"**{{armor}}**\", das ihm als Schutz dient, zu testen. Nachdem Sie seine Wirksamkeit getestet haben, setzen Sie Ihren Weg fort."
+      "{{playerDisplay}} fordert Sie heraus, seine Rüstung \"**{{armor}}**\", die ihm als Schutz dient, zu testen. Nachdem Sie seine Wirksamkeit getestet haben, setzen Sie Ihren Weg fort."
     ],
     "potion": [
       "Du triffst dich mit {{playerDisplay}} , der dir seinen wunderschönen Trank \"**{{potion}} **\" zeigt.",
-      "{{playerDisplay}} kommt, um mit Ihnen zu sprechen, er kommt, um Ihnen seine Potoin \"**{{potion}}**\" zu zeigen!",
+      "{{playerDisplay}} kommt, um mit Ihnen zu sprechen, er kommt, um Ihnen seinen Trank \"**{{potion}}**\" zu zeigen!",
       "{{playerDisplay}}Ein Mann, den Sie auf Ihrem Weg treffen, erzählt Ihnen, dass er einen Zaubertrank in die Finger bekommen hat. Er zeigt Ihnen daher \"**{{potion}}**\"."
     ],
     "object": [
@@ -291,13 +291,13 @@
         "{{playerDisplay}} kann sich nicht mehr zurückhalten und erbricht sich vor Ihren Füßen. Sie können dem Angriff gerade noch ausweichen und beschleunigen Ihr Tempo, um sich von dem Massaker zu entfernen."
       ],
       "hurt": [
-        "In der Ferne erblicken Sie eine Mumie! Ah nein, es ist nur {{playerDisplay}} , der mit Verbänden bedeckt ist ...",
+        "In der Ferne erblicken Sie eine Mumie! Ah nein, es ist nur {{playerDisplay}}, bedeckt mit Verbänden ...",
         "Auf Ihrem Weg begegnen Sie {{playerDisplay}}. Er ist mit Verbänden bedeckt, was ist mit ihm passiert?",
         "Als Sie losgestürmt sind, um Ihr Ziel zu erreichen, bittet Sie {{playerDisplay}} , die Verbände um seinen Kopf festzuziehen. Sie tun dies und wundern sich, dass jemand so schwer verletzt sein kann."
       ],
       "injured": [
         "Sie stolpern über {{playerDisplay}} , der bewusstlos auf dem Boden liegt. Sie tippen ihn an, um ihn aufzuwecken, aber es gelingt Ihnen nicht.",
-        "Es war keine tote Ratte auf dem Boden, es war nur {{playerDisplay}} Sie fragen ihn, ob es ihm gut geht. Er antwortet nicht, also setzen Sie Ihren Weg fort.",
+        "Es war keine tote Ratte auf dem Boden, es war nur {{playerDisplay}}. Sie fragen ihn, ob es ihm gut geht. Er antwortet nicht, also setzen Sie Ihren Weg fort.",
         "Eine Person liegt bewusstlos mitten auf der Straße. Es ist {{playerDisplay}}. Sie tun alles, was Sie können, um ihn wieder zu Bewusstsein zu bringen, aber ohne Erfolg. Sie legen ihn daher am Straßenrand ab, um zu verhindern, dass er noch weiter verletzt wird."
       ],
       "starving": [
@@ -312,7 +312,7 @@
       ],
       "freezing": [
         "Sie spüren beim Gehen eine starke Kälte. Das ist {{playerDisplay}}, die nahe an der Unterkühlung ist!",
-        "{{playerDisplay}} Sie wärmen ihn ein wenig und gehen dann weiter.",
+        "{{playerDisplay}} scheint zu frieren. Sie wärmen ihn ein wenig und gehen dann weiter.",
         "Ein redundantes Klappern nervt Sie. Sie entdecken, dass es die Zähne von {{playerDisplay}}sind ... Dieser ist gefroren! Sie setzen Ihre Reise ohne weitere Verzögerung fort."
       ],
       "confounded": [
@@ -326,7 +326,7 @@
         "Sie sehen {{playerDisplay}} ziemlich beschwipst, um nicht einen stärkeren Begriff zu verwenden. Dieser scheint sich gut zu amüsieren - ganz allein. Sie tun, was Sie können, um ihn zu ignorieren, und setzen Ihren Weg fort."
       ],
       "scared": [
-        "Du triffst auf {{playerDisplay}} , der in deine Richtung zu laufen scheint. Er wird von Räubern gejagt, die hinter seinem Geld her sind. Sie begleiten ihn ein Stück des Weges, damit er sich wieder beruhigen kann. Nachdem Sie sich beruhigt haben, verlassen Sie ihn und setzen Ihren Weg fort.",
+        "Sie treffen auf {{playerDisplay}} , der in Ihre Richtung zu laufen scheint. Er wird von Räubern gejagt, die hinter seinem Geld her sind. Sie begleiten ihn ein Stück des Weges, damit er sich wieder beruhigen kann. Nachdem Sie sich beruhigt haben, verlassen Sie ihn und setzen Ihren Weg fort.",
         "Du siehst in der Ferne {{playerDisplay}} , der auf der Flucht vor einem Wolfsrudel ist. Du eilst ihm zu Hilfe und lässt die wilden Tiere zurückschlagen.",
         "Sie treffen sich mit {{playerDisplay}}. Dieser scheint völlig in Panik zu sein. Du fragst ihn, warum er so aufgeregt ist. Er erzählt Ihnen, dass er gerade von einem Drachen verfolgt wurde, aber entkommen konnte und dabei ein paar Haare verloren hat."
       ],
@@ -371,7 +371,7 @@
   },
   "winEnergy": {
     "stories": [
-      "treffen Sie auf eine junge Frau, die sich als Hilda, die Heilerin, vorstellt. Nach einem kurzen Gespräch erklären Sie sich damit einverstanden, dass sie ihre neueste Medizin an Ihnen ausprobiert. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
+      "treffen Sie auf eine junge Frau, die sich als Hilda, die Heilerin, vorstellt. Nach einem kurzen Gespräch stimmen Sie zu, dass sie ihr neuestes Heilmittel an Ihnen ausprobieren darf. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
       "treffen Sie auf eine junge Frau, die Ihnen anbietet, Sie zu heilen. Sie nehmen an und erhalten ein köstliches Getränk. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
       "Sie stoßen auf eine junge Frau, die von einer Ziege begleitet wird. Sie bietet Ihnen ein Wundermittel an. Sie sind neugierig und nehmen das Angebot an. Entgegen aller Erwartungen fühlen Sie sich sofort besser. **Sie gewinnen all Ihre Energie zurück** {emote:unitValues.energy}",
       "treffen Sie eine junge Frau, die Ihnen anbietet, Sie zu behandeln. Sie nehmen an und fühlen sich sofort besser. **Sie erhalten Ihre gesamte Energie zurück** {emote:unitValues.energy}",
@@ -402,7 +402,7 @@
       "Sie halten ein paar Sekunden an, um Luft zu holen. Sie starten wieder mit etwas mehr Ausdauer und gewinnen {emote:unitValues.energy} **{{energy}}**.",
       "holen Sie ein Stück Brot heraus und machen sich damit satt. Das macht Sie {emote:unitValues.energy} **{{energy}}**.",
       "setzen Sie sich ein paar Minuten hin und meditieren, um Ihren Geist zu beruhigen. Sie erholen sich {emote:unitValues.energy} **{{energy}}**.",
-      "spüren Sie, wie sich Ihre Muskeln anspannen, und Sie halten kurz inne, um sie zu dehnen. Sie erholen sich {emote:unitValues.energy} **{{energy}}**."
+      "Sie spüren, wie sich Ihre Muskeln anspannen, und halten kurz inne, um sie zu dehnen. Sie erholen sich {emote:unitValues.energy} **{{energy}}**."
     ]
   },
   "winHealth": {
@@ -546,9 +546,9 @@
             "Leider kündigte der Geruch des Tranks seine Wirkung an. Sie bereuen schnell, dass Sie sich auf das Talent der alten Hexe verlassen haben. {emote:effects.sick}",
             "Trotz Ihres Eingreifens scheint der Trank nicht besser geworden zu sein. Sie fühlen sich unwohl... {emote:effects.sick}"
           ],
-          "cold": [
-            "Sie beschließen, den Trank zu probieren, der sehr kalt ist. Das Kältegefühl verschwindet jedoch nicht und Sie spüren hilflos, wie jedes Ihrer Glieder kalt wird... {emote:effects.freezing}",
-            "Gerade als du den Trank fertigstellen willst, stolperst du und fällst in den eisgefüllten Abgrund, in dem du den Topf abstellen wolltest. {emote:effects.freezing}"
+          "freezing": [
+            "Vous décidez de goûter à la potion qui est très froide. La sensation de froid ne disparait cependant pas et vous ressentez impuissant chacun de vos membres se refroidir... {emote:effects.freezing}",
+            "Alors que vous alliez terminer la potion, vous trébuchez et tombez dans le gouffre rempli de glace dans lequel vous prévoyiez de déposer la marmite. {emote:effects.freezing}"
           ]
         },
         "3": [
@@ -685,19 +685,19 @@
         "der nächste Vollmond ist in {{mainValue}} {{days}}",
         "der Vollmond wird in {{mainValue}} {{days}}scheinen",
         "wir werden den Vollmond in {{mainValue}} {{days}}erblicken",
-        "in {{mainValue}} {{days}} kann man den Vollmond beobachten"
+        "in {{mainValue}} {{days}}, wird man den Vollmond beobachten können"
       ],
       "nextPartialLunarEclipse": [
         "die nächste partielle Mondfinsternis ist in {{mainValue}} {{days}}",
-        "in {{mainValue}} {{days}} wird eine partielle Mondfinsternis zu sehen sein",
+        "in {{mainValue}} {{days}}, wird eine partielle Mondfinsternis zu sehen sein",
         "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine partielle Mondfinsternis zu beobachten",
         "die Zeit, bis die nächste partielle Mondfinsternis zu sehen ist, beträgt {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
         "die nächste totale Mondfinsternis ist in {{mainValue}} {{days}}",
-        "von hier aus {{mainValue}} {{days}} werden Sie eine vollständige Mondfinsternis erblicken",
-        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine totale Mondfinsternis zu beobachten",
-        "wenn Sie den Himmel unter {{mainValue}} {{days}} beobachten, können Sie eine totale Mondfinsternis beobachten"
+        "von hier aus {{mainValue}} {{days}}, werden Sie eine vollständige Mondfinsternis erblicken",
+        "in den nächsten {{mainValue}} {{days}} haben Sie die Chance, eine totale Mondfinsternis zu erleben",
+        "Wenn Sie den Himmel unter {{mainValue}} {{days}}beobachten, können Sie eine totale Mondfinsternis beobachten."
       ]
     },
     "moonPhases": [
@@ -794,7 +794,7 @@
       "nbPlayersWithGivenClass_other": "laut einer aktuellen Zählung der Abenteurer gibt es **{{infoNumber}}** Spieler mit der Klasse **{{infoComplement}}**. Erstaunt über diese Nachricht",
       "nbPlayersOnYourMap_zero": "die Ritter in der Umgebung haben auf dieser Route **niemanden außer euch** getroffen. Überrascht von dieser Nachricht",
       "nbPlayersOnYourMap_one": "die Ritter in der Umgebung haben nur **eine Person** getroffen, die auf Ihrem Weg unterwegs war. Überrascht von dieser Nachricht",
-      "nbPlayersOnYourMap_other": "die umliegenden Ritter haben **{infoNumber} Personen** gezählt, die sich auf Ihrer Route bewegen. Überrascht von dieser Nachricht"
+      "nbPlayersOnYourMap_other": "die umliegenden Ritter haben **{{infoNumber}} Personen** gezählt, die sich auf Ihrer Route bewegen. Überrascht von dieser Nachricht"
     }
   },
   "smallBad": {
@@ -813,7 +813,7 @@
         "fängt es an zu regnen. Sie wollen gerade losrennen, um nicht nass zu werden, doch dann sehen Sie einen wunderschönen Regenbogen. Sie denken nicht mehr an den Regen und lassen sich während **{{amount}} :clock2:** von dem Schauspiel absorbieren.",
         "Sie fallen vor Müdigkeit um. Deine Abenteuer haben dich erschöpft, weshalb du beschließt, dich während **{{amount}} :clock2:** auszuruhen.",
         "Während Sie in Gedanken versunken durch die Gegend laufen, bemerken Sie den Ast am Boden nicht. Du stolperst darüber und deine Sachen werden verstreut. Du verlierst **{{amount}} :clock2:**.",
-        "hören Sie ein lautes, krachendes Geräusch aus dem Unterholz. Ihre Neugier ist geweckt: Sie wollen wissen, was das ist, und sehen sich in der Gegend um. Nach **{{amount}} :clock2:** geben Sie auf, ohne den Ursprung des Geräusches, das Sie aufgeschreckt hat, gefunden oder verstanden zu haben."
+        "hören Sie ein lautes, krachendes Geräusch aus dem Unterholz. Ihre Neugier ist geweckt: Sie wollen wissen, was es damit auf sich hat, und sehen sich in der Gegend um. Nach **{{amount}} :clock2:** geben Sie auf, ohne den Ursprung des Geräusches, das Sie aufgeschreckt hat, gefunden oder verstanden zu haben."
       ]
     },
     "moneyLost": {
@@ -955,14 +955,14 @@
       ],
       "loseLife_m": [
         "Während Sie versuchen, **{{pet}}** zu streicheln, lässt er nicht locker und beißt Ihnen in die Hand. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
-        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "In einer Kurve fängt **{{pet}}** plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit einigen Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt er mit Essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen.... Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, ihn zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht sein Gewicht den Ast und er fällt auf Sie. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseLife_f": [
         "Während Sie versuchen, **{{pet}}** zu streicheln, lässt sie nicht locker und beißt Ihnen die Hand ab. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
-        "In einer Kurve **{{pet}}** fängt plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit ein paar Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
+        "In einer Kurve fängt **{{pet}}** plötzlich an zu rennen. Sie behalten die Leine so gut es geht in den Händen, kommen aber mit einigen Kratzern wieder heraus. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "Sie sehen **{{pet}}** gehen. Nach ein paar Minuten kommt sie mit etwas zu essen zurück. Sie essen es und bereuen es einige Minuten später bitterlich. Sie haben plötzlich Bauchschmerzen ... . Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "**{{pet}}** scheint mit {{randomAnimal}} wild die Feindseligkeiten angezettelt zu haben! Du beschließt, sie zu verteidigen, aber leider verletzt dich die wilde Kreatur. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}.",
         "**{{pet}}** scheint spielen zu wollen und stürzt sich von einem Baum. Leider bricht ihr Gewicht den Ast und sie fällt auf Sie. Sie verlieren **{{amount}}** {emote:unitValues.lostHealth}."
@@ -1029,13 +1029,13 @@
   "class": {
     "attack": {
       "winPotion": [
-        "Sie sehen ein seltsames Licht in der Ferne. Als du dich neugierig näherst, stellst du fest, dass es sich um eine Phiole mit unbekanntem Inhalt handelt. Du befeuchtest deine Lippen mit dem Getränk und spürst, dass deine Kräfte vervielfacht werden könnten, wenn du es zu dir nimmst...",
+        "Sie sehen ein seltsames Licht in der Ferne. Als du dich neugierig näherst, stellst du fest, dass es sich um eine Phiole mit unbekanntem Inhalt handelt. Du befeuchtest deine Lippen mit dem Getränk und spürst, dass deine Kräfte verzehnfacht werden könnten, wenn du es zu dir nimmst...",
         "Sie bemerken ein Zelt, das dort aufgestellt ist. Neugierig geworden, betrittst du es und entdeckst einen alten Mann, der viele Tränke besitzt. Er bittet Sie, seine Tränke zu testen. Du stimmst zu und nachdem du deine Experimente beendet hast, gibt er dir einen Angriffstrank als Dankeschön.",
         "finden Sie einen verlassenen Karren. Darin befinden sich einige Kisten mit Tränken. Sie stehlen hastig eine davon. Nachdem Sie geflohen sind, sehen Sie, dass der gestohlene Trank für Ihren nächsten Kampf nützlich zu sein scheint..."
       ],
       "winObject": [
         "beschließen Sie, sich an einen Baum zu lehnen. Als Sie sich hinsetzen, spüren Sie einen stechenden Schmerz, der Ihren Rücken durchdringt. Sie stehen blitzschnell auf und entdecken, was Sie gekratzt hat:",
-        "Sie hören plötzlich einen Höllenlärm, der auf Sie zukommt. Sie können sich gerade noch zur Seite werfen, als eine Horde Ritter an Ihnen vorbeigaloppiert, und Sie sehen, wie eine Tasche von einem der Pferde fällt. Als du ihn aufhebst, entdeckst du...",
+        "hören Sie plötzlich einen Höllenlärm, der sich auf Sie zubewegt. Sie können sich gerade noch zur Seite werfen, als eine Horde Ritter an Ihnen vorbei galoppiert. Während Sie ihnen nachschauen, sehen Sie, wie ein Beutel von einem der Pferde fällt. Als Sie ihn aufheben, entdecken Sie...",
         "ein hungriges Tier nähert sich Ihnen. Als Vorsichtsmaßnahme beschließen Sie, es zu töten. Als Sie in seinen Eingeweiden wühlen, finden Sie einen Gegenstand, der offenbar zum Angriff dient."
       ],
       "winWeapon": [
@@ -1070,7 +1070,7 @@
       ],
       "winMoney": [
         "Sie gehen auf eine kleine Anhöhe und bemerken, dass Ihre Schritte seltsam klingen. Sie durchsuchen den Boden und entdecken eine Truhe mit Gold. Sie erhalten **{{amount}} {emote:unitValues.money}**.",
-        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Geldbeutel und entdecken **{{amount}} {emote:unitValues.money}**!",
+        "Sie treffen eine Person, die etwas verwirrt und ängstlich wirkt... Als die Person Sie sieht, entschuldigt sie sich und rennt weg. Sie denken sich, dass sie Sie mit jemandem verwechselt hat. Sie öffnen den Geldbeutel und entdecken **{{amount}} {emote:unitValues.money}**.",
         "beschließen Sie, Ihr Lager zu errichten, indem Sie ein Zelt und andere Gegenstände aufstellen. Als du die Löcher zum Einschlagen der Heringe für dein Zelt gräbst, spürst du etwas Hartes im Boden. Beim Graben gräbst du ein kleines, verwittertes Holzkästchen aus und findest darin **{{amount}} {emote:unitValues.money}**!"
       ]
     },
@@ -1213,10 +1213,10 @@
         },
         "escape": {
           "withGuild": "In Panik versucht Ihre Gilde, einen sichereren Ort zu finden, um zu verhindern, dass einer von Ihnen Schaden erleidet. Nach mehreren Minuten, in denen Sie sich im Kreis drehen, weil mindestens ein Mitglied der Meinung ist, dass dieser Ort nicht sicher ist, spüren Sie die Erschütterung nicht mehr. Trotzdem versuchen Sie, wieder Vertrauen für das zu gewinnen, was auf Ihrem Weg über die Insel noch kommen wird...",
-          "solo": "In Panik versuchen Sie, den möglichen Schäden des Erdbebens auszuweichen. Nach einer Weile ist das Beben nicht mehr spürbar. Als Sie zu dem Ort zurückkehren, an dem Sie sich ausruhen wollten, sehen Sie die Schäden des Bebens. Gut, dass Sie nicht dort geblieben sind..."
+          "solo": "In Panik versuchen Sie, den möglichen Schäden des Bebens auszuweichen. Nach einer Weile ist das Beben nicht mehr spürbar. Als Sie zu dem Ort zurückkehren, an dem Sie sich ausruhen wollten, bemerken Sie die Schäden des Erdbebens. Gut, dass Sie nicht dort geblieben sind..."
         },
         "lose": {
-          "withGuild": "Sie denken, dass das Erdbeben nur kurz sein wird, und bitten den Rest der Gilde, ihm zu trotzen. Was für ein Fehler! Ein Felsbrocken stürzt auf Sie und schlägt Sie nieder. Sie verlieren **{{amount}} {emote:unitValues.energy}**.",
+          "withGuild": "Sie reden sich ein, dass dieses Beben kurz sein wird, und bitten den Rest der Gilde, ihm zu trotzen. Was für ein Fehler! Ein Felsbrocken stürzt auf Sie und schlägt Sie bewusstlos. Sie verlieren **{{amount}} {emote:unitValues.energy}**.",
           "solo": "Da Sie sich einreden, dass es nur wenig Schaden geben wird, ruhen Sie sich weiter aus. Allerdings bildet sich unter Ihrem Körper eine Spalte. Aus Angst, hineinzufallen, versuchen Sie, so weit wie möglich wegzulaufen, stolpern aber und schneiden sich in den Arm. Sie verlieren **{{amount}} {emote:unitValues.lostHealth}**."
         }
       },
@@ -1452,8 +1452,8 @@
       },
       "playDead": {
         "name": "Sich tot stellen",
-        "success": "Als das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Nachdem es Sie einige Zeit lang regungslos auf dem Boden beobachtet hat, entfernt es sich und lässt Sie in Ruhe.",
-        "failure": "Während das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Es nähert sich Ihnen, schnüffelt an Ihnen und stellt fest, dass Sie nur so tun, als ob. Sie verwirren die Kreatur, indem Sie schnell aufstehen und die Beine in die Hand nehmen, bevor Sie wirklich tot sind."
+        "success": "Während das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Nachdem es Sie einige Zeit lang regungslos auf dem Boden beobachtet hat, entfernt es sich und lässt Sie in Ruhe.",
+        "failure": "Während das Tier Sie anstarrt, tun Sie so, als würden Sie auf den Boden fallen und sich nicht mehr bewegen. Es kommt auf Sie zu, beschnuppert Sie und stellt fest, dass Sie nur so tun, als ob. Sie verwirren die Kreatur, indem Sie schnell aufstehen und die Beine in die Hand nehmen, bevor Sie wirklich tot sind."
       },
       "scream": {
         "name": "Schreien",
@@ -1502,7 +1502,7 @@
       "life": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht und als schlechter Verlierer schlagen Sie gegen die restlichen Becher, die durch die Luft fliegen. Als Sie bemerken, dass sich auch in den anderen Bechern nichts befindet, wenden Sie sich wieder dem Betrüger zu. Leider schlägt dieser zuerst zu. Sie verlieren **{{quantity}} {emote:unitValues.lostHealth}**.",
       "time": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und entdecken mit Freude eine kleine Münze! Leider scheint der Mann hinter Ihnen nicht gewillt zu sein, Sie mit Ihrer Belohnung gehen zu lassen. Sie verlieren **{{quantity}} Min {emote:unitValues.time}** dabei, mit ihm zu verhandeln, bevor Sie aufgeben und Ihren Weg fortsetzen.",
       "nothing": "Sie heben den Becher $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) vorsichtig an und bemerken, dass sich darunter nichts befindet. Enttäuscht machen Sie sich traurig auf den Weg und sagen sich, dass Sie vielleicht ein anderes Mal mehr Glück haben werden.",
-      "end": "Als Sie nicht reagieren, kommt der Mann auf die schlechte Idee, Sie ausrauben zu wollen. Sie bemerken sein Manöver und greifen ein, werden aber schnell von der Stärke des Mannes überrascht, der sich mit einer plötzlichen Bewegung befreien kann und dann wegläuft. Sie kommen mit einer leichten Verletzung davon **{{quantity}} {emote:unitValues.lostHealth}**."
+      "end": "Als Sie nicht reagieren, kommt der Mann auf die schlechte Idee, Sie ausrauben zu wollen. Sie bemerken sein Manöver und greifen ein, werden aber schnell von der Stärke des Mannes überrascht, der sich mit einer plötzlichen Bewegung losreißen kann und dann wegläuft. Sie kommen mit einer leichten Verletzung davon. Sie verlieren **{{quantity}} {emote:unitValues.lostHealth}**."
     }
   },
   "shop": {
@@ -1518,7 +1518,7 @@
     ],
     "intro_f": [
       "Während Sie ruhig Ihren Weg gehen, stoßen Sie Nase an Nase mit {{name}} zusammen, der Ihnen schnell ein verlockendes Angebot unterbreitet.",
-      "Wenn Sie auf den Straßen unterwegs sind, begegnen Sie oft fliegenden Händlern. Heute ist es eine Händlerin namens {{name}} , die Ihnen ihr Angebot unterbreitet.",
+      "Wenn Sie auf der Straße unterwegs sind, begegnen Sie oft fliegenden Händlern. Heute ist es eine Händlerin namens {{name}} , die Ihnen ihr Angebot unterbreitet.",
       "Auf Ihrer Reise werden Sie von einer Händlerin angesprochen. Sie sagt, ihr Name sei {{name}} und sie habe einige Gegenstände, die Ihnen während Ihres Abenteuers helfen könnten.",
       "Auf Ihrem Weg kommen Sie an einem Karren vorbei, in dem sich eine Händlerin namens {{name}}befindet. Sie bietet Ihnen an, einen ihrer Gegenstände zu kaufen, da er Ihnen auf Ihrem Abenteuer nützlich sein könnte."
     ],
@@ -1562,11 +1562,11 @@
     ],
     "purchased": [
       "Zufrieden mit Ihrem Kauf setzen Sie Ihre Fahrt in aller Ruhe fort.",
-      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen, nachdem Sie das Gut erworben haben, setzen Sie Ihren Weg fort."
+      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen. Nachdem Sie den Gegenstand erworben haben, setzen Sie Ihren Weg fort."
     ],
     "notEnoughMoney": [
       "Sie haben leider nicht genug Geld und setzen daher Ihre Reise fort.",
-      "Du streckst einen leeren Geldbeutel aus und hoffst, dass es glimpflich ausgeht, aber du wirst schnell vertrieben und gehst traurig und enttäuscht deinen Weg weiter."
+      "Sie halten einen leeren Geldbeutel hin und hoffen, dass es glimpflich ausgeht, aber Sie werden schnell vertrieben. Sie setzen Ihren Weg traurig und enttäuscht fort."
     ],
     "refused": [
       "Sie lehnen das Angebot ab und setzen Ihren Weg fort."
@@ -1588,14 +1588,14 @@
       "Während einer Pause im Schatten eines großen Baumes begegnet Ihnen ein vornehmer Mann mit einem freundlichen Lächeln. Es ist Alderic, der Antiquitätenhändler, ein angesehener Händler. Sein Anzug erinnert an eine längst vergangene Zeit und er zeigt Ihnen sorgfältig seine Sammlung antiker Gegenstände, die in seinem Karren ausgestellt sind.",
       "Nach langen Stunden des Wanderns werden Sie höflich von einem Mann mittleren Alters angesprochen, der in Kleidung aus einer vergangenen Epoche gekleidet ist. Er stellt sich als Alderic, der Antiquitätenhändler, vor, ein leidenschaftlicher Sammler von Antiquitäten, und lädt Sie ein, seine Sammlung faszinierender Gegenstände zu besichtigen, wobei er Ihnen gerne die Geschichte jedes einzelnen Stücks erzählt."
     ],
-    "reductionTip": "Er neigt leicht den Kopf und erzählt Ihnen in einem Nebensatz: \"Wenn Sie vorhaben, sich bis zur Wunderstraße vorzuwagen, und es Ihnen gelingt, mich dort zu finden, können Sie sicher sein, dass ich Ihnen ein äußerst günstiges Angebot machen werde.",
+    "reductionTip": "Er neigt leicht den Kopf und verrät Ihnen in einem Nebensatz: \"Wenn Sie vorhaben, sich bis zur Straße der Wunder vorzuwagen, und es Ihnen gelingt, mich dort zu finden, können Sie sicher sein, dass ich Ihnen ein äußerst günstiges Angebot bereithalten werde.\"",
     "purchased": [
       "Zufrieden mit Ihrem Kauf setzen Sie Ihre Fahrt in aller Ruhe fort.",
-      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen, nachdem Sie das Gut erworben haben, setzen Sie Ihren Weg fort."
+      "Sie halten ihm einen Geldbeutel hin, um den Kauf zu tätigen. Nachdem Sie den Gegenstand erworben haben, setzen Sie Ihren Weg fort."
     ],
     "notEnoughMoney": [
       "Sie haben leider nicht genug Geld und setzen daher Ihre Reise fort.",
-      "Du streckst einen leeren Geldbeutel aus und hoffst, dass es glimpflich ausgeht, aber du wirst schnell vertrieben und gehst traurig und enttäuscht deinen Weg weiter."
+      "Sie halten einen leeren Geldbeutel hin und hoffen, dass es glimpflich ausgeht, aber Sie werden schnell vertrieben und gehen traurig und enttäuscht weiter."
     ],
     "refused": [
       "Sie lehnen das Angebot ab und setzen Ihren Weg fort."
