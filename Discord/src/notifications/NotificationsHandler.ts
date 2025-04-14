@@ -31,52 +31,54 @@ export abstract class NotificationsHandler {
 		for (const notification of notificationSerializedPacket.notifications) {
 			const keycloakId = notification.packet.keycloakId;
 
-			KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId).then(async keycloakUser => {
-				if (keycloakUser && keycloakUser.attributes.discordId) {
-					const discordId = keycloakUser.attributes.discordId[0];
-					const lng = keycloakUser.attributes.language[0];
+			KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId)
+				.then(async keycloakUser => {
+					if (keycloakUser && keycloakUser.attributes.discordId) {
+						const discordId = keycloakUser.attributes.discordId[0];
+						const lng = keycloakUser.attributes.language[0];
 
-					let notificationContent: string;
-					let notificationType: NotificationType;
+						let notificationContent: string;
+						let notificationType: NotificationType;
 
-					switch (notification.type) {
-						case ReachDestinationNotificationPacket.name: {
-							const packet = notification.packet as ReachDestinationNotificationPacket;
-							notificationContent = i18n.t("bot:notificationReachDestination", {
-								lng,
-								destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
-							});
-							notificationType = NotificationsTypes.REPORT;
-							break;
+						switch (notification.type) {
+							case ReachDestinationNotificationPacket.name: {
+								const packet = notification.packet as ReachDestinationNotificationPacket;
+								notificationContent = i18n.t("bot:notificationReachDestination", {
+									lng,
+									destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
+								});
+								notificationType = NotificationsTypes.REPORT;
+								break;
+							}
+							case GuildDailyNotificationPacket.name: {
+								const packet = notification.packet as GuildDailyNotificationPacket;
+								notificationContent = i18n.t("bot:notificationGuildDaily", {
+									lng,
+									pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
+									rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
+								});
+								notificationType = NotificationsTypes.GUILD_DAILY;
+								break;
+							}
+							default:
+								throw `Unknown notification type: ${notification.type}`;
 						}
-						case GuildDailyNotificationPacket.name: {
-							const packet = notification.packet as GuildDailyNotificationPacket;
-							notificationContent = i18n.t("bot:notificationGuildDaily", {
-								lng,
-								pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
-								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
+
+						draftBotClient.users.fetch(discordId)
+							.then(async discordUser => {
+								await NotificationsHandler.sendNotification(
+									discordUser,
+									await NotificationsConfigurations.getOrRegister(discordId),
+									notificationType,
+									i18n.t(notificationContent, { lng }),
+									lng
+								);
 							});
-							notificationType = NotificationsTypes.GUILD_DAILY;
-							break;
-						}
-						default:
-							throw "Unknown notification type: " + notification.type;
 					}
-
-					draftBotClient.users.fetch(discordId).then(async discordUser => {
-						await NotificationsHandler.sendNotification(
-							discordUser,
-							await NotificationsConfigurations.getOrRegister(discordId),
-							notificationType,
-							i18n.t(notificationContent, { lng }),
-							lng
-						);
-					});
-				}
-				else {
-					throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
-				}
-			});
+					else {
+						throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
+					}
+				});
 		}
 	}
 
@@ -134,9 +136,10 @@ export abstract class NotificationsHandler {
 	 */
 	static async sendDmNotification(user: User, content: string, lng: Language): Promise<void> {
 		const embed = NotificationsHandler.getNotificationEmbed(user, content, lng);
-		await user.send({ embeds: [embed] }).catch(e => {
-			DraftBotLogger.errorWithObj(`Failed to send DM notification to user ${user.id}`, e);
-		});
+		await user.send({ embeds: [embed] })
+			.catch(e => {
+				DraftBotLogger.errorWithObj(`Failed to send DM notification to user ${user.id}`, e);
+			});
 	}
 
 	/**
@@ -153,13 +156,14 @@ export abstract class NotificationsHandler {
 		const notificationTypeValue = notificationType.value(notificationConfiguration);
 
 		const channelAccess = await draftBotClient.shard!.broadcastEval((client, context) =>
-			client.channels.fetch(context.channel).then(channel => {
-				if ((<BaseGuildTextChannel>channel).guild.shardId === client.shard!.ids[0]) {
-					(<TextChannel>channel).send(context.embedNotification);
-					return true;
-				}
-				return false;
-			})
+			client.channels.fetch(context.channel)
+				.then(channel => {
+					if ((<BaseGuildTextChannel>channel).guild.shardId === client.shard!.ids[0]) {
+						(<TextChannel>channel).send(context.embedNotification);
+						return true;
+					}
+					return false;
+				})
 				.catch(() => false), {
 			context: {
 				channel: notificationTypeValue.channelId!,
