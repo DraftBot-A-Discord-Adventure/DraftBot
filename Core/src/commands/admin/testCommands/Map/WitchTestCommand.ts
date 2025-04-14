@@ -29,15 +29,15 @@ const witchActionsLower = witchActions.map(action => action.id.toLowerCase());
  * Force a witch small event with the given actions
  */
 const smallEventTestCommand: ExecuteTestCommandLike = async (player, args, response, context) => {
-	for (let i = 0; i < args.length; i++) {
-		const actionPos = witchActionsLower.indexOf(args[i].toLowerCase());
+	args.forEach(item => {
+		const actionPos = witchActionsLower.indexOf(item.toLowerCase());
 		if (actionPos === -1) {
-			throw new Error(`Erreur witch : l'action ${args[i]} n'existe pas. Veuillez vous référer à la commande "test help witch" pour plus d'informations`);
+			throw new Error(`Erreur witch : l'action ${item} n'existe pas. Veuillez vous référer à la commande "test help witch" pour plus d'informations`);
 		}
-	}
+	});
 
 	await smallEventFuncs.executeSmallEvent(response, player, context, args);
-	return `Mini event forcé !`;
+	return "Mini event forcé !";
 };
 
 commandInfo.execute = smallEventTestCommand;
