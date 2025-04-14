@@ -1,15 +1,22 @@
-import {ItemCategory, itemCategoryToString, ItemNature} from "../../../Lib/src/constants/ItemConstants";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import {
+	ItemCategory,
+	itemCategoryToString,
+	ItemNature
+} from "../../../Lib/src/constants/ItemConstants";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import {Language} from "../../../Lib/src/Language";
-import {ItemWithDetails} from "../../../Lib/src/types/ItemWithDetails";
-import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
-import {Item} from "../../../Lib/src/types/Item";
-import {EmoteUtils} from "./EmoteUtils";
-import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
-import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
-import {PetFood} from "../../../Lib/src/types/PetFood";
-import {StringUtils} from "./StringUtils";
+import { Language } from "../../../Lib/src/Language";
+import { ItemWithDetails } from "../../../Lib/src/types/ItemWithDetails";
+import { minutesDisplay } from "../../../Lib/src/utils/TimeUtils";
+import { Item } from "../../../Lib/src/types/Item";
+import { EmoteUtils } from "./EmoteUtils";
+import {
+	SexTypeShort,
+	StringConstants
+} from "../../../Lib/src/constants/StringConstants";
+import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
+import { PetFood } from "../../../Lib/src/types/PetFood";
+import { StringUtils } from "./StringUtils";
 
 export class DisplayUtils {
 	/**
@@ -326,7 +333,9 @@ export class DisplayUtils {
 			})),
 			rarity: i18n.t(`items:rarities.${itemWithDetails.rarity}`, { lng }),
 			values: i18n.t(`items:potionsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
-				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP ? minutesDisplay(itemWithDetails.detailsSupportItem!.power) : itemWithDetails.detailsSupportItem!.power,
+				power: itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP
+					? minutesDisplay(itemWithDetails.detailsSupportItem!.power, lng)
+					: itemWithDetails.detailsSupportItem!.power,
 				lng
 			}),
 			lng
