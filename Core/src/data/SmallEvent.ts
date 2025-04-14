@@ -22,7 +22,7 @@ export class SmallEvent extends Data<string> {
 }
 
 export type CanBeExecutedLike = (player: Player) => boolean | Promise<boolean>;
-export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, context: PacketContext) => void | Promise<void>;
+export type ExecuteSmallEventLike = (response: DraftBotPacket[], player: Player, context: PacketContext, testArgs?: string[]) => void | Promise<void>;
 
 export type SmallEventFuncs = {
 	canBeExecuted: CanBeExecutedLike;

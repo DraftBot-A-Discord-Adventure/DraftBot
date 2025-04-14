@@ -150,4 +150,8 @@ export class WitchActionDataController extends DataControllerString<WitchAction>
 	getDoNothing(): WitchAction {
 		return this.getById("doNothing");
 	}
+
+	getAll(): WitchAction[] {
+		return Array.from(this.data.values());
+	}
 }

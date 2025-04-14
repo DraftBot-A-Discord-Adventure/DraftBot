@@ -23,7 +23,8 @@ import {
 import Player from "../database/game/models/Player";
 import { GenericItem } from "../../data/GenericItem";
 import {
-	ReactionCollectorWitch, ReactionCollectorWitchReaction
+	ReactionCollectorWitch,
+	ReactionCollectorWitchReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorWitch";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { WitchActionOutcomeType } from "../../../../Lib/src/types/WitchActionOutcomeType";
@@ -160,8 +161,14 @@ function getEndCallback(player: Player): EndCallback {
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 
-	executeSmallEvent: (response, player, context) => {
-		const events = getRandomWitchEvents(player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
+	executeSmallEvent: (response, player, context, testArgs?: string[]) => {
+		const events: WitchEventSelection = testArgs
+			? {
+				randomAdvice: WitchActionDataController.instance.getById(testArgs[0]),
+				randomIngredient: WitchActionDataController.instance.getById(testArgs[1]),
+				fullRandom: WitchActionDataController.instance.getById(testArgs[2])
+			}
+			: getRandomWitchEvents(player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
 
 		const collector = new ReactionCollectorWitch(
 			Object.values(events)
