@@ -22,7 +22,7 @@ function verifyTriggerDate(trigger: BigEventTrigger): boolean {
 	const date = new Date();
 	for (const [timeScale, timeRange] of Object.entries(trigger.date)) {
 		const value = dateFunctions[timeScale as keyof DateFormat](date);
-		if ((timeRange?.from ?? -1) >= value || (timeRange?.to ?? 99999) <= value) {
+		if ((timeRange?.from ?? -1) > value || (timeRange?.to ?? 99999) < value) {
 			return false;
 		}
 	}
