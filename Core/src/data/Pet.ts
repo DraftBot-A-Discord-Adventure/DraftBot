@@ -44,7 +44,7 @@ export class PetDataController extends DataControllerNumber<Pet> {
 	/**
 	 * Get a random pet
 	 */
-	public getRandom(rarity: number = -1): Pet {
+	public getRandom(rarity = -1): Pet {
 		let pets = this.getValuesArray();
 		pets = pets.filter(pet => pet.rarity !== 0); // Rarity 0 is for the no pet slot
 		if (rarity !== -1) {

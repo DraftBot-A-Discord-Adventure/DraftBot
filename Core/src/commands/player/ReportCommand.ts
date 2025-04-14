@@ -42,8 +42,7 @@ import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEv
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { ReactionCollectorPveFight } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
-	ReactionCollectorChooseDestination,
-	ReactionCollectorChooseDestinationReaction
+	ReactionCollectorChooseDestination, ReactionCollectorChooseDestinationReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import { MapCache } from "../../core/maps/MapCache";
 import { TravelTime } from "../../core/maps/TravelTime";
@@ -55,8 +54,7 @@ import {
 	BigEvent, BigEventDataController
 } from "../../data/BigEvent";
 import {
-	ReactionCollectorBigEvent,
-	ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEvent, ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import { Possibility } from "../../data/events/Possibility";
 import { applyPossibilityOutcome } from "../../data/events/PossibilityOutcome";
@@ -145,7 +143,8 @@ async function initiateNewPlayerOnTheAdventure(player: Player): Promise<void> {
 	await Maps.startTravel(
 		player,
 		MapLinkDataController.instance.getById(Constants.BEGINNING.START_MAP_LINK),
-		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD).valueOf()
+		getTimeFromXHoursAgo(Constants.REPORT.HOURS_USED_TO_CALCULATE_FIRST_REPORT_REWARD)
+			.valueOf()
 	);
 	await player.save();
 }
@@ -197,7 +196,8 @@ async function doPossibility(
 	player.nextEvent = null;
 
 	if (event.id === 0 && possibility[0] === "end") { // Don't do anything if the player ends the first report
-		draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], "0").then();
+		draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], "0")
+			.then();
 		response.push(makePacket(CommandReportBigEventResultRes, {
 			eventId: event.id,
 			possibilityId: possibility[0],
@@ -216,7 +216,8 @@ async function doPossibility(
 
 	const randomOutcome = RandomUtils.draftbotRandom.pick(Object.entries(possibility[1].outcomes));
 
-	draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], randomOutcome[0]).then();
+	draftBotInstance.logsDatabase.logBigEvent(player.keycloakId, event.id, possibility[0], randomOutcome[0])
+		.then();
 
 	const newMapLink = await applyPossibilityOutcome({
 		eventId: event.id,
@@ -493,8 +494,8 @@ async function doPVEBoss(
 	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[]): Promise<void> => {
 		if (fight) {
 			const rewards = monsterObj.getRewards(randomLevel);
-			let guildXp: number = 0;
-			let guildPoints: number = 0;
+			let guildXp = 0;
+			let guildPoints = 0;
 
 			player.fightPointsLost = fight.fightInitiator.getMaxEnergy() - fight.fightInitiator.getEnergy();
 
@@ -531,7 +532,8 @@ async function doPVEBoss(
 
 			await player.save();
 
-			draftBotInstance.logsDatabase.logPveFight(fight).then();
+			draftBotInstance.logsDatabase.logPveFight(fight)
+				.then();
 		}
 
 		if (!await player.leavePVEIslandIfNoEnergy(endFightResponse)) {
@@ -659,7 +661,8 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 		const smallEventModule = require.resolve(`../../core/smallEvents/${filename}`);
 		try {
 			const smallEvent: SmallEventFuncs = require(smallEventModule).smallEventFuncs;
-			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event).then();
+			draftBotInstance.logsDatabase.logSmallEvent(player.keycloakId, event)
+				.then();
 			await smallEvent.executeSmallEvent(response, player, context);
 			await MissionsController.update(player, response, { missionId: "doReports" });
 		}
@@ -673,5 +676,6 @@ async function executeSmallEvent(response: DraftBotPacket[], player: Player, con
 	}
 
 	// Save
-	await PlayerSmallEvents.createPlayerSmallEvent(player.id, event, Date.now()).save();
+	await PlayerSmallEvents.createPlayerSmallEvent(player.id, event, Date.now())
+		.save();
 }
