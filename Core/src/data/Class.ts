@@ -15,8 +15,6 @@ export class Class extends Data<number> {
 
 	public readonly defense: number;
 
-	public readonly emoji: string;
-
 	public readonly fightPoint: number;
 
 	public readonly health: number;

@@ -2,12 +2,12 @@ import {
 	DraftBotPacket, makePacket
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq,
+	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 
 import { ClassDataController } from "../../data/Class";
 import { FightActionDataController } from "../../data/FightAction";
-import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
@@ -38,8 +38,7 @@ export default class ClassesInfoCommand {
 				const attackStat = attackStats.find(attackStat => attackStat.id === attack);
 				attackList.push({
 					id: attack,
-					cost: attackStat.breath,
-					emoji: DraftBotIcons.fightActions[attack]
+					cost: attackStat.breath
 				});
 			}
 			classesLineDisplay.push({

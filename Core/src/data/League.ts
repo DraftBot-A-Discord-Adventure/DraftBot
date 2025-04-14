@@ -11,8 +11,6 @@ export class League extends Data<number> {
 
 	public readonly maxGloryPoints: number;
 
-	public readonly emoji: string;
-
 
 	/**
 	 * Get the amount of money to award to the player

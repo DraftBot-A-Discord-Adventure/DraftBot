@@ -1,6 +1,5 @@
 {
-	"emote": ":bomb:",
-	"rarity": 8,
+		"rarity": 8,
 	"rawAttack": 10,
 	"attack": 20,
 	"speed": -40

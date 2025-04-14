@@ -1,6 +1,5 @@
 {
-	"emoji": "🔫",
-	"attack": 105,
+		"attack": 105,
 	"defense": 30,
 	"speed": 110,
 	"health": 45,

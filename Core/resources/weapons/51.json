@@ -1,6 +1,5 @@
 {
-	"emote": ":bow_and_arrow:",
-	"rarity": 7,
+		"rarity": 7,
 	"rawAttack": 8,
 	"defense": -35,
 	"speed": 25
