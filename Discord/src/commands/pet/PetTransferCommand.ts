@@ -38,7 +38,9 @@ import {
 	StringSelectMenuInteraction,
 	StringSelectMenuOptionBuilder
 } from "discord.js";
-import { Language } from "../../../../Lib/src/Language";
+import {
+	LANGUAGE, Language
+} from "../../../../Lib/src/Language";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
@@ -52,12 +54,13 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTr
 }
 
 export async function handlePetTransferSuccess(context: PacketContext, packet: CommandPetTransferSuccessPacket): Promise<void> {
-	const interaction: DraftbotInteraction = MessagesUtils.getCurrentInteraction(context);
+	const interaction = MessagesUtils.getCurrentInteraction(context);
 
 	if (!interaction) {
 		return;
 	}
-	const lng = interaction.userLanguage;
+
+	const lng = interaction.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE;
 
 	const oldPetDisplay = packet.oldPet ? DisplayUtils.getOwnedPetInlineDisplay(packet.oldPet, lng) : null;
 	const newPetDisplay = packet.newPet ? DisplayUtils.getOwnedPetInlineDisplay(packet.newPet, lng) : null;
