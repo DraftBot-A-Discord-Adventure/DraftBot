@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}cancelamento da libertação.",
     "canceledDesc": "O animal de estimação não foi libertado.",
     "confirmDesc": ":warning:{{pet}}Tem a certeza de que pretende libertar ** **? Não é possível cancelar uma vez que a ação tenha sido concluída.",
-    "acceptedDesc": "{{pet}}Adeus ** **..."
+    "acceptedDesc": "{{pet}}Adeus ** **...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}alterar a alcunha do animal de estimação",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campanha ( / )**",
-      "campaign_completed": "{emote:missions.campaign} **Campanha terminada",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Missão diária",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missões secundárias ( / )**"
     },
