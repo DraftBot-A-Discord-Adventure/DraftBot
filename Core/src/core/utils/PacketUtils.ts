@@ -13,7 +13,7 @@ import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 export abstract class PacketUtils {
 	static sendPackets(context: PacketContext, packets: DraftBotPacket[]): void {
 		const responsePacket = {
-			context: context,
+			context,
 			packets: packets.map(responsePacket => ({
 				name: responsePacket.constructor.name,
 				packet: responsePacket
@@ -46,13 +46,16 @@ export abstract class PacketUtils {
 	}
 
 	static sendNotifications(notifications: NotificationPacket[]): void {
-		const serializedPackets: NotificationsSerializedPacket = { notifications: notifications.map(notification => ({
-			type: notification.constructor.name,
-			packet: notification
-		})) };
+		const serializedPackets: NotificationsSerializedPacket = {
+			notifications: notifications.map(notification => ({
+				type: notification.constructor.name,
+				packet: notification
+			}))
+		};
 		const json = JSON.stringify(serializedPackets);
 		mqttClient.publish(MqttTopicUtils.getNotificationsTopic(botConfig.PREFIX), json, {
-			retain: true, qos: 2
+			retain: true,
+			qos: 2
 		});
 		DraftBotLogger.debug("Sent notifications", { json });
 	}

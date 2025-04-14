@@ -1,8 +1,5 @@
 import {
-	ReactionCollector,
-	ReactionCollectorCreationPacket,
-	ReactionCollectorData,
-	ReactionCollectorReaction
+	ReactionCollector, ReactionCollectorCreationPacket, ReactionCollectorData, ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
 import {
 	DraftBotPacket, PacketContext, PacketDirection, sendablePacket
@@ -130,7 +127,7 @@ export class ReactionCollectorShop extends ReactionCollector {
 						shopCategoryId: shopCategory.id,
 						shopItemId: shopItem.id,
 						price: shopItem.price * amount,
-						amount: amount
+						amount
 					}));
 				}
 			}

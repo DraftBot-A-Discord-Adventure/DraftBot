@@ -18,7 +18,7 @@ import { Constants } from "../../../../../../Lib/src/constants/Constants";
 import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 import { PetConstants } from "../../../../../../Lib/src/constants/PetConstants";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class Guild extends Model {
 	declare readonly id: number;
@@ -268,9 +268,9 @@ export class Guild extends Model {
 		}
 
 		const query = `SELECT ranking
-					   FROM (SELECT id, RANK() OVER (ORDER BY score desc, level desc) ranking
-							 FROM guilds) subquery
-					   WHERE subquery.id = :id`;
+                       FROM (SELECT id, RANK() OVER (ORDER BY score desc, level desc) ranking
+                             FROM guilds) subquery
+                       WHERE subquery.id = :id`;
 		return ((await Guild.sequelize.query(query, {
 			replacements: {
 				id: this.id
@@ -321,7 +321,7 @@ export class Guilds {
 
 	static async getGuildLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-					   FROM guilds`;
+                       FROM guilds`;
 		return Math.round(
 			(<{
 				avg: number;

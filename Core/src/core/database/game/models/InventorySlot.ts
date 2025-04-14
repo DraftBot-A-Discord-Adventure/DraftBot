@@ -17,7 +17,7 @@ import {
 	ObjectItem, ObjectItemDataController
 } from "../../../../data/ObjectItem";
 import Player from "./Player";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class InventorySlot extends Model {
 	declare readonly playerId: number;

@@ -4,7 +4,7 @@ import {
 import PetEntity from "./PetEntity";
 import Guild from "./Guild";
 import { draftBotInstance } from "../../../../index";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class GuildPet extends Model {
 	declare readonly id: number;
@@ -34,7 +34,8 @@ export class GuildPets {
 				.then();
 		}
 		return GuildPet.build({
-			guildId: guild.id, petEntityId: petEntity.id
+			guildId: guild.id,
+			petEntityId: petEntity.id
 		});
 	}
 

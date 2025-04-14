@@ -26,7 +26,7 @@ import {
 } from "../../../../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../../../../Lib/src/types/OwnedPet";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class PetEntity extends Model {
 	declare readonly id: number;
@@ -221,8 +221,8 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
+                       FROM pet_entities
+                       WHERE lovePoints = ${PetConstants.MAX_LOVE_POINTS}`;
 		return (<{
 			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
@@ -232,8 +232,8 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
+                       FROM pet_entities
+                       WHERE lovePoints <= ${PetConstants.LOVE_LEVELS[0]}`;
 		return (<{
 			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
@@ -243,21 +243,19 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE sex = :sex`;
+                       FROM pet_entities
+                       WHERE sex = :sex`;
 		return (<{
 			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
-			replacements: {
-				sex: sex
-			}
+			replacements: { sex }
 		})))[0].count;
 	}
 
 	static async getNbPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities`;
+                       FROM pet_entities`;
 		return (<{
 			count: number;
 		}[]>(await PetEntity.sequelize.query(query, {

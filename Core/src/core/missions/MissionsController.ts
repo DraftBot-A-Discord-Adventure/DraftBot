@@ -59,6 +59,7 @@ export class MissionsController {
 			}).missionInterface;
 		}
 		catch {
+			// Forced to use a require, as importing the base interface directly will result in a cyclic import (DefaultInterface -> IMission -> Player -> MissionController)
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
@@ -105,7 +106,10 @@ export class MissionsController {
 		player: Player,
 		response: DraftBotPacket[],
 		{
-			missionId, count = 1, params = {}, set = false
+			missionId,
+			count = 1,
+			params = {},
+			set = false
 		}: MissionInformations
 	): Promise<Player> {
 		const missionSlots = await MissionSlots.getOfPlayer(player.id);
@@ -160,7 +164,8 @@ export class MissionsController {
 
 	static async updatePlayerStats(player: Player, missionInfo: PlayerMissionsInfo, completedMissions: CompletedMission[], response: DraftBotPacket[]): Promise<Player> {
 		// Totalizer function to sum the values of the completed missions
-		const totalizer = (mapper: (m: CompletedMission) => number): number => completedMissions.map(mapper).reduce((a, b) => a + b);
+		const totalizer = (mapper: (m: CompletedMission) => number): number => completedMissions.map(mapper)
+			.reduce((a, b) => a + b);
 
 		await missionInfo.addGems(totalizer(m => m.gemsToWin), player.keycloakId, NumberChangeReason.MISSION_FINISHED);
 
@@ -240,7 +245,8 @@ export class MissionsController {
 	public static generateRandomDailyMissionProperties(): GeneratedMission {
 		const mission = MissionDataController.instance.getRandomDailyMission();
 		return this.generateMissionProperties(mission.id, MissionDifficulty.EASY, {
-			mission, daily: true
+			mission,
+			daily: true
 		});
 	}
 
@@ -258,7 +264,8 @@ export class MissionsController {
 		const generatedMission = {
 			mission,
 			index: this.generateMissionIndex(mission, difficulty),
-			variant: this.getMissionInterface(mission.id).generateRandomVariant(difficulty, player)
+			variant: this.getMissionInterface(mission.id)
+				.generateRandomVariant(difficulty, player)
 		};
 		if (!daily) {
 			return generatedMission.index === null ? null : generatedMission;
@@ -269,7 +276,9 @@ export class MissionsController {
 
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
 		const prop = this.generateMissionProperties(missionId, difficulty, {
-			mission, daily: false, player
+			mission,
+			daily: false,
+			player
 		});
 		const missionData = MissionDataController.instance.getById(missionId);
 		const missionSlot = await MissionSlot.create({
@@ -278,7 +287,8 @@ export class MissionsController {
 			missionVariant: prop.variant,
 			missionObjective: missionData.objectives[prop.index],
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.expirations[prop.index])),
-			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
+			numberDone: await this.getMissionInterface(missionId)
+				.initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.gems[prop.index],
 			pointsToWin: missionData.points[prop.index],
 			xpToWin: missionData.xp[prop.index],

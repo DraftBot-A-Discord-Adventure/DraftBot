@@ -6,7 +6,7 @@ import { MissionsController } from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import { draftBotInstance } from "../../../../index";
 import { MissionDataController } from "../../../../data/Mission";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class DailyMission extends Model {
 	declare readonly id: number;

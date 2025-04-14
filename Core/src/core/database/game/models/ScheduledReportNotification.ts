@@ -1,7 +1,7 @@
 import {
 	DataTypes, Model, Op, Sequelize
 } from "sequelize";
-const moment = require("moment");
+import * as moment from "moment";
 
 export class ScheduledReportNotification extends Model {
 	declare readonly playerId: number;

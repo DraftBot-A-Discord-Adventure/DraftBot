@@ -14,6 +14,7 @@ import { MqttTopicUtils } from "../../Lib/src/utils/MqttTopicUtils";
 import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
 import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
+import "source-map-support/register";
 
 export const botConfig = loadConfig();
 DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, { app: "Core" }, botConfig.LOKI_HOST
@@ -65,7 +66,8 @@ mqttClient.on("message", async (topic, message) => {
 		}
 		else {
 			const context: PacketContext = dataJson.context;
-			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name).then();
+			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name)
+				.then();
 			DraftBotCoreMetrics.incrementPacketCount(dataJson.packet.name);
 			const startTime = Date.now();
 			try {
@@ -87,8 +89,6 @@ mqttClient.on("error", error => {
 	DraftBotLogger.errorWithObj("MQTT error", error);
 });
 
-require("source-map-support")
-	.install();
 draftBotInstance = new DraftBot();
 draftBotInstance.init()
 	.then();

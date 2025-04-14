@@ -4,7 +4,7 @@ import {
 import {
 	BaseMission, MissionType
 } from "../../../../../../Lib/src/types/CompletedMission";
-import moment = require("moment");
+import * as moment from "moment";
 import missionJson = require("../../../../../resources/campaign.json");
 
 export class MissionSlot extends Model {
@@ -83,7 +83,8 @@ export class MissionSlots {
 		if (missionSlots.length === 0) {
 			return [
 				await MissionSlot.create({
-					...missionJson.missions[0], playerId
+					...missionJson.missions[0],
+					playerId
 				})
 			];
 		}
@@ -142,11 +143,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		saveBlob: {
 			type: DataTypes.BLOB,
@@ -159,7 +162,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	MissionSlot.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 

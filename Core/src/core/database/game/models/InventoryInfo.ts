@@ -2,7 +2,7 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class InventoryInfo extends Model {
 	declare readonly playerId: number;
@@ -61,7 +61,8 @@ export class InventoryInfo extends Model {
 	}
 
 	public updateLastDailyAt(): void {
-		this.lastDailyAt = moment().toDate();
+		this.lastDailyAt = moment()
+			.toDate();
 	}
 }
 
@@ -90,7 +91,8 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		lastDailyAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		weaponSlots: {
 			type: DataTypes.INTEGER,
@@ -110,11 +112,13 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: moment()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		sequelize,
@@ -123,7 +127,8 @@ export function initModel(sequelize: Sequelize): void {
 	});
 
 	InventoryInfo.beforeSave(instance => {
-		instance.updatedAt = moment().toDate();
+		instance.updatedAt = moment()
+			.toDate();
 	});
 }
 
