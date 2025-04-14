@@ -16,7 +16,8 @@ const possibleEventsTestCommand: ExecuteTestCommandLike = async player => {
 	const mapId = player.getDestinationId();
 
 	const possibleEvents = BigEventDataController.instance.getEventsNotFiltered(mapId);
-	let str = "";
+	let str = `Current datetime: ${Date.now()
+		.toLocaleString()}\n`;
 	for (const event of possibleEvents) {
 		str += `Event n°**${event.id}**\nTriggers :\n`;
 		for (const trigger of event.triggers) {
