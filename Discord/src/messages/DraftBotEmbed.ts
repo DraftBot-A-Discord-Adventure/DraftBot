@@ -8,13 +8,6 @@ import { ColorConstants } from "../../../Lib/src/constants/ColorConstants";
  */
 export class DraftBotEmbed extends EmbedBuilder {
 	/**
-	 * Default constructor
-	 */
-	constructor() {
-		super();
-	}
-
-	/**
 	 * Add the title and the user icon as the title of the embed
 	 * pseudo is automatically replaced in the title. If you have other replacements, you have to replace it yourself before
 	 * @param title
@@ -32,7 +25,7 @@ export class DraftBotEmbed extends EmbedBuilder {
 	 *Set the color of the embed to the error color
 	 */
 	setErrorColor(): this {
-		this.setColor(<HexColorString> ColorConstants.ERROR);
+		this.setColor(<HexColorString>ColorConstants.ERROR);
 		return this;
 	}
 }
