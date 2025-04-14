@@ -173,7 +173,7 @@
       "active": "erleidet die Angriffe der Verbündeten seines Gegners."
     },
     "canonAttack": {
-      "description": "Die Genauigkeit dieses Angriffs sinkt bei schnellen Gegnern. Ein Schadensbonus wird auf diesen Angriff angewendet, wenn der Gegner sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Verursacht mehr Schaden, wenn er mehrmals hintereinander eingesetzt wird.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
       "name_one": "Kanonenanhalter",
       "name_other": "Kanonen-Attacken"
     },

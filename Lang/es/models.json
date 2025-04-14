@@ -173,7 +173,7 @@
       "active": "sufre ataques de los aliados de su oponente."
     },
     "canonAttack": {
-      "description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
       "name_one": "Ataque con cañón",
       "name_other": "Ataques con cañón"
     },

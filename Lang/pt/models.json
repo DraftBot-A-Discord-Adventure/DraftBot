@@ -173,7 +173,7 @@
       "active": "sofre ataques dos aliados do seu adversário."
     },
     "canonAttack": {
-      "description": "A precisão deste ataque é reduzida em adversários que se movam rapidamente. Um bónus de dano é aplicado a este ataque se o adversário for muito lento. O adversário pode ser abrandado por este ataque. Causa mais danos se for usado várias vezes seguidas.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
       "name_one": "Ataque de canhão",
       "name_other": "Ataques de canhão"
     },

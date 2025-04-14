@@ -173,7 +173,7 @@
       "active": "subisce gli attacchi degli alleati dell'avversario."
     },
     "canonAttack": {
-      "description": "La precisione di questo attacco è ridotta sugli avversari che si muovono velocemente. Se l'avversario è molto lento, a questo attacco viene applicato un bonus ai danni. L'avversario può essere rallentato dall'attacco. Infligge più danni se usato più volte di seguito.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
       "name_one": "Attacco canone",
       "name_other": "Attacchi canoni"
     },

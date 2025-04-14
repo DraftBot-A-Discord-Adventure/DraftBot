@@ -173,7 +173,7 @@
       "active": "suffers attacks from its opponent's allies."
     },
     "canonAttack": {
-      "description": "The accuracy of this attack is reduced on fast-moving opponents. A damage bonus is assigned to this attack if the opponent is very slow. The opponent can be slowed down by the attack. Inflicts more damage if used several times in succession.",
+      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
