@@ -1,3 +1,4 @@
+// skipcq: JS-C1003 - i18next does not expose itself as an ES Module.
 import * as i18next from "i18next";
 import {
 	Language, LANGUAGE
@@ -130,10 +131,11 @@ export class I18nDraftbot {
 	static t(key: string | string[], options: TranslationOption): string | string[] | Record<string, string> {
 		const value: string | string[] | object = i18next.t(key, options);
 		if (options.returnObjects && !Array.isArray(value)) {
-			return Object.entries(value).reduce((acc, [k, v]) => {
-				acc[k] = draftbotFormat(v as string);
-				return acc;
-			}, {} as Record<string, string>);
+			return Object.entries(value)
+				.reduce((acc, [k, v]) => {
+					acc[k] = draftbotFormat(v as string);
+					return acc;
+				}, {} as Record<string, string>);
 		}
 		if (Array.isArray(value)) {
 			return (value as string[]).map(draftbotFormat);

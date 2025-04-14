@@ -29,6 +29,8 @@ import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import { ScheduledReportNotifications } from "../database/game/models/ScheduledReportNotification";
 import { ReachDestinationNotificationPacket } from "../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { MapLocationDataController } from "../../data/MapLocation";
+
+// skipcq: JS-C1003 - fs does not expose itself as an ES Module.
 import * as fs from "fs";
 import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
 import { initializeAllClassBehaviors } from "../fights/AiBehaviorController";

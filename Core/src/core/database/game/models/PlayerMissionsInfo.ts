@@ -5,6 +5,8 @@ import { datesAreOnSameDay } from "../../../../../../Lib/src/utils/TimeUtils";
 import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 import { draftBotInstance } from "../../../../index";
 import { Campaign } from "../../../missions/Campaign";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 import { MissionsController } from "../../../missions/MissionsController";
 import { Players } from "./Player";

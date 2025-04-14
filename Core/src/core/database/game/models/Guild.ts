@@ -18,6 +18,8 @@ import { Constants } from "../../../../../../Lib/src/constants/Constants";
 import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 import { PetConstants } from "../../../../../../Lib/src/constants/PetConstants";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class Guild extends Model {

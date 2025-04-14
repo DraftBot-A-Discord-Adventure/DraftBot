@@ -1,5 +1,6 @@
-import * as ItemUtils from "../../../../core/utils/ItemUtils";
-import { getItemByIdAndCategory } from "../../../../core/utils/ItemUtils";
+import {
+	getItemByIdAndCategory, giveItemToPlayer
+} from "../../../../core/utils/ItemUtils";
 import {
 	ExecuteTestCommandLike, ITestCommand, TypeKey
 } from "../../../../core/CommandsTest";
@@ -28,7 +29,7 @@ const findItemTestCommand: ExecuteTestCommandLike = async (player, args, respons
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(response, context, player, item);
+	await giveItemToPlayer(response, context, player, item);
 	return `Vous avez trouvé l'objet d'id ${itemId} de la catégorie n°${category}.`;
 };
 

@@ -4,6 +4,8 @@ import {
 import PetEntity from "./PetEntity";
 import Guild from "./Guild";
 import { draftBotInstance } from "../../../../index";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class GuildPet extends Model {

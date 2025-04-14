@@ -55,6 +55,8 @@ import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../../../Lib/src/types/Badge";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
 

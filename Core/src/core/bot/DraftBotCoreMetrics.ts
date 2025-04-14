@@ -1,3 +1,4 @@
+// skipcq: JS-C1003 - prom-client does not expose itself as an ES Module.
 import * as client from "prom-client";
 
 export const draftBotMetricsRegistry = new client.Registry();

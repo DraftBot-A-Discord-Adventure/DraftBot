@@ -1,5 +1,10 @@
+// skipcq: JS-C1003 - typescript does not expose itself as an ES Module.
 import * as ts from "typescript";
+
+// skipcq: JS-C1003 - fs does not expose itself as an ES Module.
 import * as fs from "fs";
+
+// skipcq: JS-C1003 - path does not expose itself as an ES Module.
 import * as path from "path";
 import { existsSync } from "node:fs";
 
