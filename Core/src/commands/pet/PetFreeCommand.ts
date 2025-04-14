@@ -156,7 +156,7 @@ export default class PetFreeCommand {
 			playerPet.typeId,
 			playerPet.sex as SexTypeShort,
 			playerPet.nickname,
-			playerPet.isFeisty()
+			playerPet.isFeisty() ? PetFreeConstants.FREE_FEISTY_COST : 0
 		);
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
