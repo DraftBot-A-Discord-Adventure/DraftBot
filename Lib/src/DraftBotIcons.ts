@@ -221,7 +221,7 @@ export const DraftBotIcons: {
 		"occupied": "🕑",
 		"starving": "🤤",
 		"confounded": "😖",
-		"scared:": "😱",
+		"scared": "😱",
 		"lost": "🧐",
 		"healed": "🏥",
 		"fished": "🐟"
