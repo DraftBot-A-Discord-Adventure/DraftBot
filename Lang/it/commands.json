@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Usate questo comando per sfidare altri giocatori sullo stesso server.\nLe battaglie si svolgono turno per turno. A ogni turno si può scegliere un'azione da eseguire.\n\nPer ulteriori informazioni, consultare la pagina della guida: https://guide.draftbot.com/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Visualizza la classifica gloriosa della partita per ogni 15 giocatori. Viene visualizzato anche il campionato dei giocatori. I giocatori sullo stesso server che voi sono contrassegnati da un punto blu."
@@ -460,14 +460,14 @@
     "money": "** | {emote:unitValues.money} Soldi guadagnati : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Denaro perso : **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}, ricompense per il combattimento",
-    "monsterRewardGuildXp": ":star: XP di gilda guadagnati: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} XP di gilda guadagnati : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Argento vinto : **{{money}}**\n:star: XP guadagnati : **{{experience}}**",
     "monsterRewardsGuildPoints": ":mirror_ball: Punti gilda guadagnati : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, ricompense per il combattimento",
     "newBigEvent": ":flag_fr: Avete raggiunto **{{destination}}** !",
     "noFight": ":newspaper: **Giornale di {{pseudo}} :** {{waitABitReaction}} | Fai una rapida fuga e trova un piccolo nascondiglio! Il mostro sta aspettando pazientemente fuori...",
     "points": ":** :medal: Punti vinti : **{{score}}",
-    "pveEvent": ":newspaper: ** Giornale di {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Iniziare il combattimento\n{{waitABitReaction}} Aspettare un po' prima di iniziare il combattimento\n\n*- Usare le reazioni per eseguire un'azione*",
+    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Avviare il combattimento\n{emote:pveFights.waitABit} Attendere un po' prima di iniziare il combattimento\n\n*- Utilizzare i pulsanti per eseguire un'azione*.",
     "pveFightRefused": "{emote:commands.report} **Diario di {{pseudo}} :** {emote:pveFights.waitABit} | Decidete di non combattere per il momento e di rifugiarvi in un nascondiglio nelle vicinanze. Alla fine dovrete affrontare la bestia, perché non riuscite a trovare un'altra via d'uscita.",
     "remainingEnergyTitle": "Energia rimanente :",
     "startPoint": "Punto di partenza :",
@@ -686,7 +686,7 @@
           "healEveryone": [
             "Questo animale ha notevoli poteri di guarigione! Può curare le vostre ferite e quelle dei vostri alleati nel bel mezzo della battaglia.",
             "Le sue secrezioni contengono potenti enzimi rigeneranti. Li userà per mantenervi in forma durante gli scontri.",
-            "Ho osservato proprietà biorigenerative uniche nel suo corpo. Il vostro animale condividerà questa energia vitale con voi e i vostri compagni."
+            "Ho osservato proprietà bio-rigenerative uniche nel suo corpo. Il vostro animale condividerà questa energia vitale con voi e i vostri compagni."
           ],
           "helpBreathe": [
             "La sua capacità di respirazione è straordinaria! Può condividere il suo ossigeno con voi durante le battaglie più difficili o sott'acqua.",
@@ -714,7 +714,7 @@
             "La sua biochimica unica gli permette di produrre agenti paralizzanti. I vostri avversari saranno congelati, incapaci di reagire."
           ],
           "peck": [
-            "Il becco del vostro animale domestico è affilato come un pugnale! Gli permetterà di tormentare gli avversari con colpi precisi e dolorosi durante i combattimenti.",
+            "Il becco del vostro animale domestico è affilato come un pugnale! È l'arma perfetta con cui tormentare gli avversari con colpi precisi e dolorosi durante la battaglia.",
             "La struttura ossea del becco è perfettamente adatta a colpire. Punge con precisione i nemici nei punti sensibili.",
             "Questo animale ha imparato l'arte di essere fastidioso con il suo becco. Gli avversari saranno indeboliti dai suoi attacchi incessanti."
           ],
@@ -821,7 +821,7 @@
           "swallow": [
             "Osservazioni cliniche dimostrano che il suo apparato digerente è in grado di inghiottire le prede, neutralizzando così l'avversario.",
             "La sua capacità digestiva gli permette di ingerire completamente il nemico, rendendolo un interessante metodo di difesa alternativo.",
-            "Gli studi anatomici rivelano una gola particolarmente elastica, ideale per mettere all'angolo un avversario..."
+            "Gli studi anatomici rivelano una gola particolarmente elastica, adatta ad accogliere un avversario..."
           ],
           "triesToHelp": [
             "I test comportamentali suggeriscono che l'animale domestico cerca di assistere il padrone fornendo un aiuto misurato, anche se il suo contributo rimane limitato.",
@@ -987,7 +987,7 @@
   },
   "missionsshop": {
     "title": "Negozio di missioni",
-    "success": "{pseudo}Una transazione di successo!",
+    "success": "{{pseudo}}, transaction réussie !",
     "error": {
       "cannotBuy": "Non hai abbastanza gemme per acquistare questo oggetto!{missingMoney}{emote:unitValues.gem}Ti manca ` `.",
       "canceledPurchase": "Transazione annullata!",
@@ -1297,7 +1297,7 @@
     "soldMessage": "Hai venduto {{item}} per **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}avete venduto un'apparecchiatura.",
     "potionDestroyedTitle": "Hai distrutto una pozione.",
-    "potionDestroyedMessage": "La vostra pozione{{item}}è stata versata nel lavandino.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Avete ricevuto un'apparecchiatura che già possedevate.",
     "titleChoiceEmbed": "{{pseudo}}vendita di oggetti",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
