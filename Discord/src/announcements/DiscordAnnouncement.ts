@@ -31,7 +31,7 @@ export abstract class DiscordAnnouncement {
 
 	static async canAnnounce(): Promise<boolean> {
 		const guild = await draftBotClient!.guilds.fetch(discordConfig.MAIN_SERVER_ID);
-		return !!guild.shard; // Guild.shard is not a boolean, so we need to use !! to convert it to a boolean
+		return Boolean(guild.shard);
 	}
 
 	static async announceTopWeek(topWeekAnnouncementPacket: TopWeekAnnouncementPacket): Promise<void> {
