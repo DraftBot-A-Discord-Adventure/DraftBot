@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}, cancellation of the release.",
     "canceledDesc": "The pet has not been released.",
     "confirmDesc": "{emote:collectors.warning} Are you sure you want to release **{{pet}}**? It is not possible to undo once the action has been done.",
-    "acceptedDesc": "Farewell **{{pet}}**..."
+    "acceptedDesc": "Farewell **{{pet}}**...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}, changing the pet's nickname",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}'s missions",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign} **Campaign ({{current}}/{{max}})**",
-      "campaign_completed": "{emote:missions.campaign} **Campaign completed**",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Daily mission**",
       "sideMissions": "\n{emote:missions.sideMission} **Secondary missions ({{current}}/{{max}})**"
     },
