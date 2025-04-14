@@ -95,7 +95,7 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 	if (selectedEvent.forceEffect || outcome === WitchActionOutcomeType.EFFECT) {
 		await selectedEvent.giveEffect(player);
 	}
-	else if (outcome === WitchActionOutcomeType.LIFE_LOSS) {
+	if (outcome === WitchActionOutcomeType.LIFE_LOSS) {
 		await player.addHealth(
 			-SmallEventConstants.WITCH.BASE_LIFE_POINTS_REMOVED_AMOUNT,
 			response,
@@ -117,12 +117,15 @@ async function applyOutcome(outcome: WitchActionOutcomeType, selectedEvent: Witc
 
 function getEndCallback(player: Player): EndCallback {
 	return async (collector, response) => {
+		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.WITCH_CHOOSE);
+
+		await player.reload();
+
 		const reaction = collector.getFirstReaction();
 		const selectedEvent = reaction
 			? WitchActionDataController.instance.getById((reaction.reaction.data as ReactionCollectorWitchReaction).id)
 			: WitchActionDataController.instance.getDoNothing();
 		const outcome = selectedEvent.generateOutcome();
-		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.WITCH_CHOOSE);
 
 		const resultPacket = makePacket(SmallEventWitchResultPacket, {
 			outcome,
