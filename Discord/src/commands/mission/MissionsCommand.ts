@@ -14,8 +14,7 @@ import {
 	draftBotClient, keycloakConfig
 } from "../../bot/DraftBotShard";
 import {
-	CommandMissionsPacketReq,
-	CommandMissionsPacketRes
+	CommandMissionsPacketReq, CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { User } from "discord.js";
@@ -60,23 +59,26 @@ export async function handleCommandMissionPlayerNotFoundPacket(context: PacketCo
  * @param lng
  */
 function getCampaignMissionPart(packet: CommandMissionsPacketRes, lng: Language): string {
-	const campaignMission = packet.missions.find(mission => mission.missionType === MissionType.CAMPAIGN);
-	return `${i18n.t("commands:missions.subcategories.campaign", {
+	// campaignProgression is at 0 if its completed
+	if (!packet.campaignProgression) {
+		return i18n.t("commands:missions.subcategories.campaignCompleted", { lng });
+	}
+
+	// We are guaranteed to have a campaign mission slot, if not, it's a core problem
+	const campaignMission = packet.missions.find(mission => mission.missionType === MissionType.CAMPAIGN)!;
+
+	return `${i18n.t("commands:missions.subcategories.campaignCurrent", {
 		lng,
 		current: packet.campaignProgression,
-		max: packet.maxCampaignNumber,
-		context: campaignMission ? "current" : "completed"
-	})}${campaignMission
-		? `\n${i18n.t("commands:missions.missionDisplay", {
-			lng,
-			mission: MissionUtils.formatBaseMission(campaignMission, lng),
-			progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
-			current: campaignMission.numberDone,
-			objective: campaignMission.missionObjective,
-			context: "campaign"
-		})}`
-		: ""
-	}`;
+		max: packet.maxCampaignNumber
+	})}\n${i18n.t("commands:missions.missionDisplay", {
+		lng,
+		mission: MissionUtils.formatBaseMission(campaignMission, lng),
+		progressionBar: MissionUtils.generateDisplayProgression(campaignMission.numberDone, campaignMission.missionObjective),
+		current: campaignMission.numberDone,
+		objective: campaignMission.missionObjective,
+		context: "campaign"
+	})}`;
 }
 
 /**

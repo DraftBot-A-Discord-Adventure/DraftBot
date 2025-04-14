@@ -924,8 +924,8 @@
   "missions": {
     "title": "Missions de {{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
-      "campaign_completed": "{emote:missions.campaign} **Campagne terminée**",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Mission quotidienne**",
       "sideMissions": "\n{emote:missions.sideMission} **Missions secondaires ({{current}}/{{max}})**"
     },
