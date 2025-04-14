@@ -14,7 +14,7 @@ export class ReactionCollectorPetFreeData extends ReactionCollectorData {
 
 	petNickname?: string;
 
-	freeCost!: number;
+	isFeisty!: boolean;
 }
 
 export class ReactionCollectorPetFree extends ReactionCollector {
@@ -24,14 +24,14 @@ export class ReactionCollectorPetFree extends ReactionCollector {
 
 	private readonly petNickname: string | undefined;
 
-	private readonly freeCost: number;
+	private readonly isFeisty: boolean;
 
-	constructor(petId: number, petSex: SexTypeShort, petNickname: string | undefined, freeCost: number) {
+	constructor(petId: number, petSex: SexTypeShort, petNickname: string | undefined, isFeisty: boolean) {
 		super();
 		this.petId = petId;
 		this.petSex = petSex;
 		this.petNickname = petNickname;
-		this.freeCost = freeCost;
+		this.isFeisty = isFeisty;
 	}
 
 	creationPacket(id: string, endTime: number): ReactionCollectorCreationPacket {
@@ -46,7 +46,7 @@ export class ReactionCollectorPetFree extends ReactionCollector {
 				petId: this.petId,
 				petSex: this.petSex,
 				petNickname: this.petNickname,
-				freeCost: this.freeCost
+				isFeisty: this.isFeisty
 			})
 		};
 	}

@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}, annulation de la libération.",
     "canceledDesc": "Le familier n'a pas été libéré.",
     "confirmDesc": "{emote:collectors.warning} Êtes-vous sur de vouloir libérer **{{pet}}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
-    "acceptedDesc": "Adieu **{{pet}}**..."
+    "acceptedDesc": "Adieu **{{pet}}**...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}, changement du surnom du familier",

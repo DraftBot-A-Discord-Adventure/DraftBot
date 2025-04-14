@@ -21,6 +21,7 @@ import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/intera
 import { PetUtils } from "../../utils/PetUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import {PetFreeConstants} from "../../../../Lib/src/constants/PetFreeConstants";
 
 /**
  * Destroy a pet forever... RIP
@@ -99,6 +100,15 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 				pet: PetUtils.petToShortString(lng, data.petNickname, data.petId, data.petSex)
 			})
 		);
+
+	if (data.isFeisty) {
+		embed.setFooter({
+			text: i18n.t("commands:petFree.isFeisty", {
+				lng,
+				cost: PetFreeConstants.FREE_FEISTY_COST
+			})
+		});
+	}
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
