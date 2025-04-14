@@ -1,7 +1,7 @@
 import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
-import moment = require("moment");
+import * as moment from "moment";
 import { NotificationSendTypeEnum } from "../../../notifications/NotificationSendType";
 
 export class NotificationsConfiguration extends Model {

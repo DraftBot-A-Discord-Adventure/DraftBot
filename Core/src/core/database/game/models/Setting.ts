@@ -3,7 +3,7 @@ import {
 } from "sequelize";
 import { PotionDataController } from "../../../../data/Potion";
 import { MapCache } from "../../../maps/MapCache";
-import moment = require("moment");
+import * as moment from "moment";
 
 class SettingClassNumber {
 	private readonly name: string;

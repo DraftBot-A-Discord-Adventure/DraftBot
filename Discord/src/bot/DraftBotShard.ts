@@ -14,6 +14,7 @@ import {
 import { DiscordDatabase } from "../database/discord/DiscordDatabase";
 import { DraftBotDiscordWebServer } from "./DraftBotDiscordWebServer";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
+import "source-map-support/register";
 
 process.on("uncaughtException", error => {
 	console.error(`Uncaught exception: ${error}`);
@@ -50,7 +51,8 @@ process.on("message", async (message: {
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
 		DraftBotLogger.init(discordConfig.LOGGER_LEVEL, discordConfig.LOGGER_LOCATIONS, {
-			app: "Discord", shard: shardId.toString(10)
+			app: "Discord",
+			shard: shardId.toString(10)
 		}, discordConfig.LOKI_HOST
 			? {
 				host: discordConfig.LOKI_HOST,
@@ -107,7 +109,6 @@ export abstract class Intents {
  * The main function of the bot : makes the bot start
  */
 async function main(): Promise<void> {
-	require("source-map-support").install();
 	const client = new Client(
 		{
 			intents: Intents.LIST,
@@ -129,7 +130,10 @@ async function main(): Promise<void> {
 	 */
 	function getJoinLeaveMessage(guild: Guild, join: boolean, lng: Language): string {
 		const {
-			validation, humans, bots, ratio
+			validation,
+			humans,
+			bots,
+			ratio
 		} = BotUtils.getValidationInfos(guild);
 		return i18n.t(join ? "bot:joinGuild" : "bot:leaveGuild", {
 			guild: guild.name,
@@ -168,4 +172,5 @@ async function main(): Promise<void> {
 	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
 }
 
-main().then();
+main()
+	.then();

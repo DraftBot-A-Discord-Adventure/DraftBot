@@ -1,4 +1,4 @@
-const client = require("prom-client");
+import * as client from "prom-client";
 
 export const draftBotMetricsRegistry = new client.Registry();
 
@@ -41,15 +41,18 @@ export abstract class DraftBotDiscordMetrics {
 	});
 
 	static observePacketTime(packetName: string, time: number): void {
-		this.packetsTimeHistogram.labels(packetName).observe(time);
+		this.packetsTimeHistogram.labels(packetName)
+			.observe(time);
 	}
 
 	static incrementPacketCount(packetName: string): void {
-		this.packetsCount.labels(packetName).inc();
+		this.packetsCount.labels(packetName)
+			.inc();
 	}
 
 	static incrementPacketErrorCount(packetName: string): void {
-		this.packetsErrorCount.labels(packetName).inc();
+		this.packetsErrorCount.labels(packetName)
+			.inc();
 	}
 }
 

@@ -7,16 +7,13 @@ import {
 import { Settings } from "../database/game/models/Setting";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import {
-	Op, Sequelize
+	literal, Op, Sequelize
 } from "sequelize";
 import PetEntity from "../database/game/models/PetEntity";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { PotionDataController } from "../../data/Potion";
 import {
-	getNextDay2AM,
-	getNextSaturdayMidnight,
-	getNextSundayMidnight,
-	minutesToMilliseconds
+	getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds
 } from "../../../../Lib/src/utils/TimeUtils";
 import { TimeoutFunctionsConstants } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import { MapCache } from "../maps/MapCache";
@@ -118,12 +115,11 @@ export class DraftBot {
 	 * Make some pet lose some love points
 	 */
 	static async randomLovePointsLoose(): Promise<boolean> {
-		const sequelize = require("sequelize");
 		if (RandomUtils.draftbotRandom.bool()) {
 			DraftBotLogger.info("All pets lost 4 loves point");
 			await PetEntity.update(
 				{
-					lovePoints: sequelize.literal(
+					lovePoints: literal(
 						"CASE WHEN lovePoints - 4 < 0 THEN 0 ELSE lovePoints - 4 END"
 					)
 				},
@@ -303,7 +299,8 @@ export class DraftBot {
 					mapLinkId: { [Op.in]: MapCache.regenEnergyMapLinks }
 				}
 			}
-		).finally(() => null);
+		)
+			.finally(() => null);
 		setTimeout(
 			DraftBot.fightPowerRegenerationLoop,
 			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)

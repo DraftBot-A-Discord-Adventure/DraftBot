@@ -2,7 +2,7 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 import Player from "./Player";
-import moment = require("moment");
+import * as moment from "moment";
 
 export class PlayerSmallEvent extends Model {
 	declare readonly id: number;

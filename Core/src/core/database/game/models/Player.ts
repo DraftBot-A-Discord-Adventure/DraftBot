@@ -55,7 +55,7 @@ import { StatValues } from "../../../../../../Lib/src/types/StatValues";
 import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../../../Lib/src/types/Badge";
-import moment = require("moment");
+import * as moment from "moment";
 import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
 
 export type PlayerEditValueParameters = {
@@ -906,7 +906,8 @@ export class Player extends Model {
 		await this.setRage(this.rage + rage, reason);
 		if (rage > 0) {
 			await MissionsController.update(this, response, {
-				missionId: "gainRage", count: rage
+				missionId: "gainRage",
+				count: rage
 			});
 		}
 	}

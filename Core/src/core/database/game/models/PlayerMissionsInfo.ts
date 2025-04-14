@@ -5,7 +5,7 @@ import { datesAreOnSameDay } from "../../../../../../Lib/src/utils/TimeUtils";
 import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
 import { draftBotInstance } from "../../../../index";
 import { Campaign } from "../../../missions/Campaign";
-import moment = require("moment");
+import * as moment from "moment";
 import { MissionsController } from "../../../missions/MissionsController";
 import { Players } from "./Player";
 import { DraftBotPacket } from "../../../../../../Lib/src/packets/DraftBotPacket";
