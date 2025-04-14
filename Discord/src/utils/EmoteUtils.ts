@@ -12,7 +12,10 @@ export class EmoteUtils {
 	 * TODO : ADD EMOJI TRANSLATION WHEN YOU SEE A DISCREPANCY PLEASE, THANKS, DON'T BE FOOLS
 	 */
 	private static emojiUnicodeMap: Record<string, string> = {
-		"⛰": ":mountain:"
+		"⛰": ":mountain:",
+		"♨": ":hotsprings:",
+		"✒": ":black_nib:",
+		"⛴": ":ferry:"
 	};
 
 	/**

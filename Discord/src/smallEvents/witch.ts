@@ -111,7 +111,7 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 				`${StringUtils.getRandomTranslation(introToLoad, lng, {
 					witchEvent: `${i18n.t(`smallEvents:witch.witchEventNames.${packet.ingredientId}`, { lng })} ${DraftBotIcons.witchSmallEvent[packet.ingredientId]}`
 						.toLowerCase()
-				})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, lng, { lostLife: packet.lifeLoss })}${timeOutro}`,
+				})} ${StringUtils.getRandomTranslation(outcomeTranslationToLoad, lng, { lifeLoss: packet.lifeLoss })}${timeOutro}`,
 				interaction.user,
 				lng
 			)
