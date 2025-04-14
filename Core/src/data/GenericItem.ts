@@ -3,10 +3,6 @@ import { Data } from "./Data";
 export abstract class GenericItem extends Data<number> {
 	declare readonly rarity: number;
 
-	declare readonly emote: string;
-
-	declare readonly fallbackEmote?: string;
-
 
 	abstract categoryName: string;
 

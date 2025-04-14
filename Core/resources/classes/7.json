@@ -1,6 +1,5 @@
 {
-	"emoji": "🛡️",
-	"attack": 45,
+		"attack": 45,
 	"defense": 95,
 	"speed": 10,
 	"health": 160,
