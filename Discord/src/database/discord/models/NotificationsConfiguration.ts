@@ -1,6 +1,8 @@
 import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 import { NotificationSendTypeEnum } from "../../../notifications/NotificationSendType";
 

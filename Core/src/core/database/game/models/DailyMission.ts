@@ -6,6 +6,8 @@ import { MissionsController } from "../../../missions/MissionsController";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import { draftBotInstance } from "../../../../index";
 import { MissionDataController } from "../../../../data/Mission";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class DailyMission extends Model {

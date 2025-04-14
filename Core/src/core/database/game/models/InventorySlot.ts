@@ -17,6 +17,8 @@ import {
 	ObjectItem, ObjectItemDataController
 } from "../../../../data/ObjectItem";
 import Player from "./Player";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class InventorySlot extends Model {

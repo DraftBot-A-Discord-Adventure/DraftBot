@@ -2,6 +2,8 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 import Player from "./Player";
+
+// skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
 
 export class PlayerSmallEvent extends Model {
