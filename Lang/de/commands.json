@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}Die Befreiung wird aufgehoben.",
     "canceledDesc": "Der Vertraute wurde nicht befreit.",
     "confirmDesc": ":warning: Sind Sie sicher, dass Sie **{{pet}}** befreien wollen? Es ist nicht möglich, eine einmal durchgeführte Aktion rückgängig zu machen.",
-    "acceptedDesc": "Adieu **{{pet}}**..."
+    "acceptedDesc": "Adieu **{{pet}}**...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}Änderung des Spitznamens des Vertrauten",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "Aufgaben von {{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign} **Land ({{current}}/{{max}})**",
-      "campaign_completed": "{emote:missions.campaign} **Kampagne beendet**",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Täglicher Auftrag**",
       "sideMissions": "\n{emote:missions.sideMission} **Nebenmissionen ({{current}}/{{max}})**"
     },
