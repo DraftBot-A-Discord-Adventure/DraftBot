@@ -100,6 +100,15 @@ export async function createPetFreeCollector(context: PacketContext, packet: Rea
 			})
 		);
 
+	if (data.freeCost) {
+		embed.setFooter({
+			text: i18n.t("commands:petFree.isFeisty", {
+				lng,
+				cost: data.freeCost
+			})
+		});
+	}
+
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context);
 }
 
