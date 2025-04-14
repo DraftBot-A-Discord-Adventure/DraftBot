@@ -21,7 +21,7 @@ import { ReactionCollectorPetFreeData } from "../../../../Lib/src/packets/intera
 import { PetUtils } from "../../utils/PetUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
-import {PetFreeConstants} from "../../../../Lib/src/constants/PetFreeConstants";
+import { PetFreeConstants } from "../../../../Lib/src/constants/PetFreeConstants";
 
 /**
  * Destroy a pet forever... RIP
