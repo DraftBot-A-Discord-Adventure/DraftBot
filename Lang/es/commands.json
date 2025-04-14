@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Utiliza este comando para retar a otros jugadores que estén en el mismo servidor que tú.\nLas batallas tienen lugar turno a turno. En cada turno, puedes elegir una acción a realizar.\n\nPara más información, consulta la página de la guía: https://guide.draftbot.com/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Muestra la clasificación gloriosa del partido para cada 15 jugadores. También se muestra la liga de los jugadores. Los jugadores que están en el mismo servidor que tú aparecen marcados con un punto azul."
@@ -460,14 +460,14 @@
     "money": "{emote:unitValues.money} ** Dinero ganado :{{money}}**",
     "moneyLoose": "** | :money_with_wings: Dinero perdido : **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}recompensas de combate",
-    "monsterRewardGuildXp": ":star: XP gremio ganado: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} XP de guilde gagnée : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Plata ganada :{{money}}\n:star: ** XP ganada :{{experience}}** **",
     "monsterRewardsGuildPoints": ":mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr: ¡Ha llegado a{{destination}}!",
     "noFight": ":newspaper: ** {{pseudo}} :** {{waitABitReaction}} | ¡Haces una rápida escapada y encuentras un pequeño escondite! El monstruo espera pacientemente fuera...",
     "points": ":** :medal: Puntos ganados : **{{score}}",
-    "pveEvent": ":newspaper: ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Empieza el combate\n{{waitABitReaction}} Espera un poco antes de empezar el combate\n\n*- Usa las reacciones para realizar una acción*.",
+    "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Commencer le combat\n{emote:pveFights.waitABit} Attendre un peu avant de commencer le combat\n\n*- Utilisez les boutons pour effectuer une action*",
     "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | Decides no entrar en combate por el momento y refugiarte en un escondite cercano. Al final tendrás que enfrentarte a la bestia, ya que no encuentras otra salida.",
     "remainingEnergyTitle": "Energía restante :",
     "startPoint": "Punto de partida :",
@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}cancelación de la liberación.",
     "canceledDesc": "La mascota no ha sido liberada.",
     "confirmDesc": ":warning:{{pet}}¿Está seguro de que desea liberar ** **? No es posible cancelar una vez que la acción se ha completado.",
-    "acceptedDesc": "{{pet}}Adiós ** **..."
+    "acceptedDesc": "{{pet}}Adiós ** **...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}cambiar el apodo de la mascota",
@@ -686,12 +687,12 @@
           "healEveryone": [
             "Esta mascota tiene notables poderes curativos. Puede curar tus heridas y las de tus aliados en plena batalla.",
             "Sus secreciones contienen potentes enzimas regeneradoras. Las utilizará para mantenerte en forma durante los enfrentamientos.",
-            "He observado propiedades bioregenerativas únicas en su cuerpo. Tu mascota compartirá esta energía vital contigo y tus acompañantes."
+            "J'observe des propriétés bio-régénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
           ],
           "helpBreathe": [
             "Su capacidad respiratoria es extraordinaria. Puede compartir su oxígeno contigo durante duras batallas o bajo el agua.",
             "Este ejemplar tiene unas fascinantes branquias modificadas. Le ayudará a recuperar el aliento en los momentos críticos.",
-            "Su sistema pulmonar altamente evolucionado le permite almacenar oxígeno. Se lo transferirá cuando le falte el aire."
+            "Son système pulmonaire hyper évolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
           ],
           "horn": [
             "¡Este cuerno es un arma natural temible! Tu mascota lo utilizará para empalar a sus oponentes con una fuerza impresionante.",
@@ -714,7 +715,7 @@
             "Su bioquímica única le permite producir agentes paralizantes. Sus oponentes quedarán congelados, incapaces de contraatacar."
           ],
           "peck": [
-            "¡El pico de tu mascota es tan afilado como una daga! Le permitirá acosar a tus oponentes con golpes precisos y dolorosos durante el combate.",
+            "Le bec de votre familier est affûté comme une dague ! Il lui permettra d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
             "La estructura ósea de su pico está perfectamente adaptada para golpear. Picará a sus enemigos en puntos sensibles con precisión.",
             "Esta mascota domina el arte de molestar con su pico. Tus oponentes quedarán debilitados por sus implacables ataques."
           ],
@@ -756,7 +757,7 @@
           "protectAgainstCold": [
             "Su pelaje tiene propiedades aislantes excepcionales. Le protegerá eficazmente contra los ataques del hielo.",
             "Su temperatura corporal es naturalmente alta. A su lado, podrá resistir entornos helados y rachas de frío.",
-            "Esta mascota genera un campo térmico extraordinario. Te envolverá en su calor protector contra los ataques helados."
+            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givrées."
           ],
           "rainbowPower": [
             "Esta mascota puede canalizar la energía prismática circundante. Convertirá los ataques mágicos recientes en curación para ti.",
@@ -786,7 +787,7 @@
           "smallClaws": [
             "A pesar de su modesto tamaño, sus garras están muy afiladas. Producen arañazos precisos e irritantes.",
             "Esta pequeña mascota compensa su tamaño con sus finas garras. Apuntará a los puntos sensibles de tus oponentes.",
-            "Sus pequeñas garras son perfectas para acosar a los oponentes. Distraerá a tus enemigos con arañazos estratégicos."
+            "Ses petites griffes sont parfaites pour harceler l'adversaire. Il déconcentrera vos ennemis avec des égratignures stratégiques."
           ],
           "smallRegen": [
             "¡Su metabolismo regenerativo es contagioso! Compartirá contigo sus habilidades curativas en combate.",
@@ -821,7 +822,7 @@
           "swallow": [
             "Las observaciones clínicas demuestran que su tubo digestivo es capaz de engullir presas, neutralizando así a su adversario.",
             "Su capacidad digestiva le permite ingerir completamente al enemigo, lo que lo convierte en un interesante método alternativo de defensa.",
-            "Los estudios anatómicos revelan una garganta especialmente elástica, ideal para acorralar a un adversario..."
+            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accueillir un adversaire..."
           ],
           "triesToHelp": [
             "Las pruebas de comportamiento sugieren que la mascota intenta ayudar a su amo proporcionándole ayuda medida, aunque sus contribuciones siguen siendo limitadas.",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campaña ( / )**",
-      "campaign_completed": "{emote:missions.campaign} **Campaña terminada**",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Misión diaria",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Misiones secundarias ( / )**"
     },
@@ -987,7 +988,7 @@
   },
   "missionsshop": {
     "title": "Tienda de Misiones",
-    "success": "{pseudo}¡Una transacción exitosa!",
+    "success": "{{pseudo}}, transaction réussie !",
     "error": {
       "cannotBuy": "No tienes suficientes gemas para comprar este objeto.{missingMoney}{emote:unitValues.gem}Te falta ` `.",
       "canceledPurchase": "Transacción cancelada.",
@@ -1297,14 +1298,14 @@
     "soldMessage": "¡Has vendido {{item}} por **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}ha vendido un equipo.",
     "potionDestroyedTitle": "Has destruido una poción.",
-    "potionDestroyedMessage": "Tu poción{{item}}se ha vertido por el fregadero.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Ha recibido un equipo que ya poseía.",
     "titleChoiceEmbed": "{{pseudo}}venta de objetos",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "{{item}} ¿Estás seguro de que quieres tirarlo?",
     "sellIndication": "Elija un artículo para vender de la siguiente lista:",
-    "menuPlaceholder": "Elija un artículo para vender",
+    "menuPlaceholder": "Choisissez un objet à vendre",
     "cancel": "Cancelar",
     "selectMenuDescSell": "Vender por {{value}} {emote:unitValues.money}",
     "selectMenuDescThrow": "Descartar {emote:other.trash}"
