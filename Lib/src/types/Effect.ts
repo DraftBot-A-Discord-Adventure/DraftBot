@@ -1,7 +1,7 @@
 const effects = new Map<string, Effect>();
 
 export class Effect {
-	public static readonly NOT_STARTED = new Effect("not_started", ":baby:", 0);
+	public static readonly NOT_STARTED = new Effect("notStarted", ":baby:", 0);
 
 	public static readonly DEAD = new Effect("dead", ":skull:", 16666667);
 
