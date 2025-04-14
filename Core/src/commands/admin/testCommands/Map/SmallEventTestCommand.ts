@@ -23,6 +23,7 @@ export const commandInfo: ITestCommand = {
 };
 
 const smallEventsKeysLower = smallEventsKeys.map(seName => seName.toLowerCase());
+const smallEventsKeysLowerToKeys = new Map<string, string>(smallEventsKeys.map(se => [se.toLowerCase(), se]));
 
 /**
  * Force a small event with a given event name
@@ -32,9 +33,10 @@ const smallEventTestCommand: ExecuteTestCommandLike = async (player, args, respo
 	if (keyPos === -1) {
 		throw new Error(`Erreur smallEvent : le mini-event ${args[0]} n'existe pas. Veuillez vous référer à la commande "test help smallEvent" pour plus d'informations`);
 	}
+	const realKey = smallEventsKeysLowerToKeys.get(args[0].toLowerCase());
 
-	await ReportCommand.execute(response, player, {}, context, args[0]);
-	return `Mini event \`${smallEventsKeys[keyPos]}\` forcé !`;
+	await ReportCommand.execute(response, player, {}, context, realKey);
+	return `Mini event \`${realKey}\` forcé !`;
 };
 
 commandInfo.execute = smallEventTestCommand;
