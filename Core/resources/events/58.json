@@ -1,0 +1,67 @@
+{
+    "possibilities": {
+        "continue": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "sleeping"
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {}
+            }
+        },
+        "goAlchemist": {
+            "outcomes": {
+                "0": {
+                    "health": 25,
+                    "money": -300,
+                    "tags": [
+                        "meetGruffo",
+                        "moneyUsage"
+                    ]
+                },
+                "1": {
+                    "tags": [
+                        "meetGruffo"
+                    ]
+                },
+                "2": {
+                    "health": 25,
+                    "tags": [
+                        "meetGruffo"
+                    ]
+                },
+                "3": {
+                    "effect": "confounded",
+                    "tags": [
+                        "meetGruffo"
+                    ]
+                }
+            }
+        },
+        "shortcut": {
+            "outcomes": {
+                "0": {
+                    "effect": "injured",
+                    "health": -50
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "2": {
+                    "money": 85
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 13
+        }
+    ]
+}

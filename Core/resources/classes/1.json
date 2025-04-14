@@ -1,0 +1,18 @@
+{
+		"attack": 50,
+	"defense": 40,
+	"speed": 20,
+	"health": 75,
+	"fightPoint": 70,
+	"baseBreath": 5,
+	"maxBreath": 11,
+	"breathRegen": 4,
+	"classGroup": 1,
+  "classKind" : "basic",
+	"fightActionsIds": [
+		"simpleAttack",
+		"piercingAttack",
+		"powerfulAttack",
+		"protection"
+	]
+}

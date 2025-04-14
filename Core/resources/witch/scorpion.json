@@ -1,0 +1,9 @@
+{
+	"outcomeProbabilities": {
+		"potion": 35,
+		"effect": 5,
+		"nothing": 10
+	},
+	"effectName": "sick",
+	"isIngredient": true
+}

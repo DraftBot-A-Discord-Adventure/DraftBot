@@ -1,0 +1,59 @@
+{
+    "possibilities": {
+        "eatIt": {
+            "outcomes": {
+                "0": {
+                    "effect": "sick"
+                },
+                "1": {
+                    "health": 10
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "1": {},
+                "2": {
+                    "effect": "occupied",
+                    "health": -10,
+                    "lostTime": 60
+                }
+            }
+        },
+        "helpIt": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -1
+                },
+                "2": {
+                    "money": 500
+                }
+            }
+        },
+        "takeIt": {
+            "outcomes": {
+                "0": {
+                    "health": -5
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 120
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 1
+        }
+    ]
+}

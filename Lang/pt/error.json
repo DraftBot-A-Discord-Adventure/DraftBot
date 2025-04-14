@@ -1,0 +1,155 @@
+{
+  "anotherPlayerBlocked": "{{username}}{{reasons}}Não pode fazer isto porque tem uma ação pendente ( ) !",
+  "blockedContext": {
+    "acceptItem": "escolha de manter ou não um objeto",
+    "cartSmallEvent": "escolha de andar ou não no carrinho",
+    "chiefGuildLeave": "transferência de poder",
+    "chooseDestination": "escolha do destino",
+    "class": "mudança de classe",
+    "confirmBuy": "confirmação de compra",
+    "cooldown": "Estão a enviar encomendas demasiado depressa!",
+    "descriptionEdit": "editar a descrição da guilda",
+    "drink": "escolha de beber ou não uma poção",
+    "fight": "combate",
+    "fightConfirmation": "escolha de começar ou não uma luta",
+    "fightPetChoose": "escolher uma ação de combate de animal de estimação",
+    "gobletChoose": "escolher uma chávena",
+    "guildCreate": "criar uma guilda",
+    "guildElder": "escolha do ancião",
+    "guildElderRemove": "supressão do filho mais velho",
+    "guildInvite": "aderir a uma associação",
+    "guildKick": "expulsão de um membro da guilda",
+    "guildLeave": "saída de um grémio",
+    "guildShop": "escolha na loja da guilda",
+    "guildShopConfirmation": "confirmação da escolha na loja da guilda",
+    "lottery": "lotaria de mini-ventos",
+    "merchant": "escolha do retalhista",
+    "missionShop": "escolher na loja da missão",
+    "missionShopConfirmation": "confirmar a sua escolha na loja da missão",
+    "petFeed": "escolher os alimentos para alimentar o animal de estimação",
+    "petFree": "libertar um animal de estimação",
+    "petSell": "vender um animal de estimação",
+    "petSellConfirm": "confirmação da compra do animal de estimação",
+    "petTransfer": "transferência de animais",
+    "pveIsland": "ilha de mini-ventos PVE",
+    "report": "relatório",
+    "reportCommand": "relatório de encomenda",
+    "selectQuantity": "selecionar uma quantidade",
+    "sell": "venda de um artigo",
+    "sellConfirm": "confirmação da venda de um artigo",
+    "shop": "escolha na loja",
+    "shopConfirmation": "confirmação da escolha na loja",
+    "skipMission": "transferência de uma missão",
+    "slotExtension": "compra de extensões de inventário",
+    "startBossFight": "início de uma luta de chefes",
+    "switch": "troca de equipamentos",
+    "test": "teste",
+    "unlock": "libertar alguém",
+    "witchChoose": "escolher uma ação para a bruxa"
+  },
+  "commandDoesntExist": "ERRO: Comando desconhecido",
+  "interactionNotForYou": "Esta interação não é para si!",
+  "playerBlocked": "{{reasons}}Não o pode fazer porque tem uma ação pendente ( ) !",
+  "playerDoesntExist": "O jogador solicitado ainda não começou a jogar!",
+  "titleBlocked": "{{pseudo}}esta pessoa está bloqueada!",
+  "titleCanceled": "{{pseudo}}anulação tida em conta!",
+  "titleDidntWork": "{{pseudo}}hmmm... Não funcionou!",
+  "guildDoesntExist": "Não foram encontrados grémios.",
+  "guildAlreadyExist": "O nome do grémio que escolheste já está a ser utilizado.",
+  "guildNameNotValid": "As regras para dar nome a uma guilda são as seguintes:\n$t(error:stringRules)",
+  "alreadyInAGuild": "Já pertences a um grémio.",
+  "petDoesntExist": "Não foram encontrados animais de estimação.",
+  "unexpectedError": "Ocorreu um erro :(",
+  "pleaseWaitForHeal": "Por favor, espera até ao fim da cura para a tua alteração de estado antes de continuares a jogar: {{time}}\n\n{emote:messages.info} Podes usar o comando {command:shop} para comprar uma cura.",
+  "pleaseWaitForHisHeal": "{{time}}Por favor, aguarde até ao fim dos cuidados para o seu estado de deterioração:",
+  "notEnoughMoney": "Não tem dinheiro suficiente para levar a cabo esta ação. {{money}} Estás em falta {emote:unitValues.money}.",
+  "cooldownPetFree": "Só é possível libertar um animal de estimação por hora. {{remainingTime}}Pode libertar outro .",
+  "unknownPlayer": "Nome de utilizador 404",
+  "petNickNotValid": "As regras para dar nome a um animal de estimação são as seguintes:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "As regras para a descrição de um grémio são as seguintes:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilizar pelo menos uma letra - Não utilizar mais de 2 espaços consecutivos - Não são permitidos caracteres especiais - Entre e caracteres",
+  "notInAGuild": "É necessário pertencer a um grémio para efetuar esta encomenda.",
+  "notAuthorizedError": "Não tens as permissões necessárias para fazer esta encomenda na tua guilda, por isso pede a um dos teus superiores se precisares.",
+  "levelTooLow": "{{level}}Tens de ter **nível ** para utilizar este comando! Volte mais tarde!",
+  "targetLevelTooLow": "{{level}}Este jogador tem de ter **nível ** para poder utilizar este comando!",
+  "notAuthorizedRight": "Não tem as permissões necessárias para efetuar este comando.",
+  "notPossibleWithoutStatus": "Não necessita atualmente dos nossos serviços",
+  "effects": {
+    "notStarted": {
+      "self": "Ainda nem sequer começaste!",
+      "other": "{{pseudo}} ainda não começou!"
+    },
+    "dead": {
+      "self": "Neste momento, estás inconsciente!",
+      "other": "{{pseudo}} está atualmente nocauteado!"
+    },
+    "sleeping": {
+      "self": "Está a dormir!",
+      "other": "{{pseudo}} está atualmente a dormir!"
+    },
+    "drunk": {
+      "self": "Estás mesmo bêbado!",
+      "other": "{{pseudo}} está atualmente bêbedo!"
+    },
+    "freezing": {
+      "self": "Está atualmente congelado!",
+      "other": "{{pseudo}} está atualmente congelado!"
+    },
+    "hurt": {
+      "self": "Está atualmente ferido!",
+      "other": "{{pseudo}} está atualmente ferido!"
+    },
+    "sick": {
+      "self": "Estás mesmo doente!",
+      "other": "{{pseudo}} está atualmente doente!"
+    },
+    "jailed": {
+      "self": "Está atualmente bloqueado!",
+      "other": "{{pseudo}} está atualmente preso!"
+    },
+    "injured": {
+      "self": "Está gravemente ferido!",
+      "other": "{{pseudo}} está atualmente gravemente ferido!"
+    },
+    "occupied": {
+      "self": "De momento, está ocupado!",
+      "other": "{{pseudo}} está atualmente ocupado!"
+    },
+    "starving": {
+      "self": "Estás a morrer de fome!",
+      "other": "{{pseudo}} está atualmente a passar fome!"
+    },
+    "confounded": {
+      "self": "Estás confuso!",
+      "other": "{{pseudo}} está atualmente confuso!"
+    },
+    "scared": {
+      "self": "Estás mesmo assustado!",
+      "other": "{{pseudo}} está atualmente assustado!"
+    },
+    "lost": {
+      "self": "Neste momento está perdido!",
+      "other": "{{pseudo}} está agora perdido!"
+    },
+    "fished": {
+      "self": "Foste envenenado!",
+      "other": "{{pseudo}} está atualmente envenenado!"
+    },
+    "notStartedHint": {
+      "self": "{command:report} Utilize o comando para iniciar a sua aventura!",
+      "other": "Não é possível realizar esta ação."
+    },
+    "deadHint": {
+      "self": "{command:respawn} Pode utilizar o comando para continuar a jogar.",
+      "other": "Não é possível realizar esta ação."
+    }
+  },
+  "errorOccurredTitle": "Ocorreu um erro",
+  "errorOccurred": "\n\nOcorreu um erro ao executar este comando:( Por favor, comunique este problema a um membro da equipa, especificando a hora e o servidor em que se deparou com o problema.\n\nNão hesite em contactar o nosso servidor de apoio para obter assistência: https://discord.gg/5JqrMtZ",
+  "maintenanceTitle": "Manutenção",
+  "maintenance": "O jogo está atualmente em manutenção, por favor tente novamente mais tarde.\n\nPara mais informações, visita o servidor oficial do Discord: https://discord.gg/AP3Wmzb",
+  "banned": "Foste banido do jogo.",
+  "aDevMessedUp": "Ops! Ocorreu um erro. Não se preocupe, a culpa não é sua. Por favor, aceite as nossas desculpas por qualquer incómodo causado. Para resolver este problema, contacte a nossa equipa de apoio através do nosso servidor Discord: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Este comando não pode ser utilizado nesta localização.",
+  "guildFoodStorageFull": "Recebeste **{{quantity}}x {{food}}**, mas o stock de comida da tua guilda está cheio. A comida foi deitada fora."
+}

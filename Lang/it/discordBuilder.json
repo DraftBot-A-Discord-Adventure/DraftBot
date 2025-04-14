@@ -1,0 +1,384 @@
+{
+  "badges": {
+    "description": "Mostrare informazioni sui badge e sul loro funzionamento.",
+    "name": "badge"
+  },
+  "help": {
+    "description": "Visualizza l'elenco degli ordini disponibili o le informazioni dettagliate su un ordine.",
+    "name": "aiuto",
+    "options": {
+      "commandName": {
+        "description": "Il comando di cui si deve mostrare le informazioni.",
+        "name": "comando"
+      }
+    }
+  },
+  "idea": {
+    "description": "Invia un suggerimento per migliorare il gioco.",
+    "name": "suggerimento"
+  },
+  "inventory": {
+    "description": "Visualizza l'inventario del giocatore.",
+    "name": "inventario",
+    "options": {
+      "rank": {
+        "description": "La classificazione del giocatore di chi l'inventario deve essere mostrato.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilizzatore di chi l'inventario deve essere mostrato.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "invite": {
+    "description": "Aggiungere il bot al server.",
+    "name": "invitoDraftBot"
+  },
+  "language": {
+    "description": "Modificare la lingua del bot per le interazioni future.",
+    "name": "lingua"
+  },
+  "ping": {
+    "description": "Visualizza la latenza del bot e consente al giocatore di verificare se il bot è online.",
+    "name": "ping"
+  },
+  "pet": {
+    "description": "Visualizza le informazioni sull'animale domestico di un giocatore.",
+    "name": "animale di compagnia",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore di cui si vuole visualizzare l'animale.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente di cui si vuole visualizzare l'animale domestico.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "petFree": {
+    "description": "Liberare un animale domestico.",
+    "name": "liberatorefamiliare"
+  },
+  "petNick": {
+    "description": "Date un nome al vostro animale.",
+    "name": "nicknamefamiliare",
+    "options": {
+      "nickname": {
+        "description": "Il soprannome che si vuole dare al proprio animale domestico. (Lasciare in bianco per eliminare il soprannome)",
+        "name": "soprannome"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Creare una nuova gilda.",
+    "name": "creazioneguilda",
+    "options": {
+      "guildName": {
+        "description": "Il nome della gilda.",
+        "name": "nome"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Modificare la descrizione della gilda.",
+    "name": "descrizioneguilde",
+    "options": {
+      "description": {
+        "description": "Descrizione.",
+        "name": "descrizione"
+      }
+    }
+  },
+  "guildInvite": {
+    "description": "Recluta un nuovo membro nella tua gilda.",
+    "name": "invitoguilde",
+    "options": {
+      "user": {
+        "description": "L'utente da reclutare.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "guild": {
+    "description": "Visualizza le informazioni su una gilda.",
+    "name": "gilda",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore di cui si vuole visualizzare la gilda.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente di cui si vuole visualizzare la gilda.",
+        "name": "utilizzatore"
+      },
+      "guildName": {
+        "description": "Il nome della gilda di cui si vogliono visualizzare le informazioni.",
+        "name": "gilda"
+      }
+    }
+  },
+  "profile": {
+    "description": "Mostrare il profilo di un giocatore.",
+    "name": "profilo",
+    "options": {
+      "rank": {
+        "description": "La classificazione del giocatore deve essere mostrata.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utilizzatore per il quale il profilo deve essere mostrato.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "rarity": {
+    "description": "Visualizzare le diverse rarità dell'attrezzatura.",
+    "name": "rarità"
+  },
+  "report": {
+    "description": "Ottenere un rapporto sulla situazione del vostro personaggio.",
+    "name": "rapporto"
+  },
+  "test": {
+    "description": "Comanda di cheat per i tester (SOLO MODALITÀ TEST).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Comando di testo da eseguire.",
+        "name": "comando"
+      }
+    }
+  },
+  "update": {
+    "description": "Visualizza la versione attuale del bot.",
+    "name": "novità"
+  },
+  "vote": {
+    "description": "Visualizzare il link per votare il bot.",
+    "name": "voto"
+  },
+  "map": {
+    "description": "Visualizzare la mappa per mostrare dove si sta andando.",
+    "name": "mappa"
+  },
+  "shop": {
+    "description": "Esporre il negozio.",
+    "name": "negozio"
+  },
+  "classesInfo": {
+    "description": "Visualizza le informazioni sulle classi selezionabili per il personaggio.",
+    "name": "classi informative"
+  },
+  "respawn": {
+    "description": "Riprendere l'avventura dopo... \"un incidente\".",
+    "name": "rivivere"
+  },
+  "notifications": {
+    "description": "Gestire le notifiche dei bot.",
+    "name": "notifiche",
+    "options": {
+      "toggle": {
+        "description": "Attivare o disattivare le notifiche di un certo tipo.",
+        "name": "cambiamento"
+      }
+    }
+  },
+  "maintenance": {
+    "description": "Mettere il bot in modalità di manutenzione.",
+    "name": "manutenzione",
+    "options": {
+      "enable": {
+        "description": "Attiva o disattiva la modalità di manutenzione.",
+        "name": "attivare"
+      },
+      "save": {
+        "description": "Salvare la modalità di manutenzione nel file di configurazione.",
+        "name": "salvare"
+      }
+    }
+  },
+  "missions": {
+    "description": "Elenca le missioni di un giocatore.",
+    "name": "missione",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore di cui si vogliono visualizzare le missioni.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente i cui compiti devono essere visualizzati.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "guildShop": {
+    "description": "Visualizzare il negozio della gilda.",
+    "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Escludere un membro della gilda.",
+    "name": "escludereilde",
+    "options": {
+      "rank": {
+        "description": "La posizione in classifica del giocatore da escludere dalla gilda.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente da escludere dalla gilda.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "guildDaily": {
+    "description": "Raccogliere la ricompensa giornaliera della gilda.",
+    "name": "bonusgiornaleerguilde"
+  },
+  "guildElder": {
+    "description": "Promuovere un membro della gilda al grado di anziano.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "L'utente che sarà promosso come senior.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "guildElderRemove": {
+    "description": "Per rimuovere dalla carica il membro più anziano della gilda.",
+    "name": "cancellareaineguilde"
+  },
+  "guildLeave": {
+    "description": "Lasciare la gilda.",
+    "name": "lasciareguilda"
+  },
+  "daily": {
+    "description": "Usa l'oggetto equipaggiato per ottenere un bonus giornaliero.",
+    "name": "bonus giornaliero"
+  },
+  "unlock": {
+    "description": "Liberare un altro giocatore dalla prigione.",
+    "name": "consegnare",
+    "options": {
+      "rank": {
+        "description": "La classifica del giocatore da emettere.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente da consegnare.",
+        "name": "utilizzatore"
+      }
+    }
+  },
+  "missionsshop": {
+    "description": "Visualizzare il negozio della missione.",
+    "name": "negozio"
+  },
+  "top": {
+    "description": "Visualizzare le classifiche di gioco.",
+    "name": "classifica",
+    "subcommands": {
+      "score": {
+        "description": "Visualizza la classifica dei giocatori in base al loro punteggio.",
+        "name": "punteggio"
+      },
+      "glory": {
+        "description": "Visualizza la classifica delle gilde in base alla loro gloria.",
+        "name": "gloria"
+      },
+      "guild": {
+        "description": "Visualizza la classifica delle gilde in base ai loro punti.",
+        "name": "gilda"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "La durata della classifica visualizzata (Da sempre per impostazione predefinita).",
+        "name": "durata"
+      },
+      "page": {
+        "description": "La pagina di classifica da visualizzare.",
+        "name": "pagina"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} L'ho sempre fatto.",
+      "weekly": "{emote:top.weekly} Questa settimana."
+    }
+  },
+  "fight": {
+    "description": "Iniziare una lotta.",
+    "name": "combattimento"
+  },
+  "switch": {
+    "name": "interruttore",
+    "description": "Scambiate l'oggetto attivo con uno degli oggetti della vostra riserva."
+  },
+  "drink": {
+    "name": "bevanda",
+    "description": "Bevete la pozione.",
+    "options": {
+      "force": {
+        "name": "forza",
+        "description": "Se è vero, saltate la fase di convalida se siete sicuri di voler bere la pozione."
+      }
+    }
+  },
+  "petSell": {
+    "name": "vendere casa famiglia",
+    "description": "Vendere un animale domestico a un altro giocatore.",
+    "options": {
+      "price": {
+        "name": "prezzo",
+        "description": "Il prezzo di vendita dell'animale domestico."
+      },
+      "player": {
+        "name": "giocatore",
+        "description": "Il giocatore a cui vendere l'animale."
+      }
+    }
+  },
+  "classes": {
+    "name": "classi",
+    "description": "Cambiare classe."
+  },
+  "sell": {
+    "name": "vendere",
+    "description": "Vendita di attrezzature."
+  },
+  "petTransfer": {
+    "name": "transfererfamilier",
+    "description": "Trasferire un animale da o verso il rifugio della gilda."
+  },
+  "petFeed": {
+    "name": "feedfamiliar",
+    "description": "Date da mangiare al vostro animale domestico."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Visualizza le informazioni sul rifugio della gilda."
+  },
+  "leagueReward": {
+    "name": "bonusligue",
+    "description": "Raccogliere la ricompensa legata alla propria lega."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Visualizza il contenuto del magazzino della gilda."
+  },
+  "joinBoat": {
+    "name": "unirsi alla barca",
+    "description": "Unisciti alla barca se un membro della tua gilda è a bordo."
+  },
+  "giveBadge": {
+    "name": "dare il distintivo",
+    "description": "Dare un distintivo a un giocatore.",
+    "options": {
+      "user": {
+        "name": "utilizzatore",
+        "description": "Il giocatore a cui consegnare il distintivo."
+      }
+    }
+  }
+}

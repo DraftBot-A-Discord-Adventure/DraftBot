@@ -1,0 +1,61 @@
+{
+    "possibilities": {
+        "butch": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 90,
+                    "money": 500
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 15,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "sick"
+                }
+            }
+        },
+        "cook": {
+            "outcomes": {
+                "0": {
+                    "effect": "sick"
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 40
+                },
+                "2": {
+                    "health": -20
+                },
+                "3": {
+                    "effect": "occupied",
+                    "health": 20,
+                    "lostTime": 40
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                }
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -20
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 8
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "possibilities": {
+        "cutTree": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 30
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 100
+                }
+            }
+        },
+        "otherWay": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "occupied",
+                    "health": -5,
+                    "lostTime": 30
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 4
+        }
+    ]
+}

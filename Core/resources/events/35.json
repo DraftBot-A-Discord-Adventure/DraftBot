@@ -1,0 +1,51 @@
+{
+    "possibilities": {
+        "deny": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 30,
+                    "money": -50,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "1": {},
+                "2": {}
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {}
+            }
+        },
+        "steal": {
+            "outcomes": {
+                "0": {
+                    "money": 1000
+                },
+                "1": {
+                    "effect": "jailed",
+                    "money": -200
+                }
+            }
+        },
+        "test": {
+            "outcomes": {
+                "0": {
+                    "health": 30
+                },
+                "1": {
+                    "effect": "sick",
+                    "money": 250
+                },
+                "2": {}
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 26
+        }
+    ]
+}

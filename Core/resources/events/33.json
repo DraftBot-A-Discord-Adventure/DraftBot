@@ -1,0 +1,114 @@
+{
+    "possibilities": {
+        "chat": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 120,
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "1": {
+                    "randomItem": {},
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "2": {
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "3": {
+                    "health": 20,
+                    "money": 400,
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "4": {
+                    "tags": [
+                        "bigFeast"
+                    ]
+                }
+            }
+        },
+        "eat": {
+            "outcomes": {
+                "0": {
+                    "health": 10,
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "1": {
+                    "effect": "sick",
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 75,
+                    "tags": [
+                        "bigFeast"
+                    ]
+                },
+                "3": {
+                    "effect": "drunk",
+                    "tags": [
+                        "drinkAlcohol",
+                        "bigFeast"
+                    ]
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "confounded",
+                    "health": -20
+                },
+                "1": {
+                    "effect": "occupied",
+                    "health": 40,
+                    "lostTime": 180,
+                    "tags": [
+                        "bigFeast"
+                    ]
+                }
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {
+                    "money": -200
+                },
+                "1": {
+                    "money": 100
+                },
+                "2": {}
+            }
+        },
+        "steal": {
+            "outcomes": {
+                "0": {
+                    "money": 700
+                },
+                "1": {
+                    "money": 250
+                },
+                "2": {
+                    "effect": "hurt",
+                    "health": -20
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 2
+        }
+    ]
+}

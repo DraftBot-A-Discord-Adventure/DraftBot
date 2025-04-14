@@ -1,0 +1,24 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {}
+            }
+        },
+        "follow": {
+            "outcomes": {
+                "0": {}
+            }
+        },
+        "observe": {
+            "outcomes": {
+                "0": {}
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 28
+        }
+    ]
+}

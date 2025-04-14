@@ -1,0 +1,7 @@
+{
+	"outcomeProbabilities": {
+		"life_loss": 10,
+		"nothing": 40
+	},
+	"isIngredient": true
+}

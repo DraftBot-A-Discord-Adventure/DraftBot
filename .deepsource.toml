@@ -1,15 +1,14 @@
 version = 1
 
 exclude_patterns = [
-	"src/core/utils/astronomy.ts",
-	"src/core/JsonReader.js",
-	"src/core/database/game/migrations/*.ts",
-	"src/core/database/logs/migrations/*.ts"
+    "Core/src/core/utils/astronomy.ts",
+    "Core/src/core/database/game/migrations/*.ts",
+    "Core/src/core/database/logs/migrations/*.ts"
 ]
 
 [[analyzers]]
-	name = "javascript"
-	enabled = true
+name = "javascript"
+enabled = true
 
 [analyzers.meta]
-	skip_doc_coverage = ["class-expression"]
+skip_doc_coverage = ["class-expression", "class-declaration"]

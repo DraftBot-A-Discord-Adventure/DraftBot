@@ -1,0 +1,49 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {}
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {},
+                "1": {},
+                "2": {
+                    "health": -20
+                }
+            }
+        },
+        "wish": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 10,
+                    "money": 1040
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "3": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "4": {
+                    "effect": "occupied",
+                    "health": -5,
+                    "lostTime": 10
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 21
+        }
+    ]
+}

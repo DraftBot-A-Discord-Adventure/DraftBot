@@ -1,0 +1,43 @@
+{
+  "armorsFieldName": "Armadura/Escudo :",
+  "attack": "{emote:unitValues.attack} {{value}}",
+  "defense": "{emote:unitValues.defense} {{value}}",
+  "nameDisplay": "{{itemCategory}}{emote: .{{itemId}}}$t(models:{{itemCategory}}.{{itemId}})** **",
+  "nerfDisplay": "{{old}} {{max}}~~ ~~",
+  "objectsFieldName": "Assunto :",
+  "objectsNatures": [
+    "{emote:itemNatures.0} Sem efeito",
+    "{emote:itemNatures.1} Vida + {{power}} por dia",
+    "{emote:itemNatures.2} Velocidade + {{power}} em combate",
+    "{emote:itemNatures.3} Ataque + {{power}} durante o combate",
+    "{emote:itemNatures.4} Defesa + {{power}} durante o combate",
+    "{emote:itemNatures.5} Avançar para {{power}} todos os dias",
+    "{emote:itemNatures.6} Dinheiro + {{power}} por dia",
+    "{emote:itemNatures.7} Energia + {{power}} por dia"
+  ],
+  "potionsFieldName": "Poção :",
+  "potionsNatures": [
+    "{emote:itemNatures.0} Sem efeito",
+    "{emote:itemNatures.1} Vida + {{power}}",
+    "{emote:itemNatures.2} Velocidade + {{power}} durante o próximo combate",
+    "{emote:itemNatures.3} Ataque + {{power}} durante o próximo combate",
+    "{emote:itemNatures.4} Defesa + {{power}} durante o próximo combate",
+    "{emote:itemNatures.5} Tempo de antecedência {{power}}",
+    "{emote:itemNatures.6} Prata + {{power}}",
+    "{emote:itemNatures.7} Energia + {{power}}"
+  ],
+  "rarities": [
+    "{emote:rarity.0} Básico",
+    "{emote:rarity.1} Comum",
+    "{emote:rarity.2} Pouco comum",
+    "{emote:rarity.3} Exótico",
+    "{emote:rarity.4} Raro",
+    "{emote:rarity.5} Especial",
+    "{emote:rarity.6} Épico",
+    "{emote:rarity.7} Lendário",
+    "{emote:rarity.8} Mítico"
+  ],
+  "speed": "{emote:unitValues.speed} {{value}}",
+  "weaponsFieldName": "Arma :",
+  "itemsField": "{{emote}} {{name}} {{rarity}} {{values}}** ** | |"
+}

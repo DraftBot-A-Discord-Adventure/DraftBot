@@ -1,0 +1,57 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "sleeping"
+                }
+            }
+        },
+        "forest": {
+            "outcomes": {
+                "0": {
+                    "mapTypesDestination": [
+                        "fo"
+                    ]
+                },
+                "1": {
+                    "mapTypesDestination": [
+                        "fo"
+                    ],
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "hurt",
+                    "health": -25,
+                    "mapTypesDestination": [
+                        "fo"
+                    ]
+                }
+            }
+        },
+        "plains": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 150,
+                    "mapTypesDestination": [
+                        "pl"
+                    ]
+                },
+                "1": {
+                    "effect": "occupied",
+                    "health": 10,
+                    "lostTime": 150,
+                    "mapTypesDestination": [
+                        "pl"
+                    ]
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 15
+        }
+    ]
+}

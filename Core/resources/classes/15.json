@@ -1,0 +1,19 @@
+{
+		"attack": 70,
+	"defense": 65,
+	"speed": 60,
+	"health": 100,
+	"fightPoint": 230,
+	"baseBreath": 15,
+	"maxBreath": 15,
+	"breathRegen": 3,
+	"classGroup": 3,
+  "classKind" : "basic",
+	"fightActionsIds": [
+		"simpleAttack",
+		"quickAttack",
+		"heavyAttack",
+		"benediction",
+		"resting"
+	]
+}

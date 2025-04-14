@@ -1,0 +1,81 @@
+{
+    "possibilities": {
+        "checkDate": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 190,
+                    "money": 700
+                },
+                "1": {
+                    "effect": "occupied",
+                    "health": 7,
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 120
+                },
+                "3": {
+                    "effect": "drunk",
+                    "money": 200,
+                    "tags": [
+                        "drinkAlcohol"
+                    ]
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 60
+                },
+                "1": {},
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                }
+            }
+        },
+        "read": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "health": 27,
+                    "lostTime": 60
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "2": {
+                    "effect": "sick"
+                },
+                "3": {
+                    "effect": "occupied",
+                    "lostTime": 30
+                }
+            }
+        },
+        "steal": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 20
+                },
+                "1": {
+                    "money": 100
+                },
+                "2": {
+                    "money": -400
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}

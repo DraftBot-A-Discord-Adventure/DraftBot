@@ -1,0 +1,42 @@
+name: Discord module
+on:
+  pull_request:
+    branches:
+      - draftbot-v5
+    paths:
+      - Discord/**
+  workflow_dispatch:
+
+jobs:
+  eslint-discord-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Setup Yarn
+      - name: Setup Yarn
+        run: |
+          corepack enable
+          yarn set version stable
+
+      # Cache Yarn dependencies for Discord module
+      - name: Cache Discord dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Discord/.yarn/cache  
+            ./Discord/.pnp.cjs
+          key: ${{ runner.os }}-discord-dependencies-${{ hashFiles('./Discord/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Discord folder
+        working-directory: ./Discord
+        run: |
+          yarn install
+          yarn eslint

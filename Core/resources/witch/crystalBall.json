@@ -1,0 +1,10 @@
+{
+	"outcomeProbabilities": {
+		"potion": 25,
+		"effect": 25,
+		"life_loss": 0,
+		"nothing": 0
+	},
+	"effectName": "scared",
+	"isIngredient": false
+}

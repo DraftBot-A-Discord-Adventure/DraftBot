@@ -1,0 +1,155 @@
+{
+  "anotherPlayerBlocked": "Non è possibile farlo perché {{username}} ha un'azione in corso ({{reasons}}) !",
+  "blockedContext": {
+    "acceptItem": "scelta di conservare o no un oggetto",
+    "cartSmallEvent": "scegliere se salire o no sul carrello",
+    "chiefGuildLeave": "trasferimento del potere",
+    "chooseDestination": "scelta della destinazione",
+    "class": "cambio di classe",
+    "confirmBuy": "conferma dell'acquisto",
+    "cooldown": "State inviando gli ordini troppo velocemente !",
+    "descriptionEdit": "modificare la descrizione della gilda",
+    "drink": "la scelta di bere o no una pozione",
+    "fight": "combattimento",
+    "fightConfirmation": "scegliere se iniziare o meno una lotta",
+    "fightPetChoose": "scegliere un'azione di combattimento dell'animale domestico",
+    "gobletChoose": "scegliere una tazza",
+    "guildCreate": "creare una gilda",
+    "guildElder": "scelta del sergente",
+    "guildElderRemove": "cancellazione del figlio maggiore",
+    "guildInvite": "unirsi a una gilda",
+    "guildKick": "espulsione di un membro della gilda",
+    "guildLeave": "partenza di una gilda",
+    "guildShop": "scelta nel negozio della gilda",
+    "guildShopConfirmation": "conferma della scelta nel negozio della gilda",
+    "lottery": "lotteria mini-eolico",
+    "merchant": "scelta dal mercante",
+    "missionShop": "scelta nel negozio di missione",
+    "missionShopConfirmation": "confermate la vostra scelta nel negozio delle missioni",
+    "petFeed": "scegliere il cibo da dare all'animale domestico",
+    "petFree": "liberare un animale domestico",
+    "petSell": "vendere un animale domestico",
+    "petSellConfirm": "conferma dell'acquisto di un animale domestico",
+    "petTransfer": "trasferimento di animali",
+    "pveIsland": "isola di mini-evento PVE",
+    "report": "rapporto",
+    "reportCommand": "commando rapporto",
+    "selectQuantity": "selezionare una quantità",
+    "sell": "vendita di un articolo",
+    "sellConfirm": "conferma della vendita di un articolo",
+    "shop": "scelta nel negozio",
+    "shopConfirmation": "conferma della scelta nel negozio",
+    "skipMission": "trasferimento di una missione",
+    "slotExtension": "acquisto di estensioni di inventario",
+    "startBossFight": "inizio di una battaglia contro i boss",
+    "switch": "scambio di attrezzature",
+    "test": "test",
+    "unlock": "liberare qualcuno",
+    "witchChoose": "scegliere un'azione per la strega"
+  },
+  "commandDoesntExist": "ERRORE: comando sconosciuto",
+  "interactionNotForYou": "Questa interazione non è per voi !",
+  "playerBlocked": "Non è possibile farlo perché avete un'azione in corso ({{reasons}}) !",
+  "playerDoesntExist": "Il giocatore richiesto non ha ancora iniziato a giocare!",
+  "titleBlocked": "{{pseudo}}, questa persona è bloccata !",
+  "titleCanceled": "{{pseudo}}, cancellazione presa in conto !",
+  "titleDidntWork": "{{pseudo}}, hmmm... Questo non ha funzionato !",
+  "guildDoesntExist": "Nessuna gilda corrispondente è stata trovata.",
+  "guildAlreadyExist": "Il nome della gilda che avete scelto è già in uso.",
+  "guildNameNotValid": "Le regole per dare un nome a una gilda sono le seguenti:\n$t(error:stringRules)",
+  "alreadyInAGuild": "Fai già parte di una gilda.",
+  "petDoesntExist": "Nessuno animale domestico e stato trovato.",
+  "unexpectedError": "Si è verificato un errore :(",
+  "pleaseWaitForHeal": "Attendere la fine della guarigione per la modifica del proprio stato prima di continuare a giocare: {{time}}\n\n{emote:messages.info} È possibile utilizzare il comando {command:shop} per acquistare una guarigione.",
+  "pleaseWaitForHisHeal": "{{time}}Per favore, aspettate fino alla fine delle cure per il deterioramento delle sue condizioni:",
+  "notEnoughMoney": "Non avete abbastanza soldi per realizzare questa azione. {{money}} Siete a corto di denaro {emote:unitValues.money}.",
+  "cooldownPetFree": "È possibile liberare un solo animale domestico all'ora. {{remainingTime}}È possibile liberare un altro .",
+  "unknownPlayer": "Nome utente 404",
+  "petNickNotValid": "Le regole per dare un nome a un animale domestico sono le seguenti:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "Le regole per descrivere una gilda sono le seguenti:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilizzare almeno una lettera - Non utilizzare più di 2 spazi consecutivi - I caratteri speciali non sono ammessi - Tra e caratteri",
+  "notInAGuild": "Dovete essere in una gilda per Effettuare questo comando.",
+  "notAuthorizedError": "Non avete le permissione necessarie per Effettuare questo commando in vostra gilda, chiedete a un dei vostri superiori se bisogno.",
+  "levelTooLow": "{{level}}Dovete essere di **livello ** per usare questo comando! Tornate più tardi!",
+  "targetLevelTooLow": "{{level}}Questo giocatore deve essere di **livello ** prima di poter usare questo comando!",
+  "notAuthorizedRight": "Non si dispone delle autorizzazioni necessarie per eseguire questo comando.",
+  "notPossibleWithoutStatus": "Non avete attualmente bisogno dei nostri servizi",
+  "effects": {
+    "notStarted": {
+      "self": "Non hai ancora iniziato!",
+      "other": "{{pseudo}} non è ancora iniziato!"
+    },
+    "dead": {
+      "self": "Al momento sei al tappeto!",
+      "other": "{{pseudo}} è attualmente al tappeto!"
+    },
+    "sleeping": {
+      "self": "Al momento stai dormendo!",
+      "other": "{{pseudo}} è attualmente addormentato!"
+    },
+    "drunk": {
+      "self": "Sei davvero ubriaco!",
+      "other": "{{pseudo}} è attualmente ubriaco!"
+    },
+    "freezing": {
+      "self": "Al momento sei congelato!",
+      "other": "{{pseudo}} è attualmente congelato!"
+    },
+    "hurt": {
+      "self": "Sei attualmente ferito!",
+      "other": "{{pseudo}} è attualmente infortunato!"
+    },
+    "sick": {
+      "self": "Sei davvero malato!",
+      "other": "{{pseudo}} è attualmente malato!"
+    },
+    "jailed": {
+      "self": "Sei attualmente bloccato!",
+      "other": "{{pseudo}} è attualmente rinchiuso!"
+    },
+    "injured": {
+      "self": "Sei gravemente ferito!",
+      "other": "{{pseudo}} è attualmente gravemente ferito!"
+    },
+    "occupied": {
+      "self": "Sei impegnato in questo momento!",
+      "other": "{{pseudo}} è attualmente occupato!"
+    },
+    "starving": {
+      "self": "Stai morendo di fame!",
+      "other": "{{pseudo}} sta morendo di fame!"
+    },
+    "confounded": {
+      "self": "Sei confuso!",
+      "other": "{{pseudo}} è attualmente confuso!"
+    },
+    "scared": {
+      "self": "Hai davvero paura!",
+      "other": "{{pseudo}} è attualmente spaventato!"
+    },
+    "lost": {
+      "self": "Al momento ti sei perso!",
+      "other": "{{pseudo}} è ormai perduto!"
+    },
+    "fished": {
+      "self": "Sei stato avvelenato!",
+      "other": "{{pseudo}} è attualmente avvelenato!"
+    },
+    "notStartedHint": {
+      "self": "{command:report} Utilizzate il comando per iniziare la vostra avventura!",
+      "other": "Impossibile eseguire questa azione."
+    },
+    "deadHint": {
+      "self": "{command:respawn} È possibile utilizzare il comando per continuare a giocare.",
+      "other": "Impossibile eseguire questa azione."
+    }
+  },
+  "errorOccurredTitle": "Si è verificato un errore",
+  "errorOccurred": "\n\nSi è verificato un errore durante l'esecuzione di questo comando:( Si prega di segnalare il problema a un membro del team, specificando l'ora e il server in cui si è verificato il problema.\n\nNon esitate a contattare il nostro server di supporto per ricevere assistenza: https://discord.gg/5JqrMtZ.",
+  "maintenanceTitle": "Manutenzione",
+  "maintenance": "Il gioco è attualmente in manutenzione, si prega di riprovare più tardi.\n\nPer ulteriori informazioni, visita il server Discord ufficiale: https://discord.gg/AP3Wmzb",
+  "banned": "Sei stato bandito dal gioco.",
+  "aDevMessedUp": "Oops! Si è verificato un errore. Non si preoccupi, non è colpa sua. Ti preghiamo di accettare le nostre scuse per gli inconvenienti causati. Per risolvere questo problema, contatta il nostro team di supporto tramite il nostro server Discord: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Questo comando non può essere utilizzato in questa posizione.",
+  "guildFoodStorageFull": "Hai ricevuto **{{quantity}}x {{food}}**, ma le scorte di cibo della tua gilda sono piene. Il cibo è stato gettato via."
+}

@@ -1,0 +1,70 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "sleeping",
+                    "health": 5
+                },
+                "1": {
+                    "effect": "occupied",
+                    "health": -10,
+                    "lostTime": 10
+                },
+                "2": {}
+            }
+        },
+        "goBack": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 120
+                },
+                "1": {
+                    "health": -30,
+                    "money": -120
+                },
+                "2": {
+                    "effect": "occupied",
+                    "health": 10,
+                    "lostTime": 60
+                }
+            }
+        },
+        "search": {
+            "outcomes": {
+                "0": {
+                    "money": 25
+                },
+                "1": {},
+                "2": {
+                    "effect": "hurt",
+                    "health": -20
+                }
+            }
+        },
+        "stairs": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 180,
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "sleeping",
+                    "health": 15
+                },
+                "2": {
+                    "effect": "occupied",
+                    "health": -35,
+                    "lostTime": 10
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 15
+        }
+    ]
+}

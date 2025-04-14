@@ -1,0 +1,40 @@
+{
+	"baseEnergyValue": 110,
+	"attackRatio": 105,
+	"defenseRatio": 70,
+	"speedRatio": 60,
+	"breath": 3,
+	"maxBreath": 20,
+	"breathRegen": 5,
+  "rewardFactor" : 0.65,
+	"attacks": [
+		{
+			"id": "simpleAttack",
+			"minLevel": 0,
+			"weight": 6
+		},
+		{
+			"id": "shieldAttack",
+			"minLevel": 0,
+			"weight": 4
+		},
+		{
+			"id": "resting",
+			"minLevel": 0,
+			"weight": 2
+		},
+		{
+			"id": "cursedAttack",
+			"minLevel": 50,
+			"weight": 2
+		},
+		{
+			"id": "summonAttack",
+			"minLevel": 65,
+			"weight": 2
+		}
+	],
+	"maps": [
+		1002
+	]
+}

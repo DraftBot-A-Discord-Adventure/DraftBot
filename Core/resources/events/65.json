@@ -1,0 +1,133 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "money": 3000
+                },
+                "1": {
+                    "health": 300
+                },
+                "2": {
+                    "gems": 35
+                },
+                "3": {
+                    "bonusExperience": 2000
+                },
+                "4": {
+                    "bonusPoints": 10000
+                },
+                "5": {
+                    "randomItem": {
+                        "category": 0,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                },
+                "6": {
+                    "randomItem": {
+                        "category": 1,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                },
+                "7": {
+                    "randomItem": {
+                        "category": 3,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                }
+            }
+        },
+        "hopeArmor": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {
+                        "category": 1,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                }
+            }
+        },
+        "hopeGems": {
+            "outcomes": {
+                "0": {
+                    "gems": 35
+                }
+            }
+        },
+        "hopeGlory": {
+            "outcomes": {
+                "0": {
+                    "bonusPoints": 10000
+                }
+            }
+        },
+        "hopeHealthy": {
+            "outcomes": {
+                "0": {
+                    "health": 300
+                }
+            }
+        },
+        "hopeItem": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {
+                        "category": 3,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                }
+            }
+        },
+        "hopeMoney": {
+            "outcomes": {
+                "0": {
+                    "money": 3000
+                }
+            }
+        },
+        "hopePet": {
+            "condition": {
+                "canAcceptPet": true
+            },
+            "outcomes": {
+                "0": {
+                    "randomPet": {
+                        "rarity": {
+                            "min": 3
+                        }
+                    }
+                }
+            }
+        },
+        "hopeWeapon": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {
+                        "category": 0,
+                        "rarity": {
+                            "min": 5
+                        }
+                    }
+                }
+            }
+        },
+        "hopeXP": {
+            "outcomes": {
+                "0": {
+                    "bonusExperience": 1500
+                }
+            }
+        }
+    },
+    "triggers": []
+}

@@ -1,0 +1,11 @@
+{
+	"outcomeProbabilities": {
+		"effect": 25,
+		"nothing": 25
+	},
+	"tags": [
+		"drinkAlcohol"
+	],
+	"effectName": "drunk",
+	"isIngredient": true
+}

@@ -1,0 +1,91 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "confounded",
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "jailed"
+                }
+            }
+        },
+        "singCrazyLove": {
+            "outcomes": {
+                "0": {
+                    "effect": "scared"
+                },
+                "1": {
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 20
+                }
+            }
+        },
+        "singHero": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 5
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 480
+                },
+                "2": {
+                    "effect": "sick",
+                    "money": 200,
+                    "randomItem": {}
+                }
+            }
+        },
+        "singLove": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 360
+                },
+                "1": {
+                    "health": 20
+                },
+                "2": {
+                    "money": -100
+                }
+            }
+        },
+        "singRoyalty": {
+            "outcomes": {
+                "0": {
+                    "money": 600
+                },
+                "1": {
+                    "effect": "jailed"
+                },
+                "2": {}
+            }
+        },
+        "singWork": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 480
+                },
+                "1": {
+                    "randomItem": {}
+                },
+                "2": {
+                    "money": 300
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 6
+        }
+    ]
+}

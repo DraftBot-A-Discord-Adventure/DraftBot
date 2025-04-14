@@ -1,0 +1,35 @@
+{
+	"baseEnergyValue": 150,
+	"attackRatio": 50,
+	"defenseRatio": 50,
+	"speedRatio": 50,
+	"breath": 10,
+	"maxBreath": 20,
+	"breathRegen": 3,
+  "rewardFactor" : 0.45,
+	"attacks": [
+		{
+			"id": "magicMimicAttack",
+			"minLevel": 60,
+			"weight": 4
+		},
+    {
+      "id": "poisonousAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "mudShotAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "heatMudAttack",
+      "minLevel": 0,
+      "weight": 2
+    }
+	],
+	"maps": [
+		1001
+	]
+}

@@ -1,0 +1,1604 @@
+{
+  "intro": [
+    "While you are travelling peacefully, ",
+    "As you quietly make your way along the road, ",
+    "As you prepare to set off again after a short break, ",
+    "At the bend in the road, ",
+    "While you're taking a leisurely stroll, ",
+    "After a short halt, ",
+    "After long hours of walking, ",
+    "During a short break against a tree, ",
+    "As you continue your adventure, ",
+    "Following your path, ",
+    "Contemplating the roadside, ",
+    "Back on the road after a quick stop, ",
+    "While advancing, tired from your long hours of walking, ",
+    "At the edge of a path, "
+  ],
+  "advanceTime": {
+    "stories": [
+      "You see someone who looks strangely like Pérotin. You run towards him, but he also accelerates, probably out of fear. You manage to catch up with him, and realize that you've come to the wrong person. You quickly apologize. You did, however, win **{{time}} Min {emote:unitValues.timeGain}** on your way.",
+      "you hear a cart behind you. The man in the vehicle offers to drop you off wherever you wish. You accept and tell him your destination. After driving a few kilometers, the man tells you he has to go in another direction than yours, so he drops you off and you thank him. You earn **{{time}} Min {emote:unitValues.timeGain}** on your journey.",
+      "you see a carriage in the distance. The princess may be on board! You decide to go and talk to her, and run as fast as you can. Once you're close enough, you discover to your chagrin that you can't approach her because the vehicle is protected by cavalrymen. You have, however, gained **{{time}} Min {emote:unitValues.timeGain}** on your destination.",
+      "you're having a snack when suddenly a shadow rushes in and snatches it away. You give chase, but are unable to catch up and give up. This mishap has nevertheless earned you **{{time}} Min {emote:unitValues.timeGain}** on your journey.",
+      "you see someone who looks strangely like Gruffo. You run towards him, but he also accelerates, probably out of fear. Once you've caught up with him, you realize that it's not at all the person you thought it was. You have, however, gained **{{time}} Min {emote:unitValues.timeGain}** on your journey.",
+      "a bright spot catches your eye. Your curiosity prompts you to run to the source of the light. It's just a copper coin, but it's saved you **{{time}} Min {emote:unitValues.timeGain}** on your journey.",
+      "a massive fawn-colored dog emerges from a large grove. It snarls, flashes sharp canines and seems intent on biting your legs. Appreciating the idea of being left in one piece, they prompt you to run at full speed, gaining **{{time}} Min {emote:unitValues.timeGain}** on your journey!",
+      "a large wasp's nest detaches itself from the tree under which you were standing and falls at your feet. You run until your lungs beg you to start walking again. Not a wasp has managed to sting you. This mishap has earned you **{{time}} Min {emote:unitValues.timeGain}** on your itinerary!",
+      "you enjoy the pleasant spring weather. Your break is short-lived, however: bandits armed with clubs and chipped swords tear through the bushes to your left, cackling as they quietly advance towards you. Before you even have time to think, your body takes you on a forward flight, so that you gain **{{time}} Min {emote:unitValues.timeGain}** on your course.",
+      "a young boy jostles you as he passes you. With a bad feeling in your gut, you check your pockets: your purse is gone! Catching up with him after a frantic race, you recover what is rightfully yours and leave the miscreant in a ditch, having punished him as he deserved. You realize that this event will have earned you **{{time}} Min {emote:unitValues.timeGain}** on your route.",
+      "you're startled by a rabbit with immaculate fur, which slips between your legs. Initially taken aback, you try to catch up with it. But it doesn't take long for the little animal to lose you. These adventures have earned you **{{time}} Min {emote:unitValues.timeGain}**.",
+      "you hear a woman calling behind you. When you turn around, you immediately notice the metallic-looking object in her hand. Panicked, you flee. Once you've reached a safer place, you notice that you're **{{time}} Min {emote:unitValues.timeGain}** ahead of your travel time."
+    ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "you hear a shrill noise coming from the sky. You look up, but too late: a bird with sharp claws is swooping down on you. As it scratches you, it realizes that you're not its usual prey and immediately leaves. You contemplate your wound; it looks deep. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+      "while walking along a steep path, you slip and twist your right ankle. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+      "you see a fly circling around you. You draw your weapon in the hope of killing it, but you only manage to nick your wrist slightly, losing **{{lifeLoss}} {emote:unitValues.lostHealth}** in the process."
+    ],
+    "moneyLoss": [
+      "you realize that your bag is torn off. After checking, you notice that your purse has disappeared, you have lost **{{moneyLost}} {emote:unitValues.lostMoney}**.",
+      "you realize that your purse is missing from your bag. You suddenly remember forgetting it in the previous tavern, you lost **{{moneyLost}} {emote:unitValues.lostMoney}**.",
+      "travelers pass next to you, hustling you, then they get up and apologize roughly. A few minutes later, you notice that your wallet has disappeared, you lost **{{moneyLost}} {emote:unitValues.lostMoney}**."
+    ],
+    "alterationStories": {
+      "badBerries": "you spot some berries. Your stomach reminding you that you haven't eaten for several hours, you feel compelled to taste them. But you soon feel sick.",
+      "gentleBreeze": "you feel the breeze gradually lulling you to sleep. Tired from your journey, it's not long before you fall asleep.",
+      "mysteriousBottle": "you walk past a merchant, who calls out to you. He offers to give you a mysterious bottle that he can't sell and doesn't want to spoil. You accept and drink it down.",
+      "strangeLiquid": "you see a shiny object in the distance. As you approach, you discover a bottle containing a strange liquid. Intrigued, you decide to taste the dubious mixture. You immediately regret it.",
+      "expiredProvisions": "you realize that some groceries have been lying around in your bags for a while. However, you don't want to throw them away and decide to eat them anyway. This turns out to be a bad idea, as it seems that the food had already expired.",
+      "unexpectedRider": "you are surprised by a rider who appears behind you without warning. He knocks you down and continues on his way without paying any attention to you. Stunned, you struggle to get back up.",
+      "fallingBranch": "you are knocked unconscious by a huge branch falling from the dead tree under which you were standing. Wounded, you'll need some time before you can set off again.",
+      "precipiceFall": "you are caught by a deep precipice. Despite your best efforts to catch yourself, you can't avoid the fall.",
+      "ambushedByGroup": "you are stopped by a group who demands that you hand over your possessions. You're not intimidated, and brandish your weapon to scare them off. However, one of them takes advantage of the general panic to knock you out, before fleeing.",
+      "cowStampede": "you're crossing a path when a herd of cows suddenly appears. Frightened by the mass of animals that has just brushed past you, it takes you a while to recover from your emotions.",
+      "trippedOverRoot": "you trip over a root and fall headfirst. Wounded, you'll need to heal.",
+      "encounterWithBearCub": "you spot a bear cub a few metres away. Afraid of being caught by its mother, you flee as fast as you can.",
+      "wrongDirection": "you realize you've gone the wrong way at the last intersection. You decide not to turn back and to find your own way to your destination... You get completely lost.",
+      "chilledByColdNights": "you get caught out by the region's cold nights. If you don't wear clothes suited to this climate, you'll quickly get cold.",
+      "mistakenIdentity": "you are apprehended by guards accusing you of being a criminal actively wanted in the kingdom. You notice that the man on the poster looks like you, and try to explain. The guards don't listen, take you away and throw you in prison."
+    }
+  },
+  "boatAdvice": {
+    "intro": [
+      "You go up on deck and have a chat with a member of the crew. He gives you some advice to help you on your adventure on the island:\n**{{advice}}**.",
+      "You climb the mast to admire the horizon. A man lowers his spyglass and gives you this advice before you leave for the island:\n**{{advice}}**.",
+      "Enjoying a meal in the fresh sea breeze, you chat with the sailors. Your tablemate gives you the following advice about the island:\n**{{advice}}**."
+    ],
+    "advices": [
+      "Many more events await you on the mysterious island",
+      "Each trip to the mysterious island is made up of more stops",
+      "If you fight animals during small events, the monster at the end of the travel will be easier to beat",
+      "Going to the island at the same time as other members of your guild guarantees exclusive bonuses",
+      "Your energy doesn't regenerate on the island. Make sure you're at full strength before venturing out",
+      "Once your energy has reached 0, you will be taken back to the continent",
+      "The trip to the island can be made once a week for free. It is possible to go 2 more times, but you will have to pay gems",
+      "The monsters at the end of the trip are very strong, and the last one on the island is even stronger",
+      "Beating end-of-trip monsters earns guild points, which determine guild rankings",
+      "Monsters have different stats: some have high defense, attack, speed or total health",
+      "An island is made up of a finite number of locations. Once you've visited the last place, you'll be taken back to the main continent",
+      "The mysterious island changes every week",
+      "When fighting a monster, if the maximum number of turns is exceeded, the monster will quickly become very powerful",
+      "If a member of your guild wants to join you on the boat, they can run {command:joinboat}",
+      "The actions available when fighting animals depend on your stats, your items, your pets, etc.",
+      "The island's hostility won't do you any favors when it comes to adventure. But if you join forces with members of your guild, you'll be much stronger together",
+      "The {command:map} order shows the map of the island",
+      "You can choose to leave the island after each monster fight. If your energy is low, it's better to leave while you're still conscious",
+      "Some actions, such as drinking potions, accessing the store or obtaining daily bonuses, are unavailable on the island",
+      "Your level does not influence the number of guild points, but it does influence other rewards",
+      "Winning against a monster further out on the island will earn you more guild points than those at the start",
+      "It is said that if several members of a single guild are on the island at the same time, it is possible to combine each other's forces to perform a devastating attack",
+      "Your guild members can help you fight monsters when you visit a mysterious island",
+      "You can see which members of your guild are on a mysterious island by using the command {command:guild}",
+      "The {command:guild} command lets you see the number of allies who will help you on the mysterious island",
+      "An \"ally\" is a member of your guild who is currently on the mysterious island or has recently left it"
+    ]
+  },
+  "goToPVEIsland": {
+    "stories": [
+      "you notice a boat stopped on the lower side. The captain calls you and offers you an exciting adventure on a monster-infested island. It also tells you that {{priceText}}.",
+      "a man approaches you and asks if you'd be interested in his services. He explains that he is the captain of a ship sailing between the main continent and a mysterious island full of monsters. He says he can take you there if you're looking for a rollicking adventure, and adds that {{priceText}}.",
+      "you are approached by a man in sailor's clothing, bearing the king's emblem. He tells you he's trying to send some of the adventurers competing for the princess's hand to an island full of monsters, which would be useful for the kingdom to get rid of. He also says that a ship is ready to leave for this island, and asks you if you're up for it, pointing out that {{priceText}}.",
+      "you're accosted by a tall, bearded man, introducing himself as the leader of a mercenary group renowned in the region. He tells you that he can make you an incredible offer. The offer is for you to travel to a mysterious new island, where opportunity and danger coexist, as a monster hunter. He also adds that {{priceText}}."
+    ],
+    "priceFree": "the trip **is free**",
+    "priceMoney": "the trip **will cost {{price}} {emote:unitValues.gem}**",
+    "confirm": "Do you want to go to the island? You have {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
+    "endStoryAccept": "{{gainScore}} You accept and board the boat bound for the island.",
+    "endStoryAcceptWithMember": "{{gainScore}} You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
+    "endStoryRefuse": "You politely decline the offer and continue on your way.",
+    "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed.",
+    "confirmedScore": "**{emote:unitValues.score} Points earned:** {{score}}\n"
+  },
+  "lottery": {
+    "intro": "You cross paths with a man who calls out to you. Curious, you stop. He suggests you take part in a game of chance he's created. You can choose between several levels of reward.\n\n{emote:collectors.lottery.easy} Small reward\n{emote:collectors.lottery.medium} Medium reward\n{emote:collectors.lottery.hard} Large reward\n",
+    "easy": {
+      "success": "You take part and win a prize, which the man hands over to you before leaving.",
+      "fail": "You lose the man's game, but participation was free. So you decide to continue on your way."
+    },
+    "medium": {
+      "success": "You try your luck and win the game. The man rewards you appropriately. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take part in the man's game, but you don't win, so you leave hoping for better luck next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**."
+    },
+    "hard": {
+      "success": "You win the man's game. As a result, he rewards you graciously. However, you lose **{{lostTime}} Min :clock2:**.",
+      "fail": "You take a chance. Unfortunately you don't win, maybe you'll be luckier next time. Taking part in the lottery will have cost you **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "You bet a hundred coins on the man's game. You lose, however, and leave, dejected at having lost **{{money}}** {emote:unitValues.lostMoney}. Taking part in the lottery will also have cost you **{{lostTime}} Min :clock2:**."
+    },
+    "poor": "You try to trick the man into paying you a large sum of money. Unfortunately for you, the shopkeeper doubts your good faith, and unable to prove any wealth, you are ruthlessly rejected.",
+    "end": "Without paying any further attention to the individual, you continue on your way.",
+    "rewardTypeText": {
+      "xp": " You have won **{{reward}} {emote:unitValues.xp}**.",
+      "money": " You won **{{reward}}{emote:unitValues.money}**!",
+      "guildXp": " Your guild wins **{{reward}} {emote:unitValues.xp}**.",
+      "points": " You have won **{{reward}} {emote:unitValues.score}**."
+    }
+  },
+  "interactOtherPlayers": {
+    "playerDisplayRanked": "**{{pseudo}}** ({{rank}} {emote:top.congrats})",
+    "playerDisplayUnranked": "**{{pseudo}}** (Unranked)",
+    "no_one": [
+      "You continue your path in the greatest calm. Nobody's on your way.",
+      "You're on your own, so you continue on your way in the greatest calm.",
+      "The sun's rays breaking through the clouds warm you up as you continue your journey on this deserted road."
+    ],
+    "top1": [
+      "You are passing by {{playerDisplay}} on your way, the best player at the moment!",
+      "As you walk along, you come across {{playerDisplay}}. He's currently at the top of the leaderboard. Your eyes filled with admiration, you decide not to hinder his progress, and continue on your way.",
+      "Oh my god! It's incredible! It's the legendary {{playerDisplay}}, the greatest fighter for now! You pass him by and chat for a while. He gives you a few tips for your adventure!",
+      "Make way for {{playerDisplay}}, DraftBot's best player in the world! You pass this person and keep walking to reach your destination."
+    ],
+    "top10": [
+      "In your way, you meet someone who is important. Indeed, {{playerDisplay}} is in the top 10!",
+      "Incredible! Walking along a path you meet one of the heroes of the moment! You probably know him - {{playerDisplay}} - you've seen him in the top 10! This event brightens up your day.",
+      "You speak with a famous figure among the princess's competing adventurers. It's {{playerDisplay}}, who's in the top 10!"
+    ],
+    "top50": [
+      "You meet someone whose name sounds familiar... Indeed, {{playerDisplay}} made a place in the top 50!",
+      "As you kick a pebble, you realize that it hits the shoe of a passer-by, but it's not just anyone, it's {{playerDisplay}}, you've seen him on the underground tournament lists! You chat with him for a while, then continue on your way.",
+      "\"With great power comes great responsibility\", says {{playerDisplay}}, a top-50 adventurer you meet on your journey."
+    ],
+    "top100": [
+      "Perseverance leads to success - that's what {{playerDisplay}}, one of the top 100 players, tells you! You then continue on your way to your destination.",
+      "Wow, you recognize one of the tournament newbies, you've seen him before in a village up north, but yes... It's {{playerDisplay}}!",
+      "As you work towards your goal, you meet {{playerDisplay}}, a rising star on DraftBot. Indeed, he's in the top 100!"
+    ],
+    "powerful_guild": [
+      "{{playerDisplay}}, who you meet by chance on your way, is a member of a powerful guild! This is what you conclude when you see his sparkling badge.",
+      "You see a crowd in the distance. You hurry to check it out, and you hear: \"Make way for {{playerDisplay}}\"! Indeed, he's in a rather powerful guild!",
+      "Rumor has it that a member of a powerful guild is making his way along the same path as yours. Indeed, you can see {{playerDisplay}} passing in the distance!"
+    ],
+    "beginner": [
+      "There's a beginning to everything! You meet {{playerDisplay}} as he begins his adventure dedicated to the princess.",
+      "A passer-by quickly recognizes you: it's {{playerDisplay}}. A newcomer, but a nice, friendly one!",
+      "You take a 5-minute break to clear your head. To do so, you train {{playerDisplay}}, who has just started the game."
+    ],
+    "advanced": [
+      "{{playerDisplay}}'s gray hair is a testament to the experience he has accumulated. He is indeed level **{{level}}**! You then continue on your way.",
+      "While out and about, you come across {{playerDisplay}}. He's a powerful hero, and is indeed level **{{level}}**!",
+      "{{playerDisplay}} is one of the best players in the game! He is currently level **{{level}}**. You're on your way after this encounter."
+    ],
+    "same_class": [
+      "On your way, you can't fail to recognize {{playerDisplay}}. He's a **{{class}}** just like you!",
+      "You notice {{playerDisplay}}, and quickly observe his familiar attire and mannerisms. He's a **{{class}}**, just like you! You then continue on your way.",
+      "You say hello to one of your **{{class}}** colleagues, {{playerDisplay}}, who is passing by. No time to stop, you continue on your way."
+    ],
+    "same_guild": [
+      "You come across a very familiar face on your way... Indeed, {{playerDisplay}} is a member of your guild!",
+      "You approach someone, their familiar face reminds you of somebody... Of course! It's {{playerDisplay}}, one of your guild members!",
+      "You meet {{playerDisplay}} from your guild! You perform the guild's secret handshake and go your separate ways."
+    ],
+    "staff_member": [
+      "{{playerDisplay}}, a member of the DraftBot staff, gives you some advice for the rest of your adventure:\n\n{{advice}}\n\nYou then go on your way.",
+      "\"{{advice}}\". That's what {{playerDisplay}}, one of the bot's famous staff members, told you when you came across him along the way!",
+      "You talk to {{playerDisplay}}, a member of the DraftBot team, who has some good advice for the rest of your adventure:\n\n{{advice}}"
+    ],
+    "top_week": [
+      "You see {{playerDisplay}} on your way, out of breath. He's not resting: in fact, he's in this week's top 5!",
+      "One of this week's heroes comes to see you. It's {{playerDisplay}}, he's in this week's top!",
+      "You talk about your points with {{playerDisplay}}. This one has made good progress this week, and is even in the top 5 for the week!"
+    ],
+    "low_hp": [
+      "You come across {{playerDisplay}}, who is limping... He doesn't seem to be in shape... He falls to the side of the road, and you decide to help him up.",
+      "You come across {{playerDisplay}}. He seems to be in a rough shape....",
+      "Even an arrow in the knee is capable of finishing off {{playerDisplay}}, who is moving slowly along his path. A healing potion would do him a great favor!"
+    ],
+    "full_hp": [
+      "You've rarely seen anyone as energetic as {{playerDisplay}}... He seems to be in great shape!",
+      "On your way, you come across {{playerDisplay}}, who seems to be in great shape. Indeed, he's in full health!",
+      "You almost end up on the floor as {{playerDisplay}} runs past you! He's very energetic because his life is at its maximum."
+    ],
+    "unranked": [
+      "You come across {{playerDisplay}}, a player who doesn't seem to be ranked... You leave wondering what took him to come here to give up so quickly.",
+      "While walking, you come across {{playerDisplay}}. This player doesn't seem to be doing well in the competition. You leave after explaining the basics of the game to him."
+    ],
+    "lower_rank_than_them": [
+      "You come across {{playerDisplay}}, a player with more reputation than you... But don't give up! You may catch up with him one day.",
+      "As you walk, you stumble and fall, and {{playerDisplay}} laughs at you because he's ranked higher than you!",
+      "You chat with {{playerDisplay}} about your ranking. He's one step ahead of you: he's ranked higher!",
+      "Even though he might brag about his higher ranking than yours, {{playerDisplay}} remains humble during your conversation."
+    ],
+    "better_rank_than_them": [
+      "You come across {{playerDisplay}}. This one has a lower ranking... But be careful, he could very well catch up with you one day!",
+      "A player comes to see you. It's {{playerDisplay}}. He asks you for a few tips on how to progress and then moves on!",
+      "You chat with {{playerDisplay}} about your ranking. You're ranked higher than him!"
+    ],
+    "rich": [
+      "You cover your eyes to stop being dazzled by the sun reflecting off the gold worn by {{playerDisplay}} ! You continue on your way, your eyes aching.",
+      "Is it Scrooge? No, it's {{playerDisplay}}! He's got so much gold that you're dazzled! You continue on your way, rubbing your eyes.",
+      "Coins are falling out of {{playerDisplay}}'s pockets because of how full they are. He doesn't even seem to worry about it. An animal picks them up before you can get your hands on them. You continue on your way, a little disappointed."
+    ],
+    "poor": [
+      "Looking at the clothes {{playerDisplay}}is wearing, he seems to have money problems... You think he'd be happy if you gave him a coin.\n\n{emote:collectors.interactPoorCoin} Give him a coin\n{emote:collector.refuse} Don't give him a coin",
+      "While walking, you meet this poor vagrant from {{playerDisplay}}. He asks you for a few coins:\n\n{emote:collectors.interactPoorCoin} Give him a coin, as you already have enough\n{emote:collector.refuse} Don't give him a coin",
+      "Misery touches everyone one day, and today it's {{playerDisplay}} who can barely afford a meal.\n\n{emote:collectors.interactPoorCoin} Give him a coin\n{emote:collector.refuse} Don't give him a coin"
+    ],
+    "poor_give_money": [
+      "You feel good after making this humanitarian gesture.",
+      "It's by doing good that good spreads, said a priest you once met! You give him a coin, and he gives you a smile before continuing on his way!",
+      "Now that's a good deed on your part! He leaves with an extra coin to buy his next meal."
+    ],
+    "poor_dont_give_money": [
+      "There are no small savings... You decide to keep your money.",
+      "He's sad and leaves crying!",
+      "You ignore it, or at least you force yourself to. You leave and hope your conscience won't bother you."
+    ],
+    "pet": [
+      "{{playerDisplay}} passes by you with his pet **{{petEmote}}** **{{petName}}**. You pet this brave beast and continue on your way in a good mood!",
+      "{{playerDisplay}} passes you by and shows you his pet **{{petEmote}}** **{{petName}}**. You pet him and leave, have a nice trip!",
+      "{{playerDisplay}} crosses your path with **{{petEmote}}** **{{petName}}** on his leash. You look at him in amazement and say to yourself that you'd love to have this animal too!"
+    ],
+    "guild_chief": [
+      "Don't panic! You pass by {{playerDisplay}}, the leader of the **{{guildName}}** guild.",
+      "You pass by {{playerDisplay}}, he is the leader of the **{{guildName}}** guild!",
+      "You recognize the person passing in your path... It's {{playerDisplay}}, the guild leader **{{guildName}}** !"
+    ],
+    "guild_elder": [
+      "{{playerDisplay}} discusses his guild **{{guildName}}** with you. You learn that he's the guild's elder!",
+      "You pass by {{playerDisplay}}, he is the elder of the **{{guildName}}** guild!",
+      "The **{{guildName}}** guild's right-hand man, {{playerDisplay}}, greets you and continues on his way."
+    ],
+    "class": [
+      "You brush up against {{playerDisplay}}. You notice that he is part of the circle of **{{class}}s**. You talk to him for a while and then continue on your way.",
+      "{{playerDisplay}} whose class is **{{class}}** passes you by, you greet him and continue on your way.",
+      "You accidentally bump into the arm of {{playerDisplay}}, an honorable **{{class}}**. You both apologize and continue on your way."
+    ],
+    "weapon": [
+      "You meet {{playerDisplay}}, who shows you his \"**{{weapon}}**\" weapon.",
+      "A passer-by comes to show off next to you, it's {{playerDisplay}} and he shows you his \"**{{weapon}}**\" weapon!",
+      "Wow! {{playerDisplay}} brandishes his magnificent \"**{{weapon}}**\" weapon at you. You go on your way in astonishment."
+    ],
+    "armor": [
+      "You meet {{playerDisplay}}, who shows you his magnificent \"**{{armor}}**\" armor.",
+      "A guard approaches you: it's {{playerDisplay}}, he's come to show you his \"**{{armor}}**\" armor!",
+      "{{playerDisplay}} challenges you to test his \"**{{armor}}**\", which serves as its protection. Once you've tested its effectiveness, you're on your way."
+    ],
+    "potion": [
+      "You meet {{playerDisplay}} who shows you his magnificent \"**{{potion}}**\" potion.",
+      "{{playerDisplay}} comes to talk to you, he comes to show you his \"**{{potion}}**\" potion!",
+      "{{playerDisplay}} whom you meet along the way, tells you he's got his hands on one hell of a potion. So he shows you his \"**{{potion}}**\"."
+    ],
+    "object": [
+      "You meet {{playerDisplay}}, who shows you his magnificent \"**{{object}}**\" item.",
+      "Talking with {{playerDisplay}}, he shows you his \"**{{object}}**\" item!",
+      "{{playerDisplay}}, a player walking along the same road as you, pulls out an item from his collection. He proudly shows you his \"**{{object}}**\"."
+    ],
+    "effect": {
+      "sick": [
+        "You hear a noise in the distance... It's {{playerDisplay}} throwing up in a bush... You continue on your way, distraught.",
+        "{{playerDisplay}} vomits into a bush. So that's the noise you've been hearing for a while! You continue on your way, hoping you won't throw up after seeing this.",
+        "{{playerDisplay}} can't hold back and vomits at your feet. You narrowly dodge the attack and pick up your pace to get away from the massacre."
+      ],
+      "hurt": [
+        "You can see a mummy in the distance! Oh no, it's only {{playerDisplay}} who's covered in bandages...",
+        "On your way, you come across {{playerDisplay}}. He's covered in bandages - what happened to him?",
+        "As you race to your destination, {{playerDisplay}} asks you to tighten the bandages on his head. You do so, and are surprised that anyone could be so badly hurt."
+      ],
+      "injured": [
+        "You stumble on {{playerDisplay}} who is unconscious on the floor. You give him small taps to wake him up, without success.",
+        "It wasn't a dead rat on the floor, it was just {{playerDisplay}}. You ask him if he's okay. He doesn't answer, so you continue on your way.",
+        "A person is unconscious in the middle of the road. It's {{playerDisplay}}. You do what you can to bring him back to consciousness, in vain. You put him down on the side of the road to avoid further injury."
+      ],
+      "starving": [
+        "A dull rumbling reaches your ears. You discover that it's {{playerDisplay}}'s stomach. Unfortunately, you recently finished your leftover food.",
+        "Apparently, {{playerDisplay}} hasn't eaten enough. Their stomach is rumbling! With nothing to offer, you continue on your way to other horizons.",
+        "You can see {{playerDisplay}}, who is in a frenzy to find food. He's running around looking for something to eat. With nothing on you to offer him, you continue on your way."
+      ],
+      "sleeping": [
+        "You pass {{playerDisplay}} sleeping on the side of the road. You decide to let him sleep, as he surely needs some rest.",
+        "Obviously {{playerDisplay}} did not sleep enough last night: he's lying on the roadside.",
+        "The roadside looks like a good place to rest. That's what you tell yourself after seeing {{playerDisplay}} sleeping there."
+      ],
+      "freezing": [
+        "You feel very cold when you walk. That's {{playerDisplay}}, who's close to hypothermia!",
+        "{{playerDisplay}} seems to be cold, you warm him up a little and then leave.",
+        "A redundant clicking sound annoys you. You discover that it's {{playerDisplay}}'s teeth... He's frozen! Without further ado, you resume your journey."
+      ],
+      "confounded": [
+        "You chat with {{playerDisplay}}. At least, you're trying to. His words are rather incoherent, so you continue on your way somewhat confused.",
+        "{{playerDisplay}} makes a lot of incoherent comments. It seems strange to you, so you leave quickly, confused!",
+        "You see {{playerDisplay}} looking completely out of it. After trying to bring him back to reality to no avail, you continue your journey at a faster pace to make up for lost time."
+      ],
+      "drunk": [
+        "{{playerDisplay}} zigzags across your path, it seems he drank a little (too much). You continue your journey.",
+        "{{playerDisplay}} doesn't seem to have understood that alcohol should be consumed with moderation. You continue on your way after this unexpected encounter.",
+        "You can see {{playerDisplay}} is quite tipsy, to put it mildly. He seems to be enjoying himself... all by himself. You do what you can to ignore him and continue on your way."
+      ],
+      "scared": [
+        "You come across {{playerDisplay}} running towards you. He's being chased by robbers after his money. You accompany him along the road so that he can regain his composure. Once reassured, you leave him and set off again.",
+        "In the distance, you spot {{playerDisplay}} running at full speed to escape a pack of wolves. You rush to his aid and make the wild beasts retreat.",
+        "You meet {{playerDisplay}}. He seems completely panicked. You ask him what's got him so worked up. He tells you he's just been chased by a dragon, but managed to get away, losing a few hairs in the process."
+      ],
+      "occupied": [
+        "You spot {{playerDisplay}} and invite him to have a chat, but he tells you he's busy. It's only a postponement, and you each continue on your way.",
+        "While crossing the river, you come across {{playerDisplay}}, who is quite busy... You try to chat with him, but to no avail. Instead, he asks you to help him with his work.",
+        "On your way, you come across {{playerDisplay}}, who seems very busy. You try to find out more, to no avail, before continuing on your way."
+      ],
+      "jailed": [
+        "As you stroll leisurely to your destination, you spot guards handcuffing {{playerDisplay}}. Curious, you approach and hear that he's heading straight for the jail. You leave, wondering what this man has been up to.",
+        "As you carefully make your way down a path, you come across a convoy of prisoners escorted by armed guards. As they trudge up the slope, you catch a glimpse of the poor buggers, including {{playerDisplay}}, who are in tears. You feel a little sorry for them, but quickly forget this feeling, telling yourself that he's surely not here by chance."
+      ],
+      "lost": [
+        "You come across {{playerDisplay}}, who seems to be lost and asks you which way to go to reach his destination. Unfortunately, you can't help him, so you comfort him a little before resuming your journey.",
+        "You come across {{playerDisplay}}, who seems to have lost his way, obviously disorientated. He looks at you expectantly, seeking help to find his way back.",
+        "You notice that {{playerDisplay}} is walking in circles, having passed him several times on the way. You approach him and ask if he needs help. He explains that he's lost and asks you to accompany him to his destination."
+      ]
+    }
+  },
+  "leagueReward": {
+    "intrigue": [
+      "you notice a large poster from the corner of your eye...",
+      "you slip on the lower side of the road and fall to the ground. As you get back up, you notice a small scroll...",
+      "a bird approaches you and drops a tiny message in your hand...",
+      "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
+    ],
+    "reward": "{emote:unitValues.money} Money: **{{money}}**\n{emote:unitValues.xp} XP: **{{xp}}**\n{emote:unitValues.score} Points: **The number of points will depend on your final ranking.**\n{emote:rewards.item} A random equipment.",
+    "endMessage": "\n\n{emote:commands.report} \"To the adventurer belonging to {{league}} who finds this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while looking forward to collecting your bonus {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"To the adventurer belonging to {{league}} who finds this text, **if you make a few fights using the {command:fight}** command, you can win these rewards:\n\n{{rewards}}\"\n\nYou quickly set off again, fearing that you won't manage to fight enough players before the end of the season {{time}}.",
+    "rewardToday": "\n\n{emote:commands.report} \"Get your reward before the end of the week by ordering {command:leaguebonus} !\"\n\nYou're on your way again, looking forward to collecting your bonus."
+  },
+  "winGuildXP": {
+    "stories": [
+      "**{{guild}}**'s reputation seems to precede you. By learning that you are part of the guild, adventurers who have been following you for a few kilometers give you their greatest respect.",
+      "As a result of a few battles that you are victorious, you apply the **{{guild}}** guild's mark on your opponents' remains. All those who will pass here will recognize it.",
+      "Your good actions in the area have helped a large part of the population. When they ask you how they could thank you, you ask them to remember **{{guild}}**'s name.",
+      "Congratulations! Over time, your guild, **{{guild}}**, becomes known throughout the whole kingdom.",
+      "**{{guild}}** is becoming more and more popular as time goes by! We hope you continue to do so, and that's why we're offering you this xp bonus!",
+      "As you enter an inn, the tenant recognizes the emblem on your shield, the symbol of the **{{guild}}** guild. He decides to offer a general round of drinks in your honor, to great effect with the other customers."
+    ],
+    "end": " Your guild wins **{{xp}}** {emote:unitValues.xp}."
+  },
+  "winEnergy": {
+    "stories": [
+      "you meet a young lady who introduces herself as Hilda the healer. After a quick chat, you agree to let her try her latest remedy on you. **You recover all your energy** {emote:unitValues.energy}",
+      "you come across a young woman who offers to treat you. You accept and receive a delicious beverage. **You recover all your energy** {emote:unitValues.energy}",
+      "you come face to face with a young woman accompanied by a goat. She offers you a miracle cure. Curious, you accept and, against all odds, you immediately feel better. **Your energy is restored** {emote:unitValues.energy}",
+      "you meet a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** {emote:unitValues.energy}",
+      "you meet a woman dressed all in white who offers to treat you. You accept her treatment. **Your energy is restored** {emote:unitValues.energy}",
+      "you meet a woman who describes herself as a healer. After some discussion, you learn that she is on her way to the pastures, offering healing services along the way. You accept a mysterious remedy. **You recover all your energy** {emote:unitValues.energy}",
+      "you come across a young woman who offers to treat you. You accept and immediately feel better. **You recover all your energy** {emote:unitValues.energy}"
+    ]
+  },
+  "doNothing": {
+    "stories": [
+      "No incidents or notable events to report.",
+      "Nothing special has happened since the previous report.",
+      "You've had no trouble making progress recently, and you're continuing to make good progress.",
+      "Nothing to report, you keep moving forward.",
+      "No obstacles in sight, nothing seems to be against you at the moment. You keep moving forward.",
+      "The way is clear, there's no reason to stop, you keep moving forward.",
+      "Nothing significant has happened since the previous report.",
+      "No notable events since last time.",
+      "The dogs bark and the caravan passes by. You continue quietly on your way.",
+      "The princess is closing in on you! At least that's the impression you get... You continue on your way."
+    ]
+  },
+  "winEnergyOnIsland": {
+    "stories": [
+      "you see a bench on the side of the road and sit down for a few minutes. It makes you {emote:unitValues.energy} **{{energy}}**.",
+      "you detach your water bottle from your belt and quench your thirst. You win {emote:unitValues.energy} **{{energy}}**.",
+      "you take out a fruit you've been keeping in a cloth and eat it. This makes you {emote:unitValues.energy} **{{energy}}**.",
+      "you stop for a few seconds to catch your breath. You start again with a little more stamina and win {emote:unitValues.energy} **{{energy}}**.",
+      "you take out a piece of bread and satiate yourself with it. This makes you {emote:unitValues.energy} **{{energy}}**.",
+      "you sit for a few minutes and meditate to calm your mind. You recover {emote:unitValues.energy} **{{energy}}**.",
+      "you feel your muscles tense up and stop for a moment to stretch them. You recover {emote:unitValues.energy} **{{energy}}**."
+    ]
+  },
+  "winHealth": {
+    "stories": [
+      "you come across a tree whose fruit looks appetizing. Curious, you eat a few and continue on your way. You gain **{{health}} {emote:unitValues.health}**.",
+      "you find an almost empty vial. As its contents do not seem dangerous, you finish drinking it before continuing on your way. You earn **{{health}} {emote:unitValues.health}**.",
+      "you discover an abandoned building. You decide to explore it and quickly find some food. You gain **{{health}} {emote:unitValues.health}**.",
+      "you meet a woman who claims to be able to cure all your ills. You decide to trust her and let her recite some incantations for a few minutes. You gain **{{health}} {emote:unitValues.health}**.",
+      "you meet a group of children sharing the fruits of their harvest. They offer you some pears before you set off again. You earn **{{health}} {emote:unitValues.health}**.",
+      "your gaze is drawn to what appears to be a narrow passageway between the bushes. You follow it and find some mushrooms on the ground. They don't look dangerous, so you take the risk of tasting them. You earn **{{health}} {emote:unitValues.health}**.",
+      "you hear the rustle of a tiny stream. You decide to go there and drink some of the water, which turns out to be very cool. You earn **{{health}} {emote:unitValues.health}**.",
+      "you discover whole baskets of food by a campfire. You hesitate for a few seconds before rushing to eat as much as you can. Full, you feel much better now. You earn **{{health}} {emote:unitValues.health}**.",
+      "you see an abandoned hut. You decide to enter the hut, when a shiny bottle attracts you. Fearless, you drink the contents. You gain **{{health}} {emote:unitValues.health}**.",
+      "you find a small farmhouse with a recently extinguished open fire. You hurry to steal some vegetables before the owners return and eat them. You earn **{{health}} {emote:unitValues.health}**.",
+      "you meet and chat with a monk. Impressed by your quest for the princess, he decides to dedicate a prayer to you. You earn **{{health}} {emote:unitValues.health}**.",
+      "you find some wild strawberries! After enjoying them, you continue on your way. You earn **{{health}} {emote:unitValues.health}**.",
+      "you see a package abandoned on the ground. You open it and discover some food, which you eat before continuing on your way. You gain **{{health}} {emote:unitValues.health}**.",
+      "you find a waterfall and decide to quench your thirst. You gain **{{health}} {emote:unitValues.health}**.",
+      "you come across an old man who says he has an elixir he'd be willing to give you for free. Curious, you accept and drink it. You earn **{{health}} {emote:unitValues.health}**.",
+      "you find a water bottle in an abandoned cart. You drink water and feel better. You earn **{{health}} {emote:unitValues.health}**"
+    ]
+  },
+  "winPersonalXP": {
+    "stories": [
+      "Thanks to a subterfuge worthy of the best knights, you manage to get rid of a strange animal that's been attacking you for some time, after which you're off again.",
+      "On your way, you come across a strange animal. As you pass close to it, it jumps at you! You draw your sword and slay it instantly. You continue on your way, on your guard.",
+      "As you are attacked by bandits, you take advantage of a moment's inattention to escape. You hurry along for a few hours before you feel safe again.",
+      "At the bend in the road, a shadow throws itself at you! After a terrible battle, you crush your opponent under a boulder. Proud of your achievement, you set off again.",
+      "At the bend in a grove, a man dressed entirely in black attacks you, probably to rob you of your money. You draw your gun and manage to neutralize him.",
+      "You walk quietly, observing the landscape. Suddenly, an enraged beast makes a prodigious leap, forcefully tackling you to the ground. You manage to regain the upper hand by strangling the beast with a stick.",
+      "As you walk along a small stream, a stray dog jumps out at you. After a few minutes' struggle, you manage to get rid of it.",
+      "On your way, you come across a beast that doesn't seem very friendly. You decide to run away, but it quickly catches up with you. You then turn around and strike a blow. That's enough to get rid of your adversary, and you're on your way.",
+      "Out of the corner of your eye, you notice a satchel full of gold fall from the pocket of an adventurer walking ahead of you. You immediately alert him and return the satchel. The adventurer thanks you for your kindness."
+    ],
+    "end": " You win **{{xp}}** {emote:unitValues.xp}."
+  },
+  "staffMember": {
+    "context": [
+      "Rounding a ravine, you meet a bard. As you walk, he tells you the story of **{{pseudo}}**, \"{{sentence}}\".",
+      "As you walk along, you notice a large poster. It seems to praise the exploits of **{{pseudo}}**... \"{{sentence}}\".",
+      "During one of your adventures, you hear a story, \"{{sentence}}\", but you don't know the hero. After some research, you realize that it's about **{{pseudo}}**! The name sounds familiar...",
+      "Entering a building along the way, you chat for a while with the manager of the establishment. You ask him to tell you about the local legends. He describes **{{pseudo}}**, \"{{sentence}}\".",
+      "Along the way, you meet an old man whom you decide to accompany. During your journey together, he tells you the story of **{{pseudo}}**: \"{{sentence}}\".",
+      "Walking along the road, you spot a battered book on the ground. Entitled **{{pseudo}}**, you open it and read the first few sentences... \"{{sentence}}\".",
+      "After a long, monotonous walk, you come across someone singing in honor of **{{pseudo}}**.... {emote:other.singing} \"{{sentence}}\" {emote:other.singing}.",
+      "On your journey, a cloud of dust appears in the distance. A few minutes later, a rider stops in front of you, saying he's looking for **{{pseudo}}**. To your inquisitive look, he adds: \"{{sentence}}\"."
+    ],
+    "members": {
+      "Nysvaa": "a suitor for the hand of the princess who doesn't intend to win her by fighting, but by proving his thoughtfulness during his adventures (and by his luck a little... a lot)",
+      "Thero1st": "one of the first competitors for the hand of the princess and a great chef specializing in octopus skewers, this fighter nevertheless takes the competition lightly, preferring to spend time in his stands with his animals",
+      "Oscar": "a mediocre warrior who, in his heyday, a bygone era, dominated the rankings on points and knowledge",
+      "QQtin": "a faithful knight who overcame many enemies thanks to the gift of heaven and helped make the world a better place",
+      "LePourfendeur": "an experienced adventurer, adept at saving money, perhaps a little too much so. Previously very active, he is now more discreet, but remains among the best",
+      "Ines": "a fighter from the beginning of this world, who unfortunately fights less and less for him due to lack of time, but remains in the race for the princess, or rather the prince. Loyal supporter of Kyutism",
+      "romain22222": "a great thinker, seeking as much to resolve situations optimally as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
+      "Asemerald": "a down-on-his-luck adventurer known for his unimaginable firepower",
+      "Izuku": "a rich inventor who created a love potion for the beautiful princess, only to have it stolen by a merchant",
+      "Draft": "an ancient god who created the world in which they all live. Amazed by the his people's abilities, he wanders among them as he works to improve their experience",
+      "Royal": "a seasoned entrepreneur favors money over morality. Fond of tournaments, he won't hesitate to fight for the princess",
+      "Max": "a mad inventor who loves to travel. He is the only person ever to have traveled the land of dragons. Legend has it that almost all his projects have brought mankind to the brink of extinction",
+      "Eagle": "a dragon breeder, who led the kingdom's first coups",
+      "DeadAngelV6": "an ordinary human who loves life, eating is one of his passions. Feed him when you see him",
+      "Kyusaki": "the first High Priest of Kyutism, he leads an incognito path of meditation among the adventurers of the world, often giving advice to those who ask for it",
+      "Greninja_san": "a batrachian with an extraordinary intellect, he used his extensive knowledge to integrate into human life and learn the precepts of their magic",
+      "nwcubeok": "a famous magician who travels the country promoting his magical talents. He hopes the princess will appreciate them",
+      "SuperBananeNinja": "a discreet mage who roams the lands, usually solitary, often salutary, with his motley ways and disconcerting tricks, but always right in his boots",
+      "Hitori": "a completely incoherent artist with an uncommon dynamism. She asks anyone who will listen if they know where the gods are hiding, and is infamous for her exceptional bad luck, which has led to the destruction of numerous buildings",
+      "Pietagorh": "the director of an association that helps young adventurers improve their skills. Rumor has it that he can determine the limits of this world",
+      "Doctor": "a great adventurer who roams the kingdom in search of a worthy adversary. If you come across him, you can try to fight him, but few have managed to survive his first blow",
+      "KirIcare": "a discreet but intriguing character. His self-effacing presence arouses the curiosity of a certain artist and a renowned dragon hunter, who have made it their quest to acquire him",
+      "symsym": "a young adventurer, curious and eager to meet new people. Some say he founded a tavern at the end of the swampy road",
+      "Pagotortoise": "a kaijū who, despite his appearance, explores the land in search of people to help, and means no harm. He's ready to guide you if the need arises, so take the opportunity to ask him for some advice",
+      "Voltou": "The greatest thief this world has ever known, his fortune is said to equal that of the king, and he hid it in every corner of the kingdom. If you come across him, be sure to check your pockets.",
+      "Aiko": "a wild potato making mincemeat of all her enemies, aiming for the highest stars in the universe",
+      "Ntalcme": "A tireless traveler, driven by an ideal greater than himself, tirelessly traversing the lands of this kingdom, in search of what seems to be missing from his soul. No one knows what he hopes to find at the end of his journey, yet he marches towards an elusive dream.",
+      "BananePlantain": "a simple banana who has matured through the various encounters and adventures she has had in this world. A lover of challenges and battles, and always ready to help, she quietly leads her little troop.",
+      "aureochocob0n": "A wealthy merchant who, believing a renowned alchemist, immersed himself in a bath of molten gold in order to emerge golden. This questionable action did not leave him unscathed: only his newly-gilded bones were spared."
+    }
+  },
+  "witch": {
+    "intro": [
+      "you meet an old lady who seems to want you to follow her. ",
+      "you see an old woman and decide to approach it. ",
+      "you notice a woman who signs you. ",
+      "you notice the silhouette of an old lady and you decide to go see what she does. "
+    ],
+    "description": [
+      "It looks great, free, with a long and fine nose. ",
+      "His clothes are in a pitiful state, they seem to fall into pieces, as dust. ",
+      "She is yours, skeleton, but her eyes seem malicious. ",
+      "It is made of tarnished and dirty fabrics. ",
+      "You remember rumors about a clumsy witch who would wander through the kingdom. ",
+      "Completely silent, it seems capable by the years, it is fine, bony and its almost grey skin. ",
+      "She seems not to understand what you tell her. "
+    ],
+    "situation": [
+      "You enter what seems to be her hut and discover that she is preparing a potion...",
+      "You find that a cauldron is boiling on fire and the old lady seems to be preparing a potion...",
+      "You are approaching and discover that his preparation of a potion does not seem to happen as expected...",
+      "You observe the old lady prepare a potion, but you notice that her content almost borders with the cauldron...",
+      "The old lady is preparing a potion, but she seems to be having trouble getting a satisfactory result...",
+      "It looks like she is preparing a strange mixture in a huge cauldron..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "You choose **{{witchEvent}}** to potion in the hope of improving...",
+        "You take the decision of **{{witchEvent}}** from the potion while the witch turns back...",
+        "You advise the witch of **{{witchEvent}}** to his potion...",
+        "Following your advice, the witch decides **{{witchEvent}}** to his potion...",
+        "You follow your instinct and choose **{{witchEvent}}** to the dubious mixture...",
+        "You decide from **{{witchEvent}}** to the potion, since this will improve the result...",
+        "You dare **{{witchEvent}}** to the potion...",
+        "After studying the contents of the pot, you decide to **{{witchEvent}}** to the list of metrics..."
+      ],
+      "adviceIntros": [
+        "Take mercy, advise them of **{{witchEvent}}** in order to get a better result...",
+        "You decide to help the witch by advising her of **{{witchEvent}}**..."
+      ],
+      "outcomes": {
+        "1": [
+          "Once the potion is over, the witch gives you a drink. You decide to keep that for the rest of your adventure.",
+          "Thanks to your intervention, the potion looks drinkable. You want to keep some for the rest of your adventure.",
+          "After having finished the potion, the old lady pours a game into a bottle she gives you back. You are happy to accept it before you get back on your way.",
+          "The result obtained has a strange taste, but you decide to keep some potion for the continuation of your adventure."
+        ],
+        "2": {
+          "time": [
+            "By taking your route, you realize that this stop was longer than you had anticipated. You lose **{{lostTime}} Min :clock2:**",
+            "As you leave, you realize all the time wasted on this preparation. You lose **{{lostTime}} Min :clock2:**",
+            "By going back on your steps, you start regretting the lost time to wait for this preparation. You lose **{{lostTime}} Min :clock2:**"
+          ],
+          "scared": [
+            "Once the potion is finished, you decide to take a sip. Immediately, you are transported through an intense hallucination. Your future doesn't look too promising... {emote:effects.scared}",
+            "As soon as you pronounce the formula, you taste the liquid. It doesn't take long for you to regret your choice. {emote:effects.scared}"
+          ],
+          "drunk": [
+            "You decide to try the potion and quickly regret it... It seems that one of the ingredients has stuck in your throat. {emote:effects.drunk}",
+            "It seems the potion has a surprising effect. You're feeling a little drunk... {emote:effects.drunk}"
+          ],
+          "sick": [
+            "Unfortunately, the smell of the potion was a harbinger of its effects. You soon regret having trusted the old witch's talent. {emote:effects.sick}",
+            "Despite your intervention, the potion doesn't seem to have improved. You feel uncomfortable... {emote:effects.sick}"
+          ],
+          "cold": [
+            "You decide to taste the potion, which is very cold. The cold sensation doesn't go away, however, and you can feel each of your limbs getting colder... {emote:effects.freezing}",
+            "Just as you're about to finish the potion, you trip and fall into the ice-filled chasm in which you were planning to place the pot. {emote:effects.freezing}"
+          ]
+        },
+        "3": [
+          "Once the potion is finished, the witch hands you a drink. Another burning, you clumsily escaped it on your foot. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "As you finished the potion, you were the victim of the old witch's clumsy who escaped the cauldron on you. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Despite the good smell of the potion, the potion is not as good for health as you might have expected. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "The taste of the potion is weird. Maybe you should have listened to your instinct and not taste it. . You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "The potion vapors will have made you sick. You leave without asking for your remainder but not without the advice of inhaling these steams. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "As the old lady apprehendes to pour the last drop into the pot a muffled sound is heard. It looks like the cauldron has exploded. You lose **{{lifeLoss}} {emote:unitValues.lostHealth}**."
+        ],
+        "4": [
+          "Unfortunately, the potion seems completely charred and undrinkable. You decide not to take the risk of drinking it and leave quickly.",
+          "You finish the potion with the old lady, but choose not to consume it, preferring to keep your health for the rest of your adventure."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Add Bat",
+      "beer": "Add bee",
+      "bigWait": "Let rest the potion",
+      "bigWarm": "Boil the potion long",
+      "blood": "Add Blood",
+      "book": "Speak Spellbook",
+      "bone": "Add Bone",
+      "cobweb": "Add Ringnee Canvas",
+      "cool": "Let the potion cool down",
+      "chicken": "Add Chicken",
+      "crystalBall": "Recite a magic formula",
+      "distiller": "Distille potion",
+      "eye": "Add an eye",
+      "frog": "Add frog",
+      "greenApple": "Add green apple",
+      "heart": "Add Core",
+      "mushroom": "Add Mushroom",
+      "nothing": "Do nothing",
+      "package": "Add mystery interference",
+      "rat": "Add Rat",
+      "redApple": "Add Red Apple",
+      "rose": "Add a rose",
+      "scorpion": "Add Scorpion",
+      "smallWait": "Let the potion rest a little bit",
+      "smallWarm": "Warm the pot a little bit",
+      "snake": "Add a snake",
+      "spider": "Add Ring",
+      "stir": "Mixing potion",
+      "teeth": "Add a tooth",
+      "testTube": "Add a test tube",
+      "turtle": "Add turtle",
+      "wand": "cast a spell",
+      "wiltedRose": "Add a faded rose",
+      "worm": "Add worm"
+    }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n{emote:other.telescope} *{{search}}*.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}}, {{action}} **{{specific}}**. {{outro}}.",
+    "intro": [
+      "you meet an oracle who pretends to be called **{{name}}**",
+      "a man seems strange to you, so you will meet him. He says an oracle by the name of **{{name}}**",
+      "you meet an oracle named **{{name}}**",
+      "you passed by an oracle that is calling you. It says it's called **{{name}}**",
+      "you are called out by a man who says to be called **{{name}}**",
+      "an oracle named **{{name}}** apostrophe you",
+      "a foreigner calling himself **{{name}}** asks you to approach",
+      "a man who emerges from nowhere runs towards you and stands as **{{name}}**",
+      "a suspicious unknown asks you to approach, after which he tells you to be called **{{name}}**"
+    ],
+    "searchAction": [
+      "He tells you he can give you information about the sky, but he needs time to observe it",
+      "He says he is able to give you information about the sky as long as you give him a little time",
+      "He tells you that if you give him time, he would be able to give you information about the sky",
+      "He says he can give information about the sky if he is given the necessary time",
+      "The user pretends to be able to read in the stars provided that you give him time",
+      "He claims to be able to give you information about the sky if you give him some of your time"
+    ],
+    "search": [
+      "The man looks at the sky in a small device",
+      "He lies on the ground and looks at the sky",
+      "The man begins to contemplate the sky",
+      "He seems focused on looking at something in the sky",
+      "Leaning on his refracting telescope, he observes the celestial vault with attention",
+      "The oracle observes the sky with attention",
+      "He lifts his head to carefully contemplate the sky",
+      "He starts to scrutinize intensely at the stars",
+      "The man sits against a tree and contemplate the sky",
+      "The man lies on the ground and looks up to the sky"
+    ],
+    "actionIntro": [
+      "After a few minutes",
+      "Short time after",
+      "A couple of minutes later",
+      "After making you wait a few minutes",
+      "After a little wait",
+      "A few moments later",
+      "After waiting a handful of seconds"
+    ],
+    "action": [
+      "he informs you that",
+      "he informs you that",
+      "he informs you that",
+      "he tells you that",
+      "he starts to tell you that",
+      "he declares that"
+    ],
+    "outro": [
+      "You are leaving with this news",
+      "You resume your way dreaming",
+      "You thank him and leave happy to know this news",
+      "You leave him full of stars in your eyes",
+      "You leave without regretting having stopped",
+      "You go back on your way perplexed"
+    ],
+    "nObjectsCrossTheSky_one": "{{count}} item will travel through",
+    "nObjectsCrossTheSky_other": "{{count}} items will pass through",
+    "days_one": "day",
+    "days_other": "days",
+    "specific": {
+      "neoWS": [
+        "{{objectWhichWillCrossTheSky}} sky today",
+        "object named \"{{randomObjectName}}\" with diameter of about {{randomObjectDiameter}} meters passes close to planet today",
+        "object named \"{{randomObjectName}}\" passes at a distance of about {{randomObjectDistance}} million kilometers from the planet",
+        "asteroi<unk> of the name \"{{randomObjectName}}\" exceeds our planet's about {{randomObjectDistance}} million kilometers",
+        "the asteroid of the name \"{{randomObjectName}}\" may be visible today",
+        "the asteroid named \"{{randomObjectName}}\" will pass near the planet",
+        "the asteroid named \"{{randomObjectName}}\" will pass to {{randomObjectDistance}} million kilometers of us"
+      ],
+      "moonPhase": [
+        "it's {{mainValue}} right now",
+        "{{mainValue}} currently lights up the sky",
+        "behind the clouds hides {{mainValue}}",
+        "the parsimonious sky gives a glimpse of {{mainValue}}"
+      ],
+      "nextFullMoon": [
+        "the next full moon is in {{mainValue}} {{days}}",
+        "the full moon will glow in {{mainValue}} {{days}}",
+        "we'll see the full moon in {{mainValue}} {{days}}",
+        "in {{mainValue}} {{days}} we will be able to observe the full moon"
+      ],
+      "nextPartialLunarEclipse": [
+        "the next partial lunar eclipse is in {{mainValue}} {{days}}",
+        "in {{mainValue}} {{days}} a partial moon eclipse can be seen",
+        "in the {{mainValue}} {{days}} that come you will have the chance to attend a partial lunar eclipse",
+        "the time before seeing the next partial moon eclipse is {{mainValue}} {{days}}"
+      ],
+      "nextTotalLunarEclipse": [
+        "the next total lunar eclipse is in {{mainValue}} {{days}}",
+        "by {{mainValue}} {{days}} you will see a full lunar eclipse",
+        "in the {{mainValue}} {{days}} that come you will have the chance to attend a total lunar eclipse",
+        "if you look at the sky in {{mainValue}} {{days}} you can see a total lunar eclipse"
+      ]
+    },
+    "moonPhases": [
+      "the new Moon",
+      "the first quarter of the moon",
+      "the Full Moon",
+      "the last quarter of the moon"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "you find a **{{pet}}** that looks wounded. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+    ],
+    "food_f": [
+      "you find a **{{pet}}** that appears to be injured. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+    ],
+    "noFood_m": [
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets him go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+    ],
+    "noFood_f": [
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets her go.",
+      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+    ],
+    "givePetPlayer_m": [
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking that it is his pet you stretch out to him but find that he does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You will find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But it seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+    ],
+    "givePetPlayer_f": [
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his pet you stretch it but find it does not belong to him, so you decide to take it with you.",
+      "you hear noise from a curious bush, you decide to go see. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
+      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But she seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+    ],
+    "givePetGuild_m": [
+      "you see a lost **{{pet}}**. Although you already have a companion, you must bring it back to your guild so that someone can take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the remains of your last meal. He is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+    ],
+    "givePetGuild_f": [
+      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring it back to your guild for someone to take care of it.",
+      "you see a **{{pet}}** roaming that looks hungry, so you give them the leftovers of your last meal. She is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+    ]
+  },
+  "botFacts": {
+    "stories": [
+      "you receive a letter from the king, who is writing to you about the skill for the hand of the princess in which you participate. You can read the letter that {{botFact}} is back on your way.",
+      "you meet a farmer in a cart, seemingly cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {{botFact}} is back on your way.",
+      "you will see the camp of an adventurer by a trail. You stop for a moment and ask them for advice on the road and they point you in the right direction by adding that {{botFact}} you are back on the road.",
+      "you see an information panel. On it, multiple posters are hanging and evoke feats and other events around. One of them talks about the King's recent speech, which told {{botFact}} you are continuing your way.",
+      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} will continue your way without listening to the rest of his words.",
+      "you see in the distance a beggar clad against the trunk of a tree, approaching to give it a piece you hear his strange words, this loop spells {{botFact}} you move as soon as possible from this suspicious individual."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "According to a recent points tally by the organizers, candidates have an average score of **{{infoNumber}} {emote:unitValues.score}**. Encouraged by this news,",
+      "meanWeeklyScore": "according to a recent point count by the organizers, candidates collected an average of **{{infoNumber}} {emote:unitValues.score} this week**. Saddened by this news,",
+      "levelMean": "the last census noted that adventurers averaged **level {{infoNumber}}**. Without knowing what to do with this information",
+      "nbMeanMoney": "the country's bank counted an average of **{{infoNumber}} {emote:unitValues.money}** in its customers' purses. Amused by this news,",
+      "sumAllMoney": "the country's bank has **{{infoNumber}} {emote:unitValues.money}** in circulation at this time. Surprised by this news,",
+      "richestPlayer": "the country's bank has estimated that the richest adventurer currently has **{{infoNumber}} {emote:unitValues.money}** in his account. Stunned by this news,",
+      "feistyPets": "SPAC, or the Counterfeiters Animal Protector, is campaigning to help **fielky animals** get a better life. They listed **{{infoNumber}}**. Both comfort and comfort from this news,",
+      "percentMalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are mates. Happy with this news,",
+      "percentFemalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are females. Happy with this news,",
+      "guildLevelMean": "the AGC, or Counterfeit Guild Agency, noted that the current guilds averaged **level {{infoNumber}}**. Intrigued by this information,",
+      "nbPlayersHaventStartedTheAdventure_zero": "the SAFAC, or Anti-Fraud Service of the Counterfeit Adventurers, discovered that **no adventurer** disappeared just after they obtained their adventure license. Admirable of all these valuable adventurers,",
+      "nbPlayersHaventStartedTheAdventure_one": "the SAFAC, or Anti-Fraud Service of Adventurers of the Counterfeit, discovered that **an adventurer** disappeared just after he obtained his adventure license. Indignified by this person's action,",
+      "nbPlayersHaventStartedTheAdventure_other": "SAFAC, or Anti-Fraud Service of Counterfeiter Adventurers, discovered that **{{infoNumber}} adventurers** disappeared just after they obtained their adventure license. Indignified by the action of these people,",
+      "trainedPets_one": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainer of the **only trained animal**. Impressed by this achievement,",
+      "trainedPets_other": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainers of the **{{infoNumber}} animals trained**. Impressed by this achievement,",
+      "nbPlayersWithGivenClass_zero": "after a recency of adventurers there would be no players with the **{{infoComplement}}** class. The new one,",
+      "nbPlayersWithGivenClass_one": "from an adventurers' census, there would be only one player with the **{{infoComplement}}** class. Impressed by this new one,",
+      "nbPlayersWithGivenClass_other": "from a recency of adventurers there would be **{{infoNumber}}** players with the **{{infoComplement}}** class. Interested by this news,",
+      "nbPlayersOnYourMap_zero": "knights nearby met **no one other than you** on this route. Surprised by this news,",
+      "nbPlayersOnYourMap_one": "knights nearby only met **one person** on your way. Surprised by this news,",
+      "nbPlayersOnYourMap_other": "nearby knights counted **{infoNumber} people** circulating on your road. Surprised by this news,"
+    }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "your feet stumble on a root. Wounded, you loose **{{amount}}{emote:unitValues.lostHealth}**.",
+        "plunged into your thoughts, you don't care about the ground under your feet and tread a peel with mischief. You hurt yourself at the knee. This is not serious, though painful. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you hit a horse arriving at the gallop, but were only injured superficially. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you were violently hit by a boar herd. You stand up and get back on your way and lose **{{amount}} {emote:unitValues.lostHealth}**."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "you walk on a piece. The moment after you were suspended from the foot. You need to make this piece may take a long time... you lose **{{amount}} :clock2:**.",
+        "If you are interested in running for not being soaked, you will see a beautiful rainbow. You don't think about the rain anymore and get absorbed by the show during **{{amount}} :clock2:**.",
+        "you fall from fatigue. Your adventures have been exhausted, which is why you decide to rest for **{{amount}} :clock2:**.",
+        "walking dipped in your thoughts, you don't notice the branch on the ground. You start on it and your stuff spread. You lose **{{amount}} :clock2:**.",
+        "you hear a loud and shattering noise from a subwood. Your curiosite was blown up: you want to know what it is about, and go inspecting the area.{{amount}} :clock2:** you give up without finding or understanding the origin of this noise that caused you to jump."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "crossing a crowd, you feel a hand to search and go your pockets. You don't have the time to repeat that your Gatherer has disappeared. You lost **{{amount}} {emote:unitValues.lostMoney}**.",
+        "you meet a beggar asking for some money to support his needs. Taking a momentum of mercy, you decide to give it **{{amount}} {emote:unitValues.lostMoney}**.",
+        "a masked man calls you and threatens you with his weapon. In order for it to save you, you give it the **{{amount}} {emote:unitValues.lostMoney}** pieces you have in your pocket, and the keys of your cart.",
+        "you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{{amount}} {emote:unitValues.lostMoney}**.",
+        "you see a cart that loads over and over your bag. While you gather your belongings a group of children passes through and you get money going. You lose **{{amount}} {emote:unitValues.lostMoney}**."
+      ]
+    }
+  },
+  "findPotion": {
+    "stories": [
+      "you see a shiny vial from the corner of your eye...",
+      "you slide on the lower side and you get to the ground. As you rise, you notice a strange bottle filled with liquid.",
+      "you notice a damaged bag on the road. you open it quickly...",
+      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
+      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
+      "your eyes are attracted by the reflection of a potion on the ground.",
+      "you start on a root. Furious, you sit a big blow at the root... It seems it isn't a root...",
+      "you meet a child who doesn't seem to speak your language. It looks welcome, however, and tends you a package...",
+      "you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you a potion...",
+      "you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
+      "you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
+    ]
+  },
+  "findItem": {
+    "stories": [
+      "you see a shiny object from the corner of your eye...",
+      "you slide on the lower side and you get to the ground. As you rise, you notice an object on the ground...",
+      "you notice a damaged bag on the road. you open it quickly...",
+      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
+      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
+      "your look is attracted by an object reflection on the ground.",
+      "you get down on a root. Furious, you sit down to it a big blow... It seems it isn't a root...",
+      "you meet a child who does not seem to speak your language. However, it looks welcoming and tends you a package...",
+      "you meet a man, with a loaded mule. You decide to help him carry his load. As a thanks, he gift you an object..."
+    ]
+  },
+  "pet": {
+    "stories": {
+      "money_m": [
+        "You see **{{pet}}** rummaging in some tall grass. He comes out **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge **{{amount}}** {emote:unitValues.money} !",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing him return with **{{amount}}** {emote:unitValues.money} fills you with joy!",
+        "Suddenly you see **{{pet}}** jump into the water. What a surprise to see him emerge with a purse of **{{amount}}** {emote:unitValues.money} !",
+        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems he has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices."
+      ],
+      "money_f": [
+        "You see **{{pet}}** rummaging in some tall grass. She comes out **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge **{{amount}}** {emote:unitValues.money} !",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing her return with **{{amount}}** {emote:unitValues.money} fills you with joy!",
+        "Suddenly you see **{{pet}}** jump into the water. What a surprise to see her emerge with a purse of **{{amount}}** {emote:unitValues.money} !",
+        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems she has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices."
+      ],
+      "item_m": [
+        "You see **{{pet}}** digging in tall grass. There is a **item** that you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing him return with an **object** fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
+        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like he flew it to a merchant. You have to leave before the merchant sees it."
+      ],
+      "item_f": [
+        "You see **{{pet}}** digging in tall grass. This shows a **item**, which you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing her return with an **object** fills you with joy!",
+        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
+        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like she flew it to a merchant. You have to leave before the merchant sees it."
+      ],
+      "gainEnergy_m": [
+        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
+        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
+      ],
+      "gainEnergy_f": [
+        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
+        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
+      ],
+      "gainLife_m": [
+        "Having **{{pet}}** by your side makes you happy. It lifts your spirits and you gain **{{amount}}** {emote:unitValues.health}.",
+        "On the side of the road, **{{pet}}** runs across some food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
+        "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. This earns you **{{amount}}** {emote:unitValues.health}."
+      ],
+      "gainLife_f": [
+        "Having **{{pet}}** by your side makes you happy. It lifts your spirits and you gain **{{amount}}** {emote:unitValues.health}.",
+        "On the side of the road, **{{pet}}** runs across some food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
+        "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You win **{{amount}}** {emote:unitValues.health}."
+      ],
+      "gainLove_m": [
+        "It looks like **{{pet}}** is happy to have you with them. They gain in love and become more loyal.",
+        "After having worked for a long time, you decide to take care of your **{{pet}}** in a strolling {determinant} . That moment passed with him strengthened your links.",
+        "Have gone for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. He likes you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. He loves you more and becomes more trustworthy.",
+        "Oh how cute! **{{pet}}** is a player! Also you decide to have fun with them. This game strengthened your links."
+      ],
+      "gainLove_f": [
+        "It looks like **{{pet}}** is happy to have you with them. She gains in love and becomes more trustworthy.",
+        "After you have worked for a long time, you decide to take care of your **{{pet}}** by touching it. That moment passed with her strengthened your links.",
+        "Stunned for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. She loves you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. She loves you more and becomes more trustworthy.",
+        "Oh how cute! **{{pet}}** is player! Also you decide to have fun with them. This game strengthened your links."
+      ],
+      "food_m": [
+        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see him coming out of a **{{food}}**!",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look and see him coming back with a **{{food}}** in his mouth!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
+        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like he flew it to a merchant. You have to leave before he sees it."
+      ],
+      "food_f": [
+        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see it coming out with a **{{food}}**!",
+        "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look and see her coming back with a **{{food}}** in her mouth!",
+        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
+        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like she flew her from a merchant. You have to leave before he sees it."
+      ],
+      "gainTime_m": [
+        "Despite all the miles, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "What spirit! **{{pet}}** seems to be in a hurry, but you manage to keep up with him. Thanks to him, you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "The flair of **{{pet}}** has enabled you to find a shortcut. Thanks to him, you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
+      ],
+      "gainTime_f": [
+        "Nice to see, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "You notice that **{{pet}}** seems to be in a hurry, but you still manage to {determinant} keep up. Thanks to her, you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "The flair of **{{pet}}** has enabled you to find a shortcut. Thanks to {accusative}, you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
+      ],
+      "points": [
+        "People who come across you with **{{pet}}** are sure to take notice. This enhances your reputation and earns you **{{amount}}** {emote:unitValues.score}.",
+        "Telling an old man about your adventures with **{{pet}}** seems to have improved your reputation. You win **{{amount}}** {emote:unitValues.score}."
+      ],
+      "badge": [
+        "Successfully trained **{{pet}}** was a real challenge that proves your talent with the animals. You get the {{badge}} badge!"
+      ],
+      "loseLife_m": [
+        "While you are trying to caress **{{pet}}**, it doesn't get done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "On a **{{pet}}** turn everything in the right direction. You keep it in your hands as well as badly, but you get out with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "You see **{{pet}}** leave. It comes back a few minutes after with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to skip it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
+      ],
+      "loseLife_f": [
+        "While you are trying to caress **{{pet}}**, she doesn't let herself be done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "On a **{{pet}}** turn everything in the right direction. You keep it in your hands as well as badly, but you get out with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "You see **{{pet}}** leave. It comes back a few minutes later with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to use it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
+      ],
+      "loseMoney_m": [
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "If you want to play with **{{pet}}**, you hit them with a blast and take them to a healer to take them pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
+      ],
+      "loseMoney_f": [
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "If you want to play with **{{pet}}**, you knock them out. Blessed you bring them to a healer to take them to pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
+      ],
+      "loseTime_m": [
+        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
+        "You see **{{pet}}** coming to you while running pursued by wild {{randomAnimal}} ! You flee with them. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+      ],
+      "loseTime_f": [
+        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
+        "You see **{{pet}}** coming to you running while pursued by wild {{randomAnimal}} ! You flee with it. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+      ],
+      "petFlee_m": [
+        "This was unavoidable.**{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
+        "It looks like **{{pet}}** found the sister, he abandons you and leaves you alone. You will never see it again...",
+        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+      ],
+      "petFlee_f": [
+        "This was unavoidable. **{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
+        "It looks like **{{pet}}** found the sister, he gives up and leaves you alone. You will never see it again...",
+        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+      ],
+      "loseLove_m": [
+        "It looks like **{{pet}}** is not too easy for you... He loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to him in a moment of inadvertance. He now seems to love you a little less.",
+        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Did not wait for your relationship so he loses a little in love...",
+        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is grudging, it loses faith in you."
+      ],
+      "loseLove_f": [
+        "It looks like **{{pet}}** is not too easy for you... Voyager with her deterred this relationship. She loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to her in a moment of inadvertance. She now seems to love you a little less.",
+        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Not waiting for it has been your relation, so it loses a little in love...",
+        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is resentful, it loses faith in you."
+      ],
+      "nothing": [
+        "You continue your route along **{{pet}}**. Nothing special happens."
+      ]
+    },
+    "randomAnimal_m": "a **{{randomAnimal}}**",
+    "randomAnimal_f": "a **{{randomAnimal}}**"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "you see a strange light in the distance. As you get closer, curious, you realize that this is a vial with unknown content, you moose the brewery and feel that your strengths could be increased if you were to ingest it...",
+        "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you an attack potion as a thanks.",
+        "you find an abandoned cart. It contains potion crates. You steal one hastily. After leaving, you see that the stolen potion could be useful for your next battle..."
+      ],
+      "winObject": [
+        "You decide to back to a tree. By sitting down, you feel a living pain that pierces your back. You get up at the speed of a flash and find out what's scratched you:",
+        "you suddenly hear an infernal goat move towards you, you just have time to throw yourself into the side when a horde of knights passes you to the grand galop, by looking at them away you see a bib fall from one of the horses. When you pick it up, you will discover...",
+        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for attacking."
+      ],
+      "winWeapon": [
+        "you meet a Merchant, who asks your Class. After answering him, he offers you a weapon he no longer uses:",
+        "You see on the lower side a weapon and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the Armory is still intact. In this one, in the middle of rugged and unusable objects, you find a weapon that still seems to be in good condition."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you a defense potion as a thanks.",
+        "you find an abandoned cart. Which contains boxes full of potions. You rapidly steal one. After fleeing you see the stolen potion may be useful for your next fight...",
+        "a heavy impact is being heard behind you. You turn abruptly, and enter your field of sight an old man with flattened body on the ground, under a tree. You notice with relief that it is still alive, as it emits weak giveaments. Then you notice that a crate full of all the same potions fell with him. Knowing that he could not survive with his disposal, you must educate that these are potions that increase the human body's defensive abilities. Not wanting to miss such an opportunity, you grab the only intact vial and flee the place, without worrying about the old man's weak complaints."
+      ],
+      "winObject": [
+        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for defense.",
+        "A knight is approaching and offers you a duel. It will give you its object of challenge if you win. Grade your training, this victory is yours, and you win the prize you promised.",
+        "You find a peasant who needs help repairing his cart. You get the wheel back in place. To thank you, it gives you a defensive item forged by the best workers of Claire De Ville."
+      ],
+      "winArmor": [
+        "you meet a Merchant, who asks your Class. After answering him, he offers you a armor he no longer uses:",
+        "you see on the lower side a piece of armor and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
+        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the armour room is still intact. In this one, in the middle of rusty and unusable items, you find armour that still seems to be in good condition."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "villagers approach you and give you an item in recognition of a weapon recent, you thank them very briefly and continue your search.",
+        "you meet a group of children playing to continue. One of them hugs you and cry, his parents approach and beg for your forgiveness, you grant them and they give you an item that may be useful to you.",
+        "a cart takes you to continue, intrigued and eager to continue your path, approaching the owner, which, first odious, tells you to try and take another road, energized, you threaten it with your weapon. This calms it instantly. It gives you an item and asks you to wait for the time to move its load.",
+        "you see a crowd of people together. If you want to see what's going on, you make a way through the group and discover a ensangled object, otherwise the crowd around it would already have touched. You leave as if nothing was with the object in your possession."
+      ],
+      "winMoney": [
+        "you step onto a small mound and notice that your footsteps sound strange. You search the ground and discover a chest full of gold. You get **{{amount}} {emote:unitValues.money}**.",
+        "you meet a person who looks a bit confused and afraid... On seeing you the person apologizes and runs off. You say to yourself that they have mistaken you for someone else. In his run the stranger dropped a moneybag: you open it and discover **{{amount}} {emote:unitValues.money}** !",
+        "you decide to set up camp by putting up a tent and other things. As you dig the holes for your tent pegs, you feel something hard in the ground. While digging, you unearth a small, timeworn wooden case and find **{{amount}} {emote:unitValues.money}** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "your feet bumps on something coming out of the ground, after getting up, you search the ground and find an item...",
+        "you see a shape in a gap. Intrigued, you get closer, this shape is seems to be an item that will be helpful for your adventure...",
+        "You decide to back to a tree. By sitting down, you feel a living pain in your back. You get up quickly to discover... an item!",
+        "you walk disprocessing and stumble on something ! While getting up after your fall, you discover an item !"
+      ],
+      "winHealth": [
+        "you come across some villagers who remember your prowess as a frail person, and hand you a bag containing provisions, which you eat before continuing your journey. You win **{{amount}} {emote:unitValues.health}**.",
+        "A merchant comes up to you and asks what class you are, to which you reply that you are a frail adventurer. Remembering that frail adventurers are people with low hp, he decides to give you some fruit that was no longer viable to sell. Happy, you eat them and earn **{{amount}} {emote:unitValues.health}** then set off again.",
+        "you are approached by an old woman, she gives you a red apple, telling you it's important to eat well to become strong, you eat it with gratitude before resume your way. You win **{{amount}}{emote:unitValues.health}**.",
+        "you are pushed by a plough. You are heckled by its owner, who apologizes and tells he didn't see you because of your puny appearance and offers you some supplies. You restore yourself a bit and resume your journey. You win **{{amount}} {emote:unitValues.health}**."
+      ]
+    }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "observing the surrounding landscape, you do not notice the man who is in front of you and stroke him. You apologise, and the man being very sympathetic, you were quickly forgiven and engaged in a discussion. It is called \"Gaspard-Jo\", and it is a soup merchant. By his great energy, he rewards the talent of the players he finds on his way. ",
+      "a little roulotte with a path is heading towards you. You take the trouble to greet the merchant politely, who, after a quick discussion in which you learn he is called \"Gaspard-Jo\", have wanted to reward you for your good actions. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "It tends **an ultimate soup**, which you store carefully."
+      ],
+      "ultimateFood_other": [
+        "It tends **{{count}} ultimate soup**, which you store carefully."
+      ],
+      "fullUltimateFood": [
+        "It offers you the ultimate soups, but unfortunately your store has been full, you have to return them."
+      ],
+      "item": [
+        "It offers you **an item** which, after what he says, might be useful to you."
+      ],
+      "commonFood_one": [
+        "In the belief that you don't have enough power to get its goods for free, they offer you **a treat**."
+      ],
+      "commonFood_other": [
+        "Presuming you don't have enough power to get their goods for free, they offer you **{{count}} treats**."
+      ],
+      "fullCommonFood": [
+        "Seeing you don't have strong treat, it is a sign to offer you some treats, but unfortunately you no longer have enough room to take them. You are on your way back then."
+      ],
+      "money": [
+        "Since you're not part of a guild, you can't store your benefactor's precious merchandise. So he gives you **{{count}}** {emote:unitValues.money}. You continue on your way, a little disappointed."
+      ]
+    }
+  },
+  "cart": {
+    "knownDestination": [
+      "In the distance, you see a dilapidated cart, its wood worn by time and travel. A shaggy-haired man with a weather-beaten face calls out to you. He claims to be able to drive you around **{{destination}}** for **{{price}}** {emote:unitValues.money}. His mischievous smile and the cunning glint in his eyes leave you in doubt. You wonder if this approximate direction is worth the risk...",
+      "a shady-looking individual emerges from the shadows, dragging a rickety cart behind him. He's a trickster known for his unpredictable travels, his eyes sparkling with mischief. He offers you a trip to the vicinity of **{{destination}}** for **{{price}}** {emote:unitValues.money}. His confidence and mischievous smile make you wonder about the reliability of his direction...",
+      "a well-kept cart suddenly appears in your path. Its owner, a man with a weathered face and an enigmatic smile, assures you that he can take you somewhere near **{{destination}}** for **{{price}}** {emote:unitValues.money}. His determined gaze seems to be hiding something. You wonder if this vague direction is as attractive as it seems...",
+      "you come across a man who seems lost. He's a mysterious roublard, with tousled hair and a shrewd look, who claims to be able to lead you to the outskirts of **{{destination}}** in exchange for **{{price}}** {emote:unitValues.money}. His eyes sparkle with a mischief that's hard to pin down. You hesitate, weighing up the pros and cons of this uncertain direction...",
+      "a stranger approaches you, offering you a ride in his cart to the outskirts of **{{destination}}** for **{{price}}** {emote:unitValues.money}. After a short chat, you discover that this is a man whose travels are as varied as his wiles. His confidence seems a little too perfect, as if he had planned everything in advance. You wonder what he's hiding...",
+      "an affable man offers you a ride in his cart. He's a shaggy-bearded, shrewd-looking rogue known for his travels across the kingdom, offering you a ride near **{{destination}}** for **{{price}}** {emote:unitValues.money}. His words are gentle, but his gaze is hard. You wonder if you can really trust him...",
+      "you come across a strange individual with a cart. He's a traveler with a mysterious past, messy hair and a piercing gaze. He offers you a journey to the vicinity of **{{destination}}** in exchange for **{{price}}** {emote:unitValues.money}. His promises seem tempting, but his appearance leaves you in doubt. You wonder whether you might be walking into a trap..."
+    ],
+    "unknownDestination": [
+      "an enigmatic man with a dilapidated cart calls out to you. He offers you a journey to an unknown place for **{{price}}** {emote:unitValues.money}. His shrewd look and enigmatic smile leave you in doubt...",
+      "a shady individual emerges from the shadows and offers you a ride in his bumpy cart to an unknown destination for **{{price}}** {emote:unitValues.money}. His mischievous looks and overconfidence arouse your suspicion...",
+      "a man with a weathered face appears on your path with a well-kept cart. He offers to take you to an unknown destination for **{{price}}** {emote:unitValues.money}. His enigmatic smile and determined gaze may be hiding something...",
+      "a mysterious roublard comes across you and claims to be able to lead you to an unknown place for **{{price}}** {emote:unitValues.money}. His shrewd look and mischievous eyes make you hesitate...",
+      "a stranger approaches you with a proposal to travel in his cart to an unknown destination for **{{price}}** {emote:unitValues.money}. His self-assurance and mischievous look arouse your curiosity...",
+      "an affable man with a shaggy beard offers you a trip in his cart to an unknown place for **{{price}}** {emote:unitValues.money}. Despite his gentle words, his hard gaze makes you feel uncomfortable...",
+      "a traveler with a mysterious past offers you a journey to an unknown destination for **{{price}}** {emote:unitValues.money}. His intriguing allure and tantalizing promises pique your interest..."
+    ],
+    "menu": [
+      "\n\n{emote:other.car} Get on the wagon\n{emote:other.walking} Move along"
+    ],
+    "scamTravelDone": [
+      "After a swift journey, you find yourself in an unknown place. The man looks at you with a sneak smile and moves away with his cart.",
+      "The hirsute hair man has taken you to a completely different place from your intended destination. Before you have time to react, it quickly disappeared into a cloud of dust.",
+      "The trip was passed faster than expected and you find yourself in an unknown place. The man with his mischievous eyes moves away with his cart, leaving you alone and unlocked.",
+      "Soon, you were transported to a familiar place... You quickly realize that this is not the destination that was indicated to you, but it's already too late to respond. The mystery man is already far away.."
+    ],
+    "normalTravelDone": [
+      "You accept the man's offer and ride his cart. Enjoy a peaceful journey, and find yourself close to your intended destination.",
+      "After weighing the pros and cons you have to trust the man and get into his cart. You were relieved to find yourself in the destination indicated.",
+      "You climb up the cart and the hairman gets you to your destination. You arrive safely and safely from the place you prefer.",
+      "You accept the mystical passage's offer and ride his cart. To your surprise, you will find yourself close to your planned destination."
+    ],
+    "unknownDestinationTravelDone": [
+      "You accept the man's offer and ride his cart without any idea of your destination. You will find yourself in a place that seems to be welcoming.",
+      "Despite the uncertainty, you decide to trust the man and get into his cart. With your relief, you will find yourself in a peaceful and pleasant place.",
+      "You climb into the cart, the destination being a mystery. The hairman gets you through a variety of landscapes before heading to a place that looks promising.",
+      "You accept the offer of the traveler to the mystery pass and ride his cart without knowing you will go. To your great surprise, you will find yourself in a picturesque and charming place."
+    ],
+    "travelRefused": [
+      "After a short reflection, you decide not to take the risk and pass your path.",
+      "You politely reject the proposal and continue your way.",
+      "Since you do not need such a service at this time, you have to continue your journey.",
+      "You reject the proposal and continue your path."
+    ],
+    "notEnoughMoney": [
+      "You search in your pockets, but you realize you don't have enough money. The man looks at you and leaves with his cart.",
+      "You count your pieces, but you need them for the journey. The rogue shakes her tone and moves away with her cart.",
+      "You check your purse, but unfortunately you don't have enough money. The stranger nods it and leaves with its cart."
+    ]
+  },
+  "findMission": {
+    "intrigue": [
+      "a courier arrives towards you running out of breath. He tends you a letter from the king asking you to perform the following mission:",
+      "you find a board of missions. You peel them one by one, and among them you find one that suits you:",
+      "you decide to set a new goal to advance over other adventurers:",
+      "a pigeon traveler flies straight to you. On its right leg, you find a letter written in gold letters that describes a very integrated mission:",
+      "a stranger calls you and throws you a challenge:",
+      "a pass ahead drops you a mission sheet. Since the mission is an integral one, you decide to do it:",
+      "pass in front of a hut that looks abandoned and search in the pile of papers located in front of the door. Here you will find a proposal for a mission. You take your courage in two hands and run it through:",
+      "The wind makes a scroll fly up to your face. Cut in your journey, you decide to read it. You decide to perform the mission on the sheet:",
+      "An old adventurer tells his stories who wants to hear them. You stop listening to him a bit. A few moments later, he notices you and asks if you can complete a mission for him. You agree:"
+    ]
+  },
+  "bonusGuildPVEIsland": {
+    "events": [
+      {
+        "intro": "The sky is gray, the temperature average. It's ideal weather for walking and getting on with your adventure. However, after a few steps, the frail ground gives way beneath your feet and you fall into a hole.",
+        "success": {
+          "withGuild": "With the help of your guildmates, you manage to pull yourself out of the crevasse and save them in turn. This ordeal has strengthened your bond, and your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Not losing your coldblood, you immeditate your guild teachings and easily climb the wall. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Not losing your coldblood, you apply what you learned during your adventures and easily manage to climb the wall. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Wasting no time, you and your companions hurry to examine this crevasse, which turns out to be a cave. A bit of blind walking later, you manage to emerge from the hole further on.",
+          "solo": "Desperate, alone at the bottom of this crevasse, you only notice the narrow passage to your left after a few minutes. After struggling against the earth that had decided to confine you, you emerge into the open air."
+        },
+        "lose": {
+          "withGuild": "With the help of your guild mates, you manage to pull yourself out of the crevasse and rescue them in turn. However, the man with your purse climbed up last, and accidentally dropped the money during the climb. You lose **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "As you try to climb the wall, the earth crumbles under your fingers and feet, causing a landslide. Thanks to him, you manage to climb out of the crevasse, but you're pretty banged up. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You decide to rest a little after an intense crossing on the island. But when you lie down on the ground, the earth began to tremble.",
+        "success": {
+          "withGuild": "However, you clench each other so that you do not get any of you from a potential digging. The shake ends, and you are all healthy and safe. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "You are following the instructions given to you in the event of your guild seism; and decide to shelter under a structure that fortunately did not fall on you. You promise to thank your guild for your expedition return. Your guild wins **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Attempted to keep the jolt untouched. Fortunately, it did not cause any degae around, you continue to rest a little while admiring the sky and surroundings. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Caught in panic, your guild is trying to find a higher place to avoid any unwanted problems on one of you. After several minutes round because at least one of the members believes that this place is not superior, you no longer feel the shape. Nevertheless you are trying to regain your trust for what will follow in your journey of the...",
+          "solo": "Panic you are trying to dodge the potential hazards of the earthquake. After a few moments, the shake is no longer felt. On your way back to the place where you wanted to rest, you can see the rest of the earthquakes."
+        },
+        "lose": {
+          "withGuild": "You say that this earthquake will be short, and ask the rest of the guild to brave it. What a mistake! A rock crashed on you and knocked you. You lose **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Tell you that there will be only a small amount of trouble, you continue to rest. However, a crevasse is forming under your body. For fear of falling into it, you try to run as far as possible, but you get off and cut your arm. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You (and your guild mates) are making good progress on your adventure, when your instincts alert you to danger. Gradually, an almost opaque, whitish mist rises from the uneven ground and falls from the sky, encircling you. Before long, you can see nothing around you.",
+        "success": {
+          "withGuild": "Several pairs of eyes are better than one! Thanks to the cooperation of your visions, you and your companions manage to advance between rocks and crevasses without a single one being injured or lost. Your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "In this urgent situation, you keep your cold blood and use the tracking techniques learned from your guild to get out of the trouble without hindrance. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "In this urgent situation, you keep your cold blood and use tracking techniques learned a little more to get out of this trink. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Completely lost in this dense and threatening fog, your companions and you decide to gather to parry the chill, waiting for the wind to disperse the mist.",
+          "solo": "Completely tetanized by the anguish of this almost supernatural phenomenon, you panic, your pulse races and despite the coolness you feel the sweat on your pale forehead run down one by one, until the mist is dispersed by the wind."
+        },
+        "lose": {
+          "withGuild": "Your group is not complete, and you and your guildmates panic at the ordeal. Everyone goes their own way, and you don't ask for any more time to run back. But in your haste, you drop **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Completely panicked in front of this almost menacing mist, you take your legs to your neck and run straight in front of you. This is a serious error because you are on the ground very quickly because of the fog. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You're quietly moving on to new adventures when a sneaky, cheeky, pointy little pebble decides to make you its victim and cruelly slashes your ankle.",
+        "success": {
+          "withGuild": "Luckily for you, your guild mates heal your wound and quickly get you back on their feet. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Despite the pain, you can remember the teachings of your guild and get this knowledge to heal you quickly. Your guild gets **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Despite the pain, you manage to infect and bandage the wound in order to get back on your way as soon as possible. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Not wanting to be delayed, your guildmates decide to carry you so that you can be treated once you reach your destination.",
+          "solo": "Malgrained the pain, you manage to continue walking as you close."
+        },
+        "lose": {
+          "withGuild": "Completely helpless in the face of this wound, your companions treat you as best they can, but the wound becomes infected and the pain unbearable. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+          "solo": "Alone, writhing in pain in the middle of the path, you curse the proud stone and endure the dreadful pain to continue your adventure. You lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You're quietly walking towards your destination when large black clouds form over the area. The darkness is total.",
+        "success": {
+          "withGuild": "Your guild mates are far-sighted, however, and one of them pulls a torch from his bag to light your way. Your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "It's a good thing you had a torch in your saddlebag, which one of your guild mates gave you when you left! So you can easily see your way and continue on your way. Your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Fortunately you had a torch in your pocket, ready before your departure! This way you can easily see your way and continue your road. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Completely blinded, you and your companions grope your way through the pitch-black darkness, helping each other to avoid obstacles, until the strange night leaves as quickly as it came.",
+          "solo": "Completely blinded, you grope your way through the pitch-black darkness until the strange night returns as quickly as it came."
+        },
+        "lose": {
+          "withGuild": "Completely lost in the face of this sudden blindness, you and your companions panic and run straight ahead until this strange night goes away as quickly as it came. But in your haste, you've lost **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Single and completely lost face to this sudden one, you start to panic and move straight ahead without noticing the sneaky pebble that was waiting for you at that time. You pick up from the ground and lose **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "You have been walking for some time on a path that seems to you never end when you suddenly miss the forces and you fall tired.",
+        "success": {
+          "withGuild": "Seeing your discomfort, your companions rush to support you and offer you the energy you need to get back on your feet and continue your quest. Your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Despite this discomfort, you use what little energy you have left to pull some food offered by your guild from your inventory to regain your strength and continue your quest. Your guild receives **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Despite this discomfort, you use what little energy you have left to pull some pre-prepared food from your inventory to regain your strength and continue your quest. You receive **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Fortunately, it was only a momentary discomfort, and, encouraged by your guild mates, you resume your journey with them after a few minutes' rest.",
+          "solo": "Fortunately for you, it was only a momentary discomfort, and you manage to get back on the road after a few minutes' rest."
+        },
+        "lose": {
+          "withGuild": "Faced with this sudden discomfort, your guildmates, not knowing how to help, decide to carry you to the next stage, but exhaustion stalks you and you faint. You lose **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Completely exhausted, the sky begins to spin around you. You try to get up, but feeling like you're on a stormy sea, you faint in the middle of the road. You lose **{{amount}} {emote:unitValues.energy}**."
+        }
+      }
+    ]
+  },
+  "fightPet": {
+    "intro_male": [
+      "you fall nose with an {{feralPet}}!",
+      "you encounter an {{feralPet}}.",
+      "you see an {{feralPet}} that doesn't seem to want to let you pass.",
+      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
+      "you are not allowed to see an {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
+      "you notice a mysterical mecanism... Curious, you decide to activate it. You don't take long to regret your gesture when an {{feralPet}} appears from nowhere!",
+      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that stunts you."
+    ],
+    "intro_female": [
+      "you fall nose with an {{feralPet}}!",
+      "you encounter an {{feralPet}}.",
+      "you see an {{feralPet}} that doesn't seem to want to let you pass.",
+      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
+      "you are not allowed to see an {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
+      "you notice a mysterious mechanism... Curious, you decide to activate it. It doesn't take you long to regret your decision, however, when a {{feralPet}} appears out of nowhere!",
+      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that sticks to you."
+    ],
+    "situation": [
+      "The beast seems impossible to calm down ... You are trying to calm down and reflect an action plan for you to undo this animal.",
+      "Absolutely terrified, you are starting to reflect your different options to get you out of this beast.",
+      "Impossible not to react, you have to take a decision to save your life...",
+      "Distracted by the two red eyes of the animal that insist on you, you try to focus on an action plan.",
+      "The fetide breath of the animal makes you spin the sky. You are trying to concentrate...",
+      "You wonder if you should not run away, but you think you could get out of it if you reflect an action plan.",
+      "You tighten your grip on the guard of your spell, and a little reassured, reflect what you need to do.",
+      "Petrified by fear, you look at the animal sinking towards you, trying to force your tetaneous brain to find a solution.",
+      "You are looking for a solution that will keep you alive."
+    ],
+    "rageUpDescriptions": [
+      "Happy to get out of you, you feel your rage against the creatures of this island.",
+      "With your victory, you feel full of rage against the evil creatures of this island.",
+      "You feel stronger than ever and your rage against the evil creatures of this island is increasing.",
+      "Proud of you, you feel your rage against the evil creatures of this island increase.",
+      "No one can stop you! Your rage against evil creatures is only reinforced by this event."
+    ],
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
+    "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
+    "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
+    "adjectives_male": [
+      "fachee",
+      "hungry",
+      "enraged",
+      "furious",
+      "mechant",
+      "energized",
+      "aggressive",
+      "violent",
+      "hostile",
+      "irritated",
+      "in school",
+      "furax",
+      "wild",
+      "malpractice",
+      "brutal",
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupted",
+      "dusty",
+      "crazy",
+      "destructor",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
+    ],
+    "adjectives_female": [
+      "facie",
+      "affamee",
+      "raged",
+      "furious",
+      "mechant",
+      "Powered",
+      "aggressive",
+      "violent",
+      "hostile",
+      "irritated",
+      "in school",
+      "furax",
+      "wild",
+      "malicious",
+      "brutal",
+      "threatening",
+      "barbarian",
+      "atrocious",
+      "fierce",
+      "ruthless",
+      "brawler",
+      "not happy",
+      "evil",
+      "corrupt",
+      "dusty",
+      "crazy",
+      "destructive",
+      "cursed",
+      "machiavelic",
+      "malicious",
+      "feeroce"
+    ],
+    "fightPetActions": {
+      "fistHit": {
+        "name": "Punch",
+        "success": "You punch the animal with a big punch! He slips back, surprised. You take advantage of it to flee!",
+        "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you get away!"
+      },
+      "runAway": {
+        "name": "Escape",
+        "success": "You do not reflect for a second and start running! The pet is continuing with you but you manage to do so.",
+        "failure": "You try to flee, but you quickly caught up with the beast that sits at you a violent blow before leaving yourself alone."
+      },
+      "focusEnergy": {
+        "name": "Focus power and attack",
+        "success": "You slow down your breath and feel your energy walking your arms! You get this energy in a brutal blow that makes the animal flee!",
+        "failure": "You are trying to concentrate but you are too tired to do that! You are shaking on the ground, but it all has the effect of calming the beast, which is leaving."
+      },
+      "intimidate": {
+        "name": "Intimize Creature",
+        "success": "You show your strength in front of the animal, which is pulling back and escaping alive at the pace of the horizon!",
+        "failure": "You bomb the chest in front of the animal, which only makes it more energetic. In the school he misses his attack, and you can take advantage of it to get started quickly!"
+      },
+      "baitWithMeat": {
+        "name": "Distract beats with meat",
+        "success": "You pull a piece of meat out of your bag and throw it at the animal, which throws on it greedily. You take advantage of it to escape.",
+        "failure": "You are clumsily trying to throw a piece of meat into the body to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and sits at you a violent blow before leaving you alone."
+      },
+      "baitWithVegetables": {
+        "name": "Distract yourself with a legume",
+        "success": "You pull a legume out of your bag and throw it at the animal, which sniffs it with integrity. This allows you enough time to escape.",
+        "failure": "You pull a legume out of your bag and throw it at the animal, which sniffs it with disguise. Even more enraged than before, the beast surprises you with an overwhelming assault! You have no way to get rid of it and you are under the violent attack with full force."
+      },
+      "provoke": {
+        "name": "Taunt",
+        "success": "You approach the animal and provoke it by making grimaces. It runs towards you out of fury! You step aside at the last minute and it crashes into a tree. You finish it with a kick and get back on your way.",
+        "failure": "You approach the animal and provoke it by making grimaces. He snarls and gives you a violent blow before leaving you alone."
+      },
+      "doNothing": {
+        "name": "Do nothing",
+        "success": "You are not moving an inch, and the animal seems to ignore you. You take opportunity to slip away, delighted to have been so lucky.",
+        "failure": "You don't move an inch, but the animal isn't fooled and gives you a violent blow before leaving you alone. You are going back on the road, ashamed that this strategy didn't work as expected."
+      },
+      "lastEffort": {
+        "name": "Use all your strength to attack",
+        "success": "You concentrate and gather all your strength to attack the animal. You give it a blow so violent it forces it to flee!",
+        "failure": "You concentrate and gather all your strength to attack the animal. You give it a violent blow, but it is not enough to make it flee. You suffer a fierce attack before managing to get away!"
+      },
+      "usePlayerPet": {
+        "name": "Call on your pet",
+        "success": "After all the adventures you've been through together, it's finally time to call on your companion for an epic battle. However, it won't happen as the wild animal, surprised by your pet's arrival, flees without a second thought!",
+        "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, knocked unconscious by the wild beast that leaves you alone, without even giving you a glance."
+      },
+      "protect": {
+        "name": "Protect yourself",
+        "success": "You raise your shield high in front of you, ready to take off the beast. She sits on you, you keep her feet on the ground as well as badly and you end up repeating the assault. The animal then leaks after suffering this failure.",
+        "failure": "You put your shield in front of you, ready to take the blow of beast, but the assault was brutal. Your challenge does not hold up, and you are worth a few meters. Persuaded by having put you out of the state of harm, the animal is away from the distance."
+      },
+      "playDead": {
+        "name": "Play possum",
+        "success": "As the animal looks at you, you mine to fall to the ground and you no longer move. Apres observe you inert on the ground for a while, it moves away and leaves you alone.",
+        "failure": "As the animal looks at you, you mine to fall to the ground and you no longer move. He approaches you and sniffs, and finds that you are only pretending. You unfold the creature by getting up quickly and take your legs to your neck before you finish dead for real."
+      },
+      "scream": {
+        "name": "Shout",
+        "success": "You push a strident cry that runs away from the animal. You get back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You spawn a strident cry that runs away from the animal. However, it comes back to the load and sits a violent blow before leaving you alone."
+      },
+      "prayGod": {
+        "name": "Pray to God",
+        "success": "You pray to God to help you. He hears you and protects you from the animal attack. You are back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You pray to God to help you. The animal charges you and your hands do not protect you from its attack. You are back on your way, shameful to have imagined that this strategy would work."
+      },
+      "attackLeft": {
+        "name": "Attack Left",
+        "success": "You run from the left side of the animal and hit it violently, shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the left side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+      },
+      "attackRight": {
+        "name": "Attack Right",
+        "success": "You run from the right side of the animal and hit it violently; shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the right side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+      },
+      "helpFromMates": {
+        "name": "Call on your guild members",
+        "success": "You call on your teammates, who arrive quickly on the spot. The animal, surprised by the arrival of these reinforcements, flees without asking the rest of them!",
+        "failure": "You call on your teammates, but they are too far away to hear you. The animal, fast, knocks you down before you go again."
+      }
+    }
+  },
+  "gobletsGame": {
+    "intro": "you meet a man who seems suspicious to you. Indeed, it approaches you and pushes you to a table, where three mystery goblets are laid. The instructions given to you are simple: you must pull a cup at random and receive the prize of any kind. While you observe the objects on the table, the man slips into your back and doesn't seem to want to let you go. To get out of this situation, you can choose a cup.",
+    "goblets": {
+      "metal": {
+        "description": "The meteor, seemingly ancient tree, engraved with a dragon's tone",
+        "name": "in metal"
+      },
+      "biggest": {
+        "description": "The largest of the three, of a subject you fail to identify",
+        "name": "largest"
+      },
+      "sparkling": {
+        "description": "The last, sculpt in a blue wood, and glittering so much that it seemed enchanted",
+        "name": "glittering"
+      }
+    },
+    "results": {
+      "life": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}. ame) and notice that there is nothing underneath. Deep, and bad loser, you hit the remaining cups that fly in the air. Noting that there was nothing in the other goblets either, you turn to the scammer. Unfortunately it hits the first. You lose **{{quantity}} {emote:unitValues.lostHealth}**.",
+      "time": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}. ame) and discover with pleasure a little piece! Unfortunately, the man behind you does not seem to want to let you leave with your reward. You lose **{{quantity}} Min {emote:unitValues.time}** to shop with him before giving up and getting back on your way.",
+      "nothing": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) and notice that there is nothing below. If so, you are leaving again sadly saying that you may have more luck another time.",
+      "end": "Faced with your lack of response, the man has the wrong idea of trying to steal you. Noting his manoeuvre, you intervene, but you were quickly surprised by the strength of the man who manages to deal with an abrupt movement, before escaping. You are dealing with a **{{quantity}} {emote:unitValues.lostHealth}**."
+    }
+  },
+  "shop": {
+    "intro_m": [
+      "As you travel peacefully, you meet {{name}}. The {{name}} is a traveling merchant, offering you a special offer.",
+      "As you move quietly along your way, you fall on your nose with {{name}}, which quickly offers you an attractive offer.",
+      "As you plan to get back on track after a short break, a man portraying himself as \"{{name}} - traveling merchant\" offers you an exchange.",
+      "Around a rock, you fall nose with a traveling merchant named {{name}}, who seems to be selling smart things.",
+      "As you walk quietly, a cart bearing the sign \"{{name}} - supertrader traveling items\" will appear in front of you. A transaction is starting immedially.",
+      "A merchant is calling you to a certain point of your journey. He says he's called {{name}} and has items that can help you on your journey.",
+      "A man is approaching you with long hours of walking. You hear that it is called {{name}} – a first-class merchant. It quickly shows you one of its many items.",
+      "During a short break against a tree, a man comes to you and presents himself as a traveling merchant. The man whose name is {{name}} seems to offer an enchanting deal."
+    ],
+    "intro_f": [
+      "As you move quietly along your way, you come face to face with {{name}} who quickly offers you an attractive deal.",
+      "As you travel the roads, you often come across wandering merchants. Today, it's one named {{name}} who has a deal to offer to you.",
+      "During your journey, a merchant is calling out to you. She tells she's named {{name}} and has items that can help you on your journey.",
+      "As you move quietly along your way, you come across a cart where a merchant named {{name}} is located. She offers you to buy one of her items, telling you that it might be useful to you in your adventure."
+    ],
+    "end": [
+      "\n\n{{item}} | `{{price}} {emote:unitValues.money}`\n\n**Type:** {{type}}"
+    ],
+    "types": [
+      "Weapon",
+      "Armour/Shield",
+      "Potion",
+      "Item"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "George",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russell",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karen",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfied with your purchase, you quietly resume your travel.",
+      "You give him a purse in order to proceed to the purchase, once the property has been acquired you continue your way."
+    ],
+    "notEnoughMoney": [
+      "Unfortunately, you do not have enough money, so you get back on the road.",
+      "You stretch an empty purse, hoping that it passes without a hitch, but you get quickly warded off, you get back to your tracks with a sad, disappointed mood."
+    ],
+    "refused": [
+      "You decline the offer and continue your travel."
+    ]
+  },
+  "epicItemShop": {
+    "intro": [
+      "As you progress towards your destination, an unexpected encounter occurs. Alderic the antique dealer emerges on the horizon, his cart of treasures in tow, ready to discuss a special offer.",
+      "On the way, a strange individual appears. Alderic the antique dealer, a charming travelling merchant, presents himself with a captivating offer.",
+      "Walking peacefully into the unknown, a familiar figure emerges: Alderic the antique dealer, the wandering merchant, offers you an intriguing proposal.",
+      "During your trip without hindrance, a unique event occurs. Alderic the antique dealer, the itinerant artist of antiquities, invites you to a memorable transaction.",
+      "During your trip, something surprising interrupts you. It's Alderic the antique dealer, the wandering merchant, who presents you with an unexpected treasure.",
+      "During a short break under a tree, a mysterious character appears. It is Alderic the antique dealer, the vagabond of the unusual, ready to immerse you in an enchanting offer.",
+      "As you peacefully walk along the road, your attention is drawn to the noise of the wheels of a cart. Alderic the antique dealer, a middle-aged man dressed in a picturesque way, wanders the roads as a merchant. With a friendly smile, he invites you to explore his collection of fascinating objects.",
+      "Walking on a dusty stone path, a cart bearing the inscription \"Alderic the antique dealer - great item merchant\" comes into view. A transaction is about to begin.",
+      "Walking quietly, a wooden trolley that attracted your curiosity appears on the horizon. On board is Alderic, a distinguished man marked by the passage of time. His cart is filled with antiques carefully arranged and he proposes to show you his treasures, all loaded with stories.",
+      "Leaving after a short break, a well-dressed individual approaches you. He introduces himself as Alderic the antique dealer, a renowned traveling merchant. His outfit, blending ancient fabrics and mysterious accessories, reflects its love for the objects of yesteryear. With an accent tinged with excitement, he tells you the story of his unique finds.",
+      "During your leisurely stroll, a treasure-like cart stops in front of you. Its driver, Alderic the antique dealer, is a warm-hearted man wearing vintage clothes. He invites you to explore his collection of curiosities, each accompanied by a story that will amaze you.",
+      "During a break in the shade of a big tree, a distinguished man approaches you with a friendly smile. It's Alderic the antique dealer, a renowned merchant. His costume is an epoch and he shows you carefully his collection of ancient objects exhibited in his cart.",
+      "After long hours of walking, a middle-aged man dressed in clothes from a bygone era courteously approaches you. Presenting itself as Alderic the antique dealer, an antique enthusiast, he invites you to discover his collection of fascinating objects, telling with pleasure the story of each of them."
+    ],
+    "reductionTip": "It tilts the tone upwards and confides in you, 'If you intend to venture to the Road of Wonders and manage to find me there, rest assured that I will book you an offer of the most advantageous.'",
+    "purchased": [
+      "Satisfied with your purchase, you will return to your road quietly.",
+      "You give him a purse in order to proceed to the purchase, once the item has been acquired you continue your way."
+    ],
+    "notEnoughMoney": [
+      "Unfortunately, you do not have enough money, so you get back on the road.",
+      "You stretch an empty purse, hoping that it passes without a hitch, but you get quickly chased away, you get down the road sad and disappointed."
+    ],
+    "refused": [
+      "You decline the offer and return to your path."
+    ]
+  }
+}

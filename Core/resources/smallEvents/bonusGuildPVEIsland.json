@@ -1,0 +1,89 @@
+{
+  "properties": {
+    "ranges": {
+      "expOrPointsGuild": {
+        "min": 25,
+        "max": 100
+      },
+      "experience": {
+        "min": 20,
+        "max": 25
+      },
+      "money": {
+        "min": 25,
+        "max": 50
+      },
+      "life": {
+        "min": 3,
+        "max": 10
+      },
+      "energy": {
+        "min": 10,
+        "max": 25
+      }
+    },
+    "events": [
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "energy",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "life",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "money",
+          "solo": "life"
+        }
+      },
+      {
+        "success": {
+          "withGuild": "expOrPointsGuild",
+          "solo": "experience"
+        },
+        "lose": {
+          "withGuild": "energy",
+          "solo": "energy"
+        }
+      }
+    ]
+  },
+  "rarity": 8
+}

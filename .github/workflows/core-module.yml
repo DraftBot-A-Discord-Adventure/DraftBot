@@ -1,0 +1,41 @@
+name: Core module
+on:
+  pull_request:
+    branches:
+      - draftbot-v5
+    paths:
+      - Core/**
+  workflow_dispatch:
+
+jobs:
+  eslint-core-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Yarn
+        run: |
+          corepack enable
+          yarn set version stable
+
+      # Cache Yarn dependencies for Core module
+      - name: Cache Core dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Core/.yarn/cache  
+            ./Core/.pnp.cjs
+          key: ${{ runner.os }}-core-dependencies-${{ hashFiles('./Core/yarn.lock') }}
+
+      - name: Install dependencies and Run ESLint in Core folder
+        working-directory: ./Core
+        run: |
+          yarn install
+          yarn eslint

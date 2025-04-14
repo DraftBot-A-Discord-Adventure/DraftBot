@@ -1,0 +1,10 @@
+{
+	"outcomeProbabilities": {
+		"potion": 20,
+		"effect": 15,
+		"life_loss": 0,
+		"nothing": 15
+	},
+	"effectName": "freezing",
+	"isIngredient": false
+}

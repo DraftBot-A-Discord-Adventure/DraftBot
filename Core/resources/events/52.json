@@ -1,0 +1,76 @@
+{
+    "possibilities": {
+        "deny": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "hurt"
+                },
+                "2": {}
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 120,
+                    "money": -100
+                }
+            }
+        },
+        "play": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 5
+                },
+                "2": {
+                    "effect": "hurt",
+                    "health": -15
+                }
+            }
+        },
+        "playFight": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 20
+                },
+                "1": {
+                    "health": -1
+                },
+                "2": {
+                    "money": -250
+                },
+                "3": {
+                    "effect": "occupied",
+                    "lostTime": 20
+                }
+            }
+        },
+        "teach": {
+            "outcomes": {
+                "0": {
+                    "effect": "hurt",
+                    "health": -25
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 190,
+                    "randomItem": {}
+                },
+                "2": {}
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 6
+        }
+    ]
+}

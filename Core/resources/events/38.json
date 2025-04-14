@@ -1,0 +1,84 @@
+{
+    "possibilities": {
+        "buyCheap": {
+            "outcomes": {
+                "0": {
+                    "money": -100,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "1": {
+                    "money": -100,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                }
+            }
+        },
+        "buyExpensive": {
+            "outcomes": {
+                "0": {
+                    "money": -350,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "1": {
+                    "money": -350,
+                    "randomItem": {},
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                },
+                "2": {
+                    "money": -350,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                }
+            }
+        },
+        "deny": {
+            "outcomes": {
+                "0": {}
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 180,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 180
+                }
+            }
+        },
+        "steal": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {},
+                "2": {
+                    "effect": "hurt",
+                    "health": -20
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 9
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "money": 250,
+                    "randomItem": {}
+                },
+                "1": {},
+                "2": {
+                    "money": 450
+                }
+            }
+        },
+        "food": {
+            "outcomes": {
+                "0": {
+                    "effect": "sick",
+                    "money": -300
+                },
+                "1": {
+                    "health": 20,
+                    "randomItem": {}
+                },
+                "2": {}
+            }
+        },
+        "health": {
+            "outcomes": {
+                "0": {
+                    "health": 30
+                },
+                "1": {
+                    "health": -20
+                },
+                "2": {}
+            }
+        },
+        "kind": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "confounded",
+                    "health": -10
+                },
+                "2": {
+                    "randomItem": {}
+                }
+            }
+        },
+        "money": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 85,
+                    "money": 350
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 190
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 17
+        }
+    ]
+}

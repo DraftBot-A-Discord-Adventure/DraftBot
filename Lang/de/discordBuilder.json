@@ -1,0 +1,384 @@
+{
+  "badges": {
+    "description": "Informationen über Abzeichen und ihre Funktionsweise anzeigen.",
+    "name": "Badges"
+  },
+  "help": {
+    "description": "Eine Liste der verfügbaren Bestellungen oder detaillierte Informationen zu einer Bestellung anzeigen.",
+    "name": "Hilfe",
+    "options": {
+      "commandName": {
+        "description": "Der Befehl, dessen Informationen angezeigt werden sollen.",
+        "name": "Befehl"
+      }
+    }
+  },
+  "idea": {
+    "description": "Einen Vorschlag zur Verbesserung des Spiels senden.",
+    "name": "Vorschlag"
+  },
+  "inventory": {
+    "description": "Zeigt das Inventar des Spielers an.",
+    "name": "Bestandsaufnahme",
+    "options": {
+      "rank": {
+        "description": "Die Rangfolge des Spielers, dessen Bestand angezeigt werden soll.",
+        "name": "Rangfolge"
+      },
+      "user": {
+        "description": "Der Benutzer, dessen Bestand angezeigt werden soll.",
+        "name": "User"
+      }
+    }
+  },
+  "invite": {
+    "description": "Fügen Sie den Bot auf Ihrem Server hinzu.",
+    "name": "invitationdraftbot"
+  },
+  "language": {
+    "description": "Ändern Sie die Sprache des Bots für Ihre nächsten Interaktionen.",
+    "name": "Sprache"
+  },
+  "ping": {
+    "description": "Zeigt die Latenz des Bots an und ermöglicht es dem Spieler, zu überprüfen, ob der Bot online ist.",
+    "name": "Ping"
+  },
+  "pet": {
+    "description": "Informationen über den Vertrauten eines Spielers anzeigen.",
+    "name": "vertraut",
+    "options": {
+      "rank": {
+        "description": "Die Rangliste des Spielers, dessen Vertrauter angezeigt werden soll.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der Nutzer, dessen Vertrauter angezeigt werden soll.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "petFree": {
+    "description": "Einen Vertrauten befreien.",
+    "name": "libererfamilier"
+  },
+  "petNick": {
+    "description": "Geben Sie Ihrem Vertrauten einen Namen.",
+    "name": "Spitznamefamilier",
+    "options": {
+      "nickname": {
+        "description": "Der Spitzname, den du deinem Begleiter geben möchtest. (Lassen Sie ihn leer, um den Spitznamen zu löschen)",
+        "name": "Spitzname"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Eine neue Gilde gründen.",
+    "name": "creationguilde",
+    "options": {
+      "guildName": {
+        "description": "Der Name der Gilde.",
+        "name": "Name"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Ändern Sie die Beschreibung der Gilde.",
+    "name": "beschreibungguilde",
+    "options": {
+      "description": {
+        "description": "Beschreibung.",
+        "name": "Beschreibung"
+      }
+    }
+  },
+  "guildInvite": {
+    "description": "Werben Sie ein neues Mitglied für Ihre Gilde.",
+    "name": "Einladungguilde",
+    "options": {
+      "user": {
+        "description": "Der zu rekrutierende Nutzer.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "guild": {
+    "description": "Informationen über eine Gilde anzeigen.",
+    "name": "Gilde",
+    "options": {
+      "rank": {
+        "description": "Die Rangliste des Spielers, dessen Gilde angezeigt werden soll.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der Benutzer, dessen Gilde angezeigt werden soll.",
+        "name": "Benutzer"
+      },
+      "guildName": {
+        "description": "Der Name der Gilde, deren Informationen angezeigt werden sollen.",
+        "name": "Gilde"
+      }
+    }
+  },
+  "profile": {
+    "description": "Zeigt das Profil eines Spielers an.",
+    "name": "Profil",
+    "options": {
+      "rank": {
+        "description": "Die Rangfolge des Spielers, dessen Profil angezeigt werden soll.",
+        "name": "Rangfolge"
+      },
+      "user": {
+        "description": "Der Benutzer, dessen Profil angezeigt werden soll.",
+        "name": "User"
+      }
+    }
+  },
+  "rarity": {
+    "description": "Zeigen Sie die verschiedenen Seltenheiten der Ausrüstung an.",
+    "name": "Seltenheit"
+  },
+  "report": {
+    "description": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
+    "name": "Bericht"
+  },
+  "test": {
+    "description": "Schmacks-Befehl für Tester (NUR TESTMODUS).",
+    "name": "Test",
+    "options": {
+      "commandName": {
+        "description": "Der auszuführende Testbefehl.",
+        "name": "Befehl"
+      }
+    }
+  },
+  "update": {
+    "description": "Aktuelle Version des Bots anzeigen.",
+    "name": "Neuigkeiten"
+  },
+  "vote": {
+    "description": "Link zur Abstimmung für den Bot anzeigen.",
+    "name": "Abstimmung"
+  },
+  "map": {
+    "description": "Karte anzeigen, um anzuzeigen, wohin Sie gehen.",
+    "name": "Karte"
+  },
+  "shop": {
+    "description": "Laden anzeigen.",
+    "name": "Laden"
+  },
+  "classesInfo": {
+    "description": "Informationen über die für Ihren Charakter auswählbaren Klassen anzeigen.",
+    "name": "infosclasses"
+  },
+  "respawn": {
+    "description": "Wiederaufnahme des Abenteuers nach ... \"einem Unfall\".",
+    "name": "wiederbeleben"
+  },
+  "notifications": {
+    "description": "Verwalten Sie die Benachrichtigungen des Bots.",
+    "name": "Benachrichtigungen",
+    "options": {
+      "toggle": {
+        "description": "Aktivieren oder deaktivieren Sie Benachrichtigungen eines bestimmten Typs.",
+        "name": "ändern"
+      }
+    }
+  },
+  "maintenance": {
+    "description": "Schalten Sie den Bot in den Wartungsmodus.",
+    "name": "Wartung",
+    "options": {
+      "enable": {
+        "description": "Aktiviert oder deaktiviert den Wartungsmodus.",
+        "name": "aktivieren"
+      },
+      "save": {
+        "description": "Speichern Sie den Wartungsmodus in der Konfigurationsdatei.",
+        "name": "speichern"
+      }
+    }
+  },
+  "missions": {
+    "description": "Die Aufgaben eines Spielers auflisten.",
+    "name": "Missionen",
+    "options": {
+      "rank": {
+        "description": "Die Rangliste des Spielers, dessen Aufgaben angezeigt werden sollen.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der Nutzer, dessen Aufgaben angezeigt werden müssen.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "guildShop": {
+    "description": "Gildenladen anzeigen.",
+    "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Ein Mitglied aus der Gilde ausschließen.",
+    "name": "ausschließenGilde",
+    "options": {
+      "rank": {
+        "description": "Die Rangliste des Spielers, der aus der Gilde ausgeschlossen werden soll.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der Nutzer, der aus der Gilde ausgeschlossen werden soll.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "guildDaily": {
+    "description": "Sammelt die tägliche Belohnung der Gilde ein.",
+    "name": "bonusjournalgilde"
+  },
+  "guildElder": {
+    "description": "Ein Gildenmitglied zum Ältesten befördern.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "Der Nutzer, der als Ältester befördert wird.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "guildElderRemove": {
+    "description": "Entlassung des Gildenältesten aus dem Amt.",
+    "name": "löschegilde"
+  },
+  "guildLeave": {
+    "description": "Die Gilde verlassen.",
+    "name": "verlassenGilde"
+  },
+  "daily": {
+    "description": "Benutzen Sie Ihren ausgerüsteten Gegenstand, um einen täglichen Bonus zu erhalten.",
+    "name": "Bonustag"
+  },
+  "unlock": {
+    "description": "Befreie einen anderen Spieler aus dem Gefängnis.",
+    "name": "liefern",
+    "options": {
+      "rank": {
+        "description": "Die Einstufung des auszustellenden Spielers.",
+        "name": "Rangliste"
+      },
+      "user": {
+        "description": "Der zu liefernde Nutzer.",
+        "name": "Benutzer"
+      }
+    }
+  },
+  "missionsshop": {
+    "description": "Missionsladen anzeigen.",
+    "name": "magasinmissions"
+  },
+  "top": {
+    "description": "Zeigt die Ranglisten des Spiels an.",
+    "name": "Rangliste",
+    "subcommands": {
+      "score": {
+        "description": "Zeigt die Rangfolge der Spieler nach ihrer Punktzahl an.",
+        "name": "Punktestand"
+      },
+      "glory": {
+        "description": "Anzeige der Rangfolge der Gilden nach ihrem Ruhm.",
+        "name": "Ruhm"
+      },
+      "guild": {
+        "description": "Anzeige der Rangfolge der Gilden nach Punkten.",
+        "name": "Gilde"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "Die Dauer der angezeigten Rangliste (Seit immer als Standard).",
+        "name": "Dauer"
+      },
+      "page": {
+        "description": "Die Seite der Rangliste, die angezeigt werden soll.",
+        "name": "Seite"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} Seit jeher.",
+      "weekly": "{emote:top.weekly} Diese Woche."
+    }
+  },
+  "fight": {
+    "description": "Einen Kampf beginnen.",
+    "name": "Kampf"
+  },
+  "switch": {
+    "name": "vertauschen",
+    "description": "Tausche den aktiven Gegenstand mit einem der Gegenstände in deinem Vorrat."
+  },
+  "drink": {
+    "name": "trinken",
+    "description": "Trinke den ausgerüsteten Trank.",
+    "options": {
+      "force": {
+        "name": "erzwingen",
+        "description": "Wenn ja, überspringe die Bestätigungsphase, wenn du dir sicher bist, dass du den Trank trinken willst."
+      }
+    }
+  },
+  "petSell": {
+    "name": "verkaufenfamiliär",
+    "description": "Verkaufen Sie einen Vertrauten an einen anderen Spieler.",
+    "options": {
+      "price": {
+        "name": "Preis",
+        "description": "Der Verkaufspreis des Vertrauten."
+      },
+      "player": {
+        "name": "Spieler",
+        "description": "Der Spieler, an den der Begleiter verkauft werden soll."
+      }
+    }
+  },
+  "classes": {
+    "name": "Klassen",
+    "description": "Die Klasse wechseln."
+  },
+  "sell": {
+    "name": "verkaufen",
+    "description": "Eine Ausrüstung verkaufen."
+  },
+  "petTransfer": {
+    "name": "transfererfamilier",
+    "description": "Einen Begleiter aus dem oder in den Gildenunterschlupf transferieren."
+  },
+  "petFeed": {
+    "name": "ernährenfamiliär",
+    "description": "Füttern Sie Ihren Begleiter."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Informationen über den Gildenunterstand anzeigen."
+  },
+  "leagueReward": {
+    "name": "bonusliga",
+    "description": "Sammeln Sie die Belohnung, die mit Ihrer Liga verbunden ist."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Zeigt den Inhalt des Gildenlagers an."
+  },
+  "joinBoat": {
+    "name": "joinbateau",
+    "description": "Schließen Sie sich dem Schiff an, wenn sich ein Mitglied Ihrer Gilde darauf befindet."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Einem Spieler ein Abzeichen geben.",
+    "options": {
+      "user": {
+        "name": "Benutzer",
+        "description": "Der Spieler, dem das Abzeichen gegeben werden soll."
+      }
+    }
+  }
+}

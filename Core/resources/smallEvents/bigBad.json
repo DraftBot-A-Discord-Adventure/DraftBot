@@ -1,0 +1,55 @@
+{
+  "properties": {
+    "alterationStories": {
+      "badBerries": {
+        "alte": "sick"
+      },
+      "gentleBreeze": {
+        "alte": "sleeping"
+      },
+      "mysteriousBottle": {
+        "alte": "drunk",
+        "tags": [
+          "drinkAlcohol"
+        ]
+      },
+      "strangeLiquid": {
+        "alte": "sick"
+      },
+      "expiredProvisions": {
+        "alte": "confounded"
+      },
+      "unexpectedRider": {
+        "alte": "injured"
+      },
+      "fallingBranch": {
+        "alte": "hurt"
+      },
+      "precipiceFall": {
+        "alte": "injured"
+      },
+      "ambushedByGroup": {
+        "alte": "hurt"
+      },
+      "cowStampede": {
+        "alte": "scared"
+      },
+      "trippedOverRoot": {
+        "alte": "hurt"
+      },
+      "encounterWithBearCub": {
+        "alte": "scared"
+      },
+      "wrongDirection": {
+        "alte": "lost"
+      },
+      "chilledByColdNights": {
+        "alte": "freezing"
+      },
+      "mistakenIdentity": {
+        "alte": "jailed"
+      }
+    }
+  },
+  "rarity": 1
+}

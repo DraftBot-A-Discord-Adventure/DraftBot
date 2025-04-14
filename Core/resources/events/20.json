@@ -1,0 +1,53 @@
+{
+    "possibilities": {
+        "alert": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "hurt",
+                    "health": -35
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 5
+                }
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5
+                }
+            }
+        },
+        "surpriseAttack": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "hurt",
+                    "health": -55
+                },
+                "2": {
+                    "effect": "occupied",
+                    "lostTime": 30,
+                    "money": 25
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 23
+        }
+    ]
+}

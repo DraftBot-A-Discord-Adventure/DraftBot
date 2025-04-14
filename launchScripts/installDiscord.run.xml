@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="installDiscord" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/Discord/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="yarnInstall" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,5 @@
+{
+  "type": "castleThrone",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "king_castle"
+}

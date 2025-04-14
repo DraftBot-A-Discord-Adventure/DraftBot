@@ -1,0 +1,50 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 45
+                }
+            }
+        },
+        "followHint": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "hurt",
+                    "health": -40,
+                    "money": -200
+                }
+            }
+        },
+        "forest": {
+            "outcomes": {
+                "0": {
+                    "effect": "lost"
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 130,
+                    "randomItem": {}
+                },
+                "2": {
+                    "effect": "hurt",
+                    "health": -20
+                }
+            }
+        },
+        "oppositeSide": {
+            "outcomes": {
+                "0": {
+                    "effect": "lost"
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 22
+        }
+    ]
+}

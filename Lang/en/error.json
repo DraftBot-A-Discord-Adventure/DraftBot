@@ -1,0 +1,155 @@
+{
+  "anotherPlayerBlocked": "You can't do this because {{username}} currently has a pending action ({{reasons}})!",
+  "blockedContext": {
+    "acceptItem": "choice to keep an item or not",
+    "cartSmallEvent": "Choice to get in the cart or not",
+    "chiefGuildLeave": "Transfer of authority",
+    "chooseDestination": "Choice of destination",
+    "class": "Class change",
+    "confirmBuy": "purchase confirmation",
+    "cooldown": "You are typing commands too fast!",
+    "descriptionEdit": "guild description edit",
+    "drink": "choice of whether to drink a potion",
+    "fight": "fight",
+    "fightConfirmation": "choice of whether or not to start a fight",
+    "fightPetChoose": "choice of an action for the pet fight event",
+    "gobletChoose": "choice of a goblet",
+    "guildCreate": "guild creation",
+    "guildElder": "choice of the elder",
+    "guildElderRemove": "deletion of eldest child",
+    "guildInvite": "guild invitation",
+    "guildKick": "expulsion of a guild member",
+    "guildLeave": "guild departure",
+    "guildShop": "guild's shop",
+    "guildShopConfirmation": "confirmation of a choice in the guild's shop",
+    "lottery": "lottery small event",
+    "merchant": "merchant",
+    "missionShop": "missions shop",
+    "missionShopConfirmation": "confirmation of a choince in the missions shop",
+    "petFeed": "feeding a pet",
+    "petFree": "freeing a pet",
+    "petSell": "selling a pet",
+    "petSellConfirm": "confirmation of a pet purchase",
+    "petTransfer": "animal transfer",
+    "pveIsland": "PVE island small event",
+    "report": "report",
+    "reportCommand": "report command",
+    "selectQuantity": "quantity selection",
+    "sell": "selling an item",
+    "sellConfirm": "confirmation of an item sale",
+    "shop": "shop",
+    "shopConfirmation": "confirmation of a choice in the shop",
+    "skipMission": "skipping a mission",
+    "slotExtension": "inventory extension purchase",
+    "startBossFight": "start of a boss fight",
+    "switch": "equipment switch",
+    "test": "test",
+    "unlock": "releasing someone",
+    "witchChoose": "witch event choice"
+  },
+  "commandDoesntExist": "ERROR: Unknown command",
+  "interactionNotForYou": "This interaction is not intended for you!",
+  "playerBlocked": "You can't do this because you currently have a pending action ({{reasons}})!",
+  "playerDoesntExist": "The requested player hasn't started playing yet !",
+  "titleBlocked": "{{pseudo}}, this person is occupied!",
+  "titleCanceled": "{{pseudo}}, canceled!",
+  "titleDidntWork": "{{pseudo}}, hmmm... That didn't work!",
+  "guildDoesntExist": "No guild was found.",
+  "guildAlreadyExist": "The name you chose is already used by another guild.",
+  "guildNameNotValid": "The rules to naming a guild are as follows:\n$t(error:stringRules)",
+  "alreadyInAGuild": "You already belong to a guild.",
+  "petDoesntExist": "No pet was found.",
+  "unexpectedError": "An error occurred. :(",
+  "pleaseWaitForHeal": "Please wait for the state alteration recovery to be complete before you can continue playing: {{time}}\n\n{emote:messages.info} You can use the {command:shop} command to purchase a treatment.",
+  "pleaseWaitForHisHeal": "Please wait until his state alteration recovery is complete: {{time}}",
+  "notEnoughMoney": "You don't have enough money to perform this action. You are missing {{money}}{emote:unitValues.money}.",
+  "cooldownPetFree": "You can only release one pet per hour. You will be able to release another one {{remainingTime}}.",
+  "unknownPlayer": "Nickname 404",
+  "petNickNotValid": "The rules for naming a pet are as follows:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "The rules for describing a guild are as follows:\n$t(error:stringRules)",
+  "stringRules": "- Use at least one letter\n- Do not put more than 2 consecutive spaces\n- Special characters are not allowed\n- Between {{min}} and {{max}} characters",
+  "notInAGuild": "You must belong to a guild to place this order.",
+  "notAuthorizedError": "You do not have the required permissions to do that command in your guild, please ask a superior if needed.",
+  "levelTooLow": "You must be **level {{level}}** to use this command! Come back later!",
+  "targetLevelTooLow": "This player must be **level {{level}}** for you to use this command!",
+  "notAuthorizedRight": "You do not have the required permissions to perform this command.",
+  "notPossibleWithoutStatus": "You don't need our services right now",
+  "effects": {
+    "notStarted": {
+      "self": "You haven't started the adventure!",
+      "other": "{{pseudo}} hasn't started the adventure yet!"
+    },
+    "dead": {
+      "self": "You are currently K.O!",
+      "other": "{{pseudo}} is currently K.O!"
+    },
+    "sleeping": {
+      "self": "You are currently sleeping!",
+      "other": "{{pseudo}} is currently sleeping!"
+    },
+    "drunk": {
+      "self": "You are currently drunk!",
+      "other": "{{pseudo}} is currently drunk!"
+    },
+    "freezing": {
+      "self": "You are currently frozen!",
+      "other": "{{pseudo}} is currently frozen!"
+    },
+    "hurt": {
+      "self": "You are currently injured!",
+      "other": "{{pseudo}} is currently injured!"
+    },
+    "sick": {
+      "self": "You are currently ill!",
+      "other": "{{pseudo}} is currently ill!"
+    },
+    "jailed": {
+      "self": "You are currently jailed!",
+      "other": "{{pseudo}} is currently jailed!"
+    },
+    "injured": {
+      "self": "You are currently seriously injured!",
+      "other": "{{pseudo}} is currently seriously injured!"
+    },
+    "occupied": {
+      "self": "You are currently busy!",
+      "other": "{{pseudo}} is currently busy!"
+    },
+    "starving": {
+      "self": "You are currently hungry!",
+      "other": "{{pseudo}} is currently hungry!"
+    },
+    "confounded": {
+      "self": "You are currently confused!",
+      "other": "{{pseudo}} is currently confused!"
+    },
+    "scared": {
+      "self": "You are currently frightened!",
+      "other": "{{pseudo}} is currently frightened!"
+    },
+    "lost": {
+      "self": "You are currently lost!",
+      "other": "{{pseudo}} is currently lost!"
+    },
+    "fished": {
+      "self": "You're currently poisoned!",
+      "other": "{{pseudo}} is currently poisoned!"
+    },
+    "notStartedHint": {
+      "self": "Use the {command:report} command to start your adventure!",
+      "other": "Unable to perform this action."
+    },
+    "deadHint": {
+      "self": "You can revive by using the {command:respawn} command to continue playing.",
+      "other": "Unable to perform this action."
+    }
+  },
+  "errorOccurredTitle": "An error occurred",
+  "errorOccurred": "An error occurred while executing this command :(\n\nPlease report this issue to a team member, specifying the time and server on which you encountered this problem.\n\nPlease do not hesitate to join our support server for help: https://discord.gg/5JqrMtZ",
+  "maintenanceTitle": "Maintenance",
+  "maintenance": "The game is currently under maintenance, please try again later.\n\nFor more information, go to the official Discord server: https://discord.gg/AP3Wmzb",
+  "banned": "You have been banned from the game.",
+  "aDevMessedUp": "Oops! An error has occurred. Don't worry, it's not your fault. Please accept our apologies for the inconvenience. To resolve this problem, please contact our support team via our Discord server: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "This command cannot be used at this location.",
+  "guildFoodStorageFull": "You have received **{{quantity}}x {{food}}**, but your guild's food stock is full. The food has been thrown away."
+}

@@ -1,0 +1,72 @@
+{
+    "possibilities": {
+        "continue": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "occupied",
+                    "health": 30,
+                    "lostTime": 210,
+                    "money": -200,
+                    "tags": [
+                        "moneyUsage"
+                    ]
+                }
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 20
+                },
+                "2": {
+                    "effect": "occupied",
+                    "health": -5,
+                    "lostTime": 10
+                }
+            }
+        },
+        "fight": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 30
+                },
+                "2": {}
+            }
+        },
+        "goBack": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "health": -5
+                }
+            }
+        },
+        "shelter": {
+            "outcomes": {
+                "0": {
+                    "effect": "sleeping"
+                },
+                "1": {
+                    "effect": "sleeping"
+                },
+                "2": {},
+                "3": {
+                    "effect": "occupied",
+                    "lostTime": 90
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 11
+        }
+    ]
+}

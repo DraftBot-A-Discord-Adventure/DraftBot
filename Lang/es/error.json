@@ -1,0 +1,155 @@
+{
+  "anotherPlayerBlocked": "¡No puede hacerlo porque {{username}} tiene una acción pendiente ({{reasons}}) !",
+  "blockedContext": {
+    "acceptItem": "elección de conservar o no un objeto",
+    "cartSmallEvent": "elección de montar o no en el carro",
+    "chiefGuildLeave": "transferencia de poder",
+    "chooseDestination": "elección del destino",
+    "class": "cambio de clase",
+    "confirmBuy": "confirmación de compra",
+    "cooldown": "¡Envías los pedidos demasiado rápido!",
+    "descriptionEdit": "editar la descripción del gremio",
+    "drink": "elección de beber o no una poción",
+    "fight": "combate",
+    "fightConfirmation": "elección de iniciar o no una pelea",
+    "fightPetChoose": "elegir una acción de combate con mascota",
+    "gobletChoose": "elegir una taza",
+    "guildCreate": "crear un gremio",
+    "guildElder": "elección del anciano",
+    "guildElderRemove": "supresión del hijo mayor",
+    "guildInvite": "unirse a un gremio",
+    "guildKick": "expulsión de un miembro del gremio",
+    "guildLeave": "salida de un gremio",
+    "guildShop": "elección en la tienda del gremio",
+    "guildShopConfirmation": "confirmación de la elección en la tienda del gremio",
+    "lottery": "lotería minieólica",
+    "merchant": "elección del minorista",
+    "missionShop": "elige en la tienda de misiones",
+    "missionShopConfirmation": "confirma tu elección en la tienda de misiones",
+    "petFeed": "elegir la comida para el animal de compañía",
+    "petFree": "liberar a una mascota",
+    "petSell": "vender un animal de compañía",
+    "petSellConfirm": "confirmación de la compra del animal de compañía",
+    "petTransfer": "traslado de animales",
+    "pveIsland": "minivento isla PVE",
+    "report": "informe",
+    "reportCommand": "informe de pedido",
+    "selectQuantity": "seleccione una cantidad",
+    "sell": "venta de un artículo",
+    "sellConfirm": "confirmación de la venta de un artículo",
+    "shop": "elección en la tienda",
+    "shopConfirmation": "confirmación de elección en la tienda",
+    "skipMission": "transferencia de una misión",
+    "slotExtension": "compra de ampliaciones de inventario",
+    "startBossFight": "inicio de un combate contra un jefe",
+    "switch": "intercambio de equipos",
+    "test": "prueba",
+    "unlock": "liberar a alguien",
+    "witchChoose": "elige una acción para la bruja"
+  },
+  "commandDoesntExist": "ERROR: Comando desconocido",
+  "interactionNotForYou": "Esta interacción no es para ti.",
+  "playerBlocked": "¡No puede hacerlo porque tiene una acción pendiente ({{reasons}}) !",
+  "playerDoesntExist": "El jugador solicitado aún no ha empezado a jugar.",
+  "titleBlocked": "{{pseudo}}¡esta persona está bloqueada!",
+  "titleCanceled": "{{pseudo}}¡cancelación tenida en cuenta!",
+  "titleDidntWork": "{{pseudo}}, hmmm... ¡No funcionó!",
+  "guildDoesntExist": "No se han encontrado gremios.",
+  "guildAlreadyExist": "El nombre de gremio que has elegido ya está en uso.",
+  "guildNameNotValid": "Las normas para dar nombre a un gremio son las siguientes:\n$t(error:stringRules)",
+  "alreadyInAGuild": "Ya perteneces a un gremio.",
+  "petDoesntExist": "No se encontraron mascotas.",
+  "unexpectedError": "Se ha producido un error :(",
+  "pleaseWaitForHeal": "Por favor, espera hasta el final de la curación para tu alteración de estado antes de continuar jugando: {{time}}\n\n{emote:messages.info} Puedes usar el comando {command:shop} para comprar una curación.",
+  "pleaseWaitForHisHeal": "{{time}}Por favor, espere hasta el final de la atención para su estado de deterioro:",
+  "notEnoughMoney": "No tienes dinero suficiente para llevar a cabo esta acción. {{money}} Te falta dinero {emote:unitValues.money}.",
+  "cooldownPetFree": "Sólo puedes liberar una mascota por hora. {{remainingTime}}Puedes liberar otra .",
+  "unknownPlayer": "Nombre de usuario 404",
+  "petNickNotValid": "Las normas para poner nombre a una mascota son las siguientes:\n$t(error:stringRules)",
+  "guildDescriptionNotValid": "Las normas para describir un gremio son las siguientes:\n$t(error:stringRules)",
+  "stringRules": "\n\n\n {{min}} {{max}} - Utilice al menos una letra - No utilice más de 2 espacios consecutivos - No se admiten caracteres especiales - Entre y caracteres",
+  "notInAGuild": "Debes pertenecer a un gremio para realizar este pedido.",
+  "notAuthorizedError": "No tienes los permisos necesarios para realizar este pedido dentro de tu gremio, así que pregunta a uno de tus superiores si lo necesitas.",
+  "levelTooLow": "{{level}}Debes ser **nivel ** para usar este comando. Vuelve más tarde.",
+  "targetLevelTooLow": "{{level}}¡Este jugador debe ser **nivel ** para que puedas usar este comando!",
+  "notAuthorizedRight": "No dispone de los permisos necesarios para ejecutar este comando.",
+  "notPossibleWithoutStatus": "Actualmente no necesita nuestros servicios",
+  "effects": {
+    "notStarted": {
+      "self": "¡Aún no has empezado!",
+      "other": "{{pseudo}} ¡todavía no ha empezado!"
+    },
+    "dead": {
+      "self": "¡Actualmente estás noqueado!",
+      "other": "{{pseudo}} ¡está actualmente noqueado!"
+    },
+    "sleeping": {
+      "self": "¡Estás durmiendo!",
+      "other": "{{pseudo}} está durmiendo."
+    },
+    "drunk": {
+      "self": "¡Estás borracho de verdad!",
+      "other": "{{pseudo}} ¡está borracho!"
+    },
+    "freezing": {
+      "self": "¡Estás congelado!",
+      "other": "{{pseudo}} está congelado."
+    },
+    "hurt": {
+      "self": "¡Estás lesionado!",
+      "other": "{{pseudo}} está lesionado."
+    },
+    "sick": {
+      "self": "¡Realmente estás enfermo!",
+      "other": "{{pseudo}} está enfermo."
+    },
+    "jailed": {
+      "self": "Estás encerrado.",
+      "other": "{{pseudo}} ¡está actualmente encerrado!"
+    },
+    "injured": {
+      "self": "¡Estás gravemente herido!",
+      "other": "{{pseudo}} está gravemente herido."
+    },
+    "occupied": {
+      "self": "¡Estás ocupado en este momento!",
+      "other": "{{pseudo}} ¡está actualmente ocupado!"
+    },
+    "starving": {
+      "self": "¡Te mueres de hambre!",
+      "other": "{{pseudo}} se está muriendo de hambre."
+    },
+    "confounded": {
+      "self": "¡Estás confundido!",
+      "other": "{{pseudo}} ¡está confundido!"
+    },
+    "scared": {
+      "self": "¡Realmente estás asustado!",
+      "other": "{{pseudo}} ¡está asustado!"
+    },
+    "lost": {
+      "self": "¡Estás perdido!",
+      "other": "{{pseudo}} ¡ahora está perdido!"
+    },
+    "fished": {
+      "self": "¡Has sido envenenado!",
+      "other": "{{pseudo}} ¡está envenenado!"
+    },
+    "notStartedHint": {
+      "self": "{command:report} ¡Utiliza el mando para comenzar tu aventura!",
+      "other": "Imposible realizar esta acción."
+    },
+    "deadHint": {
+      "self": "{command:respawn} Puedes utilizar el comando para seguir jugando.",
+      "other": "Imposible realizar esta acción."
+    }
+  },
+  "errorOccurredTitle": "Se ha producido un error",
+  "errorOccurred": "\n\nSe ha producido un error al ejecutar este comando:( Por favor, informe de este problema a un miembro del equipo, especificando la hora y el servidor en el que ha encontrado este problema.\n\nNo dude en ponerse en contacto con nuestro servidor de asistencia para obtener ayuda: https://discord.gg/5JqrMtZ",
+  "maintenanceTitle": "Mantenimiento",
+  "maintenance": "El juego está actualmente en mantenimiento, por favor inténtalo más tarde.\n\nPara más información, visita el servidor oficial de Discord: https://discord.gg/AP3Wmzb",
+  "banned": "Has sido expulsado del juego.",
+  "aDevMessedUp": "¡Uy! Se ha producido un error. No se preocupe, no es culpa suya. Le pedimos disculpas por las molestias ocasionadas. Para resolver este problema, ponte en contacto con nuestro equipo de asistencia a través de nuestro servidor Discord: https://discord.gg/5JqrMtZ",
+  "commandNotAvailableHere": "Este comando no se puede utilizar en esta ubicación.",
+  "guildFoodStorageFull": "Has recibido **{{quantity}}x {{food}}**, pero las reservas de comida de tu gremio están llenas. La comida se ha tirado."
+}

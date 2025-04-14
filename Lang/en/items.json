@@ -1,0 +1,43 @@
+{
+  "armorsFieldName": "Armor/Shield:",
+  "attack": "{emote:unitValues.attack} {{value}}",
+  "defense": "{emote:unitValues.defense} {{value}}",
+  "nameDisplay": "{emote:{{itemCategory}}.{{itemId}}} **$t(models:{{itemCategory}}.{{itemId}})**",
+  "nerfDisplay": "~~{{old}}~~ {{max}}",
+  "objectsFieldName": "Item:",
+  "objectsNatures": [
+    "{emote:itemNatures.0} No effect",
+    "{emote:itemNatures.1} Health + {{power}} per day",
+    "{emote:itemNatures.2} Speed + {{power}} during fights",
+    "{emote:itemNatures.3} Attack + {{power}} during fights",
+    "{emote:itemNatures.4} Defense + {{power}} during fights",
+    "{emote:itemNatures.5} Advances time by {{power}} every day",
+    "{emote:itemNatures.6} Money + {{power}} per day",
+    "{emote:itemNatures.7} Energy + {{power}} per day"
+  ],
+  "potionsFieldName": "Potion:",
+  "potionsNatures": [
+    "{emote:itemNatures.0} No effect",
+    "{emote:itemNatures.1} Health + {{power}}",
+    "{emote:itemNatures.2} Speed + {{power}} during the next fight",
+    "{emote:itemNatures.3} Attack + {{power}} during the next fight",
+    "{emote:itemNatures.4} Defense + {{power}} during the next fight",
+    "{emote:itemNatures.5} Advances time by {{power}}",
+    "{emote:itemNatures.6} Money + {{power}}",
+    "{emote:itemNatures.7} Energy + {{power}}"
+  ],
+  "rarities": [
+    "{emote:rarity.0} Basic",
+    "{emote:rarity.1} Common",
+    "{emote:rarity.2} Uncommon",
+    "{emote:rarity.3} Exotic",
+    "{emote:rarity.4} Rare",
+    "{emote:rarity.5} Special",
+    "{emote:rarity.6} Epic",
+    "{emote:rarity.7} Legendary",
+    "{emote:rarity.8} Mythical"
+  ],
+  "speed": "{emote:unitValues.speed} {{value}}",
+  "weaponsFieldName": "Weapon:",
+  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
+}

@@ -1,0 +1,39 @@
+services:
+  mariadb_keycloak:
+    image: mariadb
+    container_name: mariadb_keycloak
+    volumes:
+      - ~/Documents/projects/keycloak/mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    # Copy-pasted from https://github.com/docker-library/mariadb/issues/94
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
+    ports:
+      - 3307:3306
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    container_name: keycloak
+    ports:
+      - 8080:8080
+    volumes:
+      -  ~/Documents/projects/keycloak/data:/opt/keycloak/data
+    environment:
+      # JAVA_OPTS: -XX:UseSVE=0 # Uncomment for macOS due to a keycloak bug https://github.com/keycloak/keycloak/issues/36008
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      DB_VENDOR: mariadb
+      DB_ADDR: 127.0.0.1:3307
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
+      QUARKUS_TRANSACTION_MANAGER_OBJECT_STORE_DIRECTORY: /tmp
+      QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY: true
+    depends_on:
+      - mariadb_keycloak
+    command:
+      - start-dev

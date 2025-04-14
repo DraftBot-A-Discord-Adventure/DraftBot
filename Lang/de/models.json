@@ -1,0 +1,1629 @@
+{
+  "armors": {
+    "0": "Kein Schild und keine Rüstung",
+    "1": "Deflektorgerät 'Engi'",
+    "10": "Schwerer Klick",
+    "11": "Anfänge Schleife",
+    "12": "Master-Klicks",
+    "13": "Endklimaschild",
+    "14": "Mächtige Bouclier",
+    "15": "Rillenbocks",
+    "16": "Abgebrannte Bouclier",
+    "17": "Sonnenschutz",
+    "18": "Kimono des Masters",
+    "19": "SicherheitsVest",
+    "2": "Sicherheitshelm",
+    "20": "menschlicher Clipschild",
+    "21": "Mechanisches Bras",
+    "22": "Roboterhelm",
+    "23": "Selbstverteidigungsparaphie",
+    "24": "Gladiatorschlamm",
+    "25": "Krieger-Schlägerin",
+    "26": "Brennus-schlamm",
+    "27": "Kraftfeld",
+    "28": "Bouclier de lynel",
+    "29": "Volumenkörper-Klicks",
+    "3": "Bouclier",
+    "30": "Kleine Abschirmung",
+    "31": "Einsamkeit verknnen",
+    "32": "Königlicher Bouclier",
+    "33": "Scutum",
+    "34": "Rondache",
+    "35": "Vibranium-Schleife",
+    "36": "Stacheln mit Bolzen",
+    "37": "Genfer Abkommen",
+    "38": "Knotenlichtquelle",
+    "39": "Panzerung des Majors",
+    "4": "Holzschlamm",
+    "40": "Franklins Carapace",
+    "41": "Rechtsprechung",
+    "42": "Casque de Krieges",
+    "43": "Metallwasser",
+    "44": "Mur",
+    "45": "Rangordnung",
+    "46": "Plexiglas",
+    "47": "Japanische Forteresse",
+    "48": "Mantel",
+    "49": "Gefecherechist",
+    "5": "Eisen-Klipel",
+    "50": "Schutzkittel",
+    "51": "Vertütze Schutzhaft",
+    "52": "Power-Power",
+    "53": "Gegenleistungen",
+    "54": "Nam",
+    "55": "Autounsicherheit",
+    "56": "Flemma",
+    "57": "Aile rechts von Icare",
+    "58": "Magische Lampe",
+    "59": "Chapeau Magic",
+    "6": "Eisenerde",
+    "60": "Giga Chad",
+    "61": "Cri UwUrlant",
+    "62": "Frostschild",
+    "63": "Schild des Windes",
+    "7": "Kimono verstärkt",
+    "8": "Einfacher Klicks",
+    "9": "Resistente Schlämme"
+  },
+  "classes": {
+    "0": "Rue",
+    "1": "Kämpfer",
+    "10": "Archer",
+    "11": "Canonnier",
+    "12": "Miete",
+    "13": "Brücke",
+    "14": "Piquier",
+    "15": "Ritter",
+    "16": "Paladin",
+    "17": "Vetéran",
+    "18": "Mächtiger Fantuin",
+    "19": "Tank undurchdringbar",
+    "2": "Soldat",
+    "20": "Kanonenabfragung",
+    "21": "Ritter der Ritter",
+    "22": "Paladin",
+    "23": "Vétéran chevrel",
+    "24": "Mystik Mage",
+    "3": "Fantassin",
+    "4": "Ganté",
+    "5": "Casqué",
+    "6": "Mass",
+    "7": "Tank",
+    "8": "Steinhacker",
+    "9": "Fronch"
+  },
+  "classFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}})",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
+  "class_descriptions": {
+    "0": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "1": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "10": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "11": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "12": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "13": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "14": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "15": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "16": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+    "17": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+    "18": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "19": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "2": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "20": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "21": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+    "22": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+    "23": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+    "24": "Eine vielseitige Klasse, die sich auf eine einzigartige Kampfmechanik konzentriert.",
+    "3": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+    "4": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "5": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "6": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "7": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+    "8": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+    "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke."
+  },
+  "fight_actions": {
+    "benediction": {
+      "description": "Gehört zur Gruppe der \"Aktionen der Götter\". Scheitert, wenn im Kampf bereits 1 Aktion der Götter ausgeführt wurde. Erhöht alle Statistiken des Werfers. Je später im Kampf der Segen eingesetzt wird, desto höher ist die Erhöhung der Statistiken.",
+      "name_one": "Segen",
+      "name_other": "Segnungen"
+    },
+    "bite": {
+      "success": "wird von **{{petNickname}}** unterstützt, der sich dazu entschließt, seinen Gegner heftig zu beißen."
+    },
+    "blind": {
+      "name": "blind",
+      "new": "ist geblendet.",
+      "active": "ist geblendet und schlägt wahllos um sich herum zu.",
+      "noAction": "wird geblendet und verfehlt sein Ziel vollständig.",
+      "stop": "wieder sehen kann."
+    },
+    "boomerangAttack": {
+      "description": "Startet einen Bumerang, der dem Feind bis zum 3. Mal Schaden zufügt.",
+      "name_one": "Bumerang",
+      "name_other": "Boomerang-Attacken"
+    },
+    "boostDefense": {
+      "success": "wird hinter dem robusten Bollwerk **{{petNickname}}** gestärkt und gewinnt auf Kosten ihrer Schnelligkeit einen großartigen Schutz."
+    },
+    "boostSpeed": {
+      "success": "steigt auf den Rücken von **{{petNickname}}**, um sich schneller fortzubewegen."
+    },
+    "boulderTossAttack": {
+      "description": "Ein durchschnittlicher Angriff, der die Chance hat, den Gegner zu erloschen.",
+      "name_one": "Gesteinsschneider",
+      "name_other": "Rocky-Attacken"
+    },
+    "breathTakingAttack": {
+      "description": "Inflikte eine kleine Menge Schaden, kann aber den Atem des Gegners stehlen oder ihn verlangsamen.",
+      "name_one": "Einatemberaubung",
+      "name_other": "Atem-Attacken"
+    },
+    "buildBarrage": {
+      "success": "wird von **{{petNickname}}** unterstützt, der einen Damm baut, um seinen Herrn zu schützen."
+    },
+    "burned": {
+      "name": "verbrannt",
+      "new": "verbrannt wird.",
+      "active": "leidet unter seiner Verbrennung.",
+      "stop": "nicht mehr verbrannt wird."
+    },
+    "alliesArePresent": {
+      "name": "Opfer der Verbündeten",
+      "new": "wird Opfer der Verbündeten seines Gegners.",
+      "active": "erleidet die Angriffe der Verbündeten seines Gegners."
+    },
+    "canonAttack": {
+      "description": "Die Genauigkeit dieses Angriffs sinkt bei schnellen Gegnern. Ein Schadensbonus wird auf diesen Angriff angewendet, wenn der Gegner sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Verursacht mehr Schaden, wenn er mehrmals hintereinander eingesetzt wird.",
+      "name_one": "Kanonenanhalter",
+      "name_other": "Kanonen-Attacken"
+    },
+    "chargeChargingAttack": {
+      "description": "Angriff auf zwei Tricks. Während der ersten Runde erhöht sich die Verteidigung des Startprogramms um 50%. Während des zweiten Wahlgangs wird die Abwehr des Trägerraketen wieder auf seine ursprüngliche Ebene gesetzt.",
+      "name_one": "Angeladener Angriff",
+      "name_other": "Geladene Angriffe"
+    },
+    "chargeClubSmashAttack": {
+      "description": "Benötigt eine Runde, um den Angriff aufzuladen. Liefert in der nächsten Runde eine mächtige Ladung.",
+      "name_one": "Hurrikan",
+      "name_other": "Gourdin-Attacke"
+    },
+    "chargeUltimateAttack": {
+      "description": "Benötigt eine Runde, um den Angriff aufzuladen Wenn der Angreifer über weniger als 45% seiner Energie verfügt, kann dieser Angriff nicht fehlschlagen. Wenn der Angreifer über mehr als 45% seiner Energie verfügt, beträgt die Genauigkeit dieses Angriffs 70. Dieser Angriff kann nur einmal pro Spieler und Kampf eingesetzt werden.",
+      "name_one": "Letzter Angriff",
+      "name_other": "Ultima-Attacken"
+    },
+    "chargingAttack": {
+      "name_one": "Angeladener Angriff",
+      "name_other": "Geladene Angriffe"
+    },
+    "claws": {
+      "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen großen Prankenhieb versetzt."
+    },
+    "clubSmashAttack": {
+      "name_one": "Hurrikan",
+      "name_other": "Gourdin-Attacke"
+    },
+    "concentrated": {
+      "name": "Konzentrat",
+      "new": "konzentriert seine Kraft. `Schadens-Boost aktiv`.",
+      "active": "konzentriert seine Macht.",
+      "stop": "nicht mehr konzentriert ist."
+    },
+    "concentration": {
+      "description": "Scheitert, wenn du diese Aktion nutzt, während du eine Zustandsveränderung hast. Die Alteration \"Konzentriert\" erhöht den Schaden, den der betroffene Kämpfer in der nächsten Runde verursacht, stark.",
+      "customMessage": "konzentriert sich und bereitet sich darauf vor, härter zuzuschlagen.",
+      "name_one": "Konzentration",
+      "name_other": "Koncentrate"
+    },
+    "confused": {
+      "name": "verwirrt",
+      "new": "ist verwirrt.",
+      "active": "ist verwirrt.",
+      "randomAction": "ist verwirrt und führt in seiner Verwirrung eine zufällige Aktion aus.",
+      "stop": "ist nicht mehr verwirrend."
+    },
+    "counterAttack": {
+      "description": "Replique mit der gleichen Aktion wie die, die Ihr Gegner gespielt hat. Funktioniert nicht auf magischen oder götkischen Angriffen, oder wenn der Gegner nicht angegriffen hat.",
+      "name_one": "Anrider",
+      "customMessage": "kann nicht zurückschlagen.",
+      "name_other": "Post-Attacken"
+    },
+    "createBomb": {
+      "generalEffect": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der so tut, als würde er den Gegner mit präzisen und schmerzhaften Schnabelhieben heftig bedrängen.",
+      "failure": "verpasste es, Hilfe von **{{petNickname}}** zu erhalten, der vorsichtshalber nicht handelte, da er wusste, dass sein Eingreifen eher seinen Herrn als den Gegner verletzen würde. Sie hätten schneller sein müssen!",
+      "success": "macht sich das Talent von **{{petNickname}}** zunutze, der unauffällig eine starke Bombe vorbereitet hat. Nachdem Sie den Zünder aktiviert haben, rennen Sie mit aller Kraft zur Seite!"
+    },
+    "cursed": {
+      "name": "verflucht",
+      "new": "ist verflucht...",
+      "active": "ist verflucht...",
+      "stop": "leidet unter den Folgen des Fluches."
+    },
+    "cursedAttack": {
+      "description": "Der Gegner des Gegners kann die Konsequenzen in der Zukunft erleiden ...",
+      "name_one": "Verflucht",
+      "name_other": "Verfluchte Attacken"
+    },
+    "darkAttack": {
+      "description": "Ignoriert die Verteidigung des Gegners. Am effektivste gegen einen Spieler mit einem hohen Angriff.",
+      "name_one": "Dunkles Attak",
+      "name_other": "Dunkle Attacken"
+    },
+    "defenseBuff": {
+      "description": "Je mehr diese Aktion ausgeführt wird, desto wichtiger ist der Bonus-Bonus.",
+      "customMessage": "bereitet sich darauf vor, sich zu verteidigen",
+      "name_one": "Boost de la Defense",
+      "name_other": "Boosts der Verteidigung"
+    },
+    "dirty": {
+      "name": "widerlich",
+      "new": "absolut abstoßend ist, werden seine Angriffe dadurch verstärkt.",
+      "active": "ist abstoßend.",
+      "stop": "ist es gelungen, sich selbst zu reinigen."
+    },
+    "divineAttack": {
+      "description": "Die Genauigkeit dieses Angriffs erhöht sich mit der Dauer des Kampfes. Teil der Gruppe \"Aktionen der Dieuxten\". Echt, wenn zwei Aktionen der Götter bereits im Kampf getätigt wurden.",
+      "name_one": "Divine Attaque",
+      "name_other": "Divine-Attacken"
+    },
+    "elephantRememberLastAction": {
+      "success": "wird von **{{petNickname}}** unterstützt, dessen blitzschnelle Erinnerung an die jüngsten Ereignisse es ihm ermöglicht, seinem Meister den verlorenen Atem zurückzugeben.",
+      "failure": "wird von **{{petNickname}}** unterstützt, der trotz seiner starken Erinnerungen an vergangene Handlungen daran scheitert, den verbrauchten Atem zurückzugeben.",
+      "afraid": "wird von **{{petNickname}}** unterstützt, der sich zwar genau an die jüngsten Ereignisse erinnert, aber vor Angst zu sehr zittert, um den verlorenen Atem wiedergeben zu können."
+    },
+    "energeticAttack": {
+      "description": "Die Hälfte der Schäden an diesem Angriff werden in Form von Sorgfalt an die Trägerrakete zurückgegeben.",
+      "name_one": "Anhefe",
+      "name_other": "Anwagische Angriffe"
+    },
+    "eruptionAttack": {
+      "description": "Lässt den Vulkan ausbrechen, der geschmolzene Felsen auf die Spieler spuckt. Nur die Schnellsten können dem Schaden ausweichen.",
+      "customMessage": "lässt den Vulkan ausbrechen, nur die schnellsten Gegner können den Ausbruch verhindern.",
+      "name_one": "Hautausschlag",
+      "name_other": "Eruptionen"
+    },
+    "familyMealAttack": {
+      "description": "Ruf die Alliierten an, um den Gegner zu lindern und zu vergiften.",
+      "name_one": "Familienfamilie",
+      "name_other": "Familienfamilie"
+    },
+    "fireAttack": {
+      "description": "Hohe Chance, den Gegner zu verbrennen. Die Veränderung \"Verbrannt\" fügt deinem Gegner über einen längeren Zeitraum Schaden zu.",
+      "name_one": "Brand",
+      "name_other": "Attacken"
+    },
+    "fishProtectAgainstFire": {
+      "afraid": "bittet **{{petNickname}}**, ihm zu helfen, nicht zu verbrennen, aber **{{petNickname}}** ist zu ängstlich, um zu helfen.",
+      "success": "wird von **{{petNickname}}** von seinen Verbrennungen geheilt."
+    },
+    "frozen": {
+      "name": "gefroren",
+      "active": "ist gefroren.",
+      "stop": "nicht mehr gefroren ist."
+    },
+    "full": {
+      "name": "satt",
+      "new": "ist satt und muss sich ausruhen. `Geschwindigkeit: 0`",
+      "active": "ist satt und muss sich ausruhen.",
+      "stop": "nicht mehr satt ist."
+    },
+    "getDirty": {
+      "description": "Wird ausgeführt, wenn sich der Angreifer kürzlich an schmutzigen Orten aufgehalten hat. Der Kämpfer wird sich je nach Situation ekelhaft oder krank vorkommen.",
+      "customMessage": "konnte sich aus einer gefährlichen Situation ohne größeren Schaden, aber unter Opferung seiner Würde und Sauberkeit befreien.",
+      "name_one": "Verschmutzung",
+      "name_other": "Verschmutzungen"
+    },
+    "goesWild": {
+      "success": "befiehlt **{{petNickname}}** anzugreifen. Das Tier bricht vor Wut aus und schlägt auf alles ein, was in seiner Nähe vorbeikommt."
+    },
+    "grabAndThrowAttack": {
+      "description": "Projiziert den Gegner, wenn er einen physischen Angriff einsetzt, verursacht mittleren Schaden und hat eine Chance, den Gegner zu betäuben.",
+      "name_one": "Projektion zuordnen",
+      "name_other": "Projektionen"
+    },
+    "guildAttack": {
+      "description": "Die Gilde werden zusammenkommen, um einen mächtigen Gruppenangriff zu erreichen.",
+      "name_one": "Gilde-Angriff",
+      "name_other": "Gilde-Attacken"
+    },
+    "healEveryone": {
+      "generalEffect": "ruft **{{petNickname}}** an, die mit wohlwollendem Blick feststellt, dass sich niemand verletzt hat, und sich daher fröhlich wieder zur Ruhe begibt.",
+      "success": "hat Glück, dass er von **{{petNickname}}** begleitet wird, der vor Liebe strotzt und die Auseinandersetzung beenden möchte und die Kämpfer heilt."
+    },
+    "heatDrainAttack": {
+      "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
+      "customMessage": "leitet Ihre Hitze ab.",
+      "name_one": "Hitzewärm",
+      "name_other": "Hitzeeinwirkung"
+    },
+    "heatMudAttack": {
+      "description": "Erhitzt den Schlamm in der Arena, um schmutzigen Gegnern Schaden zuzufügen.",
+      "name_one": "Attacke Brennender Schlamm",
+      "name_other": "Angriffe Brennender Schlamm"
+    },
+    "heavyAttack": {
+      "description": "Der Schaden dieses Angriffs wird um 90% verringert, wenn der Verteidiger über weniger Verteidigung als der Angreifer verfügt. Die Verteidigung des Gegners wird um 25% reduziert.",
+      "name_one": "Schwerter Angriff",
+      "name_other": "Schwerter Angriff"
+    },
+    "helpBreathe": {
+      "success": "wird von **{{petNickname}}** unterstützt, der dank seiner Tauchfähigkeiten seinem Besitzer ein wenig Atem vermittelt."
+    },
+    "horn": {
+      "success": "hat gut daran getan, **{{petNickname}}** zu rufen! Das Tier hat den Gegner gerade auf seinem Horn aufgespießt, das ist kein schöner Anblick.",
+      "generalEffect": "ruft **{{petNickname}}** zur Rettung, das Tier nimmt Anlauf und rennt direkt auf den Gegner zu..."
+    },
+    "hypnosis": {
+      "success": "wird von **{{petNickname}}** unterstützt, der seine hypnotischen Kräfte einsetzt, um den Feind zu verwirren."
+    },
+    "intenseAttack": {
+      "description": "Ignoriert einen Teil der gegnerischen Verteidigung. Scheitert nie an einem schnelleren Gegner. Funktioniert am besten bei einem schnellen Gegner. Zwingt den Werfer, in der nächsten Runde die Aktion \"Ausruhen\" zu verwenden. Kann den Gegner nicht töten.",
+      "name_one": "Intensive Attae",
+      "name_other": "Intensive Attacken"
+    },
+    "isUseless": {
+      "generalEffect": "bittet **{{petNickname}}** um Hilfe, der mit bemerkenswerter Gleichgültigkeit den Gegner mit leerem Blick anstarrt."
+    },
+    "lavaWaveAttack": {
+      "description": "Ein sehr mächtiger Anfall, der als letzter Ausweg benutzt werden kann und der die \"Verbrennungen\" des Gegners mit Sicherheit unterschreit.",
+      "name_one": "Angriff Lavawelle",
+      "name_other": "Angriff Lavawellen"
+    },
+    "magicMimicAttack": {
+      "description": "Ermöglicht es, nach einem magischen Angriff des Gegners zurückzuschlagen.",
+      "name_one": "Angriff magische Mimik",
+      "name_other": "Magische mimische Angriffe"
+    },
+    "magmaBathAttack": {
+      "description": "Wird auf den Werfer angewendet. Dieser ruht in der Lava und sammelt seine Energie. Die Anzahl der zurückgewonnenen Kampfpunkte wird nach viermaliger Anwendung durch vier geteilt.",
+      "customMessage": "geht zum Baden in die Lava und sammelt Energie.",
+      "name_one": "Magma-Bain",
+      "name_other": "Magma-Bains"
+    },
+    "meduseParalyze": {
+      "success": "erhält Hilfe von **{{petNickname}}**, der seinen Gegner mit einem Blick versteinern lässt."
+    },
+    "mudShotAttack": {
+      "description": "Fernkampfangriff, der Schaden verursacht und den Gegner schmutzig macht.",
+      "name_one": "Attacke Schlammfeuer",
+      "name_other": "Angriffe Schlammfeuer"
+    },
+    "none": {
+      "customMessage": "kann nicht angreifen."
+    },
+    "outOfBreath": {
+      "active": "ist zu kurzatmig, um anzugreifen, und muss erst wieder zu Atem kommen."
+    },
+    "outrage": {
+      "name": "wütend",
+      "new": "ist verärgert.",
+      "active": "ist verärgert.",
+      "stop": "ist nicht mehr wütend, sondern wird schwindelig."
+    },
+    "outrageAttack": {
+      "description": "Scheitert, wenn du diese Aktion anwendest, während du eine Zustandsveränderung hast. Die Veränderung \"Zornig\" verdoppelt den Angriff, senkt aber die Verteidigung. Nach 2 Runden verschwindet der Effekt und der Angreifer wird verwirrt.",
+      "customMessage": "wird wütend.",
+      "name_one": "Color",
+      "name_other": "Colères"
+    },
+    "paralyzed": {
+      "name": "gelähmt",
+      "new": "gelähmt ist.",
+      "active": "gelähmt ist.",
+      "noAction": "ist gelähmt und kann nicht angreifen.",
+      "stop": "nicht mehr gelähmt ist."
+    },
+    "peck": {
+      "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der den Gegner heftig mit präzisen und schmerzhaften Schnabelhieben bedrängt."
+    },
+    "petCharge": {
+      "generalEffect": "befiehlt **{{petNickname}}** anzugreifen. Das Tier reibt ungeduldig seine Pfoten und ist bereit, anzugreifen.",
+      "success": "wird von **{{petNickname}}** unterstützt, der sich schließlich dazu entschließt, den Gegner mit großer Kraft zu stürmen."
+    },
+    "petCurse": {
+      "success": "beschwört die Kräfte von **{{petNickname}}**, um seinen Gegner zu verfluchen."
+    },
+    "petHit": {
+      "success": "braucht nach einem heftigen Angriff, den er gerade erlitten hat, die Hilfe von **{{petNickname}}**. Aus Rache schlägt **{{petNickname}}** den Gegner heftig."
+    },
+    "petPoison": {
+      "success": "verwendet **{{petNickname}}**, um seinen Gegner zu vergiften."
+    },
+    "petSmallCharge": {
+      "generalEffect": "befiehlt **{{petNickname}}** anzugreifen. Das Tier reibt ungeduldig seine Pfoten und ist bereit, anzugreifen.",
+      "success": "wird von **{{petNickname}}** unterstützt, der sich schließlich dazu entschließt, den Gegner mit aller Kraft zu stürmen."
+    },
+    "petrificationAttack": {
+      "description": "Pétrifie Ziel 2 Umdrehungen, aber erhöht seine Verteidigung um 200%.",
+      "customMessage": "versteinert seinen Gegner.",
+      "name_one": "Pädagoe",
+      "name_other": "Pädagogung"
+    },
+    "petrified": {
+      "name": "versteinert",
+      "new": "ist versteinert.",
+      "noAction": "ist versteinert und kann nicht angreifen.",
+      "stop": "ist nicht mehr versteinert."
+    },
+    "piercingAttack": {
+      "description": "Ignoriert die Verteidigung des Gegners fast vollständig. Der Angreifer hat eine Wahrscheinlichkeit, die Verteidigung des Gegners leicht zu reduzieren.",
+      "name_one": "Annaher Angriff",
+      "name_other": "Ange-schannen"
+    },
+    "pinch": {
+      "success": "wird von **{{petNickname}}** unterstützt, der den Gegner mit seinen kleinen Zangen kneift."
+    },
+    "poisoned": {
+      "name": "vergiftet",
+      "new": "wird vergiftet.",
+      "active": "leidet an seiner Vergiftung.",
+      "stop": "nicht mehr vergiftet ist."
+    },
+    "poisonousAttack": {
+      "description": "Vergiftet den Gegner. Die Veränderung \"Vergiften\" hält mindestens drei Runden lang an und fügt deinem Gegner über die gesamte Dauer Schaden zu.",
+      "name_one": "Vergiftete Attagen",
+      "name_other": "Vergiftete Attacken"
+    },
+    "poisonousBite": {
+      "generalEffect": "braucht **{{petNickname}}**, das Tier braucht Zeit, um sich vorzubereiten...",
+      "success": "erhält Unterstützung von **{{petNickname}}**, der beschließt, seinen Gegner zu beißen... Dieser fühlt sich plötzlich nicht mehr wohl."
+    },
+    "powerfulAttack": {
+      "description": "Dieser Angriff hat eine 25%ige Chance, mehr Schaden zu verursachen, auf Kosten einer Betäubung des Angreifers. Nach 3-maliger Anwendung wird der Schaden des Angriffs um 70% reduziert.",
+      "name_one": "Power-Attap",
+      "name_other": "Ansteigende Attacken"
+    },
+    "protectAgainstCold": {
+      "success": "wird von **{{petNickname}}** vor Kälte geschützt."
+    },
+    "protected": {
+      "name": "geschützt",
+      "new": "geschützt ist.",
+      "active": "geschützt ist.",
+      "stop": "nicht mehr geschützt ist."
+    },
+    "protection": {
+      "description": "Scheitert, wenn du diese Aktion anwendest, während du eine Zustandsveränderung hast. Die Alteration \"Geschützt\" hält 3 Runden lang an und verhindert, dass du Opfer einer anderen Alteration wirst, während sie dir einen 30%igen Verteidigungsschub verleiht.",
+      "customMessage": "schützt sich selbst.",
+      "name_one": "Schutz",
+      "name_other": "Protectionen"
+    },
+    "quickAttack": {
+      "description": "Scheitere nie an einem langsameren Gegner. Je langsamer dein Gegner ist, desto mehr Schaden richtet dieser Angriff bei ihm an.",
+      "name_one": "Schnell-Attap",
+      "name_other": "Schnell-Attacken"
+    },
+    "rageExplosion": {
+      "description": "Lassen Sie die Tollwut explodieren, die während des Weges auf dem Feind gesammelt wurde",
+      "customMessage": "entlädt seine Wut über den Feind!",
+      "name_one": "Tollwutexplosion",
+      "name_other": "Tollausfälle"
+    },
+    "rainbowPower": {
+      "success": "wird von **{{petNickname}}** unterstützt, der die Magie der jüngsten Angriffe kanalisiert, um seinen Besitzer zu heilen."
+    },
+    "ramAttack": {
+      "description": "Wenn der Angreifer durch den Angriff nicht betäubt wird, erhält er einen Teil des verursachten Schadens. Der Angriff kann auch den Gegner betäuben.",
+      "name_one": "Bestes Angreifen",
+      "name_other": "Hubschrauber-Attacken"
+    },
+    "resting": {
+      "description": "Wird als Heilung auf den Werfer angewendet. Die Menge der zurückgewonnenen Energie wird nach viermaliger Anwendung durch vier geteilt.",
+      "customMessage": "ruht sich aus",
+      "name_one": "Ruhezeit",
+      "name_other": "Ruhezeit"
+    },
+    "revenge": {
+      "success": "wird von **{{petNickname}}** unterstützt, der seinen Gegner infolge seines Angriffs verletzt."
+    },
+    "roarAttack": {
+      "description": "Nuss den Angriff und die Geschwindigkeit des Gegners.",
+      "name_one": "Rugginen",
+      "name_other": "Rugieren"
+    },
+    "rockShieldAttack": {
+      "description": "Verkleinert den nächsten empfangenen Angriff um die Hälfte.",
+      "customMessage": "sammelt Gestein an, um sich zu verteidigen...",
+      "name_one": "Felsknackung",
+      "name_other": "Felsknackung"
+    },
+    "sabotageAttack": {
+      "description": "Ignoriert die Verteidigung des Gegners vollständig. Funktioniert am besten bei Gegnern mit wenig Angriff. Ein Angriff, der wenig Atem kostet, aber den Werfer lähmen kann. Ist dies der Fall, wird der Schaden erhöht.",
+      "name_one": "Sabotage",
+      "name_other": "Sabotierungen"
+    },
+    "scareElephant": {
+      "generalEffect": "wird von **{{petNickname}}** unterstützt, der die Elefanten verscheucht."
+    },
+    "scareFish": {
+      "generalEffect": "wird von **{{petNickname}}** unterstützt, der die Fische verscheucht."
+    },
+    "shieldAttack": {
+      "description": "Nutzt den Schild des Angreifers, um anzugreifen. Die Veränderung \"Geschwächt\" reduziert den Angriff 2 Runden lang um 70%.",
+      "name_one": "Schutzschild",
+      "name_other": "Schutzschilder"
+    },
+    "simpleAttack": {
+      "description": "Ein einfacher Angriff.",
+      "name_one": "Einfacher Attap",
+      "name_other": "Einfache Attacken"
+    },
+    "slamAttack": {
+      "description": "Ein schwacher, mittlerer Angriff, der die Geschwindigkeit des Gegners verringert.",
+      "name_one": "Auswirkung zuordnen",
+      "name_other": "Auswirkungen"
+    },
+    "slipping": {
+      "failure": "greift auf **{{petNickname}}** zurück, der über den Boden gleitet. Er ist nicht der, der am weitesten über die Eisscholle gleitet, also trifft er den Gegner nur mit geringer Kraft.",
+      "success": "wird von **{{petNickname}}** unterstützt, der über den Boden gleitet, bis er auf seinem Gegner landet."
+    },
+    "slowed": {
+      "name": "Zeitlupe",
+      "new": "verlangsamt wird.",
+      "active": "verlangsamt wird.",
+      "stop": "nicht mehr verlangsamt wird."
+    },
+    "smallClaws": {
+      "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen kleinen Krallenhieb verpasst, wie niedlich..."
+    },
+    "smallRegen": {
+      "success": "lernt von den regenerativen Fähigkeiten von **{{petNickname}}** und gewinnt Energie zurück."
+    },
+    "snowBall": {
+      "success": "wird von **{{petNickname}}** unterstützt, der einen Schneeball auf den Gegner wirft."
+    },
+    "spit": {
+      "failure": "wird von **{{petNickname}}** unterstützt, der seinen Gegner anspuckt.",
+      "success": "wird von **{{petNickname}}** unterstützt, der seinen Gegner anspuckt. Zum Glück landet die Spucke perfekt in den Augen des Gegners!"
+    },
+    "spitFire": {
+      "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der die Arena mit seinen lodernden Flammen in Brand setzt."
+    },
+    "spitInk": {
+      "success": "ruft **{{petNickname}}** an, der Tinte auf den Gegner spuckt."
+    },
+    "stealWeapon": {
+      "failure": "ruft **{{petNickname}}** um ein wenig Hilfe an, aber die Kreatur, die keinen nennenswerten Schatz bei ihrem Gegner findet, weigert sich, sich in feindliches Gebiet zu begeben.",
+      "success": "bittet um die Hilfe von **{{petNickname}}**, der mutig losstürmt und in einem Akt der Kühnheit die feindliche Waffe an sich nimmt."
+    },
+    "stealth": {
+      "description": "Versteckt diskret, um den Schaden des nächsten Angriffs zu verdoppeln.",
+      "customMessage": "versteckt sich unauffällig, um Vorbereitungen zu treffen, die den Schaden seines nächsten Angriffs erhöhen...",
+      "name_one": "Ausscheidung",
+      "name_other": "Erschöpung"
+    },
+    "stoneSkinAttack": {
+      "description": "Je mehr diese Aktion ausgeführt wird, desto wichtiger ist der Bonus-Bonus.",
+      "customMessage": "härtet seine Haut ab und schützt sich",
+      "name_one": "Felsen",
+      "name_other": "Steinbälchen"
+    },
+    "stunned": {
+      "name": "betäubt",
+      "active": "ist betäubt.",
+      "noAction": "ist benommen und kann nicht angreifen.",
+      "stop": "nicht mehr schwindelig ist."
+    },
+    "summonAttack": {
+      "description": "Wir werden Verbündete haben, um Ihnen zu helfen und sehr stark zu attackmachen.",
+      "name_one": "Einberufung von Verbündeten",
+      "name_other": "Verbündeter Invokationen"
+    },
+    "swallow": {
+      "success": "bittet **{{petNickname}}** um Hilfe, der nicht weiß, was er tun soll, und beschließt, seinen Gegner rundherum zu verschlingen."
+    },
+    "swallowed": {
+      "name": "geschluckt",
+      "new": "wird geschluckt.",
+      "noAction": "befindet sich in einem Magen und kann nicht angreifen.",
+      "stop": "kam gesund und munter aus dem Tier heraus."
+    },
+    "targeted": {
+      "name": "von einem Bumerang ins Visier genommen",
+      "new": "beobachtet, wie der Bumerang in der Ferne herumwirbelt.",
+      "stop": "nicht mehr von einem Bumerang anvisiert wird.",
+      "active": "wird vom Bumerang getroffen."
+    },
+    "triesToHelp": {
+      "success": "ruft **{{petNickname}}** auf, der trotz wilder Entschlossenheit und zäher Bemühungen nur einen vernachlässigbaren Einfluss auf den Kampf zufügen kann."
+    },
+    "ultimateAttack": {
+      "description": "",
+      "name_one": "Letzter Angriff",
+      "name_other": "Ultima-Attacken"
+    },
+    "unBlind": {
+      "success": "wird von **{{petNickname}}** unterstützt, der es ihm dank seiner scharfen Sicht ermöglicht, seine Umgebung wieder richtig zu sehen."
+    },
+    "vampirism": {
+      "success": "wird von **{{petNickname}}** unterstützt, der dem Gegner ein wenig Energie absaugt, um sie seinem Herrn als Tribut anzubieten."
+    },
+    "weak": {
+      "name": "geschwächt",
+      "new": "geschwächt ist.",
+      "active": "geschwächt ist.",
+      "stop": "nicht mehr geschwächt ist."
+    },
+    "webShotAttack": {
+      "description": "Schick einen Jet-Strahl, der den Gegner verletzt und verlangsamt.",
+      "name_one": "Leinenstrahl-Attap",
+      "name_other": "Topics-Attacken"
+    }
+  },
+  "leagues": {
+    "0": "Hölzer",
+    "1": "Steinbindemittel",
+    "2": "Eisenerge",
+    "3": "Bronze-Liga",
+    "4": "Silber-League",
+    "5": "Ligue or",
+    "6": "Diamantbindemittel",
+    "7": "Elite-Liga",
+    "8": "Unendliche Ligue",
+    "9": "Legende Legende"
+  },
+  "map_locations": {
+    "1": {
+      "description": "Ein großer Sandstrand, der am Rande der Stadt endet.",
+      "name": "Bereich Sentinelle",
+      "particle": "in Richtung"
+    },
+    "10": {
+      "description": "Die große Stadt der Stadt, die Stadt Forte, ist nicht mehr nur der Schatten von sich selbst. Es gibt nur ein Dutzend von Häusern und Bauern, die von dem alten Krieg zurückgeschwungen wurden. Der Rest der früheren Pauschalschmiede ist nur ein Ruin.",
+      "name": "Stadt Forte",
+      "particle": "in Richtung"
+    },
+    "1000": {
+      "description": "Ein großer, schwarzer Vulkan-Sand-Strand. Sie hat ihren Namen in ihrer ganz besonderen Farbe. Die ersten Männer, die den Fuß auf den dunklen Strand gelegt hatten, hatten einen großen Fluch. Das ist natürlich nicht der Bericht. Seien Sie vorsichtig, der schwarze Sand tackt auf die Füße und die Kleider.",
+      "name": "Schwarzer Bereich",
+      "particle": "in Richtung"
+    },
+    "1001": {
+      "description": "Ein riesiger Wald, der praktisch die gesamte Insel abdeckt. Feine Teilchen aus Asche fallen aus dem Vulkan Gronant, was die Sichtbarkeit in diesem Wald ziemlich schwierig macht. Das ist eine Tatsache, die sehr wenig erforscht ist.",
+      "name": "Dunkle Schmiede",
+      "particle": "in Richtung"
+    },
+    "1002": {
+      "description": "Ein kleines Dorf mit etwa 20 Häusern, teilweise zerstört, das sich in der Nähe des Regenwaldes befindet. Niemand weiß genau, warum dieses Dorf in Trümmern ist. Viele glauben, dass es sich um das Dorf der ehemaligen Einheimischen handelt, die den Lavasediten des Volcan Gronant erlegen wären. Aber die Theorie von einer Krankheit, der Pest und vielen Ratten, die andere sind, kommen voran. Es ist nicht mehr ein einziger Einwohner hier ...",
+      "name": "Village in Ruinen",
+      "particle": "in Richtung"
+    },
+    "1003": {
+      "description": "Diese alte, verlassene Mine verläuft unter dem steilen Weg und den Bergen hindurch. Sie ist so groß und labyrinthisch, dass sie im Herzen des Vulkans endet. Es ist jedoch schwierig, bis dorthin zu gelangen. Achte jedoch darauf, nicht auszurutschen, da einige Leute angeblich alte Bananenreste in der nebligen Mine gefunden haben.",
+      "name": "Mine Brumeuse",
+      "particle": "in Richtung"
+    },
+    "1004": {
+      "description": "Dieser Weg ist der einzig richtige Weg, um bis zum Gipfel von Volcan Gronant zu gehen. Es ist sehr schwierig, sie zu verwenden und vor allem sehr gefährlich. Viele Männer starben, als sie sie klettern wollten. Auf eigene Gefahr.",
+      "name": "Päkaler Pfad",
+      "particle": "in Richtung"
+    },
+    "1005": {
+      "description": "Der Vulkan der vulkanischen Insel ist immer noch aktiv. Es vergießt mehrere Tonnen Asche pro Jahr auf diese kleine Insel, die diese Tatsache nur erwachsen wird. Die Lava, die in ihr Zentrum fließt, ist so groß, dass ein unterirdischer Kanal, den wir Kanal Lavique nennen, über mehrere Kilometer fließt. Von den Wasserbooten kann man diesen Kanal sehen, um das Wasser tief in die Tiefe zu kochen. Dieser Vulkan wäre sogar der Schöpfer einiger kleiner Inseln in der Nähe wie die Eisinsel.",
+      "name": "Volcan gronant",
+      "particle": "in Richtung"
+    },
+    "11": {
+      "description": "Die letzte echte Route, die es noch erlaubt, das Mont Celestrum aus dem Norden zu umgehen, die große Achse wird heute noch immer sehr genutzt, vor allem durch die Brigditen.",
+      "name": "Große Achse",
+      "particle": "in Richtung"
+    },
+    "1100": {
+      "description": "Dieser Ufer ist das erste, was man sieht, wenn man auf der Eisinsel ankommt. Er hat seinen Namen aus dem Geräusch gemacht, das die Matrosen gemacht haben, als sie angelickten. Offensichtlich kamen sie von der vulkanischen Insel zurück, wo die Temperatur viel heißer ist.",
+      "name": "Gletscher Ravela",
+      "particle": "in Richtung"
+    },
+    "1101": {
+      "description": "Wie der Name sagt, ist diese weite Ausdehnung des erfrorenen Bodens für die Erholung nicht förderlich. Sehr kalt und sehr arrog., es gibt jedoch noch einige robuste Bäume.",
+      "name": "Toundra gefroren",
+      "particle": "in Richtung"
+    },
+    "1102": {
+      "description": "Eingefrorener See, der See des Wissens ist ein ruhiger und entspannter Ort. Man kann eine dünne, schlüpfdünne Brise auf dem Eis des Sees hören. Ideal für Meditieren nach der Erkundung dieser riesigen, wilden Insel.",
+      "name": "Lesen Sie die Informationen",
+      "particle": "in Richtung"
+    },
+    "1103": {
+      "description": "Eine sehr große Wunde, wo viele Schneemann gebaut werden. Wer hat den ersten Schneemann erschaffen? Niemand weiß es. Es ist viel zu kalt, um zu schmelzen. Es gibt jedoch einige Reisende, die sich mit der Schaffung neuer Arbeitsplätze amüchten.",
+      "name": "Sich auf Schneefall-Schnee",
+      "particle": "in Richtung"
+    },
+    "1104": {
+      "description": "Das ist eine wunderschöne Eiskrem. Hunderte von Staktiten und Stalagmiten dekorieren diese Höhle. Ein natürliches Licht beleuchtet diese Eiskristalle und bedruckt den Eindruck von Tausenden von Sternen. Wenn man die Hunderten von Leichen vergisst, die sich auf die Stalagmiten rutschen, ist diese Höhle eine unglaubliche Schönheit oder eine traurige, unaufstehliche Trauer. Die Kristallkaverne ist ein gefährliches Mittel, um die Spitze des schneebegehrten Peaks zu erreichen.",
+      "name": "Kristallkerker",
+      "particle": "in Richtung"
+    },
+    "1105": {
+      "description": "Diese Höhle, die ihrer Schwester die Kristallkaverne sehr ähnlich ist, hat jedoch einen großen Vorteil. Sie führt zum schneebegetischen Höhepunkt, indem sie in die Tiefen der Erde geht. Es ist ein langer Weg auf dem Eis und dem Felsen. Sie muss ihren Namen auf diese Höhlen, die tief unten tief unten unter die Erde hinunter fallen und eine wunderschöne Eiscreme hinterlassen.",
+      "name": "Caverne-Kern",
+      "particle": "in Richtung"
+    },
+    "1106": {
+      "description": "Diese gigantische Spitze dominiert die ganze Insel. Er ist meilenweit bis zum runden. Sehr schwer zugänglich, der schneebete Gipfel beherbergt alte Holzstrukturen, die aus einer alten Zivilisation dazugehören. Da die beiden Pfade sehr gefährlich sind, konnten nur wenige Männer diese Strukturen mit eigenen Augen sehen.",
+      "name": "Pic Lenneiß",
+      "particle": "in Richtung"
+    },
+    "12": {
+      "description": "Ein großes, leeres, nordisches Plädot ohne großes Interesse.",
+      "name": "Bereich",
+      "particle": "in"
+    },
+    "13": {
+      "description": "Ein schwieriges, feuer und feuchter Weg. Die Marécageuse-Route verbindet die angespannte Rivière-Rivière-Route mit den Krabben.",
+      "name": "Route Marécageuse",
+      "particle": "in Richtung"
+    },
+    "14": {
+      "description": "Ein großer See, in dem die Familien gerne zusammenkommen. Der Fluss Vacwaffe hat sich geworfen.",
+      "name": "Lac Mirage",
+      "particle": "in Richtung"
+    },
+    "15": {
+      "description": "Mont Celestrum ist der dominierende Berg in der Region. Die hohe Meile von Celestrum ist für alle sichtbar. Man sagt, sie trägt den Namen der alten Göttin. Im Übrigen ist es einer einzigen Person gelungen, bis zum Gipfel zu klettern. Sie hält nur ihre Initialen zurück: M-B.",
+      "name": "Mont Célestrum",
+      "particle": "in Richtung"
+    },
+    "16": {
+      "description": "Ein kleiner gefährlicher Weg, der den Fluss Vacwaffe umgeht. Seien Sie vorsichtig, nicht zu fallen.",
+      "name": "Pfad zu den Wölfen",
+      "particle": "in Richtung"
+    },
+    "17": {
+      "description": "Heißes Village, das das Könige-Tal umgeht. Es ist eine warme Oase für Reisende im Transit.",
+      "name": "Coco Village",
+      "particle": "in Richtung"
+    },
+    "18": {
+      "description": "Dieser Fluss muss seinen Namen für das Geräusch machen, das durch seine starke Strömung erzeugt wurde, die vielen Dorfbewohnern das Leben gekostet hat.",
+      "name": "Rivière Vacwaffe",
+      "particle": "in Richtung"
+    },
+    "19": {
+      "description": "Ein Bereich, der durch die starken Winde des Tal der Könige geschaffen wurde. La Dune schützt die Plaines des Bois der Hitze und bring das Wasser aus dem Fluss Vacwaffe.",
+      "name": "La Dune",
+      "particle": "in"
+    },
+    "1999": {
+      "description": "Ein altes Holzschiff, es hat die Luft, durch die Reparaturen der Arbeiter zu halten. Er ist bereit zu gehen und wartet nur noch auf Ihre Ankunft.",
+      "name": "Zum Verlassen der Insel Bateau",
+      "particle": "in Richtung"
+    },
+    "2": {
+      "description": "Eine kleine Route, die es erlaubt, die Kampagne von Mergagnan zu besuchen und umgekehrt.",
+      "name": "Champagner",
+      "particle": "in Richtung"
+    },
+    "20": {
+      "description": "Ein großes, friedliches und landwirtschaftliches Pläzierchen.",
+      "name": "Plaines des Bois-Kontre",
+      "particle": "in die"
+    },
+    "21": {
+      "description": "Eine Straße, die von den Dorfbewohnern sehr geliehen wird. Viele der ambulanten kleinen Verkäufer installieren die Tageszeit, um einen riesigen Markt zu schaffen.",
+      "name": "Route der Merwachles",
+      "particle": "in Richtung"
+    },
+    "22": {
+      "description": "Unbeliebter Wald am Rand von Claire De Ville, Bois Hurlant hat einen sehr schlechten Ruf. Repazile Banditen und außerhalb des Gesetzes, sie hält vor allem ihren Namen aus diesen dubiosen Praktiken vor hunderten Jahren.",
+      "name": "Bois Hurlant",
+      "particle": "in Richtung"
+    },
+    "22222": {
+      "description": "Ein Testzone für Monster. Im Spiel sollte niemals sein.",
+      "name": "Teszone für Monster",
+      "particle": "in Richtung"
+    },
+    "23": {
+      "description": "In der großen Handelsstadt Claire De Ville war es nicht immer so gastfreundlich, wie es die Stadt war. Zu Beginn sehr arm, hat sie sich schnell dank ihrer vielen Geschäfte und Hotels entwickelt, die den Reisenden in der Region eine große Auswahl bieten. Claire De Ville ist auch bekannt für die Ruhe und die Befolgung des Ortes.",
+      "name": "Claire De Ville",
+      "particle": "in"
+    },
+    "24": {
+      "description": "Eine sehr steigere Straße, die nach Claire De Ville führt. Alles hängt davon ab, in welche Richtung Sie sich einschlagen.",
+      "name": "Straße Grimpante",
+      "particle": "in Richtung"
+    },
+    "25": {
+      "description": "Es ist alles im Namen. Ein sehr beliebter Fluss von Claires De-Ville-Giissbänner.",
+      "name": "Rivière in Crabes",
+      "particle": "in Richtung"
+    },
+    "26": {
+      "description": "Eine ruhige Stadt am Rande des Sentinellen-Bereichs.",
+      "name": "Mergagnan",
+      "particle": "in"
+    },
+    "27": {
+      "description": "Ein Wald am Rande des Mont Célestrum.",
+      "name": "Wälder Célestrum",
+      "particle": "in Richtung"
+    },
+    "28": {
+      "description": "Eingang zum Schloss des Königs, umgeben von dicken Mauern, scheint es möglich zu sein, allen denkbaren Angriffen standhalten zu können.",
+      "name": "Burg-Portes",
+      "particle": "in die"
+    },
+    "29": {
+      "description": "Immense Ornees von vielen Kunstwerken",
+      "name": "Empfangsraum",
+      "particle": "in Richtung"
+    },
+    "3": {
+      "description": "Eine große westliche Ebene, die von einem großen Wald überquert und von einer großen Straße überquert wird.",
+      "name": "Berceau",
+      "particle": "in"
+    },
+    "32": {
+      "description": "Die Straße, die zum Schloss des Königs führt",
+      "name": "Straße zum Schloss des Königs",
+      "particle": "in"
+    },
+    "33": {
+      "description": "",
+      "name": "Primäre Continent",
+      "particle": "in"
+    },
+    "4": {
+      "description": "Immense Wald südlich des Berceau. Man sagt, dass viele Reisende verloren gegangen sind.",
+      "name": "Wald-und Spenzweck",
+      "particle": "in Richtung"
+    },
+    "5": {
+      "description": "Pfad, der seinen Spitznamen mit seinem Nachnamen in der Natur des Südens des alten Waldes des Waldes auszieht.",
+      "name": "Pfad für Dedale",
+      "particle": "in Richtung"
+    },
+    "6": {
+      "description": "Ein friedliches Dorf, das für seine Gastfreundschaft bekannt ist.",
+      "name": "Boug-Coton",
+      "particle": "in"
+    },
+    "7": {
+      "description": "Es ist ein warmer, heißer Sand, der in der Ehre der alten Könige der Region genannt wird.",
+      "name": "Vallée de Rois",
+      "particle": "in Richtung"
+    },
+    "8": {
+      "description": "Eine sehr große Kreuzung, die die wichtigsten Pfade im Westen von Mont Célestrum verbindet.",
+      "name": "Aufforstung der Destins",
+      "particle": "in Richtung"
+    },
+    "9": {
+      "description": "Die größte Handelsroute zwischen dem Berceau und dem starken Ville ist nur noch von der Großen Straße übrig, die von altmodenen gepflasterten Mooren übrig ist.",
+      "name": "Grosse Rue",
+      "particle": "in Richtung"
+    }
+  },
+  "map_types": {
+    "be": {
+      "name": "Bereich",
+      "prefix": "von"
+    },
+    "castleEntrance": {
+      "name": "",
+      "prefix": "von"
+    },
+    "castleThrone": {
+      "name": "",
+      "prefix": "von"
+    },
+    "ci": {
+      "name": "Stadt",
+      "prefix": "von"
+    },
+    "continent": {
+      "name": "",
+      "prefix": "von"
+    },
+    "crystalCavern": {
+      "name": "Crystal-Caverne",
+      "prefix": "von"
+    },
+    "de": {
+      "name": "Dessert",
+      "prefix": "von"
+    },
+    "fo": {
+      "name": "Wälder",
+      "prefix": "von"
+    },
+    "iceBeach": {
+      "name": "Eisbereich",
+      "prefix": "von"
+    },
+    "iceCavern": {
+      "name": "Eiskrem",
+      "prefix": "von"
+    },
+    "iceLake": {
+      "name": "Eingefrorene Milch",
+      "prefix": "von"
+    },
+    "la": {
+      "name": "Lac",
+      "prefix": "von"
+    },
+    "mine": {
+      "name": "Mine",
+      "prefix": "von"
+    },
+    "mo": {
+      "name": "Montagne",
+      "prefix": "von"
+    },
+    "pl": {
+      "name": "Plain",
+      "prefix": "von"
+    },
+    "pveExit": {
+      "name": "",
+      "prefix": "von"
+    },
+    "ri": {
+      "name": "Rivière",
+      "prefix": "von"
+    },
+    "ro": {
+      "name": "Route",
+      "prefix": "von"
+    },
+    "ruins": {
+      "name": "Ruinen",
+      "prefix": "von"
+    },
+    "snowMountain": {
+      "name": "Pic",
+      "prefix": "von"
+    },
+    "snowmenField": {
+      "name": "Plain",
+      "prefix": "von"
+    },
+    "testZone": {
+      "name": "",
+      "prefix": "von"
+    },
+    "tundra": {
+      "name": "Toundra",
+      "prefix": "von"
+    },
+    "vi": {
+      "name": "Village",
+      "prefix": "von"
+    },
+    "volcano": {
+      "name": "Volcan",
+      "prefix": "von"
+    }
+  },
+  "missions": {
+    "anyFight_one": "Machen {{count}} Kampf",
+    "anyFight_other": "Machen {{count}} Kämpfe",
+    "bigFeast": "Es ist ein großer Festmahl.",
+    "buyUltimateSoups_one": "Kaufen Sie mindestens {{count}} ultimative Suppe",
+    "buyUltimateSoups_other": "Kaufen Sie mindestens {{count}} Ultimative Suppen",
+    "chooseClass": "Wählen Sie eine andere Klasse als {emote:classes.0} Rekrut",
+    "chooseClassTier": "Eine Klasse der Ebene {{variantText}} oder höher haben",
+    "commandMission": "Machen Sie die Bestellung {command:missions}",
+    "commandReport": "Machen Sie die Bestellung {command:report}",
+    "dailyPotionsStock": "Den gesamten Pot-Bestand des Tages kaufen",
+    "doReports_one": "Machen {{count}} Bericht",
+    "doReports_other": "Machen {{count}} Berichte",
+    "drinkAlcohol": "Trinathaltige Trüpfung",
+    "drinkEnergyPotion_one": "Trinke {{count}} Energietrank",
+    "drinkEnergyPotion_other": "Trinke {{count}} Energietränke",
+    "drinkPotionRarity": "Eine Knapphäche von {{variantText}} oder höher bohren.",
+    "drinkPotionWithoutEffect_one": "Trinken {{count}} Trank ohne Wirkung",
+    "drinkPotionWithoutEffect_other": "Trinken {{count}} Tränke ohne Wirkung",
+    "drinkPotion_one": "Trinken {{count}} Trank",
+    "drinkPotion_other": "Trinken {{count}} Tränke",
+    "earnLifePoints_one": "Verdiene {{count}} Lebenspunkte",
+    "earnLifePoints_other": "Verdiene {{count}} Lebenspunkte",
+    "earnMoney": "Ernten {{count}} {emote:unitValues.money}",
+    "earnPoints": "Gewinnen {{count}} {emote:unitValues.score}",
+    "earnXP": "Gewinnen {{count}} {emote:unitValues.xp}",
+    "exploreDifferentPlaces": "Erkunde {{count}} verschiedene Orte",
+    "fightAttacks": "Machen {{count}} {{variantText}} in Kämpfen",
+    "fightHealthPercent_one": "Gewinnen Sie {{count}} Kampf mit weniger als {{variantText}}% Ihrer verbleibenden Lebensenergie.",
+    "fightHealthPercent_other": "Gewinnen Sie {{count}} Kämpfe mit weniger als {{variantText}}% Ihrer verbleibenden Lebensenergie.",
+    "fightStreak": "Einen Kampf für {{count}} Tage hintereinander durchführen",
+    "findOrBuyItem_one": "Finden oder kaufen Sie {{count}} Objekt",
+    "findOrBuyItem_other": "Finden oder kaufen Sie {{count}} Gegenstände",
+    "finishWithAttack": "Verwenden Sie {{count}} Mal die{{variantText}} , um Ihren Gegner zu erledigen.",
+    "fromPlaceToPlace": "{{variantText}}",
+    "gainRage_one": "Verdiene {{count}} Wutpunkte, indem du wilde Tiere besiegst.",
+    "gainRage_other": "Verdiene {{count}} Wutpunkte, indem du wilde Tiere besiegst.",
+    "goToPlace": "Reisen Sie nach {{variantText}}",
+    "guildDailyFromSomeoneElse": "Erhalten Sie eine Gilde-Belohnung, ohne sie zu beanspruchen.",
+    "guildDaily_one": "Erhalte {{count}} Gildenbelohnung",
+    "guildDaily_other": "Erhalten Sie {{count}} Gildenbelohnungen",
+    "guildHasPoints": "Helft eurer Gilde, mehr als {{count}} Gildenpunkte zu besitzen.",
+    "guildLevel": "Mitglied einer Gilde Stufe {{count}} oder höher sein",
+    "haveItemRarity": "Ein Gerät mit einer Knappheit von {{variantText}} oder besser",
+    "havePet": "Mit einem Vertrauten vertraut sein",
+    "havePotions": "Besitze {{count}} Tränke zur gleichen Zeit",
+    "joinGuild": "Verknüpfen oder Erstellen einer Gilde",
+    "joinMemberOnBoat": "Mitglied auf der Insel beitreten",
+    "joinPVEIsland": "Wiedererreichen der mysteriösen Insel",
+    "kingsMoneyValue": "Erhalten Sie weniger als 6500 {emote:unitValues.money} im Geld des Königs",
+    "meetDifferentPlayers_one": "Treffen {{count}} Spieler",
+    "meetDifferentPlayers_other": "Triff {{count}} verschiedene Spieler",
+    "meetGruffo": "Rencontrer Gruffo",
+    "meetHermit": "Ein Erztenerhonig",
+    "petEarnHealth": "Leben mit Hilfe eines Begleiter",
+    "reachGlory": "Haben {{count}} Ruhmespunkte oder mehr",
+    "reachLevel": "Erreichen der Stufe {{count}}",
+    "reachScore": "Eine Punktzahl von mehr als {{count}} {emote:unitValues.score}haben",
+    "recoverAlteration_one": "Sich von {{count}} Zustandsveränderung erholen",
+    "recoverAlteration_other": "Sich von {{count}} Zustandsveränderungen erholen",
+    "sellItemWithGivenCost_one": "Verkaufen Sie {{count}} Ausrüstung für mehr als {{variantText}} {emote:unitValues.money}",
+    "sellItemWithGivenCost_other": "Verkaufen Sie {{count}} Ausrüstungen für mehr als {{variantText}} {emote:unitValues.money}",
+    "sellOrTradePet": "Einen Vertrauten an einen anderen Spieler verkaufen",
+    "spendGems": "Lastenaufstellung im Missionsgeschäft",
+    "spendMoney": "Ausgeben {{count}} Münzen",
+    "tamedPet": "Ein vertrauter oder aufrichtigeter Begleiter",
+    "trainedPet": "Ein aufrechter Begleiter",
+    "travelHours_one": "Machen Sie {{count}} Reise von mindestens {{variantText}} Stunde",
+    "travelHours_other": "Machen Sie {{count}} Reisen von mindestens {{variantText}} Stunden.",
+    "unlock": "Jemand aus dem Gefängnis freizulassen",
+    "wealthyPayForPVEIsland": "Eine Reise zu einer mysteriösen Insel zu einem Höchstpreis kaufen",
+    "winBoss_one": "Gewinnt {{count}} Bosskampf",
+    "winBoss_other": "Gewinnen Sie {{count}} Bosskämpfe"
+  },
+  "missionVariants": {
+    "default": "{{variant}}",
+    "drinkPotionRarity": "$t(items:rarities.{{variant}})",
+    "haveItemRarity": "$t(items:rarities.{{variant}})",
+    "fromPlaceToPlace_order": "Mache {{place1}}-{{place2}} in weniger als {{time}} Stunden",
+    "fromPlaceToPlace_noOrder": "Mache {{place1}}-{{place2}} (oder umgekehrt) in weniger als {{time}} Stunden",
+    "fromPlaceToPlace_secondPart": "Erreichen Sie {{place}} vor dem {{time}}",
+    "goToPlace": "{emote:mapTypes.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
+    "fightAttacks": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
+    "finishWithAttack": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
+  },
+  "monsters": {
+    "forestTroll": {
+      "name": "Waldtroll",
+      "description": "Ein großer Troll, der in den Wäldern lebt. Er ist sehr stark und widerstandsfähig, aber auch sehr aggressiv und greift alles an, was sich bewegt. Er ist sehr gefährlich für Abenteurer, die sich in die Wälder wagen."
+    },
+    "spider": {
+      "name": "Spinne",
+      "description": "Eine große, haarige Spinne. Sie gehört zu einer unbekannten Spezies und greift alle Reisenden an, die sich ihrem Nest nähern. Sie ist giftig und kann auch Seide verspritzen, um ihre Beute zu fixieren."
+    },
+    "magmaTitan": {
+      "name": "Magma-Titan",
+      "description": "Das mächtigste Monster auf der Insel. Vor Hitze kochend, kann es selbst die härtesten Felsen zum Schmelzen bringen. Nur sehr wenige Abenteurer haben es geschafft, es zu besiegen und es wäre gefährlich, es allein anzugreifen."
+    },
+    "rockGolem": {
+      "name": "Stein-Golem",
+      "description": "Ein riesiger Golem aus Fels. Beseelt von dem Wunsch, alles zu zerschmettern, was sich ihm nähert. Er ist sehr langsam, aber seine Angriffe sind verheerend."
+    },
+    "skeleton": {
+      "name": "Skelett",
+      "description": "Ein seltsames Skelett, es scheint ein alter Krieger zu sein. Er sieht schwach aus, ist aber in Wirklichkeit sehr gefährlich und viele haben sich überraschen lassen."
+    },
+    "slimyMutant": {
+      "name": "Schlammiger Mutant",
+      "description": "Der Schlickmutant ist ein Monster, das andere Monster oder seinen Gegner direkt kopieren kann. Er ist sehr vielseitig und kann sich an jede Situation anpassen."
+    }
+  },
+  "objects": {
+    "0": "Freier Bereich",
+    "1": "Draper de la Friede",
+    "10": "Fußbekleidung",
+    "11": "Segen des Himmels",
+    "12": "Obsidia",
+    "13": "Tote Blätter",
+    "14": "Roter Mann",
+    "15": "Grüner Mann",
+    "16": "Herzstück des Herzens",
+    "17": "Buch zu den Einladungen Band 1",
+    "18": "Buch zu den Einladungen Band 2",
+    "19": "Buch zu den Einladungen Band 3",
+    "2": "Magische Zauberei",
+    "20": "Buch zu den Einladungen Band 4",
+    "21": "Mythen-Kappe",
+    "22": "Tod des Todes",
+    "23": "Königliche Fan",
+    "24": "Metallbalken",
+    "25": "Alte Kerze",
+    "26": "Gekrüeler Boden",
+    "27": "Magische Saxo",
+    "28": "Schreckliche Gitarre",
+    "29": "Bankkarte",
+    "3": "Diamant Kera",
+    "30": "Mechanisches Bein",
+    "31": "Katze mit Mignon-LaserAugen",
+    "32": "Kyulöffel",
+    "33": "Citrouille",
+    "34": "Plüschbären",
+    "35": "Magnet",
+    "36": "Verband",
+    "37": "Gleitschellen",
+    "38": "Zyklonischer Amulette",
+    "39": "Macht von Nayru",
+    "4": "Sohn der Hoffnung",
+    "40": "Bague des Engels ohne Leben",
+    "41": "Urne aus der Walzbahn",
+    "42": "Kaninchhorde",
+    "43": "Banan'ase split.",
+    "44": "Summiert für großen Baum",
+    "45": "Amulette de Midas",
+    "46": "Verlobter Stoff",
+    "47": "Kyuran",
+    "48": "Partikelbeschleuniger",
+    "49": "Gel Hydro-Alcoolisch",
+    "5": "Lune de Mojaro",
+    "50": "Pegasus Bottes",
+    "51": "Nimbus 2000",
+    "52": "Gleitbegleitmittel",
+    "53": "Medaille für Verdienste",
+    "54": "Jagdmesser",
+    "55": "Bourse des Dieb",
+    "56": "Maschine unter",
+    "57": "Schuhe mit ferse Ferse",
+    "58": "Verteidigungsanfragender Anned",
+    "59": "Chocobrie",
+    "6": "Magische Glasschlamm",
+    "60": "Multinationale",
+    "61": "Voltou",
+    "62": "Auge von Fatalis",
+    "63": "Standbein",
+    "64": "Lego",
+    "65": "Harmonica der Zeit",
+    "66": "Optische Faser",
+    "67": "Kars",
+    "68": "Tardis",
+    "69": "Musik",
+    "7": "Magische Schläuchen",
+    "70": "Lit",
+    "71": "Zitiert Buzz den Glanz",
+    "72": "Soleil",
+    "73": "Bergticket russischer Berge",
+    "74": "Zement",
+    "75": "Defibrillator",
+    "76": "Hundehäuerfutter",
+    "77": "Taschendokteur",
+    "78": "Künstlicher Kodes",
+    "79": "Dopingprogramm",
+    "8": "Windablage",
+    "80": "Batterie niedrig",
+    "81": "Batterie voll",
+    "82": "Easy-Script",
+    "83": "Geschosst in Carton",
+    "84": "Klee-4-Sheets",
+    "85": "Roulo PQ",
+    "86": "Destin-Stern",
+    "87": "Gekatrie",
+    "88": "SYM-Karte",
+    "89": "Toter Fisch",
+    "9": "Rostschlüssel",
+    "90": "Frosch-Talisman"
+  },
+  "pets": {
+    "0_female": "Keine Vertrauten",
+    "0_male": "Keine Vertrauten",
+    "1_female": "Hündin",
+    "1_male": "Hund",
+    "10_female": "Henne",
+    "10_male": "Hahn",
+    "11_female": "Vogel",
+    "11_male": "Vogel",
+    "12_female": "Ente",
+    "12_male": "Ente",
+    "13_female": "Stute",
+    "13_male": "Hengst",
+    "14_female": "Schildkröte",
+    "14_male": "Schildkröte",
+    "15_female": "Schlange",
+    "15_male": "Schlange",
+    "16_female": "Lézarde",
+    "16_male": "Eidechse",
+    "17_female": "Schafe",
+    "17_male": "Widder",
+    "18_female": "Ziege",
+    "18_male": "Ziegenbock",
+    "19_female": "Truthahn",
+    "19_male": "Truthahn",
+    "2_female": "Pudel",
+    "2_male": "Pudel",
+    "20_female": "Fuchs",
+    "20_male": "Fuchs",
+    "21_female": "Bärin",
+    "21_male": "Bär",
+    "22_female": "Koala",
+    "22_male": "Koala",
+    "23_female": "Frosch",
+    "23_male": "Kröte",
+    "24_female": "Guenon",
+    "24_male": "Affe",
+    "25_female": "Pinguin",
+    "25_male": "Pinguin",
+    "26_female": "Eule",
+    "26_male": "Eule",
+    "27_female": "Fledermaus",
+    "27_male": "Fledermaus",
+    "28_female": "Wölfin",
+    "28_male": "Wolf",
+    "29_female": "Seehund",
+    "29_male": "Wildschwein",
+    "3_female": "Katze",
+    "3_male": "Katze",
+    "30_female": "Seelöwe",
+    "30_male": "Seehund",
+    "31_female": "Nilpferd",
+    "31_male": "Nilpferd",
+    "32_female": "Lamate",
+    "32_male": "Lama",
+    "33_female": "Schwan",
+    "33_male": "Schwan",
+    "34_female": "Flamingo",
+    "34_male": "Flamingo",
+    "35_female": "Ratonne",
+    "35_male": "Waschbär",
+    "36_female": "Stinktier",
+    "36_male": "Stinktier",
+    "37_female": "Dachs",
+    "37_male": "Dachs",
+    "38_female": "Biber",
+    "38_male": "Biber",
+    "39_female": "Faulpelz",
+    "39_male": "Faultier",
+    "4_female": "Schwarze Katze",
+    "4_male": "Schwarze Katze",
+    "40_female": "Tamia",
+    "40_male": "Tamia",
+    "41_female": "Herissonne",
+    "41_male": "Igel",
+    "42_female": "Polarstern",
+    "42_male": "Eisbär",
+    "43_female": "Panda",
+    "43_male": "Panda",
+    "44_female": "Skorpionin",
+    "44_male": "Skorpion",
+    "45_female": "Krokodil",
+    "45_male": "Krokodil",
+    "46_female": "Elefant",
+    "46_male": "Elefant",
+    "47_female": "Zebra",
+    "47_male": "Zebra",
+    "48_female": "Rhinozeros",
+    "48_male": "Rhinozeros",
+    "49_female": "Chamelle",
+    "49_male": "Dromedar",
+    "5_female": "Maus",
+    "5_male": "Nagetier",
+    "50_female": "Chamelle",
+    "50_male": "Kamel",
+    "51_female": "Giraffe",
+    "51_male": "Giraffe",
+    "52_female": "Känguru",
+    "52_male": "Känguru",
+    "53_female": "Paonne",
+    "53_male": "Pfau",
+    "54_female": "Papagei",
+    "54_male": "Papagei",
+    "55_female": "Otter",
+    "55_male": "Otter",
+    "56_female": "Tigerin",
+    "56_male": "Tiger",
+    "57_female": "Löwin",
+    "57_male": "Löwe",
+    "58_female": "Adler",
+    "58_male": "Adler",
+    "59_female": "Dodo",
+    "59_male": "Dodo",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
+    "60_female": "Leopard",
+    "60_male": "Leopard",
+    "61_female": "Mammut",
+    "61_male": "Mammut",
+    "62_female": "Taube",
+    "62_male": "Taube",
+    "63_female": "Einhorn",
+    "63_male": "Einhorn",
+    "64_female": "Handschlaufe",
+    "64_male": "Dragon",
+    "65_female": "T-Rex",
+    "65_male": "T-Rex",
+    "66_female": "Angel",
+    "66_male": "Stitch",
+    "67_female": "Schnee Dame",
+    "67_male": "Schneemann",
+    "68_female": "Scharlachrote Ente",
+    "68_male": "Scharlachrote Ente",
+    "69_female": "Schnee Dame",
+    "69_male": "Schneemann",
+    "7_female": "Kaninchen",
+    "7_male": "Kaninchen",
+    "70_female": "Alien",
+    "70_male": "Alien",
+    "71_female": "Krake",
+    "71_male": "Krake",
+    "72_female": "Einarmig",
+    "72_male": "Pinguin",
+    "73_male": "Fisch",
+    "73_female": "Fisch",
+    "74_male": "Tropischer Fisch",
+    "74_female": "Tropischer Fisch",
+    "75_male": "Kugelfisch",
+    "75_female": "Kugelfisch",
+    "76_male": "Medusa",
+    "76_female": "Medusa",
+    "77_male": "Hai",
+    "77_female": "Hai",
+    "78_male": "Wal",
+    "78_female": "Wal",
+    "79_male": "Wal",
+    "79_female": "Wal",
+    "80_male": "Garnele",
+    "80_female": "Garnele",
+    "81_male": "Hummer",
+    "81_female": "Hummer",
+    "82_male": "Delphin",
+    "82_female": "Delphin",
+    "8_female": "Kuh",
+    "8_male": "Rindfleisch",
+    "9_female": "Sau",
+    "9_male": "Schwein"
+  },
+  "potions": {
+    "0": "Kein Trank",
+    "1": "Rotstift",
+    "10": "Purpurrot",
+    "11": "Säurekopf",
+    "12": "Dunkler Potion",
+    "13": "Blaue Potion",
+    "14": "Verfallene Potion",
+    "15": "Magische Potion",
+    "16": "Balte Stellen",
+    "17": "Höchste Potion",
+    "18": "Schüttelte Dosis",
+    "19": "Kraft-Potion",
+    "2": "Einfacher Verweis",
+    "20": "Explosivstoff",
+    "21": "Geschwindigkeitspotion",
+    "22": "Pflege",
+    "23": "Höchste Sorgfalt",
+    "24": "Histentopf",
+    "25": "Tropenholz",
+    "26": "Milchglas",
+    "27": "Biberon",
+    "28": "Thé",
+    "29": "Kaffee",
+    "3": "Potion",
+    "30": "Alkohol",
+    "31": "Stamm der Großmutter",
+    "32": "Gereinigtes Wasser",
+    "33": "Vin rot",
+    "34": "Geflügelversuche Nr. 5",
+    "35": "Kyurburant",
+    "36": "Jus",
+    "37": "Gießereis",
+    "38": "Sachlich",
+    "39": "Matt",
+    "4": "Großer Pot",
+    "40": "Saber-Champagner",
+    "41": "Sockenjacke",
+    "42": "Bizousien koup",
+    "43": "Gegenspielung des Gegners",
+    "44": "Blutspenden von Wolf",
+    "45": "Breuverei auf der Grundlage von Koka",
+    "46": "Ghost-Pepper-Öl",
+    "47": "Tötung des Todes, der tötet",
+    "48": "Akku-Jus",
+    "49": "Nüsse",
+    "5": "Super Potion",
+    "50": "Versklavung des Mutes",
+    "51": "Spinat",
+    "52": "Jus de kiwi",
+    "53": "Bananenjus",
+    "54": "Friandanz",
+    "55": "Hivernale Fondue",
+    "56": "Brotaufstrich",
+    "57": "Blutspenden von Drachen",
+    "58": "Härtegrad der Härte",
+    "59": "Blasenbildung",
+    "6": "Grüner Fisch",
+    "60": "Sucher",
+    "61": "Nicht trinkkbar",
+    "62": "Meeresspitze",
+    "63": "Leere Potion",
+    "64": "Recyclingbares Gewicht",
+    "65": "Umgezahlter Fisch",
+    "66": "Bubble tea",
+    "67": "Orangensem",
+    "68": "Apfeljus",
+    "69": "Miel",
+    "7": "Südliche Potion",
+    "70": "Zwiebeln",
+    "71": "Super Nariwa",
+    "72": "Ortungs-Jus",
+    "73": "Expresso",
+    "74": "Eingebender Potion",
+    "75": "Kaktusjus",
+    "76": "Eau de Dusche",
+    "77": "SP 95",
+    "78": "Seifenwein",
+    "79": "Rosée-Rosé",
+    "8": "Raucher Potion",
+    "80": "Stalaktitis",
+    "81": "Drucktinte",
+    "82": "Bave auf dem Mumps",
+    "83": "Regenschutter",
+    "84": "Phönix-Prüfung",
+    "85": "Unbekannt",
+    "86": "Tonischer Cocktail",
+    "87": "Rhum",
+    "88": "Kavarot-Bave",
+    "89": "Schlinker-Eau",
+    "9": "Hure Potion",
+    "90": "Jus de Pomme de Terre",
+    "91": "Eau de Mer",
+    "92": "Bave de Troll",
+    "93": "Titan-Listole",
+    "94": "ChocoChoc-Tafel"
+  },
+  "weapons": {
+    "0": "Poing",
+    "1": "Zeus-Foudre",
+    "10": "Schwert aus Holz",
+    "11": "Leere Pistole",
+    "12": "Infizierte Spritze",
+    "13": "Bombe",
+    "14": "Schweres Guitar",
+    "15": "Dolch-Par",
+    "16": "Pioche",
+    "17": "Masse",
+    "18": "Basel",
+    "19": "Couteau Ancien",
+    "2": "Gebrauchte Tools",
+    "20": "Flexible Verzweigung",
+    "21": "Abimpfter Piock",
+    "22": "Arc",
+    "23": "Pfannen",
+    "24": "Scheren",
+    "25": "Springerin",
+    "26": "Crossee",
+    "27": "Sabre",
+    "28": "Kampfkuchen",
+    "29": "Anfänge des Wassereinsteihers",
+    "3": "Assomoire",
+    "30": "Boxsgant",
+    "31": "Verstärkter Poing",
+    "32": "Angelrute mit Anfängen",
+    "33": "Messerschneider",
+    "34": "Angelrute",
+    "35": "Angelrute des Meisters",
+    "36": "Schwert aus Eisen",
+    "37": "Anfänge Schwert",
+    "38": "Puppen-Puppe",
+    "39": "Doppelgänger",
+    "4": "Trägerrakete",
+    "40": "Diamant-Schwert",
+    "41": "Sharpness-Puppe 4",
+    "42": "Pistole geladen",
+    "43": "Cornichon",
+    "44": "Rosenschlamm",
+    "45": "Banane",
+    "46": "Grillkletscher",
+    "47": "Schnee Schnee",
+    "48": "Ritter-Arc",
+    "49": "Arc de Soldat",
+    "5": "Hammer",
+    "50": "Arc de novice",
+    "51": "Arc des Helden",
+    "52": "Raablo",
+    "53": "Chaise",
+    "54": "Ziegel",
+    "55": "Fourchettecouteau",
+    "56": "Kokiri-Puppe",
+    "57": "Feuerlöscher",
+    "58": "Gros Pfund",
+    "59": "Spritze",
+    "6": "Einfaches Kouteau",
+    "60": "Verseuchte Spritze",
+    "61": "Injektionsspritze",
+    "62": "Bio-Waffe",
+    "63": "Atombomben",
+    "64": "Brenner",
+    "65": "Pew Pew",
+    "66": "Beat Saber",
+    "67": "Königliche Schwert",
+    "68": "Griffe",
+    "69": "Ines'word",
+    "7": "Dague",
+    "70": "Pan pan pan QQ",
+    "71": "Ragnell-Schwert",
+    "72": "Fluxball-Ballon",
+    "73": "Ashoir",
+    "74": "Zeitalter des Dämons",
+    "75": "Boomerang",
+    "76": "Volto-Axt",
+    "77": "Sauerstoff-Sabotage",
+    "78": "Die Macht der Freundschaft",
+    "79": "Großmutter-Parapluie",
+    "8": "Percingasit",
+    "80": "Sceptor 100 Zaubersprüche",
+    "81": "Exagide",
+    "82": "Eintopf Katzen-Griffe",
+    "83": "Injures",
+    "84": "Schall-Schraubendreher",
+    "85": "Die Macht der Liebe",
+    "86": "Muster 'Mojaro'",
+    "87": "Plothammer",
+    "88": "Linke Ikarus-Aile",
+    "89": "Drachen-Schwert",
+    "9": "Rostschlüssel",
+    "90": "Corne de Licorne",
+    "91": "Baguette de Fibonacci",
+    "92": "Game Over",
+    "93": "Torschwein du Cuisinier",
+    "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung",
+    "95": "Klinge der silbernen Aura",
+    "96": "Electektron",
+    "97": "Klinge des Phönix"
+  },
+  "foods": {
+    "herbivorousFood_one": "Salat",
+    "herbivorousFood_other": "Salate",
+    "herbivorousFood_capitalized": "Salat",
+    "carnivorousFood_one": "Fleisch",
+    "carnivorousFood_other": "Fleisch",
+    "carnivorousFood_capitalized": "Fleisch",
+    "ultimateFood_one": "ultimative Suppe",
+    "ultimateFood_other": "ultimative Suppen",
+    "ultimateFood_capitalized": "Ultimative Suppe",
+    "commonFood_one": "Süßigkeit",
+    "commonFood_other": "Süßigkeiten",
+    "commonFood_capitalized": "Süßigkeit"
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Allesfresser",
+  "diet_herbivorous": "{emote:diet.herbivorous} Pflanzenfresser",
+  "diet_carnivorous": "{emote:diet.carnivorous} Fleischfresser",
+  "sex": {
+    "male": "Männlich",
+    "female": "Weiblich"
+  },
+  "ordinals": {
+    "get_feminine_ordinal_one": "1.",
+    "get_feminine_ordinal_other": "{{count}}ème",
+    "get_ordinal_one": "1.",
+    "get_ordinal_other": "{{count}}ème"
+  },
+  "guilds": {
+    "levelUpTitle": "{emote:unitValues.xp} Die Gilde {{guild}} steigt auf!",
+    "levelUpDesc": "Die Gilde ist jetzt auf Stufe **{{level}}**."
+  },
+  "players": {
+    "koTitle": "{{pseudo}}Sie wurden k.o. geschlagen!",
+    "koDesc": "{emote:effects.dead} Verwenden Sie den Befehl {command:respawn} , um das Spiel erneut zu starten.",
+    "koDmTitle": "Hallo Kämpfer!",
+    "koDmDesc": "Es scheint, dass Sie k.o. geschlagen wurden... {emote:effects.dead}\nDank unserer fortschrittlichen Technologie war es uns möglich, die Ereignisse so zu beeinflussen, dass Sie nicht mehr sterben müssen! {emote:other.tada}\nLeider ist die Operation kostspielig, sodass Ihr Punktestand durch diesen Tod beeinflusst wurde... \n\nUm das Spiel neu zu starten, gehen Sie auf {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}Ohnmacht",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} Sie spüren, wie Ihre Kräfte Sie verlassen, Sie sind am Ende. Sie fallen ohnmächtig auf den Boden...\n\n{emote:unitValues.lostMoney} Verlorenes Geld: **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Verlorene Gildenpunkte : **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nSie werden von einem Boot abgeholt und an eine Küste des Hauptkontinents gebracht.",
+    "levelUp": {
+      "title": "{{pseudo}}Sie haben sich in den letzten Jahren immer weiter gesteigert.",
+      "description": "{emote:unitValues.xp} Sie sind jetzt Level **{{level}}**!\n\n",
+      "rewards": {
+        "healthRestored": "{emote:unitValues.health} | Ihr Leben wurde wiederhergestellt.",
+        "fightUnlocked": "{emote:unitValues.attack} | Kämpfe, die mit dem Befehl {command:fight} freigeschaltet wurden! Für weitere Informationen zu den Kämpfen führen Sie den Befehl {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Gilden, die mit den Befehlen {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} und vielen mehr freigeschaltet wurden! Weitere Informationen zu den Gilden erhalten Sie mit dem Befehl {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Klassen mit den Befehlen {command:classes} und {command:classesinfo} freigeschaltet! Weitere Informationen zu Klassen finden Sie mit dem Befehl {command:help}.",
+        "classTier": "{emote:commands.classes} | Stufenklassen {{tier}} freigeschaltet! Weitere Informationen zu den Klassen finden Sie mit den Befehlen {command:classesinfo} und {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | Neuer Missionsplatz freigeschaltet! Weitere Informationen zu Ihren Missionen erhalten Sie mit dem Befehl {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Zugang zu freigeschalteten entfernten Inseln! Treffen Sie sich an einem Wasserloch, um neue Abenteuer zu erleben!",
+        "statsIncreased": "{emote:other.increase} | Verbesserte Statistiken."
+      }
+    }
+  },
+  "petReceived": {
+    "genericGiveTitle": "{{pseudo}}Erhalt eines Vertrauten",
+    "genericGiveNoSlot": "Sie erhalten einen neuen Vertrauten: **{{pet}}**. Sie haben jedoch keinen Platz, um ihn aufzunehmen.",
+    "genericGiveGuild": "Sie erhalten einen neuen Vertrauten: **{{pet}}**. Du platzierst ihn in der Gildenhütte.",
+    "genericGivePlayer": "Sie erhalten einen neuen Vertrauten: **{{pet}}**. Sie beschließen, ihn mitzunehmen."
+  }
+}

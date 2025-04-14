@@ -1,0 +1,64 @@
+{
+    "possibilities": {
+        "continue": {
+            "outcomes": {
+                "0": {
+                    "health": 5
+                },
+                "1": {
+                    "effect": "confounded",
+                    "health": -10
+                },
+                "2": {}
+            }
+        },
+        "end": {
+            "outcomes": {
+                "0": {
+                    "health": 15
+                },
+                "1": {
+                    "effect": "sick",
+                    "health": -5
+                },
+                "2": {
+                    "effect": "confounded"
+                }
+            }
+        },
+        "findMeal": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "health": 20,
+                    "lostTime": 10
+                },
+                "1": {
+                    "health": -35
+                },
+                "2": {}
+            }
+        },
+        "settle": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 120
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 60
+                },
+                "2": {
+                    "effect": "sleeping",
+                    "health": 5
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 25
+        }
+    ]
+}

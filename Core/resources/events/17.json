@@ -1,0 +1,82 @@
+{
+    "possibilities": {
+        "end": {
+            "outcomes": {
+                "0": {
+                    "effect": "occupied",
+                    "lostTime": 10
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 260
+                }
+            }
+        },
+        "fruits": {
+            "outcomes": {
+                "0": {
+                    "health": 15
+                },
+                "1": {
+                    "effect": "confounded",
+                    "health": -10
+                },
+                "2": {
+                    "effect": "sick",
+                    "health": -15
+                }
+            }
+        },
+        "hunt": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "injured",
+                    "health": -60
+                },
+                "2": {
+                    "health": 20
+                }
+            }
+        },
+        "mushrooms": {
+            "outcomes": {
+                "0": {
+                    "randomItem": {}
+                },
+                "1": {
+                    "effect": "occupied",
+                    "lostTime": 55
+                },
+                "2": {
+                    "effect": "injured",
+                    "health": -40
+                }
+            }
+        },
+        "salad": {
+            "outcomes": {
+                "0": {
+                    "health": 5
+                },
+                "1": {
+                    "effect": "starving"
+                },
+                "2": {}
+            }
+        },
+        "skip": {
+            "outcomes": {
+                "0": {},
+                "1": {
+                    "effect": "sleeping"
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "mapId": 11
+        }
+    ]
+}

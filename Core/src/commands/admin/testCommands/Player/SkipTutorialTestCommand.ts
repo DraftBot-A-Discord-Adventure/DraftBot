@@ -1,0 +1,37 @@
+import { Maps } from "../../../../core/maps/Maps";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import {
+	ExecuteTestCommandLike, ITestCommand
+} from "../../../../core/CommandsTest";
+import { TravelTime } from "../../../../core/maps/TravelTime";
+import { MapLinkDataController } from "../../../../data/MapLink";
+
+export const commandInfo: ITestCommand = {
+	name: "skiptutorial",
+	aliases: ["skiptuto", "init"],
+	description: "Initialise votre joueur pour des tests"
+};
+
+/**
+ * Initialize the player
+ */
+const skipTutorialTestCommand: ExecuteTestCommandLike = async player => {
+	player.level = 1;
+	player.score = 2000;
+	player.weeklyScore = 0;
+	player.experience = 0;
+	player.money = 0;
+	player.defenseGloryPoints = 100;
+	player.attackGloryPoints = 100;
+	player.badges = null;
+	player.effectEndDate = new Date();
+	player.effectDuration = 0;
+	player.health = player.getMaxHealth();
+	await Maps.startTravel(player, MapLinkDataController.instance.getRandomLinkOnMainContinent(), 0);
+	await TravelTime.removeEffect(player, NumberChangeReason.TEST);
+	await player.save();
+
+	return "Vous avez initialisé votre joueur !";
+};
+
+commandInfo.execute = skipTutorialTestCommand;
