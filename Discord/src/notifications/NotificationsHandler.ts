@@ -33,51 +33,49 @@ export abstract class NotificationsHandler {
 
 			KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId)
 				.then(async keycloakUser => {
-					if (keycloakUser && keycloakUser.attributes.discordId) {
-						const discordId = keycloakUser.attributes.discordId[0];
-						const lng = keycloakUser.attributes.language[0];
-
-						let notificationContent: string;
-						let notificationType: NotificationType;
-
-						switch (notification.type) {
-							case ReachDestinationNotificationPacket.name: {
-								const packet = notification.packet as ReachDestinationNotificationPacket;
-								notificationContent = i18n.t("bot:notificationReachDestination", {
-									lng,
-									destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
-								});
-								notificationType = NotificationsTypes.REPORT;
-								break;
-							}
-							case GuildDailyNotificationPacket.name: {
-								const packet = notification.packet as GuildDailyNotificationPacket;
-								notificationContent = i18n.t("bot:notificationGuildDaily", {
-									lng,
-									pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
-									rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
-								});
-								notificationType = NotificationsTypes.GUILD_DAILY;
-								break;
-							}
-							default:
-								throw `Unknown notification type: ${notification.type}`;
-						}
-
-						draftBotClient.users.fetch(discordId)
-							.then(async discordUser => {
-								await NotificationsHandler.sendNotification(
-									discordUser,
-									await NotificationsConfigurations.getOrRegister(discordId),
-									notificationType,
-									i18n.t(notificationContent, { lng }),
-									lng
-								);
-							});
-					}
-					else {
+					if (!keycloakUser?.attributes.discordId) {
 						throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
 					}
+					const discordId = keycloakUser.attributes.discordId[0];
+					const lng = keycloakUser.attributes.language[0];
+
+					let notificationContent: string;
+					let notificationType: NotificationType;
+
+					switch (notification.type) {
+						case ReachDestinationNotificationPacket.name: {
+							const packet = notification.packet as ReachDestinationNotificationPacket;
+							notificationContent = i18n.t("bot:notificationReachDestination", {
+								lng,
+								destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
+							});
+							notificationType = NotificationsTypes.REPORT;
+							break;
+						}
+						case GuildDailyNotificationPacket.name: {
+							const packet = notification.packet as GuildDailyNotificationPacket;
+							notificationContent = i18n.t("bot:notificationGuildDaily", {
+								lng,
+								pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
+								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
+							});
+							notificationType = NotificationsTypes.GUILD_DAILY;
+							break;
+						}
+						default:
+							throw `Unknown notification type: ${notification.type}`;
+					}
+
+					draftBotClient.users.fetch(discordId)
+						.then(async discordUser => {
+							await NotificationsHandler.sendNotification(
+								discordUser,
+								await NotificationsConfigurations.getOrRegister(discordId),
+								notificationType,
+								i18n.t(notificationContent, { lng }),
+								lng
+							);
+						});
 				});
 		}
 	}
