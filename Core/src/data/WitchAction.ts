@@ -58,7 +58,8 @@ export class WitchAction extends Data<string> {
 	 */
 	public generateOutcome(): WitchActionOutcomeType {
 		// Get total probability weight
-		const totalProbability = Object.values(this.outcomeProbabilities).reduce((sum, prob) => sum + prob, 0);
+		const totalProbability = Object.values(this.outcomeProbabilities)
+			.reduce((sum, prob) => sum + prob, 0);
 
 		// Generate a random number between 0 and total probability
 		const random = RandomUtils.randInt(0, totalProbability);
@@ -82,7 +83,7 @@ export class WitchAction extends Data<string> {
 	public checkOutcomeProbabilities(): void {
 		if (Object.values(this.outcomeProbabilities)
 			.reduce((sumProbability, probability) => sumProbability + probability) !== SmallEventConstants.WITCH.MAX_PROBABILITY) {
-			throw new Error("The sum of the probabilities must be 50 for the witch event " + this.id);
+			throw new Error(`The sum of the probabilities must be 50 for the witch event ${this.id}`);
 		}
 	}
 

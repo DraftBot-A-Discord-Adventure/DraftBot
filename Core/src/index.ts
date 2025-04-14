@@ -46,7 +46,7 @@ mqttClient.on("connect", () => {
 
 mqttClient.on("message", async (topic, message) => {
 	const messageString = message.toString();
-	const dataJson = JSON.parse("" + message);
+	const dataJson = JSON.parse(messageString);
 	DraftBotLogger.debug(`Received message from topic ${topic}`, { packet: dataJson });
 	if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
 		DraftBotLogger.error("Wrong packet format", { packet: messageString });
