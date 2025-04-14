@@ -208,8 +208,7 @@ export const DraftBotIcons: {
 	};
 } = {
 	effects: {
-		// eslint-disable-next-line camelcase
-		not_started: "👶",
+		notStarted: "👶",
 		dead: "💀",
 		none: "😃",
 		sleeping: "😴",

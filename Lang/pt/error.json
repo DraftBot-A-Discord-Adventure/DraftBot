@@ -75,7 +75,7 @@
   "notAuthorizedRight": "Não tem as permissões necessárias para efetuar este comando.",
   "notPossibleWithoutStatus": "Não necessita atualmente dos nossos serviços",
   "effects": {
-    "not_started": {
+    "notStarted": {
       "self": "Ainda nem sequer começaste!",
       "other": "{{pseudo}} ainda não começou!"
     },
