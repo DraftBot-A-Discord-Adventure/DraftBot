@@ -30,15 +30,12 @@ export class WitchAction extends Data<string> {
 	 */
 	public generatePotionWitchAction(): GenerateRandomItemOptions | null {
 		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
-		if (withActionFunctions && withActionFunctions.generatePotion) {
-			return withActionFunctions.generatePotion();
-		}
-		return null;
+		return withActionFunctions?.generatePotion ? withActionFunctions.generatePotion() : null;
 	}
 
 	public async checkMissionsWitchAction(player: Player, outcome: WitchActionOutcomeType, response: DraftBotPacket[]): Promise<void> {
 		const withActionFunctions = WitchActionDataController.getWitchActionFunction(this.id);
-		if (withActionFunctions && withActionFunctions.checkMissions) {
+		if (withActionFunctions?.checkMissions) {
 			await withActionFunctions.checkMissions(player, outcome, response, this.tags);
 		}
 	}
