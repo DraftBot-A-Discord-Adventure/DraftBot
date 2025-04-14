@@ -1,19 +1,15 @@
-import {
-	ItemCategory, itemCategoryToString, ItemNature
-} from "../../../Lib/src/constants/ItemConstants";
-import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import {ItemCategory, itemCategoryToString, ItemNature} from "../../../Lib/src/constants/ItemConstants";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
-import { Language } from "../../../Lib/src/Language";
-import { ItemWithDetails } from "../../../Lib/src/types/ItemWithDetails";
-import { minutesDisplay } from "../../../Lib/src/utils/TimeUtils";
-import { Item } from "../../../Lib/src/types/Item";
-import { EmoteUtils } from "./EmoteUtils";
-import {
-	SexTypeShort, StringConstants
-} from "../../../Lib/src/constants/StringConstants";
-import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
-import { PetFood } from "../../../Lib/src/types/PetFood";
-import { StringUtils } from "./StringUtils";
+import {Language} from "../../../Lib/src/Language";
+import {ItemWithDetails} from "../../../Lib/src/types/ItemWithDetails";
+import {minutesDisplay} from "../../../Lib/src/utils/TimeUtils";
+import {Item} from "../../../Lib/src/types/Item";
+import {EmoteUtils} from "./EmoteUtils";
+import {SexTypeShort, StringConstants} from "../../../Lib/src/constants/StringConstants";
+import {OwnedPet} from "../../../Lib/src/types/OwnedPet";
+import {PetFood} from "../../../Lib/src/types/PetFood";
+import {StringUtils} from "./StringUtils";
 
 export class DisplayUtils {
 	/**
@@ -43,13 +39,13 @@ export class DisplayUtils {
 	static getItemIcon(item: Item): string {
 		switch (item.category) {
 			case ItemCategory.WEAPON:
-				return DraftBotIcons.weapons[item.id];
+				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.weapons[item.id]);
 			case ItemCategory.ARMOR:
-				return DraftBotIcons.armors[item.id];
+				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.armors[item.id]);
 			case ItemCategory.POTION:
-				return DraftBotIcons.potions[item.id];
+				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[item.id]);
 			case ItemCategory.OBJECT:
-				return DraftBotIcons.objects[item.id];
+				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[item.id]);
 			default:
 				return "Missing no";
 		}
@@ -61,7 +57,10 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getWeaponDisplay(weaponId: number, lng: Language): string {
-		return `${DraftBotIcons.weapons[weaponId]} ${i18n.t(`models:weapons.${weaponId}`, { lng })}`;
+		return `${DisplayUtils.getItemIcon({
+			category: ItemCategory.WEAPON,
+			id: weaponId
+		})} ${i18n.t(`models:weapons.${weaponId}`, { lng })}`;
 	}
 
 	/**
@@ -70,7 +69,10 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getArmorDisplay(armorId: number, lng: Language): string {
-		return `${DraftBotIcons.armors[armorId]} ${i18n.t(`models:armors.${armorId}`, { lng })}`;
+		return `${DisplayUtils.getItemIcon({
+			category: ItemCategory.ARMOR,
+			id: armorId
+		})} ${i18n.t(`models:armors.${armorId}`, { lng })}`;
 	}
 
 	/**
@@ -91,7 +93,10 @@ export class DisplayUtils {
 	 * @param lng
 	 */
 	static getObjectDisplay(objectId: number, lng: Language): string {
-		return `${DraftBotIcons.objects[objectId]} ${i18n.t(`models:objects.${objectId}`, { lng })}`;
+		return `${DisplayUtils.getItemIcon({
+			category: ItemCategory.OBJECT,
+			id: objectId
+		})} ${i18n.t(`models:objects.${objectId}`, { lng })}`;
 	}
 
 	/**
