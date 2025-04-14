@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}, cancellazione del rilascio.",
     "canceledDesc": "L'animale non è stato rilasciato.",
     "confirmDesc": ":warning: Siete sicuri di voler rilasciare **{{pet}}** ? Non è possibile annullare una volta completata l'azione.",
-    "acceptedDesc": "{{pet}}Addio *** ***..."
+    "acceptedDesc": "{{pet}}Addio *** ***...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}Cambiare il soprannome dell'animale domestico",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campagna ( / )**",
-      "campaign_completed": "{emote:missions.campaign} **La campagna è terminata.",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Missione giornaliera",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missioni secondarie ( / )**"
     },
