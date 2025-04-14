@@ -56,6 +56,10 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetTr
 export async function handlePetTransferSuccess(context: PacketContext, packet: CommandPetTransferSuccessPacket): Promise<void> {
 	const interaction = MessagesUtils.getCurrentInteraction(context);
 
+	if (!interaction) {
+		return;
+	}
+
 	const lng = interaction.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE;
 
 	const oldPetDisplay = packet.oldPet ? DisplayUtils.getOwnedPetInlineDisplay(packet.oldPet, lng) : null;
