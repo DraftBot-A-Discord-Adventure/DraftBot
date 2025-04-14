@@ -1,6 +1,6 @@
 {
   "badges": {
-    "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
+    "description": "Bei den Abzeichen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Abzeichen ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
     "title": ":military_medal: Detaillierte Informationen:"
   },
   "pet": {
@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Verwenden Sie diesen Befehl, um andere Spieler, die sich auf demselben Server wie Sie befinden, zu detrieren.\nDie Kämpfe werden um die Reihe umgeleitet. In jeder Runde können Sie eine Aktion auswählen, die ausgeführt werden soll.\n\nFür weitere Informationen können Sie die Seite \"Guide\" auf der Seite \"https://guide.draftbot.com/notions-principale/combats\" anzeigen.",
-        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Zeigt die ruhmige Rangfolge des Spiels pro Schicht von 15 Spielern an. Die Liga der Spieler wird ebenfalls angezeigt. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
@@ -460,14 +460,14 @@
     "money": "** | {emote:unitValues.money} Verdientes Geld : **{{money}}",
     "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}Kampfbelohnungen",
-    "monsterRewardGuildXp": ":star: XP Gilde gewonnen: **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} Verdiente Gilden-XP : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Silber gewonnen : **{{money}}**\n:star: XP verdient: **{{experience}}**",
     "monsterRewardsGuildPoints": ":mirror_ball: Gilde-Gewinner: **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}, Kampfbelohnungen",
     "newBigEvent": ":flag_fr: Sie kamen zu **{{destination}}**!",
     "noFight": ":newspaper: ** Journal von {{pseudo}} : ** {{waitABitReaction}} | Sie verlassen sich schnell und finden Sie ein kleines Versteck! Das Monster wartet geduldig auf Sie.",
     "points": ": ** :medal: Gewinner: **{{score}}",
-    "pveEvent": ":newspaper: ** Journal von {{pseudo}} : ** {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}} Beginnt mit dem Kampf\n{{waitABitReaction}} Warten Sie kurz vor Beginn des Kampfes\n\n*-Verwenden Sie die Reaktionen, um eine Aktion durchzuführen *",
+    "pveEvent": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Kampf beginnen\n{emote:pveFights.waitABit} Warte kurz, bevor du den Kampf beginnst\n\n*- Benutze die Tasten, um eine Aktion auszuführen*.",
     "pveFightRefused": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {emote:pveFights.waitABit} | Sie beschließen, sich vorerst nicht auf einen Kampf einzulassen und suchen in einem Versteck in der Nähe Zuflucht. Letztendlich müssen Sie sich der Bestie stellen, da Sie keinen anderen Ausweg finden.",
     "remainingEnergyTitle": "Verbleibende Energie:",
     "startPoint": "Startpunkt:",
@@ -686,12 +686,12 @@
           "healEveryone": [
             "Dieses Haustier hat bemerkenswerte heilende Fähigkeiten! Er kann Ihre Wunden und die Ihrer Verbündeten mitten im Kampf heilen.",
             "Seine Sekrete enthalten starke regenerierende Enzyme. Er nutzt sie, um Sie während der Auseinandersetzungen in Form zu halten.",
-            "Ich beobachte einzigartige bioregenerative Eigenschaften in seinem Organismus. Ihr Vertrauter wird diese Lebensenergie mit Ihnen und Ihren Begleitern teilen."
+            "Ich beobachte einzigartige biologisch-regenerative Eigenschaften in seinem Organismus. Ihr Vertrauter wird diese Lebensenergie mit Ihnen und Ihren Begleitern teilen."
           ],
           "helpBreathe": [
             "Seine Atemkapazität ist außergewöhnlich! Bei anstrengenden Kämpfen oder unter Wasser kann er seinen Sauerstoff mit Ihnen teilen.",
             "Dieses Exemplar hat faszinierende modifizierte Kiemen. Es hilft Ihnen, in kritischen Momenten wieder zu Atem zu kommen.",
-            "Sein überentwickeltes Lungensystem ermöglicht es ihm, Sauerstoff zu speichern. Er überträgt ihn Ihnen, wenn Ihnen die Luft ausgeht."
+            "Sein hyperentwickeltes Lungensystem ermöglicht es ihm, Sauerstoff zu speichern. Er überträgt ihn Ihnen, wenn Ihnen die Luft ausgeht."
           ],
           "horn": [
             "Dieses Horn ist eine furchterregende natürliche Waffe! Ihr Begleiter wird es benutzen, um Ihre Gegner mit beeindruckender Kraft aufzuspießen.",
@@ -714,7 +714,7 @@
             "Seine einzigartige Biochemie ermöglicht es ihm, lähmende Wirkstoffe zu produzieren. Ihre Gegner werden erstarren und nicht mehr in der Lage sein, zurückzuschlagen."
           ],
           "peck": [
-            "Der Schnabel Ihres Begleiters ist scharf wie ein Dolch! Mit ihm kann er Ihre Gegner im Kampf mit präzisen und schmerzhaften Schlägen bedrängen.",
+            "Der Schnabel Ihres Begleiters ist scharf wie ein Dolch! Er ermöglicht es ihm, Ihre Gegner im Kampf mit präzisen und schmerzhaften Schlägen zu bedrängen.",
             "Die Knochenstruktur seines Schnabels ist perfekt zum Schlagen geeignet. Er wird Ihre Feinde an empfindlichen Punkten mit Präzision anstechen.",
             "Dieser Vertraute beherrscht die Kunst, mit seinem Schnabel zu nerven. Deine Gegner werden durch seine ständigen Angriffe geschwächt."
           ],
@@ -756,7 +756,7 @@
           "protectAgainstCold": [
             "Sein Fell hat außergewöhnlich gute isolierende Eigenschaften! Es wird dich effektiv vor Eisangriffen schützen.",
             "Ihre Körpertemperatur ist von Natur aus hoch. An deiner Seite wirst du eisigen Umgebungen und Kältezaubern bestens widerstehen können.",
-            "Dieses Haustier erzeugt ein bemerkenswertes Wärmefeld. Es umhüllt Sie mit seiner schützenden Wärme, die Sie vor Frostangriffen bewahrt."
+            "Dieses Haustier erzeugt ein bemerkenswertes Wärmefeld. Es wird Sie mit seiner schützenden Wärme gegen Frostangriffe einhüllen."
           ],
           "rainbowPower": [
             "Dieser Vertraute kann die umgebende prismatische Energie kanalisieren! Er wird kürzlich erfolgte magische Angriffe in Heilung für Sie umwandeln.",
@@ -786,7 +786,7 @@
           "smallClaws": [
             "Trotz seiner bescheidenen Größe sind seine Krallen bemerkenswert scharf! Er fügt präzise und irritierende Kratzer zu.",
             "Dieses kleine Haustier macht seine Größe durch seine feinen Klauen wett. Er zielt auf die empfindlichen Stellen Ihrer Gegner.",
-            "Seine kleinen Krallen eignen sich perfekt, um Gegner zu bedrängen. Er wird Ihre Gegner mit strategischen Kratzern aus dem Konzept bringen."
+            "Seine kleinen Krallen eignen sich perfekt, um den Gegner zu bedrängen. Er wird Ihre Feinde mit strategischen Kratzern aus dem Konzept bringen."
           ],
           "smallRegen": [
             "Sein regenerativer Stoffwechsel ist ansteckend! Er wird seine Heilfähigkeiten während der Kämpfe mit Ihnen teilen.",
@@ -821,7 +821,7 @@
           "swallow": [
             "Klinische Beobachtungen zeigen, dass sein Verdauungstrakt in der Lage ist, Beutetiere zu verschlingen und so den Gegner zu neutralisieren.",
             "Seine Verdauungsfähigkeiten ermöglichen es, den Feind vollständig zu verschlingen, was eine interessante alternative Verteidigungsmethode darstellt.",
-            "Anatomische Studien zeigen einen besonders elastischen Hals, der dazu geeignet ist, einen Gegner zu beschwichtigen..."
+            "Anatomische Studien offenbaren einen besonders elastischen Hals, der dazu geeignet ist, einen Gegner aufzunehmen..."
           ],
           "triesToHelp": [
             "Verhaltenstests legen nahe, dass der Vertraute versucht, seinen Besitzer durch maßvolle Hilfe zu unterstützen, obwohl seine Beiträge begrenzt bleiben.",
@@ -987,7 +987,7 @@
   },
   "missionsshop": {
     "title": "Magazin der Missionen",
-    "success": "{pseudo}Erfolgreiche Transaktion!",
+    "success": "{{pseudo}}, transaction réussie !",
     "error": {
       "cannotBuy": "Sie haben nicht genug Edelsteine, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{missingMoney}{emote:unitValues.gem}`.",
       "canceledPurchase": "Transaktion abgebrochen!",
@@ -1297,14 +1297,14 @@
     "soldMessage": "Sie haben {{item}} für **{{value}}** {emote:unitValues.money} verkauft!",
     "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
     "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
-    "potionDestroyedMessage": "Ihr Trank \"{{item}}\" wurde in ein Waschbecken geschüttet.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten, die Sie bereits besessen haben.",
     "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
     "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:",
-    "menuPlaceholder": "Wählen Sie einen Gegenstand zum Verkaufen aus",
+    "menuPlaceholder": "Wählen Sie einen Gegenstand zum Verkaufen",
     "cancel": "Abbrechen",
     "selectMenuDescSell": "Verkaufen für {{value}} {emote:unitValues.money}",
     "selectMenuDescThrow": "Werfen {emote:other.trash}"
