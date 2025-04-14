@@ -1,11 +1,11 @@
 {
-	"outcomeProbabilities": {
-		"potion": 40,
-		"effect": 0,
-		"life_loss": 5,
-		"nothing": 5
-	},
-	"timePenalty": 15,
-	"forceEffect": true,
-	"isIngredient": false
+  "outcomeProbabilities": {
+    "potion": 40,
+    "effect": 0,
+    "life_loss": 5,
+    "nothing": 5
+  },
+  "timePenalty": 15,
+  "forceEffect": true,
+  "isIngredient": false
 }

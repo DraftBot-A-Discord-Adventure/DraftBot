@@ -1,19 +1,19 @@
 {
-		"attack": 75,
-	"defense": 70,
-	"speed": 65,
-	"health": 120,
-	"fightPoint": 250,
-	"baseBreath": 17,
-	"maxBreath": 17,
-	"breathRegen": 3,
-	"classGroup": 4,
-  "classKind" : "basic",
-	"fightActionsIds": [
-		"simpleAttack",
-		"quickAttack",
-		"heavyAttack",
-		"benediction",
-		"resting"
-	]
+  "attack": 75,
+  "defense": 70,
+  "speed": 65,
+  "health": 120,
+  "fightPoint": 250,
+  "baseBreath": 17,
+  "maxBreath": 17,
+  "breathRegen": 3,
+  "classGroup": 4,
+  "classKind": "basic",
+  "fightActionsIds": [
+    "simpleAttack",
+    "quickAttack",
+    "heavyAttack",
+    "benediction",
+    "resting"
+  ]
 }

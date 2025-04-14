@@ -1,7 +1,7 @@
 {
-	"outcomeProbabilities": {
-		"potion": 25,
-		"nothing": 25
-	},
-	"isIngredient": true
+  "outcomeProbabilities": {
+    "potion": 25,
+    "nothing": 25
+  },
+  "isIngredient": true
 }

@@ -1,17 +1,17 @@
 {
-		"attack": 30,
-	"defense": 0,
-	"speed": 40,
-	"health": 10,
-	"fightPoint": -25,
-	"baseBreath": 3,
-	"maxBreath": 9,
-	"breathRegen": 4,
-	"classGroup": 0,
-  "classKind" : "attack",
-	"fightActionsIds": [
-		"quickAttack",
-		"boomerangAttack",
-		"canonAttack"
-	]
+  "attack": 30,
+  "defense": 0,
+  "speed": 40,
+  "health": 10,
+  "fightPoint": -25,
+  "baseBreath": 3,
+  "maxBreath": 9,
+  "breathRegen": 4,
+  "classGroup": 0,
+  "classKind": "attack",
+  "fightActionsIds": [
+    "quickAttack",
+    "boomerangAttack",
+    "canonAttack"
+  ]
 }

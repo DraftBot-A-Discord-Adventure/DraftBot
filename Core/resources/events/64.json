@@ -1,42 +1,44 @@
 {
-    "possibilities": {
-        "accept": {
-            "outcomes": {
-                "0": {
-                    "mapLink": 84,
-                    "nextEvent": 65
-                }
-            }
-        },
-        "deny": {
-            "outcomes": {
-                "0": {}
-            }
-        },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "mapLink": 84,
-                    "nextEvent": 65
-                }
-            }
+  "possibilities": {
+    "accept": {
+      "outcomes": {
+        "0": {
+          "mapLink": 84,
+          "nextEvent": 65
         }
+      }
     },
-    "triggers": [
-        {
-            "date": {
-                "day": {
-                    "from": 20,
-                    "to": 31
-                },
-                "month": {
-                    "from": 12,
-                    "to": 12
-                }
-            },
-            "level": 3,
-            "oncePer": "year",
-            "mapAttributes": ["continent1"]
+    "deny": {
+      "outcomes": {
+        "0": {}
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "mapLink": 84,
+          "nextEvent": 65
         }
-    ]
+      }
+    }
+  },
+  "triggers": [
+    {
+      "date": {
+        "day": {
+          "from": 20,
+          "to": 31
+        },
+        "month": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "level": 3,
+      "oncePer": "year",
+      "mapAttributes": [
+        "continent1"
+      ]
+    }
+  ]
 }

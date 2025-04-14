@@ -1,47 +1,47 @@
 {
-    "possibilities": {
-        "check": {
-            "outcomes": {
-                "0": {
-                    "effect": "hurt",
-                    "health": -25
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 55,
-                    "randomItem": {}
-                },
-                "2": {
-                    "effect": "sleeping"
-                },
-                "3": {
-                    "effect": "occupied",
-                    "lostTime": 15,
-                    "randomItem": {}
-                },
-                "4": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                }
-            }
+  "possibilities": {
+    "check": {
+      "outcomes": {
+        "0": {
+          "effect": "hurt",
+          "health": -25
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "lostTime": 55,
+          "randomItem": {}
         },
-        "skip": {
-            "outcomes": {
-                "0": {}
-            }
+        "2": {
+          "effect": "sleeping"
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "randomItem": {}
+        },
+        "4": {
+          "effect": "occupied",
+          "lostTime": 15
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 10
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
         }
-    ]
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 10
+    }
+  ]
 }

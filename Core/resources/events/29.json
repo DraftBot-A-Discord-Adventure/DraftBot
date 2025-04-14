@@ -1,63 +1,63 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {
-                    "health": -20
-                },
-                "1": {}
-            }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "health": -20
         },
-        "restHere": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 180
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 1,
-                    "lostTime": 90
-                }
-            }
-        },
-        "restTree": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 55
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 60,
-                    "money": -100
-                }
-            }
-        },
-        "searchWater": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 50
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 30,
-                    "randomItem": {}
-                },
-                "2": {
-                    "effect": "sleeping",
-                    "health": -10
-                }
-            }
-        }
+        "1": {}
+      }
     },
-    "triggers": [
-        {
-            "mapId": 19
+    "restHere": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 180
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 1,
+          "lostTime": 90
         }
-    ]
+      }
+    },
+    "restTree": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 55
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "money": -100
+        }
+      }
+    },
+    "searchWater": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 50
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 30,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "sleeping",
+          "health": -10
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 19
+    }
+  ]
 }

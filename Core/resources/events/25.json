@@ -1,60 +1,60 @@
 {
-    "possibilities": {
-        "dontHelp": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 30
-                },
-                "1": {},
-                "2": {
-                    "effect": "hurt",
-                    "health": -15
-                }
-            }
+  "possibilities": {
+    "dontHelp": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30
         },
-        "end": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "sleeping",
-                    "health": -25
-                }
-            }
-        },
-        "help": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 45,
-                    "money": 100
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": -10,
-                    "lostTime": 15,
-                    "money": -30
-                }
-            }
-        },
-        "steal": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 15,
-                    "money": 50
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 25,
-                    "money": -100
-                }
-            }
+        "1": {},
+        "2": {
+          "effect": "hurt",
+          "health": -15
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 8
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "sleeping",
+          "health": -25
         }
-    ]
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 45,
+          "money": 100
+        },
+        "1": {
+          "effect": "occupied",
+          "health": -10,
+          "lostTime": 15,
+          "money": -30
+        }
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "money": 50
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 25,
+          "money": -100
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 8
+    }
+  ]
 }

@@ -1,58 +1,58 @@
 {
-    "possibilities": {
-        "crossBridge": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 5
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 10,
-                    "money": 50
-                },
-                "2": {
-                    "effect": "hurt",
-                    "health": -60
-                },
-                "3": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                }
-            }
+  "possibilities": {
+    "crossBridge": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 5
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 20
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 5
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "lostTime": 10,
+          "money": 50
         },
-        "otherWay": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 60
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 45,
-                    "randomItem": {}
-                },
-                "2": {
-                    "effect": "confounded"
-                }
-            }
+        "2": {
+          "effect": "hurt",
+          "health": -60
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 15
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 15
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 20
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 5
         }
-    ]
+      }
+    },
+    "otherWay": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 45,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "confounded"
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 15
+    }
+  ]
 }

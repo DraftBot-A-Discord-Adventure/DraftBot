@@ -1,72 +1,72 @@
 {
-    "possibilities": {
-        "buy": {
-            "outcomes": {
-                "0": {
-                    "effect": "sick",
-                    "health": -30,
-                    "money": -50,
-                    "tags": [
-                        "moneyUsage"
-                    ]
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 5,
-                    "lostTime": 10,
-                    "money": -50,
-                    "tags": [
-                        "moneyUsage"
-                    ]
-                },
-                "2": {}
-            }
+  "possibilities": {
+    "buy": {
+      "outcomes": {
+        "0": {
+          "effect": "sick",
+          "health": -30,
+          "money": -50,
+          "tags": [
+            "moneyUsage"
+          ]
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 20
-                },
-                "1": {
-                    "health": 5
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "health": 5,
+          "lostTime": 10,
+          "money": -50,
+          "tags": [
+            "moneyUsage"
+          ]
         },
-        "skip": {
-            "outcomes": {
-                "0": {}
-            }
-        },
-        "steal": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 10,
-                    "money": 50
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": -25,
-                    "lostTime": 15,
-                    "money": -50
-                },
-                "2": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 15
-                },
-                "3": {
-                    "effect": "occupied",
-                    "lostTime": 10,
-                    "money": -50
-                }
-            }
-        }
+        "2": {}
+      }
     },
-    "triggers": [
-        {
-            "mapId": 3
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 20
+        },
+        "1": {
+          "health": 5
         }
-    ]
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {}
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 10,
+          "money": 50
+        },
+        "1": {
+          "effect": "occupied",
+          "health": -25,
+          "lostTime": 15,
+          "money": -50
+        },
+        "2": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 15
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 10,
+          "money": -50
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 3
+    }
+  ]
 }

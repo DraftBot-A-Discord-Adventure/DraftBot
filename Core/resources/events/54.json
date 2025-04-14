@@ -1,102 +1,102 @@
 {
-    "possibilities": {
-        "bet": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "money": 900
-                },
-                "2": {
-                    "money": -200
-                },
-                "3": {
-                    "effect": "hurt",
-                    "health": -30
-                },
-                "4": {
-                    "money": 400
-                },
-                "5": {
-                    "effect": "hurt",
-                    "health": -60
-                },
-                "6": {
-                    "money": 300
-                }
-            }
+  "possibilities": {
+    "bet": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "money": 900
         },
-        "end": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "sleeping"
-                },
-                "2": {},
-                "3": {
-                    "money": -200
-                },
-                "4": {
-                    "health": 30
-                }
-            }
+        "2": {
+          "money": -200
         },
-        "help": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "injured",
-                    "health": -105
-                },
-                "2": {
-                    "money": 300
-                },
-                "3": {
-                    "money": 500
-                },
-                "4": {},
-                "5": {
-                    "effect": "occupied",
-                    "lostTime": 300
-                }
-            }
+        "3": {
+          "effect": "hurt",
+          "health": -30
         },
-        "look": {
-            "outcomes": {
-                "0": {},
-                "1": {},
-                "2": {},
-                "3": {
-                    "money": 500
-                },
-                "4": {
-                    "effect": "hurt",
-                    "health": -60
-                },
-                "5": {
-                    "effect": "hurt",
-                    "health": -50
-                },
-                "6": {
-                    "health": 20
-                }
-            }
+        "4": {
+          "money": 400
         },
-        "visit": {
-            "outcomes": {
-                "0": {},
-                "1": {},
-                "2": {
-                    "effect": "hurt"
-                },
-                "3": {
-                    "randomItem": {}
-                }
-            }
+        "5": {
+          "effect": "hurt",
+          "health": -60
+        },
+        "6": {
+          "money": 300
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 6
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "sleeping"
+        },
+        "2": {},
+        "3": {
+          "money": -200
+        },
+        "4": {
+          "health": 30
         }
-    ]
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "injured",
+          "health": -105
+        },
+        "2": {
+          "money": 300
+        },
+        "3": {
+          "money": 500
+        },
+        "4": {},
+        "5": {
+          "effect": "occupied",
+          "lostTime": 300
+        }
+      }
+    },
+    "look": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {
+          "money": 500
+        },
+        "4": {
+          "effect": "hurt",
+          "health": -60
+        },
+        "5": {
+          "effect": "hurt",
+          "health": -50
+        },
+        "6": {
+          "health": 20
+        }
+      }
+    },
+    "visit": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {
+          "effect": "hurt"
+        },
+        "3": {
+          "randomItem": {}
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 6
+    }
+  ]
 }

@@ -1,8 +1,8 @@
 {
-	"outcomeProbabilities": {
-		"potion": 30,
-		"life_loss": 10,
-		"nothing": 10
-	},
-	"isIngredient": true
+  "outcomeProbabilities": {
+    "potion": 30,
+    "life_loss": 10,
+    "nothing": 10
+  },
+  "isIngredient": true
 }

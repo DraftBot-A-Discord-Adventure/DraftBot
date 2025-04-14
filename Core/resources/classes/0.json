@@ -1,17 +1,17 @@
 {
-		"attack": 25,
-	"defense": 20,
-	"speed": 10,
-	"health": 65,
-	"fightPoint": 45,
-	"baseBreath": 4,
-	"maxBreath": 10,
-	"breathRegen": 4,
-	"classGroup": 0,
-  "classKind" : "basic",
-	"fightActionsIds": [
-		"simpleAttack",
-		"piercingAttack",
-		"protection"
-	]
+  "attack": 25,
+  "defense": 20,
+  "speed": 10,
+  "health": 65,
+  "fightPoint": 45,
+  "baseBreath": 4,
+  "maxBreath": 10,
+  "breathRegen": 4,
+  "classGroup": 0,
+  "classKind": "basic",
+  "fightActionsIds": [
+    "simpleAttack",
+    "piercingAttack",
+    "protection"
+  ]
 }

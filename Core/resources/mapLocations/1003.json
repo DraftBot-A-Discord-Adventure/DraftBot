@@ -1,5 +1,5 @@
 {
-	"type": "mine",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "mine",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }

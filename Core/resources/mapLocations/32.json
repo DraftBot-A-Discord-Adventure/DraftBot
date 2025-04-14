@@ -1,5 +1,5 @@
 {
-	"type": "ro",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "king_castle"
+  "type": "ro",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "king_castle"
 }

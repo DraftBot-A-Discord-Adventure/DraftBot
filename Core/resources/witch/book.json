@@ -1,8 +1,8 @@
 {
-	"outcomeProbabilities": {
-		"potion": 50
-	},
-	"forceEffect": true,
-	"timePenalty": 25,
-	"isIngredient": false
+  "outcomeProbabilities": {
+    "potion": 50
+  },
+  "forceEffect": true,
+  "timePenalty": 25,
+  "isIngredient": false
 }
