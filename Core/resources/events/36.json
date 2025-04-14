@@ -1,70 +1,70 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "health": 20,
-                    "lostTime": 60
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                }
-            }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 20,
+          "lostTime": 60
         },
-        "goAway": {
-            "outcomes": {
-                "0": {
-                    "health": 5
-                }
-            }
-        },
-        "goInn": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "health": 20,
-                    "lostTime": 60
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 30
-                },
-                "2": {
-                    "health": -15
-                }
-            }
-        },
-        "stealJeweler": {
-            "outcomes": {
-                "0": {
-                    "money": 500
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 180
-                }
-            }
-        },
-        "talkJeweler": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 50,
-                    "randomItem": {}
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 75
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "lostTime": 15
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 6
+    "goAway": {
+      "outcomes": {
+        "0": {
+          "health": 5
         }
-    ]
+      }
+    },
+    "goInn": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 20,
+          "lostTime": 60
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 30
+        },
+        "2": {
+          "health": -15
+        }
+      }
+    },
+    "stealJeweler": {
+      "outcomes": {
+        "0": {
+          "money": 500
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 180
+        }
+      }
+    },
+    "talkJeweler": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 50,
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 75
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 6
+    }
+  ]
 }

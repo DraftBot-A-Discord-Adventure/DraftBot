@@ -1,75 +1,75 @@
 {
-    "possibilities": {
-        "accept": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 15,
-                    "money": 500
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 20,
-                    "money": -200
-                },
-                "2": {
-                    "effect": "occupied",
-                    "lostTime": 75,
-                    "randomItem": {}
-                }
-            }
+  "possibilities": {
+    "accept": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "money": 500
         },
-        "deny": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 10,
-                    "lostTime": 30
-                },
-                "2": {
-                    "health": -10,
-                    "randomItem": {}
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "lostTime": 20,
+          "money": -200
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 5
-                },
-                "1": {},
-                "2": {}
-            }
-        },
-        "steal": {
-            "outcomes": {
-                "0": {
-                    "money": -80
-                },
-                "1": {
-                    "money": 300
-                },
-                "2": {
-                    "effect": "occupied",
-                    "lostTime": 10
-                },
-                "3": {
-                    "money": 200
-                },
-                "4": {
-                    "randomItem": {}
-                }
-            }
+        "2": {
+          "effect": "occupied",
+          "lostTime": 75,
+          "randomItem": {}
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 14
+    "deny": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 30
+        },
+        "2": {
+          "health": -10,
+          "randomItem": {}
         }
-    ]
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 5
+        },
+        "1": {},
+        "2": {}
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "money": -80
+        },
+        "1": {
+          "money": 300
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "3": {
+          "money": 200
+        },
+        "4": {
+          "randomItem": {}
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 14
+    }
+  ]
 }

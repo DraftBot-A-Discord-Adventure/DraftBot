@@ -1,49 +1,49 @@
 {
-    "possibilities": {
-        "accept": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 180
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 30
-                },
-                "2": {
-                    "effect": "occupied",
-                    "health": -25,
-                    "lostTime": 15
-                },
-                "3": {
-                    "effect": "occupied",
-                    "lostTime": 20,
-                    "randomItem": {}
-                }
-            }
+  "possibilities": {
+    "accept": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 180
         },
-        "deny": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "occupied",
-                    "health": -10,
-                    "lostTime": 120
-                }
-            }
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 15
-                }
-            }
+        "2": {
+          "effect": "occupied",
+          "health": -25,
+          "lostTime": 15
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 20,
+          "randomItem": {}
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 13
+    "deny": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "health": -10,
+          "lostTime": 120
         }
-    ]
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 13
+    }
+  ]
 }

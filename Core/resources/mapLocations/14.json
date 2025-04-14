@@ -1,8 +1,8 @@
 {
-	"type": "la",
-		"tags": [
-		"detAu"
-	],
-	"canBeGoToPlaceMissionDestination": true,
-	"attribute": "continent1"
+  "type": "la",
+  "tags": [
+    "detAu"
+  ],
+  "canBeGoToPlaceMissionDestination": true,
+  "attribute": "continent1"
 }

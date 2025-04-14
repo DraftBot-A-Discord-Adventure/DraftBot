@@ -1,5 +1,5 @@
 {
-	"type": "fo",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "fo",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }

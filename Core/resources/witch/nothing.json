@@ -1,6 +1,6 @@
 {
-	"outcomeProbabilities": {
-		"nothing": 50
-	},
-	"isIngredient": false
+  "outcomeProbabilities": {
+    "nothing": 50
+  },
+  "isIngredient": false
 }

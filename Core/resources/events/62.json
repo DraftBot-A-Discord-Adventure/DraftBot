@@ -1,80 +1,80 @@
 {
-    "possibilities": {
-        "deny": {
-            "outcomes": {
-                "0": {
-                    "health": -4
-                },
-                "1": {},
-                "2": {
-                    "health": 10
-                }
-            }
+  "possibilities": {
+    "deny": {
+      "outcomes": {
+        "0": {
+          "health": -4
         },
-        "end": {
-            "outcomes": {
-                "0": {
-                    "health": 10
-                },
-                "1": {},
-                "2": {
-                    "health": -1
-                }
-            }
-        },
-        "searchPatures": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 20,
-                    "money": 500
-                },
-                "1": {
-                    "effect": "occupied",
-                    "health": 30,
-                    "lostTime": 120
-                },
-                "2": {
-                    "effect": "occupied",
-                    "health": -10,
-                    "lostTime": 20
-                }
-            }
-        },
-        "searchVines": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 10
-                },
-                "2": {
-                    "effect": "drunk",
-                    "health": 3
-                }
-            }
-        },
-        "searchWheat": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 30,
-                    "money": 400
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 180,
-                    "randomItem": {}
-                },
-                "2": {
-                    "health": 4
-                }
-            }
+        "1": {},
+        "2": {
+          "health": 10
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 12
+    "end": {
+      "outcomes": {
+        "0": {
+          "health": 10
+        },
+        "1": {},
+        "2": {
+          "health": -1
         }
-    ]
+      }
+    },
+    "searchPatures": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 20,
+          "money": 500
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 30,
+          "lostTime": 120
+        },
+        "2": {
+          "effect": "occupied",
+          "health": -10,
+          "lostTime": 20
+        }
+      }
+    },
+    "searchVines": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "2": {
+          "effect": "drunk",
+          "health": 3
+        }
+      }
+    },
+    "searchWheat": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "money": 400
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 180,
+          "randomItem": {}
+        },
+        "2": {
+          "health": 4
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 12
+    }
+  ]
 }

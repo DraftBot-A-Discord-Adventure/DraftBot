@@ -1,39 +1,39 @@
 {
-	"campaignOnly": false,
-	"difficulties": {
-		"easy": [],
-		"medium": [
-			0
-		],
-		"hard": [
-			1
-		]
-	},
-	"objectives": [
-		1,
-		5
-	],
-	"gems": [
-		2,
-		0
-	],
-	"points": [
-		20,
-		60
-	],
-	"xp": [
-		30,
-		60
-	],
-	"money": [
-		50,
-		125
-	],
-	"expirations": [
-		24,
-		72
-	],
-	"dailyIndexes": [
-		0
-	]
+  "campaignOnly": false,
+  "difficulties": {
+    "easy": [],
+    "medium": [
+      0
+    ],
+    "hard": [
+      1
+    ]
+  },
+  "objectives": [
+    1,
+    5
+  ],
+  "gems": [
+    2,
+    0
+  ],
+  "points": [
+    20,
+    60
+  ],
+  "xp": [
+    30,
+    60
+  ],
+  "money": [
+    50,
+    125
+  ],
+  "expirations": [
+    24,
+    72
+  ],
+  "dailyIndexes": [
+    0
+  ]
 }

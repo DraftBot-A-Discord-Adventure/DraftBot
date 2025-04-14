@@ -1,40 +1,40 @@
 {
-	"baseEnergyValue": 630,
-	"attackRatio": 50,
-	"defenseRatio": 120,
-	"speedRatio": 25,
-	"breath": 9,
-	"maxBreath": 14,
-	"breathRegen": 3,
-  "rewardFactor" : 0.5,
-	"attacks": [
-		{
-			"id": "boulderTossAttack",
-			"minLevel": 0,
-			"weight": 5
-		},
-		{
-			"id": "slamAttack",
-			"minLevel": 0,
-			"weight": 4
-		},
-		{
-			"id": "stoneSkinAttack",
-			"minLevel": 0,
-			"weight": 1
-		},
-		{
-			"id": "rockShieldAttack",
-			"minLevel": 0,
-			"weight": 2
-		},
-		{
-			"id": "petrificationAttack",
-			"minLevel": 50,
-			"weight": 1
-		}
-	],
-	"maps": [
-		1004
-	]
+  "baseEnergyValue": 630,
+  "attackRatio": 50,
+  "defenseRatio": 120,
+  "speedRatio": 25,
+  "breath": 9,
+  "maxBreath": 14,
+  "breathRegen": 3,
+  "rewardFactor": 0.5,
+  "attacks": [
+    {
+      "id": "boulderTossAttack",
+      "minLevel": 0,
+      "weight": 5
+    },
+    {
+      "id": "slamAttack",
+      "minLevel": 0,
+      "weight": 4
+    },
+    {
+      "id": "stoneSkinAttack",
+      "minLevel": 0,
+      "weight": 1
+    },
+    {
+      "id": "rockShieldAttack",
+      "minLevel": 0,
+      "weight": 2
+    },
+    {
+      "id": "petrificationAttack",
+      "minLevel": 50,
+      "weight": 1
+    }
+  ],
+  "maps": [
+    1004
+  ]
 }

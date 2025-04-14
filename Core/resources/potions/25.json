@@ -1,8 +1,8 @@
 {
-		"rarity": 1,
-	"power": 8,
-	"nature": 2,
-	"tags": [
-		"drinkAlcohol"
-	]
+  "rarity": 1,
+  "power": 8,
+  "nature": 2,
+  "tags": [
+    "drinkAlcohol"
+  ]
 }

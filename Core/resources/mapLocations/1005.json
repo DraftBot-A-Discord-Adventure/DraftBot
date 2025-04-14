@@ -1,5 +1,5 @@
 {
-	"type": "volcano",
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "pve_island"
+  "type": "volcano",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
 }

@@ -1,60 +1,60 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {
-                    "money": 195
-                },
-                "1": {},
-                "2": {
-                    "effect": "confounded"
-                }
-            }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "money": 195
         },
-        "goAway": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "lost"
-                },
-                "2": {
-                    "health": -5,
-                    "money": 87,
-                    "randomItem": {}
-                },
-                "3": {}
-            }
-        },
-        "look": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 25,
-                    "money": -70
-                },
-                "1": {},
-                "2": {}
-            }
-        },
-        "shame": {
-            "outcomes": {
-                "0": {
-                    "money": 195
-                },
-                "1": {
-                    "effect": "injured",
-                    "health": -25
-                },
-                "2": {
-                    "effect": "occupied",
-                    "lostTime": 30
-                }
-            }
+        "1": {},
+        "2": {
+          "effect": "confounded"
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 21
+    "goAway": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "lost"
+        },
+        "2": {
+          "health": -5,
+          "money": 87,
+          "randomItem": {}
+        },
+        "3": {}
+      }
+    },
+    "look": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 25,
+          "money": -70
+        },
+        "1": {},
+        "2": {}
+      }
+    },
+    "shame": {
+      "outcomes": {
+        "0": {
+          "money": 195
+        },
+        "1": {
+          "effect": "injured",
+          "health": -25
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 30
         }
-    ]
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 21
+    }
+  ]
 }

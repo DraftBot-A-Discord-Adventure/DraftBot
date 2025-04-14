@@ -1,95 +1,95 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 180
-                },
-                "1": {}
-            }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 180
         },
-        "joinArchery": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 60,
-                    "money": 235
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 60
-                },
-                "2": {}
-            }
-        },
-        "joinJoust": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 115,
-                    "money": 425
-                },
-                "1": {
-                    "health": -45
-                },
-                "2": {
-                    "effect": "occupied",
-                    "lostTime": 160,
-                    "money": 565,
-                    "randomItem": {}
-                },
-                "3": {}
-            }
-        },
-        "joinMelee": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 120,
-                    "money": 320,
-                    "randomItem": {}
-                },
-                "2": {
-                    "effect": "sleeping",
-                    "health": 10
-                },
-                "3": {
-                    "health": -55
-                }
-            }
-        },
-        "joinPoetry": {
-            "outcomes": {
-                "0": {
-                    "money": 120
-                },
-                "1": {
-                    "money": -350
-                },
-                "2": {
-                    "effect": "occupied",
-                    "lostTime": 15,
-                    "randomItem": {}
-                }
-            }
-        },
-        "searchFood": {
-            "outcomes": {
-                "0": {
-                    "health": 15
-                },
-                "1": {},
-                "2": {
-                    "health": 10
-                }
-            }
-        }
+        "1": {}
+      }
     },
-    "triggers": [
-        {
-            "mapId": 23
+    "joinArchery": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "money": 235
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "2": {}
+      }
+    },
+    "joinJoust": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 115,
+          "money": 425
+        },
+        "1": {
+          "health": -45
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 160,
+          "money": 565,
+          "randomItem": {}
+        },
+        "3": {}
+      }
+    },
+    "joinMelee": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "lostTime": 120,
+          "money": 320,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "sleeping",
+          "health": 10
+        },
+        "3": {
+          "health": -55
         }
-    ]
+      }
+    },
+    "joinPoetry": {
+      "outcomes": {
+        "0": {
+          "money": 120
+        },
+        "1": {
+          "money": -350
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "randomItem": {}
+        }
+      }
+    },
+    "searchFood": {
+      "outcomes": {
+        "0": {
+          "health": 15
+        },
+        "1": {},
+        "2": {
+          "health": 10
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 23
+    }
+  ]
 }

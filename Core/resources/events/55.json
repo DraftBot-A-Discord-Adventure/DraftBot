@@ -1,60 +1,60 @@
 {
-    "possibilities": {
-        "climb": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "effect": "hurt",
-                    "health": -15
-                },
-                "2": {
-                    "money": -250
-                }
-            }
+  "possibilities": {
+    "climb": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "hurt",
+          "health": -15
         },
-        "cut": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 30
-                },
-                "1": {
-                    "effect": "occupied",
-                    "lostTime": 90,
-                    "money": -125,
-                    "tags": [
-                        "moneyUsage"
-                    ]
-                },
-                "2": {}
-            }
-        },
-        "end": {
-            "outcomes": {
-                "0": {},
-                "1": {},
-                "2": {
-                    "effect": "hurt",
-                    "health": -20,
-                    "money": -150
-                }
-            }
-        },
-        "otherWay": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "randomItem": {}
-                },
-                "2": {
-                    "effect": "lost"
-                }
-            }
+        "2": {
+          "money": -250
         }
+      }
     },
-    "triggers": [
-        {
-            "mapId": 16
+    "cut": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 90,
+          "money": -125,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "2": {}
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {
+          "effect": "hurt",
+          "health": -20,
+          "money": -150
         }
-    ]
+      }
+    },
+    "otherWay": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "lost"
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 16
+    }
+  ]
 }

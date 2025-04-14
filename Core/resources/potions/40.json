@@ -1,8 +1,8 @@
 {
-		"rarity": 6,
-	"power": 360,
-	"nature": 5,
-	"tags": [
-		"drinkAlcohol"
-	]
+  "rarity": 6,
+  "power": 360,
+  "nature": 5,
+  "tags": [
+    "drinkAlcohol"
+  ]
 }

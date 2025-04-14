@@ -1,8 +1,8 @@
 {
-	"outcomeProbabilities": {
-		"nothing": 50
-	},
-	"timePenalty": 15,
-	"forceEffect": true,
-	"isIngredient": false
+  "outcomeProbabilities": {
+    "nothing": 50
+  },
+  "timePenalty": 15,
+  "forceEffect": true,
+  "isIngredient": false
 }

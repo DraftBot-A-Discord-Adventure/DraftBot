@@ -1,8 +1,8 @@
 {
-	"outcomeProbabilities": {
-		"potion": 45,
-		"effect": 5
-	},
-	"effectName": "sick",
-	"isIngredient": true
+  "outcomeProbabilities": {
+    "potion": 45,
+    "effect": 5
+  },
+  "effectName": "sick",
+  "isIngredient": true
 }

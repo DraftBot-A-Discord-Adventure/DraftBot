@@ -1,29 +1,29 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {},
-                "1": {}
-            }
-        },
-        "hints": {
-            "outcomes": {
-                "0": {},
-                "1": {}
-            }
-        },
-        "run": {
-            "outcomes": {
-                "0": {},
-                "1": {}
-            }
-        }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {}
+      }
     },
-    "triggers": [
-        {
-            "mapAttributes": [
-                "pve_island_entry"
-            ]
-        }
-    ]
+    "hints": {
+      "outcomes": {
+        "0": {},
+        "1": {}
+      }
+    },
+    "run": {
+      "outcomes": {
+        "0": {},
+        "1": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapAttributes": [
+        "pve_island_entry"
+      ]
+    }
+  ]
 }

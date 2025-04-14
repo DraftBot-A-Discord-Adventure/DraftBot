@@ -1,48 +1,48 @@
 {
-    "possibilities": {
-        "end": {
-            "outcomes": {
-                "0": {}
-            }
-        },
-        "hide": {
-            "outcomes": {
-                "0": {},
-                "1": {
-                    "health": -15
-                },
-                "2": {
-                    "randomItem": {}
-                }
-            }
-        },
-        "keepGoing": {
-            "outcomes": {
-                "0": {
-                    "health": -45
-                },
-                "1": {
-                    "health": 10
-                },
-                "2": {}
-            }
-        },
-        "wave": {
-            "outcomes": {
-                "0": {
-                    "effect": "occupied",
-                    "lostTime": 50
-                },
-                "1": {
-                    "money": -400
-                },
-                "2": {}
-            }
-        }
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {}
+      }
     },
-    "triggers": [
-        {
-            "mapId": 5
+    "hide": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "health": -15
+        },
+        "2": {
+          "randomItem": {}
         }
-    ]
+      }
+    },
+    "keepGoing": {
+      "outcomes": {
+        "0": {
+          "health": -45
+        },
+        "1": {
+          "health": 10
+        },
+        "2": {}
+      }
+    },
+    "wave": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 50
+        },
+        "1": {
+          "money": -400
+        },
+        "2": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 5
+    }
+  ]
 }

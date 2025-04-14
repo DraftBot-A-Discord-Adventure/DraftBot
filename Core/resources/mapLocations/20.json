@@ -1,8 +1,8 @@
 {
-	"type": "pl",
-		"tags": [
-		"detALa"
-	],
-	"canBeGoToPlaceMissionDestination": false,
-	"attribute": "continent1"
+  "type": "pl",
+  "tags": [
+    "detALa"
+  ],
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "continent1"
 }

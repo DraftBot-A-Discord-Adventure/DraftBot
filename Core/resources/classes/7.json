@@ -1,19 +1,19 @@
 {
-		"attack": 45,
-	"defense": 95,
-	"speed": 10,
-	"health": 160,
-	"fightPoint": 500,
-	"baseBreath": 6,
-	"maxBreath": 17,
-	"breathRegen": 3,
-	"classGroup": 3,
-  "classKind" : "defense",
+  "attack": 45,
+  "defense": 95,
+  "speed": 10,
+  "health": 160,
+  "fightPoint": 500,
+  "baseBreath": 6,
+  "maxBreath": 17,
+  "breathRegen": 3,
+  "classGroup": 3,
+  "classKind": "defense",
   "fightActionsIds": [
-		"simpleAttack",
-		"intenseAttack",
-		"shieldAttack",
-		"defenseBuff",
-		"counterAttack"
-	]
+    "simpleAttack",
+    "intenseAttack",
+    "shieldAttack",
+    "defenseBuff",
+    "counterAttack"
+  ]
 }
