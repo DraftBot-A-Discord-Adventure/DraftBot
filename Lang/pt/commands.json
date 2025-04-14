@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Utiliza este comando para desafiar outros jogadores no mesmo servidor que tu.\nAs batalhas têm lugar numa base de turno a turno. Em cada turno, podes escolher uma ação para executar.\n\nPara mais informações, consulta a página do guia: https://guide.draftbot.com/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/fr/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
       },
       "GLORY_TOP": {
         "description": "Apresenta a classificação gloriosa do jogo para cada 15 jogadores. A liga dos jogadores também é apresentada. Os jogadores no mesmo servidor que tu estão marcados com um ponto azul."
@@ -460,14 +460,14 @@
     "money": "{emote:unitValues.money} ** Dinheiro ganho :{{money}}**",
     "moneyLoose": ":money_with_wings:{{money}}** Dinheiro perdido: **",
     "rewardEmbedTitle": "{{pseudo}}recompensas de combate",
-    "monsterRewardGuildXp": ":star: XP de guilda ganho:{{guildXp}}** **",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} XP da guilda ganho : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Prata ganha :{{money}}\n:star: ** ** XP ganho :{{experience}}** **",
     "monsterRewardsGuildPoints": ":mirror_ball: Pontos de guilda ganhos :{{guildPoints}}** **",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr:{{destination}}Chegou a !",
     "noFight": ":newspaper: {{pseudo}} {{waitABitReaction}} ** Fazes uma fuga rápida e encontras um pequeno esconderijo! O monstro está à espera pacientemente lá fora...",
     "points": ":medal: :** Pontos ganhos :{{score}}**",
-    "pveEvent": ":newspaper: {{pseudo}} {{event}}\n\n{{monsterDisplay}}\n\n{{startTheFightReaction}}\n{{waitABitReaction}}\n\n** log:** Iniciar o combate Esperar um pouco antes de iniciar o combate *- Utilizar reacções para realizar uma ação*.",
+    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Iniciar o combate\n{emote:pveFights.waitABit} Esperar um pouco antes de iniciar o combate\n\n*- Utilizar os botões para executar uma ação*.",
     "pveFightRefused": "{emote:commands.report} **Diário de {{pseudo}} :** {emote:pveFights.waitABit} | Decides não entrar em combate por enquanto e refugias-te num esconderijo próximo. Terás de enfrentar a fera, pois não encontras outra saída.",
     "remainingEnergyTitle": "Energia restante :",
     "startPoint": "Ponto de partida :",
@@ -498,7 +498,8 @@
     "canceledTitle": "{{pseudo}}cancelamento da libertação.",
     "canceledDesc": "O animal de estimação não foi libertado.",
     "confirmDesc": ":warning:{{pet}}Tem a certeza de que pretende libertar ** **? Não é possível cancelar uma vez que a ação tenha sido concluída.",
-    "acceptedDesc": "{{pet}}Adeus ** **..."
+    "acceptedDesc": "{{pet}}Adeus ** **...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}alterar a alcunha do animal de estimação",
@@ -686,7 +687,7 @@
           "healEveryone": [
             "Este animal de estimação tem poderes de cura notáveis! Pode curar as tuas feridas e as dos teus aliados no meio da batalha.",
             "As suas secreções contêm poderosas enzimas regeneradoras. Ele usá-las-á para te manter em forma durante os confrontos.",
-            "Observei propriedades bioregenerativas únicas no seu corpo. O seu animal de estimação partilhará esta energia vital consigo e com os seus companheiros."
+            "Observei propriedades bio-regenerativas únicas no seu corpo. O seu animal de estimação partilhará esta energia vital consigo e com os seus companheiros."
           ],
           "helpBreathe": [
             "A sua capacidade de respiração é extraordinária! Pode partilhar o seu oxigénio contigo durante batalhas difíceis ou debaixo de água.",
@@ -714,7 +715,7 @@
             "A sua bioquímica única permite-lhe produzir agentes paralisantes. Os teus adversários ficarão congelados, incapazes de ripostar."
           ],
           "peck": [
-            "O bico do teu animal de estimação é tão afiado como um punhal! Permite-lhe atacar os seus adversários com golpes precisos e dolorosos durante o combate.",
+            "O bico do teu animal de estimação é tão afiado como um punhal! É a arma perfeita para atacar os teus adversários com golpes precisos e dolorosos durante a batalha.",
             "A estrutura óssea do seu bico está perfeitamente adaptada para golpear. Picará os vossos inimigos em pontos sensíveis com precisão.",
             "Esta mascote domina a arte de ser irritante com o seu bico. Os teus adversários ficarão enfraquecidos com os seus ataques implacáveis."
           ],
@@ -821,7 +822,7 @@
           "swallow": [
             "As observações clínicas mostram que o seu aparelho digestivo é capaz de engolir uma presa, neutralizando assim o seu adversário.",
             "A sua capacidade digestiva permite-lhe ingerir completamente o inimigo, tornando-se um interessante método alternativo de defesa.",
-            "Estudos anatómicos revelam uma garganta particularmente elástica, ideal para encurralar um adversário..."
+            "Os estudos anatómicos revelam uma garganta particularmente elástica, apta a acolher um adversário..."
           ],
           "triesToHelp": [
             "Os testes comportamentais sugerem que o animal de estimação tenta ajudar o seu dono, fornecendo-lhe ajuda medida, embora as suas contribuições permaneçam limitadas.",
@@ -923,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaign_current": "{emote:missions.campaign}{{current}}{{max}}**Campanha ( / )**",
-      "campaign_completed": "{emote:missions.campaign} **Campanha terminada",
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
       "daily": "\n{emote:missions.daily} **Missão diária",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missões secundárias ( / )**"
     },
@@ -987,7 +988,7 @@
   },
   "missionsshop": {
     "title": "Loja de Missões",
-    "success": "{pseudo}Uma transação bem sucedida!",
+    "success": "{{pseudo}}, transaction réussie !",
     "error": {
       "cannotBuy": "Não tens pedras preciosas suficientes para comprar este item!{missingMoney}{emote:unitValues.gem}Está a faltar ` `.",
       "canceledPurchase": "Transação cancelada!",
@@ -1297,7 +1298,7 @@
     "soldMessage": "Vendeu {{item}} por **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}vendeu uma peça de equipamento.",
     "potionDestroyedTitle": "Destruíste uma poção.",
-    "potionDestroyedMessage": "A tua poção{{item}}foi despejada no lava-loiça.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Recebeu uma peça de equipamento que já possuía.",
     "titleChoiceEmbed": "{{pseudo}}venda de objectos",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
