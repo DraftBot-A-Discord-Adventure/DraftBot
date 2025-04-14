@@ -1,10 +1,9 @@
-name: Docker Images Pre Release CI
+name: Docker Images Master CI
 
 on:
   push:
-    branches:
-      - master
-  workflow_dispatch:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -32,7 +31,7 @@ jobs:
         context: .
         file: ./Core/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/core-pre-release:latest,${{ secrets.DOCKER_HUB_USERNAME }}/core-pre-release:${{ steps.date.outputs.date }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/core:latest,${{ secrets.DOCKER_HUB_USERNAME }}/core:${{ steps.date.outputs.date }}
     -
       name: Build and push Discord
       uses: docker/build-push-action@v3
@@ -40,4 +39,4 @@ jobs:
         context: .
         file: ./Discord/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/discord-pre-release:latest,${{ secrets.DOCKER_HUB_USERNAME }}/discord-pre-release:${{ steps.date.outputs.date }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/discord:latest,${{ secrets.DOCKER_HUB_USERNAME }}/discord:${{ steps.date.outputs.date }}

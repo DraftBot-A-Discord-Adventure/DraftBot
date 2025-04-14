@@ -3,7 +3,7 @@ name: Docker Images Beta CI
 on:
   push:
     branches:
-      - draftbot-v5
+      - develop
   workflow_dispatch:
 
 jobs:
