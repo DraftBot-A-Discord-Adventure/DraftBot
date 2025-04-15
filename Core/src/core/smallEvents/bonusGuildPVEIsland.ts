@@ -59,6 +59,9 @@ async function applyPossibility(
 	};
 	if (issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS && player.hasAGuild()) {
 		const guild = await Guilds.getById(player.guildId);
+		if (result.isExperienceGain && guild.isAtMaxLevel()) {
+			result.isExperienceGain = false;
+		}
 		const caller = (result.isExperienceGain ? guild.addExperience : guild.addScore).bind(guild);
 		await caller(result.amount, response, NumberChangeReason.SMALL_EVENT);
 		await guild.save();
