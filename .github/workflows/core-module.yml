@@ -2,7 +2,7 @@ name: Core module
 on:
   pull_request:
     branches:
-      - draftbot-v5
+      - '**'
     paths:
       - Core/**
   workflow_dispatch:
