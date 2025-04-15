@@ -43,55 +43,67 @@ async function hasEnoughMemberOnPVEIsland(player: Player): Promise<boolean> {
 	return (await Maps.getGuildMembersOnPveIsland(player)).length >= RandomUtils.randInt(1, 4);
 }
 
-async function applyPossibility(
-	player: Player,
-	response: DraftBotPacket[],
-	issue: SmallEventBonusGuildPVEIslandResultType,
-	rewardKind: Outcome
-): Promise<{
-		amount: number; isExperienceGain: boolean;
-	}> {
-	const range = SmallEventDataController.instance.getById("bonusGuildPVEIsland")
-		.getProperties<BonusGuildPVEIslandProperties>().ranges[rewardKind];
-	const result = {
-		amount: RandomUtils.randInt(range.min, range.max),
-		isExperienceGain: rewardKind === Outcome.EXP_OR_POINTS_GUILD && RandomUtils.draftbotRandom.bool()
-	};
-	if (issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS && player.hasAGuild()) {
-		const guild = await Guilds.getById(player.guildId);
-		if (guild.isAtMaxLevel()) {
-			result.isExperienceGain = false;
-		}
-		const caller = (result.isExperienceGain ? guild.addExperience : guild.addScore).bind(guild);
-		await caller(result.amount, response, NumberChangeReason.SMALL_EVENT);
-		await guild.save();
-		return result;
+type Winnings = {
+	amount: number;
+	isExperienceGain: boolean;
+};
+
+async function manageGuildReward(response: DraftBotPacket[], player: Player, result: Winnings): Promise<void> {
+	const guild = await Guilds.getById(player.guildId);
+	if (guild.isAtMaxLevel()) {
+		result.isExperienceGain = false;
 	}
+	const caller = (result.isExperienceGain ? guild.addExperience : guild.addScore).bind(guild);
+	await caller(result.amount, response, NumberChangeReason.SMALL_EVENT);
+	await guild.save();
+}
+
+async function manageClassicReward(response: DraftBotPacket[], player: Player, result: Winnings, rewardKind: Outcome): Promise<void> {
+	const reason = NumberChangeReason.SMALL_EVENT;
 	switch (rewardKind) {
 		case Outcome.MONEY:
 			await player.addMoney({
 				amount: -result.amount,
 				response,
-				reason: NumberChangeReason.SMALL_EVENT
+				reason
 			});
 			break;
 		case Outcome.LIFE:
-			await player.addHealth(-result.amount, response, NumberChangeReason.SMALL_EVENT);
-			await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
+			await player.addHealth(-result.amount, response, reason);
+			await player.killIfNeeded(response, reason);
 			break;
 		case Outcome.ENERGY:
-			player.addEnergy(-result.amount, NumberChangeReason.SMALL_EVENT);
+			player.addEnergy(-result.amount, reason);
 			break;
 		case Outcome.EXPERIENCE:
 			await player.addExperience({
 				amount: result.amount,
 				response,
-				reason: NumberChangeReason.SMALL_EVENT
+				reason
 			});
 			break;
 		default:
 			break;
 	}
+}
+
+async function applyPossibility(
+	player: Player,
+	response: DraftBotPacket[],
+	issue: SmallEventBonusGuildPVEIslandResultType,
+	rewardKind: Outcome
+): Promise<Winnings> {
+	const rewardRange = SmallEventDataController.instance.getById("bonusGuildPVEIsland")
+		.getProperties<BonusGuildPVEIslandProperties>().ranges[rewardKind];
+	const result = {
+		amount: RandomUtils.randInt(rewardRange.min, rewardRange.max),
+		isExperienceGain: rewardKind === Outcome.EXP_OR_POINTS_GUILD && RandomUtils.draftbotRandom.bool()
+	};
+	if (issue === SmallEventBonusGuildPVEIslandResultType.SUCCESS && player.hasAGuild()) {
+		await manageGuildReward(response, player, result);
+		return result;
+	}
+	await manageClassicReward(response, player, result, rewardKind);
 	await player.save();
 	return result;
 }
