@@ -8,7 +8,13 @@ import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEve
 import { Maps } from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: player => Maps.isOnContinent(player) && player.hasAGuild(),
+	canBeExecuted: async player => {
+		if (!Maps.isOnContinent(player) || !player.hasAGuild()) {
+			return false;
+		}
+		const guild = await Guilds.getById(player.guildId);
+		return !guild.isAtMaxLevel();
+	},
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const guild = await Guilds.getById(player.guildId);
 		const xpWon = RandomUtils.draftbotRandom.integer(
