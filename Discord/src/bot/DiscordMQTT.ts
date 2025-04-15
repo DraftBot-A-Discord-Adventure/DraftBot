@@ -23,7 +23,7 @@ import { DraftBotDiscordMetrics } from "./DraftBotDiscordMetrics";
 import { millisecondsToSeconds } from "../../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { AsyncCorePacketSender } from "./AsyncCorePacketSender";
-
+import { DiscordConstants } from "../DiscordConstants";
 
 const DEFAULT_MQTT_CLIENT_OPTIONS = {
 	connectTimeout: MqttConstants.CONNECTION_TIMEOUT
@@ -54,6 +54,129 @@ export class DiscordMQTT {
 		}
 	}
 
+	/**
+	 * Handles the duplicated shard message.
+	 * This function is called when a shard receives a message from another shard with the same ID.
+	 * When this happens, the shard will disconnect from all MQTT topics and Discord to avoid duplication.
+	 * It will also publish a message to the shard manager to inform it that it is duplicated, so the
+	 * shard manager can kill all shards with this ID to clean everything up.
+	 * @param messageString
+	 */
+	private static async handleDuplicatedShardMessage(messageString: string): Promise<void> {
+		let messageParts = messageString.split(":");
+		if (messageParts.length !== 2) {
+			// Shouldn't happen
+			DraftBotLogger.error("Wrong shard connection message format. Disconnecting anyway.", { receivedMessage: messageString });
+			messageParts = [DiscordConstants.MQTT.SHARD_CONNECTION_MSG, process.pid.toString()];
+		}
+		if (messageParts[1] !== process.pid.toString()) {
+			DraftBotLogger.warn("Received shard connection message from another process, this process will now disconnect from all MQTT topics and Discord to avoid duplication", {
+				receivedFromPid: messageParts[1],
+				pid: process.pid
+			});
+			try {
+				DiscordMQTT.globalMqttClient.publish(MqttTopicUtils.getDiscordShardManagerTopic(discordConfig.PREFIX), `${DiscordConstants.MQTT.SHARD_DUPLICATED_MSG}${shardId}`);
+				DraftBotLogger.warn("Published shard duplication message to shard manager");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while publishing shard duplication message to shard manager", error);
+			}
+			try {
+				await draftBotClient.destroy();
+				DraftBotLogger.warn("Disconnected from Discord");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while disconnecting from Discord", error);
+			}
+			try {
+				DiscordMQTT.globalMqttClient.unsubscribe(MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX, shardId));
+				DiscordMQTT.globalMqttClient.end();
+				DraftBotLogger.warn("Disconnected from global MQTT client");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while disconnecting global MQTT client", error);
+			}
+			try {
+				DiscordMQTT.notificationMqttClient.unsubscribe(MqttTopicUtils.getNotificationsTopic(discordConfig.PREFIX));
+				DiscordMQTT.notificationMqttClient.end();
+				DraftBotLogger.warn("Disconnected from notification MQTT client");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while disconnecting notification MQTT client", error);
+			}
+			try {
+				DiscordMQTT.topWeekAnnouncementMqttClient.unsubscribe(MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(discordConfig.PREFIX));
+				DiscordMQTT.topWeekAnnouncementMqttClient.end();
+				DraftBotLogger.warn("Disconnected from top week announcement MQTT client");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while disconnecting top week announcement MQTT client", error);
+			}
+			try {
+				DiscordMQTT.topWeekFightAnnouncementMqttClient.unsubscribe(MqttTopicUtils.getDiscordTopWeekFightAnnouncementTopic(discordConfig.PREFIX));
+				DiscordMQTT.topWeekFightAnnouncementMqttClient.end();
+				DraftBotLogger.warn("Disconnected from top week fight announcement MQTT client");
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while disconnecting top week fight announcement MQTT client", error);
+			}
+		}
+	}
+
+	/**
+	 * Handles the global MQTT packets message.
+	 * This function is called when a message is received from the global MQTT topic.
+	 * It will parse the message and call the appropriate packet listeners.
+	 * @param messageString
+	 */
+	private static async handleGlobalMqttPacketsMessage(messageString: string): Promise<void> {
+		const dataJson = JSON.parse(messageString);
+		DraftBotLogger.debug("Received global message", { packet: dataJson });
+		if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
+			DraftBotLogger.error("Wrong packet format", { packet: messageString });
+			return;
+		}
+
+		const context = dataJson.context as PacketContext;
+
+		for (const packet of dataJson.packets) {
+			try {
+				DraftBotDiscordMetrics.incrementPacketCount(packet.name);
+
+				if (await DiscordMQTT.asyncPacketSender.handleResponse(context, packet.name, packet.packet)) {
+					continue;
+				}
+
+				let listener = DiscordMQTT.packetListener.getListener(packet.name);
+				if (!listener) {
+					packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
+					listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
+				}
+				const startTime = Date.now();
+				await listener(context as PacketContext, packet.packet as DraftBotPacket);
+				DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
+			}
+			catch (error) {
+				DraftBotLogger.errorWithObj("Error while handling packet", error);
+				DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
+
+				const context = dataJson.context as PacketContext;
+				const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
+				if (context.discord?.channel) {
+					const channel = await draftBotClient.channels.fetch(context.discord.channel);
+					if (channel instanceof TextChannel) {
+						await channel.send({ embeds: [
+							new DraftBotEmbed()
+								.setErrorColor()
+								.setTitle(i18n.t("error:errorOccurredTitle", { lng }))
+								.setDescription(i18n.t("error:errorOccurred", { lng }))
+						] });
+					}
+				}
+			}
+		}
+	}
+
 	private static handleGlobalMqttMessage(): void {
 		DiscordMQTT.globalMqttClient.on("message", async (_topic, message) => {
 			const messageString = message.toString();
@@ -61,51 +184,12 @@ export class DiscordMQTT {
 				return;
 			}
 
-			const dataJson = JSON.parse(messageString);
-			DraftBotLogger.debug("Received global message", { packet: dataJson });
-			if (!Object.hasOwn(dataJson, "packets") || !Object.hasOwn(dataJson, "context")) {
-				DraftBotLogger.error("Wrong packet format", { packet: messageString });
+			if (messageString.startsWith(DiscordConstants.MQTT.SHARD_CONNECTION_MSG)) {
+				await DiscordMQTT.handleDuplicatedShardMessage(messageString);
 				return;
 			}
 
-			const context = dataJson.context as PacketContext;
-
-			for (const packet of dataJson.packets) {
-				try {
-					DraftBotDiscordMetrics.incrementPacketCount(packet.name);
-
-					if (await DiscordMQTT.asyncPacketSender.handleResponse(context, packet.name, packet.packet)) {
-						continue;
-					}
-
-					let listener = DiscordMQTT.packetListener.getListener(packet.name);
-					if (!listener) {
-						packet.packet = makePacket(ErrorPacket, { message: `No packet listener found for received packet '${packet.name}'.\n\nData:\n${JSON.stringify(packet.packet)}` });
-						listener = DiscordMQTT.packetListener.getListener("ErrorPacket")!;
-					}
-					const startTime = Date.now();
-					await listener(context as PacketContext, packet.packet as DraftBotPacket);
-					DraftBotDiscordMetrics.observePacketTime(packet.name, millisecondsToSeconds(Date.now() - startTime));
-				}
-				catch (error) {
-					DraftBotLogger.errorWithObj("Error while handling packet", error);
-					DraftBotDiscordMetrics.incrementPacketErrorCount(packet.name);
-
-					const context = dataJson.context as PacketContext;
-					const lng = context.discord?.language ?? LANGUAGE.ENGLISH;
-					if (context.discord?.channel) {
-						const channel = await draftBotClient.channels.fetch(context.discord.channel);
-						if (channel instanceof TextChannel) {
-							await channel.send({ embeds: [
-								new DraftBotEmbed()
-									.setErrorColor()
-									.setTitle(i18n.t("error:errorOccurredTitle", { lng }))
-									.setDescription(i18n.t("error:errorOccurred", { lng }))
-							] });
-						}
-					}
-				}
-			}
+			await DiscordMQTT.handleGlobalMqttPacketsMessage(messageString);
 		});
 	}
 
@@ -175,7 +259,9 @@ export class DiscordMQTT {
 		DiscordMQTT.globalMqttClient = connect(discordConfig.MQTT_HOST, DEFAULT_MQTT_CLIENT_OPTIONS);
 
 		DiscordMQTT.globalMqttClient.on("connect", () => {
-			DiscordMQTT.subscribeTo(DiscordMQTT.globalMqttClient, MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX, shardId), true);
+			const discordTopic = MqttTopicUtils.getDiscordTopic(discordConfig.PREFIX, shardId);
+			DiscordMQTT.globalMqttClient.publish(discordTopic, `${DiscordConstants.MQTT.SHARD_CONNECTION_MSG}${process.pid}`);
+			DiscordMQTT.subscribeTo(DiscordMQTT.globalMqttClient, discordTopic, true);
 		});
 
 		this.handleGlobalMqttMessage();
