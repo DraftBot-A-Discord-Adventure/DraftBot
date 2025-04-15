@@ -2,7 +2,7 @@ name: Lib module
 on:
   pull_request:
     branches:
-      - draftbot-v5
+      - '**'
     paths:
       - Lib/**
   workflow_dispatch:
