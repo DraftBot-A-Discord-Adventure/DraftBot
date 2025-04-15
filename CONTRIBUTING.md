@@ -106,8 +106,7 @@ Nous disposons d'un serveur Discord officiel contenant des informations détaill
 
 Cette section vous guide dans la soumission d'un rapport de bug pour DraftBot. Suivre ces directives aide les mainteneurs et la communauté à la communauté à comprendre votre rapport :pencil:, à reproduire le comportement :computer:, et à trouver des rapports similaires :mag_right:.
 
-Avant de créer un rapport de bug, veuillez consulter [cette liste](#avant) car vous pourriez découvrir que vous n'avez pas besoin d'en créer un. que vous n'avez pas besoin d'en créer un. Lorsque vous créez un rapport de bogue, veuillez [inclure autant de détails que possible](#bonrapport).
-
+Avant de créer un rapport de bug, veuillez consulter [cette liste](#avant) car vous pourriez découvrir que vous n'avez pas besoin d'en créer un. Lorsque vous créez un rapport de bogue, veuillez [inclure autant de détails que possible](#bonrapport).
 Nous souhaitons que les bugs soient centralisés sur notre serveur discord avant d'être postés sur github. Utilisez donc ce média pour nous transmettre vos informations sur le soucis que vous rencontrez.
 
 #### <a name="avant"></a> Avant de soumettre un rapport de bogue
