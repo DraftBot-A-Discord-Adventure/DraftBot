@@ -11,6 +11,8 @@ export abstract class MqttTopicUtils {
 
 	private static readonly NOTIFICATIONS_CONSUMER = "notifications-consumer";
 
+	private static readonly DISCORD_SHARD_MANAGER_TOPIC = "discord_shard_manager";
+
 
 	static getCoreTopic(prefix: string): string {
 		return `${prefix}/${MqttTopicUtils.CORE_TOPIC}`;
@@ -34,5 +36,9 @@ export abstract class MqttTopicUtils {
 
 	static getNotificationsConsumerId(prefix: string): string {
 		return `${prefix}/${MqttTopicUtils.NOTIFICATIONS_CONSUMER}`;
+	}
+
+	static getDiscordShardManagerTopic(prefix: string): string {
+		return `${prefix}/${MqttTopicUtils.DISCORD_SHARD_MANAGER_TOPIC}`;
 	}
 }
