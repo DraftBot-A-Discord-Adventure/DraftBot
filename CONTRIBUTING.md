@@ -133,5 +133,5 @@ Nous utilisons GitHub Discussion pour recevoir les suggestions. Vous pouvez vote
 
 #### Avant de soumettre une suggestion d'amélioration
 
-* **Faire une [recherche rapide](https://github.com/search?l=&q=is%3Aissue+repo%3ADraftBot-A-Discord-Adventure%2FDraftBot&type=discussions)** pour voir si l'amélioration a déjà été suggérée. Si c'est le cas, ajoutez un commentaire à la discussion existant au lieu d'en ouvrir un nouveau. d'en ouvrir une nouvelle.
+* **Faire une [recherche rapide](https://github.com/search?l=&q=is%3Aissue+repo%3ADraftBot-A-Discord-Adventure%2FDraftBot&type=discussions)** pour voir si l'amélioration a déjà été suggérée. Si c'est le cas, ajoutez un commentaire à la discussion existant au lieu d'en ouvrir un nouveau.
 * **Discutez avec la communauté sur le [serveur discord officiel](https://discord.gg/draftbot)** pour avoir une idée de la façon dont votre idée peut être reçue.
