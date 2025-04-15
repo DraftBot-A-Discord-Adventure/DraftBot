@@ -169,7 +169,10 @@ async function main(): Promise<void> {
 
 	draftBotClient = client;
 
-	await client.login(discordConfig.DISCORD_CLIENT_TOKEN);
+	await client.login(discordConfig.DISCORD_CLIENT_TOKEN).catch(error => {
+		console.error("Error while logging in the bot", error);
+		process.exit(1);
+	});
 }
 
 main()
