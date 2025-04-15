@@ -9,11 +9,11 @@ import { Maps } from "../maps/Maps";
 
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: async player => {
-		if (!Maps.isOnContinent(player) || !player.hasAGuild()) {
+		if (!Maps.isOnContinent(player)) {
 			return false;
 		}
 		const guild = await Guilds.getById(player.guildId);
-		return !guild.isAtMaxLevel();
+		return guild && !guild.isAtMaxLevel();
 	},
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const guild = await Guilds.getById(player.guildId);
