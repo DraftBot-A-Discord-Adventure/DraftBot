@@ -705,15 +705,8 @@ export class Player extends Model {
 	 * Get the player cumulative energy
 	 */
 	public getCumulativeEnergy(): number {
-		const maxHealth = this.getMaxCumulativeEnergy();
-		let fp = maxHealth - this.fightPointsLost;
-		if (fp < 0) {
-			fp = 0;
-		}
-		else if (fp > maxHealth) {
-			fp = maxHealth;
-		}
-		return fp;
+		const maxEnergy = this.getMaxCumulativeEnergy();
+		return Math.max(0, Math.min(maxEnergy - this.fightPointsLost, maxEnergy));
 	}
 
 	public getRatioCumulativeEnergy(): number {
@@ -767,7 +760,7 @@ export class Player extends Model {
 	 * @param reason
 	 */
 	public setEnergyLost(energy: number, reason: NumberChangeReason): void {
-		this.fightPointsLost = energy;
+		this.fightPointsLost = Math.min(energy, this.getMaxCumulativeEnergy());
 		draftBotInstance.logsDatabase.logEnergyChange(this.keycloakId, this.fightPointsLost, reason)
 			.then();
 	}
