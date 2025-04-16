@@ -11,15 +11,24 @@ import {
 import { BlockingConstants } from "../../../../../Lib/src/constants/BlockingConstants";
 import { BlockingUtils } from "../../utils/BlockingUtils";
 import {
-	SmallEventAnyShopAcceptedPacket, SmallEventAnyShopCannotBuyPacket, SmallEventAnyShopRefusedPacket
+	SmallEventAnyShopAcceptedPacket,
+	SmallEventAnyShopCannotBuyPacket,
+	SmallEventAnyShopRefusedPacket
 } from "../../../../../Lib/src/packets/smallEvents/SmallEventAnyShopPacket";
 import { SmallEventConstants } from "../../../../../Lib/src/constants/SmallEventConstants";
 import { NumberChangeReason } from "../../../../../Lib/src/constants/LogsConstants";
 import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 import {
-	ReactionCollector, ReactionCollectorAcceptReaction
+	ReactionCollector,
+	ReactionCollectorAcceptReaction
 } from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { ReactionCollectorAnyShopSmallEventData } from "../../../../../Lib/src/packets/interaction/ReactionCollectorAnyShopSmallEvent";
+
+export type ShopSmallEventItem = {
+	item: GenericItem;
+	price: number;
+	multiplier: number;
+};
 
 export abstract class Shop<
 	Accept extends SmallEventAnyShopAcceptedPacket,
@@ -28,12 +37,6 @@ export abstract class Shop<
 	Collector extends ReactionCollector
 > {
 	canBeExecuted = Maps.isOnContinent;
-
-	protected itemMultiplier: number;
-
-	protected randomItem: GenericItem;
-
-	protected itemPrice: number;
 
 	abstract getRandomItem(): GenericItem | Promise<GenericItem>;
 
@@ -45,17 +48,22 @@ export abstract class Shop<
 
 	abstract getCannotBuyPacket(): CannotBuy;
 
-	abstract getPopulatedReactionCollector(basePacket: ReactionCollectorAnyShopSmallEventData): Collector;
+	abstract getPopulatedReactionCollector(basePacket: ReactionCollectorAnyShopSmallEventData, shopItem: ShopSmallEventItem): Collector;
 
 	public executeSmallEvent: ExecuteSmallEventLike = async (response, player, context) => {
-		this.itemMultiplier = await this.getPriceMultiplier(player);
-		this.randomItem = await this.getRandomItem();
-		this.itemPrice = Math.round(getItemValue(this.randomItem) * this.itemMultiplier);
+		const itemMultiplier = await this.getPriceMultiplier(player);
+		const randomItem = await this.getRandomItem();
+		const itemPrice = Math.round(getItemValue(randomItem) * itemMultiplier);
+		const shopItem = {
+			item: randomItem,
+			price: itemPrice,
+			multiplier: itemMultiplier
+		};
 
 		const collector = this.getPopulatedReactionCollector({
-			item: toItemWithDetails(this.randomItem),
-			price: this.itemPrice
-		});
+			item: toItemWithDetails(randomItem),
+			price: itemPrice
+		}, shopItem);
 
 		const packet = new ReactionCollectorInstance(
 			collector,
@@ -63,7 +71,7 @@ export abstract class Shop<
 			{
 				allowedPlayerKeycloakIds: [player.keycloakId]
 			},
-			this.callbackShopSmallEvent(player)
+			this.callbackShopSmallEvent(player, shopItem)
 		)
 			.block(player.keycloakId, BlockingConstants.REASONS.MERCHANT)
 			.build();
@@ -71,19 +79,19 @@ export abstract class Shop<
 		response.push(packet);
 	};
 
-	private callbackShopSmallEvent(player: Player): EndCallback {
+	private callbackShopSmallEvent(player: Player, shopItem: ShopSmallEventItem): EndCallback {
 		return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.MERCHANT);
 			const reaction = collector.getFirstReaction();
 			const isValidated = reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name;
-			const canBuy = player.money >= this.itemPrice;
+			const canBuy = player.money >= shopItem.price;
 			response.push(!isValidated ? this.getRefusePacket() : !canBuy ? this.getCannotBuyPacket() : this.getAcceptPacket());
 			if (!isValidated || !canBuy) {
 				return;
 			}
-			await giveItemToPlayer(response, collector.context, player, this.randomItem, SmallEventConstants.SHOP.RESALE_MULTIPLIER);
+			await giveItemToPlayer(response, collector.context, player, shopItem.item, SmallEventConstants.SHOP.RESALE_MULTIPLIER);
 			await player.spendMoney({
-				amount: this.itemPrice,
+				amount: shopItem.price,
 				response,
 				reason: NumberChangeReason.SMALL_EVENT
 			});

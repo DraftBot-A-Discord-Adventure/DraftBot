@@ -1,4 +1,6 @@
-import { Shop } from "./interfaces/Shop";
+import {
+	Shop, ShopSmallEventItem
+} from "./interfaces/Shop";
 import { GenericItem } from "../../data/GenericItem";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
@@ -62,11 +64,11 @@ class ShopSmallEvent extends Shop<
 		return makePacket(SmallEventEpicItemShopCannotBuyPacket, {});
 	}
 
-	getPopulatedReactionCollector(basePacket: ReactionCollectorEpicShopSmallEventData): ReactionCollectorEpicShopSmallEvent {
+	getPopulatedReactionCollector(basePacket: ReactionCollectorEpicShopSmallEventData, shopItem: ShopSmallEventItem): ReactionCollectorEpicShopSmallEvent {
 		return new ReactionCollectorEpicShopSmallEvent({
 			...basePacket,
 			tip: RandomUtils.draftbotRandom.bool(SmallEventConstants.EPIC_ITEM_SHOP.REDUCTION_TIP_PROBABILITY)
-				&& this.itemMultiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
+				&& shopItem.multiplier > SmallEventConstants.EPIC_ITEM_SHOP.ROAD_OF_WONDERS_MULTIPLIER
 		});
 	}
 }
