@@ -106,19 +106,33 @@ function main(): void {
 			DraftBotLogger.info(`Shard ${shard.id} created`);
 		});
 		shard.on("death", () => DraftBotLogger.error(`Shard ${shard.id} exited`));
-		shard.on("disconnect", async () => {
-			// Recreate the shard because it often creates duplications
-			DraftBotLogger.info(`Shard ${shard.id} disconnected, killing it and creating a new one...`);
-			shard.kill();
-			const newShard = shardingManager.createShard(shard.id);
-			await newShard.spawn();
+		shard.on("disconnect", () => {
+			/*
+			 * Recreate the shard because it often creates duplications
+			 * This fix make the bot restart often. Let's keep it commented for now
+			 */
+			/*
+			 * DraftBotLogger.info(`Shard ${shard.id} disconnected, killing it and creating a new one...`);
+			 * shard.kill();
+			 * const newShard = shardingManager.createShard(shard.id);
+			 * await newShard.spawn();
+			 */
+
+			DraftBotLogger.error(`Shard ${shard.id} disconnected`);
 		});
-		shard.on("reconnecting", async () => {
-			// Recreate the shard because it often creates duplications
-			DraftBotLogger.info(`Shard ${shard.id} reconnecting, killing it and creating a new one...`);
-			shard.kill();
-			const newShard = shardingManager.createShard(shard.id);
-			await newShard.spawn();
+		shard.on("reconnecting", () => {
+			/*
+			 * Recreate the shard because it often creates duplications
+			 * This fix make the bot restart often. Let's keep it commented for now
+			 */
+			/*
+			 * DraftBotLogger.info(`Shard ${shard.id} reconnecting, killing it and creating a new one...`);
+			 * shard.kill();
+			 * const newShard = shardingManager.createShard(shard.id);
+			 * await newShard.spawn();
+			 */
+
+			DraftBotLogger.error(`Shard ${shard.id} reconnecting`);
 		});
 		shard.on("error", err => DraftBotLogger.errorWithObj(`Shard ${shard.id} error`, err));
 	});
