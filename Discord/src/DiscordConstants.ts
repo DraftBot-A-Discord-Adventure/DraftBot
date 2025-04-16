@@ -9,4 +9,6 @@ export abstract class DiscordConstants {
 		SHARD_CONNECTION_MSG: "connected:",
 		SHARD_DUPLICATED_MSG: "shardDuplicated:"
 	};
+
+	static EMPTY_MESSAGE = "_ _";
 }

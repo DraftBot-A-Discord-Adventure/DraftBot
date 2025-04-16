@@ -102,10 +102,10 @@ export class FightController {
 
 	/**
 	 * End the fight
-	 * @param response {DraftBotPacket[]} the response to send to the player
-	 * @param bug {boolean} true if the fight has bugged
+	 * @param response the response to send to the player
+	 * @param bug true if the fight has bugged
 	 */
-	public async endFight(response: DraftBotPacket[], bug: boolean): Promise<void> {
+	public async endFight(response: DraftBotPacket[], bug = false): Promise<void> {
 		this.state = bug ? FightState.FINISHED : FightState.BUG;
 
 		this.checkNegativeEnergy();
@@ -200,7 +200,7 @@ export class FightController {
 		}
 		attacker.fightActionsHistory.push(fightAction);
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			await this.endFight(response, false);
+			await this.endFight(response);
 			return;
 		}
 		if (endTurn) {
@@ -232,7 +232,7 @@ export class FightController {
 		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
 		if (this.hadEnded()) {
-			await this.endFight(response, false);
+			await this.endFight(response);
 			return;
 		}
 		this._fightView.displayFightStatus(response);
@@ -250,7 +250,7 @@ export class FightController {
 		}
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
 		if (this.hadEnded()) {
-			await this.endFight(response, false);
+			await this.endFight(response);
 			return;
 		}
 		this._fightView.displayFightStatus(response);
