@@ -4,7 +4,9 @@ import {
 import {
 	botConfig, draftBotInstance
 } from "../../index";
-import { draftBotMetricsRegistry } from "./DraftBotCoreMetrics";
+import {
+	DraftBotCoreMetrics, draftBotMetricsRegistry
+} from "./DraftBotCoreMetrics";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 import { BlockingUtils } from "../utils/BlockingUtils";
 import express = require("express");
@@ -14,6 +16,7 @@ export abstract class DraftBotCoreWebServer {
 		const app: Express = express();
 
 		app.get("/metrics", async (_req: Request, res: Response) => {
+			DraftBotCoreMetrics.computeSporadicMetrics();
 			res.setHeader("Content-Type", draftBotMetricsRegistry.contentType);
 			res.end(await draftBotMetricsRegistry.metrics());
 		});

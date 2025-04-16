@@ -7,13 +7,17 @@ import {
 } from "../../../../Lib/src/constants/BlockingConstants";
 import { ChangeBlockingReasonPacket } from "../../../../Lib/src/packets/utils/ChangeBlockingReasonPacket";
 
+type BlockingInfo = {
+	reason: BlockingReason;
+	limitTimestamp: number;
+	startTimestamp: number;
+};
+
 /**
  * Functions to call when you want to manage the blocking of a player
  */
 export class BlockingUtils {
-	private static blockedPlayers: Map<string, {
-		reason: BlockingReason; limitTimestamp: number;
-	}[]> = new Map();
+	private static blockedPlayers: Map<string, BlockingInfo[]> = new Map();
 
 	/**
 	 * Block a player with a given reason and time
@@ -27,7 +31,8 @@ export class BlockingUtils {
 		}
 		BlockingUtils.blockedPlayers.get(keycloakId).push({
 			reason,
-			limitTimestamp: maxTime !== 0 ? Date.now() + maxTime : 0
+			limitTimestamp: maxTime !== 0 ? Date.now() + maxTime : 0,
+			startTimestamp: Date.now()
 		});
 	}
 
@@ -43,7 +48,8 @@ export class BlockingUtils {
 		}
 		BlockingUtils.blockedPlayers.get(keycloakId).push({
 			reason,
-			limitTimestamp: endTimestamp
+			limitTimestamp: endTimestamp,
+			startTimestamp: Date.now()
 		});
 	}
 
@@ -126,5 +132,13 @@ export class BlockingUtils {
 			}
 		}
 		return count;
+	}
+
+	static getBlockedPlayers(): Map<string, BlockingInfo[]> {
+		const blockedPlayers = new Map<string, BlockingInfo[]>();
+		for (const [keycloakId, blockingInfos] of BlockingUtils.blockedPlayers.entries()) {
+			blockedPlayers.set(keycloakId, blockingInfos.filter(blockingInfo => blockingInfo.limitTimestamp === 0 || blockingInfo.limitTimestamp > Date.now()));
+		}
+		return blockedPlayers;
 	}
 }
