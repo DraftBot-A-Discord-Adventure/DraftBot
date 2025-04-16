@@ -47,9 +47,7 @@ export abstract class MapCache {
 		 * Get the logs equivalence
 		 * First create a list of literal tuples (because I didn't find how to do it in sequelize)
 		 */
-		const pveMapTuples = boatEntryMapLinksObjects
-			.concat(boatEntryMapLinksObjects.concat(boatExitMapLinksObjects))
-			.concat(pveIslandMapLinksObjects)
+		const pveMapTuples = pveIslandMapLinksObjects
 			.map(mapLink => Sequelize.literal(`(${mapLink.startMap},${mapLink.endMap})`));
 		this.logsPveIslandMapLinks = (await LogsMapLinks.findAll({
 			where: {
