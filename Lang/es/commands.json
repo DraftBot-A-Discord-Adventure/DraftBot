@@ -1059,7 +1059,6 @@
       "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
     },
     "end": {
-      "bugged": "El combate se canceló por un problema técnico.",
       "draw": "{emote:commands.report} | **{{player1}} y {{player2}} terminan su lucha en empate ¡**\n\n",
       "win": "{emote:commands.report}| **{{winner}} gana el partido contra {{loser}}**\n\n",
       "gameStats": "{emote:fightCommand.gameStats} | Estadísticas de combate\n- **Rondas** : {{turn}}/{{maxTurn}}\n- **Tiempo de combate** : {{time}}",
