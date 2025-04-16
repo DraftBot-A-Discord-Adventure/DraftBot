@@ -41,6 +41,7 @@ import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 import { CommandFightCancelPacketReq } from "../../../../Lib/src/packets/commands/CommandFightCancelPacket";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 import { ReactionCollectorFightChooseActionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+import { DiscordConstants } from "../../DiscordConstants";
 
 const buggedFights = new Set<string>();
 
@@ -154,7 +155,7 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 		: "";
 
 	introEmbed.addFields({
-		name: "_ _",
+		name: DiscordConstants.EMPTY_MESSAGE,
 		value: `${i18n.t("commands:fight.actionsOf", {
 			lng,
 			pseudo: fighterName
@@ -191,11 +192,11 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 
 		await buttonInteraction?.editReply({ embeds: [embed] });
 		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
-			.post({ content: "_ _" });
+			.post({ content: DiscordConstants.EMPTY_MESSAGE });
 		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage)
-			.post({ content: "_ _" });
+			.post({ content: DiscordConstants.EMPTY_MESSAGE });
 		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage)
-			.post({ content: "_ _" });
+			.post({ content: DiscordConstants.EMPTY_MESSAGE });
 	}
 	catch (e) {
 		DraftBotLogger.errorWithObj("Fight introduction failed", e);
@@ -209,15 +210,12 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
  * @param packet
  */
 export async function handleCommandFightUpdateStatusRes(context: PacketContext, packet: CommandFightStatusPacket): Promise<void> {
-	if (buggedFights.has(packet.fightId)) {
+	if (buggedFights.has(packet.fightId) || !context.discord?.interaction) {
 		return;
 	}
 
 	try {
-		if (!context.discord?.interaction) {
-			return;
-		}
-		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotFightStatusCachedMessage)
+		await DraftbotCachedMessages.getOrCreate(context.discord.interaction, DraftbotFightStatusCachedMessage)
 			.update(packet, context);
 	}
 	catch (e) {
@@ -232,15 +230,12 @@ export async function handleCommandFightUpdateStatusRes(context: PacketContext, 
  * @param packet
  */
 export async function handleCommandFightHistoryItemRes(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
-	if (buggedFights.has(packet.fightId)) {
+	if (buggedFights.has(packet.fightId) || !context.discord?.interaction) {
 		return;
 	}
 
 	try {
-		if (!context.discord?.interaction) {
-			return;
-		}
-		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotHistoryCachedMessage)
+		await DraftbotCachedMessages.getOrCreate(context.discord.interaction, DraftbotHistoryCachedMessage)
 			.update(packet, context);
 	}
 	catch (e) {
@@ -251,16 +246,13 @@ export async function handleCommandFightHistoryItemRes(context: PacketContext, p
 
 
 export async function handleCommandFightAIFightActionChoose(context: PacketContext, packet: AIFightActionChoosePacket): Promise<void> {
-	if (buggedFights.has(packet.fightId)) {
+	if (buggedFights.has(packet.fightId) || !context.discord?.interaction) {
 		return;
 	}
 
 	try {
-		if (!context.discord?.interaction) {
-			return;
-		}
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+		await DraftbotCachedMessages.getOrCreate(context.discord.interaction, DraftbotActionChooseCachedMessage)
 			.post({ embeds: [new DraftBotEmbed().setDescription(i18n.t("commands:fight.actions.aiChoose", { lng: interaction.userLanguage }))] });
 		await new Promise(f => setTimeout(f, packet.ms));
 	}
@@ -278,15 +270,12 @@ export async function handleCommandFightAIFightActionChoose(context: PacketConte
 export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const data = packet.data.data as ReactionCollectorFightChooseActionData;
 
-	if (buggedFights.has(data.fightId)) {
+	if (buggedFights.has(data.fightId) || !context.discord?.interaction) {
 		return null;
 	}
 
 	try {
-		if (!context.discord?.interaction) {
-			return null;
-		}
-		return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+		return await DraftbotCachedMessages.getOrCreate(context.discord.interaction, DraftbotActionChooseCachedMessage)
 			.update(packet, context);
 	}
 	catch (e) {
