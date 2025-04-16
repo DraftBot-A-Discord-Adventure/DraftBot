@@ -19,15 +19,6 @@ export abstract class FightConstants {
 		MAX_MONEY_BONUS: 200
 	};
 
-	// Duration of the menu that searches for an opponent in milliseconds
-
-
-	// Number of reactions the bot will accept before closing a fight request due to spam.
-
-
-	// Amount of time a user has to react during a fight
-
-
 	// Random variation of the damage a fight action will deal (between -this value and +this value)
 	static readonly DAMAGE_RANDOM_VARIATION = 5;
 
@@ -260,4 +251,7 @@ export abstract class FightConstants {
 
 	// Amount of attack glory transformed into defense glory each week
 	static ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK = 50;
+
+	// Purge timeout
+	static PURGE_TIMEOUT = 60000;
 }

@@ -56,6 +56,7 @@ export class FightView {
 			fightOpponentActions.push([action[0], action[1].breath]);
 		}
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
+			fightId: this.fightController.id,
 			fightInitiatorKeycloakId: fighter.player.keycloakId,
 			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? null : opponent.player.keycloakId,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
@@ -74,6 +75,7 @@ export class FightView {
 		const playingFighter = this.fightController.getPlayingFighter();
 		const defendingFighter = this.fightController.getDefendingFighter();
 		response.push(makePacket(CommandFightStatusPacket, {
+			fightId: this.fightController.id,
 			numberOfTurn: this.fightController.turn,
 			maxNumberOfTurn: FightConstants.MAX_TURNS,
 			activeFighter: {
@@ -186,6 +188,7 @@ export class FightView {
 		const usedFightActionId = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.id : null;
 		fightActionResult = Object.prototype.hasOwnProperty.call(fightActionResult, "usedAction") ? (fightActionResult as FightActionResult).usedAction.result : fightActionResult;
 		response.push(makePacket(CommandFightHistoryItemPacket, {
+			fightId: this.fightController.id,
 			fighterKeycloakId: fighter instanceof MonsterFighter ? null : fighter.player.keycloakId,
 			monsterId: fighter instanceof MonsterFighter ? fighter.monster.id : null,
 
@@ -229,13 +232,17 @@ export class FightView {
 	 * @param actions - the actions available for the player
 	 */
 	displayFightActionMenu(response: DraftBotPacket[], playerFighter: PlayerFighter, actions: Map<string, FightAction>): void {
-		const collector = new ReactionCollectorFightChooseAction(playerFighter.player.keycloakId, [...actions.keys()]);
+		const collector = new ReactionCollectorFightChooseAction(
+			this.fightController.id,
+			playerFighter.player.keycloakId,
+			[...actions.keys()]
+		);
 
 		const endCallback: EndCallback = async (collector, response) => {
 			const reaction = collector.getFirstReaction();
 			if (!reaction) {
 				playerFighter.kill();
-				await this.fightController.endFight(response);
+				await this.fightController.endFight(response, false);
 			}
 			else {
 				await this.fightController.executeFightAction(actions.get((reaction.reaction.data as ReactionCollectorFightChooseActionReaction).id)!, true, response);
@@ -261,7 +268,10 @@ export class FightView {
 	 * @param waitTimeMs
 	 */
 	displayAiChooseAction(response: DraftBotPacket[], waitTimeMs: number): void {
-		response.push(makePacket(AIFightActionChoosePacket, { ms: waitTimeMs }));
+		response.push(makePacket(AIFightActionChoosePacket, {
+			fightId: this.fightController.id,
+			ms: waitTimeMs
+		}));
 	}
 
 	/**

@@ -4,5 +4,7 @@ import {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class AIFightActionChoosePacket extends DraftBotPacket {
+	fightId!: string;
+
 	ms!: number;
 }

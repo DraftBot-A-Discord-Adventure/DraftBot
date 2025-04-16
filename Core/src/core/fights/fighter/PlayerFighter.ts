@@ -1,5 +1,5 @@
 import { Fighter } from "./Fighter";
-import Player, { Players } from "../../database/game/models/Player";
+import Player from "../../database/game/models/Player";
 import { InventorySlots } from "../../database/game/models/InventorySlot";
 import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
 import { checkDrinkPotionMissions } from "../../utils/ItemUtils";
@@ -31,10 +31,6 @@ export class PlayerFighter extends Fighter {
 
 	public pet?: PetEntity;
 
-	private class: Class;
-
-	private glory: number;
-
 	private pveMembers: {
 		attack: number; speed: number;
 	}[];
@@ -42,7 +38,6 @@ export class PlayerFighter extends Fighter {
 	public constructor(player: Player, playerClass: Class) {
 		super(player.level, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
 		this.player = player;
-		this.class = playerClass;
 	}
 
 	/**
@@ -60,10 +55,19 @@ export class PlayerFighter extends Fighter {
 	 * Function called when the fight ends
 	 * @param winner Indicate if the fighter is the winner
 	 * @param response
+	 * @param bug Indicate if the fight is bugged
 	 */
-	async endFight(winner: boolean, response: DraftBotPacket[]): Promise<void> {
-		this.unblock();
+	async endFight(winner: boolean, response: DraftBotPacket[], bug: boolean): Promise<void> {
+		await this.player.reload();
+		this.player.setEnergyLost(this.stats.maxEnergy - this.stats.energy, NumberChangeReason.FIGHT);
+		await this.player.save();
+
+		if (bug) {
+			return;
+		}
+
 		await this.manageMissionsOf(response);
+
 		if (winner) {
 			await MissionsController.update(this.player, response, {
 				missionId: "fightHealthPercent",
@@ -100,7 +104,6 @@ export class PlayerFighter extends Fighter {
 		this.stats.breath = this.player.getBaseBreath();
 		this.stats.maxBreath = this.player.getMaxBreath();
 		this.stats.breathRegen = this.player.getBreathRegen();
-		this.glory = this.player.getGloryPoints();
 		if (this.player.petId) {
 			this.pet = await PetEntities.getById(this.player.petId);
 		}
@@ -189,10 +192,6 @@ export class PlayerFighter extends Fighter {
 	 * @param response
 	 */
 	private async manageMissionsOf(response: DraftBotPacket[]): Promise<void> {
-		const newPlayer = await Players.getOrRegister(this.player.keycloakId);
-		newPlayer.setEnergyLost(this.stats.maxEnergy - this.stats.energy, NumberChangeReason.FIGHT);
-		await newPlayer.save();
-
 		await this.checkFightActionHistory(response);
 
 		await MissionsController.update(this.player, response, { missionId: "anyFight" });

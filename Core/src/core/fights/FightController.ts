@@ -29,9 +29,12 @@ import {
 import { PetAssistance } from "../../data/PetAssistance";
 import { getAiPetBehavior } from "./PetAssistManager";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
+import { FightsManager } from "./FightsManager";
 
 export class FightController {
 	turn: number;
+
+	public readonly id: string;
 
 	public readonly fighters: (PlayerFighter | MonsterFighter | AiPlayerFighter)[];
 
@@ -53,6 +56,7 @@ export class FightController {
 		overtimeBehavior: FightOvertimeBehavior,
 		context: PacketContext
 	) {
+		this.id = FightsManager.registerFight(this);
 		this.fighters = [fighters.fighter1, fighters.fighter2];
 		this.fightInitiator = fighters.fighter1;
 		this.state = FightState.NOT_STARTED;
@@ -99,9 +103,10 @@ export class FightController {
 	/**
 	 * End the fight
 	 * @param response {DraftBotPacket[]} the response to send to the player
+	 * @param bug {boolean} true if the fight has bugged
 	 */
-	public async endFight(response: DraftBotPacket[]): Promise<void> {
-		this.state = FightState.FINISHED;
+	public async endFight(response: DraftBotPacket[], bug: boolean): Promise<void> {
+		this.state = bug ? FightState.FINISHED : FightState.BUG;
 
 		this.checkNegativeEnergy();
 
@@ -111,7 +116,8 @@ export class FightController {
 		this._fightView.outroFight(response, this.fighters[(1 - winner) % 2], this.fighters[winner % 2], isADraw);
 
 		for (let i = 0; i < this.fighters.length; ++i) {
-			await this.fighters[i].endFight(i === winner, response);
+			this.fighters[i].unblock();
+			await this.fighters[i].endFight(i === winner, response, bug);
 		}
 		if (this.endCallback) {
 			await this.endCallback(this, response);
@@ -122,12 +128,16 @@ export class FightController {
 	 * Cancel a fight and unblock the fighters, used when a fight has bugged (for example, if a message was deleted)
 	 * @param response {DraftBotPacket[]}
 	 */
-	endBugFight(response: DraftBotPacket[]): void {
-		this.state = FightState.BUG;
+	public async endBugFight(response: DraftBotPacket[]): Promise<void> {
 		for (const fighter of this.fighters) {
 			fighter.unblock();
+			if (fighter instanceof PlayerFighter) {
+				fighter.kill();
+			}
 		}
 		this._fightView.displayBugFight(response);
+
+		await this.endFight(response, true);
 	}
 
 	/**
@@ -160,6 +170,11 @@ export class FightController {
 	 * @param response {DraftBotPacket[]} the response to send to the player
 	 */
 	public async executeFightAction(fightAction: FightAction, endTurn: boolean, response: DraftBotPacket[]): Promise<void> {
+		if (this.hadEnded()) {
+			// The fight is probably bugged, no need to continue
+			return;
+		}
+
 		if (endTurn) {
 			this.getPlayingFighter().nextFightAction = null;
 		}
@@ -185,7 +200,7 @@ export class FightController {
 		}
 		attacker.fightActionsHistory.push(fightAction);
 		if (this.overtimeBehavior === FightOvertimeBehavior.END_FIGHT_DRAW && this.turn >= FightConstants.MAX_TURNS || this.hadEnded()) {
-			await this.endFight(response);
+			await this.endFight(response, false);
 			return;
 		}
 		if (endTurn) {
@@ -217,7 +232,7 @@ export class FightController {
 		const result = alteration.happen(this.getPlayingFighter(), this.getDefendingFighter(), this.turn, this);
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), alteration, result);
 		if (this.hadEnded()) {
-			await this.endFight(response);
+			await this.endFight(response, false);
 			return;
 		}
 		this._fightView.displayFightStatus(response);
@@ -235,7 +250,7 @@ export class FightController {
 		}
 		await this._fightView.addActionToHistory(response, this.getPlayingFighter(), petAssistance, result);
 		if (this.hadEnded()) {
-			await this.endFight(response);
+			await this.endFight(response, false);
 			return;
 		}
 		this._fightView.displayFightStatus(response);
@@ -342,7 +357,7 @@ export class FightController {
 			}
 			catch (e) {
 				DraftBotLogger.errorWithObj("Fight message deleted or lost : displayFightStatus", e);
-				this.endBugFight(response);
+				await this.endBugFight(response);
 			}
 		}
 		else {
@@ -389,13 +404,13 @@ export class FightController {
 	/**
 	 * Check if a fight has ended or not
 	 */
-	private hadEnded(): boolean {
+	public hadEnded(): boolean {
 		return (
-			this.getPlayingFighter()
+			this.state !== FightState.RUNNING
+			|| this.getPlayingFighter()
 				.isDeadOrBug()
 			|| this.getDefendingFighter()
-				.isDeadOrBug()
-			|| this.state !== FightState.RUNNING);
+				.isDeadOrBug());
 	}
 }
 

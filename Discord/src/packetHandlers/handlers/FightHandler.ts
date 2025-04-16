@@ -11,7 +11,8 @@ import {
 	handleCommandFightIntroduceFightersRes,
 	handleCommandFightRefusePacketRes,
 	handleCommandFightUpdateStatusRes,
-	handleEndOfFight, handleFightReward
+	handleEndOfFight,
+	handleFightReward
 } from "../../commands/player/FightCommand";
 import { handleClassicError } from "../../utils/ErrorUtils";
 import { CommandFightIntroduceFightersPacket } from "../../../../Lib/src/packets/fights/FightIntroductionPacket";
@@ -65,7 +66,7 @@ export default class FightHandler {
 
 	@packetHandler(BuggedFightPacket)
 	async buggedFight(context: PacketContext, _packet: BuggedFightPacket): Promise<void> {
-		await handleClassicError(context, "commands:fight.end.bugged");
+		await handleClassicError(context, "error:fightBugged");
 	}
 
 	@packetHandler(FightRewardPacket)

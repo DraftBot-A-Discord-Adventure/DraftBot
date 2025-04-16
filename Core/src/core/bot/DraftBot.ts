@@ -13,7 +13,10 @@ import PetEntity from "../database/game/models/PetEntity";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { PotionDataController } from "../../data/Potion";
 import {
-	getNextDay2AM, getNextSaturdayMidnight, getNextSundayMidnight, minutesToMilliseconds
+	getNextDay2AM,
+	getNextSaturdayMidnight,
+	getNextSundayMidnight,
+	minutesToMilliseconds
 } from "../../../../Lib/src/utils/TimeUtils";
 import { TimeoutFunctionsConstants } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import { MapCache } from "../maps/MapCache";
@@ -38,6 +41,7 @@ import { initializeAllPetBehaviors } from "../fights/PetAssistManager";
 import { DraftBotCoreWebServer } from "./DraftBotCoreWebServer";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../Lib/src/types/Badge";
+import { FightsManager } from "../fights/FightsManager";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -384,6 +388,7 @@ export class DraftBot {
 		await this.gameDatabase.init(true);
 		await this.logsDatabase.init(true);
 		await MapCache.init();
+		FightsManager.init();
 		if (botConfig.TEST_MODE) {
 			await CommandsTest.init();
 		}
