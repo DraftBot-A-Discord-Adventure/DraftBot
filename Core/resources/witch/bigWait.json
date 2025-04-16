@@ -4,5 +4,6 @@
     "nothing": 35
   },
   "timePenalty": 45,
+  "forceEffect": true,
   "isIngredient": false
 }
