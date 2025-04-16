@@ -74,6 +74,9 @@ async function manageClassicReward(response: DraftBotPacket[], player: Player, r
 			break;
 		case Outcome.ENERGY:
 			player.addEnergy(-result.amount, reason);
+			if (player.getCumulativeEnergy() <= 0) {
+				await player.leavePVEIslandIfNoEnergy(response);
+			}
 			break;
 		case Outcome.EXPERIENCE:
 			await player.addExperience({
