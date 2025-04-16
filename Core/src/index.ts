@@ -53,6 +53,7 @@ mqttClient.on("message", async (topic, message) => {
 		return;
 	}
 	const response: DraftBotPacket[] = [];
+	const context: PacketContext = dataJson.context;
 
 	if (botConfig.MODE_MAINTENANCE && !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.MAINTENANCE)) {
 		response.push(makePacket(ErrorMaintenancePacket, {}));
@@ -65,7 +66,6 @@ mqttClient.on("message", async (topic, message) => {
 			response.push(makePacket(ErrorPacket, { message: errorMessage }));
 		}
 		else {
-			const context: PacketContext = dataJson.context;
 			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name)
 				.then();
 			DraftBotCoreMetrics.incrementPacketCount(dataJson.packet.name);
@@ -82,7 +82,7 @@ mqttClient.on("message", async (topic, message) => {
 		}
 	}
 
-	PacketUtils.sendPackets(dataJson.context, response);
+	PacketUtils.sendPackets(context, response);
 });
 
 mqttClient.on("error", error => {

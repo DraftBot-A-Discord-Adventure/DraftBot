@@ -10,17 +10,22 @@ export class ReactionCollectorFightChooseActionReaction extends ReactionCollecto
 }
 
 export class ReactionCollectorFightChooseActionData extends ReactionCollectorData {
+	fightId!: string;
+
 	fighterKeycloakId!: string;
 }
 
 export class ReactionCollectorFightChooseAction extends ReactionCollector {
+	private readonly fightId: string;
+
 	private readonly reactions: ReactionCollectorFightChooseActionReaction[];
 
 	private readonly fighterKeycloackId: string;
 
 
-	constructor(fighterKeycloakId: string, reactions: string[]) {
+	constructor(fightId: string, fighterKeycloakId: string, reactions: string[]) {
 		super();
+		this.fightId = fightId;
 		this.reactions = reactions.map(r => ({
 			id: r
 		}));
@@ -38,6 +43,7 @@ export class ReactionCollectorFightChooseAction extends ReactionCollector {
 			endTime,
 			reactions,
 			data: this.buildData(ReactionCollectorFightChooseActionData, {
+				fightId: this.fightId,
 				fighterKeycloakId: this.fighterKeycloackId
 			})
 		};

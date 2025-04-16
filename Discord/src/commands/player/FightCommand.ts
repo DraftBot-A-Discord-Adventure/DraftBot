@@ -38,6 +38,19 @@ import { AIFightActionChoosePacket } from "../../../../Lib/src/packets/fights/AI
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
+import { CommandFightCancelPacketReq } from "../../../../Lib/src/packets/commands/CommandFightCancelPacket";
+import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
+import { ReactionCollectorFightChooseActionData } from "../../../../Lib/src/packets/interaction/ReactionCollectorFightChooseAction";
+
+const buggedFights = new Set<string>();
+
+function fightBugged(context: PacketContext, fightId: string): void {
+	buggedFights.add(fightId);
+	PacketUtils.sendPacketToBackend(context, makePacket(CommandFightCancelPacketReq, {
+		fightId
+	}));
+	DraftBotLogger.error("Fight bugged, cancelling fight");
+}
 
 export async function createFightCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -156,28 +169,38 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
  * @param packet
  */
 export async function handleCommandFightIntroduceFightersRes(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const lng = interaction.userLanguage;
-	const opponentDisplayName = packet.fightOpponentKeycloakId
-		? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0])
-		: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng });
-	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
-		lng,
-		fightInitiator: escapeUsername(interaction.user.displayName),
-		opponent: escapeUsername(opponentDisplayName)
-	}), interaction.user);
+	if (buggedFights.has(packet.fightId)) {
+		return;
+	}
 
-	addFightProfileFor(embed, lng, escapeUsername(interaction.user.displayName), packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
-	addFightProfileFor(embed, lng, escapeUsername(opponentDisplayName), packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+	try {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+		const lng = interaction.userLanguage;
+		const opponentDisplayName = packet.fightOpponentKeycloakId
+			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0])
+			: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng });
+		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
+			lng,
+			fightInitiator: escapeUsername(interaction.user.displayName),
+			opponent: escapeUsername(opponentDisplayName)
+		}), interaction.user);
 
-	await buttonInteraction?.editReply({ embeds: [embed] });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
-		.post({ content: "_ _" });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage)
-		.post({ content: "_ _" });
-	await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage)
-		.post({ content: "_ _" });
+		addFightProfileFor(embed, lng, escapeUsername(interaction.user.displayName), packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
+		addFightProfileFor(embed, lng, escapeUsername(opponentDisplayName), packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+
+		await buttonInteraction?.editReply({ embeds: [embed] });
+		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)
+			.post({ content: "_ _" });
+		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotFightStatusCachedMessage)
+			.post({ content: "_ _" });
+		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotActionChooseCachedMessage)
+			.post({ content: "_ _" });
+	}
+	catch (e) {
+		DraftBotLogger.errorWithObj("Fight introduction failed", e);
+		fightBugged(context, packet.fightId);
+	}
 }
 
 /**
@@ -186,11 +209,21 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
  * @param packet
  */
 export async function handleCommandFightUpdateStatusRes(context: PacketContext, packet: CommandFightStatusPacket): Promise<void> {
-	if (!context.discord?.interaction) {
+	if (buggedFights.has(packet.fightId)) {
 		return;
 	}
-	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotFightStatusCachedMessage)
-		.update(packet, context);
+
+	try {
+		if (!context.discord?.interaction) {
+			return;
+		}
+		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotFightStatusCachedMessage)
+			.update(packet, context);
+	}
+	catch (e) {
+		DraftBotLogger.errorWithObj("Fight status update failed", e);
+		fightBugged(context, packet.fightId);
+	}
 }
 
 /**
@@ -199,22 +232,42 @@ export async function handleCommandFightUpdateStatusRes(context: PacketContext, 
  * @param packet
  */
 export async function handleCommandFightHistoryItemRes(context: PacketContext, packet: CommandFightHistoryItemPacket): Promise<void> {
-	if (!context.discord?.interaction) {
+	if (buggedFights.has(packet.fightId)) {
 		return;
 	}
-	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotHistoryCachedMessage)
-		.update(packet, context);
+
+	try {
+		if (!context.discord?.interaction) {
+			return;
+		}
+		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotHistoryCachedMessage)
+			.update(packet, context);
+	}
+	catch (e) {
+		DraftBotLogger.errorWithObj("Fight history update failed", e);
+		fightBugged(context, packet.fightId);
+	}
 }
 
 
 export async function handleCommandFightAIFightActionChoose(context: PacketContext, packet: AIFightActionChoosePacket): Promise<void> {
-	if (!context.discord?.interaction) {
+	if (buggedFights.has(packet.fightId)) {
 		return;
 	}
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
-		.post({ embeds: [new DraftBotEmbed().setDescription(i18n.t("commands:fight.actions.aiChoose", { lng: interaction.userLanguage }))] });
-	await new Promise(f => setTimeout(f, packet.ms));
+
+	try {
+		if (!context.discord?.interaction) {
+			return;
+		}
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
+		await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+			.post({ embeds: [new DraftBotEmbed().setDescription(i18n.t("commands:fight.actions.aiChoose", { lng: interaction.userLanguage }))] });
+		await new Promise(f => setTimeout(f, packet.ms));
+	}
+	catch (e) {
+		DraftBotLogger.errorWithObj("Fight AI action choose failed", e);
+		fightBugged(context, packet.fightId);
+	}
 }
 
 /**
@@ -223,11 +276,24 @@ export async function handleCommandFightAIFightActionChoose(context: PacketConte
  * @param context
  */
 export async function handleCommandFightActionChoose(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
-	if (!context.discord?.interaction) {
+	const data = packet.data.data as ReactionCollectorFightChooseActionData;
+
+	if (buggedFights.has(data.fightId)) {
 		return null;
 	}
-	return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
-		.update(packet, context);
+
+	try {
+		if (!context.discord?.interaction) {
+			return null;
+		}
+		return await DraftbotCachedMessages.getOrCreate(context.discord?.interaction, DraftbotActionChooseCachedMessage)
+			.update(packet, context);
+	}
+	catch (e) {
+		DraftBotLogger.errorWithObj("Fight action choose failed", e);
+		fightBugged(context, data.fightId);
+		return null;
+	}
 }
 
 /**

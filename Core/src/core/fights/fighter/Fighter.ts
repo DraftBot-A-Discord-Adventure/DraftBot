@@ -102,7 +102,7 @@ export abstract class Fighter {
 	 * @param winner Indicate if the fighter is the winner
 	 * @param response
 	 */
-	abstract endFight(winner: boolean, response: DraftBotPacket[]): Promise<void>;
+	abstract endFight(winner: boolean, response: DraftBotPacket[], bug: boolean): Promise<void>;
 
 	/**
 	 * Allow the fighter to unblock himself

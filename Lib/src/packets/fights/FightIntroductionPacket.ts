@@ -5,6 +5,8 @@ import { OwnedPet } from "../../types/OwnedPet";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
+	fightId!: string;
+
 	fightInitiatorKeycloakId!: string;
 
 	fightOpponentKeycloakId?: string;

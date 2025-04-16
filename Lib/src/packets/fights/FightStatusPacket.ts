@@ -4,6 +4,8 @@ import {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandFightStatusPacket extends DraftBotPacket {
+	fightId!: string;
+
 	numberOfTurn!: number;
 
 	maxNumberOfTurn!: number;
