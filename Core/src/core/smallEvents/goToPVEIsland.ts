@@ -52,6 +52,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 				const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 				if (missionInfo.gems < price) {
 					response.push(makePacket(SmallEventGoToPVEIslandNotEnoughGemsPacket, {}));
+					BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
 					return;
 				}
 				const options: OptionsStartBoatTravel = {
