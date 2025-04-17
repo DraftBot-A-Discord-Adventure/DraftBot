@@ -17,6 +17,7 @@ import { Effect } from "../../../Lib/src/types/Effect";
 import { WitchActionOutcomeType } from "../../../Lib/src/types/WitchActionOutcomeType";
 import { EmoteUtils } from "../utils/EmoteUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { MessagesUtils } from "../utils/MessagesUtils";
 
 export async function witchCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
@@ -92,7 +93,7 @@ export async function witchCollector(context: PacketContext, packet: ReactionCol
 }
 
 export async function witchResult(packet: SmallEventWitchResultPacket, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	const interaction = MessagesUtils.getCurrentInteraction(context);
 	if (!interaction) {
 		return;
 	}
@@ -104,7 +105,7 @@ export async function witchResult(packet: SmallEventWitchResultPacket, context: 
 	const outcomeTranslationToLoad = packet.outcome === WitchActionOutcomeType.EFFECT
 		? `smallEvents:witch.witchEventResults.outcomes.2.${packet.effectId}`
 		: `smallEvents:witch.witchEventResults.outcomes.${packet.outcome + 1}`;
-	await interaction.editReply({
+	await (interaction.isRepliable() ? interaction.followUp : interaction.editReply).bind(interaction)({
 		embeds: [
 			new DraftbotSmallEventEmbed(
 				"witch",
