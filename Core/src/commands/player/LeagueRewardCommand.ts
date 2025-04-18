@@ -27,8 +27,9 @@ export default class LeagueRewardCommand {
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
 		level: FightConstants.REQUIRED_LEVEL,
 		whereAllowed: [WhereAllowed.CONTINENT]
-	}) async execute(response: DraftBotPacket[], player: Player, _packet: CommandLeagueRewardPacketReq, context: PacketContext): Promise<void> {
-		if (!todayIsSunday()) {
+	})
+	static async execute(response: DraftBotPacket[], player: Player, _packet: CommandLeagueRewardPacketReq, context: PacketContext, ignoreDate = false): Promise<void> {
+		if (!ignoreDate && !todayIsSunday()) {
 			response.push(makePacket(CommandLeagueRewardNotSundayPacketRes, {
 				nextSunday: getNextSaturdayMidnight()
 			}));
