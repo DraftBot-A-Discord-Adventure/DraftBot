@@ -15,7 +15,7 @@ export const commandInfo: ITestCommand = {
 const leagueRewardTestCommand: ExecuteTestCommandLike = async (player, _args, response: DraftBotPacket[], context: PacketContext) => {
 	await LeagueRewardCommand.execute(response, player, makePacket(CommandLeagueRewardPacketReq, {}), context, true);
 
-	return `Vous avez exécuté la commande leaguereward !`;
+	return "Vous avez exécuté la commande leaguereward !";
 };
 
 commandInfo.execute = leagueRewardTestCommand;
