@@ -25,6 +25,15 @@ import { GuildRole } from "../../../../Lib/src/types/GuildRole";
 import { ReactionCollectorGuildKick } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildKick";
 import { draftBotInstance } from "../../index";
 
+/**
+ * Check if the kicked player is only blocked by this command
+ * @param kickedPlayer
+ */
+function isOnlyBlockedByGuildKick(kickedPlayer: Player): boolean {
+	const blockingReasons = BlockingUtils.getPlayerBlockingReason(kickedPlayer.keycloakId);
+	return blockingReasons.length === 1 && blockingReasons[0] === BlockingConstants.REASONS.GUILD_KICK;
+}
+
 async function acceptGuildKick(player: Player, kickedPlayer: Player, response: DraftBotPacket[]): Promise<void> {
 	await player.reload();
 
@@ -69,7 +78,7 @@ async function isNotEligible(player: Player, kickedPlayer: Player, response: Dra
 		return true;
 	}
 
-	if (BlockingUtils.isPlayerBlocked(kickedPlayer.keycloakId)) {
+	if (BlockingUtils.isPlayerBlocked(kickedPlayer.keycloakId) && !isOnlyBlockedByGuildKick(kickedPlayer)) {
 		// Player is blocked
 		response.push(makePacket(CommandGuildKickBlockedErrorPacket, {}));
 		return true;
