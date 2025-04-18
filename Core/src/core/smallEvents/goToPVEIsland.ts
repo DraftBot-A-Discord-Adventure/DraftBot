@@ -46,13 +46,14 @@ export const smallEventFuncs: SmallEventFuncs = {
 		);
 
 		const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
+			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
+
 			const reaction = collector.getFirstReaction();
 
 			if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 				const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 				if (missionInfo.gems < price) {
 					response.push(makePacket(SmallEventGoToPVEIslandNotEnoughGemsPacket, {}));
-					BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
 					return;
 				}
 				const options: OptionsStartBoatTravel = {
@@ -78,8 +79,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			else {
 				response.push(makePacket(SmallEventGoToPVEIslandRefusePacket, {}));
 			}
-
-			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.PVE_ISLAND);
 		};
 
 		const packet = new ReactionCollectorInstance(
