@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Afficher le classement des guildes en fonction de leur gloire.",
-        "name": "gloire"
+        "name": "glorieux"
       },
       "guild": {
         "description": "Afficher le classement des guildes en fonction de leurs points.",
