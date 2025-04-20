@@ -241,7 +241,7 @@
         "description": "Permette di trasferire un animale da o verso la gilda. Potrete scegliere se far cadere l'animale che avete con voi nella capanna, se scambiarlo con un altro o se rimuoverlo dalla capanna."
       },
       "PING": {
-        "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. :clock1:"
+        "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Visualizza le informazioni sul personaggio:\n\n{emote:effects.none} Salute | Nickname | Livello\n\n឵឵Informazioni :\n{emote:unitValues.health} Vita | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDenaro Statistiche:\n{emote:unitValues.energy} Energia | {emote:unitValues.attack} Attacco | {emote:unitValues.defense} {emote:unitValues.speed} Difesa | {emote:unitValues.breath} Respiro | {emote:unitValues.breathRegen} Recupero\n\nMissioni:\n{emote:unitValues.gem} Gemme | {emote:missions.campaign} Progresso della campagna in %\n\nClassifica e punteggio :\n{emote:top.congrats} Classifica | {emote:unitValues.score} Punteggio\n\nClasse:\nVedi {command:classes}\n\nGloria e Lega:\n{emote:unitValues.glory} Gloria | Vedi {command:top glory}\n\nGilda:\n{emote:other.guild} Gilda\n\nDestinazione:\nVedi {command:map}\n\nFamiliare:\nVedi {command:pet}\n\n{emote:other.advice}-I distintivi vengono visualizzati sul profilo sotto forma di reazioni."
