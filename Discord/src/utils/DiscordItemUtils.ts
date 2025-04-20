@@ -163,7 +163,7 @@ export class DiscordItemUtils {
 		return i18n.t("items:nameDisplay", {
 			lng,
 			itemId: item.id,
-			itemCategory: `${itemCategoryToString(item.itemCategory)}s`
+			itemCategory: `${itemCategoryToString(item.itemCategory)}`
 		});
 	}
 
