@@ -17,6 +17,7 @@ import { makePacket } from "../../../../Lib/src/packets/DraftBotPacket";
 import { SmallEventCartPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { BlockingUtils } from "../utils/BlockingUtils";
+import { draftBotInstance } from "../../index";
 
 type CartResult = {
 	destination: MapLink;
@@ -40,7 +41,9 @@ function getEndCallback(player: Player, destination: CartResult): EndCallback {
 
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			if (packet.travelDone.hasEnoughMoney) {
-				player.mapLinkId = destination.isScam ? destination.scamDestination.id : destination.destination.id;
+				const newMapLinkId = destination.isScam ? destination.scamDestination.id : destination.destination.id;
+				player.mapLinkId = newMapLinkId;
+				draftBotInstance.logsDatabase.logTeleportation(player.keycloakId, player.mapLinkId, newMapLinkId).then();
 				await player.spendMoney({
 					amount: destination.price, response, reason: NumberChangeReason.SMALL_EVENT
 				});
