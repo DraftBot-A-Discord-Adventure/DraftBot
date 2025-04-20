@@ -82,13 +82,13 @@ export enum ItemCategory {
 export function itemCategoryToString(category: ItemCategory): string {
 	switch (category) {
 		case ItemCategory.WEAPON:
-			return "weapon";
+			return "weapons";
 		case ItemCategory.ARMOR:
-			return "armor";
+			return "armors";
 		case ItemCategory.POTION:
-			return "potion";
+			return "potions";
 		default:
-			return "object";
+			return "objects";
 	}
 }
 
