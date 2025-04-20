@@ -241,7 +241,7 @@
         "description": "Te permite transferir una mascota a o desde la cabaña. Podrás elegir entre soltar la mascota que te acompaña en la cabaña, cambiarla por otra o retirar una de la cabaña."
       },
       "PING": {
-        "description": "Muestra si el bot está en línea.\n\n(Nota: El tiempo que se muestra es el tiempo de respuesta del bot y no tu ping: un tiempo de respuesta correcto será inferior a 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Muestra información sobre tu personaje:\n\n{emote:effects.none} Salud | Apodo | Nivel\n\n឵឵Información :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinero Estadísticas :\n{emote:unitValues.energy} Energía | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defensa | {emote:unitValues.breath} Aliento | {emote:unitValues.breathRegen} Recuperación :\n\nMisiones :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progreso de la campaña en %\n\nRango y puntuación :\n{emote:top.congrats} Rango | {emote:unitValues.score} Puntuación\n\nClase:\nVer {command:classes}\n\nGloria y Liga:\n{emote:unitValues.glory} Gloria | Ver {command:top glory}\n\nGremio:\n{emote:other.guild} Gremio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Las insignias se muestran en tu perfil en forma de reacciones."
