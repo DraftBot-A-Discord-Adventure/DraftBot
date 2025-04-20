@@ -241,7 +241,7 @@
         "description": "Ermöglicht es Ihnen, einen Begleiter von oder zur Gilde zu transferieren. Sie haben die Wahl, den Begleiter, der Sie begleitet, in der Hütte abzugeben, ihn mit einem anderen zu tauschen oder einen Begleiter aus der Hütte zu entfernen."
       },
       "PING": {
-        "description": "Gibt an, ob der Bot online ist.\n\n(Hinweis: Die angezeigte Zeit ist die Antwortzeit des Bots und nicht das Pingsignal: Eine gültige Antwortzeit beträgt weniger als 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Zeigt Informationen über deinen Charakter an:\n\n{emote:effects.none} Gesundheitszustand | Nickname | Level\n\n឵឵឵Informationen :\n{emote:unitValues.health} Leben | {emote:unitValues.xp} XP | {emote:unitValues.money} Geld\n\nStatistiken:\n{emote:unitValues.energy} Energie | {emote:unitValues.attack} Angriff | {emote:unitValues.defense} Verteidigung | {emote:unitValues.speed} Geschwindigkeit | {emote:unitValues.breath} Atem | {emote:unitValues.breathRegen} Erholung\n\nMissionen:\n{emote:unitValues.gem} Gems | {emote:missions.campaign} Kampagnenfortschritt in %\n\nRangliste und Punktzahl :\n{emote:top.congrats} Rangliste | {emote:unitValues.score} Punktestand\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n{emote:unitValues.glory} Ruhm | Siehe {command:top glory}\n\nGilde:\n{emote:other.guild} Gilde\n\nZiel:\nSiehe {command:map}\n\nVertraut:\nSiehe {command:pet}\n\n{emote:other.advice}-Die Abzeichen werden in deinem Profil als Reaktionen angezeigt."
