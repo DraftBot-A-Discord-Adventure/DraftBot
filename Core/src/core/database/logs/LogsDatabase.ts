@@ -102,6 +102,7 @@ import { GuildLikeType } from "../../types/GuildLikeType";
 import { LogsCommandOrigins } from "./models/LogsCommandOrigins";
 import { LogsCommandSubOrigins } from "./models/LogsCommandSubOrigins";
 import { ReactionCollectorReactPacket } from "../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { LogsPlayersTeleportations } from "./models/LogsPlayersTeleportations";
 
 /**
  * This class is used to log all the changes in the game database
@@ -1232,6 +1233,22 @@ export class LogsDatabase extends Database {
 		await LogsPlayerLeagueReward.create({
 			playerId: player.id,
 			leagueLastSeason,
+			date: getDateLogs()
+		});
+	}
+
+	/**
+	 * Log when a player is teleported
+	 * @param keycloakId
+	 * @param originMapLinkId
+	 * @param newMapLinkId
+	 */
+	public async logTeleportation(keycloakId: string, originMapLinkId: number, newMapLinkId: number): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
+		await LogsPlayersTeleportations.create({
+			playerId: player.id,
+			originMapLinkId,
+			newMapLinkId,
 			date: getDateLogs()
 		});
 	}
