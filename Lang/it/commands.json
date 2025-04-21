@@ -241,7 +241,7 @@
         "description": "Permette di trasferire un animale da o verso la gilda. Potrete scegliere se far cadere l'animale che avete con voi nella capanna, se scambiarlo con un altro o se rimuoverlo dalla capanna."
       },
       "PING": {
-        "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. :clock1:"
+        "description": "Permette di sapere se il bot è online.\n\n(Nota: il tempo visualizzato è il tempo di risposta del bot e non il vostro ping: un tempo di risposta corretto sarà inferiore a 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Visualizza le informazioni sul personaggio:\n\n{emote:effects.none} Salute | Nickname | Livello\n\n឵឵Informazioni :\n{emote:unitValues.health} Vita | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDenaro Statistiche:\n{emote:unitValues.energy} Energia | {emote:unitValues.attack} Attacco | {emote:unitValues.defense} {emote:unitValues.speed} Difesa | {emote:unitValues.breath} Respiro | {emote:unitValues.breathRegen} Recupero\n\nMissioni:\n{emote:unitValues.gem} Gemme | {emote:missions.campaign} Progresso della campagna in %\n\nClassifica e punteggio :\n{emote:top.congrats} Classifica | {emote:unitValues.score} Punteggio\n\nClasse:\nVedi {command:classes}\n\nGloria e Lega:\n{emote:unitValues.glory} Gloria | Vedi {command:top glory}\n\nGilda:\n{emote:other.guild} Gilda\n\nDestinazione:\nVedi {command:map}\n\nFamiliare:\nVedi {command:pet}\n\n{emote:other.advice}-I distintivi vengono visualizzati sul profilo sotto forma di reazioni."
@@ -356,7 +356,7 @@
       "support": ":heart: `Persona avendo il grado Sostegno sul server del bot`",
       "translator": ":earth_africa: `Traduttore`",
       "advertiser": "Persona che ha aiutato a mettere il bot su un server con oltre 2000 membri",
-      "contest": "I badge possono essere vinti di tanto in tanto in concorsi sul server bot o su Twitter.",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
       "christmas": "Distintivo da vincere ogni Natale in un concorso",
       "top_week": ":reminder_ribbon: `Persona che ha dominato la classifica della settimana`",
       "random": ":slot_machine: `Badge dato in modo totalmente aleatorio`",
@@ -379,7 +379,7 @@
     },
     "fightRanking": {
       "fieldName": "Gloria e lega :",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})"
     },
     "guild": {
       "fieldName": "Gilda :",
@@ -1022,8 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Purtroppo la tua gilda non compare in cima perché non ha punti gilda!",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Potete trovarlo su / )",
     "noGuild": "{emote:top.error} | Non compari in questa classifica perché non fai parte di una gilda!",
-    "nobodyInTopPlayers": "Al momento non c'è nessuno nella top ten! Godetevela finché potete.",
-    "nobodyInTopGuilds": "Al momento non ci sono gilde in cima! Approfittane finché puoi.",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
     "invalidPage": "La pagina richiesta non esiste. {{minPage}} {{maxPage}}Riprovare con una pagina compresa tra e ."
   },
   "fight": {
@@ -1357,7 +1358,7 @@
     },
     "title": "{{pseudo}}Hai ricevuto il premio della lega!",
     "description": {
-      "first": "Hai terminato il campionato precedente con **{{glory}} gloria. {emote:unitValues.glory}**\n\n**Ti sei classificato in $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nLa tua lega finale è : **{emote:leghe.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Soldi vinti : **{{money}}** !\n{emote:unitValues.xp} XP guadagnati: **{{xp}}** !\n{emote:unitValues.glory} Alla fine della stagione ti è stato consegnato un distintivo.\n{emote:rewards.item} Riceverai un equipaggiamento casuale!",
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
       "other": "Hai terminato il campionato precedente con **{{glory}} gloria. {emote:unitValues.glory}**\n\n Hai finito in $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nLa tua lega finale è : **{emote:leghe.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Soldi guadagnati: **{{money}}** !\n{emote:unitValues.xp} XP guadagnati: **{{xp}}** !\n{emote:rewards.item} Ricevi un equipaggiamento casuale!"
     }
   },
