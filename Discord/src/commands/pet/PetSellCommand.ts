@@ -84,10 +84,12 @@ export async function handlePetSellSuccess(context: PacketContext, packet: Comma
 	const lng = interaction.userLanguage;
 
 	// Send guild XP reward
-	await handleCommandGuildDailyRewardPacket(makePacket(CommandGuildDailyRewardPacket, {
-		guildXp: packet.xpEarned,
-		guildName: packet.guildName
-	}), context, false);
+	if (!packet.isGuildMax) {
+		await handleCommandGuildDailyRewardPacket(makePacket(CommandGuildDailyRewardPacket, {
+			guildXp: packet.xpEarned,
+			guildName: packet.guildName
+		}), context, false);
+	}
 
 	// Send pet sell success message
 	await buttonInteraction.editReply({
