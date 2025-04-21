@@ -42,8 +42,8 @@ function getEndCallback(player: Player, destination: CartResult): EndCallback {
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
 			if (packet.travelDone.hasEnoughMoney) {
 				const newMapLinkId = destination.isScam ? destination.scamDestination.id : destination.destination.id;
-				player.mapLinkId = newMapLinkId;
 				draftBotInstance.logsDatabase.logTeleportation(player.keycloakId, player.mapLinkId, newMapLinkId).then();
+				player.mapLinkId = newMapLinkId;
 				await player.spendMoney({
 					amount: destination.price, response, reason: NumberChangeReason.SMALL_EVENT
 				});

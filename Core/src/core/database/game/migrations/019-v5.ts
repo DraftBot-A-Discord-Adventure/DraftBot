@@ -11,7 +11,7 @@ import { parse } from "toml";
 import { readFileSync } from "fs";
 import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
 import { KeycloakConfig } from "../../../../../../Lib/src/keycloak/KeycloakConfig";
-import { logsV5NewIds } from "../../logs/migrations/006-v5";
+import { logsV5NewIds } from "../../logs/migrations/007-v5";
 import { LANGUAGE } from "../../../../../../Lib/src/Language";
 import { Effect } from "../../../../../../Lib/src/types/Effect";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
