@@ -377,7 +377,7 @@ export default class SmallEventsHandler {
 		const lng = interaction.userLanguage;
 		const endMessage = i18n.t(`smallEvents:leagueReward.${packet.rewardToday ? "rewardToday" : packet.enoughFights ? "endMessage" : "notEnoughFight"}`, {
 			lng,
-			league: i18n.t(`models:leagues.${packet.leagueId}`, { lng }),
+			leagueId: packet.leagueId,
 			rewards: i18n.t("smallEvents:leagueReward.reward", {
 				lng,
 				money: packet.money,
