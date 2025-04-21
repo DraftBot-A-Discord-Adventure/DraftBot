@@ -24,7 +24,7 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 	fallback?: string;
 	forced: boolean;
 } {
-	const mapLink = MapLinkDataController.instance.getById(destination.id);
+	const mapLink = MapLinkDataController.instance.getById(player.mapLinkId);
 
 	if (!isInEvent && mapLink.forcedImage) {
 		return {
