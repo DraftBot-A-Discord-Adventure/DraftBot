@@ -373,19 +373,15 @@ export abstract class HelpConstants {
 			"pfree",
 			"freepet",
 			"freep",
-			"liberer",
 			"libererpet",
 			"libererfamilier",
 			"libereranimal",
-			"delivrer",
 			"delivrerpet",
 			"delivrerfamilier",
 			"delivreranimal",
-			"libérer",
 			"libérerpet",
 			"libérerfamilier",
 			"libéreranimal",
-			"délivrer",
 			"délivrerpet",
 			"délivrerfamilier",
 			"délivreranimal"
@@ -534,7 +530,10 @@ export abstract class HelpConstants {
 			"libéreration",
 			"libereration",
 			"jail",
-			"prison"
+			"prison",
+			"délivrer",
+			"delivre",
+			"délivre"
 		],
 		MAP: [
 			"map",
