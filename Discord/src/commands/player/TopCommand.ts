@@ -4,7 +4,8 @@ import {
 	CommandTopPacketRes,
 	CommandTopPacketResGlory,
 	CommandTopPacketResGuild,
-	CommandTopPacketResScore
+	CommandTopPacketResScore,
+	CommandTopPlayersEmptyPacket
 } from "../../../../Lib/src/packets/commands/CommandTopPacket";
 import i18n from "../../translations/i18n";
 import {
@@ -180,7 +181,9 @@ type TopTextKeys = {
 		key: string; replacements: { [key: string]: unknown };
 	};
 	youRankAtPage: string;
-	nobodyInTop: string;
+	nobodyInTop: {
+		key: string; replacements: { [key: string]: unknown };
+	};
 	cantBeRanked?: string;
 	overriddenElementTexts?: string[];
 };
@@ -193,7 +196,10 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 	playerUsername: string
 ): string {
 	if (packet.elements.length <= 0) {
-		return i18n.t(textKeys.nobodyInTop, { lng });
+		return i18n.t(textKeys.nobodyInTop.key, {
+			lng,
+			...textKeys.nobodyInTop.replacements
+		});
 	}
 	let desc = "";
 	for (let i = 0; i < packet.elements.length; i++) {
@@ -203,7 +209,7 @@ function getTopDescription<TopElementKind extends TopElement<T, U, V>, T, U, V>(
 		} | ${formatAttributes(element, lng)}\n`;
 	}
 
-	desc += `${i18n.t(textKeys.yourRankTitle, { lng })}\n`;
+	desc += `\n${i18n.t(textKeys.yourRankTitle, { lng })}\n`;
 
 	if (packet.contextRank) {
 		desc += i18n.t(textKeys.yourRank, {
@@ -277,7 +283,9 @@ export async function handleCommandTopPacketResScore(context: PacketContext, pac
 			replacements: {}
 		},
 		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: "commands:top.nobodyInTopPlayers",
+		nobodyInTop: {
+			key: "commands:top.nobodyInTopPlayers", replacements: {}
+		},
 		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
 	}, formatScoreAttributes);
 }
@@ -295,7 +303,12 @@ export async function handleCommandTopPacketResGlory(context: PacketContext, pac
 			}
 		},
 		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: "commands:top.nobodyInTopPlayers",
+		nobodyInTop: {
+			key: "commands:top.nobodyInTopGlory",
+			replacements: {
+				needFight: packet.needFight
+			}
+		},
 		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
 	}, formatGloryAttributes);
 }
@@ -310,7 +323,10 @@ export async function handleCommandTopPacketResGuild(context: PacketContext, pac
 			replacements: {}
 		},
 		youRankAtPage: "commands:top.yourRankAtPageGuild",
-		nobodyInTop: "commands:top.nobodyInTopGuilds",
+		nobodyInTop: {
+			key: "commands:top.nobodyInTopGuilds",
+			replacements: {}
+		},
 		cantBeRanked: "commands:top.noGuild"
 	}, formatGuildAttributes);
 }
@@ -329,11 +345,16 @@ export async function handleCommandTopInvalidPagePacket(context: PacketContext, 
 	});
 }
 
-export async function handleCommandTopPlayersEmptyPacket(context: PacketContext): Promise<void> {
+export async function handleCommandTopPlayersEmptyPacket(context: PacketContext, packet: CommandTopPlayersEmptyPacket): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	await interaction.editReply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopPlayers", { lng: interaction.userLanguage }))]
+		embeds: [
+			new DraftBotErrorEmbed(interaction.user, interaction,
+				i18n.t(packet.needFight ? "commands:top.nobodyInTopGlory" : "commands:top.nobodyInTopPlayers", {
+					lng: interaction.userLanguage, needFight: packet.needFight ? packet.needFight : 0
+				}))
+		]
 	});
 }
 

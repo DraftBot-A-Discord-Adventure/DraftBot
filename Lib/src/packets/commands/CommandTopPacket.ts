@@ -37,7 +37,8 @@ export class CommandTopPacketRes<T extends TopElement<Attr1, Attr2, Attr3>, Attr
 
 // Attributes: mapType and afk, score, level
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandTopPacketResScore extends CommandTopPacketRes<TopElement<TopElementScoreFirstType, number, number>, TopElementScoreFirstType, number, number> {}
+export class CommandTopPacketResScore extends CommandTopPacketRes<TopElement<TopElementScoreFirstType, number, number>, TopElementScoreFirstType, number, number> {
+}
 
 // Attributes: leagueId, glory, level
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
@@ -47,7 +48,8 @@ export class CommandTopPacketResGlory extends CommandTopPacketRes<TopElement<num
 
 // Attributes: guild points, level, none
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandTopPacketResGuild extends CommandTopPacketRes<TopElement<number, number, undefined>, number, number, undefined> {}
+export class CommandTopPacketResGuild extends CommandTopPacketRes<TopElement<number, number, undefined>, number, number, undefined> {
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTopInvalidPagePacket extends DraftBotPacket {
@@ -57,7 +59,10 @@ export class CommandTopInvalidPagePacket extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandTopPlayersEmptyPacket extends DraftBotPacket {}
+export class CommandTopPlayersEmptyPacket extends DraftBotPacket {
+	needFight?: number;
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class CommandTopGuildsEmptyPacket extends DraftBotPacket {}
+export class CommandTopGuildsEmptyPacket extends DraftBotPacket {
+}
