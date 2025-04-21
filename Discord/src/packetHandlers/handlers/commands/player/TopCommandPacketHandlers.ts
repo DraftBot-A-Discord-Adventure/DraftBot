@@ -36,8 +36,8 @@ export default class TopCommandPacketHandlers {
 	}
 
 	@packetHandler(CommandTopPlayersEmptyPacket)
-	async topPlayersEmptyRes(context: PacketContext, _packet: CommandTopPlayersEmptyPacket): Promise<void> {
-		await handleCommandTopPlayersEmptyPacket(context);
+	async topPlayersEmptyRes(context: PacketContext, packet: CommandTopPlayersEmptyPacket): Promise<void> {
+		await handleCommandTopPlayersEmptyPacket(context, packet);
 	}
 
 	@packetHandler(CommandTopGuildsEmptyPacket)

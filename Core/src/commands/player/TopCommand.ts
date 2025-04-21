@@ -78,7 +78,9 @@ async function getTopScore(initiator: Player, page: number, timing: TopTiming): 
 async function getTopGlory(initiator: Player, page: number): Promise<DraftBotPacket> {
 	const totalElements = await Players.getNumberOfFightingPlayers();
 	if (totalElements === 0) {
-		return makePacket(CommandTopPlayersEmptyPacket, {});
+		return makePacket(CommandTopPlayersEmptyPacket, {
+			needFight: initiator.fightCountdown - FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE
+		});
 	}
 	const maxPage = Math.ceil(totalElements / TopConstants.PLAYERS_PER_PAGE);
 

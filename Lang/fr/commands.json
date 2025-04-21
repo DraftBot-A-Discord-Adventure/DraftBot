@@ -1022,8 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Votre guilde n'apparait malheureusement pas dans le top car elle n'a pas de points de guilde !",
     "yourRankAtPageGuild": "(Vous la trouverez à la page {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | Vous n'apparaissez pas dans ce classement puisque vous ne faites pas partie d'une guilde !",
-    "nobodyInTopPlayers": "Il n'y a actuellement personne dans le top ! Profitez-en tant que vous le pouvez.",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le top ! Profitez-en tant que vous le pouvez.",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
     "invalidPage": "La page demandée n'existe pas. Veuillez réessayer avec une page comprise entre {{minPage}} et {{maxPage}}."
   },
   "fight": {
