@@ -144,7 +144,8 @@ async function executePetSell(collector: ReactionCollectorInstance, response: Dr
 	response.push(makePacket(CommandPetSellSuccessPacket, {
 		guildName: sellerInformation.guild.name,
 		xpEarned: xpToAdd,
-		pet: sellerInformation.pet.asOwnedPet()
+		pet: sellerInformation.pet.asOwnedPet(),
+		isGuildMax: sellerInformation.guild.isAtMaxLevel()
 	}));
 
 	await collector.end(response);

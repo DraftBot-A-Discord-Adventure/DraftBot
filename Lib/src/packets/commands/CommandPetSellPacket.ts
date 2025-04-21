@@ -56,6 +56,8 @@ export class CommandPetSellSuccessPacket extends DraftBotPacket {
 	xpEarned!: number;
 
 	pet!: OwnedPet;
+
+	isGuildMax!: boolean;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
