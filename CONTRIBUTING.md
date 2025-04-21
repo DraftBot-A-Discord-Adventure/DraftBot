@@ -26,12 +26,11 @@ This project and is governed by the [DraftBot Code of Conduct](CODE_OF_CONDUCT.m
 
 > **Note:** [Please don't file an issue to ask a question.](https://media.discordapp.net/attachments/435100271413297152/926483517230186496/unknown.png) You'll get faster results by using the resources below.
 
-We have an official Discord server with detailed information and where the community chimes in with helpful advice if you have questions. You can also contact us through twitter or by sending an Email to [contact@draftbot.com](mailto:contact@draftbot.com).
+We have an official Discord server with detailed information and where the community chimes in with helpful advice if you have questions. You can also contact us by sending an Email to [contact@draftbot.com](mailto:contact@draftbot.com).
 
 * [Discord Server](https://discord.gg/draftbot)
-* [Twitter](https://twitter.com/DraftBot_)
 
-## How Can I Contribute
+## How Can I Contribute?
 
 ### Reporting Bugs
 
@@ -62,7 +61,9 @@ When sending your message in our discord server, explain the problem and include
 
 This section guides you through submitting an enhancement suggestion for DraftBot, including completely new features and minor improvements to existing.
 
-We use GitHub Discussion to receive suggestion. You can vote, discuss and add suggestions by following this link : https://github.com/DraftBot-A-Discord-Adventure/DraftBot/discussions
+We use GitHub Discussion to receive suggestions.
+You can vote, discuss and add suggestions by following this link:
+https://github.com/DraftBot-A-Discord-Adventure/DraftBot/discussions
 
 #### Before Submitting An Enhancement Suggestion
 
@@ -95,10 +96,9 @@ Ce projet est régi par le [Code de conduite de DraftBot](CODE_OF_CONDUCT.md). E
 **Note:** [Veuillez ne pas déposer un problème pour poser une question](https://media.discordapp.net/attachments/435100271413297152/926483517230186496/unknown.png)
 Vous obtiendrez des résultats plus rapides en utilisant les ressources ci-dessous.
 
-Nous disposons d'un serveur Discord officiel contenant des informations détaillées et où la communauté donne des conseils utiles si vous avez des questions. Si vous avez des questions. Vous pouvez également nous contacter par le biais de Twitter ou en envoyant un courrier électronique à [contact@draftbot.com](mailto:contact@draftbot.com).
+Nous disposons d'un serveur Discord officiel contenant des informations détaillées et où la communauté donne des conseils utiles si vous avez des questions. Si vous avez des questions. Vous pouvez également nous contacter en envoyant un courrier électronique à [contact@draftbot.com](mailto:contact@draftbot.com).
 
 * [Serveur Discord](https://discord.gg/draftbot)
-* [Twitter](https://twitter.com/DraftBot_)
 
 ## <a name="contribuer"></a>Comment puis-je contribuer
 

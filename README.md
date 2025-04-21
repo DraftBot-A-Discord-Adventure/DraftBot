@@ -178,4 +178,3 @@ For details, see the [LICENSE](LICENSE) file in this repository.
 - [Discord server _(in French)_](https://discord.gg/5JqrMtZ)
 - [Suggestion board _(in French)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
-- [Twitter account _(in French)_](https://twitter.com/DraftBot_?s=09)

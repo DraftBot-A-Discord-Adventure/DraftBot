@@ -184,7 +184,6 @@ export const DraftBotIcons: {
 	};
 	networks: {
 		website: string;
-		twitter: string;
 		discord: string;
 	};
 	languages: {
@@ -2072,7 +2071,6 @@ export const DraftBotIcons: {
 	},
 	networks: {
 		website: "🌐",
-		twitter: "🐦",
 		discord: "🗣️"
 	},
 	languages: {
