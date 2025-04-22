@@ -22,50 +22,48 @@ const dmHelpCooldowns: Map<string, Date> = new Map<string, Date>();
 /**
  * Get the list of commands mention from the command data
  * @param commandData
- * @param lng used for the error message in case the command doesn't exist
  */
 function getListOfMentionFromCommandData(commandData: [string, {
 	EMOTE: string;
 	NAME: string;
 	CATEGORY: string;
-}], lng: Language): string {
+}]): string {
 	const commandName = commandData[1].NAME;
 	const commandMention = BotUtils.commandsMentions.get(commandName);
-	return commandMention ? commandMention : i18n.t("error:commandDoesntExist", { lng });
+	return commandMention ? commandMention : `/${commandName}`;
 }
 
 /**
  * Get all commands sorted by categories
- * @param language used for the error message in case the command doesn't exist
  */
-function getCommandByCategories(language: Language): { [key: string]: string[] } {
+function getCommandByCategories(): { [key: string]: string[] } {
 	const utilCommands: string[] = [], playerCommands: string[] = [],
 		missionCommands: string[] = [], guildCommands: string[] = [], petCommands: string[] = [];
 	for (const commandData of Object.entries(HelpConstants.COMMANDS_DATA)) {
 		switch (commandData[1].CATEGORY) {
 			case HelpConstants.COMMAND_CATEGORY.UTIL:
 				utilCommands.push(
-					getListOfMentionFromCommandData(commandData, language)
+					getListOfMentionFromCommandData(commandData)
 				);
 				break;
 			case HelpConstants.COMMAND_CATEGORY.PLAYER:
 				playerCommands.push(
-					getListOfMentionFromCommandData(commandData, language)
+					getListOfMentionFromCommandData(commandData)
 				);
 				break;
 			case HelpConstants.COMMAND_CATEGORY.MISSION:
 				missionCommands.push(
-					getListOfMentionFromCommandData(commandData, language)
+					getListOfMentionFromCommandData(commandData)
 				);
 				break;
 			case HelpConstants.COMMAND_CATEGORY.GUILD:
 				guildCommands.push(
-					getListOfMentionFromCommandData(commandData, language)
+					getListOfMentionFromCommandData(commandData)
 				);
 				break;
 			case HelpConstants.COMMAND_CATEGORY.PET:
 				petCommands.push(
-					getListOfMentionFromCommandData(commandData, language)
+					getListOfMentionFromCommandData(commandData)
 				);
 				break;
 			default:
@@ -94,7 +92,7 @@ function generateGenericHelpMessage(helpMessage: DraftBotEmbed, interaction: Dra
 		missionCommands,
 		guildCommands,
 		petCommands
-	} = getCommandByCategories(lng);
+	} = getCommandByCategories();
 	helpMessage.formatAuthor(i18n.t("commands:help.helpEmbedTitle", {
 		lng,
 		pseudo: escapeUsername(interaction.user.displayName)
