@@ -36,7 +36,7 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 
 const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 	// 60% chance of doing nothing and does not trigger if opponent last action is magic
-	if (RandomUtils.draftbotRandom.bool(0.6) || opponent.getLastFightActionUsed().type === FightActionType.MAGIC) {
+	if (RandomUtils.draftbotRandom.bool(0.6) || opponent.getLastFightActionUsed()?.type === FightActionType.MAGIC) {
 		return null;
 	}
 
@@ -46,8 +46,8 @@ const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Pro
 	 */
 	return Promise.resolve({
 		damages: Math.round(FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo())
-			* (opponent.getLastFightActionUsed().type === FightActionType.DISTANCE ? 0.3 : 1)),
-		assistanceStatus: opponent.getLastFightActionUsed().type === FightActionType.DISTANCE ? PetAssistanceState.FAILURE : PetAssistanceState.SUCCESS
+			* (opponent.getLastFightActionUsed()?.type === FightActionType.DISTANCE ? 0.3 : 1)),
+		assistanceStatus: opponent.getLastFightActionUsed()?.type === FightActionType.DISTANCE ? PetAssistanceState.FAILURE : PetAssistanceState.SUCCESS
 	});
 };
 
