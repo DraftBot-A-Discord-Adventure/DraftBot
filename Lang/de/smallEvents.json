@@ -230,7 +230,7 @@
       "Münzen fallen aus den Taschen von {{playerDisplay}}, so voll sind sie damit. Das scheint ihn nicht einmal zu beunruhigen. Bevor Sie sie in die Hände bekommen können, werden sie von einem Tier geholt. Sie setzen Ihren Weg etwas enttäuscht fort."
     ],
     "poor": [
-      "Beim Anblick der Kleidung, die {{playerDisplay}}trägt, scheint er Geldprobleme zu haben ... Sie denken, dass er sich freuen würde, wenn Sie ihm eine Münze geben würden.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collector.refuse} Ihm keine Münze geben",
+      "Beim Anblick der Kleidung, die {{playerDisplay}}trägt, scheint er Geldprobleme zu haben ... Sie denken, dass er sich freuen würde, wenn Sie ihm eine Münze geben würden.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collectors.refuse} Ihm keine Münze geben",
       "Auf Ihrem Weg treffen Sie den armen Landstreicher von {{playerDisplay}}. Er bittet Sie um ein paar Münzen:\n\n{emote:collectors.interactPoorCoin} Geben Sie ihm eine Münze, denn Sie haben schon genug.\n{emote:collectors.refuse} Geben Sie ihm keine Münze.",
       "Das Elend trifft jeden einmal, und heute ist es {{playerDisplay}} , der sich kaum eine Mahlzeit leisten kann.\n\n{emote:collectors.interactPoorCoin} Ihm eine Münze geben\n{emote:collectors.refuse} Ihm keine Münze geben"
     ],
