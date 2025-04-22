@@ -647,7 +647,7 @@ export class LogsDatabase extends Database {
 		const players = await Players.getPlayersTop(1, 15, true);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
-			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);
+			const player = await LogsDatabase.findOrCreatePlayer(players[i].keycloakId);
 			await LogsPlayers15BestTopweek.create({
 				playerId: player.id,
 				position: i + 1,
@@ -1213,7 +1213,7 @@ export class LogsDatabase extends Database {
 		const players = await Players.getPlayersGloryTop(1, 15);
 		const now = getDateLogs();
 		for (let i = 0; i < players.length; i++) {
-			const player = await LogsDatabase.findOrCreatePlayer(players[0].keycloakId);
+			const player = await LogsDatabase.findOrCreatePlayer(players[i].keycloakId);
 			await LogsPlayers15BestSeason.create({
 				playerId: player.id,
 				position: i + 1,
