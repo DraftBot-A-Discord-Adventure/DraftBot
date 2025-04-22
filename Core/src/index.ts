@@ -16,6 +16,20 @@ import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 import "source-map-support/register";
 
+process.on("uncaughtException", error => {
+	console.error(`Uncaught exception: ${error}`);
+	if (DraftBotLogger.isInitialized()) {
+		DraftBotLogger.errorWithObj("Uncaught exception", error);
+	}
+});
+
+process.on("unhandledRejection", error => {
+	console.error(`Unhandled rejection: ${error}`);
+	if (DraftBotLogger.isInitialized()) {
+		DraftBotLogger.errorWithObj("Unhandled rejection", error);
+	}
+});
+
 export const botConfig = loadConfig();
 DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, { app: "Core" }, botConfig.LOKI_HOST
 	? {
