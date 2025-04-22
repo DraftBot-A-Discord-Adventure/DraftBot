@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Display guild rankings according to glory.",
-        "name": "glorieux"
+        "name": "glorious"
       },
       "guild": {
         "description": "Display guild rankings based on points.",
