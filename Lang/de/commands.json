@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen? {{newChiefPseudo}} wird ihr Anführer werden.",
     "canceledDesc": "Ihre Abreise wurde storniert.",
     "successTitle": "{{pseudo}} hat die Gilde verlassen {{guildName}} !",
-    "leavingSuccess": "Sie sind ein armer, einsamer Cowboy und sehr weit von zu Hause entfernt...",
+    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "Die Gilde {{guildName}} wurde korrekt aufgelöst.",
     "newChiefTitle": "{{newChiefPseudo}} ist der neue Anführer der Gilde {{guildName}} !",
     "notInAGuild": "Es scheint, dass Sie bereits nicht mehr in einer Gilde sind.",
@@ -241,7 +241,7 @@
         "description": "Ermöglicht es Ihnen, einen Begleiter von oder zur Gilde zu transferieren. Sie haben die Wahl, den Begleiter, der Sie begleitet, in der Hütte abzugeben, ihn mit einem anderen zu tauschen oder einen Begleiter aus der Hütte zu entfernen."
       },
       "PING": {
-        "description": "Gibt an, ob der Bot online ist.\n\n(Hinweis: Die angezeigte Zeit ist die Antwortzeit des Bots und nicht das Pingsignal: Eine gültige Antwortzeit beträgt weniger als 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Zeigt Informationen über deinen Charakter an:\n\n{emote:effects.none} Gesundheitszustand | Nickname | Level\n\n឵឵឵Informationen :\n{emote:unitValues.health} Leben | {emote:unitValues.xp} XP | {emote:unitValues.money} Geld\n\nStatistiken:\n{emote:unitValues.energy} Energie | {emote:unitValues.attack} Angriff | {emote:unitValues.defense} Verteidigung | {emote:unitValues.speed} Geschwindigkeit | {emote:unitValues.breath} Atem | {emote:unitValues.breathRegen} Erholung\n\nMissionen:\n{emote:unitValues.gem} Gems | {emote:missions.campaign} Kampagnenfortschritt in %\n\nRangliste und Punktzahl :\n{emote:top.congrats} Rangliste | {emote:unitValues.score} Punktestand\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n{emote:unitValues.glory} Ruhm | Siehe {command:top glory}\n\nGilde:\n{emote:other.guild} Gilde\n\nZiel:\nSiehe {command:map}\n\nVertraut:\nSiehe {command:pet}\n\n{emote:other.advice}-Die Abzeichen werden in deinem Profil als Reaktionen angezeigt."
@@ -356,7 +356,7 @@
       "support": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
       "translator": ":earth_africa: ` Traducer `",
       "advertiser": "Person, die geholfen hat, den Bot auf einen Server mit über 2000 Mitgliedern zu bringen",
-      "contest": "Abzeichen, das von Zeit zu Zeit in Wettbewerben auf dem Bot-Server oder auf Twitter gewonnen werden kann",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
       "christmas": "Abzeichen, das jedes Weihnachten bei einem Wettbewerb gewonnen werden kann",
       "top_week": ":reminder_ribbon: ` Person, die eine Rangliste der Woche dominiert hat.",
       "random": ":slot_machine: ` Badge auf völlig wandern `",
@@ -379,7 +379,7 @@
     },
     "fightRanking": {
       "fieldName": "Gloire und Liga:",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})"
     },
     "guild": {
       "fieldName": "Gilde:",
@@ -1022,8 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Deine Gilde erscheint leider nicht in der Top-Liste, da sie keine Gildenpunkte hat!",
     "yourRankAtPageGuild": "(Sie finden sie auf der Seite {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | Du erscheinst nicht in dieser Rangliste, da du keiner Gilde angehörst!",
-    "nobodyInTopPlayers": "Es gibt derzeit niemanden in der Top-Liste! Genießen Sie es, solange Sie können.",
-    "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Top-Liste! Nutzen Sie die Gelegenheit, solange Sie können.",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   },
   "fight": {
@@ -1357,7 +1358,7 @@
     },
     "title": "{{pseudo}}Sie haben Ihre Liga-Belohnung erhalten!",
     "description": {
-      "first": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n**Sie schließen auf dem $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) Platz ab!**\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:unitValues.glory} Am Ende der Saison wurde Ihnen ein Abzeichen geschenkt.\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!",
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
       "other": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n Sie schließen mit $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) ab!\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!"
     }
   },
