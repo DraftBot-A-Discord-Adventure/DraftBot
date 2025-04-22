@@ -93,17 +93,18 @@ function main(): void {
 	startShardingManagerMqtt(config, shardingManager);
 
 	shardingManager.on("shardCreate", shard => {
-		shard.on("ready", () => {
-			DraftBotLogger.info("Shard connected to Discord's Gateway");
-			shard.send({
-				type: "shardId",
-				data: { shardId: shard.id }
-			})
-				.then();
-		});
+		shard.on("ready", () => DraftBotLogger.info("Shard connected to Discord's Gateway"));
 		shard.on("spawn", () => {
 			spawnedShards.push(shard);
 			DraftBotLogger.info(`Shard ${shard.id} created`);
+			shard.send({
+				type: "shardId",
+				data: {
+					shardId: shard.id,
+					shardCount: shardingManager.totalShards
+				}
+			})
+				.then();
 		});
 		shard.on("death", () => DraftBotLogger.error(`Shard ${shard.id} exited`));
 		shard.on("disconnect", () => {
