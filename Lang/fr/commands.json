@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "Votre départ a été annulé.",
     "successTitle": "{{pseudo}} a quitté la guilde {{guildName}} !",
-    "leavingSuccess": "Vous êtes un pauvre cow-boy solitaire et vous êtes très loin de chez vous...",
+    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "La guilde {{guildName}} a correctement été dissoute.",
     "newChiefTitle": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
     "notInAGuild": "Il semblerait que vous ne fassiez déjà plus partie d'une guilde.",
