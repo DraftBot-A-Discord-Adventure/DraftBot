@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} ¿De verdad quieres dejar el gremio{{guildName}}? {{newChiefPseudo}} se convertirá en su líder.",
     "canceledDesc": "Su salida ha sido cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} ha abandonado el gremio",
-    "leavingSuccess": "Eres un pobre vaquero solitario y estás muy lejos de casa...",
+    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "{{guildName}} El gremio se ha disuelto con éxito.",
     "newChiefTitle": "{{newChiefPseudo}} {{guildName}} es el nuevo líder del gremio.",
     "notInAGuild": "Parece que ya no formas parte de un gremio.",
@@ -241,7 +241,7 @@
         "description": "Te permite transferir una mascota a o desde la cabaña. Podrás elegir entre soltar la mascota que te acompaña en la cabaña, cambiarla por otra o retirar una de la cabaña."
       },
       "PING": {
-        "description": "Muestra si el bot está en línea.\n\n(Nota: El tiempo que se muestra es el tiempo de respuesta del bot y no tu ping: un tiempo de respuesta correcto será inferior a 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Muestra información sobre tu personaje:\n\n{emote:effects.none} Salud | Apodo | Nivel\n\n឵឵Información :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinero Estadísticas :\n{emote:unitValues.energy} Energía | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defensa | {emote:unitValues.breath} Aliento | {emote:unitValues.breathRegen} Recuperación :\n\nMisiones :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progreso de la campaña en %\n\nRango y puntuación :\n{emote:top.congrats} Rango | {emote:unitValues.score} Puntuación\n\nClase:\nVer {command:classes}\n\nGloria y Liga:\n{emote:unitValues.glory} Gloria | Ver {command:top glory}\n\nGremio:\n{emote:other.guild} Gremio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Las insignias se muestran en tu perfil en forma de reacciones."
@@ -356,7 +356,7 @@
       "support": ":heart: `Persona con rango de Soporte en el servidor bot`.",
       "translator": ":earth_africa: Traductor",
       "advertiser": "Persona que ayudó a poner el bot en un servidor con más de 2000 miembros",
-      "contest": "De vez en cuando se pueden ganar insignias en concursos en el servidor de bots o en Twitter.",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
       "christmas": "Insignia que se gana cada Navidad en un concurso",
       "top_week": ":reminder_ribbon: Persona que ha dominado una clasificación de la semana`.",
       "random": ":slot_machine: Insignia entregada completamente al azar",
@@ -379,7 +379,7 @@
     },
     "fightRanking": {
       "fieldName": "Gloria y liga :",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})"
     },
     "guild": {
       "fieldName": "Gremio :",
@@ -1022,8 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Desafortunadamente, tu gremio no aparece en el top porque no tiene puntos de gremio.",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Puede encontrarlo en / )",
     "noGuild": "{emote:top.error} | ¡No apareces en esta clasificación porque no formas parte de un gremio!",
-    "nobodyInTopPlayers": "Actualmente no hay nadie entre los diez primeros. Disfrútalo mientras puedas.",
-    "nobodyInTopGuilds": "¡Actualmente no hay gremios en el top! Aprovecha mientras puedas.",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
     "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   },
   "fight": {
@@ -1357,7 +1358,7 @@
     },
     "title": "{{pseudo}}¡Has recibido tu premio de la liga!",
     "description": {
-      "first": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n**Terminaste en $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nTu liga final es : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado : ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:unitValues.glory} Se te ha entregado una insignia al final de la temporada.\n{emote:rewards.item} ¡Recibirás equipamiento aleatorio!",
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
       "other": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n ¡Terminas en $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nTu liga final es : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado: ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:rewards.item} ¡Recibes equipo al azar!"
     }
   },
