@@ -22,7 +22,7 @@
   "topWeekAnnouncementNoWinner": "{emote:announcements.trophy} **Die Rangliste der Woche ist fertig! Leider gibt es in dieser Woche keinen Teilnehmer und somit auch keinen Gewinner.**",
   "totalUsersCount": "** Gesamtzahl der Benutzer: '{{count}} ` * *",
   "notificationTitle": "Benachrichtigung",
-  "notificationFooter": "Sie erhalten diese Nachricht, weil die Benachrichtigungen aktiviert sind. Um diese Einstellung zu ändern, verwenden Sie den Befehl {command:notifications}",
+  "notificationFooter": "Vous recevez ce message car les notifications sont activées. Pour changer ce paramètre, utilisez la commande /notifications",
   "notificationsNoChannelAccess": "{emote:messages.refuse} Es scheint, dass der Bot nicht mehr auf Ihren Benachrichtigungsraum zugreifen kann. Die Benachrichtigungen werden nun in Form von privaten Nachrichten erfolgen. Um den Benachrichtigungsmodus zu ändern, führen Sie bitte den Befehl {command:notifications}.",
   "notificationReachDestination": "Sie sind bei **{{destination}}** angekommen!",
   "notificationGuildDaily": "**{{pseudo}}** hat den täglichen Bonus deiner Gilde abgeholt:\n\n{{rewards}}",
