@@ -230,7 +230,7 @@
       "Coins are falling out of {{playerDisplay}}'s pockets because of how full they are. He doesn't even seem to worry about it. An animal picks them up before you can get your hands on them. You continue on your way, a little disappointed."
     ],
     "poor": [
-      "Looking at the clothes {{playerDisplay}}is wearing, he seems to have money problems... You think he'd be happy if you gave him a coin.\n\n{emote:collectors.interactPoorCoin} Give him a coin\n{emote:collector.refuse} Don't give him a coin",
+      "À la vue des vêtements que porte {{playerDisplay}}, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collectors.refuse} Ne pas lui donner une pièce",
       "While walking, you meet this poor vagrant from {{playerDisplay}}. He asks you for a few coins:\n\n{emote:collectors.interactPoorCoin} Give him a coin, as you already have enough\n{emote:collectors.refuse} Don't give him a coin",
       "Misery touches everyone one day, and today it's {{playerDisplay}} who can barely afford a meal.\n\n{emote:collectors.interactPoorCoin} Give him a coin\n{emote:collectors.refuse} Don't give him a coin"
     ],
