@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the {{guildName}} guild? {{newChiefPseudo}} will become its leader.",
     "canceledDesc": "Your departure was cancelled.",
     "successTitle": "{{pseudo}} left the {{guildName}} guild!",
-    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
+    "leavingSuccess": "You are a poor lonesome cowboy and a long way from home...",
     "destroySuccess": "The guild {{guildName}} was successfully disbanded.",
     "newChiefTitle": "{{newChiefPseudo}} is the new leader of the {{guildName}} guild!",
     "notInAGuild": "It would appear that you are no longer part of a guild.",
@@ -356,7 +356,7 @@
       "support": "Person who has the Support role on the bot's server",
       "translator": "Translator",
       "advertiser": "Person who helped put the bot on a server with over 2000 members",
-      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
+      "contest": "Badge that can be earned from time to time in contests on the bot server",
       "christmas": "Badge winnable each Christmas in a contest",
       "top_week": "Person who dominated a weekly ranking",
       "random": "Badge given in a completely random way",
@@ -499,7 +499,7 @@
     "canceledDesc": "The pet has not been released.",
     "confirmDesc": "{emote:collectors.warning} Are you sure you want to release **{{pet}}**? It is not possible to undo once the action has been done.",
     "acceptedDesc": "Farewell **{{pet}}**...",
-    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
+    "isFeisty": "{emote:collectors.warning} Warning, the liberation of an unlucky pet will cost you {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}, changing the pet's nickname",
@@ -1022,9 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Unfortunately, your guild does not appear in the top because it has no guild points!",
     "yourRankAtPageGuild": "(You can find it on page {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | You do not appear in this ranking as you are not part of a guild!",
-    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
-    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
+    "nobodyInTopPlayers": "No players are currently ranked!",
+    "nobodyInTopGlory": "No players are currently ranked! Complete {{needFight}} more class combat to appear in the ranking!",
+    "nobodyInTopGuilds": "There are currently no guilds in the ranking!",
     "invalidPage": "The requested page does not exist. Please try again with a page between {{minPage}} and {{maxPage}}."
   },
   "fight": {
@@ -1298,7 +1298,7 @@
     "soldMessage": "You sold {{item}} for **{{value}}** {emote:unitValues.money}!",
     "soldMessageTitle": "{{pseudo}}, you sold an item.",
     "potionDestroyedTitle": "You have destroyed a potion.",
-    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
+    "potionDestroyedMessage": "**{{item}}** has been paid to a sink.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}, you have received a piece of equipment that you already have.",
     "titleChoiceEmbed": "{{pseudo}}, selling an item",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
@@ -1358,7 +1358,7 @@
     },
     "title": "{{pseudo}}, you've received your league reward!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "first": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n**You finish the $t(models:ordinals. and, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place!**\nYour final league is: **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}**!\n{emote:unitValues.xp} XP earned: **{{xp}}**!\n{emote:unitValues.score} Points earned: **{{score}}**!\n{emote:unitValues.glory} A badge has been given to you at the end of the season.\n{emote:rewards.item} You receive a random equipment!",
       "other": "You finished the previous league with **{{glory}} glory. {emote:unitValues.glory}**\n\n You finish in $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) place!\nYour final league is : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Money earned: **{{money}}** !\n{emote:unitValues.xp} XP earned: **{{xp}}** !\n{emote:unitValues.score} Points earned: **{{score}}** !\n{emote:rewards.item} You receive random equipment!"
     }
   },
