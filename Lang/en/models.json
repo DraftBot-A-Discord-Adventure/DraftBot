@@ -173,7 +173,7 @@
       "active": "suffers attacks from its opponent's allies."
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
+      "description": "The accuracy of this attack decreases on fast opponents. A degae bonus is affected to this attack if the opponent is slow. Opponent may be slowed down by attack. Deals more damage if used multiple times in a row.",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
@@ -302,7 +302,7 @@
       "stop": "is no longer frozen."
     },
     "full": {
-      "name": "repue et soignée de vos altérations",
+      "name": "Repairs and care of your alterations",
       "new": "is full and needs to rest. `Speed: 0`",
       "active": "is full and needs to rest.",
       "stop": "is no longer full."
