@@ -28,7 +28,7 @@ class MysticMageFightBehavior implements ClassBehavior {
 				[
 					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK,
 					FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
-				].includes(opponent.getLastFightActionUsed().id)
+				].includes(opponent.getLastFightActionUsed()?.id)
 				&& !opponent.hasFightAlteration()
 
 				// Case 2: Player is dying or outmatched
