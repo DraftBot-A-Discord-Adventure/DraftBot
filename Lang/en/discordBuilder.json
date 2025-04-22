@@ -4,7 +4,7 @@
     "name": "badges"
   },
   "help": {
-    "description": "Display the list of available orders or detailed information on an order.",
+    "description": "Display the list of available commands or detailed information on a command.",
     "name": "help",
     "options": {
       "commandName": {
@@ -36,7 +36,7 @@
     "name": "invitedraftbot"
   },
   "language": {
-    "description": "Change the bot's language for future interactions.",
+    "description": "Change the bot's language for your future interactions.",
     "name": "language"
   },
   "ping": {
@@ -58,7 +58,7 @@
     }
   },
   "petFree": {
-    "description": "Release a pet.",
+    "description": "Free a pet.",
     "name": "petfree"
   },
   "petNick": {
@@ -66,7 +66,7 @@
     "name": "petnickname",
     "options": {
       "nickname": {
-        "description": "The nickname you want to give your pet. (Leave blank to delete nickname)",
+        "description": "The nickname you want to give your pet. (Leave blank to delete the nickname)",
         "name": "nickname"
       }
     }
@@ -82,7 +82,7 @@
     }
   },
   "guildDescription": {
-    "description": "Change the description of the guild.",
+    "description": "Change the guild's description.",
     "name": "guilddescription",
     "options": {
       "description": {
@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Display guild rankings according to glory.",
-        "name": "glorious"
+        "name": "glory"
       },
       "guild": {
         "description": "Display guild rankings based on points.",
