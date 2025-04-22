@@ -1,7 +1,5 @@
 import {
-	ItemCategory,
-	itemCategoryToString,
-	ItemNature
+	ItemCategory, itemCategoryToString, ItemNature
 } from "../../../Lib/src/constants/ItemConstants";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import i18n from "../translations/i18n";
@@ -11,8 +9,7 @@ import { minutesDisplay } from "../../../Lib/src/utils/TimeUtils";
 import { Item } from "../../../Lib/src/types/Item";
 import { EmoteUtils } from "./EmoteUtils";
 import {
-	SexTypeShort,
-	StringConstants
+	SexTypeShort, StringConstants
 } from "../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
 import { PetFood } from "../../../Lib/src/types/PetFood";
@@ -43,19 +40,26 @@ export class DisplayUtils {
 		return i18n.t(`models:${itemCategoryToString(item.category)}.${item.id}`, { lng });
 	}
 
-	static getItemIcon(item: Item): string {
+	static getItemIcon(item: Item, translateEmote = true): string {
+		let emote;
 		switch (item.category) {
 			case ItemCategory.WEAPON:
-				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.weapons[item.id]);
+				emote = DraftBotIcons.weapons[item.id];
+				break;
 			case ItemCategory.ARMOR:
-				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.armors[item.id]);
+				emote = DraftBotIcons.armors[item.id];
+				break;
 			case ItemCategory.POTION:
-				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.potions[item.id]);
+				emote = DraftBotIcons.potions[item.id];
+				break;
 			case ItemCategory.OBJECT:
-				return EmoteUtils.translateEmojiToDiscord(DraftBotIcons.objects[item.id]);
+				emote = DraftBotIcons.objects[item.id];
+				break;
 			default:
 				return "Missing no";
 		}
+
+		return translateEmote ? EmoteUtils.translateEmojiToDiscord(emote) : emote;
 	}
 
 	/**
