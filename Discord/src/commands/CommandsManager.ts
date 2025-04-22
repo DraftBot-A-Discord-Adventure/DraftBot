@@ -287,6 +287,7 @@ export class CommandsManager {
 			interaction.userLanguage = lng;
 			if (!interaction.channel) {
 				replyEphemeralErrorMessage(
+					null,
 					interaction,
 					i18n.t("bot:noChannelAccess", { lng })
 				)
@@ -431,14 +432,14 @@ export class CommandsManager {
 		const commandInfo = this.commands.get(interaction.commandName);
 
 		if (!commandInfo) {
-			await replyEphemeralErrorMessage(interaction, i18n.t("bot:command404", { lng }));
+			await replyEphemeralErrorMessage(null, interaction, i18n.t("bot:command404", { lng }));
 			DraftBotLogger.error(`Command "${interaction.commandName}" is not registered`);
 			return;
 		}
 
 		const channelAccess = this.hasChannelPermission(interaction.channel);
 		if (!channelAccess[0]) {
-			await replyEphemeralErrorMessage(interaction, i18n.t(channelAccess[1], { lng }));
+			await replyEphemeralErrorMessage(null, interaction, i18n.t(channelAccess[1], { lng }));
 			return;
 		}
 

@@ -51,7 +51,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notInAGuild", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("error:notInAGuild", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementGuildRolePacket)
@@ -61,7 +61,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedError", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("error:notAuthorizedError", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementLevelPacket)
@@ -71,7 +71,7 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:levelTooLow", {
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("error:levelTooLow", {
 			lng: interaction.userLanguage,
 			level: packet.requiredLevel
 		}));
@@ -84,12 +84,12 @@ export default class CommandRequirementHandlers {
 			return;
 		}
 
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:notAuthorizedRight", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("error:notAuthorizedRight", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(RequirementWherePacket)
 	async requirementWhere(context: PacketContext, _packet: RequirementWherePacket): Promise<void> {
 		const interaction = MessagesUtils.getCurrentInteraction(context);
-		await replyEphemeralErrorMessage(interaction, i18n.t("error:commandNotAvailableHere", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("error:commandNotAvailableHere", { lng: interaction.userLanguage }));
 	}
 }

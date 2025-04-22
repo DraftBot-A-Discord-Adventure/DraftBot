@@ -41,6 +41,7 @@ export async function handleDailyBonusCooldownError(context: PacketContext, last
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
+				context,
 				interaction,
 				i18n.t("commands:daily.errors.cooldown", {
 					cooldownTime,

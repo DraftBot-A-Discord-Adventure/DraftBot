@@ -91,6 +91,7 @@ export async function handleCommandGuildDailyCooldownErrorPacket(packet: Command
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
+				context,
 				interaction,
 				i18n.t(
 					"commands:guildDaily.coolDown",

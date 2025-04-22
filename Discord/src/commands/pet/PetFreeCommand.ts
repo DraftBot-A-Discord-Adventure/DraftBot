@@ -43,6 +43,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:petDoesntExist", { lng })
 				)
@@ -58,6 +59,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:notEnoughMoney", {
 						lng,
@@ -72,6 +74,7 @@ export async function handleCommandPetFreePacketRes(packet: CommandPetFreePacket
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:cooldownPetFree", {
 						lng,

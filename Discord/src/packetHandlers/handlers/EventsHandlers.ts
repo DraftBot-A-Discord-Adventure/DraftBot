@@ -391,11 +391,16 @@ export default class EventsHandlers {
 
 		await interaction.channel.send({
 			embeds: [
-				new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:guildFoodStorageFull", {
-					lng,
-					quantity: packet.quantity,
-					food: DisplayUtils.getFoodDisplay(packet.food, packet.quantity, lng, false)
-				}))
+				new DraftBotErrorEmbed(
+					interaction.user,
+					context,
+					interaction,
+					i18n.t("error:guildFoodStorageFull", {
+						lng,
+						quantity: packet.quantity,
+						food: DisplayUtils.getFoodDisplay(packet.food, packet.quantity, lng, false)
+					})
+				)
 			]
 		});
 	}

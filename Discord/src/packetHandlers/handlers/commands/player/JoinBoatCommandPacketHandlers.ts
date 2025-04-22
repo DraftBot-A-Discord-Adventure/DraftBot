@@ -4,7 +4,8 @@ import {
 	CommandJoinBoatNoGuildPacketRes,
 	CommandJoinBoatNoMemberOnBoatPacketRes,
 	CommandJoinBoatNotEnoughEnergyPacketRes,
-	CommandJoinBoatNotEnoughGemsPacketRes, CommandJoinBoatRefusePacketRes,
+	CommandJoinBoatNotEnoughGemsPacketRes,
+	CommandJoinBoatRefusePacketRes,
 	CommandJoinBoatTooManyRunsPacketRes
 } from "../../../../../../Lib/src/packets/commands/CommandJoinBoatPacket";
 import { PacketContext } from "../../../../../../Lib/src/packets/DraftBotPacket";
@@ -27,19 +28,19 @@ export default class JoinBoatCommandPacketHandlers {
 	@packetHandler(CommandJoinBoatTooManyRunsPacketRes)
 	async joinBoatTooManyRuns(context: PacketContext, _packet: CommandJoinBoatTooManyRunsPacketRes): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.tooManyBoatThisWeek", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("commands:joinBoat.errorMessage.tooManyBoatThisWeek", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(CommandJoinBoatNoMemberOnBoatPacketRes)
 	async joinBoatNoMemberOnBoat(context: PacketContext, _packet: CommandJoinBoatNoMemberOnBoatPacketRes): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.noMemberOnBoat", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("commands:joinBoat.errorMessage.noMemberOnBoat", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(CommandJoinBoatNotEnoughEnergyPacketRes)
 	async joinBoatNotEnoughEnergy(context: PacketContext, _packet: CommandJoinBoatNotEnoughEnergyPacketRes): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		await replyEphemeralErrorMessage(interaction, i18n.t("commands:joinBoat.errorMessage.notEnoughEnergy", { lng: interaction.userLanguage }));
+		await replyEphemeralErrorMessage(context, interaction, i18n.t("commands:joinBoat.errorMessage.notEnoughEnergy", { lng: interaction.userLanguage }));
 	}
 
 	@packetHandler(CommandJoinBoatNotEnoughGemsPacketRes)

@@ -53,6 +53,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 	if (!packet.foundPlayer) {
 		await sendErrorMessage(
 			interaction.user,
+			context,
 			interaction,
 			i18n.t("commands:guildKick.noPlayer", { lng }),
 			{ sendManner: SendManner.REPLY }
@@ -62,6 +63,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 	if (!packet.sameGuild) {
 		await sendErrorMessage(
 			interaction.user,
+			context,
 			interaction,
 			i18n.t("commands:guildKick.notSameGuild", { lng }),
 			{ sendManner: SendManner.REPLY }
@@ -71,6 +73,7 @@ export async function handleCommandGuildKickPacketRes(packet: CommandGuildKickPa
 	if (packet.himself) {
 		await sendErrorMessage(
 			interaction.user,
+			context,
 			interaction,
 			i18n.t("commands:guildKick.himself", { lng }),
 			{ sendManner: SendManner.REPLY }

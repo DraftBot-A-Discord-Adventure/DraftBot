@@ -126,6 +126,7 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:playerDoesntExist", { lng })
 				)

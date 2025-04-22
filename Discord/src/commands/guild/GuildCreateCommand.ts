@@ -46,6 +46,7 @@ async function replyErrorEmbed(context: PacketContext, errorKey: string, formatP
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction!.user,
+				context,
 				interaction!,
 				i18n.t(errorKey, replacements)
 			)
