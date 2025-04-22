@@ -370,7 +370,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 					level: otherPlayer.level,
 					classId: otherPlayer.class,
 					petName: otherPlayer.petId ? otherPet.nickname : undefined,
-					petId: otherPlayer.petId,
+					petId: otherPlayer.petId ? otherPet.typeId : undefined,
 					petSex: (otherPlayer.petId ? otherPet.sex : undefined) as SexTypeShort,
 					guildName: guild ? guild.name : undefined,
 					weaponId: inventorySlots.find(slot => slot.isWeapon() && slot.isEquipped()).itemId,
