@@ -57,8 +57,8 @@ mqttClient.on("message", async (topic, message) => {
 
 	if (
 		botConfig.MODE_MAINTENANCE
-		&& !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.MAINTENANCE)
-		&& !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.ADMIN)
+		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.MAINTENANCE)
+		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.ADMIN)
 	) {
 		response.push(makePacket(ErrorMaintenancePacket, {}));
 	}

@@ -39,10 +39,15 @@ export const keycloakConfig: KeycloakConfig = {
 	clientSecret: discordConfig.KEYCLOAK_CLIENT_SECRET
 };
 export let shardId = -1;
+let shardCount = -1;
 export const discordDatabase = new DiscordDatabase();
 
-process.on("message", async (message: {
-	type: string; data: { shardId: number };
+process.on("message", (message: {
+	type: string;
+	data: {
+		shardId: number;
+		shardCount: number;
+	};
 }) => {
 	if (!message.type) {
 		return false;
@@ -50,6 +55,7 @@ process.on("message", async (message: {
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
+		shardCount = message.data.shardCount;
 		DraftBotLogger.init(discordConfig.LOGGER_LEVEL, discordConfig.LOGGER_LOCATIONS, {
 			app: "Discord",
 			shard: shardId.toString(10)
@@ -60,20 +66,8 @@ process.on("message", async (message: {
 				password: discordConfig.LOKI_PASSWORD
 			}
 			: undefined);
-		DraftBotDiscordWebServer.start(shardId);
-		const isMainShard = shardId === 0;
-		await CommandsManager.register(draftBotClient, isMainShard);
-		await DiscordMQTT.init(isMainShard);
-		await discordDatabase.init(isMainShard);
-	}
-
-	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
-	if (guild?.shard) {
-		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
-			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
-			.catch(e => {
-				DraftBotLogger.errorWithObj("Error while sending message to console channel", e);
-			});
+		DraftBotLogger.info(`Starting shard ${shardId} (shards total: ${shardCount})`);
+		connectAndStartBot().then();
 	}
 	return true;
 });
@@ -108,7 +102,7 @@ export abstract class Intents {
 /**
  * The main function of the bot : makes the bot start
  */
-async function main(): Promise<void> {
+async function connectAndStartBot(): Promise<void> {
 	const client = new Client(
 		{
 			intents: Intents.LIST,
@@ -117,7 +111,9 @@ async function main(): Promise<void> {
 			rest: {
 				offset: 0,
 				timeout: Constants.MAX_TIME_BOT_RESPONSE
-			}
+			},
+			shardCount,
+			shards: [shardId]
 		}
 	);
 
@@ -173,7 +169,20 @@ async function main(): Promise<void> {
 		console.error("Error while logging in the bot", error);
 		process.exit(1);
 	});
+
+	DraftBotDiscordWebServer.start(shardId);
+	const isMainShard = shardId === 0;
+	await CommandsManager.register(draftBotClient, isMainShard);
+	await DiscordMQTT.init(isMainShard);
+	await discordDatabase.init(isMainShard);
+
+	const guild = draftBotClient?.guilds.cache.get(discordConfig.MAIN_SERVER_ID);
+	if (guild?.shard) {
+		(await guild.channels.fetch(discordConfig.CONSOLE_CHANNEL_ID) as TextChannel)
+			.send(`:robot: **DraftBot** - v${process.env.npm_package_version} - Shard ${shardId}`)
+			.catch(e => {
+				DraftBotLogger.errorWithObj("Error while sending message to console channel", e);
+			});
+	}
 }
 
-main()
-	.then();
