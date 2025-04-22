@@ -73,9 +73,15 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 			})
 		});
 
-	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
-		anyoneCanReact: true
-	});
+	const opts = data.buyerKeycloakId
+		? {
+			acceptedUsersId: [data.buyerKeycloakId, context.keycloakId!]
+		}
+		: {
+			anyoneCanReact: true
+		};
+
+	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, opts);
 }
 
 export async function handlePetSellSuccess(context: PacketContext, packet: CommandPetSellSuccessPacket): Promise<void> {

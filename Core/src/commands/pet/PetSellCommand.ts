@@ -210,7 +210,8 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 		player.keycloakId,
 		packet.price,
 		guild.isAtMaxLevel(),
-		pet.asOwnedPet()
+		pet.asOwnedPet(),
+		packet.askedPlayerKeycloakId
 	);
 
 	const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
