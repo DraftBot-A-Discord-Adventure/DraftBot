@@ -40,13 +40,6 @@ Please do not copy and paste the commands we provide in this readme without :
 
 **Only the code available in the "release" tab is considered "stable".**
 
-## BETA BRANCH WARNING
-
-You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to
-microservices. Cloning this repository will allow you to get all the services necessary to run draftbot v5.
-
-This work is still in progress, please do not open issues about bugs faced in this version of the software.
-
 ## Dev environment setup
 
 ### Requirements
