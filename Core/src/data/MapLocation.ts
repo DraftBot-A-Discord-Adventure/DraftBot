@@ -129,7 +129,7 @@ export class MapLocationDataController extends DataControllerNumber<MapLocation>
 			replacements: {
 				playerId,
 				id1: mapLink1.id,
-				id2: mapLink2.id
+				id2: mapLink2 ? mapLink2.id : -1
 			},
 			type: QueryTypes.SELECT
 		});
