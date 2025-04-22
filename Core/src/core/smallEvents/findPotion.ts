@@ -13,7 +13,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const potionGenerated = generateRandomItem({
 			itemCategory: ItemCategory.POTION
 		});
-		await giveItemToPlayer(response, context, player, potionGenerated);
 		response.push(makePacket(SmallEventFindPotionPacket, {}));
+		await giveItemToPlayer(response, context, player, potionGenerated);
 	}
 };
