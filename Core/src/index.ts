@@ -15,6 +15,7 @@ import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
 import { millisecondsToSeconds } from "../../Lib/src/utils/TimeUtils";
 import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 import "source-map-support/register";
+import { CoreConstants } from "./core/CoreConstants";
 
 process.on("uncaughtException", error => {
 	console.error(`Uncaught exception: ${error}`);
@@ -71,6 +72,7 @@ mqttClient.on("message", async (topic, message) => {
 
 	if (
 		botConfig.MODE_MAINTENANCE
+		&& !CoreConstants.BYPASS_MAINTENANCE_PACKETS.includes(dataJson.packet.name)
 		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.MAINTENANCE)
 		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.ADMIN)
 	) {
