@@ -1,0 +1,1417 @@
+{
+  "badges": {
+    "description": "Bei den Abzeichen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Abzeichen ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
+    "title": ":military_medal: Detaillierte Informationen:"
+  },
+  "pet": {
+    "embedTitle": "Vertraut mit {{pseudo}} :",
+    "petField": "**Typ:** {{emote}} {{typeName}}\n**Spitzname:** {{nickname}}\n**Rarität:** {{rarity}}\n**Geschlecht:** {{sex}}\n**Mentalität:** {{loveLevel}}",
+    "noNickname": "Keine Spitznamen",
+    "loveLevels": {
+      "1_male": ":smirk_cat: Geizig",
+      "1_female": ":smirk_cat: Köchin",
+      "2_male": ":pouting_cat: Wild",
+      "2_female": ":pouting_cat: Wild",
+      "3_male": ":scream_cat: Ängstlich",
+      "3_female": ":scream_cat: Ängstlich",
+      "4_male": ":smiley_cat: Gezähmt",
+      "4_female": ":smiley_cat: Gezähmt",
+      "5_male": ":heart_eyes_cat: Aufgerichtet",
+      "5_female": ":heart_eyes_cat: Aufgerichtet"
+    },
+    "hungry": "🤤 hungrig",
+    "diet": {
+      "diet_null": "🥪 Allesfresser",
+      "diet_herbivorous": "🥬 Herbivor",
+      "diet_carnivorous": "🥩 Fleischfresser"
+    },
+    "sexDisplay_f": "Weiblich {emote:sex.female}",
+    "sexDisplay_m": "Männlich {emote:sex.male}",
+    "shortPetField": "{{emote}} {{name}}"
+  },
+  "guild": {
+    "embedTitle": "Gilde {{guildName}} | Level {{level}}",
+    "description": ":scroll: `{{description}}`",
+    "separator": " | ",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "infoTitle": "Informationen",
+    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
+    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
+    "xpMax": "Max",
+    "ranking": "{{rank}} / {{rankTotal}}",
+    "notRanked": "Nicht klassifiziert"
+  },
+  "guildCreate": {
+    "title": "{{pseudo}}Gründung einer Gilde",
+    "canceledTitle": "{{pseudo}}Die Gründung einer Gilde wird rückgängig gemacht.",
+    "canceledDesc": "Die Gründung Ihrer Gilde wurde abgebrochen.",
+    "confirmDesc": "{emote:collectors.question} Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` {emote:unitValues.money} ?",
+    "acceptedFooter": "Achtung: Der Staff behält sich das Recht vor, Ihre Gilde umzubenennen.",
+    "acceptedDesc": "Die Gilde **{{guildName}}** wurde gegründet!"
+  },
+  "guildInvite": {
+    "title": "{{pseudo}}Wenn Sie sich für eine Gilde entscheiden, werden Sie eingeladen, einer Gilde beizutreten.",
+    "confirmDesc": "{emote:collectors.question} Möchten Sie der Gilde `{{guildName}}` beitreten?",
+    "successTitle": "{{pseudo}} hat sich der Gilde angeschlossen {{guildName}} !",
+    "successDesc": "Die Zeit bis zur nächsten täglichen Gildenbelohnung wurde zurückgesetzt.",
+    "refusedTitle": "Sie sind der Gilde nicht beigetreten {{guildName}} !",
+    "errors": {
+      "guildIsFull": "Ihre Gilde ist voll und kann keine weiteren Mitglieder mehr aufnehmen.",
+      "playerIsAlreadyInAGuild": "Dieser Spieler gehört bereits einer Gilde an.",
+      "playerIsOnPveIsland": "{{pseudo}} kann der Gilde nicht beitreten, da er sich derzeit auf einem Schiff oder einer mysteriösen Insel befindet. {{pseudo}} muss sich auf dem Hauptkontinent befinden, um einer Gilde beitreten zu können."
+    }
+  },
+  "guildKick": {
+    "title": "Vertreibung aus der Gilde",
+    "confirmDesc": "{emote:collectors.question} Sind Sie sicher, dass Sie {{kickedPseudo}} aus der Gilde `{{guildName}}` ausschließen wollen?",
+    "acceptedDesc": "{{kickedPseudo}} wurde tatsächlich aus der Gilde geworfen!",
+    "canceledTitle": "Ausweisung aufgehoben",
+    "canceledDesc": "{{kickedPseudo}} nicht aus der Gilde ausgeschlossen wurde!",
+    "noPlayer": "Der Spieler ist nicht in der Gilde.",
+    "notSameGuild": "Sie können keinen Spieler ausschließen, der nicht in Ihrer Gilde ist.",
+    "himself": "Sie können sich nicht selbst aus der Gilde ausschließen.",
+    "blocked": "Der Spieler, den Sie abschieben wollen, ist derzeit gesperrt. Warten Sie einen Moment, bevor Sie es erneut versuchen."
+  },
+  "guildElder": {
+    "playerNotFound": "Dieser Spieler wurde nicht gefunden.",
+    "notSameGuild": "Dieser Spieler gehört nicht zu Ihrer Gilde.",
+    "notChiefError": "Sie müssen Gildenleiter sein, um diesen Auftrag ausführen zu können.",
+    "chiefError": "Als Gildenleiter dürfen Sie nicht der Älteste sein.",
+    "alreadyElder": "Der Spieler ist bereits Ältester in Ihrer Gilde.",
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} wird der Älteste der Gilde `{{guildName}}` werden.",
+    "successElderAddTitle": "{{elderPseudo}} ist der neue Älteste der Gilde {{guildName}} !",
+    "acceptedDesc": "Der Älteste dient dazu, den Anführer bei der Verwaltung der Gilde zu unterstützen. Wählen Sie ihn daher mit Bedacht aus! Aber seien Sie beruhigt: Wenn Sie mit Ihrem Ältesten nicht zufrieden sind, können Sie ihn mit dem Befehl {command:guildelder}ersetzen, oder wenn Sie eine diktatorische Ader haben, können Sie ihn mit {command:guildelderremove}endgültig entfernen.",
+    "canceledDesc": "Der Spieler wurde nicht als Ältester befördert.",
+    "canceledTitle": "Stornierung berücksichtigt."
+  },
+  "guildLeave": {
+    "title": "{{pseudo}}Bestätigung :",
+    "confirmDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen?",
+    "confirmChiefDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich **endgültig** zerstören?",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen? {{newChiefPseudo}} wird ihr Anführer werden.",
+    "canceledDesc": "Ihre Abreise wurde storniert.",
+    "successTitle": "{{pseudo}} hat die Gilde verlassen {{guildName}} !",
+    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
+    "destroySuccess": "Die Gilde {{guildName}} wurde korrekt aufgelöst.",
+    "newChiefTitle": "{{newChiefPseudo}} ist der neue Anführer der Gilde {{guildName}} !",
+    "notInAGuild": "Es scheint, dass Sie bereits nicht mehr in einer Gilde sind.",
+    "canceledTitle": "Stornierung berücksichtigt"
+  },
+  "guildElderRemove": {
+    "noElder": "Die Gilde hat keine Ältesten.",
+    "notSameGuild": "Dieser Spieler gehört nicht zu Ihrer Gilde.",
+    "notChiefError": "Sie müssen Gildenleiter sein, um diesen Auftrag ausführen zu können.",
+    "chiefError": "Als Gildenleiter können Sie nicht von der Position des Ältesten herabgestuft werden.",
+    "notElder": "Der Spieler ist nicht der Älteste in Ihrer Gilde.",
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": "{emote:collectors.question} {{elderPseudo}} wird wieder ein einfaches Mitglied der Gilde `{{guildName}}`.",
+    "successElderRemoveTitle": "Die Gilde {{guildName}} verliert ihren Ältesten",
+    "acceptedDesc": "Der Älteste hat seinen Rang verloren.",
+    "canceledDesc": "Der Älteste wurde nicht degradiert.",
+    "canceledTitle": "Stornierung berücksichtigt."
+  },
+  "guildDescription": {
+    "title": "{{pseudo}}... bestätigen Sie Ihre Wahl?",
+    "confirmDesc": "{emote:collectors.question}  Möchten Sie die Beschreibung Ihrer Gilde wirklich ändern?\n Neue Beschreibung: {{description}}.",
+    "acceptedDesc": "Die Gildenbeschreibung wurde tatsächlich editiert!",
+    "canceledDesc": "Sie haben die Gildenbeschreibung nicht editiert!",
+    "canceledTitle": "Stornierung berücksichtigt.",
+    "successDescriptionTitle": "{{pseudo}}Bestätigung :",
+    "noGuild": "Es scheint, dass Sie nicht mehr in einer Gilde sind.",
+    "notAnElder": "Sie haben nicht mehr die erforderlichen Berechtigungen, um diesen Befehl auszuführen."
+  },
+  "help": {
+    "aliasFieldTitle": "Alias",
+    "aliasesFieldTitle": "Alias",
+    "commandEmbedTitle": "{{emote}} Detaillierte Informationen:",
+    "commands": {
+      "BADGES": {
+        "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)"
+      },
+      "CLASSES": {
+        "description": "Ermöglicht die Änderung der Klasse. Mehr Informationen zu den Klassen finden Sie auf der Spielerführung: https://guide.draftbot.com"
+      },
+      "CLASSES_INFO": {
+        "description": "Ermöglicht das Lesen eines schnellen Vergleichs der Statistiken und Informationen der Klassen, die für den Benutzer, der die Bestellung ausführt, zugänglich sind."
+      },
+      "DAILY_BONUS": {
+        "description": "Einige dieser Elemente geben Ihnen einen täglichen Bonus. Verwenden Sie diesen Befehl, um diese Boni zu erhalten. Um festzustellen, ob ein Tem Sie einen täglichen Bonus gibt, führen Sie den Befehl {command:inventory} aus."
+      },
+      "DRINK": {
+        "description": "Dieser Befehl wird verwendet, um den von Ihnen zu transmitenden Trank zu konsumieren. Einige Potionen können nicht bucht werden und werden automatisch in einem Kampf verbraucht."
+      },
+      "FIGHT": {
+        "description": "Verwenden Sie diesen Befehl, um andere Spieler, die sich auf demselben Server wie Sie befinden, zu detrieren.\nDie Kämpfe werden um die Reihe umgeleitet. In jeder Runde können Sie eine Aktion auswählen, die ausgeführt werden soll.\n\nFür weitere Informationen können Sie die Seite \"Guide\" auf der Seite \"https://guide.draftbot.com/notions-principale/combats\" anzeigen.",
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
+      },
+      "GLORY_TOP": {
+        "description": "Zeigt die ruhmige Rangfolge des Spiels pro Schicht von 15 Spielern an. Die Liga der Spieler wird ebenfalls angezeigt. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
+      },
+      "GUILD": {
+        "description": "Zeigt Informationen zu einer Gilde an."
+      },
+      "GUILD_CREATE": {
+        "description": "Ermöglicht die Gründung einer Gilde. Die Gründung einer Gilde kostet 5000 {emote:unitValues.money}."
+      },
+      "GUILD_DAILY_BONUS": {
+        "description": "Gewinnen Sie die täglichen Gilde-Belohnungen."
+      },
+      "GUILD_DESCRIPTION": {
+        "description": "Um die Beschreibung der Gilde zu ändern, ist es notwendig, die Gilde zu sein."
+      },
+      "GUILD_ELDER": {
+        "description": "Um der Gilde einen älteren Menschen hinzuzufügen, muss man der Name der Gilde sein."
+      },
+      "GUILD_ELDER_REMOVE": {
+        "description": "Um die Älteste der Gilde zu entfernen, ist es notwendig, die Gilde zu sein."
+      },
+      "GUILD_INVITE": {
+        "description": "Wenn Sie einen Benutzer zu einer Gilde hinzufügen, müssen Sie Chief oder Anführer von Gilde sein."
+      },
+      "GUILD_KICK": {
+        "description": "Um ein Mitglied aus einer Gilde auszuweisen, ist es erforderlich, ein Gilde-Führer zu sein."
+      },
+      "GUILD_LEAVE": {
+        "description": "Verlassen Sie Ihre Gilde."
+      },
+      "GUILD_SHELTER": {
+        "description": "Zeigt den Zufluchtsort von Gilde an."
+      },
+      "GUILD_SHOP": {
+        "description": "Zeigt den Speicher für Ihre Gilde an."
+      },
+      "GUILD_STORAGE": {
+        "description": "Zeigt den Inhalt des Inhaltslagers der Gilde an."
+      },
+      "GUILD_TOP": {
+        "description": "Zeigt die Rangliste der Gilden in Schritten von 15 Gilden an. Die Gilden werden nach den Punkten sortiert, die sie auf den geheimnisvollen Inseln gesammelt haben."
+      },
+      "HELP": {
+        "description": ":expressionless:"
+      },
+      "IDEA": {
+        "description": "Sie können einen Link erhalten, um eine Idee vorzuschlagen oder für bereits vorhandene Ideen zu stimmen."
+      },
+      "INVENTORY": {
+        "description": "Zeigt den Inhalt des Inventars an, der vier Arten von Objekten enthalten kann:\n` ` `\n-waffen\n-armide\n-potions\n-items\n` ` `\n. Der Befehl zeigt auch den Inhalt der Reserve an, die über zusätzliche Speicher verfügt."
+      },
+      "INVITE_DRAFTBOT": {
+        "description": "Mit diesem Befehl erhalten Sie einen Link zum Hilf-und Hilf-Server!"
+      },
+      "JOIN_BOAT": {
+        "description": "Ermöglicht es, sich einem Gildenmitglied auf einem Schiff anzuschließen, das zu einer geheimnisvollen Insel fährt."
+      },
+      "LANGUAGE": {
+        "description": "Ermöglicht die Auswahl der Sprache, die für Ihre Interaktionen mit dem Bot verwendet werden soll, aus 6 verfügbaren Sprachen:\n\n- Französisch\n- Englisch\n- Spanisch\n- Deutsch\n- Italienisch\n- Portugiesisch"
+      },
+      "LEAGUE_BONUS": {
+        "description": "Erhalten Sie jeden Sonntag eine Liga-Belohnung."
+      },
+      "MAP": {
+        "description": "Zeigt Informationen zu Ihrem Ziel an und zeigt die Karte an."
+      },
+      "MISSIONS": {
+        "description": "Zeigt eine Liste der Missionen an, die Ihnen zugewiesen wurden."
+      },
+      "MISSIONS_SHOP": {
+        "description": "Zeigt den Lagerort für die Missionen an."
+      },
+      "NOTIFICATIONS": {
+        "description": "Ermöglicht Ihnen, den Empfang von Bot-Benachrichtigungen einzustellen. Sie können festlegen, ob Sie Benachrichtigungen (und wo sie angezeigt werden) für Berichte und/oder Gildenbelohnungen erhalten möchten."
+      },
+      "PET": {
+        "description": "Zeigt Informationen zu Ihrem Begleiter an."
+      },
+      "PET_FEED": {
+        "description": "Essen Sie zu Ihrem Begleiter."
+      },
+      "PET_FREE": {
+        "description": "Gibt Ihnen Ihr Vertrautes. Bitte beachten Sie, dass es nach seiner Freigabe für immer wieder gelöscht wird und dass es unmöglich ist, es zurückzubekommen. Dieser Befehl kann nur einmal pro Stunde ausgeführt werden."
+      },
+      "PET_NICKNAME": {
+        "description": "Ändern Sie den Spitznamen Ihres Vertrauten. Wenn kein Name angegeben wird, wird der aktuelle Name gelöscht."
+      },
+      "PET_SELL": {
+        "description": "Verkauft einen Begleiter. Die folgenden Bedingungen gelten: \n -Der Verkaufspreis muss höher sein als `{{petSellMinPrice}}{emote:unitValues.money}` und kleiner als '{{petSellMaxPrice}}{emote:unitValues.money}`. \n-Der Verkäufer wird bei der Transaktion kein Geld verdienen, sondern von der Gilde-Erfahrung. \n-Der Verkäufer und der Käufer können nicht zu derselben Gilde gehören."
+      },
+      "PET_TRANSFER": {
+        "description": "Ermöglicht es Ihnen, einen Begleiter von oder zur Gilde zu transferieren. Sie haben die Wahl, den Begleiter, der Sie begleitet, in der Hütte abzugeben, ihn mit einem anderen zu tauschen oder einen Begleiter aus der Hütte zu entfernen."
+      },
+      "PING": {
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
+      },
+      "PROFILE": {
+        "description": "Zeigt Informationen über deinen Charakter an:\n\n{emote:effects.none} Gesundheitszustand | Nickname | Level\n\n឵឵឵Informationen :\n{emote:unitValues.health} Leben | {emote:unitValues.xp} XP | {emote:unitValues.money} Geld\n\nStatistiken:\n{emote:unitValues.energy} Energie | {emote:unitValues.attack} Angriff | {emote:unitValues.defense} Verteidigung | {emote:unitValues.speed} Geschwindigkeit | {emote:unitValues.breath} Atem | {emote:unitValues.breathRegen} Erholung\n\nMissionen:\n{emote:unitValues.gem} Gems | {emote:missions.campaign} Kampagnenfortschritt in %\n\nRangliste und Punktzahl :\n{emote:top.congrats} Rangliste | {emote:unitValues.score} Punktestand\n\nKlasse:\nSiehe {command:classes}\n\nRuhm und Liga:\n{emote:unitValues.glory} Ruhm | Siehe {command:top glory}\n\nGilde:\n{emote:other.guild} Gilde\n\nZiel:\nSiehe {command:map}\n\nVertraut:\nSiehe {command:pet}\n\n{emote:other.advice}-Die Abzeichen werden in deinem Profil als Reaktionen angezeigt."
+      },
+      "RARITY": {
+        "description": "Wählen Sie diese Option aus, um die Wahrscheinlichkeit eines item nach der Knappheit zu erkennen."
+      },
+      "REPORT": {
+        "description": "Wählen Sie diese Option aus, um die von Ihrem Charakter erfassten Informationen und Ressourcen während der Abwesenheit zu erfassen. Von Zeit zu Zeit lösen sich Ereignisse aus und fordern konkrete Maßnahmen."
+      },
+      "RESPAWN": {
+        "description": "Wählen Sie diese Option aus, wenn Sie nach der K.O."
+      },
+      "SELL": {
+        "description": "Wählen Sie aus, dass das Objekt in Ihrer Reserve verkauft wird. Der Wert des Objekts richtet sich nach der Leistung. Potionen haben keinen Wiederverkaufungswert, können aber mit diesem Befehl grace verworfen werden."
+      },
+      "SHOP": {
+        "description": "Mit diesem Befehl können Sie Ihr Geld ausgeben, um Ihr Abenteuer zu erleichtern. Zusätzlich zu den 4 Basisoptionen, die dauerhaft verfügbar sein werden, können Sie jeden Tag eine exklusive Portion genießen, die nur für 24 Stunden zum Verkauf verfügbar ist."
+      },
+      "SWITCH": {
+        "description": "Tauscht eine Ausrüstung aus deinem Vorrat gegen die Ausrüstung, die du derzeit besitzt, unter der Bedingung, dass sie der gleichen Kategorie angehört. Wenn du vor der Ausführung des Auftrags keine Ausrüstung in der Kategorie des auszurüstenden Gegenstands besitzt, verschiebt er ihn lediglich in dein Inventar."
+      },
+      "TOP": {
+        "description": "Zeigt die allgemeine Rangfolge des Spiels pro Schicht von 15 Spielern an. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
+      },
+      "UNLOCK": {
+        "description": "Sie können eine Kaution bezahlen, um jemanden aus dem Gefängnis zu befreien."
+      },
+      "UPDATE": {
+        "description": "Ermöglicht das Betragen von Changelog."
+      },
+      "VOTE": {
+        "description": "Ruft die Verbindung ab, um für den Bot zu stimmen."
+      }
+    },
+    "forMoreHelp": ":arrow_forward: Für weitere Hilfe: ",
+    "forMoreHelpValue": "Sie können sich auf den [ wiki](https: //guide.draftbot.com/) des Bots stellen.",
+    "guildCommands": ":stadium: Gilde:",
+    "helpEmbedDescription": ":arrow_forward: Wenn Sie weitere Informationen zu einem bestimmten Befehl wünschen, klicken Sie hier: {{helpCommandMention}}, und geben Sie den Befehl an, mit dem Sie ein Problem mit dem Parameter haben. :wink:",
+    "helpEmbedTitle": "{{pseudo}}, hier ist die Liste der verfügbaren Befehle:",
+    "missionCommands": "{emote:missions.sideMission} Mission :",
+    "petCommands": ":dog: Tiere:",
+    "playerCommands": ":bust_in_silhouette: Joucher:",
+    "serverCommands": ":gear: Server:",
+    "usageFieldTitle": "Verwendung",
+    "utilCommands": "{emote:collectors.question} Nützliches :",
+    "needHelp": "Brauchen Sie Hilfe?",
+    "needHelpDescription": "{emote:fightCommand.crossedSwords} Hallo! Diese Nachricht wurde aufgrund einer Bitte um Hilfe gesendet.\n\nWenn Sie Hilfe bei der Nutzung des Spiels benötigen, können Sie dem offiziellen Bot-Server beitreten!\n\nDort können Sie an der Entwicklung des Spiels teilnehmen und alle notwendigen Informationen erhalten!\n\nEs wird außerdem empfohlen, sich den ausführlichen Leitfaden des Bots anzusehen: https://guide.draftbot.com/"
+  },
+  "idea": {
+    "description": "Sie können Vorschläge unterbreiten und für Ihre Lieblingsideen über diesen Link wählen:\nhttps://feedback.draftbot.com/",
+    "title": ":bulb: Ideen"
+  },
+  "inventory": {
+    "armors_one": "Armierung/Bouclier ({{count}}/{{max}}):",
+    "armors_other": "Armierungen/Boucliers ({{count}}/{{max}}):",
+    "emptySlot": ":black_large_square: ** Leere Position * *",
+    "noSlot": ":x: Es sind keine Positionen verfügbar. Kaufen Sie mehr in den Laden!",
+    "objects_one": "Betreff ({{count}}/{{max}}):",
+    "objects_other": "Objekte ({{count}}/{{max}}):",
+    "potions_one": "Potion ({{count}}/{{max}}):",
+    "potions_other": "Potionen ({{count}}/{{max}}):",
+    "seeBackupItems": "🔄 Siehe Reserve",
+    "seeEquippedItems": "🔄 Vgl. Bestand anzeigen",
+    "stockTitle": ":package: ** Reserven für Objekte von {{pseudo}}**",
+    "title": ":briefcase: ** Inventar von {{pseudo}}**",
+    "weapons_one": "Waffe ({{count}}/{{max}}):",
+    "weapons_other": "Waffen ({{count}}/{{max}}):",
+    "randomItemTitle": "{{pseudo}}Sie haben etwas gefunden!",
+    "randomItemFooter": "Sie haben bereits eine Ausrüstung, möchten Sie diese verkaufen?",
+    "randomItemFooterPotion": "Möchten Sie Ihren aktuellen Trank vernichten?",
+    "acceptedTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten!",
+    "chooseItemToReplaceTitle": "Wählen Sie ein zu ersetzendes Objekt"
+  },
+  "invite": {
+    "discord": {
+      "main": "Kommen Sie zurück zur Gemeinschaft! Verwenden Sie diesen Link: https://discord.gg/acGNvzEY92 :smiley:"
+    }
+  },
+  "language": {
+    "description": "Verwenden Sie das untenstehende Menü, um die vom Bot verwendete Sprache zu ändern. Diese Änderung wird nur für Sie gelten.",
+    "languages": {
+      "de": "Deutsch",
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "it": "Italienisch",
+      "pt": "Portugiesisch"
+    },
+    "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! {emote:languageFlavors.de}",
+    "newLanguageSetTitle": "Sprache geändert",
+    "selectLanguage": "Wählen Sie eine Sprache",
+    "title": ":earth_africa: Auswahl der Sprache"
+  },
+  "ping": {
+    "discord": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong\n\n** Latenz insgesamt: ** {{totalLatency}} ms\n** Latenz Discord: ** {{discordApiLatency}} ms\n** Shard-Nummer: ** {{shardId}}\n** Anzahl der shards: ** {{totalShards}} (+ main shard)"
+    }
+  },
+  "profile": {
+    "badgeDisplay": {
+      "numberBadge_one": "\n Dieser Spieler besitzt insgesamt {{count}} Abzeichen!",
+      "numberBadge_other": "\n Dieser Spieler besitzt insgesamt {{count}} Abzeichen!",
+      "title": "Liste der Badges in {{pseudo}}"
+    },
+    "badges": {
+      "tournament_winner": ":crossed_swords: ` Vainger eines Turniers '",
+      "technical_team": ":gear: \"Technisches Team\"",
+      "first_20_members": ":helmet_with_cross: Personen, die zu den ersten 20 Personen gehören, die dem Bot-Server beigetreten sind.",
+      "top_glory": "{emote:unitValues.glory} `Person, die während einer Kampfsaison den meisten Ruhm erlangt hat`.",
+      "support": ":heart: Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
+      "translator": ":earth_africa: ` Traducer `",
+      "advertiser": "Person, die geholfen hat, den Bot auf einen Server mit über 2000 Mitgliedern zu bringen",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
+      "christmas": "Abzeichen, das jedes Weihnachten bei einem Wettbewerb gewonnen werden kann",
+      "top_week": ":reminder_ribbon: ` Person, die eine Rangliste der Woche dominiert hat.",
+      "random": ":slot_machine: ` Badge auf völlig wandern `",
+      "top_10_v1": ":medal: 'Joucher' in den Top 10-und Reset-10-Reset 1.0 `",
+      "top_v1_player": ":trophy: ` Bester Spieler zum Zeitpunkt des Reset von 1.0 `",
+      "major_bug_reporter": ":lady_beetle: Personen, die große Bugs gemeldet haben.",
+      "bot_owner": ":crown: ` Eigentümer des Bots '",
+      "mission_completer": "Badge im Missionsshop gekauft",
+      "powerful_guild": ":gem: 'Mitglied einer leistungsfähigen Gilde'",
+      "legendary_pet": ":revolving_hearts: \" Spieler, der ein legendäres Begleiter aufrichtete.",
+      "donor": ":money_with_wings: ` Donator `",
+      "early_class_adopter": ":bookmark: ` Adoper für die erste Stunde '",
+      "good_bug_reporter": ":dove: Personen, die einen nutzbaren Fehler gemeldet haben, ohne die Vorteile des Bugs zu nutzen.",
+      "redactor": ":pen_fountain: ` Redakteur des Bots '",
+      "voter": ":ballot_box: Personen, die in den letzten 12 Stunden abgestimmt haben.",
+      "funny": ":joy: ` Badge angeboten für eine lustige Person `",
+      "rich": ":money_mouth: ` Badge, gekauft im Shop `",
+      "top_1_before_reset": ":first_place: Personen, die nach dem Reset den ersten Platz in der Rangfolge erreicht haben.",
+      "very_powerful_guild": ":mirror_ball: ` Mitglied einer sehr mächtigen Gilde '"
+    },
+    "fightRanking": {
+      "fieldName": "Gloire und Liga:",
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})"
+    },
+    "guild": {
+      "fieldName": "Gilde:",
+      "fieldValue": ":stadium: {{guild}}"
+    },
+    "information": {
+      "fieldName": "Information:",
+      "fieldValue": "{emote:unitValues.health} {{health}} / {{maxHealth}} | {emote:unitValues.xp} {{experience}} / {{experienceNeededToLevelUp}} | {emote:unitValues.money} {{money}}"
+    },
+    "map": {
+      "fieldName": "Bestimmung:",
+      "fieldValue": "{{mapEmote}} {{mapName}}"
+    },
+    "mission": {
+      "fieldName": "Aufgaben:",
+      "fieldValue": ":gem: {{gems}} | :book: {{campaign}}% "
+    },
+    "noTimeLeft": {
+      "fieldName": "Restdauer:",
+      "fieldValue": ":hospital: Mögliche Wiederherstellung des Spiels"
+    },
+    "pet": {
+      "fieldName": "Home:",
+      "fieldValue": "Rarität: {{rarity}}\n"
+    },
+    "playerClass": {
+      "fieldName": "Klasse:",
+      "fieldValue": "{{className}}"
+    },
+    "ranking": {
+      "fieldName": "Bewertung und Score:",
+      "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
+    },
+    "unranked": {
+      "fieldName": "Rangliste und Punktestand :",
+      "fieldValue": "{emote:announcements.trophy} Nicht klassifiziert | {emote:unitValues.score} {{score}}"
+    },
+    "statistics": {
+      "fieldName": "Statistik:",
+      "fieldValue": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "timeLeft": {
+      "fieldName": "Restdauer:",
+      "fieldValue": "{{effect}} {{timeLeft}}"
+    },
+    "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
+  },
+  "rarity": {
+    "earlyAvailable": "Zu Beginn des Spiels besessen",
+    "rarityTemplate": "$t(items:rarities.{{rarity}}) | {{percentageOrDescription}}",
+    "title": ":slot_machine: Schlechtigkeit der Ausrüstung"
+  },
+  "report": {
+    "adviceTitle": "Tipp:",
+    "chooseDestinationIndications": "Wählen Sie ein Ziel für Ihre Reise:",
+    "choseMapMinutes_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "choseMapMinutes_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Minuten * * dauern.",
+    "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Std. * * dauern.",
+    "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Dieser Pfad wird ca. **{{time}} Stunden * * dauern.",
+    "collectedPointsTitle": "geerntete Punkte:",
+    "commandDescription": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
+    "commandName": "Bericht",
+    "destinationTitle": "{{pseudo}}, Reiseziel",
+    "doChoice": "{{emoji}} {{choiceText}}\n",
+    "doEvent": "{emote:commands.report} **Journal von {{pseudo}} :** {{event}}\n*- Verwenden Sie die Schaltflächen, um eine Aktion auszuführen {emote:collectors.warning} Nicht zu antworten wird als eigene Wahl betrachtet.**",
+    "doPossibility": ":newspaper: ** Protokoll von {{pseudo}} {{result}}** | {{emoji}}{{event}} {{alte}}",
+    "encounterMonster": [
+      "Sie kommen zu Ihrem Ziel, wenn Sie plötzlich hören, dass Sie ein Geräusch hinter Ihnen hören. Ein Monster greift Sie an!"
+    ],
+    "encounterMonsterStats": "> **{{emoji}} {{monsterName}} ** | ** Stufe {{level}}**\n> {{description}}\n\n⚡ {{fightPoints}} | 🗡 {{attack}} | 🛡 {{defense}} | 🚀 {{speed}}",
+    "endPoint": "Einreise:",
+    "energy": "** | :zap: Energie-Gewinner: **{{energy}}",
+    "experience": "** | :star: XP gewonnen: **{{experience}}",
+    "gems": "** | :gem: Geme-Gewinner: **{{gems}}",
+    "health": "** | :heart: Verlorene Vie: **{{health}}",
+    "healthLoose": "** | :broken_heart: Verlorene Vie: **{{health}}",
+    "journal": "Protokoll von {{pseudo}}",
+    "money": "** | {emote:unitValues.money} Verdientes Geld : **{{money}}",
+    "moneyLoose": "** | :money_with_wings: Argent verloren: **{{money}}",
+    "rewardEmbedTitle": "{{pseudo}}Kampfbelohnungen",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} Verdiente Gilden-XP : **{{guildXp}}**",
+    "monsterRewardsDescription": "{emote:unitValues.money} Silber gewonnen : **{{money}}**\n:star: XP verdient: **{{experience}}**",
+    "monsterRewardsGuildPoints": ":mirror_ball: Gilde-Gewinner: **{{guildPoints}}**",
+    "monsterRewardsTitle": "{{pseudo}}, Kampfbelohnungen",
+    "newBigEvent": ":flag_fr: Sie kamen zu **{{destination}}**!",
+    "noFight": ":newspaper: ** Journal von {{pseudo}} : ** {{waitABitReaction}} | Sie verlassen sich schnell und finden Sie ein kleines Versteck! Das Monster wartet geduldig auf Sie.",
+    "points": ": ** :medal: Gewinner: **{{score}}",
+    "pveEvent": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Kampf beginnen\n{emote:pveFights.waitABit} Warte kurz, bevor du den Kampf beginnst\n\n*- Benutze die Tasten, um eine Aktion auszuführen*.",
+    "pveFightRefused": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {emote:pveFights.waitABit} | Sie beschließen, sich vorerst nicht auf einen Kampf einzulassen und suchen in einem Versteck in der Nähe Zuflucht. Letztendlich müssen Sie sich der Bestie stellen, da Sie keinen anderen Ausweg finden.",
+    "remainingEnergyTitle": "Verbleibende Energie:",
+    "startPoint": "Startpunkt:",
+    "timeLost": "** | :clock10: Verlorene Zeit: **{{timeLost}}",
+    "travelPathTitle": "Aktuelle Reise:",
+    "travellingDescription": "Es läuft alles gut, seit Ihr letztes Abenteuer {{smallEventEmoji}}. Nächster Halt nach Plan {{time}}.",
+    "travellingDescriptionEndTravel": "Es läuft alles gut in Ihrem Abenteuer, Sie werden bald am Ziel ankommen.",
+    "travellingDescriptionWithoutSmallEvent": "Es läuft alles gut in Ihrem Abenteuer. Nächster Haltungsstopp {{time}}.",
+    "travellingTitle": "Sie sind gerade dabei, Fortschritte zu machen!"
+  },
+  "update": {
+    "description": "Die aktuelle Version des Bot-Kernels lautet **{{coreVersion}}**. Das Paket für das Discord-Modul lautet **{{discordModuleVersion}}**.\n\nAlle Informationen zu den Aktualisierungen sind hier verfügbar:\nhttps://guide.draftbot.com/lore/historique-des-mises-a-jour",
+    "title": ":scroll: Aktualisierungen"
+  },
+  "vote": {
+    "description": "Dies ist der Link zur Unterstützung des Bot-Bots:\nhttps://top.gg/bot/448110812801007618",
+    "title": ":ballot_box: Voter"
+  },
+  "map": {
+    "title": "{{pseudo}}hier ist die Karte!",
+    "description": {
+      "ongoing": "Derzeit richten Sie sich {{particle}} **{{emote}} {{destination}}**.\n> {{description}}",
+      "arrived": "Sie sind an Ihrem Ziel angekommen.\n> **{{emote}} {{destination}}**.\n> {{description}}"
+    }
+  },
+  "petFree": {
+    "title": "{{pseudo}}Befreiung eines Vertrauten",
+    "canceledTitle": "{{pseudo}}Die Befreiung wird aufgehoben.",
+    "canceledDesc": "Der Vertraute wurde nicht befreit.",
+    "confirmDesc": ":warning: Sind Sie sicher, dass Sie **{{pet}}** befreien wollen? Es ist nicht möglich, eine einmal durchgeführte Aktion rückgängig zu machen.",
+    "acceptedDesc": "Adieu **{{pet}}**...",
+    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
+  },
+  "petNick": {
+    "successTitle": "{{pseudo}}Änderung des Spitznamens des Vertrauten",
+    "success": "Spitzname des Vertrauten geändert in **{{name}}**!",
+    "successNoName": "Ihr Vertrauter hat nun keinen Spitznamen mehr!"
+  },
+  "shop": {
+    "closeShop": "Sie haben den Laden geschlossen.",
+    "closeShopTitle": "{{pseudo}}, Ladenschluss",
+    "noAlterationToHeal": "Sie sind nicht Opfer einer Zustandsveränderung. 🙂.",
+    "success": "{{pseudo}}Erfolgreiche Transaktion!",
+    "healAlteration": "🏥 Ihre Zustandsveränderungen wurden entfernt.",
+    "tooManyEnergyBought": "Sie haben die maximale Menge an Energierückgewinnung für diese Woche gekauft.",
+    "noEnergyToHeal": "Sie verfügen über Ihre gesamte Kampfenergie. ⚡",
+    "fullRegen": "💓 Sie wurden vollständig versorgt.",
+    "alreadyHaveBadge": "Sie besitzen diesen Ausweis bereits.",
+    "badgeBought": "Sie haben eine neue Marke erhalten: {emote:badges.{{badgeName}}} !",
+    "notEnoughMoney": "Sie haben nicht genug Geld, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
+    "boughtTooMuchDailyPotions": "Es gibt keinen Trank des Tages mehr, der zum Verkauf angeboten wird... Kommen Sie morgen wieder!",
+    "title": "🛒 Anzeige des Magazins",
+    "currentMoney": "Sie haben `{{money}}{emote:unitValues.{{currency}}}`.",
+    "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
+    "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
+    "shopSelectPlaceholder": "Wählen Sie einen Gegenstand zum Kauf aus",
+    "buyCategorySlotSuccess": "Sie haben einen neuen Inventarplatz gekauft!",
+    "shopItemsSelectDescription": "{{price}}{emote:unitValues.{{currency}}}",
+    "closeShopButton": "❌ Laden schließen",
+    "shopConfirmationTitle": "{{pseudo}}Sie haben das folgende Produkt ausgewählt:",
+    "shopConfirmationTitleMultiple": "{{pseudo}}Wählen Sie eine Menge für dieses Produkt:",
+    "shopCategories": {
+      "permanentItem": "Ständige Verkäufe",
+      "dailyPotion_zero": "Trank des Tages (ausverkauft)",
+      "dailyPotion_one": "Trank des Tages ({{count}} verfügbar)",
+      "dailyPotion_other": "Trank des Tages ({{count}} verfügbar)",
+      "slotExtension": "Inventarerweiterungen",
+      "food": "Nahrung für Begleiter",
+      "guildXp": "Erfahrung in der Gilde",
+      "resources": "Ressourcen",
+      "utilitaries": "Dienstprogramme",
+      "prestige": "Prestige"
+    },
+    "chooseSlotTitle": "{{pseudo}}Neuer Inventarplatz",
+    "chooseSlotIndication": "Wählen Sie einen neuen Inventarort oder brechen Sie ab :",
+    "shopCategoryFormat_one": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} übrig)\n",
+    "shopCategoryFormat_other": "{emote:itemKinds.{{categoryId}}} **{{category}}** ({{count}}/{{limit}} verbleibende)\n",
+    "slotCategoriesKind": [
+      "Waffe",
+      "Rüstung",
+      "Trank",
+      "Objekt"
+    ],
+    "shopItems": {
+      "randomItem": {
+        "name": "{emote:shopItems.randomItem} Zufällige Ausrüstung",
+        "info": "Du erhältst eine zufällige Ausrüstung (Waffe / Rüstung / Gegenstand oder Trank) aus allen im Spiel vorhandenen."
+      },
+      "alterationHeal": {
+        "name": "{emote:shopItems.healAlteration} Pflege von Zustandsveränderungen",
+        "info": "Ihre Zustandsveränderungen werden entfernt und Sie setzen Ihre Reise sofort fort.",
+        "give": "{emote:shopItems.healAlteration} Ihre Zustandsveränderungen wurden entfernt."
+      },
+      "energyHeal": {
+        "name": "{emote:shopItems.healEnergy} Rückgewinnung von Energie",
+        "info": "Ihre Kampfenergie wird vollständig wiederhergestellt.",
+        "give": "{emote:shopItems.healEnergy} Ihre Energie wurde wiederhergestellt."
+      },
+      "fullRegen": {
+        "name": "{emote:shopItems.regen} Vollständige Regeneration des Lebens",
+        "info": "Sie werden sofort vollständig geheilt, behalten aber alle Ihre Zustandsveränderungen.",
+        "give": "{emote:shopItems.regen} Sie wurden vollständig versorgt."
+      },
+      "moneyMouthBadge": {
+        "name": "{emote:shopItems.moneyMouthBadge} Namensschild \"Money Mouth\" (Geldmaul)",
+        "info": "Sie erhalten den Abzeichen automatisch nach der Bezahlung. Weitere Informationen zu Abzeichen erhalten Sie mit dem Befehl {command:help}."
+      },
+      "slotExtension": {
+        "name": "{emote:shopItems.inventoryExtension} Neuer Inventarplatz",
+        "info": "Sie können eine Inventarkategorie auswählen, zu der Sie einen Ort hinzufügen möchten."
+      },
+      "dailyPotion": {
+        "info": "Sie erhalten einen Trank, bei dem Sie entscheiden, ob Sie ihn behalten wollen oder nicht. Wenn Sie ihn bereits haben, wird er ohne Rückerstattung weggeworfen!"
+      },
+      "smallGuildXp": {
+        "name": "{emote:shopItems.smallGuildXp} Ein bisschen xp für deine Gilde",
+        "info": "Sie erhalten eine zufällige Menge an Gilden-Xp, die zwischen 50 und 450 liegt."
+      },
+      "bigGuildXp": {
+        "name": "{emote:shopItems.bigGuildXp} Viele xp für deine Gilde",
+        "info": "Sie erhalten eine zufällige Menge an Gilden-Xp, die zwischen 750 und 6750 liegt."
+      },
+      "commonFood": {
+        "name": "{emote:foods.commonFood} Süßigkeit",
+        "info": "Sie erhalten ein Leckerli für Ihre Vertrauten."
+      },
+      "herbivorousFood": {
+        "name": "{emote:foods.herbivorousFood} Salat",
+        "info": "Sie erhalten Salat für Ihre Begleiter."
+      },
+      "carnivorousFood": {
+        "name": "{emote:foods.carnivorousFood} Fleisch",
+        "info": "Sie erhalten Fleisch für Ihre Begleiter."
+      },
+      "ultimateFood": {
+        "name": "{emote:foods.ultimateFood} Ultimative Suppe",
+        "info": "Sie erhalten eine ultimative Suppe für Ihre Vertrauten."
+      },
+      "skipMission": {
+        "name": "{emote:shopItems.skipMission} Change-mission",
+        "info": "Ermöglicht es Ihnen, eine erhaltene Mission auf der Karte zu löschen und gegen eine neue Mission einzutauschen, allerdings haben Sie keine Wahl, welche Mission Sie wählen.",
+        "giveTitle": "{{pseudo}}Sie haben sich entschieden, eine Aufgabe zu ändern.",
+        "giveDesc": "Wählen Sie die Mission, die Sie ändern möchten:",
+        "successTitle": "{{pseudo}}Sie haben eine Mission geändert!",
+        "successDescription": "Sie haben die Mission {emote:missions.sideMission} **{{mission}}** gelöscht.",
+        "getNewMission": "Sie haben den Auftrag erhalten: \n\n{emote:missions.sideMission} **{{mission}}**"
+      },
+      "money": {
+        "name": "{emote:unitValues.money} Geld des Königs",
+        "info": "Nach den Tageskursen des Edelsteins und nach Abzug der Königssteuer erhalten Sie `{{kingsMoneyAmount}}` {emote:unitValues.money}.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDescription": "Sie haben `{{amount}}` {emote:unitValues.money}erhalten."
+      },
+      "treasure": {
+        "name": "{emote:shopItems.treasure} Königsschatz",
+        "info": "Gewährt dir einen wertvollen Gegenstand aus der Schatzkammer des Königs.",
+        "give": "{{pseudo}}Sie erhalten einen neuen {{type}} :"
+      },
+      "kingsFavor": {
+        "name": "{emote:unitValues.score} Inbrunst des Königs",
+        "info": "Gewährt Ihnen {{thousandPoints}} Punkte. Kann nur einmal pro Woche verwendet werden.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDescription": "Sie haben {{thousandPoints}} {emote:unitValues.score}erhalten. Bis nächste Woche mit neuem Eifer!"
+      },
+      "lovePointsValue": {
+        "name": "{emote:shopItems.lovePointsValue} Hoftierarzt",
+        "info": "Erhalten Sie detaillierte Informationen über Ihren Vertrauten.",
+        "giveTitle": "{{pseudo}}Ich bin sehr zufrieden.",
+        "giveDesc": "Nachdem der Tierarzt Ihr Tier und seinen Gesundheitszustand ausgiebig untersucht hat, gibt er Ihnen seinen Bericht:\n\n**{{petName}}** {{commentOnResult}}\n{emote:petInformation.loveScore} **Love Score**: {{actualLP}} / 100\n{emote:petInformation.diet} **Diät**: {{diet}}\n{emote:petInformation.nextFeed} **Nächster Hunger** : {{nextFeed}}\n{emote:petInformation.age} **Alter**: {{commentOnPetAge}}\n\n{emote:petInformation.fightEffect} **Kampfeffekt**: {{commentOnFightEffect}}",
+        "petIsHungry": "{emote:effects.starving} hungrig",
+        "commentOnFightEffect": {
+          "bite": [
+            "Dieses Haustier hat beeindruckende Reißzähne! Im Kampf wird er nicht zögern, deine Gegner mit furchterregender Präzision zu beißen.",
+            "Sehen Sie sich diese Eckzähne an! Ihr Begleiter kann Ihre Feinde beißen, ihnen schmerzhafte Wunden zufügen und sie verunsichern.",
+            "Sein Gebiss ist perfekt für den Kampf geeignet. Er wird Ihre Gegner verletzen, indem er sie an strategischen Punkten beißt!"
+          ],
+          "boostDefense": [
+            "Sein Panzer ist außerordentlich widerstandsfähig! Im Kampf wird er sich wie ein lebendiges Schild vor Ihnen aufstellen und Ihre Verteidigung erheblich erhöhen.",
+            "Ich beobachte eine bemerkenswerte defensive Muskelstruktur. Ihr Begleiter wird Sie schützen, indem er einen Teil des Schadens für Sie absorbiert.",
+            "Dieses Exemplar hat einen ausgeprägten Beschützerinstinkt. Es wird während der Auseinandersetzungen eine natürliche Barriere um Sie herum errichten."
+          ],
+          "boostSpeed": [
+            "Seine Morphologie ist auf Geschwindigkeit ausgelegt! Im Kampf kann er dich auf seinem Rücken tragen, was deine Beweglichkeit auf dem Schlachtfeld um ein Vielfaches steigert.",
+            "Seine Reflexe sind außergewöhnlich. Er wird seine unglaubliche Schnelligkeit im Kampf mit dir teilen und dich so viel schneller machen.",
+            "Dieses Haustier besitzt spezielle Drüsen, die ein Beschleunigungshormon absondern. An Ihrer Seite werden Sie sich wie der Blitz bewegen!"
+          ],
+          "claws": [
+            "Die Krallen Ihres Tieres sind schärfer als jede Klinge! Es wird sie einsetzen, um Ihre Feinde mit erschreckender Effizienz zu zerfetzen.",
+            "Die keratinisierte Struktur seiner Krallen ist einzigartig. Im Kampf kann er Ihren Gegnern tiefe Schnitte zufügen.",
+            "Ich beobachte einen perfekten Rückzugsmechanismus. Er wird seine scharfen Krallen für kritische Momente aufbewahren und Ihre Feinde überraschen."
+          ],
+          "createBomb": [
+            "Dieses Haustier hat erstaunliche explosive Drüsen! Er kann kleine biologische Bomben herstellen, die er strategisch in der Nähe Ihrer Gegner deponiert.",
+            "Sein Stoffwechsel ermöglicht es ihm, instabile Verbindungen zu synthetisieren. Er wird natürliche Sprengstoffe herstellen, um Ihnen im Kampf einen Vorteil zu verschaffen.",
+            "Faszinierend. Seine chemischen Sekrete können explosive Ladungen bilden. Ihre Feinde werden nichts als Feuer sehen - im wahrsten Sinne des Wortes!"
+          ],
+          "buildBarrage": [
+            "Sein Bauinstinkt ist beeindruckend! Er wird schützende Dämme errichten, um Sie von feindlichen Angriffen abzuschirmen.",
+            "Diese Spezies ist für ihre architektonischen Fähigkeiten bekannt. Ihr Vertrauter wird mitten im Kampf schnell defensive Strukturen errichten.",
+            "Seine Beine eignen sich hervorragend zum Aufbau von Barrikaden. Er wird dir einen effektiven Schutz vor deinen Gegnern bieten."
+          ],
+          "elephantRememberLastAction": [
+            "Sein Gedächtnis ist phänomenal! Dieses Haustier merkt sich die Taktiken des Gegners und hilft Ihnen dabei, ihre nächsten Schritte vorauszusehen.",
+            "Sein Gehirn ist bemerkenswert gut entwickelt. Es merkt sich frühere Handlungen, um Ihnen Ratschläge für die beste Strategie zu geben.",
+            "Wie alle seiner Art vergisst er nie. Dank dieses hervorragenden Gedächtnisses können Sie Ihre Aktionen im Kampf perfekt anpassen."
+          ],
+          "fishProtectAgainstFire": [
+            "Seine Haut sondert einen außergewöhnlichen feuerfesten Schleim ab! Er wird dich im Kampf effektiv vor Feuerangriffen schützen.",
+            "Dieses Wasserexemplar verfügt über ein einzigartiges System zur Wärmeregulierung. Dank dieses Systems können Sie den feindlichen Flammen viel besser widerstehen.",
+            "Die Schuppen dieses Haustiers enthalten entzündungshemmende Eigenschaften. Er wird Sie mit seinem Schutz vor Verbrennungen umhüllen."
+          ],
+          "goesWild": [
+            "Achtung, dieses Haustier hat ein wildes Temperament! Im Kampf kann er in eine Zerstörungswut verfallen und alle Gegner in der Nähe verprügeln.",
+            "Ihr primitiver Instinkt kann jederzeit erwachen. Diese natürliche Furie wird gegen Ihre Feinde furchterregend sein, aber seien Sie vorsichtig!",
+            "Ich erkenne ein außergewöhnliches Rasereipotenzial. Ihr Vertrauter kann seine wilde Natur gegen Ihre Gegner entfesseln."
+          ],
+          "healEveryone": [
+            "Dieses Haustier hat bemerkenswerte heilende Fähigkeiten! Er kann Ihre Wunden und die Ihrer Verbündeten mitten im Kampf heilen.",
+            "Seine Sekrete enthalten starke regenerierende Enzyme. Er nutzt sie, um Sie während der Auseinandersetzungen in Form zu halten.",
+            "Ich beobachte einzigartige biologisch-regenerative Eigenschaften in seinem Organismus. Ihr Vertrauter wird diese Lebensenergie mit Ihnen und Ihren Begleitern teilen."
+          ],
+          "helpBreathe": [
+            "Seine Atemkapazität ist außergewöhnlich! Bei anstrengenden Kämpfen oder unter Wasser kann er seinen Sauerstoff mit Ihnen teilen.",
+            "Dieses Exemplar hat faszinierende modifizierte Kiemen. Es hilft Ihnen, in kritischen Momenten wieder zu Atem zu kommen.",
+            "Sein hyperentwickeltes Lungensystem ermöglicht es ihm, Sauerstoff zu speichern. Er überträgt ihn Ihnen, wenn Ihnen die Luft ausgeht."
+          ],
+          "horn": [
+            "Dieses Horn ist eine furchterregende natürliche Waffe! Ihr Begleiter wird es benutzen, um Ihre Gegner mit beeindruckender Kraft aufzuspießen.",
+            "Die keratinisierte Struktur seines Horns ist härter als Stahl. Es wird Ihre Feinde angreifen und ihnen erheblichen Schaden zufügen.",
+            "Dieses Exemplar hat ein perfekt ausbalanciertes Horn für den Kampf. Es weiß, wie es die Schwachstellen Ihrer Gegner anvisieren kann."
+          ],
+          "hypnosis": [
+            "Seine Augen besitzen eine faszinierende hypnotische Kraft! Er kann Ihre Gegner verwirren, sodass sie verwirrt und verwundbar sind.",
+            "Dieser Vertraute beherrscht natürliche psychische Techniken. Er wird während des Kampfes den Geist Ihrer Feinde verwirren.",
+            "Die Muster auf seiner Haut erzeugen einen einzigartigen hypnotischen Effekt. Ihre Gegner werden verwirrt und sind nicht in der Lage, sich auf ihre Angriffe zu konzentrieren."
+          ],
+          "isUseless": [
+            "Äh ... dieser Vertraute hat ein ... kontemplatives Temperament. Im Kampf beobachtet er die Situation mit philosophischer Distanz.",
+            "Ich muss ehrlich sein: Seine kämpferischen Fähigkeiten sind begrenzt. Er wird Sie moralisch begleiten, ohne wirklich einzugreifen.",
+            "Dieses Exemplar gehört zu einer pazifistischen Spezies. Ihre Anwesenheit wird ... während Ihrer Kämpfe spirituell bereichernd sein."
+          ],
+          "meduseParalyze": [
+            "Seine Tentakel enthalten ein starkes, lähmendes Gift! Es kann Ihre Gegner bewegungsunfähig machen, sodass sie vorübergehend unschädlich sind.",
+            "Dieser Vertraute sondert ein bemerkenswertes Neurotoxin ab. Ein Stich genügt und Ihre Feinde sind auf der Stelle gelähmt.",
+            "Seine einzigartige Biochemie ermöglicht es ihm, lähmende Wirkstoffe zu produzieren. Ihre Gegner werden erstarren und nicht mehr in der Lage sein, zurückzuschlagen."
+          ],
+          "peck": [
+            "Der Schnabel Ihres Begleiters ist scharf wie ein Dolch! Er ermöglicht es ihm, Ihre Gegner im Kampf mit präzisen und schmerzhaften Schlägen zu bedrängen.",
+            "Die Knochenstruktur seines Schnabels ist perfekt zum Schlagen geeignet. Er wird Ihre Feinde an empfindlichen Punkten mit Präzision anstechen.",
+            "Dieser Vertraute beherrscht die Kunst, mit seinem Schnabel zu nerven. Deine Gegner werden durch seine ständigen Angriffe geschwächt."
+          ],
+          "petCharge": [
+            "Seine Muskulatur ist auf Belastung ausgelegt! Im Kampf wird er sich mit verheerender Kraft auf deine Gegner stürzen.",
+            "Dieses Exemplar hat eine verstärkte Knochenstruktur, die perfekt für den Aufprall geeignet ist. Es wird Ihre Feinde wie Kegel umwerfen.",
+            "Sein Angriffsinstinkt ist beeindruckend. Er nimmt Anlauf, um Ihre Gegner mit ungeahnter Wucht zu rammen."
+          ],
+          "petCurse": [
+            "Dieses Haustier besitzt beunruhigende mystische Fähigkeiten! Er kann Ihre Gegner verfluchen und so ihr Glück und ihren Willen schwächen.",
+            "Seine Augen leuchten in einem übernatürlichen Glanz, der Unglück bringt. Ihre Feinde werden nach seinem Eingreifen unerklärliche Rückschläge erleiden.",
+            "Ich beobachte einzigartige thaumaturgische Eigenschaften in seiner Aura. Er wird mächtige Flüche gegen Ihre Gegner aussprechen."
+          ],
+          "petHit": [
+            "Sein Beschützerinstinkt ist bemerkenswert! Wenn Sie geschlagen werden, wird er sofort einen Gegenangriff starten, um Sie zu rächen.",
+            "Dieses Haustier ist äußerst loyal und reaktionsschnell. Er wird heftig zurückschlagen, wenn Sie im Kampf Schaden erleiden.",
+            "Seine empathische Verbindung zu Ihnen ist einzigartig. Jeder Schlag, den Sie erhalten, wird seinen Rachefuror entfachen."
+          ],
+          "petPoison": [
+            "Seine Giftdrüsen sind perfekt entwickelt! Er wird Ihre Gegner vergiften und sie nach und nach schwächen.",
+            "Dieses Exemplar sondert ein besonders virulentes Gift ab. Ihre Feinde werden langsam schwächer, nachdem sie infiziert wurden.",
+            "Sein Speichel enthält komplexe Toxine. Ein einfacher Kontakt und Ihre Gegner werden unaufhaltsam ihre Kräfte schwinden sehen."
+          ],
+          "petSmallCharge": [
+            "Trotz seiner geringen Größe ist dieser Vertraute sehr mutig! Er wird Ihre Gegner angreifen und so für eine effektive Ablenkung sorgen.",
+            "Seine kompakte Statur verleiht ihm eine erstaunliche Geschwindigkeit. Er wird Ihre Feinde in strategischen Momenten rammen.",
+            "Dieses kleine Exemplar macht seine Größe durch seine Entschlossenheit wett. Seine schnellen Ladungen werden Ihre Gegner verunsichern."
+          ],
+          "pinch": [
+            "Seine Zangen sind besonders stark! Er wird sie einsetzen, um die Gliedmaßen Ihrer Gegner schmerzhaft zusammenzudrücken.",
+            "Der Druck, den seine Zangen ausüben, kann beeindruckende Werte erreichen. Ihre Feinde werden unter ihrer Umklammerung vor Schmerz das Gesicht verziehen.",
+            "Dieses Haustier beherrscht die Kunst des taktischen Zwickens perfekt. Er zielt präzise auf die empfindlichen Stellen Ihrer Gegner."
+          ],
+          "poisonousBite": [
+            "Seine Haken injizieren ein hochentwickeltes Gift! Sein Biss vergiftet Ihre Gegner und schwächt sie erheblich.",
+            "Dieses Exemplar besitzt überentwickelte Giftdrüsen. Ein einfacher Biss und Ihre Feinde leiden an schweren Vergiftungen.",
+            "Die Analyse seines Gifts zeigt einzigartige neurotoxische Verbindungen. Seine Bisse werden im Kampf besonders verheerend sein."
+          ],
+          "protectAgainstCold": [
+            "Sein Fell hat außergewöhnlich gute isolierende Eigenschaften! Es wird dich effektiv vor Eisangriffen schützen.",
+            "Ihre Körpertemperatur ist von Natur aus hoch. An deiner Seite wirst du eisigen Umgebungen und Kältezaubern bestens widerstehen können.",
+            "Dieses Haustier erzeugt ein bemerkenswertes Wärmefeld. Es wird Sie mit seiner schützenden Wärme gegen Frostangriffe einhüllen."
+          ],
+          "rainbowPower": [
+            "Dieser Vertraute kann die umgebende prismatische Energie kanalisieren! Er wird kürzlich erfolgte magische Angriffe in Heilung für Sie umwandeln.",
+            "Seine schillernden Schuppen absorbieren und transformieren die Energie der Umgebung. Nach mehrmaligem Austausch von Zaubersprüchen wird er Sie beleben.",
+            "Ich beobachte ein einzigartiges Phänomen der chromatischen Transmutation. Ihr Begleiter recycelt die Energie aus Kämpfen, um Sie zu heilen."
+          ],
+          "revenge": [
+            "Sein Racheinstinkt ist beeindruckend! Wenn Sie verletzt werden, schlägt er automatisch mit zehnfacher Gewalt zurück.",
+            "Dieses Exemplar verfügt über ein beeindruckendes Schuldgedächtnis. Es vergisst nicht, wer Sie geschlagen hat, und wird sich im richtigen Moment rächen.",
+            "Seine Loyalität äußert sich in seinem Verlangen nach sofortiger Gerechtigkeit. Jeder Schlag, den Sie erhalten, wird von Ihrem Vertrauten hundertfach vergeltet."
+          ],
+          "scareElephant": [
+            "Die Anwesenheit Ihres Vertrauten schüchtert die Elefanten natürlich ein! Diese werden vor dem Kampf fliehen.",
+            "Dieser Vertraute sendet Pheromone aus, die Dickhäuter in Angst und Schrecken versetzen. Große Feinde werden in seiner Gegenwart zögern, dich anzugreifen.",
+            "Der Schrei Ihres Vertrauten ist für manche Tiere besonders beunruhigend. Speziell Elefanten werden sich zurückziehen."
+          ],
+          "scareFish": [
+            "Seine Aura ist für Wasserlebewesen furchterregend! Er wird Fische und Delfine in die Flucht schlagen.",
+            "Dieses Exemplar sondert eine Substanz ab, die Wasserorganismen alarmiert. Die meisten Meerestiere werden sein Revier meiden.",
+            "Seine Silhouette erinnert an ein natürliches Raubtier der Ozeane. Fische werden sich bei seinem bloßen Anblick zurückziehen."
+          ],
+          "slipping": [
+            "Sein Fell sondert eine einzigartige, gleitfähige Substanz ab! Er wird sich wie ein lebendes Geschoss gegen Ihre Gegner fortbewegen.",
+            "Dieses Haustier beherrscht die Kunst, sich auf glatten Oberflächen zu bewegen. Er verwandelt sich in eine organische Rakete, die mit hoher Geschwindigkeit auf Ihre Feinde einschlägt.",
+            "Sein hydrodynamischer Körper ist perfekt zum Gleiten. Er nimmt Schwung auf, um Ihre Gegner wie eine lebende Bowlingkugel zu treffen."
+          ],
+          "smallClaws": [
+            "Trotz seiner bescheidenen Größe sind seine Krallen bemerkenswert scharf! Er fügt präzise und irritierende Kratzer zu.",
+            "Dieses kleine Haustier macht seine Größe durch seine feinen Klauen wett. Er zielt auf die empfindlichen Stellen Ihrer Gegner.",
+            "Seine kleinen Krallen eignen sich perfekt, um den Gegner zu bedrängen. Er wird Ihre Feinde mit strategischen Kratzern aus dem Konzept bringen."
+          ],
+          "smallRegen": [
+            "Sein regenerativer Stoffwechsel ist ansteckend! Er wird seine Heilfähigkeiten während der Kämpfe mit Ihnen teilen.",
+            "Dieses Exemplar sondert wundheilende Enzyme ab. Es wird sie an Sie weitergeben, um Ihre Genesung zu beschleunigen.",
+            "Seine einzigartige Biochemie stimuliert die Zellregeneration. An ihrer Seite werden sich Ihre Wunden schneller schließen."
+          ],
+          "snowBall": [
+            "Dieses Haustier manipuliert Eis mit erstaunlicher Geschicklichkeit! Er wird sehr kalte Schneebälle erschaffen und auf Ihre Gegner werfen.",
+            "Seine Fähigkeit, Schnee zu komprimieren, ist bemerkenswert. Er wird Ihre Feinde mit besonders kompakten, eisigen Geschossen bombardieren.",
+            "Seine Körpertemperatur ermöglicht es ihm, Eis nach Belieben zu formen. Ihre Gegner werden Opfer eines unerwarteten Winterbombardements."
+          ],
+          "spit": [
+            "Analysen zeigen, dass sein Speichel natürliche Reizenzyme enthält, was ihn zu einem effektiven Werkzeug macht, um den Gegner auf der visuellen Ebene zu behindern.",
+            "Sein Speichelsekret weist eine atypische chemische Zusammensetzung auf, die beim Feind eine lokale Reizung hervorrufen kann.",
+            "Tierärztliche Beobachtungen bestätigen, dass seine Speicheldrüsen eine säurehaltige Flüssigkeit abgeben, die das Sehvermögen seiner Gegner vorübergehend beeinträchtigen kann."
+          ],
+          "spitFire": [
+            "Die Untersuchungen deuten darauf hin, dass sein Stoffwechselsystem eine brennbare Substanz produziert, die ideal ist, um einen kontrollierten Flammenstrahl zu erzeugen.",
+            "Die Proben zeigen eine hohe Konzentration an pyrogenen Verbindungen, die es ihm ermöglichen, in Kampfsituationen mäßige Flammen zu spucken.",
+            "Veterinärmedizinische Analysen stellen fest, dass seine Drüsen eine brennbare Substanz synthetisieren und so einen Feuerwurfangriff aus kurzer Distanz bieten."
+          ],
+          "spitInk": [
+            "Tests haben ergeben, dass seine Drüsen undurchsichtige Pigmente enthalten, die geeignet sind, die Sicht des Gegners vorübergehend zu vernebeln.",
+            "Die chromatografische Analyse zeigt, dass er eine dichte Tinte absondert, die die visuelle Wahrnehmung von Feinden stören kann.",
+            "Laborbeobachtungen deuten auf die Produktion von hochviskoser Tinte hin, die effektiv dazu dient, den Gegner bei Konfrontationen zu verwirren."
+          ],
+          "stealWeapon": [
+            "Verhaltensuntersuchungen legen nahe, dass dieser Vertraute eine bemerkenswerte Fähigkeit besitzt, Metallgegenstände, die dem Gegner gehören, zu identifizieren und zu ergreifen.",
+            "Sein Waffenbergungsverhalten zeugt von feiner Agilität, die es ihm ermöglicht, die gegnerische Waffe in kürzester Zeit zu extrahieren.",
+            "Verhaltensanalysen deuten darauf hin, dass seine entwickelten Reflexe es ihm ermöglichen, die gegnerische Offensivausrüstung effektiv zu neutralisieren."
+          ],
+          "swallow": [
+            "Klinische Beobachtungen zeigen, dass sein Verdauungstrakt in der Lage ist, Beutetiere zu verschlingen und so den Gegner zu neutralisieren.",
+            "Seine Verdauungsfähigkeiten ermöglichen es, den Feind vollständig zu verschlingen, was eine interessante alternative Verteidigungsmethode darstellt.",
+            "Anatomische Studien offenbaren einen besonders elastischen Hals, der dazu geeignet ist, einen Gegner aufzunehmen..."
+          ],
+          "triesToHelp": [
+            "Verhaltenstests legen nahe, dass der Vertraute versucht, seinen Besitzer durch maßvolle Hilfe zu unterstützen, obwohl seine Beiträge begrenzt bleiben.",
+            "Klinische Beobachtungen deuten auf eine partielle Reaktionsfähigkeit hin, die wahrscheinlich auf eine unvollkommene Synchronisation mit dem Verhalten des Besitzers zurückzuführen ist.",
+            "Die Verhaltensanalysen zeigen einen Willen zum Eingreifen, auch wenn seine Bemühungen vor Ort nur marginale Verbesserungen bewirken."
+          ],
+          "unBlind": [
+            "Bewertungen zeigen, dass sein hochleistungsfähiges visuelles System die Sehkraft seines Besitzers wiederherstellen kann, indem es stimulierende Signale aussendet.",
+            "Physiologische Messungen bestätigen, dass seine Augenfähigkeiten in der Lage sind, die vom Verbündeten erlittenen Sehbeeinträchtigungen zu zerstreuen.",
+            "Tierärztliche Beobachtungen deuten darauf hin, dass er durch seine erweiterte Wahrnehmung aktiv dazu beiträgt, die visuelle Klarheit seines Besitzers wiederherzustellen."
+          ],
+          "vampirism": [
+            "Stoffwechselanalysen zeigen, dass dieses Exemplar einen Bruchteil der Lebensenergie des Gegners übertragen kann und so die Ausdauer seines Besitzers verbessert.",
+            "Die Untersuchungen bestätigen eine natürliche Fähigkeit zur Energieabsorption, die sich durch eine subtile Entnahme von gegnerischer Energie auszeichnet.",
+            "Klinische Beobachtungen belegen, dass er über energieübertragende Mechanismen verfügt, die in der Lage sind, seinen Besitzer zu revitalisieren, indem sie feindliche Energie einfangen."
+          ]
+        },
+        "ageComment_ancestor": "INKROYABLE! Ruft der Tierarzt mit großen Augen aus. Ihr Vertrauter ist ein Exemplar von außergewöhnlicher Seltenheit! Er gehört zu den ältesten, die jemals in unseren Archiven aufgezeichnet wurden. Nur {{age}} andere Vertraute wurden älter entdeckt! Ein echtes lebendes Relikt!",
+        "ageComment_veryOld": "Faszinierend! Flüstert der Tierarzt und rückt seine Brille zurecht. Ihr Vertrauter hat ein ehrwürdiges Alter erreicht, das nur wenige seiner Artgenossen kennen. Unsere Aufzeichnungen zeigen, dass nur {{age}} Vertraute länger gelebt haben. Seine Langlebigkeit ist wirklich bemerkenswert!",
+        "ageComment_old": "Na so was! Ihr Begleiter hat bereits einen langen Weg zurückgelegt\", stellt der Tierarzt mit einem freundlichen Lächeln fest. Mit nur {{age}} älteren Haustieren in unseren Archiven hat er im Laufe der Jahre Weisheit und Erfahrung gesammelt. Er ist ein fitter Senior!",
+        "ageComment_adult": "Ihr Vertrauter steht in der Blüte seines Lebens\", stellt der Tierarzt fest und nickt. Von all unseren Patienten hat {{age}} mehr Jahre hinter sich. Er hat seine volle Reife erreicht und vereint Kraft und Ausgeglichenheit. Das ist der ideale Zeitpunkt!",
+        "ageComment_other": "Ihr Haustier ist noch jung\", stellte der Tierarzt liebevoll fest. {{age}} Haustiere in unseren Registern sind älter als er. Er hat sein ganzes Leben noch vor sich und strotzt nur so vor Energie! Genießen Sie diese Zeit der Unbeschwertheit und des Entdeckens.",
+        "advice": {
+          "1": [
+            "scheint Sie zu hassen. Seien Sie vorsichtig, sonst könnten Sie bei Ihren Abenteuern Opfer eines bösen Streichs werden!",
+            "scheint Sie wirklich nicht zu mögen. So wie Sie sich um Ihren Vertrauten kümmern, ist das keine Überraschung!",
+            "scheint sich in einem tiefen Unwohlsein zu befinden. Sie sollten versuchen, Ihren Vertrauten zu füttern."
+          ],
+          "2": [
+            "scheint noch wild zu sein. Kümmern Sie sich um Ihren Vertrauten, um sein Vertrauen zu gewinnen!",
+            "scheint Sie nicht zu mögen. Wenn Sie sich nicht um Ihren Vertrauten kümmern, werden Sie nie seine Liebe erlangen!",
+            "scheint nicht glücklich zu sein. Sie sollten versuchen, Ihren Vertrauten zu füttern."
+          ],
+          "3": [
+            "scheint noch etwas ängstlich zu sein. Kümmern Sie sich um Ihren Vertrauten, um sein volles Vertrauen zu gewinnen!",
+            "scheint Ihnen immer noch zu misstrauen. Kümmern Sie sich weiterhin um Ihren Vertrauten, um seine Liebe zu gewinnen!",
+            "scheint anzufangen, sich an Sie zu gewöhnen. Versuchen Sie, Ihren Vertrauten regelmäßig zu füttern."
+          ],
+          "4": [
+            "scheint Sie zu mögen. Kümmern Sie sich weiterhin um Ihren Vertrauten, um sein volles Vertrauen zu gewinnen!",
+            "scheint Ihnen zu vertrauen. Wenn Sie auf diesem Weg weitergehen, werden Sie bald die ganze Liebe Ihres Vertrauten bekommen!",
+            "scheint sich an Sie gewöhnt zu haben. Hören Sie nicht auf, Ihren Vertrauten regelmäßig zu füttern."
+          ],
+          "5": [
+            "scheint Sie vollkommen zu mögen. Sie müssen sich nicht einmal mehr um Ihren Vertrauten kümmern, damit er Sie weiterhin liebt!",
+            "scheint eine starke Bindung mit Ihnen zu teilen. Ihre Bindung ist unerschütterlich, solange Sie nicht getrennt werden, werden Sie weiterhin die Liebe Ihres Vertrauten genießen!"
+          ]
+        }
+      },
+      "questMasterBadge": {
+        "name": "{emote:badges.mission_completer} Abzeichen \"Meister der Quests",
+        "info": "Sie erhalten den Abzeichen innerhalb weniger Stunden nach der Zahlung. Für weitere Informationen über Abzeichen verwenden Sie den Befehl {command:help}."
+      }
+    }
+  },
+  "classesInfo": {
+    "title": {
+      "list": ":bookmark: Liste der Klassen",
+      "attack": "{{emote}} {{name}} | {{cost}} {emote:unitValues.breath}"
+    },
+    "description": {
+      "list": "Hier finden Sie eine Liste der für Ihren Charakter verfügbaren Klassen und deren Statistiken. Um weitere Informationen zu einer Klasse zu erhalten, wählen Sie diese aus den unten stehenden Auswahlmöglichkeiten aus.\n"
+    },
+    "mainOption": {
+      "name": "Liste der Klassen",
+      "placeholder": "Wählen Sie eine Klasse"
+    },
+    "displays": {
+      "details": "{{classDetails}}\n\n**Angriffe, die für diese Klasse verfügbar sind:**\n",
+      "class": "{emote:unitValues.energy} {{fightPoint}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{baseBreath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}} | {emote:unitValues.health} {{health}}"
+    }
+  },
+  "respawn": {
+    "response_other": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass {{count}} {{scoreEmote}} während der Operation von deiner Punktzahl abgezogen wurden!",
+    "response_one": "{{respawnEmote}} | ** {{pseudo}} ** Wir haben Sie erfolgreich wiederbelebt! Bitte beachte jedoch, dass dir während der Operation 1 {{scoreEmote}} von deiner Punktzahl abgezogen wurde!",
+    "alreadyAlive": "Es scheint, dass Sie nicht k.o. sind... Sie brauchen unsere Dienste nicht."
+  },
+  "notifications": {
+    "types": {
+      "report": "Berichte",
+      "guildDaily": "Gildenbelohnungen"
+    },
+    "enableDisable": "Aktivieren/Deaktivieren",
+    "sendLocationField": "Ort der Versendung :",
+    "sendLocation": "Ort der Versendung",
+    "embedTitle": "Verwaltung von Benachrichtigungen",
+    "enabledField": "Aktiviert :",
+    "inDM": "In einer privaten Nachricht",
+    "inChannel": "Im Wohnzimmer {{channel}}",
+    "footerEnableDisable": "Verwenden Sie die untenstehenden Schaltflächen, um Benachrichtigungen zu aktivieren oder zu deaktivieren.",
+    "back": "Zurück",
+    "footerSendLocation": "Verwenden Sie die untenstehenden Schaltflächen, um auszuwählen, wo Sie Benachrichtigungen erhalten möchten."
+  },
+  "maintenance": {
+    "title": "Wartung",
+    "on": "Der Bot wurde erfolgreich in die Wartung gegeben.",
+    "off": "Der Bot wurde erfolgreich aus der Wartung geholt."
+  },
+  "missions": {
+    "title": "Aufgaben von {{pseudo}}",
+    "subcategories": {
+      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
+      "daily": "\n{emote:missions.daily} **Täglicher Auftrag**",
+      "sideMissions": "\n{emote:missions.sideMission} **Nebenmissionen ({{current}}/{{max}})**"
+    },
+    "dailyFinished": "Sie haben die heutige Mission abgeschlossen! Kehren Sie zurück {{time}}.",
+    "noCurrentMissions": "Gelegentlich finden Sie zusätzliche Aufgaben, die Sie erledigen können, wenn Sie einen Bericht anfordern.",
+    "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}/{{objective}}",
+    "missionDisplay_other": "{{mission}} (expire {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
+  },
+  "guildShop": {
+    "noFoodStorageSpace": "Sie haben nicht genug Platz in Ihrem Lagerraum, um diese Lebensmittel zu lagern.",
+    "empty": "Im Moment gibt es nichts mehr zu kaufen. Ihre Gilde ist auf der höchsten Stufe und ihr Nahrungsvorrat ist voll.",
+    "giveXpTitle": "Erfolg des Kaufs",
+    "giveXp": "{emote:unitValues.xp} Ihre Gilde hat **{{xp}}** Erfahrungspunkte erhalten."
+  },
+  "guildDaily": {
+    "rewardTitle": "Gildenbelohnung {{guildName}} :",
+    "coolDown": "Die Gildenbelohnung ist nur einmal alle {{coolDownTime}} Stunden verfügbar. Wenn ein neues Mitglied zur Gilde hinzugefügt wird, wird der Zähler zurückgesetzt. Nächste Belohnung {{time}}.",
+    "pveIslandError": "Die Gildenbelohnung kann nicht erlangt werden, da sich ein Mitglied derzeit auf einer mysteriösen Insel befindet!",
+    "rewards": {
+      "personalXP": "{emote:unitValues.xp} | Die Mitglieder der Gilde haben Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`.",
+      "guildXP": "{emote:unitValues.xp} | Die Gilde hat Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`",
+      "money": "{emote:unitValues.money} | Die Mitglieder der Gilde haben `{{quantity}} {emote:unitValues.money}` erhalten.",
+      "item": "{emote:rewards:item} | Die Mitglieder der Gilde haben einen zufälligen Gegenstand erhalten.",
+      "badge": "{emote:badges.powerful_guild} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
+      "superBadge": "{emote:badges.very_powerful_guild} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
+      "fullHeal": "{emote:shopItems.regen} | Die Mitglieder der Gilde wurden vollständig geheilt.",
+      "advanceTime": "{emote:unitValues.time} | Die Mitglieder der Gilde sind um {{quantity}}h vorgerückt.",
+      "partialHeal": "{emote:rewards.partialHeal} | Die Mitglieder der Gilde wurden teilweise geheilt. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationHeal": "{emote:shopItems.healAlteration} | Die Zustandsveränderungen von Gildenmitgliedern wurden entfernt. Gesunde Mitglieder wurden teilweise geheilt. `+ {{quantity}} {emote:unitValues.health}`",
+      "alterationNoHeal": "{emote:shopItems.healAlteration} | Die Statusveränderungen von Gildenmitgliedern wurden entfernt.",
+      "petFood": "{emote:foods.commonFood} {{quantity}} Süßigkeiten wurden dem Inventar Ihrer Gilde hinzugefügt.",
+      "pet_male": "{emote:pets.{{petId}}.emoteMale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**",
+      "pet_female": "{emote:pets.{{petId}}.emoteFemale} | Ein Vertrauter hat sich der Gildenhütte angeschlossen: **{{pet}}**"
+    }
+  },
+  "daily": {
+    "errors": {
+      "objectDoNothingError": "Du versuchst, die Kraft des Gegenstandes, den du mit dir herumträgst, zu nutzen... Aber es hat keine Wirkung!",
+      "objectIsActiveDuringFights": "Die Kraft des Gegenstandes, den Sie mit sich führen, ist während der Kämpfe automatisch aktiv!",
+      "noActiveObject": "Sie haben leider keine aktiven Gegenstände in Ihrem Inventar!",
+      "cooldown": "Sie können Ihren Alltagsgegenstand nur alle {{cooldownTime}} Stunden verwenden. Besuchen Sie wieder {{time}}."
+    },
+    "title": "{{pseudo}}Sie haben Ihre tägliche Belohnung erhalten!",
+    "description": "{emote:unitValues.{{nature}}} $t(commands:daily.natureText.{{nature}}) **{{value}}**!",
+    "natureText": {
+      "health": "Gewonnenes Leben :",
+      "energy": "Gewonnene Energie :",
+      "money": "Verdientes Geld :",
+      "time": "Sie haben sich um"
+    }
+  },
+  "unlock": {
+    "himself": "Wenn Sie sich nicht selbst befreien können, bitten Sie einen Freund, dies zu tun.",
+    "notInJail": "Dieser Spieler befindet sich nicht im Gefängnis.",
+    "title": "Befreiung von {{pseudo}}",
+    "confirmDesc": "Sind Sie sicher, dass Sie **{{pseudo}}** für **{{price}} {emote:unitValues.money}** freigeben möchten?",
+    "canceledTitle": "Befreiung abgebrochen",
+    "canceledDesc": "Die Freilassung wurde rückgängig gemacht.",
+    "acceptedDesc": "Sie haben **{{pseudo}}** befreit!"
+  },
+  "missionsshop": {
+    "title": "Magazin der Missionen",
+    "success": "{{pseudo}}, transaction réussie !",
+    "error": {
+      "cannotBuy": "Sie haben nicht genug Edelsteine, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{missingMoney}{emote:unitValues.gem}`.",
+      "canceledPurchase": "Transaktion abgebrochen!",
+      "alreadyHadBadge": "Sie besitzen bereits das Abzeichen \"Meister der Quests\". Sie können nicht mehr Ehrungen erhalten, als Sie bereits besitzen!",
+      "leaveShop": "Sie haben den Laden verlassen.",
+      "alreadyBoughtPointsThisWeek": "Sie haben diese Woche bereits Punkte gekauft. Kommen Sie nächste Woche wieder, um Punkte zu kaufen!",
+      "noMissionToSkip": "Sie haben keine Aufträge zu vergeben!",
+      "noPet": "Sie haben kein Tier bei sich, wir können keine Diagnose über ein Geistertier stellen!"
+    }
+  },
+  "top": {
+    "level": "Ebene {{level}}",
+    "titleScoreAllTime": "{emote:top.congrats} Anzeige der Top-Plätze {{minRank}} an {{maxRank}}",
+    "titleScoreWeekly": "{emote:top.congrats} Anzeige der wöchentlichen Top-Platzierungen {{minRank}} an {{maxRank}}",
+    "yourRankTitle": "**Ihre Platzierung**",
+    "yourRankFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRankFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Sie sind derzeit der Beste von insgesamt {{total}} Spielern!",
+    "yourRank_one": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRank_other": "{{badge}} **{{pseudo}}**, Sie sind momentan auf Rang **{{rank}}°** von insgesamt {{total}} Spielern!",
+    "yourRankNoneScore": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, da Sie eine Punktzahl von 100 oder weniger haben!",
+    "yourRankAtPage": "(Sie finden sich auf der Seite {{page}} / {{maxPage}})",
+    "titleGlory": "{emote:unitValues.glory} Top-Glory-Anzeige der Plätze {{minRank}} für {{maxRank}}",
+    "yourRankNoneGlory_one": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genügend Ranglistenkämpfe absolviert haben! Du musst noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "yourRankNoneGlory_other": "{emote:top.error} | Sie erscheinen leider nicht in der Top-Liste, weil Sie noch nicht genug Ranglistenkämpfe absolviert haben! Sie müssen noch {{needFight}} Ranglistenkämpfe absolvieren.",
+    "titleGuild": "{emote:top.guild} Anzeige der Top-Gilden-Plätze {{minRank}} an {{maxRank}}",
+    "yourRankGuildTitle": "**Rangliste deiner Gilde**",
+    "yourRankGuildFirst_one": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuildFirst_other": "{emote:top.congrats} Herzlichen Glückwunsch **{{pseudo}}**! Eure Gilde ist derzeit die beste von insgesamt {{total}} Gilden!",
+    "yourRankGuild_one": "{{badge}} **{{pseudo}}**, deine Gilde ist derzeit auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankGuild_other": "{{badge}} **{{pseudo}}**, deine Gilde ist momentan auf Platz **{{rank}}°** von insgesamt {{total}} Gilden!",
+    "yourRankNoneGuild": "{emote:top.error} | Deine Gilde erscheint leider nicht in der Top-Liste, da sie keine Gildenpunkte hat!",
+    "yourRankAtPageGuild": "(Sie finden sie auf der Seite {{page}} / {{maxPage}})",
+    "noGuild": "{emote:top.error} | Du erscheinst nicht in dieser Rangliste, da du keiner Gilde angehörst!",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
+    "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
+  },
+  "fight": {
+    "title": "{{pseudo}}Sie sind im Begriff, einen Kampf zu beginnen.",
+    "canceledTitle": "{{pseudo}}Sie haben die Suche abgebrochen.",
+    "confirmDesc": "{emote:fightCommand.crossedSwords} | **{{pseudo}}**{{confirmSubText}}\n\n{emote:fightCommand.crossedSwords} | ** Kämpfer : {{pseudo}}** | {{glory}} | {{className}}\n\n{{stats}}",
+    "confirmSubTexts": {
+      "common": "Möchten Sie eine Kampfsuche starten?",
+      "rare": "Würden Sie sich an der Suche nach einem Kämpfer beteiligen, der Ihrer persönlichen Stärke entspricht, um das anschließende Duell zu bestreiten?"
+    },
+    "canceledDesc": "Sie haben die Suche nach einem Kampf abgebrochen.",
+    "information": {
+      "glory": "{emote:unitValues.glory} {{gloryPoints}}",
+      "class": "{{className}}",
+      "stats": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
+    },
+    "opponentsNotFound": "Es wurde kein Gegner gefunden, der gegen Sie antreten kann. Sie können es später noch einmal versuchen.",
+    "notEnoughEnergy": "Sie haben nicht genug Energie, um einen Kampf zu beginnen!",
+    "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
+    "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
+    "actionsOf": "**Angriffe von {{pseudo}} :**",
+    "petOf": "**Familienmitglied von {{pseudo}} :**",
+    "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
+    "summarize": {
+      "title": "Zusammenfassung des Kampfes",
+      "intro": {
+        "start": "{emote:fightCommand.clipboard} | **Aktueller Stand des Kampfes** {{state}}\n\n",
+        "prolongation": "Verlängerungen",
+        "noProlongation": "[{{currentTurn}}/{{maxTurn}}]"
+      },
+      "attacker": "{emote:unitValues.attack} | **Stürmer : {{pseudo}}**\n",
+      "defender": "\n\n{emote:unitValues.defense} | **Verteidiger : {{pseudo}}**\n",
+      "stats": "{emote:unitValues.energy} {{power}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{breath}} / {{maxBreath}} | {emote:unitValues.breathRegen} {{breathRegen}}"
+    },
+    "end": {
+      "draw": "{emote:commands.report} | **{{player1}} und {{player2}} beenden ihren Kampf mit einem Unentschieden!**\n\n",
+      "win": "{emote:commands.report}| **{{winner}} gewinnt das Spiel gegen {{loser}}**\n\n",
+      "gameStats": "{emote:fightCommand.gameStats} | Kampfstatistiken\n- **Runden**: {{turn}}/{{maxTurn}}\n- **Kampfzeit**: {{time}}",
+      "gameStatsProlongation": "{emote:fightCommand.gameStats} | Kampfstatistik\n- **Runden**: {{turn}}/{{maxTurn}} (Verlängerungen)\n- **Kampfzeit**: {{time}}",
+      "fighterStats": "\n\n{emote:fightCommand.fighterStats} | Statistiken von {{pseudo}}\n- **Endgültiges Leben**: {{energy}}/{{maxEnergy}} {emote:unitValues.energy}"
+    },
+    "fightActionChoose": {
+      "turnIndicationTitle": "Jetzt ist {{pseudo}} an der Reihe {emote:fightCommand.crossedSwords}",
+      "turnIndicationDescription": "Wählen Sie eine Aktion"
+    },
+    "actions": {
+      "intro": "{{emote}} | **{{fighter}}** ",
+      "attacksResults": {
+        "critical": [
+          "führt eine {{attack}} durch! Perfekt ausgeführt!",
+          "führt eine {{attack}} durch! Sie ist wunderschön!",
+          "führt eine großartige {{attack}} durch! Perfekt ausgeführt!",
+          "führt eine {{attack}} durch! Unglaublich erfolgreich!",
+          "realisiert eine {{attack}} ! Total brutal!",
+          "führt eine {{attack}} durch! Das war riskant, aber es geht durch!",
+          "wirft eine gute {{attack}} !",
+          "verwendet eine {{attack}} ! Sie ist PERFEKT!",
+          "verwendet eine {{attack}} ! Magistral!",
+          "realisiert eine erhabene {{attack}} !",
+          "führt eine {{attack}} durch! Sie ist perfekt!",
+          "führt eine {{attack}} durch! Der Angriff ist absolut verrückt!",
+          "verpasst seinem Gegner eine {{attack}} ! Gnadenlos!",
+          "führt eine {{attack}} durch! Es ist ein Blitzschlag!",
+          "realisiert eine {{attack}} ! OH MEIN GOTT DAS IST UNGLAUBLICH!",
+          "wählt eine {{attack}} ! Sehr gute Initiative!",
+          "führt eine {{attack}} durch! Dies ist eine ausgezeichnete {{attack}} !",
+          "führt eine {{attack}} durch! Kritischer Treffer!",
+          "wütet mit einer {{attack}} auf seinen Gegner los!"
+        ],
+        "normal": [
+          "führt eine {{attack}} durch!",
+          "startet eine {{attack}} !",
+          "verwendet eine {{attack}} !",
+          "realisiert eine {{attack}} !"
+        ],
+        "maxUses": [
+          "versucht, eine {{attack}}zu verwenden , aber das schlägt fehl!"
+        ],
+        "charging": [
+          "bereitet sich auf die Durchführung einer {{attack}} vor!"
+        ],
+        "missed": [
+          "realisiert eine {{attack}} ! Wir haben schon Besseres gesehen...",
+          "startet eine {{attack}} ! Mittelmäßig.",
+          "führt eine {{attack}} durch! Das ist nicht sehr erfolgreich.",
+          "führt eine {{attack}} durch! Das ist nicht sehr effektiv...",
+          "wählt eine {{attack}} ! Das Ergebnis ist ziemlich erbärmlich.",
+          "realisiert eine {{attack}} ! Das war nicht die beste Wahl ...",
+          "führt eine {{attack}} durch! Nicht getroffen!",
+          "führt eine {{attack}} durch! Der Angriff scheitert kläglich!",
+          "macht einen schlechten {{attack}} ! Ein grausamer Mangel an Technik für den französischen Spieler!",
+          "führt eine {{attack}} durch! Was für ein Fehler!",
+          "führt eine {{attack}} durch! Es war riskant und ging nicht durch!",
+          "wirft eine schlechte {{attack}} !",
+          "verwendet eine {{attack}} ! Eine unkluge Wahl!",
+          "wählt eine {{attack}} ! Schlechte Initiative ...",
+          "führt eine {{attack}} durch! Dies ist eine schlechte {{attack}} !"
+        ]
+      },
+      "fightActionEffects": {
+        "self": {
+          "newAlteration": " `Sie sind jetzt {{effect}} !`",
+          "damages": " `Empfangener Schaden: {{amount}}`",
+          "defense": " `Verteidigung: {{operator}} {{amount}}%`",
+          "breath": " `Souffle: {{operator}} {{amount}}`",
+          "speed": " `Geschwindigkeit: {{operator}} {{amount}}%`",
+          "attack": " `Angriff: {{operator}} {{amount}}%`",
+          "energy": " `Gewonnene Energie: {{amount}}`"
+        },
+        "opponent": {
+          "newAlteration": " `Ihr Gegner ist nun {{effect}} !`",
+          "damages": " `Angerichteter Schaden: {{amount}}`",
+          "defense": " `Verteidigung des Gegners: {{operator}} {{amount}}%`",
+          "breath": " `Atem des Gegners: {{operator}} {{amount}}`.",
+          "speed": " `Gegnerische Geschwindigkeit: {{operator}} {{amount}}%`",
+          "attack": " `Angriff des Gegners: {{operator}} {{amount}}%`",
+          "energy": " `Energie des Gegners zurückgewonnen: {{amount}}`.",
+          "summoning": " `Berufung von {{amount}} Verbündeten`."
+        }
+      },
+      "aiChoose": "{emote:fightCommand.aiThinking} Der Gegner wählt einen Angriff..."
+    },
+    "fightReward": {
+      "title": "{emote:fightCommand.gloryChange} Kampfbelohnungen",
+      "scoreAndMoneyField": "Belohnungen für den Kampf",
+      "noReward": "Sie haben alle Kampfbelohnungen aufgebraucht, kommen Sie morgen wieder.",
+      "points": "{emote:unitValues.score} Gewonnene Punkte : **{{count}}**",
+      "money": "{emote:unitValues.money} Verdientes Geld : **{{count}}**",
+      "gloryField": "Veränderungen der Herrlichkeit",
+      "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
+      "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
+      "leagueField": "Änderungen in den Ligen",
+      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "higherEloWins": [
+        "{{winner}} setzt sich mit einer markanten Leistung auf dem Spielfeld durch.",
+        "{{loser}} gab alles, aber {{winner}} zeigte eine bessere Kontrolle über sein Spiel.",
+        "In diesem Kampf machte sich der Niveauunterschied zwischen den beiden Spielern bemerkbar.",
+        "{{winner}} bewies sein Fachwissen, indem er diese schwierige Begegnung gewann.",
+        "{{loser}} kann trotz der Niederlage stolz auf seine Leistung sein, aber {{winner}} ist unbestreitbar der Sieger dieses Kampfes.",
+        "{{winner}} überrollte {{loser}} mit einer dominanten Leistung.",
+        "{{loser}} gab sein Bestes, aber er war deutlich unter dem Niveau von {{winner}}.",
+        "Der Talentunterschied zwischen den beiden Spielern war in diesem Kampf ausschlaggebend.",
+        "{{winner}} bewies, warum er als einer der Besten gilt, indem er das Spiel mühelos gewann.",
+        "{{loser}} kann diese Niederlage als Gelegenheit nehmen, um zu lernen und sich für künftige Kämpfe zu verbessern."
+      ],
+      "lowestEloWins": [
+        "Das Unerwartete geschah in diesem Kampf, {{winner}} gewann gegen einen erfahreneren Gegner.",
+        "{{loser}} hat seinen Gegner vielleicht unterschätzt, denn {{winner}} zeigte eine unerschütterliche Entschlossenheit.",
+        "Trotz des Talentunterschieds gelang es {{winner}} , das Spiel mit einer soliden Strategie zu gewinnen.",
+        "Es war kein einfaches Spiel, aber {{winner}} hat bewiesen, dass er mit den talentiertesten Spielern mithalten kann.",
+        "Dieser Kampf war sicherlich ein Wendepunkt in der Karriere von {{winner}}, der seine Entschlossenheit und seine Fähigkeit, die Erfahrensten zu besiegen, unter Beweis gestellt hat.",
+        "{{winner}} überwand die Erwartungen, indem er das enge Match gegen einen talentierteren Gegner gewann.",
+        "{{loser}} hat seinen Gegner vielleicht unterschätzt, denn {{winner}} zeigte eine unerschütterliche Entschlossenheit.",
+        "Trotz des Niveauunterschieds konnte {{winner}} den Kampf dank einer klugen Strategie für sich entscheiden.",
+        "Es war kein einfaches Spiel, aber {{winner}} hat bewiesen, dass er mit den talentiertesten Spielern mithalten kann.",
+        "{{winner}} hat sicherlich einen bedeutenden Schritt nach vorne in seiner Karriere gemacht, indem er dieses schwierige Spiel gewonnen hat."
+      ],
+      "draw": [
+        "Das Spiel war ein hart umkämpftes Duell zwischen zwei talentierten Spielern.",
+        "{{player1}} und {{player2}} zeigten während des gesamten Spiels eine unerschütterliche Entschlossenheit.",
+        "Keiner der beiden Spieler konnte sich den entscheidenden Vorteil verschaffen, was zu einem unerwarteten Unentschieden führte.",
+        "Dieses Spiel wird wahrscheinlich als eines der engsten und spannendsten in der Geschichte angesehen werden.",
+        "{{player1}} und {{player2}} lieferten sich einen harten Kampf voller Entschlossenheit.",
+        "Trotz des Niveauunterschieds gaben beide Spieler alles, um das Spiel zu gewinnen.",
+        "Keiner der beiden konnte sich den entscheidenden Vorteil verschaffen, was zu einem überraschenden Unentschieden führte.",
+        "Keiner der beiden Spieler konnte sich den entscheidenden Vorteil verschaffen, was zu einem Unentschieden führte.",
+        "Dieses Spiel wird wahrscheinlich als eines der engsten und spannendsten in der Geschichte angesehen werden.",
+        "{{player1}} und {{player2}} haben beide in diesem epischen Match gezeigt, warum sie als talentierte Wettkämpfer gelten."
+      ],
+      "sameElo": [
+        "Das Spiel war ein spannendes Duell zwischen zwei gleichwertigen Spielern.",
+        "{{player1}} und {{player2}} lieferten beide eine solide und ausgeglichene Leistung.",
+        "Es war ein sehr enges Spiel mit klugen Taktiken auf beiden Seiten.",
+        "Die Zuschauer erlebten ein episches Match zwischen zwei talentierten Spielern, die sich auf Augenhöhe begegneten."
+      ]
+    }
+  },
+  "switch": {
+    "titleSuccess": "{{pseudo}}Die Bestellung wurde ausgeführt.",
+    "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
+    "switchingSingle": "Sie haben ausgestattet: {{item1}} !",
+    "noItemToSwitch": "Sie haben keine Ausrüstung, die Sie ausrüsten müssen!",
+    "cancelled": "Aktion abgebrochen!",
+    "switchSelectionTitle": "{{pseudo}}Die Ausrüstung eines Objekts",
+    "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
+  },
+  "drink": {
+    "cancelledTitle": "{{pseudo}}Sie haben die Aktion abgebrochen.",
+    "cancelled": "Sie haben Ihren Trank nicht getrunken!",
+    "noActiveObject": "Sie haben leider nichts zu trinken in Ihrem Inventar!",
+    "objectIsActiveDuringFights": "Dieses Getränk kann jetzt nicht getrunken werden. Es wird automatisch bei Ihrem nächsten Kampf verwendet!",
+    "healthBonus": "{emote:unitValues.health} Gewonnenes Leben: {{value}} !",
+    "energyBonus": "{emote:unitValues.energy} Gewonnene Energie: {{value}} !",
+    "timeBonus": "{emote:unitValues.time} Sie sind weitergekommen von {{value}} !",
+    "noBonus": "{emote:messages.refuse} Sie konsumieren das Getränk, das Sie transportiert haben... Das scheint nicht sehr effektiv zu sein!",
+    "drinkSuccessTitle": "{{pseudo}}Wenn Sie das Getränk trinken, das Sie transportiert haben, dann trinken Sie es!",
+    "confirmationTitle": "{{pseudo}}Bestätigung :",
+    "confirmation": "Sind Sie sicher, dass Sie Ihre {{potion}} trinken möchten?",
+    "confirmationFooter": "Diesen Schritt kann man umgehen, indem man den Parameter erzwingen!"
+  },
+  "petSell": {
+    "noPet": "Sie haben keine Vertrauten zu verkaufen!",
+    "noGuild": "Sie können Ihren Begleiter nicht verkaufen, weil Sie nicht in einer Gilde sind. Dies liegt daran, dass der Verkauf eines Begleiters Gildenerfahrung generiert.",
+    "isFeisty": "Sie können einen galligen Vertrauten nicht verkaufen.",
+    "badPrice": "Der Preis muss höher als `{{minPrice}}{emote:unitValues.money}` und niedriger als `{{maxPrice}}{emote:unitValues.money}` sein.",
+    "onlyInitiatorCanCancel": "Nur der Initiator eines Verkaufs kann diesen stornieren!",
+    "canceled": "Der Verkauf wurde abgebrochen!",
+    "cantSellToYourself": "Es ist unmöglich, einen Vertrauten an sich selbst zu verkaufen!",
+    "noOneAvailable": "Leider scheint niemand verfügbar zu sein, der Ihr Haustier kaufen möchte. Ihr Verkauf wurde storniert.",
+    "sameGuild": "Du kannst dieses Haustier nicht kaufen, weil der Verkäufer Mitglied deiner Gilde ist.",
+    "alreadyHavePet": "Sie haben bereits einen Vertrauten in Ihrem Inventar.",
+    "notEnoughMoney": "Sie haben nicht genug Geld, um diese Transaktion durchzuführen. Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
+    "initiatorSituationChanged": "Der Verkäufer ist nicht mehr in der Lage, sein Haustier zu verkaufen. Der Verkauf wurde abgebrochen.",
+    "sellTitle": "Verkauf eines Vertrauten",
+    "sellDescription": "{{pseudo}} möchte einen Vertrauten für `{{price}}{emote:unitValues.money}` verkaufen",
+    "maxLevelWarning": "{emote:collectors.warning} Ihre Gilde ist auf der höchsten Stufe, Sie erhalten keine Erfahrung!",
+    "petFieldName": "Vertraute verkauft :",
+    "sellFooter": "Weitere Informationen über den Verkauf von Haustieren erhalten Sie mit dem Befehl help petsell.",
+    "successTitle": "{{pseudo}}Erfolgreiche Transaktion!",
+    "successDescription": "{{pet}} folgt Ihnen nun. Kümmern Sie sich gut darum!"
+  },
+  "classes": {
+    "description": {
+      "0": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "1": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "2": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "3": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "4": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "5": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "6": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "7": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "8": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "10": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "11": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "12": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "13": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "14": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "15": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "16": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+      "17": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+      "18": "Eine einfache Klasse. Ziemlich ausgeglichen.",
+      "19": "Eine Klasse, die sich auf die Verteidigung konzentriert. Schwache Leistung im Kampf, aber zusätzliches Leben für das Abenteuer.",
+      "20": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke.",
+      "21": "Eine starke, aber ausgeglichene Klasse. Eher vielseitig.",
+      "22": "Eine defensiv ausgerichtete Klasse ohne Lebenspunktebonus, aber mit einem Angriff, der größer ist als der eines Tanks.",
+      "23": "Eine Klasse mit sehr guten Werten, aber mit einem hohen Malus auf die Lebenspunkte.",
+      "24": "Eine vielseitige Klasse, die sich auf eine einzigartige Kampfmechanik konzentriert."
+    },
+    "title": "{emote:commands.classes} Die Klasse wechseln :",
+    "desc": "Wählen Sie eine Klasse aus der folgenden Liste aus, um weitere Informationen zu erhalten.\n",
+    "display": "{{name}}\n\n{emote:commands.classesDescription} `{{description}}`\n\nMöchten Sie in diese Klasse wechseln? Sie können die Klasse erst nach {{time}}wechseln.",
+    "success": "{{pseudo}}Ihre Klasse wurde geändert!",
+    "newClass": "Ihre neue Klasse ist : **{{name}}**",
+    "confirm": "{{pseudo}}Sie haben die folgende Klasse ausgewählt:",
+    "error": {
+      "canceledPurchase": "Klassenwechsel abgesagt.",
+      "sameClass": "Sie gehören bereits zu dieser Klasse.",
+      "leaveClass": "Sie haben die Klasse nicht gewechselt.",
+      "changeClassTooEarly": "Sie haben kürzlich bereits die Klasse gewechselt. Sie können erneut die Klasse wechseln {{time}}."
+    },
+    "refuse": "Abbrechen",
+    "chooseClass": "Wählen Sie eine Klasse"
+  },
+  "sell": {
+    "noItemToSell": "Sie haben leider keine Gegenstände in Ihrem Vorrat!",
+    "confirmSell": "Sind Sie sicher, dass Sie sich von {{item}} für **{{value}}** {emote:unitValues.money} trennen wollen?",
+    "sellCanceled": "Der Verkauf wurde tatsächlich storniert!",
+    "sellTitle": "{{pseudo}}Bestätigung :",
+    "soldMessage": "Sie haben {{item}} für **{{value}}** {emote:unitValues.money} verkauft!",
+    "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
+    "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
+    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
+    "soldMessageAlreadyOwnTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten, die Sie bereits besessen haben.",
+    "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
+    "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
+    "throwAwayField": "{{name}} | {emote:other.trash}",
+    "confirmThrowAway": "Sind Sie sicher, dass Sie {{item}} wegwerfen möchten?",
+    "sellIndication": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Verkaufen aus:",
+    "menuPlaceholder": "Wählen Sie einen Gegenstand zum Verkaufen",
+    "cancel": "Abbrechen",
+    "selectMenuDescSell": "Verkaufen für {{value}} {emote:unitValues.money}",
+    "selectMenuDescThrow": "Werfen {emote:other.trash}"
+  },
+  "petTransfer": {
+    "anotherPlayerTransferring": "Das Mitglied Ihrer Gilde **{{playerName}}** ist gerade dabei, einen Begleiter zu übertragen. Bitte versuchen Sie es später noch einmal.",
+    "transferCancelled": "Der Transfer wurde abgebrochen.",
+    "situationChanged": "Bei der Übertragung ist etwas schief gelaufen. Bitte versuchen Sie es noch einmal.",
+    "noPet": "Sie haben keine Begleiter, die Sie transferieren können, und die Hütte Ihrer Gilde ist leer.",
+    "confirmTransferTitle": "{{pseudo}}Die Übertragung wurde durchgeführt.",
+    "confirmSwitch": "**{{oldPet}}** bleibt nun in der Hütte und **{{newPet}}** folgt Ihnen!",
+    "confirmDeposit": "**{{oldPet}}** wurde in der Zuflucht Ihrer Gilde abgegeben!",
+    "confirmWithdraw": "**{{newPet}}** folgt Ihnen von nun an!",
+    "chooseActionTitle": "Transfer eines Vertrauten",
+    "chooseActionDesc": "Wählen Sie eine Aktion, die Sie durchführen möchten:",
+    "depositButton": "Absetzen {{pet}} in der Hütte",
+    "withdrawButton": "Einen Begleiter aus dem Tierheim entfernen",
+    "switchButton": "Austauschen {{pet}} mit einem Vertrauten aus dem Tierheim",
+    "refuseButton": "Übertragung abbrechen",
+    "backButton": "Zurück",
+    "withdrawPlaceholder": "Wählen Sie einen Begleiter zum Entfernen",
+    "switchPlaceholder": "Wählen Sie einen Vertrauten, den Sie gegen {{pet}}eintauschen möchten.",
+    "selectMenuPetDetails": "{{rarity}} | {{sex}} | {{loveLevel}}",
+    "feistyError": "Sie können einen galligen Begleiter nicht übertragen."
+  },
+  "petFeed": {
+    "noPet": "Sie haben keine Vertrauten!",
+    "noMoney": "Sie haben nicht genug Geld, um diesen Kauf zu tätigen...",
+    "notHungry": "Es scheint, dass **{{pet}}** keinen Hunger hat...",
+    "guildStorageEmpty": "Das Nahrungslager Ihrer Gilde ist leer. Kaufen Sie Nahrung mit {command:guildshop}.",
+    "cancelled": "Fütterung abgesagt!",
+    "resultTitle": "{{pseudo}}Fütterung durchgeführt!",
+    "result": {
+      "happy": "Ihr Vertrauter ist satt und scheint glücklich zu sein!",
+      "veryHappy": "Ihr Vertrauter ist satt und scheint sehr glücklich zu sein!",
+      "veryVeryHappy": "Ihr Vertrauter ist satt und springt vor Freude auf und ab!",
+      "dislike": "Ihrem Vertrauten scheint das Essen nicht zu schmecken..."
+    },
+    "feedTitle": "{{pseudo}}Fütterung Ihres Haustieres",
+    "feedDescription": "Wählen Sie eine Nahrung für **{{pet}}**:",
+    "feedFoodBullet": "- **{{food}}** ({{amount}} / {{maxAmount}})",
+    "cancelButton": "Abbrechen",
+    "feedWithoutGuildDesc": "Möchten Sie ein Leckerli für {{pet}} kaufen?\n\n{{food}} | `{{price}}{emote:unitValues.money}`"
+  },
+  "leagueReward": {
+    "errors": {
+      "notSunday": "Die Liga-Belohnung kann nur am Sonntag abgeholt werden! Kehren Sie zurück {{nextSunday}}.",
+      "noPoints": "Die Liga-Belohnung ist nur für Spieler verfügbar, die in der vorherigen Saison gekämpft haben.",
+      "alreadyClaimed": "Sie haben Ihre Liga-Belohnung für diese Saison bereits abgeholt."
+    },
+    "title": "{{pseudo}}Sie haben Ihre Liga-Belohnung erhalten!",
+    "description": {
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "other": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n Sie schließen mit $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) ab!\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!"
+    }
+  },
+  "guildStorage": {
+    "embed": {
+      "title": "Lagerhaus der Gilde {{guildName}}",
+      "descriptionTitle": "**Essen**: ",
+      "description": "Nahrung ist nützlich, um alle Ihre Haustiere zu ernähren. Wenn es Ihnen ausgeht, können Sie es über den Befehl {command:guildshop}kaufen."
+    },
+    "food": {
+      "title": "{emote:foods.{{foodId}}} $t(models:foods.{{foodId}}, {\"context\": \"capitalized\"})",
+      "description": "**Stock**: {{amount}}/{{maxAmount}}\n"
+    }
+  },
+  "joinBoat": {
+    "errorMessage": {
+      "tooManyBoatThisWeek": "Sie waren zu oft auf dem Schiff oder sind in dieser Woche einer Gilde beigetreten.",
+      "noMemberOnBoat": "Es befinden sich keine aktiven Mitglieder Ihrer Gilde auf dem Schiff.",
+      "noGuild": "Sie gehören keiner Gilde an.",
+      "notEnoughEnergy": "Sie haben nicht genug Energie, um auf das Boot zu steigen.",
+      "notEnoughGems": "Du möchtest deiner Gilde beitreten, aber als du bezahlen willst, stellst du fest, dass dein Geld nicht ausreicht."
+    },
+    "confirmationMessage": {
+      "title": {
+        "confirmation": "{{pseudo}}Bestätigung :",
+        "confirmed": "{{pseudo}}Ihre Wahl:"
+      },
+      "description": {
+        "confirmation": {
+          "text": "{emote:guild.isOnBoat} Sind Sie sicher, dass Sie sich Ihrer Gilde auf dem Schiff anschließen möchten?\nDer Kapitän teilt Ihnen mit, dass die Reise **{{priceText}}**.\n\nMöchten Sie auf die Insel reisen? Sie haben {emote:unitValues.energy} **{{currentEnergy}}/{{maxEnergy}}**.",
+          "priceText_zero": "ist kostenlos",
+          "priceText_other": "kostet {{gemsCost}} {emote:unitValues.gem}"
+        },
+        "confirmed": "{{gainScore}} Sie schließen sich Ihrer Gilde auf dem Schiff an.",
+        "confirmedScore": "**{emote:unitValues.score} Gewonnene Punkte:** {{score}}\n"
+      }
+    },
+    "refuse": "Sie entscheiden sich schließlich dafür, hier zu bleiben und sich nicht Ihrer Gilde auf dem Schiff anzuschließen."
+  },
+  "guildShelter": {
+    "embedTitle": "Zufluchtsort der Gilde {{guildName}}",
+    "petFieldName": "Vertraute Nr.{{number}}",
+    "noPetMessage": "Es scheint, dass sich keine Vertrauten in der Unterkunft befinden.",
+    "warningFull": "Das Tierheim ist voll! Es können keine neuen Haustiere aufgenommen werden, solange kein Haustier aus dem Tierheim freigelassen oder verkauft wurde."
+  },
+  "giveBadge": {
+    "alreadyHaveBadge": "Der Spieler hat bereits alle Abzeichen, die es im Spiel gibt.",
+    "selectBadgePlaceholder": "Wählen Sie ein Abzeichen, das der Spieler erhalten soll",
+    "selectBadgeTitle": "{{pseudo}}Auswahl eines Namensschildes",
+    "selectBadgeDesc": "Wählen Sie aus einer der folgenden Listen ein Abzeichen aus, das Sie dem Spieler geben möchten:"
+  },
+  "setPlayerInfo": {
+    "playerModifiedTitle": "{{pseudo}}Änderung eines Spielers",
+    "playerModifiedDesc": "Der Spieler wurde erfolgreich geändert!\n\nID: **{{keycloakId}}**\nBenutzername: **{{pseudo}}**"
+  }
+}

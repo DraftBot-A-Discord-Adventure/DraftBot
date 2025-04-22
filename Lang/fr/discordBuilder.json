@@ -1,0 +1,384 @@
+{
+  "badges": {
+    "description": "Afficher des informations sur les badges et leur fonctionnement.",
+    "name": "badges"
+  },
+  "help": {
+    "description": "Afficher la liste des commandes disponibles ou les informations détaillées sur une commande.",
+    "name": "aide",
+    "options": {
+      "commandName": {
+        "description": "La commande dont les informations doivent être affichées.",
+        "name": "commande"
+      }
+    }
+  },
+  "idea": {
+    "description": "Envoyer une suggestion pour améliorer le jeu.",
+    "name": "suggestion"
+  },
+  "inventory": {
+    "description": "Afficher l'inventaire du joueur.",
+    "name": "inventaire",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont l'inventaire doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont l'inventaire doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "invite": {
+    "description": "Ajouter le bot sur votre serveur.",
+    "name": "invitationdraftbot"
+  },
+  "language": {
+    "description": "Changer la langue du bot pour vos prochaines intéractions.",
+    "name": "langage"
+  },
+  "ping": {
+    "description": "Afficher la latence du bot et permet au joueur de vérifier si le bot est en ligne.",
+    "name": "ping"
+  },
+  "pet": {
+    "description": "Afficher les informations du familier d'un joueur.",
+    "name": "familier",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le familier doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont le familier doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "petFree": {
+    "description": "Libérer un familier.",
+    "name": "libererfamilier"
+  },
+  "petNick": {
+    "description": "Donner un nom à votre familier.",
+    "name": "surnomfamilier",
+    "options": {
+      "nickname": {
+        "description": "Le surnom que vous voulez donner à votre familier. (Laissez vide pour supprimer le surnom)",
+        "name": "surnom"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Créer une nouvelle guilde.",
+    "name": "creationguilde",
+    "options": {
+      "guildName": {
+        "description": "Le nom de la guilde.",
+        "name": "nom"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Changer la description de la guilde.",
+    "name": "descriptionguilde",
+    "options": {
+      "description": {
+        "description": "La description.",
+        "name": "description"
+      }
+    }
+  },
+  "guildInvite": {
+    "description": "Recruter un nouveau membre dans votre guilde.",
+    "name": "invitationguilde",
+    "options": {
+      "user": {
+        "description": "L'utilisateur à recruter.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "guild": {
+    "description": "Afficher des informations sur une guilde.",
+    "name": "guilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont la guilde doit être affichée.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont la guilde doit être affichée.",
+        "name": "utilisateur"
+      },
+      "guildName": {
+        "description": "Le nom de la guilde dont les informations doivent être affichées.",
+        "name": "guilde"
+      }
+    }
+  },
+  "profile": {
+    "description": "Afficher le profil d'un joueur.",
+    "name": "profil",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont le profil doit être affiché.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont le profil doit être affiché.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "rarity": {
+    "description": "Afficher les différentes raretés des équipements.",
+    "name": "rarete"
+  },
+  "report": {
+    "description": "Obtenir un rapport sur la situation de votre personnage.",
+    "name": "rapport"
+  },
+  "test": {
+    "description": "Commande de triche pour les testeurs (MODE TEST UNIQUEMENT).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Commande test à exécuter.",
+        "name": "commande"
+      }
+    }
+  },
+  "update": {
+    "description": "Afficher la version actuelle du bot.",
+    "name": "nouveautes"
+  },
+  "vote": {
+    "description": "Afficher le lien permettant de voter pour le bot.",
+    "name": "vote"
+  },
+  "map": {
+    "description": "Afficher la carte pour indiquer où vous allez.",
+    "name": "carte"
+  },
+  "shop": {
+    "description": "Afficher le magasin.",
+    "name": "magasin"
+  },
+  "classesInfo": {
+    "description": "Afficher des informations sur les classes sélectionnables pour votre personnage.",
+    "name": "infosclasses"
+  },
+  "respawn": {
+    "description": "Reprendre l'aventure après... \"un accident\".",
+    "name": "revivre"
+  },
+  "notifications": {
+    "description": "Gérer les notifications du bot.",
+    "name": "notifications",
+    "options": {
+      "toggle": {
+        "description": "Activer ou désactiver les notifications d'un certain type.",
+        "name": "changer"
+      }
+    }
+  },
+  "maintenance": {
+    "description": "Mettre le bot en mode maintenance.",
+    "name": "maintenance",
+    "options": {
+      "enable": {
+        "description": "Activer ou désactiver le mode maintenance.",
+        "name": "activer"
+      },
+      "save": {
+        "description": "Sauvegarder le mode maintenance dans le fichier de configuration.",
+        "name": "sauvegarder"
+      }
+    }
+  },
+  "missions": {
+    "description": "Lister les missions d'un joueur.",
+    "name": "missions",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur dont les missions doivent être affichées.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur dont les missions doivent être affichées.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "guildShop": {
+    "description": "Afficher le magasin de guilde.",
+    "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Exclure un membre de la guilde.",
+    "name": "exclureguilde",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à exclure de la guilde.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à exclure de la guilde.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "guildDaily": {
+    "description": "Récupérer la récompense journalière de la guilde.",
+    "name": "bonusjournalierguilde"
+  },
+  "guildElder": {
+    "description": "Promouvoir un membre de la guilde au rang d'aîné.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "L'utilisateur qui sera promu en tant qu'aîné.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "guildElderRemove": {
+    "description": "Démettre l'aîné de la guilde de ses fonctions.",
+    "name": "supprimeraineguilde"
+  },
+  "guildLeave": {
+    "description": "Quitter la guilde.",
+    "name": "quitterguilde"
+  },
+  "daily": {
+    "description": "Utiliser votre objet équipé pour obtenir un bonus journalier.",
+    "name": "bonusjournalier"
+  },
+  "unlock": {
+    "description": "Délivrer un autre joueur de la prison.",
+    "name": "delivrer",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à délivrer.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à délivrer.",
+        "name": "utilisateur"
+      }
+    }
+  },
+  "missionsshop": {
+    "description": "Afficher le magasin de missions.",
+    "name": "magasinmissions"
+  },
+  "top": {
+    "description": "Afficher les classements du jeu.",
+    "name": "classement",
+    "subcommands": {
+      "score": {
+        "description": "Afficher le classement des joueurs en fonction de leur score.",
+        "name": "score"
+      },
+      "glory": {
+        "description": "Afficher le classement des guildes en fonction de leur gloire.",
+        "name": "glorieux"
+      },
+      "guild": {
+        "description": "Afficher le classement des guildes en fonction de leurs points.",
+        "name": "guilde"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "La durée du classement affiché (Depuis toujours par défaut).",
+        "name": "duree"
+      },
+      "page": {
+        "description": "La page du classement à afficher.",
+        "name": "page"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} Depuis toujours.",
+      "weekly": "{emote:top.weekly} Cette semaine."
+    }
+  },
+  "fight": {
+    "description": "Lancer un combat.",
+    "name": "combat"
+  },
+  "switch": {
+    "name": "intervertir",
+    "description": "Intervertir l'objet actif avec l'un des objets présent dans votre réserve."
+  },
+  "drink": {
+    "name": "boire",
+    "description": "Boire la potion équipée.",
+    "options": {
+      "force": {
+        "name": "forcer",
+        "description": "Si vrai, passe la phase de validation si vous êtes sûr de vouloir boire la potion."
+      }
+    }
+  },
+  "petSell": {
+    "name": "vendrefamilier",
+    "description": "Vendre un familier à un autre joueur.",
+    "options": {
+      "price": {
+        "name": "prix",
+        "description": "Le prix de vente du familier."
+      },
+      "player": {
+        "name": "joueur",
+        "description": "Le joueur à qui vendre le familier."
+      }
+    }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Changer de classe."
+  },
+  "sell": {
+    "name": "vendre",
+    "description": "Vendre un équipement."
+  },
+  "petTransfer": {
+    "name": "transfererfamilier",
+    "description": "Transférer un familier depuis ou vers l'abri de la guilde."
+  },
+  "petFeed": {
+    "name": "nourrirfamilier",
+    "description": "Nourrir votre familier."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Afficher les informations sur l'abri de guilde."
+  },
+  "leagueReward": {
+    "name": "bonusligue",
+    "description": "Récupérer la récompense liée à votre ligue."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Afficher le contenu de l'entrepôt de guilde."
+  },
+  "joinBoat": {
+    "name": "rejoindrebateau",
+    "description": "Rejoindre le bateau si un membre de votre guilde est dessus."
+  },
+  "giveBadge": {
+    "name": "donnerbadge",
+    "description": "Donner un badge à un joueur.",
+    "options": {
+      "user": {
+        "name": "utilisateur",
+        "description": "Le joueur à qui donner le badge."
+      }
+    }
+  }
+}

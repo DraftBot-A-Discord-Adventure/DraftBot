@@ -1,0 +1,60 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30
+        }
+      }
+    },
+    "enterCastle": {
+      "outcomes": {
+        "0": {
+          "effect": "hurt",
+          "health": -35
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 25,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 10
+        }
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {}
+      }
+    },
+    "walkAround": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 80
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 80,
+          "money": 450
+        },
+        "2": {
+          "effect": "hurt",
+          "health": -20
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 25
+    }
+  ]
+}

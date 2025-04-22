@@ -1,0 +1,8 @@
+{
+  "type": "ro",
+  "tags": [
+    "detAu"
+  ],
+  "canBeGoToPlaceMissionDestination": true,
+  "attribute": "continent1"
+}

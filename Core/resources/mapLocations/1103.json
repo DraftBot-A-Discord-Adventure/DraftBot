@@ -1,0 +1,5 @@
+{
+  "type": "snowmenField",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
+}

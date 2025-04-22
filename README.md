@@ -1,14 +1,13 @@
 <div style="text-align: center;">
 <img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px" alt="Couronne DraftBot">
 
-DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on a text adventure game. The
-story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by
-the king, to win the princess' hand. To achieve this, he must travel and earn points by going through a lot of danger,
-including thieves, wilderness, and scary children. Every few hours, the player can get a random event by using
-the `/report` command: they interact with a multiple choice system, using reactions below the report. Each choice has
-multiple issues, which could hurt the character, heal them, or even give them some stuff. During the journey, they earn
-money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend
-the leaderboard.
+DraftBot is a text adventure game. The story takes place in a medieval world, and the player embodies an adventurer who
+wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel and earn
+points by going through a lot of danger, including thieves, wilderness, and scary children. Every few hours, the player
+can follow their adventure through "reports" and interact with a multiple choice system, using reactions below the
+report. Each choice has multiple issues, which could hurt the character, heal them, or even give them some stuff. During
+the journey, they earn money, equipments, and points, and can use them to buy potions, items, or effects in the shop,
+fight other players, and ascend the leaderboard.
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)
@@ -17,7 +16,14 @@ the leaderboard.
 
 <br>
 
-# How to launch the bot
+# How to play the game?
+
+DraftBot is originally a discord bot and has evolved to become a fully fledged game that you can play either through
+discord or through other clients.
+
+You can start playing by visiting our website: https://draftbot.com
+
+# Create a custom DraftBot instance
 
 _Before creating your own instance, please note that you can add the bot to your server through the link available on
 the bot's discord_
@@ -27,119 +33,140 @@ skills. Bot support team will prioritize players of the main instance and will o
 will fix bugs you report, but we will not teach you how to code a discord bot.**
 
 Please do not copy and paste the commands we provide in this readme without :
+
 - Understanding the command
 - Replacing the relevant parts with your data
 - Having read the whole document
 
 **Only the code available in the "release" tab is considered "stable".**
 
+## BETA BRANCH WARNING
+
+You are here in the not yet released v5 of DraftBot. Compared to previous versions of the game, we migrated to
+microservices. Cloning this repository will allow you to get all the services necessary to run draftbot v5.
+
+This work is still in progress, please do not open issues about bugs faced in this version of the software.
+
 ## Dev environment setup
 
-For development, we recommend that you run the bot on your computer. This way, you can test your changes without having to build the docker image each time you make a change.
-However, we still recommend you to use docker for the database, as it is easier to setup and maintain.
+### Requirements
 
-We provide all the necessary guides below. If you have any questions, feel free to ask them on our discord server.
+This list contains all the software programs necessary to run DraftBot. Our start guide will walk you through the
+installation process
 
-### Running the bot on your computer. (windows)
+- Docker desktop
+  - 🐧: https://docs.docker.com/engine/install/
+  - 🪟: https://docs.docker.com/docker-for-windows/install/
+- Webstorm
+  - (or any other IDE, but we recommend Webstorm since our team uses it and we provide configurations for it)
+- Git
+- nvm (not mandatory but highly recommended)
+  - 🪟: https://github.com/coreybutler/nvm-windows
+  - 🐧: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+- Node
+  - (see package.json of any service for the relevant version)
 
-- Install git : https://git-scm.com/download/win
-- Download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-- Install NodeJS http://nodejs.org/fr/ 
-  - Check package.json for the minimal required version
-  - Our docker image is based on node alpine (see the DockerFile for the exact version)
-  - We recommend that you use nvm to manage your node versions If you use nvm, you can use `nvm install` to install the correct version If you don't have nvm already install, you can use `npm install -g nvm` to install it
-- Install Yarn `npm install --global yarn`
-- Install the bot : `yarn install`
-- Install and launch a mariadb database. Keep the credentials for the config file. We provide a tutorial below for this step.
-- Create the config file by copying the file config.default.toml in a new file config.toml
-- Edit the file config.toml with the correct data
-- Launch the bot : `yarn start`
+### Start guide
 
-### Here is the same guide for debian based linux distributions (or WSL and git bash on windows)
+This guide will help you run DraftBot on your computer. We provide instructions for Linux, MacOS (🐧) and Windows (🪟). If
+not specified, the command is the same for all OS.
+Please do not skip any step of this guide; otherwise, the following commands will not work.
 
-- Install git : `apt-get install git`
-- Download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-- Install NodeJS `apt-get install nodejs`
-  - Install npm `apt-get install npm`
-  - Check package.json for the minimal required version
-  - Our docker image is based on node alpine (see the DockerFile for the exact version)
-  - We recommend that you use nvm to manage your node versions If you use nvm, you can use `nvm install` to install the correct version If you don't have nvm already install, you can use `npm install -g nvm` to install it
-- Install yarn `npm install -g yarn` (you may have to install npm and use sudo)
-- Install the bot : `yarn install`
-- Install and launch a mariadb database. Keep the credentials for the config file. We provide a tutorial below for this step.
-- Create the config file : `cp config/config.default.toml config/config.toml`
-- Edit the file config.toml with the correct data
-- Launch the bot : `yarn start`
+> For step 1 and 2, you can either do it manually or use [this script](./launchScripts/firstConfig.sh) to do it (Linux and MacOS only)
 
-### Updating the bot
+1. Install Yarn
 
-- Be sure to use `yarn install` and `yarn start` each time you update the bot.
-- Migrations will run automatically, but be sure to check them as they are created for our database, they may cause
-  issues in yours.
+- Check package.json of any service for the relevant version
+- Follow the provided guide to install yarn https://yarnpkg.com/getting-started/install
+> Beware, if you do this at the root of the project, this will create a new package.json file, you can delete this file
 
-Make sure to have docker installed on your machine.
-Here is a link to the windows installation guide : https://docs.docker.com/desktop/install/windows-install/
-Here is a link to the linux installation guide : https://docs.docker.com/engine/install/ubuntu/
+2. Setup projects
 
-Please follow the "without docker" steps until the `yarn install` step (you don't need to do it).
+Run yarn install in each project folder:
 
-### Compile the docker image
-
-This step is only necessary if you want to compile the image yourself. You do not need to do this for the bot to work. This is only if you want to deploy your own image to a server.
-We have a docker hub account, so you may not need to compile the image yourself! You can find it there: https://hub.docker.com/u/draftbot. If you really want to compile it yourself, follow the next step.
-
-In the project folder (previously downloaded with git), run:
-
-`docker build . -t draftbot/draftbot`
-
-### Install a database
-
-First, you will need to create a new folder to store the database data. We recommend you to create a folder outside of the project folder, to avoid any issues with git. Copy the path of this folder, you will need in the following command. This is the "path/to/volumes/mariadb"
-
-Create a docker mariadb database with the following command : 
-
-`docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v /path/to/volumes/mariadb:/var/lib/mysql -p 3306:3306 mariadb:latest`
-
-or with docker compose :
-
-```
-services:
-  mariadb:
-    image: mariadb
-    container_name: mariadb
-    ports:
-      - 3306:3306
-    volumes:
-      - /path/to/volumes/mariadb:/var/lib/mysql
-    environment:
-      MARIADB_USER: draftbot
-      MARIADB_PASSWORD: secret_password
-      MARIADB_ROOT_PASSWORD: super_secret_password
+```sh
+cd Lib && yarn install
+cd ../Discord && yarn install
+cd ../Core && yarn install
 ```
 
-You can also just run a local mariadb server, but we recommend you to use docker. If you want more information about how to install mariadb, you can visit their website : https://mariadb.org/download/
+3. Setup database, Keycloak and an MQTT broker
 
-## Deployment
+#### Keycloak
 
-Building or downloading a docker image of the bot is the recommended way to set up DraftBot in production.
+For Keycloak, follow instructions in [README.md](./keycloak/README.md) in the keycloak folder.
 
-You need to have a config.toml file filled. The config template can be found at config/config.default.toml
+#### Database
 
-Here is the command that will start the DraftBot docker container:
+For the database, you can use a mariadb container with the following command:
 
-`docker run -d --name draftbot -v /path/to/config.toml:/draftbot/config/config.toml:ro -v /path/to/logs:/draftbot/logs draftbot/draftbot`
+```sh
+# Run mariadb database with docker
+docker run -d --name mariadb -e MARIADB_USER=draftbot -e MARIADB_PASSWORD=secret_password -e MARIADB_ROOT_PASSWORD=super_secret_password -v /path/to/volumes/mariadb:/var/lib/mysql -p 3306:3306 mariadb:latest
+```
 
-or with docker compose :
+#### MQTT broker
+
+You can use any MQTT broker, but we recommend using Mosquitto.
+
+You can use [this guide](https://github.com/sukesh-ak/setup-mosquitto-with-docker) to install it with docker. Step 1, 2,
+3, and 5 are enough to have a working MQTT broker.
+
+The following config file can be used:
 
 ```
-services:
-  draftbot:
-    image: draftbot/draftbot
-    container_name: draftbot
-    volumes:
-      - /path/to/config.toml:/draftbot/config/config.toml:ro
-      - /path/to/logs:/draftbot/logs
+allow_anonymous true
+listener 1883
+persistence true
+persistence_file mosquitto.db
+persistence_location /mosquitto/data/
 ```
+
+The only thing important is to allow anonymous connections.
+
+4. Fill config files
+
+```sh
+# Copy files with default values
+cp $DRAFTBOT_ROOT/Core/config/config.default.toml $DRAFTBOT_ROOT/Core/config/config.toml
+cp $DRAFTBOT_ROOT/Discord/config/config.default.toml $DRAFTBOT_ROOT/Discord/config/config.toml
+# The Core module also need access to the Keycloak server on the first launch
+touch $DRAFTBOT_ROOT/Core/config/keycloak.toml # 🐧
+New-Item $DRAFTBOT_ROOT/Core/config/keycloak.toml # 🪟
+```
+
+You can copy and paste the content of the keycloak section from the config.toml file in the Discord folder in the
+keycloak.toml file.
+
+5. Run projects
+
+```sh
+# First: start the core module
+cd $DRAFTBOT_ROOT/Core && yarn start
+# Then: start the discord module
+cd $DRAFTBOT_ROOT/Discord && yarn start
+```
+
+You can set up npm launch scripts to make the start easier.
+From now on you should be able to start the bot by running `yarn start` in the Core and Discord folders while having the
+database and keycloak running.
+Starting order is important, start with the database container and keycloak, then the Core and finally the Discord
+module.
+
+# Docker container
+
+You can also compile the bot in a docker container. To do so, you can use the following commands **at the root of the project**:
+
+```sh
+docker build . -f Core/Dockerfile -t draftbot/core
+docker build . -f Discord/Dockerfile -t draftbot/discord
+```
+
+# License
+
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) or, at your option, any later version.
+
+For details, see the [LICENSE](LICENSE) file in this repository.
 
 # Screenshots
 
@@ -151,4 +178,3 @@ services:
 - [Discord server _(in French)_](https://discord.gg/5JqrMtZ)
 - [Suggestion board _(in French)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
-- [Twitter account _(in French)_](https://twitter.com/DraftBot_?s=09)

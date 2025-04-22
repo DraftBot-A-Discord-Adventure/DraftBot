@@ -1,0 +1,1629 @@
+{
+  "armors": {
+    "0": "No shield or armor",
+    "1": "Engi deflector shield",
+    "10": "Heavy shield",
+    "11": "Beginner's shield",
+    "12": "Master shield",
+    "13": "Ultimate shield",
+    "14": "Powerful shield",
+    "15": "Rusted shield",
+    "16": "Worn shield",
+    "17": "Solar shield",
+    "18": "Master's kimono",
+    "19": "Safety jacket",
+    "2": "Security helmet",
+    "20": "Human shield",
+    "21": "Mechanical arm",
+    "22": "Robot helmet",
+    "23": "Self-defense umbrella",
+    "24": "Gladiator shield",
+    "25": "Warrior shield",
+    "26": "Brennus shield",
+    "27": "Force field",
+    "28": "Lynel shield",
+    "29": "Strong shield",
+    "3": "Shield",
+    "30": "Little shield",
+    "31": "Shield of solitude",
+    "32": "Royal shield",
+    "33": "Scutum",
+    "34": "Roundel",
+    "35": "Vibranium shield",
+    "36": "Spiked shield",
+    "37": "Geneva Conventions",
+    "38": "Node light",
+    "39": "Major's armor",
+    "4": "Wooden shield",
+    "40": "Franklin's shell",
+    "41": "Case law",
+    "42": "War helmet",
+    "43": "Iron bucket",
+    "44": "Wall",
+    "45": "Row of pawns",
+    "46": "Plexiglas",
+    "47": "Japanese fortress",
+    "48": "Coat",
+    "49": "Combat down jacket",
+    "5": "Iron shield",
+    "50": "Protective gown",
+    "51": "Protecting tent",
+    "52": "Powerful aegis",
+    "53": "Counterfeit aegis",
+    "54": "Nam Nam",
+    "55": "Self-deprecation",
+    "56": "Laziness",
+    "57": "Icarus' right wing",
+    "58": "Magic lamp",
+    "59": "Magic hat",
+    "6": "Iron armor",
+    "60": "Giga Chad",
+    "61": "HUwUling scream",
+    "62": "Frost shield",
+    "63": "Wind Shield",
+    "7": "Reinforced kimono",
+    "8": "Basic shield",
+    "9": "Hardened shield"
+  },
+  "classes": {
+    "0": "Recruit",
+    "1": "Fighter",
+    "10": "Archer",
+    "11": "Gunner",
+    "12": "Esquire",
+    "13": "Horse rider",
+    "14": "Pikeman",
+    "15": "Knight",
+    "16": "Paladin",
+    "17": "Veteran",
+    "18": "Powerful infantryman",
+    "19": "Impenetrable tank",
+    "2": "Soldier",
+    "20": "Formidable gunner",
+    "21": "Valiant knight",
+    "22": "Luminous paladin",
+    "23": "Experienced veteran",
+    "24": "Mystic mage",
+    "3": "Infantryman",
+    "4": "Gloved",
+    "5": "Helmeted",
+    "6": "Enmeshed",
+    "7": "Tank",
+    "8": "Rock thrower",
+    "9": "Slinger"
+  },
+  "classFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}})",
+  "classWithStatsFormat": "{emote:classes.{{id}}} $t(models:classes.{{id}}) :\n{emote:unitValues.energy} {{energy}} | {emote:unitValues.attack} {{attack}} | {emote:unitValues.defense} {{defense}} | {emote:unitValues.speed} {{speed}} | {emote:unitValues.breath} {{initialBreath}} / {{maxBreath}} | {emote:unitValues.health} {{health}}",
+  "class_descriptions": {
+    "0": "A simple class. Somewhat balanced.",
+    "1": "A simple class. Somewhat balanced.",
+    "10": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "11": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "12": "A powerful but balanced class. Pretty versatile.",
+    "13": "A powerful but balanced class. Pretty versatile.",
+    "14": "A powerful but balanced class. Pretty versatile.",
+    "15": "A powerful but balanced class. Pretty versatile.",
+    "16": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+    "17": "A class with very good stats but with a significant hitpoints penalty.",
+    "18": "A simple class. Somewhat balanced.",
+    "19": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "2": "A simple class. Somewhat balanced.",
+    "20": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "21": "A powerful but balanced class. Pretty versatile.",
+    "22": "A class focused on defense with no bonus hitpoints but with higher attack than a tank.",
+    "23": "A class with very good stats but with a significant hitpoints penalty.",
+    "24": "A versatile class focused on unique combat mechanics.",
+    "3": "A simple class. Somewhat balanced.",
+    "4": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "5": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "6": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "7": "A class focused on defense. Poor combat performance but extra life for adventuring.",
+    "8": "A class focused on speed. Low hitpoints and energy but high speed and attack.",
+    "9": "A class focused on speed. Low hitpoints and energy but high speed and attack."
+  },
+  "fight_actions": {
+    "benediction": {
+      "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in combat. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",
+      "name_one": "Blessing",
+      "name_other": "Blessings"
+    },
+    "bite": {
+      "success": "is helped by **{{petNickname}}** who decides to bite his opponent."
+    },
+    "blind": {
+      "name": "blind",
+      "new": "is blinded.",
+      "active": "is blinded and strikes at random all around him.",
+      "noAction": "is blinded and misses his target completely.",
+      "stop": "regain your sight."
+    },
+    "boomerangAttack": {
+      "description": "Throws a boomerang that deals damage to the enemy up to 3 times.",
+      "name_one": "Boomerang attack",
+      "name_other": "Boomerang attacks"
+    },
+    "boostDefense": {
+      "success": "fortifies itself behind the sturdy bulwark that is **{{petNickname}}**, gaining formidable protection at the cost of its speed."
+    },
+    "boostSpeed": {
+      "success": "rides on the back of **{{petNickname}}** to move faster."
+    },
+    "boulderTossAttack": {
+      "description": "Average attack that has a chance to stun the opponent.",
+      "name_one": "Boulder toss",
+      "name_other": "Boulder tosses"
+    },
+    "breathTakingAttack": {
+      "description": "Inflicts a small amount of damage but can steal your opponent's breath or slow them down.",
+      "name_one": "Breath-taking attack",
+      "name_other": "Breath-taking attacks"
+    },
+    "buildBarrage": {
+      "success": "is helped by **{{petNickname}}** who builds a dam to protect his master."
+    },
+    "burned": {
+      "name": "burned",
+      "new": "is burned.",
+      "active": "suffers from his burn.",
+      "stop": "is no longer burnt."
+    },
+    "alliesArePresent": {
+      "name": "victim of the allies",
+      "new": "falls victim to his opponent's allies.",
+      "active": "suffers attacks from its opponent's allies."
+    },
+    "canonAttack": {
+      "description": "The accuracy of this attack decreases on fast opponents. A degae bonus is affected to this attack if the opponent is slow. Opponent may be slowed down by attack. Deals more damage if used multiple times in a row.",
+      "name_one": "Cannon attack",
+      "name_other": "Cannon attacks"
+    },
+    "chargeChargingAttack": {
+      "description": "2-turn attack. During the first round, the caster's defense is increased by 50%. During the second round, the caster's defense is reset to its initial level.",
+      "name_one": "Charging attack",
+      "name_other": "Charging attacks"
+    },
+    "chargeClubSmashAttack": {
+      "description": "Requires one turn to charge the attack. Delivers a powerful charge the following turn.",
+      "name_one": "Club smash",
+      "name_other": "Club smashes"
+    },
+    "chargeUltimateAttack": {
+      "description": "Requires a turn to charge the attack. If the attacker has less than 45% of their remaining energy, this attack won't fail. Otherwise, its precision is 70. This attack can only be used once per player and per fight.",
+      "name_one": "Ultimate attack",
+      "name_other": "Ultimate attacks"
+    },
+    "chargingAttack": {
+      "name_one": "Charging attack",
+      "name_other": "Charging attacks"
+    },
+    "claws": {
+      "success": "is supported in his fight by **{{petNickname}}** who gives his opponent a great clawing blow."
+    },
+    "clubSmashAttack": {
+      "name_one": "Club smash",
+      "name_other": "Club smashes"
+    },
+    "concentrated": {
+      "name": "focused",
+      "new": "concentrates its power. `Damage boost active`.",
+      "active": "concentrates its power.",
+      "stop": "is no longer concentrated."
+    },
+    "concentration": {
+      "description": "Fails if you use this action while altered. The \"concentrated\" alteration greatly increases the damage inflicted by the affected fighter on the next turn.",
+      "customMessage": "concentrates and prepares to strike harder.",
+      "name_one": "Concentration",
+      "name_other": "Concentrations"
+    },
+    "confused": {
+      "name": "confused",
+      "new": "is confusing.",
+      "active": "is confusing.",
+      "randomAction": "is confused and performs a random action in his confusion.",
+      "stop": "is no longer confused."
+    },
+    "counterAttack": {
+      "description": "Reply with the same action your opponent just played. Does not work on magical or divine attacks, nor if your opponent did not attack.",
+      "name_one": "Counterattack",
+      "customMessage": "can't counterattack.",
+      "name_other": "Counterattacks"
+    },
+    "createBomb": {
+      "generalEffect": "is supported in his fight by **{{petNickname}}** who pretends to ferociously harass his opponent with precise and painful pecking blows.",
+      "failure": "failed to receive help from **{{petNickname}}** who, out of an abundance of caution, refrained from acting, aware that his intervention was more likely to injure his master than his adversary. We should have been quicker!",
+      "success": "takes advantage of the talent of **{{petNickname}}** who has discreetly prepared a powerful bomb. After activating the detonator, you take off running with all your might!"
+    },
+    "cursed": {
+      "name": "cursed",
+      "new": "is cursed...",
+      "active": "is cursed...",
+      "stop": "suffers the consequences of the curse."
+    },
+    "cursedAttack": {
+      "description": "Curses the opponent, maybe he will suffer the consequences in the future...",
+      "name_one": "Cursed attack",
+      "name_other": "Cursed attacks"
+    },
+    "darkAttack": {
+      "description": "Ignores the opponent's defense. More effective against a player with a high attack.",
+      "name_one": "Dark attack",
+      "name_other": "Dark attacks"
+    },
+    "defenseBuff": {
+      "description": "The more this action is performed in succession, the greater the defense bonus.",
+      "customMessage": "prepares to defend itself...",
+      "name_one": "Defense boost",
+      "name_other": "Defense boosts"
+    },
+    "dirty": {
+      "name": "disgusting",
+      "new": "is absolutely repugnant, its attacks are strengthened.",
+      "active": "is disgusting.",
+      "stop": "managed to clean itself."
+    },
+    "divineAttack": {
+      "description": "This attack's precision increases with the duration of the combat. It is part of the \"actions of the gods\". Fails if 2 actions of the gods have already been performed in the combat.",
+      "name_one": "Divine attack",
+      "name_other": "Divine attacks"
+    },
+    "elephantRememberLastAction": {
+      "success": "is helped by **{{petNickname}}** whose searing memory of recent events enables him to restore his master's lost breath.",
+      "failure": "is helped by **{{petNickname}}** who, despite his powerful memories of past actions, fails to restore the expended breath.",
+      "afraid": "is aided by **{{petNickname}}** who, despite remembering recent events perfectly, trembles too much with fear to be able to restore lost breath."
+    },
+    "energeticAttack": {
+      "description": "Half of the damage dealt by this attack is restored to the caster in the form of healing.",
+      "name_one": "Energetic attack",
+      "name_other": "Energetic attacks"
+    },
+    "eruptionAttack": {
+      "description": "The volcano erupts and spits molten rock at players, with only the fastest able to avoid damage.",
+      "customMessage": "causes the volcano to erupt, with only the fastest opponents able to avoid the eruption.",
+      "name_one": "Eruption",
+      "name_other": "Eruptions"
+    },
+    "familyMealAttack": {
+      "description": "Summons allies to eat the target and poison them.",
+      "name_one": "Family meal",
+      "name_other": "Family meals"
+    },
+    "fireAttack": {
+      "description": "Great chance to burn your opponent. The \"burned\" alteration inflicts damage on your opponent over time.",
+      "name_one": "Fire attack",
+      "name_other": "Fire attacks"
+    },
+    "fishProtectAgainstFire": {
+      "afraid": "asks **{{petNickname}}** to help him not to burn but **{{petNickname}}** is too scared to help.",
+      "success": "is cured of his burns by **{{petNickname}}**."
+    },
+    "frozen": {
+      "name": "frozen",
+      "active": "is frozen.",
+      "stop": "is no longer frozen."
+    },
+    "full": {
+      "name": "Repairs and care of your alterations",
+      "new": "is full and needs to rest. `Speed: 0`",
+      "active": "is full and needs to rest.",
+      "stop": "is no longer full."
+    },
+    "getDirty": {
+      "description": "Performed if the attacker has recently found himself in dirty places. The fighter will find himself repulsed or sick, depending on the situation.",
+      "customMessage": "managed to extricate himself from a perilous situation without too much damage, but at the sacrifice of his dignity and cleanliness.",
+      "name_one": "Soiling",
+      "name_other": "Soiling"
+    },
+    "goesWild": {
+      "success": "orders **{{petNickname}}** to attack. The animal bursts into a rage and starts hitting everything in sight."
+    },
+    "grabAndThrowAttack": {
+      "description": "Throws the opponent if he uses a physical attack, inflicting average damage and having a chance to stun the opponent",
+      "name_one": "Grab and throw attack",
+      "name_other": "Grab and throw attacks"
+    },
+    "guildAttack": {
+      "description": "The players of the guild join together to carry out a powerful group attack.",
+      "name_one": "Guild attack",
+      "name_other": "Guild attacks"
+    },
+    "healEveryone": {
+      "generalEffect": "calls on **{{petNickname}}** who, with a benevolent look, sees that no one has been hurt and goes back to resting happily.",
+      "success": "is lucky enough to be accompanied by **{{petNickname}}** who, overflowing with love and wishing to put an end to the confrontation, looks after the combatants."
+    },
+    "heatDrainAttack": {
+      "description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent.",
+      "customMessage": "drains your heat.",
+      "name_one": "Heat drain",
+      "name_other": "Heat drains"
+    },
+    "heatMudAttack": {
+      "description": "Heat up the mud in the arena to wreak havoc on dirty opponents.",
+      "name_one": "Burning mud attack",
+      "name_other": "Burning mud attacks"
+    },
+    "heavyAttack": {
+      "description": "The damage of this attack is reduced by 90% if the defender has less defense than the attacker. Enemy defense is reduced by 25%.",
+      "name_one": "Heavy attack",
+      "name_other": "Heavy attacks"
+    },
+    "helpBreathe": {
+      "success": "is helped by **{{petNickname}}** who, thanks to his diving skills, passes on a little breath to his owner."
+    },
+    "horn": {
+      "success": "was right to call **{{petNickname}}**! The animal has just impaled his opponent on his horn, and it's not a pretty sight.",
+      "generalEffect": "calls **{{petNickname}}** to the rescue, the animal takes off and charges straight at his opponent..."
+    },
+    "hypnosis": {
+      "success": "is helped by **{{petNickname}}** who uses his hypnotic powers to confuse the enemy."
+    },
+    "intenseAttack": {
+      "description": "Ignores part of your opponent's defense. Never fails on a faster opponent. Works best on a fast opponent. Forces the caster to use the \"rest\" action next turn. Cannot kill opponent.",
+      "name_one": "Intense attack",
+      "name_other": "Intense attacks"
+    },
+    "isUseless": {
+      "generalEffect": "asks for help from **{{petNickname}}** who, with remarkable indifference, stares blankly at his opponent."
+    },
+    "lavaWaveAttack": {
+      "description": "Very powerful attack that can only be used as a last resort and inflicts the \"Burned\" alteration to the opponent.",
+      "name_one": "Lava wave",
+      "name_other": "Lava waves"
+    },
+    "magicMimicAttack": {
+      "description": "Allows you to strike back after an opponent's magic attack.",
+      "name_one": "Magic mimic attack",
+      "name_other": "Magic mimic attacks"
+    },
+    "magmaBathAttack": {
+      "description": "Applies to the launcher. He rests in the lava and recovers his energy. The amount of energy recovered is divided by 4 after 4 uses.",
+      "customMessage": "bathes in the lava and recovers energy.",
+      "name_one": "Magma bath",
+      "name_other": "Magma baths"
+    },
+    "meduseParalyze": {
+      "success": "receives help from **{{petNickname}}** who petrifies his opponent with a glance."
+    },
+    "mudShotAttack": {
+      "description": "Ranged attack that inflicts damage and makes the opponent dirty.",
+      "name_one": "Mud shot attack",
+      "name_other": "Mud shot attacks"
+    },
+    "none": {
+      "customMessage": "cannot attack."
+    },
+    "outOfBreath": {
+      "active": "is too out of breath to attack and has to catch his breath."
+    },
+    "outrage": {
+      "name": "angry",
+      "new": "is angry.",
+      "active": "is angry.",
+      "stop": "is no longer angry but becomes giddy."
+    },
+    "outrageAttack": {
+      "description": "Fails if you use this action while altered. The \"angry\" alteration doubles attack but lowers defense. After 2 turns, the effect disappears and the attacker becomes confused.",
+      "customMessage": "gets angry.",
+      "name_one": "Outrage",
+      "name_other": "Outrages"
+    },
+    "paralyzed": {
+      "name": "paralyzed",
+      "new": "is paralyzed.",
+      "active": "is paralyzed.",
+      "noAction": "is paralyzed and unable to attack.",
+      "stop": "is no longer paralyzed."
+    },
+    "peck": {
+      "success": "is supported in his fight by **{{petNickname}}** who ferociously harasses his opponent with precise and painful pecks."
+    },
+    "petCharge": {
+      "generalEffect": "orders **{{petNickname}}** to attack. The animal rubs its paws impatiently, ready to charge.",
+      "success": "is assisted by **{{petNickname}}** who finally decides to charge his opponent with great force."
+    },
+    "petCurse": {
+      "success": "invokes the powers of **{{petNickname}}** to curse his opponent."
+    },
+    "petHit": {
+      "success": "needs the help of **{{petNickname}}** following the violent attack he has just received. Out of revenge, **{{petNickname}}** hits his opponent hard."
+    },
+    "petPoison": {
+      "success": "uses **{{petNickname}}** to poison his opponent."
+    },
+    "petSmallCharge": {
+      "generalEffect": "orders **{{petNickname}}** to attack. The animal rubs its paws impatiently, ready to charge.",
+      "success": "is helped by **{{petNickname}}** who finally decides to charge his opponent with force."
+    },
+    "petrificationAttack": {
+      "description": "Petrifies the target during 2 turns but raises its defense by 200%.",
+      "customMessage": "petrifies his opponent.",
+      "name_one": "Petrification",
+      "name_other": "Petrifications"
+    },
+    "petrified": {
+      "name": "petrified",
+      "new": "is petrified.",
+      "noAction": "is petrified and unable to attack.",
+      "stop": "is no longer petrified."
+    },
+    "piercingAttack": {
+      "description": "Almost completely ignores the opponent's defense. The attacker has a probability of slightly reducing his opponent's defense.",
+      "name_one": "Piercing attack",
+      "name_other": "Piercing attacks"
+    },
+    "pinch": {
+      "success": "is helped by **{{petNickname}}** who pinches his opponent with his little pincers."
+    },
+    "poisoned": {
+      "name": "poisoned",
+      "new": "is poisoned.",
+      "active": "suffers from his poisoning.",
+      "stop": "is no longer poisoned."
+    },
+    "poisonousAttack": {
+      "description": "Poisons the opponent. The \"poisoned\" alteration lasts at least three turns and inflicts damage on your opponent over time.",
+      "name_one": "Poisonous attack",
+      "name_other": "Poisonous attacks"
+    },
+    "poisonousBite": {
+      "generalEffect": "needs **{{petNickname}}**, the animal needs time to prepare...",
+      "success": "receives support from **{{petNickname}}** who decides to bite his opponent... The latter is suddenly not feeling well."
+    },
+    "powerfulAttack": {
+      "description": "This attack has a 25% chance of doing more damage, at the cost of stunning the attacker. After 3 uses, the attack's damage is reduced by 70%.",
+      "name_one": "Powerful Attack",
+      "name_other": "Powerful Attacks"
+    },
+    "protectAgainstCold": {
+      "success": "is protected from the cold by **{{petNickname}}**."
+    },
+    "protected": {
+      "name": "shielded",
+      "new": "is protected.",
+      "active": "is protected.",
+      "stop": "is no longer protected."
+    },
+    "protection": {
+      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"protégé\" dure 3 tours et vous empêche d'être victime d'une autre altération tout en vous offrant un boost de 30% de votre défense.",
+      "customMessage": "protects itself.",
+      "name_one": "Protection",
+      "name_other": "Protections"
+    },
+    "quickAttack": {
+      "description": "Never fail on a slower opponent. The slower your opponent, the more damage this attack will do.",
+      "name_one": "Quick attack",
+      "name_other": "Quick attacks"
+    },
+    "rageExplosion": {
+      "description": "Explodes the rage accumulated during the trip on the enemy.",
+      "customMessage": "unleashes its rage on the enemy!",
+      "name_one": "Rage explosion",
+      "name_other": "Rage explosions"
+    },
+    "rainbowPower": {
+      "success": "is assisted by **{{petNickname}}** who channels the magic of recent attacks to heal his owner."
+    },
+    "ramAttack": {
+      "description": "If the attacker is not stunned by the attack, he receives part of the damage inflicted. The attack can also stun the opponent.",
+      "name_one": "Ram Attack",
+      "name_other": "Ram Attacks"
+    },
+    "resting": {
+      "description": "Applies to the caster. The amount of energy recovered is divided by 4 after 4 uses.",
+      "customMessage": "rests...",
+      "name_one": "Rest",
+      "name_other": "Rests"
+    },
+    "revenge": {
+      "success": "is supported by **{{petNickname}}** who injures his opponent following his attack."
+    },
+    "roarAttack": {
+      "description": "Lowers the attack and speed of the adversary.",
+      "name_one": "Roar",
+      "name_other": "Roars"
+    },
+    "rockShieldAttack": {
+      "description": "Halves the damages of the next attack received.",
+      "customMessage": "accumulates rock to defend itself...",
+      "name_one": "Stone shield",
+      "name_other": "Stone shields"
+    },
+    "sabotageAttack": {
+      "description": "Completely ignores the opponent's defense. Works best on an opponent with little attack. A low-breath attack that can paralyze the caster. If so, damage is increased.",
+      "name_one": "Sabotage attack",
+      "name_other": "Sabotage attacks"
+    },
+    "scareElephant": {
+      "generalEffect": "is assisted by **{{petNickname}}** who scares the elephants away."
+    },
+    "scareFish": {
+      "generalEffect": "is assisted by **{{petNickname}}** which scares the fish away."
+    },
+    "shieldAttack": {
+      "description": "Uses the attacker's shield to attack. The alteration \"weakened\" reduces the attack by 70% for 2 turns.",
+      "name_one": "Shield attack",
+      "name_other": "Shield attacks"
+    },
+    "simpleAttack": {
+      "description": "A simple attack.",
+      "name_one": "Simple attack",
+      "name_other": "Simple attacks"
+    },
+    "slamAttack": {
+      "description": "Below average attack that reduces the speed of the opponent.",
+      "name_one": "Slam attack",
+      "name_other": "Slam attacks"
+    },
+    "slipping": {
+      "failure": "uses **{{petNickname}}** to slide along the ground. He's not the one who slides the furthest on the ice floe, so he hits his opponent with little force.",
+      "success": "is aided by **{{petNickname}}** which slides across the floor until it crashes into the opponent."
+    },
+    "slowed": {
+      "name": "slowed down",
+      "new": "is slowed down.",
+      "active": "is slowed down.",
+      "stop": "is no longer slowed down."
+    },
+    "smallClaws": {
+      "success": "is supported in his fight by **{{petNickname}}** who gives his opponent a little scratch, how cute..."
+    },
+    "smallRegen": {
+      "success": "learns from the regenerative abilities of **{{petNickname}}** and recovers energy."
+    },
+    "snowBall": {
+      "success": "is helped by **{{petNickname}}** who throws a snowball at his opponent."
+    },
+    "spit": {
+      "failure": "is helped by **{{petNickname}}** spitting on his opponent.",
+      "success": "is supported by **{{petNickname}}** who spits at his opponent. Luckily, the spit lands perfectly in the enemy's eyes!"
+    },
+    "spitFire": {
+      "success": "is aided in his fight by **{{petNickname}}** who sets the arena ablaze with his fiery flames."
+    },
+    "spitInk": {
+      "success": "call **{{petNickname}}** who spits ink at the opponent."
+    },
+    "stealWeapon": {
+      "failure": "appeals to **{{petNickname}}** for a little help, but the creature, finding no treasure worthy of his interest on the adversary, refuses to venture into hostile territory.",
+      "success": "asks for help from **{{petNickname}}** who bravely dashes forward and seizes the enemy's weapon in an act of boldness."
+    },
+    "stealth": {
+      "description": "Discreetly hides to double the damage of the next attack.",
+      "customMessage": "discreetly hides to make preparations that will increase the damage of his next attack...",
+      "name_one": "Stealth",
+      "name_other": "Stealth"
+    },
+    "stoneSkinAttack": {
+      "description": "More this action is done, more the defense boost is important.",
+      "customMessage": "hardens its skin and protects itself.",
+      "name_one": "Stone skin",
+      "name_other": "Stone skins"
+    },
+    "stunned": {
+      "name": "stunned",
+      "active": "is stunned.",
+      "noAction": "is dazed and unable to attack.",
+      "stop": "is no longer dizzy."
+    },
+    "summonAttack": {
+      "description": "Summons allies to help you and attack very hard.",
+      "name_one": "Ally Summoning",
+      "name_other": "Ally Summoning"
+    },
+    "swallow": {
+      "success": "asks for help from **{{petNickname}}** who, not knowing what to do, decides to swallow his opponent whole."
+    },
+    "swallowed": {
+      "name": "swallowed",
+      "new": "is swallowed.",
+      "noAction": "is in a stomach and cannot attack.",
+      "stop": "emerged from the animal unharmed."
+    },
+    "targeted": {
+      "name": "targeted by a boomerang",
+      "new": "watches the boomerang spin away.",
+      "stop": "is no longer targeted by a boomerang.",
+      "active": "is hit by the boomerang."
+    },
+    "triesToHelp": {
+      "success": "calls on **{{petNickname}}** who, despite fierce determination and relentless efforts, only manages to inflict a negligible impact on the fight."
+    },
+    "ultimateAttack": {
+      "description": "",
+      "name_one": "Ultimate attack",
+      "name_other": "Ultimate attacks"
+    },
+    "unBlind": {
+      "success": "is helped by **{{petNickname}}** whose keen eyesight enables him to see around him properly again."
+    },
+    "vampirism": {
+      "success": "is assisted by **{{petNickname}}** who sucks a little energy from his opponent and offers it as tribute to his master."
+    },
+    "weak": {
+      "name": "weakened",
+      "new": "is weakened.",
+      "active": "is weakened.",
+      "stop": "is no longer weakened."
+    },
+    "webShotAttack": {
+      "description": "Do a web shot that hurts and slows the opponent.",
+      "name_one": "Web shot",
+      "name_other": "Web shots"
+    }
+  },
+  "leagues": {
+    "0": "Wooden league",
+    "1": "Stone league",
+    "2": "Iron league",
+    "3": "Bronze league",
+    "4": "Silver league",
+    "5": "Gold league",
+    "6": "Diamond league",
+    "7": "Elite league",
+    "8": "Infinite league",
+    "9": "Legend league"
+  },
+  "map_locations": {
+    "1": {
+      "description": "A large sandy beach on the edge of the town.",
+      "name": "Sentinel Beach",
+      "particle": "of the"
+    },
+    "10": {
+      "description": "An anciently fortified city, Ville Forte is not what it used to be. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification isn't more than ruins.",
+      "name": "Ville Forte",
+      "particle": "of"
+    },
+    "1000": {
+      "description": "A large beach of black volcanic sand. It takes its name from its very particular color. The first men to set foot on the black beach feared a great curse. This is obviously not the case. Be careful though, the black sand stains your feet and clothes.",
+      "name": "Black beach",
+      "particle": "of the"
+    },
+    "1001": {
+      "description": "A huge forest that covers almost the entire island. Fine particles of ash fall from the Grumble Volcano, which makes the visibility in this forest rather difficult. It is therefore very little explored.",
+      "name": "Forest of twilight",
+      "particle": "of the"
+    },
+    "1002": {
+      "description": "A small village of about twenty houses, partially destroyed, which is located near the forest of twilight. Nobody knows exactly why this village is in ruins. Many think that it is the village of the former inhabitants who succumbed to the lava flows of the Grumble Volcano. But others put forward the theory of a disease, the plague and many rats. There is not a single inhabitant left here...",
+      "name": "Village in ruins",
+      "particle": "of the"
+    },
+    "1003": {
+      "description": "This old abandoned mine passes under the steep path and the mountains. It is so large and labyrinthine that it ends up in the heart of the volcano. It is however difficult to get there. Be careful though, some people would have found old banana remains in the misty mine.",
+      "name": "Misty mine",
+      "particle": "of the"
+    },
+    "1004": {
+      "description": "This path is the only real path to the top of the Grumble Volcano. It is very difficult to use and very dangerous. Many men have died trying to use it. At your own risk.",
+      "name": "Steep path",
+      "particle": "of the"
+    },
+    "1005": {
+      "description": "The centerpiece of the volcanic island, this volcano is still active. It pours several tons of ash per year on this small island, which only grows. The lava that flows in the center of the island is in such great quantity that an underground channel called Lava Channel runs for several kilometers. From the boats on the water, you can see this channel boiling the water in depth. This volcano is said to be the creator of several small islands in the area, such as the Ice Island.",
+      "name": "Grumble volcano",
+      "particle": "of the"
+    },
+    "11": {
+      "description": "True last road which still allows to go around the Mount Celestrum from the north, the Great Road is still widely used, but mainly by brigands.",
+      "name": "Great Road",
+      "particle": "of the"
+    },
+    "1100": {
+      "description": "This shoreline is the first thing we see when we arrive at the icy island. It bears its name from the noise coming from the sailors when they docked. Obviously, they came from the volcanic island where the temperature is much warmer.",
+      "name": "Cool cool shore",
+      "particle": "of the"
+    },
+    "1101": {
+      "description": "As its name indicates, this vast expanse of frozen land is not conducive to rest. Very cold and very dry, there remain however some robust trees.",
+      "name": "Frozen tundra",
+      "particle": "of the"
+    },
+    "1102": {
+      "description": "Large frozen lake, the lake of knowledge is a calm and restful place. You can hear a fine breeze sliding on the ice of the lake. Ideal to meditate after exploring this immense wild island.",
+      "name": "Lake of knowledge",
+      "particle": "of the"
+    },
+    "1103": {
+      "description": "A very large plain where many snowmen are built. Who created the first snowman? Nobody knows. It's far too cold for them to melt. However, some travelers have fun creating new ones.",
+      "name": "Snowmen plain",
+      "particle": "of the"
+    },
+    "1104": {
+      "description": "A magnificent ice cave. Hundreds of stalactites and stalagmites decorate this cave. A natural light illuminates these ice crystals and gives the impression of thousands of stars. If we forget the hundreds of explorers' corpses that have slipped and impaled themselves on the stalagmites, this cave is of an incredible beauty or of a sadness without name. The crystal cave is a dangerous way to reach for the top of the snowy peak.",
+      "name": "Crystal cave",
+      "particle": "of the"
+    },
+    "1105": {
+      "description": "This cave, very similar to its sister, the Crystal Cave, has a great advantage. It leads to the snowy peak through the depths of the earth. It is a long way on the ice and the rock. It owes its name to the caves that go deep underground and show beautiful ice formations.",
+      "name": "Cavern heart of ice",
+      "particle": "of the"
+    },
+    "1106": {
+      "description": "This gigantic peak dominates the whole island. It is visible from miles around. Very difficult to access, the snowy peak shelters old wooden structures dating from an ancient civilization. The two paths leading to it being very perilous, few people have been able to see these structures with their own eyes.",
+      "name": "Snowy peak",
+      "particle": "of the"
+    },
+    "12": {
+      "description": "A great empty Nordic plain, without much interest.",
+      "name": "The Expanse",
+      "particle": "of"
+    },
+    "13": {
+      "description": "A difficult course. Muddy and wet, the Marshy Road connects the Expanse to the Crab River.",
+      "name": "Marshy Road",
+      "particle": "of the"
+    },
+    "14": {
+      "description": "A large lake where families enjoy to round up. The Vacarme river flows to there.",
+      "name": "Mirage Lake",
+      "particle": "of the"
+    },
+    "15": {
+      "description": "Mount Celestrum is the dominant mountain in the region. Celestrum, being several kilometers high, is visible to all. It is said to bear the name of the ancient goddess. Moreover, only one person managed to climb to the top. Only their initials are known: M-B.",
+      "name": "Mount Celestrum",
+      "particle": "of"
+    },
+    "16": {
+      "description": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off.",
+      "name": "Wolves Path",
+      "particle": "of"
+    },
+    "17": {
+      "description": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
+      "name": "Coco Village",
+      "particle": "of the"
+    },
+    "18": {
+      "description": "This river owes its name to the noise produced by its strong current which took the lives of many villagers.",
+      "name": "Vacarme river",
+      "particle": "of the"
+    },
+    "19": {
+      "description": "Beach created by the strong winds from the Kings' Valley. The Dune protects the Backwoods Plains from heat and gathers water from the Vacarme river.",
+      "name": "The Dune",
+      "particle": "of"
+    },
+    "1999": {
+      "description": "An old wooden boat, it seems to hold up thanks to the repairs of the workers. It is ready to leave and is waiting for your arrival.",
+      "name": "Boat to leave the island",
+      "particle": "of the"
+    },
+    "2": {
+      "description": "A small road that takes you to the countryside from Mergagnan and vice versa.",
+      "name": "Rural Path",
+      "particle": "of the"
+    },
+    "20": {
+      "description": "A vast and peaceful plain, for agricultural purposes.",
+      "name": "Backwoods Plains",
+      "particle": "of the"
+    },
+    "21": {
+      "description": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together.",
+      "name": "Road of Wonders",
+      "particle": "of the"
+    },
+    "22": {
+      "description": "Ill-famed forest near Claire De Ville. Howling Woods has a bad reputation. Hideout of many bandits and outlaws, it owes its name mainly from its doubtful practices, hundreds of years ago.",
+      "name": "Howling Woods",
+      "particle": "of the"
+    },
+    "22222": {
+      "description": "A test zone for monsters. Should never appear in the game.",
+      "name": "Monsters test zone",
+      "particle": "of the"
+    },
+    "23": {
+      "description": "Large commercial city and economical crossroad, Claire De Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire De Ville is also known for its calm and its order.",
+      "name": "Claire De Ville",
+      "particle": "of"
+    },
+    "24": {
+      "description": "A very stiff road that leads to Claire De Ville. Everything depends on which way you're following it.",
+      "name": "Climbing road",
+      "particle": "of the"
+    },
+    "25": {
+      "description": "Everything is in the name. A river well appreciated by fishmen from Claire De Ville.",
+      "name": "Crabs' River",
+      "particle": "of"
+    },
+    "26": {
+      "description": "A peaceful town on the verge of the Sentinel Beach.",
+      "name": "Seawynne",
+      "particle": "of"
+    },
+    "27": {
+      "description": "A forest on the verge of the Mount Celestrum",
+      "name": "Celestrum Forest",
+      "particle": "of"
+    },
+    "28": {
+      "description": "Entrance to the king's castle. Surrounded by a thick wall, it seems to be able to resist every conceivable attack.",
+      "name": "Castle's entrance",
+      "particle": "of"
+    },
+    "29": {
+      "description": "The reception room of the King's castle.",
+      "name": "Reception room",
+      "particle": "of the"
+    },
+    "3": {
+      "description": "Huge plain in the West of the region bordered by a large forest and crossed by a large road.",
+      "name": "The Cradle",
+      "particle": "of"
+    },
+    "32": {
+      "description": "The road which leads to the King's castle.",
+      "name": "Road to the King's castle",
+      "particle": "of"
+    },
+    "33": {
+      "description": "",
+      "name": "Principal continent",
+      "particle": "of"
+    },
+    "4": {
+      "description": "Huge forest at the South of the Cradle. It is said that many travelers got lost there.",
+      "name": "Oldster's Forest",
+      "particle": "of the"
+    },
+    "5": {
+      "description": "A way named after its furrow within the abundant nature at the South of the Oldster's forest.",
+      "name": "Daedalus Path",
+      "particle": "of"
+    },
+    "6": {
+      "description": "A peaceful village known for its welcoming inn.",
+      "name": "Boug-Coton",
+      "particle": "of"
+    },
+    "7": {
+      "description": "Hot sandy desert named in honor of the region's ancient kings.",
+      "name": "Kings' Valley",
+      "particle": "of"
+    },
+    "8": {
+      "description": "A major crossroad that links main paths to the West of Mount Celestrum.",
+      "name": "Crossroads of Fates",
+      "particle": "of the"
+    },
+    "9": {
+      "description": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road.",
+      "name": "Main Road",
+      "particle": "of the"
+    }
+  },
+  "map_types": {
+    "be": {
+      "name": "Beach",
+      "prefix": "of the"
+    },
+    "castleEntrance": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "castleThrone": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "ci": {
+      "name": "City",
+      "prefix": "of the"
+    },
+    "continent": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "crystalCavern": {
+      "name": "Crystal cavern",
+      "prefix": "of the"
+    },
+    "de": {
+      "name": "Desert",
+      "prefix": "of the"
+    },
+    "fo": {
+      "name": "Forest",
+      "prefix": "of the"
+    },
+    "iceBeach": {
+      "name": "Ice beach",
+      "prefix": "of the"
+    },
+    "iceCavern": {
+      "name": "Ice cavern",
+      "prefix": "of the"
+    },
+    "iceLake": {
+      "name": "Frozen lake",
+      "prefix": "of the"
+    },
+    "la": {
+      "name": "Lake",
+      "prefix": "of the"
+    },
+    "mine": {
+      "name": "Mine",
+      "prefix": "of the"
+    },
+    "mo": {
+      "name": "Mountain",
+      "prefix": "of the"
+    },
+    "pl": {
+      "name": "Plain",
+      "prefix": "of the"
+    },
+    "pveExit": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "ri": {
+      "name": "River",
+      "prefix": "of the"
+    },
+    "ro": {
+      "name": "Road",
+      "prefix": "of the"
+    },
+    "ruins": {
+      "name": "Ruins",
+      "prefix": "of the"
+    },
+    "snowMountain": {
+      "name": "Peak",
+      "prefix": "of the"
+    },
+    "snowmenField": {
+      "name": "Plain",
+      "prefix": "of the"
+    },
+    "testZone": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "tundra": {
+      "name": "Tundra",
+      "prefix": "of the"
+    },
+    "vi": {
+      "name": "Village",
+      "prefix": "of the"
+    },
+    "volcano": {
+      "name": "Volcano",
+      "prefix": "of the"
+    }
+  },
+  "missions": {
+    "anyFight_one": "Do {{count}} fight",
+    "anyFight_other": "Do {{count}} fights",
+    "bigFeast": "Participate to a big feast",
+    "buyUltimateSoups_one": "Buy at least {{count}} ultimate soup",
+    "buyUltimateSoups_other": "Buy at least {{count}} ultimate soups",
+    "chooseClass": "Choose a class other than {emote:classes.0} Recruit",
+    "chooseClassTier": "Get a class of tier {{variantText}} or more",
+    "commandMission": "Make order {command:missions}",
+    "commandReport": "Make order {command:report}",
+    "dailyPotionsStock": "Buy the whole stock of daily potions",
+    "doReports_one": "Do {{count}} report",
+    "doReports_other": "Do {{count}} reports",
+    "drinkAlcohol": "Drink a potion containing alcohol",
+    "drinkEnergyPotion_one": "Drink {{count}} energy potion",
+    "drinkEnergyPotion_other": "Drink {{count}} energy potions",
+    "drinkPotionRarity": "Drink a potion of rarity {{variantText}} or more",
+    "drinkPotionWithoutEffect_one": "Drink {{count}} potion without effect",
+    "drinkPotionWithoutEffect_other": "Drink {{count}} potions without effect",
+    "drinkPotion_one": "Drink {{count}} potion",
+    "drinkPotion_other": "Drink {{count}} potions",
+    "earnLifePoints_one": "Earn {{count}} life point",
+    "earnLifePoints_other": "Earn {{count}} life points",
+    "earnMoney": "Collect {{count}} {emote:unitValues.money}",
+    "earnPoints": "Earn {{count}} {emote:unitValues.score}",
+    "earnXP": "Earn {{count}} {emote:unitValues.xp}",
+    "exploreDifferentPlaces": "Explore {{count}} different places",
+    "fightAttacks": "Do {{count}} {{variantText}} in fights",
+    "fightHealthPercent_one": "Win {{count}} fight with less than {{variantText}}% of your health remaining",
+    "fightHealthPercent_other": "Win {{count}} fights with less than {{variantText}}% of your health remaining",
+    "fightStreak": "Do a fight for {{count}} consecutive days",
+    "findOrBuyItem_one": "Find or buy {{count}} item",
+    "findOrBuyItem_other": "Find or buy {{count}} items",
+    "finishWithAttack": "Use {{count}} times the {{variantText}} to finish your opponent",
+    "fromPlaceToPlace": "{{variantText}}",
+    "gainRage_one": "Gain {{count}} rage point by defeating wild animals",
+    "gainRage_other": "Gain {{count}} rage points by defeating wild animals",
+    "goToPlace": "Travel to {{variantText}}",
+    "guildDailyFromSomeoneElse": "Receive a guild daily reward without asking for it",
+    "guildDaily_one": "Receive {{count}} guild reward",
+    "guildDaily_other": "Receive {{count}} guild rewards",
+    "guildHasPoints": "Help your guild to get more than {{count}} guild points",
+    "guildLevel": "Be in a guild level {{count}} or more",
+    "haveItemRarity": "Have an item with a rarity {{variantText}} or better",
+    "havePet": "Have a pet with you",
+    "havePotions": "Have {{count}} potions at the same time",
+    "joinGuild": "Join or create a guild",
+    "joinMemberOnBoat": "Join a member on the island",
+    "joinPVEIsland": "Join the mysterious island",
+    "kingsMoneyValue": "Get less than 6500 {emote:unitValues.money} in King Money",
+    "meetDifferentPlayers_one": "Meet {{count}}  player",
+    "meetDifferentPlayers_other": "Meet {{count}} different players",
+    "meetGruffo": "Meet Gruffo",
+    "meetHermit": "Meet a hermit",
+    "petEarnHealth": "Earn health with a pet",
+    "reachGlory": "Have {{count}} or more glory points",
+    "reachLevel": "Reach level {{count}}",
+    "reachScore": "Score at {{count}} {emote:unitValues.score}",
+    "recoverAlteration_one": "Recover from {{count}} alteration",
+    "recoverAlteration_other": "Recover from {{count}} alterations",
+    "sellItemWithGivenCost_one": "Sell {{count}} equipment for more than {{variantText}} {emote:unitValues.money}",
+    "sellItemWithGivenCost_other": "Sell {{count}} equipment for more than {{variantText}} {emote:unitValues.money}",
+    "sellOrTradePet": "Sell a pet to another player",
+    "spendGems": "Spend gems in the missions shop",
+    "spendMoney": "Spend {{count}} coins",
+    "tamedPet": "Have a tamed or trained pet",
+    "trainedPet": "Have a trained pet",
+    "travelHours_one": "Do {{count}} travel of at least {{variantText}} hour",
+    "travelHours_other": "Do {{count}} travels of at least {{variantText}} hours",
+    "unlock": "Unlock someone from jail",
+    "wealthyPayForPVEIsland": "Buy a trip to a mysterious island at a very high price",
+    "winBoss_one": "Win {{count}} boss fight",
+    "winBoss_other": "Win {{count}} boss fights"
+  },
+  "missionVariants": {
+    "default": "{{variant}}",
+    "drinkPotionRarity": "$t(items:rarities.{{variant}})",
+    "haveItemRarity": "$t(items:rarities.{{variant}})",
+    "fromPlaceToPlace_order": "Make {{place1}}-{{place2}} in less than {{time}} hours",
+    "fromPlaceToPlace_noOrder": "{{place1}}-{{place2}} (or vice versa) in less than {{time}} hours",
+    "fromPlaceToPlace_secondPart": "Reach {{place}} before {{time}}",
+    "goToPlace": "{emote:mapTypes.{{mapType}}} $t(models:map_locations.{{variant}}.name)",
+    "fightAttacks": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})",
+    "finishWithAttack": "{emote:fightActions.{{variant}}} $t(models:fight_actions.{{variant}}.name, {\"count\": {{count}}})"
+  },
+  "monsters": {
+    "forestTroll": {
+      "name": "Forest troll",
+      "description": "A large, forest-dwelling troll. Very strong and hardy, it is also very aggressive, attacking anything that moves. He is very dangerous to adventurers who venture into the forest."
+    },
+    "spider": {
+      "name": "Spider",
+      "description": "A big, hairy spider. Of an unknown species, it attacks any traveller who approaches its nest. Venomous, it can also project silk to immobilize its prey."
+    },
+    "magmaTitan": {
+      "name": "Magma titan",
+      "description": "The most powerful monster on the island. Boiling with heat, it can melt even the hardest rock. Very few adventurers have succeeded in defeating it, and it would be perilous to attack it alone."
+    },
+    "rockGolem": {
+      "name": "Stone Golem",
+      "description": "An immense rock golem. Driven by a desire to crush anything that comes near. It's very slow, but its attacks are devastating."
+    },
+    "skeleton": {
+      "name": "Skeleton",
+      "description": "A strange skeleton, he seems to be an ancient warrior. He may look weak, but he's actually very dangerous, and many have been taken by surprise."
+    },
+    "slimyMutant": {
+      "name": "Slimy Mutant",
+      "description": "The Slime Mutant is a monster that can copy other monsters or its opponent directly. It is highly versatile and can adapt to any situation."
+    }
+  },
+  "objects": {
+    "0": "Unused space",
+    "1": "Peace flag",
+    "10": "Running shoe",
+    "11": "Sky's blessing",
+    "12": "Piece of obsidian",
+    "13": "Dead leaves",
+    "14": "Red Apple",
+    "15": "Green apple",
+    "16": "Heart container",
+    "17": "Spellbook volume 1",
+    "18": "Spellbook volume 2",
+    "19": "Spellbook volume 3",
+    "2": "Magic die",
+    "20": "Spellbook volume 4",
+    "21": "Mythical rosary",
+    "22": "Death flag",
+    "23": "Royal flower",
+    "24": "Metal barrel",
+    "25": "Old candle",
+    "26": "Terracotta pot",
+    "27": "Magic sax",
+    "28": "Terrifying guitar",
+    "29": "Credit card",
+    "3": "Keratinized diamond",
+    "30": "Mechanical leg",
+    "31": "Cute cat with laser-throwing eyes",
+    "32": "Kyu'spoon",
+    "33": "Jack-o'-lantern",
+    "34": "Teddy bear",
+    "35": "Magnet",
+    "36": "Bandage",
+    "37": "Slippery skis",
+    "38": "Cyclonic amulet",
+    "39": "Power of Nayru",
+    "4": "Hope flower",
+    "40": "Lifeless angel's ring",
+    "41": "Ornated minotaur's urn",
+    "42": "Bunny's clock",
+    "43": "Banan'ase split",
+    "44": "Big tree's apple",
+    "45": "Midas Amulett",
+    "46": "Shooting star",
+    "47": "Kyuran",
+    "48": "Particle accelerator",
+    "49": "Hydro-Alcoholic Gel",
+    "5": "Mojaro's Moon",
+    "50": "Pegasus Boots",
+    "51": "Nimbus 2000",
+    "52": "Swiping soap",
+    "53": "Super medal",
+    "54": "Hunting horn",
+    "55": "Big Wallet",
+    "56": "Slot machine",
+    "57": "High heel shoes",
+    "58": "Defense rings",
+    "59": "Chocobrie",
+    "6": "Magic glass ball",
+    "60": "Multinational company",
+    "61": "Voltou",
+    "62": "Fatalis' eye",
+    "63": "Crowbar",
+    "64": "Lego",
+    "65": "Harmonica of time",
+    "66": "Optical fiber",
+    "67": "Kars",
+    "68": "Tardis",
+    "69": "Music",
+    "7": "Magic Chain",
+    "70": "Bed",
+    "71": "Buzz Lightyear figurine",
+    "72": "Sun",
+    "73": "Roller coaster ticket",
+    "74": "Hot pepper",
+    "75": "Defibrillator",
+    "76": "Dog food",
+    "77": "Pocket doctor",
+    "78": "Artificial heart",
+    "79": "Doping program",
+    "8": "Wind leaf",
+    "80": "Low battery",
+    "81": "Full battery",
+    "82": "Easy's script",
+    "83": "Cardboard rocket",
+    "84": "4-Leaf clover",
+    "85": "Toilet paper roll",
+    "86": "Destiny star",
+    "87": "Electric guitar",
+    "88": "SYM card",
+    "89": "Dead fish",
+    "9": "Rusty key",
+    "90": "Frog Talisman"
+  },
+  "pets": {
+    "0_female": "No pet",
+    "0_male": "No pet",
+    "1_female": "Dog",
+    "1_male": "Dog",
+    "10_female": "Hen",
+    "10_male": "Rooster",
+    "11_female": "Bird",
+    "11_male": "Bird",
+    "12_female": "Duck",
+    "12_male": "Duck",
+    "13_female": "Mare",
+    "13_male": "Stallion",
+    "14_female": "Turtle",
+    "14_male": "Turtle",
+    "15_female": "Snake",
+    "15_male": "Snake",
+    "16_female": "Lizard",
+    "16_male": "Lizard",
+    "17_female": "Ewe",
+    "17_male": "Ram",
+    "18_female": "Goat",
+    "18_male": "Goat",
+    "19_female": "Turkey",
+    "19_male": "Turkey",
+    "2_female": "Poodle",
+    "2_male": "Poodle",
+    "20_female": "Vixen",
+    "20_male": "Fox",
+    "21_female": "Bear",
+    "21_male": "Bear",
+    "22_female": "Koala",
+    "22_male": "Koala",
+    "23_female": "Frog",
+    "23_male": "Frog",
+    "24_female": "Monkey",
+    "24_male": "Monkey",
+    "25_female": "Penguin",
+    "25_male": "Penguin",
+    "26_female": "Owl",
+    "26_male": "Owl",
+    "27_female": "Bat",
+    "27_male": "Bat",
+    "28_female": "Wolf",
+    "28_male": "Wolf",
+    "29_female": "Wild sow",
+    "29_male": "Wild boar",
+    "3_female": "Cat",
+    "3_male": "Cat",
+    "30_female": "Seal",
+    "30_male": "Seal",
+    "31_female": "Hippopotamus",
+    "31_male": "Hippopotamus",
+    "32_female": "Llama",
+    "32_male": "Llama",
+    "33_female": "Swan",
+    "33_male": "Swan",
+    "34_female": "Flamingo",
+    "34_male": "Flamingo",
+    "35_female": "Raccoon",
+    "35_male": "Raccoon",
+    "36_female": "Skunk",
+    "36_male": "Skunk",
+    "37_female": "Badger",
+    "37_male": "Badger",
+    "38_female": "Beaver",
+    "38_male": "Beaver",
+    "39_female": "Sloth",
+    "39_male": "Sloth",
+    "4_female": "Black cat",
+    "4_male": "Black cat",
+    "40_female": "Chipmunk",
+    "40_male": "Chipmunk",
+    "41_female": "Hedgehog",
+    "41_male": "Hedgehog",
+    "42_female": "Polar bear",
+    "42_male": "Polar bear",
+    "43_female": "Panda",
+    "43_male": "Panda",
+    "44_female": "Scorpion",
+    "44_male": "Scorpion",
+    "45_female": "Crocodile",
+    "45_male": "Crocodile",
+    "46_female": "Elephant",
+    "46_male": "Elephant",
+    "47_female": "Zebra",
+    "47_male": "Zebra",
+    "48_female": "Rhinoceros",
+    "48_male": "Rhinoceros",
+    "49_female": "Dromedary",
+    "49_male": "Dromedary",
+    "5_female": "Mouse",
+    "5_male": "Rodent",
+    "50_female": "Camel",
+    "50_male": "Camel",
+    "51_female": "Giraffe",
+    "51_male": "Giraffe",
+    "52_female": "Kangaroo",
+    "52_male": "Kangaroo",
+    "53_female": "Peahen",
+    "53_male": "Peacock",
+    "54_female": "Parrot",
+    "54_male": "Parrot",
+    "55_female": "Otter",
+    "55_male": "Otter",
+    "56_female": "Tigress",
+    "56_male": "Tiger",
+    "57_female": "Lioness",
+    "57_male": "Lion",
+    "58_female": "Eagle",
+    "58_male": "Eagle",
+    "59_female": "Dodo",
+    "59_male": "Dodo",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
+    "60_female": "Leopard",
+    "60_male": "Leopard",
+    "61_female": "Mammoth",
+    "61_male": "Mammoth",
+    "62_female": "Dove",
+    "62_male": "Dove",
+    "63_female": "Unicorn",
+    "63_male": "Unicorn",
+    "64_female": "Dragon",
+    "64_male": "Dragon",
+    "65_female": "T. Rex",
+    "65_male": "T. Rex",
+    "66_female": "Angel",
+    "66_male": "Stitch",
+    "67_female": "Snowwoman",
+    "67_male": "Snowman",
+    "68_female": "Scarlet duck",
+    "68_male": "Scarlet duck",
+    "69_female": "Snowwoman",
+    "69_male": "Snowman",
+    "7_female": "Doe rabbit",
+    "7_male": "Buck rabbit",
+    "70_female": "Alien",
+    "70_male": "Alien",
+    "71_female": "Octopus",
+    "71_male": "Octopus",
+    "72_female": "Penguin",
+    "72_male": "Penguin",
+    "73_male": "Fish",
+    "73_female": "Fish",
+    "74_male": "Tropical fish",
+    "74_female": "Tropical fish",
+    "75_male": "Puffer fish",
+    "75_female": "Puffer fish",
+    "76_male": "Medusa",
+    "76_female": "Medusa",
+    "77_male": "Shark",
+    "77_female": "Shark",
+    "78_male": "Whale",
+    "78_female": "Whale",
+    "79_male": "Whale",
+    "79_female": "Whale",
+    "80_male": "Shrimp",
+    "80_female": "Shrimp",
+    "81_male": "Lobster",
+    "81_female": "Lobster",
+    "82_male": "Dolphin",
+    "82_female": "Dolphin",
+    "8_female": "Cow",
+    "8_male": "Ox",
+    "9_female": "Sow",
+    "9_male": "Boar"
+  },
+  "potions": {
+    "0": "No potion",
+    "1": "Red potion",
+    "10": "Violet potion",
+    "11": "Acidic potion",
+    "12": "Dark potion",
+    "13": "Blue potion",
+    "14": "Expired potion",
+    "15": "Magic potion",
+    "16": "Snotty potion",
+    "17": "Ultimate potion",
+    "18": "Shaken potion",
+    "19": "Strength potion",
+    "2": "Simple potion",
+    "20": "Explosive potion",
+    "21": "Speed potion",
+    "22": "Healing potion",
+    "23": "Ultimate healing potion",
+    "24": "Regeneration potion",
+    "25": "Tropical drink",
+    "26": "Glass of milk",
+    "27": "Baby bottle",
+    "28": "Tea",
+    "29": "Coffee",
+    "3": "Potion",
+    "30": "Alcohol",
+    "31": "Grandma's soup",
+    "32": "Purified water",
+    "33": "Red wine",
+    "34": "Fowl essence n°5",
+    "35": "Kyufuel",
+    "36": "Juice",
+    "37": "Melted ice cubes",
+    "38": "Sake",
+    "39": "Mate",
+    "4": "Large potion",
+    "40": "Sabered champagne",
+    "41": "Sock juice",
+    "42": "SmoochSip",
+    "43": "Opponent's tears",
+    "44": "Wolf blood potion",
+    "45": "Erythroxylum coca mixture",
+    "46": "Ghost pepper oil",
+    "47": "Potion of the death that kills",
+    "48": "Battery oil",
+    "49": "Nut oil",
+    "5": "Super potion",
+    "50": "Bravery beverage",
+    "51": "Spinach",
+    "52": "Kiwi juice",
+    "53": "Banana juice",
+    "54": "Friandwill",
+    "55": "Winter fondue",
+    "56": "Cocoa spread",
+    "57": "Dragon's blood potion",
+    "58": "Extreme hardness potion",
+    "59": "Bubble potion",
+    "6": "Green potion",
+    "60": "Sweat",
+    "61": "Non-drinkable potion",
+    "62": "Sea potion",
+    "63": "Empty potion",
+    "64": "Recyclable potion",
+    "65": "Spilled potion",
+    "66": "Bubble tea",
+    "67": "Orange juice",
+    "68": "Apple juice",
+    "69": "Honey",
+    "7": "Dubious potion",
+    "70": "Onion soup",
+    "71": "Super Nariwa",
+    "72": "Storm juice",
+    "73": "Espresso",
+    "74": "Flipping potion",
+    "75": "Cactus juice",
+    "76": "Shower water",
+    "77": "Unleaded 95",
+    "78": "Soapy water",
+    "79": "Morning dew",
+    "8": "Steaming potion",
+    "80": "Stalactite water",
+    "81": "Ink",
+    "82": "Drool on the pillow",
+    "83": "Raindrops",
+    "84": "Phoenix essence",
+    "85": "Unknown substance",
+    "86": "Tonic cocktail",
+    "87": "Rum",
+    "88": "Snail slime",
+    "89": "Boiling water",
+    "9": "Putrid potion",
+    "90": "Potato juice",
+    "91": "Seawater",
+    "92": "Troll drool",
+    "93": "Titan's tear",
+    "94": "ChocoChoc bar"
+  },
+  "weapons": {
+    "0": "Fist",
+    "1": "Zeus's lightning bolt",
+    "10": "Wooden sword",
+    "11": "Unloaded gun",
+    "12": "Infected syringe",
+    "13": "Bomb",
+    "14": "Heavy guitar",
+    "15": "Pair of daggers",
+    "16": "Pickaxe",
+    "17": "Sledgehammer",
+    "18": "Stick",
+    "19": "Ancient knife",
+    "2": "Used tools",
+    "20": "Flexible branch",
+    "21": "Damaged pickaxe",
+    "22": "Bow",
+    "23": "Pan",
+    "24": "Scissors",
+    "25": "Fragile dagger",
+    "26": "Hockey stick",
+    "27": "Saber",
+    "28": "Battle hammer",
+    "29": "Beginner's knife",
+    "3": "Bludgeon",
+    "30": "Boxing glove",
+    "31": "Reinforced fist",
+    "32": "Beginner fishing rod",
+    "33": "Old knife",
+    "34": "Fishing rod",
+    "35": "Master fishing rod",
+    "36": "Iron sword",
+    "37": "Beginner's sword",
+    "38": "Master sword",
+    "39": "Double swords",
+    "4": "Wolfslayer",
+    "40": "Diamond sword",
+    "41": "Sharpness 4 sword",
+    "42": "Loaded gun",
+    "43": "Pickle",
+    "44": "Rose bouquet",
+    "45": "Banana",
+    "46": "Old grimoire",
+    "47": "Snowball",
+    "48": "Knight's bow",
+    "49": "Soldier's bow",
+    "5": "Hammer",
+    "50": "Novice bow",
+    "51": "Hero's bow",
+    "52": "Razor",
+    "53": "Chair",
+    "54": "Brick",
+    "55": "Fork and knife",
+    "56": "Kokiri sword",
+    "57": "Fire extinguisher",
+    "58": "Big book",
+    "59": "Syringe",
+    "6": "Basic knife",
+    "60": "Contaminated syringe",
+    "61": "Dirty syringe",
+    "62": "Bioweapon",
+    "63": "Atomic bomb",
+    "64": "Burner",
+    "65": "Pew Pew",
+    "66": "Beat Saber",
+    "67": "Royal sword",
+    "68": "Claw",
+    "69": "Ines'word",
+    "7": "Dagger",
+    "70": "Pan pan QQ gun",
+    "71": "Ragnell's sword",
+    "72": "Fluxball ball",
+    "73": "Shopper",
+    "74": "Devil's soul",
+    "75": "Boomerang",
+    "76": "Charge blade",
+    "77": "Oxygen sabotage",
+    "78": "Power of friendship",
+    "79": "Grandma's umbrella",
+    "8": "Knightfest",
+    "80": "100-spell scepter",
+    "81": "Exagide",
+    "82": "Rabid cat's claw",
+    "83": "Insults",
+    "84": "Sonic screwdriver",
+    "85": "Power of love",
+    "86": "Mojaro mask",
+    "87": "Plothammer",
+    "88": "Icarus' left wing",
+    "89": "Dragon's sword",
+    "9": "Rusty key",
+    "90": "Unicorn horn",
+    "91": "Fibonacci's wand",
+    "92": "Game Over",
+    "93": "Kitchen towel",
+    "94": "Skeleton powder",
+    "95": "Silver aura blade",
+    "96": "Electektron",
+    "97": "Phoenix Blade"
+  },
+  "foods": {
+    "herbivorousFood_one": "salad",
+    "herbivorousFood_other": "salads",
+    "herbivorousFood_capitalized": "Salad",
+    "carnivorousFood_one": "meat",
+    "carnivorousFood_other": "meats",
+    "carnivorousFood_capitalized": "Meat",
+    "ultimateFood_one": "ultimate soup",
+    "ultimateFood_other": "ultimate soups",
+    "ultimateFood_capitalized": "Ultimate soup",
+    "commonFood_one": "treat",
+    "commonFood_other": "treats",
+    "commonFood_capitalized": "Sweets"
+  },
+  "diet_omnivorous": "{emote:diet.omnivorous} Omnivorous",
+  "diet_herbivorous": "{emote:diet.herbivorous} Herbivorous",
+  "diet_carnivorous": "{emote:diet.carnivorous} Carnivorous",
+  "sex": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "ordinals": {
+    "get_feminine_ordinal_one": "1st",
+    "get_feminine_ordinal_other": "{{count}}th",
+    "get_ordinal_one": "{{count}}st",
+    "get_ordinal_other": "{{count}}th"
+  },
+  "guilds": {
+    "levelUpTitle": "{emote:unitValues.xp} The {{guild}} guild goes up a level!",
+    "levelUpDesc": "The guild is now level **{{level}}**!"
+  },
+  "players": {
+    "koTitle": "{{pseudo}}you've been knocked out!",
+    "koDesc": "{emote:effects.dead} Use the {command:respawn} command to start playing again.",
+    "koDmTitle": "Hello Fighter!",
+    "koDmDesc": "It seems that you've been knocked out... {emote:effects.dead}\nThanks to our advanced technologies, we were able to alter the events as such as to let you avoid an agonizing death! {emote:other.tada}\nUnfortunately, the operation is costly and your score has been affected by this death in consequence...\n\nTo restart playing, use {command:respawn}.",
+    "leavePVEIslandTitle": "{{pseudo}}fainting",
+    "leavePVEIslandDescStart": "{emote:effects.confounded} You feel your strength leave you, you're at your wits' end. You faint on the floor...\n\n{emote:unitValues.lostMoney} Money lost: **{{moneyLost}}**",
+    "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Guild points lost: **{{guildPointsLost}}**",
+    "leavePVEIslandDescEnd": "\n\nA boat will pick you up and take you back to a coast on the mainland.",
+    "levelUp": {
+      "title": "{{pseudo}}you're stepping up your game!",
+      "description": "{emote:unitValues.xp} You are now level **{{level}}**!\n\n",
+      "rewards": {
+        "healthRestored": "{emote:unitValues.health} | Your life has been restored.",
+        "fightUnlocked": "{emote:unitValues.attack} | Unlock fights with the {command:fight} command! For more information on battles, run the command {command:help}.",
+        "guildUnlocked": "{emote:other.guild} | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and much more! For more information on guilds, use the command {command:help}.",
+        "classUnlocked": "{emote:commands.classes} | Classes unlocked with {command:classes} and {command:classesinfo} commands! For more information on classes, use the {command:help}command.",
+        "classTier": "{emote:commands.classes} | Level classes {{tier}} unlocked! For more information on the classes, use the commands {command:classesinfo} and {command:help}.",
+        "newMissionSlot": "{emote:missions.sideMission} | New mission slot unlocked! For more information on your missions, use the command {command:missions}.",
+        "pveUnlocked": "{emote:other.island} | Access to unlocked remote islands! Meet at a watering hole for new adventures!",
+        "statsIncreased": "{emote:other.increase} | Improved statistics."
+      }
+    }
+  },
+  "petReceived": {
+    "genericGiveTitle": "{{pseudo}}obtaining a pet",
+    "genericGiveNoSlot": "You get a new pet: **{{pet}}**. However, you don't have room for him.",
+    "genericGiveGuild": "You get a new pet: **{{pet}}**. Place it in the guild hut.",
+    "genericGivePlayer": "You get a new pet: **{{pet}}**. You decide to take him with you."
+  }
+}

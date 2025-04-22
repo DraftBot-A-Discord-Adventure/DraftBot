@@ -1,0 +1,68 @@
+{
+  "possibilities": {
+    "askAdvices": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 300
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 25,
+          "lostTime": 30
+        },
+        "2": {
+          "effect": "drunk",
+          "tags": [
+            "drinkAlcohol."
+          ]
+        }
+      }
+    },
+    "breakIn": {
+      "outcomes": {
+        "0": {
+          "money": 350
+        },
+        "1": {
+          "effect": "hurt",
+          "health": -30
+        },
+        "2": {
+          "effect": "occupied",
+          "health": 40,
+          "lostTime": 40
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "1": {
+          "effect": "sick"
+        }
+      }
+    },
+    "goBack": {
+      "outcomes": {
+        "0": {
+          "money": 150
+        },
+        "1": {
+          "money": -250
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 27
+    }
+  ],
+  "tags": [
+    "meetHermit"
+  ]
+}

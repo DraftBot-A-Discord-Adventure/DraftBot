@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "rewardType": [
+      "xp",
+      "money",
+      "guildXp",
+      "points"
+    ],
+    "successRate": {
+      "easy": 0.8,
+      "medium": 0.5,
+      "hard": 0.2
+    },
+    "coefficients": {
+      "easy": 1,
+      "medium": 3,
+      "hard": 10
+    },
+    "lostTime": 10
+  },
+  "rarity": 3
+}

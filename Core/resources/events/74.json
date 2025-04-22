@@ -1,0 +1,51 @@
+{
+  "triggers": [
+    {
+      "level": 20,
+      "date": {
+        "month": {
+          "from": 4,
+          "to": 4
+        },
+        "day": {
+          "from": 1,
+          "to": 3
+        }
+      },
+      "oncePer": "year",
+      "mapAttributes": [
+        "continent1"
+      ]
+    }
+  ],
+  "possibilities": {
+    "eat": {
+      "outcomes": {
+        "0": {
+          "mapLink": 1000
+        }
+      }
+    },
+    "run": {
+      "outcomes": {
+        "0": {
+          "effect": "fished"
+        }
+      }
+    },
+    "smell": {
+      "outcomes": {
+        "0": {
+          "mapLink": 1000
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "fished"
+        }
+      }
+    }
+  }
+}

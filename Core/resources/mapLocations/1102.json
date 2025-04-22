@@ -1,0 +1,5 @@
+{
+  "type": "iceLake",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
+}

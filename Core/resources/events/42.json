@@ -1,0 +1,87 @@
+{
+  "possibilities": {
+    "ask": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 240,
+          "money": -300
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 15,
+          "lostTime": 60,
+          "money": -100,
+          "tags": [
+            "moneyUsage"
+          ]
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "money": 500,
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "sick"
+        }
+      }
+    },
+    "feign": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "1": {
+          "effect": "occupied",
+          "health": -10,
+          "lostTime": 60,
+          "money": -200
+        },
+        "2": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 30
+        },
+        "3": {
+          "effect": "occupied",
+          "health": 30,
+          "lostTime": 60,
+          "money": 600
+        }
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {
+          "effect": "sick",
+          "health": -70
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 90,
+          "money": -300
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "money": 3000,
+          "randomItem": {}
+        },
+        "3": {
+          "effect": "occupied",
+          "health": -35,
+          "lostTime": 10
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 5
+    }
+  ]
+}

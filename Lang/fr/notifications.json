@@ -1,0 +1,32 @@
+{
+  "missions": {
+    "expired": {
+      "title_one": "{{pseudo}}, une mission a expiré",
+      "title_other": "{{pseudo}}, des missions ont expiré",
+      "description_one": "{emote:missions.expired} **La mission suivante a expiré :**\n{{missionsExpired}}",
+      "description_other": "{emote:missions.expired} **Les missions suivantes ont expiré :**\n{{missionsExpired}}"
+    },
+    "completed": {
+      "title_one": "{{pseudo}}, une mission a été complétée.",
+      "title_other": "{{pseudo}}, des missions ont été complétées.",
+      "subcategories": {
+        "campaign_one": "{emote:missions.campaign} **Mission de campagne**",
+        "campaign_other": "{emote:missions.campaign} **Missions de campagne**",
+        "daily": "{emote:missions.daily} **Mission quotidienne**",
+        "sideMission_one": "{emote:missions.sideMission} **Mission secondaire**",
+        "sideMission_other": "{emote:missions.sideMission} **Missions secondaires**"
+      },
+      "totalRewards": "{emote:missions.total} Total des récompenses",
+      "totalDisplay": "Gemmes gagnées : {{gems}} {emote:unitValues.gem}\nExpérience gagnée : {{xp}} {emote:unitValues.xp}",
+      "missionDisplay": "- {{missionDescription}}{{missionsReward}}",
+      "pointsDisplay": "+{{count}} {emote:unitValues.score}",
+      "gemsDisplay": "+{{count}} {emote:unitValues.gem}",
+      "moneyDisplay": "+{{count}} {emote:unitValues.money}",
+      "xpDisplay": "+{{count}} {emote:unitValues.xp}"
+    }
+  },
+  "guildFood": {
+    "receivedFoodTitle": "Votre guilde a reçu de la nourriture",
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} Votre guilde a reçu : **{{amount}}x {{foodName}}**."
+  }
+}

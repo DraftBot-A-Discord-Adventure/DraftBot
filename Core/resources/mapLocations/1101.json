@@ -1,0 +1,5 @@
+{
+  "type": "tundra",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "pve_island"
+}

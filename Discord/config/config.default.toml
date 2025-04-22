@@ -1,0 +1,80 @@
+[general]
+# Bot discord token
+token = ""
+# Put id of the discord server where the announcements will be done etc.
+main_server_id = ""
+# Test mode
+test_mode = false
+# Prefix used to prefix the MQTT topics and the databases. It must be the same for all the services
+prefix = "draftbot"
+
+[mqtt]
+# MQTT host
+host = "mqtt://127.0.0.1"
+
+[database]
+# The host (ip or DNS) of the database
+host = "127.0.0.1"
+# The port of the database
+port = 3306
+# The user of the database
+user = "draftbot"
+# The password of a database user.
+password = "secret_password"
+# The root password, used to create the databases. Use this only in development. In production, leave the field empty and create the databases manually
+root_password = "super_secret_password"
+
+[users]
+# The bot will use this to check if you can use admins commands
+owner_id = ""
+# Put id of the user where bot's received dms will be sent
+dm_manager_id = ""
+
+[roles]
+# Put the id of the contributors role
+contributor_role_id = ""
+# Put id of the which will be able to manage badges
+badge_manager_ids = ""
+
+[channels]
+# Put id of the contributors channel
+contributor_channel = ""
+# Put id of the channel where the main status messages from the bot will be sent
+console_channel_id = ""
+# Put id of the channel where important public announcement will be sent in french
+french_announcements_channel_id = ""
+# Put id of the channel where important public announcement will be sent in english
+english_announcements_channel_id = ""
+
+[keycloak]
+# Keycloak realm
+realm = "DraftBot"
+# Keycloak URL
+url = "http://127.0.0.1:8080"
+# Keycloak client ID
+clientId = "discord"
+# Keycloak client secret
+clientSecret = ""
+
+[discord_bot_list]
+# Put the DBL server token
+token = ""
+
+[logs]
+# The log level of the bot. It can be one of: "error", "warn", "info", "debug"
+level = "info"
+# The log locations. It can be one of: "console", "file", "loki"
+locations = ["console", "file"]
+
+[logs.loki]
+# The loki host
+host = "http://127.0.0.1:3100"
+# Username to connect to loki
+username = ""
+# Password to connect to loki
+password = ""
+
+[others]
+# Webserver port. # Web server port. The web server is used to serve different utilities endpoints (metrics, log level configuration, etc.)
+# The shard ID will be added to the port to create the webserver port
+webserver_port = 10124

@@ -1,0 +1,48 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
+        }
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "money": 25
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "hurt",
+          "health": -15
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 50
+        }
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "hurt",
+          "health": -15
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 3
+    }
+  ]
+}

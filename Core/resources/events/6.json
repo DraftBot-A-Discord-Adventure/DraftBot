@@ -1,0 +1,58 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 270
+        }
+      }
+    },
+    "goAway": {
+      "outcomes": {
+        "0": {}
+      }
+    },
+    "goDeeper": {
+      "outcomes": {
+        "0": {
+          "effect": "lost"
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 20,
+          "randomItem": {}
+        },
+        "2": {
+          "effect": "confounded",
+          "health": -1
+        }
+      }
+    },
+    "search": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "2": {
+          "money": -190
+        },
+        "3": {
+          "effect": "confounded",
+          "health": -25
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 27
+    }
+  ]
+}

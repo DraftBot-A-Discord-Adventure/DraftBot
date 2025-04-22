@@ -1,0 +1,10 @@
+{
+  "outcomeProbabilities": {
+    "potion": 30,
+    "life_loss": 10,
+    "nothing": 10
+  },
+  "timePenalty": 30,
+  "forceEffect": true,
+  "isIngredient": false
+}

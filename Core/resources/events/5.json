@@ -1,0 +1,48 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "money": 65
+        }
+      }
+    },
+    "keepGoing": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {
+          "effect": "sleeping",
+          "health": -30
+        }
+      }
+    },
+    "rest": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 5,
+          "lostTime": 30
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 15,
+          "lostTime": 60
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 180
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 2
+    }
+  ]
+}

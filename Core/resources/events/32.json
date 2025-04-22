@@ -1,0 +1,68 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "money": 200
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "2": {},
+        "3": {
+          "money": -200
+        }
+      }
+    },
+    "heal": {
+      "outcomes": {
+        "0": {
+          "money": 400
+        },
+        "1": {},
+        "2": {
+          "money": -200
+        },
+        "3": {
+          "health": -15,
+          "money": 300,
+          "randomItem": {}
+        }
+      }
+    },
+    "kill": {
+      "outcomes": {
+        "0": {
+          "health": -10
+        },
+        "1": {},
+        "2": {
+          "money": 700,
+          "randomItem": {}
+        }
+      }
+    },
+    "yell": {
+      "outcomes": {
+        "0": {
+          "money": 200
+        },
+        "1": {
+          "health": -20
+        },
+        "2": {},
+        "3": {
+          "effect": "occupied",
+          "health": 20,
+          "lostTime": 60
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 4
+    }
+  ]
+}

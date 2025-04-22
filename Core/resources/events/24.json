@@ -1,0 +1,78 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "health": 5,
+          "lostTime": 40
+        }
+      }
+    },
+    "foodStand": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 75,
+          "lostTime": 30,
+          "money": -20,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "1": {
+          "effect": "sick",
+          "health": -100,
+          "money": -20,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "2": {
+          "money": -20,
+          "tags": [
+            "moneyUsage"
+          ]
+        }
+      }
+    },
+    "gameStand": {
+      "outcomes": {
+        "0": {
+          "money": -200,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30
+        },
+        "2": {
+          "money": 200
+        }
+      }
+    },
+    "itemStand": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 240
+        },
+        "1": {
+          "money": -200,
+          "randomItem": {},
+          "tags": [
+            "moneyUsage"
+          ]
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 26
+    }
+  ]
+}

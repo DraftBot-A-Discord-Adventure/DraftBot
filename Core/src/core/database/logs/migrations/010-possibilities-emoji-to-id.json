@@ -1,0 +1,376 @@
+{
+  "1": {
+    "🪓": "cutTree",
+    "🚶": "otherWay"
+  },
+  "10": {
+    "🎣": "help",
+    "🖐️": "push",
+    "🏃": "skip"
+  },
+  "11": {
+    "👈": "followHint",
+    "🌳": "forest",
+    "👉": "oppositeSide"
+  },
+  "12": {
+    "🚣": "craftBoat",
+    "🚶": "otherWay",
+    "🌉": "searchBridge",
+    "🏊": "swim"
+  },
+  "13": {
+    "🚶": "goAway",
+    "🔨": "goForge",
+    "🏠": "goInn",
+    "🎪": "goMarket"
+  },
+  "14": {
+    "🔨": "chatWorker",
+    "🚶": "goAway",
+    "🛏️": "stayNight"
+  },
+  "15": {
+    "🏃": "skip",
+    "💰": "steal",
+    "👥": "trade"
+  },
+  "16": {
+    "🔎": "enterCastle",
+    "➡️": "skip",
+    "🔁": "walkAround"
+  },
+  "17": {
+    "🍎": "fruits",
+    "🦌": "hunt",
+    "🍄": "mushrooms",
+    "🥗": "salad",
+    "🚶": "skip"
+  },
+  "18": {
+    "⛓️": "searchScaffolding",
+    "🔎": "searchSite",
+    "🚶": "skip"
+  },
+  "19": {
+    "🔪": "butch",
+    "🍽️": "cook",
+    "🚶": "skip"
+  },
+  "2": {
+    "🐕": "followDog",
+    "🏃": "skip"
+  },
+  "20": {
+    "🤙": "alert",
+    "🚶": "skip",
+    "👊": "surpriseAttack"
+  },
+  "21": {
+    "🌉": "crossBridge",
+    "🚶": "otherWay"
+  },
+  "22": {
+    "💶": "buy",
+    "🏃": "skip",
+    "👥": "steal"
+  },
+  "23": {
+    "🔨": "help",
+    "🚶": "skip"
+  },
+  "24": {
+    "🍢": "foodStand",
+    "🎯": "gameStand",
+    "🎪": "itemStand"
+  },
+  "25": {
+    "🚶": "dontHelp",
+    "🤝": "help",
+    "🕵️": "steal"
+  },
+  "26": {
+    "🚶": "goAway",
+    "💸": "steal",
+    "👊": "trySave"
+  },
+  "27": {
+    "👇": "goDown",
+    "🚶": "skip",
+    "🤝": "useBucket"
+  },
+  "28": {
+    "✅": "accept",
+    "❌": "deny"
+  },
+  "29": {
+    "😴": "restHere",
+    "🌳": "restTree",
+    "🔍": "searchWater"
+  },
+  "3": {
+    "▶️": "abandon",
+    "⛏️": "mineIt",
+    "🔑": "searchKey"
+  },
+  "30": {
+    "🤴": "duke",
+    "🎁": "gift",
+    "🎉": "party",
+    "🍌": "steal"
+  },
+  "31": {
+    "🌿": "hide",
+    "🚶": "keepGoing",
+    "👋": "wave"
+  },
+  "32": {
+    "💉": "heal",
+    "🔪": "kill",
+    "🗣️": "yell"
+  },
+  "33": {
+    "👄": "chat",
+    "🍗": "eat",
+    "🚶": "skip",
+    "🕵️": "steal"
+  },
+  "34": {
+    "🥗": "food",
+    "😇": "health",
+    "🍀": "kind",
+    "💰": "money"
+  },
+  "35": {
+    "❌": "deny",
+    "💰": "steal",
+    "🍺": "test"
+  },
+  "36": {
+    "🚶": "goAway",
+    "🏡": "goInn",
+    "💸": "stealJeweler",
+    "🗣️": "talkJeweler"
+  },
+  "37": {
+    "🏃": "run",
+    "🚶": "walk"
+  },
+  "38": {
+    "💸": "buyCheap",
+    "💰": "buyExpensive",
+    "❌": "deny",
+    "🕵️": "steal"
+  },
+  "39": {
+    "🚶": "convoy",
+    "🍖": "meal",
+    "🤑": "steal"
+  },
+  "4": {
+    "🏃": "skip",
+    "🗣️": "wish"
+  },
+  "40": {
+    "🗣️": "askAdvices",
+    "🔎": "breakIn",
+    "🚶": "goBack"
+  },
+  "41": {
+    "🕵️": "corrupt",
+    "🔓": "escape",
+    "🗣️": "explain",
+    "💀": "playDead",
+    "🕑": "wait"
+  },
+  "42": {
+    "🥩": "ask",
+    "😎": "feign",
+    "🏹": "help"
+  },
+  "43": {
+    "⬆️": "continue",
+    "⚔️": "fight",
+    "⬇️": "goBack",
+    "⛪": "shelter"
+  },
+  "44": {
+    "🦸": "help",
+    "😈": "push",
+    "😐": "watch"
+  },
+  "45": {
+    "⤴️": "askJoin",
+    "🚶": "goAlone",
+    "▶️": "skip",
+    "🔊": "talk"
+  },
+  "46": {
+    "🤪": "singCrazyLove",
+    "⚔️": "singHero",
+    "🥰": "singLove",
+    "👑": "singRoyalty",
+    "🪕": "singWork"
+  },
+  "47": {
+    "🚶": "goAway",
+    "⚔": "help",
+    "🗣️": "tell"
+  },
+  "48": {
+    "⚔️": "fight",
+    "🤝": "meetHim"
+  },
+  "49": {
+    "🍖": "eatIt",
+    "🤝": "helpIt",
+    "💞": "takeIt"
+  },
+  "5": {
+    "🚶": "keepGoing",
+    "💦": "rest"
+  },
+  "50": {
+    "🗣️": "ask",
+    "🚶": "leave",
+    "😴": "nap"
+  },
+  "51": {
+    "🚶‍♂️": "goBack",
+    "🔎": "search",
+    "↗️": "stairs"
+  },
+  "52": {
+    "❌": "deny",
+    "👥": "play",
+    "⚔️": "playFight",
+    "🏹": "teach"
+  },
+  "53": {
+    "✅": "accept",
+    "❌": "deny",
+    "🕵️": "steal"
+  },
+  "54": {
+    "🪙": "bet",
+    "🤝": "help",
+    "👥": "look",
+    "🚶": "visit"
+  },
+  "55": {
+    "🧗": "climb",
+    "🪓": "cut",
+    "🚶": "otherWay"
+  },
+  "56": {
+    "🏖": "beach",
+    "⚫": "drinkBlack",
+    "🍸": "drinkRandom",
+    "❌": "refuse"
+  },
+  "57": {
+    "🌊": "continue",
+    "🦀": "findMeal",
+    "🌞": "settle"
+  },
+  "58": {
+    "🚶": "continue",
+    "🍵": "goAlchemist",
+    "🏃": "shortcut"
+  },
+  "6": {
+    "🏃": "goAway",
+    "🔦": "goDeeper",
+    "🔍": "search"
+  },
+  "60": {
+    "📖": "start"
+  },
+  "61": {
+    "🚶": "follow",
+    "👀": "observe"
+  },
+  "62": {
+    "✖️": "deny",
+    "🍀": "searchPatures",
+    "🍇": "searchVines",
+    "🎑": "searchWheat"
+  },
+  "63": {
+    "⚔️": "faceThem",
+    "🏃": "goAway",
+    "😈": "helpThem",
+    "🔊": "warnEveryone"
+  },
+  "64": {
+    "🏰": "accept",
+    "❌": "deny"
+  },
+  "65": {
+    "🛡️": "hopeArmor",
+    "💎": "hopeGems",
+    "🏅": "hopeGlory",
+    "❤️": "hopeHealthy",
+    "📦": "hopeItem",
+    "💰": "hopeMoney",
+    "🐕‍🦺": "hopePet",
+    "⚔️": "hopeWeapon",
+    "⭐": "hopeXP"
+  },
+  "66": {
+    "ℹ️": "hints",
+    "🏝️": "run"
+  },
+  "67": {
+    "🍺": "accept",
+    "✋": "deny"
+  },
+  "68": {
+    "🗓️": "checkDate",
+    "📖": "read",
+    "📔": "steal"
+  },
+  "69": {
+    "👍": "accept",
+    "🤝": "comrpomise",
+    "👿": "deny"
+  },
+  "7": {
+    "🚪": "check",
+    "🚶": "skip"
+  },
+  "70": {
+    "🔍": "explore",
+    "🚶": "skip"
+  },
+  "71": {
+    "🍖": "accept",
+    "❌": "deny",
+    "💸": "steal"
+  },
+  "72": {
+    "🎯": "joinArchery",
+    "🐴": "joinJoust",
+    "⚔️": "joinMelee",
+    "📜": "joinPoetry",
+    "🍴": "searchFood"
+  },
+  "73": {
+    "🚶‍♂️": "goAway",
+    "👀": "look",
+    "🗯": "shame"
+  },
+  "74": {
+    "🍽️": "eat",
+    "🏃": "run",
+    "👃": "smell"
+  },
+  "8": {
+    "🌲": "forest",
+    "🏞️": "plains"
+  },
+  "9": {
+    "🔎": "help",
+    "▶️": "skip"
+  }
+}

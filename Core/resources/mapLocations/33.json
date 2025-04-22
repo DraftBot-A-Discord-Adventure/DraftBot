@@ -1,0 +1,5 @@
+{
+  "type": "continent",
+  "canBeGoToPlaceMissionDestination": false,
+  "attribute": "main_continent"
+}

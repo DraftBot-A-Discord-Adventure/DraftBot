@@ -1,0 +1,87 @@
+{
+  "possibilities": {
+    "beach": {
+      "outcomes": {
+        "0": {
+          "money": -100
+        },
+        "1": {},
+        "2": {
+          "health": -3
+        }
+      }
+    },
+    "drinkBlack": {
+      "outcomes": {
+        "0": {
+          "effect": ":confounded:",
+          "health": -70
+        },
+        "1": {
+          "effect": ":sleeping:",
+          "money": 400
+        }
+      }
+    },
+    "drinkRandom": {
+      "outcomes": {
+        "0": {
+          "effect": ":zany_face:",
+          "money": 200,
+          "tags": [
+            "drinkAlcohol"
+          ]
+        },
+        "1": {
+          "health": 10
+        },
+        "2": {
+          "effect": ":clock2:",
+          "lostTime": 20
+        },
+        "3": {
+          "effect": ":cold_face:",
+          "health": -20
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": ":confounded:"
+        },
+        "1": {
+          "money": -225
+        },
+        "2": {
+          "effect": ":clock2:",
+          "health": 5,
+          "lostTime": 20
+        }
+      }
+    },
+    "refuse": {
+      "outcomes": {
+        "0": {
+          "effect": ":sleeping:",
+          "health": 15
+        },
+        "1": {
+          "effect": ":confounded:"
+        },
+        "2": {
+          "effect": ":clock2:",
+          "lostTime": 10
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 1
+    }
+  ],
+  "tags": [
+    "meetGruffo"
+  ]
+}

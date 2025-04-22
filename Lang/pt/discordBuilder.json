@@ -1,0 +1,384 @@
+{
+  "badges": {
+    "description": "Apresentar informações sobre os crachás e o seu funcionamento.",
+    "name": "distintivos"
+  },
+  "help": {
+    "description": "Apresenta a lista de encomendas disponíveis ou informações pormenorizadas sobre uma encomenda.",
+    "name": "ajuda",
+    "options": {
+      "commandName": {
+        "description": "O comando cujas informações devem ser visualizadas.",
+        "name": "ordem"
+      }
+    }
+  },
+  "idea": {
+    "description": "Enviar uma sugestão para melhorar o jogo.",
+    "name": "sugestão"
+  },
+  "inventory": {
+    "description": "Mostra o inventário do jogador.",
+    "name": "inventário",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador cujo inventário deve ser apresentado.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador cujo inventário deve ser apresentado.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "invite": {
+    "description": "Adicione o bot ao seu servidor.",
+    "name": "invitationdraftbot"
+  },
+  "language": {
+    "description": "Alterar o idioma do bot para futuras interações.",
+    "name": "língua"
+  },
+  "ping": {
+    "description": "Mostra a latência do bot e permite ao jogador verificar se o bot está online.",
+    "name": "ping"
+  },
+  "pet": {
+    "description": "Mostra informações sobre a mascote de um jogador.",
+    "name": "familiar",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador cujo animal de estimação deve ser apresentado.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador cujo animal de estimação deve ser apresentado.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "petFree": {
+    "description": "Libertar um animal de estimação.",
+    "name": "libertador familiar"
+  },
+  "petNick": {
+    "description": "Dê um nome ao seu animal de estimação.",
+    "name": "apelidofamiliar",
+    "options": {
+      "nickname": {
+        "description": "A alcunha que pretende dar ao seu animal de estimação. (Deixe em branco para apagar a alcunha)",
+        "name": "alcunha"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Criar um novo grémio.",
+    "name": "criaçãoguilde",
+    "options": {
+      "guildName": {
+        "description": "O nome do grémio.",
+        "name": "nome"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Alterar a descrição do grémio.",
+    "name": "descriçãoguilde",
+    "options": {
+      "description": {
+        "description": "Descrição.",
+        "name": "descrição"
+      }
+    }
+  },
+  "guildInvite": {
+    "description": "Recruta um novo membro para a tua guilda.",
+    "name": "conviteguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador a recrutar.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "guild": {
+    "description": "Mostrar informações sobre um grémio.",
+    "name": "grémio",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador cujo grémio deve ser apresentado.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador cujo grémio deve ser apresentado.",
+        "name": "utilizador"
+      },
+      "guildName": {
+        "description": "O nome do grémio cujas informações devem ser visualizadas.",
+        "name": "grémio"
+      }
+    }
+  },
+  "profile": {
+    "description": "Ver o perfil de um jogador.",
+    "name": "perfil",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador cujo perfil deve ser apresentado.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador cujo perfil deve ser apresentado.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "rarity": {
+    "description": "Mostrar as diferentes raridades do equipamento.",
+    "name": "raridade"
+  },
+  "report": {
+    "description": "Obter um relatório sobre a situação da sua personagem.",
+    "name": "relatório"
+  },
+  "test": {
+    "description": "Controlo de fraude para testadores (APENAS MODO DE TESTE).",
+    "name": "teste",
+    "options": {
+      "commandName": {
+        "description": "Comando de teste a ser executado.",
+        "name": "ordem"
+      }
+    }
+  },
+  "update": {
+    "description": "Mostra a versão atual do bot.",
+    "name": "novos produtos"
+  },
+  "vote": {
+    "description": "Mostrar a ligação para votar no bot.",
+    "name": "votação"
+  },
+  "map": {
+    "description": "Mostrar o mapa para indicar o local para onde se dirige.",
+    "name": "cartão"
+  },
+  "shop": {
+    "description": "Exibir a loja.",
+    "name": "loja"
+  },
+  "classesInfo": {
+    "description": "Mostra informações sobre as classes que podem ser selecionadas para a sua personagem.",
+    "name": "aulas de informação"
+  },
+  "respawn": {
+    "description": "Retomar a aventura depois de... \"um acidente\".",
+    "name": "reviver"
+  },
+  "notifications": {
+    "description": "Gerir notificações de bots.",
+    "name": "notificações",
+    "options": {
+      "toggle": {
+        "description": "Ativar ou desativar notificações de um determinado tipo.",
+        "name": "mudança"
+      }
+    }
+  },
+  "maintenance": {
+    "description": "Colocar o bot em modo de manutenção.",
+    "name": "manutenção",
+    "options": {
+      "enable": {
+        "description": "Ativar ou desativar o modo de manutenção.",
+        "name": "ativar"
+      },
+      "save": {
+        "description": "Guardar o modo de manutenção no ficheiro de configuração.",
+        "name": "salvar"
+      }
+    }
+  },
+  "missions": {
+    "description": "Lista as missões de um jogador.",
+    "name": "missões",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador cujas missões devem ser apresentadas.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador cujas tarefas devem ser visualizadas.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "guildShop": {
+    "description": "Exibir a loja do grémio.",
+    "name": "magasinguilde"
+  },
+  "guildKick": {
+    "description": "Excluir um membro da guilda.",
+    "name": "excluirguilde",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador a ser excluído do grémio.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador a ser excluído do grémio.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "guildDaily": {
+    "description": "Receber a recompensa diária da guilda.",
+    "name": "bónusjornalierguilde"
+  },
+  "guildElder": {
+    "description": "Promover um membro da guilda à categoria de ancião.",
+    "name": "aineguilde",
+    "options": {
+      "user": {
+        "description": "O utilizador que será promovido como sénior.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "guildElderRemove": {
+    "description": "Destituir o membro mais velho do grémio do seu cargo.",
+    "name": "deleteaineguilde"
+  },
+  "guildLeave": {
+    "description": "Deixar o grémio.",
+    "name": "leaveguilde"
+  },
+  "daily": {
+    "description": "Utilize o seu item equipado para obter um bónus diário.",
+    "name": "bónus diário"
+  },
+  "unlock": {
+    "description": "Libertar outro jogador da prisão.",
+    "name": "entregar",
+    "options": {
+      "rank": {
+        "description": "A classificação do jogador a ser emitida.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "O utilizador a ser entregue.",
+        "name": "utilizador"
+      }
+    }
+  },
+  "missionsshop": {
+    "description": "Mostrar a loja da missão.",
+    "name": "loja"
+  },
+  "top": {
+    "description": "Apresentar as classificações dos jogos.",
+    "name": "classificação",
+    "subcommands": {
+      "score": {
+        "description": "Apresentar as classificações dos jogadores com base na sua pontuação.",
+        "name": "pontuação"
+      },
+      "glory": {
+        "description": "Mostra a classificação das guildas de acordo com a sua glória.",
+        "name": "glorieux"
+      },
+      "guild": {
+        "description": "Mostra a classificação das guildas de acordo com os seus pontos.",
+        "name": "grémio"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "A duração da classificação apresentada (desde sempre, por defeito).",
+        "name": "duração"
+      },
+      "page": {
+        "description": "A página de classificação a ser apresentada.",
+        "name": "página"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} Sempre o fiz.",
+      "weekly": "{emote:top.weekly} Esta semana."
+    }
+  },
+  "fight": {
+    "description": "Começar uma luta.",
+    "name": "combate"
+  },
+  "switch": {
+    "name": "interrutor",
+    "description": "Trocar o objeto ativo por um dos objectos na sua reserva."
+  },
+  "drink": {
+    "name": "bebida",
+    "description": "Bebe a poção.",
+    "options": {
+      "force": {
+        "name": "força",
+        "description": "Se for verdade, salta a fase de validação se tiveres a certeza de que queres beber a poção."
+      }
+    }
+  },
+  "petSell": {
+    "name": "vendercasa de família",
+    "description": "Vender uma mascote a outro jogador.",
+    "options": {
+      "price": {
+        "name": "preço",
+        "description": "O preço de venda do animal de estimação."
+      },
+      "player": {
+        "name": "jogador",
+        "description": "O jogador a quem vender a mascote."
+      }
+    }
+  },
+  "classes": {
+    "name": "aulas",
+    "description": "Mudar de classe."
+  },
+  "sell": {
+    "name": "vender",
+    "description": "Venda de equipamento."
+  },
+  "petTransfer": {
+    "name": "transferidorfamiliar",
+    "description": "Transferir uma mascote de ou para o abrigo da guilda."
+  },
+  "petFeed": {
+    "name": "feedfamiliar",
+    "description": "Alimente o seu animal de estimação."
+  },
+  "guildShelter": {
+    "name": "abriguilde",
+    "description": "Apresenta informações sobre o abrigo do grémio."
+  },
+  "leagueReward": {
+    "name": "bónusligue",
+    "description": "Recolha a recompensa associada à sua liga."
+  },
+  "guildStorage": {
+    "name": "entrepotguilde",
+    "description": "Mostrar o conteúdo do armazém do grém."
+  },
+  "joinBoat": {
+    "name": "juntar-se ao barco",
+    "description": "Junta-te ao barco se um membro do teu grémio estiver nele."
+  },
+  "giveBadge": {
+    "name": "givebadge",
+    "description": "Dar um crachá a um jogador.",
+    "options": {
+      "user": {
+        "name": "utilizador",
+        "description": "O jogador a quem dar o crachá."
+      }
+    }
+  }
+}

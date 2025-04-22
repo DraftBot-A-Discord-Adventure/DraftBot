@@ -1,0 +1,17 @@
+{
+  "attack": 20,
+  "defense": 35,
+  "speed": 1,
+  "health": 80,
+  "fightPoint": 150,
+  "baseBreath": 3,
+  "maxBreath": 10,
+  "breathRegen": 3,
+  "classGroup": 0,
+  "classKind": "defense",
+  "fightActionsIds": [
+    "simpleAttack",
+    "intenseAttack",
+    "defenseBuff"
+  ]
+}

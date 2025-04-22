@@ -1,0 +1,72 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 35
+        }
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {},
+        "3": {
+          "effect": "confounded",
+          "health": -5
+        }
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "money": 100
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "money": -200
+        },
+        "2": {
+          "effect": "confounded",
+          "health": -20
+        }
+      }
+    },
+    "trade": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 45,
+          "money": -200,
+          "randomItem": {},
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "2": {
+          "money": -70
+        },
+        "3": {
+          "effect": "occupied",
+          "lostTime": 45,
+          "money": -200,
+          "tags": [
+            "moneyUsage"
+          ]
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 23
+    }
+  ]
+}

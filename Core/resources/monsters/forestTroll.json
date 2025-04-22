@@ -1,0 +1,40 @@
+{
+  "baseEnergyValue": 85,
+  "attackRatio": 80,
+  "defenseRatio": 60,
+  "speedRatio": 45,
+  "breath": 8,
+  "maxBreath": 15,
+  "breathRegen": 4,
+  "rewardFactor": 0.3,
+  "attacks": [
+    {
+      "id": "chargeClubSmashAttack",
+      "minLevel": 0,
+      "weight": 4
+    },
+    {
+      "id": "grabAndThrowAttack",
+      "minLevel": 0,
+      "weight": 2
+    },
+    {
+      "id": "outrageAttack",
+      "minLevel": 0,
+      "weight": 2
+    },
+    {
+      "id": "roarAttack",
+      "minLevel": 0,
+      "weight": 1
+    },
+    {
+      "id": "intenseAttack",
+      "minLevel": 50,
+      "weight": 2
+    }
+  ],
+  "maps": [
+    1001
+  ]
+}

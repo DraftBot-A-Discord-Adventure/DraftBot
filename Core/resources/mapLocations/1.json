@@ -1,0 +1,8 @@
+{
+  "type": "be",
+  "tags": [
+    "detALa"
+  ],
+  "canBeGoToPlaceMissionDestination": true,
+  "attribute": "continent1"
+}

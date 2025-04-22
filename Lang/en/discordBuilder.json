@@ -1,0 +1,384 @@
+{
+  "badges": {
+    "description": "Display information about badges and how they work.",
+    "name": "badges"
+  },
+  "help": {
+    "description": "Display the list of available commands or detailed information on a command.",
+    "name": "help",
+    "options": {
+      "commandName": {
+        "description": "The command to display information about.",
+        "name": "command"
+      }
+    }
+  },
+  "idea": {
+    "description": "Send a suggestion to improve the game.",
+    "name": "idea"
+  },
+  "inventory": {
+    "description": "Display player inventory.",
+    "name": "inventory",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose inventory should be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose inventory should be displayed.",
+        "name": "user"
+      }
+    }
+  },
+  "invite": {
+    "description": "Add the bot to your server.",
+    "name": "invitedraftbot"
+  },
+  "language": {
+    "description": "Change the bot's language for your future interactions.",
+    "name": "language"
+  },
+  "ping": {
+    "description": "Display the bot's latency and allow the player to check whether the bot is online.",
+    "name": "ping"
+  },
+  "pet": {
+    "description": "Displays information about the pet of a player.",
+    "name": "pet",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose pet should be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose pet should be displayed.",
+        "name": "user"
+      }
+    }
+  },
+  "petFree": {
+    "description": "Free a pet.",
+    "name": "petfree"
+  },
+  "petNick": {
+    "description": "Give a nickname to your pet.",
+    "name": "petnickname",
+    "options": {
+      "nickname": {
+        "description": "The nickname you want to give your pet. (Leave blank to delete the nickname)",
+        "name": "nickname"
+      }
+    }
+  },
+  "guildCreate": {
+    "description": "Create a new guild.",
+    "name": "guildcreate",
+    "options": {
+      "guildName": {
+        "description": "The name of the guild.",
+        "name": "name"
+      }
+    }
+  },
+  "guildDescription": {
+    "description": "Change the guild's description.",
+    "name": "guilddescription",
+    "options": {
+      "description": {
+        "description": "The description.",
+        "name": "description"
+      }
+    }
+  },
+  "guildInvite": {
+    "description": "Invite a new member in your guild.",
+    "name": "guildinvite",
+    "options": {
+      "user": {
+        "description": "The user to be recruited.",
+        "name": "user"
+      }
+    }
+  },
+  "guild": {
+    "description": "Display information about a guild.",
+    "name": "guild",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose guild you want to display.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose guild should be displayed.",
+        "name": "user"
+      },
+      "guildName": {
+        "description": "The name of the guild that should be displayed.",
+        "name": "guild"
+      }
+    }
+  },
+  "profile": {
+    "description": "Displays the profile of a player.",
+    "name": "profile",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose profile you want to display.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The player whose profile you want to display.",
+        "name": "user"
+      }
+    }
+  },
+  "rarity": {
+    "description": "Display different equipment rarities.",
+    "name": "rarity"
+  },
+  "report": {
+    "description": "Get a report on your character's situation.",
+    "name": "report"
+  },
+  "test": {
+    "description": "Cheat command for testers (TEST MODE ONLY).",
+    "name": "test",
+    "options": {
+      "commandName": {
+        "description": "Test command to execute.",
+        "name": "command"
+      }
+    }
+  },
+  "update": {
+    "description": "Display the current version of the bot.",
+    "name": "update"
+  },
+  "vote": {
+    "description": "Displays the link to vote for the bot.",
+    "name": "vote"
+  },
+  "map": {
+    "description": "Show map to indicate where you're going.",
+    "name": "map"
+  },
+  "shop": {
+    "description": "Show store.",
+    "name": "shop"
+  },
+  "classesInfo": {
+    "description": "Display information on the classes selectable for your character.",
+    "name": "classesinfo"
+  },
+  "respawn": {
+    "description": "Respawn after... \"an accident\".",
+    "name": "respawn"
+  },
+  "notifications": {
+    "description": "Manage your notifications.",
+    "name": "notifications",
+    "options": {
+      "toggle": {
+        "description": "Enable or disable notifications of a specific type.",
+        "name": "toggle"
+      }
+    }
+  },
+  "maintenance": {
+    "description": "Set the bot in maintenance mode.",
+    "name": "maintenance",
+    "options": {
+      "enable": {
+        "description": "Enable or disable maintenance mode.",
+        "name": "enable"
+      },
+      "save": {
+        "description": "Save the maintenance mode to the configuration file.",
+        "name": "save"
+      }
+    }
+  },
+  "missions": {
+    "description": "List the missions of a player.",
+    "name": "missions",
+    "options": {
+      "rank": {
+        "description": "The rank of the player whose missions will be displayed.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user whose missions will be displayed.",
+        "name": "user"
+      }
+    }
+  },
+  "guildShop": {
+    "description": "Display the guild store.",
+    "name": "guildshop"
+  },
+  "guildKick": {
+    "description": "Kick a player from the guild.",
+    "name": "guildkick",
+    "options": {
+      "rank": {
+        "description": "The rank of the player who must be kicked from the guild.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user who must be kicked from the guild.",
+        "name": "user"
+      }
+    }
+  },
+  "guildDaily": {
+    "description": "Get the guild's daily reward.",
+    "name": "guilddailybonus"
+  },
+  "guildElder": {
+    "description": "Promote a guild member to elder.",
+    "name": "guildelder",
+    "options": {
+      "user": {
+        "description": "The user who will be promoted as an elder.",
+        "name": "user"
+      }
+    }
+  },
+  "guildElderRemove": {
+    "description": "Demote the elder of the guild.",
+    "name": "guildelderremove"
+  },
+  "guildLeave": {
+    "description": "Leave your guild",
+    "name": "guildleave"
+  },
+  "daily": {
+    "description": "Use your equipped item to get a daily bonus.",
+    "name": "dailybonus"
+  },
+  "unlock": {
+    "description": "Free a player from jail.",
+    "name": "unlock",
+    "options": {
+      "rank": {
+        "description": "The rank of the player who must be unlocked.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The user who must be unlocked.",
+        "name": "user"
+      }
+    }
+  },
+  "missionsshop": {
+    "description": "Display mission store.",
+    "name": "missionsshop"
+  },
+  "top": {
+    "description": "Display game rankings.",
+    "name": "top",
+    "subcommands": {
+      "score": {
+        "description": "Display player rankings by score.",
+        "name": "score"
+      },
+      "glory": {
+        "description": "Display guild rankings according to glory.",
+        "name": "glory"
+      },
+      "guild": {
+        "description": "Display guild rankings based on points.",
+        "name": "guild"
+      }
+    },
+    "options": {
+      "timing": {
+        "description": "The timing of the displayed ranking (All time by default).",
+        "name": "timing"
+      },
+      "page": {
+        "description": "The page of the ranking to display.",
+        "name": "page"
+      }
+    },
+    "timings": {
+      "allTime": "{emote:top.allTime} We always have.",
+      "weekly": "{emote:top.weekly} This week."
+    }
+  },
+  "fight": {
+    "description": "Start a fight.",
+    "name": "fight"
+  },
+  "switch": {
+    "name": "switch",
+    "description": "Switch the active item with one of the items in your item stock."
+  },
+  "drink": {
+    "name": "drink",
+    "description": "Drink the equipped potion.",
+    "options": {
+      "force": {
+        "name": "force",
+        "description": "If true, skips the validation phase if you are really sure you want to drink the potion."
+      }
+    }
+  },
+  "petSell": {
+    "name": "petsell",
+    "description": "Sell a pet to another player.",
+    "options": {
+      "price": {
+        "name": "price",
+        "description": "The price of the pet."
+      },
+      "player": {
+        "name": "player",
+        "description": "The player to whom the pet will be sold."
+      }
+    }
+  },
+  "classes": {
+    "name": "classes",
+    "description": "Change your class."
+  },
+  "sell": {
+    "name": "sell",
+    "description": "Sell an equipment."
+  },
+  "petTransfer": {
+    "name": "pettransfer",
+    "description": "Transfer a pet from or to the guild shelter."
+  },
+  "petFeed": {
+    "name": "petfeed",
+    "description": "Feed your pet."
+  },
+  "guildShelter": {
+    "name": "guildshelter",
+    "description": "Display guild shelter information."
+  },
+  "leagueReward": {
+    "name": "leaguebonus",
+    "description": "Get the reward linked to your league."
+  },
+  "guildStorage": {
+    "name": "guildstorage",
+    "description": "Display the contents of the guild warehouse."
+  },
+  "joinBoat": {
+    "name": "joinboat",
+    "description": "Join the boat if a member of your guild is on it."
+  },
+  "giveBadge": {
+    "name": "givebadge",
+    "description": "Give a badge to a player.",
+    "options": {
+      "user": {
+        "name": "user",
+        "description": "The user who will receive the badge."
+      }
+    }
+  }
+}

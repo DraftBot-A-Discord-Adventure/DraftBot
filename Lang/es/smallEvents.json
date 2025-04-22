@@ -1,0 +1,1604 @@
+{
+  "intro": [
+    "Mientras viajas en paz, ",
+    "Mientras avanzas tranquilamente por la carretera, ",
+    "Mientras se prepara para volver a partir tras un breve descanso, ",
+    "En la curva de la carretera, ",
+    "Mientras paseas tranquilamente, ",
+    "Después de una breve parada, ",
+    "Después de largas horas de caminata, ",
+    "Durante un breve descanso contra un árbol, ",
+    "Mientras continúas tu aventura, ",
+    "Sigue tu propio camino, ",
+    "Contemplando el borde de la carretera, ",
+    "Volviendo a la carretera tras una rápida parada, ",
+    "A medida que avanzan, cansados por las largas horas de marcha, ",
+    "Al borde de un camino, "
+  ],
+  "advanceTime": {
+    "stories": [
+      "ves a alguien que se parece extrañamente a Pérotin. Corres hacia él, pero él también acelera, probablemente por miedo. Logras alcanzarle y te das cuenta de que te has equivocado de persona. Rápidamente te disculpas. Sin embargo, has ganado **{{time}} Min {emote:unitValues.timeGain}** en tu camino.",
+      "oyes un carro detrás de ti. El hombre del vehículo se ofrece a llevarte a donde quieras. Aceptas y le indicas tu destino. Después de conducir unos kilómetros, el hombre te dice que tiene que ir en una dirección diferente a la tuya, así que te lleva y le das las gracias. Ganas **{{time}} Min {emote:unitValues.timeGain}** en tu viaje.",
+      "ves un carruaje a lo lejos. Puede que la princesa esté a bordo. Decides ir a hablar con ella y corres tan rápido como puedes. Una vez que estás lo suficientemente cerca, te decepciona descubrir que no puedes acercarte a ella porque el vehículo está protegido por una procesión de jinetes. Sin embargo, has ganado **{{time}} Min {emote:unitValues.timeGain}** sobre tu destino.",
+      "vous prenez une petite collation, quand soudain, une ombre se précipite sur vous et la dérobe. Vous la poursuivez aussitôt mais incapable de la rattraper vous abandonnez. Cette mésaventure vous a néanmoins fait gagner **{{time}} Min {emote:unitValues.timeGain}** sur votre trajet.",
+      "ves a alguien que se parece sospechosamente a Gruffo. Corres hacia él, pero él también acelera, probablemente por miedo. Una vez que le has alcanzado, te das cuenta de que no es en absoluto la persona que pensabas. Sin embargo, has ganado **{{time}} Min {emote:unitValues.timeGain}** por el camino.",
+      "Un punto brillante te llama la atención. Tu curiosidad te impulsa a correr hacia la fuente de la luz. No es más que una moneda de cobre corriente, pero te ha salvado **{{time}} Min {emote:unitValues.timeGain}** en tu viaje.",
+      "un enorme perro de color leonado emerge de una gran arboleda. Gruñe, mostrando afilados caninos, y parece como si quisiera morderte las piernas. Apreciando la idea de que te dejen de una pieza, te envían corriendo a toda velocidad, ¡ganándote **{{time}} Min {emote:unitValues.timeGain}** por el camino!",
+      "un gran nido de avispas se desprende del árbol bajo el que estabas y cae a tus pies. Corres hasta que tus pulmones te ruegan que reanudes la marcha. Ni una sola avispa ha conseguido picarte. Este percance te ha ahorrado **{{time}} Min {emote:unitValues.timeGain}** ¡en tu ruta!",
+      "disfrutas del agradable tiempo primaveral. Sin embargo, tu descanso dura poco: unos bandidos armados con garrotes y espadas astilladas surcan los arbustos a tu izquierda, cacareando mientras avanzan tranquilamente hacia ti. Antes incluso de que tengas tiempo de pensar, tu cuerpo te lleva a una carrera precipitada, que te hace ganar **{{time}} Min {emote:unitValues.timeGain}** por el camino.",
+      "un niño te empuja al pasar. Con un mal presentimiento en las tripas, compruebas el contenido de tus bolsillos: ¡tu monedero ha desaparecido! Al alcanzarle tras una frenética carrera, recuperas lo que te pertenece y dejas al malhechor en una cuneta, habiéndole castigado como se merecía. Te das cuenta de que este suceso te habrá valido **{{time}} Min {emote:unitValues.timeGain}** en tu ruta.",
+      "te sobresalta un conejo de pelaje inmaculado, que se cuela entre tus piernas. Desconcertado al principio, intentas alcanzarlo. Pero el animalito no tarda en perderte. Estas aventuras te habrán valido **{{time}} Min {emote:unitValues.timeGain}**.",
+      "oyes a una mujer que llama detrás de ti. Cuando te das la vuelta, te fijas inmediatamente en el objeto metálico que lleva en la mano. Presa del pánico, huyes. Cuando llegas a un lugar más seguro, te das cuenta de que estás **{{time}} Min {emote:unitValues.timeGain}** adelantado."
+    ]
+  },
+  "bigBad": {
+    "lifeLoss": [
+      "oyes un ruido estridente que viene del cielo. Levantas la vista, pero demasiado tarde: un pájaro con garras afiladas se abalanza sobre ti. Al arañarte, se da cuenta de que no eres su presa habitual y se marcha inmediatamente. Te miras la herida, parece profunda. Pierdes **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+      "Mientras caminas por un sendero empinado, patinas y te tuerces el tobillo derecho. Pierdes **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+      "ves una mosca dando vueltas a tu alrededor. Desenfundas tu arma con la esperanza de matarla, pero sólo consigues hacerte un leve corte en la muñeca, perdiendo **{{lifeLoss}} {emote:unitValues.lostHealth}** en el proceso."
+    ],
+    "moneyLoss": [
+      "te das cuenta de que tu bolso está roto. Después de comprobarlo, te das cuenta de que tu bolso ha desaparecido. Has perdido **{{moneyLost}} {emote:unitValues.lostMoney}**.",
+      "te das cuenta de que te falta el bolso. De repente recuerdas que lo olvidaste en la taberna anterior, perdiste **{{moneyLost}} {emote:unitValues.lostMoney}**.",
+      "Unos viajeros pasan a tu lado, te empujan, te levantan y se disculpan groseramente. Unos minutos más tarde, te das cuenta de que tu bolso ha desaparecido: has perdido **{{moneyLost}} {emote:unitValues.lostMoney}**."
+    ],
+    "alterationStories": {
+      "badBerries": "ves unas bayas. Tu estómago te recuerda que llevas varias horas sin comer, así que te sientes obligado a probarlas. Pronto te sientes mal.",
+      "gentleBreeze": "sientes cómo la brisa te arrulla poco a poco. Cansado del viaje, no tardas en quedarte dormido.",
+      "mysteriousBottle": "Pasas junto a un mercader que te llama. Te ofrece una botella misteriosa que no puede vender y que no quiere estropear. Aceptas y te la bebes.",
+      "strangeLiquid": "ves un objeto brillante a lo lejos. Al acercarte, descubres una botella que contiene un extraño líquido. Intrigado, decides probar la dudosa mezcla. Inmediatamente te arrepientes.",
+      "expiredProvisions": "te das cuenta de que hace tiempo que tienes comida en la bolsa. Sin embargo, no quieres tirarlos y decides comértelos de todos modos. Resulta ser una mala idea, porque parece que los alimentos ya han caducado.",
+      "unexpectedRider": "te sorprende un ciclista que aparece detrás de ti sin previo aviso. Te derriba y sigue su camino sin prestarte atención. Aturdido, te pones en pie con dificultad.",
+      "fallingBranch": "quedas inconsciente por la caída de una enorme rama del árbol muerto bajo el que estabas. Herido, tardarás algún tiempo en volver a ponerte en marcha.",
+      "precipiceFall": "te ves atrapado por un profundo precipicio. A pesar de tus esfuerzos por agarrarte, no puedes evitar la caída.",
+      "ambushedByGroup": "Un grupo te detiene y te exige que le entregues tus pertenencias. No te dejas intimidar y blandes tu arma para ahuyentarlos. Sin embargo, uno de ellos aprovecha el pánico general para noquearte antes de huir.",
+      "cowStampede": "Estás cruzando un camino cuando aparece de repente un rebaño de vacas. Asustado por la masa de animales que acaba de pasar rozándote, tardas un rato en recuperarte de tus emociones.",
+      "trippedOverRoot": "tropiezas con una raíz y caes de cabeza. Necesitarás atención médica.",
+      "encounterWithBearCub": "ves un osezno a pocos metros. Temeroso de ser atrapado por su madre, huyes lo más rápido que puedes.",
+      "wrongDirection": "te das cuenta de que te has equivocado de camino en el último cruce. Decides no volver atrás y encontrar tu propio camino hacia tu destino... Te pierdes por completo.",
+      "chilledByColdNights": "le sorprenderán las frías noches de la región. Si no lleva ropa adecuada para este clima, pasará frío rápidamente.",
+      "mistakenIdentity": "te detienen unos guardias que te acusan de ser un criminal buscado activamente en el reino. Te das cuenta de que el hombre del cartel se parece a ti e intentas explicarte. Los guardias no te escuchan, te llevan y te meten en prisión."
+    }
+  },
+  "boatAdvice": {
+    "intro": [
+      "Subes a cubierta y charlas con un miembro de la tripulación.\n{{advice}}Te da algunos consejos para ayudarte en tu aventura en la isla: ** **.",
+      "Subes al mástil para admirar el horizonte.\n{{advice}}Un hombre baja su catalejo y te da este consejo antes de partir hacia la isla: ** **.",
+      "Disfrutando de una comida con la brisa fresca del mar, charlas con los marineros.\n{{advice}}Tu compañero de mesa te da los siguientes consejos sobre la isla: ** **."
+    ],
+    "advices": [
+      "Hay muchos más acontecimientos esperándole en la Isla Misteriosa",
+      "Cada viaje por la misteriosa isla se compone de más paradas",
+      "Si luchas contra animales durante los minieventos, el monstruo del final del viaje será más fácil de derrotar.",
+      "Ir a la isla al mismo tiempo que otros miembros de tu gremio te garantiza bonificaciones exclusivas",
+      "Tu energía no se regenera en la isla. Asegúrate de estar a tope antes de aventurarte.",
+      "Cuando tu energía esté a 0, volverás al continente.",
+      "Sólo puedes viajar a la isla una vez a la semana, de forma gratuita. Es posible ir 2 veces más, pero tendrás que pagar gemas.",
+      "Los monstruos del final del viaje son muy fuertes, y el último de la isla lo es aún más.",
+      "Al derrotar monstruos al final de un viaje se obtienen puntos de gremio, que determinan la clasificación de los gremios.",
+      "Los monstruos tienen diferentes estadísticas: algunos tendrán un alto nivel de defensa, ataque, velocidad o vida total.",
+      "Una isla está formada por un número finito de lugares. Una vez que hayas visitado el último lugar, volverás a tierra firme.",
+      "La isla misteriosa cambia cada semana",
+      "Al luchar contra un monstruo, si se supera el número máximo de turnos, el monstruo se volverá rápidamente muy poderoso.",
+      "{command:joinboat}Si un miembro de tu gremio quiere acompañarte en el barco, puede correr .",
+      "Las acciones disponibles al luchar contra animales dependen de tus estadísticas, objetos, mascotas, etc.",
+      "La hostilidad de la isla no te hará ningún favor a la hora de vivir aventuras. Pero si unes fuerzas con miembros de tu gremio, juntos seréis mucho más fuertes.",
+      "{command:map} Haga clic para ver un mapa de la isla",
+      "Puedes elegir abandonar la isla después de cada combate contra monstruos. Si tienes poca energía, es mejor que te vayas mientras estés consciente.",
+      "Ciertas acciones, como beber una poción, acceder a la tienda u obtener bonificaciones diarias, no están disponibles en la isla.",
+      "Tu nivel no afecta al número de puntos de gremio, pero sí a otras recompensas",
+      "Ganar contra un monstruo más lejos en la isla te hará ganar más puntos de gremio que los que ganaste al principio.",
+      "Se dice que si varios miembros del mismo gremio se encuentran en la isla al mismo tiempo, es posible combinar las fuerzas de cada uno para realizar un ataque devastador.",
+      "Los miembros de tu gremio pueden ayudarte a luchar contra los monstruos cuando visites una isla misteriosa.",
+      "{command:guild}Puedes utilizar el comando para ver qué miembros de tu gremio se encuentran en una isla misteriosa.",
+      "{command:guild} El comando te permite ver el número de aliados que te ayudarán en la isla misteriosa.",
+      "Un \"aliado\" es un miembro de tu gremio que se encuentra actualmente en la isla misteriosa o que la ha abandonado recientemente."
+    ]
+  },
+  "goToPVEIsland": {
+    "stories": [
+      "te fijas en un barco parado al borde de la carretera. El capitán te llama y te ofrece una emocionante aventura en una isla infestada de monstruos. {{priceText}}También te dice que .",
+      "Un hombre se te acerca y te pregunta si estás interesado en sus servicios. Te explica que es el capitán de un barco que navega entre el continente y una misteriosa isla llena de monstruos. {{priceText}}Dice que puede llevarte allí si buscas una aventura emocionante, y añade que .",
+      "se te acerca un hombre vestido de marinero, que lleva el emblema del rey. Te explica que está intentando enviar a algunos de los aventureros que compiten por la mano de la princesa a una isla llena de monstruos, de los que el reino podría deshacerse. {{priceText}}También dice que un barco está listo para partir hacia esta isla, y te pregunta si te apuntas, señalando que .",
+      "te aborda un hombre alto con barba, que se presenta como el líder de un grupo de mercenarios de renombre en la región. Te dice que puede hacerte una oferta increíble. La oferta consiste en que viajes como cazador de monstruos a una nueva y misteriosa isla, donde hay tanto oportunidades como peligros. {{priceText}}También añade que ."
+    ],
+    "priceFree": "el viaje **es gratis**.",
+    "priceMoney": "el viaje **costará {{price}} {emote:unitValues.gem}**",
+    "confirm": "¿Quieres ir a la isla? Tienes {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
+    "endStoryAccept": "{{gainScore}} Aceptas y subes al barco rumbo a la isla.",
+    "endStoryAcceptWithMember": "{{gainScore}} Aceptas y, al subir a bordo, te das cuenta de que un miembro de tu gremio ya está en el barco, así que te unes a él y partís hacia la isla.",
+    "endStoryRefuse": "Declinas amablemente la oferta y continúas tu camino.",
+    "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado.",
+    "confirmedScore": "**{emote:unitValues.score} Puntos ganados:** {{score}}\n"
+  },
+  "lottery": {
+    "intro": "Te cruzas con un hombre que te llama. Curioso, te detienes. Te ofrece participar en un juego de azar que ha creado. Puedes elegir entre varios niveles de recompensa.\n\n{emote:collectors.lottery.easy} Pequeña recompensa\n{emote:collectors.lottery.medium} Mediana recompensa\n{emote:collectors.lottery.hard} Grande recompensa\n",
+    "easy": {
+      "success": "Participas y consigues ganar un premio, que el hombre te entrega antes de marcharse.",
+      "fail": "Vous perdez au jeu de l'homme. Cependant, la participation était gratuite. Vous décidez donc de reprendre votre route."
+    },
+    "medium": {
+      "success": "Vous tentez votre chance et gagnez au jeu. L'homme vous récompense comme il se doit. Cependant, vous perdez **{{lostTime}} Min :clock2:**.",
+      "fail": "Vous participez au jeu de l'homme. Cependant, vous ne gagnez pas et repartez donc en espérant avoir plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**."
+    },
+    "hard": {
+      "success": "Ganas el juego del hombre. Como resultado, él te recompensa generosamente.{{lostTime}} :clock2:Sin embargo, pierdes ** Min **.",
+      "fail": "Vous saisissez votre chance. Malheureusement, vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Participer à la loterie vous aura fait perdre **{{lostTime}} Min :clock2:**.",
+      "failWithMalus": "Apuestas cien monedas en el juego del hombre. Sin embargo, pierdes y te marchas abatido por haber perdido **{{money}}** {emote:unitValues.lostMoney}. Participar en la lotería también te habrá costado **{{lostTime}} Min :clock2:**."
+    },
+    "poor": "Intentas engañar al hombre para que te pague una gran suma de dinero. Por desgracia para ti, el tendero duda de tu buena fe y, al no poder demostrar ninguna riqueza, te rechaza sin contemplaciones.",
+    "end": "Sin prestar más atención al individuo, continúa su camino.",
+    "rewardTypeText": {
+      "xp": " Has ganado **{{reward}} {emote:unitValues.xp}**.",
+      "money": " {{reward}} ¡Has ganado ** {emote:unitValues.money}**!",
+      "guildXp": " Tu gremio gana **{{reward}} {emote:unitValues.xp}**.",
+      "points": " Has ganado **{{reward}} {emote:unitValues.score}**."
+    }
+  },
+  "interactOtherPlayers": {
+    "playerDisplayRanked": "**{{pseudo}}** ({{rank}} {emote:top.congrats})",
+    "playerDisplayUnranked": "{{pseudo}}** ** (No clasificado)",
+    "no_one": [
+      "Continúas tu camino en la mayor calma. No hay ni un gato a la vista.",
+      "Estás solo, así que sigues tu camino con total tranquilidad.",
+      "Los rayos de sol que se abren paso entre las nubes te calientan mientras continúas tu viaje por esta carretera desierta."
+    ],
+    "top1": [
+      "{{playerDisplay}} Pasarás de largo, ¡el mejor jugador del mundo en este momento!",
+      "{{playerDisplay}}Mientras camina, se cruza con . Está en lo más alto de la clasificación. Con los ojos llenos de admiración, decides no obstaculizar su progreso y continúas tu camino.",
+      "¡Dios mío! ¡Es increíble! {{playerDisplay}}¡Es el legendario, el más grande luchador de hoy! Pasas junto a él y charláis un momento. Te da algunos consejos para tu aventura.",
+      "{{playerDisplay}}Abran paso a , ¡el número uno mundial de DraftBot! Pasa junto a esta persona y sigue caminando para llegar a tu destino."
+    ],
+    "top10": [
+      "Por el camino, conocerás a alguien muy importante. {{playerDisplay}} ¡está en el top 10!",
+      "¡Increíble! ¡Vas caminando por un sendero y te cruzas con uno de los héroes del momento! {{playerDisplay}} Seguro que has oído hablar de él: ¡lo has visto en el top 10! Este acontecimiento te alegrará el día.",
+      "Estás hablando con una figura muy conocida entre los aventureros que compiten por la mano de la princesa. {{playerDisplay}}¡Es , que está entre los 10 primeros!"
+    ],
+    "top50": [
+      "Te encuentras con alguien cuyo nombre te suena... {{playerDisplay}} ¡ha entrado entre los 50 primeros!",
+      "{{playerDisplay}}Al patear una piedra, te das cuenta de que golpea el zapato de un transeúnte, pero no es cualquiera, es , ¡lo has visto en las listas de los torneos clandestinos! Mantienes una rápida charla con él y continúas tu camino.",
+      "{{playerDisplay}}\"Un gran poder conlleva una gran responsabilidad\", dice , un aventurero de los 50 que conoces en tu viaje."
+    ],
+    "top100": [
+      "{{playerDisplay}} La perseverancia conduce al éxito, eso es lo que le dice uno de los 100 mejores. A continuación, sigue su camino hacia su destino.",
+      "Woah, reconoces a uno de los principiantes de los torneos, ya te lo habías cruzado en un pueblo al norte, pero sí... {{playerDisplay}} ¡Es él!",
+      "{{playerDisplay}}Mientras trabajas para conseguir tu objetivo, conoces a , una estrella emergente en DraftBot. De hecho, ¡está entre los 100 primeros!"
+    ],
+    "powerful_guild": [
+      "{{playerDisplay}}que te encuentras por casualidad en el camino, ¡forma parte de un poderoso gremio! Eso es lo que concluyes cuando ves su brillante insignia.",
+      "{{playerDisplay}}Ves una multitud a lo lejos. Te apresuras a comprobarlo y oyes: \"¡Abran paso a \"! Efectivamente, ¡está en un gremio bastante poderoso!",
+      "Se rumorea que un miembro de un poderoso gremio sigue el mismo camino que tú. {{playerDisplay}} ¡Puedes verle pasar a lo lejos!"
+    ],
+    "beginner": [
+      "¡Todo tiene un principio! {{playerDisplay}} Conoce como comienza su aventura dedicada a la princesa.",
+      "{{playerDisplay}}Pasa un transeúnte y enseguida lo reconoces: es . Un chico nuevo en el barrio, ¡pero agradable y simpático!",
+      "Te tomas un descanso de 5 minutos para despejarte. {{playerDisplay}}Para ello, entrenas a , que acaba de empezar el partido."
+    ],
+    "advanced": [
+      "{{playerDisplay}} Las canas son el testimonio de la experiencia acumulada.{{level}}¡Es de nivel ** ** ! Continúa su camino.",
+      "{{playerDisplay}}Mientras deambulas, te encuentras con .{{level}}¡Es un héroe poderoso - nivel ** ** !",
+      "{{playerDisplay}} no para de subir de nivel y es uno de los mejores jugadores del juego.{{level}}Actualmente es de nivel ** **. Estarás en camino después de este encuentro."
+    ],
+    "same_class": [
+      "{{playerDisplay}}Por el camino, reconocerás el atuendo de 's.{{class}}Es igual que tú.",
+      "{{playerDisplay}}Te fijas en él y observas rápidamente su atuendo y sus modales familiares.{{class}}Es ** **, ¡igual que tú! Continúa su camino.",
+      "{{class}} {{playerDisplay}}Saluda a uno de sus colegas ** **, que pasa por allí. Sin tiempo para detenerse, continúa su camino."
+    ],
+    "same_guild": [
+      "Te cruzas con una cara muy familiar en tu camino... {{playerDisplay}} De hecho, ¡es un miembro de tu gremio!",
+      "Vous vous approchez de quelqu'un, sa tête familière vous rappelle des choses... Mais oui, c'est {{playerDisplay}} un des membres de votre guilde !",
+      "{{playerDisplay}} Reúnete con los de tu gremio. Realiza el apretón de manos secreto del gremio y tomad caminos separados."
+    ],
+    "staff_member": [
+      "{{playerDisplay}}\n\n{{advice}}\n\nque forma parte del personal de DraftBot, tiene algunos consejos para la siguiente etapa de su aventura: A continuación, puede continuar su camino.",
+      "\"{{advice}}\". C'est ce que vous a dit {{playerDisplay}}, un des célèbres membres du staff du bot, que vous croisez au detour d'un chemin !",
+      "{{playerDisplay}}\n\n{{advice}}Hablas con , un miembro del equipo de DraftBot, que te da algunos buenos consejos para la siguiente etapa de tu aventura:"
+    ],
+    "top_week": [
+      "{{playerDisplay}}Se ve en la carretera, sin aliento. No descansa: de hecho, ¡está en el top 5 de esta semana!",
+      "Uno de los héroes de esta semana viene a verte. {{playerDisplay}}Es , ¡está en el top ten de esta semana!",
+      "{{playerDisplay}}Habla de sus puntos con . Ha progresado mucho esta semana, ¡e incluso está en el top 5 de esta semana!"
+    ],
+    "low_hp": [
+      "{{playerDisplay}}Usted pasa, que está cojeando ... No tiene muy buen aspecto... Se cae a un lado de la carretera y decides ayudarle a levantarse.",
+      "{{playerDisplay}}Te encuentras con . Se ve en mal estado....",
+      "{{playerDisplay}} Incluso una flecha en la rodilla es capaz de acabar con , que avanza lentamente por su camino. ¡Una poción curativa le vendría muy bien!"
+    ],
+    "full_hp": [
+      "{{playerDisplay}}Rara vez se ha visto a alguien tan enérgico como ... ¡Parece estar en plena forma!",
+      "{{playerDisplay}} En su camino, se cruza con , que parece estar en plena forma. De hecho, ¡tiene toda la vida por delante!",
+      "{{playerDisplay}} ¡Casi acaba en el suelo mientras corre a tu lado! Es muy enérgico porque su vida está en su apogeo."
+    ],
+    "unranked": [
+      "{{playerDisplay}}Te encuentras con un jugador que no parece estar clasificado... Te vas preguntando qué le llevó a venir aquí y rendirse tan rápido.",
+      "{{playerDisplay}}Mientras caminas, te cruzas con . Este jugador no parece ir bien en la competición. Te marchas después de explicarle los fundamentos del juego."
+    ],
+    "lower_rank_than_them": [
+      "{{playerDisplay}}Te encuentras con un jugador con más reputación que tú... Pero no te rindas. Puede que algún día lo alcances.",
+      "{{playerDisplay}} Mientras caminas, tropiezas y caes, ¡y se ríe de ti porque está clasificado más alto que tú!",
+      "{{playerDisplay}} Hablas con él sobre tu clasificación. Él va un paso por delante de ti: ¡está mejor clasificado!",
+      "{{playerDisplay}} Aunque se jacten de que su clasificación es superior a la tuya, mantén la humildad durante la conversación."
+    ],
+    "better_rank_than_them": [
+      "{{playerDisplay}}Te encuentras con . Este tiene un rango inferior... Pero ten cuidado, ¡podría alcanzarte algún día!",
+      "{{playerDisplay}}Un jugador viene a verte al . Te pide consejo para mejorar y luego pasa de ti.",
+      "{{playerDisplay}} Hablas con él sobre tu clasificación. ¡Estás mejor clasificado que él!"
+    ],
+    "rich": [
+      "{{playerDisplay}} ¡Te tapas los ojos para dejar de deslumbrarte por el sol que se refleja en el oro que lleva ! Continúas tu camino, con los ojos doloridos.",
+      "Est-ce Picsou ? Mais non, c'est {{playerDisplay}} ! Il possède tellement d'or que vous en êtes ébloui ! Vous continuez votre chemin en vous frottant les yeux.",
+      "{{playerDisplay}}Las monedas caen de los bolsillos de 's, tan llenos están. Ni siquiera parece importarle. Un animal las recoge antes de que puedas alcanzarlas. Continúas tu camino, un poco decepcionado."
+    ],
+    "poor": [
+      "Viendo la ropa que lleva {{playerDisplay}}, parece que tiene problemas de dinero... Crees que se alegraría si le dieras una moneda.\n\n{emote:collectors.interactPoorCoin} Dale una moneda\n{emote:collector.refuse} No le des una moneda",
+      "En marchant, vous rencontrez ce pauvre vagabond de {{playerDisplay}}. Celui-ci vous demande quelques pièces:\n\n{emote:collectors.interactPoorCoin} Donner une pièce, car vous en avez déjà assez\n{emote:collectors.refuse} Ne pas lui donner une pièce",
+      "La misère touche tout le monde un jour, et aujourd'hui c'est {{playerDisplay}} qui peut à peine se payer un repas.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collectors.refuse} Ne pas lui donner une pièce"
+    ],
+    "poor_give_money": [
+      "Te sientes bien después de hacer este gesto humanitario.",
+      "El bien se contagia haciendo el bien\", dijo un cura que conociste una vez. Le das una moneda y él te sonríe antes de seguir su camino.",
+      "Es una buena acción por su parte. Se irá a casa con una moneda extra para poder comprar su próxima comida."
+    ],
+    "poor_dont_give_money": [
+      "No hay pequeños ahorros... Decides quedarte con tu dinero.",
+      "¡Está triste y se va llorando!",
+      "Lo ignoras, o al menos te obligas a hacerlo. Te vas y esperas que no te remuerda la conciencia."
+    ],
+    "pet": [
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado con su mascota ** ** **. ¡Acaricias a este valiente animal y continúas tu camino de buen humor!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado y te enseña su mascota ** ** ** **. La acaricias y te pones de nuevo en marcha, ¡buen viaje!",
+      "{{playerDisplay}}{{petEmote}}{{petName}}pasa a tu lado con ** ** ** ** ** en su correa. Lo miras asombrado y te dices que a ti también te encantaría tener este animal."
+    ],
+    "guild_chief": [
+      "¡Que no cunda el pánico! {{playerDisplay}}{{guildName}}Usted está pasando , líder del gremio ** **.",
+      "Vous passez près de {{playerDisplay}}. Il est le chef de la guilde **{{guildName}}** !",
+      "Reconoces a la persona que pasa a tu lado... {{playerDisplay}}{{guildName}}¡Es , el líder del gremio ** ** !"
+    ],
+    "guild_elder": [
+      "{{playerDisplay}}{{guildName}}habla de su gremio ** ** contigo. Te enteras de que es el mayor.",
+      "Vous passez près de {{playerDisplay}}. Il est aîné de la guilde **{{guildName}}** !",
+      "{{guildName}} {{playerDisplay}}La mano derecha del Gremio ** **, , te saluda y sigue su camino."
+    ],
+    "class": [
+      "{{playerDisplay}}Te rozas con .{{class}}Te das cuenta de que es uno de los ** s**. Hablas un rato con él y sigues tu camino.",
+      "{{playerDisplay}}, de classe **{{class}}**, passe près de vous, vous le saluez et poursuivez votre route.",
+      "{{playerDisplay}}{{class}}Chocas accidentalmente con el brazo del honorable ** **. Ambos se disculpan y continúan su camino."
+    ],
+    "weapon": [
+      "{{playerDisplay}}{{weapon}} Te encuentras con quien te muestra su arma \"** **\".",
+      "{{playerDisplay}}{{weapon}}¡Un transeúnte viene a lucirse a tu lado, es y te enseña su pistola \"** **\"!",
+      "{{playerDisplay}}{{weapon}}¡Wow! blande su magnífica arma \" \" delante de ti. Sigues tu camino asombrado."
+    ],
+    "armor": [
+      "{{playerDisplay}}{{armor}} Te encuentras con quien te muestra su magnífica \" \" armadura.",
+      "{{playerDisplay}}{{armor}}Un guardia se te acerca: ¡es , ha venido a enseñarte su armadura \"** **\"!",
+      "{{playerDisplay}} vous met au défi de tester son armure \"**{{armor}}**\", qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
+    ],
+    "potion": [
+      "{{playerDisplay}}{{potion}} Te encuentras con quien te muestra su magnífica poción \"** **\".",
+      "{{playerDisplay}} vient vous parler, il vient vous montrer sa potion \"**{{potion}}**\" !",
+      "{{playerDisplay}}que te encuentras por el camino, te dice que tiene en sus manos una poción infernal.{{potion}} Así que te muestra \"** **\"."
+    ],
+    "object": [
+      "{{playerDisplay}}{{object}} Te encuentras con quien te muestra su magnífico objeto \"** **\".",
+      "{{playerDisplay}}{{object}}¡Al hablar con , te muestra su objeto \"** **\" !",
+      "{{playerDisplay}}Un jugador que camina por la misma calle que tú saca un objeto de su colección.{{object}} Te muestra con orgullo \"** **\"."
+    ],
+    "effect": {
+      "sick": [
+        "Oyes un ruido a lo lejos... {{playerDisplay}} Está vomitando en un arbusto... Continúas tu camino, angustiado.",
+        "{{playerDisplay}} vomita en un arbusto. ¡Así que ese es el ruido que has estado oyendo! Continúas tu camino, esperando no vomitar después de ver eso.",
+        "{{playerDisplay}} no puede contenerse y vomita a tus pies. Esquivas el ataque por los pelos y aceleras el paso para alejarte de la masacre."
+      ],
+      "hurt": [
+        "Vous apercevez une momie au loin ! Ah non, ce n'est que {{playerDisplay}}, recouvert de bandages...",
+        "{{playerDisplay}}En su camino, se encuentra con . Está cubierto de vendas. ¿Qué le ha pasado?",
+        "{{playerDisplay}} Mientras corres hacia tu destino, te pide que le aprietes las vendas de la cabeza. Lo haces y te asombras de que alguien pueda estar tan herido."
+      ],
+      "injured": [
+        "{{playerDisplay}} Tropiezas con un hombre que está inconsciente en el suelo. Le das un golpecito para despertarle, pero es en vano.",
+        "Ce n'était pas un rat mort par terre, c'était juste {{playerDisplay}}. Vous lui demandez s'il va bien. Il ne répond pas, alors vous continuez votre route.",
+        "Una persona está inconsciente en medio de la carretera. {{playerDisplay}}Es . Haces todo lo posible por devolverle la consciencia, pero sin éxito. Así que lo dejas en el arcén para evitar que sufra más lesiones."
+      ],
+      "starving": [
+        "Un rugido sordo llega a tus oídos. {{playerDisplay}}Descubres que es el vientre de . Por desgracia, hace poco que te has terminado la comida que te sobraba.",
+        "{{playerDisplay}}Aparentemente no ha comido lo suficiente. Le ruge la barriga. Sin nada que ofrecerle, continúas tu camino hacia nuevos horizontes.",
+        "{{playerDisplay}} Ves , que está en una loca búsqueda de comida. Corre de un lado a otro buscando algo que comer. Sin nada que ofrecerle, continúas tu camino."
+      ],
+      "sleeping": [
+        "{{playerDisplay}} Se cruza dormido en el arcén. Decides dejarle dormir, ya que probablemente lo necesite.",
+        "{{playerDisplay}} Está claro que anoche no durmió lo suficiente: está tirado en el arcén.",
+        "El borde de la carretera parece un buen lugar para descansar. {{playerDisplay}} Eso es lo que te dices a ti mismo después de ver dormir allí."
+      ],
+      "freezing": [
+        "Sientes mucho frío cuando caminas. {{playerDisplay}}¡Es , que está cerca de la hipotermia!",
+        "{{playerDisplay}} semble avoir froid. Vous le réchauffez un peu puis repartez.",
+        "Un chasquido redundante te molesta. {{playerDisplay}}Descubres que son los dientes de ... ¡Éste está congelado! Reanudas tu viaje sin más dilación."
+      ],
+      "confounded": [
+        "{{playerDisplay}}Puede ponerse en contacto con . Lo intentas. Sus palabras son bastante incoherentes, así que continúas tu camino, algo turbado.",
+        "{{playerDisplay}} dice muchas cosas incoherentes. Te parece extraño, así que te vas rápidamente, ¡confundido!",
+        "{{playerDisplay}} Le ves completamente fuera de sí. Tras intentar devolverle a la realidad en vano, continúas tu camino para recuperar el tiempo perdido."
+      ],
+      "drunk": [
+        "{{playerDisplay}} zigzaguea a lo largo de tu ruta, parece que ha bebido un poco (demasiado). Continúa su viaje.",
+        "{{playerDisplay}}No parece haber entendido que el alcohol debe consumirse con moderación. Continúas tu camino tras este inesperado encuentro.",
+        "{{playerDisplay}} Se le ve bastante achispado, por decirlo suavemente. Parece estar disfrutando... él solo. Haces lo que puedes para ignorarlo y continúas tu camino."
+      ],
+      "scared": [
+        "Vous croisez {{playerDisplay}} qui semble courir en votre direction. En effet, celui-ci est pourchassé par des brigands en voulant après son argent. Vous l'accompagnez sur un bout de chemin afin qu'il regagne son calme. Une fois rassuré, vous le quittez et reprenez route.",
+        "{{playerDisplay}} A lo lejos, ves correr a toda velocidad para escapar de una manada de lobos. Corres en su ayuda y obligas a las fieras a retirarse.",
+        "{{playerDisplay}}Te encuentras con . Parece completamente aterrorizado. Le preguntas por qué está tan alterado. Te cuenta que acaba de ser perseguido por un dragón, pero que ha conseguido escapar, perdiendo algunos pelos en el proceso."
+      ],
+      "occupied": [
+        "{{playerDisplay}} Le ves y le invitas a charlar, pero te explica que está ocupado. Es solo un aplazamiento y cada uno sigue su camino.",
+        "{{playerDisplay}} Al cruzar, te cruzas con , que está muy ocupado... Intentas charlar un poco con él, pero es inútil y te pide que le ayudes con su trabajo.",
+        "{{playerDisplay}} En su camino, se cruza con , que parece muy ocupado. Intentas averiguar algo más, pero sin éxito, antes de continuar tu camino."
+      ],
+      "jailed": [
+        "{{playerDisplay}}Mientras pasea tranquilamente hacia su destino, ve a unos guardias poniéndole las esposas . Curioso, te acercas y oyes que se dirige directamente a la prisión. Te pones de nuevo en marcha, preguntándote qué habrá estado haciendo este hombre.",
+        "Mientras avanzas con cuidado por un sendero, te cruzas con un convoy de prisioneros escoltados por guardias armados. {{playerDisplay}}Mientras suben la cuesta, ves a los pobres desgraciados, entre los que se encuentra , que está llorando. Sientes un poco de lástima por él, pero olvidas rápidamente ese sentimiento, diciéndote a ti mismo que seguramente no está ahí por casualidad."
+      ],
+      "lost": [
+        "{{playerDisplay}}Te cruzas con , que parece perdido y se apresura a preguntarte qué camino tomar para llegar a su destino. Por desgracia, no puedes ayudarle, así que le consuelas un poco antes de continuar tu camino.",
+        "{{playerDisplay}}Te cruzas con , que parece haberse perdido, claramente desorientado. Te mira expectante, buscando ayuda para encontrar el camino de vuelta.",
+        "{{playerDisplay}} Observas que está dando vueltas en círculo, habiéndote cruzado con él varias veces por el camino. Te acercas a él y le preguntas si necesita ayuda. Te explica que se ha perdido y te pide que le acompañes a su destino."
+      ]
+    }
+  },
+  "leagueReward": {
+    "intrigue": [
+      "por el rabillo del ojo ve un gran cartel...",
+      "resbalas en el arcén y caes al suelo. Al levantarte, ves un pequeño pergamino...",
+      "un pájaro se te acerca y te pone un pequeño mensaje en la mano...",
+      "Descubres una vieja cabaña de madera abandonada, decides explorarla y sólo descubres un viejo grimorio que parece llevar años tirado por ahí..."
+    ],
+    "reward": "{emote:unitValues.money} Plata: **{{money}}**\n{emote:unitValues.xp} XP : **{{xp}}\n{emote:unitValues.score} Puntos: **El número de puntos dependerá de tu clasificación final **\n{emote:rewards.item} Equipo aleatorio.",
+    "endMessage": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous maintenez votre gloire jusqu'à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande {command:fight}**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
+    "rewardToday": "\n\n{emote:commands.report} \"Consigue tu recompensa antes de que acabe la semana pidiendo {command:leaguebonus} \".\n\nYa estás de nuevo en camino, deseando cobrar tu bonificación."
+  },
+  "winGuildXP": {
+    "stories": [
+      "{{guild}}La reputación de ** ** parece precederte. Al enterarse de que eres miembro del gremio, los aventureros que te han estado siguiendo durante las últimas millas te rinden su más profundo respeto.",
+      "{{guild}}Tras unos cuantos encuentros victoriosos, aplicas la marca del gremio ** ** a los restos de tus atacantes. Cualquiera que pase por allí la reconocerá.",
+      "Tus buenas acciones en la región han conquistado a gran parte de la población.{{guild}}Cuando te preguntan cómo pueden agradecértelo, les pides que recuerden el nombre ** **.",
+      "¡Felicidades!{{guild}}A lo largo de los años, tu gremio, ** **, se ha hecho un nombre en todo el reino.",
+      "{{guild}}¡** ** es cada vez más popular a medida que pasa el tiempo! Esperamos que sigas haciéndolo, ¡y por eso te ofrecemos esta bonificación de xp!",
+      "{{guild}}Al entrar en una posada, el propietario reconoce el emblema de tu escudo, el símbolo del gremio ** **. Decide ofrecer una ronda general de bebidas en tu honor, con gran éxito entre los demás clientes."
+    ],
+    "end": " {{xp}} {emote:unitValues.xp}Tu gremio gana ** ** ."
+  },
+  "winEnergy": {
+    "stories": [
+      "vous rencontrez une jeune dame qui se présente comme Hilda la guérisseuse. Après un rapide échange, vous acceptez qu'elle essaie sur vous son dernier remède. **Vous récupérez toute votre énergie** {emote:unitValues.energy}",
+      "te encuentras con una joven que se ofrece a invitarte. Aceptas y te da una bebida deliciosa. {emote:unitValues.energy}**Recuperas toda tu energía.",
+      "te encuentras cara a cara con una joven acompañada de una cabra. Te ofrece una cura milagrosa. Curioso, aceptas y, contra todo pronóstico, te sientes mejor de inmediato. {emote:unitValues.energy}**Recuperas toda tu energía.",
+      "conoces a una joven que se ofrece a tratarte. Aceptas e inmediatamente te sientes mejor. {emote:unitValues.energy}**Recuperas toda tu energía.",
+      "te encuentras con una mujer vestida de blanco que se ofrece a tratarte. Aceptas su tratamiento. {emote:unitValues.energy}**Recuperas toda tu energía.",
+      "conoces a una mujer que se describe a sí misma como curandera. Tras algunas conversaciones, te enteras de que se dirige a los pastos y ofrece servicios curativos por el camino. Aceptas un misterioso remedio. {emote:unitValues.energy}**Recuperas toda tu energía.",
+      "te encuentras con una joven que se ofrece a tratarte. Aceptas e inmediatamente te sientes mejor. {emote:unitValues.energy}**Recuperas toda tu energía."
+    ]
+  },
+  "doNothing": {
+    "stories": [
+      "No hay incidentes ni acontecimientos destacables que reseñar.",
+      "No ha ocurrido nada especial desde el informe anterior.",
+      "No has tenido problemas para progresar últimamente y sigues avanzando a buen ritmo.",
+      "No hay nada que informar, así que sigue moviéndote.",
+      "No hay obstáculos a la vista, nada parece oponerse a ti en este momento. Sigue avanzando.",
+      "El camino está despejado, no hay razón para detenerse, sigue avanzando.",
+      "No ha ocurrido nada significativo desde el informe anterior.",
+      "Ningún acontecimiento significativo desde la última vez.",
+      "Los perros ladran y la caravana pasa de largo. Usted continúa tranquilamente su camino.",
+      "¡La princesa se acerca a ti! Al menos esa es la impresión que te da... Continúas tu camino."
+    ]
+  },
+  "winEnergyOnIsland": {
+    "stories": [
+      "vous voyez un banc sur le bord du chemin et vous asseyez quelques minutes. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "Desabróchate la botella de agua del cinturón y sacia tu sed. Ganas {emote:unitValues.energy} **{{energy}}**.",
+      "sacas una pieza de fruta que has estado guardando en un paño y te la comes. Esto te hace {emote:unitValues.energy} **{{energy}}**.",
+      "te detienes unos segundos para recuperar el aliento. Vuelves a empezar con un poco más de resistencia y ganas {emote:unitValues.energy} **{{energy}}**.",
+      "vous sortez un morceau de pain et vous rassasiez avec celui-ci. Cela vous rend {emote:unitValues.energy} **{{energy}}**.",
+      "vous vous asseyez quelques minutes et méditez pour apaiser votre esprit. Vous récupérez {emote:unitValues.energy} **{{energy}}**.",
+      "vous sentez vos muscles se tendre et vous arrêtez quelques instants pour les étirer. Vous récupérez {emote:unitValues.energy} **{{energy}}**."
+    ]
+  },
+  "winHealth": {
+    "stories": [
+      "te encuentras con un árbol cuyos frutos parecen apetitosos. Te pica la curiosidad, comes un poco y reemprendes la marcha. Ganas **{{health}} {emote:unitValues.health}**.",
+      "encuentras un frasco casi vacío. Como su contenido no parece peligroso, terminas de bebértelo antes de continuar tu camino. Ganas **{{health}} {emote:unitValues.health}**.",
+      "descubres un edificio abandonado. Decides explorarlo y encuentras rápidamente algo de comida. Ganas **{{health}} {emote:unitValues.health}**.",
+      "Conoces a una mujer que dice poder curar todos tus males. Decides confiar en ella y le dejas recitar unos conjuros durante unos minutos. Ganas **{{health}} {emote:unitValues.health}**.",
+      "te encuentras con un grupo de niños que comparten los frutos de su cosecha. Te ofrecen algunas peras antes de que vuelvas a ponerte en camino. Ganas **{{health}} {emote:unitValues.health}**.",
+      "Tu mirada se fija en lo que parece ser un estrecho pasadizo entre los arbustos. Lo sigues y encuentras unas setas en el suelo. No parecen peligrosas, así que te arriesgas y las pruebas. Ganas **{{health}} {emote:unitValues.health}**.",
+      "oyes el susurro de un pequeño arroyo. Decides ir allí y beber un poco del agua, que resulta ser muy fresca. Ganas **{{health}} {emote:unitValues.health}**.",
+      "descubres cestas enteras de comida junto a una hoguera. Dudas unos segundos antes de apresurarte a comer todo lo que puedes. Lleno, ahora te sientes mucho mejor. Ganas **{{health}} {emote:unitValues.health}**.",
+      "ves una cabaña abandonada. Decides entrar en ella cuando te llama la atención una botella brillante. Sin miedo, te bebes el contenido. Ganas **{{health}} {emote:unitValues.health}**.",
+      "Encuentras una pequeña granja con una hoguera recién apagada. Rápidamente robas algunas verduras antes de que vuelvan los dueños y se las coman. Ganas **{{health}} {emote:unitValues.health}**.",
+      "te encuentras y hablas con un monje. Impresionado por tu búsqueda de la princesa, decide dedicarte una oración. Ganas **{{health}} {emote:unitValues.health}**.",
+      "y encontrarás fresas silvestres. Cuando te hayas saciado, continúa tu camino. Ganas **{{health}} {emote:unitValues.health}**.",
+      "ves un paquete abandonado en el suelo. Lo abres y encuentras algo de comida, que te comes antes de ponerte de nuevo en camino. Ganas **{{health}} {emote:unitValues.health}**.",
+      "Encuentras una cascada y decides saciar tu sed. Ganas **{{health}} {emote:unitValues.health}**.",
+      "te cruzas con un anciano que dice tener un elixir que estaría dispuesto a darte gratis. Curioso, aceptas y te lo bebes. Ganas **{{health}} {emote:unitValues.health}**.",
+      "encuentras un frasco de agua en un carro abandonado. Bebes el agua y te sientes mejor. Ganas **{{health}} {emote:unitValues.health}**"
+    ]
+  },
+  "winPersonalXP": {
+    "stories": [
+      "Gracias a un subterfugio digno de los mejores caballeros, consigues librarte de un extraño animal que lleva tiempo atacándote, tras lo cual te marchas sintiéndote renovado.",
+      "En tu camino, te cruzas con un extraño animal. Cuando pasas cerca de él, ¡te salta encima! Desenvainas tu espada y lo matas al instante. Continúas tu camino, en guardia.",
+      "Al ser atacado por bandidos, aprovechas un momento de falta de atención para escapar. Te apresuras durante unas horas antes de volver a sentirte seguro.",
+      "En la curva del camino, ¡una sombra se abalanza sobre ti! Tras una terrible batalla, aplastas a tu adversario bajo una roca. Orgulloso de tu éxito, reemprendes la marcha.",
+      "En la curva de un bosquecillo, un hombre vestido completamente de negro te ataca, probablemente para robarte el dinero. Desenfundas tu pistola y consigues neutralizarlo.",
+      "Caminas tranquilamente, contemplando el paisaje. De repente, una bestia enfurecida da un salto prodigioso, tirándote con fuerza al suelo. Logras vencer a la bestia estrangulándola con un palo.",
+      "Mientras caminas junto a un pequeño arroyo, un perro callejero salta hacia ti. Logras librarte de él tras unos minutos de forcejeo.",
+      "En tu camino, te cruzas con una bestia que no parece muy amistosa. Decides huir, pero te alcanza rápidamente. Entonces te das la vuelta y le asestas un fuerte golpe. Eso es suficiente para deshacerte de tu adversario, y vuelves a tu camino.",
+      "Por el rabillo del ojo, observas que a un aventurero que camina delante de ti se le cae del bolsillo una bolsa llena de oro. Inmediatamente le avisas y le devuelves la cartera. El aventurero te agradece tu amabilidad."
+    ],
+    "end": " {{xp}} {emote:unitValues.xp}Tú ganas ** ** ."
+  },
+  "staffMember": {
+    "context": [
+      "Mientras caminas por un barranco, te encuentras con un bardo.{{pseudo}}{{sentence}}Mientras caminas, te cuenta la historia de ** **, \" \".",
+      "Mientras caminas, te fijas en un gran cartel.{{pseudo}}Parece alabar las hazañas de **...{{sentence}}\" \".",
+      "{{sentence}}Durante una de tus aventuras, oyes una historia, \" \", pero no conoces al héroe.{{pseudo}}¡Tras investigar un poco, te das cuenta de que la historia trata de ** ** ! El nombre te suena...",
+      "Al entrar en un edificio del camino, charlas un rato con el encargado del establecimiento. Le pides que te hable de las leyendas locales.{{pseudo}}{{sentence}}Él describe ** **, \" \".",
+      "Por el camino, te encuentras con un anciano al que decides acompañar.{{pseudo}}{{sentence}}Mientras camináis juntos, te cuenta la historia de ** ** : \" \".",
+      "Mientras caminas por la carretera, ves un libro maltrecho en el suelo.{{pseudo}}Titulado ** **, lo abres y lees las primeras frases...{{sentence}}\"",
+      "Tras un largo y monótono paseo, te cruzas con alguien que canta en honor de **{{pseudo}}**... {emote:other.singing} \"{{sentence}} {emote:other.singing}",
+      "Mientras viajas, una nube de polvo aparece en la distancia.{{pseudo}}Unos minutos más tarde, un jinete se detiene frente a ti, diciendo que está buscando a ** **.{{sentence}}Ante tu mirada inquisitiva, añade: \" \"."
+    ],
+    "members": {
+      "Nysvaa": "un pretendiente a la mano de la princesa que no pretende conquistarla luchando, sino demostrando su astucia durante sus aventuras (y su suerte un poco... mucho)",
+      "Thero1st": "uno de los primeros competidores por la mano de la princesa y gran cocinero especializado en brochetas de pulpo, este luchador se toma sin embargo la competición a la ligera, prefiriendo pasar el tiempo en sus establos con sus animales",
+      "Oscar": "un guerrero mediocre que, en su apogeo en una época pasada, dominaba la clasificación por puntos y conocimientos",
+      "QQtin": "un caballero fiel que venció a muchos enemigos gracias al don del cielo y ayudó a hacer del mundo un lugar mejor",
+      "LePourfendeur": "un aventurero experimentado, experto en ahorrar dinero, quizá demasiado. Antes muy activo, ahora es más discreto, pero sigue siendo uno de los mejores.",
+      "Ines": "un luchador de los primeros tiempos de este mundo, que desgraciadamente cada vez lucha menos por él debido a la falta de tiempo, pero que sigue en la carrera por la princesa, o más bien por el príncipe. Un leal partidario del kyutismo",
+      "romain22222": "un gran intelecto, que busca tanto resolver situaciones de forma óptima como crearlas. Habla demasiado, demasiado, con los juglares y sus adoradores, y evita las tiendas en los bosques.",
+      "Asemerald": "un aventurero sin suerte conocido por su inimaginable potencia de fuego",
+      "Izuku": "un rico inventor que creó una poción de amor para la bella princesa, sólo para que se la robara un mercader",
+      "Draft": "un antiguo dios que creó el mundo en el que todos viven. Asombrado por las habilidades de su pueblo, deambula entre ellos mientras trabaja para perfeccionar su experiencia.",
+      "Royal": "un experimentado empresario que antepone el dinero a la moral. Aficionado a los torneos, no dudará en luchar por la princesa.",
+      "Max": "un inventor loco al que le encanta viajar. Es la única persona que ha viajado por el país de los dragones. Cuenta la leyenda que casi todos sus proyectos han llevado a la humanidad al borde de la extinción.",
+      "Eagle": "un criador de dragones, que dirigió los primeros golpes de estado del reino",
+      "DeadAngelV6": "Un ser humano corriente que ama la vida, comer es una de sus pasiones. Dale algo de comer cuando le veas",
+      "Kyusaki": "primer Sumo Sacerdote del Kyutismo, lleva un camino de meditación de incógnito entre los aventureros del mundo, dando a menudo consejos a quienes se los piden.",
+      "Greninja_san": "batracio con un intelecto extraordinario, utilizó sus amplios conocimientos para integrarse en la vida humana y aprender los preceptos de su magia.",
+      "nwcubeok": "un famoso mago que viaja por el país promocionando sus talentos mágicos. Espera que la princesa sepa apreciarlos.",
+      "SuperBananeNinja": "un mago discreto que recorre la tierra, generalmente solitario, a menudo salutífero, con sus maneras abigarradas y sus trucos desconcertantes, pero siempre recto en sus botas",
+      "Hitori": "una artista completamente incoherente que destaca por su extraordinario dinamismo. Pregunta a quien quiera escucharla si sabe dónde se esconden los dioses y es tristemente célebre por su excepcional mala suerte, que ha provocado la destrucción de numerosos edificios.",
+      "Pietagorh": "director de una asociación que ayuda a jóvenes aventureros a mejorar sus habilidades. Se rumorea que puede determinar los límites de este mundo.",
+      "Doctor": "un gran aventurero que recorre el reino en busca de un adversario digno. Si te lo encuentras, puedes intentar luchar contra él, pero pocos han conseguido sobrevivir a su primer golpe.",
+      "KirIcare": "un personaje discreto pero intrigante. Despierta la curiosidad con su presencia autosuficiente, despertando el interés de cierto artista y de un reputado cazador de dragones que se han propuesto adquirirlo.",
+      "symsym": "un joven aventurero, curioso y deseoso de conocer gente nueva. Algunos dicen que fundó una taberna al final del camino pantanoso.",
+      "Pagotortoise": "un kaijū que, a pesar de su apariencia, explora la tierra en busca de gente a la que ayudar, y no pretende hacer daño. Está dispuesto a guiarte si necesitas ayuda, así que aprovecha para pedirle algún consejo.",
+      "Voltou": "El mayor ladrón que ha conocido este mundo, se dice que su fortuna es igual a la del rey, y la escondía en todos los rincones del reino. Si te cruzas con él, asegúrate de revisar tus bolsillos.",
+      "Aiko": "una patata salvaje que hace picadillo a todos sus enemigos, apuntando a las estrellas más altas del universo",
+      "Ntalcme": "Un viajero incansable, impulsado por un ideal más grande que él mismo, recorre sin descanso las tierras de este reino en busca de lo que parece faltarle a su alma. Nadie sabe qué espera encontrar al final de su viaje, pero camina hacia un sueño esquivo.",
+      "BananePlantain": "una simple banana que ha madurado a través de los diversos encuentros y aventuras que ha vivido en este mundo. Entusiasta de los retos y las batallas, y siempre dispuesta a ayudar, dirige en silencio a su pequeña tropa.",
+      "aureochocob0n": "Un rico mercader que, creyendo en las palabras de un renombrado alquimista, se sumergió en un baño de oro fundido para salir dorado. Esta cuestionable acción no le dejó indemne: sólo se salvaron sus huesos recién dorados."
+    }
+  },
+  "witch": {
+    "intro": [
+      "te encuentras con una anciana que parece querer que la sigas. ",
+      "ves a una anciana y decides acercarte a ella. ",
+      "te fijas en una anciana que te saluda con la mano. ",
+      "te fijas en la figura de una anciana y decides ir a ver qué hace. "
+    ],
+    "description": [
+      "Parece vieja, frágil, con una nariz larga y fina. ",
+      "Sus ropas están en un estado lamentable. Parecen deshacerse, como si estuvieran hechas de polvo. ",
+      "Está encorvada y esquelética, pero se puede ver la picardía en sus ojos. ",
+      "Va vestida con jirones de tela opaca y sucia. ",
+      "Recordarás los rumores sobre una bruja torpe que vagaba por el reino. ",
+      "Completamente muda, parece dañada por los años, delgada y huesuda, con la piel casi gris. ",
+      "No parece entender lo que dices. "
+    ],
+    "situation": [
+      "Entras en lo que parece ser su cabaña y descubres que está preparando una poción...",
+      "Descubres que hay un caldero burbujeando en el fuego y que la anciana parece estar preparando una poción...",
+      "Te acercas a ella y descubres que la preparación de su poción no parece ir según lo previsto...",
+      "Observas cómo la anciana prepara una poción, pero te das cuenta de que el contenido casi se derrama del caldero...",
+      "La anciana está preparando una poción, pero parece que tiene problemas para obtener un resultado satisfactorio...",
+      "Parece que está preparando algún brebaje extraño en un caldero enorme..."
+    ],
+    "witchEventResults": {
+      "ingredientIntros": [
+        "{{witchEvent}}Decides añadir ** a la poción con la esperanza de mejorarla...",
+        "{{witchEvent}}Tomas la decisión de ** ** la poción mientras la bruja está de espaldas....",
+        "{{witchEvent}}Aconsejas a la bruja que ** ** su poción....",
+        "{{witchEvent}}Siguiendo tu consejo, la bruja decide añadir ** a su poción...",
+        "{{witchEvent}}Sigues tus instintos y decides ** ** la dudosa mezcla....",
+        "{{witchEvent}}Decides añadir ** a la poción, esperando que mejore el resultado...",
+        "{{witchEvent}}Te atreves ** ** la poción ...",
+        "{{witchEvent}}Tras estudiar el contenido de la olla, decides ** ** echar un vistazo a la lista de ingredientes..."
+      ],
+      "adviceIntros": [
+        "{{witchEvent}}Compadeciéndola, le aconsejas ** ** para obtener un mejor resultado...",
+        "{{witchEvent}}Decides ayudar a la bruja aconsejándole ** **..."
+      ],
+      "outcomes": {
+        "1": [
+          "Una vez terminada la poción, la bruja te entrega un vaso. Decides conservarlo para el resto de tu aventura.",
+          "Gracias a tu intervención, la poción parece bebible. Decides guardar un poco para el resto de tu aventura.",
+          "Tras terminar la poción, la anciana vierte un poco en una botella y te la entrega. La aceptas de buen grado, antes de continuar tu camino.",
+          "El resultado tiene un sabor extraño, pero decides guardar un poco de la poción para el resto de tu aventura."
+        ],
+        "2": {
+          "time": [
+            "Al reanudar el viaje, te das cuenta de que esta parada ha sido más larga de lo que habías previsto.{{lostTime}} :clock2:Pierdes ** Min **",
+            "Cuando te pones de nuevo en marcha, te das cuenta del tiempo que has perdido con esta preparación.{{lostTime}} :clock2:Pierdes ** Min **",
+            "Mientras vuelves sobre tus pasos, empiezas a lamentar el tiempo que has perdido esperando esta preparación.{{lostTime}} :clock2:Pierdes ** Min **"
+          ],
+          "scared": [
+            "Una vez terminada la poción, decides dar un sorbo. Inmediatamente, eres transportado a través de una intensa alucinación. Tu futuro no parece muy prometedor... {emote:effects.scared}",
+            "En cuanto dices la fórmula, pruebas el líquido. No tardas en arrepentirte de tu elección. {emote:effects.scared}"
+          ],
+          "drunk": [
+            "Decides probar la poción, pero pronto te arrepientes... Parece que uno de los ingredientes se te ha atascado en la garganta. {emote:effects.drunk}",
+            "Parece que la poción tiene un efecto sorprendente. Te sientes un poco borracho... {emote:effects.drunk}"
+          ],
+          "sick": [
+            "Por desgracia, el olor de la poción era un presagio de sus efectos. Pronto lamentas haber confiado en el talento de la vieja bruja. {emote:effects.sick}",
+            "A pesar de tu intervención, la poción no parece haber mejorado. Te sientes incómodo... {emote:effects.sick}"
+          ],
+          "freezing": [
+            "Vous décidez de goûter à la potion qui est très froide. La sensation de froid ne disparait cependant pas et vous ressentez impuissant chacun de vos membres se refroidir... {emote:effects.freezing}",
+            "Alors que vous alliez terminer la potion, vous trébuchez et tombez dans le gouffre rempli de glace dans lequel vous prévoyiez de déposer la marmite. {emote:effects.freezing}"
+          ]
+        },
+        "3": [
+          "Cuando termina la poción, la bruja te da un vaso. Todavía ardiendo, lo dejas caer torpemente sobre tu pie.{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **.",
+          "Justo cuando estabas a punto de terminar la poción, la vieja bruja deja caer torpemente el caldero sobre ti.{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **.",
+          "Aunque la poción huele bien, no es tan saludable como esperabas.{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **.",
+          "El sabor de la poción es muy extraño. Quizá deberías haber hecho caso a tus instintos y no probarla...{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **.",
+          "Los vapores de la poción son suficientes para enfermarte. Te marchas sin pedir ayuda, pero no sin sufrir las consecuencias de inhalar los vapores.{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **.",
+          "Justo cuando la anciana está a punto de verter la última gota en el caldero, se oye un ruido sordo. El caldero parece haber explotado.{{lifeLoss}} {emote:unitValues.lostHealth}Pierdes ** **."
+        ],
+        "4": [
+          "Desgraciadamente, la poción parece completamente carbonizada e imbebible. Decides no arriesgarte a beberla y te marchas rápidamente.",
+          "Terminas la poción con la anciana, pero decides no consumirla, prefiriendo guardar tu salud para el resto de tu aventura."
+        ]
+      }
+    },
+    "witchEventNames": {
+      "bat": "Añadir un murciélago",
+      "beer": "Añadir cerveza",
+      "bigWait": "Deja reposar la poción",
+      "bigWarm": "Hervir la poción durante mucho tiempo",
+      "blood": "Añadir sangre",
+      "book": "Di un conjuro del libro de hechizos",
+      "bone": "Añadir un hueso",
+      "cobweb": "Añadir una tela de araña",
+      "cool": "Dejar enfriar la poción",
+      "chicken": "Añadir un pollo",
+      "crystalBall": "Recitar una fórmula mágica",
+      "distiller": "Destilar la poción",
+      "eye": "Añadir un ojo",
+      "frog": "Añadir una rana",
+      "greenApple": "Añadir una manzana verde",
+      "heart": "Añadir un corazón",
+      "mushroom": "Añadir un champiñón",
+      "nothing": "No hacer nada",
+      "package": "Añade un ingrediente misterioso",
+      "rat": "Añadir una rata",
+      "redApple": "Añadir una manzana roja",
+      "rose": "Añadir una rosa",
+      "scorpion": "Añadir un escorpión",
+      "smallWait": "Dejar reposar la poción durante un rato",
+      "smallWarm": "Calentar un poco la olla",
+      "snake": "Añadir una serpiente",
+      "spider": "Añadir una araña",
+      "stir": "Mezclar la poción",
+      "teeth": "Añadir un diente",
+      "testTube": "Añadir un tubo de ensayo",
+      "turtle": "Añadir una tortuga",
+      "wand": "Lanzar un hechizo",
+      "wiltedRose": "Añade una rosa marchita",
+      "worm": "Añadir un gusano"
+    }
+  },
+  "space": {
+    "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n{emote:other.telescope} *{{search}}*.",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}}{{specific}} {{outro}}** **. .",
+    "intro": [
+      "{{name}}te encuentras con un oráculo que dice llamarse ** **",
+      "Un hombre te parece extraño, así que vas a su encuentro.{{name}}Dice ser un oráculo llamado ** **",
+      "{{name}}te encuentras con un oráculo llamado ** **",
+      "pasas junto a un oráculo que te llama.{{name}}Dice que su nombre es ** **",
+      "{{name}}se te acerca un hombre que dice llamarse ** **",
+      "{{name}}un oráculo llamado ** ** te llama",
+      "{{name}}un desconocido que dice llamarse ** ** le pide que se acerque",
+      "{{name}}un hombre aparece de la nada, corre hacia ti y se presenta como ** **",
+      "{{name}}un desconocido sospechoso te pide que te acerques, tras lo cual te dice que se llama ** **"
+    ],
+    "searchAction": [
+      "Te dice que puede darte información sobre el cielo, pero que necesita tiempo para observarlo.",
+      "Afirma ser capaz de darte información sobre el cielo, siempre que le des algo de tiempo.",
+      "Te dice que si le das tiempo suficiente, podrá darte información sobre el cielo.",
+      "Dice que puede dar información sobre el cielo si se le da tiempo suficiente.",
+      "Este afirma ser capaz de leer las estrellas si le das tiempo suficiente.",
+      "Afirma poder darte información sobre el cielo si le dedicas un poco de tu tiempo."
+    ],
+    "search": [
+      "El hombre mira al cielo en una pequeña cámara",
+      "Se tumba en el suelo y mira al cielo",
+      "El hombre comienza a contemplar el cielo",
+      "Parece estar concentrado mirando algo en el cielo",
+      "Inclinado sobre su telescopio, observa con atención la bóveda celeste",
+      "El oráculo observa atentamente el cielo",
+      "Levanta la cabeza para mirar bien el cielo",
+      "Comienza a escudriñar las estrellas intensamente",
+      "El hombre se sienta contra un árbol y contempla el cielo",
+      "El hombre se tumba en el suelo y mira al cielo"
+    ],
+    "actionIntro": [
+      "Después de unos minutos",
+      "Poco después",
+      "Unos minutos más tarde",
+      "Después de hacerte esperar unos minutos",
+      "Tras una breve espera",
+      "Unos instantes después",
+      "Tras esperar unos segundos"
+    ],
+    "action": [
+      "le informa de que",
+      "le informa de que",
+      "anuncia que",
+      "te dice que",
+      "empieza a decirte que",
+      "declara que"
+    ],
+    "outro": [
+      "Saldrá asombrado de esta noticia",
+      "Reanudas tu viaje de ensueño",
+      "Le da las gracias y se marcha contento por la noticia.",
+      "Lo dejas con estrellas en los ojos",
+      "Se irá sin arrepentirse de su parada",
+      "Sigues tu camino perplejo"
+    ],
+    "nObjectsCrossTheSky_one": "{{count}} objeto cruzará",
+    "nObjectsCrossTheSky_other": "{{count}} objetos pasarán por",
+    "days_one": "día",
+    "days_other": "días",
+    "specific": {
+      "neoWS": [
+        "{{objectWhichWillCrossTheSky}} el cielo hoy",
+        "{{randomObjectName}} {{randomObjectDiameter}} el objeto llamado \" \", de unos metros de diámetro, pasa hoy cerca del planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} el objeto llamado \" \" pasa a una distancia de alrededor de un millón de kilómetros del planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} el asteroide llamado \" \" pasa a nuestro planeta a unos millones de kilómetros",
+        "{{randomObjectName}}el asteroide llamado \" \" puede ser visible hoy",
+        "{{randomObjectName}}el asteroide llamado \" \" pasará cerca del planeta",
+        "{{randomObjectName}} {{randomObjectDistance}} el asteroide llamado \" \" pasará a menos de un millón de kilómetros de nosotros"
+      ],
+      "moonPhase": [
+        "{{mainValue}} es en este momento",
+        "{{mainValue}} está iluminando el cielo",
+        "{{mainValue}}detrás de las nubes está",
+        "{{mainValue}}el escaso cielo deja entrever"
+      ],
+      "nextFullMoon": [
+        "{{mainValue}} {{days}}la próxima luna llena es en",
+        "{{mainValue}} {{days}}la luna llena brillará",
+        "{{mainValue}} {{days}}podemos ver la luna llena en",
+        "dans {{mainValue}} {{days}}, on pourra observer la pleine lune"
+      ],
+      "nextPartialLunarEclipse": [
+        "{{mainValue}} {{days}}el próximo eclipse parcial de luna será en",
+        "dans {{mainValue}} {{days}}, on pourra apercevoir une éclipse de lune partielle",
+        "dans les {{mainValue}} {{days}} qui viennent, vous aurez la chance d'assister à une éclipse lunaire partielle",
+        "{{mainValue}} {{days}}el momento de ver el próximo eclipse parcial de luna es"
+      ],
+      "nextTotalLunarEclipse": [
+        "{{mainValue}} {{days}}el próximo eclipse total de luna será en",
+        "d'ici {{mainValue}} {{days}}, vous apercevrez une éclipse lunaire complète",
+        "dans les {{mainValue}} {{days}} qui viennent, vous aurez la chance d'assister à une éclipse lunaire totale",
+        "si vous observez le ciel dans {{mainValue}} {{days}}, vous pourrez contempler une éclipse lunaire totale"
+      ]
+    },
+    "moonPhases": [
+      "la Luna nueva",
+      "el primer cuarto de la Luna",
+      "la Luna llena",
+      "el último cuarto de la Luna"
+    ],
+    "names": [
+      "Claude",
+      "Pierre Alphonse",
+      "Friedrich",
+      "Wilhelm",
+      "Nicolas",
+      "Clyde",
+      "Tycho",
+      "Giordano",
+      "Johannes",
+      "Jean-Dominique",
+      "Isaac",
+      "Edwin",
+      "Albert"
+    ]
+  },
+  "findPet": {
+    "food_m": [
+      "{{pet}}encuentras un ** ** que parece estar herido. Por desgracia, ya tienes un compañero y no hay sitio en tu gremio para él, así que decides acabar con él rápidamente para poder salvar su cadáver.",
+      "{{pet}}encuentras un ** **. Al no poder acogerlo, se lo entregas a un mercader que pasa por allí. A cambio, te ofrece un poco de carne."
+    ],
+    "food_f": [
+      "{{pet}}encuentras una ** ** que parece estar herida. Por desgracia, ya tienes una compañera y no hay sitio en tu gremio para ella, así que decides acabar con ella rápidamente para recuperar su cadáver.",
+      "{{pet}}encuentras una ** **. Al no poder acogerla, se la entregas a un mercader que pasa por allí. A cambio, te ofrece un poco de carne."
+    ],
+    "noFood_m": [
+      "{{pet}}encuentras un ** **. Al no poder acogerlo, se lo entrega a un mercader que pasa por allí. El mercader lo rechaza y lo deja marchar.",
+      "{{pet}}encuentras un ** **. Como no tienes espacio para acogerlo, se lo das a un comerciante que pasa por allí. Éste lo cuida con mucho gusto.",
+      "{{pet}}ves a una anciana que intenta bajar un ** ** de un árbol. Aceptas ayudarla y rápidamente la convences para que baje. Crees que es su mascota y se la entregas, pero descubres que no es suya. Sin espacio en tu refugio, no puedes llevártelo."
+    ],
+    "noFood_f": [
+      "{{pet}}encuentras una ** **. Al no poder acogerla, se la entrega a un comerciante que pasa por allí. Éste se niega y la deja marchar.",
+      "{{pet}}encuentras una ** **. Como no tienes espacio para acogerla, se la das a un comerciante que pasa por allí. Él la cuida con mucho gusto.",
+      "{{pet}}ves a una anciana intentando bajar un ** ** de un árbol. Aceptas ayudarla y rápidamente la convences para que baje. Crees que es su mascota y se la entregas, pero descubres que no es suya. Sin espacio en tu refugio, no puedes llevártelo."
+    ],
+    "givePetPlayer_m": [
+      "{{pet}}ves un ** ** perdido. Como siempre has querido tener un compañero, caes rendido a sus encantos y decides cuidarlo.",
+      "{{pet}}ves a una anciana intentando bajar un ** ** de un árbol. Aceptas ayudarla y rápidamente la convences para que baje. Crees que es su mascota y se la entregas, pero descubres que no le pertenece. Decides llevártelo contigo.",
+      "Oyes un ruido procedente de un arbusto y, curioso, decides ir a echar un vistazo.{{pet}}Descubres un ** ** que te mira fijamente a los ojos y luego empieza a seguirte, así que decides adoptarlo.",
+      "{{pet}}decides echarte una siestecita, cuando algo te despierta: ¡un ** ** estaba hurgando en tu mochila! Pero no parece querer atacarte e incluso parece que le caes bien, así que decides quedártelo."
+    ],
+    "givePetPlayer_f": [
+      "{{pet}}ves un ** ** perdido. Como siempre has querido tener un compañero, caes rendido a sus encantos y decides cuidarlo.",
+      "{{pet}}ves a una anciana intentando bajar un ** ** de un árbol. Aceptas ayudarla y rápidamente la convences para que baje. Crees que es su mascota y se la entregas, pero descubres que no le pertenece. Decides llevártelo contigo.",
+      "Oyes un ruido procedente de un arbusto y, curioso, decides ir a echar un vistazo.{{pet}}Descubres un ** ** que te mira fijamente a los ojos y luego empieza a seguirte, así que decides adoptarlo.",
+      "{{pet}}decides echarte una siestecita, cuando algo te despierta: ¡un ** ** estaba hurgando en tu mochila! Pero no parece querer atacarte e incluso parece que le caes bien, así que decides quedártelo."
+    ],
+    "givePetGuild_m": [
+      "{{pet}}ves a un ** ** perdido. Aunque ya tienes un compañero, decides llevarlo a tu gremio para que alguien cuide de él.",
+      "{{pet}}ves a un vagabundo que parece hambriento. Le das los restos de tu última comida. Te lo agradece y parece dispuesto a seguirte en tu viaje. Al tener un compañero, lo dejas al cuidado de tu gremio.",
+      "ves a un grupo de niños en círculo.{{pet}}Te acercas y descubres que están maltratando a un pobrecito ** **. Consigues que se vayan, pero él está muy mal. Consigues que se recupere y le das un pequeño descanso en tu refugio."
+    ],
+    "givePetGuild_f": [
+      "{{pet}}ves un ** ** perdido. Aunque ya tienes un compañero, decides llevarlo a tu gremio para que alguien se ocupe de él.",
+      "{{pet}}ves a un perro callejero que parece hambriento. Le das los restos de tu última comida. Ella lo agradece y parece dispuesta a seguirte en tu viaje. Al tener una compañera, la dejas al cuidado de tu gremio.",
+      "ves a un grupo de niños en círculo.{{pet}}Te acercas y descubres que están maltratando a una pobre niña ** **. Consigues que se vayan, pero ella está muy mal. Consigues que se recupere y le das un pequeño descanso en tu refugio."
+    ]
+  },
+  "botFacts": {
+    "stories": [
+      "recibes una carta del rey. Te escribe sobre el concurso por la mano de la princesa en el que participas. {{botFact}} Cuando lees la carta, descubres que estás de nuevo en camino.",
+      "te cruzas con un campesino en un carro que parece estar de buen humor. Intrigado por su actitud, le preguntas por su buen humor. {{botFact}} Te explica que estás de camino.",
+      "Divisas el campamento de un aventurero junto a un sendero. {{botFact}} Te detienes un momento para pedirle consejo sobre el camino a seguir, y él te indica la dirección correcta, añadiendo que ése es el camino a seguir.",
+      "verá un tablón de información. En él hay varios carteles sobre festivales y otros acontecimientos de la zona. {{botFact}} En uno de ellos se habla del reciente discurso del Rey, en el que dice que debes continuar tu camino.",
+      "{{botFact}} pasas junto a una multitud de personas y, por encima del ruido de la multitud, oyes a un orador que anuncia que seguirás tu camino sin escuchar lo que tiene que decir.",
+      "{{botFact}} Ves a lo lejos a un mendigo apoyado en el tronco de un árbol y, cuando te acercas a él para darle una moneda, oyes sus extrañas palabras. Repite una y otra vez que debes alejarte lo más posible de ese individuo sospechoso."
+    ],
+    "possibleInfo": {
+      "nbMeanPoints": "Según un recuento de puntos realizado recientemente por los organizadores, los candidatos han obtenido una puntuación media de **{{infoNumber}} {emote:unitValues.score}**. Alentados por esta noticia,",
+      "meanWeeklyScore": "Según un recuento de puntos realizado recientemente por los organizadores, los candidatos han obtenido una media de **{{infoNumber}} {emote:unitValues.score} esta semana**. Nos entristece esta noticia,",
+      "levelMean": "{{infoNumber}}El último censo señalaba que los aventureros habían alcanzado el **nivel ** de media. Sin saber qué hacer con esta información,",
+      "nbMeanMoney": "el banco del país contaba con una media de **{{infoNumber}} {emote:unitValues.money}** en los monederos de sus clientes. Divertido por esta noticia,",
+      "sumAllMoney": "el banco del país tiene **{{infoNumber}} {emote:unitValues.money}** en circulación en este momento. Sorprendido por esta noticia,",
+      "richestPlayer": "el banco del país ha estimado que el aventurero más rico dispone actualmente de **{{infoNumber}} {emote:unitValues.money}** en su cuenta. Asombrado por esta noticia,",
+      "feistyPets": "La SPAC, o Société Protectrice des Animaux de la Contrée, hace campaña para ayudar a los **animaux fielleux** a tener una vida mejor.{{infoNumber}}Han contado ** **. Esta noticia me ha decepcionado y reconfortado a la vez,",
+      "percentMalePets": "{{infoNumber}}La SPAC, o Société Protectrice des Animaux de la Contrée, ha descubierto que el ** %** de los animales de la zona son machos. Estoy encantado de oír estas noticias,",
+      "percentFemalePets": "{{infoNumber}}La SPAC, o Société Protectrice des Animaux de la Contrée, ha descubierto que el ** %** de los animales de la zona son hembras. Estoy encantado de oír estas noticias,",
+      "guildLevelMean": "{{infoNumber}}la AGC, o Agencia para las Cofradías del Contry, ha constatado que las cofradías actuales han alcanzado el **nivel ** de media. Intrigado por esta información,",
+      "nbPlayersHaventStartedTheAdventure_zero": "El SAFAC (Service Anti-Fraude des Aventuriers de la Contrée) ha descubierto que **ni un solo aventurero** se desvaneció en el aire inmediatamente después de obtener su licencia de aventurero. Estoy asombrado de todos estos valientes aventureros,",
+      "nbPlayersHaventStartedTheAdventure_one": "El SAFAC (Service Anti-Fraude des Aventuriers de la Contrée) ha descubierto que **un aventurero** se ha desvanecido en el aire justo después de obtener su licencia de aventurero. Estamos indignados por las acciones de esta persona,",
+      "nbPlayersHaventStartedTheAdventure_other": "{{infoNumber}} El SAFAC (Service Anti-Fraude des Aventuriers de la Contrée) ha descubierto que ** aventureros** se han desvanecido en el aire justo después de obtener su licencia de aventurero. Estoy indignado por las acciones de esta gente,",
+      "trainedPets_one": "La SPAC, o Société Protectrice des Animaux de la Contrée, desea felicitar al adiestrador del **único animal adiestrado**. Impresionados por esta hazaña,",
+      "trainedPets_other": "{{infoNumber}} La SPAC, o Société Protectrice des Animaux de la Contrée, desea felicitar a los adiestradores de los ** animales adiestrados**. Impresionados por este logro,",
+      "nbPlayersWithGivenClass_zero": "{{infoComplement}}según un censo reciente de aventureros, no hay jugadores con la clase ** **. Esta noticia me dejó estupefacto,",
+      "nbPlayersWithGivenClass_one": "{{infoComplement}}Según un censo reciente de aventureros, sólo hay un jugador con la clase ** **. Impresionado por esta noticia,",
+      "nbPlayersWithGivenClass_other": "{{infoNumber}}{{infoComplement}}según un censo reciente de aventureros, hay ** ** jugadores con la clase ** **. Asombrado por esta noticia,",
+      "nbPlayersOnYourMap_zero": "los caballeros de la zona no se encontraron con **nadie más que tú** en ese camino. Sorprendido por esta noticia,",
+      "nbPlayersOnYourMap_one": "los caballeros de los alrededores sólo se han cruzado con **una persona** cabalgando hacia ti. Sorprendidos por esta noticia,",
+      "nbPlayersOnYourMap_other": "les chevaliers alentour ont compté **{{infoNumber}} personnes** en train de circuler sur votre route. Surpris par cette nouvelle,"
+    }
+  },
+  "smallBad": {
+    "healthLost": {
+      "stories": [
+        "tus pies quedan atrapados en una raíz.{{amount}} {emote:unitValues.lostHealth}Herido, pierdes ** **.",
+        "Sumido en tus pensamientos, apenas prestas atención al suelo bajo tus pies y tropiezas con un guijarro. Te has hecho daño en la rodilla. No es demasiado grave, pero duele.{{amount}} {emote:unitValues.lostHealth}Pierdes ** **.",
+        "silbas mientras caminas. De repente, algo entra en tu campo de visión: es un perro, ¡y se dirige directamente hacia ti! Antes de que te des cuenta, el animal choca contra ti, pero enseguida se da a la fuga.{{amount}} {emote:unitValues.lostHealth}Afortunadamente, sólo sufres heridas leves y pierdes ** **.",
+        "Chocas con un caballo al galope, pero sólo resultas herido superficialmente.{{amount}} {emote:unitValues.lostHealth}Pierdes ** **.",
+        "eres golpeado violentamente por una manada de jabalíes.{{amount}} {emote:unitValues.lostHealth}No es fácil volver a levantarse, y reanudas el viaje habiendo perdido ** **."
+      ]
+    },
+    "timeLost": {
+      "stories": [
+        "estás pisando una trampa. Lo siguiente que sabes es que estás colgando de tu pie.{{amount}} :clock2:Salir de esta trampa podría tomar mucho tiempo... pierdes ** **.",
+        "empieza a llover. Estás a punto de correr para no empaparte, pero ves un arco iris soberbio.{{amount}} :clock2:Dejas de pensar en la lluvia y te dejas absorber por el espectáculo durante ** **.",
+        "te estás cansando{{amount}} :clock2:Tus aventuras te han agotado, así que decides descansar durante ** **.",
+        "Mientras caminas, sumido en tus pensamientos, no reparas en la rama que hay en el suelo. Tropiezas con ella y tus pertenencias se desparraman.{{amount}} :clock2:Pierdes ** **.",
+        "vous entendez un bruit sourd et fracassant provenant d'un sous-bois. Votre curiosité a été piquée au vif : vous voulez savoir de quoi il s'agit, et allez inspecter la zone. Après **{{amount}} :clock2:**, vous abandonnez sans avoir trouvé ni compris l'origine de ce bruit qui vous a fait sursauter."
+      ]
+    },
+    "moneyLost": {
+      "stories": [
+        "Mientras caminas entre la multitud, sientes que una mano te mete la mano en el bolsillo y te aligera los bolsillos. No tienes tiempo de responder cuando tu Reunidor ha desaparecido.{{amount}} {emote:unitValues.lostMoney}Has perdido a ** **.",
+        "te encuentras con un mendigo que te pide un poco de dinero para cubrir sus necesidades.{{amount}} {emote:unitValues.lostMoney}Por piedad, decides darle ** **.",
+        "Un hombre enmascarado te detiene y te apunta con una pistola.{{amount}} {emote:unitValues.lostMoney}Para salvar tu vida, le das las monedas que llevas en el bolsillo y las llaves de tu carro.",
+        "de repente recuerdas que te dejaste el bolso en la habitación del último hostal por el que pasaste.{{amount}} {emote:unitValues.lostMoney}Has perdido ** **.",
+        "te cruzas con un carro cuya carga sobresale, rompiendo tu bolsa. Mientras recoges tus cosas, pasa un grupo de niños y te roban algo de dinero.{{amount}} {emote:unitValues.lostMoney}Pierdes ** **."
+      ]
+    }
+  },
+  "findPotion": {
+    "stories": [
+      "por el rabillo del ojo, ves un frasco brillante...",
+      "resbalas en el arcén y caes al suelo. Al levantarte, observas una extraña botella llena de líquido.",
+      "te fijas en una bolsa estropeada en la carretera. La abres apresuradamente...",
+      "decides desviarte un poco para evitar cruzar un arroyo. Es entonces cuando descubres...",
+      "pasas junto a un hombre con una mula cargada. Unos minutos más tarde, te das cuenta de que se le ha caído algo de la carga. Ya es demasiado tarde para alcanzarle.",
+      "tu mirada es atrapada por el reflejo de una poción en el suelo.",
+      "tropiezas con una raíz. Furioso, le das un golpe... No parece ser una raíz...",
+      "te encuentras con un niño que no parece hablar tu idioma. Pero parece simpático y te entrega un paquete...",
+      "te cruzas con un hombre con una mula cargada. Decides ayudarle a transportar su carga. En agradecimiento, te ofrece una poción...",
+      "te cruzas con una mujer que parece ofrecerte algo de beber. Curioso, aceptas su ofrecimiento...",
+      "descubres una vivienda que exploras rápidamente. Recoges una botella y te apresuras a partir de nuevo..."
+    ]
+  },
+  "findItem": {
+    "stories": [
+      "vislumbras un objeto brillante por el rabillo del ojo...",
+      "resbalas en el arcén y caes al suelo. Al levantarte, notas algo en el suelo...",
+      "te fijas en una bolsa estropeada en la carretera. La abres apresuradamente...",
+      "decides desviarte un poco para evitar cruzar un arroyo. Es entonces cuando descubres...",
+      "pasas junto a un hombre con una mula cargada. Unos minutos más tarde, te das cuenta de que se le ha caído algo de la carga. Ya es demasiado tarde para alcanzarle.",
+      "tus ojos se fijan en el reflejo de un objeto en el suelo.",
+      "tropiezas con una raíz. Furioso, le das un golpe... No parece ser una raíz...",
+      "te encuentras con un niño que no parece hablar tu idioma. Pero parece simpático y te entrega un paquete...",
+      "te cruzas con un hombre con una mula cargada. Decides ayudarle a transportar su carga. En agradecimiento, te ofrece un objeto..."
+    ]
+  },
+  "pet": {
+    "stories": {
+      "money_m": [
+        "Ves a **{{pet}}** rebuscando en la hierba alta. Sale **{{amount}}** {emote:unitValues.money}, que guardas para el resto de tu aventura.",
+        "Te das cuenta de que **{{pet}}** está mirando al suelo y decide cavar un agujero. ¡Qué sorpresa verle emerger **{{amount}}** {emote:unitValues.money} !",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, y al verle regresar con **{{amount}}** {emote:unitValues.money} ¡te llenas de alegría!",
+        "De repente ves a **{{pet}}** saltar al agua. ¡Qué sorpresa verle emerger con un monedero de **{{amount}}** {emote:unitValues.money} !",
+        "Tras hacer un breve descanso en tu viaje, ves que **{{pet}}** regresa con un bolso. Parece que se lo ha robado a un mercader. Decides marcharte con tu **{{amount}}** {emote:unitValues.money} antes de que se dé cuenta."
+      ],
+      "money_f": [
+        "Ves **{{pet}}** rebuscando en unas hierbas altas. Sale **{{amount}}** {emote:unitValues.money}, que guardas para el resto de tu aventura.",
+        "Te das cuenta de que **{{pet}}** está mirando al suelo y decide cavar un agujero. ¡Qué sorpresa verle emerger **{{amount}}** {emote:unitValues.money} !",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, ¡y verla regresar con **{{amount}}** {emote:unitValues.money} te llena de alegría!",
+        "De repente ves a **{{pet}}** saltar al agua. ¡Qué sorpresa verla emerger con un bolso de **{{amount}}** {emote:unitValues.money} !",
+        "Tras hacer un breve descanso en tu viaje, ves que **{{pet}}** regresa con un bolso. Parece que se lo ha robado a un mercader. Decides marcharte con tu **{{amount}}** {emote:unitValues.money} antes de que se dé cuenta."
+      ],
+      "item_m": [
+        "{{pet}}Ves a ** ** rebuscando en la hierba alta. Saca un **objeto**, que puedes conservar durante el resto de tu aventura.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero. ¡Cuál es tu sorpresa cuando ves que saca un **objeto**!",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, ¡y al ver que vuelve con un **objeto** te llenas de alegría!",
+        "{{pet}}De repente ves a ** ** saltar al agua. ¡Qué sorpresa verle emerger con un **objeto**!",
+        "{{pet}}Después de hacer un breve descanso en tu viaje, ves a **** que regresa con un **objeto**. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
+      ],
+      "item_f": [
+        "{{pet}}Ves a ** ** rebuscando en la hierba alta. Saca un **objeto**, que puedes conservar durante el resto de tu aventura.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero. ¡Cuál es tu sorpresa cuando ves que saca un **objeto**!",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. Decides echar un vistazo, ¡y verla volver con un **objeto** te llena de alegría!",
+        "{{pet}}De repente ves a ** ** saltar al agua. ¡Qué sorpresa verla emerger con un **objeto**!",
+        "{{pet}}Después de hacer un breve descanso en tu viaje, ves a **** que regresa con un **objeto**. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
+      ],
+      "gainEnergy_m": [
+        "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} {emote:unitValues.energy}Te levanta el ánimo y ganas ** ** .",
+        "{{pet}}A un lado de la carretera, ** ** se encuentra con algo de comida que parece estar en buen estado y te la trae.{{amount}} {emote:unitValues.energy}Te la comes antes de que se eche a perder y ganas ** ** .",
+        "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} {emote:unitValues.energy}Ganas ** ** ."
+      ],
+      "gainEnergy_f": [
+        "{{pet}}Tener ** ** a tu lado te hace feliz.{{amount}} {emote:unitValues.energy}Te levanta el ánimo y ganas ** ** .",
+        "{{pet}}A un lado de la carretera, ** ** se encuentra con algo de comida que parece estar en buen estado y te la trae.{{amount}} {emote:unitValues.energy}Te la comes antes de que se eche a perder y ganas ** ** .",
+        "{{pet}}Tras marcharse unos instantes, ** ** regresa con una poción casi vacía. Te la bebes antes de que se pierda.{{amount}} {emote:unitValues.energy}Ganas ** ** ."
+      ],
+      "gainLife_m": [
+        "Tener **{{pet}}** a tu lado te hace feliz. Te levanta el ánimo y ganas **{{amount}}** {emote:unitValues.health}.",
+        "A un lado de la carretera, **{{pet}}** se topa con algo de comida que parece estar en buen estado y te la trae. Te la comes antes de que se eche a perder y ganas **{{amount}}** {emote:unitValues.health}.",
+        "Tras marcharse unos instantes, **{{pet}}** regresa con una poción casi vacía. Te la bebes antes de que se pierda. Ganas **{{amount}}** {emote:unitValues.health}."
+      ],
+      "gainLife_f": [
+        "Tener **{{pet}}** a tu lado te hace feliz. Te levanta el ánimo y ganas **{{amount}}** {emote:unitValues.health}.",
+        "A un lado de la carretera, **{{pet}}** se topa con algo de comida que parece estar en buen estado y te la trae. Te la comes antes de que se eche a perder y ganas **{{amount}}** {emote:unitValues.health}.",
+        "Tras marcharse unos instantes, **{{pet}}** regresa con una poción casi vacía. Te la bebes antes de que se pierda. Ganas **{{amount}}** {emote:unitValues.health}."
+      ],
+      "gainLove_m": [
+        "{{pet}}Parece que ** ** es feliz de tenerte en su compañía. Gana en amor y se vuelve más fiel a ti.",
+        "{{pet}} {determinant} Después de un largo paseo, decides cuidar de tu ** ** acariciándolo . El tiempo pasado con él ha reforzado vuestro vínculo.",
+        "{{pet}}Tras marcharse unos instantes, ** ** regresa con algo de comida que ha encontrado más adelante. Decides dársela antes de que se pierda. Eso hace que te quiera más.",
+        "{{pet}} {{randomAnimal}} ¡Desafortunadamente, ** ** parece haber comenzado las hostilidades con sauvage! Decides defenderle valientemente. Él te quiere más y se vuelve más leal a ti.",
+        "¡Oh, qué lindo!{{pet}}** ** ¡es juguetón! Así que decides divertirte con él. Este juego ha reforzado vuestro vínculo."
+      ],
+      "gainLove_f": [
+        "{{pet}}Parece que ** ** está feliz de tenerte en su compañía. Ella gana en amor y se vuelve más fiel a ti.",
+        "{{pet}}Después de un largo paseo, decides cuidar de tu ** ** acariciándola. Este tiempo pasado con ella ha reforzado vuestro vínculo.",
+        "{{pet}}Tras marcharse unos instantes, ** regresa con algo de comida que ha encontrado más adelante. Decides dársela antes de que se pierda. Eso hace que te quiera más.",
+        "{{pet}} {{randomAnimal}} ¡Desafortunadamente, ** ** parece haber comenzado las hostilidades con sauvage! Decides defenderla valientemente. Ella te quiere más y se vuelve más leal a ti.",
+        "¡Oh, qué mono!{{pet}}** Es juguetona. Así que decides divertirte con ella. Esta parte ha reforzado vuestro vínculo."
+      ],
+      "food_m": [
+        "{{pet}}{{food}}El instinto de ** ** te ha permitido encontrar un ** **. Guardas la comida y continúas tu camino.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{food}}¡Te sorprende verle sacar un ** ** !",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. ¡Decides echar un vistazo y le ves volver con un **{{food}}** en la boca!",
+        "{{pet}}De repente ves a ** ** saltar al agua.{{food}}¡Qué sorpresa verle emerger con un ** ** !",
+        "{{pet}}{{food}}Después de hacer un breve descanso en tu viaje, ves a ** ** regresando con un ** **. Parece que se lo ha robado a un mercader. Decides marcharte antes de que se dé cuenta."
+      ],
+      "food_f": [
+        "{{pet}}{{food}}El instinto de ** ** te ha permitido encontrar un ** **. Guardas la comida y continúas tu camino.",
+        "{{pet}}Te das cuenta de que ** ** está mirando al suelo y decide cavar un agujero.{{food}}¡Te sorprende verla sacar un ** ** !",
+        "Descubres que **{{pet}}** olfatea insistentemente en dirección a un arbusto. ¡Decides echar un vistazo y la ves volver con un **{{food}}** en la boca!",
+        "{{pet}}De repente ves a ** ** saltar al agua.{{food}}¡Qué sorpresa verla emerger con un ** **!",
+        "{{pet}}{{food}}Después de hacer un breve descanso en tu viaje, ves a ** ** regresando con un ** **. Parece habérselo robado a un mercader. Decides marcharte antes de que se dé cuenta."
+      ],
+      "gainTime_m": [
+        "A pesar de todos los kilómetros, **{{pet}}** está en plena forma. Te subes a su espalda durante unos minutos y ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "En una curva del camino, **{{pet}}** empieza a correr de repente. Acabas siendo arrastrado al final de su ventaja, pero has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "¡Qué energía! **{{pet}}** parece tener prisa, pero aun así consigues seguirle el ritmo. Gracias a él ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "El talento de **{{pet}}** te ha permitido encontrar un atajo. Gracias a él, has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Defender **{{pet}}** contra {{randomAnimal}} sauvage no ha sido tarea fácil, y esta vez te has encontrado con algo más fuerte que tú. Decides huir, y corres a toda velocidad. Gracias a este percance, has ganado **{{amount}} Min** {emote:unitValues.timeGain} por el camino."
+      ],
+      "gainTime_f": [
+        "Es bueno ver, **{{pet}}** está en gran forma. Te montas en su espalda durante unos minutos y ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "En una curva del camino, **{{pet}}** empieza a correr de repente. Acabas siendo arrastrado al final de su ventaja, pero has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Te das cuenta de que **{{pet}}** parece tener prisa, pero aun así consigues seguirle el ritmo a {determinant} . Gracias a ella ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "El talento de **{{pet}}** te ha permitido encontrar un atajo. Gracias a {accusative}, has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Defender **{{pet}}** contra {{randomAnimal}} sauvage no ha sido tarea fácil, y esta vez te has encontrado con algo más fuerte que tú. Decides huir, y corres a toda velocidad. Gracias a este percance, has ganado **{{amount}} Min** {emote:unitValues.timeGain} por el camino."
+      ],
+      "points": [
+        "Las personas que se cruzan contigo con **{{pet}}** seguro que se fijan en ti. Esto mejora tu reputación y, por tanto, ganas **{{amount}}** {emote:unitValues.score}.",
+        "Contarle a un anciano tus aventuras con **{{pet}}** parece haber mejorado tu reputación. Ganas **{{amount}}** {emote:unitValues.score}."
+      ],
+      "badge": [
+        "{{pet}}Entrenar con éxito a ** ** ha sido un verdadero reto que demuestra tu talento con los animales. {{badge}} ¡Se le otorgará la insignia!"
+      ],
+      "loseLife_m": [
+        "{{pet}}Cuando intentas acariciar a ** **, no te deja y te muerde la mano.{{amount}} {emote:unitValues.lostHealth}Pierdes a ** ** .",
+        "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratignures. Vous perdez **{{amount}}** {emote:unitValues.lostHealth}.",
+        "{{pet}}Ve salir a ** **. Vuelve unos minutos después con algo de comida. Te la comes y te arrepientes amargamente unos minutos después. De repente se le revuelve el estómago...{{amount}} {emote:unitValues.lostHealth}Pierdes a ** ** .",
+        "{{pet}} {{randomAnimal}} ** Parece que has desencadenado hostilidades con el sauvage. Decides defenderle pero desgraciadamente la criatura salvaje te hiere.{{amount}} {emote:unitValues.lostHealth}Pierdes ** ** .",
+        "{{pet}}** Parece que quiere jugar y se sube a un árbol. Desgraciadamente, su peso rompe la rama y cae encima de ti.{{amount}} {emote:unitValues.lostHealth}Pierdes a ** ** ."
+      ],
+      "loseLife_f": [
+        "{{pet}}Cuando intentas acariciar a ** **, ella no te deja y te muerde la mano.{{amount}} {emote:unitValues.lostHealth}Pierdes ** ** .",
+        "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratignures. Vous perdez **{{amount}}** {emote:unitValues.lostHealth}.",
+        "{{pet}}Ves salir a ** **. Regresa unos minutos después con algo de comida. Te la comes y te arrepientes amargamente unos minutos después. De repente se le revuelve el estómago...{{amount}} {emote:unitValues.lostHealth}Pierdes a ** ** .",
+        "{{pet}} {{randomAnimal}} **¡Parece que ha desencadenado hostilidades con sauvage! Decides defenderla pero desgraciadamente la criatura salvaje te hiere.{{amount}} {emote:unitValues.lostHealth}Pierdes ** ** .",
+        "{{pet}}** Parece que quiere jugar y se sube a un árbol. Desgraciadamente, su peso rompe la rama y cae encima de ti.{{amount}} {emote:unitValues.lostHealth}Pierdes a ** ** ."
+      ],
+      "loseMoney_m": [
+        "{{pet}}Sientes que ** ** está robando algunas monedas de tu monedero y las esconde más lejos. Por desgracia, no puedes encontrarlas.{{amount}} {emote:unitValues.lostMoney}Así que pierdes a ** ** .",
+        "Notas un gran agujero en tu bolso.{{pet}}** ** ¡debe de haber estado jugando con él durante la noche!{{amount}} {emote:unitValues.lostMoney}Después de contar lo que te quedaba, te das cuenta de que te falta un total de ** ** .",
+        "{{pet}}Mientras estás jugando con ** **, te empuja y deja caer tu bolso en una grieta.{{amount}} {emote:unitValues.lostMoney} ¡Es imposible recuperar esos ** **!",
+        "{{pet}}Tienes la impresión de que **** está irritado, e incluso llega a herir a un transeúnte. Después de disculparte, decides compensarle y marcharte con la cabeza gacha.{{amount}} {emote:unitValues.lostMoney}Pierdes a ** ** .",
+        "{{pet}}Intentando jugar con ** **, le golpeas. Herido, lo llevas a un sanador para que lo cure.{{amount}} {emote:unitValues.lostMoney}Después de curarle, el curandero te libera de ** ** ."
+      ],
+      "loseMoney_f": [
+        "{{pet}}Sientes que ** ** está robando algunas monedas de tu monedero y las esconde más lejos. Por desgracia, no puedes encontrarlas.{{amount}} {emote:unitValues.lostMoney}Así que pierdes a ** ** .",
+        "Notas un gran agujero en tu bolso.{{pet}}** ** ¡debe de haber estado jugando con él durante la noche!{{amount}} {emote:unitValues.lostMoney}Después de contar lo que te quedaba, te das cuenta de que te falta un total de ** ** .",
+        "{{pet}}Mientras estás jugando con ** **, te empuja y deja caer tu bolso en una grieta.{{amount}} {emote:unitValues.lostMoney} ¡Es imposible recuperar esos ** **!",
+        "{{pet}}Tienes la impresión de que **** está irritado, e incluso llega a herir a un transeúnte. Después de disculparte, decides compensarle y marcharte con la cabeza gacha.{{amount}} {emote:unitValues.lostMoney}Pierdes a ** ** .",
+        "{{pet}}Intentando jugar con ** **, la golpeas. Herida, la llevas a un sanador para que la cure.{{amount}} {emote:unitValues.lostMoney}Después de curarla, el curandero te libera de ** ** ."
+      ],
+      "loseTime_m": [
+        "{{pet}}{{amount}} :clock2:Si sigues llamando a ** ** para que se quede cerca de ti, perderás a ** Min** .",
+        "{{pet}}Sientes que ** ** no parece querer moverse. Decides tirar de él a la fuerza de todos modos.{{amount}} :clock2:Por su culpa, pierdes a ** Min** .",
+        "{{pet}} {{randomAnimal}} Ves a ** ** corriendo hacia ti, ¡perseguido por sauvage! Huyes con él.{{amount}} :clock2: Esta persecución te ha hecho perder a ** Min** por el camino.",
+        "{{pet}}Al entrar en un pueblo, oyes el rumor de que una mascota parecida a ** ** está atacando a los aldeanos. Al verte, los aldeanos se asustan de ti y de tu mascota, e inmediatamente te echan del pueblo.{{amount}} :clock2: Como resultado de este percance, pierdes a ** Min** por el camino.",
+        "{{pet}}Descubres que ** ** está mirando al suelo y decide cavar un agujero. Sale un cofre cerrado. Tras varios intentos, consigues abrirlo, pero está vacío.{{amount}} :clock2:Este percance te ha costado ** Min** ."
+      ],
+      "loseTime_f": [
+        "{{pet}}{{amount}} :clock2:Si sigues llamando a ** ** para mantenerla cerca de ti, perderás a ** Min** .",
+        "{{pet}}Sientes que ** ** no parece querer moverse. Decides tirar de ella a la fuerza de todos modos.{{amount}} :clock2:Por su culpa, pierdes a ** Min** .",
+        "{{pet}} {{randomAnimal}} Ves a ** ** corriendo hacia ti, ¡perseguido por sauvage! Huyes con ella.{{amount}} :clock2: Esta persecución te ha hecho perder a ** Min** por el camino.",
+        "{{pet}}Al entrar en un pueblo, oyes el rumor de que una mascota parecida a ** ** está atacando a los aldeanos. Al verte, los aldeanos se asustan de ti y de tu mascota, e inmediatamente te echan del pueblo.{{amount}} :clock2: Como consecuencia de este percance, pierdes a ** Min** por el camino.",
+        "{{pet}}Descubres que ** ** está mirando el suelo y decide cavar un agujero. Saca un cofre cerrado. Tras varios intentos, consigues abrirlo, pero está vacío.{{amount}} :clock2:Este percance te ha costado ** Min** ."
+      ],
+      "petFlee_m": [
+        "{{pet}}Después de tanto maltrato, era inevitable. ** no te respeta y huye en la distancia. No puedes encontrarlo y lo pierdes para siempre...",
+        "{{pet}}Después de pasar algún tiempo contigo, ** ** parece que ya no le gustas y decide huir. Probablemente no volverás a verle.",
+        "{{pet}}Parece que ** ** ha encontrado a su alma gemela, que te abandona y te deja sola. Nunca lo volverás a ver...",
+        "{{pet}}Su falta de atención a ** le ha llevado a huir. Se le pierde de vista muy rápidamente y será imposible volver a encontrarle."
+      ],
+      "petFlee_f": [
+        "Después de tanto maltrato, era inevitable.{{pet}}** ** no te respeta y huye en la distancia. No puedes encontrarla y la pierdes para siempre...",
+        "{{pet}}Después de pasar algún tiempo contigo, ** ** parece que ya no le gustas y decide huir. Probablemente no volverás a verla.",
+        "{{pet}}Parece que ** ** ha encontrado a su alma gemela, que te abandona y te deja solo. Nunca la volverás a ver...",
+        "{{pet}}Su falta de atención a ** la ha hecho huir. La pierdes de vista muy rápidamente y será imposible volver a encontrarla."
+      ],
+      "loseLove_m": [
+        "{{pet}}Parece que a ** ** no le gustas mucho... Viajar con él empeora aún más la relación. Pierde un poco de amor.",
+        "{{pet}}Justo cuando estás practicando tus habilidades de lucha, pasa ** **. Sin querer, le das un golpe. Ahora parece que le gustas un poco menos.",
+        "{{pet}}Después de un largo paseo, ** ** se queda sin aliento y parece que no puede seguir su ritmo. No esperarle ha dañado vuestra relación. Así que está perdiendo un poco de amor...",
+        "{{pet}}Cuando te acercas a un puesto, ** ** se queda mirando la comida en una pizarra. A pesar de su petición, decides continuar tu camino.{{pet}}** ** te guarda rencor y está perdiendo un poco la fe en ti."
+      ],
+      "loseLove_f": [
+        "{{pet}}Parece que a ** ** no le gustas mucho... Viajar con ella empeora aún más la relación. Ella pierde un poco de amor.",
+        "{{pet}}Justo cuando estás practicando tus habilidades de lucha, pasa ** **. Sin querer, le das un golpe. Ahora parece que le gustas un poco menos.",
+        "{{pet}}Después de un largo paseo, ** ** se queda sin aliento y parece que no puede seguir su ritmo. No esperarla ha dañado vuestra relación. Así que está perdiendo un poco de amor...",
+        "{{pet}}Cuando te acercas a un puesto, ** ** se queda mirando la comida en una pizarra. A pesar de su petición, decides continuar tu camino.{{pet}}** ** está resentida y está perdiendo un poco la fe en ti."
+      ],
+      "nothing": [
+        "{{pet}}Continúas tu viaje junto a ** **. No ocurre nada especial."
+      ]
+    },
+    "randomAnimal_m": "{{randomAnimal}}a ** **",
+    "randomAnimal_f": "{{randomAnimal}}a ** **"
+  },
+  "class": {
+    "attack": {
+      "winPotion": [
+        "vous apercevez une lumière étrange au loin. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit là d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
+        "observas que allí hay instalada una tienda de campaña. Intrigado, entras y descubres a un anciano con varias pociones. Te pide que pruebes sus pociones. Aceptas y, una vez terminados los experimentos, te da una poción de ataque como muestra de agradecimiento.",
+        "encontrarás un carro abandonado. Contiene cajas de pociones. Te apresuras a robar una de ellas. Después de huir, ves que la poción robada parece ser útil para tu próxima batalla..."
+      ],
+      "winObject": [
+        "Decides apoyarte en un árbol. Al sentarte, sientes un dolor agudo que te atraviesa la espalda. Te levantas a la velocidad del rayo y descubres qué te ha arañado:",
+        "vous entendez soudainement un boucan infernal avancer vers vous. Vous avez tout juste le temps de vous jeter sur le côté quand une horde de chevaliers vous dépasse au grand galop. En les regardant s'éloigner, vous apercevez une besace tomber de l'un des chevaux. En la ramassant vous y découvrez...",
+        "Un animal hambriento se te acerca. Por precaución, decides matarlo. Escarbando en sus entrañas, encuentras un objeto que parece que podría servir para atacar."
+      ],
+      "winWeapon": [
+        "Te encuentras con un mercader, que te pregunta de qué clase eres. Al responder, te ofrece gratis un arma que ya no usa:",
+        "ves una pistola al lado de la carretera y no puedes creer lo que ven tus ojos. Te preguntas cómo demonios has podido tirar algo tan bonito y decides equiparte con ella. Seguro que te será útil.",
+        "encuentras un antiguo fuerte en ruinas. Todavía en busca de equipo, decides registrarla. Tras un rápido recorrido por las instalaciones, parece que sólo la armería sigue intacta. En la armería, entre los objetos oxidados e inservibles, encuentras un arma que parece estar en buen estado."
+      ]
+    },
+    "defense": {
+      "winPotion": [
+        "observas que allí hay instalada una tienda de campaña. Intrigado, entras y descubres a un anciano con varias pociones. Te pide que pruebes sus pociones. Aceptas y, una vez terminados los experimentos, te da una poción de defensa como muestra de agradecimiento.",
+        "encontrarás un carro abandonado. Contiene cajas de pociones. Te apresuras a robar una de ellas. Después de huir, ves que la poción robada parece ser útil para tu próxima batalla...",
+        "Se oye un fuerte impacto detrás de ti. Te giras de repente y un anciano aplastado contra el suelo bajo un árbol entra en tu campo de visión. Te alivia ver que sigue vivo, ya que emite un gemido grave. Entonces te das cuenta de que una caja llena de pociones idénticas ha caído con él. Sabiendo que no podría haber sobrevivido con su frágil complexión, deduces que se trata de pociones que aumentan la capacidad defensiva del cuerpo. No dispuesto a dejar pasar semejante oportunidad, coges el único frasco intacto y huyes del lugar, ajeno a las débiles quejas del anciano."
+      ],
+      "winObject": [
+        "Un animal hambriento se te acerca. Por precaución, decides matarlo. Escarbando en sus entrañas, encuentras un objeto que parece servir para defenderte.",
+        "Un caballero se acerca y te propone un duelo. Te dará su objeto de defensa si ganas. Gracias a tu entrenamiento, la victoria es tuya y ganas el premio prometido.",
+        "Encuentras a un granjero que necesita ayuda para reparar su carro. Colocas la rueda en su sitio. Para agradecértelo, te da un objeto defensivo forjado por los mejores artesanos de Claire De Ville."
+      ],
+      "winArmor": [
+        "Te encuentras con un mercader, que te pregunta qué clase eres. Tras responderle, el mercader te ofrece gratis una armadura que ya no usa:",
+        "ves una armadura a un lado de la carretera y no puedes creer lo que ven tus ojos. Te preguntas cómo has podido tirar algo tan bonito y decides ponértela. Seguro que te será útil.",
+        "encuentras un antiguo fuerte en ruinas. Todavía en busca de equipo, decides registrarla. Tras echar un rápido vistazo, parece que sólo la armería sigue intacta. En la armería, entre los objetos oxidados e inservibles, encuentras una armadura que parece estar en buen estado."
+      ]
+    },
+    "basic": {
+      "winItem": [
+        "Unos aldeanos se te acercan y te entregan un objeto en reconocimiento a una reciente hazaña de armas. Les das las gracias brevemente y continúas tu camino.",
+        "Te cruzas con un grupo de niños que juegan a perseguirse. Uno de ellos choca contigo y se pone a llorar. Sus padres se te acercan y te piden perdón, cosa que tú les concedes y ellos te dan un objeto que podría serte útil.",
+        "Un carro te detiene, intrigado y deseoso de continuar tu viaje, te acercas al dueño, que, al principio odioso, te dice que te quites de en medio y tomes otro camino. Esto le calma al instante. Te ofrece algo y te pide que esperes mientras mueve su carga.",
+        "ves a una multitud de personas reunidas. Queriendo ver qué ocurre, te abres paso entre el grupo y descubres un objeto ensangrentado, de lo contrario la multitud que te rodea ya lo habría tocado. Te marchas como si nada con el objeto en tu poder."
+      ],
+      "winMoney": [
+        "Subes una pequeña colina y notas que tus pasos suenan extraños. Buscas en el suelo y descubres un cofre lleno de oro. Obtienes **{{amount}} {emote:unitValues.money}**.",
+        "vous rencontrez une personne ayant l'air un peu déconcertée et peureuse... En vous voyant, la personne s'excuse et part en courant. Vous vous dites qu'elle vous a confondu avec quelqu'un d'autre. Dans sa course, l'inconnu a fait tomber une bourse : vous l'ouvrez et découvrez **{{amount}} {emote:unitValues.money}** !",
+        "Decides acampar con una tienda y otros enseres. Mientras cavas los agujeros para las estacas de la tienda, notas algo duro en el suelo. ¡Mientras cavas, desentierras una pequeña caja de madera dañada por el paso del tiempo y encuentras **{{amount}} {emote:unitValues.money}** !"
+      ]
+    },
+    "other": {
+      "winItem": [
+        "te enganchas los pies en algo que sobresale del suelo, después de levantarte, buscas en el suelo y sacas un objeto...",
+        "Divisas una forma en una zanja. Intrigado, te acercas a la forma, que resulta ser un objeto que podría ser útil para el resto de tu aventura...",
+        "Decides apoyarte en un árbol. Al sentarte, sientes un dolor agudo en la espalda. Te levantas rápidamente y descubres... ¡un objeto!",
+        "Caminas distraído y tropiezas con algo. Mientras luchas por levantarte tras la caída, descubres un objeto."
+      ],
+      "winHealth": [
+        "Te cruzas con unos aldeanos que recuerdan tus proezas como persona frágil, y te entregan una bolsa con provisiones, que te comes antes de continuar tu viaje. Ganas **{{amount}} {emote:unitValues.health}**.",
+        "Un mercader se te acerca y te pregunta qué clase eres, a lo que respondes que eres un aventurero frágil. Recordando que los aventureros frágiles son gente con pocos hp, decide darte algo de fruta que ya no era viable vender. Te comes alegremente la fruta y ganas **{{amount}} {emote:unitValues.health}** y te pones de nuevo en camino.",
+        "Se te acerca una anciana, que te entrega una manzana roja y te dice que es importante comer bien para estar fuerte. Te la comes agradecido antes de continuar tu camino. Ganas **{{amount}} {emote:unitValues.health}**.",
+        "Un arado te empuja. Se te acerca su dueño, que se disculpa diciendo que no te había visto por tu mal aspecto y te ofrece algunas provisiones. Comes algo y te pones de nuevo en camino. Ganas **{{amount}} {emote:unitValues.health}**."
+      ]
+    }
+  },
+  "ultimateFoodMerchant": {
+    "stories": [
+      "Mirando el paisaje que le rodea, no se fija en el hombre que tiene delante y choca con él. Le pides disculpas y, como el hombre es muy amable, enseguida te perdona y entablamos conversación. Se llama Gaspard-Jo y es comerciante de sopa. Es muy generoso y recompensa el talento de los jugadores que encuentra por el camino. ",
+      "una pequeña caravana con una chimenea se acerca a ti. Te tomas la molestia de saludar cortésmente al mercader, quien, tras una rápida charla en la que te enteras de que se llama \"Gaspard-Jo\", resulta que quiere recompensarte por tus buenas acciones. "
+    ],
+    "rewards": {
+      "ultimateFood_one": [
+        "Te entrega **la sopa definitiva**, que guardas cuidadosamente."
+      ],
+      "ultimateFood_other": [
+        "{{count}} Te da ** últimas sopas**, que guardas con cuidado."
+      ],
+      "fullUltimateFood": [
+        "Te ofrece lo último en sopas. Por desgracia, su almacén está lleno y tiene que devolverlas."
+      ],
+      "item": [
+        "Te ofrece **un objeto** que cree que podrías encontrar útil."
+      ],
+      "commonFood_one": [
+        "Juzgando que no eres lo suficientemente poderoso como para conseguir su mercancía gratis, te ofrece **un regalo**."
+      ],
+      "commonFood_other": [
+        "{{count}} Pensando que no eres lo suficientemente poderoso como para conseguir su mercancía gratis, te ofrece ** caramelos**."
+      ],
+      "fullCommonFood": [
+        "Viendo que no eres muy poderoso, se resigna a ofrecerte unos dulces, pero desgraciadamente ya no tienes espacio suficiente para cogerlos. Sigues tu camino decepcionado."
+      ],
+      "money": [
+        "Como no formas parte de un gremio, no puedes almacenar la preciada mercancía de tu benefactor. Así que te regala **{{count}}** {emote:unitValues.money}. Te pones de nuevo en camino, un poco decepcionado."
+      ]
+    }
+  },
+  "cart": {
+    "knownDestination": [
+      "A lo lejos, ves un carro destartalado, con la madera desgastada por el tiempo y los viajes. Un hombre de pelo desgreñado y rostro curtido te llama. Afirma poder llevarte a unos **{{destination}}** por **{{price}}** {emote:unitValues.money}. Su sonrisa pícara y el brillo astuto de sus ojos te hacen dudar. Te preguntas si esta dirección aproximada merece el riesgo...",
+      "un individuo de aspecto sospechoso emerge de entre las sombras, arrastrando tras de sí un carro desvencijado. Es un embaucador conocido por sus viajes imprevisibles, sus ojos brillan con picardía. Te ofrece un viaje a los alrededores de **{{destination}}** por **{{price}}** {emote:unitValues.money}. Su confianza y su sonrisa traviesa te hacen dudar de la fiabilidad de su dirección...",
+      "un carro bien cuidado aparece de repente en tu camino. Su dueño, un hombre de rostro curtido y sonrisa enigmática, te asegura que puede llevarte a algún lugar cercano a **{{destination}}** para **{{price}}** {emote:unitValues.money}. Su mirada decidida parece ocultar algo. Te preguntas si esta vaga dirección es tan atractiva como parece...",
+      "te cruzas con un hombre que parece perdido. Es un misterioso rufián de pelo despeinado y mirada astuta, que afirma poder conducirte a las afueras de **{{destination}}** a cambio de **{{price}}** {emote:unitValues.money}. Sus ojos brillan con una picardía difícil de definir. Dudas, sopesando los pros y los contras de esta incierta dirección...",
+      "se te acerca un desconocido que te ofrece llevarte en su carro a las afueras de **{{destination}}** para **{{price}}** {emote:unitValues.money}. Tras una breve charla, descubres que se trata de un hombre cuyos viajes son tan variados como sus artimañas. Su confianza parece demasiado perfecta, como si lo hubiera planeado todo de antemano. Te preguntas qué esconde...",
+      "un hombre afable se ofrece a llevarte en su carro. Es un pícaro de barba desgreñada y aspecto arpía, conocido por sus viajes por todo el reino, que te ofrece un paseo cerca de **{{destination}}** por **{{price}}** {emote:unitValues.money}. Sus palabras son amables, pero su mirada es dura. Te preguntas si realmente puedes confiar en él...",
+      "te cruzas con un extraño individuo con un carro. Es un viajero con un pasado misterioso, el pelo revuelto y una mirada penetrante. Te ofrece un viaje a los alrededores de **{{destination}}** a cambio de **{{price}}** {emote:unitValues.money}. Sus promesas parecen tentadoras, pero su aspecto te hace dudar. Te preguntas si no estarás cayendo en una trampa..."
+    ],
+    "unknownDestination": [
+      "Se te acerca un hombre enigmático con un carro destartalado. Te ofrece un viaje a un lugar desconocido por **{{price}}** {emote:unitValues.money}. Sus ojos astutos y su enigmática sonrisa te dejan con la duda...",
+      "un turbio individuo surge de las sombras y te ofrece un paseo en su carro lleno de baches hasta un destino desconocido por **{{price}}** {emote:unitValues.money}. Su mirada pícara y su exceso de confianza despiertan tus sospechas...",
+      "Un hombre de rostro curtido aparece en tu camino con un carro bien cuidado. Se ofrece a llevarte a un destino desconocido por **{{price}}** {emote:unitValues.money}. Su enigmática sonrisa y su mirada decidida pueden esconder algo...",
+      "un misterioso pícaro se cruza contigo y afirma poder conducirte a un lugar desconocido para **{{price}}** {emote:unitValues.money}. Su mirada astuta y sus ojos traviesos te hacen dudar...",
+      "un desconocido se te acerca con la oferta de viajar en su carro a un destino desconocido por **{{price}}** {emote:unitValues.money}. Su confianza y su mirada traviesa despiertan tu curiosidad...",
+      "un hombre afable de barba desgreñada se ofrece a llevarte en su carro a un lugar desconocido para **{{price}}** {emote:unitValues.money}. A pesar de sus amables palabras, la dura mirada de sus ojos te hace sentir incómodo...",
+      "un viajero con un pasado misterioso le ofrece un viaje a un destino desconocido por **{{price}}** {emote:unitValues.money}. Su aspecto intrigante y sus tentadoras promesas despertarán tu interés..."
+    ],
+    "menu": [
+      "\n\n{emote:other.car} Súbete al carro\n{emote:other.walking} Muévete"
+    ],
+    "scamTravelDone": [
+      "Tras un viaje sorprendentemente rápido, te encuentras en un lugar desconocido. El hombre te mira con una sonrisa burlona y se marcha en su carro.",
+      "El hombre de pelo desgreñado te ha conducido a un lugar completamente distinto de tu destino previsto. Antes de que puedas reaccionar, desaparece en una nube de polvo.",
+      "El viaje ha transcurrido más rápido de lo esperado y te encuentras en un lugar desconocido. El hombre de los ojos traviesos se marcha en su carro, dejándote solo y desconcertado.",
+      "Pronto te ves transportado a un lugar que te resulta familiar... Pronto te das cuenta de que éste no es el destino del que te habían hablado, pero ya es demasiado tarde para reaccionar. El hombre misterioso ya está lejos..."
+    ],
+    "normalTravelDone": [
+      "Aceptas la oferta del hombre y subes a su carro. Tras un tranquilo viaje, te encuentras cerca de tu destino.",
+      "Tras sopesar los pros y los contras, decides confiar en el hombre y subir a su carro. Te sientes aliviado al encontrarte cerca de tu destino.",
+      "Subes al carro y el hombre del pelo revuelto te lleva a tu destino. Llegas sano y salvo, cerca de tu destino.",
+      "Aceptas la oferta del viajero de misterioso pasado y subes a su carro. Para tu sorpresa, te encuentras cerca de tu destino."
+    ],
+    "unknownDestinationTravelDone": [
+      "Aceptas la oferta del hombre y subes a su carro, sin tener ni idea de tu destino. Tras un tranquilo viaje, te encuentras en un lugar que parece acogedor.",
+      "A pesar de la incertidumbre, decides confiar en el hombre y subir a su carro. Para tu alivio, te encuentras en un lugar tranquilo y agradable.",
+      "Subes al carro, el destino es un misterio. El hombre desaliñado te conduce a través de diversos paisajes antes de dejarte en un lugar prometedor.",
+      "Aceptas la oferta del viajero de pasado misterioso y te subes a su carro sin saber adónde vas. Para tu sorpresa, te encuentras en un lugar pintoresco y encantador."
+    ],
+    "travelRefused": [
+      "Tras pensarlo un momento, decides no correr el riesgo y seguir adelante.",
+      "Declinas amablemente la oferta y continúas tu camino.",
+      "Juzgando que no necesita tal servicio en este momento, decide continuar su camino.",
+      "Rechazas la oferta y continúas tu camino."
+    ],
+    "notEnoughMoney": [
+      "Buscas en tus bolsillos, pero te das cuenta de que no tienes suficiente dinero. El hombre te mira decepcionado y se marcha con su carrito.",
+      "Cuenta sus monedas, pero no tiene suficientes para el viaje. El zorro sacude la cabeza y se marcha en su carro.",
+      "Revisa su bolso, pero por desgracia no tiene suficiente dinero. El desconocido asiente y se marcha con su carrito."
+    ]
+  },
+  "findMission": {
+    "intrigue": [
+      "Un mensajero se acerca a ti sin aliento. Te entrega una carta del rey pidiéndote que lleves a cabo la siguiente misión:",
+      "encuentras una tabla de misiones. Las revisas una a una y encuentras una que te guste:",
+      "decides fijarte un nuevo objetivo para progresar con respecto a los demás aventureros:",
+      "Una paloma mensajera vuela directamente hacia ti. En su pata derecha, encontrarás una carta escrita en letras doradas que describe una misión muy interesante:",
+      "un desconocido te llama y te desafía:",
+      "Un transeúnte que pasa por delante de ti deja caer una hoja de misión. La misión indicada es muy interesante, así que decides llevarla a cabo:",
+      "Pasas junto a una cabaña de aspecto abandonado y rebuscas entre la pila de papeles que hay frente a la puerta. Allí descubres una propuesta de misión. Te armas de valor y vas a por ella:",
+      "El viento te pasa un pergamino por la cara. Aislado de tu viaje, decides leerlo. Tras pensarlo detenidamente, decides llevar a cabo la misión escrita en la hoja:",
+      "un viejo aventurero cuenta sus historias a quien quiera escucharle. Te detienes a escucharle un rato. Unos instantes después, se fija en ti y te pregunta si puedes completar una misión para él. Aceptas:"
+    ]
+  },
+  "bonusGuildPVEIsland": {
+    "events": [
+      {
+        "intro": "El cielo está gris y la temperatura es media. Es el tiempo ideal para caminar y seguir con tu aventura. Sin embargo, a los pocos pasos, el frágil suelo cede bajo tus pies y caes en un agujero.",
+        "success": {
+          "withGuild": "Con la ayuda de tus compañeros de gremio, consigues salir de la grieta y salvarlos a su vez. Esta prueba ha fortalecido tus lazos y tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Sin perder la calma, aplicas inmediatamente las enseñanzas de tu gremio y consigues escalar fácilmente el muro.{{amount}} Tu gremio recibe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Sin perder nunca la calma, aplicas lo aprendido en tus aventuras y escalas la pared con facilidad.{{amount}} {emote:unitValues.xp}Recibirás ** **."
+        },
+        "escape": {
+          "withGuild": "Sin perder tiempo, tú y tus compañeros os apresuráis a examinar esta grieta, que resulta ser una cueva. Un poco más tarde, caminando a ciegas, conseguís salir del agujero que hay más adelante.",
+          "solo": "Desesperado, solo en el fondo de esta grieta, sólo adviertes el estrecho paso a tu izquierda al cabo de unos minutos. Tras luchar contra la tierra que ha decidido encerrarte, sales al aire libre."
+        },
+        "lose": {
+          "withGuild": "Con la ayuda de tus compañeros de gremio, consigues salir de la grieta y rescatarlos a ellos también. Sin embargo, el compañero de gremio que tenía tu bolso fue el último en subir y accidentalmente dejó caer el dinero durante el ascenso. Pierdes **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Al intentar escalar la pared, la tierra se desmorona bajo tus dedos y pies, provocando un desprendimiento. Gracias a él, consigues salir de la grieta, pero estás gravemente herido. Pierdes **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Vous décidez de vous reposer un peu après une traversée intense sur l'île. Mais, au moment où vous vous allongez sur le sol, la terre se met à trembler.",
+        "success": {
+          "withGuild": "Sin embargo, os aferráis el uno al otro para evitar una posible grieta que podría provocar la caída de uno de vosotros. El temblor termina y todos estáis sanos y salvos.{{amount}} Tu gremio gana ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Vous suivez les instructions qui vous ont été données en cas de séisme par votre guilde, et décidez de vous abriter sous une structure qui, heureusement, ne s'est pas écroulée sur vous. Sain et sauf, vous vous promettez de remercier votre guilde dès votre retour de votre expédition. Votre guilde gagne **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Intentas aguantar a pesar del temblor. Afortunadamente, no ha causado ningún daño a tu alrededor, así que continúas descansando un rato, admirando el cielo y los alrededores.{{amount}} {emote:unitValues.xp}Recibes ** **."
+        },
+        "escape": {
+          "withGuild": "Presa del pánico, tu gremio intenta encontrar un lugar más seguro para evitar que alguno de vosotros sufra daños. Tras varios minutos de dar vueltas en círculos porque al menos uno de los miembros piensa que un lugar concreto es inseguro, dejáis de sentir el temblor. Sin embargo, tratáis de recuperar la confianza para lo que está por venir mientras recorréis la isla...",
+          "solo": "Paniqué, vous essayez d'esquiver les dégâts potentiels du séisme. Après quelques instants, la secousse ne se ressent plus. Au retour à l'endroit où vous vouliez vous reposer, vous constatez les dégâts du séisme. Heureusement que vous n'y étiez pas resté..."
+        },
+        "lose": {
+          "withGuild": "Vous vous dites que ce séisme sera court, et demandez au reste de la guilde de braver celui-ci. Quelle erreur ! Un rocher s'écrase sur vous et vous assomme. Vous perdez **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Te dices a ti mismo que el daño será mínimo y continúas descansando. Sin embargo, se forma una grieta bajo tu cuerpo. Por miedo a caer dentro, intentas correr todo lo que puedes, pero tropiezas y te cortas el brazo.{{amount}} {emote:unitValues.lostHealth}Pierdes ** **."
+        }
+      },
+      {
+        "intro": "Tú (y tus compañeros de gremio) seguís tranquilamente vuestra aventura, cuando vuestros instintos os alertan del peligro. Poco a poco, una niebla blanquecina, casi opaca, se levanta del suelo irregular y cae del cielo para rodearte. Pronto no puedes ver nada a tu alrededor.",
+        "success": {
+          "withGuild": "¡Varios pares de ojos son mejor que uno! Gracias a la cooperación de tus visiones, tú y tus compañeros podréis abriros paso entre rocas y grietas sin que nadie resulte herido o se pierda. Tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "En esta situación de urgencia, mantienes la calma y utilizas las técnicas de rastreo que has aprendido de tu gremio para salir sano y salvo de este embrollo.{{amount}} Tu gremio recibe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "En esta situación de urgencia, mantienes la calma y utilizas las técnicas de rastreo que aprendiste antes para salir sano y salvo de este embrollo.{{amount}} {emote:unitValues.xp}Recibes ** **."
+        },
+        "escape": {
+          "withGuild": "Completamente perdidos en la densa y amenazadora niebla, usted y sus compañeros deciden acurrucarse para protegerse del frío, esperando a que el viento disperse la bruma.",
+          "solo": "Completamente paralizado por la angustia de este fenómeno casi sobrenatural, te entra el pánico, se te acelera el pulso y, a pesar del frescor, sientes cómo el sudor de tu pálida frente desciende uno a uno, hasta que el viento dispersa la bruma."
+        },
+        "lose": {
+          "withGuild": "Tu grupo no está completo, y tú y tus compañeros de gremio entráis en pánico ante este calvario. Cada uno sigue su camino, y tú no pides más tiempo para volver corriendo. Pero en tu prisa, se te cae **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Completamente aterrorizado por la niebla casi amenazadora, te agarras las piernas y corres en línea recta. Un gran error, ya que pronto acabas en el suelo entre la niebla.{{amount}} {emote:unitValues.lostHealth}Pierdes ** **."
+        }
+      },
+      {
+        "intro": "Estás avanzando tranquilamente hacia nuevas aventuras cuando una pequeña roca escurridiza, descarada y puntiaguda decide convertirte en su víctima y te hace un cruel corte en el tobillo.",
+        "success": {
+          "withGuild": "Por suerte para ti, tus compañeros de gremio curarán tu herida y te recuperarán en un santiamén.{{amount}} Tu gremio recibe ** {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "A pesar del dolor, consigues recordar las enseñanzas de tu gremio y utilizas estos conocimientos para curarte rápidamente.{{amount}} Tu gremio recibe ** {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "A pesar del dolor, consigues desinfectar y vendar la herida para poder volver a la carretera lo antes posible.{{amount}} {emote:unitValues.xp}Recibes ** **."
+        },
+        "escape": {
+          "withGuild": "Como no quieren retrasarse, sus compañeros de gremio deciden cargar con usted para poder atenderle cuando llegue a su destino.",
+          "solo": "A pesar del dolor, te las arreglas para seguir cojeando."
+        },
+        "lose": {
+          "withGuild": "Completamente indefensos ante esta herida, tus compañeros te tratan lo mejor que pueden, pero la herida se infecta y el dolor se hace insoportable. Pierdes **{{amount}} {emote:unitValues.lostHealth}**.",
+          "solo": "Solo, retorciéndote de dolor en medio del camino, maldices la orgullosa piedra y soportas el terrible dolor para continuar tu aventura. Pierdes **{{amount}} {emote:unitValues.lostHealth}**."
+        }
+      },
+      {
+        "intro": "Estás caminando tranquilamente hacia tu destino cuando grandes nubes negras se forman sobre la región. La oscuridad es total.",
+        "success": {
+          "withGuild": "Sin embargo, tus compañeros de gremio son previsores y uno de ellos saca una antorcha de su bolsa para iluminaros el camino. Tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "Por suerte llevabas una linterna en la alforja, que te dio uno de tus compañeros de gremio cuando te fuiste. Así que puedes ver fácilmente tu camino y continuar tu camino. Tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "Menos mal que llevaba una linterna en el bolsillo, ¡preparada antes de salir! Así podrás ver fácilmente tu camino y continuar tu marcha.{{amount}} {emote:unitValues.xp}Recibirás ** **."
+        },
+        "escape": {
+          "withGuild": "Completamente cegados, tú y tus compañeros avanzáis a tientas por la oscuridad más absoluta, ayudándoos unos a otros a evitar los obstáculos, hasta que la extraña noche pasa tan rápido como llegó.",
+          "solo": "Completamente cegado, avanzas a tientas por la oscuridad más absoluta hasta que la extraña noche vuelve tan rápido como vino."
+        },
+        "lose": {
+          "withGuild": "Completamente perdidos ante esta repentina ceguera, tú y tus compañeros entráis en pánico y corréis hacia delante hasta que esta extraña noche vuelve tan rápido como vino. Pero en vuestra prisa, habéis perdido **{{amount}} {emote:unitValues.lostMoney}**.",
+          "solo": "Solo y completamente perdido ante esta repentina ceguera, empiezas a entrar en pánico y caminas en línea recta, sin darte cuenta de la pequeña roca furtiva que te acechaba en ese momento.{{amount}} {emote:unitValues.lostHealth}Levantándote del suelo, pierdes ** **."
+        }
+      },
+      {
+        "intro": "Vous marchiez déjà depuis un certain temps sur un chemin qui vous paraît ne jamais finir lorsque soudain, les forces vous manquent et vous vous écroulez de fatigue.",
+        "success": {
+          "withGuild": "Al ver tu malestar, tus compañeros se apresuran a apoyarte y ofrecerte la energía que necesitas para recuperarte y continuar tu búsqueda. Tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "soloWithGuild": "A pesar de tu malestar, usas la poca energía que te queda para sacar algo de comida de tu inventario, donada por tu gremio, para recuperar fuerzas y continuar tu búsqueda. Tu gremio recibe **{{amount}} {emote:unitValues.{{emoteKey}}}**.",
+          "solo": "A pesar de tu malestar, usas la poca energía que te queda para sacar algo de comida preparada de tu inventario para recuperar fuerzas y continuar tu búsqueda. Recibes **{{amount}} {emote:unitValues.xp}**."
+        },
+        "escape": {
+          "withGuild": "Afortunadamente, sólo ha sido una molestia momentánea y, animado por tus compañeros de gremio, te pones de nuevo en marcha con ellos tras unos minutos de descanso.",
+          "solo": "Afortunadamente para ti, sólo fue una molestia momentánea, y lograste volver a la carretera tras unos minutos de descanso."
+        },
+        "lose": {
+          "withGuild": "Ante este repentino malestar, tus compañeros de gremio, sin saber cómo ayudarte, deciden llevarte hasta la siguiente etapa, pero el cansancio hace mella en ti y te desmayas. Pierdes **{{amount}} {emote:unitValues.energy}**.",
+          "solo": "Completamente agotado, el cielo empieza a girar a tu alrededor. Intentas levantarte, pero te fallan las fuerzas y te sientes como en un mar tempestuoso, así que te desmayas en medio de la carretera. Pierdes **{{amount}} {emote:unitValues.energy}**."
+        }
+      }
+    ]
+  },
+  "fightPet": {
+    "intro_male": [
+      "{{feralPet}} ¡te encuentras cara a cara con un !",
+      "{{feralPet}}se encuentra con un .",
+      "{{feralPet}} te encuentras con uno que no parece querer dejarte pasar.",
+      "{{feralPet}} de repente sueltas un chillido aterrorizado: ¡un está delante de ti!",
+      "{{feralPet}}no puedes soportar la vista de un .",
+      "ves una nube de polvo en el horizonte que se acerca peligrosamente... {{feralPet}} Es...",
+      "observas un misterioso mecanismo... Curioso, decides activarlo. {{feralPet}} Sin embargo, no tardas mucho en arrepentirte de tu decisión, ¡cuando un aparece de la nada!",
+      "oyes un golpe detrás de ti. {{feralPet}} Te das la vuelta y ves que te miran fijamente."
+    ],
+    "intro_female": [
+      "{{feralPet}} ¡te encuentras cara a cara con un !",
+      "{{feralPet}}te encuentras con un .",
+      "{{feralPet}} te encuentras con uno que no parece querer dejarte pasar.",
+      "{{feralPet}} de repente sueltas un chillido aterrorizado: ¡un está delante de ti!",
+      "{{feralPet}}no puedes soportar la vista de un .",
+      "ves una nube de polvo en el horizonte que se acerca peligrosamente... {{feralPet}} ¡Es una !",
+      "observas un misterioso mecanismo... Curioso, decides activarlo. {{feralPet}} Sin embargo, no tardas mucho en arrepentirte de tu decisión, ¡cuando un aparece de la nada!",
+      "oyes un golpe detrás de ti. {{feralPet}} Te das la vuelta y ves que te miran fijamente."
+    ],
+    "situation": [
+      "La bestia parece imposible de calmar... Intentas calmarte y pensar en un plan de acción para librarte de este animal.",
+      "Absolutamente aterrorizado, empiezas a pensar en las distintas opciones que tienes para librarte de esta bestia.",
+      "Es imposible no reaccionar; tienes que tomar una decisión para salvar tu vida...",
+      "Distraído por los dos ojos rojos del animal que te mira fijamente, intentas concentrarte en un plan de acción.",
+      "El aliento fétido del animal te hace girar la cabeza. Intentas concentrarte...",
+      "Te preguntas si deberías huir, pero crees que podrías librarte si piensas en un plan de acción.",
+      "Aprietas con fuerza la empuñadura de tu espada y, un poco tranquilizado, piensas qué hacer.",
+      "Petrificado de miedo, observas cómo el animal se abalanza sobre ti, tratando de obligar a tu cerebro tetanizado a idear una solución.",
+      "Estás desesperado por encontrar una solución que te mantenga con vida."
+    ],
+    "rageUpDescriptions": [
+      "Feliz de haber escapado, sientes que aumenta tu rabia contra las criaturas poseídas de esta isla.",
+      "Con tu victoria a tus espaldas, estás lleno de rabia contra las malvadas criaturas de esta isla.",
+      "Te sientes más fuerte que nunca y tu rabia contra las malvadas criaturas de esta isla va en aumento.",
+      "Orgulloso de ti mismo, sientes crecer tu rabia contra las malvadas criaturas de esta isla.",
+      "¡Serás imparable! Tu furia contra las criaturas malignas solo se verá reforzada por este evento."
+    ],
+    "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
+    "customPetDisplay_male": "{{petId}}{emote:pets. .emoteMale}{{petName}} {{adjective}}** **",
+    "customPetDisplay_female": "{{petId}}{emote:pets. .emoteFemale}{{petName}} {{adjective}}** **",
+    "adjectives_male": [
+      "faché",
+      "hambriento",
+      "enfurecido",
+      "furioso",
+      "travieso",
+      "enfadado",
+      "agresivo",
+      "violento",
+      "hostil",
+      "irritado",
+      "enfadado",
+      "furax",
+      "salvaje",
+      "malvado",
+      "brutal",
+      "amenaza",
+      "bárbaro",
+      "atroz",
+      "feroz",
+      "despiadado",
+      "caza",
+      "no contento",
+      "malvado",
+      "corrupto",
+      "cucharón",
+      "loco",
+      "trituradora",
+      "maldito",
+      "Maquiavélico",
+      "malicioso",
+      "feroz"
+    ],
+    "adjectives_female": [
+      "defectuoso",
+      "hambriento",
+      "enfurecido",
+      "furioso",
+      "travieso",
+      "enfadado",
+      "agresivo",
+      "violento",
+      "hostil",
+      "irritado",
+      "enfadado",
+      "furax",
+      "salvaje",
+      "malvado",
+      "brutal",
+      "amenaza",
+      "bárbaro",
+      "atroz",
+      "feroz",
+      "despiadado",
+      "caza",
+      "no contento",
+      "malvado",
+      "corrupto",
+      "cucharón",
+      "loco",
+      "destructivo",
+      "maldito",
+      "Maquiavélico",
+      "malicioso",
+      "feroz"
+    ],
+    "fightPetActions": {
+      "fistHit": {
+        "name": "Ponche",
+        "success": "¡Golpeas al animal con un gran puñetazo! Retrocede sorprendido. Aprovechas para huir.",
+        "failure": "¡Golpeas al animal con un puñetazo débil! Retrocede sorprendido, pero no es suficiente para librarse de él. ¡Sufres un feroz ataque antes de lograr escapar!"
+      },
+      "runAway": {
+        "name": "Escapar",
+        "success": "No te lo piensas ni un segundo e inmediatamente echas a correr. El animal te persigue, pero consigues escapar.",
+        "failure": "Intentas huir, pero rápidamente eres atrapado por la bestia, que te propina un fuerte golpe antes de dejarte solo."
+      },
+      "focusEnergy": {
+        "name": "Concentra tu energía y ataca",
+        "success": "Ralentizas la respiración y sientes la energía fluir por tus brazos. Liberas esta energía en un golpe brutal que hace huir al animal.",
+        "failure": "Intentas concentrarte, pero estás demasiado cansado para hacerlo. Te tambaleas en el suelo, pero aún así calmas a la bestia, que se va."
+      },
+      "intimidate": {
+        "name": "Intimida a la criatura",
+        "success": "Demuestras tu fuerza ante el animal, que retrocede rápidamente y huye a toda velocidad hacia el horizonte.",
+        "failure": "Vous bombez le torse en face de l'animal, ce qui n'a pour effet que de l'énerver d'autant plus. Dans la colère, il rate son attaque, et vous en profitez pour déguerpir rapidement !"
+      },
+      "baitWithMeat": {
+        "name": "Distraer a la bestia con carne",
+        "success": "Sacas un trozo de carne de la bolsa y se lo arrojas al animal, que se abalanza sobre él con avidez. Aprovechas para huir.",
+        "failure": "Torpemente, intentas lanzar un trozo de carne a la bestia para distraerla. Sin embargo, antes de que puedas iniciar tu maniobra, el animal se acerca a ti y te asesta un violento golpe antes de dejarte solo."
+      },
+      "baitWithVegetables": {
+        "name": "Distraer a la bestia con un vegetal",
+        "success": "Sacas una verdura de tu bolsa y se la lanzas al animal, que la olfatea con interés. Esto te da tiempo suficiente para escapar.",
+        "failure": "Sacas una verdura de tu bolsa y se la arrojas al animal, que la huele con asco. Aún más enfurecida que antes, la bestia te sorprende con un ataque fulminante. No puedes hacer nada para escapar y sufres de lleno su violento ataque."
+      },
+      "provoke": {
+        "name": "Provocar a la bestia",
+        "success": "Te acercas al animal y lo provocas haciéndole muecas. Se abalanza sobre ti. Te apartas en el último momento y se estrella contra un árbol. Lo rematas con una patada y continúas tu camino.",
+        "failure": "Te acercas al animal y lo provocas haciéndole muecas. Gruñe y te da un fuerte golpe antes de dejarte en paz."
+      },
+      "doNothing": {
+        "name": "No hacer nada",
+        "success": "No te mueves ni un milímetro y el animal parece ignorarte. Aprovechas la oportunidad para escabullirte, encantado de haber tenido tanta suerte.",
+        "failure": "No te mueves ni un milímetro, pero el animal no se deja engañar y te propina un violento golpe antes de dejarte en paz. Te pones de nuevo en marcha, avergonzado de haber pensado alguna vez que esta estrategia funcionaría."
+      },
+      "lastEffort": {
+        "name": "Usa toda tu fuerza para atacar",
+        "success": "Te concentras y reúnes todas tus fuerzas para atacar al animal. Le asestas un violento golpe que le hace huir.",
+        "failure": "Te concentras y reúnes todas tus fuerzas para atacar al animal. Le asestas un duro golpe, pero no es suficiente para hacerlo huir. ¡Sufres un feroz ataque antes de conseguir huir!"
+      },
+      "usePlayerPet": {
+        "name": "Llame a su mascota",
+        "success": "Après tant d'aventure en commun, il est enfin temps de faire appel à votre fidèle compagnon pour un combat épique. Ce dernier n'aura cependant pas lieu puisque l'animal sauvage, surpris par l'arrivée de votre familier, prend la fuite sans demander son reste !",
+        "failure": "En un instante, y antes de que puedas llamar a ningún otro animal al campo de batalla, te encuentras en el suelo, noqueado e inconsciente por la bestia salvaje que te deja solo, sin siquiera dedicarte una mirada."
+      },
+      "protect": {
+        "name": "Protegerse",
+        "success": "Levantas el escudo en alto delante de ti, preparado para recibir el golpe de la bestia. Se precipita hacia ti, pero mantienes los pies en el suelo lo mejor que puedes y acabas repeliendo el ataque. El animal huye después de sufrir este revés.",
+        "failure": "Pones tu escudo delante de ti, preparado para recibir el golpe de la bestia, pero el asalto es brutal. Tu defensa falla y caes unos metros. Convencido de que has sido incapacitado, el animal se aleja."
+      },
+      "playDead": {
+        "name": "Hacerse el muerto",
+        "success": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Après vous avoir observé inerte par terre pendant quelques temps, il s'éloigne et vous laisse tranquille.",
+        "failure": "Alors que l'animal vous dévisage, vous faites mine de tomber par terre et vous ne bougez plus. Il s'approche de vous, vous renifle, et constate que vous ne faites que semblant. Vous déconcertez la créature en vous levant rapidement et vous prenez vos jambes à votre cou, avant de finir mort pour de vrai."
+      },
+      "scream": {
+        "name": "Grita",
+        "success": "Lanzas un grito estridente que ahuyenta al animal. Continúas tu camino, aliviado por haber escapado ileso.",
+        "failure": "Lanzas un grito estridente que hace huir al animal. Sin embargo, vuelve hacia ti con un violento golpe antes de dejarte en paz."
+      },
+      "prayGod": {
+        "name": "Rezar a Dios",
+        "success": "Pides ayuda a Dios. Él te escucha y te protege del ataque del animal. Reemprendes la marcha, aliviado por haber salido ileso.",
+        "failure": "Pides ayuda a Dios. El animal carga contra ti y tus manos entrelazadas no hacen nada por protegerte de su ataque. Te pones de nuevo en marcha, avergonzado por haber pensado que esta estrategia funcionaría."
+      },
+      "attackLeft": {
+        "name": "Ataque por la izquierda",
+        "success": "Arremete contra el costado izquierdo del animal y lo golpea con fuerza. Sorprendido por el dolor, el animal huye y te deja en paz.",
+        "failure": "Embistes contra el costado izquierdo del animal e intentas asestarle un golpe. Sin embargo, fallas y quedas a tiro del animal, que contraataca violentamente antes de huir, dejándote tendido en el suelo."
+      },
+      "attackRight": {
+        "name": "Ataque por la derecha",
+        "success": "Arremete contra el costado derecho del animal y lo golpea con fuerza. Sorprendido por el dolor, el animal huye y te deja en paz.",
+        "failure": "Te lanzas a la derecha del animal e intentas asestarle un golpe. Sin embargo, fallas y quedas a tiro del animal, que contraataca violentamente antes de huir, dejándote tendido en el suelo."
+      },
+      "helpFromMates": {
+        "name": "Llame a los miembros de su gremio",
+        "success": "Llamas a tus compañeros, que llegan rápidamente al lugar. El animal, sorprendido por la llegada de estos refuerzos, ¡huye sin pensárselo dos veces!",
+        "failure": "Llamas a tus compañeros, pero están demasiado lejos para oírte. El veloz animal te deja inconsciente antes de huir en la distancia."
+      }
+    }
+  },
+  "gobletsGame": {
+    "intro": "te cruzas con un hombre que parece sospechoso. Se te acerca y te empuja hacia una mesa en la que hay tres misteriosas copas. Las instrucciones que te da son sencillas: debes sacar una copa al azar y recibir la recompensa, sea cual sea. Mientras observas los objetos de la mesa, el hombre se acerca sigilosamente por detrás y no parece querer dejarte marchar. Para salir de esta situación, te resignas a elegir una taza.",
+    "goblets": {
+      "metal": {
+        "description": "La de metal, que parece muy antigua, lleva grabada una cabeza de dragón.",
+        "name": "metal"
+      },
+      "biggest": {
+        "description": "El mayor de los tres, hecho de un material que no puedes identificar",
+        "name": "el mayor"
+      },
+      "sparkling": {
+        "description": "Le dernier, sculpté dans un bois bleu et scintillant à tel point qu'il paraît enchanté",
+        "name": "espumoso"
+      }
+    },
+    "results": {
+      "life": "Vous soulevez doucement le gobelet $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) et remarquez qu'il n'y a rien dessous. Déçu, et mauvais perdant, vous frappez les gobelets restants qui volent dans les airs. Remarquant qu'il n'y avait rien non plus dans les autres gobelets, vous vous retournez vers l'arnaqueur. Malheureusement, celui-ci frappe le premier. Vous perdez **{{quantity}} {emote:unitValues.lostHealth}**.",
+      "time": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta la taza con cuidado y descubre una pequeña moneda. Por desgracia, el hombre que te sigue no parece querer dejarte marchar con tu recompensa.{{quantity}} {emote:unitValues.time}Pasas ** Min ** negociando con él antes de darte por vencido y continuar tu camino.",
+      "nothing": "$t(smallEvents:gobletsGame.goblets.{{goblet}}.name) Levanta suavemente la taza y comprueba que no hay nada debajo. Decepcionado, te marchas con tristeza, pensando que tal vez tengas más suerte en otra ocasión.",
+      "end": "Devant votre manque de réaction, l'homme a la mauvaise idée d'essayer de vous voler. Remarquant sa manoeuvre, vous intervenez, mais vous êtes rapidement surpris de la force de l'homme qui parvient à se dégager d'un brusque mouvement, avant de s'enfuir. Vous vous en sortez avec une légère blessure. Vous perdez **{{quantity}} {emote:unitValues.lostHealth}**."
+    }
+  },
+  "shop": {
+    "intro_m": [
+      "{{name}}Mientras viajas, te encuentras con . Es un vendedor ambulante que te ofrece una oferta especial.",
+      "{{name}}Mientras avanzas por la carretera, te encuentras cara a cara con , que rápidamente te hace una tentadora oferta.",
+      "{{name}} Cuando te dispones a reemprender la marcha tras una breve pausa, un hombre que se presenta como \" - vendedor ambulante\" te ofrece un intercambio.",
+      "{{name}}Al rodear una roca, te encuentras cara a cara con un vendedor ambulante llamado , que parece vender cosas muy interesantes.",
+      "{{name}} Mientras paseas tranquilamente, aparece ante ti un carrito con el letrero \"- supervendedor ambulante de artículos\". Inmediatamente comienza una transacción.",
+      "En cierto momento de tu viaje, un mercader te llama. {{name}} Dice llamarse así y que tiene algunos objetos que pueden ayudarte en tu aventura.",
+      "Tras un largo paseo, se te acerca un hombre. {{name}} Te dice que se llama un comerciante de primera clase. Rápidamente te muestra uno de sus muchos artículos.",
+      "Durante un breve descanso apoyado contra un árbol, un hombre se le acerca y se presenta como viajante de comercio. {{name}} El hombre, cuyo nombre es , parece tener una oferta tentadora."
+    ],
+    "intro_f": [
+      "{{name}} Mientras avanzas por la carretera, te encuentras cara a cara con , que rápidamente te hace una tentadora oferta.",
+      "En parcourant les routes, vous rencontrez souvent des marchands ambulants. Aujourd'hui, c'est une marchande nommée {{name}} qui vous propose son offre.",
+      "Durante tu viaje, se te acerca un mercader. {{name}} Dice llamarse así y que tiene algunos objetos que pueden ayudarte en tu aventura.",
+      "{{name}}Mientras avanzas por el camino, te cruzas con un carro en el que viaja un mercader llamado . Te ofrece comprar uno de sus objetos, diciendo que podría serte útil en tu aventura."
+    ],
+    "end": [
+      "\n\n{{item}}{{price}} {emote:unitValues.money}\n\n {{type}}| **Tipo :**"
+    ],
+    "types": [
+      "Arma",
+      "Armadura/Escudo",
+      "Poción",
+      "Objeto"
+    ],
+    "names_m": [
+      "Terry",
+      "Marco",
+      "Didier",
+      "Bernard",
+      "Georges",
+      "Louis",
+      "Kilton",
+      "Kikolou",
+      "Araj",
+      "Lavio",
+      "Bugri",
+      "Faras",
+      "Finn",
+      "Russel",
+      "Ullure",
+      "Vivian",
+      "Belethor"
+    ],
+    "names_f": [
+      "Karine",
+      "Cremia",
+      "Fouyaya",
+      "Ember",
+      "Embry",
+      "Emirel",
+      "Fressah",
+      "Ullure"
+    ],
+    "purchased": [
+      "Satisfecho con su compra, ya está en camino.",
+      "Vous lui tendez une bourse afin de procéder à l'achat. Une fois le bien acquis, vous continuez votre chemin."
+    ],
+    "notEnoughMoney": [
+      "Por desgracia, no tienes suficiente dinero, así que vuelves a la carretera.",
+      "Vous tendez une bourse vide en espérant que cela passe sans encombre, mais vous vous faites vite chasser. Vous reprenez votre chemin triste et déçu."
+    ],
+    "refused": [
+      "Rechazas la oferta y sigues tu camino."
+    ]
+  },
+  "epicItemShop": {
+    "intro": [
+      "Mientras se dirige a su destino, tiene un encuentro inesperado. Alderic el anticuario aparece en el horizonte, con su carro de tesoros a cuestas, dispuesto a discutir un asunto especial.",
+      "Por el camino, aparece un extraño individuo. Aldéric el anticuario, un encantador vendedor ambulante, aparece con una oferta cautivadora.",
+      "Caminando tranquilamente hacia lo desconocido, surge una figura familiar: Aldéric el anticuario, el mercader errante, le ofrece una propuesta intrigante.",
+      "Durante su tranquilo viaje, ocurre algo insólito. Aldéric el anticuario, el artista itinerante de las antigüedades, le invita a una transacción memorable.",
+      "Durante su viaje, se produce una sorprendente interrupción. Es Aldéric, el anticuario, el mercader ambulante, que te regala un tesoro inesperado.",
+      "Durante un breve descanso bajo un árbol, aparece una figura misteriosa. Es Aldéric el anticuario, el vagabundo de lo insólito, dispuesto a sumergirle en una tentadora oferta.",
+      "Mientras avanza tranquilamente por la carretera, el sonido de unas ruedas de carro llama su atención. Aldéric el anticuario, un hombre de mediana edad pintorescamente vestido, recorre los caminos como mercader ambulante. Con una sonrisa amable, te invita a explorar su colección de objetos fascinantes.",
+      "Caminando por un polvoriento sendero de piedra, aparece un carro con la inscripción \"Aldéric l'antiquaire - marchand d'objets super\". Una transacción está a punto de comenzar.",
+      "Caminando tranquilamente, aparece en el horizonte un carromato de madera que despierta su curiosidad. A bordo va Aldéric, el anticuario, un hombre distinguido marcado por el paso del tiempo. Su carro está repleto de antigüedades cuidadosamente ordenadas, y se ofrece a mostrarte sus tesoros, todos ellos cargados de historia.",
+      "Tras una breve pausa, un individuo sorprendentemente bien vestido se acerca a ti. Se presenta como Aldéric el anticuario, un reputado comerciante ambulante. Su atuendo, una mezcla de telas antiguas y accesorios misteriosos, refleja su amor por los objetos de antaño. Con un acento teñido de emoción, te cuenta la historia de sus hallazgos únicos.",
+      "Durante su tranquilo paseo, un carro que parece un tesoro ambulante se detiene ante usted. Su conductor, Aldéric el anticuario, es un hombre afable vestido con ropa de época. Le invita a explorar su colección de curiosidades, cada una acompañada de una historia que le llenará de asombro.",
+      "Durante una pausa a la sombra de un gran árbol, un hombre distinguido se le acerca con una sonrisa amable. Es Aldéric el anticuario, un marchante de renombre. Su atuendo evoca una época pasada y te muestra con atención su colección de objetos antiguos expuestos en su carro.",
+      "Tras una larga caminata, un hombre de mediana edad, vestido con ropas de antaño, le recibe cortésmente. Se presenta como Aldéric l'antiquaire, un apasionado de las antigüedades, y le invita a descubrir su colección de objetos fascinantes, contándole alegremente la historia de cada uno de ellos."
+    ],
+    "reductionTip": "Il incline légèrement la tête et vous confie en aparté : \"Si vous avez l'intention de vous aventurer jusqu'à la Route des Merveilles et que vous réussissez à me trouver là-bas, soyez assuré que je vous réserverai une offre des plus avantageuses.\"",
+    "purchased": [
+      "Satisfecho con su compra, ya está en camino.",
+      "Vous lui tendez une bourse afin de procéder à l'achat. Une fois le bien acquis, vous continuez votre chemin."
+    ],
+    "notEnoughMoney": [
+      "Por desgracia, no tienes suficiente dinero, así que vuelves a la carretera.",
+      "Vous tendez une bourse vide en espérant que cela passe sans encombre, mais vous vous faites vite chasser, vous reprenez votre chemin triste et déçu."
+    ],
+    "refused": [
+      "Rechazas la oferta y sigues tu camino."
+    ]
+  }
+}

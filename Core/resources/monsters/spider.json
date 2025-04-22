@@ -1,0 +1,40 @@
+{
+  "baseEnergyValue": 325,
+  "attackRatio": 100,
+  "defenseRatio": 50,
+  "speedRatio": 100,
+  "breath": 6,
+  "maxBreath": 20,
+  "breathRegen": 4,
+  "rewardFactor": 0.65,
+  "attacks": [
+    {
+      "id": "poisonousAttack",
+      "minLevel": 40,
+      "weight": 4
+    },
+    {
+      "id": "webShotAttack",
+      "minLevel": 0,
+      "weight": 7
+    },
+    {
+      "id": "stealth",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "simpleAttack",
+      "minLevel": 0,
+      "weight": 5
+    },
+    {
+      "id": "familyMealAttack",
+      "minLevel": 60,
+      "weight": 3
+    }
+  ],
+  "maps": [
+    1003
+  ]
+}

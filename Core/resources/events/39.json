@@ -1,0 +1,63 @@
+{
+  "possibilities": {
+    "convoy": {
+      "outcomes": {
+        "0": {
+          "money": 350
+        },
+        "1": {
+          "money": 150,
+          "randomItem": {}
+        },
+        "2": {
+          "money": -150,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "3": {
+          "effect": "hurt",
+          "health": -20,
+          "money": -300,
+          "tags": [
+            "moneyUsage"
+          ]
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "1": {
+          "money": -300
+        }
+      }
+    },
+    "meal": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 120
+        },
+        "1": {}
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "effect": "hurt",
+          "health": -20
+        },
+        "1": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 26
+    }
+  ]
+}

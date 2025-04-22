@@ -1,0 +1,73 @@
+{
+  "possibilities": {
+    "craftBoat": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": -5,
+          "lostTime": 30
+        },
+        "1": {
+          "effect": "freezing",
+          "health": -30
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 140,
+          "randomItem": {}
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 165
+        }
+      }
+    },
+    "otherWay": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 55
+        }
+      }
+    },
+    "searchBridge": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "2": {
+          "money": 30
+        },
+        "3": {
+          "effect": "confounded",
+          "health": -25
+        }
+      }
+    },
+    "swim": {
+      "outcomes": {
+        "0": {
+          "effect": "freezing",
+          "health": -30
+        },
+        "1": {
+          "health": 5
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 18
+    }
+  ]
+}

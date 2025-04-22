@@ -1,0 +1,8 @@
+{
+  "type": "de",
+  "tags": [
+    "detALa"
+  ],
+  "canBeGoToPlaceMissionDestination": true,
+  "attribute": "continent1"
+}

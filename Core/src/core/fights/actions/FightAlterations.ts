@@ -1,0 +1,21 @@
+export const FightAlterations = {
+	BLIND: "blind",
+	BURNED: "burned",
+	ALLIES_ARE_PRESENT: "alliesArePresent",
+	CONCENTRATED: "concentrated",
+	CONFUSED: "confused",
+	CURSED: "cursed",
+	DIRTY: "dirty",
+	FROZEN: "frozen",
+	FULL: "full",
+	OUTRAGE: "outrage",
+	PARALYZED: "paralyzed",
+	PETRIFIED: "petrified",
+	POISONED: "poisoned",
+	PROTECTED: "protected",
+	SLOWED: "slowed",
+	STUNNED: "stunned",
+	SWALLOWED: "swallowed",
+	TARGETED: "targeted",
+	WEAK: "weak"
+};

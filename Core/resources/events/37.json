@@ -1,0 +1,34 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 5,
+          "lostTime": 15
+        },
+        "1": {
+          "randomItem": {}
+        }
+      }
+    },
+    "run": {
+      "outcomes": {
+        "0": {},
+        "1": {}
+      }
+    },
+    "walk": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 24
+    }
+  ]
+}

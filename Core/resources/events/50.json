@@ -1,0 +1,62 @@
+{
+  "possibilities": {
+    "ask": {
+      "outcomes": {
+        "0": {
+          "health": 15,
+          "money": -50,
+          "tags": [
+            "moneyUsage"
+          ]
+        },
+        "1": {
+          "health": -15,
+          "money": -100
+        },
+        "2": {}
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 10
+        },
+        "1": {}
+      }
+    },
+    "leave": {
+      "outcomes": {
+        "0": {
+          "health": 10
+        },
+        "1": {
+          "money": -100
+        },
+        "2": {}
+      }
+    },
+    "nap": {
+      "outcomes": {
+        "0": {
+          "effect": "hurt",
+          "health": -30
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 60
+        },
+        "2": {
+          "effect": "sleeping",
+          "money": -50
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 17
+    }
+  ]
+}

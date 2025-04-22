@@ -1,0 +1,62 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 20
+        },
+        "1": {
+          "effect": "hurt",
+          "health": -45
+        }
+      }
+    },
+    "goDown": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": -30,
+          "lostTime": 150
+        },
+        "1": {
+          "randomItem": {}
+        },
+        "2": {},
+        "3": {
+          "money": 150
+        }
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "money": -75
+        }
+      }
+    },
+    "useBucket": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 60
+        },
+        "1": {
+          "effect": "confounded",
+          "health": -40
+        },
+        "2": {
+          "money": 150
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 17
+    }
+  ]
+}

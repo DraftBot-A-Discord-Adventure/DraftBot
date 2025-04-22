@@ -1,0 +1,50 @@
+{
+  "possibilities": {
+    "accept": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {
+          "effect": "sleeping",
+          "health": 35
+        }
+      }
+    },
+    "comrpomise": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "sleeping",
+          "tags": [
+            "drinkAlcohol"
+          ]
+        }
+      }
+    },
+    "deny": {
+      "outcomes": {
+        "0": {
+          "effect": "hurt",
+          "health": -25
+        },
+        "1": {
+          "effect": "sick",
+          "health": -10
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 135
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 4
+    }
+  ]
+}

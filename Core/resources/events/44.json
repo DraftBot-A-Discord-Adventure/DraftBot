@@ -1,0 +1,63 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "randomItem": {}
+        }
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": -10,
+          "lostTime": 60
+        },
+        "1": {
+          "effect": "occupied",
+          "health": 15,
+          "lostTime": 180
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 15,
+          "randomItem": {}
+        },
+        "3": {
+          "health": -50
+        }
+      }
+    },
+    "push": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "health": -50
+        },
+        "2": {
+          "money": 300
+        }
+      }
+    },
+    "watch": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 10,
+          "money": 300
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 360,
+          "money": -200
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 18
+    }
+  ]
+}

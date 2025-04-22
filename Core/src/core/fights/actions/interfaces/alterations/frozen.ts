@@ -1,0 +1,51 @@
+import { FightAlterationFunc } from "../../../../../data/FightAlteration";
+import { FightAlterationState } from "../../../../../../../Lib/src/types/FightAlterationResult";
+import {
+	attackInfo, FightActionController, statsInfo
+} from "../../FightActionController";
+import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
+import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import {
+	defaultFightAlterationResult, defaultHealFightAlterationResult
+} from "../../../FightController";
+import { Fighter } from "../../../fighter/Fighter";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
+
+const use: FightAlterationFunc = (affected, fightAlteration, opponent) => {
+	// 50% chance to be healed from the frozen (except for the first two turns)
+	if (RandomUtils.draftbotRandom.bool() && affected.alterationTurn > 2) {
+		affected.removeSpeedModifiers(fightAlteration);
+		return defaultHealFightAlterationResult(affected);
+	}
+
+	const result = defaultFightAlterationResult();
+	result.state = FightAlterationState.ACTIVE;
+	if (!affected.hasSpeedModifier(fightAlteration)) {
+		FightActionController.applyBuff(result, {
+			selfTarget: true,
+			stat: FightStatBuffed.SPEED,
+			operator: FightStatModifierOperation.MULTIPLIER,
+			value: 0.4
+		}, affected, fightAlteration);
+	}
+	result.damages = FightActionController.getAttackDamage(getStatsInfo(affected, opponent), affected, getAttackInfo(), true);
+	return result;
+};
+
+function getAttackInfo(): attackInfo {
+	return {
+		minDamage: 5,
+		averageDamage: 45,
+		maxDamage: 80
+	};
+}
+
+function getStatsInfo(affected: Fighter, _opponent: Fighter): statsInfo {
+	return {
+		attackerStats: [affected.getMaxBreath() * 40],
+		defenderStats: [affected.getBreath() * 80],
+		statsEffect: [1]
+	};
+}
+
+export default use;

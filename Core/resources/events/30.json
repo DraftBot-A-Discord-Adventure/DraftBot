@@ -1,0 +1,105 @@
+{
+  "possibilities": {
+    "duke": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "health": 10,
+          "lostTime": 50,
+          "tags": [
+            "bigFeast"
+          ]
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "money": 150,
+          "tags": [
+            "bigFeast"
+          ]
+        },
+        "2": {
+          "effect": "jailed"
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "health": -1
+        }
+      }
+    },
+    "gift": {
+      "outcomes": {
+        "0": {
+          "money": -400,
+          "tags": [
+            "bigFeast",
+            "moneyUsage"
+          ]
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 35,
+          "tags": [
+            "bigFeast"
+          ]
+        },
+        "2": {
+          "randomItem": {},
+          "tags": [
+            "bigFeast"
+          ]
+        }
+      }
+    },
+    "party": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 155,
+          "tags": [
+            "bigFeast"
+          ]
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 85,
+          "money": -100,
+          "tags": [
+            "bigFeast",
+            "moneyUsage"
+          ]
+        },
+        "2": {
+          "effect": "occupied",
+          "health": 50,
+          "lostTime": 60,
+          "tags": [
+            "bigFeast"
+          ]
+        }
+      }
+    },
+    "steal": {
+      "outcomes": {
+        "0": {
+          "effect": "jailed"
+        },
+        "1": {
+          "health": 20
+        },
+        "2": {
+          "effect": "sick"
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 16
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "health": -10
+        }
+      }
+    },
+    "followDog": {
+      "outcomes": {
+        "0": {
+          "effect": "lost"
+        },
+        "1": {
+          "money": 176
+        }
+      }
+    },
+    "skip": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 15
+        },
+        "1": {},
+        "2": {
+          "effect": "hurt",
+          "health": -15
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 9
+    }
+  ]
+}
