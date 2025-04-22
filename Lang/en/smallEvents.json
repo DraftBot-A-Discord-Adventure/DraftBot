@@ -354,8 +354,8 @@
       "you discover an old, abandoned wooden hut, you decide to explore it and discover only an old grimoire that seems to have been lying around for years..."
     ],
     "reward": "{emote:unitValues.money} Money: **{{money}}**\n{emote:unitValues.xp} XP: **{{xp}}**\n{emote:unitValues.score} Points: **The number of points will depend on your final ranking.**\n{emote:rewards.item} A random equipment.",
-    "endMessage": "\n\n{emote:commands.report} \"To the adventurer belonging to {{league}} who finds this text, **if you maintain your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou resume your journey, while looking forward to collecting your bonus {{time}}.",
-    "notEnoughFight": "\n\n{emote:commands.report} \"To the adventurer belonging to {{league}} who finds this text, **if you make a few fights using the {command:fight}** command, you can win these rewards:\n\n{{rewards}}\"\n\nYou quickly set off again, fearing that you won't manage to fight enough players before the end of the season {{time}}.",
+    "endMessage": "\n\n{emote:commands.report} \"Have an adventurer belonging to the {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) that will find this text, **if you keep your glory until the end of the season**, you will be able to win these rewards:\n\n{{rewards}}\"\n\nYou will be back on your way, while enjoying your {{time}} bonus .",
+    "notEnoughFight": "\n\n{emote:commands.report} \"Have an adventurer belonging to the {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) that will find this text, **if you perform some battles using the {command:fight}command**, you will be able to win these rewards:\n\n{{rewards}}\n\nYou will quickly get back on your way Fear of failing to fight enough players before the end of the {{time}} season.",
     "rewardToday": "\n\n{emote:commands.report} \"Get your reward before the end of the week by ordering {command:leaguebonus} !\"\n\nYou're on your way again, looking forward to collecting your bonus."
   },
   "winGuildXP": {
