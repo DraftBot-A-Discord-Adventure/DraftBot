@@ -14,7 +14,8 @@ import {
 	draftBotClient, keycloakConfig
 } from "../../bot/DraftBotShard";
 import {
-	CommandMissionsPacketReq, CommandMissionsPacketRes
+	CommandMissionsPacketReq,
+	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { User } from "discord.js";
@@ -48,7 +49,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 export async function handleCommandMissionPlayerNotFoundPacket(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	await interaction?.reply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
+		embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
 		flags: MessageFlags.Ephemeral
 	});
 }

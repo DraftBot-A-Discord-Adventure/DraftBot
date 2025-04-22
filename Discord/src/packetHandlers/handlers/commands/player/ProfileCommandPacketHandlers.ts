@@ -10,7 +10,7 @@ import { handleCommandProfilePacketRes } from "../../../../commands/player/Profi
 export default class ProfileCommandPacketHandlers {
 	@packetHandler(CommandProfilePlayerNotFound)
 	async profilePlayerNotFound(context: PacketContext, _packet: CommandProfilePlayerNotFound): Promise<void> {
-		await handleClassicError(context, "error:playerDoesntExist", {}, true);
+		await handleClassicError(context, "error:playerDoesntExist", {}, { ephemeral: true });
 	}
 
 	@packetHandler(CommandProfilePacketRes)

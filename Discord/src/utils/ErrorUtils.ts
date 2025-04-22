@@ -20,17 +20,18 @@ import { MessageFlags } from "discord-api-types/v10";
 
 /**
  * Reply to an interaction with an ephemeral error PREFER {@link sendErrorMessage} for most cases
+ * @param context
  * @param interaction
  * @param reason
  */
-export async function replyEphemeralErrorMessage(interaction: DraftbotInteraction, reason: string): Promise<void> {
+export async function replyEphemeralErrorMessage(context: PacketContext | null, interaction: DraftbotInteraction, reason: string): Promise<void> {
 	if (interaction.deferred) {
 		await interaction.deleteReply();
 	}
 
 	// Without a bind, context is lost for "this"
 	await (interaction.replied || interaction.deferred ? interaction.followUp.bind(interaction) : interaction.reply.bind(interaction))({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, reason)],
+		embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, reason)],
 		flags: MessageFlags.Ephemeral
 	});
 }
@@ -45,6 +46,7 @@ export enum SendManner {
 /**
  * Sends an error message
  * @param user
+ * @param context
  * @param interaction
  * @param reason
  * @param isCancelling - true if the error is a cancelling error
@@ -53,6 +55,7 @@ export enum SendManner {
  */
 export async function sendErrorMessage(
 	user: User,
+	context: PacketContext,
 	interaction: DraftbotInteraction,
 	reason: string,
 	{
@@ -66,7 +69,7 @@ export async function sendErrorMessage(
 	} = {}
 ): Promise<void> {
 	const sendArg = {
-		embeds: [new DraftBotErrorEmbed(user, interaction, reason, isCancelling, isBlockedError)]
+		embeds: [new DraftBotErrorEmbed(user, context, interaction, reason, isCancelling, isBlockedError)]
 	};
 	switch (sendManner) {
 		case SendManner.REPLY:
@@ -150,12 +153,32 @@ export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: b
  * @param context
  * @param errorKey
  * @param replacements
- * @param ephemeral
+ * @param opts
  */
 export async function handleClassicError(context: PacketContext, errorKey: string, replacements: {
 	[key: string]: unknown;
-} = {}, ephemeral = false): Promise<void> {
+} = {}, opts: {
+	ephemeral?: boolean; forcedTitle?: string;
+} = {}): Promise<void> {
 	const interactionToRespondTo = MessagesUtils.getCurrentInteraction(context);
+	const lng = interactionToRespondTo.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE;
+
+	const embed = new DraftBotErrorEmbed(
+		interactionToRespondTo.user,
+		context,
+		interactionToRespondTo,
+		i18n.t(errorKey, {
+			lng,
+			...replacements
+		})
+	);
+
+	if (opts.forcedTitle) {
+		embed.setTitle(i18n.t(opts.forcedTitle, {
+			lng,
+			...replacements
+		}));
+	}
 
 	await (!interactionToRespondTo.replied
 		? interactionToRespondTo.deferred
@@ -163,16 +186,7 @@ export async function handleClassicError(context: PacketContext, errorKey: strin
 			: interactionToRespondTo.reply.bind(interactionToRespondTo)
 		: interactionToRespondTo.followUp.bind(interactionToRespondTo)
 	)({
-		embeds: [
-			new DraftBotErrorEmbed(
-				interactionToRespondTo.user,
-				interactionToRespondTo,
-				i18n.t(errorKey, {
-					lng: interactionToRespondTo.userLanguage ?? context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE,
-					...replacements
-				})
-			)
-		],
-		flags: ephemeral ? MessageFlags.Ephemeral as number : 0
+		embeds: [embed],
+		flags: opts.ephemeral ? MessageFlags.Ephemeral as number : 0
 	});
 }

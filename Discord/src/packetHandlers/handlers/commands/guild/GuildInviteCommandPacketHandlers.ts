@@ -61,6 +61,6 @@ export default class GuildInviteCommandPacketHandlers {
 
 	@packetHandler(CommandGuildInvitePlayerNotFound)
 	async guildInvitePlayerNotFound(context: PacketContext, _packet: CommandGuildInvitePlayerNotFound): Promise<void> {
-		await handleClassicError(context, "error:playerDoesntExist", {}, true);
+		await handleClassicError(context, "error:playerDoesntExist", {}, { ephemeral: true });
 	}
 }

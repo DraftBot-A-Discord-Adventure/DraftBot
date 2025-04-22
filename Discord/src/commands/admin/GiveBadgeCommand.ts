@@ -49,7 +49,7 @@ async function handleGetPlayerInfoResponse(
 		const getPlayerInfoPacket = packet as CommandGetPlayerInfoRes;
 		if (!getPlayerInfoPacket.exists) {
 			await interaction.editReply({
-				embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]
+				embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))]
 			});
 			return;
 		}
@@ -58,7 +58,7 @@ async function handleGetPlayerInfoResponse(
 
 		if (badges.length === 0) {
 			await interaction.editReply({
-				embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:giveBadge.alreadyHaveBadge", { lng: interaction.userLanguage }))]
+				embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("commands:giveBadge.alreadyHaveBadge", { lng: interaction.userLanguage }))]
 			});
 			return;
 		}

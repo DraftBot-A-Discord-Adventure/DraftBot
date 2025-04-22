@@ -336,11 +336,15 @@ export async function handleCommandTopInvalidPagePacket(context: PacketContext, 
 
 	await interaction.editReply({
 		embeds: [
-			new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.invalidPage", {
-				lng: interaction.userLanguage,
-				minPage: packet.minPage,
-				maxPage: packet.maxPage
-			}))
+			new DraftBotErrorEmbed(
+				interaction.user,
+				context, interaction,
+				i18n.t("commands:top.invalidPage", {
+					lng: interaction.userLanguage,
+					minPage: packet.minPage,
+					maxPage: packet.maxPage
+				})
+			)
 		]
 	});
 }
@@ -350,7 +354,7 @@ export async function handleCommandTopPlayersEmptyPacket(context: PacketContext,
 
 	await interaction.editReply({
 		embeds: [
-			new DraftBotErrorEmbed(interaction.user, interaction,
+			new DraftBotErrorEmbed(interaction.user, context, interaction,
 				i18n.t(packet.needFight ? "commands:top.nobodyInTopGlory" : "commands:top.nobodyInTopPlayers", {
 					lng: interaction.userLanguage, needFight: packet.needFight ? packet.needFight : 0
 				}))
@@ -362,6 +366,6 @@ export async function handleCommandTopGuildsEmptyPacket(context: PacketContext):
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	await interaction.editReply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: interaction.userLanguage }))]
+		embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: interaction.userLanguage }))]
 	});
 }

@@ -58,7 +58,7 @@ export async function handleCommandShopNoAlterationToHeal(context: PacketContext
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.noAlterationToHeal", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.noAlterationToHeal", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -66,7 +66,7 @@ export async function handleCommandShopNoEnergyToHeal(context: PacketContext): P
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.noEnergyToHeal", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.noEnergyToHeal", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -74,7 +74,7 @@ export async function handleCommandShopTooManyEnergyBought(context: PacketContex
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.tooManyEnergyBought", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.tooManyEnergyBought", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -82,7 +82,7 @@ export async function handleCommandShopAlreadyHaveBadge(context: PacketContext):
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.alreadyHaveBadge", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.alreadyHaveBadge", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -90,7 +90,7 @@ export async function handleCommandShopBoughtTooMuchDailyPotions(context: Packet
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.boughtTooMuchDailyPotions", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.boughtTooMuchDailyPotions", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -98,7 +98,7 @@ export async function handleCommandShopNotEnoughMoney(packet: CommandShopNotEnou
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:shop.notEnoughMoney", {
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:shop.notEnoughMoney", {
 			lng: interaction.userLanguage,
 			missingCurrency: packet.missingCurrency,
 			currency: packet.currency

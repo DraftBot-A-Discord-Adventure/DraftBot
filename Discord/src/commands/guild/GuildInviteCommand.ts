@@ -48,6 +48,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 		embeds: [
 			new DraftBotErrorEmbed(
 				interaction.user,
+				context,
 				interaction,
 				i18n.t(errorKey, {
 					level: GuildConstants.REQUIRED_LEVEL,

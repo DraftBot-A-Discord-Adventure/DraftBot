@@ -55,7 +55,11 @@ mqttClient.on("message", async (topic, message) => {
 	const response: DraftBotPacket[] = [];
 	const context: PacketContext = dataJson.context;
 
-	if (botConfig.MODE_MAINTENANCE && !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.MAINTENANCE)) {
+	if (
+		botConfig.MODE_MAINTENANCE
+		&& !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.MAINTENANCE)
+		&& !(dataJson.context as PacketContext).rightGroups.includes(RightGroup.ADMIN)
+	) {
 		response.push(makePacket(ErrorMaintenancePacket, {}));
 	}
 	else {

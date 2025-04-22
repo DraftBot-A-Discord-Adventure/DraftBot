@@ -51,6 +51,7 @@ export async function handleCommandUnlockNotEnoughMoneyError(packet: CommandUnlo
 	}
 	await sendErrorMessage(
 		interaction.user,
+		context,
 		interaction,
 		i18n.t("error:notEnoughMoney", {
 			lng: interaction.userLanguage,

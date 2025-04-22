@@ -49,6 +49,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:petDoesntExist", { lng })
 				)
@@ -62,6 +63,7 @@ export async function handleCommandPetNickPacketRes(packet: CommandPetNickPacket
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:petNickNotValid", {
 						lng,

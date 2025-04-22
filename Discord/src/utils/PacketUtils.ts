@@ -44,7 +44,7 @@ export abstract class PacketUtils {
 			const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
 			if (!keycloakId) {
 				await interaction.reply({
-					embeds: [new DraftBotErrorEmbed(interaction.user, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
+					embeds: [new DraftBotErrorEmbed(interaction.user, null, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
 					flags: MessageFlags.Ephemeral
 				});
 				return null;

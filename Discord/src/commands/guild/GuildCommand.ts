@@ -91,6 +91,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 			embeds: [
 				new DraftBotErrorEmbed(
 					interaction.user,
+					context,
 					interaction,
 					i18n.t("error:guildDoesntExist", { lng })
 				)

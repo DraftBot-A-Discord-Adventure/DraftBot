@@ -88,17 +88,9 @@ export default class ErrorHandler {
 
 	@packetHandler(ErrorMaintenancePacket)
 	async maintenanceHandler(context: PacketContext, _packet: ErrorMaintenancePacket): Promise<void> {
-		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-
-		if (!interaction) {
-			return;
-		}
-		const lng = interaction.userLanguage;
-		const embed = new DraftBotEmbed()
-			.setErrorColor()
-			.formatAuthor(i18n.t("error:maintenanceTitle", { lng }), interaction.user)
-			.setDescription(i18n.t("error:maintenance", { lng }));
-		await interaction.channel.send({ embeds: [embed] });
+		await handleClassicError(context, "error:maintenance", {}, {
+			forcedTitle: "error:maintenanceTitle"
+		});
 	}
 
 	@packetHandler(ErrorBannedPacket)

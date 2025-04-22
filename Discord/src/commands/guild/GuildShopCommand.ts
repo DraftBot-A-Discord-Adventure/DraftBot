@@ -4,7 +4,8 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildShopGiveXp, CommandGuildShopPacketReq
+	CommandGuildShopGiveXp,
+	CommandGuildShopPacketReq
 } from "../../../../Lib/src/packets/commands/CommandGuildShopPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import {
@@ -21,7 +22,7 @@ export async function handleCommandGuildShopNoFoodStorageSpace(context: PacketCo
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:guildShop.noFoodStorageSpace", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:guildShop.noFoodStorageSpace", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
@@ -29,7 +30,7 @@ export async function handleCommandGuildShopEmpty(context: PacketContext): Promi
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!);
 
 	if (interaction) {
-		await sendErrorMessage(interaction.user, interaction, i18n.t("commands:guildShop.empty", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
+		await sendErrorMessage(interaction.user, context, interaction, i18n.t("commands:guildShop.empty", { lng: interaction.userLanguage }), { sendManner: SendManner.FOLLOWUP });
 	}
 }
 
