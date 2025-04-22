@@ -22,7 +22,7 @@
   "topWeekAnnouncementNoWinner": "{emote:announcements.trophy} **Le classement de la semaine est terminé ! Malheureusement, il n'y a pas de participant et donc de gagnant cette semaine.**",
   "totalUsersCount": "**Nombre total d'utilisateurs : `{{count}}`**",
   "notificationTitle": "Notification",
-  "notificationFooter": "Vous recevez ce message car les notifications sont activées. Pour changer ce paramètre, utilisez la commande {command:notifications}",
+  "notificationFooter": "Vous recevez ce message car les notifications sont activées. Pour changer ce paramètre, utilisez la commande /notifications",
   "notificationsNoChannelAccess": "{emote:messages.refuse} Il semble que le bot n'ait plus accès à votre salon de notification, les notifications seront désormais en messages privés. Afin de changer le mode de notification, merci d'exécuter la commande {command:notifications}.",
   "notificationReachDestination": "Vous êtes arrivé à **{{destination}}** !",
   "notificationGuildDaily": "**{{pseudo}}** a récupéré le bonus journalier de votre guilde :\n\n{{rewards}}",
