@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} Queres mesmo deixar a associação{{guildName}}? {{newChiefPseudo}} será o seu líder.",
     "canceledDesc": "A sua partida foi cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} deixou o grémio!",
-    "leavingSuccess": "És um pobre cowboy solitário e estás muito longe de casa...",
+    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "{{guildName}} O grémio foi dissolvido com sucesso.",
     "newChiefTitle": "{{newChiefPseudo}} {{guildName}} é o novo líder da guilda!",
     "notInAGuild": "Parece que já não fazes parte de um grémio.",
@@ -241,7 +241,7 @@
         "description": "Permite-te transferir uma mascote de ou para o Grémio. Podes escolher entre deixar a tua mascote na cabana, trocá-la por outra ou retirar uma da cabana."
       },
       "PING": {
-        "description": "Mostra se o bot está online.\n\n(Nota: O tempo mostrado é o tempo de resposta do bot e não o seu ping: um tempo de resposta correto será inferior a 500ms. :clock1:"
+        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Apresenta informações sobre a tua personagem:\n\n{emote:effects.none} Saúde | Apelido | Nível\n\n឵឵Informações :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinheiro Estatísticas :\n{emote:unitValues.energy} Energia | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defesa | {emote:unitValues.breath} Respiração | {emote:unitValues.breathRegen} Recuperação :\n\nMissões :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progresso da campanha em %\n\nClassificação e pontuação :\n{emote:top.congrats} Classificação | {emote:unitValues.score} Pontuação\n\nClasse:\nVer {command:classes}\n\nGlória e Liga:\n{emote:unitValues.glory} Glória | Ver {command:top glory}\n\nGrémio:\n{emote:other.guild} Grémio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Os emblemas são apresentados no seu perfil sob a forma de reacções."
@@ -356,7 +356,7 @@
       "support": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
       "translator": ":earth_africa: Tradutor",
       "advertiser": "Pessoa que ajudou a colocar o bot num servidor com mais de 2000 membros",
-      "contest": "Os crachás podem ser ganhos ocasionalmente em concursos no servidor bot ou no Twitter",
+      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
       "christmas": "Distintivo a ganhar todos os Natais num concurso",
       "top_week": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
       "random": ":slot_machine: Crachá distribuído de forma completamente aleatória",
@@ -379,7 +379,7 @@
     },
     "fightRanking": {
       "fieldName": "Glória e campeonato :",
-      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {{league}}"
+      "fieldValue": "{emote:unitValues.glory} {{gloryPoints}} | {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})"
     },
     "guild": {
       "fieldName": "Grémio :",
@@ -1022,8 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Infelizmente, a tua guilda não aparece no topo porque não tem pontos de guilda!",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Pode encontrá-lo em / )",
     "noGuild": "{emote:top.error} | Não apareces neste ranking porque não fazes parte de uma associação!",
-    "nobodyInTopPlayers": "Atualmente não há ninguém no top 10! Aproveitem enquanto podem.",
-    "nobodyInTopGuilds": "Atualmente não existem guildas no topo! Aproveita enquanto podes.",
+    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
+    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
+    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
   },
   "fight": {
@@ -1357,7 +1358,7 @@
     },
     "title": "{{pseudo}}Recebeu o seu prémio da liga!",
     "description": {
-      "first": "Terminou a liga anterior com **{{glory}} glória. {emote:unitValues.glory}**\n\n**Terminaste em $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nA tua última liga é : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinheiro ganho : **{{money}}** !\n{emote:unitValues.xp} XP ganho: **{{xp}}** !\n{emote:unitValues.glory} Foi-te dado um crachá no final da época.\n{emote:rewards.item} Receberás equipamento aleatório!",
+      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
       "other": "Terminou a liga anterior com **{{glory}} glória. {emote:unitValues.glory}**\n\n Terminou em $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nA sua liga final é : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinheiro ganho: **{{money}}** !\n{emote:unitValues.xp} XP ganho: **{{xp}}** !\n{emote:rewards.item} Recebe equipamento aleatório!"
     }
   },
