@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Anzeige der Rangfolge der Gilden nach ihrem Ruhm.",
-        "name": "Ruhm"
+        "name": "glorieux"
       },
       "guild": {
         "description": "Anzeige der Rangfolge der Gilden nach Punkten.",

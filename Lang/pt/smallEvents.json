@@ -354,8 +354,8 @@
       "Descobre uma velha cabana de madeira abandonada, decide explorá-la e descobre apenas um velho grimório que parece ter sido abandonado há anos..."
     ],
     "reward": "{emote:unitValues.money} Prata: **{{money}}**\n{emote:unitValues.xp} XP : **{{xp}}\n{emote:unitValues.score} Pontos: **O número de pontos dependerá da sua classificação final **\n{emote:rewards.item} Equipamento aleatório.",
-    "endMessage": "\n\n{emote:commands.report} \"Ao aventureiro pertencente a {{league}} que encontrar este texto, **se mantiver a sua glória até ao final da época**, poderá ganhar estas recompensas:\n\n{{rewards}}\"\n\nParte de novo, ansioso por receber o seu bónus {{time}}.",
-    "notEnoughFight": "\n\n{emote:commands.report} \"Ao aventureiro pertencente a {{league}} que encontrar este texto, **se travar algumas batalhas utilizando o comando {command:fight}**, poderá ganhar estas recompensas:\n\n{{rewards}}\"\n\nVolta rapidamente a partir, receando não conseguir lutar contra um número suficiente de jogadores antes do final da época {{time}}.",
+    "endMessage": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous maintenez votre gloire jusqu'à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande {command:fight}**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
     "rewardToday": "\n\n{emote:commands.report} \"Receba a sua recompensa antes do fim da semana, encomendando {command:leaguebonus} .\"\n\nEstá de volta ao seu caminho, ansioso por receber o seu bónus."
   },
   "winGuildXP": {

@@ -152,5 +152,5 @@
   "aDevMessedUp": "Oops! An error has occurred. Don't worry, it's not your fault. Please accept our apologies for the inconvenience. To resolve this problem, please contact our support team via our Discord server: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "This command cannot be used at this location.",
   "guildFoodStorageFull": "You have received **{{quantity}}x {{food}}**, but your guild's food stock is full. The food has been thrown away.",
-  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions."
+  "fightBugged": "The battle was cancelled because there was a technical problem. This is due to the deletion of a message necessary for combat or a permission issue."
 }

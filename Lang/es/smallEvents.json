@@ -354,8 +354,8 @@
       "Descubres una vieja cabaña de madera abandonada, decides explorarla y sólo descubres un viejo grimorio que parece llevar años tirado por ahí..."
     ],
     "reward": "{emote:unitValues.money} Plata: **{{money}}**\n{emote:unitValues.xp} XP : **{{xp}}\n{emote:unitValues.score} Puntos: **El número de puntos dependerá de tu clasificación final **\n{emote:rewards.item} Equipo aleatorio.",
-    "endMessage": "\n\n{emote:commands.report} \"Al aventurero perteneciente a {{league}} que encuentre este texto, **si mantienes tu gloria hasta el final de la temporada**, podrás ganar estas recompensas:\n\n{{rewards}}\"\n\nTe pones en marcha de nuevo, deseando recoger tu bonificación {{time}}.",
-    "notEnoughFight": "\n\n{emote:commands.report} \"Al aventurero perteneciente a {{league}} que encuentre este texto, **si lucha unas cuantas batallas utilizando el comando {command:fight}**, podrá ganar estas recompensas:\n\n{{rewards}}\"\n\nRápidamente te pones de nuevo en marcha, temiendo no poder luchar contra suficientes jugadores antes del final de la temporada {{time}}.",
+    "endMessage": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous maintenez votre gloire jusqu'à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande {command:fight}**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
     "rewardToday": "\n\n{emote:commands.report} \"Consigue tu recompensa antes de que acabe la semana pidiendo {command:leaguebonus} \".\n\nYa estás de nuevo en camino, deseando cobrar tu bonificación."
   },
   "winGuildXP": {
