@@ -328,6 +328,7 @@ export class Player extends Model {
 		const healthRestored = this.level % 10 === 0;
 
 		const packet = makePacket(PlayerLevelUpPacket, {
+			keycloakId: this.keycloakId,
 			level: newLevel,
 			fightUnlocked: newLevel === FightConstants.REQUIRED_LEVEL,
 			guildUnlocked: newLevel === GuildConstants.REQUIRED_LEVEL,

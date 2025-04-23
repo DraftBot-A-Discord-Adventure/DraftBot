@@ -255,21 +255,26 @@ export default class EventsHandlers {
 	@packetHandler(PlayerLevelUpPacket)
 	async playerLevelUp(context: PacketContext, packet: PlayerLevelUpPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-
 		if (!interaction) {
 			return;
+		}
+
+		const dbUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!;
+		const discordUser = draftBotClient.users.cache.get(dbUser.attributes.discordId![0]);
+		if (!discordUser) {
+			return; // TODO handle it better when the user will not be on discord
 		}
 
 		const lng = interaction.userLanguage;
 
 		const rewards: {
-			[key in keyof Omit<PlayerLevelUpPacket, "level">]: {
+			[key in keyof Omit<PlayerLevelUpPacket, "level" | "keycloakId">]: {
 				tr: string; replacements?: object;
 			}
 		} = {
-			healthRestored: { tr: "healthRestored" },
 			fightUnlocked: { tr: "fightUnlocked" },
 			guildUnlocked: { tr: "guildUnlocked" },
+			healthRestored: { tr: "healthRestored" },
 			classesTier1Unlocked: {
 				tr: "classTier",
 				replacements: { tier: 1 }
@@ -314,8 +319,8 @@ export default class EventsHandlers {
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("models:players.levelUp.title", {
 						lng,
-						pseudo: escapeUsername(interaction.user.displayName)
-					}), interaction.user)
+						pseudo: escapeUsername(discordUser.displayName)
+					}), discordUser)
 					.setDescription(desc)
 			]
 		});
