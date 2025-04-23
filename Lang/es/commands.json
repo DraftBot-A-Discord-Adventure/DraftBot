@@ -1240,6 +1240,7 @@
     "notEnoughMoney": "No tiene suficiente dinero para realizar esta transacción. Le falta `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "El vendedor ya no puede vender su mascota. La venta ha sido cancelada.",
     "sellTitle": "Vender un animal de compañía",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
     "sellDescription": "{{pseudo}} desea vender una mascota por{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} Tu gremio está al máximo nivel, ¡así que no recibirás experiencia!",
     "petFieldName": "Familiar vendido :",
