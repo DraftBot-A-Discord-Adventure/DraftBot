@@ -1240,6 +1240,7 @@
     "notEnoughMoney": "Sie haben nicht genug Geld, um diese Transaktion durchzuführen. Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Der Verkäufer ist nicht mehr in der Lage, sein Haustier zu verkaufen. Der Verkauf wurde abgebrochen.",
     "sellTitle": "Verkauf eines Vertrauten",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
     "sellDescription": "{{pseudo}} möchte einen Vertrauten für `{{price}}{emote:unitValues.money}` verkaufen",
     "maxLevelWarning": "{emote:collectors.warning} Ihre Gilde ist auf der höchsten Stufe, Sie erhalten keine Erfahrung!",
     "petFieldName": "Vertraute verkauft :",
