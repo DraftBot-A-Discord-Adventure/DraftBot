@@ -284,7 +284,8 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 			newGlory: player2.getGloryPoints(),
 			oldLeagueId: LeagueDataController.instance.getByGlory(player2OldGlory).id,
 			newLeagueId: player2.getLeague().id
-		}
+		},
+		draw: player1GameResult === EloGameResult.DRAW && player2GameResult === EloGameResult.DRAW
 	}));
 }
 
