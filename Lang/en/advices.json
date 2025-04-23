@@ -17,7 +17,7 @@
     "Command aliases such as `glouglou` that existed in the bot have been removed with the arrival of slash commands.",
     "Use the {command:update} command to get information on the bot's latest update.",
     "DraftBot is also available in other languages! Use the {command:language} command to change this setting.",
-    "DraftBot is available in other languages ! Use the {command:language} command to change this setting.",
+    "DraftBot is available in other languages! Use the {command:language} command to change this setting.",
     "You can search for a player using their ranking in a number of commands to interact with them without knowing their nickname.",
     "To invite the bot to your server, use the link available on the bot's Discord server. The link to the Discord server can be obtained using the {command:invitedraftbot} command.",
     "Some classes give an advantage in combat and others in reports due to a higher amount of health points.",
