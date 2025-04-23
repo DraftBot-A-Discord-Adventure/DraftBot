@@ -111,13 +111,16 @@ class VeteranFightBehavior implements ClassBehavior {
 		const opponentLastAction = opponent.getLastFightActionUsed();
 
 		// Condition 1: Opponent is charging a two-turn attack.
-		if (
-			opponentLastAction
-			&& (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
-			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
-			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK)
-		) {
-			return true;
+		if (opponentLastAction) {
+			const actionId = opponentLastAction.id;
+
+			if (
+				actionId === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+				|| (actionId === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
+				|| actionId === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+			) {
+				return true;
+			}
 		}
 
 		// Condition 2: Tactical advantage against non-knight opponents.
