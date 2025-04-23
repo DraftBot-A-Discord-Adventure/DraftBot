@@ -108,13 +108,14 @@ class VeteranFightBehavior implements ClassBehavior {
 			return false;
 		}
 
-		const opponentLastAction = opponent.getLastFightActionUsed().id;
+		const opponentLastAction = opponent.getLastFightActionUsed();
 
 		// Condition 1: Opponent is charging a two-turn attack.
 		if (
-			opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
-			|| opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
-			|| opponentLastAction === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+			opponentLastAction
+			&& (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
+			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK)
 		) {
 			return true;
 		}
