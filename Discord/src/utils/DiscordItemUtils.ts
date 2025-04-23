@@ -31,7 +31,7 @@ export class DiscordItemUtils {
 		if (value.value !== 0) {
 			values.push(i18n.t(`items:${value.typeValue}`, {
 				lng,
-				value: value.maxValue ?? Infinity >= value.value
+				value: (value.maxValue ?? Infinity) >= value.value
 					? value.value
 					: i18n.t("items:nerfDisplay", {
 						lng,
