@@ -84,6 +84,7 @@ export default class GuildInviteCommand {
 			collector,
 			context,
 			{
+				allowedPlayerKeycloakIds: [player.keycloakId, invitedPlayer.keycloakId],
 				reactionLimit: 1
 			},
 			endCallback
