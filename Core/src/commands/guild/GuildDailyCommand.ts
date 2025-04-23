@@ -1,5 +1,5 @@
 import {
-	DraftBotPacket, makePacket
+	DraftBotPacket, makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	CommandGuildDailyCooldownErrorPacket,
@@ -245,7 +245,7 @@ async function awardGuildBadgeToMembers(guildLike: GuildLike, response: DraftBot
  * @param rewardPacket
  */
 async function advanceTimeOfEveryMember(guildLike: GuildLike, _response: DraftBotPacket[], rewardPacket: CommandGuildDailyRewardPacket): Promise<void> {
-	const timeAdvanced = Math.round(guildLike.guild.level * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
+	const timeAdvanced = Math.ceil((guildLike.guild.level + 1) * GuildDailyConstants.TIME_ADVANCED_MULTIPLIER);
 	await genericAwardingFunction(guildLike.members, async member => await TravelTime.timeTravel(member, hoursToMinutes(timeAdvanced), NumberChangeReason.GUILD_DAILY));
 	rewardPacket.advanceTime = timeAdvanced;
 	draftBotInstance.logsDatabase.logGuildDaily(guildLike.guild, GuildDailyConstants.REWARD_TYPES.HOSPITAL).then();
@@ -396,13 +396,14 @@ function verifyMembers(members: Player[], response: DraftBotPacket[]): boolean {
 	return true;
 }
 
-async function generateAndGiveReward(guild: Guild, members: Player[], response: DraftBotPacket[]): Promise<CommandGuildDailyRewardPacket> {
+async function generateAndGiveReward(guild: Guild, members: Player[], response: DraftBotPacket[], forcedReward?: string): Promise<CommandGuildDailyRewardPacket> {
 	const guildLike = {
 		guild, members
 	};
 
 	const rewardPacket = makePacket(CommandGuildDailyRewardPacket, { guildName: guild.name });
-	await linkToFunction.get(generateRandomProperty(guild))(guildLike, response, rewardPacket); // Give the award
+	const reward = forcedReward ?? generateRandomProperty(guild);
+	await linkToFunction.get(reward)(guildLike, response, rewardPacket); // Give the award
 
 	if (!guildLike.guild.isPetShelterFull(await GuildPets.getOfGuild(guildLike.guild.id)) && RandomUtils.draftbotRandom.realZeroToOneInclusive() <= GuildDailyConstants.PET_DROP_CHANCE) {
 		await awardGuildWithNewPet(guildLike.guild, rewardPacket);
@@ -419,7 +420,7 @@ export default class GuildDailyCommand {
 		guildNeeded: true,
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
-	async execute(response: DraftBotPacket[], player: Player): Promise<void> {
+	static async execute(response: DraftBotPacket[], player: Player, _packet: CommandGuildDailyPacketReq, _context: PacketContext, forcedReward?: string): Promise<void> {
 		const guild = await Guilds.getById(player.guildId);
 
 		// Verify if the cooldown is over
@@ -443,7 +444,7 @@ export default class GuildDailyCommand {
 		await guild.save();
 
 		// Generate and give the rewards
-		const rewardPacket = await generateAndGiveReward(guild, members, response);
+		const rewardPacket = await generateAndGiveReward(guild, members, response, forcedReward);
 		response.push(rewardPacket);
 
 		// Send notifications and update players missions
