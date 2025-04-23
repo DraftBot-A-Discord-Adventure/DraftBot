@@ -18,7 +18,6 @@ import {
 	CommandMissionsPacketRes
 } from "../../../../Lib/src/packets/commands/CommandMissionsPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
-import { User } from "discord.js";
 import { MissionType } from "../../../../Lib/src/types/CompletedMission";
 import { MissionUtils } from "../../utils/MissionUtils";
 import {
@@ -148,16 +147,23 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	}
 	const lng = interaction.userLanguage;
 	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-	if (!keycloakUser.attributes.discordId) {
-		throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
-	}
-	const discordUser = draftBotClient.users.cache.get(keycloakUser.attributes.discordId[0]) as User;
+	const discordUser = keycloakUser.attributes.discordId
+		? draftBotClient.users.cache.get(keycloakUser.attributes.discordId[0]) ?? await draftBotClient.users.fetch(keycloakUser.attributes.discordId[0])
+		: null;
 	const missionCommandEmbed = new DraftBotEmbed();
 
-	missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
-		lng,
-		pseudo: escapeUsername(discordUser.displayName)
-	}), discordUser);
+	if (discordUser) {
+		missionCommandEmbed.formatAuthor(i18n.t("commands:missions.title", {
+			lng,
+			pseudo: escapeUsername(discordUser.displayName)
+		}), discordUser);
+	}
+	else {
+		missionCommandEmbed.setTitle(i18n.t("commands:missions.title", {
+			lng,
+			pseudo: escapeUsername(keycloakUser.username)
+		}));
+	}
 
 	missionCommandEmbed.setDescription([
 		getCampaignMissionPart(packet, lng),
