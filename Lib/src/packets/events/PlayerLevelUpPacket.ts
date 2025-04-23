@@ -4,6 +4,8 @@ import {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class PlayerLevelUpPacket extends DraftBotPacket {
+	keycloakId!: string;
+
 	level!: number;
 
 	fightUnlocked!: boolean;
