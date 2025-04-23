@@ -1240,6 +1240,7 @@
     "notEnoughMoney": "You don't have enough money to buy it. You're missing **{{missingMoney}}{emote:unitValues.money}**.",
     "initiatorSituationChanged": "The seller is no longer able to sell their pet. The request has been cancelled.",
     "sellTitle": "Pet selling",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} wants to sell you a pet:",
     "sellDescription": "{{pseudo}} would like to sell a pet for **{{price}}{emote:unitValues.money}**",
     "maxLevelWarning": "{emote:collectors.warning} Your guild is already at max level, you won't receive any XP!",
     "petFieldName": "Sold pet:",

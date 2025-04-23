@@ -16,9 +16,7 @@ import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
 import { ReactionCollectorInstance } from "../../core/utils/ReactionsCollector";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import {
-	ReactionCollectorChangeClass,
-	ReactionCollectorChangeClassDetails,
-	ReactionCollectorChangeClassReaction
+	ReactionCollectorChangeClass, ReactionCollectorChangeClassDetails, ReactionCollectorChangeClassReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChangeClass";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { ReactionCollectorRefuseReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
@@ -27,6 +25,7 @@ import { MissionsController } from "../../core/missions/MissionsController";
 import { draftBotInstance } from "../../index";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
+import { secondsToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[]): Promise<void> => {
@@ -60,7 +59,8 @@ function getEndCallback(player: Player) {
 			params: { tier: newClass.classGroup }
 		});
 		await player.save();
-		draftBotInstance.logsDatabase.logPlayerClassChange(player.keycloakId, newClass.id).then();
+		draftBotInstance.logsDatabase.logPlayerClassChange(player.keycloakId, newClass.id)
+			.then();
 
 		response.push(makePacket(CommandClassesChangeSuccessPacket, {
 			classId: selectedClass
@@ -76,12 +76,13 @@ export default class ClassesCommand {
 		whereAllowed: [WhereAllowed.CONTINENT]
 	})
 	async execute(response: DraftBotPacket[], player: Player, _packet: CommandClassesPacketReq, context: PacketContext): Promise<void> {
-		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);
+		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup())
+			.filter(c => c.id !== player.class);
 		const currentClassGroup = ClassDataController.instance.getById(player.class).classGroup;
 		const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.keycloakId);
-		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000) {
+		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < secondsToMilliseconds(ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup])) {
 			response.push(makePacket(CommandClassesCooldownErrorPacket, {
-				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
+				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + secondsToMilliseconds(ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup])
 			}));
 			return;
 		}

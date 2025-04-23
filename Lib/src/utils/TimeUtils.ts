@@ -136,6 +136,15 @@ export function millisecondsToSeconds(milliseconds: number): number {
 }
 
 /**
+ * Convert seconds to milliseconds
+ * @param seconds
+ */
+export function secondsToMilliseconds(seconds: number): number {
+	return seconds * 1000;
+}
+
+
+/**
  * Convert hours to seconds
  * @param hours
  */
@@ -159,7 +168,8 @@ export function datesAreOnSameDay(first: Date, second: Date): boolean {
  * @param finishDate - the date to use
  */
 export function finishInTimeDisplay(finishDate: Date): string {
-	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf())).toString()}:R>`;
+	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf()))
+		.toString()}:R>`;
 }
 
 /**
@@ -167,7 +177,8 @@ export function finishInTimeDisplay(finishDate: Date): string {
  * @param finishDate - the date to use
  */
 export function dateDisplay(finishDate: Date): string {
-	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf())).toString()}:F>`;
+	return `<t:${Math.floor(millisecondsToSeconds(finishDate.valueOf()))
+		.toString()}:F>`;
 }
 
 /**
@@ -266,7 +277,8 @@ export function parseTimeDifferenceFooter(date1: number, date2: number, language
  */
 export function printTimeBeforeDate(date: number): string {
 	date /= 1000;
-	return `<t:${Math.floor(date).valueOf()
+	return `<t:${Math.floor(date)
+		.valueOf()
 		.toString()}:R>`;
 }
 
@@ -305,7 +317,8 @@ export function minutesDisplay(minutes: number, language: Language = LANGUAGE.DE
 	const display = [
 		hours > 0 ? `${hours} ${displayConstantValues.hoursDisplay}${hours > 1 ? displayConstantValues.plural : ""}` : "",
 		minutes > 0 ? `${minutes} ${displayConstantValues.minutesDisplay}${minutes > 1 ? displayConstantValues.plural : ""}` : ""
-	].filter(v => v !== "").join(displayConstantValues.linkWord);
+	].filter(v => v !== "")
+		.join(displayConstantValues.linkWord);
 	return display === "" ? "< 1 Min" : display;
 }
 

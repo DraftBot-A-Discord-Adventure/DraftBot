@@ -230,7 +230,7 @@
       "{{playerDisplay}}Las monedas caen de los bolsillos de 's, tan llenos están. Ni siquiera parece importarle. Un animal las recoge antes de que puedas alcanzarlas. Continúas tu camino, un poco decepcionado."
     ],
     "poor": [
-      "À la vue des vêtements que porte {{playerDisplay}}, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collectors.refuse} Ne pas lui donner une pièce",
+      "Looking at the clothes {{playerDisplay}} wears, they seem to be having money problems... You think they would be happy if you gave them a coin.\n\n{emote:collectors.interactPoorCoin} Give them a coin\n{emote:collectors.refuse} Don't give them a coin",
       "En marchant, vous rencontrez ce pauvre vagabond de {{playerDisplay}}. Celui-ci vous demande quelques pièces:\n\n{emote:collectors.interactPoorCoin} Donner une pièce, car vous en avez déjà assez\n{emote:collectors.refuse} Ne pas lui donner une pièce",
       "La misère touche tout le monde un jour, et aujourd'hui c'est {{playerDisplay}} qui peut à peine se payer un repas.\n\n{emote:collectors.interactPoorCoin} Lui donner une pièce\n{emote:collectors.refuse} Ne pas lui donner une pièce"
     ],
