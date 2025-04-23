@@ -2,7 +2,6 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
-	CommandGuildDailyCooldownErrorPacket,
 	CommandGuildDailyPacketReq,
 	CommandGuildDailyRewardPacket
 } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
@@ -14,8 +13,6 @@ import { Language } from "../../../../Lib/src/Language";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
-import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
-import { finishInTimeDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { StringConstants } from "../../../../Lib/src/constants/StringConstants";
 
 function getPacket(): CommandGuildDailyPacketReq {
@@ -42,7 +39,7 @@ export function getCommandGuildDailyRewardPacketString(packet: CommandGuildDaily
 		badge: packet.badge as number | undefined,
 		money: packet.money,
 		partialHeal: packet.heal,
-		[packet.alteration?.healAmount ? "alterationHeal" : "alterationNoHeal"]: packet.alteration?.healAmount,
+		[packet.alteration?.healAmount ? "alterationHeal" : "alterationNoHeal"]: packet.alteration ? packet.alteration.healAmount ?? 1 : undefined,
 		petFood: packet.commonFood
 	};
 
@@ -74,36 +71,22 @@ export async function handleCommandGuildDailyRewardPacket(packet: CommandGuildDa
 		.setDescription(getCommandGuildDailyRewardPacketString(packet, lng));
 
 	if (reply) {
-		await interaction.reply({
-			embeds: [embed]
-		});
+		if (interaction.deferred) {
+			await interaction.editReply({
+				embeds: [embed]
+			});
+		}
+		else {
+			await interaction.reply({
+				embeds: [embed]
+			});
+		}
 	}
 	else {
 		await interaction.channel.send({
 			embeds: [embed]
 		});
 	}
-}
-
-export async function handleCommandGuildDailyCooldownErrorPacket(packet: CommandGuildDailyCooldownErrorPacket, context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
-	await interaction.reply({
-		embeds: [
-			new DraftBotErrorEmbed(
-				interaction.user,
-				context,
-				interaction,
-				i18n.t(
-					"commands:guildDaily.coolDown",
-					{
-						lng: interaction.userLanguage,
-						coolDownTime: packet.totalTime,
-						time: finishInTimeDisplay(new Date(Date.now() + packet.remainingTime))
-					}
-				)
-			)
-		]
-	});
 }
 
 export const commandInfo: ICommand = {

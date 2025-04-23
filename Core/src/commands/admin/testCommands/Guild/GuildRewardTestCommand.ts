@@ -3,11 +3,9 @@ import { GuildDailyConstants } from "../../../../../../Lib/src/constants/GuildDa
 import {
 	ExecuteTestCommandLike, ITestCommand, TypeKey
 } from "../../../../core/CommandsTest";
-import { draftBotInstance } from "../../../../index";
 import { CommandGuildDailyPacketReq } from "../../../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import {
-	DraftBotPacket, makePacket, PacketContext
-} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { makePacket } from "../../../../../../Lib/src/packets/DraftBotPacket";
+import GuildDailyCommand from "../../../guild/GuildDailyCommand";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(GuildDailyConstants.REWARD_TYPES)
@@ -39,9 +37,7 @@ const guildRewardTestCommand: ExecuteTestCommandLike = async (player, args, resp
 		throw new Error("Erreur greward : reward donné n'existe pas. Veuillez vous référer à la commande \"test help greward\" pour plus d'informations");
 	}
 
-	const packetListener = draftBotInstance.packetListener.getListener(CommandGuildDailyPacketReq.name) as
-		(packet: CommandGuildDailyPacketReq, context: PacketContext, response: DraftBotPacket[], forceReward?: number) => void | Promise<void>;
-	packetListener(makePacket(CommandGuildDailyPacketReq, {}), context, response);
+	await GuildDailyCommand.execute(response, player, makePacket(CommandGuildDailyPacketReq, {}), context, args[0]);
 	return `Reward ${args[0]} forcé !`;
 };
 
