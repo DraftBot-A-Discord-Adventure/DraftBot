@@ -1,6 +1,6 @@
 {
   "name": "draftbot_core",
-  "version": "5.0.0.b",
+  "version": "5.0.0.c",
   "description": "Core package of DraftBot which manages the game mechanics",
   "main": "src/index.js",
   "packageManager": "yarn@4.8.1",
