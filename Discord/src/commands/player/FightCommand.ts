@@ -490,7 +490,13 @@ function generateFightRecapDescription(embed: DraftBotEmbed, packet: FightReward
 	const player1Won = packet.player1.newGlory > packet.player1.oldGlory;
 	const player2Won = packet.player2.newGlory > packet.player2.oldGlory;
 	const gloryDifference = Math.abs(packet.player1.oldGlory - packet.player2.oldGlory);
-	if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
+	if (packet.draw) {
+		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.draw", lng, {
+			player1: player1Username,
+			player2: player2Username
+		}));
+	}
+	else if (gloryDifference < FightConstants.ELO.ELO_DIFFERENCE_FOR_SAME_ELO) {
 		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.sameElo", lng, {
 			player1: player1Username,
 			player2: player2Username
@@ -514,16 +520,10 @@ function generateFightRecapDescription(embed: DraftBotEmbed, packet: FightReward
 			loser: player2Username
 		}));
 	}
-	else if (player2Won && packet.player2.oldGlory < packet.player1.oldGlory) {
+	else {
 		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.lowestEloWins", lng, {
 			winner: player2Username,
 			loser: player1Username
-		}));
-	}
-	else {
-		embed.setDescription(StringUtils.getRandomTranslation("commands:fight.fightReward.draw", lng, {
-			player1: player1Username,
-			player2: player2Username
 		}));
 	}
 }
