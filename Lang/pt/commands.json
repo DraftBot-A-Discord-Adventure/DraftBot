@@ -1240,6 +1240,7 @@
     "notEnoughMoney": "Não tem dinheiro suficiente para efetuar esta transação. Falta-lhe `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "O vendedor já não pode vender o seu animal de estimação. A venda foi anulada.",
     "sellTitle": "Vender um animal de estimação",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
     "sellDescription": "{{pseudo}} gostaria de vender um animal de estimação para{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} A tua guilda está no nível máximo, por isso não receberás qualquer experiência!",
     "petFieldName": "Familiar vendido :",
