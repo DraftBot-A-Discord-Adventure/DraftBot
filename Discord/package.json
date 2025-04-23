@@ -1,6 +1,6 @@
 {
   "name": "draftbot_discord_middleware",
-  "version": "5.0.0.b",
+  "version": "5.0.0.c",
   "description": "Discord middleware package of DraftBot",
   "main": "src/index.js",
   "packageManager": "yarn@4.8.1",
