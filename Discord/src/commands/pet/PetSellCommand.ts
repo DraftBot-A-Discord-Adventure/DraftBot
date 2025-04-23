@@ -40,6 +40,7 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetSellData;
 	const lng = interaction.userLanguage;
+	const buyerUser = interaction.options.getUser("player");
 
 	let description = i18n.t("commands:petSell.sellDescription", {
 		lng,
@@ -50,12 +51,16 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 		description += `\n\n${i18n.t("commands:petSell.maxLevelWarning", { lng })}`;
 	}
 
+	const embedKeyTitle = buyerUser ? "sellTitleWithBuyer" : "sellTitle";
+
 	const embed = new DraftBotEmbed()
 		.formatAuthor(
-			i18n.t("commands:petSell.sellTitle", {
-				lng
+			i18n.t(`commands:petSell.${embedKeyTitle}`, {
+				lng,
+				buyer: buyerUser?.displayName,
+				seller: interaction.user.displayName
 			}),
-			interaction.user
+			buyerUser ?? interaction.user
 		)
 		.setDescription(description)
 		.addFields([
