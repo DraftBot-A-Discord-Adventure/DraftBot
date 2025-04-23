@@ -23,4 +23,6 @@ export class FightRewardPacket extends DraftBotPacket {
 		oldLeagueId: number;
 		newLeagueId: number;
 	};
+
+	draw!: boolean;
 }
