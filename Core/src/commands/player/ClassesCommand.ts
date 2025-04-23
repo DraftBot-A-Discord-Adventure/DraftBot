@@ -79,7 +79,7 @@ export default class ClassesCommand {
 		const allClasses = ClassDataController.instance.getByGroup(player.getClassGroup()).filter(c => c.id !== player.class);
 		const currentClassGroup = ClassDataController.instance.getById(player.class).classGroup;
 		const lastTimeThePlayerHasEditedHisClass = await LogsReadRequests.getLastTimeThePlayerHasEditedHisClass(player.keycloakId);
-		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup]) {
+		if (Date.now() - lastTimeThePlayerHasEditedHisClass.getTime() < ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000) {
 			response.push(makePacket(CommandClassesCooldownErrorPacket, {
 				timestamp: lastTimeThePlayerHasEditedHisClass.valueOf() + ClassConstants.TIME_BEFORE_CHANGE_CLASS[currentClassGroup] * 1000
 			}));
