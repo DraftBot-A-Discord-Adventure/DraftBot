@@ -92,6 +92,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			interactionName: issue
 		};
 		await managePickedInteraction(player, packet, response, context, classKind);
-		response.push(makePacket(SmallEventClassPacket, packet));
+		response.unshift(makePacket(SmallEventClassPacket, packet));
 	}
 };
