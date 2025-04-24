@@ -5,7 +5,8 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	escapeUsername, StringUtils
+	escapeUsername,
+	StringUtils
 } from "../../utils/StringUtils";
 import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {
@@ -36,14 +37,18 @@ import {
 import { interactOtherPlayerGetPlayerDisplay } from "../../smallEvents/interactOtherPlayers";
 import { SmallEventLeagueRewardPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
 import {
-	minutesDisplay, printTimeBeforeDate
+	minutesDisplay,
+	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import { SmallEventBonusGuildPVEIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
 import { SmallEventBotFactsPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
 import { SmallEventDoNothingPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
 import { SmallEventFightPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
-import { SmallEventGobletsGamePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
+import {
+	SmallEventGobletsGameMalus,
+	SmallEventGobletsGamePacket
+} from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {
 	SmallEventShopAcceptPacket,
 	SmallEventShopCannotBuyPacket,
@@ -866,7 +871,7 @@ export default class SmallEventsHandler {
 					.setDescription(
 						i18n.t(`{emote:goblets.{{goblet}}} $t(smallEvents:gobletsGame.results.${packet.malus})`, {
 							lng,
-							quantity: packet.value,
+							quantity: packet.malus === SmallEventGobletsGameMalus.TIME ? minutesDisplay(packet.value) : packet.value,
 							goblet: packet.goblet ?? RandomUtils.draftbotRandom.pick(Object.keys(DraftBotIcons.goblets))
 						})
 					)
