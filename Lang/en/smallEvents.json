@@ -1295,110 +1295,110 @@
       "you are not allowed to see an {{feralPet}}.",
       "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
       "you notice a mysterical mecanism... Curious, you decide to activate it. You don't take long to regret your gesture when an {{feralPet}} appears from nowhere!",
-      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that stunts you."
+      "you hear a muted sound behind you. You turn around and find a {{feralPet}} that looks at you with insistence."
     ],
     "intro_female": [
-      "you fall nose with an {{feralPet}}!",
-      "you encounter an {{feralPet}}.",
-      "you see an {{feralPet}} that doesn't seem to want to let you pass.",
-      "you suddenly push a terrifying couple: an {{feralPet}} stands right in front of you!",
-      "you are not allowed to see an {{feralPet}}.",
-      "you see a cloud of dust on the horizon that is approaching dangerously... It's an {{feralPet}}!",
-      "you notice a mysterious mechanism... Curious, you decide to activate it. It doesn't take you long to regret your decision, however, when a {{feralPet}} appears out of nowhere!",
-      "you hear a muted sound behind you. You turn around and find an {{feralPet}} that sticks to you."
+      "you come face to face with a {{feralPet}}!",
+      "you encounter a {{feralPet}}.",
+      "you come across a {{feralPet}} that doesn't seem to want to let you pass.",
+      "you suddenly push a terrified squeak: a {{feralPet}} stands right in front of you!",
+      "you remain petrified after seeing a {{feralPet}}.",
+      "you see a cloud of dust on the horizon that is approaching dangerously... It's a {{feralPet}}!",
+      "you notice a mysterious mechanism... Curious, you decide to activate it. It doesn't take you long to regret your decision when a {{feralPet}} appears out of nowhere!",
+      "you hear a muted sound behind you. You turn around and find a {{feralPet}} that looks at you with insistence."
     ],
     "situation": [
-      "The beast seems impossible to calm down ... You are trying to calm down and reflect an action plan for you to undo this animal.",
-      "Absolutely terrified, you are starting to reflect your different options to get you out of this beast.",
+      "The beast seems impossible to calm down... You are trying to calm yourself down and think of a plan to get rid of this animal.",
+      "Absolutely terrified, you are starting to think about your different options to get rid of this beast.",
       "Impossible not to react, you have to take a decision to save your life...",
-      "Distracted by the two red eyes of the animal that insist on you, you try to focus on an action plan.",
-      "The fetide breath of the animal makes you spin the sky. You are trying to concentrate...",
-      "You wonder if you should not run away, but you think you could get out of it if you reflect an action plan.",
-      "You tighten your grip on the guard of your spell, and a little reassured, reflect what you need to do.",
-      "Petrified by fear, you look at the animal sinking towards you, trying to force your tetaneous brain to find a solution.",
-      "You are looking for a solution that will keep you alive."
+      "Distracted by the two red eyes of the animal that look at you with insistence, you try to focus on a plan.",
+      "The foul breath of the animal makes your head spin. You are trying to concentrate...",
+      "You wonder if you should not run away, but you think you could get out of it if you think of a plan.",
+      "You tighten your grip on the guard of your sword and, a little reassured, think about what you need to do.",
+      "Petrified, you look at the animal rushing towards you, trying to force your paralyzed brain to find a solution.",
+      "Panicked, you are looking for a solution that will keep you alive."
     ],
     "rageUpDescriptions": [
-      "Happy to get out of you, you feel your rage against the creatures of this island.",
+      "Glad you managed to get out of it, you feel your rage against the creatures of this island rising.",
       "With your victory, you feel full of rage against the evil creatures of this island.",
       "You feel stronger than ever and your rage against the evil creatures of this island is increasing.",
       "Proud of you, you feel your rage against the evil creatures of this island increase.",
       "No one can stop you! Your rage against evil creatures is only reinforced by this event."
     ],
     "rageUpFormat": " {{rageUpDescription}} {emote:unitValues.rage} **Rage ++**",
-    "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{petName}} {{adjective}}**",
-    "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{petName}} {{adjective}}**",
+    "customPetDisplay_male": "{emote:pets.{{petId}}.emoteMale} **{{adjective}} {{petName}}**",
+    "customPetDisplay_female": "{emote:pets.{{petId}}.emoteFemale} **{{adjective}} {{petName}}**",
     "adjectives_male": [
-      "fachee",
+      "angry",
       "hungry",
       "enraged",
       "furious",
-      "mechant",
-      "energized",
+      "bad",
+      "enraged",
       "aggressive",
       "violent",
       "hostile",
       "irritated",
-      "in school",
-      "furax",
-      "wild",
-      "malpractice",
-      "brutal",
-      "threatening",
-      "barbarian",
-      "atrocious",
-      "fierce",
-      "ruthless",
-      "brawler",
-      "not happy",
-      "evil",
-      "corrupted",
-      "dusty",
-      "crazy",
-      "destructor",
-      "cursed",
-      "machiavelic",
-      "malicious",
-      "feeroce"
-    ],
-    "adjectives_female": [
-      "facie",
-      "affamee",
-      "raged",
+      "angry",
       "furious",
-      "mechant",
-      "Powered",
-      "aggressive",
-      "violent",
-      "hostile",
-      "irritated",
-      "in school",
-      "furax",
-      "wild",
+      "savage",
       "malicious",
       "brutal",
       "threatening",
-      "barbarian",
+      "barbaric",
       "atrocious",
       "fierce",
       "ruthless",
-      "brawler",
-      "not happy",
-      "evil",
-      "corrupt",
-      "dusty",
+      "quarrelling",
+      "unhappy",
+      "maleficent",
+      "corrupted",
+      "weird",
       "crazy",
       "destructive",
       "cursed",
-      "machiavelic",
+      "maleficent",
       "malicious",
-      "feeroce"
+      "ferocious"
+    ],
+    "adjectives_female": [
+      "angry",
+      "hungry",
+      "enraged",
+      "furious",
+      "bad",
+      "angered",
+      "aggressive",
+      "violent",
+      "hostile",
+      "irritated",
+      "angry",
+      "furious",
+      "savage",
+      "malicious",
+      "brutal",
+      "threatening",
+      "barbaric",
+      "atrocious",
+      "rabid",
+      "ruthless",
+      "quarrelling",
+      "unhappy",
+      "maleficent",
+      "corrupt",
+      "weird",
+      "crazy",
+      "destructive",
+      "cursed",
+      "mischievous",
+      "malicious",
+      "ferocious"
     ],
     "fightPetActions": {
       "fistHit": {
         "name": "Punch",
-        "success": "You punch the animal with a big punch! He slips back, surprised. You take advantage of it to flee!",
-        "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you get away!"
+        "success": "You strike a blow to the animal with a big punch! He slips back, surprised. You take advantage of it to flee!",
+        "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you manage to get away!"
       },
       "runAway": {
         "name": "Flee",
@@ -1417,16 +1417,16 @@
       },
       "baitWithMeat": {
         "name": "Distract the beast with meat",
-        "success": "You pull a piece of meat out of your bag and throw it at the animal, which throws on it greedily. You take advantage of it to escape.",
-        "failure": "You are clumsily trying to throw a piece of meat into the body to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and sits at you a violent blow before leaving you alone."
+        "success": "You pull a piece of meat out of your bag and throw it at the animal, which greedily goes for it. You take advantage of it to escape.",
+        "failure": "You are clumsily trying to throw a piece of meat at the beast in order to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and strikes you a violent blow before leaving you alone."
       },
       "baitWithVegetables": {
-        "name": "Distract yourself with a legume",
-        "success": "You pull a legume out of your bag and throw it at the animal, which sniffs it with integrity. This allows you enough time to escape.",
-        "failure": "You pull a legume out of your bag and throw it at the animal, which sniffs it with disguise. Even more enraged than before, the beast surprises you with an overwhelming assault! You have no way to get rid of it and you are under the violent attack with full force."
+        "name": "Distract the beast with a vegetable",
+        "success": "You pull a vegetable out of your bag and throw it at the animal, which sniffs it with interest. This gives you enough time to escape.",
+        "failure": "You pull a vegetable out of your bag and throw it at the animal, which sniffs it with disgust. Even more enraged than before, the beast surprises you with an overwhelming assault! You have no way to get rid of it and you are under the violent attack with full force."
       },
       "provoke": {
-        "name": "Taunt",
+        "name": "Taunt the beast",
         "success": "You approach the animal and provoke it by making grimaces. It runs towards you out of fury! You step aside at the last minute and it crashes into a tree. You finish it with a kick and get back on your way.",
         "failure": "You approach the animal and provoke it by making grimaces. He snarls and gives you a violent blow before leaving you alone."
       },
@@ -1442,55 +1442,55 @@
       },
       "usePlayerPet": {
         "name": "Call on your pet",
-        "success": "After so many adventures together, it's finally time to call on your faithful companion for an epic battle. But it's not to be, as the wild animal, surprised by your pet's arrival, flees without a second thought!",
+        "success": "After so many adventures together, it's finally time to call on your faithful companion for an epic battle. But it won't happen as the wild animal, surprised by your pet's arrival, flees without a second thought!",
         "failure": "In a moment and before you could call any other animal in the battlefield, you find yourself on the ground, knocked unconscious by the wild beast that leaves you alone, without even giving you a glance."
       },
       "protect": {
         "name": "Protect yourself",
-        "success": "You raise your shield high in front of you, ready to take off the beast. She sits on you, you keep her feet on the ground as well as badly and you end up repeating the assault. The animal then leaks after suffering this failure.",
-        "failure": "You put your shield in front of you, ready to take the blow of beast, but the assault was brutal. Your challenge does not hold up, and you are worth a few meters. Persuaded by having put you out of the state of harm, the animal is away from the distance."
+        "success": "You raise your shield high in front of you, ready to take the beast's hit. It rushes towards you, you hardly keep your feet on the ground and you end up repelling the assault. The animal then flees following this failure.",
+        "failure": "You put your shield in front of you, ready to take the beast's hit, but the assault seems brutal. Your defense does not hold up, and you tumble a few meters. Convinced that it knocked you out, the animal goes away."
       },
       "playDead": {
         "name": "Play possum",
-        "success": "As the animal stares at you, you pretend to fall to the ground and stand still. After watching you inert on the ground for a while, it moves away and leaves you alone.",
-        "failure": "As the animal stares at you, you pretend to fall to the ground and stand still. It approaches you, sniffs you, and sees that you're only pretending. You disconcert the creature by standing up quickly, and run for your life, before ending up dead for real."
+        "success": "As the animal stares at you, you pretend to fall to the ground and stand still. After observing you being inert on the ground for a while, it moves away and leaves you alone.",
+        "failure": "As the animal stares at you, you pretend to fall to the ground and stand still. It approaches you, sniffs you, and notices that you're only pretending. You disconcert the creature by standing up quickly, and run for your life, before ending up dead for real."
       },
       "scream": {
         "name": "Shout",
-        "success": "You push a strident cry that runs away from the animal. You get back on your way, relieved that you could get out of it without hindrance.",
-        "failure": "You spawn a strident cry that runs away from the animal. However, it comes back to the load and sits a violent blow before leaving you alone."
+        "success": "You push a strident cry that makes the animal flee. You get back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You push a strident cry that makes the animal flee. However, it comes back in charge and strikes a violent blow before leaving you alone."
       },
       "prayGod": {
         "name": "Pray to God",
-        "success": "You pray to God to help you. He hears you and protects you from the animal attack. You are back on your way, relieved that you could get out of it without hindrance.",
-        "failure": "You pray to God to help you. The animal charges you and your hands do not protect you from its attack. You are back on your way, shameful to have imagined that this strategy would work."
+        "success": "You pray to God to help you. He hears you and protects you from the animal's attack. You are back on your way, relieved that you could get out of it without hindrance.",
+        "failure": "You pray to God to help you. The animal charges you and your hands do not protect you from its attack. You are back on your way, ashamed to have imagined that this strategy would work."
       },
       "attackLeft": {
-        "name": "Attack Left",
-        "success": "You run from the left side of the animal and hit it violently, shocked by the pain, the animal flees and leaves you alone.",
-        "failure": "You run from the left side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+        "name": "Attack from the left side",
+        "success": "You run from the left side of the animal and hit it violently. Shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the left side of the animal and try to hit it. However, you fail and you are in the animal's reach, as it violently counterattacks before leaving you lying on the ground."
       },
       "attackRight": {
-        "name": "Attack Right",
-        "success": "You run from the right side of the animal and hit it violently; shocked by the pain, the animal flees and leaves you alone.",
-        "failure": "You run from the right side of the animal and try to hit it. However, you failed and you were wearing the animal, which against a violent attack before leaving by lying on the ground."
+        "name": "Attack from the right side",
+        "success": "You run from the right side of the animal and hit it violently. Shocked by the pain, the animal flees and leaves you alone.",
+        "failure": "You run from the right side of the animal and try to hit it. However, you fail and you are in the animal's reach, as it violently counterattacks before leaving you lying on the ground."
       },
       "helpFromMates": {
         "name": "Call on your guild members",
-        "success": "You call on your teammates, who arrive quickly on the spot. The animal, surprised by the arrival of these reinforcements, flees without asking the rest of them!",
-        "failure": "You call on your teammates, but they are too far away to hear you. The animal, fast, knocks you down before you go again."
+        "success": "You call on your teammates, who arrive quickly on the spot. The animal, surprised by the arrival of these reinforcements, flees without any second thought!",
+        "failure": "You call on your teammates, but they are too far away to hear you. The quick animal knocks you down before leaving."
       }
     }
   },
   "gobletsGame": {
-    "intro": "you meet a man who seems suspicious to you. Indeed, it approaches you and pushes you to a table, where three mystery goblets are laid. The instructions given to you are simple: you must pull a cup at random and receive the prize of any kind. While you observe the objects on the table, the man slips into your back and doesn't seem to want to let you go. To get out of this situation, you can choose a cup.",
+    "intro": "you meet a man who seems suspicious to you. Indeed, it approaches you and pushes you to a table, where three mysterious goblets are on. The instructions given to you are simple: you must pick a cup at random and receive the prize, whatever that would be. While you observe the objects on the table, the man slips into your back and doesn't seem to want to let you go. To get out of this situation, you force yourself to choose a cup.",
     "goblets": {
       "metal": {
-        "description": "The meteor, seemingly ancient tree, engraved with a dragon's tone",
-        "name": "in metal"
+        "description": "The metallic one, seemingly ancient, engraved with a dragon's head",
+        "name": "metallic"
       },
       "biggest": {
-        "description": "The largest of the three, of a subject you fail to identify",
+        "description": "The largest of the three, made of an unidentifiable matter",
         "name": "largest"
       },
       "sparkling": {
@@ -1562,11 +1562,11 @@
     ],
     "purchased": [
       "Satisfied with your purchase, you quietly resume your travel.",
-      "You hand him a purse to proceed with the purchase. Once you've acquired the property, you continue on your way."
+      "You hand him a purse to proceed with the purchase. Once you've acquired the item, you continue on your way."
     ],
     "notEnoughMoney": [
       "Unfortunately, you do not have enough money, so you get back on the road.",
-      "You hold out an empty purse, hoping for a smooth passage, but you're quickly chased away. You go on your way sad and disappointed."
+      "You hold out an empty purse, hoping that it goes down without a hitch, but you're quickly chased away. You go on your way sad and disappointed."
     ],
     "refused": [
       "You decline the offer and continue your travel."
@@ -1588,10 +1588,10 @@
       "During a break in the shade of a big tree, a distinguished man approaches you with a friendly smile. It's Alderic the antique dealer, a renowned merchant. His costume is an epoch and he shows you carefully his collection of ancient objects exhibited in his cart.",
       "After long hours of walking, a middle-aged man dressed in clothes from a bygone era courteously approaches you. Presenting itself as Alderic the antique dealer, an antique enthusiast, he invites you to discover his collection of fascinating objects, telling with pleasure the story of each of them."
     ],
-    "reductionTip": "He inclines his head slightly and confides in you as an aside: \"If you intend to venture as far as the Route des Merveilles and manage to find me there, rest assured that I'll reserve a most advantageous offer for you.\"",
+    "reductionTip": "He inclines his head slightly and confides in you as an aside: \"If you intend to venture up to the Road of Wonders and manage to find me there, rest assured that I'll reserve a very advantageous offer for you.\"",
     "purchased": [
       "Satisfied with your purchase, you will return to your road quietly.",
-      "You hand him a purse to proceed with the purchase. Once you've acquired the property, you continue on your way."
+      "You hand him a purse to proceed with the purchase. Once you've acquired the item, you continue on your way."
     ],
     "notEnoughMoney": [
       "Unfortunately, you do not have enough money, so you get back on the road.",
