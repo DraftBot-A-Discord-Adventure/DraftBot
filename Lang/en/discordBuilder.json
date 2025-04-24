@@ -303,7 +303,7 @@
       }
     },
     "timings": {
-      "allTime": "{emote:top.allTime} We always have.",
+      "allTime": "{emote:top.allTime} All time.",
       "weekly": "{emote:top.weekly} This week."
     }
   },
