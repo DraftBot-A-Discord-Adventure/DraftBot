@@ -13,8 +13,7 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorBigEventData,
-	ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import i18n, { TranslationOption } from "../../translations/i18n";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
@@ -30,10 +29,7 @@ import {
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import {
-	millisecondsToHours,
-	millisecondsToMinutes,
-	minutesDisplay,
-	printTimeBeforeDate
+	millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
@@ -409,6 +405,14 @@ export async function displayMonsterReward(
 	} = originalInteraction;
 	const descriptionParts: string[] = [];
 
+	descriptionParts.push(
+		i18n.t("commands:report.monsterRewardsDescription", {
+			lng,
+			money: packet.money,
+			experience: packet.experience
+		})
+	);
+
 	if (packet.guildXp > 0) {
 		descriptionParts.push(
 			i18n.t("commands:report.monsterRewardGuildXp", {
@@ -417,14 +421,6 @@ export async function displayMonsterReward(
 			})
 		);
 	}
-
-	descriptionParts.push(
-		i18n.t("commands:report.monsterRewardsDescription", {
-			lng,
-			money: packet.money,
-			experience: packet.experience
-		})
-	);
 
 	if (packet.guildPoints > 0) {
 		descriptionParts.push(
