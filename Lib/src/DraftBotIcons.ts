@@ -2087,7 +2087,7 @@ export const DraftBotIcons: {
 		es: "🐂",
 		fr: "🥖",
 		it: "🍕",
-		pt: "🧱"
+		pt: "🐓"
 	},
 	rarity: [
 		"🔸",
