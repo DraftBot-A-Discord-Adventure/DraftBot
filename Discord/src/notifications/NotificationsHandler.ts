@@ -136,7 +136,13 @@ export abstract class NotificationsHandler {
 		const embed = NotificationsHandler.getNotificationEmbed(user, content, lng);
 		await user.send({ embeds: [embed] })
 			.catch(e => {
-				DraftBotLogger.errorWithObj(`Failed to send DM notification to user ${user.id}`, e);
+				if (e.toString()
+					.includes("DiscordAPIError[50007]")) {
+					DraftBotLogger.debug(`Failed to send DM notification to user ${user.id}`, e);
+				}
+				else {
+					DraftBotLogger.errorWithObj(`Failed to send DM notification to user ${user.id}`, e);
+				}
 			});
 	}
 
