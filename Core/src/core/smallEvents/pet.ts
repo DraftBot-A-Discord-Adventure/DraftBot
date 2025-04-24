@@ -51,7 +51,8 @@ function generatePossibleIssues(petEntity: PetEntity, pet: Pet): PetInteraction[
  * @param possibleIssues
  */
 function pickRandomInteraction(possibleIssues: PetInteraction[]): string {
-	const totalWeight = possibleIssues.map((pi: PetInteraction): number => pi.probabilityWeight).reduce((a: number, b: number): number => a + b);
+	const totalWeight = possibleIssues.map((pi: PetInteraction): number => pi.probabilityWeight)
+		.reduce((a: number, b: number): number => a + b);
 	const randomNb = RandomUtils.randInt(1, totalWeight + 1);
 	let sum = 0;
 	for (const petInteraction of possibleIssues) {
@@ -94,7 +95,9 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 		case PetConstants.PET_INTERACTIONS_NAMES.WIN_POINTS:
 			packet.amount = RandomUtils.rangedInt(SmallEventConstants.PET.POINTS);
 			await player.addScore({
-				amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+				amount: packet.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
 			});
 			break;
 
@@ -115,7 +118,9 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 		case PetConstants.PET_INTERACTIONS_NAMES.WIN_MONEY:
 			packet.amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 			await player.addMoney({
-				amount: packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+				amount: packet.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
 			});
 			break;
 
@@ -155,7 +160,9 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 		case PetConstants.PET_INTERACTIONS_NAMES.LOSE_MONEY:
 			packet.amount = RandomUtils.rangedInt(SmallEventConstants.PET.MONEY);
 			await player.addMoney({
-				amount: -packet.amount, response, reason: NumberChangeReason.SMALL_EVENT
+				amount: -packet.amount,
+				response,
+				reason: NumberChangeReason.SMALL_EVENT
 			});
 			break;
 
@@ -175,7 +182,8 @@ async function managePickedInteraction(packet: SmallEventPetPacket, response: Dr
 			break;
 
 		case PetConstants.PET_INTERACTIONS_NAMES.PET_FLEE:
-			LogsDatabase.logPetFree(petEntity).then();
+			LogsDatabase.logPetFree(petEntity)
+				.then();
 			await petEntity.destroy();
 			player.petId = null;
 			break;
@@ -204,6 +212,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			return;
 		}
 		await managePickedInteraction(packet, response, context, player, petEntity);
-		response.push(makePacket(SmallEventPetPacket, packet));
+		response.unshift(makePacket(SmallEventPetPacket, packet));
 	}
 };
