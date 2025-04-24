@@ -1189,20 +1189,40 @@ export class LogsDatabase extends Database {
 	}
 
 	/**
-	 * Log when a player's elo changes
+	 * Log when a player's elo changes because of an attack
 	 * @param keycloakId
 	 * @param gloryPoints
 	 * @param reason
 	 * @param fightId
 	 */
-	public async logPlayersGloryPoints(keycloakId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+	public async logPlayersAttackGloryPoints(keycloakId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
 		await LogsPlayersGloryPoints.create({
 			playerId: player.id,
 			value: gloryPoints,
 			reason,
 			fightId,
-			date: getDateLogs()
+			date: getDateLogs(),
+			isDefense: false
+		});
+	}
+
+	/**
+	 * Log when a player's elo changes because of a defense
+	 * @param keycloakId
+	 * @param gloryPoints
+	 * @param reason
+	 * @param fightId
+	 */
+	public async logPlayersDefenseGloryPoints(keycloakId: string, gloryPoints: number, reason: NumberChangeReason, fightId: number = null): Promise<void> {
+		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
+		await LogsPlayersGloryPoints.create({
+			playerId: player.id,
+			value: gloryPoints,
+			reason,
+			fightId,
+			date: getDateLogs(),
+			isDefense: true
 		});
 	}
 

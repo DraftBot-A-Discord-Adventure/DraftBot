@@ -12,6 +12,8 @@ export class LogsPlayersGloryPoints extends Model {
 	declare readonly fightId: number;
 
 	declare readonly date: number;
+
+	declare readonly isDefense: boolean;
 }
 
 /**
@@ -38,6 +40,10 @@ export function initModel(sequelize: Sequelize): void {
 		},
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: false
+		},
+		isDefense: {
+			type: DataTypes.BOOLEAN,
 			allowNull: false
 		}
 	}, {
