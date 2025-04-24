@@ -1,19 +1,22 @@
-import {packetHandler} from "../PacketHandler";
-import {PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {SmallEventAdvanceTimePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftbotSmallEventEmbed} from "../../messages/DraftbotSmallEventEmbed";
-import {Language} from "../../../../Lib/src/Language";
-import {escapeUsername, StringUtils} from "../../utils/StringUtils";
-import {SmallEventBigBadPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
+import { packetHandler } from "../PacketHandler";
+import { PacketContext } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventAdvanceTimePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventAdvanceTimePacket";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed";
+import { Language } from "../../../../Lib/src/Language";
+import {
+	escapeUsername,
+	StringUtils
+} from "../../utils/StringUtils";
+import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {
 	SmallEventBadIssue,
 	SmallEventSmallBadPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSmallBadPacket";
-import {SmallEventBigBadKind} from "../../../../Lib/src/types/SmallEventBigBadKind";
+import { SmallEventBigBadKind } from "../../../../Lib/src/types/SmallEventBigBadKind";
 import i18n from "../../translations/i18n";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {SmallEventBoatAdvicePacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import { SmallEventBoatAdvicePacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBoatAdvicePacket";
 import {
 	SmallEventGoToPVEIslandAcceptPacket,
 	SmallEventGoToPVEIslandNotEnoughGemsPacket,
@@ -31,14 +34,17 @@ import {
 	SmallEventInteractOtherPlayersPacket,
 	SmallEventInteractOtherPlayersRefuseToGivePoorPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventInteractOtherPlayers";
-import {interactOtherPlayerGetPlayerDisplay} from "../../smallEvents/interactOtherPlayers";
-import {SmallEventLeagueRewardPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
-import {minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {SmallEventWinGuildXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
-import {SmallEventBonusGuildPVEIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
-import {SmallEventBotFactsPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
-import {SmallEventDoNothingPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
-import {SmallEventFightPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
+import { interactOtherPlayerGetPlayerDisplay } from "../../smallEvents/interactOtherPlayers";
+import { SmallEventLeagueRewardPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
+import {
+	minutesDisplay,
+	printTimeBeforeDate
+} from "../../../../Lib/src/utils/TimeUtils";
+import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
+import { SmallEventBonusGuildPVEIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
+import { SmallEventBotFactsPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBotFactsPacket";
+import { SmallEventDoNothingPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventDoNothingPacket";
+import { SmallEventFightPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFightPetPacket";
 import {
 	SmallEventGobletsGameMalus,
 	SmallEventGobletsGamePacket
@@ -48,40 +54,40 @@ import {
 	SmallEventShopCannotBuyPacket,
 	SmallEventShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventShopPacket";
-import {SmallEventStaffMemberPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
-import {SmallEventWinEnergyPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
-import {SmallEventWinEnergyOnIslandPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyOnIslandPacket";
-import {SmallEventWinHealthPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
-import {SmallEventWinPersonalXPPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
-import {SmallEventWitchResultPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
-import {witchResult} from "../../smallEvents/witch";
-import {DisplayUtils} from "../../utils/DisplayUtils";
+import { SmallEventStaffMemberPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventStaffMemberPacket";
+import { SmallEventWinEnergyPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyPacket";
+import { SmallEventWinEnergyOnIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinEnergyOnIslandPacket";
+import { SmallEventWinHealthPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinHealthPacket";
+import { SmallEventWinPersonalXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinPersonalXPPacket";
+import { SmallEventWitchResultPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWitchPacket";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
+import { witchResult } from "../../smallEvents/witch";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 import {
 	SmallEventSpaceInitialPacket,
 	SmallEventSpaceResultPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventSpacePacket";
-import {SmallEventFindPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
-import {PetUtils} from "../../utils/PetUtils";
-import {SmallEventFindPotionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
-import {SmallEventFindItemPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
-import {SmallEventPetPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
-import {SmallEventClassPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
-import {SmallEventUltimateFoodMerchantPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {SmallEventCartPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
-import {cartResult} from "../../smallEvents/cart";
-import {SmallEventFindMissionPacket} from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
-import {MissionUtils} from "../../utils/MissionUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {baseFunctionHandler} from "../../smallEvents/shop";
-import {epicItemShopHandler} from "../../smallEvents/epicItemShop";
+import { SmallEventFindPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPetPacket";
+import { PetUtils } from "../../utils/PetUtils";
+import { SmallEventFindPotionPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindPotionPacket";
+import { SmallEventFindItemPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindItemPacket";
+import { SmallEventPetPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventPetPacket";
+import { SmallEventClassPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventClassPacket";
+import { SmallEventUltimateFoodMerchantPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventUltimateFoodMerchantPacket";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { SmallEventCartPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventCartPacket";
+import { cartResult } from "../../smallEvents/cart";
+import { SmallEventFindMissionPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindMissionPacket";
+import { MissionUtils } from "../../utils/MissionUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { baseFunctionHandler } from "../../smallEvents/shop";
+import { epicItemShopHandler } from "../../smallEvents/epicItemShop";
 import {
 	SmallEventEpicItemShopAcceptPacket,
 	SmallEventEpicItemShopCannotBuyPacket,
 	SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
-import {Badge} from "../../../../Lib/src/types/Badge";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
