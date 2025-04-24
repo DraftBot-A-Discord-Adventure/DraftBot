@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "Il semblerait que **{{pet}}** soit heureux de vous avoir en sa compagnie. Il gagne en amour et vous devient plus fidèle.",
-        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en {determinant} caressant. Ce moment passé avec lui a renforcé vos liens.",
+        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
         "Après être parti quelques instants, **{{pet}}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. Il vous aime ainsi davantage.",
         "Malheureusement, **{{pet}}** semble avoir déclenché les hostilités avec {{randomAnimal}} sauvage ! Vous décidez de le défendre vaillamment. Il vous aime davantage et vous devient plus fidèle.",
         "Oh comme c'est mignon ! **{{pet}}** est joueur ! Aussi vous décidez de vous amuser avec lui. Cette partie a renforcé vos liens."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "C'est beau à voir, **{{pet}}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Dans un virage, **{{pet}}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à {accusative}, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Défendre **{{pet}}** contre {{randomAnimal}} sauvage n'a pas été une mince affaire, et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite, et courez à toute vitesse. Grâce à cette mésaventure vous gagnez **{{amount}} Min** {emote:unitValues.timeGain} sur votre trajet."
       ],
       "points": [
