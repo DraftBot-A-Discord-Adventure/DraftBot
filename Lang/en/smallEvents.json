@@ -1401,22 +1401,22 @@
         "failure": "You hit the animal with a weak punch! It slips, surprised, but it's not enough to get rid of it. You are under a fierce attack before you get away!"
       },
       "runAway": {
-        "name": "Escape",
-        "success": "You do not reflect for a second and start running! The pet is continuing with you but you manage to do so.",
-        "failure": "You try to flee, but you quickly caught up with the beast that sits at you a violent blow before leaving yourself alone."
+        "name": "Flee",
+        "success": "You don't waste any time thinking and immediately start running away! The pet is chasing you but you manage to outrun it.",
+        "failure": "You try to flee, but you get quickly caught up by the beast that strikes you a violent blow before leaving you alone."
       },
       "focusEnergy": {
-        "name": "Focus power and attack",
-        "success": "You slow down your breath and feel your energy walking your arms! You get this energy in a brutal blow that makes the animal flee!",
-        "failure": "You are trying to concentrate but you are too tired to do that! You are shaking on the ground, but it all has the effect of calming the beast, which is leaving."
+        "name": "Gather all the strength and attack",
+        "success": "You slow down your breath and feel your energy getting through your arms! You set this energy free in a brutal blow that makes the animal flee!",
+        "failure": "You attempt to concentrate, but you are too tired to do that! You are swaying on the ground, however it has the effect of calming the beast, which is leaving."
       },
       "intimidate": {
-        "name": "Intimize Creature",
-        "success": "You show your strength in front of the animal, which is pulling back and escaping alive at the pace of the horizon!",
-        "failure": "You puff your chest out in front of the animal, which only makes him angrier. In his anger, he misses his attack, and you take advantage of the opportunity to get the hell out of there!"
+        "name": "Intimidate the creature",
+        "success": "You show your strength in front of the animal, which is pulling back and promptly fleeing away!",
+        "failure": "You puff your chest out in front of the animal, which only makes it angrier. In its anger, he misses its attack, and you take advantage of the opportunity to quickly get out of there!"
       },
       "baitWithMeat": {
-        "name": "Distract beats with meat",
+        "name": "Distract the beast with meat",
         "success": "You pull a piece of meat out of your bag and throw it at the animal, which throws on it greedily. You take advantage of it to escape.",
         "failure": "You are clumsily trying to throw a piece of meat into the body to distract it. However, before you have been able to initiate your maneuver, the animal moves closer and sits at you a violent blow before leaving you alone."
       },
@@ -1494,31 +1494,31 @@
         "name": "largest"
       },
       "sparkling": {
-        "description": "The last, carved in blue wood and glittering to such an extent that it seems enchanted",
+        "description": "The last one, carved in blue wood and glittering to such an extent that it seems enchanted",
         "name": "glittering"
       }
     },
     "results": {
       "life": "You gently lift the $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) cup and notice that there's nothing underneath. Disappointed, and a sore loser, you strike the remaining cups, which fly into the air. Noticing that there was nothing in the other cups either, you turn back to the hustler. Unfortunately, he strikes first. You lose **{{quantity}} {emote:unitValues.lostHealth}**.",
-      "time": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}. ame) and discover with pleasure a little piece! Unfortunately, the man behind you does not seem to want to let you leave with your reward. You lose **{{quantity}} Min {emote:unitValues.time}** to shop with him before giving up and getting back on your way.",
-      "nothing": "You gently raise the cup $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) and notice that there is nothing below. If so, you are leaving again sadly saying that you may have more luck another time.",
+      "time": "You gently raise the $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) cup and gladly discover a little piece! Unfortunately, the man behind you does not seem to want to let you leave with your reward. You lose **{{quantity}} Min {emote:unitValues.time}** negociating with him before giving up and getting back on your way.",
+      "nothing": "You gently raise the $t(smallEvents:gobletsGame.goblets.{{goblet}}.name) cup and notice that there is nothing below. Disappointed, you are sadly getting back on your tracks, hoping you may have more luck another time.",
       "end": "Seeing your lack of reaction, the man has the bad idea of trying to rob you. Noticing his maneuver, you intervene, but you're quickly surprised by the man's strength, as he manages to get out of the way with a sudden movement, before fleeing. You escape with a slight wound. You lose **{{quantity}} {emote:unitValues.lostHealth}**."
     }
   },
   "shop": {
     "intro_m": [
-      "As you travel peacefully, you meet {{name}}. The {{name}} is a traveling merchant, offering you a special offer.",
-      "As you move quietly along your way, you fall on your nose with {{name}}, which quickly offers you an attractive offer.",
-      "As you plan to get back on track after a short break, a man portraying himself as \"{{name}} - traveling merchant\" offers you an exchange.",
-      "Around a rock, you fall nose with a traveling merchant named {{name}}, who seems to be selling smart things.",
-      "As you walk quietly, a cart bearing the sign \"{{name}} - supertrader traveling items\" will appear in front of you. A transaction is starting immedially.",
-      "A merchant is calling you to a certain point of your journey. He says he's called {{name}} and has items that can help you on your journey.",
-      "A man is approaching you with long hours of walking. You hear that it is called {{name}} – a first-class merchant. It quickly shows you one of its many items.",
+      "As you travel peacefully, you meet {{name}}. He's a wandering merchant, offering you a special deal.",
+      "As you move quietly along your way, you get face to face with {{name}}, who quickly offers you an attractive deal.",
+      "As you plan to get back on track after a short break, a man portraying himself as \"{{name}} - wandering merchant\" offers you an exchange.",
+      "Around a rock, you get face to face with a wandering merchant named {{name}}, who seems to be selling quite interesting things.",
+      "As you walk quietly, a cart bearing the sign \"{{name}} - super wandering item merchant\" appears in front of you. A transaction is immediately underway.",
+      "A merchant is calling you to a certain point of your journey. He says he's called {{name}} and has items that can help you on your adventure.",
+      "After walking for hours on end, a man approaches you. You hear that he is called {{name}} – a first-class merchant. It quickly shows you one of its many items.",
       "During a short break against a tree, a man comes to you and presents himself as a traveling merchant. The man whose name is {{name}} seems to offer an enchanting deal."
     ],
     "intro_f": [
       "As you move quietly along your way, you come face to face with {{name}} who quickly offers you an attractive deal.",
-      "As you travel the roads, you often come across street vendors. Today, it's a vendor named {{name}} who has something to offer you.",
+      "As you travel the roads, you often come across wandering merchants. Today, it's a merchant named {{name}} who has something to offer you.",
       "During your journey, a merchant is calling out to you. She tells she's named {{name}} and has items that can help you on your journey.",
       "As you move quietly along your way, you come across a cart where a merchant named {{name}} is located. She offers you to buy one of her items, telling you that it might be useful to you in your adventure."
     ],

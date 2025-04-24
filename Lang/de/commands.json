@@ -1,58 +1,58 @@
 {
   "badges": {
-    "description": "Bei den Abzeichen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Abzeichen ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Detaillierte Informationen:"
+    "description": "Bei den Abzeichen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Abzeichen ist auf dem Bot Führer erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)",
+    "title": "{emote:commands.badges}  Detaillierte Informationen:"
   },
   "pet": {
     "embedTitle": "Vertraut mit {{pseudo}} :",
     "petField": "**Typ:** {{emote}} {{typeName}}\n**Spitzname:** {{nickname}}\n**Rarität:** {{rarity}}\n**Geschlecht:** {{sex}}\n**Mentalität:** {{loveLevel}}",
     "noNickname": "Keine Spitznamen",
     "loveLevels": {
-      "1_male": ":smirk_cat: Geizig",
-      "1_female": ":smirk_cat: Köchin",
-      "2_male": ":pouting_cat: Wild",
-      "2_female": ":pouting_cat: Wild",
-      "3_male": ":scream_cat: Ängstlich",
-      "3_female": ":scream_cat: Ängstlich",
-      "4_male": ":smiley_cat: Gezähmt",
-      "4_female": ":smiley_cat: Gezähmt",
-      "5_male": ":heart_eyes_cat: Aufgerichtet",
-      "5_female": ":heart_eyes_cat: Aufgerichtet"
+      "1_male": "{emote:loveLevels.1} Boshaft",
+      "1_female": "{emote:loveLevels.1} Boshaft",
+      "2_male": "{emote:loveLevels.2} Wild",
+      "2_female": "{emote:loveLevels.2} Wild",
+      "3_male": "{emote:loveLevels.3} Ängstlich",
+      "3_female": "{emote:loveLevels.3} Ängstlich",
+      "4_male": "{emote:loveLevels.4} Gezähmt",
+      "4_female": "{emote:loveLevels.4} Gezähmt",
+      "5_male": "{emote:loveLevels.5} Aufgerichtet",
+      "5_female": "{emote:loveLevels.5} Aufgerichtet"
     },
-    "hungry": "🤤 hungrig",
+    "hungry": "{emote:effects.starving} Hungrig",
     "diet": {
-      "diet_null": "🥪 Allesfresser",
-      "diet_herbivorous": "🥬 Herbivor",
-      "diet_carnivorous": "🥩 Fleischfresser"
+      "diet_null": "{emote:diet.omnivorous} Allesfresser",
+      "diet_herbivorous": "{emote:diet.herbivorous} Pflanzenfresser",
+      "diet_carnivorous": "{emote:diet.carnivorous} Fleischfresser"
     },
     "sexDisplay_f": "Weiblich {emote:sex.female}",
     "sexDisplay_m": "Männlich {emote:sex.male}",
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
-    "embedTitle": "Gilde {{guildName}} | Level {{level}}",
-    "description": ":scroll: `{{description}}`",
+    "embedTitle": "Gilde {{guildName}} | Ebene {{level}}",
+    "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
-    "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})",
+    "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} Mitglieder",
     "infoTitle": "Informationen",
-    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "islandInfo": "{emote:guild.isOnPveIsland} Anzahl der alliiert auf der geheimnisvollen Insel: {{membersOnPveIsland}}",
+    "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
     "ranking": "{{rank}} / {{rankTotal}}",
     "notRanked": "Nicht klassifiziert"
   },
   "guildCreate": {
-    "title": "{{pseudo}}Gründung einer Gilde",
-    "canceledTitle": "{{pseudo}}Die Gründung einer Gilde wird rückgängig gemacht.",
+    "title": "{{pseudo}} Gründung einer Gilde",
+    "canceledTitle": "{{pseudo}} Die Gründung einer Gilde wird rückgängig gemacht.",
     "canceledDesc": "Die Gründung Ihrer Gilde wurde abgebrochen.",
     "confirmDesc": "{emote:collectors.question} Bestätigen Sie die Gründung der Gilde **{{guildName}}** für `{{price}}` {emote:unitValues.money} ?",
     "acceptedFooter": "Achtung: Der Staff behält sich das Recht vor, Ihre Gilde umzubenennen.",
     "acceptedDesc": "Die Gilde **{{guildName}}** wurde gegründet!"
   },
   "guildInvite": {
-    "title": "{{pseudo}}Wenn Sie sich für eine Gilde entscheiden, werden Sie eingeladen, einer Gilde beizutreten.",
+    "title": "{{pseudo}} Wenn Sie sich für eine Gilde entscheiden, werden Sie eingeladen, einer Gilde beizutreten!",
     "confirmDesc": "{emote:collectors.question} Möchten Sie der Gilde `{{guildName}}` beitreten?",
     "successTitle": "{{pseudo}} hat sich der Gilde angeschlossen {{guildName}} !",
     "successDesc": "Die Zeit bis zur nächsten täglichen Gildenbelohnung wurde zurückgesetzt.",
@@ -88,7 +88,7 @@
     "canceledTitle": "Stornierung berücksichtigt."
   },
   "guildLeave": {
-    "title": "{{pseudo}}Bestätigung :",
+    "title": "{{pseudo}} Bestätigung :",
     "confirmDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen?",
     "confirmChiefDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich **endgültig** zerstören?",
     "confirmChiefDescWithElder": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen? {{newChiefPseudo}} wird ihr Anführer werden.",
@@ -119,7 +119,7 @@
     "acceptedDesc": "Die Gildenbeschreibung wurde tatsächlich editiert!",
     "canceledDesc": "Sie haben die Gildenbeschreibung nicht editiert!",
     "canceledTitle": "Stornierung berücksichtigt.",
-    "successDescriptionTitle": "{{pseudo}}Bestätigung :",
+    "successDescriptionTitle": "{{pseudo}} Bestätigung :",
     "noGuild": "Es scheint, dass Sie nicht mehr in einer Gilde sind.",
     "notAnElder": "Sie haben nicht mehr die erforderlichen Berechtigungen, um diesen Befehl auszuführen."
   },
@@ -129,7 +129,7 @@
     "commandEmbedTitle": "{{emote}} Detaillierte Informationen:",
     "commands": {
       "BADGES": {
-        "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Liste der Badges ist auf dem Bot Guide erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)"
+        "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Abzeichenliste ist auf dem Bot Führer erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)"
       },
       "CLASSES": {
         "description": "Ermöglicht die Änderung der Klasse. Mehr Informationen zu den Klassen finden Sie auf der Spielerführung: https://guide.draftbot.com"
@@ -190,7 +190,7 @@
         "description": "Zeigt die Rangliste der Gilden in Schritten von 15 Gilden an. Die Gilden werden nach den Punkten sortiert, die sie auf den geheimnisvollen Inseln gesammelt haben."
       },
       "HELP": {
-        "description": ":expressionless:"
+        "description": "{emote:other.expressionless}"
       },
       "IDEA": {
         "description": "Sie können einen Link erhalten, um eine Idee vorzuschlagen oder für bereits vorhandene Ideen zu stimmen."
@@ -334,12 +334,12 @@
     "newLanguageSetDescription": "DraftBot wird ab sofort auf Deutsch mit Ihnen sprechen! {emote:languageFlavors.de}",
     "newLanguageSetTitle": "Sprache geändert",
     "selectLanguage": "Wählen Sie eine Sprache",
-    "title": ":earth_africa: Auswahl der Sprache"
+    "title": "{emote:commands.language} Auswahl der Sprache"
   },
   "ping": {
     "discord": {
-      "create": ":ping_pong: Pong",
-      "edit": ":ping_pong: Pong\n\n** Latenz insgesamt: ** {{totalLatency}} ms\n** Latenz Discord: ** {{discordApiLatency}} ms\n** Shard-Nummer: ** {{shardId}}\n** Anzahl der shards: ** {{totalShards}} (+ main shard)"
+      "create": "{emote:commands.ping} Pong",
+      "edit": "{emote:commands.ping} Pong\n\n** Latenz insgesamt: ** {{totalLatency}} ms\n** Latenz Discord: ** {{discordApiLatency}} ms\n** Shard-Nummer: ** {{shardId}}\n** Anzahl der shards: ** {{totalShards}} (+ main shard)"
     }
   },
   "profile": {
@@ -391,7 +391,7 @@
     },
     "map": {
       "fieldName": "Bestimmung:",
-      "fieldValue": "{{mapEmote}} {{mapName}}"
+      "fieldValue": "{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapName}}.name)"
     },
     "mission": {
       "fieldName": "Aufgaben:",
@@ -403,18 +403,18 @@
     },
     "pet": {
       "fieldName": "Home:",
-      "fieldValue": "Rarität: {{rarity}}\n"
+      "fieldValue": "Rarität: {{rarity}}\n$t(commands:pet.shortPetField)"
     },
     "playerClass": {
       "fieldName": "Klasse:",
-      "fieldValue": "{{className}}"
+      "fieldValue": "$t(models:classFormat)"
     },
     "ranking": {
       "fieldName": "Bewertung und Score:",
       "fieldValue": "{emote:announcements.trophy} {{rank}} / {{numberOfPlayer}} | {emote:unitValues.score} {{score}}"
     },
     "unranked": {
-      "fieldName": "Rangliste und Punktestand :",
+      "fieldName": "Rangliste und Punktestand:",
       "fieldValue": "{emote:announcements.trophy} Nicht klassifiziert | {emote:unitValues.score} {{score}}"
     },
     "statistics": {
@@ -423,9 +423,9 @@
     },
     "timeLeft": {
       "fieldName": "Restdauer:",
-      "fieldValue": "{{effect}} {{timeLeft}}"
+      "fieldValue": "{emote:effects.{{effectId}} {{timeLeft}}"
     },
-    "title": "{{effect}} | {{pseudo}} | Stufe {{level}}"
+    "title": "{emote:effects.{{effectId}}} | {{pseudo}} | Stufe {{level}}"
   },
   "rarity": {
     "earlyAvailable": "Zu Beginn des Spiels besessen",
@@ -509,7 +509,7 @@
   "shop": {
     "closeShop": "Sie haben den Laden geschlossen.",
     "closeShopTitle": "{{pseudo}}, Ladenschluss",
-    "noAlterationToHeal": "Sie sind nicht Opfer einer Zustandsveränderung. 🙂.",
+    "noAlterationToHeal": "Sie sind nicht Opfer einer Zustandsveränderung.\n{emote:effects.none}",
     "success": "{{pseudo}}Erfolgreiche Transaktion!",
     "healAlteration": "🏥 Ihre Zustandsveränderungen wurden entfernt.",
     "tooManyEnergyBought": "Sie haben die maximale Menge an Energierückgewinnung für diese Woche gekauft.",
@@ -948,7 +948,7 @@
       "personalXP": "{emote:unitValues.xp} | Die Mitglieder der Gilde haben Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`.",
       "guildXP": "{emote:unitValues.xp} | Die Gilde hat Erfahrung erhalten. `+ {{quantity}} {emote:unitValues.xp}`",
       "money": "{emote:unitValues.money} | Die Mitglieder der Gilde haben `{{quantity}} {emote:unitValues.money}` erhalten.",
-      "item": "{emote:rewards:item} | Die Mitglieder der Gilde haben einen zufälligen Gegenstand erhalten.",
+      "item": "{emote:rewards.item} | Die Mitglieder der Gilde haben einen zufälligen Gegenstand erhalten.",
       "badge": "{emote:badges.powerful_guild} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
       "superBadge": "{emote:badges.very_powerful_guild} | Die Mitglieder der Gilde haben ein Abzeichen erhalten.",
       "fullHeal": "{emote:shopItems.regen} | Die Mitglieder der Gilde wurden vollständig geheilt.",
@@ -1038,7 +1038,7 @@
     "canceledDesc": "Sie haben die Suche nach einem Kampf abgebrochen.",
     "information": {
       "glory": "{emote:unitValues.glory} {{gloryPoints}}",
-      "class": "{{className}}",
+      "class": "$t(models:classFormat)",
       "stats": ":zap: {{cumulativeHealth}} / {{cumulativeMaxHealth}} | :dagger: {{cumulativeAttack}} | :shield: {{cumulativeDefense}} | :rocket: {{cumulativeSpeed}} | :wind_blowing_face: {{baseBreath}} / {{maxBreath}} | :lungs: {{breathRegen}}"
     },
     "opponentsNotFound": "Es wurde kein Gegner gefunden, der gegen Sie antreten kann. Sie können es später noch einmal versuchen.",
@@ -1204,16 +1204,16 @@
     }
   },
   "switch": {
-    "titleSuccess": "{{pseudo}}Die Bestellung wurde ausgeführt.",
+    "titleSuccess": "{{pseudo}} Die Bestellung wurde ausgeführt!",
     "switchingDouble": "{{item1}} und {{item2}} wurden ausgetauscht!",
     "switchingSingle": "Sie haben ausgestattet: {{item1}} !",
     "noItemToSwitch": "Sie haben keine Ausrüstung, die Sie ausrüsten müssen!",
     "cancelled": "Aktion abgebrochen!",
-    "switchSelectionTitle": "{{pseudo}}Die Ausrüstung eines Objekts",
+    "switchSelectionTitle": "{{pseudo}} Die Ausrüstung eines Objekts",
     "switchSelectionDescription": "Wählen Sie aus der folgenden Liste einen Gegenstand zum Ausrüsten aus:"
   },
   "drink": {
-    "cancelledTitle": "{{pseudo}}Sie haben die Aktion abgebrochen.",
+    "cancelledTitle": "{{pseudo}} Sie haben die Aktion abgebrochen",
     "cancelled": "Sie haben Ihren Trank nicht getrunken!",
     "noActiveObject": "Sie haben leider nichts zu trinken in Ihrem Inventar!",
     "objectIsActiveDuringFights": "Dieses Getränk kann jetzt nicht getrunken werden. Es wird automatisch bei Ihrem nächsten Kampf verwendet!",
@@ -1359,8 +1359,8 @@
     },
     "title": "{{pseudo}}Sie haben Ihre Liga-Belohnung erhalten!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
-      "other": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n Sie schließen mit $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) ab!\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!"
+      "first": "Sie seid die vorhergehende Liga mit **{{glory}} Ruhm geendet. \n\n**Sie geendet auf dem $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) Platz!**\nSie letzte Liga ist: **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}** !\n{emote:unitValues.xp} Verdiente XP : **{{xp}}** !\n{emote:unitValues.score} Verdiente Punkte : **{{score}}** !\n{emote:unitValues.glory} Am Ende der Saison wurde ihnen ein Abzeichen geschenkt.\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!",
+      "other": "Sie haben die vorherige Liga mit **{{glory}} Ruhm abgeschlossen. {emote:unitValues.glory}**\n\n Sie schließen mit $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) ab!\nIhre endgültige Liga ist : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Verdientes Geld : **{{money}}**!\n{emote:unitValues.xp} Verdiente XP : **{{xp}}**!\n{emote:unitValues.score} Verdiente Punkte : **{{score}}** !\n{emote:rewards.item} Sie erhalten eine zufällige Ausrüstung!"
     }
   },
   "guildStorage": {
