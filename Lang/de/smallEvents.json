@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "Es scheint, dass **{{pet}}** glücklich ist, Sie in seiner Gesellschaft zu haben. Er gewinnt an Liebe und wird Ihnen gegenüber treuer.",
-        "Nach einem langen Spaziergang beschließen Sie, sich um Ihren **{{pet}}** zu kümmern, indem Sie {determinant} streicheln. Die Zeit, die Sie mit ihm verbracht haben, hat Ihre Bindung gestärkt.",
+        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
         "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit etwas Essen zurück, das er weiter weg gefunden hat. Sie beschließen, ihm das Futter zu geben, bevor es verloren geht. Auf diese Weise liebt er Sie noch mehr.",
         "Leider scheint **{{pet}}** die Feindseligkeiten mit {{randomAnimal}} wild ausgelöst zu haben! Sie beschließen, ihn tapfer zu verteidigen. Er liebt Sie mehr und wird Ihnen gegenüber loyaler.",
         "Oh wie süß ist das denn! **{{pet}}** ist verspielt! Daher beschließen Sie, mit ihm Spaß zu haben. Dieser Teil hat eure Beziehung gestärkt."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "Es ist schön anzusehen, **{{pet}}** ist in Form. Sie reiten ein paar Minuten auf seinem Rücken und gewinnen **{{amount}} Min** {emote:unitValues.timeGain}.",
         "In einer Kurve beginnt **{{pet}}** plötzlich zu rennen. Sie werden an der Leine mitgeschleift, aber Sie haben gewonnen **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Sie bemerken, dass **{{pet}}** es eilig zu haben scheint, trotzdem schaffen Sie es, {determinant} so gut es geht zu folgen. Dank ihr gewinnen Sie **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Der Spürsinn von **{{pet}}** half Ihnen, eine Abkürzung zu finden. Dank {accusative}, haben Sie **{{amount}} Min** {emote:unitValues.timeGain}gewonnen.",
+        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Die Verteidigung von **{{pet}}** gegen {{randomAnimal}} wild war keine leichte Aufgabe, und dieses Mal haben Sie einen Stärkeren als sich selbst gefunden. Sie beschließen, die Flucht zu ergreifen, und rennen so schnell Sie können. Durch dieses Missgeschick verdienen Sie **{{amount}} Min** {emote:unitValues.timeGain} auf Ihrer Reise."
       ],
       "points": [
@@ -1401,7 +1401,7 @@
         "failure": "Sie schlagen das Tier mit einem schwachen Faustschlag! Es weicht überrascht zurück, aber das reicht nicht aus, um es loszuwerden. Sie müssen einen heftigen Angriff über sich ergehen lassen, bevor Sie fliehen können."
       },
       "runAway": {
-        "name": "Flucht",
+        "name": "Flüchten",
         "success": "Sie denken nicht eine Sekunde lang nach und rennen sofort los! Das Tier verfolgt Sie, aber es gelingt Ihnen, sich von ihm loszureißen.",
         "failure": "Sie versuchen zu fliehen, werden aber schnell von der Bestie eingeholt, die Ihnen einen heftigen Schlag versetzt und Sie dann allein zurücklässt."
       },
