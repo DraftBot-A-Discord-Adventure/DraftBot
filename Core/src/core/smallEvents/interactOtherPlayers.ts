@@ -72,10 +72,10 @@ function checkBadges(otherPlayer: Player, interactionsList: InteractOtherPlayerI
  * @param interactionsList
  */
 function checkLevel(otherPlayer: Player, interactionsList: InteractOtherPlayerInteraction[]): void {
-	if (otherPlayer.level < 10) {
+	if (otherPlayer.level < 15) {
 		interactionsList.push(InteractOtherPlayerInteraction.BEGINNER);
 	}
-	else if (otherPlayer.level >= 50) {
+	else if (otherPlayer.level >= 115) {
 		interactionsList.push(InteractOtherPlayerInteraction.ADVANCED);
 	}
 }
