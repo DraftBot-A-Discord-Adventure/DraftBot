@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "{{pet}}Parece que ** ** está feliz por a ter na sua companhia. Ele apaixona-se e torna-se mais fiel a si.",
-        "{{pet}} {determinant} Depois de um longo passeio, decide cuidar do seu ** ** fazendo-lhe festas . Este tempo passado com ele reforçou a vossa ligação.",
+        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
         "{{pet}}Depois de se ausentar por alguns instantes, ** ** regressa com alguma comida que encontrou mais à frente. Decide dar-lha antes que ela se perca. Isso faz com que ele te ame mais.",
         "{{pet}} {{randomAnimal}} Infelizmente, ** ** parece ter iniciado as hostilidades com sauvage! Decides defendê-lo corajosamente. Ele ama-te mais e torna-se mais fiel a ti.",
         "Que giro!{{pet}}** ** é brincalhão! Por isso, decide divertir-se com ele. Este jogo reforçou a vossa ligação."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "É bom ver que **{{pet}}** está em óptima forma. Se andar nas costas dele durante alguns minutos, ganha **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Numa curva da estrada, **{{pet}}** começa subitamente a correr. Acabas por ser arrastado no final da sua pista, mas ganhaste **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Repara que **{{pet}}** parece estar com pressa, mas consegue acompanhar o {determinant} . Graças a ela, ganha **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "O talento de **{{pet}}** permitiu-lhe encontrar um atalho. Graças a {accusative}, ganhou **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Defender **{{pet}}** contra {{randomAnimal}} sauvage não tem sido tarefa fácil, e desta vez encontraste algo mais forte do que tu. Decides fugir e corres a toda a velocidade. Graças a esta desventura, ganhaste **{{amount}} Min** {emote:unitValues.timeGain} pelo caminho."
       ],
       "points": [
