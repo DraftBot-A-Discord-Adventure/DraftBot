@@ -1,0 +1,45 @@
+on:
+  schedule:
+    - cron: '0 17 * * *' # Runs every day at 17:00 UTC (adjust time/timezone as needed)
+  workflow_dispatch:
+
+jobs:
+  send_advice:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Send daily advice
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        # Define the path to the local advice file
+        advices_json_path="Lang/fr/advices.json"
+
+        # Check if jq is installed, install if not
+        if ! command -v jq &> /dev/null
+        then
+            echo "jq could not be found, installing..."
+            sudo apt-get update && sudo apt-get install -y jq
+        fi
+
+        # Extract advice strings from the local JSON file
+        advices_list=$(jq -r '.advices[]' "$advices_json_path")
+
+        # Get a random advice
+        random_advice=$(echo "$advices_list" | shuf -n 1)
+
+        # Replace {command:...} with /...
+        # Using POSIX sed for broader compatibility
+        random_advice=$(echo "$random_advice" | sed 's/{command:\([^}]*\)}/\/\1/g')
+
+        # Prepare the payload content, escaping necessary characters for JSON
+        # Basic escaping for quotes and newlines
+        escaped_advice=$(echo "$random_advice" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+        content=":bulb: **Astuce du jour** :\\n\\n$escaped_advice\\n\\n<@&1136367073317113917>" # Ensure the role ID is correct
+        payload="{\"content\": \"$content\"}"
+
+        # Send advice to Discord webhook
+        curl -s -X POST -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK_URL"
