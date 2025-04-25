@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "It looks like **{{pet}}** is happy to have you with them. They gain in love and become more loyal.",
-        "After having worked for a long time, you decide to take care of your **{{pet}}** in a strolling {determinant} . That moment passed with him strengthened your links.",
+        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
         "Have gone for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. He likes you more.",
         "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. He loves you more and becomes more trustworthy.",
         "Oh how cute! **{{pet}}** is a player! Also you decide to have fun with them. This game strengthened your links."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "Nice to see, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
         "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "You notice that **{{pet}}** seems to be in a hurry, but you still manage to {determinant} keep up. Thanks to her, you win **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "The flair of **{{pet}}** has enabled you to find a shortcut. Thanks to {accusative}, you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
       ],
       "points": [
