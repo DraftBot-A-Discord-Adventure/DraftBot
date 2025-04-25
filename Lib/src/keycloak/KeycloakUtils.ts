@@ -344,9 +344,7 @@ export class KeycloakUtils {
 	/**
 	 * Update the language of a user
 	 */
-	// Needed because the return type must be an object
-	/* eslint-disable @typescript-eslint/no-empty-object-type */
-	public static async updateUserLanguage(keycloakConfig: KeycloakConfig, user: KeycloakUser, newLanguage: Language): Promise<ApiCallReturnType<{}>> {
+	public static async updateUserLanguage(keycloakConfig: KeycloakConfig, user: KeycloakUser, newLanguage: Language): Promise<ApiCallReturnType<Record<string, never>>> {
 		const checkAndQueryToken = await this.checkAndQueryToken(keycloakConfig);
 		if (checkAndQueryToken.isError) {
 			return checkAndQueryToken;
@@ -590,9 +588,7 @@ export class KeycloakUtils {
 		return formatApiCallOk(res, await res.json() as KeycloakOAuth2Token);
 	}
 
-	// Needed because the return type must be an object
-	/* eslint-disable @typescript-eslint/no-empty-object-type */
-	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<{}>> {
+	private static async checkAndQueryToken(keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<Record<string, never>>> {
 		if (this.keycloakToken === null || this.keycloakTokenExpirationDate! < Date.now()) {
 			const res = await fetch(`${keycloakConfig.url}/realms/${keycloakConfig.realm}/protocol/openid-connect/token`, {
 				method: "POST",
@@ -626,9 +622,7 @@ export class KeycloakUtils {
 		};
 	}
 
-	// Needed because the return type must be an object
-	/* eslint-disable @typescript-eslint/no-empty-object-type */
-	private static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<{}>> {
+	private static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<Record<string, never>>> {
 		const checkAndQueryToken = await this.checkAndQueryToken(keycloakConfig);
 		if (checkAndQueryToken.isError) {
 			return checkAndQueryToken;

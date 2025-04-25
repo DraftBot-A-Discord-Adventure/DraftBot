@@ -1,24 +1,18 @@
-import {
-	loadConfig, RestWsConfig
-} from "./config/RestWsConfig";
+import { loadConfig } from "./config/RestWsConfig";
 import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 import "source-map-support/register";
-import { KeycloakConfig } from "../../Lib/src/keycloak/KeycloakConfig";
 import { RestApi } from "./services/RestApi";
 
-export let restWsConfig: RestWsConfig;
-export let keycloakConfig: KeycloakConfig;
+// Load the configuration
+export const restWsConfig = loadConfig();
+export const keycloakConfig = {
+	realm: restWsConfig.KEYCLOAK_REALM,
+	url: restWsConfig.KEYCLOAK_URL,
+	clientId: restWsConfig.KEYCLOAK_CLIENT_ID,
+	clientSecret: restWsConfig.KEYCLOAK_CLIENT_SECRET
+};
 
 function main(): void {
-	// Load the configuration
-	restWsConfig = loadConfig();
-	keycloakConfig = {
-		realm: restWsConfig.KEYCLOAK_REALM,
-		url: restWsConfig.KEYCLOAK_URL,
-		clientId: restWsConfig.KEYCLOAK_CLIENT_ID,
-		clientSecret: restWsConfig.KEYCLOAK_CLIENT_SECRET
-	};
-
 	// Initialize the logger
 	DraftBotLogger.init(restWsConfig.LOGGER_LEVEL, restWsConfig.LOGGER_LOCATIONS, { app: "RestWs" }, restWsConfig.LOKI_HOST
 		? {

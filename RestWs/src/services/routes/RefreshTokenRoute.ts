@@ -4,6 +4,10 @@ import { keycloakConfig } from "../../index";
 import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { getRequestLoggerMetadata } from "../RestApi";
 
+/**
+ * Sets up the refresh token route for the API.
+ * @param server
+ */
 export function setupRefreshTokenRoute(server: FastifyInstance): void {
 	server.post("/refresh-token", async (request, reply) => {
 		try {
