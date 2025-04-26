@@ -63,7 +63,7 @@ export class TravelTime {
 		const lastSmallEvent = await PlayerSmallEvents.getLastOfPlayer(player.id);
 		const timeBetweenSmallEvents = Maps.isOnPveIsland(player) ? PVEConstants.TIME_BETWEEN_SMALL_EVENTS : Constants.REPORT.TIME_BETWEEN_MINI_EVENTS;
 
-		// The next small event in 9min45 after the last thing that happened between last start of the travel, small event (if there's one since the start of the travel) and end of alteration
+		// The next small event in 9min45 after the last thing that happened between the last start of the travel, small event (if there's one since the start of the travel) and end of alteration
 		const nextSmallEventTime = Math.max(
 			data.travelStartTime,
 			lastSmallEvent ? lastSmallEvent.time : -1,
@@ -102,7 +102,7 @@ export class TravelTime {
 		let effectEndTime = player.effectEndDate.valueOf();
 		let effectDuration = minutesToMilliseconds(player.effectDuration);
 
-		// Check to avoid errors. If the effect is before the travel start, move it to the beginning of the start travel
+		// Check to avoid errors. If the effect is before the travel starts, move it to the beginning of the start travel
 		if (effectEndTime < travelStartTime) {
 			effectEndTime = travelStartTime;
 		}
@@ -146,8 +146,8 @@ export class TravelTime {
 
 	/**
 	 * Make a player execute a time travel
-	 * Basically, all the variables are moved to the left (future positive tme) or right (past, negative time)
-	 * See the scheme at the beginning of the file
+	 * Basically, all the variables are moved to the left (future positive time) or right (past, negative time)
+	 * See the schema at the beginning of the file
 	 *
 	 * @param player The player
 	 * @param time The time in minutes in the future (negative for the past)
@@ -158,13 +158,13 @@ export class TravelTime {
 		let timeMs = isMilliseconds ? time : minutesToMilliseconds(time);
 		const initialEffectEndDate = player.effectEndDate.valueOf();
 
-		// First we have to heal the effect if it exists
+		// First, we have to heal the effect if it exists
 		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - timeMs, 0));
 
 		// Move the start date
 		player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
 
-		// Update the milliseconds to shave from small event
+		// Update the milliseconds to shave from a small event
 		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
 			timeMs -= Date.now() - player.effectEndDate.valueOf();// We only want to move the start travel date by the amount of the
 		}
@@ -247,7 +247,7 @@ export class TravelTime {
 	 */
 	static timeTravelledToScore(time: number): number {
 		const score = time + RandomUtils.draftbotRandom.integer(0, time / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
-		return score > 0 ? score : 0; // Return 0 if score is negative
+		return score > 0 ? score : 0; // Return 0 if the score is negative
 	}
 
 	static async joinBoatScore(player: Player): Promise<number> {

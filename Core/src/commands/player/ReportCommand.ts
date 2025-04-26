@@ -312,7 +312,7 @@ async function doRandomBigEvent(
 
 	let event;
 
-	// NextEvent is defined ?
+	// NextEvent is defined?
 	if (player.nextEvent) {
 		forceSpecificEvent = player.nextEvent;
 	}
@@ -436,7 +436,7 @@ async function needSmallEvent(player: Player, date: Date): Promise<boolean> {
 }
 
 /**
- * Send where the player is currently staying on the road
+ * Send the location where the player is currently staying on the road
  * @param player
  * @param response
  * @param date
