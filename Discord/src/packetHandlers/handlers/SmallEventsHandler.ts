@@ -5,8 +5,7 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftbotSmallEventEmbed } from "../../messages/DraftbotSmallEventEmbed";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	escapeUsername,
-	StringUtils
+	escapeUsername, StringUtils
 } from "../../utils/StringUtils";
 import { SmallEventBigBadPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBigBadPacket";
 import {
@@ -37,8 +36,7 @@ import {
 import { interactOtherPlayerGetPlayerDisplay } from "../../smallEvents/interactOtherPlayers";
 import { SmallEventLeagueRewardPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventLeagueReward";
 import {
-	minutesDisplay,
-	printTimeBeforeDate
+	minutesDisplay, printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { SmallEventWinGuildXPPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventWinGuildXPPacket";
 import { SmallEventBonusGuildPVEIslandPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventBonusGuildPVEIslandPacket";
@@ -158,7 +156,7 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"goToPVEIsland",
-					i18n.t(`smallEvents:goToPVEIsland.endStoryAccept${packet.alone ? "WithMember" : ""}`, {
+					i18n.t(`smallEvents:goToPVEIsland.endStoryAccept${packet.alone ? "" : "WithMember"}`, {
 						lng,
 						gainScore: packet.pointsWon > 0
 							? i18n.t("smallEvents:goToPVEIsland.confirmedScore", {
