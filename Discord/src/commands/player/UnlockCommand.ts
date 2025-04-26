@@ -74,7 +74,7 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.unlockedKeycloakId))!;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 		lng,
-		pseudo: escapeUsername(interaction.user.displayName)
+		pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
@@ -130,7 +130,7 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 				lng,
-				pseudo: escapeUsername(originalInteraction.user.displayName)
+				pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
