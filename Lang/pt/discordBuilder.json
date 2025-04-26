@@ -333,7 +333,7 @@
         "name": "preço",
         "description": "O preço de venda do animal de estimação."
       },
-      "player": {
+      "user": {
         "name": "jogador",
         "description": "O jogador a quem vender a mascote."
       }

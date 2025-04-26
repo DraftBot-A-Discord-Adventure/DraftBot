@@ -19,8 +19,6 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { ProfileConstants } from "../../../../Lib/src/constants/ProfileConstants";
 import { Language } from "../../../../Lib/src/Language";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { EmoteUtils } from "../../utils/EmoteUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -29,7 +27,6 @@ import {
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { Badge } from "../../../../Lib/src/types/Badge";
-import { escapeUsername } from "../../utils/StringUtils";
 
 /**
  * Display the profile of a player
@@ -202,8 +199,8 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		return;
 	}
 	const lng = interaction.userLanguage;
-	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!;
 	const titleEffect = packet.playerData.effect.healed ? "healed" : packet.playerData.effect.effect;
+	const pseudo = await DisplayUtils.getEscapedUsername(packet.keycloakId, lng);
 	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
@@ -211,7 +208,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 				.setTitle(i18n.t("commands:profile.title", {
 					lng,
 					effectId: titleEffect,
-					pseudo: escapeUsername(keycloakUser.attributes.gameUsername[0]),
+					pseudo,
 					level: packet.playerData?.level
 				}))
 				.addFields(generateFields(packet, lng))
@@ -231,7 +228,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 	collector.on("collect", async reaction => {
 		if (reaction.emoji.name === DraftBotIcons.profile.displayAllBadgeEmote) {
 			collector.stop(); // Only one is allowed to avoid spam
-			await sendMessageAllBadgesTooMuchBadges(escapeUsername(keycloakUser.attributes.gameUsername[0]), packet.playerData!.badges!, interaction);
+			await sendMessageAllBadgesTooMuchBadges(pseudo, packet.playerData!.badges!, interaction);
 		}
 		else {
 			const badge = Object.entries(DraftBotIcons.badges).find(badgeEntry => badgeEntry[1] === reaction.emoji.name);

@@ -26,6 +26,7 @@ import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Kick a player from a guild
@@ -90,7 +91,6 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildKickData;
-	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.kickedKeycloakId))!;
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildKick.title", {
 		lng,
@@ -99,7 +99,7 @@ export async function createGuildKickCollector(context: PacketContext, packet: R
 		.setDescription(
 			i18n.t("commands:guildKick.confirmDesc", {
 				lng,
-				kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0]),
+				kickedPseudo: await DisplayUtils.getEscapedUsername(data.kickedKeycloakId, lng),
 				guildName: data.guildName
 			})
 		);
@@ -119,7 +119,6 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId))!;
 	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
@@ -130,7 +129,7 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 				.setDescription(
 					i18n.t("commands:guildKick.canceledDesc", {
 						lng,
-						kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0])
+						kickedPseudo: await DisplayUtils.getEscapedUsername(packet.kickedKeycloakId, lng)
 					})
 				)
 				.setErrorColor()
@@ -147,7 +146,10 @@ export async function handleCommandGuildKickRefusePacketRes(packet: CommandGuild
 export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuildKickAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const kickedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId!))!;
+	const getKickedPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.kickedKeycloakId!);
+	if (getKickedPlayer.isError) {
+		return;
+	}
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
@@ -159,7 +161,7 @@ export async function handleCommandGuildKickAcceptPacketRes(packet: CommandGuild
 					.setDescription(
 						i18n.t("commands:guildKick.acceptedDesc", {
 							lng,
-							kickedPseudo: escapeUsername(kickedPlayer.attributes.gameUsername[0]),
+							kickedPseudo: escapeUsername(getKickedPlayer.payload.user.attributes.gameUsername[0]),
 							guildName: packet.guildName
 						})
 					)

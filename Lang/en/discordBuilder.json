@@ -333,8 +333,8 @@
         "name": "price",
         "description": "The price of the pet."
       },
-      "player": {
-        "name": "player",
+      "user": {
+        "name": "user",
         "description": "The player to whom the pet will be sold."
       }
     }

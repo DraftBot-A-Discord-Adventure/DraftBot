@@ -17,8 +17,12 @@ import { escapeUsername } from "../../../../utils/StringUtils";
 export default class PetTransferCommandPacketHandlers {
 	@packetHandler(CommandPetTransferAnotherMemberTransferringErrorPacket)
 	async anotherPlayerTransferring(context: PacketContext, packet: CommandPetTransferAnotherMemberTransferringErrorPacket): Promise<void> {
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId);
+		if (getUser.isError) {
+			return;
+		}
 		await handleClassicError(context, "commands:petTransfer.anotherPlayerTransferring", {
-			playerName: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!.attributes.gameUsername[0]),
+			playerName: escapeUsername(getUser.payload.user.attributes.gameUsername[0]),
 			lng: context.discord!.language
 		});
 	}

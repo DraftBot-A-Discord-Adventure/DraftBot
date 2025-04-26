@@ -9,7 +9,6 @@ import { DraftbotInteraction } from "../messages/DraftbotInteraction";
 import i18n from "../translations/i18n";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
 import { escapeUsername } from "../../../Lib/src/utils/StringUtils";
-import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import {
 	millisecondsToMinutes, minutesDisplay
 } from "../../../Lib/src/utils/TimeUtils";
@@ -126,20 +125,20 @@ function getDescriptionTranslationKey(effectId: string, self: boolean): string {
 
 /**
  * Send an error message if the user has an effect
- * @param user
+ * @param escapedPseudo
  * @param lng
  * @param self
  * @param effectId
  * @param effectRemainingTime
  */
-export function effectsErrorTextValue(user: KeycloakUser, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): {
+export function effectsErrorTextValue(escapedPseudo: string, lng: Language, self: boolean, effectId: string, effectRemainingTime: number): {
 	title: string;
 	description: string;
 } {
 	return {
 		title: i18n.t(`error:effects.${effectId}.${self ? "self" : "other"}`, {
 			lng,
-			pseudo: escapeUsername(user.attributes.gameUsername[0])
+			pseudo: escapedPseudo
 		}),
 		description: i18n.t(`{emote:effects.${effectId}} $t(${getDescriptionTranslationKey(effectId, self)})`, {
 			lng,

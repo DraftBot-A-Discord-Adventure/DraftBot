@@ -7,11 +7,9 @@ import {
 } from "../../../../Lib/src/packets/commands/ErrorPacket";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { BlockedPacket } from "../../../../Lib/src/packets/commands/BlockedPacket";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { LANGUAGE } from "../../../../Lib/src/Language";
 import { handleClassicError } from "../../utils/ErrorUtils";
-import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 export default class ErrorHandler {
 	@packetHandler(ErrorPacket)
@@ -34,8 +32,6 @@ export default class ErrorHandler {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord.buttonInteraction) : undefined;
 		const otherPlayer = context.keycloakId !== packet.keycloakId;
-		const originalUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
-		const blockedUser = otherPlayer ? (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))! : originalUser;
 
 		let errorReasons = "";
 		packet.reasons.forEach(reason => {
@@ -49,13 +45,13 @@ export default class ErrorHandler {
 			.setErrorColor()
 			.setTitle(i18n.t("error:titleDidntWork", {
 				lng,
-				pseudo: escapeUsername(originalUser.attributes.gameUsername[0])
+				pseudo: await DisplayUtils.getEscapedUsername(context.keycloakId!, lng)
 			}))
 			.setDescription(
 				otherPlayer
 					? i18n.t("error:anotherPlayerBlocked", {
 						lng,
-						username: escapeUsername(blockedUser.attributes.gameUsername[0]),
+						username: await DisplayUtils.getEscapedUsername(packet.keycloakId!, lng),
 						reasons: errorReasons
 					})
 					: i18n.t("error:playerBlocked", {

@@ -15,6 +15,7 @@ import { logsV5NewIds } from "../../logs/migrations/007-v5";
 import { LANGUAGE } from "../../../../../../Lib/src/Language";
 import { Effect } from "../../../../../../Lib/src/types/Effect";
 import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
+import { KeycloakUser } from "../../../../../../Lib/src/keycloak/KeycloakUser";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
 	// Delete players with a score < 100 and that are not banned
@@ -42,7 +43,12 @@ export async function up({ context }: { context: QueryInterface }): Promise<void
 
 		for (let i = 0; i < players.length; ++i) {
 			const player = players[i];
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, "Pseudo 404", LANGUAGE.DEFAULT_LANGUAGE);
+			const getUser = await KeycloakUtils.getOrRegisterDiscordUser(config.keycloak, player.discordUserId as string, "Pseudo 404", LANGUAGE.DEFAULT_LANGUAGE);
+			if (getUser.isError) {
+				DraftBotLogger.errorWithObj("Error while migrating user", getUser);
+				process.exit(1);
+			}
+			const { user } = getUser.payload as { user: KeycloakUser };
 			await context.sequelize.query(`UPDATE players SET discordUserId = "${user.id}" WHERE discordUserId = "${player.discordUserId}"`);
 			logsV5NewIds.set(player.discordUserId as string, user.id);
 		}

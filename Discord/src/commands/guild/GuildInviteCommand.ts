@@ -27,6 +27,7 @@ import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers
 import { PacketUtils } from "../../utils/PacketUtils";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandGuildInvitePacketReq | null> {
 	const invitedUser = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -53,7 +54,7 @@ export async function handleCommandGuildInviteError(packet: CommandGuildInviteEr
 				i18n.t(errorKey, {
 					level: GuildConstants.REQUIRED_LEVEL,
 					guildName: packet.guildName,
-					pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId))?.attributes.gameUsername![0] ?? i18n.t("error:unknownPlayer", { lng })),
+					pseudo: await DisplayUtils.getEscapedUsername(packet.invitedPlayerKeycloakId, lng),
 					lng
 				})
 			)
@@ -72,6 +73,10 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 	const data = packet.data.data as ReactionCollectorGuildInviteData;
 	const invitedUser = interaction.options.getUser("user")!;
 	const invitedKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, invitedUser.id, null);
+	if (invitedKeycloakId.isError || !invitedKeycloakId.payload.keycloakId) {
+		return null;
+	}
+
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildInvite.title", {
 		lng,
@@ -85,7 +90,7 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 		);
 
 	return await DiscordCollectorUtils.createAcceptRefuseCollector(interaction, embed, packet, context, {
-		acceptedUsersId: [invitedKeycloakId!],
+		acceptedUsersId: [invitedKeycloakId.payload.keycloakId],
 		canInitiatorRefuse: true
 	});
 }
@@ -93,8 +98,11 @@ export async function createGuildInviteCollector(context: PacketContext, packet:
 export async function handleCommandGuildInviteRefusePacketRes(packet: CommandGuildInviteRefusePacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const invitedPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId);
-	const invitedUser = await draftBotClient!.users.fetch(invitedPlayer!.attributes.discordId![0]);
+	const getInvitedPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId);
+	if (getInvitedPlayer.isError) {
+		return;
+	}
+	const invitedUser = await draftBotClient!.users.fetch(getInvitedPlayer!.payload.user.attributes.discordId![0]);
 
 
 	if (buttonInteraction && originalInteraction) {
@@ -113,8 +121,11 @@ export async function handleCommandGuildInviteRefusePacketRes(packet: CommandGui
 export async function handleCommandGuildInviteAcceptPacketRes(packet: CommandGuildInviteAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const invitedPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId);
-	const invitedUser = await draftBotClient!.users.fetch(invitedPlayer!.attributes.discordId![0]);
+	const getInvitedPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.invitedPlayerKeycloakId);
+	if (getInvitedPlayer.isError) {
+		return;
+	}
+	const invitedUser = await draftBotClient!.users.fetch(getInvitedPlayer.payload.user.attributes.discordId![0]);
 
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;

@@ -17,6 +17,7 @@ import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../../bot/DraftBotShard";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Create a collector to accept/refuse to leave the guild
@@ -27,7 +28,6 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildLeaveData;
-	const newChiefPseudo = data.newChiefKeycloakId ? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.newChiefKeycloakId))!.attributes.gameUsername[0]) : "";
 	const keyDesc = data.isGuildDestroyed ? "confirmChiefDesc" : data.newChiefKeycloakId ? "confirmChiefDescWithElder" : "confirmDesc";
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.title", {
@@ -37,7 +37,7 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 		.setDescription(
 			i18n.t(`commands:guildLeave.${keyDesc}`, {
 				lng,
-				newChiefPseudo,
+				newChiefPseudo: await DisplayUtils.getEscapedUsername(data.newChiefKeycloakId, lng),
 				guildName: data.guildName
 			})
 		);
@@ -55,7 +55,11 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
-	const newChiefPseudo = packet.newChiefKeycloakId ? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId))!.attributes.gameUsername[0]) : "";
+	const getChief = packet.newChiefKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId) : undefined;
+	if (getChief && getChief.isError) {
+		return;
+	}
+	const newChiefPseudo = getChief ? escapeUsername(getChief.payload.user.attributes.gameUsername[0]) : "";
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({

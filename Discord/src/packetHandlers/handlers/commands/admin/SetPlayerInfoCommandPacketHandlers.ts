@@ -7,10 +7,9 @@ import {
 import { DiscordCache } from "../../../../bot/DiscordCache";
 import { DraftBotEmbed } from "../../../../messages/DraftBotEmbed";
 import i18n from "../../../../translations/i18n";
-import { KeycloakUtils } from "../../../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../../../bot/DraftBotShard";
 import { handleClassicError } from "../../../../utils/ErrorUtils";
 import { escapeUsername } from "../../../../utils/StringUtils";
+import { DisplayUtils } from "../../../../utils/DisplayUtils";
 
 export default class SetPlayerInfoCommandPacketHandlers {
 	@packetHandler(CommandSetPlayerInfoRes)
@@ -33,7 +32,7 @@ export default class SetPlayerInfoCommandPacketHandlers {
 					.setDescription(i18n.t("commands:setPlayerInfo.playerModifiedDesc", {
 						lng,
 						keycloakId: packet.keycloakId,
-						pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!.attributes.gameUsername[0])
+						pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakId, lng)
 					}))
 			],
 			components: []

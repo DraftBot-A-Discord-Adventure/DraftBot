@@ -14,8 +14,6 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { escapeUsername } from "../../utils/StringUtils";
 
 /**
@@ -38,9 +36,9 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 	}
 	const lng = interaction.userLanguage;
 
-	let foundPlayer: KeycloakUser | null = null;
+	let foundPlayerUsername;
 	if (packet.askedKeycloakId) {
-		foundPlayer = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.askedKeycloakId);
+		foundPlayerUsername = await DisplayUtils.getEscapedUsername(packet.askedKeycloakId, lng);
 	}
 
 	await interaction.reply({
@@ -49,7 +47,7 @@ export async function handleCommandPetPacketRes(packet: CommandPetPacketRes, con
 				.formatAuthor(
 					i18n.t("commands:pet.embedTitle", {
 						lng,
-						pseudo: escapeUsername(foundPlayer?.attributes.gameUsername[0] || interaction.user.displayName)
+						pseudo: escapeUsername(foundPlayerUsername ?? interaction.user.displayName)
 					}),
 					interaction.user
 				)

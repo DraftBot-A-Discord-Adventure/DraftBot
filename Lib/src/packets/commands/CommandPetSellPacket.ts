@@ -7,7 +7,10 @@ import { OwnedPet } from "../../types/OwnedPet";
 export class CommandPetSellPacketReq extends DraftBotPacket {
 	price!: number;
 
-	askedPlayerKeycloakId?: string;
+	askedPlayer!: {
+		rank?: number;
+		keycloakId?: string;
+	};
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
