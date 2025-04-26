@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "It looks like **{{pet}}** is happy to have you with them. They gain in love and become more loyal.",
-        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
+        "After a long walk, you decided to take care of **{{pet}}** by patting him. This moment passed with him has strengthened your bond.",
         "Have gone for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. He likes you more.",
         "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. He loves you more and becomes more trustworthy.",
         "Oh how cute! **{{pet}}** is a player! Also you decide to have fun with them. This game strengthened your links."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "Nice to see, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
         "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "You notice that **{{pet}}** seems to be in a hurry, and despite that, you manage to follow her the best you can. Thanks to her, you gained **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "**{{pet}}**'s flair allowed you to find a shortcut. Thanks to her, you gained **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
       ],
       "points": [
@@ -1002,25 +1002,25 @@
         "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
       ],
       "petFlee_f": [
-        "This was unavoidable. **{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
-        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
-        "It looks like **{{pet}}** found the sister, he gives up and leaves you alone. You will never see it again...",
-        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+        "This was unavoidable, after all of this mistreatment. **{{pet}}** doesn't respect you and runs away from you. You can't find her and lose her forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see her again.",
+        "It looks like **{{pet}}** found her soulmate, she gives you up and leaves you alone. You will never see her again...",
+        "The lack of attention to **{{pet}}** led her to flee. You lose sight of her quickly, it will be impossible to find her."
       ],
       "loseLove_m": [
-        "It looks like **{{pet}}** is not too easy for you... He loses a little in love.",
-        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to him in a moment of inadvertance. He now seems to love you a little less.",
-        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Did not wait for your relationship so he loses a little in love...",
-        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is grudging, it loses faith in you."
+        "It looks like **{{pet}}** doesn't appreciate you that much... Travelling with him deterred this relationship even more. He loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You strike him a blow in a moment of inadvertence. He now seems to love you a little less.",
+        "After a long walk, **{{pet}}** is running out of breath, it looks like he can't follow you. Not waiting for him has diminished your relationship. Thus, he loses a little in love...",
+        "When approaching a stand, **{{pet}}** stares with insistence on the food placed on a board. Despite his request, you decide to continue your journey. **{{pet}}** is grudging, he loses faith in you."
       ],
       "loseLove_f": [
-        "It looks like **{{pet}}** is not too easy for you... Voyager with her deterred this relationship. She loses a little in love.",
-        "As you practice fighting, **{{pet}}** passes through the fight. You sit down to her in a moment of inadvertance. She now seems to love you a little less.",
-        "Having a long walk, **{{pet}}** is running out of breath, it looks like it can't follow you. Not waiting for it has been your relation, so it loses a little in love...",
-        "When approaching a stand, **{{pet}}** insists on the food placed on a board. Wrong its request, you decide to continue your journey. **{{pet}}** is resentful, it loses faith in you."
+        "It looks like **{{pet}}** doesn't appreciate you that much... Travelling with her deterred this relationship even more. She loses a little in love.",
+        "As you practice fighting, **{{pet}}** passes through the fight. You strike her a blow in a moment of inadvertence. She now seems to love you a little less.",
+        "After a long walk, **{{pet}}** is running out of breath, it looks like she can't follow you. Not waiting for her has diminished your relationship. Thus, she loses a little in love...",
+        "When approaching a stand, **{{pet}}** stares with insistence on the food placed on a board. Despite her request, you decide to continue your journey. **{{pet}}** is grudging, she loses faith in you."
       ],
       "nothing": [
-        "You continue your route along **{{pet}}**. Nothing special happens."
+        "You continue your route alongside **{{pet}}**. Nothing special happens."
       ]
     },
     "randomAnimal_m": "a **{{randomAnimal}}**",
@@ -1031,68 +1031,68 @@
       "winPotion": [
         "you see a strange light in the distance. Moving closer, you realize that it is a vial with unknown contents. You moisten your lips with the beverage and feel that your strength could be increased tenfold if you ingested it...",
         "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you an attack potion as a thanks.",
-        "you find an abandoned cart. It contains potion crates. You steal one hastily. After leaving, you see that the stolen potion could be useful for your next battle..."
+        "you find an abandoned cart. It contains potion crates. You hastily steal one. After leaving, you see that the stolen potion could be useful for your next fight..."
       ],
       "winObject": [
-        "You decide to back to a tree. By sitting down, you feel a living pain that pierces your back. You get up at the speed of a flash and find out what's scratched you:",
-        "you suddenly hear an infernal din advancing towards you. You just have time to throw yourself to the side when a horde of knights gallop past you. As you watch them ride away, you see a pouch fall from one of the horses. Picking it up, you discover...",
-        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for attacking."
+        "you decide to lean back a tree. By sitting down, you feel a vivid pain that pierces your back. You get up in the blink of an eye and find out what's scratched you:",
+        "you suddenly hear an infernal din advancing towards you. You just have time to throw yourself to the side when a horde of knights gallops past you. As you watch them ride away, you see a pouch fall from one of the horses. As you pick it up, you discover inside...",
+        "a starving animal approaches you. By precaution, you choose to kill it. While searching his guts, you find an object that seems to be useful for attacking."
       ],
       "winWeapon": [
-        "you meet a Merchant, who asks your Class. After answering him, he offers you a weapon he no longer uses:",
-        "You see on the lower side a weapon and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
-        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the Armory is still intact. In this one, in the middle of rugged and unusable objects, you find a weapon that still seems to be in good condition."
+        "you meet a merchant, who asks your class. After answering him, he offers you a weapon he no longer uses:",
+        "you see on the roadside a weapon and you don't believe your eyes! You wonder how the heck someone can throw out such a beautiful thing and decide to acquire it. It will probably be useful to you!",
+        "you find an ancient fort in ruins. Still looking for equipment, you decided to scramble it. After a quick visit, it seems that only the armory is still intact. Inside, within rugged and unusable objects, you find a weapon that still seems to be in good condition."
       ]
     },
     "defense": {
       "winPotion": [
         "you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you a defense potion as a thanks.",
-        "you find an abandoned cart. Which contains boxes full of potions. You rapidly steal one. After fleeing you see the stolen potion may be useful for your next fight...",
-        "a heavy impact is being heard behind you. You turn abruptly, and enter your field of sight an old man with flattened body on the ground, under a tree. You notice with relief that it is still alive, as it emits weak giveaments. Then you notice that a crate full of all the same potions fell with him. Knowing that he could not survive with his disposal, you must educate that these are potions that increase the human body's defensive abilities. Not wanting to miss such an opportunity, you grab the only intact vial and flee the place, without worrying about the old man's weak complaints."
+        "you find an abandoned cart. It contains boxes full of potions. You hastily steal one. After fleeing, you notice the stolen potion may be useful for your next fight...",
+        "a heavy impact is being heard behind you. You turn abruptly, and notice an old man with a flattened body on the ground, under a tree. You notice with relief that he is still alive, as it weakly wails. You thus notice that a crate full of all the same potions fell with him. Knowing that he could not survive with his frail disposal, you deduct that these are potions that increase the human body's defensive abilities. Not wanting to miss such an opportunity, you grab the only intact vial and flee the place, without worrying about the old man's weak complaints."
       ],
       "winObject": [
-        "a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for defense.",
-        "A knight is approaching and offers you a duel. It will give you its object of challenge if you win. Grade your training, this victory is yours, and you win the prize you promised.",
-        "You find a peasant who needs help repairing his cart. You get the wheel back in place. To thank you, it gives you a defensive item forged by the best workers of Claire De Ville."
+        "a starving animal approaches you. By precaution, you choose to kill it. While searching his guts, you find an object that seems to be useful for defending.",
+        "a knight is approaching and offers you a duel. He will give you its defense item if you win. Thanks to your training, this victory is yours, and you win the prize as promised.",
+        "you find a peasant who needs help repairing his cart. You get the wheel back in place. To thank you, he gives you a defensive item forged by the best smiths of Claire De Ville."
       ],
       "winArmor": [
-        "you meet a Merchant, who asks your Class. After answering him, he offers you a armor he no longer uses:",
-        "you see on the lower side a piece of armor and you don't believe your eyes! You wonder how the devil can throw out such a beautiful thing and decide to ripe with it. It will probably be useful to you!",
-        "You will find an ancient fort in ruins. After a quick visit to the premises, it seems that only the armour room is still intact. In this one, in the middle of rusty and unusable items, you find armour that still seems to be in good condition."
+        "you meet a merchant, who asks your class. After answering him, he offers you a armor he no longer uses:",
+        "you see on the roadside a piece of armor and you don't believe your eyes! You wonder how the heck someone can throw out such a beautiful thing and decide to acquire it. It will probably be useful to you!",
+        "you find an ancient fort in ruins. Still looking for equipment, you decided to scramble it. After a quick visit, it seems that only the armory is still intact. Inside, within rugged and unusable objects, you find an armor that still seems to be in good condition."
       ]
     },
     "basic": {
       "winItem": [
-        "villagers approach you and give you an item in recognition of a weapon recent, you thank them very briefly and continue your search.",
-        "you meet a group of children playing to continue. One of them hugs you and cry, his parents approach and beg for your forgiveness, you grant them and they give you an item that may be useful to you.",
-        "a cart takes you to continue, intrigued and eager to continue your path, approaching the owner, which, first odious, tells you to try and take another road, energized, you threaten it with your weapon. This calms it instantly. It gives you an item and asks you to wait for the time to move its load.",
-        "you see a crowd of people together. If you want to see what's going on, you make a way through the group and discover a ensangled object, otherwise the crowd around it would already have touched. You leave as if nothing was with the object in your possession."
+        "villagers approach you and give you an item in recognition of a recent prowess, you thank them very briefly and continue your search.",
+        "you meet a group of children playing chase. One of them shoves you and starts to cry, his parents approach and beg your mercy, you grant it and they give you an item that may be useful to you.",
+        "a cart stops you from continuing. Intrigued and eager to resume your path, you approach the owner who, odious at first, tells you to try and take another road. Angered, you threaten him with your weapon. This calms him instantly. He gives you an item and asks you to wait while he moves his load.",
+        "you see a crowd of people gathering. Wanting to see what's going on, you make way through the group and discover a bloodied object. The surrounding crowd would probably already have touched it. You leave as if nothing happened with the object in your possession."
       ],
       "winMoney": [
         "you step onto a small mound and notice that your footsteps sound strange. You search the ground and discover a chest full of gold. You get **{{amount}} {emote:unitValues.money}**.",
-        "you meet someone who looks a little bewildered and fearful... On seeing you, the person apologizes and runs off. You think they've mistaken you for someone else. In his rush, the stranger has dropped a purse: you open it and discover **{{amount}} {emote:unitValues.money}**!",
+        "you meet someone who looks a little bewildered and fearful... Upon seeing you, the person apologizes and runs off. You think they've mistaken you for someone else. In their rush, the stranger has dropped a purse: you open it and discover **{{amount}} {emote:unitValues.money}**!",
         "you decide to set up camp by putting up a tent and other things. As you dig the holes for your tent pegs, you feel something hard in the ground. While digging, you unearth a small, timeworn wooden case and find **{{amount}} {emote:unitValues.money}** !"
       ]
     },
     "other": {
       "winItem": [
-        "your feet bumps on something coming out of the ground, after getting up, you search the ground and find an item...",
+        "your feet bump on something coming out of the ground. After getting back up, you search the ground and find an item...",
         "you see a shape in a gap. Intrigued, you get closer, this shape is seems to be an item that will be helpful for your adventure...",
-        "You decide to back to a tree. By sitting down, you feel a living pain in your back. You get up quickly to discover... an item!",
-        "you walk disprocessing and stumble on something ! While getting up after your fall, you discover an item !"
+        "you decide to lean on a tree. By sitting down, you feel a vivid pain in your back. You get up quickly to discover... an item!",
+        "you distractedly walk and stumble on something! While hardly getting up after your fall, you discover an item!"
       ],
       "winHealth": [
-        "you come across some villagers who remember your prowess as a frail person, and hand you a bag containing provisions, which you eat before continuing your journey. You win **{{amount}} {emote:unitValues.health}**.",
+        "you come across some villagers who remember your prowess as a frail person, and hand you a bag containing rations that you eat before continuing your journey. You win **{{amount}} {emote:unitValues.health}**.",
         "A merchant comes up to you and asks what class you are, to which you reply that you are a frail adventurer. Remembering that frail adventurers are people with low hp, he decides to give you some fruit that was no longer viable to sell. Happy, you eat them and earn **{{amount}} {emote:unitValues.health}** then set off again.",
-        "you are approached by an old woman, she gives you a red apple, telling you it's important to eat well to become strong, you eat it with gratitude before resume your way. You win **{{amount}}{emote:unitValues.health}**.",
-        "you are pushed by a plough. You are heckled by its owner, who apologizes and tells he didn't see you because of your puny appearance and offers you some supplies. You restore yourself a bit and resume your journey. You win **{{amount}} {emote:unitValues.health}**."
+        "you are approached by an old woman. She gives you a red apple, telling you it's important to eat well to become strong. You eat it with gratitude before resuming your way. You win **{{amount}}{emote:unitValues.health}**.",
+        "you are pushed by a cart. You are called out by its owner, who apologizes and tells he didn't see you because of your puny appearance and offers you some supplies. You restore yourself a bit and resume your journey. You win **{{amount}} {emote:unitValues.health}**."
       ]
     }
   },
   "ultimateFoodMerchant": {
     "stories": [
-      "observing the surrounding landscape, you do not notice the man who is in front of you and stroke him. You apologise, and the man being very sympathetic, you were quickly forgiven and engaged in a discussion. It is called \"Gaspard-Jo\", and it is a soup merchant. By his great energy, he rewards the talent of the players he finds on his way. ",
-      "a little roulotte with a path is heading towards you. You take the trouble to greet the merchant politely, who, after a quick discussion in which you learn he is called \"Gaspard-Jo\", have wanted to reward you for your good actions. "
+      "while observing the surrounding landscape, you do not notice the man who is in front of you and shove him. You apologise and, the man being very sympathetic, you were quickly forgiven and engaged in a discussion. He is a soup merchant called \"Gaspard-Jo\". By pure generosity, he rewards the talent of the players he finds on his way. ",
+      "a little caravan with a chimney is heading towards you. You take the trouble to politely greet the merchant, who, after a quick discussion in which you learn he is called \"Gaspard-Jo\", seems to want to reward you for your good deeds. "
     ],
     "rewards": {
       "ultimateFood_one": [
@@ -1178,11 +1178,11 @@
       "a courier arrives towards you running out of breath. He tends you a letter from the king asking you to perform the following mission:",
       "you find a missions board. You check them one by one, and among them, you find one that suits you:",
       "you decide to set a new goal to advance over other adventurers:",
-      "a pigeon traveler flies straight to you. On its right leg, you find a letter written in gold letters that describes a very integrated mission:",
-      "a stranger calls you and throws you a challenge:",
-      "a pass ahead drops you a mission sheet. Since the mission is an integral one, you decide to do it:",
-      "pass in front of a hut that looks abandoned and search in the pile of papers located in front of the door. Here you will find a proposal for a mission. You take your courage in two hands and run it through:",
-      "The wind makes a scroll fly up to your face. Cut in your journey, you decide to read it. You decide to perform the mission on the sheet:",
+      "a homing pigeon flies straight to you. On its right leg, you find a letter written in gold letters that describes a very interesting mission:",
+      "a stranger calls out to you and challenges you:",
+      "a passerby ahead drops you a mission sheet. Since the mission is an interesting one, you decide to do it:",
+      "you pass near a hut that looks abandoned and search in the pile of papers located in front of the door. You find inside a proposal for a mission. You decided to be brave and get it over with:",
+      "the wind makes a scroll fly up to your face. Interrupted in your journey, you decide to read it. You decide to do the written mission:",
       "an old adventurer tells his stories who wants to hear them. You thus stop to listen to him for a bit. A few moments later, he notices you and asks if you can complete a mission for him. You agree:"
     ]
   },
