@@ -21,6 +21,7 @@ import {
 import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
 import { Potion } from "../../../data/Potion";
 import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 
 /**
  * Fighter
@@ -114,6 +115,10 @@ export class PlayerFighter extends Fighter {
 	 * @param response
 	 */
 	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
+		// Potions have a chance of not being consumed
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < FightConstants.POTION_NO_DRINK_PROBABILITY.PLAYER) {
+			return;
+		}
 		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
 		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
 			.getItem() as Potion;

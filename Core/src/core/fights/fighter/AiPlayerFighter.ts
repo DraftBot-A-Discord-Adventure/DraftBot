@@ -13,6 +13,10 @@ import {
 	ClassBehavior, getAiClassBehavior
 } from "../AiBehaviorController";
 import PetEntity, { PetEntities } from "../../database/game/models/PetEntity";
+import { FighterStatus } from "../FighterStatus";
+import { Potion } from "../../../data/Potion";
+import { checkDrinkPotionMissions } from "../../utils/ItemUtils";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 
 /**
  * Fighter
@@ -35,6 +39,37 @@ export class AiPlayerFighter extends Fighter {
 		this.class = playerClass;
 		this.classBehavior = getAiClassBehavior(playerClass.id);
 	}
+
+	/**
+	 * Function called when the fight starts
+	 * @param fightView The fight view
+	 * @param startStatus The first status of a player
+	 */
+	async startFight(fightView: FightView, startStatus: FighterStatus): Promise<void> {
+		this.status = startStatus;
+		await this.consumePotionIfNeeded([fightView.context]);
+	}
+
+	/**
+	 * Delete the potion from the inventory of the player if needed
+	 * @param response
+	 */
+	public async consumePotionIfNeeded(response: DraftBotPacket[]): Promise<void> {
+		// Potions have a chance of not being consumed
+		if (RandomUtils.draftbotRandom.realZeroToOneInclusive() < FightConstants.POTION_NO_DRINK_PROBABILITY.AI) {
+			return;
+		}
+		const inventorySlots = await InventorySlots.getOfPlayer(this.player.id);
+		const drankPotion = inventorySlots.find(slot => slot.isPotion() && slot.isEquipped())
+			.getItem() as Potion;
+		if (!drankPotion.isFightPotion()) {
+			return;
+		}
+		await this.player.drinkPotion();
+		await this.player.save();
+		await checkDrinkPotionMissions(response, this.player, drankPotion, await InventorySlots.getOfPlayer(this.player.id));
+	}
+
 
 	/**
 	 * The fighter loads its various stats
@@ -79,10 +114,6 @@ export class AiPlayerFighter extends Fighter {
 	}
 
 	endFight(): Promise<void> {
-		return Promise.resolve();
-	}
-
-	startFight(): Promise<void> {
 		return Promise.resolve();
 	}
 
