@@ -217,11 +217,11 @@ export class TravelTime {
 		 * Reason is IGNORE here because you don't want to log a time warp when you get an alteration
 		 * First remove the effect (if the effect is time related)
 		 */
-		if (player.effectId in [
+		if (![
 			Effect.NO_EFFECT.id,
 			Effect.NOT_STARTED.id,
 			Effect.DEAD.id
-		]) {
+		].includes(player.effectId)) {
 			await this.removeEffect(player, NumberChangeReason.IGNORE);
 		}
 
