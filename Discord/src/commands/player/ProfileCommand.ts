@@ -219,7 +219,7 @@ export async function handleCommandProfilePacketRes(packet: CommandProfilePacket
 		withResponse: true
 	});
 	if (!reply?.resource?.message) {
-		// An error occurred and no message were fetched
+		// An error occurred and no message was fetched
 		return;
 	}
 	const message = reply.resource.message;
