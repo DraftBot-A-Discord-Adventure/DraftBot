@@ -19,6 +19,11 @@ export abstract class FightConstants {
 		MAX_MONEY_BONUS: 200
 	};
 
+	static readonly POTION_NO_DRINK_PROBABILITY = {
+		PLAYER: 0.3,
+		AI: 0.85
+	};
+
 	// Random variation of the damage a fight action will deal (between -this value and +this value)
 	static readonly DAMAGE_RANDOM_VARIATION = 5;
 
