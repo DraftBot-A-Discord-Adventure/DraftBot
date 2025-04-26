@@ -790,7 +790,7 @@
     },
     "2": {
       "description": "Eine kleine Route, die es erlaubt, die Kampagne von Mergagnan zu besuchen und umgekehrt.",
-      "name": "Champagner",
+      "name": "Feldweg",
       "particle": "in Richtung"
     },
     "20": {
@@ -850,7 +850,7 @@
     },
     "3": {
       "description": "Eine große westliche Ebene, die von einem großen Wald überquert und von einer großen Straße überquert wird.",
-      "name": "Berceau",
+      "name": "Die Wiege",
       "particle": "in"
     },
     "32": {
@@ -864,12 +864,12 @@
       "particle": "in"
     },
     "4": {
-      "description": "Immense Wald südlich des Berceau. Man sagt, dass viele Reisende verloren gegangen sind.",
-      "name": "Wald-und Spenzweck",
+      "description": "Ein riesiger Wald südlich der Wiege. Man sagt, dass viele Reisende verloren gegangen sind.",
+      "name": "Der Wald des Alten Mannes",
       "particle": "in Richtung"
     },
     "5": {
-      "description": "Pfad, der seinen Spitznamen mit seinem Nachnamen in der Natur des Südens des alten Waldes des Waldes auszieht.",
+      "description": "Pfad, der seinen Spitznamen mit seinem Nachnamen in der Natur im Süden des Waldes des Alten Mannes auszieht.",
       "name": "Pfad für Dedale",
       "particle": "in Richtung"
     },
@@ -889,8 +889,8 @@
       "particle": "in Richtung"
     },
     "9": {
-      "description": "Die größte Handelsroute zwischen dem Berceau und dem starken Ville ist nur noch von der Großen Straße übrig, die von altmodenen gepflasterten Mooren übrig ist.",
-      "name": "Grosse Rue",
+      "description": "Die größte Handelsroute zwischen der Wiege und dem Starken Ville ist nur noch von der Großen Straße übrig, die von Altmoränen gepflasterten Mooren übrig ist.",
+      "name": "Große Straße",
       "particle": "in Richtung"
     }
   },
@@ -1143,7 +1143,7 @@
     "38": "Zyklonischer Amulette",
     "39": "Macht von Nayru",
     "4": "Sohn der Hoffnung",
-    "40": "Bague des Engels ohne Leben",
+    "40": "Rinnt des toten Engels",
     "41": "Urne aus der Walzbahn",
     "42": "Kaninchhorde",
     "43": "Banan'ase split.",
@@ -1520,7 +1520,7 @@
     "55": "Fourchettecouteau",
     "56": "Kokiri-Puppe",
     "57": "Feuerlöscher",
-    "58": "Gros Pfund",
+    "58": "Große Buch",
     "59": "Spritze",
     "6": "Einfaches Kouteau",
     "60": "Verseuchte Spritze",

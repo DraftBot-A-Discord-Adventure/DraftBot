@@ -106,7 +106,7 @@
     "priceMoney": "el viaje **costará {{price}} {emote:unitValues.gem}**",
     "confirm": "¿Quieres ir a la isla? Tienes {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
     "endStoryAccept": "{{gainScore}} Aceptas y subes al barco rumbo a la isla.",
-    "endStoryAcceptWithMember": "{{gainScore}} Aceptas y, al subir a bordo, te das cuenta de que un miembro de tu gremio ya está en el barco, así que te unes a él y partís hacia la isla.",
+    "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquer, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "Declinas amablemente la oferta y continúas tu camino.",
     "notEnoughGems": "Aceptas, pero cuando llega el momento de pagar, te das cuenta de que no tienes suficiente para hacerlo. Así que te vas decepcionado.",
     "confirmedScore": "**{emote:unitValues.score} Puntos ganados:** {{score}}\n"
@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "{{pet}}Parece que ** ** es feliz de tenerte en su compañía. Gana en amor y se vuelve más fiel a ti.",
-        "{{pet}} {determinant} Después de un largo paseo, decides cuidar de tu ** ** acariciándolo . El tiempo pasado con él ha reforzado vuestro vínculo.",
+        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
         "{{pet}}Tras marcharse unos instantes, ** ** regresa con algo de comida que ha encontrado más adelante. Decides dársela antes de que se pierda. Eso hace que te quiera más.",
         "{{pet}} {{randomAnimal}} ¡Desafortunadamente, ** ** parece haber comenzado las hostilidades con sauvage! Decides defenderle valientemente. Él te quiere más y se vuelve más leal a ti.",
         "¡Oh, qué lindo!{{pet}}** ** ¡es juguetón! Así que decides divertirte con él. Este juego ha reforzado vuestro vínculo."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "Es bueno ver, **{{pet}}** está en gran forma. Te montas en su espalda durante unos minutos y ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
         "En una curva del camino, **{{pet}}** empieza a correr de repente. Acabas siendo arrastrado al final de su ventaja, pero has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Te das cuenta de que **{{pet}}** parece tener prisa, pero aun así consigues seguirle el ritmo a {determinant} . Gracias a ella ganas **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "El talento de **{{pet}}** te ha permitido encontrar un atajo. Gracias a {accusative}, has ganado **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
         "Defender **{{pet}}** contra {{randomAnimal}} sauvage no ha sido tarea fácil, y esta vez te has encontrado con algo más fuerte que tú. Decides huir, y corres a toda velocidad. Gracias a este percance, has ganado **{{amount}} Min** {emote:unitValues.timeGain} por el camino."
       ],
       "points": [
