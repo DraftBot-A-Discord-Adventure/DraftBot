@@ -23,6 +23,7 @@ import {
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
+import { Effect } from "../../../../Lib/src/types/Effect";
 
 /**
  * Get the current campaign progression of the player
@@ -83,7 +84,7 @@ export default class ProfileCommand {
 				effect: {
 					effect: toCheckPlayer.effectId,
 					timeLeft: toCheckPlayer.effectEndDate.valueOf() - Date.now(),
-					healed: new Date() >= toCheckPlayer.effectEndDate,
+					healed: (new Date() >= toCheckPlayer.effectEndDate) && toCheckPlayer.effectId !== Effect.NO_EFFECT.id,
 					hasTimeDisplay: toCheckPlayer.isUnderEffect()
 				},
 				fightRanking: toCheckPlayer.level >= FightConstants.REQUIRED_LEVEL
