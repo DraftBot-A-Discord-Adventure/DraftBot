@@ -32,6 +32,7 @@ import {
 } from "@discordjs/builders";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandTopPacketReq> {
 	await interaction.deferReply();
@@ -247,7 +248,6 @@ async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U,
 	textKeys: TopTextKeys,
 	formatAttributes: (element: TopElementKind, lng: Language) => string
 ): Promise<void> {
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
 
 	const lng = interaction.userLanguage;
@@ -261,14 +261,19 @@ async function handleGenericTopPacketRes<TopElementKind extends TopElement<T, U,
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(title)
-				.setDescription(getTopDescription(packet, textKeys, formatAttributes, lng, escapeUsername(user.attributes.gameUsername[0])))
+				.setDescription(getTopDescription(packet, textKeys, formatAttributes, lng, await DisplayUtils.getEscapedUsername(context.keycloakId!, lng)))
 		]
 	});
 }
 
 async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V, W>[], lng: Language): Promise<string[]> {
-	return (await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text)))
-		.map(u => (u ? escapeUsername(u.attributes.gameUsername[0]) : i18n.t("error:unknownPlayer", { lng })));
+	const req = await KeycloakUtils.getUsersFromIds(keycloakConfig, elements.map(e => e.text));
+	const unknownUsername = i18n.t("error:unknownPlayer", { lng });
+	if (req.isError) {
+		return elements.map(_ => unknownUsername);
+	}
+	return req.payload.users
+		.map(u => (u ? escapeUsername(u.attributes.gameUsername[0]) : unknownUsername));
 }
 
 export async function handleCommandTopPacketResScore(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {

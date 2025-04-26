@@ -333,7 +333,7 @@
         "name": "Preis",
         "description": "Der Verkaufspreis des Vertrauten."
       },
-      "player": {
+      "user": {
         "name": "Spieler",
         "description": "Der Spieler, an den der Begleiter verkauft werden soll."
       }

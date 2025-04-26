@@ -20,7 +20,6 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import { GuildDailyNotificationPacket } from "../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import { getCommandGuildDailyRewardPacketString } from "../commands/guild/GuildDailyCommand";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
-import { escapeUsername } from "../utils/StringUtils";
 
 export abstract class NotificationsHandler {
 	/**
@@ -32,12 +31,12 @@ export abstract class NotificationsHandler {
 			const keycloakId = notification.packet.keycloakId;
 
 			KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId)
-				.then(async keycloakUser => {
-					if (!keycloakUser?.attributes.discordId) {
+				.then(async getUser => {
+					if (getUser.isError || !getUser.payload.user.attributes.discordId) {
 						throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
 					}
-					const discordId = keycloakUser.attributes.discordId[0];
-					const lng = keycloakUser.attributes.language[0];
+					const discordId = getUser.payload.user.attributes.discordId[0];
+					const lng = getUser.payload.user.attributes.language[0];
 
 					let notificationContent: string;
 					let notificationType: NotificationType;
@@ -56,7 +55,7 @@ export abstract class NotificationsHandler {
 							const packet = notification.packet as GuildDailyNotificationPacket;
 							notificationContent = i18n.t("bot:notificationGuildDaily", {
 								lng,
-								pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakIdOfExecutor))!.attributes.gameUsername[0]),
+								pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakIdOfExecutor, lng),
 								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
 							});
 							notificationType = NotificationsTypes.GUILD_DAILY;

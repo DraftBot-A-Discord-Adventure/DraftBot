@@ -3,8 +3,6 @@ import {
 } from "./DraftbotCachedMessage";
 import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../bot/DiscordCache";
-import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../bot/DraftBotShard";
 import i18n from "../translations/i18n";
 import { CommandFightHistoryItemPacket } from "../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import { EmoteUtils } from "../utils/EmoteUtils";
@@ -12,9 +10,7 @@ import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { FightAlterationState } from "../../../Lib/src/types/FightAlterationResult";
 import { FightConstants } from "../../../Lib/src/constants/FightConstants";
 import { DraftbotFightStatusCachedMessage } from "./DraftbotFightStatusCachedMessage";
-import {
-	escapeUsername, StringUtils
-} from "../utils/StringUtils";
+import { StringUtils } from "../utils/StringUtils";
 import { DraftbotActionChooseCachedMessage } from "./DraftbotActionChooseCachedMessage";
 import { PetAssistanceState } from "../../../Lib/src/types/PetAssistanceResult";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
@@ -22,6 +18,8 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import { Language } from "../../../Lib/src/Language";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
+	private usernameCache?: string;
+
 	readonly duration = 30;
 
 	historyContent: string;
@@ -38,16 +36,16 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 	updateMessage = async (packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<null> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const lng = interaction.userLanguage;
-		const fighter = packet.fighterKeycloakId
-			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fighterKeycloakId))!.attributes.gameUsername[0])
-			: i18n.t(`models:monsters.${packet.monsterId}.name`, { lng });
+		if (!this.usernameCache) {
+			this.usernameCache = packet.fighterKeycloakId ? await DisplayUtils.getEscapedUsername(packet.fighterKeycloakId, lng) : i18n.t(`models:monsters.${packet.monsterId}.name`, { lng });
+		}
 
 		let newLine = i18n.t("commands:fight.actions.intro", {
 			lng,
 			emote: EmoteUtils.translateEmojiToDiscord(packet.pet
 				? DraftBotIcons.pets[packet.pet.typeId][packet.pet.sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"]
 				: DraftBotIcons.fightActions[packet.fightActionId]),
-			fighter
+			fighter: this.usernameCache
 		}) + this.manageMainMessage(packet, lng);
 
 		if (packet.fightActionEffectReceived) {

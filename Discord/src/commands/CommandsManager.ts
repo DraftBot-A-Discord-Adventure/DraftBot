@@ -235,7 +235,7 @@ export class CommandsManager {
 			const user = await KeycloakUtils.getDiscordUser(keycloakConfig, message.author.id, escapeUsername(message.author.displayName));
 			message.channel.send({
 				content: `${i18n.t("bot:mentionHelp", {
-					lng: user ? KeycloakUtils.getUserLanguage(user) : LANGUAGE.DEFAULT_LANGUAGE
+					lng: !user.isError ? KeycloakUtils.getUserLanguage(user.payload.user) : LANGUAGE.DEFAULT_LANGUAGE
 				})}`
 			})
 				.then();
@@ -276,14 +276,25 @@ export class CommandsManager {
 			if (!discordInteraction.isCommand() || discordInteraction.user.bot || discordInteraction.user.id === draftBotClient!.user!.id) {
 				return;
 			}
-			const user = await KeycloakUtils.getOrRegisterDiscordUser(
+			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
+			const getUser = await KeycloakUtils.getOrRegisterDiscordUser(
 				keycloakConfig,
 				discordInteraction.user.id,
 				escapeUsername(discordInteraction.user.displayName),
 				discordInteraction.locale.substring(0, 2)
 			);
-			const interaction: DraftbotInteraction = DraftbotInteraction.cast(discordInteraction);
-			const lng = KeycloakUtils.getUserLanguage(user);
+			if (getUser.isError) {
+				const errorLng = discordInteraction.locale.substring(0, 2);
+				replyEphemeralErrorMessage(
+					null,
+					interaction,
+					i18n.t("error:errorOccurred", { lng: (LANGUAGE.LANGUAGES as string[]).includes(errorLng) ? errorLng as Language : LANGUAGE.DEFAULT_LANGUAGE })
+				)
+					.finally(() => null);
+				DraftBotLogger.error("Error while getting user", { apiResult: getUser });
+				return;
+			}
+			const lng = KeycloakUtils.getUserLanguage(getUser.payload.user);
 			interaction.userLanguage = lng;
 			if (!interaction.channel) {
 				replyEphemeralErrorMessage(
@@ -299,7 +310,7 @@ export class CommandsManager {
 					.finally(() => null);
 				return;
 			}
-			CommandsManager.handleCommand(interaction, user)
+			CommandsManager.handleCommand(interaction, getUser.payload.user)
 				.then();
 		});
 	}

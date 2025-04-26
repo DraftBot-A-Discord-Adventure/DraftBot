@@ -22,11 +22,10 @@ import { CommandProfilePacketReq } from "../../../../Lib/src/packets/commands/Co
 import {
 	sendErrorMessage, SendManner
 } from "../../utils/ErrorUtils";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { UnlockConstants } from "../../../../Lib/src/constants/UnlockConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Free a player from the prison
@@ -71,7 +70,6 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 	await interaction.deferReply();
 	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorUnlockData;
-	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.unlockedKeycloakId))!;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 		lng,
 		pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
@@ -79,7 +77,7 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
 				lng,
-				pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0]),
+				pseudo: await DisplayUtils.getEscapedUsername(data.unlockedKeycloakId, lng),
 				price: UnlockConstants.PRICE_FOR_UNLOCK
 			})
 		);
@@ -125,7 +123,6 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 	}
 	const lng = originalInteraction.userLanguage;
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const unlockedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.unlockedKeycloakId!))!;
 	await buttonInteraction?.editReply({
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
@@ -135,7 +132,7 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
 						lng,
-						pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
+						pseudo: await DisplayUtils.getEscapedUsername(packet.unlockedKeycloakId, lng)
 					})
 				)
 		]

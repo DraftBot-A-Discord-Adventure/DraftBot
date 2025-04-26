@@ -284,7 +284,7 @@ export class KeycloakUtils {
 			if (registerUser.isError) {
 				return registerUser;
 			}
-			user = registerUser.payload.user;
+			user = (registerUser.payload as { user: KeycloakUser }).user;
 		}
 		else {
 			user = obj[0] as KeycloakUser;

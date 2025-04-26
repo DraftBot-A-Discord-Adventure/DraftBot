@@ -41,15 +41,15 @@ export abstract class PacketUtils {
 
 		const user = interaction.options.getUser("user");
 		if (user) {
-			const keycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
-			if (!keycloakId) {
+			const getUser = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName);
+			if (!getUser || getUser.isError || !getUser.payload.keycloakId) {
 				await interaction.reply({
 					embeds: [new DraftBotErrorEmbed(interaction.user, null, interaction, i18n.t("error:playerDoesntExist", { lng: interaction.userLanguage }))],
 					flags: MessageFlags.Ephemeral
 				});
 				return null;
 			}
-			askedPlayer = { keycloakId };
+			askedPlayer = { keycloakId: getUser.payload.keycloakId };
 		}
 		const rank = interaction.options.get("rank");
 		if (rank) {
@@ -59,6 +59,11 @@ export abstract class PacketUtils {
 	}
 
 	static async createPacketContext(interaction: DraftbotInteraction, user: KeycloakUser): Promise<PacketContext> {
+		const groups = await KeycloakUtils.getUserGroups(keycloakConfig, user.id);
+		if (groups.isError) {
+			throw new Error("Error while getting user groups");
+		}
+
 		return {
 			frontEndOrigin: PacketConstants.FRONT_END_ORIGINS.DISCORD,
 			frontEndSubOrigin: interaction.guild?.id ?? PacketConstants.FRONT_END_SUB_ORIGINS.UNKNOWN,
@@ -70,7 +75,7 @@ export abstract class PacketUtils {
 				language: interaction.userLanguage,
 				shardId
 			},
-			rightGroups: await KeycloakUtils.getUserGroups(keycloakConfig, user.id) as RightGroup[]
+			rightGroups: groups.payload.groups as RightGroup[]
 		};
 	}
 }

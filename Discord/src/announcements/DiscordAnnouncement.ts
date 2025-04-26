@@ -38,8 +38,8 @@ export abstract class DiscordAnnouncement {
 		DraftBotLogger.info("Announcing top week...");
 		if (topWeekAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekAnnouncementPacket.winnerKeycloakId);
-			if (winner) {
-				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : escapeUsername(winner.attributes.gameUsername[0]);
+			if (!winner.isError) {
+				const mention = winner.payload.user.attributes.discordId ? `<@${winner.payload.user.attributes.discordId[0]}>` : escapeUsername(winner.payload.user.attributes.gameUsername[0]);
 				const messageFr = i18n.t("bot:topWeekAnnouncement", {
 					lng: LANGUAGE.FRENCH,
 					mention
@@ -65,8 +65,8 @@ export abstract class DiscordAnnouncement {
 		DraftBotLogger.info("Announcing fight top week...");
 		if (topWeekFightAnnouncementPacket.winnerKeycloakId) {
 			const winner = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, topWeekFightAnnouncementPacket.winnerKeycloakId);
-			if (winner) {
-				const mention = winner.attributes.discordId ? `<@${winner.attributes.discordId[0]}>` : escapeUsername(winner.attributes.gameUsername[0]);
+			if (!winner.isError) {
+				const mention = winner.payload.user.attributes.discordId ? `<@${winner.payload.user.attributes.discordId[0]}>` : escapeUsername(winner.payload.user.attributes.gameUsername[0]);
 				const messageFr = i18n.t("bot:seasonEndAnnouncement", {
 					lng: LANGUAGE.FRENCH,
 					mention

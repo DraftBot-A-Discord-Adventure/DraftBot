@@ -16,13 +16,11 @@ import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { GuildConstants } from "../../../../Lib/src/constants/GuildConstants";
 import { ColorConstants } from "../../../../Lib/src/constants/ColorConstants";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { progressBar } from "../../../../Lib/src/utils/StringUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import { Language } from "../../../../Lib/src/Language";
-import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Display all the information about a guild
@@ -104,7 +102,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		membersInfos += i18n.t("commands:guild.memberInfos", {
 			lng,
 			icon: getMemberTypeIcon(member, packet),
-			pseudo: escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, member.keycloakId))!.attributes.gameUsername[0]),
+			pseudo: await DisplayUtils.getEscapedUsername(member.keycloakId, lng),
 			ranking: member.rank,
 			score: member.score,
 			islandStatusIcon: getIslandStatusIcon(member, lng)

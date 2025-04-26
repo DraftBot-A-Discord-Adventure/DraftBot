@@ -178,8 +178,12 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		const lng = interaction.userLanguage;
-		const opponentDisplayName = packet.fightOpponentKeycloakId
-			? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId))!.attributes.gameUsername[0])
+		const getUser = packet.fightOpponentKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId) : undefined;
+		if (getUser && getUser.isError) {
+			return;
+		}
+		const opponentDisplayName = getUser
+			? escapeUsername(getUser.payload.user.attributes.gameUsername[0])
 			: i18n.t(`models:monsters.${packet.fightOpponentMonsterId}.name`, { lng });
 		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
 			lng,
@@ -307,9 +311,16 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
 	const lng = interaction.userLanguage;
 
 	// Get names of fighters
-	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => (keycloakId
-		? escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId))!.attributes.gameUsername[0])
-		: i18n.t(`models:monsters.${monsterId}.name`, { lng }));
+	const getDisplayName = async (keycloakId?: string, monsterId?: string): Promise<string> => {
+		if (keycloakId) {
+			const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
+			if (getUser.isError) {
+				return i18n.t("error:unknownPlayer", { lng });
+			}
+			return escapeUsername(getUser.payload.user.attributes.gameUsername[0]);
+		}
+		return i18n.t(`models:monsters.${monsterId}.name`, { lng });
+	};
 
 	const winnerName = await getDisplayName(packet.winner.keycloakId, packet.winner.monsterId);
 	const looserName = await getDisplayName(packet.looser.keycloakId, packet.looser.monsterId);
@@ -540,9 +551,13 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 	}
 	const lng = interaction.userLanguage;
 
+	// Get players
+	const getPlayer1 = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId);
+	const getPlayer2 = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId);
+
 	// Get usernames for both players
-	const player1Username = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player1.keycloakId))?.attributes.gameUsername[0] || "Unknown");
-	const player2Username = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.player2.keycloakId))?.attributes.gameUsername[0] || "Unknown");
+	const player1Username = escapeUsername(getPlayer1.isError ? "Unknown" : getPlayer1.payload.user.attributes.gameUsername[0]);
+	const player2Username = escapeUsername(getPlayer2.isError ? "Unknown" : getPlayer2.payload.user.attributes.gameUsername[0]);
 
 	// Create an embed to show glory and league changes
 	const embed = new DraftBotEmbed()

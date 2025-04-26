@@ -3,8 +3,6 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
@@ -18,6 +16,7 @@ import {
 import { ReactionCollectorGuildElderRemoveData } from "../../../../Lib/src/packets/interaction/ReactionCollectorGuildElderRemove";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Create a collector to confirm the demotion
@@ -28,7 +27,6 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderRemoveData;
-	const elderPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.demotedKeycloakId))!;
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.title", {
 		lng,
@@ -37,7 +35,7 @@ export async function createGuildElderRemoveCollector(context: PacketContext, pa
 		.setDescription(
 			i18n.t("commands:guildElderRemove.confirmDesc", {
 				lng,
-				elderPseudo: escapeUsername(elderPlayer.attributes.gameUsername[0]),
+				elderPseudo: await DisplayUtils.getEscapedUsername(data.demotedKeycloakId, lng),
 				guildName: data.guildName
 			})
 		);
@@ -57,7 +55,6 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.demotedKeycloakId))!;
 	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
@@ -68,7 +65,7 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 				.setDescription(
 					i18n.t("commands:guildElderRemove.canceledDesc", {
 						lng,
-						elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0])
+						elderPseudo: await DisplayUtils.getEscapedUsername(packet.demotedKeycloakId, lng)
 					})
 				)
 				.setErrorColor()
@@ -85,14 +82,13 @@ export async function handleCommandGuildElderRemoveRefusePacketRes(packet: Comma
 export async function handleCommandGuildElderRemoveAcceptPacketRes(packet: CommandGuildElderRemoveAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.demotedKeycloakId!))!;
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElderRemove.successElderRemoveTitle", {
 					lng,
-					elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0]),
+					elderPseudo: await DisplayUtils.getEscapedUsername(packet.demotedKeycloakId!, originalInteraction.userLanguage),
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(

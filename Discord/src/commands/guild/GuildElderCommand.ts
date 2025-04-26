@@ -3,8 +3,6 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import i18n from "../../translations/i18n";
 import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
@@ -22,6 +20,7 @@ import { PacketUtils } from "../../utils/PacketUtils";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 /**
  * Create a collector to confirm the promotion
@@ -32,7 +31,6 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorGuildElderData;
-	const elderPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.promotedKeycloakId))!;
 	const lng = interaction.userLanguage;
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.title", {
 		lng,
@@ -41,7 +39,7 @@ export async function createGuildElderCollector(context: PacketContext, packet: 
 		.setDescription(
 			i18n.t("commands:guildElder.confirmDesc", {
 				lng,
-				elderPseudo: escapeUsername(elderPlayer.attributes.gameUsername[0]),
+				elderPseudo: await DisplayUtils.getEscapedUsername(data.promotedKeycloakId, lng),
 				guildName: data.guildName
 			})
 		);
@@ -61,7 +59,6 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 		return;
 	}
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.promotedKeycloakId))!;
 	const lng = originalInteraction.userLanguage;
 	await buttonInteraction?.editReply({
 		embeds: [
@@ -72,7 +69,7 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 				.setDescription(
 					i18n.t("commands:guildElder.canceledDesc", {
 						lng,
-						elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0])
+						elderPseudo: await DisplayUtils.getEscapedUsername(packet.promotedKeycloakId, lng)
 					})
 				)
 				.setErrorColor()
@@ -90,14 +87,13 @@ export async function handleCommandGuildElderRefusePacketRes(packet: CommandGuil
 export async function handleCommandGuildElderAcceptPacketRes(packet: CommandGuildElderAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const promotedPlayer = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.promotedKeycloakId!))!;
 	if (buttonInteraction && originalInteraction) {
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
 				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildElder.successElderAddTitle", {
 					lng,
-					elderPseudo: escapeUsername(promotedPlayer.attributes.gameUsername[0]),
+					elderPseudo: await DisplayUtils.getEscapedUsername(packet.promotedKeycloakId!, lng),
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
