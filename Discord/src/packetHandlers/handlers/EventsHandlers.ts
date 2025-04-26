@@ -109,7 +109,7 @@ export default class EventsHandlers {
 			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
 		}
 		const user = getUser.payload.user;
-		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordId = user.attributes.discordId?.[0] ? user.attributes.discordId[0] : null;
 		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
 
 		const lng = interaction.userLanguage;
@@ -168,7 +168,7 @@ export default class EventsHandlers {
 			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
 		}
 		const user = getUser.payload.user;
-		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordId = user.attributes.discordId?.[0] ? user.attributes.discordId[0] : null;
 		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
 
 		const lng = interaction.userLanguage;
@@ -274,7 +274,7 @@ export default class EventsHandlers {
 			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
 		}
 		const user = getUser.payload.user;
-		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordId = user.attributes.discordId?.[0] ? user.attributes.discordId[0] : null;
 		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
 
 		const lng = interaction.userLanguage;
