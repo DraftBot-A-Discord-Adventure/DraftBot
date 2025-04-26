@@ -5,10 +5,10 @@ import { DraftbotSmallEventEmbed } from "../messages/DraftbotSmallEventEmbed";
 import i18n from "../translations/i18n";
 import { DiscordCollectorUtils } from "../utils/DiscordCollectorUtils";
 import {
-	ReactionCollectorLotteryEasyReaction, ReactionCollectorLotteryHardReaction, ReactionCollectorLotteryMediumReaction
+	ReactionCollectorLotteryEasyReaction,
+	ReactionCollectorLotteryHardReaction,
+	ReactionCollectorLotteryMediumReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorLottery";
-import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../bot/DraftBotShard";
 import {
 	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, Message, parseEmoji
 } from "discord.js";
@@ -18,7 +18,6 @@ import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/Re
 
 export async function lotteryCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const lng = interaction.userLanguage;
 
 	const embed = new DraftbotSmallEventEmbed(
@@ -75,7 +74,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
-				user.id,
+				context.keycloakId!,
 				buttonInteraction,
 				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryEasyReaction.name)
 			);
@@ -84,7 +83,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
-				user.id,
+				context.keycloakId!,
 				buttonInteraction,
 				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryMediumReaction.name)
 			);
@@ -93,7 +92,7 @@ export async function lotteryCollector(context: PacketContext, packet: ReactionC
 			DiscordCollectorUtils.sendReaction(
 				packet,
 				context,
-				user.id,
+				context.keycloakId!,
 				buttonInteraction,
 				packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorLotteryHardReaction.name)
 			);

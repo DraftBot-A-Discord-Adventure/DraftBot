@@ -15,8 +15,6 @@ import { DiscordCache } from "../../bot/DiscordCache";
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { Language } from "../../../../Lib/src/Language";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
 	CommandInventoryPacketReq,
 	CommandInventoryPacketRes,
@@ -27,7 +25,7 @@ import { DiscordItemUtils } from "../../utils/DiscordItemUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { PacketUtils } from "../../utils/PacketUtils";
 import { MessageFlags } from "discord-api-types/v10";
-import { escapeUsername } from "../../utils/StringUtils";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandInventoryPacketReq | null> {
 	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
@@ -135,7 +133,7 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		});
 		return;
 	}
-	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
+	const username = await DisplayUtils.getEscapedUsername(packet.keycloakId!, lng);
 	let equippedView = true;
 	const buttonId = "switchItems";
 	const equippedButtonLabel = i18n.t("commands:inventory.seeEquippedItems", { lng });
@@ -144,8 +142,8 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		.setCustomId(buttonId)
 		.setLabel(backupButtonLabel)
 		.setStyle(ButtonStyle.Primary);
-	const equippedEmbed = getEquippedEmbed(packet, escapeUsername(keycloakUser.attributes.gameUsername[0]), lng);
-	const backupEmbed = getBackupEmbed(packet, escapeUsername(keycloakUser.attributes.gameUsername[0]), lng);
+	const equippedEmbed = getEquippedEmbed(packet, username, lng);
+	const backupEmbed = getBackupEmbed(packet, username, lng);
 	const msg = await interaction.reply({
 		embeds: [equippedEmbed],
 		components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]

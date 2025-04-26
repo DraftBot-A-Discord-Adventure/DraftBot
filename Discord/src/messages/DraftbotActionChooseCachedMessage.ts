@@ -1,8 +1,6 @@
 import { DraftbotCachedMessage } from "./DraftbotCachedMessage";
 import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
 import { DiscordCache } from "../bot/DiscordCache";
-import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../bot/DraftBotShard";
 import { DraftBotEmbed } from "./DraftBotEmbed";
 import i18n from "../translations/i18n";
 import {
@@ -19,9 +17,11 @@ import {
 import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../DiscordConstants";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
-import { escapeUsername } from "../utils/StringUtils";
+import { DisplayUtils } from "../utils/DisplayUtils";
 
 export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<ReactionCollectorCreationPacket> {
+	private usernameCache?: string;
+
 	readonly duration = 30;
 
 	get type(): string {
@@ -31,11 +31,13 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 	updateMessage = async (packet: ReactionCollectorCreationPacket, context: PacketContext): Promise<ReactionCollectorReturnTypeOrNull> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const data = packet.data.data as ReactionCollectorFightChooseActionData;
-		const fighter = escapeUsername((await KeycloakUtils.getUserByKeycloakId(keycloakConfig, data.fighterKeycloakId))!.attributes.gameUsername[0]);
 		const lng = interaction.userLanguage;
+		if (!this.usernameCache) {
+			this.usernameCache = await DisplayUtils.getEscapedUsername(data.fighterKeycloakId, interaction.userLanguage);
+		}
 		const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:fight.fightActionChoose.turnIndicationTitle", {
 			lng,
-			pseudo: fighter
+			pseudo: this.usernameCache
 		}), interaction.user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng }));
 		const rows = [new ActionRowBuilder<ButtonBuilder>()];

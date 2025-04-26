@@ -211,7 +211,7 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 		packet.price,
 		guild.isAtMaxLevel(),
 		pet.asOwnedPet(),
-		packet.askedPlayerKeycloakId
+		packet.askedPlayer.keycloakId
 	);
 
 	const endCallback: EndCallback = (collector: ReactionCollectorInstance, response: DraftBotPacket[]): void => {
@@ -234,7 +234,7 @@ function createAndPushCollector(player: Player, packet: CommandPetSellPacketReq,
 		collector,
 		context,
 		{
-			allowedPlayerKeycloakIds: packet.askedPlayerKeycloakId ? [player.keycloakId, packet.askedPlayerKeycloakId] : null,
+			allowedPlayerKeycloakIds: packet.askedPlayer.keycloakId ? [player.keycloakId, packet.askedPlayer.keycloakId] : null,
 			reactionLimit: -1
 		},
 		endCallback,
@@ -260,7 +260,7 @@ export default class PetSellCommand {
 			return;
 		}
 
-		if (player.keycloakId === packet.askedPlayerKeycloakId) {
+		if (player.keycloakId === packet.askedPlayer.keycloakId) {
 			response.push(makePacket(CommandPetSellCantSellToYourselfErrorPacket, {}));
 			return;
 		}

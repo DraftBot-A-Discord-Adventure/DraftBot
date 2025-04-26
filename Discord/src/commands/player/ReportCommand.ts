@@ -13,11 +13,10 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEventData,
+	ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import i18n, { TranslationOption } from "../../translations/i18n";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import {
 	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji
 } from "discord.js";
@@ -29,7 +28,10 @@ import {
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import {
-	millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate
+	millisecondsToHours,
+	millisecondsToMinutes,
+	minutesDisplay,
+	printTimeBeforeDate
 } from "../../../../Lib/src/utils/TimeUtils";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
@@ -42,8 +44,8 @@ import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/inter
 import {
 	escapeUsername, StringUtils
 } from "../../utils/StringUtils";
-import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { Language } from "../../../../Lib/src/Language";
+import { DisplayUtils } from "../../utils/DisplayUtils";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -56,7 +58,6 @@ async function getPacket(interaction: DraftbotInteraction): Promise<CommandRepor
  * @param packet
  */
 export async function createBigEventCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorBigEventData;
@@ -91,7 +92,7 @@ export async function createBigEventCollector(context: PacketContext, packet: Re
 		content: i18n.t("commands:report.doEvent", {
 			lng,
 			event: eventText,
-			pseudo: escapeUsername(user.attributes.gameUsername[0])
+			pseudo: await DisplayUtils.getEscapedUsername(context.keycloakId!, lng)
 		}),
 		components: rows
 	}))!;
@@ -195,7 +196,6 @@ function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes
  * @param context
  */
 export async function reportResult(packet: CommandReportBigEventResultRes, context: PacketContext): Promise<void> {
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 
@@ -210,7 +210,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 
 	const content = i18n.t("commands:report.doPossibility", {
 		lng,
-		pseudo: escapeUsername(user.attributes.gameUsername[0]),
+		pseudo: await DisplayUtils.getEscapedUsername(context.keycloakId!, lng),
 		result,
 		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng }),
 		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
@@ -235,14 +235,13 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
  * @param packet
  */
 export async function chooseDestinationCollector(context: PacketContext, packet: ReactionCollectorCreationPacket): Promise<ReactionCollectorReturnTypeOrNull> {
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	const lng = interaction.userLanguage;
 
 	const embed = new DraftBotEmbed();
 	embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
 		lng,
-		pseudo: escapeUsername(user.attributes.gameUsername[0])
+		pseudo: await DisplayUtils.getEscapedUsername(context.keycloakId!, lng)
 	}), interaction.user);
 	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng })}\n\n`);
 
@@ -458,9 +457,9 @@ function manageMainSummaryText({
 	packet,
 	lng,
 	travelEmbed
-}: FieldsArguments, user: KeycloakUser, now: number): void {
+}: FieldsArguments, escapedPseudo: string, now: number): void {
 	if (isCurrentlyInEffect(packet, now)) {
-		const errorMessageObject = effectsErrorTextValue(user, lng, true, packet.effect!, packet.effectEndTime! - now);
+		const errorMessageObject = effectsErrorTextValue(escapedPseudo, lng, true, packet.effect!, packet.effectEndTime! - now);
 		travelEmbed.addFields({
 			name: errorMessageObject.title,
 			value: errorMessageObject.description,
@@ -522,7 +521,6 @@ function manageEndPathDescriptions({
  * @param context
  */
 export async function reportTravelSummary(packet: CommandReportTravelSummaryRes, context: PacketContext): Promise<void> {
-	const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 	if (!interaction) {
 		return;
@@ -538,7 +536,7 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 		travelEmbed
 	};
 	manageEndPathDescriptions(fieldsArguments);
-	manageMainSummaryText(fieldsArguments, user, now);
+	manageMainSummaryText(fieldsArguments, await DisplayUtils.getEscapedUsername(context.keycloakId!, lng), now);
 	if (packet.energy.show) {
 		travelEmbed.addFields({
 			name: i18n.t("commands:report.remainingEnergyTitle", { lng }),

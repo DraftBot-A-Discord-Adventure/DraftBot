@@ -146,9 +146,12 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 		return;
 	}
 	const lng = interaction.userLanguage;
-	const keycloakUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-	const discordUser = keycloakUser.attributes.discordId
-		? draftBotClient.users.cache.get(keycloakUser.attributes.discordId[0]) ?? await draftBotClient.users.fetch(keycloakUser.attributes.discordId[0])
+	const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!);
+	if (getUser.isError) {
+		return;
+	}
+	const discordUser = getUser.payload.user.attributes.discordId
+		? draftBotClient.users.cache.get(getUser.payload.user.attributes.discordId[0]) ?? await draftBotClient.users.fetch(getUser.payload.user.attributes.discordId[0])
 		: null;
 	const missionCommandEmbed = new DraftBotEmbed();
 
@@ -161,7 +164,7 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 	else {
 		missionCommandEmbed.setTitle(i18n.t("commands:missions.title", {
 			lng,
-			pseudo: escapeUsername(keycloakUser.username)
+			pseudo: escapeUsername(getUser.payload.user.username)
 		}));
 	}
 

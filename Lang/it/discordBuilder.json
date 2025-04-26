@@ -333,7 +333,7 @@
         "name": "prezzo",
         "description": "Il prezzo di vendita dell'animale domestico."
       },
-      "player": {
+      "user": {
         "name": "giocatore",
         "description": "Il giocatore a cui vendere l'animale."
       }

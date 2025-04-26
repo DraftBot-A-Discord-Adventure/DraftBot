@@ -333,8 +333,8 @@
         "name": "prix",
         "description": "Le prix de vente du familier."
       },
-      "player": {
-        "name": "joueur",
+      "user": {
+        "name": "utilisateur",
         "description": "Le joueur à qui vendre le familier."
       }
     }

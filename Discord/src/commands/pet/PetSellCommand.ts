@@ -6,8 +6,6 @@ import {
 	CommandPetSellPacketReq,
 	CommandPetSellSuccessPacket
 } from "../../../../Lib/src/packets/commands/CommandPetSellPacket";
-import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
-import { keycloakConfig } from "../../bot/DraftBotShard";
 import { ICommand } from "../ICommand";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import { SlashCommandBuilder } from "@discordjs/builders";
@@ -22,15 +20,19 @@ import { handleCommandGuildDailyRewardPacket } from "../guild/GuildDailyCommand"
 import { CommandGuildDailyRewardPacket } from "../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 
-async function getPacket(interaction: DraftbotInteraction): Promise<CommandPetSellPacketReq> {
+async function getPacket(interaction: DraftbotInteraction, keycloakUser: KeycloakUser): Promise<CommandPetSellPacketReq | null> {
 	const price = <number>interaction.options.get("price", true).value;
-	const user = interaction.options.getUser("player");
+
+	const askedPlayer = await PacketUtils.prepareAskedPlayer(interaction, keycloakUser);
+	if (!askedPlayer) {
+		return null;
+	}
 
 	return makePacket(CommandPetSellPacketReq, {
-		askedPlayerKeycloakId: user
-			? await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, user.id, user.displayName) ?? undefined
-			: undefined,
+		askedPlayer,
 		price
 	});
 }
@@ -129,7 +131,7 @@ export const commandInfo: ICommand = {
 			SlashCommandBuilderGenerator.generateOption("petSell", "price", option)
 				.setRequired(true))
 		.addUserOption(option =>
-			SlashCommandBuilderGenerator.generateOption("petSell", "player", option)
+			SlashCommandBuilderGenerator.generateOption("petSell", "user", option)
 				.setRequired(false)) as SlashCommandBuilder,
 	getPacket,
 	mainGuildCommand: false

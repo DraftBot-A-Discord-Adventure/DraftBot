@@ -8,7 +8,6 @@ import {
 	ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCache } from "../bot/DiscordCache";
-import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import {
 	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji
 } from "discord.js";
@@ -75,7 +74,7 @@ export class DiscordCollectorUtils {
 	static sendReaction(
 		packet: ReactionCollectorCreationPacket,
 		context: PacketContext,
-		userKeycloakId: KeycloakUser["id"],
+		userKeycloakId: string,
 		component: MessageComponentInteraction | null,
 		reactionIndex: number
 	): void {
@@ -138,9 +137,9 @@ export class DiscordCollectorUtils {
 		if (options?.acceptedUsersId) {
 			userDiscordIds.pop();
 			for (const id of options.acceptedUsersId) {
-				const user = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, id);
-				if (user) {
-					userDiscordIds.push(user.attributes.discordId![0]);
+				const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, id);
+				if (!getUser.isError) {
+					userDiscordIds.push(getUser.payload.user.attributes.discordId![0]);
 				}
 			}
 		}
@@ -191,8 +190,8 @@ export class DiscordCollectorUtils {
 				return;
 			}
 
-			const reactingPlayerKeycloakId = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, buttonInteraction.user.id, buttonInteraction.user.displayName);
-			if (reactingPlayerKeycloakId) {
+			const getReactingPlayer = await KeycloakUtils.getKeycloakIdFromDiscordId(keycloakConfig, buttonInteraction.user.id, buttonInteraction.user.displayName);
+			if (!getReactingPlayer.isError && getReactingPlayer.payload.keycloakId) {
 				if (!options?.notDeferReply) {
 					await buttonInteraction.deferReply();
 				}
@@ -211,7 +210,7 @@ export class DiscordCollectorUtils {
 				DiscordCollectorUtils.sendReaction(
 					reactionCollectorCreationPacket,
 					context,
-					reactingPlayerKeycloakId,
+					getReactingPlayer.payload.keycloakId,
 					buttonInteraction,
 					reactionCollectorCreationPacket.reactions.findIndex(reaction =>
 						reaction.type === (buttonInteraction.customId === acceptCustomId

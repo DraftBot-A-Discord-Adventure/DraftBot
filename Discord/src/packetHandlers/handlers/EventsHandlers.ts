@@ -30,7 +30,6 @@ import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 export default class EventsHandlers {
 	@packetHandler(CommandReportChooseDestinationRes)
 	async chooseDestinationRes(context: PacketContext, packet: CommandReportChooseDestinationRes): Promise<void> {
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, context.keycloakId!))!;
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 
 		if (!interaction) {
@@ -41,7 +40,7 @@ export default class EventsHandlers {
 		const embed = new DraftBotEmbed();
 		embed.formatAuthor(i18n.t("commands:report.destinationTitle", {
 			lng,
-			pseudo: escapeUsername(user.attributes.gameUsername[0])
+			pseudo: await DisplayUtils.getEscapedUsername(context.keycloakId!, lng)
 		}), interaction.user);
 		let time = packet.tripDuration;
 		let i18nTr: string;
@@ -102,21 +101,26 @@ export default class EventsHandlers {
 	@packetHandler(MissionsCompletedPacket)
 	async missionsCompleted(context: PacketContext, packet: MissionsCompletedPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-		if (!user.attributes.discordId) {
-			throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
-		}
-		const discordUser = draftBotClient.users.cache.get(user.attributes.discordId[0]);
-		if (!interaction || !discordUser) {
+		if (!interaction) {
 			return;
 		}
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!);
+		if (getUser.isError) {
+			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
+		}
+		const user = getUser.payload.user;
+		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
 
 		const lng = interaction.userLanguage;
-		const completedMissionsEmbed = new DraftBotEmbed().formatAuthor(i18n.t("notifications:missions.completed.title", {
+		const titleText = i18n.t("notifications:missions.completed.title", {
 			lng,
 			count: packet.missions.length,
-			pseudo: escapeUsername(discordUser.displayName)
-		}), discordUser);
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
+		});
+		const completedMissionsEmbed = discordUser
+			? new DraftBotEmbed().formatAuthor(titleText, discordUser)
+			: new DraftBotEmbed().setTitle(titleText);
 
 		const missionLists: Record<MissionType, string[]> = {
 			[MissionType.CAMPAIGN]: [],
@@ -156,33 +160,39 @@ export default class EventsHandlers {
 	@packetHandler(MissionsExpiredPacket)
 	async missionsExpired(context: PacketContext, packet: MissionsExpiredPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		const user = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!))!;
-		if (!user.attributes.discordId) {
-			throw new Error(`User of keycloakId ${packet.keycloakId} has no discordId`);
-		}
-		const discordUser = draftBotClient.users.cache.get(user.attributes.discordId[0]);
-		if (!interaction || !discordUser) {
+		if (!interaction) {
 			return;
 		}
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!);
+		if (getUser.isError) {
+			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
+		}
+		const user = getUser.payload.user;
+		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
+
 		const lng = interaction.userLanguage;
 		let missionsExpiredDescription = "";
 		for (const mission of packet.missions) {
 			missionsExpiredDescription += `- ${MissionUtils.formatBaseMission(mission, lng)} (${mission.numberDone}/${mission.missionObjective})\n`;
 		}
+
+		const titleText = i18n.t("notifications:missions.expired.title", {
+			count: packet.missions.length,
+			lng,
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
+		});
+		const embed = discordUser
+			? new DraftBotEmbed().formatAuthor(titleText, discordUser)
+			: new DraftBotEmbed().setTitle(titleText);
+		embed.setDescription(i18n.t("notifications:missions.expired.description", {
+			lng,
+			count: packet.missions.length,
+			missionsExpired: missionsExpiredDescription
+		}));
+
 		await interaction.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(i18n.t("notifications:missions.expired.title", {
-						count: packet.missions.length,
-						lng,
-						pseudo: escapeUsername(user.attributes.gameUsername[0])
-					}), discordUser)
-					.setDescription(i18n.t("notifications:missions.expired.description", {
-						lng,
-						count: packet.missions.length,
-						missionsExpired: missionsExpiredDescription
-					}))
-			]
+			embeds: [embed]
 		});
 	}
 
@@ -259,11 +269,13 @@ export default class EventsHandlers {
 			return;
 		}
 
-		const dbUser = (await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId))!;
-		const discordUser = draftBotClient.users.cache.get(dbUser.attributes.discordId![0]);
-		if (!discordUser) {
-			return; // TODO handle it better when the user will not be on discord
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.keycloakId!);
+		if (getUser.isError) {
+			throw new Error(`Keycloak user with id ${packet.keycloakId} not found`);
 		}
+		const user = getUser.payload.user;
+		const discordId = user.attributes.discordId && user.attributes.discordId[0] ? user.attributes.discordId[0] : null;
+		const discordUser = discordId ? draftBotClient.users.cache.get(discordId) : null;
 
 		const lng = interaction.userLanguage;
 
@@ -314,15 +326,17 @@ export default class EventsHandlers {
 			}
 		}
 
+		const titleText = i18n.t("models:players.levelUp.title", {
+			lng,
+			pseudo: escapeUsername(user.attributes.gameUsername[0])
+		});
+		const embed = discordUser
+			? new DraftBotEmbed().formatAuthor(titleText, discordUser)
+			: new DraftBotEmbed().setTitle(titleText);
+		embed.setDescription(desc);
+
 		await interaction.channel.send({
-			embeds: [
-				new DraftBotEmbed()
-					.formatAuthor(i18n.t("models:players.levelUp.title", {
-						lng,
-						pseudo: escapeUsername(discordUser.displayName)
-					}), discordUser)
-					.setDescription(desc)
-			]
+			embeds: [embed]
 		});
 	}
 

@@ -13,7 +13,11 @@ import {
 } from "../../../Lib/src/constants/StringConstants";
 import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
 import { PetFood } from "../../../Lib/src/types/PetFood";
-import { StringUtils } from "./StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "./StringUtils";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../bot/DraftBotShard";
 
 export class DisplayUtils {
 	/**
@@ -293,6 +297,15 @@ export class DisplayUtils {
 			name = StringUtils.capitalizeFirstLetter(name);
 		}
 		return `${DraftBotIcons.foods[food]} ${name}`;
+	}
+
+	static async getEscapedUsername(keycloakId: string, lng: Language): Promise<string> {
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
+		if (getUser.isError) {
+			return i18n.t("error:unknownPlayer", { lng });
+		}
+
+		return escapeUsername(getUser.payload.user.attributes.gameUsername[0]);
 	}
 
 	private static getStringValueFor(values: string[], maxValue: number | null, value: number, typeValue: "attack" | "defense" | "speed", lng: Language): void {
