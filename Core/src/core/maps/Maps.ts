@@ -66,7 +66,7 @@ export class Maps {
 	}
 
 	/**
-	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
+	 * Make a player start travelling. It does not check if the player is currently travelling, if the maps are connected etc. It also saves the player
 	 * @param player
 	 * @param newLink
 	 * @param time - The start time
@@ -92,7 +92,7 @@ export class Maps {
 	}
 
 	/**
-	 * Check if the player has arrived to the destination
+	 * Check if the player has arrived at the destination
 	 * @param player
 	 * @param date
 	 */

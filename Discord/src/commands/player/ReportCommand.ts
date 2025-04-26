@@ -276,7 +276,7 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 	// Calculate trip duration
 	const tripDuration = packet.arriveTime - packet.startTime - (packet.effectDuration ?? 0);
 
-	// Player traveled time
+	// Player travelled time
 	let playerTravelledTime = now - packet.startTime;
 	const isInEffectTime = isCurrentlyInEffect(packet, now);
 	const effectStartTime = packet.effectEndTime && packet.effectDuration ? packet.effectEndTime - packet.effectDuration : 0;
@@ -291,13 +291,13 @@ function generateTravelPathString(packet: CommandReportTravelSummaryRes, now: nu
 
 	let percentage = playerTravelledTime / tripDuration;
 
-	const remainingHours = Math.floor(millisecondsToHours(playerRemainingTravelTime));
+	const remainingHours = Math.max(Math.floor(millisecondsToHours(playerRemainingTravelTime)), 0);
 	let remainingMinutes = Math.floor(millisecondsToMinutes(playerRemainingTravelTime - remainingHours * 3600000));
 	if (remainingMinutes === 60) {
 		remainingMinutes = 59;
 	}
-	if (remainingMinutes === remainingHours && remainingHours === 0) {
-		remainingMinutes++;
+	if (remainingMinutes <= 0 && remainingHours === 0) {
+		remainingMinutes = 1;
 	}
 	const timeRemainingString = `**[${remainingHours}h${remainingMinutes < 10 ? "0" : ""}${remainingMinutes}]**`;
 	if (percentage > 1) {

@@ -47,7 +47,6 @@ async function effectIfGoodRisk(levelKey: LotteryLevelKey, player: Player, dataL
 			new Date(),
 			NumberChangeReason.SMALL_EVENT
 		);
-
 		return dataLottery.lostTime;
 	}
 
