@@ -4,7 +4,7 @@
   "defense": "{emote:unitValues.defense} {{value}}",
   "nameDisplay": "{emote:{{itemCategory}}.{{itemId}}} **$t(models:{{itemCategory}}.{{itemId}})**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
-  "objectsFieldName": "Item:",
+  "objectsFieldName": "Object:",
   "objectsNatures": [
     "{emote:itemNatures.0} No effect",
     "{emote:itemNatures.1} Health + {{power}} per day",

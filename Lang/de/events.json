@@ -3,9 +3,9 @@
     "possibilities": {
       "cutTree": {
         "outcomes": {
-          "0": "Diesen Baum zu schneiden hat 30 Minuten!"
+          "0": "Das Fällen dieses Baumes dauert 30 Minuten!"
         },
-        "text": "Sie können den Baum ausschneiden und weitermachen."
+        "text": "Den Baum fällen und weitergehen."
       },
       "end": {
         "outcomes": {
@@ -17,16 +17,16 @@
           "0": "Einen anderen Weg zu gehen, schien eine gute Lösung zu sein, Sie haben keine Zeit verloren!",
           "1": "Einen anderen Weg zu nehmen, schien eine gute Lösung zu sein, aber leider haben Sie sich beim Gehen verletzt."
         },
-        "text": "Sprung durch einen anderen Weg."
+        "text": "Einen anderen Weg gehen."
       }
     },
-    "text": "Ein Baum fiel auf den Weg und blockiert den Durchgang!"
+    "text": "Ein Baum fiel auf den Weg und blockiert den Durchgang !"
   },
   "10": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Sie enden damit, dass Sie Ihren Weg gehen, ohne mehr Aufmerksamkeit auf diese ziemlich banale Situation zu nehmen!"
+          "0": "Sie enden damit, dass Sie Ihren Weg gehen, ohne mehr Aufmerksamkeit auf diese ziemlich banale Situation zu nehmen !"
         }
       },
       "help": {
@@ -1743,7 +1743,7 @@
           "1": "Sie entschuldigen sich, und der Mann entschuldigt sich für die Unannehmliche. Sie wechseln schnell ein Thema und diskutieren mit ihm. Nach ein paar Minuten Konversation bietet er Ihnen einen Snack-Snack-Snacks. Diese kleine Pause war keine komplette Zeitverschwendung, Sie haben sich einen Freund gemacht.",
           "2": "Sie machen das Angebot höflich. Der vergessene Mann wirft Ihnen das Paket ins Gesicht und Sie befehlen, ihn an seiner Stelle zu liefern! Sie nehmen das Paket für Sie und gehen weit weg von diesem abscheulichen Charakter. Sie gehen mit einem hübschen blauen blauen Gesicht und einem Objekt, das Ihnen sicherlich nützlich sein wird."
         },
-        "text": "Verweigern Sie höflich."
+        "text": "Höflich ablehnen."
       },
       "end": {
         "outcomes": {
@@ -2270,7 +2270,7 @@
           "0": "Nach diesem gefährlichen Abenteuer ist Ihnen nicht nach Trinken zumute. Da der Kapitän Sie nicht in Ihrer unbequemen Lage lassen möchte, bietet er Ihnen, ohne dass Sie wirklich eine Wahl haben, ein gemütliches Bett in seiner Kabine an. Die Bewegung des Schiffes wiegt Sie in den Schlaf, Sie spüren, wie Ihre Gedanken schnell zu Ihren Abenteuern abschweifen und schlafen nach wenigen Minuten ein.",
           "1": "Da diese Reise sich bewährt hat, entfliehen Sie, um nicht noch mehr zu entwässern. Sie bitten um das Wasser vom Schiff. Sie wissen aber nicht, dass Sie in einen tiefen Schlaf fallen, bevor er zurückkommt."
         },
-        "text": "Das Geschenk wird nicht poliert."
+        "text": "Das Geschenk höflich verweigern."
       },
       "end": {
         "outcomes": {
