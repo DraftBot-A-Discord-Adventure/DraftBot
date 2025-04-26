@@ -7,7 +7,7 @@ export abstract class FightConstants {
 
 	static readonly POINTS_REGEN_MINUTES = 7;
 
-	static readonly POINTS_REGEN_AMOUNT = 110;
+	static readonly POINTS_REGEN_AMOUNT = 130;
 
 
 	static readonly REWARDS = {
