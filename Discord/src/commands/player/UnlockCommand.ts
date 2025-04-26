@@ -70,14 +70,15 @@ export async function createUnlockCollector(context: PacketContext, packet: Reac
 	await interaction.deferReply();
 	const lng = interaction.userLanguage;
 	const data = packet.data.data as ReactionCollectorUnlockData;
+	const pseudo = await DisplayUtils.getEscapedUsername(data.unlockedKeycloakId, lng);
 	const embed = new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 		lng,
-		pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
+		pseudo
 	}), interaction.user)
 		.setDescription(
 			i18n.t("commands:unlock.confirmDesc", {
 				lng,
-				pseudo: await DisplayUtils.getEscapedUsername(data.unlockedKeycloakId, lng),
+				pseudo,
 				price: UnlockConstants.PRICE_FOR_UNLOCK
 			})
 		);
@@ -127,7 +128,7 @@ export async function handleCommandUnlockAcceptPacketRes(packet: CommandUnlockAc
 		embeds: [
 			new DraftBotEmbed().formatAuthor(i18n.t("commands:unlock.title", {
 				lng,
-				pseudo: escapeUsername(unlockedPlayer.attributes.gameUsername[0])
+				pseudo: await DisplayUtils.getEscapedUsername(packet.unlockedKeycloakId, lng)
 			}), originalInteraction.user)
 				.setDescription(
 					i18n.t("commands:unlock.acceptedDesc", {
