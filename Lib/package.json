@@ -1,6 +1,6 @@
 {
   "name": "draftbot_lib",
-  "version": "5.0.0.e",
+  "version": "5.0.0.f",
   "description": "Lib package of DaftBot, used my multiple module",
   "packageManager": "yarn@4.8.1",
   "engines": {
