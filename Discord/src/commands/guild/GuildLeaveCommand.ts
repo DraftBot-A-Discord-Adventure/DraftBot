@@ -56,7 +56,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
 	const getChief = packet.newChiefKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId) : undefined;
-	if (getChief && getChief.isError) {
+	if (getChief?.isError) {
 		return;
 	}
 	const newChiefPseudo = getChief ? escapeUsername(getChief.payload.user.attributes.gameUsername[0]) : "";

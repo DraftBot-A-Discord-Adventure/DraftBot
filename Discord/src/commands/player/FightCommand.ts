@@ -179,7 +179,7 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 		const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		const lng = interaction.userLanguage;
 		const getUser = packet.fightOpponentKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId) : undefined;
-		if (getUser && getUser.isError) {
+		if (getUser?.isError) {
 			return;
 		}
 		const opponentDisplayName = getUser
