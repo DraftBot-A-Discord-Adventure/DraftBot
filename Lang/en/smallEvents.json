@@ -106,7 +106,7 @@
     "priceMoney": "the trip **will cost {{price}} {emote:unitValues.gem}**",
     "confirm": "Do you want to go to the island? You have {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
     "endStoryAccept": "{{gainScore}} You accept and board the boat bound for the island.",
-    "endStoryAcceptWithMember": "{{gainScore}} You accept, and just as you're about to embark, you notice that a member of your guild is already on the boat, so you join him and head for the island.",
+    "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquer, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
     "endStoryRefuse": "You politely decline the offer and continue on your way.",
     "notEnoughGems": "You accept, but when it's time to pay, you realize you don't have enough to pay. You leave disappointed.",
     "confirmedScore": "**{emote:unitValues.score} Points earned:** {{score}}\n"
