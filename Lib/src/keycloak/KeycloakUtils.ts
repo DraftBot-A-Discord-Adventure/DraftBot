@@ -395,7 +395,7 @@ export class KeycloakUtils {
 
 		const users = [];
 		for (const keycloakId of keycloakIds) {
-			const getUser = await KeycloakUtils.getUserIdByUsername(keycloakConfig, keycloakId);
+			const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
 			if (getUser.isError || !("user" in getUser.payload)) {
 				return {
 					status: getUser.status,

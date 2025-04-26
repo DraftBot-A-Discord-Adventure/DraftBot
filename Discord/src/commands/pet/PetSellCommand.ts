@@ -32,7 +32,7 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	}
 
 	return makePacket(CommandPetSellPacketReq, {
-		askedPlayer,
+		askedPlayer: !interaction.options.getUser("user") && askedPlayer.keycloakId === keycloakUser.id ? {} : askedPlayer,
 		price
 	});
 }
@@ -42,7 +42,7 @@ export async function createPetSellCollector(context: PacketContext, packet: Rea
 	await interaction.deferReply();
 	const data = packet.data.data as ReactionCollectorPetSellData;
 	const lng = interaction.userLanguage;
-	const buyerUser = interaction.options.getUser("player");
+	const buyerUser = interaction.options.getUser("user");
 
 	let description = i18n.t("commands:petSell.sellDescription", {
 		lng,
