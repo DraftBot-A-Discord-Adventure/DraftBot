@@ -18,7 +18,9 @@ import { DisplayUtils } from "../utils/DisplayUtils";
 import { Language } from "../../../Lib/src/Language";
 
 export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandFightHistoryItemPacket> {
-	private usernameCache?: string;
+	private usernamesCachePlayer = new Map<string, string>();
+
+	private usernamesCacheMonster = new Map<string, string>();
 
 	readonly duration = 30;
 
@@ -36,8 +38,11 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 	updateMessage = async (packet: CommandFightHistoryItemPacket, context: PacketContext): Promise<null> => {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
 		const lng = interaction.userLanguage;
-		if (!this.usernameCache) {
-			this.usernameCache = packet.fighterKeycloakId ? await DisplayUtils.getEscapedUsername(packet.fighterKeycloakId, lng) : i18n.t(`models:monsters.${packet.monsterId}.name`, { lng });
+		if (packet.fighterKeycloakId && !this.usernamesCachePlayer.has(packet.fighterKeycloakId)) {
+			this.usernamesCachePlayer.set(packet.fighterKeycloakId, await DisplayUtils.getEscapedUsername(packet.fighterKeycloakId, lng));
+		}
+		else if (packet.monsterId && !this.usernamesCacheMonster.has(packet.monsterId)) {
+			this.usernamesCacheMonster.set(packet.monsterId, i18n.t(`models:monsters.${packet.monsterId}.name`, { lng }));
 		}
 
 		let newLine = i18n.t("commands:fight.actions.intro", {
@@ -45,7 +50,7 @@ export class DraftbotHistoryCachedMessage extends DraftbotCachedMessage<CommandF
 			emote: EmoteUtils.translateEmojiToDiscord(packet.pet
 				? DraftBotIcons.pets[packet.pet.typeId][packet.pet.sex === StringConstants.SEX.FEMALE.short ? "emoteFemale" : "emoteMale"]
 				: DraftBotIcons.fightActions[packet.fightActionId]),
-			fighter: this.usernameCache
+			fighter: packet.fighterKeycloakId ? this.usernamesCachePlayer?.get(packet.fighterKeycloakId) : this.usernamesCacheMonster?.get(packet.monsterId!)
 		}) + this.manageMainMessage(packet, lng);
 
 		if (packet.fightActionEffectReceived) {
