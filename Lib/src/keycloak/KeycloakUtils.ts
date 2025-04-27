@@ -24,7 +24,13 @@ type ApiCallReturnType<T extends object> =
  * @param res
  */
 async function formatApiCallError<T extends object>(res: Response): Promise<ApiCallReturnType<T>> {
-	const payload = await res.json();
+	let payload;
+	try {
+		payload = await res.json();
+	}
+	catch {
+		payload = {};
+	}
 	return {
 		status: res.status,
 		payload: "error" in payload ? payload : {},

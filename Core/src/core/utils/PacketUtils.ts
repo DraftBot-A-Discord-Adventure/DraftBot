@@ -20,10 +20,14 @@ export abstract class PacketUtils {
 			}))
 		};
 
-		if (context.discord !== null) {
-			const response = JSON.stringify(responsePacket);
+		const response = JSON.stringify(responsePacket);
+		if (context.discord) {
 			mqttClient.publish(MqttTopicUtils.getDiscordTopic(botConfig.PREFIX, context.discord.shardId), response);
 			DraftBotLogger.debug("Sent response to discord front", { response: responsePacket });
+		}
+		else if (context.webSocket) {
+			mqttClient.publish(MqttTopicUtils.getWebSocketTopic(botConfig.PREFIX), response);
+			DraftBotLogger.debug("Sent response to web socket front", { response: responsePacket });
 		}
 		else {
 			throw new Error("Unsupported platform");
