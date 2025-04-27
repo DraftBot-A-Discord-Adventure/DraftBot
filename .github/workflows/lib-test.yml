@@ -1,16 +1,11 @@
 name: Lib Module Tests
 on:
   pull_request:
-    branches:
-      - '**'
-    paths:
-      - Lib/**
+    branches: [ '**' ]
+    paths: [ Lib/** ]
   push:
-    branches:
-      - develop
-      - master
-    paths:
-      - Lib/**
+    branches: [ develop, master ]
+    paths: [ Lib/** ]
   workflow_dispatch:
 
 jobs:
@@ -19,33 +14,41 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Setup Node.js environment
-      - name: Setup Node.js environment
+      - name: Setup Node.js & Yarn
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      # Setup Yarn stable
-      - name: Setup Yarn
-        run: |
+      - run: |
           corepack enable
           yarn set version stable
 
-      # Cache Yarn dependencies
-      - name: Cache Yarn dependencies
+      - name: Cache Yarn deps
         uses: actions/cache@v4
         with:
           path: |
-            ./Lib/.yarn/cache  
+            ./Lib/.yarn/cache
             ./Lib/.pnp.cjs
-          key: ${{ runner.os }}-yarn-${{ hashFiles('./Lib/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('Lib/yarn.lock') }}
 
-      - name: Install dependencies and Setup Vitest in Lib folder
+      - name: Install deps
         working-directory: ./Lib
-        run: |
-          yarn install
-          # Add Vitest to the Lib module
-          yarn add --dev vitest @vitest/coverage-v8
-          echo '{ "scripts": { "test": "vitest run", "test:watch": "vitest", "test:coverage": "vitest run --coverage" } }' > .vitest-scripts.json
-          npx json -f package.json -I -e "this.scripts=Object.assign(this.scripts, require('./.vitest-scripts.json').scripts)"
-          yarn test
+        run: yarn install
+
+      # this will run tests AND output coverage + JUnit XML
+      - name: Run tests with coverage
+        working-directory: ./Lib
+        run: yarn test:coverage
+
+      # Publish the JUnit XML so GitHub shows a test summary in the Checks UI
+      - name: Upload test report
+        uses: actions/upload-test-report@v3
+        if: always()
+        with:
+          path: Lib/test-results.xml
+
+      # Upload coverage folder as an artifact you can browse/download
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lib-coverage
+          path: Lib/coverage

@@ -4,7 +4,7 @@
   "description": "Lib package of DaftBot, used my multiple module",
   "packageManager": "yarn@4.8.1",
   "engines": {
-    "node": ">=23.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "test": "vitest run",
