@@ -9,3 +9,4 @@ package-lock.json
 .directory
 /dist/
 dist/
+coverage/
