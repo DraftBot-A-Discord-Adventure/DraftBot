@@ -271,7 +271,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	// Save glory before changing it
 	const player1OldGlory = player1.getGloryPoints();
 	const player2OldGlory = player2.getGloryPoints();
-	await updatePlayersEloAndCooldowns(attacker, defender, initiatorReference, defenderGameResult, response, fightLogId);
+	await updatePlayersEloAndCooldowns(attacker, defender, initiatorGameResult, defenderGameResult, response, fightLogId);
 
 	response.push(makePacket(FightRewardPacket, {
 		points: scoreBonus,
