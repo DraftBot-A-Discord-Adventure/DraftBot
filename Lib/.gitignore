@@ -10,4 +10,4 @@ package-lock.json
 dist/
 coverage/
 /coverage/
-!/test-results.xml
+/test-results.xml
