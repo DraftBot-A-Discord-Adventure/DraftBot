@@ -13,6 +13,8 @@ export abstract class MqttTopicUtils {
 
 	private static readonly DISCORD_SHARD_MANAGER_TOPIC = "discord_shard_manager";
 
+	private static readonly WEB_SOCKET_TOPIC = "draftbot_websocket";
+
 
 	static getCoreTopic(prefix: string): string {
 		return `${prefix}/${MqttTopicUtils.CORE_TOPIC}`;
@@ -40,5 +42,9 @@ export abstract class MqttTopicUtils {
 
 	static getDiscordShardManagerTopic(prefix: string): string {
 		return `${prefix}/${MqttTopicUtils.DISCORD_SHARD_MANAGER_TOPIC}`;
+	}
+
+	static getWebSocketTopic(prefix: string): string {
+		return `${prefix}/${MqttTopicUtils.WEB_SOCKET_TOPIC}`;
 	}
 }

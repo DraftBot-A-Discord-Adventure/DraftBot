@@ -98,7 +98,9 @@ export class RestApi {
 				DraftBotLogger.errorWithObj("Failed to start Rest API", err);
 				process.exit(1);
 			}
-			DraftBotLogger.info(`Rest API is running at ${address}`);
+			DraftBotLogger.info("Rest API is running", {
+				address
+			});
 		});
 	}
 }
