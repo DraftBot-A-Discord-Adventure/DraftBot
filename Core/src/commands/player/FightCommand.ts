@@ -96,8 +96,8 @@ async function getPlayerStats(player: Player): Promise<PlayerStats> {
 /**
  * Calculate the money reward for the initiator of the fight
  * @param fightInitiatorInformation Information about the fight initiator
- * @param player1 First player in the fight
- * @param player2 Second player in the fight
+ * @param player1 First player in the fight not necessarily the initiator
+ * @param player2 Second player in the fight not necessarily the defender
  * @param response Packet response array
  * @returns The amount of money rewarded
  */
@@ -147,8 +147,8 @@ async function calculateMoneyReward(
 /**
  * Calculate the score reward for the initiator of the fight
  * @param fightInitiatorInformation
- * @param player1
- * @param player2
+ * @param player1 - one of the players in the fight (not necessary the initiator)
+ * @param player2 - the other player in the fight (not necessary the defender)
  * @param response
  */
 async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInformation, player1: Player, player2: Player, response: DraftBotPacket[]): Promise<number> {
@@ -177,41 +177,41 @@ async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInf
 
 /**
  * Update the players' glory and cooldowns after a fight
- * @param player1
- * @param player2
- * @param player1GameResult
- * @param player2GameResult
+ * @param attacker
+ * @param defender
+ * @param attackerGameResult
+ * @param defenderGameResult
  * @param response
  * @param fightLogId
  */
 async function updatePlayersEloAndCooldowns(
-	player1: Player,
-	player2: Player,
-	player1GameResult: EloGameResult,
-	player2GameResult: EloGameResult,
+	attacker: Player,
+	defender: Player,
+	attackerGameResult: EloGameResult,
+	defenderGameResult: EloGameResult,
 	response: DraftBotPacket[],
 	fightLogId: number
 ): Promise<void> {
 	// Calculate elo
-	const player1KFactor = EloUtils.getKFactor(player1);
-	const player2KFactor = EloUtils.getKFactor(player2);
-	const player1NewRating = EloUtils.calculateNewRating(player1.attackGloryPoints, player2.defenseGloryPoints, player1GameResult, player1KFactor);
-	const player2NewRating = EloUtils.calculateNewRating(player2.defenseGloryPoints, player1.attackGloryPoints, player2GameResult, player2KFactor);
+	const player1KFactor = EloUtils.getKFactor(attacker);
+	const player2KFactor = EloUtils.getKFactor(defender);
+	const player1NewRating = EloUtils.calculateNewRating(attacker.attackGloryPoints, defender.defenseGloryPoints, attackerGameResult, player1KFactor);
+	const player2NewRating = EloUtils.calculateNewRating(defender.defenseGloryPoints, attacker.attackGloryPoints, defenderGameResult, player2KFactor);
 
 	// Change glory and fightCountdown and save
-	await player1.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT, response, fightLogId);
-	player1.fightCountdown--;
-	if (player1.fightCountdown < 0) {
-		player1.fightCountdown = 0;
+	await attacker.setGloryPoints(player1NewRating, false, NumberChangeReason.FIGHT, response, fightLogId);
+	attacker.fightCountdown--;
+	if (attacker.fightCountdown < 0) {
+		attacker.fightCountdown = 0;
 	}
-	await player2.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT, response, fightLogId);
-	player2.fightCountdown--;
-	if (player2.fightCountdown < 0) {
-		player2.fightCountdown = 0;
+	await defender.setGloryPoints(player2NewRating, true, NumberChangeReason.FIGHT, response, fightLogId);
+	defender.fightCountdown--;
+	if (defender.fightCountdown < 0) {
+		defender.fightCountdown = 0;
 	}
 	await Promise.all([
-		player1.save(),
-		player2.save()
+		attacker.save(),
+		defender.save()
 	]);
 }
 
@@ -232,10 +232,15 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	&& fight.fightInitiator.player.keycloakId === fight.fighters[0].player.keycloakId
 		? player1GameResult
 		: player2GameResult;
+	const defenderGameResult = initiatorGameResult === player1GameResult ? player2GameResult : player1GameResult;
 
 	// Player variables
 	const player1 = await Players.getById((fight.fighters[0] as PlayerFighter).player.id);
 	const player2 = await Players.getById((fight.fighters[1] as PlayerFighter).player.id);
+
+	// Attacker and defender players
+	const attacker = initiatorReference === 0 ? player1 : player2;
+	const defender = initiatorReference === 0 ? player2 : player1;
 
 	const playerDailyFightSummary = await LogsReadRequests.getPersonalInitiatedFightDailySummary(
 		fight.fightInitiator.player.keycloakId
@@ -266,7 +271,7 @@ async function fightEndCallback(fight: FightController, response: DraftBotPacket
 	// Save glory before changing it
 	const player1OldGlory = player1.getGloryPoints();
 	const player2OldGlory = player2.getGloryPoints();
-	await updatePlayersEloAndCooldowns(player1, player2, player1GameResult, player2GameResult, response, fightLogId);
+	await updatePlayersEloAndCooldowns(attacker, defender, initiatorReference, defenderGameResult, response, fightLogId);
 
 	response.push(makePacket(FightRewardPacket, {
 		points: scoreBonus,
