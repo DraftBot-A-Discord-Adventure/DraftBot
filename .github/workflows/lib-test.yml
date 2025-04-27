@@ -39,16 +39,16 @@ jobs:
         working-directory: ./Lib
         run: yarn test:coverage
 
-      # Publish the JUnit XML so GitHub shows a test summary in the Checks UI
-      - name: Upload test report
-        uses: actions/upload-test-report@v3
+      # Publish the test results using EnricoMi's action
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          path: Lib/test-results.xml
+          files: Lib/test-results.xml
 
-      # Upload coverage folder as an artifact you can browse/download
+      # Upload the coverage folder as an artifact you can browse/download
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: lib-coverage
           path: Lib/coverage
