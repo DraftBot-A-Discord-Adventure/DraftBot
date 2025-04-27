@@ -41,6 +41,8 @@ export interface PacketContext {
 		shardId: number;
 	};
 
+	webSocket?: Record<string, never>;
+
 	rightGroups?: RightGroup[];
 
 	// Used when waiting for an answer

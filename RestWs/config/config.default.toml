@@ -1,3 +1,7 @@
+[global]
+# Prefix used to prefix the MQTT topics and the databases
+prefix = "draftbot"
+
 [restApi]
 # Allow registering of new users
 allowRegister = true
@@ -14,6 +18,10 @@ clientSecret = ""
 # Discord SSO callback URL without the route (ex: http://localhost:10500)
 # The callback URL must be the same as the one configured in the Discord developer portal with /discord/callback at the end in the developer portal
 callbackUrl = ""
+
+[webSocket]
+# Port to run the WebSocket server on
+port = 10501
 
 [mqtt]
 # MQTT host

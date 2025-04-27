@@ -20,17 +20,25 @@ export interface RestWsConfig {
 	REST_API_PORT: number;
 	REST_API_DISCORD_SSO?: DiscordSsoConfig;
 	REST_API_BETA_LOGIN: boolean;
+	WEB_SOCKET_PORT: number;
+	PREFIX: string;
 }
 
 /**
  * Represents the structure of the config file
  */
 type ConfigStructure = {
+	global: {
+		prefix: string;
+	};
 	restApi: {
 		allowRegister: boolean;
 		port: number;
 		discordSso?: DiscordSsoConfig;
 		betaLogin: boolean;
+	};
+	webSocket: {
+		port: number;
 	};
 	keycloak: {
 		realm: string;
@@ -78,7 +86,9 @@ export function loadConfig(): RestWsConfig {
 				callbackUrl: config.restApi.discordSso.callbackUrl
 			}
 			: undefined,
-		REST_API_BETA_LOGIN: config.restApi.betaLogin
+		REST_API_BETA_LOGIN: config.restApi.betaLogin,
+		WEB_SOCKET_PORT: config.webSocket.port,
+		PREFIX: config.global.prefix
 	};
 }
 
