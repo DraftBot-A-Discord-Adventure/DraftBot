@@ -34,10 +34,9 @@ jobs:
         working-directory: ./Lib
         run: yarn install
 
-      # this will run tests AND output coverage + JUnit XML
       - name: Run tests with coverage
         working-directory: ./Lib
-        run: yarn test:coverage
+        run: yarn test
 
       # Publish the test results using EnricoMi's action
       - name: Publish Test Results
@@ -45,10 +44,3 @@ jobs:
         if: always()
         with:
           files: Lib/test-results.xml
-
-      # Upload the coverage folder as an artifact you can browse/download
-      - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: lib-coverage
-          path: Lib/coverage
