@@ -1,0 +1,113 @@
+name: Module Tests
+on:
+  pull_request:
+    branches: [ '**' ]
+    paths: [ Lib/**, Discord/**, Core/** ]
+  push:
+    branches: [ develop, master ]
+    paths: [ Lib/**, Discord/**, Core/** ]
+  workflow_dispatch:
+
+jobs:
+  test-lib-module:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js & Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          corepack enable
+          yarn set version stable
+
+      - name: Cache Yarn deps for Lib
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Lib/.yarn/cache
+            ./Lib/.pnp.cjs
+          key: ${{ runner.os }}-yarn-lib-${{ hashFiles('Lib/yarn.lock') }}
+
+      - name: Install deps for Lib
+        working-directory: ./Lib
+        run: yarn install
+
+      - name: Run tests with coverage for Lib
+        working-directory: ./Lib
+        run: yarn test
+
+  test-discord-module:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js & Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          corepack enable
+          yarn set version stable
+
+      - name: Cache Yarn deps for Discord
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Discord/.yarn/cache
+            ./Discord/.pnp.cjs
+          key: ${{ runner.os }}-yarn-discord-${{ hashFiles('Discord/yarn.lock') }}
+
+      - name: Install deps for Discord
+        working-directory: ./Discord
+        run: yarn install
+
+      - name: Run tests with coverage for Discord
+        working-directory: ./Discord
+        run: yarn test
+
+  test-core-module:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js & Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          corepack enable
+          yarn set version stable
+
+      - name: Cache Yarn deps for Core
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Core/.yarn/cache
+            ./Core/.pnp.cjs
+          key: ${{ runner.os }}-yarn-core-${{ hashFiles('Core/yarn.lock') }}
+
+      - name: Install deps for Core
+        working-directory: ./Core
+        run: yarn install
+
+      - name: Run tests with coverage for Core
+        working-directory: ./Core
+        run: yarn test
+
+  publish-test-results:
+    runs-on: ubuntu-latest
+    needs: [test-lib-module, test-discord-module, test-core-module]
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            Lib/test-results.xml
+            Discord/test-results.xml
+            Core/test-results.xml
