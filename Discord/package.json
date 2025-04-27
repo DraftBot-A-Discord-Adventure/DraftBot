@@ -9,6 +9,9 @@
   },
   "engineStrict": true,
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "start": "yarn interface && yarn run tsc && node dist/Discord/src/index.js",
     "cd": "cd",
     "eslint": "eslint src",
