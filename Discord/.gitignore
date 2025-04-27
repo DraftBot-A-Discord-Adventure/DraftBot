@@ -9,4 +9,5 @@ package-lock.json
 /dist/
 dist/
 src/@types/resources.d.ts
-coverage/
+coverage
+/coverage/
