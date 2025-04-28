@@ -1,36 +1,44 @@
-import {makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
+import {
+	makePacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
 import {
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorReactPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {DiscordCache} from "../bot/DiscordCache";
-import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji} from "discord.js";
-import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
-import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {DraftbotInteraction} from "../messages/DraftbotInteraction";
-import {sendInteractionNotForYou, SendManner} from "./ErrorUtils";
-import {PacketUtils} from "./PacketUtils";
-import {keycloakConfig, shardId} from "../bot/DraftBotShard.js";
-import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
-import {ReactionCollectorReturnTypeOrNull} from "../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DiscordMQTT} from "../bot/DiscordMQTT";
-import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
-import {Effect} from "../../../Lib/src/types/Effect";
-import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
-import {DiscordConstants} from "../DiscordConstants";
+import { DiscordCache } from "../bot/DiscordCache";
+import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji
+} from "discord.js";
+import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
+import { DraftBotEmbed } from "../messages/DraftBotEmbed";
+import { DraftbotInteraction } from "../messages/DraftbotInteraction";
+import {
+	sendInteractionNotForYou, SendManner
+} from "./ErrorUtils";
+import { PacketUtils } from "./PacketUtils";
+import {
+	keycloakConfig, shardId
+} from "../bot/DraftBotShard.js";
+import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils.js";
+import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordMQTT } from "../bot/DiscordMQTT";
+import { RequirementEffectPacket } from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import { Effect } from "../../../Lib/src/types/Effect";
+import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
+import { DiscordConstants } from "../DiscordConstants";
 
 type SendingContext = {
 	packet: ReactionCollectorCreationPacket;
 	context: PacketContext;
-}
+};
 
 type SendingValues = {
 	embed: DraftBotEmbed | string;
 	items: string[];
-}
+};
 
 export const SEND_POLITICS = {
 	ALWAYS_FOLLOWUP: [SendManner.FOLLOWUP],
@@ -48,7 +56,7 @@ const MANNER_TO_METHOD = {
 };
 
 function getSendingManner(interaction: DraftbotInteraction, sendManners: SendManner[]): SendManner {
-	return sendManners.length === 1 ? sendManners[0] : (interaction.replied ? sendManners[1] : sendManners[0]);
+	return sendManners.length === 1 ? sendManners[0] : interaction.replied ? sendManners[1] : sendManners[0];
 }
 
 export class DiscordCollectorUtils {
@@ -241,7 +249,12 @@ export class DiscordCollectorUtils {
 			embed,
 			items
 		}: SendingValues,
-		options: { refuse: { can: boolean; reactionIndex?: number }; sendManners?: SendManner[] }
+		options: {
+			refuse: {
+				can: boolean; reactionIndex?: number;
+			};
+			sendManners?: SendManner[];
+		}
 	): Promise<ReactionCollectorReturnTypeOrNull> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
@@ -292,11 +305,11 @@ export class DiscordCollectorUtils {
 		const sendManner = getSendingManner(interaction, options.sendManners);
 
 		// Edit message
-		const msg: Message | InteractionResponse | InteractionCallbackResponse | null = await (MANNER_TO_METHOD[sendManner](interaction))({
+		const msg: Message | InteractionResponse | InteractionCallbackResponse | null = await MANNER_TO_METHOD[sendManner](interaction)({
 			components: rows,
 			...embed instanceof DraftBotEmbed
-				? {embeds: [embed]}
-				: {content: embed}
+				? { embeds: [embed] }
+				: { content: embed }
 		});
 
 		if (!msg) {
