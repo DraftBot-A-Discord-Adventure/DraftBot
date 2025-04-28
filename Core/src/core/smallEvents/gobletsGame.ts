@@ -31,7 +31,11 @@ function computeLostValue(level: number, modifiers: {
 	return Math.round(level * modifiers.LEVEL_MULTIPLIER) + modifiers.BASE + RandomUtils.variationInt(modifiers.VARIATION);
 }
 
-async function manageHealthLost(packet: SmallEventGobletsGamePacket, player: Player, malus: SmallEventGobletsGameMalus.LIFE | SmallEventGobletsGameMalus.END, response: DraftBotPacket[]): Promise<void> {
+async function manageHealthLost(
+	packet: SmallEventGobletsGamePacket,
+	player: Player, malus: SmallEventGobletsGameMalus.LIFE | SmallEventGobletsGameMalus.END,
+	response: DraftBotPacket[]
+): Promise<void> {
 	packet.value = computeLostValue(player.level, SmallEventConstants.GOBLETS_GAME.HEALTH_LOST);
 	if (malus === SmallEventGobletsGameMalus.END) {
 		packet.value = Math.round(packet.value * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_INTENSIFIER - SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_ADJUSTER);
@@ -41,7 +45,10 @@ async function manageHealthLost(packet: SmallEventGobletsGamePacket, player: Pla
 }
 
 async function applyMalus(response: DraftBotPacket[], player: Player, reaction: ReactionCollectorReaction): Promise<void> {
-	const malus = !reaction ? SmallEventGobletsGameMalus.END : RandomUtils.draftbotRandom.pick(Object.values(SmallEventGobletsGameMalus).filter(m => m !== SmallEventGobletsGameMalus.END));
+	const malus = !reaction
+		? SmallEventGobletsGameMalus.END
+		: RandomUtils.draftbotRandom.pick(Object.values(SmallEventGobletsGameMalus)
+			.filter(m => m !== SmallEventGobletsGameMalus.END));
 	const packet = makePacket(SmallEventGobletsGamePacket, {
 		malus,
 		goblet: (reaction as { data: ReactionCollectorGobletsGameReaction })?.data.id,
