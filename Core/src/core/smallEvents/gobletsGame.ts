@@ -12,15 +12,13 @@ import {
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { TravelTime } from "../maps/TravelTime";
 import {
-	SmallEventGobletsGameMalus,
-	SmallEventGobletsGamePacket
+	SmallEventGobletsGameMalus, SmallEventGobletsGamePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventGobletsGamePacket";
 import {
 	EndCallback, ReactionCollectorInstance
 } from "../utils/ReactionsCollector";
 import {
-	ReactionCollectorGobletsGame,
-	ReactionCollectorGobletsGameReaction
+	ReactionCollectorGobletsGame, ReactionCollectorGobletsGameReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorGobletsGame";
 import { ReactionCollectorReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { Effect } from "../../../../Lib/src/types/Effect";
@@ -44,6 +42,9 @@ async function applyMalus(response: DraftBotPacket[], player: Player, reaction: 
 		case SmallEventGobletsGameMalus.LIFE:
 		case SmallEventGobletsGameMalus.END:
 			packet.value = computeLostValue(player.level, SmallEventConstants.GOBLETS_GAME.HEALTH_LOST);
+			if (malus === SmallEventGobletsGameMalus.END) {
+				packet.value = Math.round(packet.value * SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_INTENSIFIER - SmallEventConstants.GOBLETS_GAME.HEALTH_LOST.END_ADJUSTER);
+			}
 			await player.addHealth(-packet.value, response, NumberChangeReason.SMALL_EVENT);
 			await player.killIfNeeded(response, NumberChangeReason.SMALL_EVENT);
 			break;
@@ -79,7 +80,9 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const packet = new ReactionCollectorInstance(
 			collector,
 			context,
-			{},
+			{
+				time: 1000
+			},
 			endCallback
 		)
 			.block(player.keycloakId, BlockingConstants.REASONS.GOBLET_CHOOSE)
