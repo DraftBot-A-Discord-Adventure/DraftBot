@@ -1,6 +1,4 @@
-import {
-	DraftBotPacket, PacketDirection, sendablePacket
-} from "../DraftBotPacket";
+import {DraftBotPacket, PacketDirection, sendablePacket} from "../DraftBotPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class ErrorPacket extends DraftBotPacket {
@@ -8,7 +6,17 @@ export class ErrorPacket extends DraftBotPacket {
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class ErrorMaintenancePacket extends DraftBotPacket {}
+export class ErrorMaintenancePacket extends DraftBotPacket {
+}
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class ErrorBannedPacket extends DraftBotPacket {}
+export class ErrorBannedPacket extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class ErrorResetIsNow extends DraftBotPacket {
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class ErrorSeasonEndIsNow extends DraftBotPacket {
+}
