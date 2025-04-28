@@ -37,7 +37,7 @@ DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, {app: "Core"},
 	: undefined);
 export let draftBotInstance: DraftBot = null;
 
-DraftBotLogger.info("DraftBot Core 5.0.0");
+DraftBotLogger.info(`${CoreConstants.OPENING_LINE} - ${process.env.npm_package_version}`);
 
 export const mqttClient = connect(botConfig.MQTT_HOST, {
 	connectTimeout: MqttConstants.CONNECTION_TIMEOUT
