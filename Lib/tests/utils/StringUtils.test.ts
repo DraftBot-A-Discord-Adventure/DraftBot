@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import { StringConstants } from "../../src/constants/StringConstants";
 import { progressBar } from "../../src/utils/StringUtils";
 
 describe('progressBar', () => {
