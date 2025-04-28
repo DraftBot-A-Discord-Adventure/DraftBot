@@ -71,7 +71,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 			stat: FightStatBuffed.BREATH,
 			operator: FightStatModifierOperation.ADDITION,
 			value: 1
-		}, receiver, fightAction);
+		}, sender, fightAction);
 	}
 	return result;
 };
