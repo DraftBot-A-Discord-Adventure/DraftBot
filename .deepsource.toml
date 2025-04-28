@@ -4,7 +4,8 @@ exclude_patterns = [
     "Core/src/core/utils/astronomy.ts",
     "Core/src/core/database/game/migrations/*.ts",
     "Core/src/core/database/logs/migrations/*.ts",
-	"__tests__/**"
+	"**/__tests__/**",
+	"**/tests/**"
 ]
 
 [[analyzers]]
