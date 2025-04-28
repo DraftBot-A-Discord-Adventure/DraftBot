@@ -1,7 +1,9 @@
-import {ICommand} from "../ICommand";
-import {makePacket, PacketContext} from "../../../../Lib/src/packets/DraftBotPacket";
-import {DraftbotInteraction} from "../../messages/DraftbotInteraction";
-import {SlashCommandBuilderGenerator} from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
+import {
+	makePacket, PacketContext
+} from "../../../../Lib/src/packets/DraftBotPacket";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
 import {
 	CommandReportBigEventResultRes,
 	CommandReportMonsterRewardRes,
@@ -9,29 +11,39 @@ import {
 	CommandReportRefusePveFightRes,
 	CommandReportTravelSummaryRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
-import {ReactionCollectorCreationPacket} from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import {ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
-import i18n, {TranslationOption} from "../../translations/i18n";
-import {KeycloakUtils} from "../../../../Lib/src/keycloak/KeycloakUtils";
-import {keycloakConfig} from "../../bot/DraftBotShard";
-import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji} from "discord.js";
-import {DiscordCache} from "../../bot/DiscordCache";
-import {DraftBotIcons} from "../../../../Lib/src/DraftBotIcons";
-import {effectsErrorTextValue, sendInteractionNotForYou} from "../../utils/ErrorUtils";
-import {Constants} from "../../../../Lib/src/constants/Constants";
-import {Effect} from "../../../../Lib/src/types/Effect";
-import {millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate} from "../../../../Lib/src/utils/TimeUtils";
-import {DraftBotEmbed} from "../../messages/DraftBotEmbed";
-import {ReactionCollectorChooseDestinationReaction} from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
-import {DiscordCollectorUtils} from "../../utils/DiscordCollectorUtils";
-import {EmoteUtils} from "../../utils/EmoteUtils";
-import {ReportConstants} from "../../../../Lib/src/constants/ReportConstants";
-import {ReactionCollectorReturnTypeOrNull} from "../../packetHandlers/handlers/ReactionCollectorHandlers";
-import {DiscordConstants} from "../../DiscordConstants";
-import {ReactionCollectorPveFightData} from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import {escapeUsername, StringUtils} from "../../utils/StringUtils";
-import {KeycloakUser} from "../../../../Lib/src/keycloak/KeycloakUser";
-import {Language} from "../../../../Lib/src/Language";
+import { ReactionCollectorCreationPacket } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import {
+	ReactionCollectorBigEventData, ReactionCollectorBigEventPossibilityReaction
+} from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
+import i18n, { TranslationOption } from "../../translations/i18n";
+import { KeycloakUtils } from "../../../../Lib/src/keycloak/KeycloakUtils";
+import { keycloakConfig } from "../../bot/DraftBotShard";
+import {
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji
+} from "discord.js";
+import { DiscordCache } from "../../bot/DiscordCache";
+import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
+import {
+	effectsErrorTextValue, sendInteractionNotForYou
+} from "../../utils/ErrorUtils";
+import { Constants } from "../../../../Lib/src/constants/Constants";
+import { Effect } from "../../../../Lib/src/types/Effect";
+import {
+	millisecondsToHours, millisecondsToMinutes, minutesDisplay, printTimeBeforeDate
+} from "../../../../Lib/src/utils/TimeUtils";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
+import { ReactionCollectorChooseDestinationReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
+import { DiscordCollectorUtils } from "../../utils/DiscordCollectorUtils";
+import { EmoteUtils } from "../../utils/EmoteUtils";
+import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
+import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
+import { DiscordConstants } from "../../DiscordConstants";
+import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
+import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
+import { Language } from "../../../../Lib/src/Language";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandReportPacketReq> {
 	await interaction.deferReply();
@@ -132,47 +144,47 @@ function getReportResultConditionTriplets(packet: CommandReportBigEventResultRes
 		[
 			packet.score,
 			"points",
-			{score: packet.score}
+			{ score: packet.score }
 		],
 		[
 			packet.money < 0,
 			"moneyLoose",
-			{money: -packet.money}
+			{ money: -packet.money }
 		],
 		[
 			packet.money > 0,
 			"money",
-			{money: packet.money}
+			{ money: packet.money }
 		],
 		[
 			packet.health < 0,
 			"healthLoose",
-			{health: -packet.health}
+			{ health: -packet.health }
 		],
 		[
 			packet.health > 0,
 			"health",
-			{health: packet.health}
+			{ health: packet.health }
 		],
 		[
 			packet.energy,
 			"energy",
-			{energy: packet.energy}
+			{ energy: packet.energy }
 		],
 		[
 			packet.gems,
 			"gems",
-			{gems: packet.gems}
+			{ gems: packet.gems }
 		],
 		[
 			packet.experience,
 			"experience",
-			{experience: packet.experience}
+			{ experience: packet.experience }
 		],
 		[
 			packet.effect?.name === Effect.OCCUPIED.id,
 			"timeLost",
-			{timeLost: packet.effect ? minutesDisplay(packet.effect.time, lng) : 0}
+			{ timeLost: packet.effect ? minutesDisplay(packet.effect.time, lng) : 0 }
 		]
 	];
 }
@@ -200,7 +212,7 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 		lng,
 		pseudo: escapeUsername(user.attributes.gameUsername[0]),
 		result,
-		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, {lng}),
+		event: i18n.t(`events:${packet.eventId}.possibilities.${packet.possibilityId}.outcomes.${packet.outcomeId}`, { lng }),
 		emoji: EmoteUtils.translateEmojiToDiscord(packet.possibilityId === ReportConstants.END_POSSIBILITY_ID
 			? DraftBotIcons.events[packet.eventId].end[packet.outcomeId]
 			: DraftBotIcons.events[packet.eventId][packet.possibilityId] as string),
@@ -210,10 +222,10 @@ export async function reportResult(packet: CommandReportBigEventResultRes, conte
 	const buttonInteraction = context.discord?.buttonInteraction ? DiscordCache.getButtonInteraction(context.discord?.buttonInteraction) : null;
 
 	if (buttonInteraction) {
-		await buttonInteraction.editReply({content});
+		await buttonInteraction.editReply({ content });
 	}
 	else {
-		await interaction.channel.send({content});
+		await interaction.channel.send({ content });
 	}
 }
 
@@ -232,7 +244,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 		lng,
 		pseudo: escapeUsername(user.attributes.gameUsername[0])
 	}), interaction.user);
-	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", {lng})}\n\n`);
+	embed.setDescription(`${i18n.t("commands:report.chooseDestinationIndications", { lng })}\n\n`);
 
 	return await DiscordCollectorUtils.createChoiceListCollector(interaction, {
 		packet,
@@ -250,7 +262,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 			return `${
 				EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[destinationReaction.mapTypeId])
 			} ${
-				i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, {lng})} (${duration})`;
+				i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} (${duration})`;
 		})
 	}, {
 		refuse: {
@@ -343,9 +355,9 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", lng),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
 			lng,
-			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, {lng}),
+			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng }),
 			emoji: DraftBotIcons.monsters[data.monster.id],
-			description: i18n.t(`models:monsters.${data.monster.id}.description`, {lng}),
+			description: i18n.t(`models:monsters.${data.monster.id}.description`, { lng }),
 			level: data.monster.level,
 			energy: data.monster.energy,
 			attack: data.monster.attack,
@@ -439,7 +451,7 @@ export async function displayMonsterReward(
 		)
 		.setDescription(descriptionParts.join("\n"));
 
-	await channel.send({embeds: [embed]});
+	await channel.send({ embeds: [embed] });
 }
 
 function manageMainSummaryText({
@@ -459,15 +471,15 @@ function manageMainSummaryText({
 	if (packet.nextStopTime > packet.arriveTime) {
 		// If there is no small event before the big event, do not display anything
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.travellingTitle", {lng}),
-			value: i18n.t("commands:report.travellingDescriptionEndTravel", {lng})
+			name: i18n.t("commands:report.travellingTitle", { lng }),
+			value: i18n.t("commands:report.travellingDescriptionEndTravel", { lng })
 		});
 		return;
 	}
 
 	const timeBeforeSmallEvent = printTimeBeforeDate(packet.nextStopTime);
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.travellingTitle", {lng}),
+		name: i18n.t("commands:report.travellingTitle", { lng }),
 		value: packet.lastSmallEventId
 			? i18n.t("commands:report.travellingDescription", {
 				lng,
@@ -493,13 +505,13 @@ function manageEndPathDescriptions({
 	travelEmbed
 }: FieldsArguments): void {
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.startPoint", {lng}),
-		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.startMap.type])} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, {lng})}`,
+		name: i18n.t("commands:report.startPoint", { lng }),
+		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.startMap.type])} ${i18n.t(`models:map_locations.${packet.startMap.id}.name`, { lng })}`,
 		inline: true
 	});
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.endPoint", {lng}),
-		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.endMap.type])} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, {lng})}`,
+		name: i18n.t("commands:report.endPoint", { lng }),
+		value: `${EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[packet.endMap.type])} ${i18n.t(`models:map_locations.${packet.endMap.id}.name`, { lng })}`,
 		inline: true
 	});
 }
@@ -518,7 +530,7 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	const lng = interaction.userLanguage;
 	const now = Date.now();
 	const travelEmbed = new DraftBotEmbed();
-	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", {lng}), interaction.user);
+	travelEmbed.formatAuthor(i18n.t("commands:report.travelPathTitle", { lng }), interaction.user);
 	travelEmbed.setDescription(generateTravelPathString(packet, now));
 	const fieldsArguments = {
 		packet,
@@ -529,14 +541,14 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 	manageMainSummaryText(fieldsArguments, user, now);
 	if (packet.energy.show) {
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.remainingEnergyTitle", {lng}),
+			name: i18n.t("commands:report.remainingEnergyTitle", { lng }),
 			value: `${DraftBotIcons.unitValues.energy} ${packet.energy.current} / ${packet.energy.max}`,
 			inline: true
 		});
 	}
 	if (packet.points.show) {
 		travelEmbed.addFields({
-			name: i18n.t("commands:report.collectedPointsTitle", {lng}),
+			name: i18n.t("commands:report.collectedPointsTitle", { lng }),
 			value: `${DraftBotIcons.unitValues.score} ${packet.points.cumulated}`,
 			inline: true
 		});
@@ -546,11 +558,11 @@ export async function reportTravelSummary(packet: CommandReportTravelSummaryRes,
 		lng
 	});
 	travelEmbed.addFields({
-		name: i18n.t("commands:report.adviceTitle", {lng}),
+		name: i18n.t("commands:report.adviceTitle", { lng }),
 		value: advices[Math.floor(Math.random() * advices.length)],
 		inline: true
 	});
-	await interaction.editReply({embeds: [travelEmbed]});
+	await interaction.editReply({ embeds: [travelEmbed] });
 }
 
 export const commandInfo: ICommand = {

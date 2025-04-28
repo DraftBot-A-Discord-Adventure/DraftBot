@@ -41,10 +41,10 @@ export const SEND_POLITICS = {
 };
 
 const MANNER_TO_METHOD = {
-	[SendManner.SEND]: (interaction: DraftbotInteraction) => interaction.channel.send,
-	[SendManner.REPLY]: (interaction: DraftbotInteraction) => interaction.reply,
-	[SendManner.FOLLOWUP]: (interaction: DraftbotInteraction) => interaction.followUp,
-	[SendManner.EDIT_REPLY]: (interaction: DraftbotInteraction) => interaction.editReply
+	[SendManner.SEND]: (interaction: DraftbotInteraction): typeof interaction.channel.send => interaction.channel.send,
+	[SendManner.REPLY]: (interaction: DraftbotInteraction): typeof interaction.reply => interaction.reply,
+	[SendManner.FOLLOWUP]: (interaction: DraftbotInteraction): typeof interaction.followUp => interaction.followUp,
+	[SendManner.EDIT_REPLY]: (interaction: DraftbotInteraction): typeof interaction.editReply => interaction.editReply
 };
 
 function getSendingManner(interaction: DraftbotInteraction, sendManners: SendManner[]): SendManner {
