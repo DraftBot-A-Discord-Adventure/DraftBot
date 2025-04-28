@@ -1,40 +1,55 @@
-import {
-	makePacket, PacketContext
-} from "../../../Lib/src/packets/DraftBotPacket";
+import {makePacket, PacketContext} from "../../../Lib/src/packets/DraftBotPacket";
 import {
 	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorReactPacket,
 	ReactionCollectorRefuseReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { DiscordCache } from "../bot/DiscordCache";
-import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
-import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	InteractionCallbackResponse,
-	InteractionResponse,
-	Message,
-	MessageComponentInteraction,
-	parseEmoji
-} from "discord.js";
-import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
-import { DraftBotEmbed } from "../messages/DraftBotEmbed";
-import { DraftbotInteraction } from "../messages/DraftbotInteraction";
-import { sendInteractionNotForYou } from "./ErrorUtils";
-import { PacketUtils } from "./PacketUtils";
-import {
-	keycloakConfig, shardId
-} from "../bot/DraftBotShard.js";
-import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils.js";
-import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/ReactionCollectorHandlers";
-import { DiscordMQTT } from "../bot/DiscordMQTT";
-import { RequirementEffectPacket } from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
-import { Effect } from "../../../Lib/src/types/Effect";
-import { PacketConstants } from "../../../Lib/src/constants/PacketConstants";
-import { DiscordConstants } from "../DiscordConstants";
+import {DiscordCache} from "../bot/DiscordCache";
+import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
+import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji} from "discord.js";
+import {DraftBotIcons} from "../../../Lib/src/DraftBotIcons";
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {DraftbotInteraction} from "../messages/DraftbotInteraction";
+import {sendInteractionNotForYou, SendManner} from "./ErrorUtils";
+import {PacketUtils} from "./PacketUtils";
+import {keycloakConfig, shardId} from "../bot/DraftBotShard.js";
+import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils.js";
+import {ReactionCollectorReturnTypeOrNull} from "../packetHandlers/handlers/ReactionCollectorHandlers";
+import {DiscordMQTT} from "../bot/DiscordMQTT";
+import {RequirementEffectPacket} from "../../../Lib/src/packets/commands/requirements/RequirementEffectPacket";
+import {Effect} from "../../../Lib/src/types/Effect";
+import {PacketConstants} from "../../../Lib/src/constants/PacketConstants";
+import {DiscordConstants} from "../DiscordConstants";
+
+type SendingContext = {
+	packet: ReactionCollectorCreationPacket;
+	context: PacketContext;
+}
+
+type SendingValues = {
+	embed: DraftBotEmbed | string;
+	items: string[];
+}
+
+export const SEND_POLITICS = {
+	ALWAYS_FOLLOWUP: [SendManner.FOLLOWUP],
+	REPLY_OR_FOLLOWUP: [SendManner.REPLY, SendManner.FOLLOWUP],
+	REPLY_OR_EDIT_REPLY: [SendManner.REPLY, SendManner.EDIT_REPLY],
+	EDIT_REPLY_OR_FOLLOWUP: [SendManner.EDIT_REPLY, SendManner.FOLLOWUP],
+	ALWAYS_SEND: [SendManner.SEND]
+};
+
+const MANNER_TO_METHOD = {
+	[SendManner.SEND]: (interaction: DraftbotInteraction) => interaction.channel.send,
+	[SendManner.REPLY]: (interaction: DraftbotInteraction) => interaction.reply,
+	[SendManner.FOLLOWUP]: (interaction: DraftbotInteraction) => interaction.followUp,
+	[SendManner.EDIT_REPLY]: (interaction: DraftbotInteraction) => interaction.editReply
+};
+
+function getSendingManner(interaction: DraftbotInteraction, sendManners: SendManner[]): SendManner {
+	return sendManners.length === 1 ? sendManners[0] : (interaction.replied ? sendManners[1] : sendManners[0]);
+}
 
 export class DiscordCollectorUtils {
 	private static choiceListEmotes = [
@@ -218,13 +233,15 @@ export class DiscordCollectorUtils {
 
 	static async createChoiceListCollector(
 		interaction: DraftbotInteraction,
-		messageContentOrEmbed: DraftBotEmbed | string,
-		reactionCollectorCreationPacket: ReactionCollectorCreationPacket,
-		context: PacketContext,
-		items: string[],
-		refuse: {
-			can: boolean; reactionIndex?: number;
-		}
+		{
+			packet,
+			context
+		}: SendingContext,
+		{
+			embed,
+			items
+		}: SendingValues,
+		options: { refuse: { can: boolean; reactionIndex?: number }; sendManners?: SendManner[] }
 	): Promise<ReactionCollectorReturnTypeOrNull> {
 		if (items.length > DiscordCollectorUtils.choiceListEmotes.length) {
 			throw "Too many items to display";
@@ -248,7 +265,7 @@ export class DiscordCollectorUtils {
 			choiceDesc += `${DiscordCollectorUtils.choiceListEmotes[i]} - ${items[i]}\n`;
 		}
 
-		if (refuse.can) {
+		if (options.refuse.can) {
 			const buttonRefuse = new ButtonBuilder()
 				.setEmoji(parseEmoji(DraftBotIcons.collectors.refuse)!)
 				.setCustomId("refuse")
@@ -261,25 +278,25 @@ export class DiscordCollectorUtils {
 		}
 
 		// Add a choice description to the embed
-		if (messageContentOrEmbed instanceof DraftBotEmbed) {
-			messageContentOrEmbed.setDescription((messageContentOrEmbed.data.description ?? "") + choiceDesc);
+		if (embed instanceof DraftBotEmbed) {
+			embed.setDescription((embed.data.description ?? "") + choiceDesc);
 		}
 		else {
-			messageContentOrEmbed += choiceDesc;
+			embed += choiceDesc;
 		}
 
+		if (!options.sendManners) {
+			options.sendManners = SEND_POLITICS.REPLY_OR_FOLLOWUP; // Default manners
+		}
+
+		const sendManner = getSendingManner(interaction, options.sendManners);
+
 		// Edit message
-		const msg: Message | InteractionResponse | InteractionCallbackResponse | null = await (
-			interaction.replied
-				? interaction.followUp
-				: interaction.deferred
-					? interaction.editReply
-					: interaction.reply
-		)({
+		const msg: Message | InteractionResponse | InteractionCallbackResponse | null = await (MANNER_TO_METHOD[sendManner](interaction))({
 			components: rows,
-			...messageContentOrEmbed instanceof DraftBotEmbed
-				? { embeds: [messageContentOrEmbed] }
-				: { content: messageContentOrEmbed }
+			...embed instanceof DraftBotEmbed
+				? {embeds: [embed]}
+				: {content: embed}
 		});
 
 		if (!msg) {
@@ -288,7 +305,7 @@ export class DiscordCollectorUtils {
 
 		// Create button collector
 		const buttonCollector = msg.createMessageComponentCollector({
-			time: reactionCollectorCreationPacket.endTime - Date.now()
+			time: packet.endTime - Date.now()
 		});
 
 		// Send an error if someone uses the collector that is not intended for them and stop if it's the owner
@@ -300,10 +317,10 @@ export class DiscordCollectorUtils {
 
 			await buttonInteraction.deferReply();
 			if (buttonInteraction.customId !== "refuse") {
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId, 10));
+				DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, parseInt(buttonInteraction.customId, 10));
 			}
 			else {
-				DiscordCollectorUtils.sendReaction(reactionCollectorCreationPacket, context, context.keycloakId!, buttonInteraction, refuse.reactionIndex!);
+				DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, options.refuse.reactionIndex!);
 			}
 		});
 
