@@ -1,64 +1,52 @@
-import {
-	DataTypes, Model, Op, QueryTypes, Sequelize
-} from "sequelize";
-import InventorySlot, { InventorySlots } from "./InventorySlot";
+import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
+import InventorySlot, {InventorySlots} from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
-import { InventoryInfos } from "./InventoryInfo";
-import { MissionsController } from "../../../missions/MissionsController";
-import { PlayerActiveObjects } from "./PlayerActiveObjects";
-import {
-	getOneDayAgo, millisecondsToSeconds, minutesToHours
-} from "../../../../../../Lib/src/utils/TimeUtils";
-import { TravelTime } from "../../../maps/TravelTime";
-import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
-import { Maps } from "../../../maps/Maps";
-import { RandomUtils } from "../../../../../../Lib/src/utils/RandomUtils";
-import { LogsReadRequests } from "../../logs/LogsReadRequests";
-import { PlayerSmallEvents } from "./PlayerSmallEvent";
-import { Guilds } from "./Guild";
-import {
-	DraftBotPacket, makePacket
-} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import { PlayerDeathPacket } from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
-import { PlayerLeavePveIslandPacket } from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
-import { PlayerLevelUpPacket } from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
-import { MapLinkDataController } from "../../../../data/MapLink";
-import {
-	MapLocation, MapLocationDataController
-} from "../../../../data/MapLocation";
-import { draftBotInstance } from "../../../../index";
-import { GenericItem } from "../../../../data/GenericItem";
-import {
-	Class, ClassDataController
-} from "../../../../data/Class";
-import { BlockingUtils } from "../../../utils/BlockingUtils";
-import {
-	League, LeagueDataController
-} from "../../../../data/League";
-import { TopConstants } from "../../../../../../Lib/src/constants/TopConstants";
-import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
-import { InventoryConstants } from "../../../../../../Lib/src/constants/InventoryConstants";
-import { Constants } from "../../../../../../Lib/src/constants/Constants";
-import { FightConstants } from "../../../../../../Lib/src/constants/FightConstants";
-import { PVEConstants } from "../../../../../../Lib/src/constants/PVEConstants";
-import { PlayersConstants } from "../../../../../../Lib/src/constants/PlayersConstants";
-import { EntityConstants } from "../../../../../../Lib/src/constants/EntityConstants";
-import { ClassInfoConstants } from "../../../../../../Lib/src/constants/ClassInfoConstants";
-import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
-import { MapConstants } from "../../../../../../Lib/src/constants/MapConstants";
-import { BlockingConstants } from "../../../../../../Lib/src/constants/BlockingConstants";
-import { Effect } from "../../../../../../Lib/src/types/Effect";
-import { ScheduledReportNotifications } from "./ScheduledReportNotification";
-import { PacketUtils } from "../../../utils/PacketUtils";
-import { StatValues } from "../../../../../../Lib/src/types/StatValues";
-import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
-import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
-import { Badge } from "../../../../../../Lib/src/types/Badge";
+import {InventoryInfos} from "./InventoryInfo";
+import {MissionsController} from "../../../missions/MissionsController";
+import {PlayerActiveObjects} from "./PlayerActiveObjects";
+import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../../../../Lib/src/utils/TimeUtils";
+import {TravelTime} from "../../../maps/TravelTime";
+import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
+import {Maps} from "../../../maps/Maps";
+import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
+import {LogsReadRequests} from "../../logs/LogsReadRequests";
+import {PlayerSmallEvents} from "./PlayerSmallEvent";
+import {Guilds} from "./Guild";
+import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import {PlayerDeathPacket} from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
+import {PlayerLeavePveIslandPacket} from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
+import {PlayerLevelUpPacket} from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
+import {MapLinkDataController} from "../../../../data/MapLink";
+import {MapLocation, MapLocationDataController} from "../../../../data/MapLocation";
+import {draftBotInstance} from "../../../../index";
+import {GenericItem} from "../../../../data/GenericItem";
+import {Class, ClassDataController} from "../../../../data/Class";
+import {BlockingUtils} from "../../../utils/BlockingUtils";
+import {League, LeagueDataController} from "../../../../data/League";
+import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
+import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
+import {InventoryConstants} from "../../../../../../Lib/src/constants/InventoryConstants";
+import {Constants} from "../../../../../../Lib/src/constants/Constants";
+import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
+import {PVEConstants} from "../../../../../../Lib/src/constants/PVEConstants";
+import {PlayersConstants} from "../../../../../../Lib/src/constants/PlayersConstants";
+import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
+import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoConstants";
+import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
+import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
+import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
+import {Effect} from "../../../../../../Lib/src/types/Effect";
+import {ScheduledReportNotifications} from "./ScheduledReportNotification";
+import {PacketUtils} from "../../../utils/PacketUtils";
+import {StatValues} from "../../../../../../Lib/src/types/StatValues";
+import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import {DraftBotLogger} from "../../../../../../Lib/src/logs/DraftBotLogger";
+import {Badge} from "../../../../../../Lib/src/types/Badge";
 
 // skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
-import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
+import {ClassConstants} from "../../../../../../Lib/src/constants/ClassConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player;
@@ -325,7 +313,7 @@ export class Player extends Model {
 	 * @param newLevel
 	 */
 	public async addLevelUpPacket(response: DraftBotPacket[], newLevel: number): Promise<void> {
-		const healthRestored = this.level % 10 === 0;
+		const healthRestored = newLevel % 10 === 0;
 
 		const packet = makePacket(PlayerLevelUpPacket, {
 			keycloakId: this.keycloakId,
@@ -501,11 +489,11 @@ export class Player extends Model {
 		const oppositeLink = MapLinkDataController.instance.getInverseLinkOf(this.mapLinkId);
 
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE (mapLinkId = :link
-			               OR mapLinkId = :linkInverse)
-			             AND score
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE (mapLinkId = :link
+                          OR mapLinkId = :linkInverse)
+                         AND score
+                           > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number;
@@ -1155,9 +1143,9 @@ export class Players {
 		const condition = rankType === Constants.RANK_TYPES.GLORY ? `WHERE fightCountdown <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}` : "";
 		const orderBy = rankType === Constants.RANK_TYPES.GLORY ? "(attackGloryPoints + defenseGloryPoints)" : rankType;
 		const query = `SELECT ranking
-		               FROM (SELECT id, RANK() OVER (ORDER BY ${orderBy} desc, level desc) ranking
-		                     FROM players ${condition}) subquery
-		               WHERE subquery.id = ${playerId}`;
+                       FROM (SELECT id, RANK() OVER (ORDER BY ${orderBy} desc, level desc) ranking
+                             FROM players ${condition}) subquery
+                       WHERE subquery.id = ${playerId}`;
 		return ((await Player.sequelize.query(query))[0][0] as {
 			ranking: number;
 		}).ranking;
@@ -1169,9 +1157,9 @@ export class Players {
 	 */
 	static async getNumberOfPlayingPlayers(weekOnly: boolean): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-		               FROM players
-		               WHERE players.${weekOnly ? "weeklyScore" : "score"}
-			                     > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE players.${weekOnly ? "weeklyScore" : "score"}
+                                 > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number;
@@ -1183,9 +1171,9 @@ export class Players {
 	 */
 	static async getNumberOfFightingPlayers(): Promise<number> {
 		const query = `SELECT COUNT(*) as nbPlayers
-		               FROM players
-		               WHERE players.fightCountdown
-			                     <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
+                       FROM players
+                       WHERE players.fightCountdown
+                                 <= ${FightConstants.FIGHT_COUNTDOWN_MAXIMAL_VALUE}`;
 		const queryResult = await Player.sequelize.query(query);
 		return (queryResult[0][0] as {
 			nbPlayers: number;
@@ -1256,10 +1244,10 @@ export class Players {
 	 */
 	static async getByRank(rank: number): Promise<Player | null> {
 		const query = `SELECT *
-		               FROM (SELECT *,
-		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-		                     FROM players) subquery
-		               WHERE subquery.rank = :rank`;
+                       FROM (SELECT *,
+                                    RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players) subquery
+                       WHERE subquery.rank = :rank`;
 		const res = await Player.sequelize.query(query, {
 			replacements: {
 				rank
@@ -1277,10 +1265,10 @@ export class Players {
 	 */
 	static async getById(id: number): Promise<Player> {
 		const query = `SELECT *
-		               FROM (SELECT *,
-		                            RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-		                     FROM players) subquery
-		               WHERE subquery.id = :id`;
+                       FROM (SELECT *,
+                                    RANK() OVER (ORDER BY score desc, level desc) rank, RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players) subquery
+                       WHERE subquery.id = :id`;
 		const playerToReturn = (await Player.sequelize.query<Player>(query, {
 			replacements: {
 				id
@@ -1295,8 +1283,8 @@ export class Players {
 	 */
 	static async getNbMeanPoints(): Promise<number> {
 		const query = `SELECT AVG(score) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number;
@@ -1311,8 +1299,8 @@ export class Players {
 	 */
 	static async getMeanWeeklyScore(): Promise<number> {
 		const query = `SELECT AVG(weeklyScore) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number;
@@ -1327,8 +1315,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaventStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE effectId = "${Effect.NOT_STARTED.id}"`;
+                       FROM players
+                       WHERE effectId = "${Effect.NOT_STARTED.id}"`;
 		return (<{
 			count: number;
 		}[]>(await Player.sequelize.query(query, {
@@ -1341,8 +1329,8 @@ export class Players {
 	 */
 	static async getNbPlayersHaveStartedTheAdventure(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			count: number;
 		}[]>(await Player.sequelize.query(query, {
@@ -1355,8 +1343,8 @@ export class Players {
 	 */
 	static async getLevelMean(): Promise<number> {
 		const query = `SELECT AVG(level) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number;
@@ -1371,8 +1359,8 @@ export class Players {
 	 */
 	static async getNbMeanMoney(): Promise<number> {
 		const query = `SELECT AVG(money) as avg
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				avg: number;
@@ -1387,8 +1375,8 @@ export class Players {
 	 */
 	static async getSumAllMoney(): Promise<number> {
 		const query = `SELECT SUM(money) as sum
-		               FROM players
-		               WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE score > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return (<{
 			sum: number;
 		}[]>(await Player.sequelize.query(query, {
@@ -1401,7 +1389,7 @@ export class Players {
 	 */
 	static async getRichestPlayer(): Promise<number> {
 		const query = `SELECT MAX(money) as max
-		               FROM players`;
+                       FROM players`;
 		return (<{
 			max: number;
 		}[]>(await Player.sequelize.query(query, {
@@ -1415,10 +1403,10 @@ export class Players {
 	 */
 	static async getNbPlayersWithClass(classEntity: Class): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM players
-		               WHERE class = :class
-			             AND score
-			               > ${Constants.MINIMAL_PLAYER_SCORE}`;
+                       FROM players
+                       WHERE class = :class
+                         AND score
+                           > ${Constants.MINIMAL_PLAYER_SCORE}`;
 		return Math.round(
 			(<{
 				count: number;
@@ -1440,7 +1428,7 @@ export class Players {
 	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				id: { [Op.ne]: player.id },
+				id: {[Op.ne]: player.id},
 				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [
@@ -1448,7 +1436,7 @@ export class Players {
 						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
 					]
 				},
-				level: { [Op.gte]: FightConstants.REQUIRED_LEVEL }
+				level: {[Op.gte]: FightConstants.REQUIRED_LEVEL}
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player
