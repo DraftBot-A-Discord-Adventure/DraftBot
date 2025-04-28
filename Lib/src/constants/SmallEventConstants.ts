@@ -112,7 +112,9 @@ export abstract class SmallEventConstants {
 		HEALTH_LOST: {
 			BASE: 5,
 			VARIATION: 3,
-			LEVEL_MULTIPLIER: 0.25
+			LEVEL_MULTIPLIER: 1 / 6,
+			END_INTENSIFIER: 3 / 2,
+			END_ADJUSTER: 5 / 2
 		}
 	};
 
