@@ -1,17 +1,23 @@
-import {DraftBot} from "./core/bot/DraftBot";
-import {loadConfig} from "./core/bot/DraftBotConfig";
-import {DraftBotPacket, makePacket, PacketContext, PacketLike} from "../../Lib/src/packets/DraftBotPacket";
-import {ErrorMaintenancePacket, ErrorPacket, ErrorResetIsNow, ErrorSeasonEndIsNow} from "../../Lib/src/packets/commands/ErrorPacket";
-import {connect} from "mqtt";
-import {PacketUtils} from "./core/utils/PacketUtils";
-import {MqttConstants} from "../../Lib/src/constants/MqttConstants";
-import {RightGroup} from "../../Lib/src/types/RightGroup";
-import {MqttTopicUtils} from "../../Lib/src/utils/MqttTopicUtils";
-import {DraftBotCoreMetrics} from "./core/bot/DraftBotCoreMetrics";
-import {millisecondsToSeconds, resetIsNow, seasonEndIsNow} from "../../Lib/src/utils/TimeUtils";
-import {DraftBotLogger} from "../../Lib/src/logs/DraftBotLogger";
+import { DraftBot } from "./core/bot/DraftBot";
+import { loadConfig } from "./core/bot/DraftBotConfig";
+import {
+	DraftBotPacket, makePacket, PacketContext, PacketLike
+} from "../../Lib/src/packets/DraftBotPacket";
+import {
+	ErrorMaintenancePacket, ErrorPacket, ErrorResetIsNow, ErrorSeasonEndIsNow
+} from "../../Lib/src/packets/commands/ErrorPacket";
+import { connect } from "mqtt";
+import { PacketUtils } from "./core/utils/PacketUtils";
+import { MqttConstants } from "../../Lib/src/constants/MqttConstants";
+import { RightGroup } from "../../Lib/src/types/RightGroup";
+import { MqttTopicUtils } from "../../Lib/src/utils/MqttTopicUtils";
+import { DraftBotCoreMetrics } from "./core/bot/DraftBotCoreMetrics";
+import {
+	millisecondsToSeconds, resetIsNow, seasonEndIsNow
+} from "../../Lib/src/utils/TimeUtils";
+import { DraftBotLogger } from "../../Lib/src/logs/DraftBotLogger";
 import "source-map-support/register";
-import {CoreConstants} from "./core/CoreConstants";
+import { CoreConstants } from "./core/CoreConstants";
 
 process.on("uncaughtException", error => {
 	console.error(`Uncaught exception: ${error}`);
@@ -28,7 +34,7 @@ process.on("unhandledRejection", error => {
 });
 
 export const botConfig = loadConfig();
-DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, {app: "Core"}, botConfig.LOKI_HOST
+DraftBotLogger.init(botConfig.LOG_LEVEL, botConfig.LOG_LOCATIONS, { app: "Core" }, botConfig.LOKI_HOST
 	? {
 		host: botConfig.LOKI_HOST,
 		username: botConfig.LOKI_USERNAME,
@@ -55,7 +61,9 @@ mqttClient.on("connect", () => {
 	});
 });
 
-function globalStopOfPlayers(response: DraftBotPacket[], dataJson: { context: PacketContext, packet: PacketLike<unknown> }): boolean {
+function globalStopOfPlayers(response: DraftBotPacket[], dataJson: {
+	context: PacketContext; packet: PacketLike<unknown>;
+}): boolean {
 	if (
 		botConfig.MODE_MAINTENANCE
 		&& !CoreConstants.BYPASS_MAINTENANCE_PACKETS.includes(dataJson.packet.name)
@@ -79,9 +87,9 @@ function globalStopOfPlayers(response: DraftBotPacket[], dataJson: { context: Pa
 mqttClient.on("message", async (topic, message) => {
 	const messageString = message.toString();
 	const dataJson = JSON.parse(messageString);
-	DraftBotLogger.debug(`Received message from topic ${topic}`, {packet: dataJson});
+	DraftBotLogger.debug(`Received message from topic ${topic}`, { packet: dataJson });
 	if (!Object.hasOwn(dataJson, "packet") || !Object.hasOwn(dataJson, "context")) {
-		DraftBotLogger.error("Wrong packet format", {packet: messageString});
+		DraftBotLogger.error("Wrong packet format", { packet: messageString });
 		return;
 	}
 	const response: DraftBotPacket[] = [];
@@ -93,7 +101,7 @@ mqttClient.on("message", async (topic, message) => {
 		if (!listener) {
 			const errorMessage = `No listener found for packet '${dataJson.packet.name}'`;
 			DraftBotLogger.error(errorMessage);
-			response.push(makePacket(ErrorPacket, {message: errorMessage}));
+			response.push(makePacket(ErrorPacket, { message: errorMessage }));
 		}
 		else {
 			draftBotInstance.logsDatabase.logCommandUsage(context.keycloakId, context.frontEndOrigin, context.frontEndSubOrigin, dataJson.packet.name)
@@ -105,7 +113,7 @@ mqttClient.on("message", async (topic, message) => {
 			}
 			catch (error) {
 				DraftBotLogger.errorWithObj(`Error while processing packet '${dataJson.packet.name}'`, error);
-				response.push(makePacket(ErrorPacket, {message: error.message}));
+				response.push(makePacket(ErrorPacket, { message: error.message }));
 				DraftBotCoreMetrics.incrementPacketErrorCount(dataJson.packet.name);
 			}
 			DraftBotCoreMetrics.observePacketTime(dataJson.packet.name, millisecondsToSeconds(Date.now() - startTime));

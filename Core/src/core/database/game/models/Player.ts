@@ -1,52 +1,64 @@
-import {DataTypes, Model, Op, QueryTypes, Sequelize} from "sequelize";
-import InventorySlot, {InventorySlots} from "./InventorySlot";
+import {
+	DataTypes, Model, Op, QueryTypes, Sequelize
+} from "sequelize";
+import InventorySlot, { InventorySlots } from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
-import {InventoryInfos} from "./InventoryInfo";
-import {MissionsController} from "../../../missions/MissionsController";
-import {PlayerActiveObjects} from "./PlayerActiveObjects";
-import {getOneDayAgo, millisecondsToSeconds, minutesToHours} from "../../../../../../Lib/src/utils/TimeUtils";
-import {TravelTime} from "../../../maps/TravelTime";
-import {ItemCategory} from "../../../../../../Lib/src/constants/ItemConstants";
-import {Maps} from "../../../maps/Maps";
-import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
-import {LogsReadRequests} from "../../logs/LogsReadRequests";
-import {PlayerSmallEvents} from "./PlayerSmallEvent";
-import {Guilds} from "./Guild";
-import {DraftBotPacket, makePacket} from "../../../../../../Lib/src/packets/DraftBotPacket";
-import {PlayerDeathPacket} from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
-import {PlayerLeavePveIslandPacket} from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
-import {PlayerLevelUpPacket} from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
-import {MapLinkDataController} from "../../../../data/MapLink";
-import {MapLocation, MapLocationDataController} from "../../../../data/MapLocation";
-import {draftBotInstance} from "../../../../index";
-import {GenericItem} from "../../../../data/GenericItem";
-import {Class, ClassDataController} from "../../../../data/Class";
-import {BlockingUtils} from "../../../utils/BlockingUtils";
-import {League, LeagueDataController} from "../../../../data/League";
-import {TopConstants} from "../../../../../../Lib/src/constants/TopConstants";
-import {NumberChangeReason} from "../../../../../../Lib/src/constants/LogsConstants";
-import {InventoryConstants} from "../../../../../../Lib/src/constants/InventoryConstants";
-import {Constants} from "../../../../../../Lib/src/constants/Constants";
-import {FightConstants} from "../../../../../../Lib/src/constants/FightConstants";
-import {PVEConstants} from "../../../../../../Lib/src/constants/PVEConstants";
-import {PlayersConstants} from "../../../../../../Lib/src/constants/PlayersConstants";
-import {EntityConstants} from "../../../../../../Lib/src/constants/EntityConstants";
-import {ClassInfoConstants} from "../../../../../../Lib/src/constants/ClassInfoConstants";
-import {GuildConstants} from "../../../../../../Lib/src/constants/GuildConstants";
-import {MapConstants} from "../../../../../../Lib/src/constants/MapConstants";
-import {BlockingConstants} from "../../../../../../Lib/src/constants/BlockingConstants";
-import {Effect} from "../../../../../../Lib/src/types/Effect";
-import {ScheduledReportNotifications} from "./ScheduledReportNotification";
-import {PacketUtils} from "../../../utils/PacketUtils";
-import {StatValues} from "../../../../../../Lib/src/types/StatValues";
-import {ReachDestinationNotificationPacket} from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
-import {DraftBotLogger} from "../../../../../../Lib/src/logs/DraftBotLogger";
-import {Badge} from "../../../../../../Lib/src/types/Badge";
+import { InventoryInfos } from "./InventoryInfo";
+import { MissionsController } from "../../../missions/MissionsController";
+import { PlayerActiveObjects } from "./PlayerActiveObjects";
+import {
+	getOneDayAgo, millisecondsToSeconds, minutesToHours
+} from "../../../../../../Lib/src/utils/TimeUtils";
+import { TravelTime } from "../../../maps/TravelTime";
+import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
+import { Maps } from "../../../maps/Maps";
+import { RandomUtils } from "../../../../../../Lib/src/utils/RandomUtils";
+import { LogsReadRequests } from "../../logs/LogsReadRequests";
+import { PlayerSmallEvents } from "./PlayerSmallEvent";
+import { Guilds } from "./Guild";
+import {
+	DraftBotPacket, makePacket
+} from "../../../../../../Lib/src/packets/DraftBotPacket";
+import { PlayerDeathPacket } from "../../../../../../Lib/src/packets/events/PlayerDeathPacket";
+import { PlayerLeavePveIslandPacket } from "../../../../../../Lib/src/packets/events/PlayerLeavePveIslandPacket";
+import { PlayerLevelUpPacket } from "../../../../../../Lib/src/packets/events/PlayerLevelUpPacket";
+import { MapLinkDataController } from "../../../../data/MapLink";
+import {
+	MapLocation, MapLocationDataController
+} from "../../../../data/MapLocation";
+import { draftBotInstance } from "../../../../index";
+import { GenericItem } from "../../../../data/GenericItem";
+import {
+	Class, ClassDataController
+} from "../../../../data/Class";
+import { BlockingUtils } from "../../../utils/BlockingUtils";
+import {
+	League, LeagueDataController
+} from "../../../../data/League";
+import { TopConstants } from "../../../../../../Lib/src/constants/TopConstants";
+import { NumberChangeReason } from "../../../../../../Lib/src/constants/LogsConstants";
+import { InventoryConstants } from "../../../../../../Lib/src/constants/InventoryConstants";
+import { Constants } from "../../../../../../Lib/src/constants/Constants";
+import { FightConstants } from "../../../../../../Lib/src/constants/FightConstants";
+import { PVEConstants } from "../../../../../../Lib/src/constants/PVEConstants";
+import { PlayersConstants } from "../../../../../../Lib/src/constants/PlayersConstants";
+import { EntityConstants } from "../../../../../../Lib/src/constants/EntityConstants";
+import { ClassInfoConstants } from "../../../../../../Lib/src/constants/ClassInfoConstants";
+import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
+import { MapConstants } from "../../../../../../Lib/src/constants/MapConstants";
+import { BlockingConstants } from "../../../../../../Lib/src/constants/BlockingConstants";
+import { Effect } from "../../../../../../Lib/src/types/Effect";
+import { ScheduledReportNotifications } from "./ScheduledReportNotification";
+import { PacketUtils } from "../../../utils/PacketUtils";
+import { StatValues } from "../../../../../../Lib/src/types/StatValues";
+import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ReachDestinationNotificationPacket";
+import { DraftBotLogger } from "../../../../../../Lib/src/logs/DraftBotLogger";
+import { Badge } from "../../../../../../Lib/src/types/Badge";
 
 // skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import * as moment from "moment";
-import {ClassConstants} from "../../../../../../Lib/src/constants/ClassConstants";
+import { ClassConstants } from "../../../../../../Lib/src/constants/ClassConstants";
 
 export type PlayerEditValueParameters = {
 	player: Player;
@@ -1428,7 +1440,7 @@ export class Players {
 	static async findPotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
 		return await Player.findAll({
 			where: {
-				id: {[Op.ne]: player.id},
+				id: { [Op.ne]: player.id },
 				defenseGloryPoints: {
 					[Op.ne]: null,
 					[Op.between]: [
@@ -1436,7 +1448,7 @@ export class Players {
 						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
 					]
 				},
-				level: {[Op.gte]: FightConstants.REQUIRED_LEVEL}
+				level: { [Op.gte]: FightConstants.REQUIRED_LEVEL }
 			},
 			order: [
 				// Sort using the difference with the attack elo of the player
