@@ -153,6 +153,6 @@
   "commandNotAvailableHere": "This command cannot be used at this location.",
   "guildFoodStorageFull": "You have received **{{quantity}}x {{food}}**, but your guild's food stock is full. The food has been thrown away.",
   "fightBugged": "The battle was cancelled because there was a technical problem. This is due to the deletion of a message necessary for combat or a permission issue.",
-  "resetIsNow": "{emote:announcements.trophy} Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 5 minutes !",
-  "seasonEndIsNow": "{emote:unitValues.glory} La saison de combat est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 20 minutes !"
+  "resetIsNow": "{emote:announcements.trophy} The weekly ranking is currently being reset. The winner will soon be announced on the bot's server! The game will resume in less than 5 minutes!",
+  "seasonEndIsNow": "{emote:unitValues.glory} The fighting season is being reset! The winner will be announced shortly on the bot's server! The game will resume in less than 20 minutes!"
 }
