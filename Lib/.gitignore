@@ -8,3 +8,6 @@ package-lock.json
 .directory
 /dist/
 dist/
+coverage/
+/coverage/
+/test-results.xml
