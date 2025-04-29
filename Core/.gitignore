@@ -1,1 +1,9 @@
 config/keycloak.toml
+*.iml
+logs/*
+package-lock.json
+.directory
+/dist/
+dist/
+coverage/
+/coverage/
