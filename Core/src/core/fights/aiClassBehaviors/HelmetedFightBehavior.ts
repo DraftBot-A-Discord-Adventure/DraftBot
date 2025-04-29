@@ -21,7 +21,7 @@ export function shouldUseShieldAttack(opponent: AiPlayerFighter | PlayerFighter,
 		FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK,
 		FightConstants.FIGHT_ACTIONS.PLAYER.BOOMERANG_ATTACK,
 		FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK
-	].includes(opponent.getLastFightActionUsed().id)
+	].includes(opponent.getLastFightActionUsed()?.id)
 			|| opponent.getBreath() > opponent.getMaxBreath() * 0.85)
 		&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.SHIELD_ATTACK)
 		&& RandomUtils.draftbotRandom.bool(0.8);
