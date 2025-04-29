@@ -221,7 +221,7 @@ export abstract class FightConstants {
 	];
 
 	static readonly ELO = {
-		DEFAULT_ELO: 150,
+		DEFAULT_ELO: 0,
 		MAX_ELO_GAP: 400,
 		DEFAULT_K_FACTOR: 32,
 		LOW_K_FACTOR: 24,
