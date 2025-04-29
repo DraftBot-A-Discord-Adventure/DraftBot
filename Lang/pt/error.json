@@ -152,5 +152,7 @@
   "aDevMessedUp": "Ops! Ocorreu um erro. Não se preocupe, a culpa não é sua. Por favor, aceite as nossas desculpas por qualquer incómodo causado. Para resolver este problema, contacte a nossa equipa de apoio através do nosso servidor Discord: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Este comando não pode ser utilizado nesta localização.",
   "guildFoodStorageFull": "Recebeste **{{quantity}}x {{food}}**, mas o stock de comida da tua guilda está cheio. A comida foi deitada fora.",
-  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions."
+  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions.",
+  "resetIsNow": "{emote:announcements.trophy} Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 5 minutes !",
+  "seasonEndIsNow": "{emote:unitValues.glory} La saison de combat est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 20 minutes !"
 }
