@@ -152,5 +152,7 @@
   "aDevMessedUp": "Ups! Es ist ein Fehler aufgetreten. Seien Sie versichert, dass dies nicht Ihr Verschulden ist. Wir bitten Sie, unsere Entschuldigung für die Unannehmlichkeiten zu akzeptieren. Um das Problem zu beheben, kontaktieren Sie bitte unseren Support über unseren Discord-Server: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Dieser Befehl kann an dieser Stelle nicht verwendet werden.",
   "guildFoodStorageFull": "Du hast **{{quantity}}x {{food}}** erhalten, aber das Nahrungslager deiner Gilde ist voll. Die Nahrung wurde weggeworfen.",
-  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions."
+  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions.",
+  "resetIsNow": "{emote:announcements.trophy} Die Rangliste der Woche wird zurückgesetzt! Der Gewinner wird in Kürze auf dem Bot-Server bekannt gegeben! Das Spiel wird in weniger als 5 Minuten fortgesetzt!",
+  "seasonEndIsNow": "{emote:unitValues.glory} Die Kampfsaison wird gerade zurückgesetzt! Der Gewinner wird in Kürze auf dem Bot-Server bekannt gegeben! Das Spiel wird in weniger als 20 Minuten fortgesetzt!"
 }
