@@ -11,6 +11,9 @@
   "scripts": {
     "start": "pnpm run interface && pnpm run tsc && node dist/Discord/src/index.js",
     "setup": "pnpm i",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "cd": "cd",
     "eslint": "eslint src",
     "eslintFix": "eslint src --fix",
@@ -48,8 +51,11 @@
     "@types/triple-beam": "1",
     "@typescript-eslint/eslint-plugin": "8.29.0",
     "@typescript-eslint/parser": "8.29.0",
+    "@vitest/coverage-v8": "3.1.2",
     "eslint": "9.23.0",
     "eslint-plugin-jsdoc": "50.6.9",
-    "typescript-eslint": "8.29.0"
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.29.0",
+    "vitest": "3.1.2"
   }
 }
