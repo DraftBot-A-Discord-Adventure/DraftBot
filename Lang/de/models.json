@@ -139,7 +139,7 @@
     },
     "boomerangAttack": {
       "description": "Startet einen Bumerang, der dem Feind bis zum 3. Mal Schaden zufügt.",
-      "name_one": "Bumerang",
+      "name_one": "Bumerang-Attacke",
       "name_other": "Boomerang-Attacken"
     },
     "boostDefense": {
@@ -150,13 +150,13 @@
     },
     "boulderTossAttack": {
       "description": "Ein durchschnittlicher Angriff, der die Chance hat, den Gegner zu erloschen.",
-      "name_one": "Gesteinsschneider",
-      "name_other": "Rocky-Attacken"
+      "name_one": "Felsangriff",
+      "name_other": "Felsangriffe"
     },
     "breathTakingAttack": {
       "description": "Inflikte eine kleine Menge Schaden, kann aber den Atem des Gegners stehlen oder ihn verlangsamen.",
-      "name_one": "Einatemberaubung",
-      "name_other": "Atem-Attacken"
+      "name_one": "Atemraub Angriff",
+      "name_other": "Atemraub Angriffe"
     },
     "buildBarrage": {
       "success": "wird von **{{petNickname}}** unterstützt, der einen Damm baut, um seinen Herrn zu schützen."
@@ -174,33 +174,33 @@
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
-      "name_one": "Kanonenanhalter",
-      "name_other": "Kanonen-Attacken"
+      "name_one": "Kanonenschlag",
+      "name_other": "Kanonenschläge"
     },
     "chargeChargingAttack": {
       "description": "Angriff auf zwei Tricks. Während der ersten Runde erhöht sich die Verteidigung des Startprogramms um 50%. Während des zweiten Wahlgangs wird die Abwehr des Trägerraketen wieder auf seine ursprüngliche Ebene gesetzt.",
-      "name_one": "Angeladener Angriff",
+      "name_one": "Geladener Angriff",
       "name_other": "Geladene Angriffe"
     },
     "chargeClubSmashAttack": {
       "description": "Benötigt eine Runde, um den Angriff aufzuladen. Liefert in der nächsten Runde eine mächtige Ladung.",
-      "name_one": "Hurrikan",
-      "name_other": "Gourdin-Attacke"
+      "name_one": "Keulen Angriff",
+      "name_other": "Keulen Angriffe"
     },
     "chargeUltimateAttack": {
       "description": "Benötigt eine Runde, um den Angriff aufzuladen. Wenn der Angreifer über weniger als 45% seiner Energie verfügt, kann dieser Angriff nicht fehlschlagen. Ansonsten beträgt die Genauigkeit dieses Angriffs 70. Dieser Angriff kann nur einmal pro Spieler und Kampf eingesetzt werden.",
       "name_one": "Letzter Angriff",
-      "name_other": "Ultima-Attacken"
+      "name_other": "Letzter Attacken"
     },
     "chargingAttack": {
-      "name_one": "Angeladener Angriff",
+      "name_one": "Geladener Angriff",
       "name_other": "Geladene Angriffe"
     },
     "claws": {
       "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen großen Prankenhieb versetzt."
     },
     "clubSmashAttack": {
-      "name_one": "Hurrikan",
+      "name_one": "Keulen Angriff",
       "name_other": "Gourdin-Attacke"
     },
     "concentrated": {
@@ -224,9 +224,9 @@
     },
     "counterAttack": {
       "description": "Replique mit der gleichen Aktion wie die, die Ihr Gegner gespielt hat. Funktioniert nicht auf magischen oder götkischen Angriffen, oder wenn der Gegner nicht angegriffen hat.",
-      "name_one": "Anrider",
+      "name_one": "Gegenschlag",
       "customMessage": "gelingt es nicht, zurückzuschlagen.",
-      "name_other": "Post-Attacken"
+      "name_other": "Gegenschläge"
     },
     "createBomb": {
       "generalEffect": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der so tut, als würde er den Gegner mit präzisen und schmerzhaften Schnabelhieben heftig bedrängen.",
@@ -241,12 +241,12 @@
     },
     "cursedAttack": {
       "description": "Der Gegner des Gegners kann die Konsequenzen in der Zukunft erleiden ...",
-      "name_one": "Verflucht",
-      "name_other": "Verfluchte Attacken"
+      "name_one": "Verfluchung",
+      "name_other": "Verfluchungen"
     },
     "darkAttack": {
       "description": "Ignoriert die Verteidigung des Gegners. Am effektivste gegen einen Spieler mit einem hohen Angriff.",
-      "name_one": "Dunkles Attak",
+      "name_one": "Dunkle Attacke",
       "name_other": "Dunkle Attacken"
     },
     "defenseBuff": {
@@ -263,8 +263,8 @@
     },
     "divineAttack": {
       "description": "Die Genauigkeit dieses Angriffs erhöht sich mit der Dauer des Kampfes. Teil der Gruppe \"Aktionen der Dieuxten\". Echt, wenn zwei Aktionen der Götter bereits im Kampf getätigt wurden.",
-      "name_one": "Divine Attaque",
-      "name_other": "Divine-Attacken"
+      "name_one": "Göttlicher Angriff",
+      "name_other": "Göttliche Angriffe"
     },
     "elephantRememberLastAction": {
       "success": "wird von **{{petNickname}}** unterstützt, dessen blitzschnelle Erinnerung an die jüngsten Ereignisse es ihm ermöglicht, seinem Meister den verlorenen Atem zurückzugeben.",
@@ -273,8 +273,8 @@
     },
     "energeticAttack": {
       "description": "Die Hälfte der Schäden an diesem Angriff werden in Form von Sorgfalt an die Trägerrakete zurückgegeben.",
-      "name_one": "Anhefe",
-      "name_other": "Anwagische Angriffe"
+      "name_one": "Energische Attacke",
+      "name_other": "Energische Attacken"
     },
     "eruptionAttack": {
       "description": "Lässt den Vulkan ausbrechen, der geschmolzene Felsen auf die Spieler spuckt. Nur die Schnellsten können dem Schaden ausweichen.",
@@ -284,13 +284,13 @@
     },
     "familyMealAttack": {
       "description": "Ruf die Alliierten an, um den Gegner zu lindern und zu vergiften.",
-      "name_one": "Familienfamilie",
-      "name_other": "Familienfamilie"
+      "name_one": "Familienessen",
+      "name_other": "Familienessen"
     },
     "fireAttack": {
       "description": "Hohe Chance, den Gegner zu verbrennen. Die Veränderung \"Verbrannt\" fügt deinem Gegner über einen längeren Zeitraum Schaden zu.",
-      "name_one": "Brand",
-      "name_other": "Attacken"
+      "name_one": "Feuerangriff",
+      "name_other": "Feuerangriffe"
     },
     "fishProtectAgainstFire": {
       "afraid": "bittet **{{petNickname}}**, ihm zu helfen, nicht zu verbrennen, aber **{{petNickname}}** ist zu ängstlich, um zu helfen.",
@@ -461,7 +461,7 @@
     },
     "poisonousAttack": {
       "description": "Vergiftet den Gegner. Die Veränderung \"Vergiften\" hält mindestens drei Runden lang an und fügt deinem Gegner über die gesamte Dauer Schaden zu.",
-      "name_one": "Vergiftete Attagen",
+      "name_one": "Vergiftete Attacke",
       "name_other": "Vergiftete Attacken"
     },
     "poisonousBite": {
@@ -490,7 +490,7 @@
     },
     "quickAttack": {
       "description": "Scheitere nie an einem langsameren Gegner. Je langsamer dein Gegner ist, desto mehr Schaden richtet dieser Angriff bei ihm an.",
-      "name_one": "Schnell-Attap",
+      "name_one": "Schnell-Attacke",
       "name_other": "Schnell-Attacken"
     },
     "rageExplosion": {
@@ -545,7 +545,7 @@
     },
     "simpleAttack": {
       "description": "Ein einfacher Angriff.",
-      "name_one": "Einfacher Attap",
+      "name_one": "Einfache Attacke",
       "name_other": "Einfache Attacken"
     },
     "slamAttack": {
@@ -646,8 +646,8 @@
     },
     "webShotAttack": {
       "description": "Schick einen Jet-Strahl, der den Gegner verletzt und verlangsamt.",
-      "name_one": "Leinenstrahl-Attap",
-      "name_other": "Topics-Attacken"
+      "name_one": "Leinwandwurf Attacke",
+      "name_other": "Leinwandwurf Attacken"
     }
   },
   "leagues": {
@@ -1149,7 +1149,7 @@
     "43": "Banan'ase split.",
     "44": "Summiert für großen Baum",
     "45": "Amulette de Midas",
-    "46": "Verlobter Stoff",
+    "46": "Sternschnuppe",
     "47": "Kyuran",
     "48": "Partikelbeschleuniger",
     "49": "Gel Hydro-Alcoolisch",
@@ -1193,7 +1193,7 @@
     "83": "Geschosst in Carton",
     "84": "Klee-4-Sheets",
     "85": "Roulo PQ",
-    "86": "Destin-Stern",
+    "86": "Stern des Schicksals",
     "87": "Gekatrie",
     "88": "SYM-Karte",
     "89": "Toter Fisch",
