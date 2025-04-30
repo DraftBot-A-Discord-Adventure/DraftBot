@@ -20,22 +20,23 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Setup Yarn
+      - name: Setup PNPM
         run: |
+          npm install --global corepack@latest
           corepack enable
-          yarn set version stable
+          corepack use pnpm@latest-10
 
-      # Cache Yarn dependencies for Core module
+      # Cache PNPM dependencies for Core module
       - name: Cache Core dependencies
         uses: actions/cache@v4
         with:
           path: |
-            ./Core/.yarn/cache  
-            ./Core/.pnp.cjs
-          key: ${{ runner.os }}-core-dependencies-${{ hashFiles('./Core/yarn.lock') }}
+            ./Core/node_modules
+            ./Core/pnpm-lock.yaml
+          key: ${{ runner.os }}-core-dependencies-${{ hashFiles('./Core/pnpm-lock.yaml') }}
 
       - name: Install dependencies and Run ESLint in Core folder
         working-directory: ./Core
         run: |
-          yarn install
-          yarn eslint
+          pnpm install
+          pnpm eslint

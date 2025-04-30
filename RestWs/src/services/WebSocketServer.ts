@@ -8,6 +8,7 @@ import { RightGroup } from "../../../Lib/src/types/RightGroup";
 import { MqttManager } from "../mqtt/MqttManager";
 import { IncomingMessage } from "http";
 import { WebSocketConstants } from "../constants/WebSocketConstants";
+import { getClientTranslator } from "../protobuf/fromClient/FromClientTranslator";
 
 /**
  * Handle the message received from the client
@@ -16,7 +17,7 @@ import { WebSocketConstants } from "../constants/WebSocketConstants";
  * @param groups
  */
 function handleClientMessage(ws: WebSocket, keycloakId: string, groups: string[]): void {
-	ws.on("message", (message: string) => {
+	ws.on("message", async (message: string) => {
 		// Parse the message as JSON
 		let parsedMessage;
 		try {
@@ -24,6 +25,17 @@ function handleClientMessage(ws: WebSocket, keycloakId: string, groups: string[]
 		}
 		catch (_) {
 			// Ignore invalid JSON
+			return;
+		}
+
+		if (!parsedMessage.name || !parsedMessage.data) {
+			DraftBotLogger.debug("Invalid message format", { parsedMessage });
+			return;
+		}
+
+		const translator = getClientTranslator(parsedMessage.name);
+		if (!translator) {
+			DraftBotLogger.debug("No translator found for message", { parsedMessage });
 			return;
 		}
 
@@ -37,10 +49,11 @@ function handleClientMessage(ws: WebSocket, keycloakId: string, groups: string[]
 				webSocket: {}
 			};
 
-			MqttManager.globalMqttClient.sendToBackEnd(context, parsedMessage);
+			// todo verify that all properties are present in the message
+			MqttManager.globalMqttClient.sendToBackEnd(context, await translator(context, parsedMessage.data));
 		}
 		catch (error) {
-			DraftBotLogger.errorWithObj("Error while parsing sending MQTT message", error);
+			DraftBotLogger.errorWithObj("Error while sending MQTT message", error);
 		}
 	});
 }
@@ -191,7 +204,15 @@ export class WebSocketServer {
 		}, WebSocketConstants.PURGE_INTERVAL);
 	}
 
-	static dispatchPacketsToClient(keycloakId: string, packets: any[]): void {
+	/**
+	 * Dispatch packets to the client
+	 * @param keycloakId
+	 * @param packets
+	 */
+	static dispatchPacketsToClient(keycloakId: string, packets: {
+		name: string;
+		packet: object;
+	}[]): void {
 		const client = WebSocketServer.keycloakIdToClients.get(keycloakId);
 		if (client) {
 			client.send(JSON.stringify(packets));
