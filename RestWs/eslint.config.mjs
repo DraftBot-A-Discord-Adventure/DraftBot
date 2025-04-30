@@ -30,5 +30,18 @@ export default defineConfig([
 		},
 		rules: customRules
 	},
+	{
+		rules: {
+			"no-restricted-imports": [
+				"error",
+				{
+					"patterns": [
+						"**/Core/*",
+						"**/Discord/*"
+					]
+				}
+			]
+		}
+	},
 	globalIgnores(["src/@types/**/*.ts"])
 ]);
