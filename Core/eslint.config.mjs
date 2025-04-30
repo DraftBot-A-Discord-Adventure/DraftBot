@@ -36,7 +36,8 @@ export default defineConfig([
 				"error",
 				{
 					"patterns": [
-						"**/Discord/*"
+						"**/Discord/*",
+						"**/RestWs/*"
 					]
 				}
 			]
