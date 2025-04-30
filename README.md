@@ -67,20 +67,19 @@ Please do not skip any step of this guide; otherwise, the following commands wil
 
 > For step 1 and 2, you can either do it manually or use [this script](./launchScripts/firstConfig.sh) to do it (Linux and MacOS only)
 
-1. Install Yarn
+1. Install Pnpm
 
-- Check package.json of any service for the relevant version
-- Follow the provided guide to install yarn https://yarnpkg.com/getting-started/install
+- Follow the provided guide to install pnpm: https://pnpm.io/installation#using-corepack
 > Beware, if you do this at the root of the project, this will create a new package.json file, you can delete this file
 
 2. Setup projects
 
-Run yarn install in each project folder:
+Run `pnpm i` in each project folder:
 
 ```sh
-cd Lib && yarn install
-cd ../Discord && yarn install
-cd ../Core && yarn install
+cd Lib && pnpm i
+cd ../Discord && pnpm i
+cd ../Core && pnpm i
 ```
 
 3. Setup database, Keycloak and an MQTT broker
@@ -135,13 +134,13 @@ keycloak.toml file.
 
 ```sh
 # First: start the core module
-cd $DRAFTBOT_ROOT/Core && yarn start
+cd $DRAFTBOT_ROOT/Core && pnpm start
 # Then: start the discord module
-cd $DRAFTBOT_ROOT/Discord && yarn start
+cd $DRAFTBOT_ROOT/Discord && pnpm start
 ```
 
 You can set up npm launch scripts to make the start easier.
-From now on you should be able to start the bot by running `yarn start` in the Core and Discord folders while having the
+From now on you should be able to start the bot by running `pnpm start` in the Core and Discord folders while having the
 database and keycloak running.
 Starting order is important, start with the database container and keycloak, then the Core and finally the Discord
 module.
