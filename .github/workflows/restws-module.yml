@@ -1,0 +1,42 @@
+name: RestWs module
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - RestWs/**
+  workflow_dispatch:
+
+jobs:
+  eslint-restws-module:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment once for all jobs
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup PNPM
+        run: |
+          npm install --global corepack@latest
+          corepack enable
+          corepack use pnpm@latest-10
+
+      # Cache PNPM dependencies for RestWs module
+      - name: Cache RestWs dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./RestWs/node_modules
+            ./RestWs/pnpm-lock.yaml
+          key: ${{ runner.os }}-restws-dependencies-${{ hashFiles('./RestWs/pnpm-lock.yaml') }}
+
+      - name: Install dependencies and Run ESLint in RestWs folder
+        working-directory: ./RestWs
+        run: |
+          pnpm install
+          pnpm eslint
