@@ -4,6 +4,8 @@ import "source-map-support/register";
 import { RestApi } from "./services/RestApi";
 import { WebSocketServer } from "./services/WebSocketServer";
 import { MqttManager } from "./mqtt/MqttManager";
+import { registerAllClientTranslators } from "./protobuf/fromClient/FromClientTranslator";
+import { registerAllServerTranslators } from "./protobuf/fromServer/FromServerTranslator";
 
 process.on("uncaughtException", error => {
 	console.error(`Uncaught exception: ${error}`);
@@ -28,7 +30,7 @@ export const keycloakConfig = {
 	clientSecret: restWsConfig.KEYCLOAK_CLIENT_SECRET
 };
 
-function main(): void {
+async function main(): Promise<void> {
 	// Initialize the logger
 	DraftBotLogger.init(restWsConfig.LOGGER_LEVEL, restWsConfig.LOGGER_LOCATIONS, { app: "RestWs" }, restWsConfig.LOKI_HOST
 		? {
@@ -37,6 +39,10 @@ function main(): void {
 			password: restWsConfig.LOKI_PASSWORD
 		}
 		: undefined);
+
+	// Register all translators
+	await registerAllClientTranslators();
+	await registerAllServerTranslators();
 
 	// Connect to the MQTT broker
 	MqttManager.connectClients();
@@ -55,4 +61,4 @@ function main(): void {
 	DraftBotLogger.info(`DraftBot RestWs ${process.env.npm_package_version}`);
 }
 
-main();
+main().then();

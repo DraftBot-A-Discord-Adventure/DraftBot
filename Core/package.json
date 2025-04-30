@@ -3,24 +3,23 @@
   "version": "5.0.0.i",
   "description": "Core package of DraftBot which manages the game mechanics",
   "main": "src/index.js",
-  "packageManager": "yarn@4.8.1",
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
   "engines": {
-    "node": ">=23.0.0"
+    "node": ">=20.0.0"
   },
   "engineStrict": true,
   "scripts": {
-    "start": "yarn run tsc && node dist/Core/src/index.js",
+    "start": "pnpm run tsc && node dist/Core/src/index.js",
     "cd": "cd",
     "eslint": "eslint src",
     "eslintFix": "eslint src --fix",
     "tsc": "tsc",
-    "yarnInstall": "yarn install",
     "dockerStart": "node dist/Core/src/index.js",
-    "start-profiler": "yarn run tsc && node --prof dist/Core/src/index.js"
+    "start-profiler": "pnpm run tsc && node --prof dist/Core/src/index.js"
   },
   "dependencies": {
+    "@types/express": "5.0.1",
     "@types/node": "22.13.17",
-    "@types/winston": "2.4.4",
     "express": "5.1.0",
     "mariadb": "3.0.2",
     "moment": "2.30.1",
@@ -31,6 +30,7 @@
     "source-map-support": "0.5.21",
     "toml": "3.0.0",
     "triple-beam": "1.4.1",
+    "typescript": "5.6.3",
     "umzug": "3.8.2",
     "winston": "3.17.0",
     "winston-daily-rotate-file": "5.0.0",
@@ -38,14 +38,11 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.2.0",
-    "@types/express": "5.0.1",
-    "@types/moment": "2.13.0",
     "@types/triple-beam": "1",
     "@typescript-eslint/eslint-plugin": "8.29.0",
     "@typescript-eslint/parser": "8.29.0",
     "eslint": "9.23.0",
     "eslint-plugin-jsdoc": "50.6.9",
-    "typescript": "5.6.3",
     "typescript-eslint": "8.29.0"
   }
 }

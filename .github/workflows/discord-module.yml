@@ -20,23 +20,23 @@ jobs:
         with:
           node-version: '22'
 
-      # Setup Yarn
-      - name: Setup Yarn
+      - name: Setup PNPM
         run: |
+          npm install --global corepack@latest
           corepack enable
-          yarn set version stable
+          corepack use pnpm@latest-10
 
-      # Cache Yarn dependencies for Discord module
+      # Cache PNPM dependencies for Discord module
       - name: Cache Discord dependencies
         uses: actions/cache@v4
         with:
           path: |
-            ./Discord/.yarn/cache  
-            ./Discord/.pnp.cjs
-          key: ${{ runner.os }}-discord-dependencies-${{ hashFiles('./Discord/yarn.lock') }}
+            ./Discord/node_modules
+            ./Discord/pnpm-lock.yaml
+          key: ${{ runner.os }}-discord-dependencies-${{ hashFiles('./Discord/pnpm-lock.yaml') }}
 
       - name: Install dependencies and Run ESLint in Discord folder
         working-directory: ./Discord
         run: |
-          yarn install
-          yarn eslint
+          pnpm install
+          pnpm eslint

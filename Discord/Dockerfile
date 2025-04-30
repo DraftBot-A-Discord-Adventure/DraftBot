@@ -3,27 +3,28 @@ ARG NODE_VERSION=23
 # Base image to use
 FROM node:${NODE_VERSION}-alpine AS builder
 
-# Set the yarn version
-ENV YARN_VERSION=4.5.1
+# Set PNPM version
+ARG PNPM_VERSION=latest-10
 
 # Set the working directory
 WORKDIR /draftbot/Discord
 
-# Setup yarn modern
+# Setup PNPM
+RUN npm install --global corepack@latest
 RUN corepack enable
+RUN corepack use pnpm@${PNPM_VERSION}
 
 # Copy files in the workdir
-COPY ./Discord/package.json ./Discord/yarn.lock ./Discord/tsconfig.json ./Discord/.yarnrc.yml ./
+COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
 # Create the config directory
 RUN mkdir config
 
-# Install the dependencies (yarn is already in the node image, don't need to install it)
-RUN yarn workspaces focus --production
-RUN yarn install
+# Install the dependencies
+RUN pnpm install --prod
 
 # Copy the lib
 RUN mkdir ../Lib
-COPY ./Lib/package.json ./Lib/yarn.lock ./Lib/.yarnrc.yml ../Lib/
+COPY ./Lib/package.json ./Lib/pnpm-lock.yaml ../Lib/
 COPY ./Lib/src ../Lib/src
 
 # Copy the translations
@@ -34,37 +35,37 @@ COPY ./Discord/src ./src
 
 # Install the lib dependencies
 WORKDIR /draftbot/Lib
-RUN yarn workspaces focus --production && yarn install
+RUN pnpm install --prod
 WORKDIR /draftbot/Discord
 
 # Compile the source code
-RUN yarn interface
-RUN yarn run tsc
+RUN pnpm interface
+RUN pnpm run tsc
 
 FROM node:${NODE_VERSION}-alpine
 
 WORKDIR /draftbot
 
-# Setup yarn modern
+# Setup PNPM
+RUN npm install --global corepack@latest
 RUN corepack enable
+RUN corepack use pnpm@${PNPM_VERSION}
 
 # Copy files in the workdir
-COPY ./Discord/package.json ./Discord/yarn.lock ./Discord/tsconfig.json ./Discord/.yarnrc.yml ./
+COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
 # Create the directories
 RUN mkdir config
 
-# Install the dependencies (yarn is already in the node image, don't need to install it)
-RUN yarn workspaces focus --production
-RUN yarn install
+# Install the dependencies
+RUN pnpm install --prod
 
-# Copy the builded app from the builder
+# Copy the built app from the builder
 COPY --from=builder /draftbot/Discord/dist ./dist
 
 # Setup permissions
 RUN mkdir -p /.cache/node/corepack
 RUN chmod -R 777 /.cache/node/corepack
 RUN chmod o+rx /root
-RUN chmod -R o+rx /root/.yarn
 
 # Command used to start the app
-CMD [ "yarn", "dockerStart" ]
+CMD [ "pnpm", "dockerStart" ]
