@@ -30,7 +30,7 @@
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
-    "embedTitle": "{{guildName}} Guild | Level {{level}}",
+    "embedTitle": "{{guildName}} guild | Level {{level}}",
     "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
@@ -519,7 +519,7 @@
     "badgeBought": "You have received a new badge: {emote:badges.{{badgeName}}}!",
     "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
-    "title": "{emote:commands.shop} Store Display",
+    "title": "{emote:commands.shop} Shop",
     "currentMoney": "You have `{{money}}{emote:unitValues.{{currency}}}`.",
     "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
