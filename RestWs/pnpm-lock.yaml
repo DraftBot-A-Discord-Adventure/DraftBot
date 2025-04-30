@@ -12,7 +12,7 @@ importers:
         specifier: 1.10.1
         version: 1.10.1
       '@protobuf-ts/plugin':
-        specifier: ^2.9.6
+        specifier: 2.9.6
         version: 2.9.6
       '@types/node':
         specifier: 22.13.17
