@@ -1,0 +1,5 @@
+syntax = "proto2";
+
+message PingRes {
+	required int32 time = 1;
+}

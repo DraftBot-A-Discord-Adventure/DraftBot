@@ -1,7 +1,11 @@
-.idea
+**/.idea
+**/.vscode
+**/node_modules
+**/*.iml
+**/.directory
+**/logs
+**/dist
+**/config/config.toml
 .run
 mqtt5
-**/.yarn
-*/.pnp.cjs
-*/.pnp.loader.mjs
 bdd

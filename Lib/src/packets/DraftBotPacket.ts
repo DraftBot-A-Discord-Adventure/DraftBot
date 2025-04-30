@@ -59,3 +59,9 @@ export function makePacket<Packet extends DraftBotPacket>(PacketObject: PacketLi
 	Object.assign(instance, args);
 	return instance;
 }
+
+export function asyncMakePacket<Packet extends DraftBotPacket>(PacketObject: PacketLike<Packet>, { ...args }: Packet): Promise<Packet> {
+	const instance = new PacketObject();
+	Object.assign(instance, args);
+	return Promise.resolve(instance);
+}

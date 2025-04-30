@@ -2,17 +2,33 @@ import { MqttTopicUtils } from "../../../Lib/src/utils/MqttTopicUtils";
 import { restWsConfig } from "../index";
 import { RestWsMqttClient } from "./RestWsMqttClient";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
-import { PacketContext } from "../../../Lib/src/packets/DraftBotPacket";
+import {
+	DraftBotPacket, PacketContext
+} from "../../../Lib/src/packets/DraftBotPacket";
 import { WebSocketServer } from "../services/WebSocketServer";
+import { getServerTranslator } from "../protobuf/fromServer/FromServerTranslator";
 
+/**
+ * Global MQTT client class for communication with the backend
+ */
 export class GlobalMqttClient extends RestWsMqttClient {
+	/**
+	 * MQTT topic for the core topic
+	 */
 	private readonly coreTopic = MqttTopicUtils.getCoreTopic(restWsConfig.PREFIX);
 
+	/**
+	 * Function called when the client is connected to the MQTT broker
+	 */
 	onConnect(): void {
 		this.subscribeTo(this.mqttClient, MqttTopicUtils.getWebSocketTopic(restWsConfig.PREFIX), true);
 	}
 
-	onMessage(message: string): void {
+	/**
+	 * Function called when a message is received from the MQTT broker
+	 * @param message
+	 */
+	async onMessage(message: string): Promise<void> {
 		const dataJson = JSON.parse(message);
 		DraftBotLogger.debug("Received global message", { packet: dataJson });
 
@@ -22,12 +38,34 @@ export class GlobalMqttClient extends RestWsMqttClient {
 
 		const context = dataJson.context as PacketContext;
 
-		WebSocketServer.dispatchPacketsToClient(context.keycloakId!, dataJson.packets);
+		// Translate the packets to the client format
+		const translatedPackets = [];
+		for (const packet of dataJson.packets) {
+			const translator = getServerTranslator(packet.name);
+			if (!translator) {
+				DraftBotLogger.warn("No translator found for packet", { packet });
+				continue;
+			}
+			translatedPackets.push({
+				name: translator.protoName,
+				packet: await translator.translatorFunc(context, packet.packet)
+			});
+		}
+
+		WebSocketServer.dispatchPacketsToClient(context.keycloakId!, translatedPackets);
 	}
 
-	public sendToBackEnd(context: PacketContext, packet: any): void {
+	/**
+	 * Send a packet to the backend
+	 * @param context
+	 * @param packet
+	 */
+	public sendToBackEnd(context: PacketContext, packet: DraftBotPacket): void {
 		const toSend = {
-			packet,
+			packet: {
+				name: packet.constructor.name,
+				data: packet
+			},
 			context
 		};
 		this.mqttClient.publish(this.coreTopic, JSON.stringify(toSend));
