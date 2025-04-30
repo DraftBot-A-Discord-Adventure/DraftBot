@@ -1,4 +1,3 @@
-import * as WebSocket from "ws";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { keycloakConfig } from "../index";
@@ -9,6 +8,7 @@ import { MqttManager } from "../mqtt/MqttManager";
 import { IncomingMessage } from "http";
 import { WebSocketConstants } from "../constants/WebSocketConstants";
 import { getClientTranslator } from "../protobuf/fromClient/FromClientTranslator";
+import WebSocket, { Server } from "ws";
 
 /**
  * Handle the message received from the client
@@ -69,7 +69,7 @@ export class WebSocketServer {
 	/**
 	 * WebSocket server instance
 	 */
-	private static server: WebSocket.Server;
+	private static server: Server;
 
 	/**
 	 * Map of keycloakId to WebSocket client
@@ -86,7 +86,7 @@ export class WebSocketServer {
 			return;
 		}
 
-		WebSocketServer.server = new WebSocket.Server({ port });
+		WebSocketServer.server = new Server({ port });
 
 		WebSocketServer.handleListening(port);
 		WebSocketServer.handleConnection();
