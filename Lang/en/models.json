@@ -1606,7 +1606,7 @@
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Guild points lost: **{{guildPointsLost}}**",
     "leavePVEIslandDescEnd": "\n\nA boat will pick you up and take you back to a coast on the mainland.",
     "levelUp": {
-      "title": "{{pseudo}}you're stepping up your game!",
+      "title": "{{pseudo}}, you leveled up!",
       "description": "{emote:unitValues.xp} You are now level **{{level}}**!\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Your life has been restored.",
