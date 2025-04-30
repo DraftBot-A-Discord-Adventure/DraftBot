@@ -91,9 +91,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const packet = new ReactionCollectorInstance(
 			collector,
 			context,
-			{
-				time: 1000
-			},
+			{},
 			endCallback
 		)
 			.block(player.keycloakId, BlockingConstants.REASONS.GOBLET_CHOOSE)
