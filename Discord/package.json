@@ -10,6 +10,7 @@
   "engineStrict": true,
   "scripts": {
     "start": "pnpm run interface && pnpm run tsc && node dist/Discord/src/index.js",
+    "install": "pnpm i",
     "cd": "cd",
     "eslint": "eslint src",
     "eslintFix": "eslint src --fix",
