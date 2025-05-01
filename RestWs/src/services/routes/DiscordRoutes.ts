@@ -196,11 +196,11 @@ export function setupDiscordRoutes(server: FastifyInstance, discordOptions: Disc
 				...discordUserInfo,
 				keycloakId: keycloakUser.id
 			});
-			reply.send(keycloakToken);
+			reply.redirect(`crownicles://login?token=${Buffer.from(JSON.stringify(keycloakToken)).toString("base64")}`);
 		}
 		catch (error) {
-			DraftBotLogger.errorWithObj("Error during Discord OAuth callback", {
-				error,
+			DraftBotLogger.error("Error during Discord OAuth callback", {
+				err: error as unknown,
 				...getRequestLoggerMetadata(request)
 			});
 			reply.status(500).send({ error: "Internal server error" });
