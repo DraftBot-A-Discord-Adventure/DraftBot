@@ -3,9 +3,10 @@
     <package-json value="$PROJECT_DIR$/Core/package.json" />
     <command value="run" />
     <scripts>
-      <script value="yarnInstall" />
+      <script value="install" />
     </scripts>
-    <node-interpreter value="project" />
+    <node-interpreter value="node" />
+    <package-manager value="$USER_HOME$/.nvm/versions/node/v22.14.0/bin/pnpm" />
     <envs />
     <method v="2" />
   </configuration>

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Yarn Start all" type="CompoundRunConfigurationType">
+  <configuration default="false" name="Start Core Discord" type="CompoundRunConfigurationType">
     <toRun name="startCore" type="js.build_tools.npm" />
     <toRun name="startDiscord" type="js.build_tools.npm" />
     <method v="2" />
