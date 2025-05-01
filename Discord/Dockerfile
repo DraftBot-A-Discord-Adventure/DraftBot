@@ -12,7 +12,7 @@ WORKDIR /draftbot/Discord
 # Setup PNPM
 RUN npm install --global corepack@latest
 RUN corepack enable
-RUN corepack use pnpm@${PNPM_VERSION}
+RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
@@ -49,7 +49,7 @@ WORKDIR /draftbot
 # Setup PNPM
 RUN npm install --global corepack@latest
 RUN corepack enable
-RUN corepack use pnpm@${PNPM_VERSION}
+RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
