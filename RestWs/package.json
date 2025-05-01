@@ -9,6 +9,7 @@
   },
   "engineStrict": true,
   "scripts": {
+    "setup": "pnpm i",
     "start": "pnpm run build:protobuf && tsc && node dist/RestWs/src/index.js",
     "cd": "cd",
     "eslint": "eslint src",

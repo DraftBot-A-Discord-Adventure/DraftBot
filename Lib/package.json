@@ -7,7 +7,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "install": "pnpm i",
+    "setup": "pnpm i",
     "start": "tsc && node dist/index.js",
     "test": "tsc && jest dist/test",
     "eslint": "eslint src",
