@@ -6,6 +6,7 @@
 */logs
 **/dist
 **/config/config.toml
+**/test-results.xml
 .run
 mqtt5
 bdd
