@@ -3,7 +3,7 @@
     <package-json value="$PROJECT_DIR$/Lib/package.json" />
     <command value="run" />
     <scripts>
-      <script value="install" />
+      <script value="setup" />
     </scripts>
     <node-interpreter value="project" />
     <package-manager value="pnpm" />

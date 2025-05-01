@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Install Core Lib Discord" type="CompoundRunConfigurationType">
+  <configuration default="false" name="Install All" type="CompoundRunConfigurationType">
     <toRun name="installCore" type="js.build_tools.npm" />
     <toRun name="installDiscord" type="js.build_tools.npm" />
     <toRun name="installLib" type="js.build_tools.npm" />
+    <toRun name="installRestws" type="js.build_tools.npm" />
     <method v="2" />
   </configuration>
 </component>
