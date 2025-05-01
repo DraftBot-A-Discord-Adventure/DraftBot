@@ -3,9 +3,10 @@
     <package-json value="$PROJECT_DIR$/Discord/package.json" />
     <command value="run" />
     <scripts>
-      <script value="yarnInstall" />
+      <script value="install" />
     </scripts>
     <node-interpreter value="project" />
+    <package-manager value="pnpm" />
     <envs />
     <method v="2" />
   </configuration>
