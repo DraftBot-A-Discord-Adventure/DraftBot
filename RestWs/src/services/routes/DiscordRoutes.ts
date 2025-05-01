@@ -196,7 +196,7 @@ export function setupDiscordRoutes(server: FastifyInstance, discordOptions: Disc
 				...discordUserInfo,
 				keycloakId: keycloakUser.id
 			});
-			reply.redirect(`crownicles://login?token=${Buffer.from(JSON.stringify(keycloakToken)).toString("base64")}`);
+			reply.redirect(`crownicles://${Buffer.from(JSON.stringify(keycloakToken)).toString("base64")}`);
 		}
 		catch (error) {
 			DraftBotLogger.error("Error during Discord OAuth callback", {
