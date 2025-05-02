@@ -769,9 +769,9 @@
       "you receive a letter from the king. The latter is writing to you about the contest for the hand of the princess in which you participate. Whilst reading the letter, you find out that {{botFact}} you get back on your way.",
       "you meet a farmer in a cart, seemingly cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {{botFact}} you get back on your way.",
       "you notice the camp of an adventurer by a trail. You stop for a moment and ask them for advice on the road and they point you in the right direction by adding that {{botFact}} you are back on the road.",
-      "you see an information panel. On it, multiple posters are hanging and evoke feats and other events around. One of them talks about the King's recent speech, which told {{botFact}} you are continuing your way.",
-      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} will continue your way without listening to the rest of his words.",
-      "you see in the distance a beggar clad against the trunk of a tree, approaching to give it a piece you hear his strange words, this loop spells {{botFact}} you move as soon as possible from this suspicious individual."
+      "you see an information panel. On it, multiple posters are hanging and evoke feasts and other events in the vicinity. One of them is about the King's recent speech, which told {{botFact}} you are continuing your way.",
+      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} you continue your way without listening to the rest of his words.",
+      "you see in the distance a beggar leaned back on the trunk of a tree. As you're approaching him to give him a piece, you hear his strange words, he repeats that {{botFact}} you get away as soon as possible from this suspicious individual."
     ],
     "possibleInfo": {
       "nbMeanPoints": "According to a recent points tally by the organizers, candidates have an average score of **{{infoNumber}} {emote:unitValues.score}**. Encouraged by this news,",
