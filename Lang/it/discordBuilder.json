@@ -380,5 +380,9 @@
         "description": "Il giocatore a cui consegnare il distintivo."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
