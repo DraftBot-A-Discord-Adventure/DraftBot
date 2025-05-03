@@ -380,5 +380,9 @@
         "description": "Der Spieler, dem das Abzeichen gegeben werden soll."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
