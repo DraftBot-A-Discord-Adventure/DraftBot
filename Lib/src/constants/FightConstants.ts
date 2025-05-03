@@ -259,4 +259,10 @@ export abstract class FightConstants {
 
 	// Purge timeout
 	static PURGE_TIMEOUT = 60000;
+
+	// History limit
+	static HISTORY_LIMIT = 20;
+
+	// History display limit
+	static HISTORY_DISPLAY_LIMIT = 5;
 }

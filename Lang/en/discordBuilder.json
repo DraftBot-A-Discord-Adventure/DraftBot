@@ -380,5 +380,9 @@
         "description": "The user who will receive the badge."
       }
     }
+  },
+  "fightHistory": {
+    "name": "fighthistory",
+    "description": "Display the history of your fights."
   }
 }

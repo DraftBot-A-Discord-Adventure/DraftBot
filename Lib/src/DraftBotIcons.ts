@@ -53,6 +53,7 @@ export const DraftBotIcons: {
 		aiThinking: string;
 		clipboard: string;
 		crossedSwords: string;
+		shield: string;
 		fighterStats: string;
 		gameStats: string;
 		gloryChange: string;
@@ -82,6 +83,8 @@ export const DraftBotIcons: {
 		question: string;
 		back: string;
 		switch: string;
+		previousPage: string;
+		nextPage: string;
 	};
 	fightActions: {
 		[actionId: string]: string;
@@ -1728,6 +1731,7 @@ export const DraftBotIcons: {
 		aiThinking: "🧠",
 		clipboard: "📋",
 		crossedSwords: "⚔️",
+		shield: "🛡️",
 		fighterStats: "👤",
 		gameStats: "📊",
 		gloryChange: "📯",
@@ -1760,7 +1764,9 @@ export const DraftBotIcons: {
 		warning: "⚠️",
 		question: "❓",
 		back: "↩️",
-		switch: "🔄"
+		switch: "🔄",
+		previousPage: "⬅️",
+		nextPage: "➡️"
 	},
 	fightActions: {
 		benediction: "👼",
@@ -2056,7 +2062,9 @@ export const DraftBotIcons: {
 		singing: "🎵",
 		telescope: "🔭",
 		car: "🚗",
-		walking: "🚶"
+		walking: "🚶",
+		leagueUp: "↗️️",
+		leagueDown: "↘️"
 	},
 	guild: {
 		icon: "🏟️",
