@@ -71,7 +71,6 @@ async function buildPacketHistoryDescription(history: FightHistoryItem[], start:
 			lng
 		});
 		const meLeagueChange = getLeagueChange(lng, fight.glory.leaguesChanges.me);
-		const opponentLeagueChange = getLeagueChange(lng, fight.glory.leaguesChanges.opponent);
 		desc += `${i18n.t("commands:fightHistory.historyLine", {
 			lng,
 			date: dateDisplay(new Date(fight.date)),
@@ -81,8 +80,7 @@ async function buildPacketHistoryDescription(history: FightHistoryItem[], start:
 			meFinalGlory: fight.glory.initial.me + fight.glory.change.me,
 			opponentInitialGlory: fight.glory.initial.opponent,
 			opponentFinalGlory: fight.glory.initial.opponent + fight.glory.change.opponent,
-			meLeagueChange,
-			opponentLeagueChange
+			meLeagueChange
 		})}\n\n`;
 	}
 

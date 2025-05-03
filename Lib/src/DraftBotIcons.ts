@@ -208,6 +208,11 @@ export const DraftBotIcons: {
 	profile: {
 		displayAllBadgeEmote: string;
 	};
+	fightHistory: {
+		won: string;
+		lost: string;
+		draw: string;
+	};
 } = {
 	effects: {
 		notStarted: "👶",
@@ -2143,5 +2148,10 @@ export const DraftBotIcons: {
 	],
 	profile: {
 		displayAllBadgeEmote: "🎖️"
+	},
+	fightHistory: {
+		won: "🟢",
+		lost: "🔴",
+		draw: "🟡"
 	}
 };
