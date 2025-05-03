@@ -380,5 +380,9 @@
         "description": "El jugador al que entregar la insignia."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
