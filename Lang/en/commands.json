@@ -1157,8 +1157,8 @@
       "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
       "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
       "leagueField": "League changes",
-      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
-      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeUp": "{emote:other.leagueUp} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "{emote:other.leagueDown} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
         "{{winner}} imposes itself on the field with a marked performance.",
         "{{loser}} gave everything he had, but {{winner}} showed greater control of his game.",
@@ -1414,5 +1414,23 @@
   "setPlayerInfo": {
     "playerModifiedTitle": "{{pseudo}}, player modification",
     "playerModifiedDesc": "The player has been successfully modified!\n\nID: **{{keycloakId}}**\nNickname: **{{pseudo}}**"
+  },
+  "fightHistory": {
+    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
+    "title": "{{pseudo}}, historique des combats",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire adverse :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
+    "attackSentence": {
+      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+    },
+    "resultSentence": {
+      "won": "{emote:fightHistory.won} Gagné !",
+      "lost": "{emote:fightHistory.lost} Perdu !",
+      "draw": "{emote:fightHistory.draw} Match nul..."
+    },
+    "leagueChanges": {
+      "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
+      "down": " ({emote:other.leagueDown} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))"
+    }
   }
 }
