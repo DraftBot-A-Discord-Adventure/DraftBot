@@ -36,7 +36,7 @@
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})",
     "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} Mitglieder",
     "infoTitle": "Informationen",
-    "islandInfo": "{emote:guild.isOnPveIsland} Anzahl der alliiert auf der geheimnisvollen Insel: {{membersOnPveIsland}}",
+    "islandInfo": "{emote:guild.isOnPveIsland} Alliierte auf der geheimnisvollen Insel: {{membersOnPveIsland}}",
     "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Max",
