@@ -1,0 +1,5 @@
+{
+  "paginated": {
+    "footer": "Page {{page}} / {{total}}"
+  }
+}

@@ -1157,8 +1157,8 @@
       "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
       "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
       "leagueField": "Changements de ligues",
-      "leagueChangeUp": "↗️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
-      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeUp": "{emote:other.leagueUp} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "{emote:other.leagueDown} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
         "{{winner}} s'impose sur le terrain avec une performance marquée.",
         "{{loser}} a donné tout ce qu'il avait, mais {{winner}} a montré une meilleure maîtrise de son jeu.",
@@ -1414,5 +1414,23 @@
   "setPlayerInfo": {
     "playerModifiedTitle": "{{pseudo}}, modification d'un joueur",
     "playerModifiedDesc": "Le joueur a été modifié avec succès !\n\nID: **{{keycloakId}}**\nPseudo: **{{pseudo}}**"
+  },
+  "fightHistory": {
+    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
+    "title": "{{pseudo}}, historique des combats",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire de l'adversaire :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}{{opponentLeagueChange}}",
+    "attackSentence": {
+      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+    },
+    "resultSentence": {
+      "won": "Vous avez gagné !",
+      "lost": "Vous avez perdu !",
+      "draw": "Match nul..."
+    },
+    "leagueChanges": {
+      "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
+      "down": " ({emote:other.leagueDown} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))"
+    }
   }
 }

@@ -952,6 +952,12 @@ export class LogsDatabase extends Database {
 				turn: fight.turn,
 				winner: fight.isADraw() ? 0 : winner,
 				friendly: false,
+				fightInitiatorInitialDefenseGlory: fightInitiator.player.defenseGloryPoints,
+				fightInitiatorInitialAttackGlory: fightInitiator.player.attackGloryPoints,
+				fightInitiatorClassId: fightInitiator.player.class,
+				player2InitialDefenseGlory: player2.player.defenseGloryPoints,
+				player2InitialAttackGlory: player2.player.attackGloryPoints,
+				player2ClassId: player2.player.class,
 				date: getDateLogs()
 			});
 			for (const player of [fightInitiator, player2]) {

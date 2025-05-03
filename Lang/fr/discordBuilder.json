@@ -380,5 +380,9 @@
         "description": "Le joueur à qui donner le badge."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
