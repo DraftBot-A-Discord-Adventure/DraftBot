@@ -19,6 +19,18 @@ export class LogsFightsResults extends Model {
 
 	declare readonly friendly: boolean;
 
+	declare readonly fightInitiatorInitialDefenseGlory?: number;
+
+	declare readonly fightInitiatorInitialAttackGlory?: number;
+
+	declare readonly fightInitiatorClassId?: number;
+
+	declare readonly player2InitialDefenseGlory?: number;
+
+	declare readonly player2InitialAttackGlory?: number;
+
+	declare readonly player2ClassId?: number;
+
 	declare readonly date: number;
 }
 
@@ -56,6 +68,30 @@ export function initModel(sequelize: Sequelize): void {
 		friendly: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
+		},
+		fightInitiatorInitialDefenseGlory: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		fightInitiatorInitialAttackGlory: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		fightInitiatorClassId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: true
+		},
+		player2InitialDefenseGlory: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		player2InitialAttackGlory: {
+			type: DataTypes.INTEGER,
+			allowNull: true
+		},
+		player2ClassId: {
+			type: DataTypes.INTEGER.UNSIGNED,
+			allowNull: true
 		},
 		date: {
 			type: DataTypes.INTEGER.UNSIGNED,
