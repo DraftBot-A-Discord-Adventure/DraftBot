@@ -380,5 +380,9 @@
         "description": "O jogador a quem dar o crachá."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
