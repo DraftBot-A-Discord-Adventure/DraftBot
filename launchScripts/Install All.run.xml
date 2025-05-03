@@ -3,7 +3,7 @@
     <toRun name="installCore" type="js.build_tools.npm" />
     <toRun name="installDiscord" type="js.build_tools.npm" />
     <toRun name="installLib" type="js.build_tools.npm" />
-    <toRun name="installRestws" type="js.build_tools.npm" />
+    <toRun name="installRestWs" type="js.build_tools.npm" />
     <method v="2" />
   </configuration>
 </component>

@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start Core RestWs" type="CompoundRunConfigurationType">
+    <toRun name="startCore" type="js.build_tools.npm" />
+    <toRun name="startRestWs" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>
