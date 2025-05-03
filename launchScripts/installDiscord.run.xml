@@ -6,7 +6,6 @@
       <script value="setup" />
     </scripts>
     <node-interpreter value="project" />
-    <package-manager value="project" />
     <envs />
     <method v="2" />
   </configuration>
