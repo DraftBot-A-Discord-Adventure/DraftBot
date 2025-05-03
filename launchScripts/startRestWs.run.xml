@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="startDiscord" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/Discord/package.json" />
+  <configuration default="false" name="startRestWs" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/RestWs/package.json" />
     <command value="run" />
     <scripts>
       <script value="start" />
