@@ -166,7 +166,8 @@ export class TravelTime {
 
 		// Update the milliseconds to shave from a small event
 		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
-			timeMs -= Date.now() - player.effectEndDate.valueOf();// We only want to move the start travel date by the amount of the
+			// We only want to move the start travel date by the amount of the time travel
+			timeMs -= Date.now() - player.effectEndDate.valueOf();
 		}
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
@@ -179,7 +180,7 @@ export class TravelTime {
 		}
 
 		// Log
-		draftBotInstance.logsDatabase.logTimeWarp(player.keycloakId, millisecondsToMinutes(time), reason)
+		draftBotInstance.logsDatabase.logTimeWarp(player.keycloakId, isMilliseconds ? millisecondsToMinutes(time) : time, reason)
 			.then();
 	}
 

@@ -1,27 +1,16 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import {beforeEach, describe, expect, it, vi} from 'vitest';
+import {draftBotInstance} from '../../../src';
+import {MapLinkDataController} from '../../../src/data/MapLink';
+import {PVEConstants} from '../../../../Lib/src/constants/PVEConstants';
+import {Constants} from '../../../../Lib/src/constants/Constants';
+import {PlayerSmallEvents} from '../../../src/core/database/game/models/PlayerSmallEvent';
+import {RandomUtils} from '../../../../Lib/src/utils/RandomUtils';
+import {Maps} from '../../../src/core/maps/Maps';
+import {TravelTime} from '../../../src/core/maps/TravelTime';
+import {Effect} from '../../../../Lib/src/types/Effect';
 
 // Use fake timers so that `Date.now()` and `new Date()` both return our controlled `now`
 vi.useFakeTimers();
-
-// Stub the draftBotInstance module (imported as ../../../src/index) so that our `.then()` calls are safe
-vi.mock('../../../src', () => ({
-	draftBotInstance: {
-		logsDatabase: {
-			logTimeWarp: vi.fn().mockResolvedValue(undefined),
-			logAlteration: vi.fn().mockResolvedValue(undefined)
-		}
-	}
-}));
-
-import { MapLinkDataController } from '../../../src/data/MapLink';
-import { PVEConstants } from '../../../../Lib/src/constants/PVEConstants';
-import { Constants } from '../../../../Lib/src/constants/Constants';
-import { PlayerSmallEvents } from '../../../src/core/database/game/models/PlayerSmallEvent';
-import { draftBotInstance } from '../../../src';
-import { RandomUtils } from '../../../../Lib/src/utils/RandomUtils';
-import { Maps } from '../../../src/core/maps/Maps';
-import { TravelTime } from '../../../src/core/maps/TravelTime';
-import { Effect } from '../../../../Lib/src/types/Effect';
 
 describe('TravelTime', () => {
 	const now = Date.now();
@@ -32,13 +21,18 @@ describe('TravelTime', () => {
 		vi.clearAllTimers();
 		vi.setSystemTime(now);
 
+		// stub out the two logging methods so they *always* return a promise
+		draftBotInstance.logsDatabase.logTimeWarp = vi.fn().mockResolvedValue(undefined);
+		draftBotInstance.logsDatabase.logAlteration = vi.fn().mockResolvedValue(undefined);
+
 		// MapLink stub
-		vi.spyOn(MapLinkDataController.instance, 'getById').mockReturnValue({ id: 5, startMap: 1, endMap: 2, tripDuration: 10 });
+		vi.spyOn(MapLinkDataController.instance, 'getById')
+			.mockReturnValue({id: 5, startMap: 1, endMap: 2, tripDuration: 10});
 
 		// Small‐event timers
 		vi.spyOn(Maps, 'isOnPveIsland').mockReturnValue(false);
-		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', { value: 600_000, writable: true });
-		Object.defineProperty(Constants.REPORT, 'TIME_BETWEEN_MINI_EVENTS', { value: 300_000, writable: true });
+		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', {value: 600_000, writable: true});
+		Object.defineProperty(Constants.REPORT, 'TIME_BETWEEN_MINI_EVENTS', {value: 300_000, writable: true});
 
 		// Small events
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValue(null);
@@ -51,14 +45,14 @@ describe('TravelTime', () => {
 	it('calculates simplified travel data correctly', () => {
 		const start = now - 1000;
 		const effectDurationMin = 5;
-		const effectDurationMs = effectDurationMin * 60000;
+		const effectDurationMs = effectDurationMin * 60_000;
 		const player: any = {
 			startTravelDate: new Date(start),
 			effectEndDate: new Date(start + effectDurationMs),
 			effectDuration: effectDurationMin,
 			mapLinkId: 1
 		};
-		const date = new Date(start + effectDurationMs + 2000);
+		const date = new Date(start + effectDurationMs + 2_000);
 		const data = TravelTime.getTravelDataSimplified(player, date);
 
 		expect(data.travelStartTime).toBe(start);
@@ -66,18 +60,18 @@ describe('TravelTime', () => {
 		expect(data.effectStartTime).toBe(start);
 		expect(data.effectEndTime).toBe(start + effectDurationMs);
 		expect(data.playerTravelledTime).toBe((date.valueOf() - start) - effectDurationMs);
-		expect(data.travelEndTime).toBe(start + effectDurationMs + 10 * 60000);
+		expect(data.travelEndTime).toBe(start + effectDurationMs + 10 * 60_000);
 	});
 
 	it('gets travel data with small events', async () => {
 		const start = now - 10000;
 		const effectDurationMin = 2;
 		const effectDurationMs = effectDurationMin * 60000;
-		const lastEvent = { time: start + 1000 };
+		const lastEvent = {time: start + 1000};
 
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(lastEvent as any);
 		vi.spyOn(Maps, 'isOnPveIsland').mockReturnValueOnce(true);
-		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', { value: 200000, writable: true });
+		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', {value: 200000, writable: true});
 
 		const player: any = {
 			id: 1,
@@ -97,20 +91,37 @@ describe('TravelTime', () => {
 	it('timeTravel moves dates and logs', async () => {
 		const player: any = {
 			effectEndDate: new Date(now + 5000),
-			startTravelDate: new Date(now + 5000),
+			startTravelDate: new Date(now - 5000),
 			id: 1,
 			keycloakId: 'user123'
 		};
-		const small = { time: now + 3000, save: vi.fn() };
+		const small = {time: now + 3000, save: vi.fn()};
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
 
-		await TravelTime.timeTravel(player, 1, 0);
+		await TravelTime.timeTravel(player, 5, 0);
 
 		// 1 minute = 60_000ms
-		expect(player.effectEndDate.valueOf()).toBe(now + 5000 - 60000);
-		expect(player.startTravelDate.valueOf()).toBe(now + 5000 - 60000);
-		expect(small.time).toBe(now + 3000 - 60000);
-		expect(draftBotInstance.logsDatabase.logTimeWarp).toHaveBeenCalledWith('user123', 1, 0);
+		expect(player.effectEndDate.valueOf()).toBe(now - 295_000);
+		expect(player.startTravelDate.valueOf()).toBe(now - 305_000);
+		expect(draftBotInstance.logsDatabase.logTimeWarp).toHaveBeenCalledWith('user123', 5, 0);
+	});
+
+	it('timeTravel moves support milliseconds inputs', async () => {
+		const player: any = {
+			effectEndDate: new Date(now + 5000),
+			startTravelDate: new Date(now - 5000),
+			id: 1,
+			keycloakId: 'user123'
+		};
+		const small = {time: now + 3000, save: vi.fn()};
+		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
+
+		await TravelTime.timeTravel(player, 500_000, 0, true);
+
+		// 1 minute = 60_000ms
+		expect(player.effectEndDate.valueOf()).toBe(now - 495_000);
+		expect(player.startTravelDate.valueOf()).toBe(now - 505_000);
+		expect(draftBotInstance.logsDatabase.logTimeWarp).toHaveBeenCalledWith('user123', 8, 0);
 	});
 
 	it('removeEffect clears effect and moves travel start', async () => {
@@ -159,15 +170,15 @@ describe('TravelTime', () => {
 	});
 
 	it('joinBoatScore calculates correct score scenarios', async () => {
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({ playerTravelledTime: 10 * 60000 } as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 10 * 60000} as any);
 		let score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({ playerTravelledTime: 40 * 60000 } as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 40 * 60000} as any);
 		score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({ playerTravelledTime: 70 * 60000 } as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 70 * 60000} as any);
 		score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 	});
