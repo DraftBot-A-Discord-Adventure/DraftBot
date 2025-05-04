@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/express": "5.0.1",
     "@types/node": "22.13.17",
-    "cron": "^4.3.0",
+    "cron": "4.3.0",
     "express": "5.1.0",
     "mariadb": "3.0.2",
     "moment": "2.30.1",
