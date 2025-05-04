@@ -43,7 +43,7 @@ describe('TravelTime', () => {
 	});
 
 	it('calculates simplified travel data correctly', () => {
-		const start = now - 1000;
+		const start = now - 1_000;
 		const effectDurationMin = 5;
 		const effectDurationMs = effectDurationMin * 60_000;
 		const player: any = {
@@ -64,14 +64,14 @@ describe('TravelTime', () => {
 	});
 
 	it('gets travel data with small events', async () => {
-		const start = now - 10000;
+		const start = now - 10_000;
 		const effectDurationMin = 2;
-		const effectDurationMs = effectDurationMin * 60000;
-		const lastEvent = {time: start + 1000};
+		const effectDurationMs = effectDurationMin * 60_000;
+		const lastEvent = {time: start + 1_000};
 
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(lastEvent as any);
 		vi.spyOn(Maps, 'isOnPveIsland').mockReturnValueOnce(true);
-		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', {value: 200000, writable: true});
+		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', {value: 200_000, writable: true});
 
 		const player: any = {
 			id: 1,
@@ -85,17 +85,17 @@ describe('TravelTime', () => {
 		expect(result.travelStartTime).toBe(start);
 		expect(result.effectEndTime).toBe(start + effectDurationMs);
 		expect(result.nextSmallEventTime)
-			.toBe(Math.max(start, lastEvent.time, start + effectDurationMs) + 200000);
+			.toBe(Math.max(start, lastEvent.time, start + effectDurationMs) + 200_000);
 	});
 
 	it('timeTravel moves dates and logs', async () => {
 		const player: any = {
-			effectEndDate: new Date(now + 5000),
-			startTravelDate: new Date(now - 5000),
+			effectEndDate: new Date(now + 5_000),
+			startTravelDate: new Date(now - 5_000),
 			id: 1,
 			keycloakId: 'user123'
 		};
-		const small = {time: now + 3000, save: vi.fn()};
+		const small = {time: now + 3_000, save: vi.fn()};
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
 
 		await TravelTime.timeTravel(player, 5, 0);
@@ -108,12 +108,12 @@ describe('TravelTime', () => {
 
 	it('timeTravel moves support milliseconds inputs', async () => {
 		const player: any = {
-			effectEndDate: new Date(now + 5000),
-			startTravelDate: new Date(now - 5000),
+			effectEndDate: new Date(now + 5_000),
+			startTravelDate: new Date(now - 5_000),
 			id: 1,
 			keycloakId: 'user123'
 		};
-		const small = {time: now + 3000, save: vi.fn()};
+		const small = {time: now + 3_000, save: vi.fn()};
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
 
 		await TravelTime.timeTravel(player, 500_000, 0, true);
@@ -159,7 +159,7 @@ describe('TravelTime', () => {
 
 		expect(player.effectId).toBe(Effect.OCCUPIED.id);
 		expect(player.effectDuration).toBe(5);
-		expect(player.effectEndDate.valueOf()).toBe(now + 5 * 60000);
+		expect(player.effectEndDate.valueOf()).toBe(now + 5 * 60_000);
 		expect(save).toHaveBeenCalledOnce();
 		expect(draftBotInstance.logsDatabase.logAlteration).toHaveBeenCalledOnce();
 	});
@@ -170,15 +170,15 @@ describe('TravelTime', () => {
 	});
 
 	it('joinBoatScore calculates correct score scenarios', async () => {
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 10 * 60000} as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 10 * 60_000} as any);
 		let score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 40 * 60000} as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 40 * 60_000} as any);
 		score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 
-		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 70 * 60000} as any);
+		vi.spyOn(TravelTime, 'getTravelDataSimplified').mockReturnValue({playerTravelledTime: 70 * 60_000} as any);
 		score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 	});
