@@ -15,7 +15,7 @@ importers:
         specifier: 22.13.17
         version: 22.13.17
       cron:
-        specifier: ^4.3.0
+        specifier: 4.3.0
         version: 4.3.0
       express:
         specifier: 5.1.0
