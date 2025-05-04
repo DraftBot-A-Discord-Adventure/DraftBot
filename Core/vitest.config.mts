@@ -9,6 +9,7 @@ export default defineConfig({
 		},
 		environment: 'node',
 		globals: true,
+		setupFiles: ['./vitest.setup.ts'],
 		include: ['**/*.{test,spec}.{js,ts}'],
 		reporters: [
 			'default',
