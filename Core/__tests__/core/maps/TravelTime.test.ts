@@ -1,11 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Stub the draftBotInstance module to avoid initialising the bot and file system errors
+// Use fake timers so that `Date.now()` and `new Date()` both return our controlled `now`
+vi.useFakeTimers();
+
+// Stub the draftBotInstance module (imported as ../../../src/index) so that our `.then()` calls are safe
 vi.mock('../../../src', () => ({
 	draftBotInstance: {
 		logsDatabase: {
-			logTimeWarp: vi.fn(),
-			logAlteration: vi.fn()
+			logTimeWarp: vi.fn().mockResolvedValue(undefined),
+			logAlteration: vi.fn().mockResolvedValue(undefined)
 		}
 	}
 }));
@@ -24,24 +27,24 @@ describe('TravelTime', () => {
 	const now = Date.now();
 
 	beforeEach(() => {
+		// Reset all mocks & timers
 		vi.restoreAllMocks();
-		vi.spyOn(Date, 'now').mockReturnValue(now);
+		vi.clearAllTimers();
+		vi.setSystemTime(now);
 
-		// Mock MapLinkDataController
+		// MapLink stub
 		vi.spyOn(MapLinkDataController.instance, 'getById').mockReturnValue({ id: 5, startMap: 1, endMap: 2, tripDuration: 10 });
 
-		// Mock Maps
+		// Small‐event timers
 		vi.spyOn(Maps, 'isOnPveIsland').mockReturnValue(false);
-
-		// Override constants
 		Object.defineProperty(PVEConstants, 'TIME_BETWEEN_SMALL_EVENTS', { value: 600_000, writable: true });
 		Object.defineProperty(Constants.REPORT, 'TIME_BETWEEN_MINI_EVENTS', { value: 300_000, writable: true });
 
-		// Mock PlayerSmallEvents
+		// Small events
 		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValue(null);
 		vi.spyOn(PlayerSmallEvents, 'calculateCurrentScore').mockResolvedValue(50);
 
-		// Mock random
+		// Random
 		vi.spyOn(RandomUtils.draftbotRandom, 'integer').mockReturnValue(5);
 	});
 
@@ -87,7 +90,8 @@ describe('TravelTime', () => {
 
 		expect(result.travelStartTime).toBe(start);
 		expect(result.effectEndTime).toBe(start + effectDurationMs);
-		expect(result.nextSmallEventTime).toBe(Math.max(start, lastEvent.time, start + effectDurationMs) + 200000);
+		expect(result.nextSmallEventTime)
+			.toBe(Math.max(start, lastEvent.time, start + effectDurationMs) + 200000);
 	});
 
 	it('timeTravel moves dates and logs', async () => {
@@ -102,6 +106,7 @@ describe('TravelTime', () => {
 
 		await TravelTime.timeTravel(player, 1, 0);
 
+		// 1 minute = 60_000ms
 		expect(player.effectEndDate.valueOf()).toBe(now + 5000 - 60000);
 		expect(player.startTravelDate.valueOf()).toBe(now + 5000 - 60000);
 		expect(small.time).toBe(now + 3000 - 60000);
@@ -122,11 +127,11 @@ describe('TravelTime', () => {
 
 		await TravelTime.removeEffect(player, 0);
 
-		expect(tt).toHaveBeenCalled();
+		expect(tt).toHaveBeenCalledOnce();
 		expect(player.effectId).toBe(Effect.NO_EFFECT.id);
 		expect(player.effectDuration).toBe(0);
-		expect(player.effectEndDate.valueOf()).toBe(Date.now());
-		expect(save).toHaveBeenCalled();
+		expect(player.effectEndDate.valueOf()).toBe(now);
+		expect(save).toHaveBeenCalledOnce();
 	});
 
 	it('applyEffect sets new effect and logs', async () => {
@@ -144,8 +149,8 @@ describe('TravelTime', () => {
 		expect(player.effectId).toBe(Effect.OCCUPIED.id);
 		expect(player.effectDuration).toBe(5);
 		expect(player.effectEndDate.valueOf()).toBe(now + 5 * 60000);
-		expect(save).toHaveBeenCalled();
-		expect(draftBotInstance.logsDatabase.logAlteration).toHaveBeenCalled();
+		expect(save).toHaveBeenCalledOnce();
+		expect(draftBotInstance.logsDatabase.logAlteration).toHaveBeenCalledOnce();
 	});
 
 	it('timeTravelledToScore returns non-negative score', () => {
