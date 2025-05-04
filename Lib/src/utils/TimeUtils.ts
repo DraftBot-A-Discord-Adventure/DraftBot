@@ -186,11 +186,14 @@ export function dateDisplay(finishDate: Date): string {
  */
 export function getNextSundayMidnight(): number {
 	const now = new Date();
-	const daysUntilNextSun = ((0 - now.getDay() + 7) % 7) || 7; // 0 = Sunday
-	const nextSun = new Date(now);
-	nextSun.setDate(now.getDate() + daysUntilNextSun);
-	nextSun.setHours(23, 59, 59, 999);
-	return nextSun.valueOf();
+	const dateOfReset = new Date();
+	dateOfReset.setDate(now.getDate() + (7 - now.getDay()) % 7);
+	dateOfReset.setHours(23, 59, 59, 999);
+	let dateOfResetTimestamp = dateOfReset.valueOf();
+	while (dateOfResetTimestamp < now.valueOf()) {
+		dateOfResetTimestamp += hoursToMilliseconds(24 * 7);
+	}
+	return dateOfResetTimestamp;
 }
 
 /**
@@ -213,11 +216,14 @@ export function todayIsSunday(): boolean {
  */
 export function getNextSaturdayMidnight(): number {
 	const now = new Date();
-	const daysUntilNextSat = ((6 - now.getDay() + 7) % 7) || 7;
-	const nextSat = new Date(now);
-	nextSat.setDate(now.getDate() + daysUntilNextSat);
-	nextSat.setHours(23, 59, 59, 999);
-	return nextSat.valueOf();
+	const dateOfReset = new Date();
+	dateOfReset.setDate(now.getDate() + (6 - now.getDay()) % 7);
+	dateOfReset.setHours(23, 59, 59, 999);
+	let dateOfResetTimestamp = dateOfReset.valueOf();
+	while (dateOfResetTimestamp < now.valueOf()) {
+		dateOfResetTimestamp += 1000 * 60 * 60 * 24 * 7;
+	}
+	return dateOfResetTimestamp;
 }
 
 /**
@@ -282,7 +288,7 @@ export function printTimeBeforeDate(date: number): string {
 export function getNextDay2AM(): Date {
 	const now = new Date();
 	const dateOfReset = new Date();
-	dateOfReset.setHours(1, 59, 59);
+	dateOfReset.setHours(1, 59, 59, 999);
 	if (dateOfReset < now) {
 		dateOfReset.setDate(dateOfReset.getDate() + 1);
 	}

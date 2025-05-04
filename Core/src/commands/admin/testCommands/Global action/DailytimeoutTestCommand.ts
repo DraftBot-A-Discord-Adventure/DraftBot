@@ -11,8 +11,8 @@ export const commandInfo: ITestCommand = {
 /**
  * Do a dailytimeout
  */
-const dailyTimeoutTestCommand: ExecuteTestCommandLike = () => {
-	DraftBot.dailyTimeout();
+const dailyTimeoutTestCommand: ExecuteTestCommandLike = async () => {
+	await DraftBot.dailyTimeout();
 	return "Vous avez effectué un dailytimeout !";
 };
 
