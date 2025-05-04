@@ -18,6 +18,7 @@ import { ReactionCollectorDrinkData } from "../../../../Lib/src/packets/interact
 import { minutesDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { escapeUsername } from "../../utils/StringUtils";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 /**
  * Get the daily bonus packet to send to the server
@@ -120,7 +121,9 @@ export async function handleDrinkCancellation(context: PacketContext): Promise<v
 }
 
 export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("drink"),
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("drink")
+		.addBooleanOption(option =>
+			SlashCommandBuilderGenerator.generateOption("drink", "force", option)) as SlashCommandBuilder,
 	getPacket,
 	mainGuildCommand: false
 };
