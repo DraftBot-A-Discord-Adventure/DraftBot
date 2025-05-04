@@ -688,7 +688,7 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a player receives a time boost
 	 * @param keycloakId
-	 * @param time
+	 * @param time - Time in minutes
 	 * @param reason
 	 */
 	public async logTimeWarp(keycloakId: string, time: number, reason: NumberChangeReason): Promise<void> {
