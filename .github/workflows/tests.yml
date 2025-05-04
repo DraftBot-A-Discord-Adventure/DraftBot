@@ -53,8 +53,8 @@ jobs:
           name: lib-test-results
           path: Lib/test-results.xml
 
-      - name: Symlink config for Discord
-        run: ln -sf config.default.toml config.toml
+      - name: create config file for Discord
+        run: cp config/config.default.toml config/config.toml
         working-directory: ./Discord
 
       - name: Run Discord tests
@@ -67,8 +67,8 @@ jobs:
           name: discord-test-results
           path: Discord/test-results.xml
 
-      - name: Symlink config for Core
-        run: ln -sf config.default.toml config.toml
+      - name: create config file for Core
+        run: cp config/config.default.toml config/config.toml
         working-directory: ./Core
 
       - name: Run Core tests
