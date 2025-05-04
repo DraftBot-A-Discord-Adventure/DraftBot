@@ -1,4 +1,5 @@
 name: Module Tests
+
 on:
   pull_request:
     branches: [ '**' ]
@@ -9,9 +10,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-lib-module:
+  test-all-modules:
     runs-on: ubuntu-latest
-    continue-on-error: false
+
     steps:
       - uses: actions/checkout@v3
 
@@ -26,21 +27,24 @@ jobs:
           corepack enable
           corepack use pnpm@latest-10
 
-      - name: Cache PNPM dependencies for Lib
+      - name: Cache PNPM dependencies
         uses: actions/cache@v4
         with:
           path: |
-            ./Lib/node_modules
-            ./Lib/pnpm-lock.yaml
-          key: ${{ runner.os }}-lib-deps-${{ hashFiles('Lib/pnpm-lock.yaml') }}
+            **/node_modules
+            **/pnpm-lock.yaml
+          key: ${{ runner.os }}-all-deps-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-lib-deps-
+            ${{ runner.os }}-all-deps-
 
-      - name: Install dependencies and run tests for Lib
-        working-directory: ./Lib
+      - name: Install dependencies for all modules
         run: |
-          pnpm install
-          pnpm test
+          pnpm --dir ./Lib install
+          pnpm --dir ./Discord install
+          pnpm --dir ./Core install
+
+      - name: Run Lib tests
+        run: pnpm --dir ./Lib test
 
       - name: Upload Lib test results
         uses: actions/upload-artifact@v4
@@ -49,37 +53,8 @@ jobs:
           name: lib-test-results
           path: Lib/test-results.xml
 
-  test-discord-module:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup PNPM
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack use pnpm@latest-10
-
-      - name: Cache PNPM dependencies for Discord
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./Discord/node_modules
-            ./Discord/pnpm-lock.yaml
-          key: ${{ runner.os }}-discord-deps-${{ hashFiles('Discord/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-discord-deps-
-
-      - name: Install dependencies and run tests for Discord
-        working-directory: ./Discord
-        run: |
-          pnpm install
-          pnpm test
+      - name: Run Discord tests
+        run: pnpm --dir ./Discord test
 
       - name: Upload Discord test results
         uses: actions/upload-artifact@v4
@@ -88,37 +63,8 @@ jobs:
           name: discord-test-results
           path: Discord/test-results.xml
 
-  test-core-module:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Setup PNPM
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack use pnpm@latest-10
-
-      - name: Cache PNPM dependencies for Core
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./Core/node_modules
-            ./Core/pnpm-lock.yaml
-          key: ${{ runner.os }}-core-deps-${{ hashFiles('Core/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-core-deps-
-
-      - name: Install dependencies and run tests for Core
-        working-directory: ./Core
-        run: |
-          pnpm install
-          pnpm test
+      - name: Run Core tests
+        run: pnpm --dir ./Core test
 
       - name: Upload Core test results
         uses: actions/upload-artifact@v4
