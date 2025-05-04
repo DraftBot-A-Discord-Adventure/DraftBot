@@ -78,7 +78,8 @@ export const smallEventFuncs: SmallEventFuncs = {
 		const origin = player.getPreviousMap();
 		return Maps.isOnContinent(player)
 			&& ![destination.id, origin.id].some(mapId =>
-				[MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS,
+				[
+					MapConstants.LOCATIONS_IDS.ROAD_OF_WONDERS,
 					MapConstants.LOCATIONS_IDS.MARSHY_ROAD,
 					MapConstants.LOCATIONS_IDS.MOUNT_CELESTRUM
 				].includes(mapId));
