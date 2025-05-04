@@ -11,27 +11,36 @@ on:
 jobs:
   test-lib-module:
     runs-on: ubuntu-latest
+    continue-on-error: false
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & pnpm cache
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
 
-      - name: Enable Corepack & activate pnpm
+      - name: Setup PNPM
         run: |
+          npm install --global corepack@latest
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack use pnpm@latest-10
 
-      - name: Install deps for Lib
-        working-directory: ./Lib
-        run: pnpm install
+      - name: Cache PNPM dependencies for Lib
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Lib/node_modules
+            ./Lib/pnpm-lock.yaml
+          key: ${{ runner.os }}-lib-deps-${{ hashFiles('Lib/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-lib-deps-
 
-      - name: Run tests with coverage for Lib
+      - name: Install dependencies and run tests for Lib
         working-directory: ./Lib
-        run: pnpm test
+        run: |
+          pnpm install
+          pnpm test
 
       - name: Upload Lib test results
         uses: actions/upload-artifact@v4
@@ -45,24 +54,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & pnpm cache
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
 
-      - name: Enable Corepack & activate pnpm
+      - name: Setup PNPM
         run: |
+          npm install --global corepack@latest
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack use pnpm@latest-10
 
-      - name: Install deps for Discord
-        working-directory: ./Discord
-        run: pnpm install
+      - name: Cache PNPM dependencies for Discord
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Discord/node_modules
+            ./Discord/pnpm-lock.yaml
+          key: ${{ runner.os }}-discord-deps-${{ hashFiles('Discord/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-discord-deps-
 
-      - name: Run tests with coverage for Discord
+      - name: Install dependencies and run tests for Discord
         working-directory: ./Discord
-        run: pnpm test
+        run: |
+          pnpm install
+          pnpm test
 
       - name: Upload Discord test results
         uses: actions/upload-artifact@v4
@@ -76,24 +93,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & pnpm cache
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
 
-      - name: Enable Corepack & activate pnpm
+      - name: Setup PNPM
         run: |
+          npm install --global corepack@latest
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack use pnpm@latest-10
 
-      - name: Install deps for Core
-        working-directory: ./Core
-        run: pnpm install
+      - name: Cache PNPM dependencies for Core
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./Core/node_modules
+            ./Core/pnpm-lock.yaml
+          key: ${{ runner.os }}-core-deps-${{ hashFiles('Core/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-core-deps-
 
-      - name: Run tests with coverage for Core
+      - name: Install dependencies and run tests for Core
         working-directory: ./Core
-        run: pnpm test
+        run: |
+          pnpm install
+          pnpm test
 
       - name: Upload Core test results
         uses: actions/upload-artifact@v4
@@ -114,6 +139,5 @@ jobs:
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
         with:
           files: test-results/**/*.xml
