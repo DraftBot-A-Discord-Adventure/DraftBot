@@ -284,7 +284,7 @@
         "name": "score"
       },
       "glory": {
-        "description": "Afficher le classement des joueurs en fonction de leur gloire.",
+        "description": "Afficher le classement des guildes en fonction de leur gloire.",
         "name": "glorieux"
       },
       "guild": {
