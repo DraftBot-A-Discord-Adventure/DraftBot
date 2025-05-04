@@ -284,7 +284,7 @@
         "name": "pontuação"
       },
       "glory": {
-        "description": "Mostra a classificação das guildas de acordo com a sua glória.",
+        "description": "Afficher le classement des joueurs en fonction de leur gloire.",
         "name": "glorieux"
       },
       "guild": {
@@ -380,5 +380,9 @@
         "description": "O jogador a quem dar o crachá."
       }
     }
+  },
+  "fightHistory": {
+    "name": "historiquecombat",
+    "description": "Afficher l'historique des combats."
   }
 }
