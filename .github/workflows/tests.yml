@@ -30,6 +30,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
+            ./Lib/node_modules
             ./Lib/pnpm-lock.yaml
           key: ${{ runner.os }}-lib-deps-${{ hashFiles('Lib/pnpm-lock.yaml') }}
           restore-keys: |
@@ -68,6 +69,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
+            ./Discord/node_modules
             ./Discord/pnpm-lock.yaml
           key: ${{ runner.os }}-discord-deps-${{ hashFiles('Discord/pnpm-lock.yaml') }}
           restore-keys: |
@@ -106,6 +108,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
+            ./Core/node_modules
             ./Core/pnpm-lock.yaml
           key: ${{ runner.os }}-core-deps-${{ hashFiles('Core/pnpm-lock.yaml') }}
           restore-keys: |
