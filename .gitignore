@@ -5,6 +5,7 @@
 **/.directory
 */logs
 **/dist
+**/coverage
 **/config/config.toml
 **/test-results.xml
 .run
