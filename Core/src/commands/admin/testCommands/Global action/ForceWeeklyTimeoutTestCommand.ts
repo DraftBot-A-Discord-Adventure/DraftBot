@@ -16,8 +16,8 @@ export const commandInfo: ITestCommand = {
 /**
  * Force a weekly timeout
  */
-const forceWeeklyTimeoutTestCommand: ExecuteTestCommandLike = () => {
-	DraftBot.weeklyTimeout();
+const forceWeeklyTimeoutTestCommand: ExecuteTestCommandLike = async () => {
+	await DraftBot.weeklyTimeout();
 	return "Vous avez effectué une fin de semaine !";
 };
 
