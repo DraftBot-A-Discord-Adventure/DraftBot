@@ -71,12 +71,12 @@ function drinkPotionCallback(
 	return async (collector: ReactionCollectorInstance, response: DraftBotPacket[], player: Player, potion: Potion): Promise<void> => {
 		if (!force) {
 			BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.DRINK);
-		}
 
-		const firstReaction = collector.getFirstReaction();
-		if (!force && (!firstReaction || collector.getFirstReaction().reaction.type === ReactionCollectorRefuseReaction.name)) {
-			response.push(makePacket(CommandDrinkCancelDrink, {}));
-			return;
+			const firstReaction = collector.getFirstReaction();
+			if (!force && (!firstReaction || collector.getFirstReaction().reaction.type === ReactionCollectorRefuseReaction.name)) {
+				response.push(makePacket(CommandDrinkCancelDrink, {}));
+				return;
+			}
 		}
 
 		if (potion.id === InventoryConstants.POTION_DEFAULT_ID) {
