@@ -12,12 +12,7 @@ import {
 import PetEntity from "../database/game/models/PetEntity";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { PotionDataController } from "../../data/Potion";
-import {
-	getNextDay2AM,
-	getNextSaturdayMidnight,
-	getNextSundayMidnight,
-	minutesToMilliseconds
-} from "../../../../Lib/src/utils/TimeUtils";
+import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 import { TimeoutFunctionsConstants } from "../../../../Lib/src/constants/TimeoutFunctionsConstants";
 import { MapCache } from "../maps/MapCache";
 import { registerAllPacketHandlers } from "../packetHandlers/PacketHandler";
@@ -42,6 +37,9 @@ import { DraftBotCoreWebServer } from "./DraftBotCoreWebServer";
 import { DraftBotLogger } from "../../../../Lib/src/logs/DraftBotLogger";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { FightsManager } from "../fights/FightsManager";
+import {
+	DayOfTheWeek, setDailyCronJob, setWeeklyCronJob
+} from "../utils/CronInterface";
 
 export class DraftBot {
 	public readonly packetListener: PacketListenerServer;
@@ -50,12 +48,6 @@ export class DraftBot {
 
 	public readonly logsDatabase: LogsDatabase;
 
-	private static weeklyNodeTimeout: NodeJS.Timeout;
-
-	private static dailyNodeTimeout: NodeJS.Timeout;
-
-	private static seasonNodeTimeout: NodeJS.Timeout;
-
 	constructor() {
 		// Register commands
 		this.packetListener = new PacketListenerServer();
@@ -63,66 +55,6 @@ export class DraftBot {
 		// Databases
 		this.gameDatabase = new GameDatabase();
 		this.logsDatabase = new LogsDatabase();
-	}
-
-	/**
-	 * Launch the program that executes the top week reset
-	 */
-	static async programWeeklyTimeout(): Promise<void> {
-		const nextWeeklyReset = await Settings.NEXT_WEEKLY_RESET.getValue();
-		const millisTill = nextWeeklyReset - Date.now();
-		if (millisTill < TimeoutFunctionsConstants.TOP_WEEK_TIMEOUT) { // When the program weekly timeout is called after a weekly timeout, the time is 23:59:59:9xx, so if we are in this case, we wait and program the next timeout later
-			setTimeout(DraftBot.programWeeklyTimeout, TimeoutFunctionsConstants.TOP_WEEK_TIMEOUT);
-			return;
-		}
-		if (DraftBot.weeklyNodeTimeout) {
-			clearTimeout(DraftBot.weeklyNodeTimeout);
-			DraftBotLogger.info("Weekly timeout cleared");
-		}
-		DraftBot.weeklyNodeTimeout = setTimeout(DraftBot.weeklyTimeout, millisTill);
-		DraftBotLogger.info("Weekly timeout set", {
-			millisTill, nextWeeklyReset
-		});
-	}
-
-	/**
-	 * Launch the program that execute the season reset
-	 */
-	static async programSeasonTimeout(): Promise<void> {
-		const nextSeasonReset = await Settings.NEXT_SEASON_RESET.getValue();
-		const millisTill = nextSeasonReset - Date.now();
-		if (millisTill < TimeoutFunctionsConstants.SEASON_TIMEOUT) { // When the program season timeout is called after a season timeout, the time is 23:59:59:9xx, so if we are in this case, we wait and program the next timeout later
-			setTimeout(DraftBot.programSeasonTimeout, TimeoutFunctionsConstants.SEASON_TIMEOUT);
-			return;
-		}
-		if (DraftBot.seasonNodeTimeout) {
-			clearTimeout(DraftBot.seasonNodeTimeout);
-			DraftBotLogger.info("Season timeout cleared");
-		}
-		DraftBot.seasonNodeTimeout = setTimeout(DraftBot.seasonEnd, millisTill);
-		DraftBotLogger.info("Season timeout set", {
-			millisTill, nextSeasonReset
-		});
-	}
-
-	/**
-	 * Launch the program that executes the daily tasks
-	 */
-	static async programDailyTimeout(): Promise<void> {
-		const nextDailyReset = await Settings.NEXT_DAILY_RESET.getValue();
-		const millisTill = nextDailyReset - Date.now();
-		if (millisTill < TimeoutFunctionsConstants.DAILY_TIMEOUT) { // When the program daily timeout is called after a daily timeout, the time is 01:59:59:9xx, so if we are in this case, we wait and program the next timeout later
-			setTimeout(DraftBot.programDailyTimeout, TimeoutFunctionsConstants.DAILY_TIMEOUT);
-			return;
-		}
-		if (DraftBot.dailyNodeTimeout) {
-			clearTimeout(DraftBot.dailyNodeTimeout);
-			DraftBotLogger.info("Daily timeout cleared");
-		}
-		DraftBot.dailyNodeTimeout = setTimeout(DraftBot.dailyTimeout, millisTill);
-		DraftBotLogger.info("Daily timeout set", {
-			millisTill, nextDailyReset
-		});
 	}
 
 	/**
@@ -136,10 +68,6 @@ export class DraftBot {
 		 * The first one is set immediately so if the bot crashes before programming the next one, it will be set anyway to approximately a valid date (at 1s max of difference)
 		 */
 		await Settings.NEXT_DAILY_RESET.setValue(await Settings.NEXT_DAILY_RESET.getValue() + 24 * 60 * 60 * 1000);
-		setTimeout(async () => {
-			await Settings.NEXT_DAILY_RESET.setValue(getNextDay2AM().valueOf());
-			await DraftBot.programDailyTimeout();
-		}, TimeoutFunctionsConstants.DAILY_TIMEOUT);
 
 		DraftBot.randomPotion()
 			.finally(() => null);
@@ -148,7 +76,6 @@ export class DraftBot {
 				.then());
 		draftBotInstance.logsDatabase.log15BestTopWeek()
 			.then();
-		await DraftBot.programDailyTimeout();
 	}
 
 	/**
@@ -206,10 +133,6 @@ export class DraftBot {
 		 * The first one is set immediately so if the bot crashes before programming the next one, it will be set anyway to approximately a valid date (at 1s max of difference)
 		 */
 		await Settings.NEXT_SEASON_RESET.setValue(await Settings.NEXT_SEASON_RESET.getValue() + 7 * 24 * 60 * 60 * 1000);
-		setTimeout(async () => {
-			await Settings.NEXT_SEASON_RESET.setValue(getNextSaturdayMidnight());
-			await DraftBot.programSeasonTimeout();
-		}, TimeoutFunctionsConstants.SEASON_TIMEOUT);
 
 		draftBotInstance.logsDatabase.log15BestSeason()
 			.then();
@@ -225,7 +148,6 @@ export class DraftBot {
 		await DraftBot.seasonEndQueries();
 
 		DraftBotLogger.info("Season has been ended !");
-		await DraftBot.programSeasonTimeout();
 		draftBotInstance.logsDatabase.logSeasonEnd()
 			.then();
 	}
@@ -260,7 +182,6 @@ export class DraftBot {
 		DraftBotLogger.info("Weekly leaderboard has been reset !");
 		await PlayerMissionsInfo.resetShopBuyout();
 		DraftBotLogger.info("All players can now buy again points from the mission shop !");
-		await DraftBot.programWeeklyTimeout();
 		draftBotInstance.logsDatabase.logTopWeekEnd()
 			.then();
 	}
@@ -372,11 +293,6 @@ export class DraftBot {
 		 * The first one is set immediately so if the bot crashes before programming the next one, it will be set anyway to approximately a valid date (at 1s max of difference)
 		 */
 		await Settings.NEXT_WEEKLY_RESET.setValue(await Settings.NEXT_WEEKLY_RESET.getValue() + 7 * 24 * 60 * 60 * 1000);
-		setTimeout(async () => {
-			await Settings.NEXT_WEEKLY_RESET.setValue(getNextSundayMidnight());
-			await DraftBot.programWeeklyTimeout();
-		}, TimeoutFunctionsConstants.TOP_WEEK_TIMEOUT);
-
 		DraftBot.topWeekEnd()
 			.then();
 		DraftBot.newPveIsland()
@@ -444,32 +360,7 @@ export class DraftBot {
 			await CommandsTest.init();
 		}
 
-		if (await Settings.NEXT_WEEKLY_RESET.getValue() < Date.now()) {
-			DraftBot.weeklyTimeout()
-				.then();
-		}
-		else {
-			DraftBot.programWeeklyTimeout()
-				.then();
-		}
-
-		if (await Settings.NEXT_SEASON_RESET.getValue() < Date.now()) {
-			DraftBot.seasonEnd()
-				.then();
-		}
-		else {
-			DraftBot.programSeasonTimeout()
-				.then();
-		}
-
-		if (await Settings.NEXT_DAILY_RESET.getValue() < Date.now()) {
-			DraftBot.dailyTimeout()
-				.then();
-		}
-		else {
-			DraftBot.programDailyTimeout()
-				.then();
-		}
+		await DraftBot.programTimeouts();
 
 		DraftBot.reportNotifications()
 			.then();
@@ -478,5 +369,11 @@ export class DraftBot {
 			DraftBot.fightPowerRegenerationLoop,
 			minutesToMilliseconds(FightConstants.POINTS_REGEN_MINUTES)
 		);
+	}
+
+	private static async programTimeouts(): Promise<void> {
+		await setDailyCronJob(DraftBot.dailyTimeout, await Settings.NEXT_DAILY_RESET.getValue() < Date.now());
+		await setWeeklyCronJob(DraftBot.seasonEnd, await Settings.NEXT_SEASON_RESET.getValue() < Date.now(), DayOfTheWeek.SUNDAY);
+		await setWeeklyCronJob(DraftBot.weeklyTimeout, await Settings.NEXT_WEEKLY_RESET.getValue() < Date.now(), DayOfTheWeek.MONDAY);
 	}
 }
