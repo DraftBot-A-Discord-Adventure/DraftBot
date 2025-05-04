@@ -53,6 +53,10 @@ jobs:
           name: lib-test-results
           path: Lib/test-results.xml
 
+      - name: Symlink config for Discord
+        run: ln -sf config.default.toml config.toml
+        working-directory: ./Discord
+
       - name: Run Discord tests
         run: pnpm --dir ./Discord test
 
@@ -62,6 +66,10 @@ jobs:
         with:
           name: discord-test-results
           path: Discord/test-results.xml
+
+      - name: Symlink config for Core
+        run: ln -sf config.default.toml config.toml
+        working-directory: ./Core
 
       - name: Run Core tests
         run: pnpm --dir ./Core test
