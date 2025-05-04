@@ -380,7 +380,7 @@ export default class EventsHandlers {
 		const foodId = PetConstants.PET_FOOD_BY_ID[packet.selectedFoodIndex];
 		const lng = interaction!.userLanguage;
 
-		await interaction?.followUp({
+		await interaction?.channel.send({
 			embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(i18n.t("notifications:guildFood.receivedFoodTitle", { lng }), interaction.user)
