@@ -14,36 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & Yarn
+      - name: Setup Node.js & pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: |
-          corepack enable
-          yarn set version stable
-
-      - name: Cache Yarn deps for Lib
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./Lib/.yarn/cache
-            ./Lib/.pnp.cjs
-          key: ${{ runner.os }}-yarn-lib-${{ hashFiles('Lib/yarn.lock') }}
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install deps for Lib
         working-directory: ./Lib
-        run: yarn install
+        run: pnpm install
 
       - name: Run tests with coverage for Lib
         working-directory: ./Lib
-        run: yarn test
+        run: pnpm test
 
-      # Add this step to upload the results
       - name: Upload Lib test results
         uses: actions/upload-artifact@v4
-        if: always() # Upload even if tests fail, results might be useful
+        if: always()
         with:
-          name: lib-test-results # Unique name for the artifact
+          name: lib-test-results
           path: Lib/test-results.xml
 
   test-discord-module:
@@ -51,31 +40,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & Yarn
+      - name: Setup Node.js & pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: |
-          corepack enable
-          yarn set version stable
-
-      - name: Cache Yarn deps for Discord
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./Discord/.yarn/cache
-            ./Discord/.pnp.cjs
-          key: ${{ runner.os }}-yarn-discord-${{ hashFiles('Discord/yarn.lock') }}
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install deps for Discord
         working-directory: ./Discord
-        run: yarn install
+        run: pnpm install
 
       - name: Run tests with coverage for Discord
         working-directory: ./Discord
-        run: yarn test
+        run: pnpm test
 
-      # Add this step to upload the results
       - name: Upload Discord test results
         uses: actions/upload-artifact@v4
         if: always()
@@ -88,31 +66,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js & Yarn
+      - name: Setup Node.js & pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: |
-          corepack enable
-          yarn set version stable
-
-      - name: Cache Yarn deps for Core
-        uses: actions/cache@v4
-        with:
-          path: |
-            ./Core/.yarn/cache
-            ./Core/.pnp.cjs
-          key: ${{ runner.os }}-yarn-core-${{ hashFiles('Core/yarn.lock') }}
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install deps for Core
         working-directory: ./Core
-        run: yarn install
+        run: pnpm install
 
       - name: Run tests with coverage for Core
         working-directory: ./Core
-        run: yarn test
+        run: pnpm test
 
-      # Add this step to upload the results
       - name: Upload Core test results
         uses: actions/upload-artifact@v4
         if: always()
@@ -123,12 +90,12 @@ jobs:
   publish-test-results:
     runs-on: ubuntu-latest
     needs: [test-lib-module, test-discord-module, test-core-module]
-    if: always() # Run this job even if upstream jobs fail to publish any available results
+    if: always()
     steps:
       - name: Download all test results artifacts
         uses: actions/download-artifact@v4
         with:
-          path: test-results # Download all into a 'test-results' directory
+          path: test-results
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
