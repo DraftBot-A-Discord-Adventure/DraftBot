@@ -696,15 +696,15 @@
       "nextTotalLunarEclipse": [
         "the next total lunar eclipse is in {{mainValue}} {{days}}",
         "by {{mainValue}} {{days}}, you'll see a complete lunar eclipse",
-        "in the coming {{mainValue}} {{days}} , you'll be lucky enough to witness a total lunar eclipse.",
-        "if you look at the sky at {{mainValue}} {{days}}, you can see a total lunar eclipse."
+        "in the coming {{mainValue}} {{days}}, you'll be lucky enough to witness a total lunar eclipse",
+        "if you look at the sky in {{mainValue}} {{days}}, you can contemplate a total lunar eclipse"
       ]
     },
     "moonPhases": [
       "the new Moon",
-      "the first quarter of the moon",
-      "the Full Moon",
-      "the last quarter of the moon"
+      "the first quarter of the Moon",
+      "the full Moon",
+      "the last quarter of the Moon"
     ],
     "names": [
       "Claude",
@@ -724,54 +724,54 @@
   },
   "findPet": {
     "food_m": [
-      "you find a **{{pet}}** that looks wounded. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+      "you find a **{{pet}}** that appears to be wounded. Unfortunately, having already a companion and no more room in your guild to welcome him, you decide to finish him quickly in order to acquire his carcass.",
+      "you find a **{{pet}}**. Not having the opportunity to welcome him, you give him to a merchant who passes by. In return, he offers you some meat."
     ],
     "food_f": [
-      "you find a **{{pet}}** that appears to be injured. Unfortunately, having already a companion and more room in your guild to welcome it, you decide to finish quickly in order to recover its carcass.",
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. In return, it offers you some meat."
+      "you find a **{{pet}}** that appears to be wounded. Unfortunately, having already a companion and no more room in your guild to welcome her, you decide to finish her quickly in order to acquire her carcass.",
+      "you find a **{{pet}}**. Not having the opportunity to welcome her, you give her to a merchant who passes by. In return, he offers you some meat."
     ],
     "noFood_m": [
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets him go.",
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
-      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+      "you find a **{{pet}}**. Not having the opportunity to welcome him, you give him to a merchant who passes by. He refuses and lets him go.",
+      "you find a **{{pet}}**. Not having the opportunity to welcome him, you give him to a merchant who passes by. He willingly accepts taking care of him.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help her and quickly convince him to come down. Thinking it is her animal, you tend him to her, but you notice he does not belong to her. With no more room in your shelter, you cannot take him with you."
     ],
     "noFood_f": [
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He refuses and lets her go.",
-      "you find a **{{pet}}**. You don't have the opportunity to welcome it, you give it to a merchant who passes through it. He is happy to take care of it.",
-      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his animal you stretch it but find it does not belong to him. No more room in your shelter, you cannot take it with you."
+      "you find a **{{pet}}**. Not having the opportunity to welcome her, you give her to a merchant who passes by. He refuses and lets her go.",
+      "you find a **{{pet}}**. Not having the opportunity to welcome her, you give her to a merchant who passes by. He willingly accepts taking care of her.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help her and quickly convince her to come down. Thinking it is her animal, you tend her to her, but you notice she does not belong to her. With no more room in your shelter, you cannot take her with you."
     ],
     "givePetPlayer_m": [
-      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
-      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking that it is his pet you stretch out to him but find that he does not belong to him, so you decide to take it with you.",
-      "you hear noise from a curious bush, you decide to go see. You will find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
-      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But it seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under his charm, and decide to take care of him.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help her and quickly convince him to come down. Thinking that it is her pet, you tend him to her, but you notice that he does not belong to her, so you decide to take him with you.",
+      "you hear noise from a bush. Intrigued, you decide to take a peek at it. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt him.",
+      "you decide to make a small nap, when something wakes you up, a **{{pet}}** was digging into your bag! But he seems not to want to attack you and seems to even appreciate you, so you decide to keep him."
     ],
     "givePetPlayer_f": [
-      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under its charm, and decide to take care of it.",
-      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help him and quickly convince him to come down. Thinking it is his pet you stretch it but find it does not belong to him, so you decide to take it with you.",
-      "you hear noise from a curious bush, you decide to go see. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt it.",
-      "you decide to make a small amount, when something wakes up, a **{{pet}}** was digging into your bag! But she seems not to want to attack you and seems to even grasp you, so you decide to keep it."
+      "you see a lost **{{pet}}**. Having always wanted to have a companion, you fall under her charm, and decide to take care of her.",
+      "you see an old lady looking to bring down a **{{pet}}** from a tree. You agree to help her and quickly convince her to come down. Thinking that it is her pet, you tend her to her, but you notice that she does not belong to her, so you decide to take her with you.",
+      "you hear noise from a bush. Intrigued, you decide to take a peek at it. You find a **{{pet}}** that looks at you tightly in your eyes and then starts following you, so you decide to adopt her.",
+      "you decide to make a small nap, when something wakes you up, a **{{pet}}** was digging into your bag! But she seems not to want to attack you and seems to even appreciate you, so you decide to keep her."
     ],
     "givePetGuild_m": [
-      "you see a lost **{{pet}}**. Although you already have a companion, you must bring it back to your guild so that someone can take care of it.",
-      "you see a **{{pet}}** roaming that looks hungry, so you give them the remains of your last meal. He is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
-      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring him back to your guild so that someone can take care of him.",
+      "you see an errand **{{pet}}** that sems to be hungry, so you give him the remains of your last meal. He appreciates this and seems to want to follow you in your adventure. Having a companion, you leave him to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go away, but he is too badly hurt. You managed to put him back in shape and let him have a little rest in your shelter."
     ],
     "givePetGuild_f": [
-      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring it back to your guild for someone to take care of it.",
-      "you see a **{{pet}}** roaming that looks hungry, so you give them the leftovers of your last meal. She is apprehended and seems to want to follow you in your search. Having a companion, you leave it to the good care of your guild.",
-      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go, but it is too bad in point. You managed to put it back and leave it a little rest in your shelter."
+      "you see a lost **{{pet}}**. Although you already have a companion, you decide to bring her back to your guild so that someone can take care of her.",
+      "you see an errand **{{pet}}** that sems to be hungry, so you give her the remains of your last meal. She appreciates this and seems to want to follow you in your adventure. Having a companion, you leave her to the good care of your guild.",
+      "you see a group of children in a circle. You come closer and find that they are abusing a poor **{{pet}}**. You make them go away, but she is too badly hurt. You managed to put her back in shape and let her have a little rest in your shelter."
     ]
   },
   "botFacts": {
     "stories": [
-      "you receive a letter from the king, who is writing to you about the skill for the hand of the princess in which you participate. You can read the letter that {{botFact}} is back on your way.",
-      "you meet a farmer in a cart, seemingly cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {{botFact}} is back on your way.",
-      "you will see the camp of an adventurer by a trail. You stop for a moment and ask them for advice on the road and they point you in the right direction by adding that {{botFact}} you are back on the road.",
-      "you see an information panel. On it, multiple posters are hanging and evoke feats and other events around. One of them talks about the King's recent speech, which told {{botFact}} you are continuing your way.",
-      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} will continue your way without listening to the rest of his words.",
-      "you see in the distance a beggar clad against the trunk of a tree, approaching to give it a piece you hear his strange words, this loop spells {{botFact}} you move as soon as possible from this suspicious individual."
+      "you receive a letter from the king. The latter is writing to you about the contest for the hand of the princess in which you participate. Whilst reading the letter, you find out that {{botFact}} you get back on your way.",
+      "you meet a farmer in a cart, seemingly cheerful. Intrigued by his attitude, you ask him about his good mood. He tells you that {{botFact}} you get back on your way.",
+      "you notice the camp of an adventurer by a trail. You stop for a moment and ask them for advice on the road and they point you in the right direction by adding that {{botFact}} you are back on the road.",
+      "you see an information panel. On it, multiple posters are hanging and evoke feasts and other events in the vicinity. One of them is about the King's recent speech, which told {{botFact}} you are continuing your way.",
+      "you meet a crowd of people and hear a speaker from the crowd announcing that {{botFact}} you continue your way without listening to the rest of his words.",
+      "you see in the distance a beggar leaned back on the trunk of a tree. As you're approaching him to give him a piece, you hear his strange words, he repeats that {{botFact}} you get away as soon as possible from this suspicious individual."
     ],
     "possibleInfo": {
       "nbMeanPoints": "According to a recent points tally by the organizers, candidates have an average score of **{{infoNumber}} {emote:unitValues.score}**. Encouraged by this news,",
@@ -780,226 +780,226 @@
       "nbMeanMoney": "the country's bank counted an average of **{{infoNumber}} {emote:unitValues.money}** in its customers' purses. Amused by this news,",
       "sumAllMoney": "the country's bank has **{{infoNumber}} {emote:unitValues.money}** in circulation at this time. Surprised by this news,",
       "richestPlayer": "the country's bank has estimated that the richest adventurer currently has **{{infoNumber}} {emote:unitValues.money}** in his account. Stunned by this news,",
-      "feistyPets": "SPAC, or the Counterfeiters Animal Protector, is campaigning to help **fielky animals** get a better life. They listed **{{infoNumber}}**. Both comfort and comfort from this news,",
-      "percentMalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are mates. Happy with this news,",
-      "percentFemalePets": "the SPAC, or the Counterfeiter Animal Protector, discovered that **{{infoNumber}}%** of the animals in the territory are females. Happy with this news,",
-      "guildLevelMean": "the AGC, or Counterfeit Guild Agency, noted that the current guilds averaged **level {{infoNumber}}**. Intrigued by this information,",
-      "nbPlayersHaventStartedTheAdventure_zero": "the SAFAC, or Anti-Fraud Service of the Counterfeit Adventurers, discovered that **no adventurer** disappeared just after they obtained their adventure license. Admirable of all these valuable adventurers,",
-      "nbPlayersHaventStartedTheAdventure_one": "the SAFAC, or Anti-Fraud Service of Adventurers of the Counterfeit, discovered that **an adventurer** disappeared just after he obtained his adventure license. Indignified by this person's action,",
-      "nbPlayersHaventStartedTheAdventure_other": "SAFAC, or Anti-Fraud Service of Counterfeiter Adventurers, discovered that **{{infoNumber}} adventurers** disappeared just after they obtained their adventure license. Indignified by the action of these people,",
-      "trainedPets_one": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainer of the **only trained animal**. Impressed by this achievement,",
-      "trainedPets_other": "the SPAC, or the Counterfeiter Animal Protector, wishes to congratulate the trainers of the **{{infoNumber}} animals trained**. Impressed by this achievement,",
-      "nbPlayersWithGivenClass_zero": "after a recency of adventurers there would be no players with the **{{infoComplement}}** class. The new one,",
-      "nbPlayersWithGivenClass_one": "from an adventurers' census, there would be only one player with the **{{infoComplement}}** class. Impressed by this new one,",
-      "nbPlayersWithGivenClass_other": "from a recency of adventurers there would be **{{infoNumber}}** players with the **{{infoComplement}}** class. Interested by this news,",
+      "feistyPets": "the CAPS, or the Continental Animal Protection Society, is campaigning to help **feisty animals** get a better life. They listed **{{infoNumber}}** of them. Disappointed and reassured at the same time by this news,",
+      "percentMalePets": "the CAPS, or the Continental Animal Protection Society, discovered that **{{infoNumber}}%** of the animals in the territory are males. Happy with this news,",
+      "percentFemalePets": "the CAPS, or the Continental Animal Protection Society, discovered that **{{infoNumber}}%** of the animals in the territory are females. Happy with this news,",
+      "guildLevelMean": "the CGA, or Continental Guild Agency, noted that the current guilds averaged **level {{infoNumber}}**. Intrigued by this information,",
+      "nbPlayersHaventStartedTheAdventure_zero": "the CAAFS, or Continental Adventurer's Anti-Fraud Service, discovered that **no adventurer** disappeared just after they obtained their adventure license. Admirable of all these valuable adventurers,",
+      "nbPlayersHaventStartedTheAdventure_one": "the CAAFS, or Continental Adventurer's Anti-Fraud Service, discovered that **an adventurer** disappeared just after he obtained his adventure license. Indignified by this person's action,",
+      "nbPlayersHaventStartedTheAdventure_other": "the CAAFS, or Continental Adventurer's Anti-Fraud Service, discovered that **{{infoNumber}} adventurers** disappeared just after they obtained their adventure license. Indignified by the action of these people,",
+      "trainedPets_one": "the CAPS, or the Continental Animal Protection Society, wishes to congratulate the trainer of the **only trained animal**. Impressed by this achievement,",
+      "trainedPets_other": "the CAPS, or the Continental Animal Protection Society, wishes to congratulate the trainers of the **{{infoNumber}} trained animals**. Impressed by this achievement,",
+      "nbPlayersWithGivenClass_zero": "according to a recent adventurers census, there would be no players with the **{{infoComplement}}** class. Amazed by this news,",
+      "nbPlayersWithGivenClass_one": "according to a recent adventurers census, there would be only one player with the **{{infoComplement}}** class. Amazed by this news,",
+      "nbPlayersWithGivenClass_other": "according to a recent adventurers census, there would be **{{infoNumber}}** players with the **{{infoComplement}}** class. Astonished by this news,",
       "nbPlayersOnYourMap_zero": "knights nearby met **no one other than you** on this route. Surprised by this news,",
       "nbPlayersOnYourMap_one": "knights nearby only met **one person** on your way. Surprised by this news,",
-      "nbPlayersOnYourMap_other": "the knights in the vicinity counted **{{infoNumber}} people** riding your way. Surprised by this news,"
+      "nbPlayersOnYourMap_other": "knights nearby counted **{{infoNumber}} people** on your way. Surprised by this news,"
     }
   },
   "smallBad": {
     "healthLost": {
       "stories": [
-        "your feet stumble on a root. Wounded, you loose **{{amount}}{emote:unitValues.lostHealth}**.",
-        "plunged into your thoughts, you don't care about the ground under your feet and tread a peel with mischief. You hurt yourself at the knee. This is not serious, though painful. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
-        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{{amount}} {emote:unitValues.lostHealth}**.",
-        "you hit a horse arriving at the gallop, but were only injured superficially. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
-        "you were violently hit by a boar herd. You stand up and get back on your way and lose **{{amount}} {emote:unitValues.lostHealth}**."
+        "your feet stumble on a root. Wounded, you lose **{{amount}}{emote:unitValues.lostHealth}**.",
+        "deep into your thoughts, you don't pay attention to the ground under your feet and unwillingly trip over a pebble. You hurt yourself at the knee. This ain't a serious injury, despite it being painful. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you, but immediately leaves thereafter. Fortunately, you are only slightly injured. and only lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you hit a galloping horse, but were only injured superficially. You lose **{{amount}} {emote:unitValues.lostHealth}**.",
+        "you were violently hit by a boar herd. You barely stand back up, and get back on your way whilst losing **{{amount}} {emote:unitValues.lostHealth}**."
       ]
     },
     "timeLost": {
       "stories": [
-        "you walk on a piece. The moment after you were suspended from the foot. You need to make this piece may take a long time... you lose **{{amount}} :clock2:**.",
-        "If you are interested in running for not being soaked, you will see a beautiful rainbow. You don't think about the rain anymore and get absorbed by the show during **{{amount}} :clock2:**.",
-        "you fall from fatigue. Your adventures have been exhausted, which is why you decide to rest for **{{amount}} :clock2:**.",
-        "walking dipped in your thoughts, you don't notice the branch on the ground. You start on it and your stuff spread. You lose **{{amount}} :clock2:**.",
-        "you hear a loud crashing noise coming from undergrowth. Your curiosity has been piqued: you want to know what it's all about, and go to inspect the area. After **{{amount}} :clock2:**, you give up without having found or understood the origin of the noise that startled you."
+        "you walk on a trap. The moment afterwards, you are suspended from the foot. Getting out of this trap may take a long time... you lose **{{amount}} :clock2:**.",
+        "it starts to rain, You ready yourself to start running to avoid being soaked when you see a stunning rainbow just a few steps away. You stop thinking about the rain and get absorbed by the show during **{{amount}} :clock2:**.",
+        "you fall from fatigue. Your adventures have been exhausting, and that is why you decide to rest for **{{amount}} :clock2:**.",
+        "while walking deep in your thoughts, you don't notice the branch on the ground. You trip on it and your stuff spreads. You lose **{{amount}} :clock2:**.",
+        "you hear a loud crashing noise coming from the understory. Your curiosity has been piqued: you want to know what it's all about, and go to inspect the area. After **{{amount}} :clock2:**, you give up without having found or understood the origin of the noise that startled you."
       ]
     },
     "moneyLost": {
       "stories": [
-        "crossing a crowd, you feel a hand to search and go your pockets. You don't have the time to repeat that your Gatherer has disappeared. You lost **{{amount}} {emote:unitValues.lostMoney}**.",
-        "you meet a beggar asking for some money to support his needs. Taking a momentum of mercy, you decide to give it **{{amount}} {emote:unitValues.lostMoney}**.",
-        "a masked man calls you and threatens you with his weapon. In order for it to save you, you give it the **{{amount}} {emote:unitValues.lostMoney}** pieces you have in your pocket, and the keys of your cart.",
+        "crossing a crowd, you feel a hand deeply searching you and lightening your pockets. You don't have the time to replicate that your looter has disappeared. You lost **{{amount}} {emote:unitValues.lostMoney}**.",
+        "you meet a beggar asking for some money to support his needs. Taken by a surge of mercy, you decide to give him **{{amount}} {emote:unitValues.lostMoney}**.",
+        "a masked man calls you out and threatens you with his weapon. To let him spare your life, you give him the **{{amount}} {emote:unitValues.lostMoney}** you have in your pocket, and the keys of your cart as well.",
         "you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{{amount}} {emote:unitValues.lostMoney}**.",
-        "you see a cart that loads over and over your bag. While you gather your belongings a group of children passes through and you get money going. You lose **{{amount}} {emote:unitValues.lostMoney}**."
+        "you cross a cart which load protrudes and tears your bag. While you are gathering your belongings, a group of children passes by and robs you. You lose **{{amount}} {emote:unitValues.lostMoney}**."
       ]
     }
   },
   "findPotion": {
     "stories": [
       "you see a shiny vial from the corner of your eye...",
-      "you slide on the lower side and you get to the ground. As you rise, you notice a strange bottle filled with liquid.",
-      "you notice a damaged bag on the road. you open it quickly...",
-      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
-      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
+      "you slip on the lower side and fall to the ground. While getting back up, you notice a strange bottle filled with liquid.",
+      "you notice a damaged bag on the road. You open it quickly...",
+      "you decide to make a small detour to avoid crossing a river. That's when you discover...",
+      "you meet a man with a loaded mule. A few minutes later, you notice that something has fallen from his package. It is now too late to catch him up.",
       "your eyes are attracted by the reflection of a potion on the ground.",
-      "you start on a root. Furious, you sit a big blow at the root... It seems it isn't a root...",
-      "you meet a child who doesn't seem to speak your language. It looks welcome, however, and tends you a package...",
+      "you trip on a root. Furious, you strike the latter a big blow... It seems it isn't a root...",
+      "you meet a child who doesn't seem to speak your language. He however seems welcoming and tends you a package...",
       "you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you a potion...",
-      "you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
+      "you meet a woman who seems to want to offer you a drink. Intrigued, you accept her offer...",
       "you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
     ]
   },
   "findItem": {
     "stories": [
       "you see a shiny object from the corner of your eye...",
-      "you slide on the lower side and you get to the ground. As you rise, you notice an object on the ground...",
-      "you notice a damaged bag on the road. you open it quickly...",
-      "you decide to make a side trip to avoid crossing a river. That's when you discover...",
-      "you meet a man, with a loaded mule. A few minutes later, you notice tat something has fallen form his package. It is now too late to catch him up.",
-      "your look is attracted by an object reflection on the ground.",
-      "you get down on a root. Furious, you sit down to it a big blow... It seems it isn't a root...",
+      "you slip on the lower side and you get to the ground. While getting back up, you notice an object on the ground...",
+      "you notice a damaged bag on the road. You open it quickly...",
+      "you decide to make a small detour to avoid crossing a river. That's when you discover...",
+      "you meet a man with a loaded mule. A few minutes later, you notice that something has fallen from his package. It is now too late to catch him up.",
+      "your vision is focused on a reflection emitted by an item on the ground.",
+      "you trip on a root. Furious, you strike the latter a big blow... It seems it isn't a root...",
       "you meet a child who does not seem to speak your language. However, it looks welcoming and tends you a package...",
-      "you meet a man, with a loaded mule. You decide to help him carry his load. As a thanks, he gift you an object..."
+      "you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you an object..."
     ]
   },
   "pet": {
     "stories": {
       "money_m": [
-        "You see **{{pet}}** rummaging in some tall grass. He comes out **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge **{{amount}}** {emote:unitValues.money} !",
+        "You see **{{pet}}** rummaging in some tall grass. He comes out with **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge with **{{amount}}** {emote:unitValues.money}!",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing him return with **{{amount}}** {emote:unitValues.money} fills you with joy!",
-        "Suddenly you see **{{pet}}** jump into the water. What a surprise to see him emerge with a purse of **{{amount}}** {emote:unitValues.money} !",
-        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems he has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices."
+        "You suddenly see **{{pet}}** jump into the water. What a surprise to see him emerge with a purse of **{{amount}}** {emote:unitValues.money}!",
+        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems he has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices it."
       ],
       "money_f": [
-        "You see **{{pet}}** rummaging in some tall grass. She comes out **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge **{{amount}}** {emote:unitValues.money} !",
+        "You see **{{pet}}** rummaging in some tall grass. She comes out with **{{amount}}** {emote:unitValues.money}, which you keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see her emerge with **{{amount}}** {emote:unitValues.money}!",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing her return with **{{amount}}** {emote:unitValues.money} fills you with joy!",
-        "Suddenly you see **{{pet}}** jump into the water. What a surprise to see her emerge with a purse of **{{amount}}** {emote:unitValues.money} !",
-        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems she has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices."
+        "You suddenly see **{{pet}}** jump into the water. What a surprise to see her emerge with a purse of **{{amount}}** {emote:unitValues.money}!",
+        "After a short break on your journey, you see **{{pet}}** returning with a purse. It seems she has stolen it from a merchant. You decide to leave with your **{{amount}}** {emote:unitValues.money} before he notices it."
       ],
       "item_m": [
-        "You see **{{pet}}** digging in tall grass. There is a **item** that you can possibly keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You see **{{pet}}** digging in some tall grass. He comes out with an **item** that you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What was your surprise after seeing him emerge with an **item**!",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing him return with an **object** fills you with joy!",
-        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
-        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like he flew it to a merchant. You have to leave before the merchant sees it."
+        "You suddenly see **{{pet}}** jumping into the water. What was not your surprise when you saw him come out with an **item**!",
+        "After taking a short break on your ride, you see **{{pet}}** coming back with an **item**. It looks like he stole it to a merchant. You decided to leave before the merchant notices it."
       ],
       "item_f": [
-        "You see **{{pet}}** digging in tall grass. This shows a **item**, which you can possibly keep for the rest of your adventure.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole. What was your surprise after seeing him come out of an **item**!",
+        "You see **{{pet}}** digging in some tall grass. She comes out with an **item** that you can possibly keep for the rest of your adventure.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What was your surprise after seeing her emerge with an **item**!",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look, and seeing her return with an **object** fills you with joy!",
-        "You see everything **{{pet}}** jumping into the water. What was not your surprise when you saw it come out with a **item**!",
-        "After taking a short break on your ride, you see coming back **{{pet}}** with an **item**. It looks like she flew it to a merchant. You have to leave before the merchant sees it."
+        "You suddenly see **{{pet}}** jumping into the water. What was not your surprise when you saw her come out with an **item**!",
+        "After taking a short break on your ride, you see **{{pet}}** coming back with an **item**. It looks like she stole it to a merchant. You decided to leave before the merchant notices it."
       ],
       "gainEnergy_m": [
-        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
-        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
-        "Stunned for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
+        "Having **{{pet}}** by your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** rushes for food that seems to be in good condition and brings it to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.energy}.",
+        "After leaving for a few moments, **{{pet}}** comes back with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainEnergy_f": [
-        "Having **{{pet}}** on your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
-        "On the edge of the road, **{{pet}}** precipitates on food that seems to be in good condition and you make it. You eat it before it turns off and win **{{amount}}** {emote:unitValues.energy}.",
-        "Played for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. This way you gain **{{amount}}** {emote:unitValues.energy}."
+        "Having **{{pet}}** by your side makes you happy. This makes you regain your morale and you gain **{{amount}}** {emote:unitValues.energy}.",
+        "On the edge of the road, **{{pet}}** rushes for food that seems to be in good condition and brings it to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.energy}.",
+        "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You win **{{amount}}** {emote:unitValues.energy}."
       ],
       "gainLife_m": [
-        "Having **{{pet}}** by your side makes you happy. It lifts your spirits and you gain **{{amount}}** {emote:unitValues.health}.",
-        "On the side of the road, **{{pet}}** runs across some food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
-        "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. This earns you **{{amount}}** {emote:unitValues.health}."
+        "Having **{{pet}}** by your side makes you happy. It cheers you up and you gain **{{amount}}** {emote:unitValues.health}.",
+        "On the side of the road, **{{pet}}** rushes for food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
+        "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You thus earn **{{amount}}** {emote:unitValues.health}."
       ],
       "gainLife_f": [
-        "Having **{{pet}}** by your side makes you happy. It lifts your spirits and you gain **{{amount}}** {emote:unitValues.health}.",
-        "On the side of the road, **{{pet}}** runs across some food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
+        "Having **{{pet}}** by your side makes you happy. It cheers you up and you gain **{{amount}}** {emote:unitValues.health}.",
+        "On the side of the road, **{{pet}}** rushes for food that seems to be in good condition and brings it back to you. You eat it before it spoils and win **{{amount}}** {emote:unitValues.health}.",
         "After leaving for a few moments, **{{pet}}** returns with an almost empty potion. You drink it before it is lost. You win **{{amount}}** {emote:unitValues.health}."
       ],
       "gainLove_m": [
-        "It looks like **{{pet}}** is happy to have you with them. They gain in love and become more loyal.",
+        "It looks like **{{pet}}** is happy to have you by his side. He gains affection and becomes more trustworthy towards you.",
         "After a long walk, you decided to take care of **{{pet}}** by patting him. This moment passed with him has strengthened your bond.",
-        "Have gone for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. He likes you more.",
-        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. He loves you more and becomes more trustworthy.",
-        "Oh how cute! **{{pet}}** is a player! Also you decide to have fun with them. This game strengthened your links."
+        "After having left for a few moments, **{{pet}}** returns with food found further. You decide to give it to him before it is lost. He thus likes you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with {{randomAnimal}} ! You decide to valiantly defend him. He loves you more and becomes more trustworthy towards you.",
+        "Oh, how cute! **{{pet}}** is a player! You also decide to have fun with him. This game strengthened your bonds."
       ],
       "gainLove_f": [
-        "It looks like **{{pet}}** is happy to have you with them. She gains in love and becomes more trustworthy.",
-        "After you have worked for a long time, you decide to take care of your **{{pet}}** by touching it. That moment passed with her strengthened your links.",
-        "Stunned for a few moments, **{{pet}}** returns with food found further. You decide to give it before it is lost. She loves you more.",
-        "Unfortunately, **{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to challenge it valid. She loves you more and becomes more trustworthy.",
-        "Oh how cute! **{{pet}}** is player! Also you decide to have fun with them. This game strengthened your links."
+        "It looks like **{{pet}}** is happy to have you by her side. She gains affection and becomes more trustworthy towards you.",
+        "After a long walk, you decided to take care of **{{pet}}** by patting her. This moment passed with her has strengthened your bond.",
+        "After having left for a few moments, **{{pet}}** returns with food found further. You decide to give it to her before it is lost. She thus likes you more.",
+        "Unfortunately, **{{pet}}** seems to have triggered hostilities with {{randomAnimal}} ! You decide to valiantly defend her. She loves you more and becomes more trustworthy towards you.",
+        "Oh, how cute! **{{pet}}** is a player! You also decide to have fun with her. This game strengthened your bonds."
       ],
       "food_m": [
-        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see him coming out of a **{{food}}**!",
+        "**{{pet}}**'s flair has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see him emerge with a **{{food}}** !",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look and see him coming back with a **{{food}}** in his mouth!",
-        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
-        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like he flew it to a merchant. You have to leave before he sees it."
+        "You suddenly notice **{{pet}}** jumping into the water. You're surprised when you see him emerge with a **{{food}}**!",
+        "After taking a short break on your ride, you notice **{{pet}}** coming back with a **{{food}}**. It looks like he stole it from a merchant. You decided to leave before he notices it."
       ],
       "food_f": [
-        "The flair of **{{pet}}** has allowed you to find a **{{food}}**. You store this food and continue your journey.",
-        "You notice that **{{pet}}** is watching the ground and deciding to dig a hole into it. What is your surprise when you see it coming out with a **{{food}}**!",
+        "**{{pet}}**'s flair has allowed you to find a **{{food}}**. You store this food and continue your journey.",
+        "You notice that **{{pet}}** is staring at the ground and decides to dig a hole. What a surprise to see her emerge with a **{{food}}** !",
         "You discover that **{{pet}}** is sniffing insistently in the direction of a bush. You decide to take a look and see her coming back with a **{{food}}** in her mouth!",
-        "You see everything **{{pet}}** jumping into the water. What is your surprise when you see it coming out with a **{{food}}**!",
-        "After taking a short break on your ride, you will see coming back **{{pet}}** with a **{{food}}**. It looks like she flew her from a merchant. You have to leave before he sees it."
+        "You suddenly notice **{{pet}}** jumping into the water. You're surprised when you see her emerge with a **{{food}}**!",
+        "After taking a short break on your ride, you notice **{{pet}}** coming back with a **{{food}}**. It looks like she stole it from a merchant. You decided to leave before he notices it."
       ],
       "gainTime_m": [
         "Despite all the miles, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
         "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "What spirit! **{{pet}}** seems to be in a hurry, but you manage to keep up with him. Thanks to him, you win **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "The flair of **{{pet}}** has enabled you to find a shortcut. Thanks to him, you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
+        "What a spirit! **{{pet}}** seems to be in a hurry, but you manage to keep up with him. Thanks to him, you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "**{{pet}}**'s flair allowed you to find a shortcut. Thanks to him, you gained **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Defending **{{pet}}** against {{randomAnimal}} has been no mean feat, and this time you've found something stronger than you. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
       ],
       "gainTime_f": [
-        "Nice to see, **{{pet}}** is in great shape. You ride on his back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on his leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "It's nice to see **{{pet}}** in great shape. You ride on her back for a few minutes and you win **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "At a bend in the road, **{{pet}}** suddenly starts running. You end up being dragged along on her leash, but you've won **{{amount}} Min** {emote:unitValues.timeGain}.",
         "You notice that **{{pet}}** seems to be in a hurry, and despite that, you manage to follow her the best you can. Thanks to her, you gained **{{amount}} Min** {emote:unitValues.timeGain}.",
         "**{{pet}}**'s flair allowed you to find a shortcut. Thanks to her, you gained **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Defending **{{pet}}** against {{randomAnimal}} sauvage has been no mean feat, and this time you've found something stronger than yourself. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
+        "Defending **{{pet}}** against {{randomAnimal}} has been no mean feat, and this time you've found something stronger than you. You decide to flee, and run at full speed. Thanks to this misadventure, you earn **{{amount}} Min** {emote:unitValues.timeGain} along the way."
       ],
       "points": [
-        "People who come across you with **{{pet}}** are sure to take notice. This enhances your reputation and earns you **{{amount}}** {emote:unitValues.score}.",
+        "People who come across you with **{{pet}}** are sure to take notice. This improves your reputation and earns you **{{amount}}** {emote:unitValues.score}.",
         "Telling an old man about your adventures with **{{pet}}** seems to have improved your reputation. You win **{{amount}}** {emote:unitValues.score}."
       ],
       "badge": [
-        "Successfully trained **{{pet}}** was a real challenge that proves your talent with the animals. You get the {{badge}} badge!"
+        "Successfully training **{{pet}}** was a real challenge that proves your talent with the animals. You get the {{badge}} badge!"
       ],
       "loseLife_m": [
-        "While you are trying to caress **{{pet}}**, it doesn't get done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "While you are trying to caress **{{pet}}**, he doesn't get along and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
         "Around a bend, **{{pet}}** suddenly starts running. You hold on to the leash as best you can but come away with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "You see **{{pet}}** leave. It comes back a few minutes after with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to skip it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
+        "You see **{{pet}}** leave. He comes back a few minutes after with some food. You eat it and severely regret it a few minutes later. You suddenly suffer from a bellyache... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with {{randomAnimal}}! You decide to defend him, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and leaps on top of a tree. Unfortunately, his weight breaks the branch and he falls on you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseLife_f": [
-        "While you are trying to caress **{{pet}}**, she doesn't let herself be done and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "While you are trying to caress **{{pet}}**, she doesn't get along and bites your hand. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
         "Around a bend, **{{pet}}** suddenly starts running. You hold on to the leash as best you can but come away with a few scratches. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "You see **{{pet}}** leave. It comes back a few minutes later with food. You eat it and regret it improved a few minutes later. You suddenly hurt the belly ... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "**{{pet}}** seems to have triggered hostilities with wild {{randomAnimal}} ! You decide to use it, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
-        "**{{pet}}** seems to want to play and throw up a tree. Unfortunately, its weight breaks the branch and falls upon you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
+        "You see **{{pet}}** leave. She comes back a few minutes after with some food. You eat it and severely regret it a few minutes later. You suddenly suffer from a bellyache... You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to have triggered hostilities with {{randomAnimal}}! You decide to defend her, but unfortunately the wild creature hurts you. You lose **{{amount}}** {emote:unitValues.lostHealth}.",
+        "**{{pet}}** seems to want to play and leaps on top of a tree. Unfortunately, her weight breaks the branch and she falls on you. You lose **{{amount}}** {emote:unitValues.lostHealth}."
       ],
       "loseMoney_m": [
-        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
-        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
-        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
-        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
-        "If you want to play with **{{pet}}**, you hit them with a blast and take them to a healer to take them pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. You thus lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with it during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "While you play with **{{pet}}**, the latter shoves you and drops your purse into a crevasse. It won't be possible to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You get the impression that **{{pet}}** is irritated to the point he will even hurt a passer-by. After apologizing, you decide to compensate them and leave with your head down. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "While wanting to play with **{{pet}}**, you strike him with a blow. Injured, you take him to a vet so he can be healed. After his recovery, the healer charges you **{{amount}}** {emote:unitValues.lostMoney}."
       ],
       "loseMoney_f": [
-        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. So you lose **{{amount}}** {emote:unitValues.lostMoney}.",
-        "You notice a large hole in your purse. **{{pet}}** had to play with during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
-        "As you play with **{{pet}}**, this one hugs you and drops your purse into a crevass. Unable to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
-        "You feel like **{{pet}}** is irritated, it will even hurt a passer-by. Excuse apologized, you decide to compensate it and leave the low temperature. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
-        "If you want to play with **{{pet}}**, you knock them out. Blessed you bring them to a healer to take them to pride. After healing it, the pride you are assigned to **{{amount}}** {emote:unitValues.lostMoney}."
+        "You feel that **{{pet}}** steals a few pieces from your purse and hides them further. Unfortunately you can't find them again. You thus lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "You notice a large hole in your purse. **{{pet}}** had to play with it during the night! After you had counted what you had left, you notice that you are missing **{{amount}}** {emote:unitValues.lostMoney}.",
+        "While you play with **{{pet}}**, the latter shoves you and drops your purse into a crevasse. It won't be possible to recover these **{{amount}}** {emote:unitValues.lostMoney}!",
+        "You get the impression that **{{pet}}** is irritated to the point she will even hurt a passer-by. After apologizing, you decide to compensate them and leave with your head down. You lose **{{amount}}** {emote:unitValues.lostMoney}.",
+        "While wanting to play with **{{pet}}**, you strike her with a blow. Injured, you take her to a vet so she can be healed. After her recovery, the healer charges you **{{amount}}** {emote:unitValues.lostMoney}."
       ],
       "loseTime_m": [
-        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
-        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
-        "You see **{{pet}}** coming to you while running pursued by wild {{randomAnimal}} ! You flee with them. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
-        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
-        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+        "With all that effort calling out **{{pet}}** to make him stay near you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You nonetheless decide to forcefully pull him. Due to him, you lose **{{amount}} Min** :clock2:.",
+        "You see **{{pet}}** coming to you while running pursued by {{randomAnimal}}! You flee with him. This pursuit has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "While entering a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. Upon seeing you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You find out that **{{pet}}** is watching the ground and decides to dig a hole into it. A closed chest emerges out of it. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
       ],
       "loseTime_f": [
-        "Force remind **{{pet}}** to keep it ready for you, you lose **{{amount}} Min** :clock2:.",
-        "You feel **{{pet}}** doesn't seem to want to move. You decide to shoot it by force. By its fault, you lose **{{amount}} Min** :clock2:.",
-        "You see **{{pet}}** coming to you running while pursued by wild {{randomAnimal}} ! You flee with it. This pursuit race has made you lose **{{amount}} Min** :clock2: on your ride.",
-        "When you enter a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. When you see you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
-        "You need to find out that **{{pet}}** is watching the ground and deciding to dig a hole into it. A closed chest emerges. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
+        "With all that effort calling out **{{pet}}** to make her stay near you, you lose **{{amount}} Min** :clock2:.",
+        "You feel **{{pet}}** doesn't seem to want to move. You nonetheless decide to forcefully pull her. Due to her, you lose **{{amount}} Min** :clock2:.",
+        "You see **{{pet}}** coming to you while running pursued by {{randomAnimal}}! You flee with her. This pursuit has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "While entering a village, you hear a rumor about a pet that looks like **{{pet}}** that would attack villagers. Upon seeing you, the inhabitants are afraid of you and your pet, and you were immediately hunted out of the village. This experience has made you lose **{{amount}} Min** :clock2: on your ride.",
+        "You find out that **{{pet}}** is watching the ground and decides to dig a hole into it. A closed chest emerges out of it. After several attempts, you have successfully opened it, but it is empty. This experience has made you lose **{{amount}} Min** :clock2:."
       ],
       "petFlee_m": [
-        "This was unavoidable.**{{pet}}** doesn't respect you and runs away from you. You can't find it and lose it forever...",
-        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see it again.",
-        "It looks like **{{pet}}** found the sister, he abandons you and leaves you alone. You will never see it again...",
-        "The lack of attention to **{{pet}}** led him to flee. You lose sight of it quickly, it will be impossible to find it."
+        "This was unavoidable, after all of this mistreatment. **{{pet}}** doesn't respect you and runs away from you. You can't find him and lose him forever...",
+        "After spending time with you, **{{pet}}** seems to no longer like you and decides to run away. You will probably never see him again.",
+        "It looks like **{{pet}}** found his soulmate, he gives you up and leaves you alone. You will never see him again...",
+        "The lack of attention to **{{pet}}** led him to flee. You lose sight of him quickly, it will be impossible to find him."
       ],
       "petFlee_f": [
         "This was unavoidable, after all of this mistreatment. **{{pet}}** doesn't respect you and runs away from you. You can't find her and lose her forever...",
