@@ -146,7 +146,11 @@ export class DiscordItemUtils {
 				lng,
 				power: displayPacket.nature === ItemNature.TIME_SPEEDUP
 					? minutesDisplay(displayPacket.power, lng)
-					: displayPacket.nature === ItemNature.SPEED && displayPacket.maxPower < displayPacket.power
+					: [
+						ItemNature.SPEED,
+						ItemNature.DEFENSE,
+						ItemNature.ATTACK
+					].includes(displayPacket.nature) && displayPacket.maxPower < displayPacket.power
 						? i18n.t("items:nerfDisplay", {
 							lng,
 							old: displayPacket.power,
