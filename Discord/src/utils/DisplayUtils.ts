@@ -361,40 +361,65 @@ export class DisplayUtils {
 	}
 
 	private static getObjectNatureTranslation(itemWithDetails: ItemWithDetails, lng: Language): string {
-		let maxStatsValue = itemWithDetails.maxStats ?? null;
-		if (itemWithDetails.maxStats === null) {
-			maxStatsValue = {
-				attack: Infinity,
-				defense: Infinity,
-				speed: Infinity
-			};
-		}
+		const nature = itemWithDetails.detailsSupportItem!.nature;
+		const power = itemWithDetails.detailsSupportItem!.power;
 
-		if (itemWithDetails.detailsSupportItem!.nature === ItemNature.TIME_SPEEDUP) {
-			return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
-				power: minutesDisplay(itemWithDetails.detailsSupportItem!.power),
-				lng
-			});
-		}
+		// Default max stats values if not provided
+		const maxStats = itemWithDetails.maxStats ?? {
+			attack: Infinity,
+			defense: Infinity,
+			speed: Infinity
+		};
 
-		if (itemWithDetails.detailsSupportItem!.nature === ItemNature.SPEED) {
-			const speedDisplay = maxStatsValue!.speed >= itemWithDetails.detailsSupportItem!.power / 2
-				? itemWithDetails.detailsSupportItem!.power
-				: i18n.t("items:nerfDisplay", {
-					old: itemWithDetails.detailsSupportItem!.power,
-					max: maxStatsValue!.speed * 2,
+		switch (nature) {
+			case ItemNature.TIME_SPEEDUP:
+				return i18n.t(`items:objectsNatures.${nature}`, {
+					power: minutesDisplay(power, lng),
 					lng
 				});
-			return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
-				power: speedDisplay,
-				lng
-			});
-		}
 
-		return i18n.t(`items:objectsNatures.${itemWithDetails.detailsSupportItem!.nature}`, {
-			power: itemWithDetails.detailsSupportItem!.power,
-			lng
-		});
+			case ItemNature.SPEED: {
+				const display = maxStats.speed >= power / 2
+					? power
+					: i18n.t("items:nerfDisplay", {
+						old: power,
+						max: maxStats.speed * 2,
+						lng
+					});
+				return i18n.t(`items:objectsNatures.${nature}`, {
+					power: display, lng
+				});
+			}
+			case ItemNature.ATTACK: {
+				const display = maxStats.attack >= power / 2
+					? power
+					: i18n.t("items:nerfDisplay", {
+						old: power,
+						max: maxStats.attack * 2,
+						lng
+					});
+				return i18n.t(`items:objectsNatures.${nature}`, {
+					power: display, lng
+				});
+			}
+			case ItemNature.DEFENSE: {
+				const display = maxStats.defense >= power / 2
+					? power
+					: i18n.t("items:nerfDisplay", {
+						old: power,
+						max: maxStats.defense * 2,
+						lng
+					});
+				return i18n.t(`items:objectsNatures.${nature}`, {
+					power: display, lng
+				});
+			}
+			default:
+				return i18n.t(`items:objectsNatures.${nature}`, {
+					power: power,
+					lng
+				});
+		}
 	}
 
 	private static getObjectDisplayWithStats(itemWithDetails: ItemWithDetails, lng: Language): string {
