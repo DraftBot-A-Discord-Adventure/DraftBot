@@ -30,7 +30,7 @@
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
-    "embedTitle": "{{guildName}} Guild | Level {{level}}",
+    "embedTitle": "{{guildName}} guild | Level {{level}}",
     "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
@@ -445,7 +445,7 @@
     "destinationTitle": "{{pseudo}}, travel destination",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": "{emote:commands.report} **{{pseudo}}'s log:** {{event}}\n*- Use the buttons to perform an action {emote:collectors.warning} Not answering is considered a separate choice.*",
-    "doPossibility": "{emote:commands.report} **{{pseudo}}'s log{{result}}** | {{emoji}}{{event}} {{alte}}",
+    "doPossibility": "{emote:commands.report} **{{pseudo}}'s log{{result}}** | {{emoji}} {{event}} {{alte}}",
     "encounterMonster": [
       "You arrive at your destination when suddenly, you hear a noise behind you... A monster attacks you!"
     ],
@@ -519,7 +519,7 @@
     "badgeBought": "You have received a new badge: {emote:badges.{{badgeName}}}!",
     "notEnoughMoney": "You don't have enough money to buy this item! You are missing `{{missingCurrency}} {emote:unitValues.{{currency}}}`.",
     "boughtTooMuchDailyPotions": "There are no more potions available for sale... Come back tomorrow!",
-    "title": "{emote:commands.shop} Store Display",
+    "title": "{emote:commands.shop} Shop",
     "currentMoney": "You have `{{money}}{emote:unitValues.{{currency}}}`.",
     "shopItemsDisplaySingle": "{{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
     "shopItemsDisplayMultiple": "**{{amount}}x** {{name}} | `{{price}}{emote:unitValues.{{currency}}}`",
@@ -557,7 +557,7 @@
         "info": "You will receive a random equipment (Weapon / Armour / Item or Potion) among all those available in-game."
       },
       "alterationHeal": {
-        "name": "{emote:shopItems.healAlteration} Status healing",
+        "name": "{emote:shopItems.healAlteration} Status removal",
         "info": "Your state changes will be deleted and you will resume your route immediately.",
         "give": "{emote:shopItems.healAlteration} Your state changes have been deleted."
       },
@@ -952,7 +952,7 @@
       "badge": "{emote:badges.powerful_guild} | Guild members received a badge.",
       "superBadge": "{emote:badges.very_powerful_guild} | Guild members received a badge.",
       "fullHeal": "{emote:shopItems.regen} | Guild members have been fully healed.",
-      "advanceTime": "{emote:unitValues.time} | Guild members moved forward {{quantity}}h.",
+      "advanceTime": "{emote:unitValues.time} | Guild members moved forward by {{quantity}}h.",
       "partialHeal": "{emote:rewards.partialHeal} | Guild members have been partially healed. `+ {{quantity}} {emote:unitValues.health}`",
       "alterationHeal": "{emote:shopItems.healAlteration} | The status changes of the guild members have been deleted. Healthy members have been partially healed. `+ {{quantity}} {emote:unitValues.health}`",
       "alterationNoHeal": "{emote:shopItems.healAlteration} | The status changes of the guild members have been deleted.",
@@ -996,19 +996,19 @@
       "leaveShop": "You left the shop.",
       "alreadyBoughtPointsThisWeek": "You already purchased points this week, come back next week to buy some!",
       "noMissionToSkip": "You do not have any missions to skip!",
-      "noPet": "You don't have any pets on you, we can't diagnose a ghastly animal!"
+      "noPet": "You don't have any pet on you, we can't diagnose a ghastly animal!"
     }
   },
   "top": {
     "level": "Level {{level}}",
-    "titleScoreAllTime": "{emote:top.congrats} Displaying places {{minRank}} to {{maxRank}}",
+    "titleScoreAllTime": "{emote:top.congrats} Displaying top places {{minRank}} to {{maxRank}}",
     "titleScoreWeekly": "{emote:top.congrats} Displaying weekly top places {{minRank}} to {{maxRank}}",
     "yourRankTitle": "**Your ranking**",
     "yourRankFirst_one": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
     "yourRankFirst_other": "{emote:top.congrats} Congratulations **{{pseudo}}**! You are currently the best on a total of {{total}} players!",
     "yourRank_one": "{{badge}} **{{pseudo}}**, you currently top **{{rank}}** out of a total {{total}} player!",
     "yourRank_other": "{{badge}} **{{pseudo}}**, you currently top **{{rank}}** out of a total {{total}} players!",
-    "yourRankNoneScore": "{emote:top.error} | Unfortunately, you do not appear in the top because you have an score lower or equal to 100!",
+    "yourRankNoneScore": "{emote:top.error} | Unfortunately, you don't appear in the top because you have a score lower or equal to 100!",
     "yourRankAtPage": "(You can find yourself on page {{page}} / {{maxPage}})",
     "titleGlory": "{emote:unitValues.glory} Displaying glory top places {{minRank}} to {{maxRank}}",
     "yourRankNoneGlory_one": "{emote:top.error} | Unfortunately, you don't appear in the top because you haven't completed enough ranked fights yet! You still need to complete {{needFight}} ranked fights.",
@@ -1157,8 +1157,8 @@
       "gloryNegative": "**{{player}} :** - {{count}} {emote:unitValues.glory}\n",
       "gloryPositive": "**{{player}} :** + {{count}} {emote:unitValues.glory}\n",
       "leagueField": "League changes",
-      "leagueChangeUp": "️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
-      "leagueChangeDown": "↘️️ **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeUp": "{emote:other.leagueUp} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
+      "leagueChangeDown": "{emote:other.leagueDown} **{{player}} :** {{oldLeagueEmoji}} {{oldLeague}} -> {{newLeagueEmoji}} {{newLeague}}\n",
       "higherEloWins": [
         "{{winner}} imposes itself on the field with a marked performance.",
         "{{loser}} gave everything he had, but {{winner}} showed greater control of his game.",
@@ -1219,7 +1219,7 @@
     "objectIsActiveDuringFights": "This beverage can't be drunk right now. It'll be automatically consumed during your next fight!",
     "healthBonus": "{emote:unitValues.health} Health gained: {{value}}!",
     "energyBonus": "{emote:unitValues.energy} Energy gained: {{value}}!",
-    "timeBonus": "{emote:unitValues.time} You moved forward {{value}}!",
+    "timeBonus": "{emote:unitValues.time} You moved forward by {{value}}!",
     "noBonus": "{emote:messages.refuse} You consume the beverage you were carrying... It wasn't very effective!",
     "drinkSuccessTitle": "{{pseudo}}, you drink the beverage you were carrying!",
     "confirmationTitle": "{{pseudo}}, confirmation:",
@@ -1292,14 +1292,14 @@
     "chooseClass": "Select a class"
   },
   "sell": {
-    "noItemToSell": "Unfortunately, you don't have any items in your storage!",
-    "confirmSell": "Are you sure you want to separate from {{item}} for **{{value}}** {emote:unitValues.money}?",
+    "noItemToSell": "Unfortunately, you don't have any item in your storage!",
+    "confirmSell": "Are you sure you want to sell {{item}} for **{{value}}** {emote:unitValues.money}?",
     "sellCanceled": "The sale was successfully cancelled!",
     "sellTitle": "{{pseudo}}, confirmation:",
     "soldMessage": "You sold {{item}} for **{{value}}** {emote:unitValues.money}!",
     "soldMessageTitle": "{{pseudo}}, you sold an item.",
     "potionDestroyedTitle": "You have destroyed a potion.",
-    "potionDestroyedMessage": "**{{item}}** has been paid to a sink.",
+    "potionDestroyedMessage": "**{{item}}** has been thrown away into a sink.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}, you have received a piece of equipment that you already have.",
     "titleChoiceEmbed": "{{pseudo}}, selling an item",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
@@ -1315,7 +1315,7 @@
     "anotherPlayerTransferring": "Your guild member **{{playerName}}** is transferring a pet. Please try again later.",
     "transferCancelled": "The transfer has been cancelled.",
     "situationChanged": "Something went wrong during the transfer. Please try again.",
-    "noPet": "You have no pets to transfer and your guild's shelter is empty.",
+    "noPet": "You don't have any pet to transfer and your guild's shelter is empty.",
     "confirmTransferTitle": "{{pseudo}}, the transfer has been completed.",
     "confirmSwitch": "**{{oldPet}}** now stays in the shelter and **{{newPet}}** follows you!",
     "confirmDeposit": "**{{oldPet}}** has been moved to your guild's shelter!",
@@ -1414,5 +1414,23 @@
   "setPlayerInfo": {
     "playerModifiedTitle": "{{pseudo}}, player modification",
     "playerModifiedDesc": "The player has been successfully modified!\n\nID: **{{keycloakId}}**\nNickname: **{{pseudo}}**"
+  },
+  "fightHistory": {
+    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
+    "title": "{{pseudo}}, historique des combats",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire adverse :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
+    "attackSentence": {
+      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+    },
+    "resultSentence": {
+      "won": "{emote:fightHistory.won} Gagné !",
+      "lost": "{emote:fightHistory.lost} Perdu !",
+      "draw": "{emote:fightHistory.draw} Match nul..."
+    },
+    "leagueChanges": {
+      "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
+      "down": " ({emote:other.leagueDown} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))"
+    }
   }
 }

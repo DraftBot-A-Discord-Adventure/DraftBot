@@ -1610,7 +1610,7 @@
       "description": "{emote:unitValues.xp} ¡Ahora eres de nivel **{{level}}** !\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Tu vida ha sido restaurada.",
-        "fightUnlocked": "{emote:unitValues.attack} | ¡Las batallas se desbloquean con el comando {command:fight} ! Para más información sobre las batallas, ejecuta el comando {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
         "guildUnlocked": "{emote:other.guild} | Gremios desbloqueados con los comandos {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} ¡y mucho más! Para más información sobre gremios, utiliza el comando {command:help}.",
         "classUnlocked": "{emote:commands.classes} | ¡Clases desbloqueadas con los comandos {command:classes} y {command:classesinfo} ! Para obtener más información sobre las clases, utilice el comando {command:help}.",
         "classTier": "{emote:commands.classes} | Clases de nivel {{tier}} ¡desbloqueadas! Para obtener más información sobre las clases, utilice los comandos {command:classesinfo} y {command:help}.",
