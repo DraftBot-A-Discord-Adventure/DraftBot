@@ -1606,11 +1606,11 @@
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Guild points lost: **{{guildPointsLost}}**",
     "leavePVEIslandDescEnd": "\n\nA boat will pick you up and take you back to a coast on the mainland.",
     "levelUp": {
-      "title": "{{pseudo}}you're stepping up your game!",
+      "title": "{{pseudo}}, you leveled up!",
       "description": "{emote:unitValues.xp} You are now level **{{level}}**!\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Your life has been restored.",
-        "fightUnlocked": "{emote:unitValues.attack} | Unlock fights with the {command:fight} command! For more information on battles, run the command {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
         "guildUnlocked": "{emote:other.guild} | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and much more! For more information on guilds, use the command {command:help}.",
         "classUnlocked": "{emote:commands.classes} | Classes unlocked with {command:classes} and {command:classesinfo} commands! For more information on classes, use the {command:help}command.",
         "classTier": "{emote:commands.classes} | Level classes {{tier}} unlocked! For more information on the classes, use the commands {command:classesinfo} and {command:help}.",
