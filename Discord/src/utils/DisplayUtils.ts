@@ -416,7 +416,7 @@ export class DisplayUtils {
 			}
 			default:
 				return i18n.t(`items:objectsNatures.${nature}`, {
-					power: power,
+					power,
 					lng
 				});
 		}
