@@ -1198,7 +1198,8 @@
     "88": "Carte SYM",
     "89": "Poisson mort",
     "9": "Clé rouillée",
-    "90": "Talisman de Grenouille"
+    "90": "Talisman de Grenouille",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "Aucun familier",
@@ -1563,7 +1564,8 @@
     "94": "Poudre de Squelette",
     "95": "Lame de l'aura argentée",
     "96": "Electektron",
-    "97": "Lame du Phoenix"
+    "97": "Lame du Phoenix",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "salade",
