@@ -616,7 +616,7 @@ export class Player extends Model {
 			});
 
 			/*
-			 * Clone the mission entity and player to this player model and the entity instance passed in the parameters
+			 * Clone the mission entity and player to this player model, and the entity instance passed in the parameters
 			 * As the money and experience may have changed, we update the models of the caller
 			 */
 			Object.assign(this, newPlayer);
@@ -657,7 +657,9 @@ export class Player extends Model {
 			+ (playerActiveObjects.armor.getAttack() < playerAttack
 				? playerActiveObjects.armor.getAttack()
 				: playerAttack)
-			+ playerActiveObjects.object.getAttack()
+			+ (playerActiveObjects.object.getAttack() / 2 < playerAttack
+				? playerActiveObjects.object.getAttack()
+				: playerAttack * 2)
 			+ playerActiveObjects.potion.getAttack();
 		return attack > 0 ? attack : 0;
 	}
@@ -676,7 +678,9 @@ export class Player extends Model {
 			+ (playerActiveObjects.armor.getDefense() < playerDefense
 				? playerActiveObjects.armor.getDefense()
 				: playerDefense)
-			+ playerActiveObjects.object.getDefense()
+			+ (playerActiveObjects.object.getDefense() / 2 < playerDefense
+				? playerActiveObjects.object.getDefense()
+				: playerDefense * 2)
 			+ playerActiveObjects.potion.getDefense();
 		return defense > 0 ? defense : 0;
 	}
