@@ -1,6 +1,6 @@
 {
   "attack": 30,
-  "defense": 0,
+  "defense": 1,
   "speed": 40,
   "health": 10,
   "fightPoint": -25,
