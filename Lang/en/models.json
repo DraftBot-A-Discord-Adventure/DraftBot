@@ -1198,7 +1198,8 @@
     "88": "SYM card",
     "89": "Dead fish",
     "9": "Rusty key",
-    "90": "Frog Talisman"
+    "90": "Frog Talisman",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "No pet",
@@ -1563,7 +1564,8 @@
     "94": "Skeleton powder",
     "95": "Silver aura blade",
     "96": "Electektron",
-    "97": "Phoenix Blade"
+    "97": "Phoenix Blade",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "salad",
