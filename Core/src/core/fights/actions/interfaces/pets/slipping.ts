@@ -45,7 +45,7 @@ const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Pro
 	 * Damages are halved because the pet is slipping too far away and status is set to failure
 	 */
 	return Promise.resolve({
-		damages: Math.round(FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo())
+		damages: Math.round(FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo(), true)
 			* (opponent.getLastFightActionUsed()?.type === FightActionType.DISTANCE ? 0.3 : 1)),
 		assistanceStatus: opponent.getLastFightActionUsed()?.type === FightActionType.DISTANCE ? PetAssistanceState.FAILURE : PetAssistanceState.SUCCESS
 	});
