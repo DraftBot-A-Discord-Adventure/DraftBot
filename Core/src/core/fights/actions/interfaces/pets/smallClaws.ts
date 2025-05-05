@@ -39,7 +39,7 @@ const use: PetAssistanceFunc = (fighter, opponent, _turn, _fightController): Pro
 		return null;
 	}
 	return Promise.resolve({
-		damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo()),
+		damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo(), true),
 		assistanceStatus: PetAssistanceState.SUCCESS
 	});
 };

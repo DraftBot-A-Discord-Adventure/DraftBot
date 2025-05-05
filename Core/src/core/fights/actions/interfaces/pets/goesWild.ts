@@ -38,7 +38,7 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 	if (!(turn === 17 || turn === 18)) {
 		return null;
 	}
-	const damages = FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo());
+	const damages = FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo(), true);
 
 	const result: PetAssistanceResult = {
 		damages,

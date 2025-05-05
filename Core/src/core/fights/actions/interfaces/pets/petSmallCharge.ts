@@ -43,7 +43,7 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 	// At turn 8 / 9, the pet charges
 	if (turn === 8 || turn === 9) {
 		const result: PetAssistanceResult = {
-			damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo()),
+			damages: FightActionController.getAttackDamage(getStatsInfo(fighter, opponent), fighter, getAttackInfo(), true),
 			assistanceStatus: PetAssistanceState.SUCCESS
 		};
 
