@@ -1,4 +1,6 @@
-import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
+import {
+	ItemCategory, ItemNature
+} from "../../../Lib/src/constants/ItemConstants";
 import { ItemDataController } from "./DataController";
 import { SupportItem } from "./SupportItem";
 import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
@@ -21,9 +23,20 @@ export class ObjectItem extends SupportItem {
 		defense: Infinity,
 		speed: Infinity
 	}): SupportItemDisplayPacket {
-		let maxPower = this.power;
-		if (maxStatsValue.speed >= this.power / 2) {
-			maxPower = this.power;
+		let maxPower: number;
+		switch (this.nature) {
+			case ItemNature.ATTACK:
+				maxPower = maxStatsValue.attack >= this.power / 2 ? this.power : maxStatsValue.attack * 2;
+				break;
+			case ItemNature.DEFENSE:
+				maxPower = maxStatsValue.defense >= this.power / 2 ? this.power : maxStatsValue.defense * 2;
+				break;
+			case ItemNature.SPEED:
+				maxPower = maxStatsValue.speed >= this.power / 2 ? this.power : maxStatsValue.speed * 2;
+				break;
+			default:
+				maxPower = this.power;
+				break;
 		}
 		return {
 			itemCategory: this.getCategory(),
