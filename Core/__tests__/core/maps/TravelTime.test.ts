@@ -182,4 +182,35 @@ describe('TravelTime', () => {
 		score = await TravelTime.joinBoatScore({} as any);
 		expect(score).toBeGreaterThanOrEqual(0);
 	});
+
+	// New tests for small event adjustments after time travel
+	it('adjusts last small event when traveling longer than alteration remaining', async () => {
+		const small = { time: now, save: vi.fn().mockResolvedValue(undefined) };
+		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
+		const player: any = {
+			effectEndDate: new Date(now + 5 * 60_000),
+			startTravelDate: new Date(now - 5 * 60_000),
+			id: 1,
+			keycloakId: 'userLongTravel'
+		};
+		await TravelTime.timeTravel(player, 120, 0);
+		const diff = now - small.time;
+		expect(diff).toBeGreaterThan(10 * 60_000);
+		expect(small.save).toHaveBeenCalledOnce();
+	});
+
+	it('adjusts last small event when traveling shorter equal to alteration remaining', async () => {
+		const small = { time: now, save: vi.fn().mockResolvedValue(undefined) };
+		vi.spyOn(PlayerSmallEvents, 'getLastOfPlayer').mockResolvedValueOnce(small as any);
+		const player: any = {
+			effectEndDate: new Date(now + 5 * 60_000),
+			startTravelDate: new Date(now - 5 * 60_000),
+			id: 1,
+			keycloakId: 'userShortTravel'
+		};
+		await TravelTime.timeTravel(player, 10, 0);
+		const diff = now - small.time;
+		expect(diff).toBe(5 * 60_000);
+		expect(small.save).toHaveBeenCalledOnce();
+	});
 });
