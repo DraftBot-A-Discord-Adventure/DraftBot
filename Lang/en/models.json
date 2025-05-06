@@ -135,7 +135,7 @@
       "new": "is blinded.",
       "active": "is blinded and strikes at random all around him.",
       "noAction": "is blinded and misses his target completely.",
-      "stop": "regain your sight."
+      "stop": "regains their sight."
     },
     "boomerangAttack": {
       "description": "Throws a boomerang that deals damage to the enemy up to 3 times.",
