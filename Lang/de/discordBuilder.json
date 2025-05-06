@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Afficher le classement des joueurs en fonction de leur gloire.",
-        "name": "glorieux"
+        "name": "ruhmreich"
       },
       "guild": {
         "description": "Anzeige der Rangfolge der Gilden nach Punkten.",
@@ -382,7 +382,7 @@
     }
   },
   "fightHistory": {
-    "name": "historiquecombat",
-    "description": "Afficher l'historique des combats."
+    "name": "Kampfhistorisch",
+    "description": "Die Historisch der Kämpfe anzeigen."
   }
 }
