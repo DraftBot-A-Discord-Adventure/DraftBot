@@ -606,22 +606,22 @@
     "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n{emote:other.telescope} *{{search}}*.",
     "after_search_format": "{{oldMessage}}\n\n{{actionIntro}}, {{action}} **{{specific}}**. {{outro}}.",
     "intro": [
-      "you meet an oracle who pretends to be called **{{name}}**",
-      "a man seems strange to you, so you will meet him. He says an oracle by the name of **{{name}}**",
-      "you meet an oracle named **{{name}}**",
-      "you passed by an oracle that is calling you. It says it's called **{{name}}**",
+      "you encounter an oracle who pretends to be called **{{name}}**",
+      "a man seems strange to you, so you go meet him. He says to be an oracle by the name of **{{name}}**",
+      "you encounter an oracle named **{{name}}**",
+      "you pass by an oracle who is calling you out. He says his name is **{{name}}**",
       "you are called out by a man who says to be called **{{name}}**",
-      "an oracle named **{{name}}** apostrophe you",
-      "a foreigner calling himself **{{name}}** asks you to approach",
-      "a man who emerges from nowhere runs towards you and stands as **{{name}}**",
-      "a suspicious unknown asks you to approach, after which he tells you to be called **{{name}}**"
+      "an oracle named **{{name}}** apostrophes you",
+      "a foreigner pretending to be named **{{name}}** asks you to come closer",
+      "a man who emerges from nowhere runs towards you and presents himself as **{{name}}**",
+      "a suspicious unknown asks you to come closer, after which he tells you his name is **{{name}}**"
     ],
     "searchAction": [
       "He tells you he can give you information about the sky, but he needs time to observe it",
       "He says he is able to give you information about the sky as long as you give him a little time",
       "He tells you that if you give him time, he would be able to give you information about the sky",
       "He says he can give information about the sky if he is given the necessary time",
-      "The user pretends to be able to read in the stars provided that you give him time",
+      "He pretends to be able to read in the stars provided that you give him time",
       "He claims to be able to give you information about the sky if you give him some of your time"
     ],
     "search": [
@@ -633,12 +633,12 @@
       "The oracle observes the sky with attention",
       "He lifts his head to carefully contemplate the sky",
       "He starts to scrutinize intensely at the stars",
-      "The man sits against a tree and contemplate the sky",
+      "The man sits against a tree and contemplates the sky",
       "The man lies on the ground and looks up to the sky"
     ],
     "actionIntro": [
       "After a few minutes",
-      "Short time after",
+      "A short while after",
       "A couple of minutes later",
       "After making you wait a few minutes",
       "After a little wait",
@@ -647,18 +647,18 @@
     ],
     "action": [
       "he informs you that",
-      "he informs you that",
+      "he lets you know that",
       "he informs you that",
       "he tells you that",
       "he starts to tell you that",
       "he declares that"
     ],
     "outro": [
-      "You are leaving with this news",
+      "You are leaving astonished by this news",
       "You resume your way dreaming",
       "You thank him and leave happy to know this news",
-      "You leave him full of stars in your eyes",
-      "You leave without regretting having stopped",
+      "You leave him your eyes full of stars",
+      "You leave without regretting having stopped by",
       "You go back on your way perplexed"
     ],
     "nObjectsCrossTheSky_one": "{{count}} item will travel through",
