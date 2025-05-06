@@ -102,6 +102,10 @@ async function acceptJoinBoat(player: Player, response: DraftBotPacket[]): Promi
 	};
 	await Maps.startBoatTravel(player, options, NumberChangeReason.PVE_ISLAND, response);
 	await MissionsController.update(player, response, { missionId: "joinMemberOnBoat" });
+	await MissionsController.update(player, response, {
+		missionId: "joinPVEIsland",
+		set: true
+	});
 	response.push(makePacket(CommandJoinBoatAcceptPacketRes, { score: gainScore }));
 	await player.save();
 }
