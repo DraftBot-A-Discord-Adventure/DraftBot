@@ -1198,7 +1198,8 @@
     "88": "SYM-Karte",
     "89": "Toter Fisch",
     "9": "Rostschlüssel",
-    "90": "Frosch-Talisman"
+    "90": "Frosch-Talisman",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "Keine Vertrauten",
@@ -1563,7 +1564,8 @@
     "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung",
     "95": "Klinge der silbernen Aura",
     "96": "Electektron",
-    "97": "Klinge des Phönix"
+    "97": "Klinge des Phönix",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "Salat",
