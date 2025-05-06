@@ -158,16 +158,16 @@ export class TravelTime {
 		let timeMs = isMilliseconds ? time : minutesToMilliseconds(time);
 		const initialEffectEndDate = player.effectEndDate.valueOf();
 
-		// First, we have to heal the effect if it exists
+		// Move the end date of the effect
 		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - timeMs, 0));
 
 		// Move the start date
 		player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
 
-		// Update the milliseconds to shave from a small event
-		if (player.effectEndDate.valueOf() < Date.now() && initialEffectEndDate > Date.now()) { // If the effect is not active anymore and was active in the first place
+		// If the effect is not active anymore and was active before
+		if ((player.effectEndDate.valueOf() < Date.now()) && (initialEffectEndDate > Date.now())) {
 			// We only want to move the start travel date by the amount of the time travel
-			timeMs -= Date.now() - player.effectEndDate.valueOf();
+			timeMs = Date.now() - player.effectEndDate.valueOf();
 		}
 
 		if (Date.now() > player.effectEndDate.valueOf()) {
