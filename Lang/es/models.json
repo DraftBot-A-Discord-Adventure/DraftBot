@@ -1198,7 +1198,8 @@
     "88": "Tarjeta SYM",
     "89": "Peces muertos",
     "9": "Llave oxidada",
-    "90": "Talismán de rana"
+    "90": "Talismán de rana",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "No se admiten animales",
@@ -1563,7 +1564,8 @@
     "94": "Polvo de esqueleto",
     "95": "Hoja de aura plateada",
     "96": "Electektron",
-    "97": "Cuchilla Fénix"
+    "97": "Cuchilla Fénix",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "ensalada",
