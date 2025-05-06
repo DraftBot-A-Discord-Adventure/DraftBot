@@ -1198,7 +1198,8 @@
     "88": "Carta SYM",
     "89": "Pesce morto",
     "9": "Chiave Arrugginita",
-    "90": "Talismano della rana"
+    "90": "Talismano della rana",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "Nessuno animale di compagnia",
@@ -1563,7 +1564,8 @@
     "94": "Polvere di scheletro",
     "95": "Lama dell'aura d'argento",
     "96": "Electektron",
-    "97": "Lama di fenice"
+    "97": "Lama di fenice",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "insalata",
