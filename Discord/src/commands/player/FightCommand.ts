@@ -125,13 +125,22 @@ export async function handleCommandFightRefusePacketRes(context: PacketContext):
  * Add the fight action field to the intro embed of the fight for one fighter
  * @param introEmbed - Embed of the fight intro
  * @param lng
- * @param fighterName - Name of the fighter
- * @param fightActions - Map containing the ids and breath cost of the fighter's fight actions
+ * @param fighterInfos - Fighter infos
  * @param opponentFightActionsCount - Number of fight actions of the opponent
  * @param pet - Pet of the fighter
  */
-function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterName: string, fightActions: Array<[string, number]>, opponentFightActionsCount: number, pet?: OwnedPet): void {
-	let fightActionsDisplay = fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
+function addFightProfileFor(
+	introEmbed: DraftBotEmbed,
+	lng: Language,
+	fighterInfos: {
+		name: string;
+		rank: number;
+		fightActions: Array<[string, number]>;
+	},
+	opponentFightActionsCount: number,
+	pet?: OwnedPet
+): void {
+	let fightActionsDisplay = fighterInfos.fightActions.map(([actionId, breathCost]) => i18n.t("commands:fight.fightActionNameDisplay", {
 		lng,
 		fightActionEmote: EmoteUtils.translateEmojiToDiscord(DraftBotIcons.fightActions[actionId]),
 		fightActionName: i18n.t(`models:fight_actions.${actionId}.name`, {
@@ -143,14 +152,22 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 		.join("\n");
 
 	// Add a new line to make the display aligned with the opponent
-	if (opponentFightActionsCount - fightActions.length > 0) {
-		fightActionsDisplay += "\n".repeat(opponentFightActionsCount - fightActions.length);
+	if (opponentFightActionsCount - fighterInfos.fightActions.length > 0) {
+		fightActionsDisplay += "\n".repeat(opponentFightActionsCount - fighterInfos.fightActions.length);
 	}
 
-	const petDisplay = pet
-		? `\n\n${i18n.t("commands:fight.petOf", {
+	const rankDisplay = fighterInfos.rank > 0
+		? i18n.t("commands:fight.fighterRank", {
 			lng,
-			pseudo: fighterName
+			pseudo: fighterInfos.name,
+			rank: fighterInfos.rank
+		})
+		: pet ? "\n" : "";
+
+	const petDisplay = pet
+		? `\n${i18n.t("commands:fight.petOf", {
+			lng,
+			pseudo: fighterInfos.name
 		})}\n${DisplayUtils.getOwnedPetInlineDisplay(pet, lng)}`
 		: "";
 
@@ -158,8 +175,8 @@ function addFightProfileFor(introEmbed: DraftBotEmbed, lng: Language, fighterNam
 		name: DiscordConstants.EMPTY_MESSAGE,
 		value: `${i18n.t("commands:fight.actionsOf", {
 			lng,
-			pseudo: fighterName
-		})}\n${fightActionsDisplay}${petDisplay}`,
+			pseudo: fighterInfos.name
+		})}\n${fightActionsDisplay}${rankDisplay}${petDisplay}`,
 		inline: true
 	});
 }
@@ -191,8 +208,28 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 			opponent: escapeUsername(opponentDisplayName)
 		}), interaction.user);
 
-		addFightProfileFor(embed, lng, escapeUsername(interaction.user.displayName), packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
-		addFightProfileFor(embed, lng, escapeUsername(opponentDisplayName), packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+		addFightProfileFor(
+			embed,
+			lng,
+			{
+				name: escapeUsername(interaction.user.displayName),
+				rank: packet.initiatorRanking,
+				fightActions: packet.fightInitiatorActions
+			},
+			packet.fightOpponentActions.length,
+			packet.fightInitiatorPet
+		);
+		addFightProfileFor(
+			embed,
+			lng,
+			{
+				name: escapeUsername(opponentDisplayName),
+				rank: packet.opponentRanking,
+				fightActions: packet.fightOpponentActions
+			},
+			packet.fightInitiatorActions.length,
+			packet.fightOpponentPet
+		);
 
 		await buttonInteraction?.editReply({ embeds: [embed] });
 		await DraftbotCachedMessages.getOrCreate(interaction.id, DraftbotHistoryCachedMessage)

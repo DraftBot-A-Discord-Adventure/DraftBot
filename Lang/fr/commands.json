@@ -1045,8 +1045,9 @@
     "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour démarrer un combat !",
     "monsterNotFound": "Aucun monstre n'a été trouvé pour vous affronter. Veuillez signaler cet incident à notre support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
-    "actionsOf": "**Attaques de {{pseudo}} :**",
-    "petOf": "**Familier de {{pseudo}} :**",
+    "actionsOf": "**Attaques de {{pseudo}}:**",
+    "petOf": "**Familier de {{pseudo}}:**",
+    "fighterRank": "\n\n**Classement de {{pseudo}}:**\n{{rank}} {emote:announcements.trophy}",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost}}",
     "summarize": {
       "title": "Résumé du combat",

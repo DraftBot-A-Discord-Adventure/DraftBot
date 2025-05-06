@@ -29,6 +29,7 @@ import { BuggedFightPacket } from "../../../../Lib/src/packets/fights/BuggedFigh
 import { PetAssistanceResult } from "../../../../Lib/src/types/PetAssistanceResult";
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { PetEntities } from "../database/game/models/PetEntity";
+import { Players } from "../database/game/models/Player";
 
 export class FightView {
 	public context: PacketContext;
@@ -46,7 +47,7 @@ export class FightView {
 	 * @param opponent
 	 * @param response
 	 */
-	introduceFight(response: DraftBotPacket[], fighter: PlayerFighter, opponent: MonsterFighter | AiPlayerFighter): void {
+	async introduceFight(response: DraftBotPacket[], fighter: PlayerFighter, opponent: MonsterFighter | AiPlayerFighter): Promise<void> {
 		const fightInitiatorActions = new Array<[string, number]>();
 		for (const action of fighter.availableFightActions) {
 			fightInitiatorActions.push([action[0], action[1].breath]);
@@ -58,6 +59,8 @@ export class FightView {
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
 			fightId: this.fightController.id,
 			fightInitiatorKeycloakId: fighter.player.keycloakId,
+			initiatorRanking: await Players.getRankById(fighter.player.id),
+			opponentRanking: opponent instanceof MonsterFighter ? 0 : await Players.getRankById(opponent.player.id),
 			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? null : opponent.player.keycloakId,
 			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : null,
 			fightInitiatorActions,

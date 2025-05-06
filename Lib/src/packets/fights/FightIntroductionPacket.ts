@@ -9,6 +9,10 @@ export class CommandFightIntroduceFightersPacket extends DraftBotPacket {
 
 	fightInitiatorKeycloakId!: string;
 
+	initiatorRanking!: number;
+
+	opponentRanking!: number;
+
 	fightOpponentKeycloakId?: string;
 
 	fightOpponentMonsterId?: string;
