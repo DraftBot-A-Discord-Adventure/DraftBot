@@ -1198,7 +1198,8 @@
     "88": "Cartão SYM",
     "89": "Peixes mortos",
     "9": "Chave enferrujada",
-    "90": "Talismã de sapo"
+    "90": "Talismã de sapo",
+    "91": "Spoutnik"
   },
   "pets": {
     "0_female": "Sem animais de estimação",
@@ -1563,7 +1564,8 @@
     "94": "Pó de esqueleto",
     "95": "Lâmina de aura prateada",
     "96": "Electektron",
-    "97": "Lâmina de Fénix"
+    "97": "Lâmina de Fénix",
+    "98": "Épée de givre"
   },
   "foods": {
     "herbivorousFood_one": "salada",

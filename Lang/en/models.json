@@ -135,7 +135,7 @@
       "new": "is blinded.",
       "active": "is blinded and strikes at random all around him.",
       "noAction": "is blinded and misses his target completely.",
-      "stop": "regain your sight."
+      "stop": "regains their sight."
     },
     "boomerangAttack": {
       "description": "Throws a boomerang that deals damage to the enemy up to 3 times.",
@@ -1198,7 +1198,8 @@
     "88": "SYM card",
     "89": "Dead fish",
     "9": "Rusty key",
-    "90": "Frog Talisman"
+    "90": "Frog Talisman",
+    "91": "Sputnik"
   },
   "pets": {
     "0_female": "No pet",
@@ -1563,7 +1564,8 @@
     "94": "Skeleton powder",
     "95": "Silver aura blade",
     "96": "Electektron",
-    "97": "Phoenix Blade"
+    "97": "Phoenix Blade",
+    "98": "Frost sword"
   },
   "foods": {
     "herbivorousFood_one": "salad",
@@ -1610,7 +1612,7 @@
       "description": "{emote:unitValues.xp} You are now level **{{level}}**!\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Your life has been restored.",
-        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} | Battles unlocked with commands {command:fight} and {command:fighthistory} ! For more information about combat, execute the {command:help} command.",
         "guildUnlocked": "{emote:other.guild} | Guilds unlocked with the commands {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} and much more! For more information on guilds, use the command {command:help}.",
         "classUnlocked": "{emote:commands.classes} | Classes unlocked with {command:classes} and {command:classesinfo} commands! For more information on classes, use the {command:help}command.",
         "classTier": "{emote:commands.classes} | Level classes {{tier}} unlocked! For more information on the classes, use the commands {command:classesinfo} and {command:help}.",
