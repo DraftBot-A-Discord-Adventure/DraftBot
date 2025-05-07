@@ -285,7 +285,7 @@
       },
       "glory": {
         "description": "Mostra a classificação das guildas de acordo com a sua glória.",
-        "name": "glorieux"
+        "name": "glorioso"
       },
       "guild": {
         "description": "Mostra a classificação das guildas de acordo com os seus pontos.",
@@ -382,7 +382,7 @@
     }
   },
   "fightHistory": {
-    "name": "historiquecombat",
-    "description": "Afficher l'historique des combats."
+    "name": "combate histórico",
+    "description": "Ver o historial de batalhas."
   }
 }
