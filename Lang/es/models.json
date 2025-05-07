@@ -173,7 +173,7 @@
       "active": "sufre ataques de los aliados de su oponente."
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
+      "description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
       "name_one": "Ataque con cañón",
       "name_other": "Ataques con cañón"
     },
@@ -188,7 +188,7 @@
       "name_other": "Ataques a clubes"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "description": "Requiere un turno para cargar el ataque. Si el atacante tiene menos del 45% de su energía, este ataque no puede fallar. En caso contrario, la precisión de este ataque es de 70. Este ataque sólo puede usarse una vez por jugador y batalla.",
       "name_one": "Ataque definitivo",
       "name_other": "Ataques definitivos"
     },
@@ -225,7 +225,7 @@
     "counterAttack": {
       "description": "Repite la misma acción que tu oponente. No funciona con ataques mágicos o divinos, o si el oponente no ha atacado.",
       "name_one": "Réplica de ataque",
-      "customMessage": "ne parvient pas à riposter.",
+      "customMessage": "fue incapaz de defenderse.",
       "name_other": "Los ataques contraatacan"
     },
     "createBomb": {
@@ -302,7 +302,7 @@
       "stop": "ya no está congelado."
     },
     "full": {
-      "name": "repue et soignée de vos altérations",
+      "name": "reparado y cuidado",
       "new": "está lleno y necesita descansar. velocidad: 0",
       "active": "está lleno y necesita descansar.",
       "stop": "ya no está lleno."
@@ -709,7 +709,7 @@
       "particle": "a la"
     },
     "1100": {
-      "description": "Ce rivage est la première chose que l'on voit quand on arrive sur l'île de glace. Il tire son nom du bruit que faisaient les marins quand ils ont accosté. Évidemment, ils revenaient de l'île volcanique où la température est beaucoup plus chaude.",
+      "description": "Esta orilla es lo primero que se ve al llegar a la isla de hielo. Debe su nombre al ruido que hacían los marineros al desembarcar. Obviamente, regresaban de la isla volcánica, donde la temperatura es mucho más cálida.",
       "name": "Gla-gla litoral",
       "particle": "a la"
     },
@@ -759,7 +759,7 @@
       "particle": "a la"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
+      "description": "El monte Celestrum es la montaña dominante de la región. Con varios kilómetros de altura, Celestrum es visible para todos. Se dice que lleva el nombre de la antigua diosa. De hecho, sólo una persona ha conseguido escalar hasta la cima. De ella sólo quedan sus iniciales: M-B.",
       "name": "Monte Celestrum",
       "particle": "a la"
     },
@@ -809,7 +809,7 @@
       "particle": "a la"
     },
     "22222": {
-      "description": "Une zone de test pour les monstres. N'est jamais censée apparaître dans le jeu.",
+      "description": "Una zona de prueba para monstruos. Se supone que nunca aparecerán en el juego.",
       "name": "Zona de pruebas de monstruos",
       "particle": "a la"
     },
@@ -839,12 +839,12 @@
       "particle": "a la"
     },
     "28": {
-      "description": "Entrée du château du roi. Entouré d'une épaisse muraille, il semble pouvoir résister à toutes les attaques imaginables.",
+      "description": "Entrada al castillo del Rey. Rodeado por una gruesa muralla, parece capaz de resistir cualquier ataque imaginable.",
       "name": "Puertas del castillo",
       "particle": "a la"
     },
     "29": {
-      "description": "Immense salle ornée de nombreuses oeuvres d'art.",
+      "description": "Una enorme sala adornada con numerosas obras de arte.",
       "name": "Sala de recepción",
       "particle": "a la"
     },
@@ -854,7 +854,7 @@
       "particle": "a"
     },
     "32": {
-      "description": "La route qui mène au château du Roi.",
+      "description": "El camino que lleva al castillo del Rey.",
       "name": "Ruta al castillo del Rey",
       "particle": "a"
     },
@@ -1199,7 +1199,7 @@
     "89": "Peces muertos",
     "9": "Llave oxidada",
     "90": "Talismán de rana",
-    "91": "Spoutnik"
+    "91": "Sputnik"
   },
   "pets": {
     "0_female": "No se admiten animales",
@@ -1565,7 +1565,7 @@
     "95": "Hoja de aura plateada",
     "96": "Electektron",
     "97": "Cuchilla Fénix",
-    "98": "Épée de givre"
+    "98": "Espada de escarcha"
   },
   "foods": {
     "herbivorousFood_one": "ensalada",
@@ -1596,13 +1596,13 @@
   },
   "guilds": {
     "levelUpTitle": "{emote:unitValues.xp} ¡El gremio {{guild}} sube de nivel!",
-    "levelUpDesc": "La guilde est désormais niveau **{{level}}** !"
+    "levelUpDesc": "¡El gremio es ahora de nivel **{{level}}** !"
   },
   "players": {
     "koTitle": "{{pseudo}}¡te han noqueado!",
     "koDesc": "{emote:effects.dead} Utiliza el comando {command:respawn} para empezar a jugar de nuevo.",
     "koDmTitle": "¡Hola Fighter!",
-    "koDmDesc": "Il semblerait que vous ayez été mis K.O... {emote:effects.dead}\nGrâce à nos technologies avancées, il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce ! {emote:other.tada}\nMalheureusement, l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, faites {command:respawn}.",
+    "koDmDesc": "Parece que te han noqueado... {emote:effects.dead}\nGracias a nuestras avanzadas tecnologías, hemos podido alterar los acontecimientos para salvarte de una muerte agónica. {emote:other.tada}\nPor desgracia, la operación es costosa y tu puntuación se ha visto afectada por esta muerte... \n\nPara volver a jugar, visita {command:respawn}.",
     "leavePVEIslandTitle": "{{pseudo}}desmayos",
     "leavePVEIslandDescStart": "{emote:effects.confounded} Sientes que tus fuerzas se agotan, que no puedes más. Te desmayas en el suelo...\n\n{emote:unitValues.lostMoney} Dinero perdido: **{{moneyLost}}**",
     "leavePVEIslandMalusGuildPoints": "\n{emote:unitValues.guildPoint} Puntos de gremio perdidos: **{{guildPointsLost}}**",
@@ -1612,7 +1612,7 @@
       "description": "{emote:unitValues.xp} ¡Ahora eres de nivel **{{level}}** !\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Tu vida ha sido restaurada.",
-        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} ¡| Batallas desbloqueadas con los comandos {command:fight} y {command:fighthistory} ! Para más información sobre las batallas, ejecuta el comando {command:help}.",
         "guildUnlocked": "{emote:other.guild} | Gremios desbloqueados con los comandos {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} ¡y mucho más! Para más información sobre gremios, utiliza el comando {command:help}.",
         "classUnlocked": "{emote:commands.classes} | ¡Clases desbloqueadas con los comandos {command:classes} y {command:classesinfo} ! Para obtener más información sobre las clases, utilice el comando {command:help}.",
         "classTier": "{emote:commands.classes} | Clases de nivel {{tier}} ¡desbloqueadas! Para obtener más información sobre las clases, utilice los comandos {command:classesinfo} y {command:help}.",
