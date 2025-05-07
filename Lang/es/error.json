@@ -152,7 +152,7 @@
   "aDevMessedUp": "¡Uy! Se ha producido un error. No se preocupe, no es culpa suya. Le pedimos disculpas por las molestias ocasionadas. Para resolver este problema, ponte en contacto con nuestro equipo de asistencia a través de nuestro servidor Discord: https://discord.gg/5JqrMtZ",
   "commandNotAvailableHere": "Este comando no se puede utilizar en esta ubicación.",
   "guildFoodStorageFull": "Has recibido **{{quantity}}x {{food}}**, pero las reservas de comida de tu gremio están llenas. La comida se ha tirado.",
-  "fightBugged": "Le combat a été annulé car il y a eu un problème technique. Ceci est en général dû à la suppression d'un message nécessaire au combat ou à un problème de permissions.",
-  "resetIsNow": "{emote:announcements.trophy} Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 5 minutes !",
-  "seasonEndIsNow": "{emote:unitValues.glory} La saison de combat est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 20 minutes !"
+  "fightBugged": "El combate se ha cancelado debido a un problema técnico. Normalmente se debe a la eliminación de un mensaje necesario para el combate o a un problema con los permisos.",
+  "resetIsNow": "{emote:announcements.trophy} ¡Se restablecen las clasificaciones de esta semana! El ganador se anunciará en breve en el servidor de bots. El juego se reanudará en menos de 5 minutos.",
+  "seasonEndIsNow": "{emote:unitValues.glory} ¡Se reinicia la temporada de combates! ¡El ganador será anunciado en breve en el servidor bot! ¡El juego se reanudará en menos de 20 minutos!"
 }
