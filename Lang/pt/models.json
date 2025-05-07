@@ -173,7 +173,7 @@
       "active": "sofre ataques dos aliados do seu adversário."
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
+      "description": "A precisão deste ataque é reduzida em adversários que se movam rapidamente. Um bónus de dano é aplicado a este ataque se o adversário for muito lento. O adversário pode ser abrandado por este ataque. Causa mais danos se for usado várias vezes seguidas.",
       "name_one": "Ataque de canhão",
       "name_other": "Ataques de canhão"
     },
@@ -302,7 +302,7 @@
       "stop": "já não está congelado."
     },
     "full": {
-      "name": "repue et soignée de vos altérations",
+      "name": "reparadas e cuidadas",
       "new": "está cheio e precisa de descansar. velocidade: 0",
       "active": "está cheio e precisa de descansar.",
       "stop": "já não está cheio."
@@ -1199,7 +1199,7 @@
     "89": "Peixes mortos",
     "9": "Chave enferrujada",
     "90": "Talismã de sapo",
-    "91": "Spoutnik"
+    "91": "Sputnik"
   },
   "pets": {
     "0_female": "Sem animais de estimação",
@@ -1565,7 +1565,7 @@
     "95": "Lâmina de aura prateada",
     "96": "Electektron",
     "97": "Lâmina de Fénix",
-    "98": "Épée de givre"
+    "98": "Espada de gelo"
   },
   "foods": {
     "herbivorousFood_one": "salada",
@@ -1612,7 +1612,7 @@
       "description": "{emote:unitValues.xp} Já está no nível **{{level}}** !\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | A tua vida foi restaurada.",
-        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} | Batalhas desbloqueadas com os comandos {command:fight} e {command:fighthistory} ! Para mais informações sobre as batalhas, executar o comando {command:help}.",
         "guildUnlocked": "{emote:other.guild} | Guildas desbloqueadas com os comandos {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} e muito mais! Para mais informações sobre guildas, utiliza o comando {command:help}.",
         "classUnlocked": "{emote:commands.classes} | Classes desbloqueadas com os comandos {command:classes} e {command:classesinfo} ! Para obter mais informações sobre as classes, utilize o comando {command:help}.",
         "classTier": "{emote:commands.classes} | Classes de nível {{tier}} desbloqueadas! Para obter mais informações sobre as classes, utilize os comandos {command:classesinfo} e {command:help}.",

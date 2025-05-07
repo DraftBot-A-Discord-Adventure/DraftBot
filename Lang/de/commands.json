@@ -356,7 +356,7 @@
       "support": "Personen mit der Besoldungsgruppe auf dem Bot-Server-Server",
       "translator": ":earth_africa: ` Traducer `",
       "advertiser": "Person, die geholfen hat, den Bot auf einen Server mit über 2000 Mitgliedern zu bringen",
-      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
+      "contest": "Abzeichen, das von Zeit zu Zeit in Wettbewerben auf dem Bot-Server gewonnen werden kann.",
       "christmas": "Abzeichen, das jedes Weihnachten bei einem Wettbewerb gewonnen werden kann",
       "top_week": "Person, die eine Rangliste der Woche dominiert hat.",
       "random": "Badge auf völlig wandern",
@@ -499,7 +499,7 @@
     "canceledDesc": "Der Vertraute wurde nicht befreit.",
     "confirmDesc": ":warning: Sind Sie sicher, dass Sie **{{pet}}** befreien wollen? Es ist nicht möglich, eine einmal durchgeführte Aktion rückgängig zu machen.",
     "acceptedDesc": "Adieu **{{pet}}**...",
-    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
+    "isFeisty": "{emote:collectors.warning} Achtung: Die Befreiung eines galligen Begleiters kostet Sie {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}Änderung des Spitznamens des Vertrauten",
@@ -924,8 +924,8 @@
   "missions": {
     "title": "Aufgaben von {{pseudo}}",
     "subcategories": {
-      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
-      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
+      "campaignCurrent": "{emote:missions.campaign} **Land ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Kampagne beendet**",
       "daily": "\n{emote:missions.daily} **Täglicher Auftrag**",
       "sideMissions": "\n{emote:missions.sideMission} **Nebenmissionen ({{current}}/{{max}})**"
     },
@@ -988,7 +988,7 @@
   },
   "missionsshop": {
     "title": "Magazin der Missionen",
-    "success": "{{pseudo}}, transaction réussie !",
+    "success": "{{pseudo}}Erfolgreiche Transaktion!",
     "error": {
       "cannotBuy": "Sie haben nicht genug Edelsteine, um diesen Gegenstand zu kaufen! Es fehlt Ihnen `{missingMoney}{emote:unitValues.gem}`.",
       "canceledPurchase": "Transaktion abgebrochen!",
@@ -1022,9 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Deine Gilde erscheint leider nicht in der Top-Liste, da sie keine Gildenpunkte hat!",
     "yourRankAtPageGuild": "(Sie finden sie auf der Seite {{page}} / {{maxPage}})",
     "noGuild": "{emote:top.error} | Du erscheinst nicht in dieser Rangliste, da du keiner Gilde angehörst!",
-    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
-    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
+    "nobodyInTopPlayers": "Derzeit sind keine Spieler klassifiziert!",
+    "nobodyInTopGlory": "Derzeit ist kein Spieler in der Rangliste! Schließe noch {{needFight}} Ranglistenkampf ab, um in der Rangliste zu erscheinen!",
+    "nobodyInTopGuilds": "Es gibt derzeit keine Gilden in der Rangliste!",
     "invalidPage": "Die angeforderte Seite existiert nicht. Bitte versuchen Sie es erneut mit einer Seite zwischen {{minPage}} und {{maxPage}}."
   },
   "fight": {
@@ -1240,7 +1240,7 @@
     "notEnoughMoney": "Sie haben nicht genug Geld, um diese Transaktion durchzuführen. Es fehlt Ihnen `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Der Verkäufer ist nicht mehr in der Lage, sein Haustier zu verkaufen. Der Verkauf wurde abgebrochen.",
     "sellTitle": "Verkauf eines Vertrauten",
-    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
+    "sellTitleWithBuyer": "{{buyer}} {{seller}} möchte Ihnen ein Haustier verkaufen:",
     "sellDescription": "{{pseudo}} möchte einen Vertrauten für `{{price}}{emote:unitValues.money}` verkaufen",
     "maxLevelWarning": "{emote:collectors.warning} Ihre Gilde ist auf der höchsten Stufe, Sie erhalten keine Erfahrung!",
     "petFieldName": "Vertraute verkauft :",
@@ -1299,7 +1299,7 @@
     "soldMessage": "Sie haben {{item}} für **{{value}}** {emote:unitValues.money} verkauft!",
     "soldMessageTitle": "{{pseudo}}Sie haben eine Ausrüstung verkauft.",
     "potionDestroyedTitle": "Sie haben einen Trank zerstört.",
-    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
+    "potionDestroyedMessage": "**{{item}}** wurde in ein Waschbecken geschüttet.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Sie haben eine Ausrüstung erhalten, die Sie bereits besessen haben.",
     "titleChoiceEmbed": "{{pseudo}}Verkauf von Gegenständen",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
@@ -1416,17 +1416,17 @@
     "playerModifiedDesc": "Der Spieler wurde erfolgreich geändert!\n\nID: **{{keycloakId}}**\nBenutzername: **{{pseudo}}**"
   },
   "fightHistory": {
-    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
-    "title": "{{pseudo}}, historique des combats",
-    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire adverse :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
+    "noHistory": "Sie haben noch keine Kämpfe in Ihrem Verlauf.",
+    "title": "{{pseudo}}Geschichte der Kämpfe",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Ergebnis:** {{resultSentence}}\n**Ihr Ruhm:** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gegnerischer Ruhm:** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
     "attackSentence": {
-      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
-      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+      "attacker": "{emote:fightCommand.crossedSwords} Sie haben angegriffen **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Sie wurden von **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}})) angegriffen."
     },
     "resultSentence": {
-      "won": "{emote:fightHistory.won} Gagné !",
-      "lost": "{emote:fightHistory.lost} Perdu !",
-      "draw": "{emote:fightHistory.draw} Match nul..."
+      "won": "{emote:fightHistory.won} Gewonnen!",
+      "lost": "{emote:fightHistory.lost} Verloren!",
+      "draw": "{emote:fightHistory.draw} Unentschieden..."
     },
     "leagueChanges": {
       "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",

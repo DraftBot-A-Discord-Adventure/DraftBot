@@ -284,8 +284,8 @@
         "name": "puntuación"
       },
       "glory": {
-        "description": "Afficher le classement des joueurs en fonction de leur gloire.",
-        "name": "glorieux"
+        "description": "Muestra la clasificación de los gremios según su gloria.",
+        "name": "glorioso"
       },
       "guild": {
         "description": "Muestra la clasificación de los gremios según sus puntos.",
@@ -382,7 +382,7 @@
     }
   },
   "fightHistory": {
-    "name": "historiquecombat",
-    "description": "Afficher l'historique des combats."
+    "name": "historiacombate",
+    "description": "Ver historial de batallas."
   }
 }

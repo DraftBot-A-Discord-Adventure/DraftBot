@@ -284,8 +284,8 @@
         "name": "punteggio"
       },
       "glory": {
-        "description": "Afficher le classement des joueurs en fonction de leur gloire.",
-        "name": "glorieux"
+        "description": "Visualizza la classifica delle gilde in base alla loro gloria.",
+        "name": "glorioso"
       },
       "guild": {
         "description": "Visualizza la classifica delle gilde in base ai loro punti.",
@@ -382,7 +382,7 @@
     }
   },
   "fightHistory": {
-    "name": "historiquecombat",
-    "description": "Afficher l'historique des combats."
+    "name": "storiacombattimento",
+    "description": "Visualizza la storia della battaglia."
   }
 }
