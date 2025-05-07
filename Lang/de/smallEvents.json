@@ -106,7 +106,7 @@
     "priceMoney": "die Reise **kosten {{price}} {emote:unitValues.gem}**",
     "confirm": "Möchten Sie auf die Insel reisen? Sie haben {emote:unitValues.energy} **{{energy}} / {{energyMax}}**.",
     "endStoryAccept": "{{gainScore}} Sie nehmen an und besteigen das Boot in Richtung der Insel.",
-    "endStoryAcceptWithMember": "{{gainScore}} Vous acceptez et au moment d'embarquer, vous remarquez qu'un membre de votre guilde se trouve déjà sur le bateau, vous le rejoignez et partez en direction de l'île.",
+    "endStoryAcceptWithMember": "{{gainScore}} Sie stimmen zu und als Sie an Bord gehen, bemerken Sie, dass sich bereits ein Mitglied Ihrer Gilde auf dem Schiff befindet. Sie schließen sich ihm an und machen sich auf den Weg zur Insel.",
     "endStoryRefuse": "Sie lehnen das Angebot höflich ab und setzen Ihren Weg fort.",
     "notEnoughGems": "Sie stimmen zu, aber als Sie bezahlen wollen, stellen Sie fest, dass Sie nicht genug Geld haben, um zu bezahlen. Sie gehen also enttäuscht weg.",
     "confirmedScore": "**{emote:unitValues.score} Gewonnene Punkte:** {{score}}\n"
@@ -354,8 +354,8 @@
       "du entdeckst eine alte, verlassene Holzhütte, beschließt, sie zu erforschen und findest nur ein altes Grimoire, das hier schon seit Jahren herumzuliegen scheint..."
     ],
     "reward": "{emote:unitValues.money} Silber: **{{money}}**\n{emote:unitValues.xp} XP: **{{xp}}**\n{emote:unitValues.score} Punkte: **Die Anzahl der Punkte hängt von deiner endgültigen Platzierung ab.**\n{emote:rewards.item} Eine zufällige Ausrüstung.",
-    "endMessage": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous maintenez votre gloire jusqu'à la fin de la saison**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez votre route, tout en vous réjouissant de pouvoir récupérer votre bonus {{time}}.",
-    "notEnoughFight": "\n\n{emote:commands.report} \"À l'aventurier appartenant à la {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) qui trouvera ce texte, **si vous réalisez quelques combats à l'aide de la commande {command:fight}**, vous pourrez remporter ces récompenses :\n\n{{rewards}}\"\n\nVous reprenez vite votre route, craignant de ne pas parvenir à combattre suffisamment de joueurs avant la fin de la saison {{time}}.",
+    "endMessage": "\n\n{emote:commands.report} \"An den Abenteurer, der der {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) , der diesen Text findet, **wenn Sie Ihren Ruhm bis zum Ende der Saison** aufrechterhalten, können Sie diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"An den Abenteurer, der zu den {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) , der diesen Text findet, **wenn Sie einige Kämpfe mit dem Befehl {command:fight}** durchführen, können Sie diese Belohnungen gewinnen:\n\n{{rewards}}\"\n\nSie machen sich schnell wieder auf den Weg, da Sie befürchten, dass Sie bis zum Ende der Saison nicht genügend Spieler bekämpfen werden {{time}}.",
     "rewardToday": "\n\n{emote:commands.report} \"**Liga-Belohnungen sind verfügbar!** Holen Sie sich Ihre Belohnung mit dem Befehl {command:leaguebonus} noch vor Ende der Woche!\"\n\nSie setzen Ihre Reise fort und freuen sich darauf, Ihren Bonus abzuholen."
   },
   "winGuildXP": {
@@ -547,8 +547,8 @@
             "Trotz Ihres Eingreifens scheint der Trank nicht besser geworden zu sein. Sie fühlen sich unwohl... {emote:effects.sick}"
           ],
           "freezing": [
-            "Vous décidez de goûter à la potion qui est très froide. La sensation de froid ne disparait cependant pas et vous ressentez impuissant chacun de vos membres se refroidir... {emote:effects.freezing}",
-            "Alors que vous alliez terminer la potion, vous trébuchez et tombez dans le gouffre rempli de glace dans lequel vous prévoyiez de déposer la marmite. {emote:effects.freezing}"
+            "Sie beschließen, den Trank zu probieren, der sehr kalt ist. Das Kältegefühl verschwindet jedoch nicht und Sie spüren hilflos, wie jedes Ihrer Glieder kalt wird... {emote:effects.freezing}",
+            "Gerade als du den Trank fertigstellen willst, stolperst du und fällst in den eisgefüllten Abgrund, in dem du den Topf abstellen wolltest. {emote:effects.freezing}"
           ]
         },
         "3": [
@@ -906,7 +906,7 @@
       ],
       "gainLove_m": [
         "Es scheint, dass **{{pet}}** glücklich ist, Sie in seiner Gesellschaft zu haben. Er gewinnt an Liebe und wird Ihnen gegenüber treuer.",
-        "Après avoir marché longuement, vous décidez de prendre soin de votre **{{pet}}** en le caressant. Ce moment passé avec lui a renforcé vos liens.",
+        "Nach einem langen Spaziergang beschließen Sie, sich um Ihren **{{pet}}** zu kümmern, indem Sie ihn streicheln. Die Zeit, die Sie mit ihm verbracht haben, hat Ihre Bindung gestärkt.",
         "Nachdem er kurz weggegangen ist, kommt **{{pet}}** mit etwas Essen zurück, das er weiter weg gefunden hat. Sie beschließen, ihm das Futter zu geben, bevor es verloren geht. Auf diese Weise liebt er Sie noch mehr.",
         "Leider scheint **{{pet}}** die Feindseligkeiten mit {{randomAnimal}} wild ausgelöst zu haben! Sie beschließen, ihn tapfer zu verteidigen. Er liebt Sie mehr und wird Ihnen gegenüber loyaler.",
         "Oh wie süß ist das denn! **{{pet}}** ist verspielt! Daher beschließen Sie, mit ihm Spaß zu haben. Dieser Teil hat eure Beziehung gestärkt."
@@ -942,8 +942,8 @@
       "gainTime_f": [
         "Es ist schön anzusehen, **{{pet}}** ist in Form. Sie reiten ein paar Minuten auf seinem Rücken und gewinnen **{{amount}} Min** {emote:unitValues.timeGain}.",
         "In einer Kurve beginnt **{{pet}}** plötzlich zu rennen. Sie werden an der Leine mitgeschleift, aber Sie haben gewonnen **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Vous remarquez que **{{pet}}** semble être pressée, malgré cela, vous arrivez à la suivre tant bien que mal. Grâce à elle vous gagnez **{{amount}} Min** {emote:unitValues.timeGain}.",
-        "Le flair de **{{pet}}** vous a permis de trouver un raccourci. Grâce à elle, vous avez gagné **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Sie bemerken, dass **{{pet}}** es eilig zu haben scheint, trotzdem schaffen Sie es, ihr so gut wie möglich zu folgen. Dank ihr gewinnen Sie **{{amount}} Min** {emote:unitValues.timeGain}.",
+        "Der Spürsinn von **{{pet}}** hat Ihnen geholfen, eine Abkürzung zu finden. Dank ihr haben Sie **{{amount}} Min** {emote:unitValues.timeGain}gewonnen.",
         "Die Verteidigung von **{{pet}}** gegen {{randomAnimal}} wild war keine leichte Aufgabe, und dieses Mal haben Sie einen Stärkeren als sich selbst gefunden. Sie beschließen, die Flucht zu ergreifen, und rennen so schnell Sie können. Durch dieses Missgeschick verdienen Sie **{{amount}} Min** {emote:unitValues.timeGain} auf Ihrer Reise."
       ],
       "points": [
