@@ -173,7 +173,7 @@
       "active": "erleidet die Angriffe der Verbündeten seines Gegners."
     },
     "canonAttack": {
-      "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
+      "description": "Die Genauigkeit dieses Angriffs sinkt bei schnellen Gegnern. Ein Schadensbonus wird auf diesen Angriff angewendet, wenn der Gegner sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Verursacht mehr Schaden, wenn er mehrmals hintereinander eingesetzt wird.",
       "name_one": "Kanonenschlag",
       "name_other": "Kanonenschläge"
     },
@@ -302,7 +302,7 @@
       "stop": "nicht mehr gefroren ist."
     },
     "full": {
-      "name": "repue et soignée de vos altérations",
+      "name": "satt und gepflegt von Ihren Veränderungen",
       "new": "ist satt und muss sich ausruhen. `Geschwindigkeit: 0`",
       "active": "ist satt und muss sich ausruhen.",
       "stop": "nicht mehr satt ist."
@@ -1199,7 +1199,7 @@
     "89": "Toter Fisch",
     "9": "Rostschlüssel",
     "90": "Frosch-Talisman",
-    "91": "Spoutnik"
+    "91": "Sputnik"
   },
   "pets": {
     "0_female": "Keine Vertrauten",
@@ -1565,7 +1565,7 @@
     "95": "Klinge der silbernen Aura",
     "96": "Electektron",
     "97": "Klinge des Phönix",
-    "98": "Épée de givre"
+    "98": "Frostschwert"
   },
   "foods": {
     "herbivorousFood_one": "Salat",
@@ -1612,7 +1612,7 @@
       "description": "{emote:unitValues.xp} Sie sind jetzt Level **{{level}}**!\n\n",
       "rewards": {
         "healthRestored": "{emote:unitValues.health} | Ihr Leben wurde wiederhergestellt.",
-        "fightUnlocked": "{emote:unitValues.attack} | Combats débloqués avec les commandes {command:fight} et {command:fighthistory} ! Pour plus d'informations sur les combats, exécutez la commande {command:help}.",
+        "fightUnlocked": "{emote:unitValues.attack} | Kämpfe, die mit den Befehlen {command:fight} und {command:fighthistory} freigeschaltet wurden! Für weitere Informationen zu den Kämpfen führen Sie den Befehl {command:help}.",
         "guildUnlocked": "{emote:other.guild} | Gilden, die mit den Befehlen {command:guild}, {command:guildcreate}, {command:guildinvite}, {command:guildleave}, {command:guilddailybonus}, {command:guildkick} und vielen mehr freigeschaltet wurden! Weitere Informationen zu den Gilden erhalten Sie mit dem Befehl {command:help}.",
         "classUnlocked": "{emote:commands.classes} | Klassen mit den Befehlen {command:classes} und {command:classesinfo} freigeschaltet! Weitere Informationen zu Klassen finden Sie mit dem Befehl {command:help}.",
         "classTier": "{emote:commands.classes} | Stufenklassen {{tier}} freigeschaltet! Weitere Informationen zu den Klassen finden Sie mit den Befehlen {command:classesinfo} und {command:help}.",
