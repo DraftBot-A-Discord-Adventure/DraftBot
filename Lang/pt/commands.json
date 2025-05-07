@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} Queres mesmo deixar a associação{{guildName}}? {{newChiefPseudo}} será o seu líder.",
     "canceledDesc": "A sua partida foi cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} deixou o grémio!",
-    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
+    "leavingSuccess": "És um pobre cowboy solitário e estás muito longe de casa...",
     "destroySuccess": "{{guildName}} O grémio foi dissolvido com sucesso.",
     "newChiefTitle": "{{newChiefPseudo}} {{guildName}} é o novo líder da guilda!",
     "notInAGuild": "Parece que já não fazes parte de um grémio.",
@@ -241,7 +241,7 @@
         "description": "Permite-te transferir uma mascote de ou para o Grémio. Podes escolher entre deixar a tua mascote na cabana, trocá-la por outra ou retirar uma da cabana."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
+        "description": "Mostra se o bot está online.\n\n(Nota: O tempo mostrado é o tempo de resposta do bot e não o seu ping: um tempo de resposta correto será inferior a 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Apresenta informações sobre a tua personagem:\n\n{emote:effects.none} Saúde | Apelido | Nível\n\n឵឵Informações :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinheiro Estatísticas :\n{emote:unitValues.energy} Energia | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defesa | {emote:unitValues.breath} Respiração | {emote:unitValues.breathRegen} Recuperação :\n\nMissões :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progresso da campanha em %\n\nClassificação e pontuação :\n{emote:top.congrats} Classificação | {emote:unitValues.score} Pontuação\n\nClasse:\nVer {command:classes}\n\nGlória e Liga:\n{emote:unitValues.glory} Glória | Ver {command:top glory}\n\nGrémio:\n{emote:other.guild} Grémio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Os emblemas são apresentados no seu perfil sob a forma de reacções."
@@ -356,7 +356,7 @@
       "support": ":heart: `Pessoa com posto de Suporte no servidor do bot`.",
       "translator": ":earth_africa: Tradutor",
       "advertiser": "Pessoa que ajudou a colocar o bot num servidor com mais de 2000 membros",
-      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
+      "contest": "Distintivo que pode ser ganho ocasionalmente em concursos no servidor bot",
       "christmas": "Distintivo a ganhar todos os Natais num concurso",
       "top_week": ":reminder_ribbon: Pessoa que dominou uma classificação da semana`.",
       "random": ":slot_machine: Crachá distribuído de forma completamente aleatória",
@@ -499,7 +499,7 @@
     "canceledDesc": "O animal de estimação não foi libertado.",
     "confirmDesc": ":warning:{{pet}}Tem a certeza de que pretende libertar ** **? Não é possível cancelar uma vez que a ação tenha sido concluída.",
     "acceptedDesc": "{{pet}}Adeus ** **...",
-    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
+    "isFeisty": "{emote:collectors.warning} Cuidado, libertar um animal com febre custar-lhe-á {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}alterar a alcunha do animal de estimação",
@@ -924,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
-      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
+      "campaignCurrent": "{emote:missions.campaign} **Campanha ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campanha terminada",
       "daily": "\n{emote:missions.daily} **Missão diária",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missões secundárias ( / )**"
     },
@@ -988,7 +988,7 @@
   },
   "missionsshop": {
     "title": "Loja de Missões",
-    "success": "{{pseudo}}, transaction réussie !",
+    "success": "{{pseudo}}Uma transação bem sucedida!",
     "error": {
       "cannotBuy": "Não tens pedras preciosas suficientes para comprar este item!{missingMoney}{emote:unitValues.gem}Está a faltar ` `.",
       "canceledPurchase": "Transação cancelada!",
@@ -1022,9 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Infelizmente, a tua guilda não aparece no topo porque não tem pontos de guilda!",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Pode encontrá-lo em / )",
     "noGuild": "{emote:top.error} | Não apareces neste ranking porque não fazes parte de uma associação!",
-    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
-    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
+    "nobodyInTopPlayers": "Nenhum jogador está atualmente classificado!",
+    "nobodyInTopGlory": "Nenhum jogador está atualmente classificado! Completa outro combate classificado em {{needFight}} para apareceres nas classificações!",
+    "nobodyInTopGuilds": "Não existem atualmente guildas na classificação!",
     "invalidPage": "A página solicitada não existe. {{minPage}} {{maxPage}}Por favor, tente novamente com uma página entre e ."
   },
   "fight": {
@@ -1240,7 +1240,7 @@
     "notEnoughMoney": "Não tem dinheiro suficiente para efetuar esta transação. Falta-lhe `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "O vendedor já não pode vender o seu animal de estimação. A venda foi anulada.",
     "sellTitle": "Vender um animal de estimação",
-    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
+    "sellTitleWithBuyer": "{{buyer}} {{seller}} gostaria de lhe vender um animal de estimação:",
     "sellDescription": "{{pseudo}} gostaria de vender um animal de estimação para{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} A tua guilda está no nível máximo, por isso não receberás qualquer experiência!",
     "petFieldName": "Familiar vendido :",
@@ -1299,7 +1299,7 @@
     "soldMessage": "Vendeu {{item}} por **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}vendeu uma peça de equipamento.",
     "potionDestroyedTitle": "Destruíste uma poção.",
-    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
+    "potionDestroyedMessage": "**{{item}}** foi despejado num lava-loiça.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Recebeu uma peça de equipamento que já possuía.",
     "titleChoiceEmbed": "{{pseudo}}venda de objectos",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
@@ -1359,7 +1359,7 @@
     },
     "title": "{{pseudo}}Recebeu o seu prémio da liga!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "first": "Terminou a liga anterior com **{{glory}} glória. {emote:unitValues.glory}**\n\n**Terminaste em $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nA tua última liga é : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinheiro ganho : **{{money}}** !\n{emote:unitValues.xp} XP ganho: **{{xp}}** !\n{emote:unitValues.score} Pontos ganhos : **{{score}}** !\n{emote:unitValues.glory} Foi-te dado um crachá no final da época.\n{emote:rewards.item} Receberás equipamento aleatório!",
       "other": "Terminou a liga anterior com **{{glory}} glória. {emote:unitValues.glory}**\n\n Terminou em $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nA sua liga final é : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinheiro ganho: **{{money}}** !\n{emote:unitValues.xp} XP ganho: **{{xp}}** !\n{emote:rewards.item} Recebe equipamento aleatório!"
     }
   },
@@ -1416,17 +1416,17 @@
     "playerModifiedDesc": "O jogador foi modificado com sucesso!\n\nID: **{{keycloakId}}**\nApelido: **{{pseudo}}**"
   },
   "fightHistory": {
-    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
-    "title": "{{pseudo}}, historique des combats",
-    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire adverse :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
+    "noHistory": "Ainda não tens nenhum combate no teu historial.",
+    "title": "{{pseudo}}A história dos combates",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Resultado:** {{resultSentence}}\n**A tua glória:** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Glória oposta:** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
     "attackSentence": {
-      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
-      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+      "attacker": "{emote:fightCommand.crossedSwords} Atacou **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Foi atacado por **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
     },
     "resultSentence": {
-      "won": "{emote:fightHistory.won} Gagné !",
-      "lost": "{emote:fightHistory.lost} Perdu !",
-      "draw": "{emote:fightHistory.draw} Match nul..."
+      "won": "{emote:fightHistory.won} É isso mesmo!",
+      "lost": "{emote:fightHistory.lost} Perdido!",
+      "draw": "{emote:fightHistory.draw} Um empate..."
     },
     "leagueChanges": {
       "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
