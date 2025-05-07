@@ -27,6 +27,6 @@
   },
   "guildFood": {
     "receivedFoodTitle": "A tua guilda recebeu comida",
-    "receivedFoodDescription": "{emote:foods.{{foodId}}} Votre guilde a reçu : **{{amount}}x {{foodName}}**."
+    "receivedFoodDescription": "{O teu grémio recebeu{{foodId}}} O teu grémio recebeu : **{{amount}}x {{foodName}}**."
   }
 }
