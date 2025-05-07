@@ -94,7 +94,7 @@
     "confirmChiefDescWithElder": "{emote:collectors.question} ¿De verdad quieres dejar el gremio{{guildName}}? {{newChiefPseudo}} se convertirá en su líder.",
     "canceledDesc": "Su salida ha sido cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} ha abandonado el gremio",
-    "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
+    "leavingSuccess": "Eres un pobre vaquero solitario y estás muy lejos de casa...",
     "destroySuccess": "{{guildName}} El gremio se ha disuelto con éxito.",
     "newChiefTitle": "{{newChiefPseudo}} {{guildName}} es el nuevo líder del gremio.",
     "notInAGuild": "Parece que ya no formas parte de un gremio.",
@@ -241,7 +241,7 @@
         "description": "Te permite transferir una mascota a o desde la cabaña. Podrás elegir entre soltar la mascota que te acompaña en la cabaña, cambiarla por otra o retirar una de la cabaña."
       },
       "PING": {
-        "description": "Permet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. {emote:clocks.1}"
+        "description": "Muestra si el bot está en línea.\n\n(Nota: El tiempo que se muestra es el tiempo de respuesta del bot y no tu ping: un tiempo de respuesta correcto será inferior a 500ms. {emote:clocks.1}"
       },
       "PROFILE": {
         "description": "Muestra información sobre tu personaje:\n\n{emote:effects.none} Salud | Apodo | Nivel\n\n឵឵Información :\n{emote:unitValues.health} Vida | {emote:unitValues.xp} XP | {emote:unitValues.money}\n\nDinero Estadísticas :\n{emote:unitValues.energy} Energía | {emote:unitValues.attack} Ataque | {emote:unitValues.defense} {emote:unitValues.speed} Defensa | {emote:unitValues.breath} Aliento | {emote:unitValues.breathRegen} Recuperación :\n\nMisiones :\n{emote:unitValues.gem} Gemas | {emote:missions.campaign} Progreso de la campaña en %\n\nRango y puntuación :\n{emote:top.congrats} Rango | {emote:unitValues.score} Puntuación\n\nClase:\nVer {command:classes}\n\nGloria y Liga:\n{emote:unitValues.glory} Gloria | Ver {command:top glory}\n\nGremio:\n{emote:other.guild} Gremio\n\nDestino:\nVer {command:map}\n\nFamiliar:\nVer {command:pet}\n\n{emote:other.advice}-Las insignias se muestran en tu perfil en forma de reacciones."
@@ -356,7 +356,7 @@
       "support": ":heart: `Persona con rango de Soporte en el servidor bot`.",
       "translator": ":earth_africa: Traductor",
       "advertiser": "Persona que ayudó a poner el bot en un servidor con más de 2000 miembros",
-      "contest": "Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot",
+      "contest": "Insignia que puede ganarse de vez en cuando en competiciones en el servidor de bots.",
       "christmas": "Insignia que se gana cada Navidad en un concurso",
       "top_week": ":reminder_ribbon: Persona que ha dominado una clasificación de la semana`.",
       "random": ":slot_machine: Insignia entregada completamente al azar",
@@ -460,14 +460,14 @@
     "money": "{emote:unitValues.money} ** Dinero ganado :{{money}}**",
     "moneyLoose": "** | :money_with_wings: Dinero perdido : **{{money}}",
     "rewardEmbedTitle": "{{pseudo}}recompensas de combate",
-    "monsterRewardGuildXp": "{emote:unitValues.xp} XP de guilde gagnée : **{{guildXp}}**",
+    "monsterRewardGuildXp": "{emote:unitValues.xp} Guild XP ganada : **{{guildXp}}**",
     "monsterRewardsDescription": "{emote:unitValues.money} Plata ganada :{{money}}\n:star: ** XP ganada :{{experience}}** **",
     "monsterRewardsGuildPoints": ":mirror_ball: Puntos de gremio ganados : **{{guildPoints}}**",
     "monsterRewardsTitle": "{{pseudo}}recompensas de combate",
     "newBigEvent": ":flag_fr: ¡Ha llegado a{{destination}}!",
     "noFight": ":newspaper: ** {{pseudo}} :** {{waitABitReaction}} | ¡Haces una rápida escapada y encuentras un pequeño escondite! El monstruo espera pacientemente fuera...",
     "points": ":** :medal: Puntos ganados : **{{score}}",
-    "pveEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Commencer le combat\n{emote:pveFights.waitABit} Attendre un peu avant de commencer le combat\n\n*- Utilisez les boutons pour effectuer une action*",
+    "pveEvent": "{emote:commands.report} ** {{pseudo}} log:** {{event}}\n\n{{monsterDisplay}}\n\n{emote:pveFights.startFight} Comienza el combate\n{emote:pveFights.waitABit} Espera un poco antes de comenzar el combate\n\n*- Utiliza los botones para realizar una acción*.",
     "pveFightRefused": "{emote:commands.report} ** {{pseudo}} :** {emote:pveFights.waitABit} | Decides no entrar en combate por el momento y refugiarte en un escondite cercano. Al final tendrás que enfrentarte a la bestia, ya que no encuentras otra salida.",
     "remainingEnergyTitle": "Energía restante :",
     "startPoint": "Punto de partida :",
@@ -499,7 +499,7 @@
     "canceledDesc": "La mascota no ha sido liberada.",
     "confirmDesc": ":warning:{{pet}}¿Está seguro de que desea liberar ** **? No es posible cancelar una vez que la acción se ha completado.",
     "acceptedDesc": "{{pet}}Adiós ** **...",
-    "isFeisty": "{emote:collectors.warning} Attention, la libération d'un familier fielleux vous coûtera {{cost}} {emote:unitValues.money}."
+    "isFeisty": "{emote:collectors.warning} Ten cuidado, liberar a una mascota con fiebre te costará {{cost}} {emote:unitValues.money}."
   },
   "petNick": {
     "successTitle": "{{pseudo}}cambiar el apodo de la mascota",
@@ -687,12 +687,12 @@
           "healEveryone": [
             "Esta mascota tiene notables poderes curativos. Puede curar tus heridas y las de tus aliados en plena batalla.",
             "Sus secreciones contienen potentes enzimas regeneradoras. Las utilizará para mantenerte en forma durante los enfrentamientos.",
-            "J'observe des propriétés bio-régénératrices uniques dans son organisme. Votre familier partagera cette énergie vitale avec vous et vos compagnons."
+            "He observado propiedades bio-regenerativas únicas en su cuerpo. Tu mascota compartirá esta energía vital contigo y tus acompañantes."
           ],
           "helpBreathe": [
             "Su capacidad respiratoria es extraordinaria. Puede compartir su oxígeno contigo durante duras batallas o bajo el agua.",
             "Este ejemplar tiene unas fascinantes branquias modificadas. Le ayudará a recuperar el aliento en los momentos críticos.",
-            "Son système pulmonaire hyper évolué lui permet de stocker l'oxygène. Il vous en transférera quand vous serez à bout de souffle."
+            "Su sistema pulmonar altamente evolucionado le permite almacenar oxígeno. Se lo transferirá cuando le falte el aire."
           ],
           "horn": [
             "¡Este cuerno es un arma natural temible! Tu mascota lo utilizará para empalar a sus oponentes con una fuerza impresionante.",
@@ -715,7 +715,7 @@
             "Su bioquímica única le permite producir agentes paralizantes. Sus oponentes quedarán congelados, incapaces de contraatacar."
           ],
           "peck": [
-            "Le bec de votre familier est affûté comme une dague ! Il lui permettra d'harceler vos adversaires de coups précis et douloureux pendant les combats.",
+            "¡El pico de tu mascota es tan afilado como una daga! Es el arma perfecta con la que acosar a tus oponentes con golpes precisos y dolorosos durante la batalla.",
             "La estructura ósea de su pico está perfectamente adaptada para golpear. Picará a sus enemigos en puntos sensibles con precisión.",
             "Esta mascota domina el arte de molestar con su pico. Tus oponentes quedarán debilitados por sus implacables ataques."
           ],
@@ -757,7 +757,7 @@
           "protectAgainstCold": [
             "Su pelaje tiene propiedades aislantes excepcionales. Le protegerá eficazmente contra los ataques del hielo.",
             "Su temperatura corporal es naturalmente alta. A su lado, podrá resistir entornos helados y rachas de frío.",
-            "Ce familier génère un champ thermique remarquable. Il vous enveloppera de sa chaleur protectrice contre les attaques givrées."
+            "Esta mascota genera un campo térmico extraordinario. Te envolverá en su calor protector contra los ataques helados."
           ],
           "rainbowPower": [
             "Esta mascota puede canalizar la energía prismática circundante. Convertirá los ataques mágicos recientes en curación para ti.",
@@ -787,7 +787,7 @@
           "smallClaws": [
             "A pesar de su modesto tamaño, sus garras están muy afiladas. Producen arañazos precisos e irritantes.",
             "Esta pequeña mascota compensa su tamaño con sus finas garras. Apuntará a los puntos sensibles de tus oponentes.",
-            "Ses petites griffes sont parfaites pour harceler l'adversaire. Il déconcentrera vos ennemis avec des égratignures stratégiques."
+            "Sus pequeñas garras son perfectas para acosar a los oponentes. Distraerá a tus enemigos con arañazos estratégicos."
           ],
           "smallRegen": [
             "¡Su metabolismo regenerativo es contagioso! Compartirá contigo sus habilidades curativas en combate.",
@@ -822,7 +822,7 @@
           "swallow": [
             "Las observaciones clínicas demuestran que su tubo digestivo es capaz de engullir presas, neutralizando así a su adversario.",
             "Su capacidad digestiva le permite ingerir completamente al enemigo, lo que lo convierte en un interesante método alternativo de defensa.",
-            "Les études anatomiques révèlent une gorge particulièrement élastique, adaptée à accueillir un adversaire..."
+            "Los estudios anatómicos revelan una garganta especialmente elástica, apta para acomodar..."
           ],
           "triesToHelp": [
             "Las pruebas de comportamiento sugieren que la mascota intenta ayudar a su amo proporcionándole ayuda medida, aunque sus contribuciones siguen siendo limitadas.",
@@ -924,8 +924,8 @@
   "missions": {
     "title": "{{pseudo}}",
     "subcategories": {
-      "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",
-      "campaignCompleted": "{emote:missions.campaign} **Campagne terminée**",
+      "campaignCurrent": "{emote:missions.campaign} **Campaña ({{current}}/{{max}})**",
+      "campaignCompleted": "{emote:missions.campaign} **Campaña terminada**",
       "daily": "\n{emote:missions.daily} **Misión diaria",
       "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Misiones secundarias ( / )**"
     },
@@ -988,7 +988,7 @@
   },
   "missionsshop": {
     "title": "Tienda de Misiones",
-    "success": "{{pseudo}}, transaction réussie !",
+    "success": "{{pseudo}}¡Una transacción exitosa!",
     "error": {
       "cannotBuy": "No tienes suficientes gemas para comprar este objeto.{missingMoney}{emote:unitValues.gem}Te falta ` `.",
       "canceledPurchase": "Transacción cancelada.",
@@ -1022,9 +1022,9 @@
     "yourRankNoneGuild": "{emote:top.error} | Desafortunadamente, tu gremio no aparece en el top porque no tiene puntos de gremio.",
     "yourRankAtPageGuild": "{{page}} {{maxPage}}(Puede encontrarlo en / )",
     "noGuild": "{emote:top.error} | ¡No apareces en esta clasificación porque no formas parte de un gremio!",
-    "nobodyInTopPlayers": "Aucun joueur n'est actuellement classé !",
-    "nobodyInTopGlory": "Aucun joueur n'est actuellement classé ! Réalisez encore {{needFight}} combat classé pour apparaître dans le classement !",
-    "nobodyInTopGuilds": "Il n'y a actuellement aucune guilde dans le classement !",
+    "nobodyInTopPlayers": "Ningún jugador está clasificado actualmente.",
+    "nobodyInTopGlory": "¡Ningún jugador está clasificado actualmente! ¡Completa otro combate clasificado en {{needFight}} para aparecer en la clasificación!",
+    "nobodyInTopGuilds": "Actualmente no hay gremios en la clasificación.",
     "invalidPage": "La página solicitada no existe. {{minPage}} {{maxPage}}Por favor, inténtelo de nuevo con una página entre y ."
   },
   "fight": {
@@ -1240,7 +1240,7 @@
     "notEnoughMoney": "No tiene suficiente dinero para realizar esta transacción. Le falta `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "El vendedor ya no puede vender su mascota. La venta ha sido cancelada.",
     "sellTitle": "Vender un animal de compañía",
-    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
+    "sellTitleWithBuyer": "{{buyer}} {{seller}} quiere venderte una mascota:",
     "sellDescription": "{{pseudo}} desea vender una mascota por{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} Tu gremio está al máximo nivel, ¡así que no recibirás experiencia!",
     "petFieldName": "Familiar vendido :",
@@ -1299,14 +1299,14 @@
     "soldMessage": "¡Has vendido {{item}} por **{{value}}** {emote:unitValues.money} !",
     "soldMessageTitle": "{{pseudo}}ha vendido un equipo.",
     "potionDestroyedTitle": "Has destruido una poción.",
-    "potionDestroyedMessage": "**{{item}}** a été versée dans un évier.",
+    "potionDestroyedMessage": "**{{item}}** se ha vertido en un fregadero.",
     "soldMessageAlreadyOwnTitle": "{{pseudo}}Ha recibido un equipo que ya poseía.",
     "titleChoiceEmbed": "{{pseudo}}venta de objetos",
     "sellField": "{{name}} | {{value}} {emote:unitValues.money}",
     "throwAwayField": "{{name}} | {emote:other.trash}",
     "confirmThrowAway": "{{item}} ¿Estás seguro de que quieres tirarlo?",
     "sellIndication": "Elija un artículo para vender de la siguiente lista:",
-    "menuPlaceholder": "Choisissez un objet à vendre",
+    "menuPlaceholder": "Elija un artículo para vender",
     "cancel": "Cancelar",
     "selectMenuDescSell": "Vender por {{value}} {emote:unitValues.money}",
     "selectMenuDescThrow": "Descartar {emote:other.trash}"
@@ -1359,7 +1359,7 @@
     },
     "title": "{{pseudo}}¡Has recibido tu premio de la liga!",
     "description": {
-      "first": "Vous avez terminé la ligue précédente avec **{{glory}} gloire. {emote:unitValues.glory}**\n\n**Vous terminez à la $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) place !**\nVotre ligue finale est : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Argent gagné : **{{money}}** !\n{emote:unitValues.xp} XP gagnée : **{{xp}}** !\n{emote:unitValues.score} Points gagnés : **{{score}}** !\n{emote:unitValues.glory} Un badge vous a été offert à la fin de la saison.\n{emote:rewards.item} Vous recevez un équipement aléatoire !",
+      "first": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n**Terminaste en $t(models:ordinals.get, {\"count\": {{rank}}, \"context\":\"feminine\", \"ordinal\": true}) !**\nTu liga final es : **{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado : ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:unitValues.score} Puntos ganados : ¡**{{score}}** !\n{emote:unitValues.glory} Una insignia se le dio a usted al final de la temporada.\n{emote:rewards.item} ¡Recibirás equipamiento aleatorio!",
       "other": "Terminaste la liga anterior con **{{glory}} gloria. {emote:unitValues.glory}**\n\n ¡Terminas en $t(models:ordinals.get, {\"count\": {{rank}}, \"ordinal\": true}) !\nTu liga final es : **{emote:leagues.{{leagueId}}}$t(models:leagues.{{leagueId}})**.\n\n{emote:unitValues.money} Dinero ganado: ¡**{{money}}** !\n{emote:unitValues.xp} XP ganada: ¡**{{xp}}** !\n{emote:rewards.item} ¡Recibes equipo al azar!"
     }
   },
@@ -1416,21 +1416,21 @@
     "playerModifiedDesc": "¡El jugador ha sido modificado con éxito!\n\nID: **{{keycloakId}}**\nApodo: **{{pseudo}}**"
   },
   "fightHistory": {
-    "noHistory": "Vous n'avez pas encore de combats dans votre historique.",
-    "title": "{{pseudo}}, historique des combats",
-    "historyLine": "{{date}}\n{{attackSentence}}\n**Résultat :** {{resultSentence}}\n**Votre gloire :** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloire adverse :** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
+    "noHistory": "Aún no tienes ningún combate en tu historial.",
+    "title": "{{pseudo}}La historia de los combates",
+    "historyLine": "{{date}}\n{{attackSentence}}\n**Resultado:** {{resultSentence}}\n**Tu gloria:** {emote:unitValues.glory} {{meInitialGlory}} -> {{meFinalGlory}}{{meLeagueChange}}\n**Gloria opuesta:** {emote:unitValues.glory} {{opponentInitialGlory}} -> {{opponentFinalGlory}}",
     "attackSentence": {
-      "attacker": "{emote:fightCommand.crossedSwords} Vous avez attaqué **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
-      "defender": "{emote:fightCommand.shield} Vous avez été attaqué par **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
+      "attacker": "{emote:fightCommand.crossedSwords} Has atacado **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
+      "defender": "{emote:fightCommand.shield} Has sido atacado por **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
     },
     "resultSentence": {
-      "won": "{emote:fightHistory.won} Gagné !",
-      "lost": "{emote:fightHistory.lost} Perdu !",
-      "draw": "{emote:fightHistory.draw} Match nul..."
+      "won": "{emote:fightHistory.won} ¡Ya lo tienes!",
+      "lost": "{emote:fightHistory.lost} ¡Perdido!",
+      "draw": "{emote:fightHistory.draw} Un empate..."
     },
     "leagueChanges": {
-      "up": " ({emote:other.leagueUp} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
-      "down": " ({emote:other.leagueDown} {emote:leagues.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:leagues.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))"
+      "up": " ({emote:other.leagueUp} {emote:ligas.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:ligas.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))",
+      "down": " ({emote:other.leagueDown} {emote:ligas.{{oldLeagueId}}} $t(models:leagues.{{oldLeagueId}}) -> {emote:ligas.{{newLeagueId}}} $t(models:leagues.{{newLeagueId}}))"
     }
   }
 }
