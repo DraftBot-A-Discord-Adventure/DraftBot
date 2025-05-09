@@ -5,8 +5,8 @@ describe('FoodUtils', () => {
 	describe('getFoodIndexOf', () => {
 		it('should correctly index the type of food', () => {
 			expect(getFoodIndexOf("commonFood")).toBe(0);
-			expect(getFoodIndexOf("carnivorousFood")).toBe(1);
-			expect(getFoodIndexOf("herbivorousFood")).toBe(2);
+			expect(getFoodIndexOf("herbivorousFood")).toBe(1);
+			expect(getFoodIndexOf("carnivorousFood")).toBe(2);
 			expect(getFoodIndexOf("ultimateFood")).toBe(3);
 		});
 	});
