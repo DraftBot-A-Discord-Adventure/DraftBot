@@ -12,5 +12,12 @@ describe('MathUtils', () => {
 		expect(EloUtils.getKFactor(mockPlayer2)).toBe(24);
 		expect(EloUtils.getKFactor(mockPlayer3)).toBe(16);
         });
+        
+    describe('calculateNewRating', () => {
+        it('should return the correct K factor', () => {
+		expect(EloUtils.calculateNewRating(1500, 1500, 1, 32)).toBe(1536);
+		expect(EloUtils.calculateNewRating(2200, 2200, 1, 24)).toBe(2213);
+		expect(EloUtils.calculateNewRating(2500, 2500, 1, 16)).toBe(2509);
+        });
     });
 });
