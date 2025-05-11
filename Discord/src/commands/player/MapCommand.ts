@@ -82,7 +82,7 @@ export async function handleCommandMapDisplayRes(packet: CommandMapDisplayRes, c
 	const mapDescription = i18n.t(`models:map_locations.${packet.mapId}.description`, {
 		lng
 	});
-	embed.setDescription(i18n.t(packet.inEvent
+	embed.setDescription(i18n.t(packet.hasArrived
 		? "commands:map.description.arrived"
 		: "commands:map.description.ongoing", {
 		lng,

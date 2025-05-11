@@ -961,8 +961,6 @@ export const DraftBotIcons: {
 		de: "🏜",
 		fo: "🌳",
 		iceBeach: "🌨",
-		iceCavern: "🧊",
-		iceLake: "❄",
 		la: "🚣‍♂",
 		mine: "🪨",
 		mo: "⛰",
@@ -971,12 +969,14 @@ export const DraftBotIcons: {
 		ri: "🏞",
 		ro: "🛣",
 		ruins: "🏚",
-		snowMountain: "🏔",
-		snowmenField: "☃",
 		testZone: "👾",
 		tundra: "🌲",
 		vi: "🛖",
-		volcano: "🌋"
+		volcano: "🌋",
+		icePeak: "🏔",
+		blessedDoors: "⛩️",
+		undergroundLake: "💧",
+		dragonsNest: "🪹"
 	},
 	smallEvents: {
 		advanceTime: "⌛",
@@ -1405,7 +1405,14 @@ export const DraftBotIcons: {
 		skeleton: "💀",
 		rockGolem: "🗿",
 		magmaTitan: "🌋",
-		forestTroll: "🧌"
+		forestTroll: "🧌",
+		whiteWolf: "🐺",
+		shinyElementary: "✨",
+		crocodile: "🐊",
+		yukiOnna: "❄️",
+		celestialGuardian: "🌌",
+		maleIceDragon: "🐲❄️",
+		femaleIceDragon: "🐉❄️"
 	},
 	armors: {
 		0: "⬛",

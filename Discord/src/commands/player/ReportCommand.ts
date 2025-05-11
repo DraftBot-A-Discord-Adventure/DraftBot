@@ -41,9 +41,7 @@ import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 import { ReactionCollectorReturnTypeOrNull } from "../../packetHandlers/handlers/ReactionCollectorHandlers";
 import { DiscordConstants } from "../../DiscordConstants";
 import { ReactionCollectorPveFightData } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
-import {
-	escapeUsername, StringUtils
-} from "../../utils/StringUtils";
+import { escapeUsername } from "../../utils/StringUtils";
 import { Language } from "../../../../Lib/src/Language";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 
@@ -351,7 +349,7 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 	const msg = i18n.t("commands:report.pveEvent", {
 		lng,
 		pseudo: escapeUsername(interaction.user.displayName),
-		event: StringUtils.getRandomTranslation("commands:report.encounterMonster", lng),
+		event: i18n.t(`models:pveMapsStory.${data.mapId}`, { lng }),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
 			lng,
 			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng }),
