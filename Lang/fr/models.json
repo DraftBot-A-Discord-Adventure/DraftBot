@@ -729,33 +729,38 @@
       "particle": "vers le"
     },
     "1101": {
-      "description": "Comme son nom l'indique, cette vaste étendue de terre gelée n'est pas propice pour le repos. Très froide et très aride, il y subsiste toutefois quelques arbres robustes.",
-      "name": "Toundra gelée",
+      "description": "Une étendue de terre gelée où le climat est sans pitié. Une tempête permanente de neige rend difficile la progression et la cartographie du lieu. On peut y croiser tous types d’animaux arctiques.",
+      "name": "Toundra",
       "particle": "vers la"
     },
     "1102": {
-      "description": "Grand lac gelé, le lac du savoir est un endroit calme et reposant. On peut y entendre une fine brise glissant sur la glace du lac. Idéale pour méditer après l'exploration de cette immense île sauvage.",
-      "name": "Lac du savoir",
-      "particle": "vers le"
-    },
-    "1103": {
-      "description": "Une très grande plaine où de nombreux bonhommes de neige y sont construits. Qui a créé le premier bonhomme de neige ? Personne ne le sait. Il fait bien trop froid pour qu'ils fondent. Cependant, certains voyageurs s'amusent à en créer de nouveaux.",
-      "name": "Plaine aux bonhommes de neige",
-      "particle": "vers la"
-    },
-    "1104": {
-      "description": "Une magnifique caverne de glace. Des centaines se stalactites et de stalagmites décorent cette caverne. Une lumière naturelle illumine ces cristaux de glace et donnent l'impression de milliers d'étoiles. Si on oublie les centaines de cadavres d'explorateurs qui ont glissé et se sont empalés sur les stalagmites, cette caverne est d'une beauté incroyable ou d'une tristesse sans nom. La caverne de cristal est un moyen dangereux d'atteindre le sommet du pic enneigé.",
+      "description": "Une grande caverne dans laquelle le moindre rayon de soleil qui rentre est démultiplié par les cristaux rendant celle-ci très lumineuse. Des stalactites pointus et des stalagmites tranchantes, synonymes de blessures graves voir mortelles si l’une d’elle nous tombe dessus ou que l’on fait un pas de travers, forment le décor de la caverne. Si vous osez vous aventurez plus loin, vous devrez choisir entre sortir vers le sommet du pic enneigée ou vous enfoncer encore plus profond.",
       "name": "Caverne de cristal",
       "particle": "vers la"
     },
+    "1103": {
+      "description": "Deux majestueuses portes se dressent en haut d’une longue série de marches. Les monter ne sera pas de tout repos. On raconte qu’elles ont été construites par une civilisation ancienne en l’honneur d’une divinité.",
+      "name": "Portes sacrées",
+      "particle": "vers les"
+    },
+    "1104": {
+      "description": "Dans la chaîne de montagnes, ce pic se démarque par la violence de ses tempêtes de neige et la vitesse de ses vents. Il est si haut que l’oxygène y est rare et que le risque de mourir de froid est élevé si vous n’avez pas déjà succombé aux animaux sauvages…",
+      "name": "Pic enneigé",
+      "particle": "vers le"
+    },
     "1105": {
-      "description": "Cette caverne, très similaire à sa sœur la caverne de cristal, comporte cependant un grand avantage. Elle mène au pic enneigé en passant dans les profondeurs de la terre. Il s'agit d'un long chemin sur la glace et la roche. Elle doit son nom à ces grottes qui descendent très profond sous terre et laissent apparaitre de belles formations de glace.",
-      "name": "Caverne cœur de glace",
-      "particle": "vers la"
+      "description": "Un grand lac au cœur de la montagne dont la traversée n’est pas sans risque. Comme la température est glaciale, le fait qu’il ne soit pas gelé reste un mystère. Nul n’en connait sa profondeur ni sa faune.",
+      "name": "Lac souterrain",
+      "particle": "vers le"
     },
     "1106": {
-      "description": "Ce gigantesque pic domine toute l'île. Il est visible à des kilomètres à la ronde. Très difficile d'accès, le pic enneigé abrite de vieilles structures en bois datant d'une ancienne civilisation. Les deux chemins y menant étant très périlleux, peu d'hommes ont pu voir ces structures de leurs propres yeux.",
-      "name": "Pic enneigé",
+      "description": "Un village riche abandonné dont il ne reste que ruines et désolations. On peut y voir le toit d’un manoir qui a plié sous le poids de la cloche de l’église effondrée. Il y règne un silence pesant parfois interrompu par les cris de souffrance des âmes égarés.",
+      "name": "Village dévasté",
+      "particle": "vers le"
+    },
+    "1107": {
+      "description": "Personne ne s'est encore aventuré jusque là. Au loin, vous voyez une gigantesque silhouette se réfléchir sur un mur de glace.",
+      "name": "Nid glacé",
       "particle": "vers le"
     },
     "12": {
@@ -931,7 +936,7 @@
       "prefix": "du"
     },
     "crystalCavern": {
-      "name": "Caverne de crystal",
+      "name": "Caverne de cristal",
       "prefix": "de la"
     },
     "de": {
@@ -945,14 +950,6 @@
     "iceBeach": {
       "name": "Plage glacée",
       "prefix": "de la"
-    },
-    "iceCavern": {
-      "name": "Caverne de glace",
-      "prefix": "de la"
-    },
-    "iceLake": {
-      "name": "Lac gelé",
-      "prefix": "du"
     },
     "la": {
       "name": "Lac",
@@ -986,14 +983,6 @@
       "name": "Ruines",
       "prefix": "des"
     },
-    "snowMountain": {
-      "name": "Pic",
-      "prefix": "du"
-    },
-    "snowmenField": {
-      "name": "Plaine",
-      "prefix": "de la"
-    },
     "testZone": {
       "name": "",
       "prefix": "de la"
@@ -1008,6 +997,22 @@
     },
     "volcano": {
       "name": "Volcan",
+      "prefix": "du"
+    },
+    "blessedDoors": {
+      "name": "",
+      "prefix": "des"
+    },
+    "icePeak": {
+      "name": "Pic",
+      "prefix": "du"
+    },
+    "undergroundLake": {
+      "name": "Lac",
+      "prefix": "du"
+    },
+    "dragonsNest": {
+      "name": "",
       "prefix": "du"
     }
   },
@@ -1120,6 +1125,34 @@
     "slimyMutant": {
       "name": "Mutant Vaseux",
       "description": "Le Mutant Vaseux est un monstre pouvant copier les autres monstres ou son adversaire directement. Il est très polyvalent et peut s'adapter à toutes les situations."
+    },
+    "whiteWolf": {
+      "name": "Loup blanc",
+      "description": "TODO"
+    },
+    "shinyElementary": {
+      "name": "Élémentaire brillant",
+      "description": "TODO"
+    },
+    "crocodile": {
+      "name": "Crocodile",
+      "description": "TODO"
+    },
+    "yukiOnna": {
+      "name": "Yuki-Onna",
+      "description": "Une femme esprit des neiges. Elle est très belle mais aussi très dangereuse. Elle peut geler ses proies d'un simple regard et les faire disparaître dans la neige."
+    },
+    "celestialGuardian": {
+      "name": "Gardien céleste",
+      "description": "TODO"
+    },
+    "maleIceDragon": {
+      "name": "Dragon de glace mâle",
+      "description": "TODO"
+    },
+    "femaleIceDragon": {
+      "name": "Dragon de glace femelle",
+      "description": "TODO"
     }
   },
   "objects": {
@@ -1668,5 +1701,19 @@
     "genericGiveNoSlot": "Vous obtenez un nouveau familier: **{{pet}}**. Cependant, vous n'avez pas de place pour l'accueillir.",
     "genericGiveGuild": "Vous obtenez un nouveau familier: **{{pet}}**. Vous le placez dans le refuge de la guilde.",
     "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
+  },
+  "pveMapsStory": {
+    "1001": "TODO 1001",
+    "1002": "TODO 1002",
+    "1003": "TODO 1003",
+    "1004": "TODO 1004",
+    "1005": "TODO 1005",
+    "1101": "TODO 1101",
+    "1102": "TODO 1102",
+    "1103": "TODO 1103",
+    "1104": "TODO 1104",
+    "1105": "TODO 1105",
+    "1106": "TODO 1106",
+    "1107": "TODO 1107"
   }
 }

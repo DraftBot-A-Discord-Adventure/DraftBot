@@ -1,5 +1,6 @@
 import {
-	ReactionCollector, ReactionCollectorAcceptReaction,
+	ReactionCollector,
+	ReactionCollectorAcceptReaction,
 	ReactionCollectorCreationPacket,
 	ReactionCollectorData,
 	ReactionCollectorRefuseReaction
@@ -14,6 +15,8 @@ export class ReactionCollectorPveFightData extends ReactionCollectorData {
 		defense: number;
 		speed: number;
 	};
+
+	mapId!: number;
 }
 
 export class ReactionCollectorPveFight extends ReactionCollector {
