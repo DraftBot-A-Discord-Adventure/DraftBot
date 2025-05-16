@@ -1128,15 +1128,15 @@
     },
     "whiteWolf": {
       "name": "Loup blanc",
-      "description": "TODO"
+      "description": "Un prédateur féroce et agile. Ses griffes acérées pourraient sceller votre destin. Le froid et les sentiers sinueux lui offrent un grand avantage face aux aventuriers imprudents."
     },
     "shinyElementary": {
       "name": "Élémentaire brillant",
-      "description": "TODO"
+      "description": "Un être né des cristaux de la caverne. Il n'hésitera pas à utiliser ses pouvoirs élémentaires pour vous faire valser à l'autre bout du chemin."
     },
     "crocodile": {
       "name": "Crocodile",
-      "description": "TODO"
+      "description": "Un grand crocodile terrifiant, à la recherche d'un aventurier pour en faire son festin."
     },
     "yukiOnna": {
       "name": "Yuki-Onna",
@@ -1144,7 +1144,7 @@
     },
     "celestialGuardian": {
       "name": "Gardien céleste",
-      "description": "TODO"
+      "description": "Le gardien des portes sacrées. Empêcher les aventuriers de passer est son devoir, et il utilisera son marteau divin pour vous faire comprendre que vous n'êtes pas le bienvenu."
     },
     "maleIceDragon": {
       "name": "Dragon de glace mâle",
@@ -1703,17 +1703,42 @@
     "genericGivePlayer": "Vous obtenez un nouveau familier: **{{pet}}**. Vous décidez de l'emmener avec vous."
   },
   "pveMapsStory": {
-    "1001": "TODO 1001",
-    "1002": "TODO 1002",
-    "1003": "TODO 1003",
-    "1004": "TODO 1004",
-    "1005": "TODO 1005",
-    "1101": "TODO 1101",
-    "1102": "TODO 1102",
-    "1103": "TODO 1103",
-    "1104": "TODO 1104",
-    "1105": "TODO 1105",
-    "1106": "TODO 1106",
-    "1107": "TODO 1107"
+    "1001": {
+      "forestTroll": "TODO forestTroll",
+      "slimyMutant": "TODO slimyMutant"
+    },
+    "1002": {
+      "skeleton": "Alors que vous progressez sur le sentier, les ruines d’un ancien village apparaissent à l’horizon. À première vue, les lieux semblent paisibles malgré les toits effondrés.\nVous avancez prudemment entre les maisons délabrées, scrutant les moindres recoins dans l’espoir de trouver un signe de vie. Soudain, au détour d’une ruelle, vous vous figez. Un craquement sec résonne sur les pavés. Devant vous se dresse un squelette au regard vide, armé jusqu'aux dents, semblant prêt à en découdre..."
+    },
+    "1003": {
+      "spider": "Vous arrivez à l'entrée d'une mine abandonnée, le cadre en bois vieilli empêche les parois de s'effondrer. Vous entrez, nettoyant les nombreuses toiles au passage, et explorez les galeries. Plus vous avancez, plus de minuscules araignées se massent autour de vos pieds.\nObligé de les piétiner, les cris d'effroi de ces petites créatures résonnent dans la caverne. Vous sentez le sol vibré, quelque chose de gros approchez à grande vitesse, ce n'est autre qu'une abominale araignée d'une taille immense, voyant les cadavres de ses enfants à vos pieds, celle-ci crie de rage et vous fonce dessus."
+    },
+    "1004": {
+      "rockGolem": "Alors que vous avancez péniblement sur le sentier escarpé, vous décidez de faire une pause. Le souffle court, vous vous laissez tomber sur un rocher pensant enfin pouvoir vous reposer après avoir combattu tous ces monstres. C'est alors que vous entendez un bruit semblable à celui d'un éboulement lointain. Vous vous levez précipitamment et sous vos yeux ébahi un immense golem de roche émerge du flanc de la montagne. Il semble lent mais sachant qu'il ne faut jamais sous-estimer son adversaire vous dégainez votre arme prêt à affronter cette nouvelle menace..."
+    },
+    "1005": {
+      "magmaTitan": "Rassemblant vos forces les plus profondes, vous escaladez courageusement le volcan. La chaleur du sol vous transperce, mais votre vaillance vous tient debout. L’air étouffant, chargé des remontées magmatiques, vous fait tourner la tête. À chaque inspiration, la nausée vous gagne. Vos blessures passées se réveillent, chaque pas est plus lourd que le précédent, mais vous avancez coûte que coûte. Alors que vous pensez toucher le bout de vos peines, le sol tremble. Le magma se fige, la lave s’écoule et ensemble ils prennent forme. Une entité s’élève. Un colosse se dresse devant vous. Le sang, brûlant comme ce volcan, pulse en vous. Vous vous préparez pour l’ultime bataille."
+    },
+    "1101": {
+      "whiteWolf": "TODO whiteWolf"
+    },
+    "1102": {
+      "shinyElementary": "TODO shinyElementary"
+    },
+    "1103": {
+      "celestialGuardian": "TODO celestialGuardian"
+    },
+    "1104": {
+      "maleIceDragon": "TODO maleIceDragon"
+    },
+    "1105": {
+      "crocodile": "TODO crocodile"
+    },
+    "1106": {
+      "yukiOnna": "TODO yukiOnna"
+    },
+    "1107": {
+      "femaleIceDragon": "TODO femaleIceDragon"
+    }
   }
 }
