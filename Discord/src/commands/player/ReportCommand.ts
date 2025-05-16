@@ -349,7 +349,7 @@ export async function handleStartPveFight(context: PacketContext, packet: Reacti
 	const msg = i18n.t("commands:report.pveEvent", {
 		lng,
 		pseudo: escapeUsername(interaction.user.displayName),
-		event: i18n.t(`models:pveMapsStory.${data.mapId}`, { lng }),
+		event: i18n.t(`models:pveMapsStory.${data.mapId}.${data.monster.id}`, { lng }),
 		monsterDisplay: i18n.t("commands:report.encounterMonsterStats", {
 			lng,
 			monsterName: i18n.t(`models:monsters.${data.monster.id}.name`, { lng }),
