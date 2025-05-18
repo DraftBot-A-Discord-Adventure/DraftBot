@@ -123,19 +123,18 @@ export class DraftBotPaginatedEmbed extends DraftBotEmbed {
 		const components = [];
 		if (currentPage > 0) {
 			components.push(previousButton.setDisabled(false));
-		}
-		else {
+		} else {
 			components.push(previousButton.setDisabled(true));
 		}
+
 		if (currentPage < pagesCount - 1) {
 			components.push(nextButton.setDisabled(false));
-		}
-		else {
+		} else {
 			components.push(nextButton.setDisabled(true));
 		}
+
 		return [
-			new ActionRowBuilder<ButtonBuilder>()
-				.addComponents(components)
+			new ActionRowBuilder<ButtonBuilder>().addComponents(components)
 		];
 	}
 

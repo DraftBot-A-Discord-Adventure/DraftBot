@@ -19,7 +19,14 @@ import { DisplayUtils } from "../../utils/DisplayUtils";
 import { handleClassicError } from "../../utils/ErrorUtils";
 import { EloGameResult } from "../../../../Lib/src/types/EloGameResult";
 import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
-import { DraftBotPaginatedEmbed } from "../../messages/DraftBotPaginatedEmbed";
+import {
+	InteractivePaginatedEmbed,
+	FetchDataFunction,
+	FormatEmbedFunction
+} from "../../messages/InteractivePaginatedEmbed";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { ButtonInteraction, CacheType, Message } from "discord.js";
+import { DraftBotEmbed } from "../../messages/DraftBotEmbed"; // Import DraftBotEmbed
 
 /**
  * Get the league change string
@@ -90,57 +97,82 @@ async function buildPacketHistoryDescription(history: FightHistoryItem[], start:
 	return desc;
 }
 
-/**
- * Get the fight history pages
- * @param packet
- * @param lng
- * @param viewerKeycloakId
- */
-async function getFightHistoryPages(packet: CommandFightHistoryPacketRes, lng: Language, viewerKeycloakId: string): Promise<string[]> {
-	const pagesCount = Math.ceil(packet.history.length / FightConstants.HISTORY_DISPLAY_LIMIT);
+// Remove getFightHistoryPages as this logic will be handled by InteractivePaginatedEmbed
 
-	const descriptions: string[] = [];
-	for (let i = 0; i < pagesCount; i++) {
-		const start = i * FightConstants.HISTORY_DISPLAY_LIMIT;
-		const end = Math.min(start + FightConstants.HISTORY_DISPLAY_LIMIT, packet.history.length);
-		const pageDescription = await buildPacketHistoryDescription(packet.history, start, end, lng, viewerKeycloakId);
-		descriptions.push(pageDescription);
-	}
-	return descriptions.reverse();
-}
-
-/**
- * Handle the fight history response
- * @param packet
- * @param context
- */
 export async function handlePacketHistoryRes(packet: CommandFightHistoryPacketRes, context: PacketContext): Promise<void> {
-	if (packet.history.length === 0) {
-		await handleClassicError(context, i18n.t("commands:fightHistory.noHistory", { lng: context.discord!.language }));
-		return;
-	}
-
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
 	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for FightHistory response.`);
 		return;
 	}
 
-	const lng = interaction.userLanguage;
-	const viewerKeycloakId = context.keycloakId;
-	if (!viewerKeycloakId) {
+	if (packet.history.length === 0) {
+		await handleClassicError(context, i18n.t("commands:fightHistory.noHistory", { lng: interaction.userLanguage }));
 		return;
 	}
 
-	const pages = await getFightHistoryPages(packet, lng, viewerKeycloakId);
+	const playerUsername = await DisplayUtils.getEscapedUsername(context.keycloakId!, interaction.userLanguage);
 
-	await new DraftBotPaginatedEmbed({
-		lng,
-		pages,
-		selectedPageIndex: pages.length - 1
-	}).formatAuthor(i18n.t("commands:fightHistory.title", {
-		lng, pseudo: escapeUsername(interaction.user.displayName)
-	}), interaction.user)
-		.send(interaction);
+	const fetchData_History: FetchDataFunction = async (page, fetchCtx, originalInteraction) => {
+		const dummyPacket = makePacket(CommandFightHistoryPacketReq, {});
+		await PacketUtils.sendPacketToBackend(fetchCtx, dummyPacket);
+	};
+
+	const formatEmbed_History: FormatEmbedFunction<CommandFightHistoryPacketRes> = async (data, currentPage, totalPages, inter, username) => {
+		const lng = inter.userLanguage;
+		const itemsPerPage = FightConstants.HISTORY_DISPLAY_LIMIT;
+		const start = (currentPage - 1) * itemsPerPage;
+		const end = Math.min(start + itemsPerPage, data.history.length);
+
+		const pageDescription = await buildPacketHistoryDescription(data.history, start, end, lng, context.keycloakId!);
+
+		const embed = new DraftBotEmbed() // Use imported DraftBotEmbed
+			.formatAuthor(i18n.t("commands:fightHistory.title", { lng, pseudo: username }), inter.user)
+			.setDescription(pageDescription || i18n.t("commands:fightHistory.noHistoryForPage", {lng}))
+			.setFooter({ text: i18n.t("common:currentPage", { lng, currentPage, totalPages }) });
+		return { embeds: [embed] };
+	};
+
+	const paginatedData: CommandFightHistoryPacketRes & { totalElements: number; elementsPerPage: number; minRank: number } = {
+		...packet,
+		totalElements: packet.history.length,
+		elementsPerPage: FightConstants.HISTORY_DISPLAY_LIMIT,
+		minRank: 1
+	};
+
+	if (interaction.isCommand()) {
+		const originalCmdInteraction = interaction as DraftbotInteraction;
+		const message = await originalCmdInteraction.editReply({ content: i18n.t("common:loading", {lng: originalCmdInteraction.userLanguage}), embeds: [], components: [] }) as Message;
+
+		const paginator = new InteractivePaginatedEmbed(
+			originalCmdInteraction,
+			message,
+			paginatedData,
+			fetchData_History,
+			formatEmbed_History,
+			context.keycloakId!,
+			playerUsername
+		);
+		await paginator.start();
+	} else if (interaction.isButton()) {
+		const buttonInteraction = interaction as ButtonInteraction<CacheType>; // Cast to ButtonInteraction
+		const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+		if (paginator) {
+			await paginator.updateWithNewPageData(paginatedData);
+		} else {
+			console.error("Paginator instance not found for fight history button interaction");
+			const lng = DraftbotInteraction.cast(buttonInteraction).userLanguage; // Use DraftbotInteraction for language
+			const pageDescription = await buildPacketHistoryDescription(packet.history, 0, Math.min(FightConstants.HISTORY_DISPLAY_LIMIT, packet.history.length), lng, context.keycloakId!);
+			const embed = new DraftBotEmbed() // Use imported DraftBotEmbed
+				.formatAuthor(i18n.t("commands:fightHistory.title", { lng, pseudo: playerUsername }), buttonInteraction.user) // Use buttonInteraction.user
+				.setDescription(pageDescription || i18n.t("commands:fightHistory.noHistoryForPage", {lng}))
+				.setFooter({ text: i18n.t("common:currentPage", { lng, currentPage: 1, totalPages: Math.ceil(packet.history.length / FightConstants.HISTORY_DISPLAY_LIMIT) }) });
+			try {
+				await buttonInteraction.editReply({ embeds: [embed], components:[] }); // Use buttonInteraction
+			} catch(e) { console.error("Failed to edit reply for fallback FightHistory:", e); }
+		}
+	}
 }
 
 /**

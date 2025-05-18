@@ -33,13 +33,20 @@ import {
 import { DraftBotErrorEmbed } from "../../messages/DraftBotErrorEmbed";
 import { escapeUsername } from "../../utils/StringUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
+import {
+	InteractivePaginatedEmbed,
+	FetchDataFunction,
+	FormatEmbedFunction
+} from "../../messages/InteractivePaginatedEmbed";
+import { PacketUtils } from "../../utils/PacketUtils";
+import { ButtonInteraction, CacheType, Message } from "discord.js";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<CommandTopPacketReq> {
 	await interaction.deferReply();
 
 	const subCommand = interaction.options.getSubcommand();
 	const timing = interaction.options.getString("timing") as TopTiming ?? TopTiming.ALL_TIME;
-	const page = interaction.options.getInteger("page") ?? undefined;
+	const page = interaction.options.getInteger("page") ?? 1;
 
 	return makePacket(CommandTopPacketReq, {
 		timing,
@@ -57,9 +64,6 @@ function addTimingOption(builder: SlashCommandSubcommandBuilder): void {
 		.addChoices(
 			{
 				name: i18n.t("discordBuilder:top.timings.allTime", { lng: LANGUAGE.ENGLISH }),
-
-				// Discord naming conventions
-				// eslint-disable-next-line camelcase
 				name_localizations: {
 					fr: i18n.t("discordBuilder:top.timings.allTime", { lng: LANGUAGE.FRENCH })
 				},
@@ -67,9 +71,6 @@ function addTimingOption(builder: SlashCommandSubcommandBuilder): void {
 			},
 			{
 				name: i18n.t("discordBuilder:top.timings.weekly", { lng: LANGUAGE.ENGLISH }),
-
-				// Discord naming conventions
-				// eslint-disable-next-line camelcase
 				name_localizations: {
 					fr: i18n.t("discordBuilder:top.timings.weekly", { lng: LANGUAGE.FRENCH })
 				},
@@ -277,100 +278,314 @@ async function getOverriddenPlayersUsernames<U, V, W>(elements: TopElement<U, V,
 }
 
 export async function handleCommandTopPacketResScore(context: PacketContext, packet: CommandTopPacketResScore): Promise<void> {
-	await handleGenericTopPacketRes(context, packet, {
-		title: packet.timing === TopTiming.ALL_TIME
-			? "commands:top.titleScoreAllTime"
-			: "commands:top.titleScoreWeekly",
-		yourRankTitle: "commands:top.yourRankTitle",
-		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
-		yourRankNone: {
-			key: "commands:top.yourRankNoneScore",
-			replacements: {}
-		},
-		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: {
-			key: "commands:top.nobodyInTopPlayers", replacements: {}
-		},
-		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
-	}, formatScoreAttributes);
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopCommandScore response.`);
+		return;
+	}
+
+	const playerUsername = await DisplayUtils.getEscapedUsername(context.keycloakId!, interaction.userLanguage);
+
+	if (interaction.isButton()) {
+		const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+		const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+		if (paginator) {
+			await paginator.updateWithNewPageData(packet);
+		} else {
+			const lng = DraftbotInteraction.cast(buttonInteraction).userLanguage;
+			const title = i18n.t(packet.timing === TopTiming.ALL_TIME ? "commands:top.titleScoreAllTime" : "commands:top.titleScoreWeekly", { lng, minRank: packet.minRank, maxRank: packet.maxRank });
+			const textKeys: TopTextKeys = {
+				title: packet.timing === TopTiming.ALL_TIME ? "commands:top.titleScoreAllTime" : "commands:top.titleScoreWeekly",
+				yourRankTitle: "commands:top.yourRankTitle",
+				yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
+				yourRankNone: { key: "commands:top.yourRankNoneScore", replacements: {} },
+				youRankAtPage: "commands:top.yourRankAtPage",
+				nobodyInTop: { key: "commands:top.nobodyInTopPlayers", replacements: {} },
+				overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, lng)
+			};
+			const description = getTopDescription(packet, textKeys, formatScoreAttributes, lng, playerUsername);
+			try {
+				await buttonInteraction.editReply({ embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)], components: [] });
+			} catch (e) { console.error("Failed to edit reply for fallback TopCommandScore:", e); }
+		}
+	} else if (interaction.isCommand()) {
+		const originalCmdInteraction = interaction as DraftbotInteraction;
+
+		const fetchData_Score: FetchDataFunction = async (page, fetchCtx) => {
+			const originalOptions = originalCmdInteraction.options;
+			const timing = originalOptions.getString("timing") as TopTiming ?? TopTiming.ALL_TIME;
+			const newPacket = makePacket(CommandTopPacketReq, {
+				timing,
+				dataType: TopDataType.SCORE,
+				page
+			});
+			await PacketUtils.sendPacketToBackend(fetchCtx, newPacket);
+		};
+
+		const formatEmbed_Score: FormatEmbedFunction<CommandTopPacketResScore> = async (data, _currentPage, _totalPages, _inter, username) => {
+			const lng = originalCmdInteraction.userLanguage;
+			const title = i18n.t(data.timing === TopTiming.ALL_TIME ? "commands:top.titleScoreAllTime" : "commands:top.titleScoreWeekly", {
+				lng, minRank: data.minRank, maxRank: data.maxRank
+			});
+			const textKeys: TopTextKeys = {
+				title: data.timing === TopTiming.ALL_TIME ? "commands:top.titleScoreAllTime" : "commands:top.titleScoreWeekly",
+				yourRankTitle: "commands:top.yourRankTitle",
+				yourRank: data.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
+				yourRankNone: { key: "commands:top.yourRankNoneScore", replacements: {} },
+				youRankAtPage: "commands:top.yourRankAtPage",
+				nobodyInTop: { key: "commands:top.nobodyInTopPlayers", replacements: {} },
+				overriddenElementTexts: await getOverriddenPlayersUsernames(data.elements, lng)
+			};
+			const description = getTopDescription(data, textKeys, formatScoreAttributes, lng, username);
+			return { embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)] };
+		};
+		
+		const message = await originalCmdInteraction.editReply({ content: i18n.t("common:loading", {lng: originalCmdInteraction.userLanguage}), embeds: [], components: [] }) as Message;
+
+		const paginator = new InteractivePaginatedEmbed(
+			originalCmdInteraction,
+			message,
+			packet,
+			fetchData_Score,
+			formatEmbed_Score,
+			context.keycloakId!,
+			playerUsername
+		);
+		await paginator.start();
+	}
 }
 
 export async function handleCommandTopPacketResGlory(context: PacketContext, packet: CommandTopPacketResGlory): Promise<void> {
-	await handleGenericTopPacketRes(context, packet, {
-		title: "commands:top.titleGlory",
-		yourRankTitle: "commands:top.yourRankTitle",
-		yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
-		yourRankNone: {
-			key: "commands:top.yourRankNoneGlory",
-			replacements: {
-				needFight: packet.needFight,
-				count: packet.needFight
-			}
-		},
-		youRankAtPage: "commands:top.yourRankAtPage",
-		nobodyInTop: {
-			key: "commands:top.nobodyInTopGlory",
-			replacements: {
-				needFight: packet.needFight
-			}
-		},
-		overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, context.discord!.language!)
-	}, formatGloryAttributes);
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopCommandGlory response.`);
+		return;
+	}
+
+	const playerUsername = await DisplayUtils.getEscapedUsername(context.keycloakId!, interaction.userLanguage);
+
+	if (interaction.isButton()) {
+		const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+		const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+		if (paginator) {
+			await paginator.updateWithNewPageData(packet);
+		} else {
+			const lng = DraftbotInteraction.cast(buttonInteraction).userLanguage;
+			const title = i18n.t("commands:top.titleGlory", { lng, minRank: packet.minRank, maxRank: packet.maxRank });
+			const textKeys: TopTextKeys = {
+				title: "commands:top.titleGlory",
+				yourRankTitle: "commands:top.yourRankTitle",
+				yourRank: packet.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
+				yourRankNone: { key: "commands:top.yourRankNoneGlory", replacements: { needFight: packet.needFight, count: packet.needFight } },
+				youRankAtPage: "commands:top.yourRankAtPage",
+				nobodyInTop: { key: "commands:top.nobodyInTopGlory", replacements: { needFight: packet.needFight } },
+				overriddenElementTexts: await getOverriddenPlayersUsernames(packet.elements, lng)
+			};
+			const description = getTopDescription(packet, textKeys, formatGloryAttributes, lng, playerUsername);
+			try {
+				await buttonInteraction.editReply({ embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)], components: [] });
+			} catch (e) { console.error("Failed to edit reply for fallback TopCommandGlory:", e); }
+		}
+	} else if (interaction.isCommand()) {
+		const originalCmdInteraction = interaction as DraftbotInteraction;
+
+		const fetchData_Glory: FetchDataFunction = async (page, fetchCtx) => {
+			const originalOptions = originalCmdInteraction.options;
+			const newPacket = makePacket(CommandTopPacketReq, {
+				timing: TopTiming.ALL_TIME,
+				dataType: TopDataType.GLORY,
+				page
+			});
+			await PacketUtils.sendPacketToBackend(fetchCtx, newPacket);
+		};
+
+		const formatEmbed_Glory: FormatEmbedFunction<CommandTopPacketResGlory> = async (data, _currentPage, _totalPages, _inter, username) => {
+			const lng = originalCmdInteraction.userLanguage;
+			const title = i18n.t("commands:top.titleGlory", { lng, minRank: data.minRank, maxRank: data.maxRank });
+			const textKeys: TopTextKeys = {
+				title: "commands:top.titleGlory",
+				yourRankTitle: "commands:top.yourRankTitle",
+				yourRank: data.contextRank === 1 ? "commands:top.yourRankFirst" : "commands:top.yourRank",
+				yourRankNone: { key: "commands:top.yourRankNoneGlory", replacements: { needFight: data.needFight, count: data.needFight } },
+				youRankAtPage: "commands:top.yourRankAtPage",
+				nobodyInTop: { key: "commands:top.nobodyInTopGlory", replacements: { needFight: data.needFight } },
+				overriddenElementTexts: await getOverriddenPlayersUsernames(data.elements, lng)
+			};
+			const description = getTopDescription(data, textKeys, formatGloryAttributes, lng, username);
+			return { embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)] };
+		};
+
+		const message = await originalCmdInteraction.editReply({ content: i18n.t("common:loading", {lng: originalCmdInteraction.userLanguage}), embeds: [], components: [] }) as Message;
+
+		const paginator = new InteractivePaginatedEmbed(
+			originalCmdInteraction,
+			message,
+			packet,
+			fetchData_Glory,
+			formatEmbed_Glory,
+			context.keycloakId!,
+			playerUsername
+		);
+		await paginator.start();
+	}
 }
 
 export async function handleCommandTopPacketResGuild(context: PacketContext, packet: CommandTopPacketResGuild): Promise<void> {
-	await handleGenericTopPacketRes(context, packet, {
-		title: "commands:top.titleGuild",
-		yourRankTitle: "commands:top.yourRankGuildTitle",
-		yourRank: packet.contextRank === 1 ? "commands:top.yourRankGuildFirst" : "commands:top.yourRankGuild",
-		yourRankNone: {
-			key: "commands:top.yourRankNoneGuild",
-			replacements: {}
-		},
-		youRankAtPage: "commands:top.yourRankAtPageGuild",
-		nobodyInTop: {
-			key: "commands:top.nobodyInTopGuilds",
-			replacements: {}
-		},
-		cantBeRanked: "commands:top.noGuild"
-	}, formatGuildAttributes);
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopCommandGuild response.`);
+		return;
+	}
+
+	const playerUsername = await DisplayUtils.getEscapedUsername(context.keycloakId!, interaction.userLanguage);
+
+	if (interaction.isButton()) {
+		const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+		const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+		if (paginator) {
+			await paginator.updateWithNewPageData(packet);
+		} else {
+			const lng = DraftbotInteraction.cast(buttonInteraction).userLanguage;
+			const title = i18n.t("commands:top.titleGuild", { lng, minRank: packet.minRank, maxRank: packet.maxRank });
+			const textKeys: TopTextKeys = {
+				title: "commands:top.titleGuild",
+				yourRankTitle: "commands:top.yourRankGuildTitle",
+				yourRank: packet.contextRank === 1 ? "commands:top.yourRankGuildFirst" : "commands:top.yourRankGuild",
+				yourRankNone: { key: "commands:top.yourRankNoneGuild", replacements: {} },
+				youRankAtPage: "commands:top.yourRankAtPageGuild",
+				nobodyInTop: { key: "commands:top.nobodyInTopGuilds", replacements: {} },
+				cantBeRanked: "commands:top.noGuild"
+			};
+			const description = getTopDescription(packet, textKeys, formatGuildAttributes, lng, playerUsername);
+			try {
+				await buttonInteraction.editReply({ embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)], components: [] });
+			} catch (e) { console.error("Failed to edit reply for fallback TopCommandGuild:", e); }
+		}
+	} else if (interaction.isCommand()) {
+		const originalCmdInteraction = interaction as DraftbotInteraction;
+
+		const fetchData_Guild: FetchDataFunction = async (page, fetchCtx) => {
+			const newPacket = makePacket(CommandTopPacketReq, {
+				timing: TopTiming.ALL_TIME,
+				dataType: TopDataType.GUILD,
+				page
+			});
+			await PacketUtils.sendPacketToBackend(fetchCtx, newPacket);
+		};
+
+		const formatEmbed_Guild: FormatEmbedFunction<CommandTopPacketResGuild> = async (data, _currentPage, _totalPages, _inter, username) => {
+			const lng = originalCmdInteraction.userLanguage;
+			const title = i18n.t("commands:top.titleGuild", { lng, minRank: data.minRank, maxRank: data.maxRank });
+			const textKeys: TopTextKeys = {
+				title: "commands:top.titleGuild",
+				yourRankTitle: "commands:top.yourRankGuildTitle",
+				yourRank: data.contextRank === 1 ? "commands:top.yourRankGuildFirst" : "commands:top.yourRankGuild",
+				yourRankNone: { key: "commands:top.yourRankNoneGuild", replacements: {} },
+				youRankAtPage: "commands:top.yourRankAtPageGuild",
+				nobodyInTop: { key: "commands:top.nobodyInTopGuilds", replacements: {} },
+				cantBeRanked: "commands:top.noGuild"
+			};
+			const description = getTopDescription(data, textKeys, formatGuildAttributes, lng, username);
+			return { embeds: [new DraftBotEmbed().setTitle(title).setDescription(description)] };
+		};
+
+		const message = await originalCmdInteraction.editReply({ content: i18n.t("common:loading", {lng: originalCmdInteraction.userLanguage}), embeds: [], components: [] }) as Message;
+
+		const paginator = new InteractivePaginatedEmbed(
+			originalCmdInteraction,
+			message,
+			packet,
+			fetchData_Guild,
+			formatEmbed_Guild,
+			context.keycloakId!,
+			playerUsername
+		);
+		await paginator.start();
+	}
 }
 
 export async function handleCommandTopInvalidPagePacket(context: PacketContext, packet: CommandTopInvalidPagePacket): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopInvalidPage response.`);
+		return;
+	}
 
-	await interaction.editReply({
-		embeds: [
-			new DraftBotErrorEmbed(
-				interaction.user,
-				context, interaction,
-				i18n.t("commands:top.invalidPage", {
-					lng: interaction.userLanguage,
-					minPage: packet.minPage,
-					maxPage: packet.maxPage
-				})
-			)
-		]
-	});
+	const errorEmbed = new DraftBotErrorEmbed(
+		interaction.user, 
+		context, interaction, 
+		i18n.t("commands:top.invalidPage", {
+			lng: interaction.userLanguage,
+			minPage: packet.minPage,
+			maxPage: packet.maxPage
+		})
+	);
+
+	try {
+		if (interaction.isButton()) {
+			const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+			await buttonInteraction.editReply({ embeds: [errorEmbed], components: [] });
+			const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+			paginator?.stop("invalid_page_response");
+		} else if (interaction.isCommand()){
+			await (interaction as DraftbotInteraction).editReply({ embeds: [errorEmbed], components: [] });
+		}
+	} catch (e) {
+		console.error("Failed to send TopInvalidPage error reply:", e);
+	}
 }
 
 export async function handleCommandTopPlayersEmptyPacket(context: PacketContext, packet: CommandTopPlayersEmptyPacket): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopPlayersEmpty response.`);
+		return;
+	}
+	
+	const errorEmbed = new DraftBotErrorEmbed(interaction.user, context, interaction,
+		i18n.t(packet.needFight ? "commands:top.nobodyInTopGlory" : "commands:top.nobodyInTopPlayers", {
+			lng: interaction.userLanguage, needFight: packet.needFight ? packet.needFight : 0
+		}));
 
-	await interaction.editReply({
-		embeds: [
-			new DraftBotErrorEmbed(interaction.user, context, interaction,
-				i18n.t(packet.needFight ? "commands:top.nobodyInTopGlory" : "commands:top.nobodyInTopPlayers", {
-					lng: interaction.userLanguage, needFight: packet.needFight ? packet.needFight : 0
-				}))
-		]
-	});
+	try {
+		if (interaction.isButton()) {
+			const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+			await buttonInteraction.editReply({ embeds: [errorEmbed], components: [] });
+			const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+			paginator?.stop("empty_players_response");
+		} else if (interaction.isCommand()){
+			await (interaction as DraftbotInteraction).editReply({ embeds: [errorEmbed], components: [] });
+		}
+	} catch (e) {
+		console.error("Failed to send TopPlayersEmpty error reply:", e);
+	}
 }
 
 export async function handleCommandTopGuildsEmptyPacket(context: PacketContext): Promise<void> {
-	const interaction = DiscordCache.getInteraction(context.discord!.interaction!)!;
+	const interactionIdFromContext = context.discord!.interaction!;
+	const interaction = DiscordCache.getInteraction(interactionIdFromContext);
+	if (!interaction) {
+		console.error(`Interaction ${interactionIdFromContext} not found in cache for TopGuildsEmpty response.`);
+		return;
+	}
 
-	await interaction.editReply({
-		embeds: [new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: interaction.userLanguage }))]
-	});
+	const errorEmbed = new DraftBotErrorEmbed(interaction.user, context, interaction, i18n.t("commands:top.nobodyInTopGuilds", { lng: interaction.userLanguage }));
+	
+	try {
+		if (interaction.isButton()) {
+			const buttonInteraction = interaction as ButtonInteraction<CacheType>;
+			await buttonInteraction.editReply({ embeds: [errorEmbed], components: [] });
+			const paginator = InteractivePaginatedEmbed.activePaginators.get(buttonInteraction.message.id);
+			paginator?.stop("empty_guilds_response");
+		} else if (interaction.isCommand()){
+			await (interaction as DraftbotInteraction).editReply({ embeds: [errorEmbed], components: [] });
+		}
+	} catch (e) {
+		console.error("Failed to send TopGuildsEmpty error reply:", e);
+	}
 }
