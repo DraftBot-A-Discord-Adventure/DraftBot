@@ -86,6 +86,7 @@ import {
 	SmallEventEpicItemShopRefusePacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -274,43 +275,52 @@ export default class SmallEventsHandler {
 		});
 	}
 
-	@packetHandler(SmallEventInteractOtherPlayersPacket)
-	async smallEventInteractOtherPlayers(context: PacketContext, packet: SmallEventInteractOtherPlayersPacket): Promise<void> {
-		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
-		if (!interaction) {
-			return;
-		}
-		const lng = interaction.userLanguage;
-		if (!packet.keycloakId) {
-			await interaction.editReply({
-				embeds: [
-					new DraftbotSmallEventEmbed(
-						"interactOtherPlayers",
-						StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.no_one", lng),
-						interaction.user,
-						lng
-					)
-				]
-			});
-			return;
-		}
-		else if (!packet.data) {
-			throw new Error("No packet data defined in InteractOtherPlayers small event");
-		}
-		const playerDisplay = await interactOtherPlayerGetPlayerDisplay(packet.keycloakId, packet.data.rank, lng);
-		if (packet.playerInteraction === InteractOtherPlayerInteraction.EFFECT) {
-			await interaction.editReply({
-				embeds: [
-					new DraftbotSmallEventEmbed(
-						"interactOtherPlayers",
-						StringUtils.getRandomTranslation(`smallEvents:interactOtherPlayers.effect.${packet.data.effectId}`, lng, { playerDisplay }),
-						interaction.user,
-						lng
-					)
-				]
-			});
-			return;
-		}
+	/**
+	 * Handles the case where no player is found for the interaction
+	 * @param interaction
+	 * @param lng
+	 */
+	private static async handleNoPlayerInteraction(interaction: DraftbotInteraction, lng: Language): Promise<void> {
+		await interaction.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"interactOtherPlayers",
+					StringUtils.getRandomTranslation("smallEvents:interactOtherPlayers.no_one", lng),
+					interaction.user,
+					lng
+				)
+			]
+		});
+	}
+
+	/**
+	 * Handles the case where the interaction is an effect
+	 * @param interaction
+	 * @param packet
+	 * @param lng
+	 * @param playerDisplay
+	 */
+	private static async handleEffectInteraction(interaction: DraftbotInteraction, packet: SmallEventInteractOtherPlayersPacket, lng: Language, playerDisplay: string): Promise<void> {
+		await interaction.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"interactOtherPlayers",
+					StringUtils.getRandomTranslation(`smallEvents:interactOtherPlayers.effect.${packet.data!.effectId}`, lng, { playerDisplay }),
+					interaction.user,
+					lng
+				)
+			]
+		});
+	}
+
+	/**
+	 * Handles the case where the interaction is not an effect
+	 * @param interaction
+	 * @param packet
+	 * @param lng
+	 * @param playerDisplay
+	 */
+	private static async handleOtherInteractions(interaction: DraftbotInteraction, packet: SmallEventInteractOtherPlayersPacket, lng: Language, playerDisplay: string): Promise<void> {
 		await interaction.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
@@ -320,16 +330,16 @@ export default class SmallEventsHandler {
 						lng,
 						{
 							playerDisplay,
-							level: packet.data.level,
-							class: `${DraftBotIcons.classes[packet.data.classId]} ${i18n.t(`models:classes.${packet.data.classId}`, { lng })}`,
+							level: packet.data!.level,
+							class: `${DraftBotIcons.classes[packet.data!.classId]} ${i18n.t(`models:classes.${packet.data!.classId}`, { lng })}`,
 							advice: StringUtils.getRandomTranslation("advices:advices", lng),
-							petEmote: packet.data.petId && packet.data.petSex ? DisplayUtils.getPetIcon(packet.data.petId, packet.data.petSex) : "",
-							petName: packet.data.petId && packet.data.petSex ? DisplayUtils.getPetNicknameOrTypeName(packet.data.petName ?? null, packet.data.petId, packet.data.petSex, lng) : "",
-							guildName: packet.data.guildName,
-							weapon: DisplayUtils.getWeaponDisplay(packet.data.weaponId, lng),
-							armor: DisplayUtils.getArmorDisplay(packet.data.armorId, lng),
-							object: DisplayUtils.getObjectDisplay(packet.data.objectId, lng),
-							potion: DisplayUtils.getPotionDisplay(packet.data.potionId, lng)
+							petEmote: packet.data!.petId && packet.data!.petSex ? DisplayUtils.getPetIcon(packet.data!.petId, packet.data!.petSex) : "",
+							petName: packet.data!.petId && packet.data!.petSex ? DisplayUtils.getPetNicknameOrTypeName(packet.data!.petName ?? null, packet.data!.petId, packet.data!.petSex, lng) : "",
+							guildName: packet.data!.guildName,
+							weapon: DisplayUtils.getWeaponDisplay(packet.data!.weaponId, lng),
+							armor: DisplayUtils.getArmorDisplay(packet.data!.armorId, lng),
+							object: DisplayUtils.getObjectDisplay(packet.data!.objectId, lng),
+							potion: DisplayUtils.getPotionDisplay(packet.data!.potionId, lng)
 						}
 					),
 					interaction.user,
@@ -337,6 +347,33 @@ export default class SmallEventsHandler {
 				)
 			]
 		});
+	}
+
+	@packetHandler(SmallEventInteractOtherPlayersPacket)
+	async smallEventInteractOtherPlayers(context: PacketContext, packet: SmallEventInteractOtherPlayersPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (!interaction) {
+			return;
+		}
+		const lng = interaction.userLanguage;
+
+		if (!packet.keycloakId) {
+			await SmallEventsHandler.handleNoPlayerInteraction(interaction, lng);
+			return;
+		}
+
+		if (!packet.data) {
+			throw new Error("No packet data defined in InteractOtherPlayers small event");
+		}
+
+		const playerDisplay = await interactOtherPlayerGetPlayerDisplay(packet.keycloakId, packet.data.rank, lng);
+
+		if (packet.playerInteraction === InteractOtherPlayerInteraction.EFFECT) {
+			await SmallEventsHandler.handleEffectInteraction(interaction, packet, lng, playerDisplay);
+			return;
+		}
+
+		await SmallEventsHandler.handleOtherInteractions(interaction, packet, lng, playerDisplay);
 	}
 
 	@packetHandler(SmallEventInteractOtherPlayersAcceptToGivePoorPacket)
