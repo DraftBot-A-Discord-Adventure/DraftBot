@@ -903,7 +903,8 @@
   "notifications": {
     "types": {
       "report": "Rapports",
-      "guildDaily": "Récompenses de guilde"
+      "guildDaily": "Récompenses de guilde",
+      "playerFreedFromJail": "Libération de prison"
     },
     "enableDisable": "Activer/Désactiver",
     "sendLocationField": "Endroit d'envoi :",
