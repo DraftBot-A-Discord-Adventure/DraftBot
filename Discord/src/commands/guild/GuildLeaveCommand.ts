@@ -53,8 +53,8 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuildLeaveAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const keyTitle = packet.newChiefKeycloakId ? "newChiefTitle" : "successTitle";
-	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : "leavingSuccess";
+	const keyTitle = "successTitle";
+	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : packet.newChiefKeycloakId ? "leavingSuccessWithNewChief" : "leavingSuccess";
 	const getChief = packet.newChiefKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId) : undefined;
 	if (getChief?.isError) {
 		return;
@@ -67,12 +67,12 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.${keyTitle}`, {
 					lng,
 					pseudo: escapeUsername(originalInteraction.user.displayName),
-					newChiefPseudo,
 					guildName: packet.guildName
 				}), originalInteraction.user)
 					.setDescription(
 						i18n.t(`commands:guildLeave.${keyDesc}`, {
 							lng,
+							newChiefPseudo,
 							guildName: packet.guildName
 						})
 					)
