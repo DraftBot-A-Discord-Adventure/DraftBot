@@ -162,7 +162,6 @@ export abstract class PetConstants {
 	 *
 	 *   For example, a guild at level 1-10 has a 90% chance to loot the most common pet and a 0.01% chance to loot the rarest pet.
 	 */
-	// Todo: add unit test to check that each line is summing to 1
 	static readonly PROBABILITIES = [
 		[
 			0.9000,
