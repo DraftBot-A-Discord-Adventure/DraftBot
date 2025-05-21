@@ -52,5 +52,27 @@ export abstract class NotificationsTypes {
 		}
 	};
 
-	static ALL: NotificationType[] = [NotificationsTypes.REPORT, NotificationsTypes.GUILD_DAILY];
+	static PLAYER_FREED_FROM_JAIL: NotificationType = {
+		emote: DraftBotIcons.notifications.types.playerFreedFromJail,
+		customId: "playerFreedFromJail",
+		i18nKey: "commands:notifications.types.playerFreedFromJail",
+		value: notificationsConfiguration => ({
+			enabled: notificationsConfiguration.playerFreedFromJailEnabled,
+			sendType: notificationsConfiguration.playerFreedFromJailSendType,
+			channelId: notificationsConfiguration.playerFreedFromJailChannelId
+		}),
+		toggleCallback: (notificationsConfiguration): void => {
+			notificationsConfiguration.playerFreedFromJailEnabled = !notificationsConfiguration.playerFreedFromJailEnabled;
+		},
+		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
+			notificationsConfiguration.playerFreedFromJailSendType = sendType;
+			notificationsConfiguration.playerFreedFromJailChannelId = channelId;
+		}
+	};
+
+	static ALL: NotificationType[] = [
+		NotificationsTypes.REPORT,
+		NotificationsTypes.GUILD_DAILY,
+		NotificationsTypes.PLAYER_FREED_FROM_JAIL
+	];
 }

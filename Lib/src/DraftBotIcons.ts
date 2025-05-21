@@ -1948,7 +1948,8 @@ export const DraftBotIcons: {
 		back: "↩️",
 		types: {
 			report: "📰",
-			guildDaily: "🏟️"
+			guildDaily: "🏟️",
+			playerFreedFromJail: "🔓"
 		}
 	},
 	missions: {

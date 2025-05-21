@@ -30,9 +30,11 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { MissionsController } from "../../core/missions/MissionsController";
+import { PlayerFreedFromJailNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
+import { PacketUtils } from "../../core/utils/PacketUtils";
 
 /**
- * Accept the unlock of a player
+ * Accept the unlocking of a player
  * @param player
  * @param freedPlayer
  * @param response
@@ -62,6 +64,13 @@ async function acceptUnlock(player: Player, freedPlayer: Player, response: Draft
 	response.push(makePacket(CommandUnlockAcceptPacketRes, {
 		unlockedKeycloakId: freedPlayer.keycloakId
 	}));
+
+	PacketUtils.sendNotifications([
+		makePacket(PlayerFreedFromJailNotificationPacket, {
+			keycloakId: freedPlayer.keycloakId,
+			freedByPlayerKeycloakId: player.keycloakId
+		})
+	]);
 
 	await MissionsController.update(player, response, { missionId: "unlock" });
 }
