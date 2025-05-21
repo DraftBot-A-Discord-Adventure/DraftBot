@@ -52,9 +52,8 @@ function getLeagueChange(
  * @param start - The start index
  * @param end - The end index
  * @param lng - The language
- * @param viewerKeycloakId - The keycloakId of the player viewing the history
  */
-async function buildPacketHistoryDescription(history: FightHistoryItem[], start: number, end: number, lng: Language, viewerKeycloakId: string): Promise<string> {
+async function buildPacketHistoryDescription(history: FightHistoryItem[], start: number, end: number, lng: Language): Promise<string> {
 	let desc = "";
 
 	for (let i = end - 1; i >= start; i--) {
@@ -94,16 +93,15 @@ async function buildPacketHistoryDescription(history: FightHistoryItem[], start:
  * Get the fight history pages
  * @param packet
  * @param lng
- * @param viewerKeycloakId
  */
-async function getFightHistoryPages(packet: CommandFightHistoryPacketRes, lng: Language, viewerKeycloakId: string): Promise<string[]> {
+async function getFightHistoryPages(packet: CommandFightHistoryPacketRes, lng: Language): Promise<string[]> {
 	const pagesCount = Math.ceil(packet.history.length / FightConstants.HISTORY_DISPLAY_LIMIT);
 
 	const descriptions: string[] = [];
 	for (let i = 0; i < pagesCount; i++) {
 		const start = i * FightConstants.HISTORY_DISPLAY_LIMIT;
 		const end = Math.min(start + FightConstants.HISTORY_DISPLAY_LIMIT, packet.history.length);
-		const pageDescription = await buildPacketHistoryDescription(packet.history, start, end, lng, viewerKeycloakId);
+		const pageDescription = await buildPacketHistoryDescription(packet.history, start, end, lng);
 		descriptions.push(pageDescription);
 	}
 	return descriptions.reverse();
@@ -131,7 +129,7 @@ export async function handlePacketHistoryRes(packet: CommandFightHistoryPacketRe
 		return;
 	}
 
-	const pages = await getFightHistoryPages(packet, lng, viewerKeycloakId);
+	const pages = await getFightHistoryPages(packet, lng);
 
 	await new DraftBotPaginatedEmbed({
 		lng,
