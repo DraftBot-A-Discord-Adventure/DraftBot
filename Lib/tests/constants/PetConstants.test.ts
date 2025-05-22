@@ -11,7 +11,7 @@ describe("PetConstants", () => {
 		});
 
 		it("should have all rows with 5 columns", () => {
-			const expectedColumnCount = 5; // For now pets have 5 rarities
+			const expectedColumnCount = 5; // For now pets have 5 rarities each corresponding to a column
 			for (const row of PetConstants.PROBABILITIES) {
 				expect(row.length).toBe(expectedColumnCount);
 			}
