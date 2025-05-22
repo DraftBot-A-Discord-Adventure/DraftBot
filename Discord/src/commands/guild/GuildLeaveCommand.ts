@@ -46,14 +46,13 @@ export async function createGuildLeaveCollector(context: PacketContext, packet: 
 }
 
 /**
- * Handle the response when the player leave its guild
+ * Handle the response when the player leaves its guild
  * @param packet
  * @param context
  */
 export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuildLeaveAcceptPacketRes, context: PacketContext): Promise<void> {
 	const originalInteraction = DiscordCache.getInteraction(context.discord!.interaction!);
 	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-	const keyTitle = "successTitle";
 	const keyDesc = packet.isGuildDestroyed ? "destroySuccess" : packet.newChiefKeycloakId ? "leavingSuccessWithNewChief" : "leavingSuccess";
 	const getChief = packet.newChiefKeycloakId ? await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.newChiefKeycloakId) : undefined;
 	if (getChief?.isError) {
@@ -64,7 +63,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.${keyTitle}`, {
+				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.successTitle`, {
 					lng,
 					pseudo: escapeUsername(originalInteraction.user.displayName),
 					guildName: packet.guildName
@@ -82,7 +81,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 }
 
 /**
- * Handle the response when the player don't leave its guild
+ * Handle the response when the player doesn't leave its guild
  * @param context
  */
 export async function handleCommandGuildLeaveRefusePacketRes(context: PacketContext): Promise<void> {

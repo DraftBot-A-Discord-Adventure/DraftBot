@@ -321,6 +321,7 @@ export default class SmallEventsHandler {
 	 * @param playerDisplay
 	 */
 	private static async handleOtherInteractions(interaction: DraftbotInteraction, packet: SmallEventInteractOtherPlayersPacket, lng: Language, playerDisplay: string): Promise<void> {
+		const hasPetInfo = packet.data!.petId && packet.data!.petSex;
 		await interaction.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
@@ -333,8 +334,8 @@ export default class SmallEventsHandler {
 							level: packet.data!.level,
 							class: `${DraftBotIcons.classes[packet.data!.classId]} ${i18n.t(`models:classes.${packet.data!.classId}`, { lng })}`,
 							advice: StringUtils.getRandomTranslation("advices:advices", lng),
-							petEmote: packet.data!.petId && packet.data!.petSex ? DisplayUtils.getPetIcon(packet.data!.petId, packet.data!.petSex) : "",
-							petName: packet.data!.petId && packet.data!.petSex ? DisplayUtils.getPetNicknameOrTypeName(packet.data!.petName ?? null, packet.data!.petId, packet.data!.petSex, lng) : "",
+							petEmote: hasPetInfo ? DisplayUtils.getPetIcon(packet.data!.petId!, packet.data!.petSex!) : "",
+							petName: hasPetInfo ? DisplayUtils.getPetNicknameOrTypeName(packet.data!.petName ?? null, packet.data!.petId!, packet.data!.petSex!, lng) : "",
 							guildName: packet.data!.guildName,
 							weapon: DisplayUtils.getWeaponDisplay(packet.data!.weaponId, lng),
 							armor: DisplayUtils.getArmorDisplay(packet.data!.armorId, lng),
