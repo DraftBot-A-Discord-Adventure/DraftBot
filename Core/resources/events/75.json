@@ -1,0 +1,53 @@
+{
+  "possibilities": {
+    "accept": {
+      "outcomes": {
+        "0": {
+          "effect": "sick",
+          "health": -5
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 90
+        },
+        "2": {
+          "money": 100,
+          "randomItem": {}
+        }
+      }
+    },
+    "refuse": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30,
+          "health": -20
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 30
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 60,
+          "randomItem": {}
+        },
+        "2": {},
+        "3": {
+          "effect": "confounded",
+          "health": -10
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 1
+    }
+  ]
+}

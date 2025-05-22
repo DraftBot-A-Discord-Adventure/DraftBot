@@ -890,6 +890,16 @@ export const DraftBotIcons: {
 			run: "🏃",
 			smell: "👃"
 		},
+		75: {
+			accept: "⚓",
+			refuse: "⛔",
+			end: {
+				0: "🏝️",
+				1: "🏝️",
+				2: "🏝️",
+				4: "🏏"
+			}
+		},
 		8: {
 			end: {
 				0: "🚶"
