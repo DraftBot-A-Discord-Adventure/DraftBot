@@ -35,12 +35,12 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-	if (RandomUtils.draftbotRandom.bool(0.85) || turn === 1) {
+	if (RandomUtils.draftbotRandom.bool(0.85) || turn <= 2) {
 		return null;
 	}
 
 	// Only do something if the last action was a physical attack
-	if (opponent.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
+	if (opponent.getLastFightActionUsed()?.type !== FightActionType.PHYSICAL) {
 		return null;
 	}
 
