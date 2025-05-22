@@ -2563,6 +2563,34 @@
     },
     "text": "Während Sie ziellos durch die Gegend schlendern, wird Ihre Nase plötzlich von einem intensiven Jodgeruch heimgesucht. Eine seltsame Frau in einem Kleid mit Fischschuppenmuster und mit Haaren, die sich in getrocknetem Seetang verheddert haben, winkt Ihnen zu. Sie ist von überquellenden Körben mit farbenfrohen Meeresfrüchten umgeben und lädt Sie mit einem zahnlosen, aber herzlichen Lächeln dazu ein, ihre kulinarische Spezialität zu probieren: ein Gericht, das mit Liebe aus den schönsten Produkten des Ozeans gekocht wird."
   },
+  "75": {
+    "possibilities": {
+      "accept": {
+        "text": "Accepter l'invitation",
+        "outcomes": {
+          "0": "Vous grimpez à bord du navire, attiré par les rires et la lumière vacillante des lanternes. La fête bat son plein, les flots de rhum circulent sans retenue, et bientôt, vos sens se brouillent dans une brume douce et traîtresse. Le réveil est brutal : dans l'obscurité de la cale, un mal de crâne sourd vous tient compagnie. L’air marin vous gifle le visage lorsque, chancelant, vous regagnez le quai, sans le moindre souvenir de la nuit passée.",
+          "1": "À peine votre pied posé sur le pont, une tension sourde vous étreint. Les visages de l’équipage sont crispés, les regards fuyants. Puis, comme un éclair, la fureur éclate : deux hommes s’empoignent, la querelle dégénère en une mêlée confuse. Ballotté entre les coups, vous échappez de peu à une blessure grave. C’est le cœur battant et les mains tremblantes que vous regagnez la terre ferme, l’esprit ébranlé par cette violence soudaine.",
+          "2": "Le capitaine, un sourire en coin, vous invite à prendre part à un jeu dont les règles semblent aussi floues que douteuses. Vous acceptez, le souffle suspendu, et vous laissez guider par le hasard. Contre toute attente, la chance vous sourit : une bourse d’or et un objet énigmatique, serti de symboles oubliés, vous sont remis à contrecœur par un capitaine visiblement contrarié par votre victoire."
+        }
+      },
+      "refuse": {
+        "text": "Verweigern Sie die Einladung",
+        "outcomes": {
+          "0": "Vous déclinez poliment, le regard posé sur les voiles noires qui battent au vent. Le capitaine vous observe un instant, puis hausse les épaules avec un sourire narquois. Sans un mot de plus, il fait signe à son équipage de lever l’ancre. Vous restez là, silencieux, tandis que le navire s’éloigne lentement, avalé par l’horizon brumeux. Vous reprenez alors votre route, le cœur serein, loin des aventures maritimes.",
+          "1": "Votre refus franchit vos lèvres avec fermeté. Mais le regard du capitaine se durcit, son sourire s’efface. D’un geste sec, il ordonne à ses hommes de viser. Le tonnerre d’un canon résonne, projetant sable et éclats tout autour de vous. Pris de panique, vous fuyez à travers la crique, le souffle court, poursuivi par l’écho grinçant d’un rire cruel."
+        }
+      },
+      "end": {
+        "outcomes": {
+          "0": "Vous tournez le dos au capitaine et allez vous asseoir sur le sable, laissant votre regard suivre le vaisseau pirate qui, toutes voiles dehors, quitte lentement la baie. Le grondement sourd des flots accompagne son départ, jusqu’à ce qu’il ne soit plus qu’un point à l’horizon. Enfin, vous vous relevez, époussetez le sable de vos vêtements, et reprenez votre route, seul sur le sentier battu par les vents.",
+          "1": "Vous détournez votre regard du capitaine et laissez vos pensées voguer au rythme des flots. Là, sur le rivage balayé par les vents, votre œil est attiré par une antique bouteille, à demi enfouie dans le sable. Intrigué, vous la saisissez et y découvrez un vieux parchemin jauni par le temps. Les signes tracés d'une main tremblante y révèlent l'emplacement d'un lieu secret, dissimulé non loin. Guidé par ces énigmes, vous arpentez la lande durant longuement, jusqu’à ce que vos pas vous mènent à un coffre ancien, enfoui sous les ronces. En l’ouvrant, vous découvrez un objet aux allures mystérieuses...",
+          "2": "Vous tournez le dos au capitaine et laissez vos pas vous guider sur la plage battue par les vents. Une bouteille à demi enfouie dans le sable attire votre regard. Vous la déterrez avec précaution, espérant quelque secret oublié. À l’intérieur, un parchemin froissé, rongé par l’humidité et le sel. Vous le déroulez lentement, mais hélas… les lettres sont effacées, les mots n’étant plus que tâches informes et filigranes éteints. Aucun sens ne s’en dégage, si ce n’est un pressentiment : ce message a surement un jour été important, il est désormais perdu à jamais dans les replis du temps.",
+          "3": "Vous tournez le dos au capitaine sans un mot, ce qui semble attiser sa colère. D’un pas vif, il vous rejoint et, sans sommation, vous assène un violent coup sur l’arrière du crâne. Étourdi, vous vous affaissez sur le sable, les étoiles dansant devant vos yeux. Il repart aussitôt, regagne le pont en ricanant, puis ordonne de lever l’ancre."
+        }
+      }
+    },
+    "text": "En arrivant à la plage sentinelle, vous apercevez, amarré, un bateau aux voiles noires et usées. Sur le pont, un homme portant un large tricorne, probablement le capitaine, vous fait signe de le rejoindre."
+  },
   "8": {
     "possibilities": {
       "end": {
