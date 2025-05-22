@@ -40,7 +40,7 @@ const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Prom
 	}
 
 	// Only do something if the last action was a physical attack
-	if (opponent.getLastFightActionUsed()?.type !== FightActionType.PHYSICAL) {
+	if (!opponent.getLastFightActionUsed() || opponent.getLastFightActionUsed().type !== FightActionType.PHYSICAL) {
 		return null;
 	}
 
