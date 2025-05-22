@@ -63,7 +63,7 @@ export async function handleCommandGuildLeaveAcceptPacketRes(packet: CommandGuil
 		const lng = originalInteraction.userLanguage;
 		await buttonInteraction.editReply({
 			embeds: [
-				new DraftBotEmbed().formatAuthor(i18n.t(`commands:guildLeave.successTitle`, {
+				new DraftBotEmbed().formatAuthor(i18n.t("commands:guildLeave.successTitle", {
 					lng,
 					pseudo: escapeUsername(originalInteraction.user.displayName),
 					guildName: packet.guildName

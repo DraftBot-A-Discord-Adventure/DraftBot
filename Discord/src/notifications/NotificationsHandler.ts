@@ -29,64 +29,68 @@ export abstract class NotificationsHandler {
 	 */
 	static sendNotifications(notificationSerializedPacket: NotificationsSerializedPacket): void {
 		for (const notification of notificationSerializedPacket.notifications) {
-			const keycloakId = notification.packet.keycloakId;
-
-			KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId)
-				.then(async getUser => {
-					if (getUser.isError || !getUser.payload.user.attributes.discordId) {
-						throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
-					}
-					const discordId = getUser.payload.user.attributes.discordId[0];
-					const lng = getUser.payload.user.attributes.language[0];
-
-					let notificationContent: string;
-					let notificationType: NotificationType;
-
-					switch (notification.type) {
-						case ReachDestinationNotificationPacket.name: {
-							const packet = notification.packet as ReachDestinationNotificationPacket;
-							notificationContent = i18n.t("bot:notificationReachDestination", {
-								lng,
-								destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
-							});
-							notificationType = NotificationsTypes.REPORT;
-							break;
-						}
-						case GuildDailyNotificationPacket.name: {
-							const packet = notification.packet as GuildDailyNotificationPacket;
-							notificationContent = i18n.t("bot:notificationGuildDaily", {
-								lng,
-								pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakIdOfExecutor, lng),
-								rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
-							});
-							notificationType = NotificationsTypes.GUILD_DAILY;
-							break;
-						}
-						case PlayerFreedFromJailNotificationPacket.name: {
-							const packet = notification.packet as PlayerFreedFromJailNotificationPacket;
-							notificationContent = i18n.t("notifications:playerFreedFromJail.description", {
-								lng,
-								freedByPlayer: await DisplayUtils.getEscapedUsername(packet.freedByPlayerKeycloakId, lng)
-							});
-							notificationType = NotificationsTypes.PLAYER_FREED_FROM_JAIL;
-							break;
-						}
-						default:
-							throw `Unknown notification type: ${notification.type}`;
-					}
-
-					draftBotClient.users.fetch(discordId)
-						.then(async discordUser => {
-							await NotificationsHandler.sendNotification(
-								discordUser,
-								await NotificationsConfigurations.getOrRegister(discordId),
-								notificationType,
-								i18n.t(notificationContent, { lng }),
-								lng
-							);
-						});
+			this._processSingleNotification(notification)
+				.catch(error => {
+					DraftBotLogger.error(`Failed to process notification: ${error}`);
 				});
 		}
+	}
+
+	private static async _processSingleNotification(notification: NotificationsSerializedPacket["notifications"][0]): Promise<void> {
+		const keycloakId = notification.packet.keycloakId;
+
+		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
+
+		if (getUser.isError || !getUser.payload.user.attributes.discordId) {
+			throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
+		}
+		const discordId = getUser.payload.user.attributes.discordId[0];
+		const lng = getUser.payload.user.attributes.language[0] as Language;
+
+		let notificationContent: string;
+		let notificationType: NotificationType;
+
+		switch (notification.type) {
+			case ReachDestinationNotificationPacket.name: {
+				const packet = notification.packet as ReachDestinationNotificationPacket;
+				notificationContent = i18n.t("bot:notificationReachDestination", {
+					lng,
+					destination: DisplayUtils.getMapLocationDisplay(packet.mapType, packet.mapId, lng)
+				});
+				notificationType = NotificationsTypes.REPORT;
+				break;
+			}
+			case GuildDailyNotificationPacket.name: {
+				const packet = notification.packet as GuildDailyNotificationPacket;
+				notificationContent = i18n.t("bot:notificationGuildDaily", {
+					lng,
+					pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakIdOfExecutor, lng),
+					rewards: getCommandGuildDailyRewardPacketString((notification.packet as GuildDailyNotificationPacket).reward, lng)
+				});
+				notificationType = NotificationsTypes.GUILD_DAILY;
+				break;
+			}
+			case PlayerFreedFromJailNotificationPacket.name: {
+				const packet = notification.packet as PlayerFreedFromJailNotificationPacket;
+				notificationContent = i18n.t("notifications:playerFreedFromJail.description", {
+					lng,
+					freedByPlayer: await DisplayUtils.getEscapedUsername(packet.freedByPlayerKeycloakId, lng)
+				});
+				notificationType = NotificationsTypes.PLAYER_FREED_FROM_JAIL;
+				break;
+			}
+			default:
+				throw `Unknown notification type: ${notification.type}`;
+		}
+
+		const discordUser = await draftBotClient.users.fetch(discordId);
+		await NotificationsHandler.sendNotification(
+			discordUser,
+			await NotificationsConfigurations.getOrRegister(discordId),
+			notificationType,
+			i18n.t(notificationContent, { lng }),
+			lng
+		);
 	}
 
 	/**
@@ -156,7 +160,7 @@ export abstract class NotificationsHandler {
 	}
 
 	/**
-	 * This function is called to verify if the bot have access to a channel
+	 * This function is called to verify if the bot has access to a channel
 	 * @param user
 	 * @param notificationConfiguration
 	 * @param notificationType
