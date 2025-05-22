@@ -91,12 +91,12 @@
     "title": "{{pseudo}}, confirmation:",
     "confirmDesc": "{emote:collectors.question} Do you really want to leave the {{guildName}} guild?",
     "confirmChiefDesc": "{emote:collectors.question} Do you really want to **destroy** the {{guildName}} guild for good?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Do you really want to leave the {{guildName}} guild? {{newChiefPseudo}} will become its leader.",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?\n\n{{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "Your departure was cancelled.",
     "successTitle": "{{pseudo}} left the {{guildName}} guild!",
     "leavingSuccess": "You are a poor lonesome cowboy and a long way from home...",
     "destroySuccess": "The guild {{guildName}} was successfully disbanded.",
-    "newChiefTitle": "{{newChiefPseudo}} is the new leader of the {{guildName}} guild!",
+    "leavingSuccessWithNewChief": "{{newChiefPseudo}} is the new leader of the {{guildName}} guild!",
     "notInAGuild": "It would appear that you are no longer part of a guild.",
     "canceledTitle": "Cancellation taken into account"
   },
@@ -903,7 +903,8 @@
   "notifications": {
     "types": {
       "report": "Reports",
-      "guildDaily": "Guild rewards"
+      "guildDaily": "Guild rewards",
+      "playerFreedFromJail": "Libération de prison"
     },
     "enableDisable": "Enable/Disable",
     "sendLocationField": "Sending place:",
