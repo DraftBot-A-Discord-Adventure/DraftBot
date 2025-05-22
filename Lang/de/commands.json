@@ -91,12 +91,12 @@
     "title": "{{pseudo}} Bestätigung :",
     "confirmDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen?",
     "confirmChiefDesc": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich **endgültig** zerstören?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Möchten Sie die Gilde `{{guildName}}` wirklich verlassen? {{newChiefPseudo}} wird ihr Anführer werden.",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?\n\n{{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "Ihre Abreise wurde storniert.",
     "successTitle": "{{pseudo}} hat die Gilde verlassen {{guildName}} !",
     "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "Die Gilde {{guildName}} wurde korrekt aufgelöst.",
-    "newChiefTitle": "{{newChiefPseudo}} ist der neue Anführer der Gilde {{guildName}} !",
+    "leavingSuccessWithNewChief": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
     "notInAGuild": "Es scheint, dass Sie bereits nicht mehr in einer Gilde sind.",
     "canceledTitle": "Stornierung berücksichtigt"
   },
@@ -903,7 +903,8 @@
   "notifications": {
     "types": {
       "report": "Berichte",
-      "guildDaily": "Gildenbelohnungen"
+      "guildDaily": "Gildenbelohnungen",
+      "playerFreedFromJail": "Libération de prison"
     },
     "enableDisable": "Aktivieren/Deaktivieren",
     "sendLocationField": "Ort der Versendung :",
