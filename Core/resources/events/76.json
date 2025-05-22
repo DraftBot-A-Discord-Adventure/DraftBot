@@ -1,0 +1,59 @@
+{
+  "possibilities": {
+    "help": {
+      "outcomes": {
+        "0": {
+          "money": 150,
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "hurt",
+          "health": -18
+        },
+        "2": {
+          "randomItem": {}
+        },
+        "3": {
+          "money": 50
+        }
+      }
+    },
+    "explore": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "effect": "hurt",
+          "health": -33
+        },
+        "2": {
+          "money": 80,
+          "randomItem": {}
+        }
+      }
+    },
+    "question": {
+      "outcomes": {
+        "0": {
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "occupied",
+          "lostTime": 30
+        },
+        "2": {
+          "money": 120
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 27
+    }
+  ]
+}

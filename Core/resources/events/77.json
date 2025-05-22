@@ -1,0 +1,51 @@
+{
+  "possibilities": {
+    "approach": {
+      "outcomes": {
+        "0": {
+          "money": 75,
+          "randomItem": {}
+        },
+        "1": {
+          "effect": "hurt",
+          "health": -17
+        },
+        "2": {}
+      }
+    },
+    "hide": {
+      "outcomes": {
+        "0": {
+          "money": 60
+        },
+        "1": {
+          "randomItem": {}
+        },
+        "2": {}
+      }
+    },
+    "flee": {
+      "outcomes": {
+        "0": {
+          "effect": "lost"
+        },
+        "1": {
+          "health": -9
+        },
+        "2": {
+          "randomItem": {}
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 27
+    }
+  ]
+}
