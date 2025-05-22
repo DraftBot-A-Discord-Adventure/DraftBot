@@ -91,12 +91,12 @@
     "title": "{{pseudo}}, confirmation :",
     "confirmDesc": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?",
     "confirmChiefDesc": "{emote:collectors.question} Souhaitez-vous vraiment **détruire définitivement** la guilde `{{guildName}}` ?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ? {{newChiefPseudo}} en deviendra le chef.",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?\n\n{{newChiefPseudo}} en deviendra le chef.",
     "canceledDesc": "Votre départ a été annulé.",
     "successTitle": "{{pseudo}} a quitté la guilde {{guildName}} !",
     "leavingSuccess": "You're a poor lonesome cowboy and a long long way from home...",
     "destroySuccess": "La guilde {{guildName}} a correctement été dissoute.",
-    "newChiefTitle": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
+    "leavingSuccessWithNewChief": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
     "notInAGuild": "Il semblerait que vous ne fassiez déjà plus partie d'une guilde.",
     "canceledTitle": "Annulation prise en compte"
   },
@@ -903,7 +903,8 @@
   "notifications": {
     "types": {
       "report": "Rapports",
-      "guildDaily": "Récompenses de guilde"
+      "guildDaily": "Récompenses de guilde",
+      "playerFreedFromJail": "Libération de prison"
     },
     "enableDisable": "Activer/Désactiver",
     "sendLocationField": "Endroit d'envoi :",
