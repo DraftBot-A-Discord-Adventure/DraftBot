@@ -2563,6 +2563,103 @@
     },
     "text": "Mientras deambulas sin rumbo, tus fosas nasales se ven repentinamente asaltadas por un intenso olor a yodo. Una extraña mujer con un vestido de escamas de pescado y el pelo enmarañado de algas secas te saluda con la mano. Rodeada de cestas rebosantes de marisco de vivos colores, te invita, con una sonrisa desdentada pero cálida, a probar su especialidad culinaria: un plato cocinado a fuego lento con los mejores productos del océano."
   },
+  "75": {
+    "possibilities": {
+      "accept": {
+        "text": "Accepter l'invitation",
+        "outcomes": {
+          "0": "Vous grimpez à bord du navire, attiré par les rires et la lumière vacillante des lanternes. La fête bat son plein, les flots de rhum circulent sans retenue, et bientôt, vos sens se brouillent dans une brume douce et traîtresse. Le réveil est brutal : dans l'obscurité de la cale, un mal de crâne sourd vous tient compagnie. L’air marin vous gifle le visage lorsque, chancelant, vous regagnez le quai, sans le moindre souvenir de la nuit passée.",
+          "1": "À peine votre pied posé sur le pont, une tension sourde vous étreint. Les visages de l’équipage sont crispés, les regards fuyants. Puis, comme un éclair, la fureur éclate : deux hommes s’empoignent, la querelle dégénère en une mêlée confuse. Ballotté entre les coups, vous échappez de peu à une blessure grave. C’est le cœur battant et les mains tremblantes que vous regagnez la terre ferme, l’esprit ébranlé par cette violence soudaine.",
+          "2": "Le capitaine, un sourire en coin, vous invite à prendre part à un jeu dont les règles semblent aussi floues que douteuses. Vous acceptez, le souffle suspendu, et vous laissez guider par le hasard. Contre toute attente, la chance vous sourit : une bourse d’or et un objet énigmatique, serti de symboles oubliés, vous sont remis à contrecœur par un capitaine visiblement contrarié par votre victoire."
+        }
+      },
+      "refuse": {
+        "text": "Refuser l'invitation",
+        "outcomes": {
+          "0": "Vous déclinez poliment, le regard posé sur les voiles noires qui battent au vent. Le capitaine vous observe un instant, puis hausse les épaules avec un sourire narquois. Sans un mot de plus, il fait signe à son équipage de lever l’ancre. Vous restez là, silencieux, tandis que le navire s’éloigne lentement, avalé par l’horizon brumeux. Vous reprenez alors votre route, le cœur serein, loin des aventures maritimes.",
+          "1": "Votre refus franchit vos lèvres avec fermeté. Mais le regard du capitaine se durcit, son sourire s’efface. D’un geste sec, il ordonne à ses hommes de viser. Le tonnerre d’un canon résonne, projetant sable et éclats tout autour de vous. Pris de panique, vous fuyez à travers la crique, le souffle court, poursuivi par l’écho grinçant d’un rire cruel."
+        }
+      },
+      "end": {
+        "outcomes": {
+          "0": "Vous tournez le dos au capitaine et allez vous asseoir sur le sable, laissant votre regard suivre le vaisseau pirate qui, toutes voiles dehors, quitte lentement la baie. Le grondement sourd des flots accompagne son départ, jusqu’à ce qu’il ne soit plus qu’un point à l’horizon. Enfin, vous vous relevez, époussetez le sable de vos vêtements, et reprenez votre route, seul sur le sentier battu par les vents.",
+          "1": "Vous détournez votre regard du capitaine et laissez vos pensées voguer au rythme des flots. Là, sur le rivage balayé par les vents, votre œil est attiré par une antique bouteille, à demi enfouie dans le sable. Intrigué, vous la saisissez et y découvrez un vieux parchemin jauni par le temps. Les signes tracés d'une main tremblante y révèlent l'emplacement d'un lieu secret, dissimulé non loin. Guidé par ces énigmes, vous arpentez la lande durant longuement, jusqu’à ce que vos pas vous mènent à un coffre ancien, enfoui sous les ronces. En l’ouvrant, vous découvrez un objet aux allures mystérieuses...",
+          "2": "Vous tournez le dos au capitaine et laissez vos pas vous guider sur la plage battue par les vents. Une bouteille à demi enfouie dans le sable attire votre regard. Vous la déterrez avec précaution, espérant quelque secret oublié. À l’intérieur, un parchemin froissé, rongé par l’humidité et le sel. Vous le déroulez lentement, mais hélas… les lettres sont effacées, les mots n’étant plus que tâches informes et filigranes éteints. Aucun sens ne s’en dégage, si ce n’est un pressentiment : ce message a surement un jour été important, il est désormais perdu à jamais dans les replis du temps.",
+          "3": "Vous tournez le dos au capitaine sans un mot, ce qui semble attiser sa colère. D’un pas vif, il vous rejoint et, sans sommation, vous assène un violent coup sur l’arrière du crâne. Étourdi, vous vous affaissez sur le sable, les étoiles dansant devant vos yeux. Il repart aussitôt, regagne le pont en ricanant, puis ordonne de lever l’ancre."
+        }
+      }
+    },
+    "text": "En arrivant à la plage sentinelle, vous apercevez, amarré, un bateau aux voiles noires et usées. Sur le pont, un homme portant un large tricorne, probablement le capitaine, vous fait signe de le rejoindre."
+  },
+  "76": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "Vous décidez de ne pas vous impliquer davantage dans cette histoire confuse. Vous saluez poliment Parziter et reprenez votre route à travers la forêt, laissant derrière vous les mystères de cette demeure en ruine."
+        }
+      },
+      "help": {
+        "outcomes": {
+          "0": "Vous acceptez d'aider le vieil homme. Il vous explique, entre deux sanglots, qu'une créature étrange a envahi sa cave et terrorise ses animaux. Armé de courage, vous descendez dans les profondeurs et parvenez à chasser l'intrus. Reconnaissant, Parziter vous offre une bourse bien garnie ainsi qu'un objet ancien qu'il conservait précieusement.",
+          "1": "Malgré votre bonne volonté, vos tentatives pour calmer Parziter ne font qu'aggraver sa panique. Il se met à hurler des incantations incompréhensibles et vous lance des objets. Vous battez en retraite précipitamment, une écorchure au front témoignant de cette rencontre mouvementée.",
+          "2": "En tentant de rassurer le vieil homme, vous découvrez qu'il souffre de visions étranges depuis qu'il a trouvé un artefact mystérieux. Il vous le confie, espérant que cela mettra fin à son tourment. L'objet pulse d'une énergie singulière entre vos mains.",
+          "3": "Parziter vous supplie de retrouver son chat, Minou, qui a disparu dans les bois environnants. Après une heure de recherches, vous le découvrez coincé dans un arbre creux. Le vieil homme, fou de joie, vous récompense avec les quelques pièces qu'il possède."
+        },
+        "text": "Proposer votre aide au vieil homme."
+      },
+      "explore": {
+        "outcomes": {
+          "0": "Vous demandez à visiter la demeure. Parziter hésite puis accepte. À l'intérieur, vous découvrez une bibliothèque aux ouvrages anciens et poussiéreux. L'un d'eux attire votre attention par ses symboles étranges. Parziter vous l'offre, affirmant qu'il lui porte malheur. Vous préférez décliner poliment et reprenez votre route.",
+          "1": "En explorant la maison, vous trébuchez sur une planche vermoulue qui cède sous votre poids. Votre cheville se tord douloureusement dans votre chute. Parziter, paniqué, applique un cataplasme d'herbes qui soulage un peu la douleur.",
+          "2": "Dans le grenier poussiéreux, vous mettez la main sur un coffret oublié contenant quelques pièces d'or et un petit objet brillant. Parziter, trop troublé pour s'en soucier, vous laisse le garder."
+        },
+        "text": "Demander à explorer la demeure."
+      },
+      "question": {
+        "outcomes": {
+          "0": "Vous questionnez Parziter sur sa situation. Il vous révèle qu'il était autrefois un érudit respecté, mais qu'une malédiction l'a frappé après avoir déterré un artefact maudit. Il vous supplie de l'emporter loin d'ici. Touché par son histoire, vous acceptez et repartez avec l'objet mystérieux.",
+          "1": "Vos questions incessantes agacent le vieil homme qui finit par vous claquer la porte au nez. Vous entendez ses marmonnements irrités depuis l'extérieur et décidez de poursuivre votre chemin.",
+          "2": "Parziter vous confie qu'il garde un trésor caché depuis des années, mais qu'il a oublié où il l'a dissimulé. Intrigué, vous l'aidez à fouiller et finissez par découvrir une cache secrète contenant une belle récompense qu'il partage avec vous."
+        },
+        "text": "Interroger Parziter sur sa situation."
+      }
+    },
+    "text": "Après de longues heures de marche à travers la Forêt Celestrum, vous apercevez enfin près d'une rivière scintillante ce qui semble être une maison en ruine. Vous vous approchez discrètement, dissimulé par les frondaisons, et observez prudemment les alentours. Soudain, un cri plaintif résonne depuis l'intérieur de la demeure, confirmant qu'elle est bien habitée. Vous décidez alors de frapper à la porte de bois vermoulu. C'est un vieil homme à la mine perturbée qui vous ouvre, les yeux hagards et les cheveux en bataille. Il parle rapidement, de façon incohérente, manifestant une panique visible. Cependant, vous parvenez à saisir qu'il se nomme Parziter et qu'il semble avoir désespérément besoin d'aide."
+  },
+  "77": {
+    "possibilities": {
+      "end": {
+        "outcomes": {
+          "0": "Vous observez la scène quelques instants puis, ne souhaitant pas vous mêler de cette querelle, vous contournez discrètement la clairière et poursuivez votre route à travers les sous-bois."
+        }
+      },
+      "approach": {
+        "outcomes": {
+          "0": "Vous vous approchez prudemment. Les deux hommes cessent leur dispute et se tournent vers vous. L'un d'eux, visiblement soulagé d'avoir un arbitre, vous explique qu'ils se disputent la propriété d'un coffre découvert dans les ruines. Vous proposez de le partager équitablement, ce qu'ils acceptent. Reconnaissants de votre sagesse, ils vous offrent une part du butin.",
+          "1": "En vous approchant, vous marchez malencontreusement sur une branche qui craque bruyamment. Les deux hommes, surpris, pensent que vous voulez leur voler leur découverte et vous attaquent ensemble. Vous parvenez à vous défendre mais récoltez quelques bleus dans la mêlée.",
+          "2": "Votre intervention met fin à leur querelle, mais révèle qu'ils sont tous deux des bandits notoires. Impressionnés par votre courage, ils vous proposent de rejoindre leur bande. Vous déclinez, préférant l'éventuelle main de la princesse aux geôles du roi."
+        },
+        "text": "S'approcher pour comprendre la situation."
+      },
+      "hide": {
+        "outcomes": {
+          "0": "Caché derrière un arbre, vous assistez à leur dispute qui dégénère en bagarre. L'un des hommes assomme l'autre et s'enfuit avec un sac. Une fois le calme revenu, vous vous approchez de l'homme inconscient. Il reprend conscience et, reconnaissant votre aide, vous offre une récompense qu'il avait dissimulée.",
+          "1": "Vous restez caché et observez. Les deux hommes finissent par trouver un accord et repartent ensemble. Vous fouillez discrètement l'endroit où ils se disputaient et découvrez qu'ils ont oublié un petit objet de valeur dans leur précipitation.",
+          "2": "Tapi dans l'ombre, vous attendez que la situation se calme. Malheureusement, l'un des hommes vous repère et crie à son compagnon qu'un espion les observe. Ils se lancent à votre poursuite mais vous parvenez à leur échapper en connaissant mieux la forêt qu'eux."
+        },
+        "text": "Observer discrètement."
+      },
+      "flee": {
+        "outcomes": {
+          "0": "Préférant éviter tout danger, vous faites demi-tour pour emprunter un chemin alternatif. Votre prudence a un prix : vous perdez du temps et finissez par vous égarer sur ce nouveau sentier, mais au moins, vous échappez aux problèmes potentiels.",
+          "1": "En rebroussant chemin, vous trébuchez dans votre hâte et vous blessez légèrement. Le bruit alerte les deux hommes qui cessent leur dispute pour regarder dans votre direction, mais ils ne vous poursuivent pas.",
+          "2": "Votre retraite vous mène par hasard vers un sentier oublié où vous découvrez les vestiges d'un ancien campement. Parmi les débris, vous trouvez un objet encore utilisable abandonné par de précédents voyageurs."
+        },
+        "text": "Faire demi-tour et éviter la confrontation."
+      }
+    },
+    "text": "En progressant dans un sentier sinueux de la Forêt Celestrum, vous entendez soudain des éclats de voix provenant d'une clairière proche. Intrigué, vous vous approchez discrètement et découvrez deux hommes en pleine dispute. Ils se tiennent face à face, gesticulant vivement, visiblement en désaccord sur quelque chose d'important. L'un porte une cape rapiécée, l'autre une veste de cuir usée. Entre eux, au sol, gît un coffret de bois que chacun semble revendiquer."
+  },
   "8": {
     "possibilities": {
       "end": {
