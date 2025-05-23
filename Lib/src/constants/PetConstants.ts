@@ -344,7 +344,20 @@ export abstract class PetConstants {
 		WHALE_2: 79,
 		SHRIMP: 80,
 		LOBSTER: 81,
-		DOLPHIN: 82
+		DOLPHIN: 82,
+		PHOENIX: 83,
+		DINOSAUR: 84,
+		SNAIL: 85,
+		CRAB: 86,
+		DEER: 87,
+		WATER_BUFFALO: 88,
+		BISON: 89,
+		ORANGUTAN: 90,
+		GORILLA: 91,
+		CHICK: 92,
+		RAT: 93,
+		BLACK_BIRD: 94,
+		RAVEN: 95
 	};
 
 	static readonly PET_FOOD_LOVE_POINTS_AMOUNT = [

@@ -75,7 +75,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.RABBIT,
 				PetConstants.PETS.TURKEY,
 				PetConstants.PETS.CHIPMUNK,
-				PetConstants.PETS.FLAMINGO
+				PetConstants.PETS.FLAMINGO,
+				PetConstants.PETS.CHICK
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.TRIES_TO_HELP
 		},
@@ -86,7 +87,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.PEACOCK,
 				PetConstants.PETS.BIRD,
 				PetConstants.PETS.DODO,
-				PetConstants.PETS.PARROT
+				PetConstants.PETS.PARROT,
+				PetConstants.PETS.BLACK_BIRD
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PECK
 		},
@@ -95,7 +97,8 @@ export function initializeAllPetBehaviors(): void {
 				PetConstants.PETS.KOALA,
 				PetConstants.PETS.SLOTH,
 				PetConstants.PETS.SHRIMP,
-				PetConstants.PETS.PANDA
+				PetConstants.PETS.PANDA,
+				PetConstants.PETS.SNAIL
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.IS_USELESS
 		},
@@ -103,7 +106,9 @@ export function initializeAllPetBehaviors(): void {
 			petIds: [
 				PetConstants.PETS.COW,
 				PetConstants.PETS.BEAR,
-				PetConstants.PETS.BOAR
+				PetConstants.PETS.BOAR,
+				PetConstants.PETS.BISON,
+				PetConstants.PETS.WATER_BUFFALO
 			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_CHARGE
 		},
@@ -124,7 +129,10 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_POISON
 		},
 		{
-			petIds: [PetConstants.PETS.BLACK_CAT],
+			petIds: [
+				PetConstants.PETS.BLACK_CAT,
+				PetConstants.PETS.RAVEN
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_CURSE
 		},
 		{
@@ -209,11 +217,17 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SPIT_INK
 		},
 		{
-			petIds: [PetConstants.PETS.KANGAROO],
+			petIds: [
+				PetConstants.PETS.KANGAROO,
+				PetConstants.PETS.GORILLA
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PET_HIT
 		},
 		{
-			petIds: [PetConstants.PETS.RHINO],
+			petIds: [
+				PetConstants.PETS.RHINO,
+				PetConstants.PETS.DEER
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HORN
 		},
 		{
@@ -221,7 +235,10 @@ export function initializeAllPetBehaviors(): void {
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HEAL_EVERYONE
 		},
 		{
-			petIds: [PetConstants.PETS.LOBSTER],
+			petIds: [
+				PetConstants.PETS.LOBSTER,
+				PetConstants.PETS.CRAB
+			],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.PINCH
 		},
 		{
