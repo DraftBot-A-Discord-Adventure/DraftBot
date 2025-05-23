@@ -101,6 +101,7 @@ export abstract class Fighter {
 	 * Function called when the fight ends
 	 * @param winner Indicate if the fighter is the winner
 	 * @param response
+	 * @param bug - Indicate if the fighter is buggy
 	 */
 	abstract endFight(winner: boolean, response: DraftBotPacket[], bug: boolean): Promise<void>;
 
@@ -354,7 +355,7 @@ export abstract class Fighter {
 	}
 
 	/**
-	 * Get a map of the fight actions executed and the amont of time it has been done
+	 * Get a map of the fight actions executed and the amount of time it has been done
 	 */
 	public getFightActionCount(): Map<string, number> {
 		const playerFightActionsHistory = new Map<string, number>();
