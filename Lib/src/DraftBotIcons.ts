@@ -1321,9 +1321,61 @@ export const DraftBotIcons: {
 			emoteFemale: "🐬",
 			emoteMale: "🐬"
 		},
+		83: {
+			emoteFemale: "🐦‍🔥",
+			emoteMale: "🐦‍🔥"
+		},
+		84: {
+			emoteFemale: "🦕",
+			emoteMale: "🦕"
+		},
+		85: {
+			emoteFemale: "🐌",
+			emoteMale: "🐌"
+		},
+		86: {
+			emoteFemale: "🦀",
+			emoteMale: "🦀"
+		},
+		87: {
+			emoteFemale: "🦌",
+			emoteMale: "🦌"
+		},
+		88: {
+			emoteFemale: "🐃",
+			emoteMale: "🐃"
+		},
+		89: {
+			emoteFemale: "🦬",
+			emoteMale: "🦬"
+		},
 		9: {
 			emoteFemale: "🐖",
 			emoteMale: "🐖"
+		},
+		90: {
+			emoteFemale: "🦧",
+			emoteMale: "🦧"
+		},
+		91: {
+			emoteFemale: "🦍",
+			emoteMale: "🦍"
+		},
+		92: {
+			emoteFemale: "🐥",
+			emoteMale: "🐥"
+		},
+		93: {
+			emoteFemale: "🐀",
+			emoteMale: "🐀"
+		},
+		94: {
+			emoteFemale: "🐦‍⬛",
+			emoteMale: "🐦‍⬛"
+		},
+		95: {
+			emoteFemale: "🐦‍⬛",
+			emoteMale: "🐦‍⬛"
 		}
 	},
 	monsters: {
