@@ -126,7 +126,7 @@ export class FightActionController {
 	 * @param stat
 	 */
 	static statToStatPower(stat: number): number {
-		return 100 * Math.tanh(0.0023 * stat - 0.03) + 3;
+		return 120 * Math.tanh(0.00123 * stat - 0.03) + 3;
 	}
 
 	/**
