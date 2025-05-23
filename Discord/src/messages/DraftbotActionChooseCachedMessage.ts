@@ -65,8 +65,23 @@ export class DraftbotActionChooseCachedMessage extends DraftbotCachedMessage<Rea
 		const buttonCollector = msg!.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
+
+		let expectedFighterId: string;
+		if (context.discord?.user) {
+			expectedFighterId = context.discord.user;
+		}
+		else {
+			// TODO: Add proper logging if DraftBotLogger is available
+			console.error("Error: context.discord.user is null or undefined in DraftbotActionChooseCachedMessage.ts");
+			expectedFighterId = "undefined"; // Prevent accidental interaction processing
+		}
+		// TODO: Add proper logging if DraftBotLogger is available
+		// console.log(`expectedFighterId: ${expectedFighterId}`);
+
 		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-			if (buttonInteraction.user.id !== context.discord?.user) {
+			// TODO: Add proper logging if DraftBotLogger is available
+			console.log(`Fight Action Click: Clicker: ${buttonInteraction.user.id}, Expected: ${expectedFighterId}`);
+			if (buttonInteraction.user.id !== expectedFighterId) {
 				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 				return;
 			}
