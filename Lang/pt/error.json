@@ -96,8 +96,8 @@
       "other": "{{pseudo}} está atualmente congelado!"
     },
     "feetHurt": {
-      "self": "Vous avez actuellement mal aux pieds !",
-      "other": "{{pseudo}} a actuellement mal aux pieds !"
+      "self": "Os teus pés estão mesmo a doer!",
+      "other": "{{pseudo}} atualmente tem os pés doridos!"
     },
     "hurt": {
       "self": "Está atualmente ferido!",
