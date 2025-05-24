@@ -2660,6 +2660,99 @@
     },
     "text": "Als Sie einen gewundenen Pfad im Celestrum-Wald entlanggehen, hören Sie plötzlich Stimmengewirr von einer nahe gelegenen Lichtung. Neugierig geworden, schleichen Sie sich heran und entdecken zwei Männer, die in einen Streit verwickelt sind. Sie stehen sich gegenüber, gestikulieren heftig und sind sich offensichtlich über etwas Wichtiges uneinig. Der eine trägt einen geflickten Umhang, der andere eine abgewetzte Lederjacke. Zwischen ihnen auf dem Boden liegt eine Holzschatulle, die jeder für sich zu beanspruchen scheint."
   },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "Sie bewegen sich vorsichtig durch den Nebel und folgen den Umrissen der Straße. Als sich der Nebel endlich lichtet, befinden Sie sich auf dem Weg, der nach Claire De Ville führt.",
+          "1": "Sie bewegen sich langsam durch den dichten Nebel. Als sich der Nebel lichtet, bemerken Sie, dass Sie sich auf den Heulenden Wald zubewegen.",
+          "2": "Sie tasten sich vorwärts und können der Straße nicht lange folgen. Nachdem Sie eine ganze Weile auf gut Glück herumgelaufen sind, müssen Sie schließlich zugeben, dass Sie sich verlaufen haben. Es dauert eine Weile, bis Sie den Weg wiederfinden...",
+          "3": "Sie gehen vorsichtig weiter, aber der Nebel ist so dicht, dass Sie dem Weg nicht folgen können. Schließlich stürzen Sie und stürzen mehrere Meter den Hang hinunter. Nach einer langen Zeit am Boden gelingt es Ihnen, wieder aufzustehen und den Weg zu finden."
+        },
+        "text": "Gehen Sie vorsichtig weiter, indem Sie der Straße folgen."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "Sie warten geduldig, aber der Nebel hält sich hartnäckig. Schließlich hören Sie Schritte und folgen dem Geräusch. Ohne zu verstehen, wie, bemerken Sie schließlich, dass Sie den Weg nach Claire De Ville eingeschlagen haben.",
+          "1": "Nach einer langen Wartezeit beginnt die Kälte Sie zu übermannen. Leider ist der Nebel immer noch da! Fröstelnd machen Sie sich blindlings auf den Rückweg und tauchen aus dem Nebel in Richtung Screaming Wood auf.",
+          "2": "Auch nach längerem Warten löst sich der Nebel nicht auf. Sie gehen schließlich weiter und versuchen, dem Hang bergab zu folgen. Diese Strategie geht schließlich auf und Sie beobachten, wie die Brücke über den Fluss immer näher kommt."
+        },
+        "text": "Halten Sie an und warten Sie, bis sich der Nebel lichtet."
+      },
+      "call": {
+        "outcomes": {
+          "0": "Ihr Anruf hallt ins Leere. Niemand meldet sich. Sie versuchen, sich selbst zu orientieren, aber Sie verlieren sich völlig im Nebel. Nachdem Sie eine ganze Weile umhergeirrt sind, finden Sie schließlich einen Weg und stellen fest, dass Sie sich auf dem Weg nach Claire De Ville befinden.",
+          "1": "Eine warme Stimme antwortet Ihnen aus dem Nebel und stellt sich als Führer durch die Region vor. Die Person gesellt sich zu Ihnen und bietet Ihnen an, Sie für ein paar Münzen an jeden gewünschten Ort zu führen. Erfreut darüber, dass Sie ohne Angst in die richtige Richtung gehen können, nehmen Sie an und folgen dem Führer zu Ihrem Ziel.",
+          "2": "Niemand antwortet Ihnen. Entmutigt klettern Sie instinktiv wieder hinunter und tauchen in der Nähe des Krabbenflusses auf."
+        },
+        "text": "Anrufen, um zu sehen, ob jemand da ist."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "Sie steigen vorsichtig hinab und orientieren sich dabei am Hang. Trotz einiger Umwege im Nebel sehen Sie schließlich die Brücke und setzen Ihren Weg zum Krabbenfluss fort.",
+          "1": "Ihr Abstieg durch den dichten Nebel ist chaotisch. Sie rutschen mehrmals auf dem feuchten Untergrund aus, schaffen es aber schließlich, durchnässt und schlammig den Krabbenfluss zu erreichen.",
+          "2": "Sie folgen instinktiv dem abfallenden Hang. Der Nebel beginnt sich zu lichten, je näher Sie dem Fluss kommen."
+        },
+        "text": "Versuchen Sie, zum Fluss hinunterzugehen."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Völlig verwirrt durch den Nebel beschließen Sie, sich überhaupt nicht mehr zu bewegen. Sie stehen für eine gefühlte Ewigkeit still und lauschen den gedämpften Geräuschen um Sie herum. Schließlich, nach mehreren Stunden des Wartens, beginnt sich der Nebel langsam zu lichten. Als die Sicht wieder klar wird, stellen Sie fest, dass Sie sich immer noch auf der ansteigenden Straße befinden, genau dort, wo der Nebel Sie überrascht hatte. Nun können Sie Ihren Weg sicher fortsetzen."
+        }
+      }
+    },
+    "text": "Sie kommen auf der ansteigenden Straße voran, als plötzlich dichter Nebel vom Rivière aux Crabes aufsteigt, dessen Brücke Sie in der Ferne noch vage erkennen können. Innerhalb weniger Minuten wird die Sicht sehr schlecht. Sie können nur noch die verschwommenen Umrisse der Straße vor Ihnen erkennen..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Sie lassen sich vom Strom der Herde tragen, die gemächlich nach Claire De Ville hinaufsteigt.",
+          "1": "Die Herde führt Sie auf ihrer üblichen Route, die sich in Richtung Heulender Wald schlängelt.",
+          "2": "Die Ziegen ändern plötzlich ihre Richtung, folgen ihrem Instinkt und Sie finden sich auf dem Weg zurück nach unten zum Krabbenfluss wieder."
+        },
+        "text": "Sich von der Herde tragen lassen"
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Sie überholen die Herde schnell und setzen Ihren Weg fort.",
+          "1": "Die Schäferhunde laufen Ihnen freundlich hinterher und bringen Sie so von Ihrem Weg zum Krabbenfluss ab.",
+          "2": "Ihr Lauf, um die Herde zu überholen, lässt Sie außer Atem kommen. Sie werden langsamer und beschließen, eine Pause einzulegen, um wieder zu Atem zu kommen. In der Zwischenzeit beobachten Sie, wie die Herde gemächlich an Ihnen vorbeizieht."
+        },
+        "text": "Laufen Sie an der Herde vorbei."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "Der Schäfer erklärt Ihnen, dass er nach Claire De Ville hinaufsteigt, und lädt Sie ein, ihn zu begleiten. Sie lehnen höflich ab und ziehen es vor, Ihren eigenen Weg zu gehen.",
+          "1": "Der Schäfer ist auf dem Weg zur Transhumanz in den Heulenden Wald und schlägt Ihnen vor, den Weg gemeinsam zu gehen. Sie lehnen höflich ab und ziehen es vor, Ihren eigenen Weg zu gehen.",
+          "2": "Der Schäfer geht wieder hinunter zu seinen Weiden in der Nähe des Krabbenflusses. Sein Weg erscheint Ihnen sicherer."
+        },
+        "text": "Fragen Sie den Schäfer, in welche Richtung er geht."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Sie fahren an die Seite und lassen die Herde vorbeiziehen. Der Schäfer bedankt sich mit einem Kopfnicken und setzt seinen Weg fort.",
+          "1": "Sie gehen an die Seite, aber die neugierigen Ziegen nähern sich Ihnen. Der Hirte bittet dich, sie sanft zurückzuschieben, damit sie nicht vom Weg abkommen.",
+          "2": "Sie gehen zur Seite, aber einer der Hunde des Schäfers kommt heran und knabbert an Ihren Schuhen. In dem Moment bemerken Sie es nicht, aber Ihr Fuß ist verletzt. Sie humpeln weiter."
+        },
+        "text": "An die Seite fahren und durchlassen"
+      },
+      "help": {
+        "outcomes": {
+          "0": "Ihre Hilfe wird geschätzt. Nach einem Stück gemeinsamen Weges schenkt Ihnen der Hirte einen Gegenstand als Zeichen Ihrer Bemühungen.",
+          "1": "Indem du dabei hilfst, die verirrten Ziegen einzusammeln, folgst du dem Hirten in den Heulenden Wald.",
+          "2": "Eine Ziege entkommt in Richtung des Krabbenflusses. Sie helfen ihm, sie wieder einzufangen, und bleiben in diesem Gebiet."
+        },
+        "text": "Dem Hirten helfen, die Tiere zu führen."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Sie beschließen, sich nicht in die Herde einzumischen und setzen Ihren Weg fort. Sie sehen ihnen ruhig zu, wie sie vorbeiziehen, und setzen dann Ihren Weg fort."
+        }
+      }
+    },
+    "text": "Auf der ansteigenden Straße hören Sie das Klingeln von Glöckchen, das immer näher kommt. Bald erscheint eine große Ziegenherde, die von einem Hirten und seinen Hunden angeführt wird. Die Tiere nehmen die gesamte Breite des Weges ein und bewegen sich mit gleichmäßigem Schritt vorwärts..."
+  },
   "8": {
     "possibilities": {
       "end": {
