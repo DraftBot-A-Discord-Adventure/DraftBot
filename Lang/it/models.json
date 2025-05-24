@@ -123,6 +123,11 @@
     "9": "Una classe incentrata sulla velocità. Bassa salute e punti energia, ma alta velocità e attacco."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "vittima degli alleati",
+      "new": "cade vittima degli alleati dell'avversario.",
+      "active": "subisce gli attacchi degli alleati dell'avversario."
+    },
     "benediction": {
       "description": "Fa parte del gruppo \"azioni degli dei\". Fallisce se 1 azione degli dei è già stata eseguita in combattimento. Aumenta tutte le statistiche dell'incantatore. Più tardi nel combattimento si usa la benedizione, maggiore è l'aumento delle statistiche.",
       "name_one": "Benedizione",
@@ -167,11 +172,6 @@
       "new": "è bruciato.",
       "active": "soffre per la sua ustione.",
       "stop": "non è più bruciato."
-    },
-    "alliesArePresent": {
-      "name": "vittima degli alleati",
-      "new": "cade vittima degli alleati dell'avversario.",
-      "active": "subisce gli attacchi degli alleati dell'avversario."
     },
     "canonAttack": {
       "description": "La precisione di questo attacco è ridotta sugli avversari che si muovono velocemente. Se l'avversario è molto lento, a questo attacco viene applicato un bonus ai danni. L'avversario può essere rallentato dall'attacco. Infligge più danni se usato più volte di seguito.",
@@ -233,6 +233,11 @@
       "generalEffect": "è supportato nella sua lotta da **{{petNickname}}** che finge di tormentare ferocemente l'avversario con beccate precise e dolorose.",
       "failure": "non ha ricevuto l'aiuto di **{{petNickname}}** che, per prudenza, si è astenuto dall'agire, consapevole che il suo intervento avrebbe potuto ferire più il suo padrone che l'avversario. Avremmo dovuto essere più veloci!",
       "success": "sfrutta il talento di **{{petNickname}}** che ha preparato con discrezione una potente bomba. Dopo aver attivato il detonatore, si parte di corsa con tutte le forze!"
+    },
+    "crush": {
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
+      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
+      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
     },
     "cursed": {
       "name": "maledetto",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "chiama **{{petNickname}}** che, con uno sguardo benevolo, vede che nessuno è stato ferito e torna felicemente a riposare.",
       "success": "ha la fortuna di essere accompagnato da **{{petNickname}}** che, traboccante d'amore e desideroso di porre fine allo scontro, si prende cura dei combattenti."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
       "description": "Recupera il calore del giocatore, che aumenta allora l'attacco del lanciatore e gela l'avversario.",
@@ -564,6 +572,9 @@
       "active": "è rallentato.",
       "stop": "non è più rallentato."
     },
+    "smallBite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+    },
     "smallClaws": {
       "success": "è supportato nella sua lotta da **{{petNickname}}** che dà al suo avversario un piccolo artiglio, che carino..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "è aiutato da **{{petNickname}}** la cui vista acuta gli permette di vedere di nuovo bene intorno a sé."
+    },
+    "useTool": {
+      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
     },
     "vampirism": {
       "success": "è assistito da **{{petNickname}}** che succhia un po' di energia dall'avversario per offrirla come tributo al suo padrone."
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "Nessuno animale di compagnia",
     "0_male": "Nessuno animale di compagnia",
-    "1_female": "Cagna",
-    "1_male": "Cane",
     "10_female": "Gallina",
     "10_male": "Gallo",
     "11_female": "Uccello",
@@ -1227,8 +1239,8 @@
     "18_male": "Caprone",
     "19_female": "Tacchino",
     "19_male": "Tacchino",
-    "2_female": "Barboncino",
-    "2_male": "Barboncino",
+    "1_female": "Cagna",
+    "1_male": "Cane",
     "20_female": "Volpeta",
     "20_male": "Volpe",
     "21_female": "Orsa",
@@ -1249,8 +1261,8 @@
     "28_male": "Lupo",
     "29_female": "Scrofa",
     "29_male": "Cinghiale",
-    "3_female": "Gatta",
-    "3_male": "Gatto",
+    "2_female": "Barboncino",
+    "2_male": "Barboncino",
     "30_female": "Otaria",
     "30_male": "Foca ",
     "31_female": "Ippopotamo",
@@ -1271,8 +1283,8 @@
     "38_male": "Castoro",
     "39_female": "Bradipo",
     "39_male": "Bradipo",
-    "4_female": "Gatta nera",
-    "4_male": "Gatto nero",
+    "3_female": "Gatta",
+    "3_male": "Gatto",
     "40_female": "Scoiattolo",
     "40_male": "Scoiattolo",
     "41_female": "Riccio",
@@ -1293,8 +1305,8 @@
     "48_male": "Rinoceronte",
     "49_female": "Cammello",
     "49_male": "Dromedario",
-    "5_female": "Topo",
-    "5_male": "Roditore",
+    "4_female": "Gatta nera",
+    "4_male": "Gatto nero",
     "50_female": "Cammello",
     "50_male": "Cammello",
     "51_female": "Giraffa",
@@ -1315,8 +1327,8 @@
     "58_male": "Aquila",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Criceto",
-    "6_male": "Criceto",
+    "5_female": "Topo",
+    "5_male": "Roditore",
     "60_female": "Leopardo",
     "60_male": "Leopardo",
     "61_female": "Mammut",
@@ -1337,36 +1349,64 @@
     "68_male": "Anatra scarlatta",
     "69_female": "Donna di neve",
     "69_male": "Pupazzo di neve",
-    "7_female": "Coniglio",
-    "7_male": "Coniglio",
+    "6_female": "Criceto",
+    "6_male": "Criceto",
     "70_female": "Aliene",
     "70_male": "Alien",
     "71_female": "Calamaro",
     "71_male": "Polpo",
     "72_female": "Pinguino",
     "72_male": "Pinguino",
-    "73_male": "Pesce",
     "73_female": "Pesce",
-    "74_male": "Pesci tropicali",
+    "73_male": "Pesce",
     "74_female": "Pesci tropicali",
-    "75_male": "Pesce palla",
+    "74_male": "Pesci tropicali",
     "75_female": "Pesce palla",
-    "76_male": "Medusa",
+    "75_male": "Pesce palla",
     "76_female": "Medusa",
-    "77_male": "Squalo",
+    "76_male": "Medusa",
     "77_female": "Squalo",
-    "78_male": "Balena",
+    "77_male": "Squalo",
     "78_female": "Balena",
-    "79_male": "Balena",
+    "78_male": "Balena",
     "79_female": "Balena",
-    "80_male": "Gambero",
+    "79_male": "Balena",
+    "7_female": "Coniglio",
+    "7_male": "Coniglio",
     "80_female": "Gambero",
-    "81_male": "Aragosta",
+    "80_male": "Gambero",
     "81_female": "Aragosta",
-    "82_male": "Delfino",
+    "81_male": "Aragosta",
     "82_female": "Delfino",
+    "82_male": "Delfino",
+    "83_female": "Phénix",
+    "83_male": "Phénix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Escargot",
+    "85_male": "Escargot",
+    "86_female": "Crabe",
+    "86_male": "Crabe",
+    "87_female": "Biche",
+    "87_male": "Cerf",
+    "88_female": "Buffle d'eau",
+    "88_male": "Buffle d'eau",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Mucca",
     "8_male": "Bue",
+    "90_female": "Orang-outan",
+    "90_male": "Orang-outan",
+    "91_female": "Gorille",
+    "91_male": "Gorille",
+    "92_female": "Poussin",
+    "92_male": "Poussin",
+    "93_female": "Rate",
+    "93_male": "Rat",
+    "94_female": "Merle",
+    "94_male": "Merle",
+    "95_female": "Corbeau",
+    "95_male": "Corbeau",
     "9_female": "Maiale",
     "9_male": "Maiale"
   },
@@ -1565,7 +1605,7 @@
     "94": "Polvere di scheletro",
     "95": "Lama dell'aura d'argento",
     "96": "Electektron",
-    "97": "Lama di fenice",
+    "97": "Lame du Phénix",
     "98": "Spada di gelo"
   },
   "foods": {
