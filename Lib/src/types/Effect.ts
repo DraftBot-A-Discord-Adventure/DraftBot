@@ -13,6 +13,8 @@ export class Effect {
 
 	public static readonly FREEZING = new Effect("freezing", ":cold_face:", 60);
 
+	public static readonly FEET_HURT = new Effect("feetHurt", ":foot:", 110);
+
 	public static readonly HURT = new Effect("hurt", ":head_bandage:", 360);
 
 	public static readonly SICK = new Effect("sick", ":sick:", 360);

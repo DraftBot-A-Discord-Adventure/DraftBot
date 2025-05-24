@@ -221,6 +221,7 @@ export const DraftBotIcons: {
 		sleeping: "😴",
 		drunk: "🤪",
 		freezing: "🥶",
+		feetHurt: "🦶",
 		hurt: "🤕",
 		sick: "🤢",
 		jailed: "🔒",
@@ -924,6 +925,16 @@ export const DraftBotIcons: {
 			wait: "⏸️",
 			call: "📢",
 			goDown: "⬇️"
+		},
+		79: {
+			end: {
+				0: "👀"
+			},
+			follow: "🐐",
+			overtake: "🏃‍♂️",
+			ask: "❓",
+			stepAside: "👋",
+			help: "🤝"
 		},
 		8: {
 			end: {

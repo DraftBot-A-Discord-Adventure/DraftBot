@@ -315,6 +315,11 @@
         "{{playerDisplay}} semble avoir froid. Vous le réchauffez un peu puis repartez.",
         "Un claquement redondant vous agace. Vous découvrez que ce sont les dents de {{playerDisplay}}... Celui-ci est gelé ! Vous reprenez sans plus tarder votre voyage."
       ],
+      "feetHurt": [
+        "Vous croisez {{playerDisplay}} qui se plaint de ses pieds. Il vous explique qu'il a marché trop longtemps sans s'arrêter. Vous lui donnez quelques conseils pour éviter cela à l'avenir et continuez votre route.",
+        "Vous remarquez que {{playerDisplay}} marche avec difficulté. Il vous explique qu'il a mal aux pieds après avoir marché trop longtemps. Vous lui conseillez de faire des pauses régulières et reprenez votre chemin.",
+        "En marchant, vous croisez {{playerDisplay}} qui se plaint de douleurs aux pieds. Vous lui suggérez de prendre soin de ses pieds et de faire des pauses pour éviter les blessures."
+      ],
       "confounded": [
         "Vous tentez de discuter avec {{playerDisplay}}. Tentez. Ses propos sont assez incohérents, vous continuez donc votre chemin quelque peu perturbé.",
         "{{playerDisplay}} tient de nombreux propos incohérents. Cela vous semble bizarre, vous repartez donc rapidement, perturbé !",

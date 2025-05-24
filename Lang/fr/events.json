@@ -2683,7 +2683,7 @@
       "call": {
         "outcomes": {
           "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire De Ville.",
-          "1": "Une voix chaleureuse vous répond dans le brouillard : 'N'ayez crainte, je suis guide dans la région !' La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
+          "1": "Une voix chaleureuse vous répond dans le brouillard et se présente comme un guide de la région. La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
           "2": "Personne ne répond. Découragé, vous redescendez instinctivement et émergez près de la rivière aux crabes."
         },
         "text": "Appeler pour voir s'il y a quelqu'un."
@@ -2703,6 +2703,56 @@
       }
     },
     "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la rivière aux crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire De Ville.",
+          "1": "Le troupeau vous emmène dans sa route habituelle qui serpente vers le Bois Hurlant.",
+          "2": "Les chèvres changent soudain de direction, suivant leur instinct, et vous vous retrouvez à redescendre vers la rivière aux crabes."
+        },
+        "text": "Se laisser porter par le troupeau."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Vous doublez rapidement le troupeau et continuez votre route.",
+          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la rivière aux crabes.",
+          "2": "Votre course pour doubler le troupeau vous essouffle. Vous ralentissez et décidez de faire une pause pour reprendre votre souffle. En attendant, vous observez le troupeau passer tranquillement devant vous."
+        },
+        "text": "Doubler le troupeau en courant."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
+          "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
+          "2": "Le berger redescend vers ses pâturages près de la rivière aux crabes. Son chemin vous semble plus sûr."
+        },
+        "text": "Demander au berger la direction qu'il prend."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Vous vous rangez sur le côté et laissez passer le troupeau. Le berger vous remercie d'un signe de tête et continue son chemin.",
+          "1": "Vous vous rangez sur le côté, mais les chèvres curieuses s'approchent de vous. Le berger vous demande de les repousser doucement pour qu'elles ne s'égarent pas.",
+          "2": "Vous vous rangez sur le côté, mais un chien du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant légèrement."
+        },
+        "text": "Se ranger sur le côté et laisser passer."
+      },
+      "help": {
+        "outcomes": {
+          "0": "Votre aide est appréciée. Après un bout de chemin ensemble, le berger vous offre un objet en témoignage de vos efforts.",
+          "1": "En aidant à rassembler les chèvres égarées, vous suivez le berger vers le Bois Hurlant.",
+          "2": "Une chèvre s'échappe vers la rivière aux crabes. Vous l'aidez à la récupérer et restez dans cette zone."
+        },
+        "text": "Aider le berger à guider les bêtes."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Vous décidez de ne pas vous mêler du troupeau et de continuer votre route. Vous les regardez passer tranquillement, puis reprenez votre chemin."
+        }
+      }
+    },
+    "text": "Sur la route grimpante, vous entendez un tintement de clochettes qui se rapproche. Bientôt apparaît un large troupeau de chèvres mené par un berger et ses chiens. Les animaux occupent toute la largeur du chemin et avancent d'un pas régulier..."
   },
   "8": {
     "possibilities": {
