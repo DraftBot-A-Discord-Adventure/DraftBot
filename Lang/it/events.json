@@ -2566,99 +2566,99 @@
   "75": {
     "possibilities": {
       "accept": {
-        "text": "Accepter l'invitation",
+        "text": "Accettare l'invito",
         "outcomes": {
-          "0": "Vous grimpez à bord du navire, attiré par les rires et la lumière vacillante des lanternes. La fête bat son plein, les flots de rhum circulent sans retenue, et bientôt, vos sens se brouillent dans une brume douce et traîtresse. Le réveil est brutal : dans l'obscurité de la cale, un mal de crâne sourd vous tient compagnie. L’air marin vous gifle le visage lorsque, chancelant, vous regagnez le quai, sans le moindre souvenir de la nuit passée.",
-          "1": "À peine votre pied posé sur le pont, une tension sourde vous étreint. Les visages de l’équipage sont crispés, les regards fuyants. Puis, comme un éclair, la fureur éclate : deux hommes s’empoignent, la querelle dégénère en une mêlée confuse. Ballotté entre les coups, vous échappez de peu à une blessure grave. C’est le cœur battant et les mains tremblantes que vous regagnez la terre ferme, l’esprit ébranlé par cette violence soudaine.",
-          "2": "Le capitaine, un sourire en coin, vous invite à prendre part à un jeu dont les règles semblent aussi floues que douteuses. Vous acceptez, le souffle suspendu, et vous laissez guider par le hasard. Contre toute attente, la chance vous sourit : une bourse d’or et un objet énigmatique, serti de symboles oubliés, vous sont remis à contrecœur par un capitaine visiblement contrarié par votre victoire."
+          "0": "Salite a bordo della nave, attratti dalle risate e dalla luce tremolante delle lanterne. La festa è in pieno svolgimento, il rum scorre a fiumi e presto i vostri sensi vengono offuscati da una nebbia soffice e insidiosa. Vi svegliate bruscamente: nell'oscurità della stiva, un mal di testa sordo vi fa compagnia. L'aria del mare vi schiaffeggia il viso mentre barcollate verso il molo, senza ricordare nulla della scorsa notte.",
+          "1": "Non appena mettete piede sul ponte, una tensione sorda vi attanaglia. Le facce dell'equipaggio sono tese, gli sguardi vitrei. Poi, come un lampo, scoppia la furia: due uomini si azzuffano, il litigio degenera in una mischia confusa. Sbattuto tra i colpi, sfuggi per un soffio a una ferita grave. Con il cuore che batte forte e le mani che tremano, tornate sulla terraferma, con la mente sconvolta dall'improvvisa violenza.",
+          "2": "Il capitano, con un sorriso sulle labbra, vi invita a partecipare a un gioco le cui regole sembrano tanto vaghe quanto dubbie. Accettate, senza fiato, e lasciate che sia il caso a guidarvi. Contro ogni previsione, la fortuna vi sorride: una borsa d'oro e un oggetto enigmatico, con simboli dimenticati, vi vengono consegnati a malincuore da un capitano visibilmente turbato dalla vostra vittoria."
         }
       },
       "refuse": {
-        "text": "Refuser l'invitation",
+        "text": "Rifiutare l'invito",
         "outcomes": {
-          "0": "Vous déclinez poliment, le regard posé sur les voiles noires qui battent au vent. Le capitaine vous observe un instant, puis hausse les épaules avec un sourire narquois. Sans un mot de plus, il fait signe à son équipage de lever l’ancre. Vous restez là, silencieux, tandis que le navire s’éloigne lentement, avalé par l’horizon brumeux. Vous reprenez alors votre route, le cœur serein, loin des aventures maritimes.",
-          "1": "Votre refus franchit vos lèvres avec fermeté. Mais le regard du capitaine se durcit, son sourire s’efface. D’un geste sec, il ordonne à ses hommes de viser. Le tonnerre d’un canon résonne, projetant sable et éclats tout autour de vous. Pris de panique, vous fuyez à travers la crique, le souffle court, poursuivi par l’écho grinçant d’un rire cruel."
+          "0": "Declinate cortesemente, guardando le vele nere che sventolano al vento. Il capitano vi osserva per un attimo, poi scrolla le spalle con un sorriso ironico. Senza dire altro, fa segno al suo equipaggio di levare l'ancora. Rimanete lì in silenzio mentre la nave si allontana lentamente, inghiottita dall'orizzonte nebbioso. Poi ripartite, con il cuore sereno, lontano dalle avventure del mare.",
+          "1": "Il suo rifiuto incrocia le labbra con fermezza. Ma gli occhi del capitano si induriscono e il suo sorriso svanisce. Con un gesto deciso, ordina ai suoi uomini di prendere la mira. Il tuono di un cannone riecheggia, scagliando sabbia e schegge intorno a voi. Presi dal panico, fuggite attraverso l'insenatura, col fiato corto, inseguiti dall'eco stridente di una risata crudele."
         }
       },
       "end": {
         "outcomes": {
-          "0": "Vous tournez le dos au capitaine et allez vous asseoir sur le sable, laissant votre regard suivre le vaisseau pirate qui, toutes voiles dehors, quitte lentement la baie. Le grondement sourd des flots accompagne son départ, jusqu’à ce qu’il ne soit plus qu’un point à l’horizon. Enfin, vous vous relevez, époussetez le sable de vos vêtements, et reprenez votre route, seul sur le sentier battu par les vents.",
-          "1": "Vous détournez votre regard du capitaine et laissez vos pensées voguer au rythme des flots. Là, sur le rivage balayé par les vents, votre œil est attiré par une antique bouteille, à demi enfouie dans le sable. Intrigué, vous la saisissez et y découvrez un vieux parchemin jauni par le temps. Les signes tracés d'une main tremblante y révèlent l'emplacement d'un lieu secret, dissimulé non loin. Guidé par ces énigmes, vous arpentez la lande durant longuement, jusqu’à ce que vos pas vous mènent à un coffre ancien, enfoui sous les ronces. En l’ouvrant, vous découvrez un objet aux allures mystérieuses...",
-          "2": "Vous tournez le dos au capitaine et laissez vos pas vous guider sur la plage battue par les vents. Une bouteille à demi enfouie dans le sable attire votre regard. Vous la déterrez avec précaution, espérant quelque secret oublié. À l’intérieur, un parchemin froissé, rongé par l’humidité et le sel. Vous le déroulez lentement, mais hélas… les lettres sont effacées, les mots n’étant plus que tâches informes et filigranes éteints. Aucun sens ne s’en dégage, si ce n’est un pressentiment : ce message a surement un jour été important, il est désormais perdu à jamais dans les replis du temps.",
-          "3": "Vous tournez le dos au capitaine sans un mot, ce qui semble attiser sa colère. D’un pas vif, il vous rejoint et, sans sommation, vous assène un violent coup sur l’arrière du crâne. Étourdi, vous vous affaissez sur le sable, les étoiles dansant devant vos yeux. Il repart aussitôt, regagne le pont en ricanant, puis ordonne de lever l’ancre."
+          "0": "Voltate le spalle al capitano e vi sedete sulla sabbia, lasciando che il vostro sguardo segua la nave pirata mentre lascia lentamente la baia a vele spiegate. Il fragore ovattato delle onde accompagna la sua partenza, finché non è più che un puntino all'orizzonte. Infine, ci si alza, si spolvera la sabbia dai vestiti e si riparte, da soli, sul sentiero ventoso.",
+          "1": "Distogliete lo sguardo dal capitano e lasciate che i vostri pensieri vadano alla deriva al ritmo delle onde. Lì, sulla riva battuta dal vento, il vostro sguardo è attratto da un'antica bottiglia, semisepolta nella sabbia. Incuriosito, la raccogli e scopri una vecchia pergamena, ingiallita dall'età. I segni tracciati su di essa da una mano tremante rivelano l'ubicazione di un luogo segreto nascosto poco lontano. Guidati da questi enigmi, vagate a lungo per la brughiera, finché i vostri passi vi conducono a un antico scrigno, sepolto sotto i rovi. Quando lo aprite, scoprite un oggetto dall'aspetto misterioso...",
+          "2": "Voltate le spalle al capitano e lasciate che i vostri passi vi guidino lungo la spiaggia ventosa. Una bottiglia semisepolta nella sabbia attira la vostra attenzione. La estraete con cura, sperando di trovare qualche segreto dimenticato. All'interno c'è una pergamena sgualcita, consumata dall'umidità e dalla salsedine. La srotolate lentamente, ma ahimè… le lettere sono state cancellate, le parole non sono altro che macchie informi e sbiadite filigrane. Non c'è alcun significato, a parte un'intuizione: un tempo questo messaggio doveva essere importante, ma ora è perso per sempre nelle pieghe del tempo.",
+          "3": "Volgete le spalle al capitano senza dire una parola, cosa che sembra infiammare la sua rabbia. Con un passo veloce, vi raggiunge e, senza preavviso, vi sferra un violento colpo alla nuca. Stordito, ti accasci sulla sabbia, con le stelle che danzano davanti ai tuoi occhi. Si allontana immediatamente, torna sul ponte con un ghigno e ordina di pesare l'ancora."
         }
       }
     },
-    "text": "En arrivant à la plage sentinelle, vous apercevez, amarré, un bateau aux voiles noires et usées. Sur le pont, un homme portant un large tricorne, probablement le capitaine, vous fait signe de le rejoindre."
+    "text": "Quando arrivate alla spiaggia della sentinella, vedete una barca ormeggiata, con le vele nere e consumate. Sul ponte, un uomo con un grande tricorno, probabilmente il capitano, vi fa cenno di raggiungerlo."
   },
   "76": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous décidez de ne pas vous impliquer davantage dans cette histoire confuse. Vous saluez poliment Parziter et reprenez votre route à travers la forêt, laissant derrière vous les mystères de cette demeure en ruine."
+          "0": "Decidete di non lasciarvi coinvolgere ulteriormente in questa storia confusa. Salutate cortesemente Parziter e ripartite attraverso la foresta, lasciandovi alle spalle i misteri di questa casa in rovina."
         }
       },
       "help": {
         "outcomes": {
-          "0": "Vous acceptez d'aider le vieil homme. Il vous explique, entre deux sanglots, qu'une créature étrange a envahi sa cave et terrorise ses animaux. Armé de courage, vous descendez dans les profondeurs et parvenez à chasser l'intrus. Reconnaissant, Parziter vous offre une bourse bien garnie ainsi qu'un objet ancien qu'il conservait précieusement.",
-          "1": "Malgré votre bonne volonté, vos tentatives pour calmer Parziter ne font qu'aggraver sa panique. Il se met à hurler des incantations incompréhensibles et vous lance des objets. Vous battez en retraite précipitamment, une écorchure au front témoignant de cette rencontre mouvementée.",
-          "2": "En tentant de rassurer le vieil homme, vous découvrez qu'il souffre de visions étranges depuis qu'il a trouvé un artefact mystérieux. Il vous le confie, espérant que cela mettra fin à son tourment. L'objet pulse d'une énergie singulière entre vos mains.",
-          "3": "Parziter vous supplie de retrouver son chat, Minou, qui a disparu dans les bois environnants. Après une heure de recherches, vous le découvrez coincé dans un arbre creux. Le vieil homme, fou de joie, vous récompense avec les quelques pièces qu'il possède."
+          "0": "Accettate di aiutare il vecchio. Tra i singhiozzi, vi dice che una strana creatura ha invaso la sua cantina e sta terrorizzando i suoi animali. Armati di coraggio, scendete nelle profondità e riuscite a scacciare l'intruso. Grato, Parziter vi offre una borsa ben fornita e un antico manufatto che un tempo custodiva.",
+          "1": "Nonostante i vostri sforzi, i vostri tentativi di calmare Parziter non fanno che aggravare il suo panico. Inizia a gridare incantesimi incomprensibili e a lanciarvi oggetti. Vi ritirate in fretta e furia, con un graffio sulla fronte che testimonia questo incontro movimentato.",
+          "2": "Mentre cercate di rassicurare il vecchio, scoprite che soffre di strane visioni da quando ha trovato un misterioso artefatto. Ve lo affida, sperando che metta fine al suo tormento. Nelle vostre mani l'oggetto pulsa di un'energia singolare.",
+          "3": "Parziter vi prega di trovare il suo gatto, Minou, scomparso nei boschi circostanti. Dopo un'ora di ricerche, lo trovate intrappolato in un albero cavo. Il vecchio è felicissimo e vi ricompensa con le poche monete che ha."
         },
-        "text": "Proposer votre aide au vieil homme."
+        "text": "Offrite il vostro aiuto al vecchio."
       },
       "explore": {
         "outcomes": {
-          "0": "Vous demandez à visiter la demeure. Parziter hésite puis accepte. À l'intérieur, vous découvrez une bibliothèque aux ouvrages anciens et poussiéreux. L'un d'eux attire votre attention par ses symboles étranges. Parziter vous l'offre, affirmant qu'il lui porte malheur. Vous préférez décliner poliment et reprenez votre route.",
-          "1": "En explorant la maison, vous trébuchez sur une planche vermoulue qui cède sous votre poids. Votre cheville se tord douloureusement dans votre chute. Parziter, paniqué, applique un cataplasme d'herbes qui soulage un peu la douleur.",
-          "2": "Dans le grenier poussiéreux, vous mettez la main sur un coffret oublié contenant quelques pièces d'or et un petit objet brillant. Parziter, trop troublé pour s'en soucier, vous laisse le garder."
+          "0": "Chiedete di visitare la casa. Parziter esita, poi accetta. All'interno scoprite una biblioteca piena di vecchi libri polverosi. Uno di questi attira la vostra attenzione con i suoi strani simboli. Parziter ve lo offre, sostenendo che gli porterà sfortuna. Voi rifiutate cortesemente e continuate il vostro cammino.",
+          "1": "Mentre esplorate la casa, inciampate in un'asse mangiata dai vermi che cede sotto il vostro peso. La caviglia si storce dolorosamente durante la caduta. Parziter, in preda al panico, applica un cataplasma di erbe per alleviare il dolore.",
+          "2": "Nella soffitta polverosa si trova una scatola dimenticata che contiene alcune monete d'oro e un piccolo oggetto luccicante. Parziter, troppo preoccupato per interessarsene, ve lo lascia tenere."
         },
-        "text": "Demander à explorer la demeure."
+        "text": "Chiedete di esplorare la casa."
       },
       "question": {
         "outcomes": {
-          "0": "Vous questionnez Parziter sur sa situation. Il vous révèle qu'il était autrefois un érudit respecté, mais qu'une malédiction l'a frappé après avoir déterré un artefact maudit. Il vous supplie de l'emporter loin d'ici. Touché par son histoire, vous acceptez et repartez avec l'objet mystérieux.",
-          "1": "Vos questions incessantes agacent le vieil homme qui finit par vous claquer la porte au nez. Vous entendez ses marmonnements irrités depuis l'extérieur et décidez de poursuivre votre chemin.",
-          "2": "Parziter vous confie qu'il garde un trésor caché depuis des années, mais qu'il a oublié où il l'a dissimulé. Intrigué, vous l'aidez à fouiller et finissez par découvrir une cache secrète contenant une belle récompense qu'il partage avec vous."
+          "0": "Chiedete a Parziter della sua situazione. Vi dice che un tempo era uno studioso rispettato, ma una maledizione lo ha colpito dopo che ha dissotterrato un artefatto maledetto. Vi prega di portarlo via da qui. Commossi dalla sua storia, accettate e ve ne andate con l'oggetto misterioso.",
+          "1": "Le vostre incessanti domande infastidiscono il vecchio, che alla fine vi sbatte la porta in faccia. Sentite il suo borbottio irritato dall'esterno e decidete di proseguire per la vostra strada.",
+          "2": "Parziter vi confida di aver tenuto nascosto un tesoro per anni, ma di aver dimenticato dove l'aveva nascosto. Incuriositi, lo aiutate a rovistare e alla fine scoprite un nascondiglio segreto contenente una bella ricompensa, che lui condivide con voi."
         },
-        "text": "Interroger Parziter sur sa situation."
+        "text": "Chiedete a Parziter della sua situazione."
       }
     },
-    "text": "Après de longues heures de marche à travers la Forêt Celestrum, vous apercevez enfin près d'une rivière scintillante ce qui semble être une maison en ruine. Vous vous approchez discrètement, dissimulé par les frondaisons, et observez prudemment les alentours. Soudain, un cri plaintif résonne depuis l'intérieur de la demeure, confirmant qu'elle est bien habitée. Vous décidez alors de frapper à la porte de bois vermoulu. C'est un vieil homme à la mine perturbée qui vous ouvre, les yeux hagards et les cheveux en bataille. Il parle rapidement, de façon incohérente, manifestant une panique visible. Cependant, vous parvenez à saisir qu'il se nomme Parziter et qu'il semble avoir désespérément besoin d'aide."
+    "text": "Dopo aver camminato per ore nella Foresta di Celestrum, finalmente individuate quella che sembra essere una casa in rovina accanto a un fiume scintillante. Vi avvicinate con discrezione, nascosti dal fogliame, e osservate con cautela i dintorni. All'improvviso, un grido lamentoso riecheggia dall'interno della casa, confermando che è effettivamente abitata. Decidete di bussare alla porta di legno tarlato. Ad aprirla è un vecchio dall'aspetto disturbato, con gli occhi torvi e i capelli in disordine. Parla rapidamente e in modo incoerente, in preda al panico. Tuttavia, riuscite a capire che si chiama Parziter e che sembra avere un disperato bisogno di aiuto."
   },
   "77": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous observez la scène quelques instants puis, ne souhaitant pas vous mêler de cette querelle, vous contournez discrètement la clairière et poursuivez votre route à travers les sous-bois."
+          "0": "Osservate la scena per qualche istante e poi, non volendo essere coinvolti nella lite, girate discretamente intorno alla radura e proseguite nel sottobosco."
         }
       },
       "approach": {
         "outcomes": {
-          "0": "Vous vous approchez prudemment. Les deux hommes cessent leur dispute et se tournent vers vous. L'un d'eux, visiblement soulagé d'avoir un arbitre, vous explique qu'ils se disputent la propriété d'un coffre découvert dans les ruines. Vous proposez de le partager équitablement, ce qu'ils acceptent. Reconnaissants de votre sagesse, ils vous offrent une part du butin.",
-          "1": "En vous approchant, vous marchez malencontreusement sur une branche qui craque bruyamment. Les deux hommes, surpris, pensent que vous voulez leur voler leur découverte et vous attaquent ensemble. Vous parvenez à vous défendre mais récoltez quelques bleus dans la mêlée.",
-          "2": "Votre intervention met fin à leur querelle, mais révèle qu'ils sont tous deux des bandits notoires. Impressionnés par votre courage, ils vous proposent de rejoindre leur bande. Vous déclinez, préférant l'éventuelle main de la princesse aux geôles du roi."
+          "0": "Vi avvicinate con cautela. I due uomini smettono di discutere e si rivolgono a voi. Uno di loro, chiaramente sollevato di avere un arbitro, spiega che stanno discutendo sulla proprietà di un forziere scoperto tra le rovine. Vi offrite di dividerlo equamente, e loro accettano. Grati per la vostra saggezza, vi offrono una parte del bottino.",
+          "1": "Avvicinandosi, si calpesta accidentalmente un ramo che scricchiola fortemente. I due uomini, sorpresi, pensano che stiate cercando di rubare la loro scoperta e vi attaccano insieme. Riuscite a difendervi, ma vi procurate qualche livido nella mischia.",
+          "2": "Il vostro intervento pone fine al loro litigio, ma rivela che entrambi sono noti banditi. Colpiti dal vostro coraggio, vi chiedono di unirvi alla loro banda. Voi rifiutate, preferendo la possibile mano della principessa alle prigioni del re."
         },
-        "text": "S'approcher pour comprendre la situation."
+        "text": "Avvicinatevi per capire la situazione."
       },
       "hide": {
         "outcomes": {
-          "0": "Caché derrière un arbre, vous assistez à leur dispute qui dégénère en bagarre. L'un des hommes assomme l'autre et s'enfuit avec un sac. Une fois le calme revenu, vous vous approchez de l'homme inconscient. Il reprend conscience et, reconnaissant votre aide, vous offre une récompense qu'il avait dissimulée.",
-          "1": "Vous restez caché et observez. Les deux hommes finissent par trouver un accord et repartent ensemble. Vous fouillez discrètement l'endroit où ils se disputaient et découvrez qu'ils ont oublié un petit objet de valeur dans leur précipitation.",
-          "2": "Tapi dans l'ombre, vous attendez que la situation se calme. Malheureusement, l'un des hommes vous repère et crie à son compagnon qu'un espion les observe. Ils se lancent à votre poursuite mais vous parvenez à leur échapper en connaissant mieux la forêt qu'eux."
+          "0": "Nascondendosi dietro un albero, si assiste al degenerare della discussione in una rissa. Uno dei due uomini fa perdere i sensi all'altro e scappa con una borsa. Una volta tornata la calma, vi avvicinate all'uomo svenuto. Questi riprende conoscenza e, grato per il vostro aiuto, vi offre una ricompensa che aveva nascosto.",
+          "1": "Voi rimanete nascosti e osservate. I due uomini trovano un accordo e se ne vanno insieme. Cercate con discrezione nell'area in cui stavano discutendo e scoprite che nella fretta hanno dimenticato un piccolo oggetto di valore.",
+          "2": "Appostati nell'ombra, aspettate che la situazione si calmi. Purtroppo, uno degli uomini vi scorge e grida al suo compagno che una spia li sta osservando. I due si lanciano all'inseguimento, ma voi riuscite a sfuggirgli, conoscendo la foresta meglio di loro."
         },
-        "text": "Observer discrètement."
+        "text": "Osservare con discrezione."
       },
       "flee": {
         "outcomes": {
-          "0": "Préférant éviter tout danger, vous faites demi-tour pour emprunter un chemin alternatif. Votre prudence a un prix : vous perdez du temps et finissez par vous égarer sur ce nouveau sentier, mais au moins, vous échappez aux problèmes potentiels.",
-          "1": "En rebroussant chemin, vous trébuchez dans votre hâte et vous blessez légèrement. Le bruit alerte les deux hommes qui cessent leur dispute pour regarder dans votre direction, mais ils ne vous poursuivent pas.",
-          "2": "Votre retraite vous mène par hasard vers un sentier oublié où vous découvrez les vestiges d'un ancien campement. Parmi les débris, vous trouvez un objet encore utilisable abandonné par de précédents voyageurs."
+          "0": "Preferendo evitare qualsiasi pericolo, tornate indietro per prendere un percorso alternativo. La vostra prudenza ha un prezzo: perdete tempo e finite per perdervi su questo nuovo percorso, ma almeno evitate potenziali problemi.",
+          "1": "Mentre tornate indietro, inciampate nella fretta e vi ferite leggermente. Il rumore allerta i due uomini che interrompono la discussione per guardare nella vostra direzione, ma non vi inseguono.",
+          "2": "La vostra ritirata vi porta per caso su un sentiero dimenticato dove scoprite i resti di un antico accampamento. Tra i detriti, trovate un oggetto ancora utilizzabile abbandonato dai viaggiatori precedenti."
         },
-        "text": "Faire demi-tour et éviter la confrontation."
+        "text": "Tornare indietro ed evitare il confronto."
       }
     },
-    "text": "En progressant dans un sentier sinueux de la Forêt Celestrum, vous entendez soudain des éclats de voix provenant d'une clairière proche. Intrigué, vous vous approchez discrètement et découvrez deux hommes en pleine dispute. Ils se tiennent face à face, gesticulant vivement, visiblement en désaccord sur quelque chose d'important. L'un porte une cape rapiécée, l'autre une veste de cuir usée. Entre eux, au sol, gît un coffret de bois que chacun semble revendiquer."
+    "text": "Mentre percorrete un sentiero tortuoso nella Foresta di Celestrum, sentite improvvisamente delle voci forti provenire da una radura vicina. Incuriositi, vi avvicinate con discrezione e scoprite due uomini nel bel mezzo di una discussione. Sono in piedi, faccia a faccia, gesticolano selvaggiamente, evidentemente in disaccordo su qualcosa di importante. Uno indossa un mantello rattoppato, l'altro una giacca di pelle logora. Tra loro, a terra, giace una scatola di legno che ognuno di loro sembra reclamare."
   },
   "8": {
     "possibilities": {
