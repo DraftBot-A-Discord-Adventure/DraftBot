@@ -33,6 +33,8 @@ class InfantryManFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK);
 		}
 
+		const opponentLastAction = opponent.getLastFightActionUsed();
+
 		/*
 		 * Use charging attack if enough breath and either:
 		 * 1. Opponent is charging a two-turn attack, OR
@@ -42,9 +44,11 @@ class InfantryManFightBehavior implements ClassBehavior {
 			&& (
 
 				// Condition 1: Opponent is charging a two-turn attack
-				opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
-				|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2
-				|| opponent.getLastFightActionUsed().id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				(opponentLastAction && (
+					opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+					|| (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
+					|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+				))
 
 				// Condition 2: Tactical advantage against non-knight opponents
 				|| (fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
