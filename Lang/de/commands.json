@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Verwenden Sie diesen Befehl, um andere Spieler, die sich auf demselben Server wie Sie befinden, zu detrieren.\nDie Kämpfe werden um die Reihe umgeleitet. In jeder Runde können Sie eine Aktion auswählen, die ausgeführt werden soll.\n\nFür weitere Informationen können Sie die Seite \"Guide\" auf der Seite \"https://guide.draftbot.com/notions-principale/combats\" anzeigen.",
-        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.2.png"
       },
       "GLORY_TOP": {
         "description": "Zeigt die ruhmige Rangfolge des Spiels pro Schicht von 15 Spielern an. Die Liga der Spieler wird ebenfalls angezeigt. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
@@ -838,6 +838,26 @@
             "Stoffwechselanalysen zeigen, dass dieses Exemplar einen Bruchteil der Lebensenergie des Gegners übertragen kann und so die Ausdauer seines Besitzers verbessert.",
             "Die Untersuchungen bestätigen eine natürliche Fähigkeit zur Energieabsorption, die sich durch eine subtile Entnahme von gegnerischer Energie auszeichnet.",
             "Klinische Beobachtungen belegen, dass er über energieübertragende Mechanismen verfügt, die in der Lage sind, seinen Besitzer zu revitalisieren, indem sie feindliche Energie einfangen."
+          ],
+          "smallBite": [
+            "Ses petites dents sont discrètes mais redoutables. En mordant, il risque de provoquer une infection sournoise chez l’adversaire.",
+            "Ce familier possède une dentition fine mais perçante. Ses morsures, bien que modestes, peuvent s’aggraver avec le temps.",
+            "Ne sous-estimez pas ses crocs minuscules ! Une simple morsure peut entraîner une infection lente mais redoutable."
+          ],
+          "crush": [
+            "Sa puissance physique est écrasante ! Si l’adversaire hésite, il se retrouvera broyé sous son poids.",
+            "Ce familier attend le bon moment pour frapper. Il écrasera ses ennemis trop lents à fuir, les immobilisant définitivement.",
+            "Son attaque est simple mais impitoyable : il profite de la moindre erreur pour écraser l’adversaire sans pitié."
+          ],
+          "healOwnerInEnergyRange": [
+            "Dès qu’il perçoit une baisse d’énergie, ce familier transfère une partie de sa force vitale pour soutenir son maître.",
+            "Sa sensibilité à votre état énergétique est remarquable. Il intervient dès que votre énergie chute dangereusement.",
+            "Ce compagnon veille sur vous sans relâche. Quand votre force faiblit, il vous revitalise immédiatement."
+          ],
+          "useTool": [
+            "Ingénieux et débrouillard, il utilise les matériaux autour de lui pour créer des outils de combat improvisés.",
+            "Ce familier possède un instinct créatif étonnant. Il fabriquera rapidement des objets utiles en plein affrontement.",
+            "Son intelligence tactique est fascinante. Il exploitera chaque élément du terrain pour construire de quoi vous aider."
           ]
         },
         "ageComment_ancestor": "INKROYABLE! Ruft der Tierarzt mit großen Augen aus. Ihr Vertrauter ist ein Exemplar von außergewöhnlicher Seltenheit! Er gehört zu den ältesten, die jemals in unseren Archiven aufgezeichnet wurden. Nur {{age}} andere Vertraute wurden älter entdeckt! Ein echtes lebendes Relikt!",
