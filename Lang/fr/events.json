@@ -2316,7 +2316,7 @@
         "text": "Tenter de voler un livre pour le revendre."
       }
     },
-    "text": "Après avoir flâné dans les rues de Claire de Ville, vous apercevez un bâtiment dont l'entrée est encadrée par deux statues de hiboux en pierre. En vous en approchant, vous comprenez que c'est la bibliothèque de la ville. Vous décidez d'entrer dans la bâtisse pour passer le temps. Sur un des murs de l'entrée, est accroché un calendrier fait de larges feuilles reliées entre elles par une lanière de cuir."
+    "text": "Après avoir flâné dans les rues de Claire De Ville, vous apercevez un bâtiment dont l'entrée est encadrée par deux statues de hiboux en pierre. En vous en approchant, vous comprenez que c'est la bibliothèque de la ville. Vous décidez d'entrer dans la bâtisse pour passer le temps. Sur un des murs de l'entrée, est accroché un calendrier fait de larges feuilles reliées entre elles par une lanière de cuir."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Changer d'avis et partir en quête d'un stand de nourriture."
       }
     },
-    "text": "Alors que vous arrivez aux abords de Claire de Ville, vous découvrez que bon nombre de ses habitants se sont déplacés à l'extérieur des grandes murailles : un tournoi seigneurial bat son plein ! Sur les hourds accolés aux murailles, bouffons, troubadours, ménestrels, hérauts, bardes et conteurs vocifèrent de joie, acclamant chaque coup d'épée, de lance ou de masse. Enthousiasmé par la pagaille et l'entrain général, vous décidez de tenter votre chance. Vous repérez le juge diseur qui accepte votre inscription et vous demande à quelle épreuve vous souhaitez participer."
+    "text": "Alors que vous arrivez aux abords de Claire De Ville, vous découvrez que bon nombre de ses habitants se sont déplacés à l'extérieur des grandes murailles : un tournoi seigneurial bat son plein ! Sur les hourds accolés aux murailles, bouffons, troubadours, ménestrels, hérauts, bardes et conteurs vocifèrent de joie, acclamant chaque coup d'épée, de lance ou de masse. Enthousiasmé par la pagaille et l'entrain général, vous décidez de tenter votre chance. Vous repérez le juge diseur qui accepte votre inscription et vous demande à quelle épreuve vous souhaitez participer."
   },
   "73": {
     "possibilities": {
@@ -2690,7 +2690,7 @@
       },
       "goDown": {
         "outcomes": {
-          "0": "Vous descendez prudemment en vous guidant sur la pente. Malgré quelques détours dans le brouillard, vous finissez par apercevoir le pont et continuez votre route vers la rivière aux crabes.",
+          "0": "Vous descendez prudemment en vous guidant sur la pente. Malgré quelques détours dans le brouillard, vous finissez par apercevoir le pont et continuez votre route vers la Rivière aux Crabes.",
           "1": "Votre descente est chaotique dans le brouillard épais. Vous glissez plusieurs fois sur le terrain humide mais parvenez finalement à rejoindre la rivière aux crabes, trempé et boueux.",
           "2": "Vous suivez instinctivement la pente descendante. Le brouillard commence à se dissiper à mesure que vous vous rapprochez de la rivière."
         },
@@ -2702,7 +2702,7 @@
         }
       }
     },
-    "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la rivière aux crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
+    "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la Rivière aux Crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
   },
   "79": {
     "possibilities": {
@@ -2717,7 +2717,7 @@
       "overtake": {
         "outcomes": {
           "0": "Vous doublez rapidement le troupeau et continuez votre route.",
-          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la rivière aux crabes.",
+          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la Rivière aux Crabes.",
           "2": "Votre course pour doubler le troupeau vous essouffle. Vous ralentissez et décidez de faire une pause pour reprendre votre souffle. En attendant, vous observez le troupeau passer tranquillement devant vous."
         },
         "text": "Doubler le troupeau en courant."
@@ -2726,7 +2726,7 @@
         "outcomes": {
           "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
           "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
-          "2": "Le berger redescend vers ses pâturages près de la rivière aux crabes. Son chemin vous semble plus sûr."
+          "2": "Le berger redescend vers ses pâturages près de la Rivière aux Crabes. Son chemin vous semble plus sûr."
         },
         "text": "Demander au berger la direction qu'il prend."
       },
@@ -2734,7 +2734,7 @@
         "outcomes": {
           "0": "Vous vous rangez sur le côté et laissez passer le troupeau. Le berger vous remercie d'un signe de tête et continue son chemin.",
           "1": "Vous vous rangez sur le côté, mais les chèvres curieuses s'approchent de vous. Le berger vous demande de les repousser doucement pour qu'elles ne s'égarent pas.",
-          "2": "Vous vous rangez sur le côté, mais un chien du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant légèrement."
+          "2": "Vous vous rangez sur le côté, mais l'un des chiens du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant."
         },
         "text": "Se ranger sur le côté et laisser passer."
       },
@@ -2742,7 +2742,7 @@
         "outcomes": {
           "0": "Votre aide est appréciée. Après un bout de chemin ensemble, le berger vous offre un objet en témoignage de vos efforts.",
           "1": "En aidant à rassembler les chèvres égarées, vous suivez le berger vers le Bois Hurlant.",
-          "2": "Une chèvre s'échappe vers la rivière aux crabes. Vous l'aidez à la récupérer et restez dans cette zone."
+          "2": "Une chèvre s'échappe vers la Rivière aux Crabes. Vous l'aidez à la récupérer et restez dans cette zone."
         },
         "text": "Aider le berger à guider les bêtes."
       },
