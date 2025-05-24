@@ -8,7 +8,7 @@ import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 const petAssistanceList = new Map<number, PetAssistance>();
 
 /**
- * Initialize all pet behaviours in a map so they can be accessed by pet ID
+ * Initialize all pet behaviors in a map so they can be accessed by pet ID
  */
 export function initializeAllPetBehaviors(): void {
 	const petBehaviors = [
