@@ -17,7 +17,7 @@ function getAttackInfo(): attackInfo {
 
 function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 	return {
-		attackerStats: [800],
+		attackerStats: [1200],
 		defenderStats: [receiver.getDefense()],
 		statsEffect: [1]
 	};
