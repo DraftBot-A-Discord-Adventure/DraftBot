@@ -838,6 +838,26 @@
             "Le analisi metaboliche dimostrano che questo esemplare può trasferire una frazione dell'energia vitale dell'avversario, migliorando così la resistenza del suo proprietario.",
             "Gli esami confermano una naturale capacità di assorbimento dell'energia, caratterizzata da un sottile ritiro dell'energia contraria.",
             "Le osservazioni cliniche dimostrano che possiede meccanismi di trasferimento di energia, in grado di rivitalizzare il suo padrone catturando l'energia ostile."
+          ],
+          "smallBite": [
+            "I suoi piccoli denti sono discreti ma formidabili. Mordendo, rischia di provocare un'infezione subdola nel suo avversario.",
+            "Questo animale ha denti sottili ma penetranti. I suoi morsi, sebbene modesti, possono peggiorare nel tempo.",
+            "Non sottovalutate le sue piccole zanne! Un semplice morso può portare a una lenta ma temibile infezione."
+          ],
+          "crush": [
+            "Il suo potere fisico è schiacciante! Se il vostro avversario esita, sarà schiacciato sotto il suo peso.",
+            "Questo famiglio aspetta il momento giusto per colpire. Schiaccerà i nemici troppo lenti per fuggire, immobilizzandoli definitivamente.",
+            "Il suo attacco è semplice ma spietato: approfitta del minimo errore per schiacciare l'avversario senza pietà."
+          ],
+          "healOwnerInEnergyRange": [
+            "Non appena avverte un calo di energia, questo animale trasferisce parte della sua forza vitale per sostenere il padrone.",
+            "La sua sensibilità allo stato di energia è notevole. Interviene non appena il livello di energia scende pericolosamente.",
+            "Questo compagno veglia su di voi tutto il giorno. Quando le forze vacillano, vi rivitalizza immediatamente."
+          ],
+          "useTool": [
+            "Ingegnoso e pieno di risorse, utilizza i materiali che lo circondano per creare strumenti di combattimento improvvisati.",
+            "Questo animale ha un incredibile istinto creativo. Produce rapidamente oggetti utili nel bel mezzo di un combattimento.",
+            "La sua intelligenza tattica è affascinante. Sfrutterà ogni elemento del terreno per costruire qualcosa che vi aiuterà."
           ]
         },
         "ageComment_ancestor": "INCREDIBILE! esclama il veterinario, con gli occhi spalancati. Il vostro animale è un esemplare eccezionalmente raro! È uno dei più vecchi mai registrati nei nostri archivi - solo {{age}} altri animali domestici sono stati trovati più vecchi! Una vera reliquia vivente!",

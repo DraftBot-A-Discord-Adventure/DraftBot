@@ -2660,6 +2660,99 @@
     },
     "text": "Enquanto percorres um caminho sinuoso na Floresta de Celestrum, ouves de repente vozes altas vindas de uma clareira próxima. Intrigado, aproxima-se discretamente e descobre dois homens a meio de uma discussão. Estão frente a frente, gesticulando descontroladamente, obviamente discordando sobre algo importante. Um deles está a usar uma capa remendada, o outro um casaco de cabedal gasto. Entre eles, no chão, encontra-se uma caixa de madeira que cada um deles parece reclamar."
   },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "Abre-se caminho cautelosamente através do nevoeiro, seguindo os contornos da estrada. Quando o nevoeiro finalmente se dissipa, encontra-se na estrada que conduz a Claire De Ville.",
+          "1": "Avançamos lentamente através do nevoeiro espesso. Quando o nevoeiro se dissipa, apercebe-se de que está a dirigir-se para o Bosque dos Uivantes.",
+          "2": "Ao sentir o seu caminho, não consegue seguir a estrada durante muito tempo. Depois de muito tempo a caminhar ao acaso, admite finalmente que está perdido. Vai demorar algum tempo até encontrares o caminho de volta...",
+          "3": "Avança com cautela, mas o nevoeiro é tão denso que não consegue seguir a estrada. Acaba por cair e tombar pela encosta abaixo durante vários metros. Depois de ficar deitado no chão durante muito tempo, consegue levantar-se e encontrar o caminho de volta para a estrada."
+        },
+        "text": "Conduzir com cuidado ao longo da estrada."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "Espera pacientemente, mas o nevoeiro persiste. Por fim, ouve passos e segue o ruído, sem perceber como, mas finalmente apercebe-se de que tomou o caminho para Claire De Ville.",
+          "1": "Depois de uma longa espera, o frio começa a afetar-nos. Infelizmente, o nevoeiro ainda lá está! Gelado, partiste novamente às cegas, emergindo do nevoeiro em direção ao Bosque Uivante.",
+          "2": "Mesmo depois de uma longa espera, o nevoeiro não se dissipa. Por fim, segue-se em frente e tenta-se seguir a descida da encosta. Esta estratégia acaba por funcionar e vê-se a ponte sobre o rio a aproximar-se."
+        },
+        "text": "Parar e esperar que o nevoeiro se dissipe."
+      },
+      "call": {
+        "outcomes": {
+          "0": "A sua chamada soa no vazio. Ninguém responde. Tenta orientar-se sozinho, mas perde-se completamente no nevoeiro. Depois de vaguear durante muito tempo, encontra finalmente o caminho de volta e apercebe-se de que se dirige para Claire De Ville.",
+          "1": "Uma voz calorosa responde-lhe através do nevoeiro, apresentando-se como um guia da região. A pessoa junta-se a ti e oferece-se para te levar onde queres ir por algumas moedas. Encantado por poder seguir na direção certa sem medo, aceita e segue o guia até ao seu destino.",
+          "2": "Ninguém responde. Desanimado, volta a descer instintivamente e emerge perto do rio dos caranguejos."
+        },
+        "text": "Telefonar para ver se está lá alguém."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "Desce-se cautelosamente, guiando-se pela encosta. Apesar de alguns desvios no nevoeiro, acaba por avistar a ponte e segue em direção a Rivière aux Crabes.",
+          "1": "A descida é caótica no meio do nevoeiro espesso. Escorrega-se várias vezes no chão húmido, mas finalmente chega-se ao rio caranguejo, encharcado e enlameado.",
+          "2": "Instintivamente, seguimos a inclinação descendente. O nevoeiro começa a levantar-se à medida que se aproxima do rio."
+        },
+        "text": "Tentar descer até ao rio."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Completamente desorientado pelo nevoeiro, decide não se mexer. Fica parado durante o que parece ser uma eternidade, ouvindo os sons abafados à sua volta. Finalmente, após várias horas de espera, o nevoeiro começa lentamente a dissipar-se. Quando a visibilidade regressa, vê que ainda está na estrada de subida, exatamente onde o nevoeiro o tinha apanhado. Agora, pode partir de novo com toda a segurança."
+        }
+      }
+    },
+    "text": "Está a progredir bem na estrada de subida quando, de repente, se levanta um nevoeiro espesso vindo da Rivière aux Crabes, cuja ponte ainda se consegue distinguir vagamente ao longe. Em poucos minutos, a visibilidade torna-se muito reduzida. Tudo o que consegue ver é o contorno desfocado da estrada à sua frente..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Deixa-se levar pelo fluxo da manada que sobe calmamente em direção a Claire De Ville.",
+          "1": "O rebanho leva-o pelo seu percurso habitual e sinuoso até ao Bosque dos Uivantes.",
+          "2": "As cabras mudam subitamente de direção, seguindo os seus instintos, e damos por nós a descer de novo em direção ao rio dos caranguejos."
+        },
+        "text": "Deixar-se levar pela manada."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Ultrapassa rapidamente a manada e continua o seu caminho.",
+          "1": "Os cães pastores perseguem-no amigavelmente, desviando-o da rota em direção à Rivière aux Crabes.",
+          "2": "Está a ficar sem fôlego enquanto tenta ultrapassar a manada. Abranda e decide fazer uma pausa para recuperar o fôlego. Entretanto, observa a manada a passar calmamente à sua frente."
+        },
+        "text": "Passa pela manada."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "O pastor explica que vai subir a Claire De Ville e convida-o a acompanhá-lo. Recusa educadamente, preferindo seguir o seu próprio caminho.",
+          "1": "O pastor está a caminho do Bosque dos Uivantes para a transumância e sugere-vos que viajem juntos. Recusas educadamente, preferindo seguir o teu próprio caminho.",
+          "2": "O pastor regressa aos seus pastos perto de Rivière aux Crabes. O seu caminho parece mais seguro."
+        },
+        "text": "Perguntem ao pastor para onde vai."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Encosta-se e deixa-se passar o rebanho. O pastor agradece-lhe com um aceno de cabeça e continua o seu caminho.",
+          "1": "Encosta-se à berma, mas as cabras curiosas aproximam-se de si. O pastor pede-lhe que as empurre com cuidado para que não se afastem.",
+          "2": "Encosta-se à berma, mas um dos cães do pastor aproxima-se e morde-lhe os sapatos. Na altura, não se apercebe, mas o seu pé está ferido. Continua a coxear."
+        },
+        "text": "Encoste para o lado e deixe-o passar."
+      },
+      "help": {
+        "outcomes": {
+          "0": "A vossa ajuda é apreciada. Depois de termos percorrido um longo caminho juntos, o pastor dá-te algo para mostrares pelo teu esforço.",
+          "1": "Ajudando a reunir as cabras perdidas, segue o pastor em direção ao Bosque Uivante.",
+          "2": "Uma cabra foge em direção ao rio Crab. Ajuda-o a recuperá-la e fica na zona."
+        },
+        "text": "Ajudar o pastor a guiar os animais."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Decide afastar-se da manada e continuar o seu caminho. Vê-os passar calmamente e continua o seu caminho."
+        }
+      }
+    },
+    "text": "À medida que a estrada sobe, ouve-se o tilintar de sinos que se aproximam. Em breve, vê-se um grande rebanho de cabras conduzido por um pastor e os seus cães. Os animais ocupam toda a largura do caminho e avançam a um ritmo constante..."
+  },
   "8": {
     "possibilities": {
       "end": {

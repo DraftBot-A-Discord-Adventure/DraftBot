@@ -123,6 +123,11 @@
     "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "Opfer der Verbündeten",
+      "new": "wird Opfer der Verbündeten seines Gegners.",
+      "active": "erleidet die Angriffe der Verbündeten seines Gegners."
+    },
     "benediction": {
       "description": "Gehört zur Gruppe der \"Aktionen der Götter\". Scheitert, wenn im Kampf bereits 1 Aktion der Götter ausgeführt wurde. Erhöht alle Statistiken des Werfers. Je später im Kampf der Segen eingesetzt wird, desto höher ist die Erhöhung der Statistiken.",
       "name_one": "Segen",
@@ -167,11 +172,6 @@
       "new": "verbrannt wird.",
       "active": "leidet unter seiner Verbrennung.",
       "stop": "nicht mehr verbrannt wird."
-    },
-    "alliesArePresent": {
-      "name": "Opfer der Verbündeten",
-      "new": "wird Opfer der Verbündeten seines Gegners.",
-      "active": "erleidet die Angriffe der Verbündeten seines Gegners."
     },
     "canonAttack": {
       "description": "Die Genauigkeit dieses Angriffs sinkt bei schnellen Gegnern. Ein Schadensbonus wird auf diesen Angriff angewendet, wenn der Gegner sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Verursacht mehr Schaden, wenn er mehrmals hintereinander eingesetzt wird.",
@@ -233,6 +233,11 @@
       "generalEffect": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der so tut, als würde er den Gegner mit präzisen und schmerzhaften Schnabelhieben heftig bedrängen.",
       "failure": "verpasste es, Hilfe von **{{petNickname}}** zu erhalten, der vorsichtshalber nicht handelte, da er wusste, dass sein Eingreifen eher seinen Herrn als den Gegner verletzen würde. Sie hätten schneller sein müssen!",
       "success": "macht sich das Talent von **{{petNickname}}** zunutze, der unauffällig eine starke Bombe vorbereitet hat. Nachdem Sie den Zünder aktiviert haben, rennen Sie mit aller Kraft zur Seite!"
+    },
+    "crush": {
+      "generalEffect": "ruft **{{petNickname}}** zur Rettung, das Tier beginnt in der Mitte der Arena zu schwanken...",
+      "success": "wird von **{{petNickname}}** unterstützt, der den Gegner unter seinem Gewicht zerquetscht.",
+      "failure": "wird von **{{petNickname}}** unterstützt, der auf das Schlachtfeld stürzt, aber sein Ziel, das dank seiner Geschwindigkeit entkommen konnte, völlig verfehlt."
     },
     "cursed": {
       "name": "verflucht",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "ruft **{{petNickname}}** an, die mit wohlwollendem Blick feststellt, dass sich niemand verletzt hat, und sich daher fröhlich wieder zur Ruhe begibt.",
       "success": "hat Glück, dass er von **{{petNickname}}** begleitet wird, der vor Liebe strotzt und die Auseinandersetzung beenden möchte und die Kämpfer heilt."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "wird von **{{petNickname}}** gepflegt, der ihm neue Energie verleiht."
     },
     "heatDrainAttack": {
       "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
@@ -564,6 +572,9 @@
       "active": "verlangsamt wird.",
       "stop": "nicht mehr verlangsamt wird."
     },
+    "smallBite": {
+      "success": "wird von **{{petNickname}}** unterstützt, der beschließt, seinen Gegner zu beißen... Der Biss ist nicht sehr tief, droht sich aber zu infizieren."
+    },
     "smallClaws": {
       "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen kleinen Krallenhieb verpasst, wie niedlich..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "wird von **{{petNickname}}** unterstützt, der es ihm dank seiner scharfen Sicht ermöglicht, seine Umgebung wieder richtig zu sehen."
+    },
+    "useTool": {
+      "success": "wird von **{{petNickname}}** unterstützt, der aus den auf dem Schlachtfeld gefundenen Gegenständen ein Werkzeug hergestellt hat. Dies wird im weiteren Verlauf des Kampfes sehr nützlich sein!"
     },
     "vampirism": {
       "success": "wird von **{{petNickname}}** unterstützt, der dem Gegner ein wenig Energie absaugt, um sie seinem Herrn als Tribut anzubieten."
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "Keine Vertrauten",
     "0_male": "Keine Vertrauten",
-    "1_female": "Hündin",
-    "1_male": "Hund",
     "10_female": "Henne",
     "10_male": "Hahn",
     "11_female": "Vogel",
@@ -1227,8 +1239,8 @@
     "18_male": "Ziegenbock",
     "19_female": "Truthahn",
     "19_male": "Truthahn",
-    "2_female": "Pudel",
-    "2_male": "Pudel",
+    "1_female": "Hündin",
+    "1_male": "Hund",
     "20_female": "Fuchs",
     "20_male": "Fuchs",
     "21_female": "Bärin",
@@ -1249,8 +1261,8 @@
     "28_male": "Wolf",
     "29_female": "Seehund",
     "29_male": "Wildschwein",
-    "3_female": "Katze",
-    "3_male": "Katze",
+    "2_female": "Pudel",
+    "2_male": "Pudel",
     "30_female": "Seelöwe",
     "30_male": "Seehund",
     "31_female": "Nilpferd",
@@ -1271,8 +1283,8 @@
     "38_male": "Biber",
     "39_female": "Faulpelz",
     "39_male": "Faultier",
-    "4_female": "Schwarze Katze",
-    "4_male": "Schwarze Katze",
+    "3_female": "Katze",
+    "3_male": "Katze",
     "40_female": "Tamia",
     "40_male": "Tamia",
     "41_female": "Herissonne",
@@ -1293,8 +1305,8 @@
     "48_male": "Rhinozeros",
     "49_female": "Chamelle",
     "49_male": "Dromedar",
-    "5_female": "Maus",
-    "5_male": "Nagetier",
+    "4_female": "Schwarze Katze",
+    "4_male": "Schwarze Katze",
     "50_female": "Chamelle",
     "50_male": "Kamel",
     "51_female": "Giraffe",
@@ -1315,8 +1327,8 @@
     "58_male": "Adler",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Hamster",
-    "6_male": "Hamster",
+    "5_female": "Maus",
+    "5_male": "Nagetier",
     "60_female": "Leopard",
     "60_male": "Leopard",
     "61_female": "Mammut",
@@ -1337,36 +1349,64 @@
     "68_male": "Scharlachrote Ente",
     "69_female": "Schnee Dame",
     "69_male": "Schneemann",
-    "7_female": "Kaninchen",
-    "7_male": "Kaninchen",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
     "70_female": "Alien",
     "70_male": "Alien",
     "71_female": "Krake",
     "71_male": "Krake",
     "72_female": "Einarmig",
     "72_male": "Pinguin",
-    "73_male": "Fisch",
     "73_female": "Fisch",
-    "74_male": "Tropischer Fisch",
+    "73_male": "Fisch",
     "74_female": "Tropischer Fisch",
-    "75_male": "Kugelfisch",
+    "74_male": "Tropischer Fisch",
     "75_female": "Kugelfisch",
-    "76_male": "Medusa",
+    "75_male": "Kugelfisch",
     "76_female": "Medusa",
-    "77_male": "Hai",
+    "76_male": "Medusa",
     "77_female": "Hai",
-    "78_male": "Wal",
+    "77_male": "Hai",
     "78_female": "Wal",
-    "79_male": "Wal",
+    "78_male": "Wal",
     "79_female": "Wal",
-    "80_male": "Garnele",
+    "79_male": "Wal",
+    "7_female": "Kaninchen",
+    "7_male": "Kaninchen",
     "80_female": "Garnele",
-    "81_male": "Hummer",
+    "80_male": "Garnele",
     "81_female": "Hummer",
-    "82_male": "Delphin",
+    "81_male": "Hummer",
     "82_female": "Delphin",
+    "82_male": "Delphin",
+    "83_female": "Phönix",
+    "83_male": "Phönix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Schnecke",
+    "85_male": "Schnecke",
+    "86_female": "Krabbe",
+    "86_male": "Krabbe",
+    "87_female": "Reh",
+    "87_male": "Hirsch",
+    "88_female": "Wasserbüffel",
+    "88_male": "Wasserbüffel",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Kuh",
     "8_male": "Rindfleisch",
+    "90_female": "Orang-Utan",
+    "90_male": "Orang-Utan",
+    "91_female": "Gorilla",
+    "91_male": "Gorilla",
+    "92_female": "Küken",
+    "92_male": "Küken",
+    "93_female": "Rate",
+    "93_male": "Ratte",
+    "94_female": "Amsel",
+    "94_male": "Amsel",
+    "95_female": "Rabe",
+    "95_male": "Rabe",
     "9_female": "Sau",
     "9_male": "Schwein"
   },
