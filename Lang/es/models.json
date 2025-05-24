@@ -123,6 +123,11 @@
     "9": "Una clase centrada en la velocidad. Pocos puntos de salud y energía, pero mucha velocidad y ataque."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "víctima de los aliados",
+      "new": "cae víctima de los aliados de su oponente.",
+      "active": "sufre ataques de los aliados de su oponente."
+    },
     "benediction": {
       "description": "Forma parte del grupo \"acciones de los dioses\". Falla si ya se ha realizado 1 acción de los dioses en combate. Aumenta todas las estadísticas del lanzador. Cuanto más tarde en el combate se utilice la bendición, mayor será el aumento de estadísticas.",
       "name_one": "Bendición",
@@ -167,11 +172,6 @@
       "new": "se quema.",
       "active": "sufre su quemadura.",
       "stop": "ya no se quema."
-    },
-    "alliesArePresent": {
-      "name": "víctima de los aliados",
-      "new": "cae víctima de los aliados de su oponente.",
-      "active": "sufre ataques de los aliados de su oponente."
     },
     "canonAttack": {
       "description": "La precisión de este ataque se reduce en oponentes que se mueven rápido. Se aplica una bonificación de daño a este ataque si el oponente es muy lento. El oponente puede ser ralentizado por el ataque. Inflige más daño si se utiliza varias veces seguidas.",
@@ -233,6 +233,11 @@
       "generalEffect": "es apoyado en su lucha por **{{petNickname}}** que pretende acosar ferozmente a su adversario con precisos y dolorosos picotazos.",
       "failure": "no recibió ayuda de **{{petNickname}}** que, por precaución, se abstuvo de actuar, consciente de que su intervención tenía más probabilidades de herir a su amo que a su oponente. ¡Deberíamos haber sido más rápidos!",
       "success": "aprovecha el talento de **{{petNickname}}** que ha preparado discretamente una potente bomba. Tras activar el detonador, ¡sal a correr con todas tus fuerzas!"
+    },
+    "crush": {
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
+      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
+      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
     },
     "cursed": {
       "name": "maldito",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "llama a **{{petNickname}}** que, con mirada benévola, comprueba que nadie ha resultado herido y vuelve feliz a descansar.",
       "success": "tiene la suerte de estar acompañado por **{{petNickname}}** que, rebosante de amor y deseoso de poner fin al enfrentamiento, cuida de los combatientes."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
       "description": "Recupera el calor del jugador, aumentando el ataque del lanzador y congelando al oponente.",
@@ -564,6 +572,9 @@
       "active": "se ralentiza.",
       "stop": "ya no se ralentiza."
     },
+    "smallBite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+    },
     "smallClaws": {
       "success": "es apoyado en su lucha por **{{petNickname}}** que le da una pequeña garra a su oponente, qué mono..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "es ayudado por **{{petNickname}}** cuya aguda vista le permite volver a ver correctamente a su alrededor."
+    },
+    "useTool": {
+      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
     },
     "vampirism": {
       "success": "es asistido por **{{petNickname}}** que chupa un poco de energía del adversario para ofrecérsela como tributo a su amo."
@@ -805,7 +819,7 @@
       "particle": "a la"
     },
     "22": {
-      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire de Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
+      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire De Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
       "name": "Bosque aullador",
       "particle": "a la"
     },
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "No se admiten animales",
     "0_male": "No se admiten animales",
-    "1_female": "Perro",
-    "1_male": "Perro",
     "10_female": "Gallina",
     "10_male": "Coq",
     "11_female": "Pájaro",
@@ -1227,8 +1239,8 @@
     "18_male": "Cabra",
     "19_female": "Turquía",
     "19_male": "Turquía",
-    "2_female": "Caniche",
-    "2_male": "Caniche",
+    "1_female": "Perro",
+    "1_male": "Perro",
     "20_female": "Fox",
     "20_male": "Fox",
     "21_female": "Oso",
@@ -1249,8 +1261,8 @@
     "28_male": "Lobo",
     "29_female": "Fowl",
     "29_male": "Jabalí",
-    "3_female": "Coño",
-    "3_male": "Gato",
+    "2_female": "Caniche",
+    "2_male": "Caniche",
     "30_female": "Leones marinos",
     "30_male": "Sello",
     "31_female": "Hipopótamo",
@@ -1271,8 +1283,8 @@
     "38_male": "Castor",
     "39_female": "Perezoso",
     "39_male": "Perezoso",
-    "4_female": "Gato negro",
-    "4_male": "Gato negro",
+    "3_female": "Coño",
+    "3_male": "Gato",
     "40_female": "Tamia",
     "40_male": "Tamia",
     "41_female": "Espiga",
@@ -1293,8 +1305,8 @@
     "48_male": "Rinoceronte",
     "49_female": "Chamelle",
     "49_male": "Dromedario",
-    "5_female": "Ratón",
-    "5_male": "Roedores",
+    "4_female": "Gato negro",
+    "4_male": "Gato negro",
     "50_female": "Chamelle",
     "50_male": "Camello",
     "51_female": "Jirafa",
@@ -1315,8 +1327,8 @@
     "58_male": "Águila",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Hámster",
-    "6_male": "Hámster",
+    "5_female": "Ratón",
+    "5_male": "Roedores",
     "60_female": "Leopardo",
     "60_male": "Leopardo",
     "61_female": "Mamut",
@@ -1337,36 +1349,64 @@
     "68_male": "Pato escarlata",
     "69_female": "Dama de nieve",
     "69_male": "Muñeco de nieve",
-    "7_female": "Conejo",
-    "7_male": "Conejo",
+    "6_female": "Hámster",
+    "6_male": "Hámster",
     "70_female": "Alienne",
     "70_male": "Alien",
     "71_female": "Pulpo",
     "71_male": "Pulpo",
     "72_female": "Manchote",
     "72_male": "Pingüino",
-    "73_male": "Pescado",
     "73_female": "Pescado",
-    "74_male": "Peces tropicales",
+    "73_male": "Pescado",
     "74_female": "Peces tropicales",
-    "75_male": "Pez globo",
+    "74_male": "Peces tropicales",
     "75_female": "Pez globo",
-    "76_male": "Medusa",
+    "75_male": "Pez globo",
     "76_female": "Medusa",
-    "77_male": "Tiburón",
+    "76_male": "Medusa",
     "77_female": "Tiburón",
-    "78_male": "Ballena",
+    "77_male": "Tiburón",
     "78_female": "Ballena",
-    "79_male": "Ballena",
+    "78_male": "Ballena",
     "79_female": "Ballena",
-    "80_male": "Gambas",
+    "79_male": "Ballena",
+    "7_female": "Conejo",
+    "7_male": "Conejo",
     "80_female": "Gambas",
-    "81_male": "Langosta",
+    "80_male": "Gambas",
     "81_female": "Langosta",
-    "82_male": "Delfín",
+    "81_male": "Langosta",
     "82_female": "Delfín",
+    "82_male": "Delfín",
+    "83_female": "Phénix",
+    "83_male": "Phénix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Escargot",
+    "85_male": "Escargot",
+    "86_female": "Crabe",
+    "86_male": "Crabe",
+    "87_female": "Biche",
+    "87_male": "Cerf",
+    "88_female": "Buffle d'eau",
+    "88_male": "Buffle d'eau",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Vaca",
     "8_male": "Carne de vacuno",
+    "90_female": "Orang-outan",
+    "90_male": "Orang-outan",
+    "91_female": "Gorille",
+    "91_male": "Gorille",
+    "92_female": "Poussin",
+    "92_male": "Poussin",
+    "93_female": "Rate",
+    "93_male": "Rat",
+    "94_female": "Merle",
+    "94_male": "Merle",
+    "95_female": "Corbeau",
+    "95_male": "Corbeau",
     "9_female": "Siembre",
     "9_male": "Carne de cerdo"
   },
