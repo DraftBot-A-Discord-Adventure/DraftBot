@@ -235,9 +235,9 @@
       "success": "tira partido do talento de **{{petNickname}}** que preparou discretamente uma bomba potente. Depois de ativar o detonador, sai a correr com todas as suas forças!"
     },
     "crush": {
-      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
-      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
-      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
+      "generalEffect": "chama **{{petNickname}}** para o socorro, o animal começa a balançar no centro da arena...",
+      "success": "é ajudado por **{{petNickname}}** que esmaga o seu adversário sob o seu peso.",
+      "failure": "é ajudado pelo **{{petNickname}}** que se despenha no campo de batalha, mas falha completamente o seu alvo que escapou graças à sua velocidade."
     },
     "cursed": {
       "name": "amaldiçoado",
@@ -337,7 +337,7 @@
       "success": "tem a sorte de ser acompanhado por **{{petNickname}}** que, transbordando de amor e querendo pôr fim ao confronto, cuida dos combatentes."
     },
     "healOwnerInEnergyRange": {
-      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
+      "success": "é tratado por **{{petNickname}}** que lhe devolve a sua energia."
     },
     "heatDrainAttack": {
       "description": "Recupera o calor do jogador, aumentando o ataque do lançador e congelando o adversário.",
@@ -573,7 +573,7 @@
       "stop": "já não é abrandado."
     },
     "smallBite": {
-      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+      "success": "é ajudado por **{{petNickname}}** que decide morder o seu adversário... A mordidela não é muito profunda, mas ameaça infetar."
     },
     "smallClaws": {
       "success": "é apoiado na sua luta por **{{petNickname}}** que dá uma pequena garra ao seu adversário, que giro..."
@@ -648,7 +648,7 @@
       "success": "é ajudado por **{{petNickname}}** cuja visão aguçada lhe permite voltar a ver corretamente o que o rodeia."
     },
     "useTool": {
-      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
+      "success": "é ajudado por **{{petNickname}}** que fabricou uma ferramenta a partir de objectos encontrados no campo de batalha. Vai ser muito útil para o resto da batalha!"
     },
     "vampirism": {
       "success": "é assistido por **{{petNickname}}** que suga um pouco de energia do adversário para a oferecer como tributo ao seu mestre."
@@ -1379,34 +1379,34 @@
     "81_male": "Lagosta",
     "82_female": "Golfinho",
     "82_male": "Golfinho",
-    "83_female": "Phénix",
-    "83_male": "Phénix",
-    "84_female": "Diplodocus",
-    "84_male": "Diplodocus",
-    "85_female": "Escargot",
-    "85_male": "Escargot",
-    "86_female": "Crabe",
-    "86_male": "Crabe",
-    "87_female": "Biche",
-    "87_male": "Cerf",
-    "88_female": "Buffle d'eau",
-    "88_male": "Buffle d'eau",
-    "89_female": "Bisonne",
-    "89_male": "Bison",
+    "83_female": "Fénix",
+    "83_male": "Fénix",
+    "84_female": "Diplodoco",
+    "84_male": "Diplodoco",
+    "85_female": "Caracol",
+    "85_male": "Caracol",
+    "86_female": "Caranguejo",
+    "86_male": "Caranguejo",
+    "87_female": "Coelha",
+    "87_male": "Cervo",
+    "88_female": "Búfalo de água",
+    "88_male": "Búfalo de água",
+    "89_female": "Adeus",
+    "89_male": "Bisonte",
     "8_female": "Vaca",
     "8_male": "Carne de vaca",
-    "90_female": "Orang-outan",
-    "90_male": "Orang-outan",
-    "91_female": "Gorille",
-    "91_male": "Gorille",
-    "92_female": "Poussin",
-    "92_male": "Poussin",
-    "93_female": "Rate",
-    "93_male": "Rat",
-    "94_female": "Merle",
-    "94_male": "Merle",
-    "95_female": "Corbeau",
-    "95_male": "Corbeau",
+    "90_female": "Orangotango",
+    "90_male": "Orangotango",
+    "91_female": "Gorila",
+    "91_male": "Gorila",
+    "92_female": "Pintinho",
+    "92_male": "Pintinho",
+    "93_female": "Taxa",
+    "93_male": "Rato",
+    "94_female": "Pássaro preto",
+    "94_male": "Pássaro preto",
+    "95_female": "Corvo",
+    "95_male": "Corvo",
     "9_female": "Semear",
     "9_male": "Carne de porco"
   },
@@ -1605,7 +1605,7 @@
     "94": "Pó de esqueleto",
     "95": "Lâmina de aura prateada",
     "96": "Electektron",
-    "97": "Lame du Phénix",
+    "97": "Lâmina de Fénix",
     "98": "Espada de gelo"
   },
   "foods": {
