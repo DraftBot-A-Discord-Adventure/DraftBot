@@ -123,6 +123,11 @@
     "9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "victime des alliés",
+      "new": "est victime des alliés de son adversaire.",
+      "active": "subit les attaques des alliés de son adversaire."
+    },
     "benediction": {
       "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
       "name_one": "Bénédiction",
@@ -167,11 +172,6 @@
       "new": "est brûlé.",
       "active": "souffre de sa brûlure.",
       "stop": "n'est plus brûlé."
-    },
-    "alliesArePresent": {
-      "name": "victime des alliés",
-      "new": "est victime des alliés de son adversaire.",
-      "active": "subit les attaques des alliés de son adversaire."
     },
     "canonAttack": {
       "description": "La précision de cette attaque baisse sur les adversaires rapides. Un bonus de dégât est affecté à cette attaque si l'adversaire est très lent. L'adversaire peut être ralenti par l'attaque. Inflige plus de dégâts si utilisé plusieurs fois de suite.",
@@ -233,6 +233,11 @@
       "generalEffect": "est soutenu dans son combat par **{{petNickname}}** qui fait mine de harceler férocement l'adversaire de coups de bec précis et douloureux.",
       "failure": "a manqué de recevoir l'aide de **{{petNickname}}** qui, par prudence, s'est abstenu d'agir, conscient que son intervention risquait davantage de blesser son maître que l'adversaire. Il aurait fallu être plus rapide !",
       "success": "profite du talent de **{{petNickname}}** qui a discrètement préparé une bombe puissante. Après avoir activé le détonateur, vous vous mettez à l'écart en courant de toutes vos forces !"
+    },
+    "crush": {
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
+      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
+      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
     },
     "cursed": {
       "name": "maudit",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "fait appel à **{{petNickname}}** qui, avec un regard bienveillant, constate que personne ne s'est blessé et repart donc se reposer avec joie.",
       "success": "a de la chance d'être accompagné par **{{petNickname}}** qui, débordant d'amour et souhaitant mettre un terme à l'affrontement, soigne les combattants."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
       "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
@@ -564,6 +572,9 @@
       "active": "est ralenti.",
       "stop": "n'est plus ralenti."
     },
+    "smallBite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+    },
     "smallClaws": {
       "success": "est soutenu dans son combat par **{{petNickname}}** qui assène à son adversaire un petit coup de griffe, comme c'est mignon..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "est aidé par **{{petNickname}}** qui grâce à sa vue perçante lui permet de voir autour de lui correctement à nouveau."
+    },
+    "useTool": {
+      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
     },
     "vampirism": {
       "success": "est assisté par **{{petNickname}}** qui aspire un peu d'énergie à l'adversaire pour l'offrir en tribut à son maître."
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "Aucun familier",
     "0_male": "Aucun familier",
-    "1_female": "Chienne",
-    "1_male": "Chien",
     "10_female": "Poule",
     "10_male": "Coq",
     "11_female": "Oiseau",
@@ -1227,8 +1239,8 @@
     "18_male": "Bouc",
     "19_female": "Dinde",
     "19_male": "Dindon",
-    "2_female": "Caniche",
-    "2_male": "Caniche",
+    "1_female": "Chienne",
+    "1_male": "Chien",
     "20_female": "Renarde",
     "20_male": "Renard",
     "21_female": "Ourse",
@@ -1249,8 +1261,8 @@
     "28_male": "Loup",
     "29_female": "Laie",
     "29_male": "Sanglier",
-    "3_female": "Chatte",
-    "3_male": "Chat",
+    "2_female": "Caniche",
+    "2_male": "Caniche",
     "30_female": "Otarie",
     "30_male": "Phoque",
     "31_female": "Hippopotame",
@@ -1271,8 +1283,8 @@
     "38_male": "Castor",
     "39_female": "Paresseuse",
     "39_male": "Paresseux",
-    "4_female": "Chatte noire",
-    "4_male": "Chat noir",
+    "3_female": "Chatte",
+    "3_male": "Chat",
     "40_female": "Tamia",
     "40_male": "Tamia",
     "41_female": "Hérissonne",
@@ -1293,8 +1305,8 @@
     "48_male": "Rhinocéros",
     "49_female": "Chamelle",
     "49_male": "Dromadaire",
-    "5_female": "Souris",
-    "5_male": "Rongeur",
+    "4_female": "Chatte noire",
+    "4_male": "Chat noir",
     "50_female": "Chamelle",
     "50_male": "Chameau",
     "51_female": "Girafe",
@@ -1315,8 +1327,8 @@
     "58_male": "Aigle",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Hamster",
-    "6_male": "Hamster",
+    "5_female": "Souris",
+    "5_male": "Rongeur",
     "60_female": "Léoparde",
     "60_male": "Léopard",
     "61_female": "Mammouth",
@@ -1337,36 +1349,64 @@
     "68_male": "Canard écarlate",
     "69_female": "Dame de neige",
     "69_male": "Bonhomme de neige",
-    "7_female": "Lapine",
-    "7_male": "Lapin",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
     "70_female": "Alienne",
     "70_male": "Alien",
     "71_female": "Pieuvre",
     "71_male": "Poulpe",
     "72_female": "Manchote",
     "72_male": "Manchot",
-    "73_male": "Poisson",
     "73_female": "Poisson",
-    "74_male": "Poisson tropical",
+    "73_male": "Poisson",
     "74_female": "Poisson tropical",
-    "75_male": "Poisson-globe",
+    "74_male": "Poisson tropical",
     "75_female": "Poisson-globe",
-    "76_male": "Méduse",
+    "75_male": "Poisson-globe",
     "76_female": "Méduse",
-    "77_male": "Requin",
+    "76_male": "Méduse",
     "77_female": "Requin",
-    "78_male": "Baleine",
+    "77_male": "Requin",
     "78_female": "Baleine",
-    "79_male": "Baleine",
+    "78_male": "Baleine",
     "79_female": "Baleine",
-    "80_male": "Crevette",
+    "79_male": "Baleine",
+    "7_female": "Lapine",
+    "7_male": "Lapin",
     "80_female": "Crevette",
-    "81_male": "Homard",
+    "80_male": "Crevette",
     "81_female": "Homard",
-    "82_male": "Dauphin",
+    "81_male": "Homard",
     "82_female": "Dauphin",
+    "82_male": "Dauphin",
+    "83_female": "Phénix",
+    "83_male": "Phénix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Escargot",
+    "85_male": "Escargot",
+    "86_female": "Crabe",
+    "86_male": "Crabe",
+    "87_female": "Biche",
+    "87_male": "Cerf",
+    "88_female": "Buffle d'eau",
+    "88_male": "Buffle d'eau",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Vache",
     "8_male": "Bœuf",
+    "90_female": "Orang-outan",
+    "90_male": "Orang-outan",
+    "91_female": "Gorille",
+    "91_male": "Gorille",
+    "92_female": "Poussin",
+    "92_male": "Poussin",
+    "93_female": "Rate",
+    "93_male": "Rat",
+    "94_female": "Merle",
+    "94_male": "Merle",
+    "95_female": "Corbeau",
+    "95_male": "Corbeau",
     "9_female": "Truie",
     "9_male": "Porc"
   },
@@ -1565,7 +1605,7 @@
     "94": "Poudre de Squelette",
     "95": "Lame de l'aura argentée",
     "96": "Electektron",
-    "97": "Lame du Phoenix",
+    "97": "Lame du Phénix",
     "98": "Épée de givre"
   },
   "foods": {
