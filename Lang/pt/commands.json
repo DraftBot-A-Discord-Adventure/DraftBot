@@ -838,6 +838,26 @@
             "Análises metabólicas mostram que este espécime pode transferir uma fração da energia vital de um adversário, melhorando assim a resistência do seu dono.",
             "Os exames confirmam uma capacidade natural de absorção de energia, caracterizada por uma subtil retirada da energia contrária.",
             "As observações clínicas mostram que possui mecanismos de transferência de energia, capazes de revitalizar o seu mestre através da captação de energia hostil."
+          ],
+          "smallBite": [
+            "Os seus pequenos dentes são discretos mas formidáveis. Ao morder, arrisca-se a provocar uma infeção sorrateira no seu adversário.",
+            "Este animal tem dentes finos mas penetrantes. As suas dentadas, embora modestas, podem agravar-se com o tempo.",
+            "Não subestime as suas pequenas presas! Uma simples mordidela pode conduzir a uma infeção lenta mas temível."
+          ],
+          "crush": [
+            "O seu poder físico é avassalador! Se o teu adversário hesitar, será esmagado pelo seu peso.",
+            "Este familiar espera pelo momento certo para atacar. Esmagará os inimigos demasiado lentos para fugir, imobilizando-os para sempre.",
+            "O seu ataque é simples mas impiedoso: aproveita o mais pequeno erro para esmagar o adversário sem piedade."
+          ],
+          "healOwnerInEnergyRange": [
+            "Assim que sente uma queda de energia, este animal transfere parte da sua força vital para apoiar o seu dono.",
+            "A sua sensibilidade ao seu estado de energia é notável. Intervém logo que o seu nível de energia desce perigosamente.",
+            "Este companheiro vigia-o 24 horas por dia. Quando as tuas forças fraquejam, ele revitaliza-te imediatamente."
+          ],
+          "useTool": [
+            "Engenhoso e engenhoso, utiliza os materiais que o rodeiam para criar ferramentas de combate improvisadas.",
+            "Este animal de estimação tem um instinto criativo espantoso. Produzirá rapidamente objectos úteis no meio de uma luta.",
+            "A sua inteligência tática é fascinante. Explora todos os elementos do terreno para construir algo que o ajude."
           ]
         },
         "ageComment_ancestor": "INCRÍVEL! exclama o veterinário, de olhos arregalados. O seu animal de estimação é um exemplar excecionalmente raro! É um dos mais antigos alguma vez registados nos nossos arquivos - apenas {{age}} outros animais de estimação foram encontrados mais velhos! Uma verdadeira relíquia viva!",
