@@ -2316,7 +2316,7 @@
         "text": "Attempt to steal a book and resell it."
       }
     },
-    "text": "After strolling through the streets of Claire de Ville, you come across a building whose entrance is framed by two stone owl statues. As you approach, you realize that this is the town's library. You decide to enter the building to pass the time. On one of the entrance walls hangs a calendar made of large leaves bound together by a leather strap."
+    "text": "After strolling through the streets of Claire De Ville, you come across a building whose entrance is framed by two stone owl statues. As you approach, you realize that this is the town's library. You decide to enter the building to pass the time. On one of the entrance walls hangs a calendar made of large leaves bound together by a leather strap."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Change your mind and go in search of a food stall."
       }
     },
-    "text": "As you arrive on the outskirts of Claire de Ville, you discover that many of its inhabitants have moved outside the great walls: a seigneurial tournament is in full swing! On the hoardings attached to the walls, jesters, troubadours, minstrels, heralds, bards and storytellers vociferate with joy, cheering each blow of sword, lance or mace. Enthralled by the mayhem and general cheerfulness, you decide to try your luck. You spot the storytelling judge, who accepts your entry and asks you which test you'd like to take part in."
+    "text": "As you arrive on the outskirts of Claire De Ville, you discover that many of its inhabitants have moved outside the great walls: a seigneurial tournament is in full swing! On the hoardings attached to the walls, jesters, troubadours, minstrels, heralds, bards and storytellers vociferate with joy, cheering each blow of sword, lance or mace. Enthralled by the mayhem and general cheerfulness, you decide to try your luck. You spot the storytelling judge, who accepts your entry and asks you which test you'd like to take part in."
   },
   "73": {
     "possibilities": {
@@ -2659,6 +2659,99 @@
       }
     },
     "text": "As you make your way along a winding path in the Celestrum Forest, you suddenly hear the sound of voices from a nearby clearing. Intrigued, you discreetly approach and discover two men arguing. They're standing face to face, gesticulating wildly, obviously disagreeing about something important. One wears a patched cape, the other a worn leather jacket. Between them, on the floor, lies a wooden box that each seems to claim."
+  },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "Vous avancez prudemment dans le brouillard, suivant les contours de la route. Quand la brume se dissipe enfin, vous vous trouvez sur le chemin menant à Claire De Ville.",
+          "1": "Vous progressez lentement dans la brume épaisse. Lorsque le brouillard se lève, vous réalisez que vous vous dirigez vers le Bois Hurlant.",
+          "2": "Avançant à tâtons, vous ne parvenez pas à suivre la route bien longtemps. Après un long moment à marcher au hasard, vous finissez par admettre que vous êtes perdu. Il vous faudra un moment avant de retrouver la route...",
+          "3": "Vous avancez prudemment, mais le brouillard est si épais que vous ne parvenez pas à suivre la route. Vous finissez par tomber et dévalez la pente sur plusieurs mètres. Après un long moment au sol, vous réussissez à vous relever et à retrouver la route."
+        },
+        "text": "Avancer prudemment en suivant la route."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "Vous attendez patiemment, mais le brouillard persiste. Finalement, vous entendez des pas et suivez le bruit, sans comprendre comment, vous finissez par remarquer que vous avez pris la route vers Claire De Ville.",
+          "1": "Après une longue attente, le froid commence à s'emparer de vous. Malheureusement le brouillard est encore là ! Frigorifié, vous repartez à l'aveugle et émergez du brouillard en direction du Bois Hurlant.",
+          "2": "Même après une longue attente, le brouillard ne se dissipe pas. Vous finissez par avancer et tentez de suivre la pente en descente. Cette stratégie finit par fonctionner et vous observez le pont au dessus de la rivière se rapprocher."
+        },
+        "text": "S'arrêter et attendre que le brouillard se dissipe."
+      },
+      "call": {
+        "outcomes": {
+          "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire De Ville.",
+          "1": "Une voix chaleureuse vous répond dans le brouillard et se présente comme un guide de la région. La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
+          "2": "Personne ne répond. Découragé, vous redescendez instinctivement et émergez près de la rivière aux crabes."
+        },
+        "text": "Appeler pour voir s'il y a quelqu'un."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "Vous descendez prudemment en vous guidant sur la pente. Malgré quelques détours dans le brouillard, vous finissez par apercevoir le pont et continuez votre route vers la Rivière aux Crabes.",
+          "1": "Votre descente est chaotique dans le brouillard épais. Vous glissez plusieurs fois sur le terrain humide mais parvenez finalement à rejoindre la rivière aux crabes, trempé et boueux.",
+          "2": "Vous suivez instinctivement la pente descendante. Le brouillard commence à se dissiper à mesure que vous vous rapprochez de la rivière."
+        },
+        "text": "Essayer de descendre vers la rivière."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Complètement désorienté par le brouillard, vous décidez de ne plus bouger du tout. Vous restez immobile pendant ce qui vous semble une éternité, écoutant les bruits étouffés autour de vous. Finalement, après plusieurs heures d'attente, la brume commence lentement à se dissiper. Quand la visibilité revient, vous constatez que vous êtes toujours sur la route grimpante, exactement là où le brouillard vous avait surpris. Vous pouvez maintenant reprendre votre chemin en toute sécurité."
+        }
+      }
+    },
+    "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la Rivière aux Crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire De Ville.",
+          "1": "Le troupeau vous emmène dans sa route habituelle qui serpente vers le Bois Hurlant.",
+          "2": "Les chèvres changent soudain de direction, suivant leur instinct, et vous vous retrouvez à redescendre vers la rivière aux crabes."
+        },
+        "text": "Se laisser porter par le troupeau."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Vous doublez rapidement le troupeau et continuez votre route.",
+          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la Rivière aux Crabes.",
+          "2": "Votre course pour doubler le troupeau vous essouffle. Vous ralentissez et décidez de faire une pause pour reprendre votre souffle. En attendant, vous observez le troupeau passer tranquillement devant vous."
+        },
+        "text": "Doubler le troupeau en courant."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
+          "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
+          "2": "Le berger redescend vers ses pâturages près de la Rivière aux Crabes. Son chemin vous semble plus sûr."
+        },
+        "text": "Demander au berger la direction qu'il prend."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Vous vous rangez sur le côté et laissez passer le troupeau. Le berger vous remercie d'un signe de tête et continue son chemin.",
+          "1": "Vous vous rangez sur le côté, mais les chèvres curieuses s'approchent de vous. Le berger vous demande de les repousser doucement pour qu'elles ne s'égarent pas.",
+          "2": "Vous vous rangez sur le côté, mais l'un des chiens du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant."
+        },
+        "text": "Se ranger sur le côté et laisser passer."
+      },
+      "help": {
+        "outcomes": {
+          "0": "Votre aide est appréciée. Après un bout de chemin ensemble, le berger vous offre un objet en témoignage de vos efforts.",
+          "1": "En aidant à rassembler les chèvres égarées, vous suivez le berger vers le Bois Hurlant.",
+          "2": "Une chèvre s'échappe vers la Rivière aux Crabes. Vous l'aidez à la récupérer et restez dans cette zone."
+        },
+        "text": "Aider le berger à guider les bêtes."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Vous décidez de ne pas vous mêler du troupeau et de continuer votre route. Vous les regardez passer tranquillement, puis reprenez votre chemin."
+        }
+      }
+    },
+    "text": "Sur la route grimpante, vous entendez un tintement de clochettes qui se rapproche. Bientôt apparaît un large troupeau de chèvres mené par un berger et ses chiens. Les animaux occupent toute la largeur du chemin et avancent d'un pas régulier..."
   },
   "8": {
     "possibilities": {
