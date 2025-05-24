@@ -34,7 +34,7 @@ function getStatsInfo(_sender: Fighter, receiver: Fighter): statsInfo {
 }
 
 const use: PetAssistanceFunc = (fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
-	// Only use the attack on the first turn
+	// send warning at the beginning of the fight
 	if (turn <= 2) {
 		return Promise.resolve({
 			assistanceStatus: PetAssistanceState.GENERAL_EFFECT
