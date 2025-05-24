@@ -2664,94 +2664,94 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Vous avancez prudemment dans le brouillard, suivant les contours de la route. Quand la brume se dissipe enfin, vous vous trouvez sur le chemin menant à Claire De Ville.",
-          "1": "Vous progressez lentement dans la brume épaisse. Lorsque le brouillard se lève, vous réalisez que vous vous dirigez vers le Bois Hurlant.",
-          "2": "Avançant à tâtons, vous ne parvenez pas à suivre la route bien longtemps. Après un long moment à marcher au hasard, vous finissez par admettre que vous êtes perdu. Il vous faudra un moment avant de retrouver la route...",
-          "3": "Vous avancez prudemment, mais le brouillard est si épais que vous ne parvenez pas à suivre la route. Vous finissez par tomber et dévalez la pente sur plusieurs mètres. Après un long moment au sol, vous réussissez à vous relever et à retrouver la route."
+          "0": "You advance cautiously through the fog, following the contours of the road. When the mist finally clears, you find yourself on the road leading to Claire De Ville.",
+          "1": "You move slowly through the thick fog. When the fog lifts, you realize you're heading for Howling Wood.",
+          "2": "As you grope your way along, you can't follow the road for very long. After a long while of walking at random, you finally admit you're lost. It'll be a while before you find your way back...",
+          "3": "You advance cautiously, but the fog is so thick that you can't follow the road. You end up falling and tumbling down the slope for several meters. After a long time on the ground, you manage to get up and find your way back to the road."
         },
-        "text": "Avancer prudemment en suivant la route."
+        "text": "Drive carefully along the road."
       },
       "wait": {
         "outcomes": {
-          "0": "Vous attendez patiemment, mais le brouillard persiste. Finalement, vous entendez des pas et suivez le bruit, sans comprendre comment, vous finissez par remarquer que vous avez pris la route vers Claire De Ville.",
-          "1": "Après une longue attente, le froid commence à s'emparer de vous. Malheureusement le brouillard est encore là ! Frigorifié, vous repartez à l'aveugle et émergez du brouillard en direction du Bois Hurlant.",
-          "2": "Même après une longue attente, le brouillard ne se dissipe pas. Vous finissez par avancer et tentez de suivre la pente en descente. Cette stratégie finit par fonctionner et vous observez le pont au dessus de la rivière se rapprocher."
+          "0": "You wait patiently, but the fog persists. Finally, you hear footsteps and follow the noise, without understanding how, you finally notice that you've taken the road to Claire De Ville.",
+          "1": "After a long wait, the cold begins to take hold of you. Unfortunately, the fog is still there! Chilled, you set off again blind, emerging from the fog in the direction of Howling Wood.",
+          "2": "Even after a long wait, the fog doesn't lift. You finally move on and try to follow the downhill slope. This strategy eventually works, and you watch the bridge over the river draw nearer."
         },
-        "text": "S'arrêter et attendre que le brouillard se dissipe."
+        "text": "Stop and wait for the fog to lift."
       },
       "call": {
         "outcomes": {
-          "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire De Ville.",
-          "1": "Une voix chaleureuse vous répond dans le brouillard et se présente comme un guide de la région. La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
-          "2": "Personne ne répond. Découragé, vous redescendez instinctivement et émergez près de la rivière aux crabes."
+          "0": "Your call rings out into the void. No one answers. You try to find your way on your own, but get completely lost in the fog. After wandering for a long time, you finally find your way back and realize you're heading for Claire De Ville.",
+          "1": "A warm voice answers you through the fog, introducing himself as a local guide. The person joins you and offers to take you where you want to go for a few coins. Delighted to be able to set off in the right direction without fear, you accept and follow the guide to your destination.",
+          "2": "No one answers. Discouraged, you instinctively descend and emerge near the crab river."
         },
-        "text": "Appeler pour voir s'il y a quelqu'un."
+        "text": "Call to see if anyone's there."
       },
       "goDown": {
         "outcomes": {
-          "0": "Vous descendez prudemment en vous guidant sur la pente. Malgré quelques détours dans le brouillard, vous finissez par apercevoir le pont et continuez votre route vers la Rivière aux Crabes.",
-          "1": "Votre descente est chaotique dans le brouillard épais. Vous glissez plusieurs fois sur le terrain humide mais parvenez finalement à rejoindre la rivière aux crabes, trempé et boueux.",
-          "2": "Vous suivez instinctivement la pente descendante. Le brouillard commence à se dissiper à mesure que vous vous rapprochez de la rivière."
+          "0": "You descend cautiously, using the slope as a guide. Despite a few detours in the fog, you eventually catch sight of the bridge and continue on towards Rivière aux Crabes.",
+          "1": "Your descent is chaotic in the thick fog. You slip several times on the damp ground, but finally reach the crab river, soaked and muddy.",
+          "2": "You instinctively follow the downward slope. The fog begins to lift as you approach the river."
         },
-        "text": "Essayer de descendre vers la rivière."
+        "text": "Try to get down to the river."
       },
       "end": {
         "outcomes": {
-          "0": "Complètement désorienté par le brouillard, vous décidez de ne plus bouger du tout. Vous restez immobile pendant ce qui vous semble une éternité, écoutant les bruits étouffés autour de vous. Finalement, après plusieurs heures d'attente, la brume commence lentement à se dissiper. Quand la visibilité revient, vous constatez que vous êtes toujours sur la route grimpante, exactement là où le brouillard vous avait surpris. Vous pouvez maintenant reprendre votre chemin en toute sécurité."
+          "0": "Completely disoriented by the fog, you decide not to move at all. You stand still for what seems like an eternity, listening to the muffled sounds around you. Finally, after several hours of waiting, the fog slowly begins to dissipate. When visibility returns, you see that you're still on the climbing road, exactly where the fog had caught you. You can now get back on your way in complete safety."
         }
       }
     },
-    "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la Rivière aux Crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
+    "text": "You're making good progress on the climbing road when suddenly a thick fog rolls in from the Rivière aux Crabes, whose bridge you can still vaguely make out in the distance. In a few minutes, visibility becomes very poor. All you can make out is the blurred outline of the road ahead..."
   },
   "79": {
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire De Ville.",
-          "1": "Le troupeau vous emmène dans sa route habituelle qui serpente vers le Bois Hurlant.",
-          "2": "Les chèvres changent soudain de direction, suivant leur instinct, et vous vous retrouvez à redescendre vers la rivière aux crabes."
+          "0": "You let yourself be carried along by the flow of the herd as it quietly climbs towards Claire De Ville.",
+          "1": "The herd takes you on its usual winding route to the Howling Woods.",
+          "2": "The goats suddenly change direction, following their instincts, and you find yourself heading back down to the crab river."
         },
-        "text": "Se laisser porter par le troupeau."
+        "text": "Let yourself be carried along by the herd."
       },
       "overtake": {
         "outcomes": {
-          "0": "Vous doublez rapidement le troupeau et continuez votre route.",
-          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la Rivière aux Crabes.",
-          "2": "Votre course pour doubler le troupeau vous essouffle. Vous ralentissez et décidez de faire une pause pour reprendre votre souffle. En attendant, vous observez le troupeau passer tranquillement devant vous."
+          "0": "You quickly overtake the herd and continue on your way.",
+          "1": "Sheepdogs give you a friendly chase, diverting you from your route to Rivière aux Crabes.",
+          "2": "You're running out of breath as you try to overtake the herd. You slow down and decide to take a break to catch your breath. In the meantime, you watch the herd pass quietly in front of you."
         },
-        "text": "Doubler le troupeau en courant."
+        "text": "Run past the herd."
       },
       "ask": {
         "outcomes": {
-          "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
-          "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
-          "2": "Le berger redescend vers ses pâturages près de la Rivière aux Crabes. Son chemin vous semble plus sûr."
+          "0": "The shepherd explains that he's going up to Claire De Ville and invites you to accompany him. You politely decline, preferring to go your own way.",
+          "1": "The shepherd is on his way to Howling Wood for the transhumance and suggests that you travel together. You politely decline, preferring to go your own way.",
+          "2": "The shepherd heads back down to his pastures near Rivière aux Crabes. His path seems safer."
         },
-        "text": "Demander au berger la direction qu'il prend."
+        "text": "Ask the shepherd where he's going."
       },
       "stepAside": {
         "outcomes": {
-          "0": "Vous vous rangez sur le côté et laissez passer le troupeau. Le berger vous remercie d'un signe de tête et continue son chemin.",
-          "1": "Vous vous rangez sur le côté, mais les chèvres curieuses s'approchent de vous. Le berger vous demande de les repousser doucement pour qu'elles ne s'égarent pas.",
-          "2": "Vous vous rangez sur le côté, mais l'un des chiens du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant."
+          "0": "You pull over and let the herd pass. The shepherd thanks you with a nod and continues on his way.",
+          "1": "You pull over to the side, but the curious goats approach you. The shepherd asks you to gently push them back so they don't stray.",
+          "2": "You pull over, but one of the shepherd's dogs comes up and bites your shoes. You don't realize it at the time, but your foot is injured. You limp on."
         },
-        "text": "Se ranger sur le côté et laisser passer."
+        "text": "Pull to one side and let it pass."
       },
       "help": {
         "outcomes": {
-          "0": "Votre aide est appréciée. Après un bout de chemin ensemble, le berger vous offre un objet en témoignage de vos efforts.",
-          "1": "En aidant à rassembler les chèvres égarées, vous suivez le berger vers le Bois Hurlant.",
-          "2": "Une chèvre s'échappe vers la Rivière aux Crabes. Vous l'aidez à la récupérer et restez dans cette zone."
+          "0": "Your help is appreciated. After we've walked together, the shepherd gives you something to show for your efforts.",
+          "1": "Helping to round up the lost goats, you follow the shepherd to the Howling Wood.",
+          "2": "A goat escapes to the Rivière aux Crabes. You help him recover it and stay in the area."
         },
-        "text": "Aider le berger à guider les bêtes."
+        "text": "Help the shepherd guide the animals."
       },
       "end": {
         "outcomes": {
-          "0": "Vous décidez de ne pas vous mêler du troupeau et de continuer votre route. Vous les regardez passer tranquillement, puis reprenez votre chemin."
+          "0": "You decide to stay away from the herd and continue on your way. You watch them pass quietly, then go on your way."
         }
       }
     },
-    "text": "Sur la route grimpante, vous entendez un tintement de clochettes qui se rapproche. Bientôt apparaît un large troupeau de chèvres mené par un berger et ses chiens. Les animaux occupent toute la largeur du chemin et avancent d'un pas régulier..."
+    "text": "As the road climbs, you hear the tinkling of bells approaching. Soon a large herd of goats appears, led by a shepherd and his dogs. The animals occupy the entire width of the path, advancing at a steady pace..."
   },
   "8": {
     "possibilities": {
