@@ -1,0 +1,85 @@
+{
+  "possibilities": {
+    "follow": {
+      "outcomes": {
+        "0": {
+          "mapTypesDestination": [
+            "ci"
+          ]
+        },
+        "1": {
+          "mapTypesDestination": [
+            "fo"
+          ]
+        },
+        "2": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    },
+    "overtake": {
+      "outcomes": {
+        "0": {},
+        "1": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 20
+        }
+      }
+    },
+    "ask": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    },
+    "stepAside": {
+      "outcomes": {
+        "0": {},
+        "1": {},
+        "2": {
+          "effect": "feetHurt",
+          "health": -5
+        }
+      }
+    },
+    "help": {
+      "outcomes": {
+        "0": {
+          "randomItem": {}
+        },
+        "1": {
+          "mapTypesDestination": [
+            "fo"
+          ]
+        },
+        "2": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    },
+    "end": {
+      "outcomes": {
+        "0": {}
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 24
+    }
+  ]
+}
