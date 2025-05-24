@@ -36,12 +36,12 @@
     "ask": {
       "outcomes": {
         "0": {
-          "mapTypesExcludedDestination": [
+          "mapTypesExcludeDestination": [
             "ci"
           ]
         },
         "1": {
-          "mapTypesExcludedDestination": [
+          "mapTypesExcludeDestination": [
             "fo"
           ]
         },
