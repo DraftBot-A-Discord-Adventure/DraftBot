@@ -29,6 +29,8 @@ import { BuggedFightPacket } from "../../../../Lib/src/packets/fights/BuggedFigh
 import { PetAssistanceResult } from "../../../../Lib/src/types/PetAssistanceResult";
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { PetEntities } from "../database/game/models/PetEntity";
+import { PacketUtils } from "../utils/PacketUtils";
+import { playerWasAttackedNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 
 export class FightView {
 	public context: PacketContext;
@@ -287,6 +289,16 @@ export class FightView {
 		winner: PlayerFighter | MonsterFighter | AiPlayerFighter,
 		draw: boolean
 	): void {
+		const defendingFighter = this.fightController.getDefendingFighter();
+		if (defendingFighter instanceof AiPlayerFighter) {
+			PacketUtils.sendNotifications([
+				makePacket(playerWasAttackedNotificationPacket, {
+					keycloakId: defendingFighter.player.keycloakId,
+					attackedByPlayerKeycloakId: this.fightController.fightInitiator.player.keycloakId
+				})
+			]);
+		}
+
 		response.push(makePacket(CommandFightEndOfFightPacket, {
 			winner: {
 				keycloakId: winner instanceof MonsterFighter ? null : winner.player.keycloakId,

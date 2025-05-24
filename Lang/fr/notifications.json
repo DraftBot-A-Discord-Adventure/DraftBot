@@ -31,5 +31,8 @@
   },
   "playerFreedFromJail": {
     "description": "Vous avez été libéré de prison par **{{freedByPlayer}}** !"
+  },
+  "fightChallenge": {
+    "description": "Vous avez été attaqué par **{{attackerPseudo}}** ! Découvrez le résultat de ce combat en utilisant la commande {command:fightHistory}."
   }
 }
