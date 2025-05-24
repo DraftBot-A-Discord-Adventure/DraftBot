@@ -838,6 +838,26 @@
             "Metabolic analyses show that this specimen can transfer a fraction of an opponent's vital energy, improving its owner's stamina.",
             "Examinations confirm a natural energy absorption capacity, characterized by a subtle withdrawal of adverse energy.",
             "Clinical observations show that it possesses energy transfer mechanisms capable of revitalizing its master by capturing hostile energy."
+          ],
+          "smallBite": [
+            "Its small teeth are discreet but formidable. By biting, it can cause a sneaky infection in the opponent.",
+            "This pet has fine but piercing teeth. Its bites, though modest, can worsen over time.",
+            "Don't underestimate its tiny fangs! A simple bite can lead to a slow but dreadful infection."
+          ],
+          "crush": [
+            "His physical power is overwhelming! If your opponent hesitates, he'll find himself crushed under her weight.",
+            "This familiar waits for the right moment to strike. It will crush enemies too slow to flee, immobilizing them for good.",
+            "His attack is simple but merciless: he takes advantage of the slightest mistake to crush his opponent without mercy."
+          ],
+          "healOwnerInEnergyRange": [
+            "As soon as it senses a drop in energy, this pet transfers part of its life force to support its master.",
+            "Its sensitivity to your energetic state is remarkable. It intervenes as soon as your energy level drops dangerously low.",
+            "This companion watches over you relentlessly. When your strength falters, it immediately revitalizes you."
+          ],
+          "useTool": [
+            "Ingenious and resourceful, he uses the materials around him to create improvised fighting tools.",
+            "This pet has an amazing creative instinct. It will quickly produce useful items in the midst of a confrontation.",
+            "His tactical intelligence is fascinating. He'll exploit every element of the terrain to build something to help you."
           ]
         },
         "ageComment_ancestor": "INCREDIBLE! Exclaims the wide-eyed vet. Your pet is an exceptionally rare specimen! It's one of the oldest ever recorded in our archives, with only {{age}} older pets ever found! A true living relic!",
