@@ -315,6 +315,11 @@
         "{{playerDisplay}} scheint zu frieren. Sie wärmen ihn ein wenig und gehen dann weiter.",
         "Ein redundantes Klappern nervt Sie. Sie entdecken, dass es die Zähne von {{playerDisplay}}sind ... Dieser ist gefroren! Sie setzen Ihre Reise ohne weitere Verzögerung fort."
       ],
+      "feetHurt": [
+        "Sie treffen auf {{playerDisplay}} , der sich über seine Füße beschwert. Er erklärt Ihnen, dass er zu lange ohne Pause gelaufen ist. Sie geben ihm ein paar Tipps, wie er das in Zukunft vermeiden kann, und setzen Ihren Weg fort.",
+        "Sie bemerken, dass {{playerDisplay}} mit Schwierigkeiten läuft. Er erklärt Ihnen, dass ihm die Füße vom langen Laufen weh tun. Sie raten ihm, regelmäßig Pausen zu machen, und setzen Ihren Weg fort.",
+        "Beim Spazierengehen treffen Sie auf {{playerDisplay}} , der über Fußschmerzen klagt. Sie raten ihm, auf seine Füße zu achten und Pausen zu machen, um Verletzungen zu vermeiden."
+      ],
       "confounded": [
         "Sie versuchen, mit {{playerDisplay}}zu chatten. Versuchen Sie es. Sie reden ziemlich unzusammenhängend, also gehen Sie etwas verwirrt weiter.",
         "{{playerDisplay}} macht viele unzusammenhängende Aussagen. Das kommt Ihnen komisch vor, also gehen Sie schnell und verwirrt weiter!",
