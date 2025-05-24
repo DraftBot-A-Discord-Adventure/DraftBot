@@ -145,7 +145,7 @@
       },
       "FIGHT": {
         "description": "Usate questo comando per sfidare altri giocatori sullo stesso server.\nLe battaglie si svolgono turno per turno. A ogni turno si può scegliere un'azione da eseguire.\n\nPer ulteriori informazioni, consultare la pagina della guida: https://guide.draftbot.com/notions-principale/combats",
-        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.0.png"
+        "image": "https://draftbot.com/public/ressources/fighthelp/en/5.0.2.png"
       },
       "GLORY_TOP": {
         "description": "Visualizza la classifica gloriosa della partita per ogni 15 giocatori. Viene visualizzato anche il campionato dei giocatori. I giocatori sullo stesso server che voi sono contrassegnati da un punto blu."
@@ -838,6 +838,26 @@
             "Le analisi metaboliche dimostrano che questo esemplare può trasferire una frazione dell'energia vitale dell'avversario, migliorando così la resistenza del suo proprietario.",
             "Gli esami confermano una naturale capacità di assorbimento dell'energia, caratterizzata da un sottile ritiro dell'energia contraria.",
             "Le osservazioni cliniche dimostrano che possiede meccanismi di trasferimento di energia, in grado di rivitalizzare il suo padrone catturando l'energia ostile."
+          ],
+          "smallBite": [
+            "Ses petites dents sont discrètes mais redoutables. En mordant, il risque de provoquer une infection sournoise chez l’adversaire.",
+            "Ce familier possède une dentition fine mais perçante. Ses morsures, bien que modestes, peuvent s’aggraver avec le temps.",
+            "Ne sous-estimez pas ses crocs minuscules ! Une simple morsure peut entraîner une infection lente mais redoutable."
+          ],
+          "crush": [
+            "Sa puissance physique est écrasante ! Si l’adversaire hésite, il se retrouvera broyé sous son poids.",
+            "Ce familier attend le bon moment pour frapper. Il écrasera ses ennemis trop lents à fuir, les immobilisant définitivement.",
+            "Son attaque est simple mais impitoyable : il profite de la moindre erreur pour écraser l’adversaire sans pitié."
+          ],
+          "healOwnerInEnergyRange": [
+            "Dès qu’il perçoit une baisse d’énergie, ce familier transfère une partie de sa force vitale pour soutenir son maître.",
+            "Sa sensibilité à votre état énergétique est remarquable. Il intervient dès que votre énergie chute dangereusement.",
+            "Ce compagnon veille sur vous sans relâche. Quand votre force faiblit, il vous revitalise immédiatement."
+          ],
+          "useTool": [
+            "Ingénieux et débrouillard, il utilise les matériaux autour de lui pour créer des outils de combat improvisés.",
+            "Ce familier possède un instinct créatif étonnant. Il fabriquera rapidement des objets utiles en plein affrontement.",
+            "Son intelligence tactique est fascinante. Il exploitera chaque élément du terrain pour construire de quoi vous aider."
           ]
         },
         "ageComment_ancestor": "INCREDIBILE! esclama il veterinario, con gli occhi spalancati. Il vostro animale è un esemplare eccezionalmente raro! È uno dei più vecchi mai registrati nei nostri archivi - solo {{age}} altri animali domestici sono stati trovati più vecchi! Una vera reliquia vivente!",
