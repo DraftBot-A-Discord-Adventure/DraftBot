@@ -35,8 +35,16 @@
     },
     "ask": {
       "outcomes": {
-        "0": {},
-        "1": {},
+        "0": {
+          "mapTypesExcludedDestination": [
+            "ci"
+          ]
+        },
+        "1": {
+          "mapTypesExcludedDestination": [
+            "fo"
+          ]
+        },
         "2": {
           "mapTypesDestination": [
             "ri"
