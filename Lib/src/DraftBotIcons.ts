@@ -916,6 +916,15 @@ export const DraftBotIcons: {
 			hide: "👁️",
 			flee: "🏃‍♂️"
 		},
+		78: {
+			end: {
+				0: "⏳"
+			},
+			prudent: "🚶‍♂️",
+			wait: "⏸️",
+			call: "📢",
+			goDown: "⬇️"
+		},
 		8: {
 			end: {
 				0: "🚶"
