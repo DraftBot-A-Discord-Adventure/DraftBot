@@ -30,6 +30,6 @@
     "receivedFoodDescription": "{emote:foods.{{foodId}}} Your guild has received: **{{amount}}x {{foodName}}**."
   },
   "playerFreedFromJail": {
-    "description": "Vous avez été libéré de prison par **{{freedByPlayer}}** !"
+    "description": "You have been released from prison by **{{freedByPlayer}}**!"
   }
 }

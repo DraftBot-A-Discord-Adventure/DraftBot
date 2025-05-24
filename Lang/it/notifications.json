@@ -30,6 +30,6 @@
     "receivedFoodDescription": "{emote:foods.{{foodId}}La vostra gilda ha ricevuto : **{{amount}}x {{foodName}}**."
   },
   "playerFreedFromJail": {
-    "description": "Vous avez été libéré de prison par **{{freedByPlayer}}** !"
+    "description": "Lei è stato rilasciato dalla prigione da **{{freedByPlayer}}** !"
   }
 }

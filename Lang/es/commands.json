@@ -91,12 +91,12 @@
     "title": "{{pseudo}}confirmación :",
     "confirmDesc": "{emote:collectors.question} ¿De verdad quieres dejar el gremio{{guildName}}?",
     "confirmChiefDesc": "{emote:collectors.question} ¿De verdad quieres **destruir permanentemente** el gremio{{guildName}}?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?\n\n{{newChiefPseudo}} en deviendra le chef.",
+    "confirmChiefDescWithElder": "{emote:collectors.question} ¿De verdad quieres dejar el gremio{{guildName}}?\n\n{{newChiefPseudo}} se convertirá en su líder.",
     "canceledDesc": "Su salida ha sido cancelada.",
     "successTitle": "{{pseudo}} {{guildName}} ha abandonado el gremio",
     "leavingSuccess": "Eres un pobre vaquero solitario y estás muy lejos de casa...",
     "destroySuccess": "{{guildName}} El gremio se ha disuelto con éxito.",
-    "leavingSuccessWithNewChief": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
+    "leavingSuccessWithNewChief": "{{newChiefPseudo}} ¡es el nuevo líder del gremio {{guildName}} !",
     "notInAGuild": "Parece que ya no formas parte de un gremio.",
     "canceledTitle": "Anulación tenida en cuenta"
   },
@@ -904,7 +904,7 @@
     "types": {
       "report": "Informes",
       "guildDaily": "Recompensas del gremio",
-      "playerFreedFromJail": "Libération de prison"
+      "playerFreedFromJail": "Puesta en libertad"
     },
     "enableDisable": "Activar/Desactivar",
     "sendLocationField": "Dirección de entrega :",
