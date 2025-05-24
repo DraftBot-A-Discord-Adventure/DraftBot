@@ -8,7 +8,7 @@ import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 const petAssistanceList = new Map<number, PetAssistance>();
 
 /**
- * Initialize all pet behaviors in a map so they can be accessed by pet ID
+ * Initialize all pet behaviours in a map so they can be accessed by pet ID
  */
 export function initializeAllPetBehaviors(): void {
 	const petBehaviors = [
@@ -270,6 +270,22 @@ export function initializeAllPetBehaviors(): void {
 		{
 			petIds: [PetConstants.PETS.SCARLET_DUCK],
 			behaviorId: FightConstants.FIGHT_ACTIONS.PET.CREATE_BOMB
+		},
+		{
+			petIds: [PetConstants.PETS.PHOENIX],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.HEAL_OWNER_IN_ENERGY_RANGE
+		},
+		{
+			petIds: [PetConstants.PETS.DINOSAUR],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.CRUSH
+		},
+		{
+			petIds: [PetConstants.PETS.ORANGUTAN],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.USE_TOOL
+		},
+		{
+			petIds: [PetConstants.PETS.RAT],
+			behaviorId: FightConstants.FIGHT_ACTIONS.PET.SMALL_BITE
 		}
 	];
 	for (const mapping of petBehaviors) {

@@ -147,13 +147,15 @@ export abstract class FightConstants {
 				BITE: "bite",
 				BOOST_DEFENSE: "boostDefense",
 				BOOST_SPEED: "boostSpeed",
+				BUILD_BARRAGE: "buildBarrage",
 				CLAWS: "claws",
 				CREATE_BOMB: "createBomb",
-				BUILD_BARRAGE: "buildBarrage",
+				CRUSH: "crush",
 				ELEPHANT_REMEMBER_LAST_ACTION: "elephantRememberLastAction",
 				FISH_PROTECT_AGAINST_FIRE: "fishProtectAgainstFire",
 				GOES_WILD: "goesWild",
 				HEAL_EVERYONE: "healEveryone",
+				HEAL_OWNER_IN_ENERGY_RANGE: "healOwnerInEnergyRange",
 				HELP_BREATHE: "helpBreathe",
 				HORN: "horn",
 				HYPNOSIS: "hypnosis",
@@ -173,6 +175,7 @@ export abstract class FightConstants {
 				SCARE_ELEPHANT: "scareElephant",
 				SCARE_FISH: "scareFish",
 				SLIPPING: "slipping",
+				SMALL_BITE: "smallBite",
 				SMALL_CLAWS: "smallClaws",
 				SMALL_REGEN: "smallRegen",
 				SNOW_BALL: "snowBall",
@@ -183,6 +186,7 @@ export abstract class FightConstants {
 				SWALLOW: "swallow",
 				TRIES_TO_HELP: "triesToHelp",
 				UN_BLIND: "unBlind",
+				USE_TOOL: "useTool",
 				VAMPIRISM: "vampirism"
 			}
 		};
