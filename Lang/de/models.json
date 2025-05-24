@@ -235,9 +235,9 @@
       "success": "macht sich das Talent von **{{petNickname}}** zunutze, der unauffällig eine starke Bombe vorbereitet hat. Nachdem Sie den Zünder aktiviert haben, rennen Sie mit aller Kraft zur Seite!"
     },
     "crush": {
-      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
-      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
-      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
+      "generalEffect": "ruft **{{petNickname}}** zur Rettung, das Tier beginnt in der Mitte der Arena zu schwanken...",
+      "success": "wird von **{{petNickname}}** unterstützt, der den Gegner unter seinem Gewicht zerquetscht.",
+      "failure": "wird von **{{petNickname}}** unterstützt, der auf das Schlachtfeld stürzt, aber sein Ziel, das dank seiner Geschwindigkeit entkommen konnte, völlig verfehlt."
     },
     "cursed": {
       "name": "verflucht",
@@ -337,7 +337,7 @@
       "success": "hat Glück, dass er von **{{petNickname}}** begleitet wird, der vor Liebe strotzt und die Auseinandersetzung beenden möchte und die Kämpfer heilt."
     },
     "healOwnerInEnergyRange": {
-      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
+      "success": "wird von **{{petNickname}}** gepflegt, der ihm neue Energie verleiht."
     },
     "heatDrainAttack": {
       "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
@@ -573,7 +573,7 @@
       "stop": "nicht mehr verlangsamt wird."
     },
     "smallBite": {
-      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+      "success": "wird von **{{petNickname}}** unterstützt, der beschließt, seinen Gegner zu beißen... Der Biss ist nicht sehr tief, droht sich aber zu infizieren."
     },
     "smallClaws": {
       "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen kleinen Krallenhieb verpasst, wie niedlich..."
@@ -648,7 +648,7 @@
       "success": "wird von **{{petNickname}}** unterstützt, der es ihm dank seiner scharfen Sicht ermöglicht, seine Umgebung wieder richtig zu sehen."
     },
     "useTool": {
-      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
+      "success": "wird von **{{petNickname}}** unterstützt, der aus den auf dem Schlachtfeld gefundenen Gegenständen ein Werkzeug hergestellt hat. Dies wird im weiteren Verlauf des Kampfes sehr nützlich sein!"
     },
     "vampirism": {
       "success": "wird von **{{petNickname}}** unterstützt, der dem Gegner ein wenig Energie absaugt, um sie seinem Herrn als Tribut anzubieten."
@@ -1379,34 +1379,34 @@
     "81_male": "Hummer",
     "82_female": "Delphin",
     "82_male": "Delphin",
-    "83_female": "Phénix",
-    "83_male": "Phénix",
+    "83_female": "Phönix",
+    "83_male": "Phönix",
     "84_female": "Diplodocus",
     "84_male": "Diplodocus",
-    "85_female": "Escargot",
-    "85_male": "Escargot",
-    "86_female": "Crabe",
-    "86_male": "Crabe",
-    "87_female": "Biche",
-    "87_male": "Cerf",
-    "88_female": "Buffle d'eau",
-    "88_male": "Buffle d'eau",
+    "85_female": "Schnecke",
+    "85_male": "Schnecke",
+    "86_female": "Krabbe",
+    "86_male": "Krabbe",
+    "87_female": "Reh",
+    "87_male": "Hirsch",
+    "88_female": "Wasserbüffel",
+    "88_male": "Wasserbüffel",
     "89_female": "Bisonne",
     "89_male": "Bison",
     "8_female": "Kuh",
     "8_male": "Rindfleisch",
-    "90_female": "Orang-outan",
-    "90_male": "Orang-outan",
-    "91_female": "Gorille",
-    "91_male": "Gorille",
-    "92_female": "Poussin",
-    "92_male": "Poussin",
+    "90_female": "Orang-Utan",
+    "90_male": "Orang-Utan",
+    "91_female": "Gorilla",
+    "91_male": "Gorilla",
+    "92_female": "Küken",
+    "92_male": "Küken",
     "93_female": "Rate",
-    "93_male": "Rat",
-    "94_female": "Merle",
-    "94_male": "Merle",
-    "95_female": "Corbeau",
-    "95_male": "Corbeau",
+    "93_male": "Ratte",
+    "94_female": "Amsel",
+    "94_male": "Amsel",
+    "95_female": "Rabe",
+    "95_male": "Rabe",
     "9_female": "Sau",
     "9_male": "Schwein"
   },
@@ -1605,7 +1605,7 @@
     "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung",
     "95": "Klinge der silbernen Aura",
     "96": "Electektron",
-    "97": "Lame du Phénix",
+    "97": "Klinge des Phönix",
     "98": "Frostschwert"
   },
   "foods": {
