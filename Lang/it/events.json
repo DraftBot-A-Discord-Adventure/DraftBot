@@ -2660,6 +2660,99 @@
     },
     "text": "Mentre percorrete un sentiero tortuoso nella Foresta di Celestrum, sentite improvvisamente delle voci forti provenire da una radura vicina. Incuriositi, vi avvicinate con discrezione e scoprite due uomini nel bel mezzo di una discussione. Sono in piedi, faccia a faccia, gesticolano selvaggiamente, evidentemente in disaccordo su qualcosa di importante. Uno indossa un mantello rattoppato, l'altro una giacca di pelle logora. Tra loro, a terra, giace una scatola di legno che ognuno di loro sembra reclamare."
   },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "Ci si fa strada con cautela nella nebbia, seguendo i contorni della strada. Quando la nebbia finalmente si dirada, ci si trova sulla strada che porta a Claire De Ville.",
+          "1": "Ci si fa strada lentamente attraverso la fitta nebbia. Quando la nebbia si dissolve, ci si rende conto di essere diretti verso il bosco di Howling.",
+          "2": "Sentendo la strada, non si riesce a seguirla a lungo. Dopo aver camminato a lungo a caso, si ammette finalmente di essersi persi. Ci vorrà un po' di tempo prima di ritrovare la strada...",
+          "3": "Avanzate con cautela, ma la nebbia è così fitta che non riuscite a seguire la strada. Si finisce per cadere e ruzzolare lungo il pendio per diversi metri. Dopo essere rimasti a lungo a terra, riuscite a rialzarvi e a ritrovare la strada."
+        },
+        "text": "Guidare con prudenza lungo la strada."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "Aspettate pazientemente, ma la nebbia persiste. Infine, sentite dei passi e seguite il rumore, senza capire come, finalmente vi accorgete di aver preso la strada per Claire De Ville.",
+          "1": "Dopo una lunga attesa, il freddo comincia a farsi sentire. Purtroppo, la nebbia è ancora lì! Infreddoliti, vi rimettete in cammino alla cieca, emergendo dalla nebbia in direzione del Bosco dell'Ululato.",
+          "2": "Anche dopo una lunga attesa, la nebbia non si alza. Alla fine ci si sposta e si cerca di seguire la discesa. Questa strategia alla fine funziona e si guarda il ponte sul fiume avvicinarsi."
+        },
+        "text": "Fermatevi e aspettate che la nebbia si diradi."
+      },
+      "call": {
+        "outcomes": {
+          "0": "La vostra chiamata risuona nel vuoto. Nessuno risponde. Cercate di trovare la strada da soli, ma vi perdete completamente nella nebbia. Dopo aver vagato a lungo, finalmente ritrovate la strada e vi rendete conto che siete diretti a Claire De Ville.",
+          "1": "Una voce calda vi risponde attraverso la nebbia, presentandosi come guida della regione. La persona si unisce a voi e si offre di portarvi dove volete per pochi spiccioli. Felici di poter andare nella giusta direzione senza paura, accettate e seguite la guida fino a destinazione.",
+          "2": "Nessuno risponde. Scoraggiati, vi calate istintivamente e riemergete vicino al fiume dei granchi."
+        },
+        "text": "Chiama per vedere se c'è qualcuno."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "Si scende con cautela, usando il pendio come guida. Nonostante qualche deviazione nella nebbia, alla fine si individua il ponte e si prosegue verso la Rivière aux Crabes.",
+          "1": "La discesa è caotica nella fitta nebbia. Scivolate più volte sul terreno umido, ma alla fine raggiungete il fiume Granchio, fradici e infangati.",
+          "2": "Istintivamente si segue la discesa. La nebbia comincia a diradarsi man mano che ci si avvicina al fiume."
+        },
+        "text": "Cercate di scendere al fiume."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Completamente disorientati dalla nebbia, decidete di non muovervi affatto. Rimanete fermi per quella che sembra un'eternità, ascoltando i suoni ovattati intorno a voi. Finalmente, dopo diverse ore di attesa, la nebbia comincia lentamente a dissolversi. Quando la visibilità ritorna, vi accorgete di essere ancora sulla strada in salita, esattamente dove vi aveva colto la nebbia. Ora potete ripartire in tutta sicurezza."
+        }
+      }
+    },
+    "text": "Si sta procedendo bene sulla strada di salita quando all'improvviso una fitta nebbia arriva dalla Rivière aux Crabes, il cui ponte si intravede ancora vagamente in lontananza. In pochi minuti la visibilità diventa molto scarsa. Si riesce a distinguere solo la sagoma sfocata della strada davanti a noi..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Ci si lascia trasportare dal flusso della mandria che sale tranquillamente verso Claire De Ville.",
+          "1": "La mandria percorre il suo consueto percorso tortuoso verso il bosco dell'ululato.",
+          "2": "Le capre cambiano improvvisamente direzione, seguendo il loro istinto, e vi ritrovate a ridiscendere verso il fiume Granchio."
+        },
+        "text": "Lasciarsi trasportare dal branco."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Superate rapidamente la mandria e proseguite il vostro cammino.",
+          "1": "I cani da pastore vi inseguono amichevolmente e vi portano fuori rotta verso la Rivière aux Crabes.",
+          "2": "Non ce la fate più a cercare di superare la mandria. Rallentate e decidete di fare una pausa per riprendere fiato. Nel frattempo, osservate la mandria che passa silenziosamente davanti a voi."
+        },
+        "text": "Superare la mandria."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "Il pastore spiega che sta salendo a Claire De Ville e vi invita ad accompagnarlo. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
+          "1": "Il pastore sta andando a Howling Wood per la transumanza e vi propone di viaggiare insieme. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
+          "2": "Il pastore sta scendendo verso i suoi pascoli vicino a Rivière aux Crabes. Il suo percorso sembra più sicuro."
+        },
+        "text": "Chiedete al pastore dove sta andando."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Accostate e lasciate passare il gregge. Il pastore vi ringrazia con un cenno del capo e prosegue per la sua strada.",
+          "1": "Accostate a lato, ma le capre curiose si avvicinano a voi. Il pastore vi chiede di spingerle delicatamente indietro per evitare che si allontanino.",
+          "2": "Accostate a lato, ma uno dei cani del pastore si avvicina e vi morde le scarpe. Non ve ne rendete conto, ma il vostro piede è ferito. Si prosegue zoppicando."
+        },
+        "text": "Accostate di lato e lasciate passare."
+      },
+      "help": {
+        "outcomes": {
+          "0": "Il vostro aiuto è apprezzato. Dopo aver fatto un lungo viaggio insieme, il pastore vi darà qualcosa da mostrare per i vostri sforzi.",
+          "1": "Aiutando a radunare le capre smarrite, seguite il pastore verso il bosco urlante.",
+          "2": "Una capra scappa verso il fiume Crab. Aiutatelo a recuperarla e rimanete nella zona."
+        },
+        "text": "Aiutare il pastore a guidare gli animali."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Decidete di allontanarvi dal branco e di proseguire il vostro cammino. Li guardate passare tranquillamente, poi continuate per la vostra strada."
+        }
+      }
+    },
+    "text": "Mentre la strada sale, si sente il tintinnio delle campane che si avvicinano. Ben presto si vede un grande gregge di capre guidato da un pastore e dai suoi cani. Gli animali occupano l'intera larghezza del sentiero e avanzano a passo sostenuto..."
+  },
   "8": {
     "possibilities": {
       "end": {
