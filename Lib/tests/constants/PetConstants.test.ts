@@ -52,4 +52,27 @@ describe("PetConstants", () => {
 			expect(PetConstants.PET_FOOD_BY_ID.length).toBe(PetConstants.PET_FOOD_LOVE_POINTS_AMOUNT.length);
 		});
 	});
+
+	describe("PET_BEHAVIORS", () => {
+		it("should have a behavior for every pet type", () => {
+			const allPetIdsWithBehaviors = PetConstants.PET_BEHAVIORS.flatMap(behavior => behavior.petIds);
+			const allPetTypes = Object.values(PetConstants.PETS).filter(petId => petId !== PetConstants.PETS.NO_PET);
+
+			for (const petId of allPetTypes) {
+				expect(allPetIdsWithBehaviors).toContain(petId);
+			}
+		});
+
+		it("should not have duplicate petIds", () => {
+			const petIds = PetConstants.PET_BEHAVIORS.flatMap(behavior => behavior.petIds);
+			const uniquePetIds = new Set(petIds);
+			expect(petIds.length).toBe(uniquePetIds.size);
+		});
+
+		it("should not have duplicate behaviorIds", () => {
+			const behaviorIds = PetConstants.PET_BEHAVIORS.map(behavior => behavior.behaviorId);
+			const uniqueBehaviorIds = new Set(behaviorIds);
+			expect(behaviorIds.length).toBe(uniqueBehaviorIds.size);
+		});
+	});
 });
