@@ -3,26 +3,22 @@ import {
 } from "sequelize";
 import { NotificationSendTypeEnum } from "../../../notifications/NotificationSendType";
 
-export async function up(queryInterface: QueryInterface): Promise<void> {
-	await queryInterface.addColumn("notifications", "fightChallengeEnabled", {
+export async function up({ context }: { context: QueryInterface }): Promise<void> {
+	await context.addColumn("notifications", "fightChallengeEnabled", {
 		type: DataTypes.BOOLEAN,
-		allowNull: false,
 		defaultValue: true
 	});
-	await queryInterface.addColumn("notifications", "fightChallengeSendType", {
+	await context.addColumn("notifications", "fightChallengeSendType", {
 		type: DataTypes.INTEGER,
-		allowNull: false,
 		defaultValue: NotificationSendTypeEnum.DM
 	});
-	return queryInterface.addColumn("notifications", "fightChallengeChannelId", {
-		type: DataTypes.STRING(32), // eslint-disable-line new-cap
-		allowNull: true,
-		defaultValue: null
+	return context.addColumn("notifications", "fightChallengeChannelId", {
+		type: DataTypes.STRING(32) // eslint-disable-line new-cap
 	});
 }
 
-export async function down(queryInterface: QueryInterface): Promise<void> {
-	await queryInterface.removeColumn("notifications", "fightChallengeEnabled");
-	await queryInterface.removeColumn("notifications", "fightChallengeSendType");
-	return queryInterface.removeColumn("notifications", "fightChallengeChannelId");
+export async function down({ context }: { context: QueryInterface }): Promise<void> {
+	await context.removeColumn("notifications", "fightChallengeEnabled");
+	await context.removeColumn("notifications", "fightChallengeSendType");
+	return context.removeColumn("notifications", "fightChallengeChannelId");
 }
