@@ -123,6 +123,11 @@
     "9": "A class focused on speed. Low hitpoints and energy but high speed and attack."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "victim of the allies",
+      "new": "falls victim to his opponent's allies.",
+      "active": "suffers attacks from its opponent's allies."
+    },
     "benediction": {
       "description": "Part of the \"actions of the gods\" group. Fails if 1 god action has already been performed in combat. Increases all the caster's stats. The later in the fight the blessing is used, the greater the increase in stats.",
       "name_one": "Blessing",
@@ -167,11 +172,6 @@
       "new": "is burned.",
       "active": "suffers from his burn.",
       "stop": "is no longer burnt."
-    },
-    "alliesArePresent": {
-      "name": "victim of the allies",
-      "new": "falls victim to his opponent's allies.",
-      "active": "suffers attacks from its opponent's allies."
     },
     "canonAttack": {
       "description": "The accuracy of this attack decreases on fast opponents. A degae bonus is affected to this attack if the opponent is slow. Opponent may be slowed down by attack. Deals more damage if used multiple times in a row.",
@@ -233,6 +233,11 @@
       "generalEffect": "is supported in his fight by **{{petNickname}}** who pretends to ferociously harass his opponent with precise and painful pecking blows.",
       "failure": "failed to receive help from **{{petNickname}}** who, out of an abundance of caution, refrained from acting, aware that his intervention was more likely to injure his master than his adversary. We should have been quicker!",
       "success": "takes advantage of the talent of **{{petNickname}}** who has discreetly prepared a powerful bomb. After activating the detonator, you take off running with all your might!"
+    },
+    "crush": {
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
+      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
+      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
     },
     "cursed": {
       "name": "cursed",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "calls on **{{petNickname}}** who, with a benevolent look, sees that no one has been hurt and goes back to resting happily.",
       "success": "is lucky enough to be accompanied by **{{petNickname}}** who, overflowing with love and wishing to put an end to the confrontation, looks after the combatants."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
       "description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent.",
@@ -564,6 +572,9 @@
       "active": "is slowed down.",
       "stop": "is no longer slowed down."
     },
+    "smallBite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+    },
     "smallClaws": {
       "success": "is supported in his fight by **{{petNickname}}** who gives his opponent a little scratch, how cute..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "is helped by **{{petNickname}}** whose keen eyesight enables him to see around him properly again."
+    },
+    "useTool": {
+      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
     },
     "vampirism": {
       "success": "is assisted by **{{petNickname}}** who sucks a little energy from his opponent and offers it as tribute to his master."
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "No pet",
     "0_male": "No pet",
-    "1_female": "Dog",
-    "1_male": "Dog",
     "10_female": "Hen",
     "10_male": "Rooster",
     "11_female": "Bird",
@@ -1227,8 +1239,8 @@
     "18_male": "Goat",
     "19_female": "Turkey",
     "19_male": "Turkey",
-    "2_female": "Poodle",
-    "2_male": "Poodle",
+    "1_female": "Dog",
+    "1_male": "Dog",
     "20_female": "Vixen",
     "20_male": "Fox",
     "21_female": "Bear",
@@ -1249,8 +1261,8 @@
     "28_male": "Wolf",
     "29_female": "Wild sow",
     "29_male": "Wild boar",
-    "3_female": "Cat",
-    "3_male": "Cat",
+    "2_female": "Poodle",
+    "2_male": "Poodle",
     "30_female": "Seal",
     "30_male": "Seal",
     "31_female": "Hippopotamus",
@@ -1271,8 +1283,8 @@
     "38_male": "Beaver",
     "39_female": "Sloth",
     "39_male": "Sloth",
-    "4_female": "Black cat",
-    "4_male": "Black cat",
+    "3_female": "Cat",
+    "3_male": "Cat",
     "40_female": "Chipmunk",
     "40_male": "Chipmunk",
     "41_female": "Hedgehog",
@@ -1293,8 +1305,8 @@
     "48_male": "Rhinoceros",
     "49_female": "Dromedary",
     "49_male": "Dromedary",
-    "5_female": "Mouse",
-    "5_male": "Rodent",
+    "4_female": "Black cat",
+    "4_male": "Black cat",
     "50_female": "Camel",
     "50_male": "Camel",
     "51_female": "Giraffe",
@@ -1315,8 +1327,8 @@
     "58_male": "Eagle",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Hamster",
-    "6_male": "Hamster",
+    "5_female": "Mouse",
+    "5_male": "Rodent",
     "60_female": "Leopard",
     "60_male": "Leopard",
     "61_female": "Mammoth",
@@ -1337,36 +1349,64 @@
     "68_male": "Scarlet duck",
     "69_female": "Snowwoman",
     "69_male": "Snowman",
-    "7_female": "Doe rabbit",
-    "7_male": "Buck rabbit",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
     "70_female": "Alien",
     "70_male": "Alien",
     "71_female": "Octopus",
     "71_male": "Octopus",
     "72_female": "Penguin",
     "72_male": "Penguin",
-    "73_male": "Fish",
     "73_female": "Fish",
-    "74_male": "Tropical fish",
+    "73_male": "Fish",
     "74_female": "Tropical fish",
-    "75_male": "Puffer fish",
+    "74_male": "Tropical fish",
     "75_female": "Puffer fish",
-    "76_male": "Medusa",
+    "75_male": "Puffer fish",
     "76_female": "Medusa",
-    "77_male": "Shark",
+    "76_male": "Medusa",
     "77_female": "Shark",
-    "78_male": "Whale",
+    "77_male": "Shark",
     "78_female": "Whale",
-    "79_male": "Whale",
+    "78_male": "Whale",
     "79_female": "Whale",
-    "80_male": "Shrimp",
+    "79_male": "Whale",
+    "7_female": "Doe rabbit",
+    "7_male": "Buck rabbit",
     "80_female": "Shrimp",
-    "81_male": "Lobster",
+    "80_male": "Shrimp",
     "81_female": "Lobster",
-    "82_male": "Dolphin",
+    "81_male": "Lobster",
     "82_female": "Dolphin",
+    "82_male": "Dolphin",
+    "83_female": "Phénix",
+    "83_male": "Phénix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Escargot",
+    "85_male": "Escargot",
+    "86_female": "Crabe",
+    "86_male": "Crabe",
+    "87_female": "Biche",
+    "87_male": "Cerf",
+    "88_female": "Buffle d'eau",
+    "88_male": "Buffle d'eau",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Cow",
     "8_male": "Ox",
+    "90_female": "Orang-outan",
+    "90_male": "Orang-outan",
+    "91_female": "Gorille",
+    "91_male": "Gorille",
+    "92_female": "Poussin",
+    "92_male": "Poussin",
+    "93_female": "Rate",
+    "93_male": "Rat",
+    "94_female": "Merle",
+    "94_male": "Merle",
+    "95_female": "Corbeau",
+    "95_male": "Corbeau",
     "9_female": "Sow",
     "9_male": "Boar"
   },
@@ -1565,7 +1605,7 @@
     "94": "Skeleton powder",
     "95": "Silver aura blade",
     "96": "Electektron",
-    "97": "Phoenix Blade",
+    "97": "Lame du Phénix",
     "98": "Frost sword"
   },
   "foods": {
