@@ -840,24 +840,24 @@
             "Clinical observations show that it possesses energy transfer mechanisms capable of revitalizing its master by capturing hostile energy."
           ],
           "smallBite": [
-            "Ses petites dents sont discrètes mais redoutables. En mordant, il risque de provoquer une infection sournoise chez l’adversaire.",
-            "Ce familier possède une dentition fine mais perçante. Ses morsures, bien que modestes, peuvent s’aggraver avec le temps.",
-            "Ne sous-estimez pas ses crocs minuscules ! Une simple morsure peut entraîner une infection lente mais redoutable."
+            "Its small teeth are discreet but formidable. By biting, it can cause a sneaky infection in the opponent.",
+            "This pet has fine but piercing teeth. Its bites, though modest, can worsen over time.",
+            "Don't underestimate its tiny fangs! A simple bite can lead to a slow but dreadful infection."
           ],
           "crush": [
-            "Sa puissance physique est écrasante ! Si l’adversaire hésite, il se retrouvera broyé sous son poids.",
-            "Ce familier attend le bon moment pour frapper. Il écrasera ses ennemis trop lents à fuir, les immobilisant définitivement.",
-            "Son attaque est simple mais impitoyable : il profite de la moindre erreur pour écraser l’adversaire sans pitié."
+            "His physical power is overwhelming! If your opponent hesitates, he'll find himself crushed under her weight.",
+            "This familiar waits for the right moment to strike. It will crush enemies too slow to flee, immobilizing them for good.",
+            "His attack is simple but merciless: he takes advantage of the slightest mistake to crush his opponent without mercy."
           ],
           "healOwnerInEnergyRange": [
-            "Dès qu’il perçoit une baisse d’énergie, ce familier transfère une partie de sa force vitale pour soutenir son maître.",
-            "Sa sensibilité à votre état énergétique est remarquable. Il intervient dès que votre énergie chute dangereusement.",
-            "Ce compagnon veille sur vous sans relâche. Quand votre force faiblit, il vous revitalise immédiatement."
+            "As soon as it senses a drop in energy, this pet transfers part of its life force to support its master.",
+            "Its sensitivity to your energetic state is remarkable. It intervenes as soon as your energy level drops dangerously low.",
+            "This companion watches over you relentlessly. When your strength falters, it immediately revitalizes you."
           ],
           "useTool": [
-            "Ingénieux et débrouillard, il utilise les matériaux autour de lui pour créer des outils de combat improvisés.",
-            "Ce familier possède un instinct créatif étonnant. Il fabriquera rapidement des objets utiles en plein affrontement.",
-            "Son intelligence tactique est fascinante. Il exploitera chaque élément du terrain pour construire de quoi vous aider."
+            "Ingenious and resourceful, he uses the materials around him to create improvised fighting tools.",
+            "This pet has an amazing creative instinct. It will quickly produce useful items in the midst of a confrontation.",
+            "His tactical intelligence is fascinating. He'll exploit every element of the terrain to build something to help you."
           ]
         },
         "ageComment_ancestor": "INCREDIBLE! Exclaims the wide-eyed vet. Your pet is an exceptionally rare specimen! It's one of the oldest ever recorded in our archives, with only {{age}} older pets ever found! A true living relic!",
