@@ -70,9 +70,28 @@ export abstract class NotificationsTypes {
 		}
 	};
 
+	static FIGHT_CHALLENGE: NotificationType = {
+		emote: DraftBotIcons.notifications.types.fightChallenge,
+		customId: "fightChallenge",
+		i18nKey: "commands:notifications.types.fightChallenge",
+		value: notificationsConfiguration => ({
+			enabled: notificationsConfiguration.fightChallengeEnabled,
+			sendType: notificationsConfiguration.fightChallengeSendType,
+			channelId: notificationsConfiguration.fightChallengeChannelId
+		}),
+		toggleCallback: (notificationsConfiguration): void => {
+			notificationsConfiguration.fightChallengeEnabled = !notificationsConfiguration.fightChallengeEnabled;
+		},
+		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
+			notificationsConfiguration.fightChallengeSendType = sendType;
+			notificationsConfiguration.fightChallengeChannelId = channelId;
+		}
+	};
+
 	static ALL: NotificationType[] = [
 		NotificationsTypes.REPORT,
 		NotificationsTypes.GUILD_DAILY,
-		NotificationsTypes.PLAYER_FREED_FROM_JAIL
+		NotificationsTypes.PLAYER_FREED_FROM_JAIL,
+		NotificationsTypes.FIGHT_CHALLENGE
 	];
 }

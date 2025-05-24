@@ -2048,7 +2048,8 @@ export const DraftBotIcons: {
 		types: {
 			report: "📰",
 			guildDaily: "🏟️",
-			playerFreedFromJail: "🔓"
+			playerFreedFromJail: "🔓",
+			fightChallenge: "⚔️"
 		}
 	},
 	missions: {

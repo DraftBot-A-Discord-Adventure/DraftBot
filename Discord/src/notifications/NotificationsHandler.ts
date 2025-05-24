@@ -21,6 +21,7 @@ import { GuildDailyNotificationPacket } from "../../../Lib/src/packets/notificat
 import { getCommandGuildDailyRewardPacketString } from "../commands/guild/GuildDailyCommand";
 import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { PlayerFreedFromJailNotificationPacket } from "../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
+import { FightChallengePacket } from "../../../Lib/src/packets/notifications/FightChallengePacket";
 
 export abstract class NotificationsHandler {
 	/**
@@ -77,6 +78,15 @@ export abstract class NotificationsHandler {
 					freedByPlayer: await DisplayUtils.getEscapedUsername(packet.freedByPlayerKeycloakId, lng)
 				});
 				notificationType = NotificationsTypes.PLAYER_FREED_FROM_JAIL;
+				break;
+			}
+			case FightChallengePacket.name: {
+				const packet = notification.packet as FightChallengePacket;
+				notificationContent = i18n.t("notifications:fightChallenge.description", {
+					lng,
+					attackerPseudo: await DisplayUtils.getEscapedUsername(packet.attackedByPlayerKeycloakId, lng)
+				});
+				notificationType = NotificationsTypes.FIGHT_CHALLENGE;
 				break;
 			}
 			default:

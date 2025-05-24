@@ -923,8 +923,15 @@
   "notifications": {
     "types": {
       "report": "Reports",
-      "guildDaily": "Guild rewards",
-      "playerFreedFromJail": "Release from prison"
+      "guildDaily": "Guild daily reward",
+      "playerFreedFromJail": {
+        "title": "Freed from jail",
+        "description": "You have been freed from jail! You can play again."
+      },
+      "fightChallenge": {
+        "title": "Fight Challenge Received",
+        "description": "You have been challenged by {{attackerPseudo}}. Use the {command:fightHistory} command for more details."
+      }
     },
     "enableDisable": "Enable/Disable",
     "sendLocationField": "Sending place:",

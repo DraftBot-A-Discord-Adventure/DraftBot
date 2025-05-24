@@ -924,7 +924,14 @@
     "types": {
       "report": "Berichte",
       "guildDaily": "Gildenbelohnungen",
-      "playerFreedFromJail": "Entlassung aus dem Gefängnis"
+      "playerFreedFromJail": {
+        "title": "Aus dem Gefängnis befreit",
+        "description": "Du wurdest aus dem Gefängnis befreit! Du kannst wieder spielen."
+      },
+      "fightChallenge": {
+        "title": "Kampfherausforderung erhalten",
+        "description": "Du wurdest von {{attackerPseudo}} herausgefordert. Benutze den Befehl {command:fightHistory} für mehr Details."
+      }
     },
     "enableDisable": "Aktivieren/Deaktivieren",
     "sendLocationField": "Ort der Versendung :",

@@ -27,6 +27,12 @@ export class NotificationsConfiguration extends Model {
 
 	declare playerFreedFromJailChannelId?: string;
 
+	declare fightChallengeEnabled: boolean;
+
+	declare fightChallengeSendType: number;
+
+	declare fightChallengeChannelId?: string;
+
 	declare updatedAt: Date;
 
 	declare createdAt: Date;
@@ -84,6 +90,18 @@ export function initModel(sequelize: Sequelize): void {
 			defaultValue: NotificationSendTypeEnum.DM
 		},
 		playerFreedFromJailChannelId: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(32)
+		},
+		fightChallengeEnabled: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
+		},
+		fightChallengeSendType: {
+			type: DataTypes.INTEGER,
+			defaultValue: NotificationSendTypeEnum.DM
+		},
+		fightChallengeChannelId: {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(32)
 		},

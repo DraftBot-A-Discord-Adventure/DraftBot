@@ -924,7 +924,8 @@
     "types": {
       "report": "Rapports",
       "guildDaily": "Récompenses de guilde",
-      "playerFreedFromJail": "Libération de prison"
+      "playerFreedFromJail": "Libération de prison",
+      "fightChallenge": "Défis de combat"
     },
     "enableDisable": "Activer/Désactiver",
     "sendLocationField": "Endroit d'envoi :",
