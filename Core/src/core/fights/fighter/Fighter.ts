@@ -6,6 +6,7 @@ import { FightStatModifierOperation } from "../../../../../Lib/src/types/FightSt
 import { FightAlteration } from "../../../data/FightAlteration";
 import { FightAction } from "../../../data/FightAction";
 import { DraftBotPacket } from "../../../../../Lib/src/packets/DraftBotPacket";
+import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 
 type FighterStats = {
 	energy: number;
@@ -426,13 +427,18 @@ export abstract class Fighter {
 	/**
 	 * Get the last fight action used by a fighter (excluding alteration)
 	 */
-	getLastFightActionUsed(): FightAction {
+	getLastFightActionUsed(): FightAction | null {
 		if (this.fightActionsHistory.length === 0) {
 			return null;
 		}
 		const lastAction = this.fightActionsHistory[this.fightActionsHistory.length - 1];
 
-		// We have to check that the last action is not a fight alteration
+		// If the last action is a FightAlteration and is the OutOfBreath alteration, return null
+		if (lastAction instanceof FightAlteration && lastAction.id === FightConstants.FIGHT_ACTIONS.ALTERATION.OUT_OF_BREATH) {
+			return null;
+		}
+
+		// If the last action is a FightAlteration (but not OutOfBreath), return the previous action
 		return lastAction instanceof FightAlteration ? this.fightActionsHistory[this.fightActionsHistory.length - 2] : lastAction;
 	}
 
