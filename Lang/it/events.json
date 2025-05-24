@@ -2664,94 +2664,94 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Vous avancez prudemment dans le brouillard, suivant les contours de la route. Quand la brume se dissipe enfin, vous vous trouvez sur le chemin menant à Claire De Ville.",
-          "1": "Vous progressez lentement dans la brume épaisse. Lorsque le brouillard se lève, vous réalisez que vous vous dirigez vers le Bois Hurlant.",
-          "2": "Avançant à tâtons, vous ne parvenez pas à suivre la route bien longtemps. Après un long moment à marcher au hasard, vous finissez par admettre que vous êtes perdu. Il vous faudra un moment avant de retrouver la route...",
-          "3": "Vous avancez prudemment, mais le brouillard est si épais que vous ne parvenez pas à suivre la route. Vous finissez par tomber et dévalez la pente sur plusieurs mètres. Après un long moment au sol, vous réussissez à vous relever et à retrouver la route."
+          "0": "Ci si fa strada con cautela nella nebbia, seguendo i contorni della strada. Quando la nebbia finalmente si dirada, ci si trova sulla strada che porta a Claire De Ville.",
+          "1": "Ci si fa strada lentamente attraverso la fitta nebbia. Quando la nebbia si dissolve, ci si rende conto di essere diretti verso il bosco di Howling.",
+          "2": "Sentendo la strada, non si riesce a seguirla a lungo. Dopo aver camminato a lungo a caso, si ammette finalmente di essersi persi. Ci vorrà un po' di tempo prima di ritrovare la strada...",
+          "3": "Avanzate con cautela, ma la nebbia è così fitta che non riuscite a seguire la strada. Si finisce per cadere e ruzzolare lungo il pendio per diversi metri. Dopo essere rimasti a lungo a terra, riuscite a rialzarvi e a ritrovare la strada."
         },
-        "text": "Avancer prudemment en suivant la route."
+        "text": "Guidare con prudenza lungo la strada."
       },
       "wait": {
         "outcomes": {
-          "0": "Vous attendez patiemment, mais le brouillard persiste. Finalement, vous entendez des pas et suivez le bruit, sans comprendre comment, vous finissez par remarquer que vous avez pris la route vers Claire De Ville.",
-          "1": "Après une longue attente, le froid commence à s'emparer de vous. Malheureusement le brouillard est encore là ! Frigorifié, vous repartez à l'aveugle et émergez du brouillard en direction du Bois Hurlant.",
-          "2": "Même après une longue attente, le brouillard ne se dissipe pas. Vous finissez par avancer et tentez de suivre la pente en descente. Cette stratégie finit par fonctionner et vous observez le pont au dessus de la rivière se rapprocher."
+          "0": "Aspettate pazientemente, ma la nebbia persiste. Infine, sentite dei passi e seguite il rumore, senza capire come, finalmente vi accorgete di aver preso la strada per Claire De Ville.",
+          "1": "Dopo una lunga attesa, il freddo comincia a farsi sentire. Purtroppo, la nebbia è ancora lì! Infreddoliti, vi rimettete in cammino alla cieca, emergendo dalla nebbia in direzione del Bosco dell'Ululato.",
+          "2": "Anche dopo una lunga attesa, la nebbia non si alza. Alla fine ci si sposta e si cerca di seguire la discesa. Questa strategia alla fine funziona e si guarda il ponte sul fiume avvicinarsi."
         },
-        "text": "S'arrêter et attendre que le brouillard se dissipe."
+        "text": "Fermatevi e aspettate che la nebbia si diradi."
       },
       "call": {
         "outcomes": {
-          "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire De Ville.",
-          "1": "Une voix chaleureuse vous répond dans le brouillard et se présente comme un guide de la région. La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
-          "2": "Personne ne répond. Découragé, vous redescendez instinctivement et émergez près de la rivière aux crabes."
+          "0": "La vostra chiamata risuona nel vuoto. Nessuno risponde. Cercate di trovare la strada da soli, ma vi perdete completamente nella nebbia. Dopo aver vagato a lungo, finalmente ritrovate la strada e vi rendete conto che siete diretti a Claire De Ville.",
+          "1": "Una voce calda vi risponde attraverso la nebbia, presentandosi come guida della regione. La persona si unisce a voi e si offre di portarvi dove volete per pochi spiccioli. Felici di poter andare nella giusta direzione senza paura, accettate e seguite la guida fino a destinazione.",
+          "2": "Nessuno risponde. Scoraggiati, vi calate istintivamente e riemergete vicino al fiume dei granchi."
         },
-        "text": "Appeler pour voir s'il y a quelqu'un."
+        "text": "Chiama per vedere se c'è qualcuno."
       },
       "goDown": {
         "outcomes": {
-          "0": "Vous descendez prudemment en vous guidant sur la pente. Malgré quelques détours dans le brouillard, vous finissez par apercevoir le pont et continuez votre route vers la Rivière aux Crabes.",
-          "1": "Votre descente est chaotique dans le brouillard épais. Vous glissez plusieurs fois sur le terrain humide mais parvenez finalement à rejoindre la rivière aux crabes, trempé et boueux.",
-          "2": "Vous suivez instinctivement la pente descendante. Le brouillard commence à se dissiper à mesure que vous vous rapprochez de la rivière."
+          "0": "Si scende con cautela, usando il pendio come guida. Nonostante qualche deviazione nella nebbia, alla fine si individua il ponte e si prosegue verso la Rivière aux Crabes.",
+          "1": "La discesa è caotica nella fitta nebbia. Scivolate più volte sul terreno umido, ma alla fine raggiungete il fiume Granchio, fradici e infangati.",
+          "2": "Istintivamente si segue la discesa. La nebbia comincia a diradarsi man mano che ci si avvicina al fiume."
         },
-        "text": "Essayer de descendre vers la rivière."
+        "text": "Cercate di scendere al fiume."
       },
       "end": {
         "outcomes": {
-          "0": "Complètement désorienté par le brouillard, vous décidez de ne plus bouger du tout. Vous restez immobile pendant ce qui vous semble une éternité, écoutant les bruits étouffés autour de vous. Finalement, après plusieurs heures d'attente, la brume commence lentement à se dissiper. Quand la visibilité revient, vous constatez que vous êtes toujours sur la route grimpante, exactement là où le brouillard vous avait surpris. Vous pouvez maintenant reprendre votre chemin en toute sécurité."
+          "0": "Completamente disorientati dalla nebbia, decidete di non muovervi affatto. Rimanete fermi per quella che sembra un'eternità, ascoltando i suoni ovattati intorno a voi. Finalmente, dopo diverse ore di attesa, la nebbia comincia lentamente a dissolversi. Quando la visibilità ritorna, vi accorgete di essere ancora sulla strada in salita, esattamente dove vi aveva colto la nebbia. Ora potete ripartire in tutta sicurezza."
         }
       }
     },
-    "text": "Vous progressez sur la route grimpante quand soudain un épais brouillard monte de la Rivière aux Crabes, dont vous apercevez encore vaguement le pont au loin. En quelques minutes, la visibilité devient très réduite. Vous ne distinguez plus que les contours flous de la route devant vous..."
+    "text": "Si sta procedendo bene sulla strada di salita quando all'improvviso una fitta nebbia arriva dalla Rivière aux Crabes, il cui ponte si intravede ancora vagamente in lontananza. In pochi minuti la visibilità diventa molto scarsa. Si riesce a distinguere solo la sagoma sfocata della strada davanti a noi..."
   },
   "79": {
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire De Ville.",
-          "1": "Le troupeau vous emmène dans sa route habituelle qui serpente vers le Bois Hurlant.",
-          "2": "Les chèvres changent soudain de direction, suivant leur instinct, et vous vous retrouvez à redescendre vers la rivière aux crabes."
+          "0": "Ci si lascia trasportare dal flusso della mandria che sale tranquillamente verso Claire De Ville.",
+          "1": "La mandria percorre il suo consueto percorso tortuoso verso il bosco dell'ululato.",
+          "2": "Le capre cambiano improvvisamente direzione, seguendo il loro istinto, e vi ritrovate a ridiscendere verso il fiume Granchio."
         },
-        "text": "Se laisser porter par le troupeau."
+        "text": "Lasciarsi trasportare dal branco."
       },
       "overtake": {
         "outcomes": {
-          "0": "Vous doublez rapidement le troupeau et continuez votre route.",
-          "1": "Les chiens de berger vous coursent amicalement, vous faisant dévier de votre route vers la Rivière aux Crabes.",
-          "2": "Votre course pour doubler le troupeau vous essouffle. Vous ralentissez et décidez de faire une pause pour reprendre votre souffle. En attendant, vous observez le troupeau passer tranquillement devant vous."
+          "0": "Superate rapidamente la mandria e proseguite il vostro cammino.",
+          "1": "I cani da pastore vi inseguono amichevolmente e vi portano fuori rotta verso la Rivière aux Crabes.",
+          "2": "Non ce la fate più a cercare di superare la mandria. Rallentate e decidete di fare una pausa per riprendere fiato. Nel frattempo, osservate la mandria che passa silenziosamente davanti a voi."
         },
-        "text": "Doubler le troupeau en courant."
+        "text": "Superare la mandria."
       },
       "ask": {
         "outcomes": {
-          "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
-          "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
-          "2": "Le berger redescend vers ses pâturages près de la Rivière aux Crabes. Son chemin vous semble plus sûr."
+          "0": "Il pastore spiega che sta salendo a Claire De Ville e vi invita ad accompagnarlo. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
+          "1": "Il pastore sta andando a Howling Wood per la transumanza e vi propone di viaggiare insieme. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
+          "2": "Il pastore sta scendendo verso i suoi pascoli vicino a Rivière aux Crabes. Il suo percorso sembra più sicuro."
         },
-        "text": "Demander au berger la direction qu'il prend."
+        "text": "Chiedete al pastore dove sta andando."
       },
       "stepAside": {
         "outcomes": {
-          "0": "Vous vous rangez sur le côté et laissez passer le troupeau. Le berger vous remercie d'un signe de tête et continue son chemin.",
-          "1": "Vous vous rangez sur le côté, mais les chèvres curieuses s'approchent de vous. Le berger vous demande de les repousser doucement pour qu'elles ne s'égarent pas.",
-          "2": "Vous vous rangez sur le côté, mais l'un des chiens du berger s'approche et vous mordille les chaussures. Sur le coup vous ne vous en rendez pas compte mais votre pied est blessé. Vous continuez votre route en boitant."
+          "0": "Accostate e lasciate passare il gregge. Il pastore vi ringrazia con un cenno del capo e prosegue per la sua strada.",
+          "1": "Accostate a lato, ma le capre curiose si avvicinano a voi. Il pastore vi chiede di spingerle delicatamente indietro per evitare che si allontanino.",
+          "2": "Accostate a lato, ma uno dei cani del pastore si avvicina e vi morde le scarpe. Non ve ne rendete conto, ma il vostro piede è ferito. Si prosegue zoppicando."
         },
-        "text": "Se ranger sur le côté et laisser passer."
+        "text": "Accostate di lato e lasciate passare."
       },
       "help": {
         "outcomes": {
-          "0": "Votre aide est appréciée. Après un bout de chemin ensemble, le berger vous offre un objet en témoignage de vos efforts.",
-          "1": "En aidant à rassembler les chèvres égarées, vous suivez le berger vers le Bois Hurlant.",
-          "2": "Une chèvre s'échappe vers la Rivière aux Crabes. Vous l'aidez à la récupérer et restez dans cette zone."
+          "0": "Il vostro aiuto è apprezzato. Dopo aver fatto un lungo viaggio insieme, il pastore vi darà qualcosa da mostrare per i vostri sforzi.",
+          "1": "Aiutando a radunare le capre smarrite, seguite il pastore verso il bosco urlante.",
+          "2": "Una capra scappa verso il fiume Crab. Aiutatelo a recuperarla e rimanete nella zona."
         },
-        "text": "Aider le berger à guider les bêtes."
+        "text": "Aiutare il pastore a guidare gli animali."
       },
       "end": {
         "outcomes": {
-          "0": "Vous décidez de ne pas vous mêler du troupeau et de continuer votre route. Vous les regardez passer tranquillement, puis reprenez votre chemin."
+          "0": "Decidete di allontanarvi dal branco e di proseguire il vostro cammino. Li guardate passare tranquillamente, poi continuate per la vostra strada."
         }
       }
     },
-    "text": "Sur la route grimpante, vous entendez un tintement de clochettes qui se rapproche. Bientôt apparaît un large troupeau de chèvres mené par un berger et ses chiens. Les animaux occupent toute la largeur du chemin et avancent d'un pas régulier..."
+    "text": "Mentre la strada sale, si sente il tintinnio delle campane che si avvicinano. Ben presto si vede un grande gregge di capre guidato da un pastore e dai suoi cani. Gli animali occupano l'intera larghezza del sentiero e avanzano a passo sostenuto..."
   },
   "8": {
     "possibilities": {
