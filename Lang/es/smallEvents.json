@@ -315,6 +315,11 @@
         "{{playerDisplay}} parece tener frío. Le calientas un poco y te vas.",
         "Un chasquido redundante te molesta. {{playerDisplay}}Descubres que son los dientes de ... ¡Éste está congelado! Reanudas tu viaje sin más dilación."
       ],
+      "feetHurt": [
+        "Te encuentras con {{playerDisplay}} quejándose de sus pies. Te explica que lleva demasiado tiempo caminando sin parar. Le das algunos consejos para evitarlo en el futuro y continúas tu camino.",
+        "Observas que {{playerDisplay}} tiene dificultades para caminar. Le explica que le duelen los pies de tanto caminar. Le aconsejas que haga descansos regulares y sigues tu camino.",
+        "Mientras camina, se encuentra con {{playerDisplay}} quejándose de dolor en el pie. Le sugieres que se cuide los pies y haga descansos para evitar lesiones."
+      ],
       "confounded": [
         "{{playerDisplay}}Puede ponerse en contacto con . Lo intentas. Sus palabras son bastante incoherentes, así que continúas tu camino, algo turbado.",
         "{{playerDisplay}} dice muchas cosas incoherentes. Te parece extraño, así que te vas rápidamente, ¡confundido!",
