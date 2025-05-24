@@ -315,6 +315,11 @@
         "{{playerDisplay}} sembra essere freddo. Lo si riscalda un po' e poi si va via.",
         "Un suono ridondante di ticchettio vi infastidisce. {{playerDisplay}}Scoprite che sono i denti di... Questo è congelato! Riprendete il vostro viaggio senza ulteriori indugi."
       ],
+      "feetHurt": [
+        "Vous croisez {{playerDisplay}} qui se plaint de ses pieds. Il vous explique qu'il a marché trop longtemps sans s'arrêter. Vous lui donnez quelques conseils pour éviter cela à l'avenir et continuez votre route.",
+        "Vous remarquez que {{playerDisplay}} marche avec difficulté. Il vous explique qu'il a mal aux pieds après avoir marché trop longtemps. Vous lui conseillez de faire des pauses régulières et reprenez votre chemin.",
+        "En marchant, vous croisez {{playerDisplay}} qui se plaint de douleurs aux pieds. Vous lui suggérez de prendre soin de ses pieds et de faire des pauses pour éviter les blessures."
+      ],
       "confounded": [
         "{{playerDisplay}}È possibile contattare . Ci provate. Le sue parole sono piuttosto incoerenti, quindi continuate per la vostra strada, un po' confusi.",
         "{{playerDisplay}} dice molte cose incoerenti. Tutto ciò vi sembra strano e ve ne andate in fretta, confusi!",
