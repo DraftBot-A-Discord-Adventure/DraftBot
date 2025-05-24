@@ -123,6 +123,11 @@
     "9": "Eine auf Geschwindigkeit ausgerichtete Klasse. Wenig Lebens- und Energiepunkte, aber hohe Geschwindigkeit und Angriffsstärke."
   },
   "fight_actions": {
+    "alliesArePresent": {
+      "name": "Opfer der Verbündeten",
+      "new": "wird Opfer der Verbündeten seines Gegners.",
+      "active": "erleidet die Angriffe der Verbündeten seines Gegners."
+    },
     "benediction": {
       "description": "Gehört zur Gruppe der \"Aktionen der Götter\". Scheitert, wenn im Kampf bereits 1 Aktion der Götter ausgeführt wurde. Erhöht alle Statistiken des Werfers. Je später im Kampf der Segen eingesetzt wird, desto höher ist die Erhöhung der Statistiken.",
       "name_one": "Segen",
@@ -167,11 +172,6 @@
       "new": "verbrannt wird.",
       "active": "leidet unter seiner Verbrennung.",
       "stop": "nicht mehr verbrannt wird."
-    },
-    "alliesArePresent": {
-      "name": "Opfer der Verbündeten",
-      "new": "wird Opfer der Verbündeten seines Gegners.",
-      "active": "erleidet die Angriffe der Verbündeten seines Gegners."
     },
     "canonAttack": {
       "description": "Die Genauigkeit dieses Angriffs sinkt bei schnellen Gegnern. Ein Schadensbonus wird auf diesen Angriff angewendet, wenn der Gegner sehr langsam ist. Der Gegner kann durch den Angriff verlangsamt werden. Verursacht mehr Schaden, wenn er mehrmals hintereinander eingesetzt wird.",
@@ -233,6 +233,11 @@
       "generalEffect": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der so tut, als würde er den Gegner mit präzisen und schmerzhaften Schnabelhieben heftig bedrängen.",
       "failure": "verpasste es, Hilfe von **{{petNickname}}** zu erhalten, der vorsichtshalber nicht handelte, da er wusste, dass sein Eingreifen eher seinen Herrn als den Gegner verletzen würde. Sie hätten schneller sein müssen!",
       "success": "macht sich das Talent von **{{petNickname}}** zunutze, der unauffällig eine starke Bombe vorbereitet hat. Nachdem Sie den Zünder aktiviert haben, rennen Sie mit aller Kraft zur Seite!"
+    },
+    "crush": {
+      "generalEffect": "appelle **{{petNickname}}** à la rescousse, l'animal commence à vaciller au centre de l'arène...",
+      "success": "est aidé par **{{petNickname}}** qui écrase l'adversaire sous son poids.",
+      "failure": "est aidé par **{{petNickname}}** qui s'écrase sur le champ de bataille, mais rate complètement sa cible qui s'est échappée grâce à sa vitesse."
     },
     "cursed": {
       "name": "verflucht",
@@ -330,6 +335,9 @@
     "healEveryone": {
       "generalEffect": "ruft **{{petNickname}}** an, die mit wohlwollendem Blick feststellt, dass sich niemand verletzt hat, und sich daher fröhlich wieder zur Ruhe begibt.",
       "success": "hat Glück, dass er von **{{petNickname}}** begleitet wird, der vor Liebe strotzt und die Auseinandersetzung beenden möchte und die Kämpfer heilt."
+    },
+    "healOwnerInEnergyRange": {
+      "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
       "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
@@ -564,6 +572,9 @@
       "active": "verlangsamt wird.",
       "stop": "nicht mehr verlangsamt wird."
     },
+    "smallBite": {
+      "success": "est aidé par **{{petNickname}}** qui décide de mordre son adversaire... La morsure n'est pas très profonde mais elle menace de s'infecter."
+    },
     "smallClaws": {
       "success": "wird in seinem Kampf von **{{petNickname}}** unterstützt, der seinem Gegner einen kleinen Krallenhieb verpasst, wie niedlich..."
     },
@@ -635,6 +646,9 @@
     },
     "unBlind": {
       "success": "wird von **{{petNickname}}** unterstützt, der es ihm dank seiner scharfen Sicht ermöglicht, seine Umgebung wieder richtig zu sehen."
+    },
+    "useTool": {
+      "success": "est aidé par **{{petNickname}}** qui a fabriqué un outil à partir d'objets trouvés sur le champ de bataille. Cela sera très utile pour la suite du combat !"
     },
     "vampirism": {
       "success": "wird von **{{petNickname}}** unterstützt, der dem Gegner ein wenig Energie absaugt, um sie seinem Herrn als Tribut anzubieten."
@@ -1205,8 +1219,6 @@
   "pets": {
     "0_female": "Keine Vertrauten",
     "0_male": "Keine Vertrauten",
-    "1_female": "Hündin",
-    "1_male": "Hund",
     "10_female": "Henne",
     "10_male": "Hahn",
     "11_female": "Vogel",
@@ -1227,8 +1239,8 @@
     "18_male": "Ziegenbock",
     "19_female": "Truthahn",
     "19_male": "Truthahn",
-    "2_female": "Pudel",
-    "2_male": "Pudel",
+    "1_female": "Hündin",
+    "1_male": "Hund",
     "20_female": "Fuchs",
     "20_male": "Fuchs",
     "21_female": "Bärin",
@@ -1249,8 +1261,8 @@
     "28_male": "Wolf",
     "29_female": "Seehund",
     "29_male": "Wildschwein",
-    "3_female": "Katze",
-    "3_male": "Katze",
+    "2_female": "Pudel",
+    "2_male": "Pudel",
     "30_female": "Seelöwe",
     "30_male": "Seehund",
     "31_female": "Nilpferd",
@@ -1271,8 +1283,8 @@
     "38_male": "Biber",
     "39_female": "Faulpelz",
     "39_male": "Faultier",
-    "4_female": "Schwarze Katze",
-    "4_male": "Schwarze Katze",
+    "3_female": "Katze",
+    "3_male": "Katze",
     "40_female": "Tamia",
     "40_male": "Tamia",
     "41_female": "Herissonne",
@@ -1293,8 +1305,8 @@
     "48_male": "Rhinozeros",
     "49_female": "Chamelle",
     "49_male": "Dromedar",
-    "5_female": "Maus",
-    "5_male": "Nagetier",
+    "4_female": "Schwarze Katze",
+    "4_male": "Schwarze Katze",
     "50_female": "Chamelle",
     "50_male": "Kamel",
     "51_female": "Giraffe",
@@ -1315,8 +1327,8 @@
     "58_male": "Adler",
     "59_female": "Dodo",
     "59_male": "Dodo",
-    "6_female": "Hamster",
-    "6_male": "Hamster",
+    "5_female": "Maus",
+    "5_male": "Nagetier",
     "60_female": "Leopard",
     "60_male": "Leopard",
     "61_female": "Mammut",
@@ -1337,36 +1349,64 @@
     "68_male": "Scharlachrote Ente",
     "69_female": "Schnee Dame",
     "69_male": "Schneemann",
-    "7_female": "Kaninchen",
-    "7_male": "Kaninchen",
+    "6_female": "Hamster",
+    "6_male": "Hamster",
     "70_female": "Alien",
     "70_male": "Alien",
     "71_female": "Krake",
     "71_male": "Krake",
     "72_female": "Einarmig",
     "72_male": "Pinguin",
-    "73_male": "Fisch",
     "73_female": "Fisch",
-    "74_male": "Tropischer Fisch",
+    "73_male": "Fisch",
     "74_female": "Tropischer Fisch",
-    "75_male": "Kugelfisch",
+    "74_male": "Tropischer Fisch",
     "75_female": "Kugelfisch",
-    "76_male": "Medusa",
+    "75_male": "Kugelfisch",
     "76_female": "Medusa",
-    "77_male": "Hai",
+    "76_male": "Medusa",
     "77_female": "Hai",
-    "78_male": "Wal",
+    "77_male": "Hai",
     "78_female": "Wal",
-    "79_male": "Wal",
+    "78_male": "Wal",
     "79_female": "Wal",
-    "80_male": "Garnele",
+    "79_male": "Wal",
+    "7_female": "Kaninchen",
+    "7_male": "Kaninchen",
     "80_female": "Garnele",
-    "81_male": "Hummer",
+    "80_male": "Garnele",
     "81_female": "Hummer",
-    "82_male": "Delphin",
+    "81_male": "Hummer",
     "82_female": "Delphin",
+    "82_male": "Delphin",
+    "83_female": "Phénix",
+    "83_male": "Phénix",
+    "84_female": "Diplodocus",
+    "84_male": "Diplodocus",
+    "85_female": "Escargot",
+    "85_male": "Escargot",
+    "86_female": "Crabe",
+    "86_male": "Crabe",
+    "87_female": "Biche",
+    "87_male": "Cerf",
+    "88_female": "Buffle d'eau",
+    "88_male": "Buffle d'eau",
+    "89_female": "Bisonne",
+    "89_male": "Bison",
     "8_female": "Kuh",
     "8_male": "Rindfleisch",
+    "90_female": "Orang-outan",
+    "90_male": "Orang-outan",
+    "91_female": "Gorille",
+    "91_male": "Gorille",
+    "92_female": "Poussin",
+    "92_male": "Poussin",
+    "93_female": "Rate",
+    "93_male": "Rat",
+    "94_female": "Merle",
+    "94_male": "Merle",
+    "95_female": "Corbeau",
+    "95_male": "Corbeau",
     "9_female": "Sau",
     "9_male": "Schwein"
   },
@@ -1565,7 +1605,7 @@
     "94": "Pulver und Lösungsmittel zur Herstellung einer Injektionslösung",
     "95": "Klinge der silbernen Aura",
     "96": "Electektron",
-    "97": "Klinge des Phönix",
+    "97": "Lame du Phénix",
     "98": "Frostschwert"
   },
   "foods": {
