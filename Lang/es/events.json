@@ -2660,6 +2660,99 @@
     },
     "text": "Mientras avanzas por un sinuoso sendero del bosque de Celestrum, oyes de repente unas voces procedentes de un claro cercano. Intrigado, te acercas discretamente y descubres a dos hombres en medio de una discusión. Están frente a frente, gesticulando salvajemente, obviamente en desacuerdo sobre algo importante. Uno lleva una capa remendada, el otro una chaqueta de cuero desgastada. Entre ellos, en el suelo, hay una caja de madera que cada uno parece reclamar."
   },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "Te abres paso con cautela a través de la niebla, siguiendo los contornos de la carretera. Cuando por fin se disipa la niebla, te encuentras en la carretera que conduce a Claire De Ville.",
+          "1": "Avanzas lentamente a través de la espesa niebla. Cuando la niebla se disipa, te das cuenta de que te diriges al Bosque de los Aullidos.",
+          "2": "Tanteando el terreno, no consigues seguir el camino durante mucho tiempo. Tras un largo rato caminando al azar, finalmente reconoces que estás perdido. Pasará un tiempo antes de que encuentres el camino de vuelta...",
+          "3": "Avanzas con precaución, pero la niebla es tan espesa que no puedes seguir el camino. Acabas cayendo y dando tumbos por la pendiente durante varios metros. Tras un largo rato tendido en el suelo, consigues levantarte y encontrar el camino de vuelta a la carretera."
+        },
+        "text": "Conduzca con cuidado por la carretera."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "Esperas pacientemente, pero la niebla persiste. Por fin, oyes pasos y sigues el ruido, sin entender cómo, por fin te das cuenta de que has tomado el camino de Claire De Ville.",
+          "1": "Tras una larga espera, el frío empieza a apoderarse de ti. Por desgracia, la niebla sigue ahí. Escalofriado, sales de nuevo a ciegas, emergiendo de la niebla en dirección al Bosque Aullante.",
+          "2": "Incluso después de una larga espera, la niebla no se disipa. Finalmente sigues adelante e intentas seguir la cuesta abajo. Esta estrategia acaba funcionando y ves cómo se acerca el puente sobre el río."
+        },
+        "text": "Detente y espera a que se disipe la niebla."
+      },
+      "call": {
+        "outcomes": {
+          "0": "Su llamada suena en el vacío. Nadie responde. Intentas encontrar el camino por tu cuenta, pero te pierdes completamente en la niebla. Después de vagar durante mucho tiempo, finalmente encuentras el camino de vuelta y te das cuenta de que te diriges a Claire De Ville.",
+          "1": "Una voz cálida te responde a través de la niebla, presentándose como guía de la región. La persona se une a ti y se ofrece a llevarte adonde quieras por unas monedas. Encantado de poder partir en la dirección correcta sin miedo, aceptas y sigues al guía hasta tu destino.",
+          "2": "Nadie responde. Desanimado, instintivamente vuelves a bajar y emerges cerca del río de los cangrejos."
+        },
+        "text": "Llama para ver si hay alguien."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "Desciendes con precaución, guiándote por la pendiente. A pesar de algunos desvíos en la niebla, finalmente divisáis el puente y continuáis hacia Rivière aux Crabes.",
+          "1": "Tu descenso es caótico en la espesa niebla. Resbalas varias veces en el suelo húmedo pero finalmente llegas al río cangrejo, empapado y embarrado.",
+          "2": "Instintivamente sigues la pendiente descendente. La niebla comienza a disiparse a medida que te acercas al río."
+        },
+        "text": "Intenta bajar al río."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Completamente desorientado por la niebla, decides no moverte. Permanece inmóvil durante lo que parece una eternidad, escuchando los sonidos apagados a su alrededor. Finalmente, tras varias horas de espera, la niebla empieza a disiparse lentamente. Cuando recuperas la visibilidad, ves que sigues en la carretera de subida, exactamente donde te había atrapado la niebla. Ahora puedes volver a ponerte en marcha con total seguridad."
+        }
+      }
+    },
+    "text": "Avanzas a buen ritmo por la carretera de subida cuando, de repente, una espesa niebla llega desde la Rivière aux Crabes, cuyo puente aún distingues vagamente a lo lejos. En unos minutos, la visibilidad es muy escasa. Sólo distingues el contorno borroso de la carretera..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "Se deja llevar por la corriente del rebaño que sube tranquilamente hacia Claire De Ville.",
+          "1": "El rebaño le llevará por su habitual ruta serpenteante hacia el Bosque Aullante.",
+          "2": "Las cabras cambian repentinamente de dirección, siguiendo sus instintos, y te encuentras bajando de nuevo hacia el río de los cangrejos."
+        },
+        "text": "Dejarse llevar por el rebaño."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "Rápidamente adelantas a la manada y continúas tu camino.",
+          "1": "Los perros pastores te persiguen amistosamente y te desvían hacia la Rivière aux Crabes.",
+          "2": "Te quedas sin fuerzas mientras intentas adelantar a la manada. Disminuyes la velocidad y decides tomarte un descanso para recuperar el aliento. Mientras tanto, observas cómo la manada pasa tranquilamente por delante de ti."
+        },
+        "text": "Corre más allá de la manada."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "El pastor le explica que va a subir a Claire De Ville y le invita a acompañarle. Usted declina cortésmente la invitación y prefiere seguir su camino.",
+          "1": "El pastor se dirige al Bosque de los Aullidos para la trashumancia y os propone viajar juntos. Tú declinas cortésmente, prefiriendo seguir tu propio camino.",
+          "2": "El pastor regresa a sus pastos cerca de Rivière aux Crabes. Su camino parece más seguro."
+        },
+        "text": "Pregúntale al pastor adónde va."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "Te detienes y dejas pasar al rebaño. El pastor te da las gracias con una inclinación de cabeza y sigue su camino.",
+          "1": "Te apartas a un lado, pero las curiosas cabras se te acercan. El pastor te pide que las empujes suavemente hacia atrás para que no se desvíen.",
+          "2": "Te apartas a un lado, pero uno de los perros del pastor se acerca y te muerde los zapatos. No te das cuenta en ese momento, pero tienes el pie herido. Sigues cojeando."
+        },
+        "text": "Hágase a un lado y déjelo pasar."
+      },
+      "help": {
+        "outcomes": {
+          "0": "Agradecemos tu ayuda. Después de haber recorrido juntos un largo camino, el pastor te da algo que mostrar por tus esfuerzos.",
+          "1": "Ayudando a reunir a las cabras perdidas, sigues al pastor hacia el Bosque de los Aullidos.",
+          "2": "Una cabra se escapa hacia el río Cangrejo. Ayúdale a recuperarla y quédate en la zona."
+        },
+        "text": "Ayudar al pastor a guiar a los animales."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Decides alejarte de la manada y continuar tu camino. Los observas pasar tranquilamente y continúas tu camino."
+        }
+      }
+    },
+    "text": "A medida que el camino asciende, se oye el tintineo de campanas acercándose. Pronto ves un gran rebaño de cabras conducido por un pastor y sus perros. Los animales ocupan toda la anchura del camino y avanzan a paso firme..."
+  },
   "8": {
     "possibilities": {
       "end": {
