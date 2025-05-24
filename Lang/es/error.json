@@ -95,6 +95,10 @@
       "self": "¡Estás congelado!",
       "other": "{{pseudo}} está congelado."
     },
+    "feetHurt": {
+      "self": "Vous avez actuellement mal aux pieds !",
+      "other": "{{pseudo}} a actuellement mal aux pieds !"
+    },
     "hurt": {
       "self": "¡Estás lesionado!",
       "other": "{{pseudo}} está lesionado."
