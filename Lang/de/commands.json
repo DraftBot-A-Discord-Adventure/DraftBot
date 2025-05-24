@@ -840,24 +840,24 @@
             "Klinische Beobachtungen belegen, dass er über energieübertragende Mechanismen verfügt, die in der Lage sind, seinen Besitzer zu revitalisieren, indem sie feindliche Energie einfangen."
           ],
           "smallBite": [
-            "Ses petites dents sont discrètes mais redoutables. En mordant, il risque de provoquer une infection sournoise chez l’adversaire.",
-            "Ce familier possède une dentition fine mais perçante. Ses morsures, bien que modestes, peuvent s’aggraver avec le temps.",
-            "Ne sous-estimez pas ses crocs minuscules ! Une simple morsure peut entraîner une infection lente mais redoutable."
+            "Seine kleinen Zähne sind unauffällig, aber gefürchtet. Wenn er zubeißt, kann er bei seinem Gegner eine heimtückische Infektion auslösen.",
+            "Dieser Vertraute hat ein feines, aber scharfes Gebiss. Seine Bisswunden sind zwar bescheiden, können aber mit der Zeit immer schlimmer werden.",
+            "Unterschätzen Sie nicht seine winzigen Reißzähne! Ein einfacher Biss kann zu einer langsamen, aber gefürchteten Infektion führen."
           ],
           "crush": [
-            "Sa puissance physique est écrasante ! Si l’adversaire hésite, il se retrouvera broyé sous son poids.",
-            "Ce familier attend le bon moment pour frapper. Il écrasera ses ennemis trop lents à fuir, les immobilisant définitivement.",
-            "Son attaque est simple mais impitoyable : il profite de la moindre erreur pour écraser l’adversaire sans pitié."
+            "Seine körperliche Kraft ist überwältigend! Wenn der Gegner zögert, wird er unter seinem Gewicht zermalmt.",
+            "Dieser Vertraute wartet auf den richtigen Moment, um zuzuschlagen. Er wird Feinde, die zu langsam sind, um zu fliehen, zerquetschen und sie für immer bewegungsunfähig machen.",
+            "Sein Angriff ist einfach, aber gnadenlos: Er nutzt jeden noch so kleinen Fehler aus, um seinen Gegner gnadenlos zu zerquetschen."
           ],
           "healOwnerInEnergyRange": [
-            "Dès qu’il perçoit une baisse d’énergie, ce familier transfère une partie de sa force vitale pour soutenir son maître.",
-            "Sa sensibilité à votre état énergétique est remarquable. Il intervient dès que votre énergie chute dangereusement.",
-            "Ce compagnon veille sur vous sans relâche. Quand votre force faiblit, il vous revitalise immédiatement."
+            "Sobald er einen Energieabfall wahrnimmt, überträgt dieser Vertraute einen Teil seiner Lebenskraft, um seinen Meister zu unterstützen.",
+            "Seine Sensibilität für Ihren Energiezustand ist bemerkenswert. Er greift ein, sobald Ihre Energie gefährlich absinkt.",
+            "Dieser Begleiter wacht unermüdlich über Sie. Wenn Ihre Kraft nachlässt, belebt er Sie sofort wieder."
           ],
           "useTool": [
-            "Ingénieux et débrouillard, il utilise les matériaux autour de lui pour créer des outils de combat improvisés.",
-            "Ce familier possède un instinct créatif étonnant. Il fabriquera rapidement des objets utiles en plein affrontement.",
-            "Son intelligence tactique est fascinante. Il exploitera chaque élément du terrain pour construire de quoi vous aider."
+            "Er ist erfinderisch und einfallsreich und nutzt die Materialien um ihn herum, um improvisierte Kampfwerkzeuge herzustellen.",
+            "Dieses Haustier hat einen erstaunlichen kreativen Instinkt. Er wird inmitten einer Auseinandersetzung schnell nützliche Gegenstände herstellen.",
+            "Seine taktische Intelligenz ist faszinierend. Er wird jedes Element auf dem Spielfeld ausnutzen, um etwas zu bauen, das Ihnen hilft."
           ]
         },
         "ageComment_ancestor": "INKROYABLE! Ruft der Tierarzt mit großen Augen aus. Ihr Vertrauter ist ein Exemplar von außergewöhnlicher Seltenheit! Er gehört zu den ältesten, die jemals in unseren Archiven aufgezeichnet wurden. Nur {{age}} andere Vertraute wurden älter entdeckt! Ein echtes lebendes Relikt!",
