@@ -1,7 +1,6 @@
 import {
 	PetAssistance, PetAssistanceDataController
 } from "../../data/PetAssistance";
-import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 
 // Map to store pet behaviors by pet ID
