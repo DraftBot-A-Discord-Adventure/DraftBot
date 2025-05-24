@@ -52,7 +52,7 @@
     "Garder de l'argent de côté est judicieux pour pouvoir se soigner.",
     "Chaque semaine, un classement est effectué pour désigner le joueur de la semaine qui a gagné le plus de points. Pour consulter ce classement, utilisez la commande {command:top score} et précisez l'option `durée`.",
     "L'argent est l'une des ressources les plus importantes du jeu, obtenez-en grâce aux rapports ({command:report}), aux items à effets journaliers ({command:dailybonus}) ou aux récompenses journalières de guildes ({command:guilddailybonus}).",
-    "En manque de PV ? Avant d'acheter le soin à 3000 {emote:unitValues.money}, vérifiez que le magasin ne contient pas de potion plus rentable !",
+    "En manque de PV ? Avant d'acheter le soin dans le magasin, vérifiez qu'il ne contient pas de potion plus rentable !",
     "Les potions vendues dans le magasin sont souvent disponibles à des prix très attractifs.",
     "Pour être le premier au classement de la semaine et remporter un badge, soyez assidus dans vos rapports et n'ayez pas peur des combats.",
     "Le classement général est disponible en utilisant la commande {command:top score}.",
