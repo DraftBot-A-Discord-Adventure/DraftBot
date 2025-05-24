@@ -2316,7 +2316,7 @@
         "text": "Tentativo di rubare un libro per rivenderlo."
       }
     },
-    "text": "Dopo aver passeggiato per le strade di Claire De Ville, ci si imbatte in un edificio il cui ingresso è incorniciato da due statue di gufi in pietra. Avvicinandosi, ci si rende conto che si tratta della biblioteca della città. Decidete di entrare nell'edificio per passare il tempo. Su una delle pareti dell'ingresso è appeso un calendario fatto di grandi foglie legate insieme da una cinghia di cuoio."
+    "text": "Dopo aver passeggiato per le strade di Claire de Ville, ci si imbatte in un edificio il cui ingresso è incorniciato da due statue di gufi in pietra. Avvicinandosi, ci si rende conto che si tratta della biblioteca della città. Decidete di entrare nell'edificio per passare il tempo. Su una delle pareti dell'ingresso è appeso un calendario fatto di grandi foglie legate insieme da una cinghia di cuoio."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Cambiate idea e andate alla ricerca di una bancarella di cibo."
       }
     },
-    "text": "Arrivati alla periferia di Claire De Ville, scoprite che molti abitanti si sono spostati fuori dalle grandi mura: è in corso un torneo signorile! Sui cartelloni adiacenti alle mura, giullari, trovatori, menestrelli, araldi, bardi e cantastorie vociferano con gioia, acclamando ogni colpo di spada, lancia o mazza. Eccitati dal caos e dall'entusiasmo generale, decidete di tentare la fortuna. Individuate il giudice narratore, che accetta la vostra iscrizione e vi chiede a quale evento volete partecipare."
+    "text": "Arrivati alla periferia di Claire de Ville, scoprite che molti abitanti si sono spostati fuori dalle grandi mura: è in corso un torneo signorile! Sui cartelloni adiacenti alle mura, giullari, trovatori, menestrelli, araldi, bardi e cantastorie vociferano con gioia, acclamando ogni colpo di spada, lancia o mazza. Eccitati dal caos e dall'entusiasmo generale, decidete di tentare la fortuna. Individuate il giudice narratore, che accetta la vostra iscrizione e vi chiede a quale evento volete partecipare."
   },
   "73": {
     "possibilities": {
@@ -2664,7 +2664,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Ci si fa strada con cautela nella nebbia, seguendo i contorni della strada. Quando la nebbia finalmente si dirada, ci si trova sulla strada che porta a Claire De Ville.",
+          "0": "Ci si fa strada con cautela nella nebbia, seguendo i contorni della strada. Quando la nebbia finalmente si dirada, ci si trova sulla strada che porta a Claire de Ville.",
           "1": "Ci si fa strada lentamente attraverso la fitta nebbia. Quando la nebbia si dissolve, ci si rende conto di essere diretti verso il bosco di Howling.",
           "2": "Sentendo la strada, non si riesce a seguirla a lungo. Dopo aver camminato a lungo a caso, si ammette finalmente di essersi persi. Ci vorrà un po' di tempo prima di ritrovare la strada...",
           "3": "Avanzate con cautela, ma la nebbia è così fitta che non riuscite a seguire la strada. Si finisce per cadere e ruzzolare lungo il pendio per diversi metri. Dopo essere rimasti a lungo a terra, riuscite a rialzarvi e a ritrovare la strada."
@@ -2673,7 +2673,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "Aspettate pazientemente, ma la nebbia persiste. Infine, sentite dei passi e seguite il rumore, senza capire come, finalmente vi accorgete di aver preso la strada per Claire De Ville.",
+          "0": "Aspettate pazientemente, ma la nebbia persiste. Infine, sentite dei passi e seguite il rumore, senza capire come, finalmente vi accorgete di aver preso la strada per Claire de Ville.",
           "1": "Dopo una lunga attesa, il freddo comincia a farsi sentire. Purtroppo, la nebbia è ancora lì! Infreddoliti, vi rimettete in cammino alla cieca, emergendo dalla nebbia in direzione del Bosco dell'Ululato.",
           "2": "Anche dopo una lunga attesa, la nebbia non si alza. Alla fine ci si sposta e si cerca di seguire la discesa. Questa strategia alla fine funziona e si guarda il ponte sul fiume avvicinarsi."
         },
@@ -2681,7 +2681,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "La vostra chiamata risuona nel vuoto. Nessuno risponde. Cercate di trovare la strada da soli, ma vi perdete completamente nella nebbia. Dopo aver vagato a lungo, finalmente ritrovate la strada e vi rendete conto che siete diretti a Claire De Ville.",
+          "0": "La vostra chiamata risuona nel vuoto. Nessuno risponde. Cercate di trovare la strada da soli, ma vi perdete completamente nella nebbia. Dopo aver vagato a lungo, finalmente ritrovate la strada e vi rendete conto che siete diretti a Claire de Ville.",
           "1": "Una voce calda vi risponde attraverso la nebbia, presentandosi come guida della regione. La persona si unisce a voi e si offre di portarvi dove volete per pochi spiccioli. Felici di poter andare nella giusta direzione senza paura, accettate e seguite la guida fino a destinazione.",
           "2": "Nessuno risponde. Scoraggiati, vi calate istintivamente e riemergete vicino al fiume dei granchi."
         },
@@ -2707,7 +2707,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Ci si lascia trasportare dal flusso della mandria che sale tranquillamente verso Claire De Ville.",
+          "0": "Ci si lascia trasportare dal flusso della mandria che sale tranquillamente verso Claire de Ville.",
           "1": "La mandria percorre il suo consueto percorso tortuoso verso il bosco dell'ululato.",
           "2": "Le capre cambiano improvvisamente direzione, seguendo il loro istinto, e vi ritrovate a ridiscendere verso il fiume Granchio."
         },
@@ -2723,7 +2723,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "Il pastore spiega che sta salendo a Claire De Ville e vi invita ad accompagnarlo. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
+          "0": "Il pastore spiega che sta salendo a Claire de Ville e vi invita ad accompagnarlo. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
           "1": "Il pastore sta andando a Howling Wood per la transumanza e vi propone di viaggiare insieme. Voi rifiutate gentilmente, preferendo andare per la vostra strada.",
           "2": "Il pastore sta scendendo verso i suoi pascoli vicino a Rivière aux Crabes. Il suo percorso sembra più sicuro."
         },

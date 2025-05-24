@@ -2316,7 +2316,7 @@
         "text": "Intentar robar un libro para revenderlo."
       }
     },
-    "text": "Tras pasear por las calles de Claire De Ville, te topas con un edificio cuya entrada está enmarcada por dos estatuas de búho de piedra. Al acercarte, te das cuenta de que se trata de la biblioteca de la ciudad. Decides entrar en el edificio para pasar el rato. En una de las paredes de la entrada cuelga un calendario hecho con grandes hojas unidas por una correa de cuero."
+    "text": "Tras pasear por las calles de Claire de Ville, te topas con un edificio cuya entrada está enmarcada por dos estatuas de búho de piedra. Al acercarte, te das cuenta de que se trata de la biblioteca de la ciudad. Decides entrar en el edificio para pasar el rato. En una de las paredes de la entrada cuelga un calendario hecho con grandes hojas unidas por una correa de cuero."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Cambia de opinión y parte en busca de un puesto de comida."
       }
     },
-    "text": "Al llegar a las afueras de Claire De Ville, descubres que muchos de sus habitantes se han desplazado fuera de las grandes murallas: ¡un torneo señorial está en pleno apogeo! En las vallas adosadas a las murallas, bufones, trovadores, juglares, heraldos, bardos y narradores vociferan con alegría, vitoreando cada golpe de espada, lanza o maza. Entusiasmado por el caos y el entusiasmo general, decides probar suerte. Ves al juez de narración, que acepta tu inscripción y te pregunta en qué evento te gustaría participar."
+    "text": "Al llegar a las afueras de Claire de Ville, descubres que muchos de sus habitantes se han desplazado fuera de las grandes murallas: ¡un torneo señorial está en pleno apogeo! En las vallas adosadas a las murallas, bufones, trovadores, juglares, heraldos, bardos y narradores vociferan con alegría, vitoreando cada golpe de espada, lanza o maza. Entusiasmado por el caos y el entusiasmo general, decides probar suerte. Ves al juez de narración, que acepta tu inscripción y te pregunta en qué evento te gustaría participar."
   },
   "73": {
     "possibilities": {
@@ -2664,7 +2664,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Te abres paso con cautela a través de la niebla, siguiendo los contornos de la carretera. Cuando por fin se disipa la niebla, te encuentras en la carretera que conduce a Claire De Ville.",
+          "0": "Te abres paso con cautela a través de la niebla, siguiendo los contornos de la carretera. Cuando por fin se disipa la niebla, te encuentras en la carretera que conduce a Claire de Ville.",
           "1": "Avanzas lentamente a través de la espesa niebla. Cuando la niebla se disipa, te das cuenta de que te diriges al Bosque de los Aullidos.",
           "2": "Tanteando el terreno, no consigues seguir el camino durante mucho tiempo. Tras un largo rato caminando al azar, finalmente reconoces que estás perdido. Pasará un tiempo antes de que encuentres el camino de vuelta...",
           "3": "Avanzas con precaución, pero la niebla es tan espesa que no puedes seguir el camino. Acabas cayendo y dando tumbos por la pendiente durante varios metros. Tras un largo rato tendido en el suelo, consigues levantarte y encontrar el camino de vuelta a la carretera."
@@ -2673,7 +2673,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "Esperas pacientemente, pero la niebla persiste. Por fin, oyes pasos y sigues el ruido, sin entender cómo, por fin te das cuenta de que has tomado el camino de Claire De Ville.",
+          "0": "Esperas pacientemente, pero la niebla persiste. Por fin, oyes pasos y sigues el ruido, sin entender cómo, por fin te das cuenta de que has tomado el camino de Claire de Ville.",
           "1": "Tras una larga espera, el frío empieza a apoderarse de ti. Por desgracia, la niebla sigue ahí. Escalofriado, sales de nuevo a ciegas, emergiendo de la niebla en dirección al Bosque Aullante.",
           "2": "Incluso después de una larga espera, la niebla no se disipa. Finalmente sigues adelante e intentas seguir la cuesta abajo. Esta estrategia acaba funcionando y ves cómo se acerca el puente sobre el río."
         },
@@ -2681,7 +2681,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "Su llamada suena en el vacío. Nadie responde. Intentas encontrar el camino por tu cuenta, pero te pierdes completamente en la niebla. Después de vagar durante mucho tiempo, finalmente encuentras el camino de vuelta y te das cuenta de que te diriges a Claire De Ville.",
+          "0": "Su llamada suena en el vacío. Nadie responde. Intentas encontrar el camino por tu cuenta, pero te pierdes completamente en la niebla. Después de vagar durante mucho tiempo, finalmente encuentras el camino de vuelta y te das cuenta de que te diriges a Claire de Ville.",
           "1": "Una voz cálida te responde a través de la niebla, presentándose como guía de la región. La persona se une a ti y se ofrece a llevarte adonde quieras por unas monedas. Encantado de poder partir en la dirección correcta sin miedo, aceptas y sigues al guía hasta tu destino.",
           "2": "Nadie responde. Desanimado, instintivamente vuelves a bajar y emerges cerca del río de los cangrejos."
         },
@@ -2707,7 +2707,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Se deja llevar por la corriente del rebaño que sube tranquilamente hacia Claire De Ville.",
+          "0": "Se deja llevar por la corriente del rebaño que sube tranquilamente hacia Claire de Ville.",
           "1": "El rebaño le llevará por su habitual ruta serpenteante hacia el Bosque Aullante.",
           "2": "Las cabras cambian repentinamente de dirección, siguiendo sus instintos, y te encuentras bajando de nuevo hacia el río de los cangrejos."
         },
@@ -2723,7 +2723,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "El pastor le explica que va a subir a Claire De Ville y le invita a acompañarle. Usted declina cortésmente la invitación y prefiere seguir su camino.",
+          "0": "El pastor le explica que va a subir a Claire de Ville y le invita a acompañarle. Usted declina cortésmente la invitación y prefiere seguir su camino.",
           "1": "El pastor se dirige al Bosque de los Aullidos para la trashumancia y os propone viajar juntos. Tú declinas cortésmente, prefiriendo seguir tu propio camino.",
           "2": "El pastor regresa a sus pastos cerca de Rivière aux Crabes. Su camino parece más seguro."
         },

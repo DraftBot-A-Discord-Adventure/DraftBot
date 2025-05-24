@@ -2316,7 +2316,7 @@
         "text": "Versuch, ein Buch zu stehlen, um es wieder zu verkaufen."
       }
     },
-    "text": "Nachdem Sie in den Straßen von Claire De Ville verpfändet wurden, entwarfen Sie ein Gebäude, dessen Eingang von zwei Statuen von Hiboux aus Stein umgeben ist. Wenn Sie sich nähern, verstehen Sie, dass es die Bibliothek der Stadt ist. Sie entscheiden sich für die Durchreise, um die Zeit zu verbringen. Auf einer der Mauern des Einlasses ist ein Kalender, der durch ein Leder-Lanzer miteinander verbunden ist, durch breite Blätter verbunden ist."
+    "text": "Nachdem Sie in den Straßen von Claire de Ville verpfändet wurden, entwarfen Sie ein Gebäude, dessen Eingang von zwei Statuen von Hiboux aus Stein umgeben ist. Wenn Sie sich nähern, verstehen Sie, dass es die Bibliothek der Stadt ist. Sie entscheiden sich für die Durchreise, um die Zeit zu verbringen. Auf einer der Mauern des Einlasses ist ein Kalender, der durch ein Leder-Lanzer miteinander verbunden ist, durch breite Blätter verbunden ist."
   },
   "69": {
     "possibilities": {
@@ -2664,7 +2664,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Sie bewegen sich vorsichtig durch den Nebel und folgen den Umrissen der Straße. Als sich der Nebel endlich lichtet, befinden Sie sich auf dem Weg, der nach Claire De Ville führt.",
+          "0": "Sie bewegen sich vorsichtig durch den Nebel und folgen den Umrissen der Straße. Als sich der Nebel endlich lichtet, befinden Sie sich auf dem Weg, der nach Claire de Ville führt.",
           "1": "Sie bewegen sich langsam durch den dichten Nebel. Als sich der Nebel lichtet, bemerken Sie, dass Sie sich auf den Heulenden Wald zubewegen.",
           "2": "Sie tasten sich vorwärts und können der Straße nicht lange folgen. Nachdem Sie eine ganze Weile auf gut Glück herumgelaufen sind, müssen Sie schließlich zugeben, dass Sie sich verlaufen haben. Es dauert eine Weile, bis Sie den Weg wiederfinden...",
           "3": "Sie gehen vorsichtig weiter, aber der Nebel ist so dicht, dass Sie dem Weg nicht folgen können. Schließlich stürzen Sie und stürzen mehrere Meter den Hang hinunter. Nach einer langen Zeit am Boden gelingt es Ihnen, wieder aufzustehen und den Weg zu finden."
@@ -2673,7 +2673,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "Sie warten geduldig, aber der Nebel hält sich hartnäckig. Schließlich hören Sie Schritte und folgen dem Geräusch. Ohne zu verstehen, wie, bemerken Sie schließlich, dass Sie den Weg nach Claire De Ville eingeschlagen haben.",
+          "0": "Sie warten geduldig, aber der Nebel hält sich hartnäckig. Schließlich hören Sie Schritte und folgen dem Geräusch. Ohne zu verstehen, wie, bemerken Sie schließlich, dass Sie den Weg nach Claire de Ville eingeschlagen haben.",
           "1": "Nach einer langen Wartezeit beginnt die Kälte Sie zu übermannen. Leider ist der Nebel immer noch da! Fröstelnd machen Sie sich blindlings auf den Rückweg und tauchen aus dem Nebel in Richtung Screaming Wood auf.",
           "2": "Auch nach längerem Warten löst sich der Nebel nicht auf. Sie gehen schließlich weiter und versuchen, dem Hang bergab zu folgen. Diese Strategie geht schließlich auf und Sie beobachten, wie die Brücke über den Fluss immer näher kommt."
         },
@@ -2681,7 +2681,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "Ihr Anruf hallt ins Leere. Niemand meldet sich. Sie versuchen, sich selbst zu orientieren, aber Sie verlieren sich völlig im Nebel. Nachdem Sie eine ganze Weile umhergeirrt sind, finden Sie schließlich einen Weg und stellen fest, dass Sie sich auf dem Weg nach Claire De Ville befinden.",
+          "0": "Ihr Anruf hallt ins Leere. Niemand meldet sich. Sie versuchen, sich selbst zu orientieren, aber Sie verlieren sich völlig im Nebel. Nachdem Sie eine ganze Weile umhergeirrt sind, finden Sie schließlich einen Weg und stellen fest, dass Sie sich auf dem Weg nach Claire de Ville befinden.",
           "1": "Eine warme Stimme antwortet Ihnen aus dem Nebel und stellt sich als Führer durch die Region vor. Die Person gesellt sich zu Ihnen und bietet Ihnen an, Sie für ein paar Münzen an jeden gewünschten Ort zu führen. Erfreut darüber, dass Sie ohne Angst in die richtige Richtung gehen können, nehmen Sie an und folgen dem Führer zu Ihrem Ziel.",
           "2": "Niemand antwortet Ihnen. Entmutigt klettern Sie instinktiv wieder hinunter und tauchen in der Nähe des Krabbenflusses auf."
         },
@@ -2707,7 +2707,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Sie lassen sich vom Strom der Herde tragen, die gemächlich nach Claire De Ville hinaufsteigt.",
+          "0": "Sie lassen sich vom Strom der Herde tragen, die gemächlich nach Claire de Ville hinaufsteigt.",
           "1": "Die Herde führt Sie auf ihrer üblichen Route, die sich in Richtung Heulender Wald schlängelt.",
           "2": "Die Ziegen ändern plötzlich ihre Richtung, folgen ihrem Instinkt und Sie finden sich auf dem Weg zurück nach unten zum Krabbenfluss wieder."
         },
@@ -2723,7 +2723,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "Der Schäfer erklärt Ihnen, dass er nach Claire De Ville hinaufsteigt, und lädt Sie ein, ihn zu begleiten. Sie lehnen höflich ab und ziehen es vor, Ihren eigenen Weg zu gehen.",
+          "0": "Der Schäfer erklärt Ihnen, dass er nach Claire de Ville hinaufsteigt, und lädt Sie ein, ihn zu begleiten. Sie lehnen höflich ab und ziehen es vor, Ihren eigenen Weg zu gehen.",
           "1": "Der Schäfer ist auf dem Weg zur Transhumanz in den Heulenden Wald und schlägt Ihnen vor, den Weg gemeinsam zu gehen. Sie lehnen höflich ab und ziehen es vor, Ihren eigenen Weg zu gehen.",
           "2": "Der Schäfer geht wieder hinunter zu seinen Weiden in der Nähe des Krabbenflusses. Sein Weg erscheint Ihnen sicherer."
         },

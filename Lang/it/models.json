@@ -819,7 +819,7 @@
       "particle": "verso la"
     },
     "22": {
-      "description": "Famigerata foresta ai margini di Claire De Ville, il Bosco Urlante ha una pessima reputazione. Rifugio di banditi e fuorilegge di ogni genere, il suo nome deriva principalmente dalle dubbie pratiche di centinaia di anni fa.",
+      "description": "Famigerata foresta ai margini di Claire de Ville, il Bosco Urlante ha una pessima reputazione. Rifugio di banditi e fuorilegge di ogni genere, il suo nome deriva principalmente dalle dubbie pratiche di centinaia di anni fa.",
       "name": "Bosco Urlante",
       "particle": "verso lo"
     },
@@ -829,17 +829,17 @@
       "particle": "verso la"
     },
     "23": {
-      "description": "Importante città mercantile e crocevia economico, Claire De Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire De Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
-      "name": "Claire De Ville",
+      "description": "Importante città mercantile e crocevia economico, Claire de Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire de Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
+      "name": "Claire de Ville",
       "particle": "verso"
     },
     "24": {
-      "description": "Una strada molto ripida che porta a Claire De Ville. Tutto dipende dalla strada che prendete.",
+      "description": "Una strada molto ripida che porta a Claire de Ville. Tutto dipende dalla strada che prendete.",
       "name": "Strada Arrampicata",
       "particle": "verso la"
     },
     "25": {
-      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire De Ville.",
+      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire de Ville.",
       "name": "Fiume dei Granchi",
       "particle": "verso la"
     },

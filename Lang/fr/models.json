@@ -819,7 +819,7 @@
       "particle": "vers la"
     },
     "22": {
-      "description": "Forêt mal famée au bord de Claire De Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
+      "description": "Forêt mal famée au bord de Claire de Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
       "name": "Bois Hurlant",
       "particle": "vers le"
     },
@@ -829,17 +829,17 @@
       "particle": "vers la"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire De Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l'ordre.",
-      "name": "Claire De Ville",
+      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre.",
+      "name": "Claire de Ville",
       "particle": "vers"
     },
     "24": {
-      "description": "Une route très raide qui mène jusqu'à Claire De Ville. Tout dépend dans quel sens vous l'empruntez.",
+      "description": "Une route très raide qui mène jusqu'à Claire de Ville. Tout dépend dans quel sens vous l'empruntez.",
       "name": "Route Grimpante",
       "particle": "vers la"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire De Ville.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville.",
       "name": "Rivière aux Crabes",
       "particle": "vers la"
     },

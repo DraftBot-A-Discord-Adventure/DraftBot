@@ -2316,7 +2316,7 @@
         "text": "Tentativa de roubo de um livro para revenda."
       }
     },
-    "text": "Depois de passear pelas ruas de Claire De Ville, depara-se com um edifício cuja entrada é emoldurada por duas estátuas de coruja em pedra. Ao aproximar-se, apercebe-se de que se trata da biblioteca da cidade. Decide entrar no edifício para passar o tempo. Numa das paredes da entrada, está pendurado um calendário feito de grandes folhas unidas por uma tira de couro."
+    "text": "Depois de passear pelas ruas de Claire de Ville, depara-se com um edifício cuja entrada é emoldurada por duas estátuas de coruja em pedra. Ao aproximar-se, apercebe-se de que se trata da biblioteca da cidade. Decide entrar no edifício para passar o tempo. Numa das paredes da entrada, está pendurado um calendário feito de grandes folhas unidas por uma tira de couro."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Muda de ideias e parte em busca de uma banca de comida."
       }
     },
-    "text": "Ao chegar aos arredores de Claire De Ville, descobre que muitos dos seus habitantes se deslocaram para fora das grandes muralhas: está em curso um torneio senhorial! Nos cartazes junto às muralhas, bobos, trovadores, menestréis, arautos, bardos e contadores de histórias vociferam com alegria, aplaudindo cada golpe de espada, lança ou maça. Entusiasmado com o caos e o entusiasmo geral, decide tentar a sua sorte. Encontra o juiz de contos, que aceita a sua inscrição e lhe pergunta em que evento gostaria de participar."
+    "text": "Ao chegar aos arredores de Claire de Ville, descobre que muitos dos seus habitantes se deslocaram para fora das grandes muralhas: está em curso um torneio senhorial! Nos cartazes junto às muralhas, bobos, trovadores, menestréis, arautos, bardos e contadores de histórias vociferam com alegria, aplaudindo cada golpe de espada, lança ou maça. Entusiasmado com o caos e o entusiasmo geral, decide tentar a sua sorte. Encontra o juiz de contos, que aceita a sua inscrição e lhe pergunta em que evento gostaria de participar."
   },
   "73": {
     "possibilities": {
@@ -2664,7 +2664,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Abre-se caminho cautelosamente através do nevoeiro, seguindo os contornos da estrada. Quando o nevoeiro finalmente se dissipa, encontra-se na estrada que conduz a Claire De Ville.",
+          "0": "Abre-se caminho cautelosamente através do nevoeiro, seguindo os contornos da estrada. Quando o nevoeiro finalmente se dissipa, encontra-se na estrada que conduz a Claire de Ville.",
           "1": "Avançamos lentamente através do nevoeiro espesso. Quando o nevoeiro se dissipa, apercebe-se de que está a dirigir-se para o Bosque dos Uivantes.",
           "2": "Ao sentir o seu caminho, não consegue seguir a estrada durante muito tempo. Depois de muito tempo a caminhar ao acaso, admite finalmente que está perdido. Vai demorar algum tempo até encontrares o caminho de volta...",
           "3": "Avança com cautela, mas o nevoeiro é tão denso que não consegue seguir a estrada. Acaba por cair e tombar pela encosta abaixo durante vários metros. Depois de ficar deitado no chão durante muito tempo, consegue levantar-se e encontrar o caminho de volta para a estrada."
@@ -2673,7 +2673,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "Espera pacientemente, mas o nevoeiro persiste. Por fim, ouve passos e segue o ruído, sem perceber como, mas finalmente apercebe-se de que tomou o caminho para Claire De Ville.",
+          "0": "Espera pacientemente, mas o nevoeiro persiste. Por fim, ouve passos e segue o ruído, sem perceber como, mas finalmente apercebe-se de que tomou o caminho para Claire de Ville.",
           "1": "Depois de uma longa espera, o frio começa a afetar-nos. Infelizmente, o nevoeiro ainda lá está! Gelado, partiste novamente às cegas, emergindo do nevoeiro em direção ao Bosque Uivante.",
           "2": "Mesmo depois de uma longa espera, o nevoeiro não se dissipa. Por fim, segue-se em frente e tenta-se seguir a descida da encosta. Esta estratégia acaba por funcionar e vê-se a ponte sobre o rio a aproximar-se."
         },
@@ -2681,7 +2681,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "A sua chamada soa no vazio. Ninguém responde. Tenta orientar-se sozinho, mas perde-se completamente no nevoeiro. Depois de vaguear durante muito tempo, encontra finalmente o caminho de volta e apercebe-se de que se dirige para Claire De Ville.",
+          "0": "A sua chamada soa no vazio. Ninguém responde. Tenta orientar-se sozinho, mas perde-se completamente no nevoeiro. Depois de vaguear durante muito tempo, encontra finalmente o caminho de volta e apercebe-se de que se dirige para Claire de Ville.",
           "1": "Uma voz calorosa responde-lhe através do nevoeiro, apresentando-se como um guia da região. A pessoa junta-se a ti e oferece-se para te levar onde queres ir por algumas moedas. Encantado por poder seguir na direção certa sem medo, aceita e segue o guia até ao seu destino.",
           "2": "Ninguém responde. Desanimado, volta a descer instintivamente e emerge perto do rio dos caranguejos."
         },
@@ -2707,7 +2707,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Deixa-se levar pelo fluxo da manada que sobe calmamente em direção a Claire De Ville.",
+          "0": "Deixa-se levar pelo fluxo da manada que sobe calmamente em direção a Claire de Ville.",
           "1": "O rebanho leva-o pelo seu percurso habitual e sinuoso até ao Bosque dos Uivantes.",
           "2": "As cabras mudam subitamente de direção, seguindo os seus instintos, e damos por nós a descer de novo em direção ao rio dos caranguejos."
         },
@@ -2723,7 +2723,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "O pastor explica que vai subir a Claire De Ville e convida-o a acompanhá-lo. Recusa educadamente, preferindo seguir o seu próprio caminho.",
+          "0": "O pastor explica que vai subir a Claire de Ville e convida-o a acompanhá-lo. Recusa educadamente, preferindo seguir o seu próprio caminho.",
           "1": "O pastor está a caminho do Bosque dos Uivantes para a transumância e sugere-vos que viajem juntos. Recusas educadamente, preferindo seguir o teu próprio caminho.",
           "2": "O pastor regressa aos seus pastos perto de Rivière aux Crabes. O seu caminho parece mais seguro."
         },

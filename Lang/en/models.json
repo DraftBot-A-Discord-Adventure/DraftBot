@@ -174,7 +174,7 @@
       "stop": "is no longer burnt."
     },
     "canonAttack": {
-      "description": "The accuracy of this attack decreases on fast opponents. A degae bonus is affected to this attack if the opponent is slow. Opponent may be slowed down by attack. Deals more damage if used multiple times in a row.",
+      "description": "The accuracy of this attack decreases on fast opponents. A damage bonus is affected to this attack if the opponent is slow. Opponent may be slowed down by attack. Deals more damage if used multiple times in a row.",
       "name_one": "Cannon attack",
       "name_other": "Cannon attacks"
     },
@@ -819,7 +819,7 @@
       "particle": "of the"
     },
     "22": {
-      "description": "Ill-famed forest near Claire De Ville. Howling Woods has a bad reputation. Hideout of many bandits and outlaws, it owes its name mainly from its doubtful practices, hundreds of years ago.",
+      "description": "Ill-famed forest near Claire de Ville. Howling Woods has a bad reputation. Hideout of many bandits and outlaws, it owes its name mainly from its doubtful practices, hundreds of years ago.",
       "name": "Howling Woods",
       "particle": "of the"
     },
@@ -829,17 +829,17 @@
       "particle": "of the"
     },
     "23": {
-      "description": "Large commercial city and economical crossroad, Claire De Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire De Ville is also known for its calm and its order.",
-      "name": "Claire De Ville",
+      "description": "Large commercial city and economical crossroad, Claire de Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire de Ville is also known for its calm and its order.",
+      "name": "Claire de Ville",
       "particle": "of"
     },
     "24": {
-      "description": "A very stiff road that leads to Claire De Ville. Everything depends on which way you're following it.",
+      "description": "A very stiff road that leads to Claire de Ville. Everything depends on which way you're following it.",
       "name": "Climbing road",
       "particle": "of the"
     },
     "25": {
-      "description": "Everything is in the name. A river well appreciated by fishmen from Claire De Ville.",
+      "description": "Everything is in the name. A river well appreciated by fishmen from Claire de Ville.",
       "name": "Crabs' River",
       "particle": "of"
     },

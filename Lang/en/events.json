@@ -2316,7 +2316,7 @@
         "text": "Attempt to steal a book and resell it."
       }
     },
-    "text": "After strolling through the streets of Claire De Ville, you come across a building whose entrance is framed by two stone owl statues. As you approach, you realize that this is the town's library. You decide to enter the building to pass the time. On one of the entrance walls hangs a calendar made of large leaves bound together by a leather strap."
+    "text": "After strolling through the streets of Claire de Ville, you come across a building whose entrance is framed by two stone owl statues. As you approach, you realize that this is the town's library. You decide to enter the building to pass the time. On one of the entrance walls hangs a calendar made of large leaves bound together by a leather strap."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Change your mind and go in search of a food stall."
       }
     },
-    "text": "As you arrive on the outskirts of Claire De Ville, you discover that many of its inhabitants have moved outside the great walls: a seigneurial tournament is in full swing! On the hoardings attached to the walls, jesters, troubadours, minstrels, heralds, bards and storytellers vociferate with joy, cheering each blow of sword, lance or mace. Enthralled by the mayhem and general cheerfulness, you decide to try your luck. You spot the storytelling judge, who accepts your entry and asks you which test you'd like to take part in."
+    "text": "As you arrive on the outskirts of Claire de Ville, you discover that many of its inhabitants have moved outside the great walls: a seigneurial tournament is in full swing! On the hoardings attached to the walls, jesters, troubadours, minstrels, heralds, bards and storytellers vociferate with joy, cheering each blow of sword, lance or mace. Enthralled by the mayhem and general cheerfulness, you decide to try your luck. You spot the storytelling judge, who accepts your entry and asks you which test you'd like to take part in."
   },
   "73": {
     "possibilities": {
@@ -2664,7 +2664,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "You advance cautiously through the fog, following the contours of the road. When the mist finally clears, you find yourself on the road leading to Claire De Ville.",
+          "0": "You advance cautiously through the fog, following the contours of the road. When the mist finally clears, you find yourself on the road leading to Claire de Ville.",
           "1": "You move slowly through the thick fog. When the fog lifts, you realize you're heading for Howling Wood.",
           "2": "As you grope your way along, you can't follow the road for very long. After a long while of walking at random, you finally admit you're lost. It'll be a while before you find your way back...",
           "3": "You advance cautiously, but the fog is so thick that you can't follow the road. You end up falling and tumbling down the slope for several meters. After a long time on the ground, you manage to get up and find your way back to the road."
@@ -2673,7 +2673,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "You wait patiently, but the fog persists. Finally, you hear footsteps and follow the noise, without understanding how, you finally notice that you've taken the road to Claire De Ville.",
+          "0": "You wait patiently, but the fog persists. Finally, you hear footsteps and follow the noise, without understanding how, you finally notice that you've taken the road to Claire de Ville.",
           "1": "After a long wait, the cold begins to take hold of you. Unfortunately, the fog is still there! Chilled, you set off again blind, emerging from the fog in the direction of Howling Wood.",
           "2": "Even after a long wait, the fog doesn't lift. You finally move on and try to follow the downhill slope. This strategy eventually works, and you watch the bridge over the river draw nearer."
         },
@@ -2681,7 +2681,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "Your call rings out into the void. No one answers. You try to find your way on your own, but get completely lost in the fog. After wandering for a long time, you finally find your way back and realize you're heading for Claire De Ville.",
+          "0": "Your call rings out into the void. No one answers. You try to find your way on your own, but get completely lost in the fog. After wandering for a long time, you finally find your way back and realize you're heading for Claire de Ville.",
           "1": "A warm voice answers you through the fog, introducing himself as a local guide. The person joins you and offers to take you where you want to go for a few coins. Delighted to be able to set off in the right direction without fear, you accept and follow the guide to your destination.",
           "2": "No one answers. Discouraged, you instinctively descend and emerge near the crab river."
         },
@@ -2707,7 +2707,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "You let yourself be carried along by the flow of the herd as it quietly climbs towards Claire De Ville.",
+          "0": "You let yourself be carried along by the flow of the herd as it quietly climbs towards Claire de Ville.",
           "1": "The herd takes you on its usual winding route to the Howling Woods.",
           "2": "The goats suddenly change direction, following their instincts, and you find yourself heading back down to the crab river."
         },
@@ -2723,7 +2723,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "The shepherd explains that he's going up to Claire De Ville and invites you to accompany him. You politely decline, preferring to go your own way.",
+          "0": "The shepherd explains that he's going up to Claire de Ville and invites you to accompany him. You politely decline, preferring to go your own way.",
           "1": "The shepherd is on his way to Howling Wood for the transhumance and suggests that you travel together. You politely decline, preferring to go your own way.",
           "2": "The shepherd heads back down to his pastures near Rivière aux Crabes. His path seems safer."
         },

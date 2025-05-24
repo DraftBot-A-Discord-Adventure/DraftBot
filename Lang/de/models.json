@@ -819,7 +819,7 @@
       "particle": "in Richtung"
     },
     "22": {
-      "description": "Unbeliebter Wald am Rand von Claire De Ville, Bois Hurlant hat einen sehr schlechten Ruf. Repazile Banditen und außerhalb des Gesetzes, sie hält vor allem ihren Namen aus diesen dubiosen Praktiken vor hunderten Jahren.",
+      "description": "Unbeliebter Wald am Rand von Claire de Ville, Bois Hurlant hat einen sehr schlechten Ruf. Repazile Banditen und außerhalb des Gesetzes, sie hält vor allem ihren Namen aus diesen dubiosen Praktiken vor hunderten Jahren.",
       "name": "Bois Hurlant",
       "particle": "in Richtung"
     },
@@ -829,12 +829,12 @@
       "particle": "in Richtung"
     },
     "23": {
-      "description": "In der großen Handelsstadt Claire De Ville war es nicht immer so gastfreundlich, wie es die Stadt war. Zu Beginn sehr arm, hat sie sich schnell dank ihrer vielen Geschäfte und Hotels entwickelt, die den Reisenden in der Region eine große Auswahl bieten. Claire De Ville ist auch bekannt für die Ruhe und die Befolgung des Ortes.",
-      "name": "Claire De Ville",
+      "description": "In der großen Handelsstadt Claire de Ville war es nicht immer so gastfreundlich, wie es die Stadt war. Zu Beginn sehr arm, hat sie sich schnell dank ihrer vielen Geschäfte und Hotels entwickelt, die den Reisenden in der Region eine große Auswahl bieten. Claire de Ville ist auch bekannt für die Ruhe und die Befolgung des Ortes.",
+      "name": "Claire de Ville",
       "particle": "in"
     },
     "24": {
-      "description": "Eine sehr steigere Straße, die nach Claire De Ville führt. Alles hängt davon ab, in welche Richtung Sie sich einschlagen.",
+      "description": "Eine sehr steigere Straße, die nach Claire de Ville führt. Alles hängt davon ab, in welche Richtung Sie sich einschlagen.",
       "name": "Straße Grimpante",
       "particle": "in Richtung"
     },

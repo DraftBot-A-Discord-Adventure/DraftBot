@@ -819,7 +819,7 @@
       "particle": "a la"
     },
     "22": {
-      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire De Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
+      "description": "Bois Hurlant, un bosque tristemente célebre situado en las afueras de Claire de Ville, tiene muy mala reputación. Refugio de bandidos y forajidos de todo tipo, su nombre se debe principalmente a las dudosas prácticas de hace cientos de años.",
       "name": "Bosque aullador",
       "particle": "a la"
     },
@@ -829,17 +829,17 @@
       "particle": "a la"
     },
     "23": {
-      "description": "Claire De Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire De Ville también es conocida por su tranquilidad y respeto al orden.",
-      "name": "Claire De Ville",
+      "description": "Claire de Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire de Ville también es conocida por su tranquilidad y respeto al orden.",
+      "name": "Claire de Ville",
       "particle": "a"
     },
     "24": {
-      "description": "Una carretera muy empinada que lleva a Claire De Ville. Todo depende del camino que tomes.",
+      "description": "Una carretera muy empinada que lleva a Claire de Ville. Todo depende del camino que tomes.",
       "name": "Vía de escalada",
       "particle": "a la"
     },
     "25": {
-      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire De Ville.",
+      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire de Ville.",
       "name": "Rivière aux Crabes",
       "particle": "a la"
     },

@@ -819,7 +819,7 @@
       "particle": "para o"
     },
     "22": {
-      "description": "Uma floresta notória nos limites de Claire De Ville, Bois Hurlant tem uma reputação muito má. Antro de bandidos e marginais de todo o género, o seu nome deriva sobretudo das práticas duvidosas de há centenas de anos.",
+      "description": "Uma floresta notória nos limites de Claire de Ville, Bois Hurlant tem uma reputação muito má. Antro de bandidos e marginais de todo o género, o seu nome deriva sobretudo das práticas duvidosas de há centenas de anos.",
       "name": "Madeira Uivante",
       "particle": "para o"
     },
@@ -829,17 +829,17 @@
       "particle": "para o"
     },
     "23": {
-      "description": "Grande cidade mercantil e cruzamento económico, Claire De Ville nem sempre foi tão acolhedora. Inicialmente muito pobre, desenvolveu-se rapidamente graças às suas numerosas lojas e hotéis que oferecem uma vasta escolha aos viajantes da região. Claire De Ville é também conhecida pela sua calma e respeito pela ordem.",
-      "name": "Claire De Ville",
+      "description": "Grande cidade mercantil e cruzamento económico, Claire de Ville nem sempre foi tão acolhedora. Inicialmente muito pobre, desenvolveu-se rapidamente graças às suas numerosas lojas e hotéis que oferecem uma vasta escolha aos viajantes da região. Claire de Ville é também conhecida pela sua calma e respeito pela ordem.",
+      "name": "Claire de Ville",
       "particle": "para"
     },
     "24": {
-      "description": "Uma estrada muito íngreme que leva a Claire De Ville. Tudo depende da direção que se toma.",
+      "description": "Uma estrada muito íngreme que leva a Claire de Ville. Tudo depende da direção que se toma.",
       "name": "Estrada de escalada",
       "particle": "para o"
     },
     "25": {
-      "description": "Está tudo no nome. Um rio muito apreciado pelas peixarias de Claire De Ville.",
+      "description": "Está tudo no nome. Um rio muito apreciado pelas peixarias de Claire de Ville.",
       "name": "Rivière aux Crabes",
       "particle": "para o"
     },

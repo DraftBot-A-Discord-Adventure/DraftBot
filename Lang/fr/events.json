@@ -2316,7 +2316,7 @@
         "text": "Tenter de voler un livre pour le revendre."
       }
     },
-    "text": "Après avoir flâné dans les rues de Claire De Ville, vous apercevez un bâtiment dont l'entrée est encadrée par deux statues de hiboux en pierre. En vous en approchant, vous comprenez que c'est la bibliothèque de la ville. Vous décidez d'entrer dans la bâtisse pour passer le temps. Sur un des murs de l'entrée, est accroché un calendrier fait de larges feuilles reliées entre elles par une lanière de cuir."
+    "text": "Après avoir flâné dans les rues de Claire de Ville, vous apercevez un bâtiment dont l'entrée est encadrée par deux statues de hiboux en pierre. En vous en approchant, vous comprenez que c'est la bibliothèque de la ville. Vous décidez d'entrer dans la bâtisse pour passer le temps. Sur un des murs de l'entrée, est accroché un calendrier fait de larges feuilles reliées entre elles par une lanière de cuir."
   },
   "69": {
     "possibilities": {
@@ -2496,7 +2496,7 @@
         "text": "Changer d'avis et partir en quête d'un stand de nourriture."
       }
     },
-    "text": "Alors que vous arrivez aux abords de Claire De Ville, vous découvrez que bon nombre de ses habitants se sont déplacés à l'extérieur des grandes murailles : un tournoi seigneurial bat son plein ! Sur les hourds accolés aux murailles, bouffons, troubadours, ménestrels, hérauts, bardes et conteurs vocifèrent de joie, acclamant chaque coup d'épée, de lance ou de masse. Enthousiasmé par la pagaille et l'entrain général, vous décidez de tenter votre chance. Vous repérez le juge diseur qui accepte votre inscription et vous demande à quelle épreuve vous souhaitez participer."
+    "text": "Alors que vous arrivez aux abords de Claire de Ville, vous découvrez que bon nombre de ses habitants se sont déplacés à l'extérieur des grandes murailles : un tournoi seigneurial bat son plein ! Sur les hourds accolés aux murailles, bouffons, troubadours, ménestrels, hérauts, bardes et conteurs vocifèrent de joie, acclamant chaque coup d'épée, de lance ou de masse. Enthousiasmé par la pagaille et l'entrain général, vous décidez de tenter votre chance. Vous repérez le juge diseur qui accepte votre inscription et vous demande à quelle épreuve vous souhaitez participer."
   },
   "73": {
     "possibilities": {
@@ -2665,7 +2665,7 @@
     "possibilities": {
       "prudent": {
         "outcomes": {
-          "0": "Vous avancez prudemment dans le brouillard, suivant les contours de la route. Quand la brume se dissipe enfin, vous vous trouvez sur le chemin menant à Claire De Ville.",
+          "0": "Vous avancez prudemment dans le brouillard, suivant les contours de la route. Quand la brume se dissipe enfin, vous vous trouvez sur le chemin menant à Claire de Ville.",
           "1": "Vous progressez lentement dans la brume épaisse. Lorsque le brouillard se lève, vous réalisez que vous vous dirigez vers le Bois Hurlant.",
           "2": "Avançant à tâtons, vous ne parvenez pas à suivre la route bien longtemps. Après un long moment à marcher au hasard, vous finissez par admettre que vous êtes perdu. Il vous faudra un moment avant de retrouver la route...",
           "3": "Vous avancez prudemment, mais le brouillard est si épais que vous ne parvenez pas à suivre la route. Vous finissez par tomber et dévalez la pente sur plusieurs mètres. Après un long moment au sol, vous réussissez à vous relever et à retrouver la route."
@@ -2674,7 +2674,7 @@
       },
       "wait": {
         "outcomes": {
-          "0": "Vous attendez patiemment, mais le brouillard persiste. Finalement, vous entendez des pas et suivez le bruit, sans comprendre comment, vous finissez par remarquer que vous avez pris la route vers Claire De Ville.",
+          "0": "Vous attendez patiemment, mais le brouillard persiste. Finalement, vous entendez des pas et suivez le bruit, sans comprendre comment, vous finissez par remarquer que vous avez pris la route vers Claire de Ville.",
           "1": "Après une longue attente, le froid commence à s'emparer de vous. Malheureusement le brouillard est encore là ! Frigorifié, vous repartez à l'aveugle et émergez du brouillard en direction du Bois Hurlant.",
           "2": "Même après une longue attente, le brouillard ne se dissipe pas. Vous finissez par avancer et tentez de suivre la pente en descente. Cette stratégie finit par fonctionner et vous observez le pont au dessus de la rivière se rapprocher."
         },
@@ -2682,7 +2682,7 @@
       },
       "call": {
         "outcomes": {
-          "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire De Ville.",
+          "0": "Votre appel résonne dans le vide. Personne ne répond. Vous tentez de vous diriger par vous-même mais vous vous perdez complètement dans le brouillard. Après avoir erré un long moment, vous finissez par retrouver un chemin et réalisez que vous vous dirigez vers Claire de Ville.",
           "1": "Une voix chaleureuse vous répond dans le brouillard et se présente comme un guide de la région. La personne vous rejoint et vous propose de vous mener où vous le souhaitez moyennant quelques pièces. Ravi de pouvoir partir dans la bonne direction sans crainte, vous acceptez et suivez le guide vers votre destination.",
           "2": "Personne ne répond. Découragé, vous redescendez instinctivement et émergez près de la rivière aux crabes."
         },
@@ -2708,7 +2708,7 @@
     "possibilities": {
       "follow": {
         "outcomes": {
-          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire De Ville.",
+          "0": "Vous vous laissez porter par le flux du troupeau qui monte tranquillement vers Claire de Ville.",
           "1": "Le troupeau vous emmène dans sa route habituelle qui serpente vers le Bois Hurlant.",
           "2": "Les chèvres changent soudain de direction, suivant leur instinct, et vous vous retrouvez à redescendre vers la rivière aux crabes."
         },
@@ -2724,7 +2724,7 @@
       },
       "ask": {
         "outcomes": {
-          "0": "Le berger vous explique qu'il monte à Claire De Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
+          "0": "Le berger vous explique qu'il monte à Claire de Ville et vous invite à l'accompagner. Vous refusez poliment, préférant suivre votre propre chemin.",
           "1": "Le berger se rend au Bois Hurlant pour la transhumance et vous propose de faire route ensemble. Vous refusez poliment, préférant suivre votre propre chemin.",
           "2": "Le berger redescend vers ses pâturages près de la Rivière aux Crabes. Son chemin vous semble plus sûr."
         },
