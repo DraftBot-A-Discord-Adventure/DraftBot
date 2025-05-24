@@ -315,6 +315,11 @@
         "{{playerDisplay}} sembra essere freddo. Lo si riscalda un po' e poi si va via.",
         "Un suono ridondante di ticchettio vi infastidisce. {{playerDisplay}}Scoprite che sono i denti di... Questo è congelato! Riprendete il vostro viaggio senza ulteriori indugi."
       ],
+      "feetHurt": [
+        "Vi imbattete in {{playerDisplay}} che si lamenta dei suoi piedi. Spiega che cammina da troppo tempo senza fermarsi. Gli date qualche consiglio su come evitare questo problema in futuro e continuate per la vostra strada.",
+        "Notate che {{playerDisplay}} ha difficoltà a camminare. Spiega che gli fanno male i piedi dopo aver camminato troppo a lungo. Gli consigliate di fare pause regolari e continuate per la vostra strada.",
+        "Durante una passeggiata, vi imbattete in {{playerDisplay}} che si lamenta di un dolore al piede. Le suggerite di prendersi cura dei suoi piedi e di fare delle pause per evitare lesioni."
+      ],
       "confounded": [
         "{{playerDisplay}}È possibile contattare . Ci provate. Le sue parole sono piuttosto incoerenti, quindi continuate per la vostra strada, un po' confusi.",
         "{{playerDisplay}} dice molte cose incoerenti. Tutto ciò vi sembra strano e ve ne andate in fretta, confusi!",
