@@ -91,12 +91,12 @@
     "title": "{{pseudo}}conferma :",
     "confirmDesc": "{emote:collectors.question} Vuoi davvero lasciare la gilda di{{guildName}}?",
     "confirmChiefDesc": "{emote:collectors.question} Vuoi davvero distruggere **permanentemente** la gilda{{guildName}}?",
-    "confirmChiefDescWithElder": "{emote:collectors.question} Souhaitez-vous vraiment quitter la guilde `{{guildName}}` ?\n\n{{newChiefPseudo}} en deviendra le chef.",
+    "confirmChiefDescWithElder": "{emote:collectors.question} Vuoi davvero lasciare la gilda di{{guildName}}?\n\n{{newChiefPseudo}} diventerà il suo capo.",
     "canceledDesc": "La partenza è stata annullata.",
     "successTitle": "{{pseudo}} {{guildName}} ha lasciato la gilda!",
     "leavingSuccess": "Sei un povero cowboy solitario e molto lontano da casa...",
     "destroySuccess": "{{guildName}} La gilda è stata sciolta con successo.",
-    "leavingSuccessWithNewChief": "{{newChiefPseudo}} est le nouveau chef de la guilde {{guildName}} !",
+    "leavingSuccessWithNewChief": "{{newChiefPseudo}} è il nuovo capo gilda {{guildName}} !",
     "notInAGuild": "Sembra che tu non faccia più parte di una gilda.",
     "canceledTitle": "Cancellazione presa in considerazione"
   },
@@ -904,7 +904,7 @@
     "types": {
       "report": "Rapporti",
       "guildDaily": "Ricompense di gilda",
-      "playerFreedFromJail": "Libération de prison"
+      "playerFreedFromJail": "Rilascio dal carcere"
     },
     "enableDisable": "Abilitazione/Disabilitazione",
     "sendLocationField": "Indirizzo di consegna :",
