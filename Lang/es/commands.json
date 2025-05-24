@@ -838,6 +838,26 @@
             "Los análisis metabólicos muestran que este espécimen puede transferir una fracción de la energía vital de un adversario, mejorando así la resistencia de su dueño.",
             "Los exámenes confirman una capacidad natural de absorción de energía, caracterizada por una sutil retirada de la energía contraria.",
             "Las observaciones clínicas demuestran que dispone de mecanismos de transferencia de energía, capaces de revitalizar a su amo captando la energía hostil."
+          ],
+          "smallBite": [
+            "Sus pequeños dientes son discretos pero formidables. Al morder, corre el riesgo de provocar una infección furtiva en su adversario.",
+            "Esta mascota tiene dientes finos pero penetrantes. Sus mordeduras, aunque modestas, pueden empeorar con el tiempo.",
+            "No subestimes sus diminutos colmillos. Una simple mordedura puede provocar una lenta pero temible infección."
+          ],
+          "crush": [
+            "¡Su poder físico es abrumador! Si tu oponente duda, será aplastado bajo su peso.",
+            "Este familiar espera el momento oportuno para atacar. Aplastará a los enemigos demasiado lentos para huir, inmovilizándolos para siempre.",
+            "Su ataque es sencillo pero despiadado: aprovecha el más mínimo error para aplastar a su oponente sin piedad."
+          ],
+          "healOwnerInEnergyRange": [
+            "En cuanto detecta un bajón de energía, esta mascota transfiere parte de su fuerza vital para apoyar a su amo.",
+            "Su sensibilidad a tu estado de energía es notable. Interviene en cuanto tu nivel de energía desciende peligrosamente.",
+            "Este compañero vela por ti las veinticuatro horas del día. Cuando tus fuerzas flaquean, te revitaliza de inmediato."
+          ],
+          "useTool": [
+            "Ingenioso y lleno de recursos, utiliza los materiales que le rodean para crear herramientas de combate improvisadas.",
+            "Esta mascota tiene un instinto creativo asombroso. Producirá rápidamente objetos útiles en medio de un combate.",
+            "Su inteligencia táctica es fascinante. Explotará cada elemento del terreno para construir algo que te ayude."
           ]
         },
         "ageComment_ancestor": "¡INCREÍBLE! exclama el veterinario, con los ojos muy abiertos. ¡Su mascota es un espécimen excepcionalmente raro! Es uno de los más antiguos jamás registrados en nuestros archivos - ¡sólo se han encontrado otras mascotas más antiguas en {{age}} ! ¡Una auténtica reliquia viviente!",
