@@ -28,5 +28,8 @@
   "guildFood": {
     "receivedFoodTitle": "Tu gremio ha recibido alimentos",
     "receivedFoodDescription": "{emote:foods.{{foodId}}} Tu gremio ha recibido : **{{amount}}x {{foodName}}**."
+  },
+  "playerFreedFromJail": {
+    "description": "Vous avez été libéré de prison par **{{freedByPlayer}}** !"
   }
 }
