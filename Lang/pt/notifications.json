@@ -30,6 +30,6 @@
     "receivedFoodDescription": "{O teu grémio recebeu{{foodId}}} O teu grémio recebeu : **{{amount}}x {{foodName}}**."
   },
   "playerFreedFromJail": {
-    "description": "Vous avez été libéré de prison par **{{freedByPlayer}}** !"
+    "description": "Foi libertado da prisão por **{{freedByPlayer}}** !"
   }
 }
