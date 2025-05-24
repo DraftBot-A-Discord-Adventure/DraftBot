@@ -840,24 +840,24 @@
             "As observações clínicas mostram que possui mecanismos de transferência de energia, capazes de revitalizar o seu mestre através da captação de energia hostil."
           ],
           "smallBite": [
-            "Ses petites dents sont discrètes mais redoutables. En mordant, il risque de provoquer une infection sournoise chez l’adversaire.",
-            "Ce familier possède une dentition fine mais perçante. Ses morsures, bien que modestes, peuvent s’aggraver avec le temps.",
-            "Ne sous-estimez pas ses crocs minuscules ! Une simple morsure peut entraîner une infection lente mais redoutable."
+            "Os seus pequenos dentes são discretos mas formidáveis. Ao morder, arrisca-se a provocar uma infeção sorrateira no seu adversário.",
+            "Este animal tem dentes finos mas penetrantes. As suas dentadas, embora modestas, podem agravar-se com o tempo.",
+            "Não subestime as suas pequenas presas! Uma simples mordidela pode conduzir a uma infeção lenta mas temível."
           ],
           "crush": [
-            "Sa puissance physique est écrasante ! Si l’adversaire hésite, il se retrouvera broyé sous son poids.",
-            "Ce familier attend le bon moment pour frapper. Il écrasera ses ennemis trop lents à fuir, les immobilisant définitivement.",
-            "Son attaque est simple mais impitoyable : il profite de la moindre erreur pour écraser l’adversaire sans pitié."
+            "O seu poder físico é avassalador! Se o teu adversário hesitar, será esmagado pelo seu peso.",
+            "Este familiar espera pelo momento certo para atacar. Esmagará os inimigos demasiado lentos para fugir, imobilizando-os para sempre.",
+            "O seu ataque é simples mas impiedoso: aproveita o mais pequeno erro para esmagar o adversário sem piedade."
           ],
           "healOwnerInEnergyRange": [
-            "Dès qu’il perçoit une baisse d’énergie, ce familier transfère une partie de sa force vitale pour soutenir son maître.",
-            "Sa sensibilité à votre état énergétique est remarquable. Il intervient dès que votre énergie chute dangereusement.",
-            "Ce compagnon veille sur vous sans relâche. Quand votre force faiblit, il vous revitalise immédiatement."
+            "Assim que sente uma queda de energia, este animal transfere parte da sua força vital para apoiar o seu dono.",
+            "A sua sensibilidade ao seu estado de energia é notável. Intervém logo que o seu nível de energia desce perigosamente.",
+            "Este companheiro vigia-o 24 horas por dia. Quando as tuas forças fraquejam, ele revitaliza-te imediatamente."
           ],
           "useTool": [
-            "Ingénieux et débrouillard, il utilise les matériaux autour de lui pour créer des outils de combat improvisés.",
-            "Ce familier possède un instinct créatif étonnant. Il fabriquera rapidement des objets utiles en plein affrontement.",
-            "Son intelligence tactique est fascinante. Il exploitera chaque élément du terrain pour construire de quoi vous aider."
+            "Engenhoso e engenhoso, utiliza os materiais que o rodeiam para criar ferramentas de combate improvisadas.",
+            "Este animal de estimação tem um instinto criativo espantoso. Produzirá rapidamente objectos úteis no meio de uma luta.",
+            "A sua inteligência tática é fascinante. Explora todos os elementos do terreno para construir algo que o ajude."
           ]
         },
         "ageComment_ancestor": "INCRÍVEL! exclama o veterinário, de olhos arregalados. O seu animal de estimação é um exemplar excecionalmente raro! É um dos mais antigos alguma vez registados nos nossos arquivos - apenas {{age}} outros animais de estimação foram encontrados mais velhos! Uma verdadeira relíquia viva!",
