@@ -2566,99 +2566,99 @@
   "75": {
     "possibilities": {
       "accept": {
-        "text": "Accepter l'invitation",
+        "text": "Accept invitation",
         "outcomes": {
-          "0": "Vous grimpez à bord du navire, attiré par les rires et la lumière vacillante des lanternes. La fête bat son plein, les flots de rhum circulent sans retenue, et bientôt, vos sens se brouillent dans une brume douce et traîtresse. Le réveil est brutal : dans l'obscurité de la cale, un mal de crâne sourd vous tient compagnie. L’air marin vous gifle le visage lorsque, chancelant, vous regagnez le quai, sans le moindre souvenir de la nuit passée.",
-          "1": "À peine votre pied posé sur le pont, une tension sourde vous étreint. Les visages de l’équipage sont crispés, les regards fuyants. Puis, comme un éclair, la fureur éclate : deux hommes s’empoignent, la querelle dégénère en une mêlée confuse. Ballotté entre les coups, vous échappez de peu à une blessure grave. C’est le cœur battant et les mains tremblantes que vous regagnez la terre ferme, l’esprit ébranlé par cette violence soudaine.",
-          "2": "Le capitaine, un sourire en coin, vous invite à prendre part à un jeu dont les règles semblent aussi floues que douteuses. Vous acceptez, le souffle suspendu, et vous laissez guider par le hasard. Contre toute attente, la chance vous sourit : une bourse d’or et un objet énigmatique, serti de symboles oubliés, vous sont remis à contrecœur par un capitaine visiblement contrarié par votre victoire."
+          "0": "You climb aboard the ship, drawn by the laughter and flickering light of the lanterns. The party is in full swing, the rum flows unchecked, and soon your senses are blurred by a soft, treacherous haze. You are rudely awakened: in the darkness of the hold, a dull headache keeps you company. The sea air slaps your face as you stagger back to the quay, with no memory of last night.",
+          "1": "As soon as you set foot on deck, a dull tension grips you. The crew's faces are tense, their gazes glazed over. Then, like a bolt of lightning, the fury erupts: two men grapple, the quarrel degenerates into a confused melee. Thrown between the blows, you narrowly escape serious injury. With your heart pounding and hands trembling, you make your way back to dry land, your mind shaken by the sudden violence.",
+          "2": "The captain, with a smirk on his face, invites you to take part in a game whose rules seem as vague as they are dubious. You accept, breathless, and let chance be your guide. Against all odds, luck smiles on you: a purse of gold and an enigmatic object, set with forgotten symbols, are reluctantly handed to you by a captain visibly upset by your victory."
         }
       },
       "refuse": {
         "text": "Decline the invitation",
         "outcomes": {
-          "0": "Vous déclinez poliment, le regard posé sur les voiles noires qui battent au vent. Le capitaine vous observe un instant, puis hausse les épaules avec un sourire narquois. Sans un mot de plus, il fait signe à son équipage de lever l’ancre. Vous restez là, silencieux, tandis que le navire s’éloigne lentement, avalé par l’horizon brumeux. Vous reprenez alors votre route, le cœur serein, loin des aventures maritimes.",
-          "1": "Votre refus franchit vos lèvres avec fermeté. Mais le regard du capitaine se durcit, son sourire s’efface. D’un geste sec, il ordonne à ses hommes de viser. Le tonnerre d’un canon résonne, projetant sable et éclats tout autour de vous. Pris de panique, vous fuyez à travers la crique, le souffle court, poursuivi par l’écho grinçant d’un rire cruel."
+          "0": "You decline politely, gazing at the black sails flapping in the wind. The captain observes you for a moment, then shrugs with a wry smile. Without another word, he signals his crew to weigh anchor. You stand silently by as the ship slowly pulls away, swallowed up by the misty horizon. You then set off again, your hearts serene, far from the adventures of the sea.",
+          "1": "Your refusal crosses your lips with firmness. But the captain's gaze hardens, his smile fades. With a sharp gesture, he orders his men to take aim. The thunder of a cannon echoes, throwing sand and splinters all around you. Panic-stricken, you flee across the cove, breathless, pursued by the screeching echo of cruel laughter."
         }
       },
       "end": {
         "outcomes": {
-          "0": "Vous tournez le dos au capitaine et allez vous asseoir sur le sable, laissant votre regard suivre le vaisseau pirate qui, toutes voiles dehors, quitte lentement la baie. Le grondement sourd des flots accompagne son départ, jusqu’à ce qu’il ne soit plus qu’un point à l’horizon. Enfin, vous vous relevez, époussetez le sable de vos vêtements, et reprenez votre route, seul sur le sentier battu par les vents.",
-          "1": "Vous détournez votre regard du capitaine et laissez vos pensées voguer au rythme des flots. Là, sur le rivage balayé par les vents, votre œil est attiré par une antique bouteille, à demi enfouie dans le sable. Intrigué, vous la saisissez et y découvrez un vieux parchemin jauni par le temps. Les signes tracés d'une main tremblante y révèlent l'emplacement d'un lieu secret, dissimulé non loin. Guidé par ces énigmes, vous arpentez la lande durant longuement, jusqu’à ce que vos pas vous mènent à un coffre ancien, enfoui sous les ronces. En l’ouvrant, vous découvrez un objet aux allures mystérieuses...",
-          "2": "Vous tournez le dos au capitaine et laissez vos pas vous guider sur la plage battue par les vents. Une bouteille à demi enfouie dans le sable attire votre regard. Vous la déterrez avec précaution, espérant quelque secret oublié. À l’intérieur, un parchemin froissé, rongé par l’humidité et le sel. Vous le déroulez lentement, mais hélas… les lettres sont effacées, les mots n’étant plus que tâches informes et filigranes éteints. Aucun sens ne s’en dégage, si ce n’est un pressentiment : ce message a surement un jour été important, il est désormais perdu à jamais dans les replis du temps.",
-          "3": "Vous tournez le dos au capitaine sans un mot, ce qui semble attiser sa colère. D’un pas vif, il vous rejoint et, sans sommation, vous assène un violent coup sur l’arrière du crâne. Étourdi, vous vous affaissez sur le sable, les étoiles dansant devant vos yeux. Il repart aussitôt, regagne le pont en ricanant, puis ordonne de lever l’ancre."
+          "0": "You turn your back on the captain and sit down on the sand, letting your gaze follow the pirate ship as it slowly leaves the bay, sails all set. The muffled roar of the waves accompanies its departure, until it is no more than a speck on the horizon. Finally, you stand up, dust off the sand from your clothes, and set off again, alone on the wind-beaten path.",
+          "1": "You look away from the captain and let your thoughts drift to the rhythm of the waves. There, on the windswept shore, your eye is drawn to an ancient bottle, half-buried in the sand. Intrigued, you pick it up and discover an old parchment yellowed by time. Signs traced on it by a trembling hand reveal the location of a secret place, hidden not far away. Guided by these riddles, you wander the moor for a long time, until your footsteps lead you to an ancient chest, buried beneath the brambles. When you open it, you discover a mysterious-looking object...",
+          "2": "You turn your back on the captain and let your footsteps guide you along the windswept beach. A bottle half-buried in the sand catches your eye. You carefully unearth it, hoping for some forgotten secret. Inside, a crumpled parchment, eaten away by humidity and salt. You unroll it slowly, but alas… the letters are erased, the words nothing more than shapeless blots and faded watermarks. No meaning emerges, except a hunch: this message must once have been important, but now it's lost forever in the folds of time.",
+          "3": "You turn your back on the captain without a word, which seems to inflame his anger. With a brisk step, he joins you and, without warning, delivers a violent blow to the back of your skull. Dazed, you slump to the sand, the stars dancing before your eyes. He takes off again, returns to the deck with a sneer, then orders the anchor weighed."
         }
       }
     },
-    "text": "En arrivant à la plage sentinelle, vous apercevez, amarré, un bateau aux voiles noires et usées. Sur le pont, un homme portant un large tricorne, probablement le capitaine, vous fait signe de le rejoindre."
+    "text": "As you arrive at the sentinel beach, you see a boat moored there, its sails black and worn. On deck, a man wearing a large tricorn, probably the captain, beckons you to join him."
   },
   "76": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous décidez de ne pas vous impliquer davantage dans cette histoire confuse. Vous saluez poliment Parziter et reprenez votre route à travers la forêt, laissant derrière vous les mystères de cette demeure en ruine."
+          "0": "You decide not to become further involved in this confusing story. You politely wave goodbye to Parziter and continue on your way through the forest, leaving behind the mysteries of this ruined mansion."
         }
       },
       "help": {
         "outcomes": {
-          "0": "Vous acceptez d'aider le vieil homme. Il vous explique, entre deux sanglots, qu'une créature étrange a envahi sa cave et terrorise ses animaux. Armé de courage, vous descendez dans les profondeurs et parvenez à chasser l'intrus. Reconnaissant, Parziter vous offre une bourse bien garnie ainsi qu'un objet ancien qu'il conservait précieusement.",
-          "1": "Malgré votre bonne volonté, vos tentatives pour calmer Parziter ne font qu'aggraver sa panique. Il se met à hurler des incantations incompréhensibles et vous lance des objets. Vous battez en retraite précipitamment, une écorchure au front témoignant de cette rencontre mouvementée.",
-          "2": "En tentant de rassurer le vieil homme, vous découvrez qu'il souffre de visions étranges depuis qu'il a trouvé un artefact mystérieux. Il vous le confie, espérant que cela mettra fin à son tourment. L'objet pulse d'une énergie singulière entre vos mains.",
-          "3": "Parziter vous supplie de retrouver son chat, Minou, qui a disparu dans les bois environnants. Après une heure de recherches, vous le découvrez coincé dans un arbre creux. Le vieil homme, fou de joie, vous récompense avec les quelques pièces qu'il possède."
+          "0": "You agree to help the old man. Between sobs, he explains that a strange creature has invaded his cellar and is terrorizing his animals. Armed with courage, you descend into the depths and manage to chase the intruder away. Grateful, Parziter offers you a well-stocked purse and an ancient object he's been treasuring.",
+          "1": "Despite your best efforts, your attempts to calm Parziter only aggravate his panic. He starts shouting incomprehensible incantations and throws objects at you. You beat a hasty retreat, a scrape on your forehead bearing witness to this eventful encounter.",
+          "2": "As you try to reassure the old man, you discover that he has been suffering from strange visions ever since he found a mysterious artifact. He entrusts it to you, hoping it will put an end to his torment. The object pulses with a singular energy in your hands.",
+          "3": "Parziter begs you to find his cat, Minou, who has disappeared into the surrounding woods. After an hour's search, you find him trapped in a hollow tree. The old man is overjoyed and rewards you with the few coins he has."
         },
-        "text": "Proposer votre aide au vieil homme."
+        "text": "Offer your help to the old man."
       },
       "explore": {
         "outcomes": {
-          "0": "Vous demandez à visiter la demeure. Parziter hésite puis accepte. À l'intérieur, vous découvrez une bibliothèque aux ouvrages anciens et poussiéreux. L'un d'eux attire votre attention par ses symboles étranges. Parziter vous l'offre, affirmant qu'il lui porte malheur. Vous préférez décliner poliment et reprenez votre route.",
-          "1": "En explorant la maison, vous trébuchez sur une planche vermoulue qui cède sous votre poids. Votre cheville se tord douloureusement dans votre chute. Parziter, paniqué, applique un cataplasme d'herbes qui soulage un peu la douleur.",
-          "2": "Dans le grenier poussiéreux, vous mettez la main sur un coffret oublié contenant quelques pièces d'or et un petit objet brillant. Parziter, trop troublé pour s'en soucier, vous laisse le garder."
+          "0": "You ask to visit the house. Parziter hesitates, then accepts. Inside, you discover a library of dusty old books. One of them catches your eye with its strange symbols. Parziter offers it to you, claiming it brings him bad luck. You decline politely and continue on your way.",
+          "1": "As you explore the house, you trip over a worm-eaten board that gives way under your weight. Your ankle twists painfully as you fall. Parziter, in a panic, applies a herbal poultice that relieves the pain a little.",
+          "2": "In the dusty attic, you find a forgotten box containing a few gold coins and a small shiny object. Parziter, too troubled to care, lets you keep it."
         },
-        "text": "Demander à explorer la demeure."
+        "text": "Ask to explore the house."
       },
       "question": {
         "outcomes": {
-          "0": "Vous questionnez Parziter sur sa situation. Il vous révèle qu'il était autrefois un érudit respecté, mais qu'une malédiction l'a frappé après avoir déterré un artefact maudit. Il vous supplie de l'emporter loin d'ici. Touché par son histoire, vous acceptez et repartez avec l'objet mystérieux.",
-          "1": "Vos questions incessantes agacent le vieil homme qui finit par vous claquer la porte au nez. Vous entendez ses marmonnements irrités depuis l'extérieur et décidez de poursuivre votre chemin.",
-          "2": "Parziter vous confie qu'il garde un trésor caché depuis des années, mais qu'il a oublié où il l'a dissimulé. Intrigué, vous l'aidez à fouiller et finissez par découvrir une cache secrète contenant une belle récompense qu'il partage avec vous."
+          "0": "You ask Parziter about his situation. He reveals that he was once a respected scholar, but that a curse struck him after he dug up a cursed artifact. He begs you to take him away from here. Touched by his story, you accept and leave with the mysterious object.",
+          "1": "Your incessant questions annoy the old man, who finally slams the door in your face. You hear his irritated muttering from outside and decide to continue on your way.",
+          "2": "Parziter confides in you that he's been guarding a hidden treasure for years, but has forgotten where he hid it. Intrigued, you help him rummage around and eventually discover a secret cache containing a handsome reward, which he shares with you."
         },
-        "text": "Interroger Parziter sur sa situation."
+        "text": "Ask Parziter about his situation."
       }
     },
-    "text": "Après de longues heures de marche à travers la Forêt Celestrum, vous apercevez enfin près d'une rivière scintillante ce qui semble être une maison en ruine. Vous vous approchez discrètement, dissimulé par les frondaisons, et observez prudemment les alentours. Soudain, un cri plaintif résonne depuis l'intérieur de la demeure, confirmant qu'elle est bien habitée. Vous décidez alors de frapper à la porte de bois vermoulu. C'est un vieil homme à la mine perturbée qui vous ouvre, les yeux hagards et les cheveux en bataille. Il parle rapidement, de façon incohérente, manifestant une panique visible. Cependant, vous parvenez à saisir qu'il se nomme Parziter et qu'il semble avoir désespérément besoin d'aide."
+    "text": "After long hours of walking through the Celestrum Forest, you finally catch sight of what appears to be a ruined house near a sparkling river. You approach discreetly, hidden by the foliage, and cautiously observe the surroundings. Suddenly, a plaintive cry echoes from inside the dwelling, confirming that it is indeed inhabited. You decide to knock on the worm-eaten wooden door. It's a disturbed-looking old man who opens it, his eyes haggard and his hair a mess. He speaks rapidly, incoherently, in a visible panic. However, you manage to grasp that his name is Parziter and that he seems to be in desperate need of help."
   },
   "77": {
     "possibilities": {
       "end": {
         "outcomes": {
-          "0": "Vous observez la scène quelques instants puis, ne souhaitant pas vous mêler de cette querelle, vous contournez discrètement la clairière et poursuivez votre route à travers les sous-bois."
+          "0": "You observe the scene for a few moments and then, not wishing to get involved in this quarrel, you discreetly skirt around the clearing and continue on your way through the undergrowth."
         }
       },
       "approach": {
         "outcomes": {
-          "0": "Vous vous approchez prudemment. Les deux hommes cessent leur dispute et se tournent vers vous. L'un d'eux, visiblement soulagé d'avoir un arbitre, vous explique qu'ils se disputent la propriété d'un coffre découvert dans les ruines. Vous proposez de le partager équitablement, ce qu'ils acceptent. Reconnaissants de votre sagesse, ils vous offrent une part du butin.",
-          "1": "En vous approchant, vous marchez malencontreusement sur une branche qui craque bruyamment. Les deux hommes, surpris, pensent que vous voulez leur voler leur découverte et vous attaquent ensemble. Vous parvenez à vous défendre mais récoltez quelques bleus dans la mêlée.",
-          "2": "Votre intervention met fin à leur querelle, mais révèle qu'ils sont tous deux des bandits notoires. Impressionnés par votre courage, ils vous proposent de rejoindre leur bande. Vous déclinez, préférant l'éventuelle main de la princesse aux geôles du roi."
+          "0": "You approach cautiously. The two men stop arguing and turn to you. One of them, clearly relieved to have a referee, explains that they are disputing ownership of a chest discovered in the ruins. You offer to share it equally, which they accept. Grateful for your wisdom, they offer you a share of the booty.",
+          "1": "As you approach, you accidentally step on a branch that creaks loudly. The two men, surprised, think you're trying to steal their discovery and attack you together. You manage to defend yourself, but pick up a few bruises in the melee.",
+          "2": "Your intervention puts an end to their quarrel, but reveals that they are both notorious bandits. Impressed by your courage, they ask you to join their gang. You decline, preferring the possible hand of the princess to the king's jails."
         },
-        "text": "S'approcher pour comprendre la situation."
+        "text": "Get closer to understand the situation."
       },
       "hide": {
         "outcomes": {
-          "0": "Caché derrière un arbre, vous assistez à leur dispute qui dégénère en bagarre. L'un des hommes assomme l'autre et s'enfuit avec un sac. Une fois le calme revenu, vous vous approchez de l'homme inconscient. Il reprend conscience et, reconnaissant votre aide, vous offre une récompense qu'il avait dissimulée.",
-          "1": "Vous restez caché et observez. Les deux hommes finissent par trouver un accord et repartent ensemble. Vous fouillez discrètement l'endroit où ils se disputaient et découvrez qu'ils ont oublié un petit objet de valeur dans leur précipitation.",
-          "2": "Tapi dans l'ombre, vous attendez que la situation se calme. Malheureusement, l'un des hommes vous repère et crie à son compagnon qu'un espion les observe. Ils se lancent à votre poursuite mais vous parvenez à leur échapper en connaissant mieux la forêt qu'eux."
+          "0": "Hidden behind a tree, you watch as their argument degenerates into a brawl. One of the men knocks the other unconscious and runs off with a bag. Once calm has returned, you approach the unconscious man. He regains consciousness and, grateful for your help, offers you a reward he had been hiding.",
+          "1": "You stay hidden and observe. The two men come to an agreement and leave together. You discreetly search the place where they were arguing and discover that they have forgotten a small object of value in their haste.",
+          "2": "Lurking in the shadows, you wait for the situation to calm down. Unfortunately, one of the men spots you and shouts to his companion that a spy is watching them. They set off in pursuit, but you manage to evade them, knowing the forest better than they do."
         },
-        "text": "Observer discrètement."
+        "text": "Observe discreetly."
       },
       "flee": {
         "outcomes": {
-          "0": "Préférant éviter tout danger, vous faites demi-tour pour emprunter un chemin alternatif. Votre prudence a un prix : vous perdez du temps et finissez par vous égarer sur ce nouveau sentier, mais au moins, vous échappez aux problèmes potentiels.",
-          "1": "En rebroussant chemin, vous trébuchez dans votre hâte et vous blessez légèrement. Le bruit alerte les deux hommes qui cessent leur dispute pour regarder dans votre direction, mais ils ne vous poursuivent pas.",
-          "2": "Votre retraite vous mène par hasard vers un sentier oublié où vous découvrez les vestiges d'un ancien campement. Parmi les débris, vous trouvez un objet encore utilisable abandonné par de précédents voyageurs."
+          "0": "Preferring to avoid all danger, you turn back and take an alternative route. Your caution comes at a price: you lose time and end up getting lost on this new path, but at least you avoid potential problems.",
+          "1": "As you turn back, you stumble in your haste and injure yourself slightly. The noise alerts the two men who stop their argument to look in your direction, but they don't pursue you.",
+          "2": "Your retreat leads you by chance to a forgotten path where you discover the remains of an ancient encampment. Among the debris, you find a still-usable object abandoned by previous travelers."
         },
-        "text": "Faire demi-tour et éviter la confrontation."
+        "text": "Turn back and avoid confrontation."
       }
     },
-    "text": "En progressant dans un sentier sinueux de la Forêt Celestrum, vous entendez soudain des éclats de voix provenant d'une clairière proche. Intrigué, vous vous approchez discrètement et découvrez deux hommes en pleine dispute. Ils se tiennent face à face, gesticulant vivement, visiblement en désaccord sur quelque chose d'important. L'un porte une cape rapiécée, l'autre une veste de cuir usée. Entre eux, au sol, gît un coffret de bois que chacun semble revendiquer."
+    "text": "As you make your way along a winding path in the Celestrum Forest, you suddenly hear the sound of voices from a nearby clearing. Intrigued, you discreetly approach and discover two men arguing. They're standing face to face, gesticulating wildly, obviously disagreeing about something important. One wears a patched cape, the other a worn leather jacket. Between them, on the floor, lies a wooden box that each seems to claim."
   },
   "8": {
     "possibilities": {
