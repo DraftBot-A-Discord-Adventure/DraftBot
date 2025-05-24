@@ -1,0 +1,99 @@
+{
+  "possibilities": {
+    "end": {
+      "outcomes": {
+        "0": {
+          "effect": "lost"
+        }
+      }
+    },
+    "prudent": {
+      "outcomes": {
+        "0": {
+          "mapTypesDestination": [
+            "ci"
+          ]
+        },
+        "1": {
+          "mapTypesDestination": [
+            "fo"
+          ]
+        },
+        "2": {
+          "effect": "lost"
+        },
+        "3": {
+          "effect": "injured",
+          "health": -36
+        }
+      }
+    },
+    "wait": {
+      "outcomes": {
+        "0": {
+          "effect": "occupied",
+          "lostTime": 25,
+          "mapTypesDestination": [
+            "ci"
+          ]
+        },
+        "1": {
+          "effect": "freezing",
+          "mapTypesDestination": [
+            "fo"
+          ]
+        },
+        "2": {
+          "effect": "occupied",
+          "lostTime": 35,
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    },
+    "call": {
+      "outcomes": {
+        "0": {
+          "mapTypesDestination": [
+            "ci"
+          ],
+          "effect": "lost"
+        },
+        "1": {
+          "money": -325
+        },
+        "2": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    },
+    "goDown": {
+      "outcomes": {
+        "0": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        },
+        "1": {
+          "mapTypesDestination": [
+            "ri"
+          ],
+          "health": -2
+        },
+        "2": {
+          "mapTypesDestination": [
+            "ri"
+          ]
+        }
+      }
+    }
+  },
+  "triggers": [
+    {
+      "mapId": 24
+    }
+  ]
+}
