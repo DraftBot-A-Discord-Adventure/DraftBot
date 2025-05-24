@@ -316,9 +316,9 @@
         "A redundant clicking sound annoys you. You discover that it's {{playerDisplay}}'s teeth... He's frozen! Without further ado, you resume your journey."
       ],
       "feetHurt": [
-        "Vous croisez {{playerDisplay}} qui se plaint de ses pieds. Il vous explique qu'il a marché trop longtemps sans s'arrêter. Vous lui donnez quelques conseils pour éviter cela à l'avenir et continuez votre route.",
-        "Vous remarquez que {{playerDisplay}} marche avec difficulté. Il vous explique qu'il a mal aux pieds après avoir marché trop longtemps. Vous lui conseillez de faire des pauses régulières et reprenez votre chemin.",
-        "En marchant, vous croisez {{playerDisplay}} qui se plaint de douleurs aux pieds. Vous lui suggérez de prendre soin de ses pieds et de faire des pauses pour éviter les blessures."
+        "You come across {{playerDisplay}} complaining about his feet. He explains that he's been walking too long without stopping. You give him some advice on how to avoid this in future and continue on your way.",
+        "You notice that {{playerDisplay}} is having difficulty walking. He explains that his feet hurt after walking for too long. You advise him to take regular breaks and continue on your way.",
+        "While walking, you come across {{playerDisplay}} complaining of foot pain. You suggest that she take care of her feet and take breaks to avoid injury."
       ],
       "confounded": [
         "You chat with {{playerDisplay}}. At least, you're trying to. His words are rather incoherent, so you continue on your way somewhat confused.",
