@@ -2660,6 +2660,99 @@
     },
     "text": "As you make your way along a winding path in the Celestrum Forest, you suddenly hear the sound of voices from a nearby clearing. Intrigued, you discreetly approach and discover two men arguing. They're standing face to face, gesticulating wildly, obviously disagreeing about something important. One wears a patched cape, the other a worn leather jacket. Between them, on the floor, lies a wooden box that each seems to claim."
   },
+  "78": {
+    "possibilities": {
+      "prudent": {
+        "outcomes": {
+          "0": "You advance cautiously through the fog, following the contours of the road. When the mist finally clears, you find yourself on the road leading to Claire De Ville.",
+          "1": "You move slowly through the thick fog. When the fog lifts, you realize you're heading for Howling Wood.",
+          "2": "As you grope your way along, you can't follow the road for very long. After a long while of walking at random, you finally admit you're lost. It'll be a while before you find your way back...",
+          "3": "You advance cautiously, but the fog is so thick that you can't follow the road. You end up falling and tumbling down the slope for several meters. After a long time on the ground, you manage to get up and find your way back to the road."
+        },
+        "text": "Drive carefully along the road."
+      },
+      "wait": {
+        "outcomes": {
+          "0": "You wait patiently, but the fog persists. Finally, you hear footsteps and follow the noise, without understanding how, you finally notice that you've taken the road to Claire De Ville.",
+          "1": "After a long wait, the cold begins to take hold of you. Unfortunately, the fog is still there! Chilled, you set off again blind, emerging from the fog in the direction of Howling Wood.",
+          "2": "Even after a long wait, the fog doesn't lift. You finally move on and try to follow the downhill slope. This strategy eventually works, and you watch the bridge over the river draw nearer."
+        },
+        "text": "Stop and wait for the fog to lift."
+      },
+      "call": {
+        "outcomes": {
+          "0": "Your call rings out into the void. No one answers. You try to find your way on your own, but get completely lost in the fog. After wandering for a long time, you finally find your way back and realize you're heading for Claire De Ville.",
+          "1": "A warm voice answers you through the fog, introducing himself as a local guide. The person joins you and offers to take you where you want to go for a few coins. Delighted to be able to set off in the right direction without fear, you accept and follow the guide to your destination.",
+          "2": "No one answers. Discouraged, you instinctively descend and emerge near the crab river."
+        },
+        "text": "Call to see if anyone's there."
+      },
+      "goDown": {
+        "outcomes": {
+          "0": "You descend cautiously, using the slope as a guide. Despite a few detours in the fog, you eventually catch sight of the bridge and continue on towards Rivière aux Crabes.",
+          "1": "Your descent is chaotic in the thick fog. You slip several times on the damp ground, but finally reach the crab river, soaked and muddy.",
+          "2": "You instinctively follow the downward slope. The fog begins to lift as you approach the river."
+        },
+        "text": "Try to get down to the river."
+      },
+      "end": {
+        "outcomes": {
+          "0": "Completely disoriented by the fog, you decide not to move at all. You stand still for what seems like an eternity, listening to the muffled sounds around you. Finally, after several hours of waiting, the fog slowly begins to dissipate. When visibility returns, you see that you're still on the climbing road, exactly where the fog had caught you. You can now get back on your way in complete safety."
+        }
+      }
+    },
+    "text": "You're making good progress on the climbing road when suddenly a thick fog rolls in from the Rivière aux Crabes, whose bridge you can still vaguely make out in the distance. In a few minutes, visibility becomes very poor. All you can make out is the blurred outline of the road ahead..."
+  },
+  "79": {
+    "possibilities": {
+      "follow": {
+        "outcomes": {
+          "0": "You let yourself be carried along by the flow of the herd as it quietly climbs towards Claire De Ville.",
+          "1": "The herd takes you on its usual winding route to the Howling Woods.",
+          "2": "The goats suddenly change direction, following their instincts, and you find yourself heading back down to the crab river."
+        },
+        "text": "Let yourself be carried along by the herd."
+      },
+      "overtake": {
+        "outcomes": {
+          "0": "You quickly overtake the herd and continue on your way.",
+          "1": "Sheepdogs give you a friendly chase, diverting you from your route to Rivière aux Crabes.",
+          "2": "You're running out of breath as you try to overtake the herd. You slow down and decide to take a break to catch your breath. In the meantime, you watch the herd pass quietly in front of you."
+        },
+        "text": "Run past the herd."
+      },
+      "ask": {
+        "outcomes": {
+          "0": "The shepherd explains that he's going up to Claire De Ville and invites you to accompany him. You politely decline, preferring to go your own way.",
+          "1": "The shepherd is on his way to Howling Wood for the transhumance and suggests that you travel together. You politely decline, preferring to go your own way.",
+          "2": "The shepherd heads back down to his pastures near Rivière aux Crabes. His path seems safer."
+        },
+        "text": "Ask the shepherd where he's going."
+      },
+      "stepAside": {
+        "outcomes": {
+          "0": "You pull over and let the herd pass. The shepherd thanks you with a nod and continues on his way.",
+          "1": "You pull over to the side, but the curious goats approach you. The shepherd asks you to gently push them back so they don't stray.",
+          "2": "You pull over, but one of the shepherd's dogs comes up and bites your shoes. You don't realize it at the time, but your foot is injured. You limp on."
+        },
+        "text": "Pull to one side and let it pass."
+      },
+      "help": {
+        "outcomes": {
+          "0": "Your help is appreciated. After we've walked together, the shepherd gives you something to show for your efforts.",
+          "1": "Helping to round up the lost goats, you follow the shepherd to the Howling Wood.",
+          "2": "A goat escapes to the Rivière aux Crabes. You help him recover it and stay in the area."
+        },
+        "text": "Help the shepherd guide the animals."
+      },
+      "end": {
+        "outcomes": {
+          "0": "You decide to stay away from the herd and continue on your way. You watch them pass quietly, then go on your way."
+        }
+      }
+    },
+    "text": "As the road climbs, you hear the tinkling of bells approaching. Soon a large herd of goats appears, led by a shepherd and his dogs. The animals occupy the entire width of the path, advancing at a steady pace..."
+  },
   "8": {
     "possibilities": {
       "end": {
