@@ -2586,7 +2586,6 @@
           "1": "Vous détournez votre regard du capitaine et laissez vos pensées voguer au rythme des flots. Là, sur le rivage balayé par les vents, votre œil est attiré par une antique bouteille, à demi enfouie dans le sable. Intrigué, vous la saisissez et y découvrez un vieux parchemin jauni par le temps. Les signes tracés d'une main tremblante y révèlent l'emplacement d'un lieu secret, dissimulé non loin. Guidé par ces énigmes, vous arpentez la lande durant longuement, jusqu’à ce que vos pas vous mènent à un coffre ancien, enfoui sous les ronces. En l’ouvrant, vous découvrez un objet aux allures mystérieuses...",
           "2": "Vous tournez le dos au capitaine et laissez vos pas vous guider sur la plage battue par les vents. Une bouteille à demi enfouie dans le sable attire votre regard. Vous la déterrez avec précaution, espérant quelque secret oublié. À l’intérieur, un parchemin froissé, rongé par l’humidité et le sel. Vous le déroulez lentement, mais hélas… les lettres sont effacées, les mots n’étant plus que tâches informes et filigranes éteints. Aucun sens ne s’en dégage, si ce n’est un pressentiment : ce message a surement un jour été important, il est désormais perdu à jamais dans les replis du temps.",
           "3": "Vous tournez le dos au capitaine sans un mot, ce qui semble attiser sa colère. D’un pas vif, il vous rejoint et, sans sommation, vous assène un violent coup sur l’arrière du crâne. Étourdi, vous vous affaissez sur le sable, les étoiles dansant devant vos yeux. Il repart aussitôt, regagne le pont en ricanant, puis ordonne de lever l’ancre."
-
         }
       }
     },
@@ -2804,5 +2803,30 @@
       }
     },
     "text": "Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche..."
+  },
+  "100": {
+    "possibilities": {
+      "cutTree": {
+        "outcomes": {
+          "0": "plus que 100",
+          "1": "plus que 50",
+          "2": "moins que 50",
+          "3": "sans check"
+        },
+        "text": "test 1"
+      },
+      "otherWay": {
+        "outcomes": {
+          "0": "fujiezhfuoizehjufoiezhouifhzeuoihfzuoe"
+        },
+        "text": "dazfzefgzefzefze"
+      },
+      "end": {
+        "outcomes": {
+          "0": "woa truc de ouf"
+        }
+      }
+    },
+    "text": "ceci est un test de code pour les possibilités d'événements. Il n'y a pas de sens à cette histoire, mais il faut que ça fonctionne correctement."
   }
 }
