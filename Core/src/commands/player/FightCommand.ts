@@ -38,6 +38,8 @@ import { LeagueDataController } from "../../data/League";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { minutesToMilliseconds } from "../../../../Lib/src/utils/TimeUtils";
 import { EloGameResult } from "../../../../Lib/src/types/EloGameResult";
+import { PacketUtils } from "../../core/utils/PacketUtils";
+import { PlayerWasAttackedNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 
 type PlayerStats = {
 	classId: number;
@@ -221,6 +223,15 @@ async function updatePlayersEloAndCooldowns(
  * @param response
  */
 async function fightEndCallback(fight: FightController, response: DraftBotPacket[]): Promise<void> {
+	const defendingFighter = fight.getNonFightInitiatorFighter();
+	if (defendingFighter instanceof AiPlayerFighter) {
+		PacketUtils.sendNotifications([
+			makePacket(PlayerWasAttackedNotificationPacket, {
+				keycloakId: defendingFighter.player.keycloakId,
+				attackedByPlayerKeycloakId: fight.fightInitiator.player.keycloakId
+			})
+		]);
+	}
 	const fightLogId = await draftBotInstance.logsDatabase.logFight(fight);
 
 	const player1GameResult = fight.isADraw() ? EloGameResult.DRAW : fight.getWinner() === 0 ? EloGameResult.WIN : EloGameResult.LOSS;
