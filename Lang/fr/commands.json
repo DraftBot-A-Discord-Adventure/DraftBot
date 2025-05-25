@@ -1262,7 +1262,7 @@
     "notEnoughMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction. Il vous manque `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Le vendeur n'est plus en mesure de vendre son familier. La vente a été annulée.",
     "sellTitle": "Vente d'un familier",
-    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre une familier :",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre un familier :",
     "sellDescription": "{{pseudo}} souhaite vendre un familier pour `{{price}}{emote:unitValues.money}`",
     "maxLevelWarning": "{emote:collectors.warning} Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !",
     "petFieldName": "Familier vendu :",
