@@ -101,6 +101,14 @@ export class FightController {
 	}
 
 	/**
+	 * Get the fighter that is not the fight initiator
+	 * @returns
+	 */
+	public getNonFightInitiatorFighter(): Fighter {
+		return this.fighters[1] === this.fightInitiator ? this.fighters[0] : this.fighters[1];
+	}
+
+	/**
 	 * End the fight
 	 * @param response the response to send to the player
 	 * @param bug true if the fight has bugged

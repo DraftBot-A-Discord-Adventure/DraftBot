@@ -289,7 +289,7 @@ export class FightView {
 		winner: PlayerFighter | MonsterFighter | AiPlayerFighter,
 		draw: boolean
 	): void {
-		const defendingFighter = this.fightController.getDefendingFighter();
+		const defendingFighter = this.fightController.getNonFightInitiatorFighter();
 		if (defendingFighter instanceof AiPlayerFighter) {
 			PacketUtils.sendNotifications([
 				makePacket(playerWasAttackedNotificationPacket, {
