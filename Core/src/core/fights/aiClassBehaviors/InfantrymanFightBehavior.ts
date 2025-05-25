@@ -15,6 +15,35 @@ import {
 class InfantryManFightBehavior implements ClassBehavior {
 	private powerfulAttacksUsedMap = 0;
 
+	private shouldUseChargingAttack(me: AiPlayerFighter, opponent: PlayerFighter | AiPlayerFighter, fightView: FightView, powerfulAttacksUsed: number): boolean {
+		const opponentLastAction = opponent.getLastFightActionUsed();
+
+		// Condition 1: Opponent is charging a two-turn attack
+		const opponentIsCharging = opponentLastAction && (
+			opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
+			|| (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
+			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
+		);
+
+		if (opponentIsCharging) {
+			return true;
+		}
+
+		// Condition 2: Tactical advantage against non-knight opponents
+		const tacticalAdvantage = (fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
+			&& me.getEnergy() > me.getMaxEnergy() * 0.21
+			&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
+			&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense());
+
+		const opponentIsNotKnightLike = opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
+			&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE;
+
+		return tacticalAdvantage && opponentIsNotKnightLike;
+	}
+
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
 		const powerfulAttacksUsed = this.powerfulAttacksUsedMap;
 		const opponent = fightView.fightController.getDefendingFighter() as PlayerFighter | AiPlayerFighter; // AI will never fight monsters
@@ -33,34 +62,8 @@ class InfantryManFightBehavior implements ClassBehavior {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.POWERFUL_ATTACK);
 		}
 
-		const opponentLastAction = opponent.getLastFightActionUsed();
-
-		/*
-		 * Use charging attack if enough breath and either:
-		 * 1. Opponent is charging a two-turn attack, OR
-		 * 2. Various tactical conditions are met and the opponent is not a knight
-		 */
 		if (me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK)
-			&& (
-
-				// Condition 1: Opponent is charging a two-turn attack
-				(opponentLastAction && (
-					opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
-					|| (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
-					|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
-				))
-
-				// Condition 2: Tactical advantage against non-knight opponents
-				|| (fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
-				&& me.getEnergy() > me.getMaxEnergy() * 0.21
-				&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
-				&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense())
-				&& opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
-				&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
-				&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
-				&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
-				&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE
-			)
+			&& this.shouldUseChargingAttack(me, opponent, fightView, powerfulAttacksUsed)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK);
 		}
