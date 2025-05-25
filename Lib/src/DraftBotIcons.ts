@@ -236,11 +236,12 @@ export const DraftBotIcons: {
 	},
 	events: {
 		1: {
-			cutTree: "🪓",
+			chopTree: "🪓",
+			climbOver: "🧗",
+			findPath: "🗺️",
 			end: {
 				0: "🪓"
-			},
-			otherWay: "🚶"
+			}
 		},
 		10: {
 			end: {
@@ -935,13 +936,6 @@ export const DraftBotIcons: {
 			ask: "❓",
 			stepAside: "👋",
 			help: "🤝"
-		},
-		100: {
-			end: {
-				0: "👀"
-			},
-			cutTree: "🐐",
-			otherWay: "🏃‍♂️"
 		},
 		8: {
 			end: {
