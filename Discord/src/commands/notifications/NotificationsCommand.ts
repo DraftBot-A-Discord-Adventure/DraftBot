@@ -198,7 +198,7 @@ async function chooseEnabled(buttonInteraction: ButtonInteraction, notifications
 	buttonCollector.on("end", async (_, reason) => {
 		currentCollectors.delete(buttonInteraction.user.id);
 
-		// No need to save here, it's already saved when the "send type" is changed or when the collector ends in chooseEnabled
+		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
 			await msg.edit({ components: [] });

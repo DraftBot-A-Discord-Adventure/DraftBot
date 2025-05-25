@@ -43,18 +43,20 @@ class InfantryManFightBehavior implements ClassBehavior {
 	 * @param opponent
 	 */
 	private isOpponentNotKnightLike(opponent: PlayerFighter | AiPlayerFighter): boolean {
-		return opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
-			&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE;
+		const knightLikeClasses = [
+			ClassConstants.CLASSES_ID.KNIGHT,
+			ClassConstants.CLASSES_ID.VALIANT_KNIGHT,
+			ClassConstants.CLASSES_ID.HORSE_RIDER,
+			ClassConstants.CLASSES_ID.PIKEMAN,
+			ClassConstants.CLASSES_ID.ESQUIRE
+		];
+		return !knightLikeClasses.includes(opponent.player.class);
 	}
 
 	private shouldUseChargingAttack(me: AiPlayerFighter, opponent: PlayerFighter | AiPlayerFighter, fightView: FightView, powerfulAttacksUsed: number): boolean {
-		if (this.isOpponentCharging(opponent)) {
-			return true;
-		}
-		return this.hasTacticalAdvantage(me, opponent, fightView, powerfulAttacksUsed) && this.isOpponentNotKnightLike(opponent);
+		return this.isOpponentCharging(opponent)
+			|| (this.hasTacticalAdvantage(me, opponent, fightView, powerfulAttacksUsed)
+				&& this.isOpponentNotKnightLike(opponent));
 	}
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {

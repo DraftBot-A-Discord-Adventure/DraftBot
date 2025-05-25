@@ -30,7 +30,7 @@ import { PetAssistanceResult } from "../../../../Lib/src/types/PetAssistanceResu
 import { OwnedPet } from "../../../../Lib/src/types/OwnedPet";
 import { PetEntities } from "../database/game/models/PetEntity";
 import { PacketUtils } from "../utils/PacketUtils";
-import { playerWasAttackedNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
+import { PlayerWasAttackedNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 
 export class FightView {
 	public context: PacketContext;
@@ -292,7 +292,7 @@ export class FightView {
 		const defendingFighter = this.fightController.getNonFightInitiatorFighter();
 		if (defendingFighter instanceof AiPlayerFighter) {
 			PacketUtils.sendNotifications([
-				makePacket(playerWasAttackedNotificationPacket, {
+				makePacket(PlayerWasAttackedNotificationPacket, {
 					keycloakId: defendingFighter.player.keycloakId,
 					attackedByPlayerKeycloakId: this.fightController.fightInitiator.player.keycloakId
 				})
