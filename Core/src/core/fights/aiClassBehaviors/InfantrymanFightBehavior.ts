@@ -15,33 +15,46 @@ import {
 class InfantryManFightBehavior implements ClassBehavior {
 	private powerfulAttacksUsedMap = 0;
 
-	private shouldUseChargingAttack(me: AiPlayerFighter, opponent: PlayerFighter | AiPlayerFighter, fightView: FightView, powerfulAttacksUsed: number): boolean {
+	private isOpponentCharging(opponent: PlayerFighter | AiPlayerFighter): boolean {
 		const opponentLastAction = opponent.getLastFightActionUsed();
-
-		// Condition 1: Opponent is charging a two-turn attack
-		const opponentIsCharging = opponentLastAction && (
+		return opponentLastAction && (
 			opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_ULTIMATE_ATTACK
 			|| (opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CANON_ATTACK && opponent.getBreath() >= 2)
 			|| opponentLastAction.id === FightConstants.FIGHT_ACTIONS.PLAYER.CHARGE_CHARGING_ATTACK
 		);
+	}
 
-		if (opponentIsCharging) {
-			return true;
-		}
-
-		// Condition 2: Tactical advantage against non-knight opponents
-		const tacticalAdvantage = (fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
+	/**
+	 * Determines if the AI has a tactical advantage based on various conditions.
+	 * @param me
+	 * @param opponent
+	 * @param fightView
+	 * @param powerfulAttacksUsed
+	 */
+	private hasTacticalAdvantage(me: AiPlayerFighter, opponent: PlayerFighter | AiPlayerFighter, fightView: FightView, powerfulAttacksUsed: number): boolean {
+		return (fightView.fightController.turn > 11 || powerfulAttacksUsed > 2)
 			&& me.getEnergy() > me.getMaxEnergy() * 0.21
 			&& (opponent.player.class !== ClassConstants.CLASSES_ID.MYSTIC_MAGE || me.hasFightAlteration())
 			&& (RandomUtils.draftbotRandom.bool() || opponent.getDefense() < me.getDefense());
+	}
 
-		const opponentIsNotKnightLike = opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
+	/**
+	 * Determines if the opponent is not a knight-like class.
+	 * @param opponent
+	 */
+	private isOpponentNotKnightLike(opponent: PlayerFighter | AiPlayerFighter): boolean {
+		return opponent.player.class !== ClassConstants.CLASSES_ID.KNIGHT
 			&& opponent.player.class !== ClassConstants.CLASSES_ID.VALIANT_KNIGHT
 			&& opponent.player.class !== ClassConstants.CLASSES_ID.HORSE_RIDER
 			&& opponent.player.class !== ClassConstants.CLASSES_ID.PIKEMAN
 			&& opponent.player.class !== ClassConstants.CLASSES_ID.ESQUIRE;
+	}
 
-		return tacticalAdvantage && opponentIsNotKnightLike;
+	private shouldUseChargingAttack(me: AiPlayerFighter, opponent: PlayerFighter | AiPlayerFighter, fightView: FightView, powerfulAttacksUsed: number): boolean {
+		if (this.isOpponentCharging(opponent)) {
+			return true;
+		}
+		return this.hasTacticalAdvantage(me, opponent, fightView, powerfulAttacksUsed) && this.isOpponentNotKnightLike(opponent);
 	}
 
 	chooseAction(me: AiPlayerFighter, fightView: FightView): FightAction {
