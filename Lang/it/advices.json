@@ -52,7 +52,7 @@
     "È una buona idea tenere da parte un po' di denaro per le cure.",
     "Ogni settimana viene stilata una classifica per determinare quale giocatore ha guadagnato più punti. Per visualizzare questa classifica, utilizzare il comando {command:top score} e specificare l'opzione `durata`.",
     "Il denaro è una delle risorse più importanti del gioco e si può guadagnare attraverso le segnalazioni ({command:report}), gli oggetti a effetto giornaliero ({command:dailybonus}) o le ricompense giornaliere della gilda ({command:guilddailybonus}).",
-    "Siete a corto di FV? Prima di acquistare il trattamento in negozio, controlla che non contenga una pozione più redditizia!",
+    "Siete a corto di FV? Prima di acquistare il trattamento in negozio, controllate che non contenga una pozione più redditizia!",
     "Le pozioni vendute nel negozio sono spesso disponibili a prezzi molto interessanti.",
     "Per raggiungere la vetta della classifica settimanale e vincere un distintivo, siate diligenti nei rapporti e non abbiate paura di combattere.",
     "La classifica generale è disponibile con il comando {command:top score}.",
