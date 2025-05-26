@@ -1,11 +1,11 @@
 {
   "badges": {
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Informazione dettagliate :"
+    "title": "{emote:commands.badges} Informazione dettagliate:"
   },
   "pet": {
     "embedTitle": "Animale domestico di {{pseudo}} :",
-    "petField": "***Tipo:*** {{emote}} {{typeName}}\n***Sopranome:*** {{nickname}}\n***Rarità:*** {{rarity}}\n***Sesso:*** {{sex}}\n***Mentalità:** {{loveLevel}}",
+    "petField": "**Tipo:** {{emote}} {{typeName}}\n**Sopranome:** {{nickname}}\n**Rarità:** {{rarity}}\n**Sesso:** {{sex}}\n**Mentalità:** {{loveLevel}}",
     "noNickname": "Nessun soprannome",
     "loveLevels": {
       "1_male": ":smirk_cat: Ribelle",
@@ -948,12 +948,12 @@
       "campaignCurrent": "{emote:missions.campaign} **Campagna ({{current}}/{{max}})**",
       "campaignCompleted": "{emote:missions.campaign} **La campagna è terminata.",
       "daily": "\n{emote:missions.daily} **Missione giornaliera",
-      "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missioni secondarie ( / )**"
+      "sideMissions": "\n{emote:missions.sideMission} **Missioni secondarie ({{current}}/{{max}})**"
     },
     "dailyFinished": "Hai completato la missione di oggi! {{time}}Tornate a .",
     "noCurrentMissions": "Occasionalmente, è possibile trovare ulteriori compiti da completare richiedendo un rapporto.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
-    "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(scadere ) /"
+    "missionDisplay_other": "{{mission}} (scade {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
   },
   "guildShop": {
     "noFoodStorageSpace": "Non avete abbastanza spazio nel vostro magazzino per conservare questo cibo.",
