@@ -923,8 +923,9 @@
   "notifications": {
     "types": {
       "report": "Reports",
-      "guildDaily": "Guild rewards",
-      "playerFreedFromJail": "Release from prison"
+      "guildDaily": "Guild daily reward",
+      "playerFreedFromJail": "Release from prison",
+      "fightChallenge": "Attaqué par un autre joueur"
     },
     "enableDisable": "Enable/Disable",
     "sendLocationField": "Sending place:",
