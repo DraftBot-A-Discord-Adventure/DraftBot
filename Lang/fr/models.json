@@ -663,6 +663,17 @@
       "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
       "name_one": "Attaque jet de toile",
       "name_other": "Attaques jets de toile"
+    },
+    "hardBiteAttack": {
+      "description": "Inflige des dégâts et fais saigner l'adversaire.",
+      "name_one": "Attaque morsure puissante",
+      "name_other": "Attaques morsures puissantes"
+    },
+    "bleeding": {
+      "name": "en train de saigner",
+      "new": "saigne.",
+      "active": "saigne.",
+      "stop": "n'est plus en train de saigner."
     }
   },
   "leagues": {
