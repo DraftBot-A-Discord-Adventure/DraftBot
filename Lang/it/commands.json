@@ -1,7 +1,7 @@
 {
   "badges": {
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": "{emote:commands.badges} Informazione dettagliate:"
+    "title": "{emote:commands.badges} Informazioni dettagliate:"
   },
   "pet": {
     "embedTitle": "Animale domestico di {{pseudo}} :",
@@ -924,7 +924,8 @@
     "types": {
       "report": "Rapporti",
       "guildDaily": "Ricompense di gilda",
-      "playerFreedFromJail": "Rilascio dal carcere"
+      "playerFreedFromJail": "Rilascio dal carcere",
+      "fightChallenge": "Attaqué par un autre joueur"
     },
     "enableDisable": "Abilitazione/Disabilitazione",
     "sendLocationField": "Indirizzo di consegna :",
@@ -1261,7 +1262,7 @@
     "notEnoughMoney": "Non avete abbastanza denaro per effettuare questa transazione. Vi manca `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Il venditore non è più in grado di vendere il suo animale. La vendita è stata annullata.",
     "sellTitle": "Vendere un animale domestico",
-    "sellTitleWithBuyer": "{{buyer}} {{seller}} vorrebbe vendervi un animale domestico:",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} souhaite vous vendre un familier :",
     "sellDescription": "{{pseudo}} vorrei vendere un animale domestico per{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} La tua gilda è al livello massimo, quindi non riceverai alcuna esperienza!",
     "petFieldName": "Venduto in modo familiare :",
