@@ -924,7 +924,8 @@
     "types": {
       "report": "Berichte",
       "guildDaily": "Gildenbelohnungen",
-      "playerFreedFromJail": "Entlassung aus dem Gefängnis"
+      "playerFreedFromJail": "Entlassung aus dem Gefängnis",
+      "fightChallenge": "Attaqué par un autre joueur"
     },
     "enableDisable": "Aktivieren/Deaktivieren",
     "sendLocationField": "Ort der Versendung :",
