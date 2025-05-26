@@ -10,6 +10,7 @@ import {
 	SmallEventDwarfAnimalFanPetAlreadySeenOrNoPetPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfAnimalFanPacket";
 import { PetEntities } from "../database/game/models/PetEntity";
+import {DwarfPetsSeen} from "../database/game/models/DwarfPetsSeen";
 
 
 async function isPetNeverSeen(response: DraftBotPacket[], player: Player): Promise<boolean> {
@@ -19,12 +20,10 @@ async function isPetNeverSeen(response: DraftBotPacket[], player: Player): Promi
 	}
 	const petEntity = await PetEntities.getById(player.petId);
 
-	// TODO : Faire le check si le pet est déjà vu.
-	/**
-	 * if(...) {
-	 * response.push(makePacket(SmallEventDwarfAnimalFanPetAlreadySeenOrNoPetPacket, {}));
-	 * return false;
-	 */
+	if (await DwarfPetsSeen.isPetSeen(player, petEntity.typeId)) {
+		response.push(makePacket(SmallEventDwarfAnimalFanPetAlreadySeenOrNoPetPacket, {}));
+		return false;
+	}
 	return true;
 }
 
@@ -35,6 +34,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 			return;
 		}
 		const petEntity = await PetEntities.getById(player.petId);
+		await DwarfPetsSeen.markPetAsSeen(player, petEntity.typeId);
 		response.push(makePacket(SmallEventDwarfAnimalFanPacket, { petNickname: petEntity.nickname }));
 	}
 };
