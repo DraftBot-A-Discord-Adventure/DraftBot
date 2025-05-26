@@ -4,12 +4,12 @@
   "defenseRatio": 50,
   "speedRatio": 50,
   "breath": 5,
-  "maxBreath": 15,
-  "breathRegen": 5,
+  "maxBreath": 10,
+  "breathRegen": 3,
   "rewardFactor": 0.5,
   "attacks": [
     {
-      "id": "simpleAttack",
+      "id": "hardBiteAttack",
       "minLevel": 0,
       "weight": 1
     },

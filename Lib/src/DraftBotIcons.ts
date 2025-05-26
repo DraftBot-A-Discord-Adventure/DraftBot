@@ -1955,7 +1955,9 @@ export const DraftBotIcons: {
 		targeted: "↩️",
 		ultimateAttack: "☄️",
 		weak: "🤧",
-		webShotAttack: "🕸️"
+		webShotAttack: "🕸️",
+		hardBiteAttack: "🦷",
+		bleeding: "🩸"
 	},
 	classKinds: {
 		basic: "⚖️",
