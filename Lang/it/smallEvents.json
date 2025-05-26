@@ -91,7 +91,7 @@
       "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
       "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
       "{command:guild}Potete usare il comando per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
-      "{command:guild} Il comando permette di vedere il numero di alleati che vi aiuteranno sull'isola misteriosa.",
+      "Il comando {command:guild} ti permette di vedere il numero di alleati che ti aiuteranno sull'isola misteriosa",
       "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
     ]
   },
