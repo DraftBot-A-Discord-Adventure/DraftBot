@@ -248,6 +248,7 @@ export const DraftBotIcons: {
 				0: "🚶"
 			},
 			help: "🎣",
+			advice: "🗣️",
 			push: "🖐️",
 			skip: "🏃"
 		},
