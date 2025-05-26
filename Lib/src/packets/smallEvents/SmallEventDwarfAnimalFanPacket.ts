@@ -5,6 +5,10 @@ import {
 import { SmallEventPacket } from "./SmallEventPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventPetPacket extends SmallEventPacket {
+export class SmallEventDwarfAnimalFanPacket extends SmallEventPacket {
 	petNickname!: string | undefined;
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class SmallEventDwarfAnimalFanPetAlreadySeenOrNoPetPacket extends SmallEventPacket {
 }
