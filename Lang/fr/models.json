@@ -674,6 +674,12 @@
       "new": "saigne.",
       "active": "saigne.",
       "stop": "n'est plus en train de saigner."
+    },
+    "howlAttack": {
+      "description": "Pousse un hurlement pour augmenter une statistique au hasard.",
+      "customMessage": "hurle au ciel.",
+      "name_one": "Hurlement",
+      "name_other": "Hurlements"
     }
   },
   "leagues": {
