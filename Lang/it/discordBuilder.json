@@ -284,7 +284,7 @@
         "name": "punteggio"
       },
       "glory": {
-        "description": "Visualizza la classifica delle gilde in base alla loro gloria.",
+        "description": "Afficher le classement des joueurs en fonction de leur gloire.",
         "name": "glorioso"
       },
       "guild": {
