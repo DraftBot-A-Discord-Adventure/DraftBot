@@ -3,8 +3,8 @@
     "expired": {
       "title_one": "{{pseudo}}, una missione è scaduta",
       "title_other": "{{pseudo}}, le missioni sono scadute",
-      "description_one": "{emote:missions.expired} **Il seguente incarico è scaduto :**\n{{missionsExpired}}",
-      "description_other": "{emote:missions.expired} **I seguenti incarichi sono scaduti :** {{missionsExpired}}"
+      "description_one": "{emote:missions.expired} **Il seguente incarico è scaduto:**\n{{missionsExpired}}",
+      "description_other": "{emote:missions.expired} **I seguenti incarichi sono scaduti \n:** {{missionsExpired}}"
     },
     "completed": {
       "title_one": "{{pseudo}}, una missione è stata completata.",
@@ -27,9 +27,12 @@
   },
   "guildFood": {
     "receivedFoodTitle": "La vostra gilda ha ricevuto del cibo",
-    "receivedFoodDescription": "{emote:foods.{{foodId}}} La vostra gilda ha ricevuto : **{{amount}}x {{foodName}}**."
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} La vostra gilda ha ricevuto: **{{amount}}x {{foodName}}**."
   },
   "playerFreedFromJail": {
     "description": "Lei è stato rilasciato dalla prigione da **{{freedByPlayer}}** !"
+  },
+  "fightChallenge": {
+    "description": "{emote:fightCommand.crossedSwords} Vous avez été attaqué par **{{attackerPseudo}}** ! Découvrez le résultat de ce combat en utilisant la commande `/historiquecombat`."
   }
 }
