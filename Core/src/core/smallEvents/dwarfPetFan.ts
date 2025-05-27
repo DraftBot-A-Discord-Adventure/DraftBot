@@ -9,7 +9,7 @@ import {
 	SmallEventDwarfPetFanNoPet,
 	SmallEventDwarfPetFanPetAlreadySeen,
 	SmallEventDwarfPetFanAllPetsSeen,
-	SmallEventDwarfPetFanNewPetPacket
+	SmallEventDwarfPetFanNewPetPacket, SmallEventDwarfPetFanFeistyPet
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import {
 	PetEntities,
@@ -22,21 +22,36 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 
 /**
- * Return true if the player has a pet AND the dwarf never saw this pet from it
+ * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
  * @param response
  * @param player
  * @param petEntity
  */
-async function isPlayerHavePetAndPetIsNeverSeen(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<boolean> {
+async function canContinueSmallEvent(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<boolean> {
 	// Check if the player has a pet
 	if (!player.petId) {
 		response.push(makePacket(SmallEventDwarfPetFanNoPet, {}));
 		return false;
 	}
 
+	if (petEntity.isFeisty()) {
+		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
+		await missionInfo.addGems(
+			Constants.DWARF_PET_FAN.FEISTY_PET_MALUS,
+			player.keycloakId,
+			NumberChangeReason.SMALL_EVENT
+		);
+		await missionInfo.save();
+		response.push(makePacket(SmallEventDwarfPetFanFeistyPet, {
+			malus: Constants.DWARF_PET_FAN.FEISTY_PET_MALUS,
+			petNickname: petEntity.nickname
+		}));
+		return false;
+	}
+
 	// Check if the dwarf has already seen this pet
 	if (await DwarfPetsSeen.isPetSeen(player, petEntity.typeId)) {
-		response.push(makePacket(SmallEventDwarfPetFanPetAlreadySeen, {}));
+		response.push(makePacket(SmallEventDwarfPetFanPetAlreadySeen, { petNickname: petEntity.nickname }));
 		return false;
 	}
 	return true;
@@ -97,14 +112,14 @@ async function manageNewPetSeen(response: DraftBotPacket[], player: Player, petE
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: player => Maps.isOnContinent(player),
 	executeSmallEvent: async (response, player, _context): Promise<void> => {
+		const petEntity = await PetEntities.getById(player.petId);
+		if (!await canContinueSmallEvent(response, player, petEntity)) {
+			return;
+		}
+
 		// Check if the player has shown all the pets
 		if (await DwarfPetsSeen.isAllPetSeen(player)) {
 			await manageAllPetsAreSeen(response, player);
-			return;
-		}
-		const petEntity = await PetEntities.getById(player.petId);
-
-		if (!await isPlayerHavePetAndPetIsNeverSeen(response, player, petEntity)) {
 			return;
 		}
 		await manageNewPetSeen(response, player, petEntity);

@@ -13,6 +13,7 @@ export class SmallEventDwarfPetFanNewPetPacket extends SmallEventPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventDwarfPetFanPetAlreadySeen extends SmallEventPacket {
+	petNickname!: string | undefined;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
@@ -24,4 +25,11 @@ export class SmallEventDwarfPetFanAllPetsSeen extends SmallEventPacket {
 	isGemReward?: boolean;
 
 	amount!: number;
+}
+
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class SmallEventDwarfPetFanFeistyPet extends SmallEventPacket {
+	malus!: number;
+
+	petNickname!: string | undefined;
 }
