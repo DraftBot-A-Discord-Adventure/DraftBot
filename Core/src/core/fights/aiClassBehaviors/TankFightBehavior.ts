@@ -16,6 +16,8 @@ class TankFightBehavior implements ClassBehavior {
 		const opponent = fightView.fightController.getDefendingFighter() as AiPlayerFighter | PlayerFighter;
 		const turn = fightView.fightController.turn;
 
+		const lastOpponentAction = opponent.getLastFightActionUsed();
+
 		if (
 			(me.getDefense() < 600
 				|| RandomUtils.draftbotRandom.bool(0.1))
@@ -38,11 +40,12 @@ class TankFightBehavior implements ClassBehavior {
 
 		if (
 			turn > 1
-			&& !FightConstants.UNCOUNTERABLE_ACTIONS.includes(opponent.getLastFightActionUsed().id)
-			&& opponent.getLastFightActionUsed().id !== FightConstants.FIGHT_ACTIONS.PLAYER.HEAVY_ATTACK
-			&& FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.COUNTER_ATTACK)
-			&& opponent.getLastFightActionUsed().breath > 4 // Don't copy attacks that cost a small amount of breath
-			&& RandomUtils.draftbotRandom.bool(0.95)
+				&& lastOpponentAction // Check if lastOpponentAction is not null
+				&& !FightConstants.UNCOUNTERABLE_ACTIONS.includes(lastOpponentAction.id)
+				&& lastOpponentAction.id !== FightConstants.FIGHT_ACTIONS.PLAYER.HEAVY_ATTACK
+				&& FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.COUNTER_ATTACK)
+				&& lastOpponentAction.breath > 4 // Don't copy attacks that cost a small amount of breath
+				&& RandomUtils.draftbotRandom.bool(0.95)
 		) {
 			return FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.COUNTER_ATTACK);
 		}
