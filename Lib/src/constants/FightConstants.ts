@@ -256,7 +256,7 @@ export abstract class FightConstants {
 	static MAX_OFFSET_FOR_OPPONENT_SEARCH = 5;
 
 	// Number of players to search for when looking for an opponent
-	static PLAYER_PER_OPPONENT_SEARCH = 5;
+	static PLAYER_PER_OPPONENT_SEARCH = 10;
 
 	// Amount of attack glory transformed into defense glory each week
 	static ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK = 50;
@@ -269,4 +269,7 @@ export abstract class FightConstants {
 
 	// History display limit
 	static HISTORY_DISPLAY_LIMIT = 5;
+
+	// Time limit for a player to be considered active for opponent search (in days)
+	static readonly ACTIVE_PLAYER_TIME_LIMIT_DAYS = 14;
 }

@@ -143,6 +143,13 @@ export function secondsToMilliseconds(seconds: number): number {
 	return seconds * 1000;
 }
 
+/**
+ * Convert days to milliseconds
+ * @param days
+ */
+export function daysToMilliseconds(days: number): number {
+	return days * 24 * hoursToMilliseconds(1);
+}
 
 /**
  * Convert hours to seconds
