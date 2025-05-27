@@ -37,7 +37,7 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
 	if (petEntity.isFeisty()) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 		await missionInfo.addGems(
-			Constants.DWARF_PET_FAN.FEISTY_PET_MALUS,
+			-Constants.DWARF_PET_FAN.FEISTY_PET_MALUS,
 			player.keycloakId,
 			NumberChangeReason.SMALL_EVENT
 		);
