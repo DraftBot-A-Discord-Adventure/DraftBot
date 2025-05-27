@@ -24,6 +24,16 @@ export class DwarfPetsSeen extends Model {
 			petTypeId
 		});
 	}
+
+	static async isAllPetSeen(player: Player): Promise<boolean> {
+		const petsSeen = await DwarfPetsSeen.count({
+			where: {
+				playerId: player.id
+			}
+		});
+
+		return petsSeen == // TODO : Le nombre de pets;
+	}
 }
 
 
