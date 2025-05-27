@@ -190,8 +190,8 @@
       "Incontrare {{playerDisplay}} della vostra gilda! Eseguite la stretta di mano segreta della gilda e prendete strade diverse."
     ],
     "staff_member": [
-      "{{playerDisplay}}\n\n{{advice}}\n\nche fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura: potete quindi continuare per la vostra strada.",
-      "\"{{advice}}Questo è ciò che vi è stato detto da {{playerDisplay}}, uno dei famosi membri dello staff del bot, che incontrate lungo il percorso!",
+      "{{playerDisplay}}, che fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura:\n\n{{advice}}\n\nPotete quindi continuare per la vostra strada.",
+      "\"{{advice}}\". Questo è ciò che vi è stato detto da {{playerDisplay}}, uno dei famosi membri dello staff del bot, che incontrate lungo il percorso!",
       "{{playerDisplay}}\n\n{{advice}}Parlate con , un membro del team di DraftBot, che ha qualche buon consiglio per la prossima fase della vostra avventura:"
     ],
     "top_week": [
