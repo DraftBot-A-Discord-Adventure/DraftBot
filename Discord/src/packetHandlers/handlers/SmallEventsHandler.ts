@@ -88,9 +88,7 @@ import {
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
-	SmallEventDwarfPetFan,
-	SmallEventDwarfPetFanAllPetsSeen, SmallEventDwarfPetFanFeistyPet,
-	SmallEventDwarfPetFanNewPetPacket, SmallEventDwarfPetFanNoPet, SmallEventDwarfPetFanPetAlreadySeen
+	SmallEventDwarfPetFan
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 
 
@@ -993,7 +991,7 @@ export default class SmallEventsHandler {
 					"dwarfPetFan",
 					StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)
 					+ StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
-						pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId, packet.petSex),
+						pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!),
 						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
 							lng,
 							amount: packet.amount
