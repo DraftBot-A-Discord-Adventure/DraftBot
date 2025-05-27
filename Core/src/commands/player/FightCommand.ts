@@ -321,11 +321,22 @@ function bo3isAlreadyFinished(bo3: RankedFightResult): boolean {
 async function findOpponent(player: Player): Promise<Player | null> {
 	for (let offset = 0; offset <= FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH; offset++) {
 		// Retrieve some potential opponents
-		let validOpponents = await Players.findPotentialOpponents(
-			player,
-			FightConstants.PLAYER_PER_OPPONENT_SEARCH,
-			offset
-		);
+		let validOpponents: Player[];
+		if (offset === 0) {
+			validOpponents = await Players.findActivePotentialOpponents(
+				player,
+				FightConstants.PLAYER_PER_OPPONENT_SEARCH,
+				offset
+			);
+		}
+		else {
+			validOpponents = await Players.findPotentialOpponents(
+				player,
+				FightConstants.PLAYER_PER_OPPONENT_SEARCH,
+				offset - 1
+			);
+		}
+
 		if (validOpponents.length === 0) {
 			continue;
 		}

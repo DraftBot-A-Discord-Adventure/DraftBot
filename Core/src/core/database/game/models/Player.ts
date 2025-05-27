@@ -8,7 +8,7 @@ import { InventoryInfos } from "./InventoryInfo";
 import { MissionsController } from "../../../missions/MissionsController";
 import { PlayerActiveObjects } from "./PlayerActiveObjects";
 import {
-	getOneDayAgo, millisecondsToSeconds, minutesToHours
+	getOneDayAgo, millisecondsToSeconds, minutesToHours, daysToMilliseconds
 } from "../../../../../../Lib/src/utils/TimeUtils";
 import { TravelTime } from "../../../maps/TravelTime";
 import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
@@ -1462,6 +1462,37 @@ export class Players {
 			offset
 		});
 	}
+
+	/**
+	 * Find the X active players that are the closest in defense glory to a specific value.
+	 * Active players are those whose startTravelDate is within the last two weeks.
+	 * @param player - the player that needs an opponent
+	 * @param amountOfPlayersToRetrieve - the X amount of players
+	 * @param offset - offset in case the found players are not enough and an offset search is necessary
+	 */
+	static async findActivePotentialOpponents(player: Player, amountOfPlayersToRetrieve: number, offset: number): Promise<Player[]> {
+		const twoWeeksAgo = new Date(Date.now() - daysToMilliseconds(FightConstants.ACTIVE_PLAYER_TIME_LIMIT_DAYS));
+		return await Player.findAll({
+			where: {
+				id: { [Op.ne]: player.id },
+				defenseGloryPoints: {
+					[Op.ne]: null,
+					[Op.between]: [
+						player.attackGloryPoints - FightConstants.ELO.MAX_ELO_GAP,
+						player.attackGloryPoints + FightConstants.ELO.MAX_ELO_GAP
+					]
+				},
+				level: { [Op.gte]: FightConstants.REQUIRED_LEVEL },
+				startTravelDate: { [Op.gte]: twoWeeksAgo }
+			},
+			order: [
+				// Sort using the difference with the attack elo of the player
+				[Sequelize.literal(`ABS(defenseGloryPoints - ${player.attackGloryPoints})`), "ASC"]
+			],
+			limit: amountOfPlayersToRetrieve,
+			offset
+		});
+	}
 }
 
 /**
@@ -1599,7 +1630,6 @@ export function initModel(sequelize: Sequelize): void {
 	Player.afterSave(instance => {
 		if (!instance.mapLinkId) {
 			return;
-		}
 
 		const handleNotifications = async (): Promise<void> => {
 			const now = new Date();
