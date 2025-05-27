@@ -52,4 +52,8 @@ export class PetDataController extends DataControllerNumber<Pet> {
 		}
 		return RandomUtils.draftbotRandom.pick(pets);
 	}
+
+	public getPetsCount(): number {
+		return this.getValuesArray().length;
+	}
 }

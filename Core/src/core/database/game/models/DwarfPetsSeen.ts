@@ -47,7 +47,7 @@ export class DwarfPetsSeen extends Model {
 			}
 		});
 
-		return petsSeen === PetDataController.instance.getMaxId();
+		return petsSeen === PetDataController.instance.getPetsCount();
 	}
 }
 
