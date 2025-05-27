@@ -8,6 +8,11 @@ export class DwarfPetsSeen extends Model {
 
 	declare readonly petTypeId: number;
 
+	/**
+	 * Return true if the player has already shown this pet
+	 * @param player
+	 * @param petTypeId
+	 */
 	static async isPetSeen(player: Player, petTypeId: number): Promise<boolean> {
 		const count = await DwarfPetsSeen.count({
 			where: {
@@ -18,6 +23,11 @@ export class DwarfPetsSeen extends Model {
 		return count > 0;
 	}
 
+	/**
+	 * Save that the player shows to the dwarf the pet
+	 * @param player
+	 * @param petTypeId
+	 */
 	static async markPetAsSeen(player: Player, petTypeId: number): Promise<void> {
 		await DwarfPetsSeen.create({
 			playerId: player.id,
@@ -25,6 +35,10 @@ export class DwarfPetsSeen extends Model {
 		});
 	}
 
+	/**
+	 * Return true if the player has shown every pet
+	 * @param player
+	 */
 	static async isAllPetSeen(player: Player): Promise<boolean> {
 		const petsSeen = await DwarfPetsSeen.count({
 			where: {

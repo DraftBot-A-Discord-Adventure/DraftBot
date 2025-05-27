@@ -17,14 +17,20 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 
-
+/**
+ * Return true if the player has a pet AND the dwarf never saw this pet from it
+ * @param response
+ * @param player
+ */
 async function isPlayerHavePetAndPetIsNeverSeen(response: DraftBotPacket[], player: Player): Promise<boolean> {
+	// Check if the player has a pet
 	if (!player.petId) {
 		response.push(makePacket(SmallEventDwarfPetFanNoPet, {}));
 		return false;
 	}
 	const petEntity = await PetEntities.getById(player.petId);
 
+	// Check if the dwarf has already seen this pet
 	if (await DwarfPetsSeen.isPetSeen(player, petEntity.typeId)) {
 		response.push(makePacket(SmallEventDwarfPetFanPetAlreadySeen, {}));
 		return false;
@@ -32,6 +38,11 @@ async function isPlayerHavePetAndPetIsNeverSeen(response: DraftBotPacket[], play
 	return true;
 }
 
+/**
+ * Manage when the player has shown all the pets to the dwarf
+ * @param response
+ * @param player
+ */
 async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player): Promise<void> {
 	await player.addMoney({
 		amount: Constants.DWARF_PET_FAN.ALL_PETS_SEEN_REWARD,
@@ -41,6 +52,11 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
 	response.push(makePacket(SmallEventDwarfPetFanAllPetsSeen, {}));
 }
 
+/**
+ * Manage when the player shows a new pet to the dwarf
+ * @param response
+ * @param player
+ */
 async function manageNewPetSeen(response: DraftBotPacket[], player: Player): Promise<void> {
 	const petEntity = await PetEntities.getById(player.petId);
 	await DwarfPetsSeen.markPetAsSeen(player, petEntity.typeId);
@@ -56,6 +72,7 @@ async function manageNewPetSeen(response: DraftBotPacket[], player: Player): Pro
 export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: player => Maps.isOnContinent(player),
 	executeSmallEvent: async (response, player, _context): Promise<void> => {
+		// Check if the player has shown all the pets
 		if (await DwarfPetsSeen.isAllPetSeen(player)) {
 			await manageAllPetsAreSeen(response, player);
 			return;
