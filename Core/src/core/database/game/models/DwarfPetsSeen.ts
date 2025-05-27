@@ -2,6 +2,7 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 import Player from "./Player";
+import {PetDataController} from "../../../../data/Pet";
 
 export class DwarfPetsSeen extends Model {
 	declare readonly playerId: number;
@@ -46,7 +47,7 @@ export class DwarfPetsSeen extends Model {
 			}
 		});
 
-		return petsSeen == // TODO : Le nombre de pets;
+		return petsSeen === PetDataController.instance.getMaxId();
 	}
 }
 
