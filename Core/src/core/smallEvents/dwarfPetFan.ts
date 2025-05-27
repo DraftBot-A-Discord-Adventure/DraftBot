@@ -8,7 +8,8 @@ import {
 import {
 	SmallEventDwarfPetFanNoPet,
 	SmallEventDwarfPetFanPetAlreadySeen,
-	SmallEventDwarfPetFanAllPetsSeen, SmallEventDwarfPetFanNewPetPacket
+	SmallEventDwarfPetFanAllPetsSeen,
+	SmallEventDwarfPetFanNewPetPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import {
 	PetEntities,
@@ -88,8 +89,8 @@ async function manageNewPetSeen(response: DraftBotPacket[], player: Player, petE
 		NumberChangeReason.SMALL_EVENT
 	);
 	response.push(makePacket(SmallEventDwarfPetFanNewPetPacket, {
-		petNickname: petEntity.nickname,
-		amount: Constants.DWARF_PET_FAN.NEW_PET_SEEN_REWARD
+		amount: Constants.DWARF_PET_FAN.NEW_PET_SEEN_REWARD,
+		petNickname: petEntity.nickname
 	}));
 }
 

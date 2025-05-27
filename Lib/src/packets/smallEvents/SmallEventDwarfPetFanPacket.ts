@@ -6,9 +6,9 @@ import { SmallEventPacket } from "./SmallEventPacket";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class SmallEventDwarfPetFanNewPetPacket extends SmallEventPacket {
-	petNickname!: string | undefined;
-
 	amount!: number;
+
+	petNickname!: string | undefined;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
