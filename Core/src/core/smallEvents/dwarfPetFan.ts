@@ -7,7 +7,6 @@ import {
 } from "../../../../Lib/src/packets/DraftBotPacket";
 import {
 	SmallEventDwarfPetFanNoPet,
-	SmallEventDwarfPetFanPacket,
 	SmallEventDwarfPetFanPetAlreadySeen,
 	SmallEventDwarfPetFanAllPetsSeen, SmallEventDwarfPetFanNewPetPacket
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
@@ -19,7 +18,7 @@ import { DwarfPetsSeen } from "../database/game/models/DwarfPetsSeen";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
 import { Constants } from "../../../../Lib/src/constants/Constants";
-import {RandomUtils} from "../../../../Lib/src/utils/RandomUtils";
+import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 
 /**
  * Return true if the player has a pet AND the dwarf never saw this pet from it
