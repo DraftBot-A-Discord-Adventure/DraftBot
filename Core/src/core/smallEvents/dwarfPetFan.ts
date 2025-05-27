@@ -11,7 +11,10 @@ import {
 	SmallEventDwarfPetFanPetAlreadySeen,
 	SmallEventDwarfPetFanAllPetsSeen
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
-import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
+import {
+	PetEntities,
+	PetEntity
+} from "../database/game/models/PetEntity";
 import { DwarfPetsSeen } from "../database/game/models/DwarfPetsSeen";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
