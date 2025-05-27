@@ -61,7 +61,10 @@
           "effect": "lost"
         },
         "1": {
-          "money": -325
+          "money": -325,
+          "tags": [
+            "moneyUsage"
+          ]
         },
         "2": {
           "mapTypesDestination": [
