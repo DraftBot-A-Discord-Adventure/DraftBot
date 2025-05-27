@@ -55,11 +55,13 @@ export function initModel(sequelize: Sequelize): void {
 	DwarfPetsSeen.init({
 		playerId: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
+			primaryKey: true
 		},
 		petTypeId: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
+			primaryKey: true
 		}
 	}, {
 		sequelize,
