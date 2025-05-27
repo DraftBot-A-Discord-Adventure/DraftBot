@@ -1630,6 +1630,7 @@ export function initModel(sequelize: Sequelize): void {
 	Player.afterSave(instance => {
 		if (!instance.mapLinkId) {
 			return;
+		}
 
 		const handleNotifications = async (): Promise<void> => {
 			const now = new Date();
