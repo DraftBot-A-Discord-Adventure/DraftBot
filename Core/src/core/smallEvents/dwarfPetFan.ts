@@ -11,7 +11,7 @@ import {
 	SmallEventDwarfPetFanPetAlreadySeen,
 	SmallEventDwarfPetFanAllPetsSeen
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
-import { PetEntities } from "../database/game/models/PetEntity";
+import {PetEntities, PetEntity} from "../database/game/models/PetEntity";
 import { DwarfPetsSeen } from "../database/game/models/DwarfPetsSeen";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
@@ -21,14 +21,14 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
  * Return true if the player has a pet AND the dwarf never saw this pet from it
  * @param response
  * @param player
+ * @param petEntity
  */
-async function isPlayerHavePetAndPetIsNeverSeen(response: DraftBotPacket[], player: Player): Promise<boolean> {
+async function isPlayerHavePetAndPetIsNeverSeen(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<boolean> {
 	// Check if the player has a pet
 	if (!player.petId) {
 		response.push(makePacket(SmallEventDwarfPetFanNoPet, {}));
 		return false;
 	}
-	const petEntity = await PetEntities.getById(player.petId);
 
 	// Check if the dwarf has already seen this pet
 	if (await DwarfPetsSeen.isPetSeen(player, petEntity.typeId)) {
@@ -56,9 +56,9 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
  * Manage when the player shows a new pet to the dwarf
  * @param response
  * @param player
+ * @param petEntity
  */
-async function manageNewPetSeen(response: DraftBotPacket[], player: Player): Promise<void> {
-	const petEntity = await PetEntities.getById(player.petId);
+async function manageNewPetSeen(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<void> {
 	await DwarfPetsSeen.markPetAsSeen(player, petEntity.typeId);
 	const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
 	await missionInfo.addGems(
@@ -77,9 +77,11 @@ export const smallEventFuncs: SmallEventFuncs = {
 			await manageAllPetsAreSeen(response, player);
 			return;
 		}
-		if (!await isPlayerHavePetAndPetIsNeverSeen(response, player)) {
+		const petEntity = await PetEntities.getById(player.petId);
+
+		if (!await isPlayerHavePetAndPetIsNeverSeen(response, player, petEntity)) {
 			return;
 		}
-		await manageNewPetSeen(response, player);
+		await manageNewPetSeen(response, player, petEntity);
 	}
 };
