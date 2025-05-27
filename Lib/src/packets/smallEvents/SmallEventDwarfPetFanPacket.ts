@@ -3,33 +3,25 @@ import {
 	sendablePacket
 } from "../DraftBotPacket";
 import { SmallEventPacket } from "./SmallEventPacket";
+import {SexTypeShort} from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFanNewPetPacket extends SmallEventPacket {
-	amount!: number;
+export class SmallEventDwarfPetFan extends SmallEventPacket {
+	petNickname?: string | undefined;
 
-	petNickname!: string | undefined;
-}
+	petSex?: SexTypeShort;
 
-@sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFanPetAlreadySeen extends SmallEventPacket {
-	petNickname!: string | undefined;
-}
+	petTypeId?: number;
 
-@sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFanNoPet extends SmallEventPacket {
-}
+	playerHavePet!: boolean;
 
-@sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFanAllPetsSeen extends SmallEventPacket {
-	isGemReward?: boolean;
+	amount?: number;
 
-	amount!: number;
-}
+	newPetSeen?: boolean;
 
-@sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFanFeistyPet extends SmallEventPacket {
-	malus!: number;
+	arePetsAllSeen?: {
+		isGemReward: boolean;
+	};
 
-	petNickname!: string | undefined;
+	isPetFeisty?: boolean;
 }

@@ -139,7 +139,6 @@ export class Constants {
 	};
 
 	static readonly DWARF_PET_FAN = {
-		FEISTY_PET_MALUS: 1,
 		NEW_PET_SEEN_REWARD: 1,
 		ALL_PETS_SEEN: {
 			GEM_PROBABILITY: 0.02,

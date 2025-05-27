@@ -87,6 +87,11 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import {
+	SmallEventDwarfPetFan,
+	SmallEventDwarfPetFanAllPetsSeen, SmallEventDwarfPetFanFeistyPet,
+	SmallEventDwarfPetFanNewPetPacket, SmallEventDwarfPetFanNoPet, SmallEventDwarfPetFanPetAlreadySeen
+} from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -966,5 +971,38 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventEpicItemShopCannotBuyPacket)
 	async smallEventEpicItemShopCannotBuy(context: PacketContext, _packet: SmallEventEpicItemShopCannotBuyPacket): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
+	}
+
+	@packetHandler(SmallEventDwarfPetFan)
+	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFan): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const lng = interaction!.userLanguage;
+		const keyStory = packet.playerHavePet
+			? packet.isPetFeisty
+				? "petIsFeisty"
+				: packet.arePetsAllSeen
+					? "allPetsSeen"
+					: packet.newPetSeen
+						? "newPetSeen"
+						: "petAlreadySeen"
+			: "noPet";
+		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "money";
+		await interaction?.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"dwarfPetFan",
+					StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)
+					+ StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
+						pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId, packet.petSex),
+						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
+							lng,
+							amount: packet.amount
+						})
+					}),
+					interaction.user,
+					lng
+				)
+			]
+		});
 	}
 }
