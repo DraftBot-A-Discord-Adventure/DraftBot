@@ -261,6 +261,9 @@ export abstract class FightConstants {
 	// Amount of attack glory transformed into defense glory each week
 	static ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK = 50;
 
+	// Maximum defense glory points to be eligible for attack glory transfer
+	static readonly MAX_DEFENSE_GLORY_FOR_TRANSFER = 1400;
+
 	// Purge timeout
 	static PURGE_TIMEOUT = 60000;
 

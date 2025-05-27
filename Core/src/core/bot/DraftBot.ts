@@ -127,10 +127,12 @@ export class DraftBot {
 		}
 
 		/*
-		 * First program the next season end immediately at +7 days
+		 * First program the next season ends immediately at +7 days
 		 * Then wait a bit before setting the next date, so we are sure to be past the date
 		 *
-		 * The first one is set immediately so if the bot crashes before programming the next one, it will be set anyway to approximately a valid date (at 1s max of difference)
+		 * The first one is set immediately,
+		 * so if the bot crashes before programming the next one, it will be set anyway to approximately a valid date
+		 * (at 1 s max of difference)
 		 */
 		await Settings.NEXT_SEASON_RESET.setValue(await Settings.NEXT_SEASON_RESET.getValue() + 7 * 24 * 60 * 60 * 1000);
 
@@ -220,7 +222,12 @@ export class DraftBot {
 					`attackGloryPoints - LEAST(${FightConstants.ATTACK_GLORY_TO_DEFENSE_GLORY_EACH_WEEK}, attackGloryPoints)`
 				)
 			},
-			{ where: { attackGloryPoints: { [Op.gt]: 0 } } }
+			{
+				where: {
+					attackGloryPoints: { [Op.gt]: 0 },
+					defenseGloryPoints: { [Op.lte]: FightConstants.MAX_DEFENSE_GLORY_FOR_TRANSFER }
+				}
+			}
 		);
 	}
 
