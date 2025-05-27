@@ -984,14 +984,14 @@ export default class SmallEventsHandler {
 						? "newPetSeen"
 						: "petAlreadySeen"
 			: "noPet";
-		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "money";
+		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "gem";
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"dwarfPetFan",
 					StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)
 					+ StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
-						pet: PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!),
+						pet: packet.playerHavePet ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
 						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
 							lng,
 							amount: packet.amount

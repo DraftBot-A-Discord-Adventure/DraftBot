@@ -2,7 +2,7 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 import Player from "./Player";
-import {PetDataController} from "../../../../data/Pet";
+import { PetDataController } from "../../../../data/Pet";
 
 export class DwarfPetsSeen extends Model {
 	declare readonly playerId: number;
@@ -67,8 +67,7 @@ export function initModel(sequelize: Sequelize): void {
 	}, {
 		sequelize,
 		tableName: "dwarf_pets_seen",
-		freezeTableName: true
+		freezeTableName: true,
+		timestamps: false
 	});
 }
-
-

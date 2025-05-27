@@ -1611,7 +1611,9 @@
     "intro": [
       "Avançant tranquillement sur votre chemin, une minuscule silhouette apparait. C'est Talvar le nain, un vieil homme âgé passioné de la faune. Sa barbe grise traîne presque jusqu’au sol, et ses yeux pétillent dès qu’il aperçoit un animal."
     ],
-    "petIsFeisty": "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celui-ci semble malheureux ne voulant pas vous suivre. Talvar, fout de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux.",
+    "petIsFeisty": [
+      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celui-ci semble malheureux ne voulant pas vous suivre. Talvar, fout de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux."
+      ],
     "reward": {
       "gem": "{{amount}} {emote:unitValues.gem}",
       "money": "{{amount}} {emote:unitValues.money}"
