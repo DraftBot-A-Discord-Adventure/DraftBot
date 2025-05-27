@@ -9,7 +9,8 @@ import {
 	SmallEventDwarfPetFanNoPet,
 	SmallEventDwarfPetFanPetAlreadySeen,
 	SmallEventDwarfPetFanAllPetsSeen,
-	SmallEventDwarfPetFanNewPetPacket, SmallEventDwarfPetFanFeistyPet
+	SmallEventDwarfPetFanNewPetPacket,
+	SmallEventDwarfPetFanFeistyPet
 } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import {
 	PetEntities,
