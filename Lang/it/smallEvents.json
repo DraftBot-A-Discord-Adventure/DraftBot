@@ -1,16 +1,16 @@
 {
   "intro": [
     "Mentre voi viaggiate in pace, ",
-    "Mentre vi incamminate silenziosamente lungo la strada, ",
+    "Mentre cammini tranquillamente lungo il tuo sentiero, ",
     "Mentre vi preparate a ripartire dopo una breve pausa, ",
-    "Alla curva della strada, ",
-    "Mentre si passeggia tranquillamente, ",
+    "Dietro una curva, ",
+    "Mentre passeggi tranquillamente, ",
     "Dopo una breve sosta, ",
     "Dopo lunghe ore di cammino, ",
     "Durante una breve pausa contro un albero, ",
     "Mentre continuate la vostra avventura, ",
-    "Seguite il vostro percorso, ",
-    "Contemplando il ciglio della strada, ",
+    "Seguendo il vostro cammino, ",
+    "Contemplando i bordi della strada, ",
     "Riprendiamo la strada dopo una breve sosta, ",
     "Mentre vi fate strada, stanchi per le lunghe ore di cammino, ",
     "Sul bordo di un sentiero, "
@@ -62,9 +62,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Si sale sul ponte e si chiacchiera con un membro dell'equipaggio.\n{{advice}}Egli vi dà alcuni consigli per aiutarvi nella vostra avventura sull'isola: ** **.",
-      "Si sale sull'albero maestro per ammirare l'orizzonte.\n{{advice}}Un uomo abbassa il suo cannocchiale e vi dà questo consiglio prima di partire per l'isola: ** **.",
-      "Godendo di un pasto nella fresca brezza marina, si chiacchiera con i marinai.\n{{advice}}Il vostro compagno di tavolo vi dà i seguenti consigli sull'isola: ** **."
+      "Si sale sul ponte e si chiacchiera con un membro dell'equipaggio.\nEgli vi dà alcuni consigli per aiutarvi nella vostra avventura sull'isola: **{{advice}}**.",
+      "Si sale sull'albero maestro per ammirare l'orizzonte.\nUn uomo abbassa il suo cannocchiale e vi dà questo consiglio prima di partire per l'isola: **{{advice}}**.",
+      "Godendo di un pasto nella fresca brezza marina, si chiacchiera con i marinai.\nIl vostro compagno di tavolo vi dà i seguenti consigli sull'isola: **{{advice}}**."
     ],
     "advices": [
       "Ci sono molti altri eventi che vi aspettano sull'Isola Misteriosa",
@@ -79,28 +79,28 @@
       "I mostri hanno statistiche diverse: alcuni hanno un alto livello di difesa, attacco, velocità o vita totale.",
       "Un'isola è composta da un numero finito di località. Una volta visitata l'ultima località, si viene riportati sulla terraferma.",
       "L'isola misteriosa cambia ogni settimana",
-      "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente.",
-      "{command:joinboat}Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre .",
+      "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente",
+      "Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre {command:joinboat}",
       "Le azioni disponibili quando si combattono gli animali dipendono dalle statistiche, dagli oggetti, dagli animali domestici, ecc.",
       "L'ostilità dell'isola non vi favorirà nelle avventure. Ma se unisci le forze con i membri della tua gilda, insieme sarete molto più forti.",
-      "{command:map} Clicca per vedere la mappa dell'isola",
+      "Il comando {command:map} permette di vedere la mappa dell'isola",
       "Si può scegliere di lasciare l'isola dopo ogni combattimento con i mostri. Se l'energia è poca, è meglio andarsene quando si è ancora coscienti.",
       "Alcune azioni, come bere una pozione, accedere al negozio o ottenere i bonus giornalieri, non sono disponibili sull'isola.",
       "Il livello non influisce sul numero di punti gilda, ma influisce su altre ricompense.",
       "Vincendo contro un mostro più avanti nell'isola si otterranno più punti gilda di quelli ottenuti all'inizio.",
       "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
       "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
-      "{command:guild}Potete usare il comando per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
+      "È possibile vedere i membri della tua gilda che si trovano su un'isola misteriosa usando il comando {command:guild}",
       "Il comando {command:guild} ti permette di vedere il numero di alleati che ti aiuteranno sull'isola misteriosa",
       "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
     ]
   },
   "goToPVEIsland": {
     "stories": [
-      "notate una barca ferma sul ciglio della strada. Il capitano vi chiama e vi propone un'emozionante avventura su un'isola infestata da mostri. {{priceText}}Vi dice anche che .",
-      "Un uomo vi si avvicina e vi chiede se siete interessati ai suoi servizi. Spiega di essere il capitano di una nave che naviga tra il continente e un'isola misteriosa piena di mostri. {{priceText}}Dice che può portarvi lì se siete alla ricerca di un'avventura emozionante e aggiunge che .",
-      "si viene avvicinati da un uomo vestito da marinaio, che indossa l'emblema del re. Spiega che sta cercando di mandare alcuni degli avventurieri che si contendono la mano della principessa su un'isola piena di mostri, di cui sarebbe utile per il regno sbarazzarsi. {{priceText}}Dice anche che una barca è pronta a partire per quest'isola e vi chiede se siete disposti a farlo, sottolineando che .",
-      "siete avvicinati da un uomo alto con la barba, che si presenta come il capo di un gruppo di mercenari rinomato nella regione. Vi dice che può farvi un'offerta incredibile. L'offerta consiste nel recarsi su una nuova isola misteriosa, dove ci sono sia opportunità che pericoli, come cacciatore di mostri. {{priceText}}Aggiunge anche che ."
+      "noti una barca ferma sul ciglio della strada. Il capitano ti chiama e ti propone un'avventura emozionante su un'isola infestata dai mostri. Ti dice anche che {{priceText}}.",
+      "un uomo vi si avvicina e vi chiede se siete interessati ai suoi servizi. Spiega di essere il capitano di una nave che naviga tra il continente e un'isola misteriosa piena di mostri. Dice che può portarvi lì se siete alla ricerca di un'avventura emozionante e aggiunge che {{priceText}}.",
+      "si viene avvicinati da un uomo vestito da marinaio, che indossa l'emblema del re. Spiega che sta cercando di mandare alcuni degli avventurieri che si contendono la mano della principessa su un'isola piena di mostri, di cui sarebbe utile per il regno sbarazzarsi. Dice anche che una barca è pronta a partire per quest'isola e vi chiede se siete disposti a farlo, sottolineando che {{priceText}}.",
+      "siete avvicinati da un uomo alto con la barba, che si presenta come il capo di un gruppo di mercenari rinomato nella regione. Vi dice che può farvi un'offerta incredibile. L'offerta consiste nel recarsi su una nuova isola misteriosa, dove ci sono sia opportunità che pericoli, come cacciatore di mostri. Aggiunge anche che {{priceText}}."
     ],
     "priceFree": "il viaggio **è gratuito**.",
     "priceMoney": "il viaggio **costituirà {{price}} {emote:unitValues.gem}**",
@@ -122,7 +122,7 @@
       "fail": "Partecipate al gioco dell'uomo. Tuttavia, non vincete e ve ne andate sperando di essere più fortunati la prossima volta. Partecipare alla lotteria vi sarà costato **{{lostTime}} Min :clock2:**."
     },
     "hard": {
-      "success": "Vincete il gioco dell'uomo. Di conseguenza, vi ricompensa profumatamente.{{lostTime}} :clock2:Tuttavia, si perde ** Min **.",
+      "success": "Vincete il gioco dell'uomo. Di conseguenza, vi ricompensa profumatamente.Tuttavia, si perde **{{lostTime}} Min :clock2:**.",
       "fail": "Si coglie l'occasione. Purtroppo non si vince. Forse la prossima volta si sarà più fortunati. Partecipare alla lotteria vi sarà costato **{{lostTime}} Min :clock2:**.",
       "failWithMalus": "Si scommette un centinaio di monete sul gioco dell'uomo. Ma perdete e ve ne andate, sconsolati per aver perso **{{money}}** {emote:unitValues.lostMoney}. Partecipare alla lotteria vi sarà costato anche **{{lostTime}} Min :clock2:**."
     },
@@ -145,49 +145,49 @@
     ],
     "top1": [
       "{{playerDisplay}} Passerete davanti a , attualmente il miglior giocatore del mondo!",
-      "{{playerDisplay}}Mentre si cammina, ci si imbatte in . Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
-      "Oh, mio Dio! È incredibile! {{playerDisplay}}È il leggendario, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
+      "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
+      "Oh, mio Dio! È incredibile! È il leggendario {{playerDisplay}}, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
       "{{playerDisplay}}Fate largo a , il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
     ],
     "top10": [
       "Lungo la strada, incontrerete una persona molto importante. {{playerDisplay}} è nella top 10!",
-      "Incredibile! State camminando lungo un sentiero e vi imbattete in uno degli eroi del momento! {{playerDisplay}} Probabilmente ne avete sentito parlare: l'avete visto nella top 10! Questo evento rallegrerà la vostra giornata.",
-      "State parlando con un personaggio noto tra gli avventurieri in lizza per la mano della principessa. {{playerDisplay}}Si tratta di , che è nella top 10!"
+      "Sorprendente ! Camminando lungo un sentiero incontri uno degli eroi del momento! Probabilmente lo sai, è {{playerDisplay}}, l'hai visto nella top 10! Questo evento ti rallegra la giornata.",
+      "State parlando con un personaggio noto tra gli avventurieri in lizza per la mano della principessa. Si tratta di {{playerDisplay}}, che è nella top 10!"
     ],
     "top50": [
       "Incontrate qualcuno il cui nome vi ricorda qualcosa... {{playerDisplay}} è entrato nella top 50!",
-      "{{playerDisplay}}Mentre calciate un sasso, vi accorgete che colpisce la scarpa di un passante, ma non è uno qualunque, è uno che avete visto nelle liste dei tornei clandestini! Fate una breve chiacchierata con lui e poi continuate per la vostra strada.",
-      "{{playerDisplay}}\"Da un grande potere derivano grandi responsabilità\", dice un avventuriero top 50 che incontrate durante il vostro viaggio."
+      "Mentre calciate un sasso, vi accorgete che colpisce la scarpa di un passante, ma non è uno qualunque, è {{playerDisplay}}, l'avete visto nelle liste dei tornei clandestini! Fate una breve chiacchierata con lui e poi continuate per la vostra strada.",
+      "\"Da un grande potere derivano grandi responsabilità\", dice {{playerDisplay}}, un avventuriero top 50 che incontrate durante il vostro viaggio."
     ],
     "top100": [
-      "{{playerDisplay}} La perseveranza porta al successo - questo è ciò che vi dice uno dei 100 migliori! Poi continuate il vostro cammino verso la vostra destinazione.",
+      "La perseveranza porta al successo - questo è ciò che vi dice {{playerDisplay}} uno dei 100 migliori! Poi continuate il vostro cammino verso la vostra destinazione.",
       "Woah, riconoscete uno dei principianti dei tornei, lo avevate già incontrato in un villaggio a nord, ma sì... È {{playerDisplay}} !",
-      "{{playerDisplay}}Mentre lavorate per raggiungere il vostro obiettivo, incontrate , una stella nascente di DraftBot. Infatti, è nella top 100!"
+      "Mentre lavorate per raggiungere il vostro obiettivo, incontrate {{playerDisplay}}, una stella nascente di DraftBot. Infatti, è nella top 100!"
     ],
     "powerful_guild": [
-      "{{playerDisplay}}che incontrate per caso lungo la strada, fa parte di una potente gilda! Questo è ciò che si deduce quando si vede il suo distintivo scintillante.",
-      "{{playerDisplay}}Vedete una folla in lontananza, vi affrettate a controllare e sentite: \"Fate largo a \"! In effetti, fa parte di una gilda piuttosto potente!",
+      "{{playerDisplay}}, che incontrate per caso lungo la strada, fa parte di una potente gilda! Questo è ciò che si deduce quando si vede il suo distintivo scintillante.",
+      "Vedete una folla in lontananza, vi affrettate a controllare e sentite: \"Fate largo a {{playerDisplay}}\"! In effetti, fa parte di una gilda piuttosto potente!",
       "Si dice che un membro di una potente gilda stia seguendo il vostro stesso percorso. {{playerDisplay}} Si vede passare in lontananza!"
     ],
     "beginner": [
-      "C'è un inizio per tutto! {{playerDisplay}} Incontrare come inizia la sua avventura dedicata alla principessa.",
-      "{{playerDisplay}}Un passante vi passa accanto e lo riconoscete subito: è . Un nuovo arrivato, ma simpatico e cordiale!",
-      "Si fa una pausa di 5 minuti per schiarirsi le idee. {{playerDisplay}}Per farlo, si allena , che ha appena iniziato la partita."
+      "C'è un inizio per tutto! Ti viene presentata {{playerDisplay}}, che inizia la sua avventura dedicata alla principessa.",
+      "Un passante vi passa accanto e lo riconoscete subito: è {{playerDisplay}}. Un nuovo arrivato, ma simpatico e cordiale!",
+      "Si fa una pausa di 5 minuti per schiarirsi le idee. Per farlo, si allena {{playerDisplay}}, che ha appena iniziato la partita."
     ],
     "advanced": [
-      "{{playerDisplay}} I capelli grigi testimoniano l'esperienza accumulata.{{level}}È di livello ** ** ! Continuate quindi il vostro cammino.",
-      "{{playerDisplay}}Mentre si vaga, ci si imbatte in .{{level}}È un eroe potente - livello ** ** !",
-      "{{playerDisplay}} sta salendo di livello in continuazione ed è uno dei migliori giocatori del gioco!{{level}}Attualmente è di livello ** **. Dopo questo incontro sarete sulla strada giusta."
+      "I capelli grigi di {{playerDisplay}} testimoniano l'esperienza accumulata. È di livello **{{level}}** ! Continuate quindi il vostro cammino.",
+      "Mentre si vaga, ci si imbatte in {{playerDisplay}}. È un eroe potente - livello **{{level}}** !",
+      "{{playerDisplay}} sta salendo di livello in continuazione ed è uno dei migliori giocatori del gioco! Attualmente è di livello **{{level}}**. Dopo questo incontro sarai sulla strada giusta."
     ],
     "same_class": [
-      "{{playerDisplay}}Lungo il percorso, riconoscerete l'abbigliamento di 's.{{class}}È proprio come te!",
-      "{{playerDisplay}}Lo notate e osservate rapidamente il suo abbigliamento e i suoi modi familiari.{{class}}È ** **, proprio come te! Continuate quindi il vostro cammino.",
-      "{{class}} {{playerDisplay}}Salutate uno dei vostri colleghi ** **, che sta passando. Non c'è tempo per fermarsi e si prosegue per la propria strada."
+      "Lungo il percorso, riconoscerete l'abbigliamento di {{playerDisplay}}. È **{{class}}** proprio come te!",
+      "Notate {{playerDisplay}} e osservate rapidamente il suo abbigliamento e i suoi modi familiari. È **{{class}}**, proprio come voi! Continuate quindi il vostro cammino.",
+      "Salutate uno dei vostri colleghi **{{class}}**, {{playerDisplay}}, che sta passando. Non c'è tempo per fermarsi e si prosegue per la propria strada."
     ],
     "same_guild": [
-      "Sulla vostra strada vi imbattete in un volto molto familiare... {{playerDisplay}} In effetti, è un membro della vostra gilda!",
+      "Sulla vostra strada vi imbattete in un volto molto familiare... In effetti, {{playerDisplay}} è un membro della vostra gilda!",
       "Ti avvicini a qualcuno e quel volto familiare ti ricorda qualcosa... Sì, è {{playerDisplay}} uno dei membri della vostra gilda!",
-      "{{playerDisplay}} Incontrare la propria gilda! Eseguite la stretta di mano segreta della gilda e prendete strade diverse."
+      "Incontrare {{playerDisplay}} della vostra gilda! Eseguite la stretta di mano segreta della gilda e prendete strade diverse."
     ],
     "staff_member": [
       "{{playerDisplay}}\n\n{{advice}}\n\nche fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura: potete quindi continuare per la vostra strada.",
