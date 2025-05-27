@@ -140,7 +140,11 @@ export class Constants {
 
 	static readonly DWARF_PET_FAN = {
 		NEW_PET_SEEN_REWARD: 1,
-		ALL_PETS_SEEN_REWARD: 300
+		ALL_PETS_SEEN: {
+			GEM_PROBABILITY: 0.02,
+			GEM_REWARD: 1,
+			MONEY_REWARD: 150
+		}
 	};
 
 	static readonly DEFAULT_ERROR = "Hmmm... Something went very (very) wrong. Please share this issue with us here :\n\n"
