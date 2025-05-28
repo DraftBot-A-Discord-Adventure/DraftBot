@@ -26,6 +26,12 @@ import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
  * @param petEntity
  */
 async function canContinueSmallEvent(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<boolean> {
+	// Check if the player has shown all the pets
+	if (await DwarfPetsSeen.isAllPetSeen(player)) {
+		await manageAllPetsAreSeen(response, player, petEntity);
+		return false;
+	}
+
 	// Check if the player has a pet
 	if (!player.petId) {
 		response.push(makePacket(SmallEventDwarfPetFan, { playerHavePet: false }));
@@ -40,12 +46,6 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
 			petTypeId: petEntity.typeId,
 			isPetFeisty: true
 		}));
-		return false;
-	}
-
-	// Check if the player has shown all the pets
-	if (await DwarfPetsSeen.isAllPetSeen(player)) {
-		await manageAllPetsAreSeen(response, player);
 		return false;
 	}
 
@@ -66,8 +66,20 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
  * Manage when the player has shown all the pets to the dwarf
  * @param response
  * @param player
+ * @param petEntity
  */
-async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player): Promise<void> {
+async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<void> {
+	if (player.petId && petEntity.isFeisty()) {
+		response.push(makePacket(SmallEventDwarfPetFan, {
+			playerHavePet: true,
+			petNickname: petEntity.nickname,
+			petSex: petEntity.sex as SexTypeShort,
+			petTypeId: petEntity.typeId,
+			isPetFeisty: true
+		}));
+		return;
+	}
+
 	// Give a gem
 	if (RandomUtils.draftbotRandom.bool(Constants.DWARF_PET_FAN.ALL_PETS_SEEN.GEM_PROBABILITY)) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
