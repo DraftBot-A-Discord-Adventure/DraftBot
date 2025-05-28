@@ -6,7 +6,7 @@ import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMiss
 import {
 	ExecuteTestCommandLike, ITestCommand
 } from "../../../../core/CommandsTest";
-import {DwarfPetsSeen} from "../../../../core/database/game/models/DwarfPetsSeen";
+import { DwarfPetsSeen } from "../../../../core/database/game/models/DwarfPetsSeen";
 
 export const commandInfo: ITestCommand = {
 	name: "destroyplayer",
