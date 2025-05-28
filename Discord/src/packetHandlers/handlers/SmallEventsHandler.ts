@@ -996,7 +996,7 @@ export default class SmallEventsHandler {
 					StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)
 					+ StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
 						context: packet.playerHavePet ? packet.petSex : "m",
-						pet: packet.playerHavePet && !packet.arePetsAllSeen ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
+						pet: packet.playerHavePet ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
 						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
 							lng,
 							amount: packet.amount

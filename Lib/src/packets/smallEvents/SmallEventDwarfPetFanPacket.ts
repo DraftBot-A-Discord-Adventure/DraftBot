@@ -13,7 +13,7 @@ export class SmallEventDwarfPetFan extends SmallEventPacket {
 
 	petTypeId?: number;
 
-	playerHavePet!: boolean;
+	playerHavePet?: boolean;
 
 	amount?: number;
 

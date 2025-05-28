@@ -78,7 +78,6 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
 		);
 		await missionInfo.save();
 		response.push(makePacket(SmallEventDwarfPetFan, {
-			playerHavePet: Boolean(player.petId),
 			arePetsAllSeen: {
 				isGemReward: true
 			},
@@ -95,7 +94,6 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
 	});
 	await player.save();
 	response.push(makePacket(SmallEventDwarfPetFan, {
-		playerHavePet: Boolean(player.petId),
 		arePetsAllSeen: {
 			isGemReward: false
 		},
