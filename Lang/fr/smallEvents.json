@@ -1609,14 +1609,14 @@
   },
   "dwarfPetFan": {
     "intro": [
-      "Avançant tranquillement sur votre chemin, une minuscule silhouette apparait. C'est Talvar le nain, un vieil homme âgé passioné de la faune. Sa barbe grise traîne presque jusqu’au sol, et ses yeux pétillent dès qu’il aperçoit un animal."
+      "Avançant tranquillement sur votre chemin, une minuscule silhouette apparait. C'est Talvar le nain, un vieil homme âgé passioné de la faune. Sa barbe grise traîne presque jusqu’au sol, et ses yeux pétillent dès qu’il aperçoit un animal.\n"
     ],
     "petIsFeisty": [
       "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celui-ci semble malheureux ne voulant pas vous suivre. Talvar, fout de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux."
       ],
     "reward": {
-      "gem": "{{amount}} {emote:unitValues.gem}",
-      "money": "{{amount}} {emote:unitValues.money}"
+      "gem": "**{{amount}} {emote:unitValues.gem}**",
+      "money": "**{{amount}} {emote:unitValues.money}**"
     },
     "allPetsSeen": [
       "Celui-ci se souvient de vous comme un confrère qui aime autant les animaux que lui. Après avoir discuté de votre amour commun pour ceux-ci, il vous tend {{reward}} en guide de cadeau avant de reprendre votre chemin."
