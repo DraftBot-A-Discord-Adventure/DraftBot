@@ -37,7 +37,7 @@
     "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} membri",
     "infoTitle": "Informazione",
     "islandInfo": "{emote:guild.isOnPveIsland} Numero di alleati sull'isola misteriosa: {{membersOnPveIsland}}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Massimo",
     "ranking": "{{rank}} / {{rankTotal}}",
@@ -52,9 +52,9 @@
     "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
   },
   "guildInvite": {
-    "title": "{{pseudo}}Siete invitati a unirvi a una gilda!",
+    "title": "{{pseudo}}, siete invitati a unirvi a una gilda!",
     "confirmDesc": "{emote:collectors.question} Volete unirvi alla gilda di{{guildName}}?",
-    "successTitle": "{{pseudo}} {{guildName}} si è unito alla gilda!",
+    "successTitle": "{{pseudo}} si è unito alla gilda {{guildName}}!",
     "successDesc": "Il ritardo prima della prossima ricompensa giornaliera della gilda è stato azzerato.",
     "refusedTitle": "{{guildName}} Non sei entrato nella gilda!",
     "errors": {
