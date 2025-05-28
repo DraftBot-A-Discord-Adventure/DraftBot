@@ -18,7 +18,7 @@ const markAllPetsSeenDwarfCommand: ExecuteTestCommandLike = async player => {
 				petTypeId: i
 			});
 		}
-		catch (error) {
+		catch {
 			// Vide car on s'en fiche
 		}
 	}
