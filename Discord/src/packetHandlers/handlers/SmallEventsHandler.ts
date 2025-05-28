@@ -110,9 +110,6 @@ function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
 	if (packet.isPetFeisty) {
 		return "petIsFeisty";
 	}
-	if (packet.arePetsAllSeen) {
-		return "allPetsSeen";
-	}
 	if (packet.newPetSeen) {
 		return "newPetSeen";
 	}
