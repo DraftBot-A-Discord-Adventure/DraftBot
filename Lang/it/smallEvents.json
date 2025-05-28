@@ -192,16 +192,16 @@
     "staff_member": [
       "{{playerDisplay}}, che fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura:\n\n{{advice}}\n\nPotete quindi continuare per la vostra strada.",
       "\"{{advice}}\". Questo è ciò che vi è stato detto da {{playerDisplay}}, uno dei famosi membri dello staff del bot, che incontrate lungo il percorso!",
-      "{{playerDisplay}}\n\n{{advice}}Parlate con , un membro del team di DraftBot, che ha qualche buon consiglio per la prossima fase della vostra avventura:"
+      "Parlate con {{playerDisplay}}, un membro del team DraftBot, che ha qualche buon consiglio per la prossima fase della vostra avventura:\n\n{{advice}}"
     ],
     "top_week": [
-      "{{playerDisplay}}Si vede sulla strada, senza fiato. Non si sta riposando: infatti, è nella top 5 di questa settimana!",
-      "Uno degli eroi di questa settimana viene a trovarvi. {{playerDisplay}}È nella top ten di questa settimana!",
-      "{{playerDisplay}}Parlate dei vostri punti con . Ha fatto buoni progressi questa settimana, ed è addirittura nella top 5 questa settimana!"
+      "Si vede {{playerDisplay}} sulla strada, senza fiato. Non si sta riposando: infatti, è nella top 5 di questa settimana!",
+      "Uno degli eroi di questa settimana viene a trovarvi. È {{playerDisplay}}, è nella top ten di questa settimana!",
+      "Parlate dei vostri punti con {{playerDisplay}}. Ha fatto buoni progressi questa settimana, ed è addirittura nella top 5 questa settimana!"
     ],
     "low_hp": [
-      "{{playerDisplay}}Superate un uomo che zoppica... Non ha un bell'aspetto... Cade sul ciglio della strada e voi decidete di aiutarlo ad alzarsi.",
-      "{{playerDisplay}}Ci si imbatte in . Sembra in cattiva forma....",
+      "Superate {{playerDisplay}} che zoppica... Non ha un bell'aspetto... Cade sul ciglio della strada e voi decidete di aiutarlo ad alzarsi.",
+      "Ci si imbatte in {{playerDisplay}}. Sembra in cattiva forma....",
       "{{playerDisplay}} Anche una freccia nel ginocchio è in grado di uccidere chi si muove lentamente lungo il suo cammino. Una pozione curativa gli farebbe un gran bene!"
     ],
     "full_hp": [
