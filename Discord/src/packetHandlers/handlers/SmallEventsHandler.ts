@@ -100,6 +100,25 @@ export function getRandomSmallEventEnd(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:end", language);
 }
 
+function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
+	if (!packet.playerHavePet) {
+		if (packet.arePetsAllSeen) {
+			return "allPetsSeen";
+		}
+		return "noPet";
+	}
+	if (packet.isPetFeisty) {
+		return "petIsFeisty";
+	}
+	if (packet.arePetsAllSeen) {
+		return "allPetsSeen";
+	}
+	if (packet.newPetSeen) {
+		return "newPetSeen";
+	}
+	return "petAlreadySeen";
+}
+
 export default class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
 	async smallEventAdvanceTime(context: PacketContext, packet: SmallEventAdvanceTimePacket): Promise<void> {
@@ -979,15 +998,7 @@ export default class SmallEventsHandler {
 	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFan): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const lng = interaction!.userLanguage;
-		const keyStory = packet.playerHavePet
-			? packet.isPetFeisty
-				? "petIsFeisty"
-				: packet.arePetsAllSeen
-					? "allPetsSeen"
-					: packet.newPetSeen
-						? "newPetSeen"
-						: "petAlreadySeen"
-			: "noPet";
+		const keyStory = getDwarfPetFanStoryKey(packet);
 		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "gem";
 		await interaction?.editReply({
 			embeds: [
