@@ -78,7 +78,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
 		);
 		await missionInfo.save();
 		response.push(makePacket(SmallEventDwarfPetFan, {
-			playerHavePet: !!player.petId,
+			playerHavePet: Boolean(player.petId),
 			arePetsAllSeen: {
 				isGemReward: true
 			},
