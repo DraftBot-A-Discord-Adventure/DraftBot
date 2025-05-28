@@ -1615,44 +1615,44 @@
   },
   "dwarfPetFan": {
     "intro": [
-      "Avançant tranquillement sur votre chemin, une minuscule silhouette apparait. C'est Talvar le nain, un vieil homme âgé passionné de la faune. Sa barbe grise traîne presque jusqu’au sol, et ses yeux pétillent dès qu’il aperçoit un animal.\n",
-      "En bordure de forêt, vous croisez un vieux nain trapu au regard malicieux. C’est Talvar, connu dans la région pour son amour immodéré des bêtes.\n",
-      "Alors que vous suivez le sentier pierreux longeant la crête, vous croisez la route d’un vieux nain à la barbe interminable : Talvar.\n",
-      "Alors que vous traversez un chemin rocailleux, un vieux nain assis sur une pierre relève la tête. Talvar, de son nom, est une figure locale un peu étrange, réputée pour sa passion des animaux.\n"
+      "Sur le chemin serpentant dans l'ombre majestueuse du Mont Célestrum, une silhouette rabougrie émerge des terres rocailleuses. Talvar le Sage, vénérable nain aux cheveux d'argent, s'avance vers vous. Sa barbe tressée de fils d'or descend jusqu'à sa ceinture, et ses yeux verts pétillent d'une passion ancestrale pour toutes les créatures de ce monde.",
+      "Dans ces contrées dominées par l'imposant Mont Célestrum, votre route croise celle d'un nain trapu au regard malicieux. Talvar l'Ami-des-Bêtes, ainsi le nomment les gens du pays, porte sur ses épaules le poids des années et dans son cœur l'amour infini des créatures sauvages.",
+      "Tandis que vous marcher sur un sentier à travers les terres qui s'étendent au pied du légendaire Mont Célestrum, vous remarquez un étrange personnage. Assis sur une pierre couverte de mousse, un vieux nain à la barbe interminable vous salue d'un hochement de tête. Talvar, gardien des traditions et protecteur des animaux, vous observe avec curiosité.",
+      "Dans ces étendues sauvages que domine l'éternel Mont Célestrum, une figure familière de ces contrées vous interpelle. Talvar le Sage, nain vénérable dont la réputation de protecteur des créatures s'étend dans toute la région, lève vers vous un regard bienveillant sous l'ombre de la montagne sacrée."
     ],
     "petIsFeisty_m": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celui-ci semble malheureux et vous suit sans grande conviction. Talvar, fou de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux."
-      ],
+      "Lorsque vous présentez votre fidèle compagnon **{{pet}}**, le vieux nain fronce ses sourcils broussailleux. L'animal semble las et découragé, traînant les pattes sans enthousiasme. Le courroux de Talvar éclate comme un orage d'été ! Sa voix tonne à travers les vallées tandis qu'il vous sermonne vertement sur les devoirs sacrés envers nos familiers. Vous repartez la tête basse, jurant solennellement de revenir avec une créature épanouie et joyeuse."
+    ],
     "petIsFeisty_f": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celle-ci semble malheureuse et vous suit sans grande conviction, fou de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux."
+      "Quand vous lui montrez votre fidèle **{{pet}}**, les traits du sage nain se durcissent. La pauvre créature semble abattue et vous suit d'un pas traînant, l'œil terne. La colère de Talvar s'embrase tel un brasier ! Ses imprécations résonnent dans les vallées tandis qu'il vous admoneste sur l'art noble de soigner les animaux. Vous vous éloignez penaud, promettant par votre honneur de revenir avec une compagne radieuse et pleine de vie."
     ],
     "reward": {
       "gem": "**{{amount}} {emote:unitValues.gem}**",
       "money": "**{{amount}} {emote:unitValues.money}**"
     },
     "allPetsSeen": [
-      "Celui-ci se souvient de vous comme un confrère qui aime autant les animaux que lui. Après avoir discuté de votre amour commun pour ceux-ci, il vous tend {{reward}} en guide de cadeau avant de repartir dans sa direction."
+      "Le regard de Talvar s'illumine de reconnaissance. Il vous considère désormais comme un frère d'armes dans la noble quête de protection des créatures. Après avoir échangé maintes histoires sur vos compagnons respectifs et partagé la sagesse ancestrale des dresseurs, il vous offre {{reward}} en témoignage de son estime. Vous vous séparez en amis, chacun reprenant sa route avec le cœur réchauffé."
     ],
     "newPetSeen_m": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}. Vous poursuivez votre chemin.",
-      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser le déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.",
-      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.",
-      "Apercevant {{pet}} à vos côtés, il ne dit rien mais son expression change immédiatement : ses yeux brillent, il esquisse un sourire fasciné. Il se redresse lentement et vous tend {{reward}} pour vous remercier du beau moment qu'il vient de vivre puis se détourne, avec la satisfaction d’un homme comblé. Vous poursuivez votre voyage"
+      "À la vue de votre noble compagnon **{{pet}}**, les yeux du vieux sage s'embrasent d'une joie pure. Un sourire radieux illumine son visage buriné par les ans, et dans un élan de gratitude pour ce moment de grâce, il vous remet {{reward}}. Vous poursuivez votre périple, béni par cette rencontre.",
+      "Talvar s'agenouille avec une révérence presque religieuse, ses mains calleuses posées sur ses genoux. Il contemple **{{pet}}** dans un silence respectueux, n'osant troubler la majesté de l'instant. Un sourire béat étire ses lèvres tandis qu'il vous tend {{reward}}, puis reprend sa route d'un pas léger, l'âme apaisée.",
+      "Ses yeux vous effleurent à peine, captivés entièrement par la présence de **{{pet}}**. Son visage se transfigure d'émerveillement. Figé dans une contemplation muette, il demeure bouche entrouverte, saisi par l'émotion. Lentement, avec la solennité d'un pèlerin devant une relique sacrée, il incline la tête. Le cœur visiblement touché par cette grâce, il vous offre {{reward}} avant de s'éloigner en silence, empli de sérénité.",
+      "Dès qu'il aperçoit **{{pet}}** à vos côtés, la métamorphose est saisissante : ses prunelles s'illuminent d'un éclat mystique, un sourire extasié transfigure ses traits. Il se redresse avec une dignité nouvelle et vous présente {{reward}} en hommage à cette vision enchanteresse. Puis, comblé comme un homme qui aurait entrevu le paradis, il s'éloigne. Votre voyage reprend, marqué par cette bénédiction inattendue."
     ],
     "newPetSeen_f": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}. Vous poursuivez votre chemin.",
-      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser la déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.",
-      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.",
-      "Apercevant {{pet}} à vos côtés, il ne dit rien mais son expression change immédiatement : ses yeux brillent, il esquisse un sourire fasciné. Il se redresse lentement et vous tend {{reward}} pour vous remercier du beau moment qu'il vient de vivre puis se détourne, avec la satisfaction d’un homme comblé. Vous poursuivez votre voyage"
+      "À la vue de votre noble compagnon **{{pet}}**, les yeux du vieux sage s'embrasent d'une joie pure. Un sourire radieux illumine son visage buriné par les ans, et dans un élan de gratitude pour ce moment de grâce, il vous remet {{reward}}. Vous poursuivez votre périple, béni par cette rencontre.",
+      "Talvar s'agenouille avec une révérence presque religieuse, ses mains calleuses posées sur ses genoux. Il contemple **{{pet}}** dans un silence respectueux, n'osant troubler la majesté de l'instant. Un sourire béat étire ses lèvres tandis qu'il vous tend {{reward}}, puis reprend sa route d'un pas léger, l'âme apaisée.",
+      "Ses yeux vous effleurent à peine, captivés entièrement par la présence de **{{pet}}**. Son visage se transfigure d'émerveillement. Figé dans une contemplation muette, il demeure bouche entrouverte, saisi par l'émotion. Lentement, avec la solennité d'un pèlerin devant une relique sacrée, il incline la tête. Le cœur visiblement touché par cette grâce, il vous offre {{reward}} avant de s'éloigner en silence, empli de sérénité.",
+      "Dès qu'il aperçoit **{{pet}}** à vos côtés, la métamorphose est saisissante : ses prunelles s'illuminent d'un éclat mystique, un sourire extasié transfigure ses traits. Il se redresse avec une dignité nouvelle et vous présente {{reward}} en hommage à cette vision enchanteresse. Puis, comblé comme un homme qui aurait entrevu le paradis, il s'éloigne. Votre voyage reprend, marqué par cette bénédiction inattendue."
     ],
     "petAlreadySeen_m": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite. Vous poursuivez votre chemin."
+      "Vous présentez fièrement votre fidèle compagnon **{{pet}}**, mais la sagesse de Talvar lui rappelle qu'il a déjà eu l'honneur de contempler une créature de cette noble espèce. Néanmoins, ses yeux brillent de satisfaction en constatant les soins attentifs que vous prodiguez à votre protégé. Il vous adresse ses félicitations avec la gravité d'un maître reconnaissant la dévotion de son disciple. Votre chemin reprend, auréolé de son approbation."
     ],
     "petAlreadySeen_f": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite. Vous poursuivez votre chemin."
+      "Vous présentez fièrement votre fidèle compagnon **{{pet}}**, mais la mémoire infaillible de Talvar lui rappelle qu'il a déjà eu l'honneur de contempler une créature de cette noble espèce. Toutefois, ses yeux pétillent de contentement en observant les soins dévoués que vous accordez à votre protégée. Il vous honore de ses louanges avec la solennité d'un sage bénissant un gardien fidèle. Votre périple se poursuit, enrichi de sa bénédiction."
     ],
     "noPet": [
-      "**no pet**"
+      "Bien qu'aucune créature ne vous accompagne en ces terres, Talvar vous gratifie d'un regard empreint de bienveillance paternelle. Sa voix grave résonne d'une sagesse ancestrale lorsqu'il vous conseille d'accueillir un compagnon animal dans votre existence, car ces êtres purs apportent joie et réconfort aux âmes des voyageurs. Vous inclinez respectueusement la tête devant ses paroles de sagesse et reprenez votre route, son conseil gravé dans votre mémoire."
     ]
   }
 }

@@ -87,9 +87,7 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
-import {
-	SmallEventDwarfPetFan
-} from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
+import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
