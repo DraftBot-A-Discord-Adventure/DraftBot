@@ -1617,7 +1617,8 @@
     "intro": [
       "Avançant tranquillement sur votre chemin, une minuscule silhouette apparait. C'est Talvar le nain, un vieil homme âgé passionné de la faune. Sa barbe grise traîne presque jusqu’au sol, et ses yeux pétillent dès qu’il aperçoit un animal.\n",
       "En bordure de forêt, vous croisez un vieux nain trapu au regard malicieux. C’est Talvar, connu dans la région pour son amour immodéré des bêtes.\n",
-      "Alors que vous suivez le sentier pierreux longeant la crête, vous croisez la route d’un vieux nain à la barbe interminable : Talvar.\n"
+      "Alors que vous suivez le sentier pierreux longeant la crête, vous croisez la route d’un vieux nain à la barbe interminable : Talvar.\n",
+      "Alors que vous traversez un chemin rocailleux, un vieux nain assis sur une pierre relève la tête. Talvar, de son nom, est une figure locale un peu étrange, réputée pour sa passion des animaux.\n"
     ],
     "petIsFeisty_m": [
       "Vous lui montrez votre fidèle compagnon **{{pet}}**. Celui-ci semble malheureux et vous suit sans grande conviction. Talvar, fou de rage, vous hurle dessus en exigeant que vous en preniez soin. Vous partez en promettant de revenir avec un animal comblé et heureux."
@@ -1630,23 +1631,25 @@
       "money": "**{{amount}} {emote:unitValues.money}**"
     },
     "allPetsSeen": [
-      "Celui-ci se souvient de vous comme un confrère qui aime autant les animaux que lui. Après avoir discuté de votre amour commun pour ceux-ci, il vous tend {{reward}} en guide de cadeau."
+      "Celui-ci se souvient de vous comme un confrère qui aime autant les animaux que lui. Après avoir discuté de votre amour commun pour ceux-ci, il vous tend {{reward}} en guide de cadeau avant de repartir dans sa direction."
     ],
     "newPetSeen_m": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}.\n",
-      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser le déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.\n",
-      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.\n"
+      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}. Vous poursuivez votre chemin.",
+      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser le déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.",
+      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.",
+      "Apercevant {{pet}} à vos côtés, il ne dit rien mais son expression change immédiatement : ses yeux brillent, il esquisse un sourire fasciné. Il se redresse lentement et vous tend {{reward}} pour vous remercier du beau moment qu'il vient de vivre puis se détourne, avec la satisfaction d’un homme comblé. Vous poursuivez votre voyage"
     ],
     "newPetSeen_f": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}.\n",
-      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser la déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.\n",
-      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.\n"
+      "Vous lui montrez votre fidèle compagnon **{{pet}}**. Ces yeux s'illuminent, un sourire se dessine sur son visage et pour la joie qu'il ressent il vous donne {{reward}}. Vous poursuivez votre chemin.",
+      "Il s’agenouille lentement, les mains sur les cuisses, admirant **{{pet}}** sans oser la déranger. Il vous adresse un sourire silencieux, vous donne {{reward}} puis reprend son chemin d’un pas léger.",
+      "Il vous observe à peine, ses yeux se posant immédiatement sur **{{pet}}**. Son visage s’illumine. Il s’arrête net, bouche entrouverte, ému. Il incline lentement la tête avec respect, comme face à une créature sacrée. Le cœur visiblement réchauffé par cette rencontre, il vous donne {{reward}} puis continue sa route, sans un mot.",
+      "Apercevant {{pet}} à vos côtés, il ne dit rien mais son expression change immédiatement : ses yeux brillent, il esquisse un sourire fasciné. Il se redresse lentement et vous tend {{reward}} pour vous remercier du beau moment qu'il vient de vivre puis se détourne, avec la satisfaction d’un homme comblé. Vous poursuivez votre voyage"
     ],
     "petAlreadySeen_m": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite.\n"
+      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite. Vous poursuivez votre chemin."
     ],
     "petAlreadySeen_f": [
-      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite.\n"
+      "Vous lui montrez votre fidèle compagnon **{{pet}}** mais il se souvient que vous lui aviez déjà montré un animal de cet espèce. Heureux de voir que vous en prenez soin, il vous félicite. Vous poursuivez votre chemin."
     ],
     "noPet": [
       "**no pet**"

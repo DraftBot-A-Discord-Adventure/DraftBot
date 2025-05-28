@@ -1001,8 +1001,7 @@ export default class SmallEventsHandler {
 							lng,
 							amount: packet.amount
 						})
-					})
-					+ getRandomSmallEventEnd(lng),
+					}),
 					interaction.user,
 					lng
 				)
