@@ -96,10 +96,6 @@ export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
 
-export function getRandomSmallEventEnd(language: Language): string {
-	return StringUtils.getRandomTranslation("smallEvents:end", language);
-}
-
 function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
 	if (!packet.playerHavePet) {
 		if (packet.arePetsAllSeen) {
