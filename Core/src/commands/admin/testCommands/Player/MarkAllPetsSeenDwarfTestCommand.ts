@@ -19,7 +19,7 @@ const markAllPetsSeenDwarfCommand: ExecuteTestCommandLike = async player => {
 			});
 		}
 		catch {
-			// Vide car on s'en fiche
+			// Empty because it's not necessary
 		}
 	}
 
