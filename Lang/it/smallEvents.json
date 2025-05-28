@@ -147,7 +147,7 @@
       "{{playerDisplay}} Passerete davanti a , attualmente il miglior giocatore del mondo!",
       "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
       "Oh, mio Dio! È incredibile! È il leggendario {{playerDisplay}}, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
-      "{{playerDisplay}}Fate largo a , il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
+      "Fate largo a {{playerDisplay}}, il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
     ],
     "top10": [
       "Lungo la strada, incontrerete una persona molto importante. {{playerDisplay}} è nella top 10!",
@@ -167,7 +167,7 @@
     "powerful_guild": [
       "{{playerDisplay}}, che incontrate per caso lungo la strada, fa parte di una potente gilda! Questo è ciò che si deduce quando si vede il suo distintivo scintillante.",
       "Vedete una folla in lontananza, vi affrettate a controllare e sentite: \"Fate largo a {{playerDisplay}}\"! In effetti, fa parte di una gilda piuttosto potente!",
-      "Si dice che un membro di una potente gilda stia seguendo il vostro stesso percorso. {{playerDisplay}} Si vede passare in lontananza!"
+      "Si dice che un membro di una potente gilda stia seguendo il vostro stesso percorso. Si vede {{playerDisplay}} passare in lontananza!"
     ],
     "beginner": [
       "C'è un inizio per tutto! Ti viene presentata {{playerDisplay}}, che inizia la sua avventura dedicata alla principessa.",
@@ -202,19 +202,19 @@
     "low_hp": [
       "Superate {{playerDisplay}} che zoppica... Non ha un bell'aspetto... Cade sul ciglio della strada e voi decidete di aiutarlo ad alzarsi.",
       "Ci si imbatte in {{playerDisplay}}. Sembra in cattiva forma....",
-      "{{playerDisplay}} Anche una freccia nel ginocchio è in grado di uccidere chi si muove lentamente lungo il suo cammino. Una pozione curativa gli farebbe un gran bene!"
+      "Anche una freccia nel ginocchio può finire {{playerDisplay}}, che sta lentamente avanzando. Una pozione curativa gli farebbe un mondo di bene!"
     ],
     "full_hp": [
-      "{{playerDisplay}}Raramente si è visto qualcuno così energico come... Sembra essere in piena forma!",
-      "{{playerDisplay}} Sulla vostra strada, incrociate un uomo che sembra in gran forma. In effetti, ha tutta la vita davanti a sé!",
-      "{{playerDisplay}} Quasi finisci per terra mentre ti corre accanto! È molto energico perché la sua vita è al culmine."
+      "Raramente si è visto qualcuno così energico come {{playerDisplay}}... Sembra essere in piena forma!",
+      "Sulla vostra strada, incrociate {{playerDisplay}} che sembra in gran forma. In effetti, ha tutta la vita davanti a sé!",
+      "Quasi finisci per terra mentre {{playerDisplay}} ti corre accanto! È molto energico perché la sua vita è al culmine."
     ],
     "unranked": [
-      "{{playerDisplay}}Ti imbatti in un giocatore che non sembra essere classificato... Ci si chiede cosa l'abbia spinto a venire qui e ad arrendersi così rapidamente.",
-      "{{playerDisplay}}Mentre si cammina, ci si imbatte in . Questo giocatore non sembra andare bene nella competizione. Ve ne andate dopo avergli spiegato le basi del gioco."
+      "Ti imbatti in {{playerDisplay}}, un giocatore che non sembra essere classificato... Te ne vai, chiedendoti cosa lo abbia spinto a venire qui e ad arrendersi così in fretta.",
+      "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Questo giocatore non sembra andare bene nella competizione. Ve ne andate dopo avergli spiegato le basi del gioco."
     ],
     "lower_rank_than_them": [
-      "{{playerDisplay}}Vi imbattete in un giocatore con una reputazione migliore della vostra... Ma non arrendetevi! Forse un giorno riuscirete a raggiungerlo.",
+      "Vi imbattete in {{playerDisplay}}, un giocatore con una reputazione migliore della vostra... Ma non arrendetevi! Forse un giorno riuscirete a raggiungerlo.",
       "{{playerDisplay}} Mentre cammini, inciampi e cadi, e ride di te perché è classificato più in alto di te!",
       "{{playerDisplay}} Parlate con lui della vostra classifica. Lui è un passo avanti a voi: ha una classifica più alta!",
       "{{playerDisplay}} Anche se potrebbero vantarsi di avere una posizione in classifica più alta della vostra, rimanete umili durante la conversazione."
