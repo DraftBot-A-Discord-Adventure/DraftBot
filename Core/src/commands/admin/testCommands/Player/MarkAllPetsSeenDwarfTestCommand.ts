@@ -12,10 +12,15 @@ export const commandInfo: ITestCommand = {
 
 const markAllPetsSeenDwarfCommand: ExecuteTestCommandLike = async player => {
 	for (let i = 0; i < PetDataController.instance.getPetsCount(); i++) {
-		await DwarfPetsSeen.create({
-			playerId: player.id,
-			petTypeId: i
-		});
+		try {
+			await DwarfPetsSeen.create({
+				playerId: player.id,
+				petTypeId: i
+			});
+		}
+		catch (error) {
+			// Vide car on s'en fiche
+		}
 	}
 
 	return "Vous avez mis au complet les pets montrés au nain.";
