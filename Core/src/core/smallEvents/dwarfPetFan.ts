@@ -17,7 +17,7 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
-import {SexTypeShort} from "../../../../Lib/src/constants/StringConstants";
+import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 
 /**
  * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
@@ -40,6 +40,12 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
 			petTypeId: petEntity.typeId,
 			isPetFeisty: true
 		}));
+		return false;
+	}
+
+	// Check if the player has shown all the pets
+	if (await DwarfPetsSeen.isAllPetSeen(player)) {
+		await manageAllPetsAreSeen(response, player);
 		return false;
 	}
 
@@ -72,7 +78,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player):
 		);
 		await missionInfo.save();
 		response.push(makePacket(SmallEventDwarfPetFan, {
-			playerHavePet: true,
+			playerHavePet: !!player.petId,
 			arePetsAllSeen: {
 				isGemReward: true
 			},
@@ -129,11 +135,6 @@ export const smallEventFuncs: SmallEventFuncs = {
 			return;
 		}
 
-		// Check if the player has shown all the pets
-		if (await DwarfPetsSeen.isAllPetSeen(player)) {
-			await manageAllPetsAreSeen(response, player);
-			return;
-		}
 		await manageNewPetSeen(response, player, petEntity);
 	}
 };
