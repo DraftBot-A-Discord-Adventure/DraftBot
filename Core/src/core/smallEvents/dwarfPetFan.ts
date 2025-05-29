@@ -2,15 +2,11 @@ import { SmallEventFuncs } from "../../data/SmallEvent";
 import { Maps } from "../maps/Maps";
 import Player from "../database/game/models/Player";
 import {
-	DraftBotPacket,
-	makePacket
+	DraftBotPacket, makePacket
 } from "../../../../Lib/src/packets/DraftBotPacket";
+import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import {
-	SmallEventDwarfPetFan
-} from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
-import {
-	PetEntities,
-	PetEntity
+	PetEntities, PetEntity
 } from "../database/game/models/PetEntity";
 import { DwarfPetsSeen } from "../database/game/models/DwarfPetsSeen";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
@@ -18,7 +14,7 @@ import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo"
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
-import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
+import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 
 /**
  * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
