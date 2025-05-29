@@ -284,7 +284,7 @@
         "name": "score"
       },
       "glory": {
-        "description": "Display guild rankings according to glory.",
+        "description": "Display player rankings according to glory.",
         "name": "glory"
       },
       "guild": {

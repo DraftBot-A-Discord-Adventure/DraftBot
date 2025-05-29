@@ -2,7 +2,7 @@
   "armorsFieldName": "Armatura/scudo:",
   "attack": "{emote:unitValues.attack} {{value}}",
   "defense": "{emote:unitValues.defense} {{value}}",
-  "nameDisplay": "{{itemCategory}}{emote: .{{itemId}}}$t(models:{{itemCategory}}.{{itemId}})** **",
+  "nameDisplay": "{emote:{{itemCategory}}.{{itemId}}} **$t(models:{{itemCategory}}.{{itemId}})**",
   "nerfDisplay": "~~{{old}}~~ {{max}}",
   "objectsFieldName": "Oggetto :",
   "objectsNatures": [
@@ -39,5 +39,5 @@
   ],
   "speed": "{emote:unitValues.speed} {{value}}",
   "weaponsFieldName": "Arma :",
-  "itemsField": "{{emote}} {{name}} {{rarity}} {{values}}** ** | |"
+  "itemsField": "**{{emote}} {{name}}** | {{rarity}} | {{values}}"
 }

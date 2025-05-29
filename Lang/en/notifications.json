@@ -31,5 +31,8 @@
   },
   "playerFreedFromJail": {
     "description": "You have been released from prison by **{{freedByPlayer}}**!"
+  },
+  "fightChallenge": {
+    "description": "{emote:fightCommand.crossedSwords} You have been attacked by **{{attackerPseudo}}**! Find out the result of this fight using the command `/historyfight`."
   }
 }

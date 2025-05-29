@@ -924,14 +924,8 @@
     "types": {
       "report": "Reports",
       "guildDaily": "Guild daily reward",
-      "playerFreedFromJail": {
-        "title": "Freed from jail",
-        "description": "You have been freed from jail! You can play again."
-      },
-      "fightChallenge": {
-        "title": "Fight Challenge Received",
-        "description": "You have been challenged by {{attackerPseudo}}. Use the {command:fightHistory} command for more details."
-      }
+      "playerFreedFromJail": "Release from prison",
+      "fightChallenge": "Attacked by another player"
     },
     "enableDisable": "Enable/Disable",
     "sendLocationField": "Sending place:",

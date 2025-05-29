@@ -284,7 +284,7 @@
         "name": "puntuación"
       },
       "glory": {
-        "description": "Muestra la clasificación de los gremios según su gloria.",
+        "description": "Muestra la clasificación de los jugadores según su fama.",
         "name": "glorioso"
       },
       "guild": {
