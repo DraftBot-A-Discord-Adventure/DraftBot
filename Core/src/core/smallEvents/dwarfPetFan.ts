@@ -18,6 +18,7 @@ import { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo"
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
+import {MapConstants} from "../../../../Lib/src/constants/MapConstants";
 
 /**
  * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
@@ -138,7 +139,13 @@ async function manageNewPetSeen(response: DraftBotPacket[], player: Player, petE
 }
 
 export const smallEventFuncs: SmallEventFuncs = {
-	canBeExecuted: player => Maps.isOnContinent(player),
+	canBeExecuted: player => {
+		const destination = player.getDestination();
+		const origin = player.getPreviousMap();
+		return Maps.isOnContinent(player)
+			&& [destination.id, origin.id].some(mapId =>
+				[MapConstants.LOCATIONS_IDS.MOUNT_CELESTRUM].includes(mapId));
+	},
 	executeSmallEvent: async (response, player, _context): Promise<void> => {
 		const petEntity = await PetEntities.getById(player.petId);
 		if (!await canContinueSmallEvent(response, player, petEntity)) {
