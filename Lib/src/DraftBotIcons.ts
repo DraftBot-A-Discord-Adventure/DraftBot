@@ -1918,6 +1918,8 @@ export const DraftBotIcons: {
 		full: "😴",
 		getDirty: "💩",
 		grabAndThrowAttack: "🥋",
+		tailWhipAttack: "🐊",
+		ambush: "😶‍🌫️",
 		guildAttack: "🏟️",
 		hardBiteAttack: "🦷",
 		heatDrainAttack: "🌡️",

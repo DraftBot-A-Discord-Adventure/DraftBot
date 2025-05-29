@@ -1,36 +1,36 @@
 {
-  "baseEnergyValue": 50,
-  "attackRatio": 50,
+  "baseEnergyValue": 30,
+  "attackRatio": 80,
   "defenseRatio": 50,
-  "speedRatio": 50,
-  "breath": 5,
-  "maxBreath": 15,
-  "breathRegen": 5,
-  "rewardFactor": 0.5,
+  "speedRatio": 70,
+  "breath": 18,
+  "maxBreath": 25,
+  "breathRegen": 4,
+  "rewardFactor": 0.6,
   "attacks": [
     {
-      "id": "simpleAttack",
+      "id": "hardBiteAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "slamAttack",
       "minLevel": 0,
       "weight": 1
     },
     {
-      "id": "simpleAttack",
+      "id": "tailWhipAttack",
       "minLevel": 0,
+      "weight": 4
+    },
+    {
+      "id": "grabAndThrowAttack",
+      "minLevel": 40,
       "weight": 1
     },
     {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 50,
+      "id": "ambush",
+      "minLevel": 80,
       "weight": 1
     }
   ],
