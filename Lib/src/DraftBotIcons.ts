@@ -1897,6 +1897,8 @@ export const DraftBotIcons: {
 		chargeUltimateAttack: "☄️",
 		chargingAttack: "🧲",
 		clawAttack: "🐾",
+		callPack: "🐺",
+		packAttack: "🐺",
 		clubSmashAttack: "🏏",
 		concentrated: "🎯",
 		concentration: "🎯",
