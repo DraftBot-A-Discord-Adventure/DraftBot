@@ -255,6 +255,12 @@ export abstract class FightConstants {
 	// Maximum offset for opponent search
 	static MAX_OFFSET_FOR_OPPONENT_SEARCH = 5;
 
+	/*
+	 * Number of players to search for when looking for an opponent
+	 * that must be active must be lower than PLAYER_PER_OPPONENT_SEARCH
+	 */
+	static ACTIVE_PLAYER_PER_OPPONENT_SEARCH = 6;
+
 	// Number of players to search for when looking for an opponent
 	static PLAYER_PER_OPPONENT_SEARCH = 10;
 
