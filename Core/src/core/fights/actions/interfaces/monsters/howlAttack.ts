@@ -16,9 +16,8 @@ const use: FightActionFunc = (sender, _, fightAction) => {
 		...simpleBuffFightAction(sender, {
 			selfTarget: true,
 			stat: randomStat,
-			value: RandomUtils.draftbotRandom.real(1.1, 2),
-			operator: FightStatModifierOperation.MULTIPLIER,
-			duration: RandomUtils.randInt(1, 5)
+			value: RandomUtils.draftbotRandom.real(1.1, 1.4),
+			operator: FightStatModifierOperation.MULTIPLIER
 		}, fightAction),
 		customMessage: true
 	};

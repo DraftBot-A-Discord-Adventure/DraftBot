@@ -1,22 +1,22 @@
 {
   "baseEnergyValue": 50,
-  "attackRatio": 50,
-  "defenseRatio": 50,
-  "speedRatio": 50,
-  "breath": 5,
+  "attackRatio": 60,
+  "defenseRatio": 35,
+  "speedRatio": 120,
+  "breath": 4,
   "maxBreath": 10,
-  "breathRegen": 3,
-  "rewardFactor": 0.5,
+  "breathRegen": 4,
+  "rewardFactor": 0.35,
   "attacks": [
     {
       "id": "hardBiteAttack",
       "minLevel": 0,
-      "weight": 5
+      "weight": 2
     },
     {
       "id": "stealth",
-      "minLevel": 0,
-      "weight": 2
+      "minLevel": 40,
+      "weight": 1
     },
     {
       "id": "howlAttack",
@@ -26,7 +26,12 @@
     {
       "id": "clawAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 5
+    },
+    {
+      "id": "callPack",
+      "minLevel": 80,
+      "weight": 4
     }
   ],
   "maps": [

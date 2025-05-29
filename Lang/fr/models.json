@@ -562,6 +562,17 @@
       "name_one": "Attaque griffe",
       "name_other": "Attaques griffes"
     },
+    "callPack": {
+      "description": "Appelle votre meute pour vous aider et attaquer.",
+      "customMessage": "appelle sa meute d'un hurlement strident.",
+      "name_one": "Appel à la meute",
+      "name_other": "Appels à la meute"
+    },
+    "packAttack": {
+      "description": "Attaque de meute qui inflige des dégâts.",
+      "name_one": "Attaque de meute",
+      "name_other": "Attaques de meute"
+    },
     "slamAttack": {
       "description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire.",
       "name_one": "Attaque impact",
