@@ -287,7 +287,7 @@
     ],
     "object": [
       "Incontrate {{playerDisplay}} chi vi mostra il suo magnifico oggetto \"**{{object}}**\".",
-      "{{playerDisplay}}{{object}}Parlando con , vi mostra il suo oggetto \"** **\"!",
+      "Parlando con {{playerDisplay}}, vi mostra il suo oggetto \"**{{object}}**\"!",
       "{{playerDisplay}}Un giocatore che cammina lungo la vostra stessa strada estrae un oggetto dalla sua collezione.{{object}} Vi mostra con orgoglio \"** **\"."
     ],
     "effect": {
