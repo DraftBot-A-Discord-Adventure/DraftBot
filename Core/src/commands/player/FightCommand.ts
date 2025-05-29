@@ -332,9 +332,9 @@ function checkPlayersInDefenderCacheMap(validOpponents: Player[]): Player[] {
  * Get the initial valid opponents based on the offset and player
  * @param offset
  * @param player
- * @param validOpponents
  */
-async function getInitialValidOpponents(offset: number, player: Player, validOpponents: Player[]): Promise<Player[]> {
+async function getInitialValidOpponents(offset: number, player: Player): Promise<Player[]> {
+	let validOpponents: Player[];
 	if (offset === 0) {
 		// Fetch both active and regular potential opponents
 		const activeOpponents = await Players.findActivePotentialOpponents(
@@ -372,8 +372,7 @@ async function getInitialValidOpponents(offset: number, player: Player, validOpp
 async function findOpponent(player: Player): Promise<Player | null> {
 	for (let offset = 0; offset <= FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH; offset++) {
 		// Retrieve some potential opponents
-		let validOpponents: Player[];
-		validOpponents = await getInitialValidOpponents(offset, player, validOpponents);
+		let validOpponents = await getInitialValidOpponents(offset, player);
 
 		if (validOpponents.length === 0) {
 			continue;
