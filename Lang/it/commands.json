@@ -1,43 +1,43 @@
 {
   "badges": {
     "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)",
-    "title": ":military_medal: Informazione dettagliate :"
+    "title": "{emote:commands.badges} Informazioni dettagliate:"
   },
   "pet": {
     "embedTitle": "Animale domestico di {{pseudo}} :",
-    "petField": "***Tipo:*** {{emote}} {{typeName}}\n***Sopranome:*** {{nickname}}\n***Rarità:*** {{rarity}}\n***Sesso:*** {{sex}}\n***Mentalità:** {{loveLevel}}",
+    "petField": "**Tipo:** {{emote}} {{typeName}}\n**Sopranome:** {{nickname}}\n**Rarità:** {{rarity}}\n**Sesso:** {{sex}}\n**Mentalità:** {{loveLevel}}",
     "noNickname": "Nessun soprannome",
     "loveLevels": {
-      "1_male": ":smirk_cat: Ribelle",
-      "1_female": ":smirk_cat: Ribelle",
-      "2_male": ":pouting_cat: Selvaggio",
-      "2_female": ":pouting_cat: Selvaggio",
-      "3_male": ":scream_cat: Pauroso",
-      "3_female": ":scream_cat: Pauroso",
-      "4_male": ":smiley_cat: Addomesticato",
-      "4_female": ":smiley_cat: Addomesticato",
-      "5_male": ":heart_eyes_cat: Addestrato",
-      "5_female": ":heart_eyes_cat: Addestrato"
+      "1_male": "{emote:loveLevels.1} Ribelle",
+      "1_female": "{emote:loveLevels.1} Ribelle",
+      "2_male": "{emote:loveLevels.2} Selvaggio",
+      "2_female": "{emote:loveLevels.2} Selvaggio",
+      "3_male": "{emote:loveLevels.3} Pauroso",
+      "3_female": "{emote:loveLevels.3} Pauroso",
+      "4_male": "{emote:loveLevels.4} Addomesticato",
+      "4_female": "{emote:loveLevels.4} Addomesticato",
+      "5_male": "{emote:loveLevels.5} Addestrato",
+      "5_female": "{emote:loveLevels.5} Addestrato"
     },
-    "hungry": "🤤 affamati",
+    "hungry": "{emote:effects.starving} Affamato",
     "diet": {
-      "diet_null": "🥪 Onnivoro",
-      "diet_herbivorous": "🥬 Erbivoro",
-      "diet_carnivorous": "🥩 Carnivoro"
+      "diet_null": "{emote:diet.omnivorous} Onnivoro",
+      "diet_herbivorous": "{emote:diet.herbivorous} Erbivoro",
+      "diet_carnivorous": "{emote:diet.carnivorous} Carnivoro"
     },
-    "sexDisplay_f": "{emote:sex.female}Donna",
-    "sexDisplay_m": "{emote:sex.male}Uomo",
+    "sexDisplay_f": "Femmina {emote:sex.female}",
+    "sexDisplay_m": "Maschio {emote:sex.male}",
     "shortPetField": "{{emote}} {{name}}"
   },
   "guild": {
     "embedTitle": "Gilda {{guildName}} | Livello {{level}}",
-    "description": ":scroll:`{{description}}`",
+    "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
-    "members": ":person_pouting: {{memberCount}} / {{maxGuildMembers}} membres",
+    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score} {{islandStatusIcon}})\n",
+    "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} membri",
     "infoTitle": "Informazione",
-    "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}}\n",
-    "info": ":star: {{experience}} | :mirror_ball: {{guildPoints}} | :trophy: {{ranking}}",
+    "islandInfo": "{emote:guild.isOnPveIsland} Numero di alleati sull'isola misteriosa: {{membersOnPveIsland}}\n",
+    "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
     "xpMax": "Massimo",
     "ranking": "{{rank}} / {{rankTotal}}",
@@ -52,9 +52,9 @@
     "acceptedDesc": "La gilda **{{guildName}}** è stata creata !"
   },
   "guildInvite": {
-    "title": "{{pseudo}}Siete invitati a unirvi a una gilda!",
+    "title": "{{pseudo}}, siete invitati a unirvi a una gilda!",
     "confirmDesc": "{emote:collectors.question} Volete unirvi alla gilda di{{guildName}}?",
-    "successTitle": "{{pseudo}} {{guildName}} si è unito alla gilda!",
+    "successTitle": "{{pseudo}} si è unito alla gilda {{guildName}}!",
     "successDesc": "Il ritardo prima della prossima ricompensa giornaliera della gilda è stato azzerato.",
     "refusedTitle": "{{guildName}} Non sei entrato nella gilda!",
     "errors": {
@@ -924,7 +924,8 @@
     "types": {
       "report": "Rapporti",
       "guildDaily": "Ricompense di gilda",
-      "playerFreedFromJail": "Rilascio dal carcere"
+      "playerFreedFromJail": "Rilascio dal carcere",
+      "fightChallenge": "Attaccato da un altro giocatore"
     },
     "enableDisable": "Abilitazione/Disabilitazione",
     "sendLocationField": "Indirizzo di consegna :",
@@ -948,12 +949,12 @@
       "campaignCurrent": "{emote:missions.campaign} **Campagna ({{current}}/{{max}})**",
       "campaignCompleted": "{emote:missions.campaign} **La campagna è terminata.",
       "daily": "\n{emote:missions.daily} **Missione giornaliera",
-      "sideMissions": "\n{emote:missions.sideMission}{{current}}{{max}}**Missioni secondarie ( / )**"
+      "sideMissions": "\n{emote:missions.sideMission} **Missioni secondarie ({{current}}/{{max}})**"
     },
     "dailyFinished": "Hai completato la missione di oggi! {{time}}Tornate a .",
     "noCurrentMissions": "Occasionalmente, è possibile trovare ulteriori compiti da completare richiedendo un rapporto.",
     "missionDisplay_campaign": "{{mission}}\n{{progressionBar}} {{current}}{{objective}}/",
-    "missionDisplay_other": "{{mission}} {{time}}\n{{progressionBar}} {{current}}{{objective}}(scadere ) /"
+    "missionDisplay_other": "{{mission}} (scade {{time}})\n{{progressionBar}} {{current}}/{{objective}}"
   },
   "guildShop": {
     "noFoodStorageSpace": "Non avete abbastanza spazio nel vostro magazzino per conservare questo cibo.",
@@ -968,8 +969,8 @@
     "rewards": {
       "personalXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| I membri della Gilda hanno acquisito esperienza `+ `.",
       "guildXP": "{emote:unitValues.xp} {{quantity}} {emote:unitValues.xp}| La gilda ha acquisito esperienza `+ `",
-      "money": "{emote:unitValues.money}{{quantity}} {emote:unitValues.money}| I membri della Gilda hanno ricevuto ` `.",
-      "item": "{emote:rewards:item} | I membri della Gilda hanno ricevuto un oggetto a caso.",
+      "money": "{emote:unitValues.money} | I membri della Gilda hanno ricevuto `{{quantity}} {emote:unitValues.money}`.",
+      "item": "{emote:rewards.item} | I membri della Gilda hanno ricevuto un oggetto a caso.",
       "badge": "{emote:badges.powerful_guild} | I membri della Gilda hanno ricevuto un distintivo.",
       "superBadge": "{emote:badges.very_powerful_guild} | I membri della Gilda hanno ricevuto un distintivo.",
       "fullHeal": "{emote:shopItems.regen} | I membri della gilda sono completamente guariti.",
@@ -1261,7 +1262,7 @@
     "notEnoughMoney": "Non avete abbastanza denaro per effettuare questa transazione. Vi manca `{{missingMoney}}{emote:unitValues.money}`.",
     "initiatorSituationChanged": "Il venditore non è più in grado di vendere il suo animale. La vendita è stata annullata.",
     "sellTitle": "Vendere un animale domestico",
-    "sellTitleWithBuyer": "{{buyer}} {{seller}} vorrebbe vendervi un animale domestico:",
+    "sellTitleWithBuyer": "{{buyer}}, {{seller}} vuole venderti un animale domestico:",
     "sellDescription": "{{pseudo}} vorrei vendere un animale domestico per{{price}}{emote:unitValues.money}",
     "maxLevelWarning": "{emote:collectors.warning} La tua gilda è al livello massimo, quindi non riceverai alcuna esperienza!",
     "petFieldName": "Venduto in modo familiare :",
