@@ -1,35 +1,38 @@
 {
   "missions": {
     "expired": {
-      "title_one": "{{pseudo}}una missione è scaduta",
-      "title_other": "{{pseudo}}le missioni sono scadute",
-      "description_one": "{emote:missions.expired}\n{{missionsExpired}}**Il seguente incarico è scaduto",
-      "description_other": "{emote:missions.expired}\n{{missionsExpired}}**I seguenti incarichi sono scaduti"
+      "title_one": "{{pseudo}}, una missione è scaduta",
+      "title_other": "{{pseudo}}, le missioni sono scadute",
+      "description_one": "{emote:missions.expired} **Il seguente incarico è scaduto:**\n{{missionsExpired}}",
+      "description_other": "{emote:missions.expired} **I seguenti incarichi sono scaduti \n:** {{missionsExpired}}"
     },
     "completed": {
-      "title_one": "{{pseudo}}Una missione è stata completata.",
-      "title_other": "{{pseudo}}Le missioni sono state completate.",
+      "title_one": "{{pseudo}}, una missione è stata completata.",
+      "title_other": "{{pseudo}}, le missioni sono state completate.",
       "subcategories": {
-        "campaign_one": "{emote:missions.campaign} **Missione della campagna",
-        "campaign_other": "{emote:missions.campaign} **Missioni della campagna",
-        "daily": "{emote:missions.daily} **Missione giornaliera",
-        "sideMission_one": "{emote:missions.sideMission} **Missione secondaria",
+        "campaign_one": "{emote:missions.campaign} **Missione della campagna**",
+        "campaign_other": "{emote:missions.campaign} **Missioni della campagna**",
+        "daily": "{emote:missions.daily} **Missione giornaliera**",
+        "sideMission_one": "{emote:missions.sideMission} **Missione secondaria**",
         "sideMission_other": "{emote:missions.sideMission} **Missioni secondarie**"
       },
       "totalRewards": "{emote:missions.total} Premi totali",
-      "totalDisplay": "{{gems}} {emote:unitValues.gem}\n {{xp}} {emote:unitValues.xp}Gemme vinte: Esperienza acquisita:",
-      "missionDisplay": "{{missionDescription}}{{missionsReward}}-",
-      "pointsDisplay": "{{count}} {emote:unitValues.score}+",
-      "gemsDisplay": "{{count}} {emote:unitValues.gem}+",
-      "moneyDisplay": "{{count}} {emote:unitValues.money}+",
-      "xpDisplay": "{{count}} {emote:unitValues.xp}+"
+      "totalDisplay": "Gemme vinte: {{gems}} {emote:unitValues.gem}\n Esperienza acquisita: {{xp}} {emote:unitValues.xp}",
+      "missionDisplay": "- {{missionDescription}}{{missionsReward}}",
+      "pointsDisplay": "+ {{count}} {emote:unitValues.score}",
+      "gemsDisplay": "+ {{count}} {emote:unitValues.gem}",
+      "moneyDisplay": "+ {{count}} {emote:unitValues.money}",
+      "xpDisplay": "+ {{count}} {emote:unitValues.xp}"
     }
   },
   "guildFood": {
     "receivedFoodTitle": "La vostra gilda ha ricevuto del cibo",
-    "receivedFoodDescription": "{emote:foods.{{foodId}}La vostra gilda ha ricevuto : **{{amount}}x {{foodName}}**."
+    "receivedFoodDescription": "{emote:foods.{{foodId}}} La vostra gilda ha ricevuto: **{{amount}}x {{foodName}}**."
   },
   "playerFreedFromJail": {
     "description": "Lei è stato rilasciato dalla prigione da **{{freedByPlayer}}** !"
+  },
+  "fightChallenge": {
+    "description": "{emote:fightCommand.crossedSwords} Sei stato attaccato da **{{attackerPseudo}}**! Scopri il risultato di questo combattimento usando il comando `/historyfight`."
   }
 }
