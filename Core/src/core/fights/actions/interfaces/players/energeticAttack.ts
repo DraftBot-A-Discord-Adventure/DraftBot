@@ -7,6 +7,8 @@ import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionR
 import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
+import { MonsterFighter } from "../../../fighter/MonsterFighter";
+import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	// Check the number of ultimate attacks the sender already used, some behaviors are different depending on this.
@@ -32,14 +34,20 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		}
 	);
 
-	// Recovered energy is reduced after the third use of this action
-	const recoveredEnergy = Math.round(result.damages / (timeAttackWasUsed <= 2 ? 2 : 20));
+	/*
+	 * Recovered energy is reduced after the third use of this action
+	 * Recovered energy is divided by 4 if the opponent is a monster
+	 */
+	// calculate total division factor including monster penalty
+	const divisionFactor = (timeAttackWasUsed <= 2 ? 2 : 20) * (receiver instanceof MonsterFighter ? 4 : 1);
+	const recoveredEnergy = Math.round(result.damages / divisionFactor);
+	const cappedRecoveredEnergy = Math.min(recoveredEnergy, 200 + RandomUtils.variationInt(10));
 
 	FightActionController.applyBuff(result, {
 		selfTarget: true,
 		stat: FightStatBuffed.ENERGY,
 		operator: FightStatModifierOperation.ADDITION,
-		value: recoveredEnergy
+		value: cappedRecoveredEnergy
 	}, sender, fightAction);
 
 	return result;

@@ -15,7 +15,7 @@ const use: FightActionFunc = (sender, receiver) => {
 			sender, receiver
 		},
 		{
-			critical: 5, failure: 0
+			critical: 10, failure: 0
 		},
 		{
 			attackInfo: getAttackInfo(nbOfMonsters), statsInfo: getStatsInfo(sender, receiver, nbOfMonsters)
@@ -31,13 +31,13 @@ function getAttackInfo(nbOfMonsters: number): attackInfo {
 	return {
 		minDamage: 5 * nbOfMonsters,
 		averageDamage: 30 * nbOfMonsters,
-		maxDamage: 45 * nbOfMonsters
+		maxDamage: 55 * nbOfMonsters
 	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter, nbOfMonsters: number): statsInfo {
 	return {
-		attackerStats: [sender.getAttack() * nbOfMonsters],
+		attackerStats: [sender.getAttack()],
 		defenderStats: [receiver.getDefense() / nbOfMonsters],
 		statsEffect: [1]
 	};
