@@ -19,18 +19,13 @@
       "weight": 2
     },
     {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 3
-    },
-    {
       "id": "howlAttack",
       "minLevel": 0,
       "weight": 3
     },
     {
-      "id": "simpleAttack",
-      "minLevel": 50,
+      "id": "clawAttack",
+      "minLevel": 0,
       "weight": 1
     }
   ],
