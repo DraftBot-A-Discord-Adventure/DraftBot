@@ -12,7 +12,7 @@ const use: FightActionFunc = (sender, receiver) => simpleDamageFightAction(
 	},
 	{
 		critical: 15,
-		failure: 10
+		failure: sender.getSpeed() > receiver.getSpeed() ? 0 : 50
 	},
 	{
 		attackInfo: getAttackInfo(),
@@ -23,7 +23,7 @@ const use: FightActionFunc = (sender, receiver) => simpleDamageFightAction(
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 50,
-		averageDamage: 100,
+		averageDamage: 90,
 		maxDamage: 200
 	};
 }
@@ -39,8 +39,8 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 			receiver.getSpeed()
 		],
 		statsEffect: [
-			0.7,
-			0.3
+			0.4,
+			0.6
 		]
 	};
 }
