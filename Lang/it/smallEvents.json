@@ -1,19 +1,25 @@
 {
   "intro": [
     "Mentre voi viaggiate in pace, ",
-    "Mentre vi incamminate silenziosamente lungo la strada, ",
+    "Mentre cammini tranquillamente lungo il tuo sentiero, ",
     "Mentre vi preparate a ripartire dopo una breve pausa, ",
-    "Alla curva della strada, ",
-    "Mentre si passeggia tranquillamente, ",
+    "Dietro una curva, ",
+    "Mentre passeggi tranquillamente, ",
     "Dopo una breve sosta, ",
     "Dopo lunghe ore di cammino, ",
     "Durante una breve pausa contro un albero, ",
     "Mentre continuate la vostra avventura, ",
-    "Seguite il vostro percorso, ",
-    "Contemplando il ciglio della strada, ",
+    "Seguendo il vostro cammino, ",
+    "Contemplando i bordi della strada, ",
     "Riprendiamo la strada dopo una breve sosta, ",
     "Mentre vi fate strada, stanchi per le lunghe ore di cammino, ",
     "Sul bordo di un sentiero, "
+  ],
+  "end": [
+    "Vous continuez votre chemin.",
+    "Vous reprenez votre route.",
+    "Vous poursuivez votre route.",
+    "Vous repartez dans votre direction."
   ],
   "advanceTime": {
     "stories": [
@@ -62,9 +68,9 @@
   },
   "boatAdvice": {
     "intro": [
-      "Si sale sul ponte e si chiacchiera con un membro dell'equipaggio.\n{{advice}}Egli vi dà alcuni consigli per aiutarvi nella vostra avventura sull'isola: ** **.",
-      "Si sale sull'albero maestro per ammirare l'orizzonte.\n{{advice}}Un uomo abbassa il suo cannocchiale e vi dà questo consiglio prima di partire per l'isola: ** **.",
-      "Godendo di un pasto nella fresca brezza marina, si chiacchiera con i marinai.\n{{advice}}Il vostro compagno di tavolo vi dà i seguenti consigli sull'isola: ** **."
+      "Si sale sul ponte e si chiacchiera con un membro dell'equipaggio.\nEgli vi dà alcuni consigli per aiutarvi nella vostra avventura sull'isola: **{{advice}}**.",
+      "Si sale sull'albero maestro per ammirare l'orizzonte.\nUn uomo abbassa il suo cannocchiale e vi dà questo consiglio prima di partire per l'isola: **{{advice}}**.",
+      "Godendo di un pasto nella fresca brezza marina, si chiacchiera con i marinai.\nIl vostro compagno di tavolo vi dà i seguenti consigli sull'isola: **{{advice}}**."
     ],
     "advices": [
       "Ci sono molti altri eventi che vi aspettano sull'Isola Misteriosa",
@@ -79,28 +85,28 @@
       "I mostri hanno statistiche diverse: alcuni hanno un alto livello di difesa, attacco, velocità o vita totale.",
       "Un'isola è composta da un numero finito di località. Una volta visitata l'ultima località, si viene riportati sulla terraferma.",
       "L'isola misteriosa cambia ogni settimana",
-      "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente.",
-      "{command:joinboat}Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre .",
+      "Quando si combatte contro un mostro, se si supera il numero massimo di turni, il mostro diventa rapidamente molto potente",
+      "Se un membro della vostra gilda vuole unirsi a voi sulla barca, può correre {command:joinboat}",
       "Le azioni disponibili quando si combattono gli animali dipendono dalle statistiche, dagli oggetti, dagli animali domestici, ecc.",
       "L'ostilità dell'isola non vi favorirà nelle avventure. Ma se unisci le forze con i membri della tua gilda, insieme sarete molto più forti.",
-      "{command:map} Clicca per vedere la mappa dell'isola",
+      "Il comando {command:map} permette di vedere la mappa dell'isola",
       "Si può scegliere di lasciare l'isola dopo ogni combattimento con i mostri. Se l'energia è poca, è meglio andarsene quando si è ancora coscienti.",
       "Alcune azioni, come bere una pozione, accedere al negozio o ottenere i bonus giornalieri, non sono disponibili sull'isola.",
       "Il livello non influisce sul numero di punti gilda, ma influisce su altre ricompense.",
       "Vincendo contro un mostro più avanti nell'isola si otterranno più punti gilda di quelli ottenuti all'inizio.",
       "Si dice che se diversi membri della stessa gilda si trovano sull'isola nello stesso momento, è possibile unire le forze di ciascuno per sferrare un attacco devastante.",
       "I membri della vostra gilda possono aiutarvi a combattere i mostri quando visitate un'isola misteriosa.",
-      "{command:guild}Potete usare il comando per vedere quali membri della vostra gilda si trovano su un'isola misteriosa.",
-      "{command:guild} Il comando permette di vedere il numero di alleati che vi aiuteranno sull'isola misteriosa.",
+      "È possibile vedere i membri della tua gilda che si trovano su un'isola misteriosa usando il comando {command:guild}",
+      "Il comando {command:guild} ti permette di vedere il numero di alleati che ti aiuteranno sull'isola misteriosa",
       "Un \"alleato\" è un membro della vostra gilda che si trova attualmente sull'isola misteriosa o che l'ha lasciata di recente."
     ]
   },
   "goToPVEIsland": {
     "stories": [
-      "notate una barca ferma sul ciglio della strada. Il capitano vi chiama e vi propone un'emozionante avventura su un'isola infestata da mostri. {{priceText}}Vi dice anche che .",
-      "Un uomo vi si avvicina e vi chiede se siete interessati ai suoi servizi. Spiega di essere il capitano di una nave che naviga tra il continente e un'isola misteriosa piena di mostri. {{priceText}}Dice che può portarvi lì se siete alla ricerca di un'avventura emozionante e aggiunge che .",
-      "si viene avvicinati da un uomo vestito da marinaio, che indossa l'emblema del re. Spiega che sta cercando di mandare alcuni degli avventurieri che si contendono la mano della principessa su un'isola piena di mostri, di cui sarebbe utile per il regno sbarazzarsi. {{priceText}}Dice anche che una barca è pronta a partire per quest'isola e vi chiede se siete disposti a farlo, sottolineando che .",
-      "siete avvicinati da un uomo alto con la barba, che si presenta come il capo di un gruppo di mercenari rinomato nella regione. Vi dice che può farvi un'offerta incredibile. L'offerta consiste nel recarsi su una nuova isola misteriosa, dove ci sono sia opportunità che pericoli, come cacciatore di mostri. {{priceText}}Aggiunge anche che ."
+      "noti una barca ferma sul ciglio della strada. Il capitano ti chiama e ti propone un'avventura emozionante su un'isola infestata dai mostri. Ti dice anche che {{priceText}}.",
+      "un uomo vi si avvicina e vi chiede se siete interessati ai suoi servizi. Spiega di essere il capitano di una nave che naviga tra il continente e un'isola misteriosa piena di mostri. Dice che può portarvi lì se siete alla ricerca di un'avventura emozionante e aggiunge che {{priceText}}.",
+      "si viene avvicinati da un uomo vestito da marinaio, che indossa l'emblema del re. Spiega che sta cercando di mandare alcuni degli avventurieri che si contendono la mano della principessa su un'isola piena di mostri, di cui sarebbe utile per il regno sbarazzarsi. Dice anche che una barca è pronta a partire per quest'isola e vi chiede se siete disposti a farlo, sottolineando che {{priceText}}.",
+      "siete avvicinati da un uomo alto con la barba, che si presenta come il capo di un gruppo di mercenari rinomato nella regione. Vi dice che può farvi un'offerta incredibile. L'offerta consiste nel recarsi su una nuova isola misteriosa, dove ci sono sia opportunità che pericoli, come cacciatore di mostri. Aggiunge anche che {{priceText}}."
     ],
     "priceFree": "il viaggio **è gratuito**.",
     "priceMoney": "il viaggio **costituirà {{price}} {emote:unitValues.gem}**",
@@ -122,7 +128,7 @@
       "fail": "Partecipate al gioco dell'uomo. Tuttavia, non vincete e ve ne andate sperando di essere più fortunati la prossima volta. Partecipare alla lotteria vi sarà costato **{{lostTime}} Min :clock2:**."
     },
     "hard": {
-      "success": "Vincete il gioco dell'uomo. Di conseguenza, vi ricompensa profumatamente.{{lostTime}} :clock2:Tuttavia, si perde ** Min **.",
+      "success": "Vincete il gioco dell'uomo. Di conseguenza, vi ricompensa profumatamente.Tuttavia, si perde **{{lostTime}} Min :clock2:**.",
       "fail": "Si coglie l'occasione. Purtroppo non si vince. Forse la prossima volta si sarà più fortunati. Partecipare alla lotteria vi sarà costato **{{lostTime}} Min :clock2:**.",
       "failWithMalus": "Si scommette un centinaio di monete sul gioco dell'uomo. Ma perdete e ve ne andate, sconsolati per aver perso **{{money}}** {emote:unitValues.lostMoney}. Partecipare alla lotteria vi sarà costato anche **{{lostTime}} Min :clock2:**."
     },
@@ -145,76 +151,76 @@
     ],
     "top1": [
       "{{playerDisplay}} Passerete davanti a , attualmente il miglior giocatore del mondo!",
-      "{{playerDisplay}}Mentre si cammina, ci si imbatte in . Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
-      "Oh, mio Dio! È incredibile! {{playerDisplay}}È il leggendario, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
-      "{{playerDisplay}}Fate largo a , il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
+      "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
+      "Oh, mio Dio! È incredibile! È il leggendario {{playerDisplay}}, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
+      "Fate largo a {{playerDisplay}}, il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
     ],
     "top10": [
       "Lungo la strada, incontrerete una persona molto importante. {{playerDisplay}} è nella top 10!",
-      "Incredibile! State camminando lungo un sentiero e vi imbattete in uno degli eroi del momento! {{playerDisplay}} Probabilmente ne avete sentito parlare: l'avete visto nella top 10! Questo evento rallegrerà la vostra giornata.",
-      "State parlando con un personaggio noto tra gli avventurieri in lizza per la mano della principessa. {{playerDisplay}}Si tratta di , che è nella top 10!"
+      "Sorprendente ! Camminando lungo un sentiero incontri uno degli eroi del momento! Probabilmente lo sai, è {{playerDisplay}}, l'hai visto nella top 10! Questo evento ti rallegra la giornata.",
+      "State parlando con un personaggio noto tra gli avventurieri in lizza per la mano della principessa. Si tratta di {{playerDisplay}}, che è nella top 10!"
     ],
     "top50": [
       "Incontrate qualcuno il cui nome vi ricorda qualcosa... {{playerDisplay}} è entrato nella top 50!",
-      "{{playerDisplay}}Mentre calciate un sasso, vi accorgete che colpisce la scarpa di un passante, ma non è uno qualunque, è uno che avete visto nelle liste dei tornei clandestini! Fate una breve chiacchierata con lui e poi continuate per la vostra strada.",
-      "{{playerDisplay}}\"Da un grande potere derivano grandi responsabilità\", dice un avventuriero top 50 che incontrate durante il vostro viaggio."
+      "Mentre calciate un sasso, vi accorgete che colpisce la scarpa di un passante, ma non è uno qualunque, è {{playerDisplay}}, l'avete visto nelle liste dei tornei clandestini! Fate una breve chiacchierata con lui e poi continuate per la vostra strada.",
+      "\"Da un grande potere derivano grandi responsabilità\", dice {{playerDisplay}}, un avventuriero top 50 che incontrate durante il vostro viaggio."
     ],
     "top100": [
-      "{{playerDisplay}} La perseveranza porta al successo - questo è ciò che vi dice uno dei 100 migliori! Poi continuate il vostro cammino verso la vostra destinazione.",
+      "La perseveranza porta al successo - questo è ciò che vi dice {{playerDisplay}} uno dei 100 migliori! Poi continuate il vostro cammino verso la vostra destinazione.",
       "Woah, riconoscete uno dei principianti dei tornei, lo avevate già incontrato in un villaggio a nord, ma sì... È {{playerDisplay}} !",
-      "{{playerDisplay}}Mentre lavorate per raggiungere il vostro obiettivo, incontrate , una stella nascente di DraftBot. Infatti, è nella top 100!"
+      "Mentre lavorate per raggiungere il vostro obiettivo, incontrate {{playerDisplay}}, una stella nascente di DraftBot. Infatti, è nella top 100!"
     ],
     "powerful_guild": [
-      "{{playerDisplay}}che incontrate per caso lungo la strada, fa parte di una potente gilda! Questo è ciò che si deduce quando si vede il suo distintivo scintillante.",
-      "{{playerDisplay}}Vedete una folla in lontananza, vi affrettate a controllare e sentite: \"Fate largo a \"! In effetti, fa parte di una gilda piuttosto potente!",
-      "Si dice che un membro di una potente gilda stia seguendo il vostro stesso percorso. {{playerDisplay}} Si vede passare in lontananza!"
+      "{{playerDisplay}}, che incontrate per caso lungo la strada, fa parte di una potente gilda! Questo è ciò che si deduce quando si vede il suo distintivo scintillante.",
+      "Vedete una folla in lontananza, vi affrettate a controllare e sentite: \"Fate largo a {{playerDisplay}}\"! In effetti, fa parte di una gilda piuttosto potente!",
+      "Si dice che un membro di una potente gilda stia seguendo il vostro stesso percorso. Si vede {{playerDisplay}} passare in lontananza!"
     ],
     "beginner": [
-      "C'è un inizio per tutto! {{playerDisplay}} Incontrare come inizia la sua avventura dedicata alla principessa.",
-      "{{playerDisplay}}Un passante vi passa accanto e lo riconoscete subito: è . Un nuovo arrivato, ma simpatico e cordiale!",
-      "Si fa una pausa di 5 minuti per schiarirsi le idee. {{playerDisplay}}Per farlo, si allena , che ha appena iniziato la partita."
+      "C'è un inizio per tutto! Ti viene presentata {{playerDisplay}}, che inizia la sua avventura dedicata alla principessa.",
+      "Un passante vi passa accanto e lo riconoscete subito: è {{playerDisplay}}. Un nuovo arrivato, ma simpatico e cordiale!",
+      "Si fa una pausa di 5 minuti per schiarirsi le idee. Per farlo, si allena {{playerDisplay}}, che ha appena iniziato la partita."
     ],
     "advanced": [
-      "{{playerDisplay}} I capelli grigi testimoniano l'esperienza accumulata.{{level}}È di livello ** ** ! Continuate quindi il vostro cammino.",
-      "{{playerDisplay}}Mentre si vaga, ci si imbatte in .{{level}}È un eroe potente - livello ** ** !",
-      "{{playerDisplay}} sta salendo di livello in continuazione ed è uno dei migliori giocatori del gioco!{{level}}Attualmente è di livello ** **. Dopo questo incontro sarete sulla strada giusta."
+      "I capelli grigi di {{playerDisplay}} testimoniano l'esperienza accumulata. È di livello **{{level}}** ! Continuate quindi il vostro cammino.",
+      "Mentre si vaga, ci si imbatte in {{playerDisplay}}. È un eroe potente - livello **{{level}}** !",
+      "{{playerDisplay}} sta salendo di livello in continuazione ed è uno dei migliori giocatori del gioco! Attualmente è di livello **{{level}}**. Dopo questo incontro sarai sulla strada giusta."
     ],
     "same_class": [
-      "{{playerDisplay}}Lungo il percorso, riconoscerete l'abbigliamento di 's.{{class}}È proprio come te!",
-      "{{playerDisplay}}Lo notate e osservate rapidamente il suo abbigliamento e i suoi modi familiari.{{class}}È ** **, proprio come te! Continuate quindi il vostro cammino.",
-      "{{class}} {{playerDisplay}}Salutate uno dei vostri colleghi ** **, che sta passando. Non c'è tempo per fermarsi e si prosegue per la propria strada."
+      "Lungo il percorso, riconoscerete l'abbigliamento di {{playerDisplay}}. È **{{class}}** proprio come te!",
+      "Notate {{playerDisplay}} e osservate rapidamente il suo abbigliamento e i suoi modi familiari. È **{{class}}**, proprio come voi! Continuate quindi il vostro cammino.",
+      "Salutate uno dei vostri colleghi **{{class}}**, {{playerDisplay}}, che sta passando. Non c'è tempo per fermarsi e si prosegue per la propria strada."
     ],
     "same_guild": [
-      "Sulla vostra strada vi imbattete in un volto molto familiare... {{playerDisplay}} In effetti, è un membro della vostra gilda!",
+      "Sulla vostra strada vi imbattete in un volto molto familiare... In effetti, {{playerDisplay}} è un membro della vostra gilda!",
       "Ti avvicini a qualcuno e quel volto familiare ti ricorda qualcosa... Sì, è {{playerDisplay}} uno dei membri della vostra gilda!",
-      "{{playerDisplay}} Incontrare la propria gilda! Eseguite la stretta di mano segreta della gilda e prendete strade diverse."
+      "Incontrare {{playerDisplay}} della vostra gilda! Eseguite la stretta di mano segreta della gilda e prendete strade diverse."
     ],
     "staff_member": [
-      "{{playerDisplay}}\n\n{{advice}}\n\nche fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura: potete quindi continuare per la vostra strada.",
-      "\"{{advice}}Questo è ciò che vi è stato detto da {{playerDisplay}}, uno dei famosi membri dello staff del bot, che incontrate lungo il percorso!",
-      "{{playerDisplay}}\n\n{{advice}}Parlate con , un membro del team di DraftBot, che ha qualche buon consiglio per la prossima fase della vostra avventura:"
+      "{{playerDisplay}}, che fa parte dello staff di DraftBot, ha qualche consiglio per la prossima tappa della vostra avventura:\n\n{{advice}}\n\nPotete quindi continuare per la vostra strada.",
+      "\"{{advice}}\". Questo è ciò che vi è stato detto da {{playerDisplay}}, uno dei famosi membri dello staff del bot, che incontrate lungo il percorso!",
+      "Parlate con {{playerDisplay}}, un membro del team DraftBot, che ha qualche buon consiglio per la prossima fase della vostra avventura:\n\n{{advice}}"
     ],
     "top_week": [
-      "{{playerDisplay}}Si vede sulla strada, senza fiato. Non si sta riposando: infatti, è nella top 5 di questa settimana!",
-      "Uno degli eroi di questa settimana viene a trovarvi. {{playerDisplay}}È nella top ten di questa settimana!",
-      "{{playerDisplay}}Parlate dei vostri punti con . Ha fatto buoni progressi questa settimana, ed è addirittura nella top 5 questa settimana!"
+      "Si vede {{playerDisplay}} sulla strada, senza fiato. Non si sta riposando: infatti, è nella top 5 di questa settimana!",
+      "Uno degli eroi di questa settimana viene a trovarvi. È {{playerDisplay}}, è nella top ten di questa settimana!",
+      "Parlate dei vostri punti con {{playerDisplay}}. Ha fatto buoni progressi questa settimana, ed è addirittura nella top 5 questa settimana!"
     ],
     "low_hp": [
-      "{{playerDisplay}}Superate un uomo che zoppica... Non ha un bell'aspetto... Cade sul ciglio della strada e voi decidete di aiutarlo ad alzarsi.",
-      "{{playerDisplay}}Ci si imbatte in . Sembra in cattiva forma....",
-      "{{playerDisplay}} Anche una freccia nel ginocchio è in grado di uccidere chi si muove lentamente lungo il suo cammino. Una pozione curativa gli farebbe un gran bene!"
+      "Superate {{playerDisplay}} che zoppica... Non ha un bell'aspetto... Cade sul ciglio della strada e voi decidete di aiutarlo ad alzarsi.",
+      "Ci si imbatte in {{playerDisplay}}. Sembra in cattiva forma....",
+      "Anche una freccia nel ginocchio può finire {{playerDisplay}}, che sta lentamente avanzando. Una pozione curativa gli farebbe un mondo di bene!"
     ],
     "full_hp": [
-      "{{playerDisplay}}Raramente si è visto qualcuno così energico come... Sembra essere in piena forma!",
-      "{{playerDisplay}} Sulla vostra strada, incrociate un uomo che sembra in gran forma. In effetti, ha tutta la vita davanti a sé!",
-      "{{playerDisplay}} Quasi finisci per terra mentre ti corre accanto! È molto energico perché la sua vita è al culmine."
+      "Raramente si è visto qualcuno così energico come {{playerDisplay}}... Sembra essere in piena forma!",
+      "Sulla vostra strada, incrociate {{playerDisplay}} che sembra in gran forma. In effetti, ha tutta la vita davanti a sé!",
+      "Quasi finisci per terra mentre {{playerDisplay}} ti corre accanto! È molto energico perché la sua vita è al culmine."
     ],
     "unranked": [
-      "{{playerDisplay}}Ti imbatti in un giocatore che non sembra essere classificato... Ci si chiede cosa l'abbia spinto a venire qui e ad arrendersi così rapidamente.",
-      "{{playerDisplay}}Mentre si cammina, ci si imbatte in . Questo giocatore non sembra andare bene nella competizione. Ve ne andate dopo avergli spiegato le basi del gioco."
+      "Ti imbatti in {{playerDisplay}}, un giocatore che non sembra essere classificato... Te ne vai, chiedendoti cosa lo abbia spinto a venire qui e ad arrendersi così in fretta.",
+      "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Questo giocatore non sembra andare bene nella competizione. Ve ne andate dopo avergli spiegato le basi del gioco."
     ],
     "lower_rank_than_them": [
-      "{{playerDisplay}}Vi imbattete in un giocatore con una reputazione migliore della vostra... Ma non arrendetevi! Forse un giorno riuscirete a raggiungerlo.",
+      "Vi imbattete in {{playerDisplay}}, un giocatore con una reputazione migliore della vostra... Ma non arrendetevi! Forse un giorno riuscirete a raggiungerlo.",
       "{{playerDisplay}} Mentre cammini, inciampi e cadi, e ride di te perché è classificato più in alto di te!",
       "{{playerDisplay}} Parlate con lui della vostra classifica. Lui è un passo avanti a voi: ha una classifica più alta!",
       "{{playerDisplay}} Anche se potrebbero vantarsi di avere una posizione in classifica più alta della vostra, rimanete umili durante la conversazione."
@@ -1605,6 +1611,120 @@
     ],
     "refused": [
       "Declinate l'offerta e proseguite per la vostra strada."
+    ]
+  },
+  "dwarfPetFan": {
+    "intro": [
+      "Sur le chemin serpentant dans l'ombre majestueuse du Mont Célestrum, une silhouette rabougrie émerge des terres rocailleuses. Talvar le Sage, vénérable nain aux cheveux d'argent, s'avance vers vous. Sa barbe tressée de fils d'or descend jusqu'à sa ceinture, et ses yeux verts pétillent d'une passion ancestrale pour toutes les créatures de ce monde.",
+      "Dans ces contrées dominées par l'imposant Mont Célestrum, votre route croise celle d'un nain trapu au regard malicieux. Talvar l'Ami-des-Bêtes, ainsi le nomment les gens du pays, porte sur ses épaules le poids des années et dans son cœur l'amour infini des créatures sauvages.",
+      "Tandis que vous marchez sur un sentier à travers les terres qui s'étendent au pied du légendaire Mont Célestrum, vous remarquez un étrange personnage. Assis sur une pierre couverte de mousse, un vieux nain à la barbe interminable vous salue d'un hochement de tête. Talvar, gardien des traditions et protecteur des animaux, vous observe avec curiosité.",
+      "Dans ces étendues sauvages que domine l'éternel Mont Célestrum, une figure familière de ces contrées vous interpelle. Talvar le Sage, nain vénérable dont la réputation de protecteur des créatures s'étend dans toute la région, lève vers vous un regard bienveillant sous l'ombre de la montagne sacrée.",
+      "Le vent souffle doucement sur les plateaux qui entourent le Mont Célestrum quand soudain, une voix rocailleuse vous hèle. Talvar le Protecteur surgit d'un bosquet, sa besace de cuir usé gonflée de graines et de remèdes pour les créatures blessées. Son visage ridé s'illumine à votre approche.",
+      "Alors que vous contemplez la silhouette imposante du Mont Célestrum se dressant vers les cieux, un bruit de pas vous tire de votre rêverie. Talvar l'Ancien, dont la renommée de soigneur d'animaux dépasse les frontières de ces terres, émerge d'un repli du terrain, un sourire chaleureux éclairant ses traits burinés.",
+      "Dans la plaine ondoyante qui s'étend aux abords du Mont Célestrum, vous distinguez une silhouette voûtée qui avance vers vous en claudiquant légèrement. Talvar le Bienveillant, célèbre dans toute la région pour sa dévotion envers la gent animale, vous salue d'un geste amical de sa main noueuse.",
+      "L'air pur des hauteurs emplit vos poumons tandis que vous cheminez dans l'ombre tutélaire du Mont Célestrum. Soudain, un sifflement mélodieux attire votre attention : Talvar le Sage émerge d'un petit vallon, accompagné d'une nuée de papillons multicolores qui dansent autour de sa barbe argentée.",
+      "Sur cette terre bénie qui s'étend au pied du Mont Célestrum, vos pas vous mènent vers une rencontre inattendue. Talvar l'Ami-des-Créatures, dont les légendes racontent qu'il peut parler aux animaux sauvages, se dresse devant vous tel un gardien bienveillant de ces contrées mystiques.",
+      "Dans cette vallée paisible dominée par la majesté du Mont Célestrum, vous croisez le chemin d'un être extraordinaire. Talvar le Vénérable, patriarche respecté de tous les éleveurs et dresseurs de la région, vous accueille avec la dignité tranquille de celui qui a consacré sa vie à comprendre les mystères du monde animal."
+    ],
+    "petIsFeisty_m": [
+      "Lorsque vous présentez votre fidèle compagnon **{{pet}}**, le vieux nain fronce ses sourcils broussailleux. La créature semble lasse et découragée, se déplaçant sans enthousiasme. Le courroux de Talvar éclate comme un orage d'été ! Sa voix tonne à travers les vallées tandis qu'il vous sermonne vertement sur les devoirs sacrés envers nos familiers. Vous repartez la tête basse, jurant solennellement de revenir avec une créature épanouie et joyeuse.",
+      "Quand **{{pet}}** apparaît à vos côtés, l'expression de Talvar se durcit instantanément. Le pauvre animal affiche une mine abattue et semble manquer de vitalité. La fureur du sage nain explose comme un volcan ! Ses réprimandes résonnent dans les échos du Mont Célestrum tandis qu'il vous exhorte à mieux prendre soin de votre protégé. Vous vous éloignez, mortifié, promettant de revenir avec un compagnon resplendissant de santé.",
+      "À la vue de votre **{{pet}}**, les traits de Talvar se crispent de mécontentement. La créature traîne tristement, l'œil éteint et l'allure languissante. Le courroux du vieux sage éclate tel un brasier ardent ! Ses admonestations retentissent comme le tonnerre, vous rappelant les responsabilités sacrées du gardien d'animaux. Vous repartez, humilié mais déterminé à honorer votre compagnon comme il se doit.",
+      "Dès que **{{pet}}** se montre, le visage de Talvar s'assombrit dangereusement. Votre familier semble déprimé et bouge avec une lenteur inquiétante. L'ire du nain vénérable jaillit comme une tempête dévastatrice ! Ses récriminations retentissent jusqu'aux sommets de Célestrum, vous enseignant durement l'art du respect envers les créatures vivantes. Vous vous retirez, la conscience lourde, jurant de transformer cette leçon en redemption.",
+      "Lorsque vous exhibez **{{pet}}**, l'humeur de Talvar vire instantanément à l'orage. Votre pauvre compagnon affiche un air morose et semble manquer cruellement d'énergie. La colère du protecteur des bêtes explose comme un cataclysme ! Ses remontrances résonnent dans toute la région, vous rappelant impitoyablement vos obligations envers votre fidèle ami. Vous vous esquivez, accablé de honte, résolu à prouver votre valeur de maître attentionné.",
+      "Quand **{{pet}}** fait son apparition, les yeux de Talvar lancent des éclairs de reproches. La malheureuse créature semble épuisée et avance d'un pas chancelant. L'indignation du sage nain déferle comme une avalanche ! Ses semonces retentissent jusqu'aux confins des terres de Célestrum, vous instruisant sévèrement sur les devoirs du gardien d'animaux. Vous battez en retraite, submergé par la culpabilité, déterminé à racheter vos négligences.",
+      "À l'instant où **{{pet}}** se présente, le courroux de Talvar se déchaîne tel un ouragan. Votre familier paraît abattu et se traîne misérablement. La fureur du vénérable protecteur des créatures explose comme un séisme ! Ses réprimandes traversent les vallées, gravant dans votre esprit les lois sacrées du soin aux animaux. Vous vous éclipsez, rongé par le remords, jurant de transformer votre compagnon en symbole de bonheur et de vitalité.",
+      "Dès l'apparition de **{{pet}}**, l'expression de Talvar devient redoutable. Votre pauvre protégé semble mélancolique et manque visiblement de vigueur. La rage du gardien légendaire jaillit comme un incendie dévastateur ! Ses objurgations résonnent jusque dans l'écho du Mont Célestrum, vous rappelant avec force vos responsabilités sacrées. Vous prenez congé, accablé par votre indignité, résolu à devenir le maître exemplaire que votre compagnon mérite.",
+      "Lorsque **{{pet}}** entre dans le champ de vision de Talvar, une tempête se lève dans les yeux du vieux nain. La créature semble découragée et bouge avec une tristesse palpable. L'ire du sage protecteur éclate comme un brasier infernal ! Ses admonitions retentissent à travers les terres, vous enseignant sans pitié l'art noble du respect animal. Vous vous retirez, écrasé par la honte, déterminé à honorer la confiance de votre fidèle ami.",
+      "Quand **{{pet}}** se manifeste, le visage de Talvar se transforme en masque de réprobation. Votre compagnon affiche une mine défaite et semble privé de toute joie de vivre. La colère du vénérable ami des bêtes se déverse comme un torrent tumultueux ! Ses reproches retentissent jusqu'aux cimes de Célestrum, gravant en vous les préceptes sacrés de l'amour des créatures. Vous vous enfuyez, rongé par la contrition, jurant de faire de votre protégé l'incarnation même du bonheur animal."
+    ],
+    "petIsFeisty_f": [
+      "Quand vous lui montrez votre fidèle **{{pet}}**, les traits du sage nain se durcissent. La pauvre créature semble abattue et vous suit d'un pas traînant, l'œil terne. La colère de Talvar s'embrase tel un brasier ! Ses imprécations résonnent dans les vallées tandis qu'il vous admoneste sur l'art noble de soigner les animaux. Vous vous éloignez penaud, promettant par votre honneur de revenir avec une compagne radieuse et pleine de vie.",
+      "Lorsque **{{pet}}** apparaît devant lui, l'humeur de Talvar s'assombrit instantanément. Votre fidèle amie semble déprimée et manque visiblement de vitalité. La fureur du protecteur des créatures explose comme un volcan en éruption ! Ses remontrances retentissent jusqu'aux échos du Mont Célestrum, vous enseignant rudement les responsabilités du gardien d'animaux. Vous vous retirez, mortifié, jurant de transformer votre protégée en symbole de joie et de santé.",
+      "À la vue de votre **{{pet}}**, le courroux de Talvar se déchaîne tel un orage dévastateur. La malheureuse créature traîne tristement, l'allure languissante et l'esprit brisé. L'ire du sage nain jaillit comme une tempête ! Ses objurgations résonnent dans toute la région, vous rappelant impitoyablement vos devoirs sacrés envers votre compagne. Vous partez, accablé de honte, déterminé à racheter vos négligences.",
+      "Dès que **{{pet}}** se montre, l'expression de Talvar vire à la tempête. Votre pauvre amie semble épuisée et avance d'un pas chancelant. La colère du vénérable protecteur des bêtes éclate comme un cataclysme ! Ses admonestations traversent les vallées, gravant dans votre conscience les lois du respect animal. Vous vous esquivez, submergé par la culpabilité, résolu à faire de votre protégée une créature épanouie.",
+      "Quand **{{pet}}** fait son apparition, les yeux de Talvar lancent des éclairs de reproches. La créature semble découragée et bouge avec une lenteur inquiétante. L'indignation du gardien légendaire déferle comme une avalanche ! Ses récriminations retentissent jusqu'aux confins des terres de Célestrum, vous instruisant sévèrement sur l'art du soin aux animaux. Vous battez en retraite, rongé par le remords, déterminé à prouver votre valeur.",
+      "À l'instant où **{{pet}}** se présente, la fureur de Talvar se déchaîne comme un ouragan. Votre fidèle amie paraît abattue et se traîne misérablement. La rage du sage protecteur explose tel un séisme ! Ses réprimandes résonnent jusque dans l'écho du Mont Célestrum, vous rappelant avec force vos obligations sacrées. Vous prenez congé, écrasé par votre indignité, jurant de devenir le maître exemplaire que votre compagne mérite.",
+      "Dès l'apparition de **{{pet}}**, l'humeur de Talvar devient redoutable. Votre pauvre protégée semble mélancolique et manque cruellement d'énergie. L'ire du vénérable ami des créatures jaillit comme un incendie ! Ses semonces retentissent à travers les terres, vous enseignant sans pitié les préceptes du respect animal. Vous vous éclipsez, accablé par la honte, résolu à transformer votre amie en incarnation du bonheur.",
+      "Lorsque **{{pet}}** entre dans son champ de vision, une tempête se lève dans les yeux du vieux nain. La créature semble déprimée et bouge avec une tristesse palpable. La colère du protecteur légendaire éclate comme un brasier infernal ! Ses objurgations résonnent jusqu'aux cimes de Célestrum, gravant en vous les responsabilités sacrées du gardien. Vous vous retirez, rongé par la contrition, déterminé à honorer la confiance de votre fidèle amie.",
+      "Quand **{{pet}}** se manifeste, le visage de Talvar se transforme en masque de réprobation. Votre compagne affiche une mine défaite et semble privée de toute joie de vivre. La fureur du sage ami des bêtes se déverse comme un torrent tumultueux ! Ses admonitions retentissent dans toute la région, vous rappelant impitoyablement l'art noble du soin aux créatures. Vous vous enfuyez, submergé par la culpabilité, jurant de faire de votre protégée un modèle de vitalité.",
+      "À la vue de **{{pet}}**, le courroux de Talvar explose tel un volcan en fusion. Votre fidèle amie semble découragée et avance avec une lenteur désolante. L'indignation du vénérable protecteur des créatures déferle comme une catastrophe naturelle ! Ses reproches traversent les vallées, vous enseignant durement les devoirs du maître responsable. Vous partez, mortifié mais déterminé, promettant de revenir avec une compagne resplendissante de bonheur et de santé."
+    ],
+    "reward": {
+      "gem": "**{{amount}} {emote:unitValues.gem}**",
+      "money": "**{{amount}} {emote:unitValues.money}**"
+    },
+    "allPetsSeen": [
+      "Le regard de Talvar s'illumine de reconnaissance. Il vous considère désormais comme un frère d'armes dans la noble quête de protection des créatures. Après avoir échangé maintes histoires sur vos compagnons respectifs et partagé la sagesse ancestrale des dresseurs, il vous offre {{reward}} en témoignage de son estime. Vous vous séparez en amis, chacun reprenant sa route avec le cœur réchauffé.",
+      "Une lueur de respect profond brille dans les yeux de Talvar quand il vous reconnaît. Vous êtes désormais un compagnon de route dans l'art sacré de la protection animale. Vos conversations s'entremêlent, tissant des récits de créatures extraordinaires et de liens indéfectibles. Avec une solennité touchante, il vous remet {{reward}} comme gage de votre fraternité. Vous vous quittez, enrichis par cette communion d'âmes.",
+      "Talvar vous accueille avec la chaleur réservée aux véritables gardiens des créatures. Il vous reconnaît comme un égal dans cette quête éternelle de bienveillance envers les animaux. Vos échanges résonnent de sagesse partagée et d'expériences communes. D'un geste solennel, il vous tend {{reward}} en reconnaissance de votre dévouement. Vous repartez chacun de votre côté, liés par une complicité indéfectible.",
+      "Un sourire complice éclaire le visage buriné de Talvar à votre approche. Vous incarnez à ses yeux l'idéal du protecteur des bêtes, un âme sœur dans cette mission sacrée. Vos paroles se mêlent en un hymne à la beauté du monde animal. Avec une émotion palpable, il vous présente {{reward}} comme symbole de votre alliance spirituelle. Vous vous séparez, unis par un lien qui transcende les mots.",
+      "La joie illumine les traits de Talvar quand il pose les yeux sur vous. Il voit en vous un disciple accompli de l'art noble du soin aux créatures. Vos récits s'entrelacent, créant une symphonie de moments partagés avec vos compagnons. Dans un élan de générosité, il vous offre {{reward}} en célébration de votre parcours exemplaire. Vous reprenez vos chemins respectifs, enrichis par cette rencontre fraternelle.",
+      "Talvar vous salue avec la déférence due à un maître dans l'art de comprendre les animaux. Votre réputation de gardien bienveillant a précédé votre rencontre. Vos conversations résonnent de conseils précieux et d'anecdotes touchantes. Avec une fierté évidente, il vous remet {{reward}} en hommage à votre excellence. Vous vous quittez, porteurs d'une admiration mutuelle qui perdurera.",
+      "Un éclat de vénération traverse le regard de Talvar à votre vue. Il reconnaît en vous un champion de la cause animale, un être rare et précieux. Vos échanges vibrent d'une harmonie parfaite, tissant des liens au-delà de la simple conversation. Avec une gravité touchante, il vous tend {{reward}} comme témoignage de son respect infini. Vous repartez, auréolés de cette bénédiction mutuelle.",
+      "La reconnaissance brille dans les yeux pétillants de Talvar quand il vous aperçoit. Vous représentez l'incarnation même de ses idéaux, un gardien exemplaire des créatures. Vos paroles s'harmonisent en un chant de louange à la beauté de la nature. D'un geste empreint de solennité, il vous présente {{reward}} en gage de votre fraternité spirituelle. Vous vous séparez, porteurs d'une connexion qui défie le temps.",
+      "Talvar vous accueille avec l'enthousiasme réservé aux véritables amis des bêtes. Il vous considère comme un phare dans l'obscurité de l'indifférence humaine envers les animaux. Vos discussions s'épanouissent en un festival de sagesse partagée. Avec une émotion non dissimulée, il vous offre {{reward}} comme symbole de votre alliance sacrée. Vous reprenez vos routes, liés par une complicité éternelle.",
+      "Une joie profonde irradie du visage de Talvar à votre approche. Il voit en vous l'accomplissement de ses rêves les plus chers : un protecteur parfait des créatures. Vos échanges résonnent comme une ode à l'amour universel des animaux. Dans un moment de grâce absolue, il vous remet {{reward}} en célébration de votre parcours magnifique. Vous vous quittez, porteurs d'une bénédiction qui illuminera vos chemins futurs."
+    ],
+    "newPetSeen_m": [
+      "À la vue de votre noble compagnon **{{pet}}**, les yeux du vieux sage s'embrasent d'une joie pure. Un sourire radieux illumine son visage buriné par les ans, et dans un élan de gratitude pour ce moment de grâce, il vous remet {{reward}}. Vous poursuivez votre périple, béni par cette rencontre.",
+      "Talvar s'agenouille avec une révérence presque religieuse, ses mains calleuses posées sur ses genoux. Il contemple **{{pet}}** dans un silence respectueux, n'osant troubler la majesté de l'instant. Un sourire béat étire ses lèvres tandis qu'il vous tend {{reward}}, puis reprend sa route d'un pas léger, l'âme apaisée.",
+      "Ses yeux vous effleurent à peine, captivés entièrement par la présence de **{{pet}}**. Son visage se transfigure d'émerveillement. Figé dans une contemplation muette, il demeure bouche entrouverte, saisi par l'émotion. Lentement, avec la solennité d'un pèlerin devant une relique sacrée, il incline la tête. Le cœur visiblement touché par cette grâce, il vous offre {{reward}} avant de s'éloigner en silence, empli de sérénité.",
+      "Dès qu'il aperçoit **{{pet}}** à vos côtés, la métamorphose est saisissante : ses prunelles s'illuminent d'un éclat mystique, un sourire extasié transfigure ses traits. Il se redresse avec une dignité nouvelle et vous présente {{reward}} en hommage à cette vision enchanteresse. Puis, comblé comme un homme qui aurait entrevu le paradis, il s'éloigne. Votre voyage reprend, marqué par cette bénédiction inattendue.",
+      "Quand **{{pet}}** entre dans son champ de vision, Talvar pousse une exclamation de ravissement. Ses yeux s'écarquillent d'admiration tandis qu'il observe chaque détail de votre compagnon avec une fascination enfantine. Des larmes de joie perlent à ses paupières ridées. Tremblant d'émotion, il vous tend {{reward}} comme offrande à cette beauté vivante, puis s'éloigne en murmurant des bénédictions.",
+      "L'apparition de **{{pet}}** provoque chez Talvar une transformation stupéfiante. Son corps voûté se redresse, ses yeux ternes retrouvent leur éclat d'antan. Il tends ses mains tremblantes vers la créature, comme s'il voulait capturer cette essence de perfection. Dans un souffle émerveillé, il vous présente {{reward}}, puis demeure immobile, savourant cet instant de grâce absolue.",
+      "Lorsque **{{pet}}** se révèle à lui, Talvar semble rajeunir de plusieurs décennies. Son rire cristallin résonne à travers les terres, expression d'une joie si pure qu'elle semble purifier l'air ambiant. Il danse presque sur place, ses vieux os retrouvant une agilité oubliée. Avec une générosité débordante, il vous offre {{reward}}, puis s'éloigne en sifflotant une mélodie oubliée.",
+      "À la vue de **{{pet}}**, Talvar tombe en arrêt, comme frappé par la foudre divine. Ses lèvres murmurent des incantations ancestrales, des prières aux divinités protectrices des animaux. Ses mains tracent des signes de bénédiction dans l'air. Dans un état de transe mystique, il vous remet {{reward}}, puis se prosterne brièvement devant votre compagnon avant de reprendre sa route, transformé par cette révélation.",
+      "Quand **{{pet}}** fait son apparition, les yeux de Talvar se voilent de larmes d'extase. Il porte ses mains à son cœur, comme pour contenir l'émotion qui menace de le submerger. Sa voix se brise dans un murmure d'admiration. Avec des gestes d'une tendresse infinie, il vous présente {{reward}}, puis recule lentement, les yeux rivés sur votre compagnon, gravant cette vision dans sa mémoire pour l'éternité.",
+      "L'apparition soudaine de **{{pet}}** cloue Talvar sur place. Son souffle se suspend, ses mains tremblent d'émotion contenue. Il semble contempler une apparition divine, un miracle de la nature incarné. Dans un geste d'une lenteur révérencieuse, il vous tend {{reward}}, puis s'incline profondément devant votre compagnon. Il s'éloigne ensuite à reculons, refusant de détourner son regard de cette merveille vivante."
+    ],
+    "newPetSeen_f": [
+      "À la vue de votre noble compagnon **{{pet}}**, les yeux du vieux sage s'embrasent d'une joie pure. Un sourire radieux illumine son visage buriné par les ans, et dans un élan de gratitude pour ce moment de grâce, il vous remet {{reward}}. Vous poursuivez votre périple, béni par cette rencontre.",
+      "Talvar s'agenouille avec une révérence presque religieuse, ses mains calleuses posées sur ses genoux. Il contemple **{{pet}}** dans un silence respectueux, n'osant troubler la majesté de l'instant. Un sourire béat étire ses lèvres tandis qu'il vous tend {{reward}}, puis reprend sa route d'un pas léger, l'âme apaisée.",
+      "Ses yeux vous effleurent à peine, captivés entièrement par la présence de **{{pet}}**. Son visage se transfigure d'émerveillement. Figé dans une contemplation muette, il demeure bouche entrouverte, saisi par l'émotion. Lentement, avec la solennité d'un pèlerin devant une relique sacrée, il incline la tête. Le cœur visiblement touché par cette grâce, il vous offre {{reward}} avant de s'éloigner en silence, empli de sérénité.",
+      "Dès qu'il aperçoit **{{pet}}** à vos côtés, la métamorphose est saisissante : ses prunelles s'illuminent d'un éclat mystique, un sourire extasié transfigure ses traits. Il se redresse avec une dignité nouvelle et vous présente {{reward}} en hommage à cette vision enchanteresse. Puis, comblé comme un homme qui aurait entrevu le paradis, il s'éloigne. Votre voyage reprend, marqué par cette bénédiction inattendue.",
+      "Quand **{{pet}}** entre dans son champ de vision, Talvar pousse une exclamation de ravissement. Ses yeux s'écarquillent d'admiration tandis qu'il observe chaque détail de votre compagne avec une fascination enfantine. Des larmes de joie perlent à ses paupières ridées. Tremblant d'émotion, il vous tend {{reward}} comme offrande à cette beauté vivante, puis s'éloigne en murmurant des bénédictions.",
+      "L'apparition de **{{pet}}** provoque chez Talvar une transformation stupéfiante. Son corps voûté se redresse, ses yeux ternes retrouvent leur éclat d'antan. Il tend ses mains tremblantes vers la créature, comme s'il voulait capturer cette essence de perfection. Dans un souffle émerveillé, il vous présente {{reward}}, puis demeure immobile, savourant cet instant de grâce absolue.",
+      "Lorsque **{{pet}}** se révèle à lui, Talvar semble rajeunir de plusieurs décennies. Son rire cristallin résonne à travers les terres, expression d'une joie si pure qu'elle semble purifier l'air ambiant. Il danse presque sur place, ses vieux os retrouvant une agilité oubliée. Avec une générosité débordante, il vous offre {{reward}}, puis s'éloigne en sifflotant une mélodie oubliée.",
+      "À la vue de **{{pet}}**, Talvar tombe en arrêt, comme frappé par la foudre divine. Ses lèvres murmurent des incantations ancestrales, des prières aux divinités protectrices des animaux. Ses mains tracent des signes de bénédiction dans l'air. Dans un état de transe mystique, il vous remet {{reward}}, puis se prosterne brièvement devant votre compagne avant de reprendre sa route, transformé par cette révélation.",
+      "Quand **{{pet}}** fait son apparition, les yeux de Talvar se voilent de larmes d'extase. Il porte ses mains à son cœur, comme pour contenir l'émotion qui menace de le submerger. Sa voix se brise dans un murmure d'admiration. Avec des gestes d'une tendresse infinie, il vous présente {{reward}}, puis recule lentement, les yeux rivés sur votre compagne, gravant cette vision dans sa mémoire pour l'éternité.",
+      "L'apparition soudaine de **{{pet}}** cloue Talvar sur place. Son souffle se suspend, ses mains tremblent d'émotion contenue. Il semble contempler une apparition divine, un miracle de la nature incarné. Dans un geste d'une lenteur révérencieuse, il vous tend {{reward}}, puis s'incline profondément devant votre compagne. Il s'éloigne ensuite à reculons, refusant de détourner son regard de cette merveille vivante."
+    ],
+    "petAlreadySeen_m": [
+      "Vous présentez fièrement votre fidèle compagnon **{{pet}}**, mais la sagesse de Talvar lui rappelle qu'il a déjà eu l'honneur de contempler une créature de cette noble espèce. Néanmoins, ses yeux brillent de satisfaction en constatant les soins attentifs que vous prodiguez à votre protégé. Il vous adresse ses félicitations avec la gravité d'un maître reconnaissant la dévotion de son disciple. Votre chemin reprend, auréolé de son approbation.",
+      "Quand **{{pet}}** apparaît à vos côtés, un sourire nostalgique étire les lèvres de Talvar. Sa mémoire infaillible lui rappelle une rencontre similaire, mais son cœur se réchauffe en voyant l'épanouissement évident de votre compagnon. Il hoche la tête avec approbation, admirant la complicité qui vous unit. Ses paroles bienveillantes résonnent comme une bénédiction tandis qu'il salue votre dévouement exemplaire.",
+      "L'apparition de **{{pet}}** éveille chez Talvar un écho de déjà-vu, mais son émerveillement demeure intact. Il observe avec une attention renouvelée la vitalité qui irradie de votre protégé. Son regard pétille de contentement face à cette preuve vivante de votre excellence en tant que gardien. Ses félicitations chaleureuses accompagnent votre départ, marquant votre réputation de maître exemplaire.",
+      "À la vue de **{{pet}}**, Talvar plisse les yeux avec la sagacité de celui qui a vu mille créatures. Il reconnaît l'espèce, mais s'émerveille de l'individualité unique de votre compagnon. Sa voix grave résonne d'approbation tandis qu'il loue la transformation positive qu'il observe. Ses paroles d'encouragement vous suivront longtemps, témoignage de votre progression dans l'art du soin animal.",
+      "Dès que **{{pet}}** se montre, la mémoire de Talvar se réveille, mais son admiration ne faiblit pas. Il compare mentalement avec ses souvenirs antérieurs, notant avec plaisir l'amélioration dans le bien-être de votre protégé. Son sourire approbateur récompense vos efforts constants. Il vous gratifie de conseils précieux avant de vous laisser poursuivre votre route, enrichi de sa sagesse.",
+      "Quand **{{pet}}** fait son apparition, Talvar incline pensivement la tête. Bien qu'il ait déjà rencontré cette espèce, il célèbre la relation unique que vous avez tissée avec votre compagnon. Ses yeux brillent de fierté devant cette démonstration d'amour animal. Ses paroles encourageantes résonnent longtemps après votre départ, gravant en vous l'importance de votre mission.",
+      "L'arrivée de **{{pet}}** déclenche chez Talvar un moment de réflexion. Sa sagesse ancestrale lui permet de mesurer le chemin parcouru depuis votre première rencontre. Il s'émerveille de la transformation de votre compagnon sous vos soins attentifs. Ses félicitations sincères accompagnent une tape amicale sur l'épaule, scellant votre statut de protecteur reconnu.",
+      "À l'instant où **{{pet}}** se présente, Talvar sourit avec la tendresse d'un grand-père retrouvant un petit-enfant bien-aimé. Bien que familier de cette espèce, il se réjouit de constater l'épanouissement évident de votre protégé. Sa bénédiction paternelle vous accompagne, témoignage de votre évolution vers la maîtrise parfaite de l'art du soin aux créatures.",
+      "Dès l'apparition de **{{pet}}**, un éclair de reconnaissance traverse le regard de Talvar. Il compare silencieusement avec ses souvenirs, savourant les progrès accomplis. Son approbation chaleureuse récompense votre persévérance dans la voie de la protection animale. Ses paroles de sagesse vous guideront longtemps, phare lumineux dans votre quête de perfection.",
+      "Lorsque **{{pet}}** entre dans son champ de vision, Talvar hoche la tête avec la satisfaction du maître qui voit son enseignement porter ses fruits. Bien qu'il connaisse cette espèce, il célèbre l'individualité de votre compagnon et la qualité de vos soins. Son regard empli de fierté vous accompagne tandis que vous reprenez votre chemin, porteur de sa bénédiction et de ses encouragements."
+    ],
+    "petAlreadySeen_f": [
+      "Vous présentez fièrement votre fidèle compagnon **{{pet}}**, mais la mémoire infaillible de Talvar lui rappelle qu'il a déjà eu l'honneur de contempler une créature de cette noble espèce. Toutefois, ses yeux pétillent de contentement en observant les soins dévoués que vous accordez à votre protégée. Il vous honore de ses louanges avec la solennité d'un sage bénissant un gardien fidèle. Votre périple se poursuit, enrichi de sa bénédiction.",
+      "Quand **{{pet}}** apparaît à vos côtés, un sourire attendri illumine le visage de Talvar. Sa sagesse lui rappelle une rencontre antérieure similaire, mais son cœur s'épanouit en contemplant la joie évidente de votre compagne. Il acquiesce avec approbation, admirant le lien harmonieux qui vous unit. Ses paroles bienveillantes résonnent comme une mélodie tandis qu'il célèbre votre dévouement exemplaire.",
+      "L'apparition de **{{pet}}** réveille chez Talvar un écho familier, mais son enchantement demeure entier. Il scrute avec une attention renouvelée la vitalité qui émane de votre protégée. Son regard brille de satisfaction face à cette preuve vivante de votre excellence. Ses félicitations chaleureuses accompagnent votre départ, consolidant votre réputation de gardienne exemplaire.",
+      "À la vue de **{{pet}}**, Talvar plisse les yeux avec la perspicacité de celui qui a côtoyé mille créatures. Il reconnaît l'espèce, mais s'émerveille de la personnalité unique de votre compagne. Sa voix grave vibre d'approbation tandis qu'il loue l'épanouissement qu'il observe. Ses paroles d'encouragement vous accompagneront longtemps, témoignage de votre maîtrise croissante dans l'art du soin animal.",
+      "Dès que **{{pet}}** se montre, la mémoire de Talvar s'active, mais son admiration reste intacte. Il évalue mentalement les progrès accomplis, notant avec plaisir l'amélioration du bien-être de votre protégée. Son sourire approbateur récompense vos efforts inlassables. Il vous prodigue des conseils précieux avant de vous laisser continuer, enrichie de sa sagesse ancestrale.",
+      "Quand **{{pet}}** fait son apparition, Talvar incline pensivement la tête. Bien qu'il connaisse cette espèce, il célèbre la relation exceptionnelle que vous avez créée avec votre compagne. Ses yeux scintillent de fierté devant cette démonstration d'amour animal. Ses paroles encourageantes résonnent longtemps après votre départ, gravant en vous l'importance sacrée de votre mission.",
+      "L'arrivée de **{{pet}}** provoque chez Talvar un moment de contemplation. Sa sagesse millénaire lui permet d'évaluer le chemin parcouru depuis votre première rencontre. Il s'émerveille de la transformation de votre compagne sous vos soins dévoués. Ses félicitations sincères s'accompagnent d'un geste amical, confirmant votre statut de protectrice reconnue.",
+      "À l'instant où **{{pet}}** se présente, Talvar sourit avec la tendresse d'un sage retrouvant une âme familière. Bien que connaisseur de cette espèce, il se réjouit de constater l'épanouissement manifeste de votre protégée. Sa bénédiction paternelle vous enveloppe, témoignage de votre évolution vers la maîtrise parfaite de l'art de la protection des créatures.",
+      "Dès l'apparition de **{{pet}}**, un éclair de reconnaissance illumine le regard de Talvar. Il compare silencieusement avec ses souvenirs, savourant les améliorations accomplies. Son approbation chaleureuse récompense votre persévérance dans la voie de la protection animale. Ses paroles de sagesse vous guideront longtemps, étoile brillante dans votre quête d'excellence.",
+      "Lorsque **{{pet}}** entre dans son champ de vision, Talvar acquiesce avec la satisfaction du mentor qui voit ses enseignements fructifier. Bien qu'il soit familier de cette espèce, il célèbre l'unicité de votre compagne et la qualité de vos attentions. Son regard empli de fierté vous accompagne tandis que vous reprenez votre route, porteuse de sa bénédiction et de ses encouragements maternels."
+    ],
+    "noPet": [
+      "Bien qu'aucune créature ne vous accompagne en ces terres, Talvar vous gratifie d'un regard empreint de bienveillance paternelle. Sa voix grave résonne d'une sagesse ancestrale lorsqu'il vous conseille d'accueillir un compagnon animal dans votre existence, car ces êtres purs apportent joie et réconfort aux âmes des voyageurs. Vous inclinez respectueusement la tête devant ses paroles de sagesse et reprenez votre route, son conseil gravé dans votre mémoire.",
+      "Constatant que vous voyagez en solitaire, Talvar vous observe avec une curiosité bienveillante. Ses yeux pétillent de malice tandis qu'il évoque les merveilles d'une amitié avec les créatures de ce monde. Il vous raconte des histoires touchantes de liens indéfectibles entre voyageurs et leurs compagnons. Ses paroles résonnent longtemps en vous tandis que vous poursuivez votre chemin, l'esprit ouvert à de nouvelles possibilités.",
+      "L'absence de familier à vos côtés intrigue le vieux sage, mais il vous accueille néanmoins avec chaleur. Talvar partage avec vous des anecdotes sur les joies incomparables que procure la compagnie des animaux. Sa voix se teinte d'émotion quand il évoque la fidélité et l'amour inconditionnel de ces êtres merveilleux. Vous repartez, touché par ses récits et curieux de découvrir ces liens mystérieux.",
+      "Remarquant que vous cheminez seul, Talvar incline la tête avec compréhension. Il évoque avec passion les bienfaits spirituels qu'apporte la présence d'un compagnon animal. Ses paroles tissent un portrait enchanteur de la symbiose parfaite entre l'homme et la bête. Son regard bienveillant vous accompagne tandis que vous méditez sur ces enseignements, peut-être destinés à transformer votre avenir.",
+      "Devant votre solitude apparente, le cœur de Talvar se remplit de compassion. Il vous prodigue des conseils éclairés sur l'art de choisir et d'apprivoiser un compagnon animal. Ses descriptions passionnées des différentes espèces et de leurs tempéraments révèlent une connaissance encyclopédique. Vous repartez, l'esprit enrichi de ses savoirs et l'âme ouverte à l'idée d'une future amitié animale.",
+      "Constatant l'absence de créature à vos côtés, Talvar vous enveloppe d'un regard paternel. Il évoque avec tendresse les moments de grâce que procure la compagnie des animaux, ces instants où les barrières entre les espèces s'effacent. Ses paroles peignent un tableau poétique de l'harmonie universelle. Vous continuez votre route, porteur de cette vision enchanteresse et peut-être destiné à la concrétiser.",
+      "L'absence de familier éveille chez Talvar une envie de partager sa passion dévorante. Il vous dépeint avec éloquence les transformations miraculeuses qu'opère l'amour d'un animal dans le cœur humain. Ses récits vibrent d'exemples touchants de loyauté et de courage animal. Vous repartez, ému par ces témoignages et secrètement attiré par l'idée d'expérimenter ces liens extraordinaires.",
+      "Remarquant que vous voyagez sans compagnon à quatre pattes, Talvar vous sourit avec une indulgence toute paternelle. Il évoque les mystères profonds de la communication inter-espèces et les leçons de vie que dispensent nos amis les animaux. Ses paroles résonnent de vérités ancestrales sur l'interconnexion de tous les êtres vivants. Vous poursuivez votre chemin, l'âme nourrie de cette sagesse millénaire.",
+      "Face à votre solitude, Talvar ne peut s'empêcher de partager sa philosophie de vie centrée sur l'amour des créatures. Il vous parle des guérisons miraculeuses qu'opère la présence animale, tant sur le corps que sur l'esprit. Ses descriptions passionnées révèlent un homme transformé par une vie consacrée à ces êtres extraordinaires. Vous repartez, touché par cette révélation et peut-être destiné à suivre une voie similaire.",
+      "Devant l'absence de familier à vos côtés, les yeux de Talvar brillent d'une mission à accomplir. Il vous initie aux secrets de l'apprivoisement et aux rituels sacrés qui scellent l'amitié entre l'homme et l'animal. Ses enseignements résonnent de traditions ancestrales et de savoirs oubliés. Vous continuez votre route, dépositaire de ces connaissances précieuses et peut-être appelé à les mettre en pratique dans un avenir proche."
     ]
   }
 }
