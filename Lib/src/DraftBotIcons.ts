@@ -988,6 +988,7 @@ export const DraftBotIcons: {
 		cart: "🚗",
 		class: "🔖",
 		doNothing: "🚶",
+		dwarfPetFan: "⛏️",
 		epicItemShop: "🌟",
 		fightPet: "😾",
 		findItem: "❕",

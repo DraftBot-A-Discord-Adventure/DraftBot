@@ -87,10 +87,27 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
+import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
+}
+
+function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
+	if (!packet.playerHavePet) {
+		if (packet.arePetsAllSeen) {
+			return "allPetsSeen";
+		}
+		return "noPet";
+	}
+	if (packet.isPetFeisty) {
+		return "petIsFeisty";
+	}
+	if (packet.newPetSeen) {
+		return "newPetSeen";
+	}
+	return "petAlreadySeen";
 }
 
 export default class SmallEventsHandler {
@@ -966,5 +983,30 @@ export default class SmallEventsHandler {
 	@packetHandler(SmallEventEpicItemShopCannotBuyPacket)
 	async smallEventEpicItemShopCannotBuy(context: PacketContext, _packet: SmallEventEpicItemShopCannotBuyPacket): Promise<void> {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
+	}
+
+	@packetHandler(SmallEventDwarfPetFan)
+	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFan): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		const lng = interaction!.userLanguage;
+		const keyStory = getDwarfPetFanStoryKey(packet);
+		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "gem";
+		await interaction?.editReply({
+			embeds: [
+				new DraftbotSmallEventEmbed(
+					"dwarfPetFan",
+					`${StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)} ${StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
+						context: packet.playerHavePet ? packet.petSex : "m",
+						pet: packet.playerHavePet ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
+						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
+							lng,
+							amount: packet.amount
+						})
+					})}`,
+					interaction.user,
+					lng
+				)
+			]
+		});
 	}
 }

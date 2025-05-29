@@ -6,6 +6,7 @@ import PlayerMissionsInfo from "../../../../core/database/game/models/PlayerMiss
 import {
 	ExecuteTestCommandLike, ITestCommand
 } from "../../../../core/CommandsTest";
+import { DwarfPetsSeen } from "../../../../core/database/game/models/DwarfPetsSeen";
 
 export const commandInfo: ITestCommand = {
 	name: "destroyplayer",
@@ -52,6 +53,9 @@ const destroyPlayerTestCommand: ExecuteTestCommandLike = async player => {
 			id: player.id
 		}
 	});
+	await DwarfPetsSeen.destroy({ where: {
+		playerId: player.id
+	} });
 	return "Vous avez été réinitialisé !";
 };
 
