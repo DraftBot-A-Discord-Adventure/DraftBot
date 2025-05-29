@@ -557,6 +557,11 @@
       "name_one": "Attaque simple",
       "name_other": "Attaques simples"
     },
+    "clawAttack": {
+      "description": "Une attaque basé sur un violent coup de griffe.",
+      "name_one": "Attaque griffe",
+      "name_other": "Attaques griffes"
+    },
     "slamAttack": {
       "description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire.",
       "name_one": "Attaque impact",
@@ -1165,12 +1170,13 @@
     },
     "maleIceDragon": {
       "name": "Dragon de glace mâle",
-      "description": "TODO"
+      "description": "Un majestueux dragon aux écailles cristallines qui règne depuis les sommets glacés. Perché sur les pics les plus élevés, il surveille son territoire d'un œil vigilant. Son souffle glacial peut transformer un aventurier en statue de glace en quelques secondes, et ses serres acérées lui permettent de fondre sur ses proies depuis les hauteurs avec une précision mortelle."
     },
     "femaleIceDragon": {
       "name": "Dragon de glace femelle",
-      "description": "TODO"
+      "description": "Une redoutable gardienne qui protège férocement son trésor et sa progéniture dans les profondeurs glacées de son antre. Plus agressive que son compagnon, elle n'hésite pas à déchaîner sa fureur contre quiconque ose s'approcher de son nid. Ses écailles scintillent comme des diamants et sa queue peut briser la glace la plus épaisse d'un seul coup."
     }
+
   },
   "objects": {
     "0": "Emplacement libre",

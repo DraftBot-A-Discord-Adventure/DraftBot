@@ -11,7 +11,7 @@ import { FightConstants } from "../../../../../../../Lib/src/constants/FightCons
 const turnsToHeal = 3;
 
 const use: FightAlterationFunc = (affected, _fightAlteration, opponent) => {
-	// Automatically heal the burn if greater than turnsToHeal or if the player used resting
+	// Automatically heal the bleeding if greater than turnsToHeal or if the player used resting
 	if (affected.alterationTurn > turnsToHeal || (affected.alterationTurn > 1 && affected.getLastFightActionUsed()?.id === FightConstants.FIGHT_ACTIONS.PLAYER.RESTING)) {
 		return defaultHealFightAlterationResult(affected);
 	}
