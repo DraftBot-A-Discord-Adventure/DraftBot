@@ -995,15 +995,14 @@ export default class SmallEventsHandler {
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"dwarfPetFan",
-					StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)
-					+ StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
+					`${StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)} ${StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
 						context: packet.playerHavePet ? packet.petSex : "m",
 						pet: packet.playerHavePet ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
 						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
 							lng,
 							amount: packet.amount
 						})
-					}),
+					})}`,
 					interaction.user,
 					lng
 				)
