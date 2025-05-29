@@ -33,6 +33,6 @@
     "description": "Foi libertado da prisão por **{{freedByPlayer}}** !"
   },
   "fightChallenge": {
-    "description": "{emote:fightCommand.crossedSwords} Vous avez été attaqué par **{{attackerPseudo}}** ! Découvrez le résultat de ce combat en utilisant la commande `/historiquecombat`."
+    "description": "{emote:fightCommand.crossedSwords} Você foi atacado por **{{attackerPseudo}}** ! Descubra o resultado desta luta usando o comando `/historyfight`."
   }
 }
