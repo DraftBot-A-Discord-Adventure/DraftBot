@@ -557,6 +557,16 @@
       "name_one": "Attaque simple",
       "name_other": "Attaques simples"
     },
+    "lightRayAttack": {
+      "description": "Une puissant rayon de lumière qui inflige des dégâts à l'adversaire et peut le brûler.",
+      "name_one": "Attaque rayon de lumière",
+      "name_other": "Attaques rayon de lumière"
+    },
+    "cristalShardAttack": {
+        "description": "Une attaque à distance qui inflige des dégâts plus importants sur les adversaire plus lent.",
+        "name_one": "Attaque éclat de cristal",
+        "name_other": "Attaques éclats de cristal"
+    },
     "clawAttack": {
       "description": "Une attaque basé sur un violent coup de griffe.",
       "name_one": "Attaque griffe",

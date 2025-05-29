@@ -1,37 +1,37 @@
 {
-  "baseEnergyValue": 50,
+  "baseEnergyValue": 70,
   "attackRatio": 50,
-  "defenseRatio": 50,
-  "speedRatio": 50,
+  "defenseRatio": 60,
+  "speedRatio": 40,
   "breath": 5,
   "maxBreath": 15,
-  "breathRegen": 5,
+  "breathRegen": 4,
   "rewardFactor": 0.5,
   "attacks": [
     {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
+      "id": "petrificationAttack",
       "minLevel": 50,
       "weight": 1
+    },
+    {
+      "id": "piercingAttack",
+      "minLevel": 0,
+      "weight": 2
+    },
+    {
+      "id": "rockShieldAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "lightRayAttack",
+      "minLevel": 0,
+      "weight": 2
+    },
+    {
+      "id": "cristalShardAttack",
+      "minLevel": 90,
+      "weight": 4
     }
   ],
   "maps": [

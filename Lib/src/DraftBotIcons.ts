@@ -1951,6 +1951,8 @@ export const DraftBotIcons: {
 		sabotageAttack: "🛠️",
 		shieldAttack: "🛡️",
 		simpleAttack: "⚔️",
+		lightRayAttack: "🔆",
+		cristalShardAttack: "🔮",
 		slamAttack: "🦶",
 		slowed: "🦥",
 		stealth: "😶‍🌫️",
