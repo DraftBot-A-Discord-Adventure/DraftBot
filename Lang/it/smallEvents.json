@@ -136,7 +136,7 @@
     "end": "Senza prestare ulteriore attenzione all'individuo, continuate per la vostra strada.",
     "rewardTypeText": {
       "xp": " Avete vinto **{{reward}} {emote:unitValues.xp}**.",
-      "money": " {{reward}} Hai vinto ** {emote:unitValues.money}**!",
+      "money": " Hai vinto **{{reward}} {emote:unitValues.money}**!",
       "guildXp": " La tua gilda vince **{{reward}} {emote:unitValues.xp}**.",
       "points": " Avete vinto **{{reward}} {emote:unitValues.score}**."
     }
@@ -150,7 +150,7 @@
       "I raggi del sole che si infrangono tra le nuvole vi riscaldano mentre continuate il vostro viaggio lungo questa strada deserta."
     ],
     "top1": [
-      "{{playerDisplay}} Passerete davanti a , attualmente il miglior giocatore del mondo!",
+      "Lungo il cammino incontrerai {{playerDisplay}}, il miglior giocatore del momento!",
       "Mentre si cammina, ci si imbatte in {{playerDisplay}}. Attualmente è in cima alla classifica. Con gli occhi pieni di ammirazione, decidete di non ostacolare i suoi progressi e continuate il vostro cammino.",
       "Oh, mio Dio! È incredibile! È il leggendario {{playerDisplay}}, il più grande lottatore di oggi! Gli passate accanto e chiacchierate per un momento. Ti dà qualche consiglio per la tua avventura!",
       "Fate largo a {{playerDisplay}}, il numero uno al mondo di DraftBot! Superate questa persona e continuate a camminare per raggiungere la vostra destinazione."
@@ -221,22 +221,22 @@
     ],
     "lower_rank_than_them": [
       "Vi imbattete in {{playerDisplay}}, un giocatore con una reputazione migliore della vostra... Ma non arrendetevi! Forse un giorno riuscirete a raggiungerlo.",
-      "{{playerDisplay}} Mentre cammini, inciampi e cadi, e ride di te perché è classificato più in alto di te!",
-      "{{playerDisplay}} Parlate con lui della vostra classifica. Lui è un passo avanti a voi: ha una classifica più alta!",
-      "{{playerDisplay}} Anche se potrebbero vantarsi di avere una posizione in classifica più alta della vostra, rimanete umili durante la conversazione."
+      "Mentre cammini, inciampi e cadi, e {{playerDisplay}} ride di te perché è classificato più in alto di te!",
+      "Parlate con {{playerDisplay}} della vostra classifica. Lui è un passo avanti a voi: ha una classifica più alta!",
+      "Anche se potrebbero vantarsi di avere un ranking più alto del vostro, {{playerDisplay}} rimane umile durante la conversazione."
     ],
     "better_rank_than_them": [
-      "{{playerDisplay}}Ci si imbatte in . Questo ha un rango inferiore... Ma attenzione, un giorno potrebbe raggiungervi!",
-      "{{playerDisplay}}Un giocatore viene a trovarvi a . Ti chiede un consiglio su come migliorare e poi passa oltre!",
-      "{{playerDisplay}} Parlate con lui della vostra posizione in classifica. Sei più in alto di lui!"
+      "Ci si imbatte in {{playerDisplay}}. Questo ha un rango inferiore... Ma attenzione, un giorno potrebbe raggiungervi!",
+      "Un giocatore viene a trovarvi a {{playerDisplay}}. Ti chiede un consiglio su come migliorare e poi passa oltre!",
+      "Parlate con {{playerDisplay}} della vostra posizione in classifica. Sei più in alto di lui!"
     ],
     "rich": [
-      "{{playerDisplay}} Vi coprite gli occhi per non essere abbagliati dal sole che si riflette sull'oro che indossate! Continuate il vostro cammino, con gli occhi che vi fanno male.",
+      "Ti copri gli occhi per non farti abbagliare dal sole che si riflette sull'oro che {{playerDisplay}} indossa! Continui per la tua strada, con gli occhi che ti fanno male.",
       "È Scrooge? No, è {{playerDisplay}} ! Ha così tanto oro che sei abbagliato! Continuate a camminare, strofinandovi gli occhi.",
-      "{{playerDisplay}}Le monete cadono dalle tasche, tanto sono piene. Non sembra nemmeno farci caso. Un animale le raccoglie prima che possiate raggiungerle. Continuate il vostro cammino, un po' delusi."
+      "Le monete cadono dalle tasche di {{playerDisplay}}, tanto sono piene. Non sembra nemmeno farci caso. Un animale le raccoglie prima che possiate raggiungerle. Continuate il vostro cammino, un po' delusi."
     ],
     "poor": [
-      "Looking at the clothes {{playerDisplay}} wears, they seem to be having money problems... You think they would be happy if you gave them a coin.\n\n{emote:collectors.interactPoorCoin} Give them a coin\n{emote:collectors.refuse} Don't give them a coin",
+      "Guardando i vestiti che indossa {{playerDisplay}}, sembra che abbia problemi di soldi... Pensi che sarebbe felice se gli dessi una moneta.\n\n{emote:collectors.interactPoorCoin} Dagli una moneta\n{emote:collectors.refuse} Non dargli una moneta",
       "Mentre cammini, incontri un povero vagabondo {{playerDisplay}}. Vi chiede qualche moneta:\n\n{emote:collectors.interactPoorCoin} Dategli una moneta, perché ne avete già abbastanza\n{emote:collectors.refuse} Non dategli una moneta",
       "La povertà tocca tutti un giorno, e oggi è {{playerDisplay}} che può permettersi a malapena un pasto.\n\n{emote:collectors.interactPoorCoin} Dategli una moneta\n{emote:collectors.refuse} Non dategli una moneta"
     ],
@@ -251,42 +251,42 @@
       "Lo si ignora, o almeno ci si costringe a farlo. Te ne vai e speri che la tua coscienza non ti disturbi."
     ],
     "pet": [
-      "{{playerDisplay}}{{petEmote}}{{petName}}passa accanto a voi con il suo animale domestico ** ** **. Accarezzate questo coraggioso animale e continuate il vostro cammino di buon umore!",
-      "{{playerDisplay}}{{petEmote}}{{petName}}vi passa accanto e vi mostra il suo animaletto ** ** **. Lo accarezzate e ripartite, bon voyage!",
-      "{{playerDisplay}}{{petEmote}}{{petName}}vi passa accanto con ** ** ** ** al guinzaglio. Lo guardate con stupore e vi dite che anche a voi piacerebbe avere questo animale!"
+      "{{playerDisplay}} passa accanto a voi con il suo animale domestico **{{petEmote}}** **{{petName}}**. Accarezzate questo coraggioso animale e continuate il vostro cammino di buon umore!",
+      "{{playerDisplay}} vi passa accanto e vi mostra il suo animaletto **{{petEmote}}** **{{petName}}**. Lo accarezzate e ripartite, bon voyage!",
+      "{{playerDisplay}} vi passa accanto con **{{petEmote}}** **{{petName}}** al guinzaglio. Lo guardate con stupore e vi dite che anche a voi piacerebbe avere questo animale!"
     ],
     "guild_chief": [
-      "Non fatevi prendere dal panico! {{playerDisplay}}{{guildName}}State passando, capo gilda ** **.",
+      "Non fatevi prendere dal panico! State passando davanti a {{playerDisplay}}, capo gilda **{{guildName}}**.",
       "Passate davanti a {{playerDisplay}}. È il capo della gilda **{{guildName}}** !",
-      "Riconoscete la persona che vi passa accanto... {{playerDisplay}}{{guildName}}È il capo della gilda ** ** !"
+      "Riconoscete la persona che vi passa accanto... È {{playerDisplay}}, il capo della gilda **{{guildName}}** !"
     ],
     "guild_elder": [
-      "{{playerDisplay}}{{guildName}}parla della sua gilda ** ** con voi. Si apprende che è il più anziano!",
+      "{{playerDisplay}} parla della sua gilda **{{guildName}}** con voi. Si apprende che è il più anziano!",
       "Puoi visitare {{playerDisplay}}. È un anziano della gilda **{{guildName}}** !",
-      "{{guildName}} {{playerDisplay}}Il braccio destro della Gilda ** **, , vi saluta e prosegue per la sua strada."
+      "Il braccio destro della Gilda **{{guildName}}**, {{playerDisplay}}, vi saluta e prosegue per la sua strada."
     ],
     "class": [
-      "{{playerDisplay}}Si sfiora .{{class}}Vi rendete conto che è uno dei ** s**. Parlate con lui per un po' e continuate per la vostra strada.",
-      "{{playerDisplay}}un classe **{{class}}**, passa davanti a voi, lo salutate e continuate per la vostra strada.",
-      "{{playerDisplay}}{{class}}Si urta accidentalmente il braccio dell'onorevole ** **. Entrambi vi scusate e continuate per la vostra strada."
+      "Si sfiora {{playerDisplay}}. Vi rendete conto che è uno dei **{{class}}s**. Parlate con lui per un po' e continuate per la vostra strada.",
+      "{{playerDisplay}}, di classe **{{class}}**, ti passa accanto, lo saluti e continui per la tua strada.",
+      "Si urta accidentalmente il braccio di {{playerDisplay}}, onorevole **{{class}}**. Entrambi vi scusate e continuate per la vostra strada."
     ],
     "weapon": [
-      "{{playerDisplay}}{{weapon}} Incontri chi ti mostra la sua arma \"** **\".",
-      "{{playerDisplay}}{{weapon}}Un passante viene a mostrarsi accanto a voi, è e vi mostra la sua pistola \"** **\"!",
-      "{{playerDisplay}}{{weapon}}Wow! brandisce la sua magnifica arma \" \" davanti a voi. Voi continuate a camminare stupefatti."
+      "Incontri chi {{playerDisplay}} ti mostra la sua arma \"**{{weapon}}**\".",
+      "Un passante viene a mostrarsi accanto a voi, è {{playerDisplay}} e vi mostra la sua armato \"**{{weapon}}**\"!",
+      "Wow! {{playerDisplay}} brandisce la sua magnifica arma \"**{{weapon}}**\" davanti a voi. Voi continuate a camminare stupefatti."
     ],
     "armor": [
-      "{{playerDisplay}}{{armor}} Incontrate chi vi mostra la sua magnifica \"armatura\".",
-      "{{playerDisplay}}{{armor}}Una guardia si avvicina: è venuto a mostrarvi la sua armatura \"** **\"!",
-      "{{playerDisplay}} vi sfida a testare la sua armatura protettiva \"{{armor}}\". Dopo averne testato l'efficacia, si può partire."
+      "Incontrate {{playerDisplay}}, chi vi mostra la sua magnifica armatura \"**{{armor}}**\".",
+      "Una guardia si avvicina: è {{playerDisplay}}, è venuto a mostrarvi la sua armatura \"**{{armor}}**\"!",
+      "{{playerDisplay}} vi sfida a testare la sua armatura protettiva \"**{{armor}}**\". Dopo averne testato l'efficacia, si può partire."
     ],
     "potion": [
-      "{{playerDisplay}}{{potion}} Incontrate chi vi mostra la sua magnifica pozione \"** **\".",
+      "Incontrate {{playerDisplay}} chi vi mostra la sua magnifica pozione \"**{{potion}}**\".",
       "{{playerDisplay}} viene a parlare con voi, viene a mostrarvi la sua pozione \"**{{potion}}**\"!",
-      "{{playerDisplay}}che incontrate lungo la strada, vi dice che ha messo le mani su una pozione eccezionale.{{potion}} Quindi vi mostra \"** **\"."
+      "{{playerDisplay}} che incontrate lungo la strada, vi dice che ha messo le mani su una pozione eccezionale. Quindi vi mostra \"**{{potion}}**\"."
     ],
     "object": [
-      "{{playerDisplay}}{{object}} Incontrate chi vi mostra il suo magnifico oggetto \"** **\".",
+      "Incontrate {{playerDisplay}} chi vi mostra il suo magnifico oggetto \"**{{object}}**\".",
       "{{playerDisplay}}{{object}}Parlando con , vi mostra il suo oggetto \"** **\"!",
       "{{playerDisplay}}Un giocatore che cammina lungo la vostra stessa strada estrae un oggetto dalla sua collezione.{{object}} Vi mostra con orgoglio \"** **\"."
     ],
