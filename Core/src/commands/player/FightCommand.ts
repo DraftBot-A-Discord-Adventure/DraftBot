@@ -314,6 +314,57 @@ function bo3isAlreadyFinished(bo3: RankedFightResult): boolean {
 }
 
 /**
+ * Check if these players have been defenders recently in the cache map
+ * @param validOpponents
+ */
+function checkPlayersInDefenderCacheMap(validOpponents: Player[]): Player[] {
+	const now = Date.now();
+	return validOpponents.filter(opponent => {
+		const cooldown = fightsDefenderCooldowns.get(opponent.keycloakId);
+		if (cooldown) {
+			return cooldown < now;
+		}
+		return true;
+	});
+}
+
+/**
+ * Get the initial valid opponents based on the offset and player
+ * @param offset
+ * @param player
+ * @param validOpponents
+ */
+async function getInitialValidOpponents(offset: number, player: Player, validOpponents: Player[]): Promise<Player[]> {
+	if (offset === 0) {
+		// Fetch both active and regular potential opponents
+		const activeOpponents = await Players.findActivePotentialOpponents(
+			player,
+			FightConstants.ACTIVE_PLAYER_PER_OPPONENT_SEARCH,
+			offset
+		);
+		const regularOpponents = await Players.findPotentialOpponents(
+			player,
+			FightConstants.PLAYER_PER_OPPONENT_SEARCH,
+			offset - 1
+		);
+
+		// Combine and remove duplicates based on keycloakId
+		validOpponents = [...activeOpponents];
+		for (const opp of regularOpponents) {
+			if (!validOpponents.some(p => p.keycloakId === opp.keycloakId)) {
+				validOpponents.push(opp);
+			}
+		}
+		return validOpponents;
+	}
+	return await Players.findPotentialOpponents(
+		player,
+		FightConstants.PLAYER_PER_OPPONENT_SEARCH,
+		offset - 1
+	);
+}
+
+/**
  * Find another player to fight the player that started the command
  * @param player - player that wants to fight
  * @returns player opponent
@@ -322,20 +373,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 	for (let offset = 0; offset <= FightConstants.MAX_OFFSET_FOR_OPPONENT_SEARCH; offset++) {
 		// Retrieve some potential opponents
 		let validOpponents: Player[];
-		if (offset === 0) {
-			validOpponents = await Players.findActivePotentialOpponents(
-				player,
-				FightConstants.PLAYER_PER_OPPONENT_SEARCH,
-				offset
-			);
-		}
-		else {
-			validOpponents = await Players.findPotentialOpponents(
-				player,
-				FightConstants.PLAYER_PER_OPPONENT_SEARCH,
-				offset - 1
-			);
-		}
+		validOpponents = await getInitialValidOpponents(offset, player, validOpponents);
 
 		if (validOpponents.length === 0) {
 			continue;
@@ -345,14 +383,7 @@ async function findOpponent(player: Player): Promise<Player | null> {
 		validOpponents.sort(() => Math.random() - 0.5);
 
 		// Check if these players have been defenders recently in the cache map
-		const now = Date.now();
-		validOpponents = validOpponents.filter(opponent => {
-			const cooldown = fightsDefenderCooldowns.get(opponent.keycloakId);
-			if (cooldown) {
-				return cooldown < now;
-			}
-			return true;
-		});
+		validOpponents = checkPlayersInDefenderCacheMap(validOpponents);
 
 		// Check if these players have been defenders recently in the database
 		const haveBeenDefenderRecently = await LogsReadRequests.hasBeenADefenderInRankedFightSinceMinutes(
