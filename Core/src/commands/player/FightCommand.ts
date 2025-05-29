@@ -345,7 +345,7 @@ async function getInitialValidOpponents(offset: number, player: Player): Promise
 		const regularOpponents = await Players.findPotentialOpponents(
 			player,
 			FightConstants.PLAYER_PER_OPPONENT_SEARCH,
-			offset - 1
+			offset
 		);
 
 		// Combine and remove duplicates based on keycloakId
