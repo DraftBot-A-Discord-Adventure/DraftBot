@@ -236,17 +236,19 @@ export const DraftBotIcons: {
 	},
 	events: {
 		1: {
-			cutTree: "🪓",
+			chopTree: "🪓",
+			climbOver: "🧗",
+			findPath: "🗺️",
 			end: {
 				0: "🪓"
-			},
-			otherWay: "🚶"
+			}
 		},
 		10: {
 			end: {
 				0: "🚶"
 			},
 			help: "🎣",
+			advice: "🗣️",
 			push: "🖐️",
 			skip: "🏃"
 		},
