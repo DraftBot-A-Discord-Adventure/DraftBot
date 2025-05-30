@@ -298,28 +298,28 @@
       ],
       "hurt": [
         "Si vede una mummia in lontananza! Oh no, è solo {{playerDisplay}}, coperto di bende...",
-        "{{playerDisplay}}Durante il tragitto, vi imbattete in . È coperto di bende: cosa gli è successo?",
-        "{{playerDisplay}} Mentre correte verso la vostra destinazione, vi chiede di stringere le bende sulla sua testa. Lo fate e vi stupite che qualcuno possa essere così ferito."
+        "Durante il tragitto, vi imbattete in {{playerDisplay}}. È coperto di bende: cosa gli è successo?",
+        "Mentre correte verso la vostra destinazione, {{playerDisplay}} vi chiede di stringere le bende sulla sua testa. Lo fate e vi stupite che qualcuno possa essere così ferito."
       ],
       "injured": [
-        "{{playerDisplay}} Inciampate in un uomo che è svenuto sul pavimento. Gli date un colpetto per svegliarlo, ma senza successo.",
+        "Inciampate in {{playerDisplay}} che è svenuto sul pavimento. Gli date un colpetto per svegliarlo, ma senza successo.",
         "Non era un topo morto sul pavimento, era solo {{playerDisplay}}. Gli chiedete se sta bene. Lui non risponde e voi continuate per la vostra strada.",
         "Una persona è priva di sensi in mezzo alla strada. È {{playerDisplay}}. Si fa di tutto per riportarlo alla coscienza, ma senza successo. Lo si mette quindi a terra sul ciglio della strada per evitare ulteriori lesioni."
       ],
       "starving": [
-        "Un ruggito sordo giunge alle vostre orecchie. {{playerDisplay}}Scoprite che si tratta del ventre di . Purtroppo avete da poco finito il cibo avanzato.",
-        "{{playerDisplay}}A quanto pare non ha mangiato abbastanza. Il suo pancino brontola! Non avendo nulla da offrirle, continuate il vostro cammino verso nuovi orizzonti.",
-        "{{playerDisplay}} Vedete, che è alla folle ricerca di cibo. Corre in giro alla ricerca di qualcosa da mangiare. Non avendo nulla da offrirgli, continuate il vostro cammino."
+        "Un ruggito sordo giunge alle vostre orecchie. Scoprite che si tratta del ventre di {{playerDisplay}}. Purtroppo avete da poco finito il cibo avanzato.",
+        "A quanto pare {{playerDisplay}} non ha mangiato abbastanza. Il suo pancino brontola! Non avendo nulla da offrirle, continuate il vostro cammino verso nuovi orizzonti.",
+        "Vedete {{playerDisplay}} che è alla folle ricerca di cibo. Corre in giro alla ricerca di qualcosa da mangiare. Non avendo nulla da offrirgli, continuate il vostro cammino."
       ],
       "sleeping": [
-        "{{playerDisplay}} Vi sorprende addormentato sul ciglio della strada. Decidete di lasciarlo dormire, perché probabilmente ne ha bisogno.",
-        "{{playerDisplay}} Evidentemente non ha dormito abbastanza stanotte: è sdraiato sul ciglio della strada.",
-        "Il ciglio della strada sembra un buon posto per riposare. {{playerDisplay}} Questo è ciò che ci si dice dopo aver visto dormire lì."
+        "Vi sorprende {{playerDisplay}} addormentato sul ciglio della strada. Decidete di lasciarlo dormire, perché probabilmente ne ha bisogno.",
+        "Evidentemente {{playerDisplay}} non ha dormito abbastanza stanotte: è sdraiato sul ciglio della strada.",
+        "Il ciglio della strada sembra un buon posto per riposare. Questo è ciò che ci si dice dopo aver visto {{playerDisplay}} dormire lì."
       ],
       "freezing": [
-        "Si sente molto freddo quando si cammina. {{playerDisplay}}È , che è vicino all'ipotermia!",
+        "Si sente molto freddo quando si cammina. È {{playerDisplay}}, che è vicino all'ipotermia!",
         "{{playerDisplay}} sembra essere freddo. Lo si riscalda un po' e poi si va via.",
-        "Un suono ridondante di ticchettio vi infastidisce. {{playerDisplay}}Scoprite che sono i denti di... Questo è congelato! Riprendete il vostro viaggio senza ulteriori indugi."
+        "Un suono ridondante di ticchettio vi infastidisce. Scoprite che sono i denti di {{playerDisplay}}... Questo è congelato! Riprendete il vostro viaggio senza ulteriori indugi."
       ],
       "feetHurt": [
         "Vi imbattete in {{playerDisplay}} che si lamenta dei suoi piedi. Spiega che cammina da troppo tempo senza fermarsi. Gli date qualche consiglio su come evitare questo problema in futuro e continuate per la vostra strada.",
@@ -327,18 +327,18 @@
         "Durante una passeggiata, vi imbattete in {{playerDisplay}} che si lamenta di un dolore al piede. Le suggerite di prendersi cura dei suoi piedi e di fare delle pause per evitare lesioni."
       ],
       "confounded": [
-        "{{playerDisplay}}È possibile contattare . Ci provate. Le sue parole sono piuttosto incoerenti, quindi continuate per la vostra strada, un po' confusi.",
+        "È possibile contattare {{playerDisplay}}. Ci provate. Le sue parole sono piuttosto incoerenti, quindi continuate per la vostra strada, un po' confusi.",
         "{{playerDisplay}} dice molte cose incoerenti. Tutto ciò vi sembra strano e ve ne andate in fretta, confusi!",
-        "{{playerDisplay}} Lo vedete completamente fuori di sé. Dopo aver cercato di riportarlo alla realtà senza successo, continuate il vostro cammino per recuperare il tempo perduto."
+        "Lo vedete {{playerDisplay}} che sembra completamente fuori di sé. Dopo aver cercato di riportarlo alla realtà senza successo, continuate il vostro cammino per recuperare il tempo perduto."
       ],
       "drunk": [
         "{{playerDisplay}} zigzagando lungo il percorso, sembra che abbia bevuto un po' (troppo). Continuate il vostro viaggio.",
-        "{{playerDisplay}}Sembra che non abbia capito che l'alcol va consumato con moderazione. Dopo questo incontro inaspettato, continuate la vostra strada.",
-        "{{playerDisplay}} Si vede che è piuttosto alticcio, per usare un eufemismo. Sembra che si stia divertendo... da solo. Fate il possibile per ignorarlo e continuate per la vostra strada."
+        "{{playerDisplay}}, sembra che non abbia capito che l'alcol va consumato con moderazione. Dopo questo incontro inaspettato continuate la vostra strada.",
+        "Si vede {{playerDisplay}} che è piuttosto alticcio, per usare un eufemismo. Sembra che si stia divertendo... da solo. Fate il possibile per ignorarlo e continuate per la vostra strada."
       ],
       "scared": [
         "Passate davanti a {{playerDisplay}} , che sembra correre verso di voi. È inseguito dai rapinatori che cercano i suoi soldi. Lo accompagnate lungo la strada per aiutarlo a ritrovare la calma. Una volta rassicurato, lo lasciate e ripartite.",
-        "{{playerDisplay}} In lontananza, si scorge una corsa a tutta velocità per sfuggire a un branco di lupi. Accorrete in suo aiuto e costringete le bestie selvatiche a ritirarsi.",
+        "In lontananza, vedete {{playerDisplay}} che corre a tutta velocità per sfuggire a un branco di lupi. Accorrete in suo aiuto e costringete le bestie selvatiche a ritirarsi.",
         "{{playerDisplay}}Incontri . Sembra completamente in preda al panico. Gli chiedete perché è così sconvolto. Vi dice che è stato appena inseguito da un drago, ma che è riuscito a scappare, perdendo qualche capello."
       ],
       "occupied": [
