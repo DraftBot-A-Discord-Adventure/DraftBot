@@ -339,21 +339,21 @@
       "scared": [
         "Passate davanti a {{playerDisplay}} , che sembra correre verso di voi. È inseguito dai rapinatori che cercano i suoi soldi. Lo accompagnate lungo la strada per aiutarlo a ritrovare la calma. Una volta rassicurato, lo lasciate e ripartite.",
         "In lontananza, vedete {{playerDisplay}} che corre a tutta velocità per sfuggire a un branco di lupi. Accorrete in suo aiuto e costringete le bestie selvatiche a ritirarsi.",
-        "{{playerDisplay}}Incontri . Sembra completamente in preda al panico. Gli chiedete perché è così sconvolto. Vi dice che è stato appena inseguito da un drago, ma che è riuscito a scappare, perdendo qualche capello."
+        "Incontri {{playerDisplay}}. Sembra completamente in preda al panico. Gli chiedete perché è così sconvolto. Vi dice che è stato appena inseguito da un drago, ma che è riuscito a scappare, perdendo qualche capello."
       ],
       "occupied": [
-        "{{playerDisplay}} Lo individuate e lo invitate a fare due chiacchiere, ma lui vi dice che è occupato. È solo un rinvio e ognuno di voi continua per la sua strada.",
-        "{{playerDisplay}} Mentre attraversate, vi imbattete in , che è molto occupato... Cercate di fare due chiacchiere con lui, ma senza successo, e vi chiede di aiutarlo con il suo lavoro.",
-        "{{playerDisplay}} Durante il tragitto, vi imbattete in , che sembra molto impegnato. Cercate di saperne di più, ma senza successo, prima di continuare il vostro cammino."
+        "Lo individuate {{playerDisplay}} e lo invitate a fare due chiacchiere, ma lui vi dice che è occupato. È solo un rinvio e ognuno di voi continua per la sua strada.",
+        "Mentre attraversate, vi imbattete in {{playerDisplay}}, che è molto occupato... Cercate di fare due chiacchiere con lui, ma senza successo, e vi chiede di aiutarlo con il suo lavoro.",
+        "Durante il tragitto, vi imbattete in {{playerDisplay}}, che sembra molto impegnato. Cercate di saperne di più, ma senza successo, prima di continuare il vostro cammino."
       ],
       "jailed": [
-        "{{playerDisplay}}Mentre passeggiate tranquillamente verso la vostra destinazione, vedete delle guardie che vi mettono le manette. Incuriositi, vi avvicinate e sentite che si sta dirigendo direttamente verso la prigione. Si riparte, chiedendosi cosa abbia fatto quest'uomo.",
-        "Mentre percorrete con cautela un sentiero, vi imbattete in un convoglio di prigionieri scortati da guardie armate. {{playerDisplay}}Mentre arrancano su per il pendio, intravedete i poveri malcapitati, tra cui un uomo che piange. Vi sentite un po' dispiaciuti per lui, ma dimenticate subito questa sensazione, dicendovi che probabilmente non è lì per caso."
+        "Mentre passeggiate tranquillamente verso la vostra destinazione, vedete delle guardie che vi mettono le manette a {{playerDisplay}}. Incuriositi, vi avvicinate e sentite che si sta dirigendo direttamente verso la prigione. Si riparte, chiedendosi cosa abbia fatto quest'uomo.",
+        "Mentre percorrete con cautela un sentiero, vi imbattete in un convoglio di prigionieri scortati da guardie armate. Mentre arrancano su per il pendio, intravedete i poveri malcapitati, tra cui {{playerDisplay}}, che piange. Vi sentite un po' dispiaciuti per lui, ma dimenticate subito questa sensazione, dicendovi che probabilmente non è lì per caso."
       ],
       "lost": [
-        "{{playerDisplay}}Incrociate un uomo che sembra smarrito e si affretta a chiedervi da che parte andare per raggiungere la vostra destinazione. Purtroppo non potete aiutarlo, quindi lo confortate un po' prima di proseguire per la vostra strada.",
-        "{{playerDisplay}}Passate accanto a un uomo che sembra aver perso la strada, chiaramente disorientato. Vi guarda in attesa, cercando aiuto per ritrovare la strada.",
-        "{{playerDisplay}} Notate che sta girando in tondo, avendolo incrociato più volte lungo la strada. Vi avvicinate e gli chiedete se ha bisogno di aiuto. Lui spiega di essersi perso e vi chiede di accompagnarlo a destinazione."
+        "Incrociate {{playerDisplay}}, che sembra smarrito e si affretta a chiedervi da che parte andare per raggiungere la vostra destinazione. Purtroppo non potete aiutarlo, quindi lo confortate un po' prima di proseguire per la vostra strada.",
+        "Passate accanto a {{playerDisplay}}, che sembra aver perso la strada, chiaramente disorientato. Vi guarda in attesa, cercando aiuto per ritrovare la strada.",
+        "Notate che {{playerDisplay}} sta girando in tondo, avendolo incrociato più volte lungo la strada. Vi avvicinate e gli chiedete se ha bisogno di aiuto. Lui spiega di essersi perso e vi chiede di accompagnarlo a destinazione."
       ]
     }
   },
@@ -364,31 +364,31 @@
       "un uccello si avvicina a voi e vi mette in mano un piccolo messaggio...",
       "Scoprite una vecchia capanna di legno abbandonata, decidete di esplorarla e scoprite solo un vecchio grimorio che sembra giacere da anni..."
     ],
-    "reward": "{emote:unitValues.money} Argento: **{{money}}**\n{emote:unitValues.xp} XP : **{{xp}}\n{emote:unitValues.score} Punti: **Il numero di punti dipenderà dalla classifica finale **\n{emote:rewards.item} Equipaggiamento casuale.",
-    "endMessage": "\n\n{emote:commands.report} \"All'avventuriero appartenente alle {emote:leghe.{{leagueId}}} $t(models:leagues.{{leagueId}}) che trova questo testo, **se manterrà la sua gloria fino alla fine della stagione**, potrà vincere queste ricompense:\n\n{{rewards}}\"\n\nSi riparte, impazienti di riscuotere il proprio bonus {{time}}.",
-    "notEnoughFight": "\n\n{emote:commands.report} \"All'avventuriero appartenente alle {emote:leghe.{{leagueId}}} $t(models:leagues.{{leagueId}}) che trova questo testo, **se combatte qualche battaglia usando il comando {command:fight}**, può vincere queste ricompense:\n\n{{rewards}}\"\n\nSi riparte velocemente, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione {{time}}.",
-    "rewardToday": "\n\n{emote:commands.report} \"Ottieni la tua ricompensa prima della fine della settimana ordinando {command:leaguebonus} \".\n\nSiete di nuovo in viaggio, impazienti di riscuotere il vostro bonus."
+    "reward": "{emote:unitValues.money} Argento: **{{money}}**\n{emote:unitValues.xp} XP : **{{xp}}**\n{emote:unitValues.score} Punti: **Il numero di punti dipenderà dalla classifica finale.**\n{emote:rewards.item} Equipaggiamento casuale.",
+    "endMessage": "\n\n{emote:commands.report} \"All'avventuriero appartenente alle {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) che trova questo testo, **se manterrà la sua gloria fino alla fine della stagione**, potrà vincere queste ricompense:\n\n{{rewards}}\"\n\nSi riparte, impazienti di riscuotere il proprio bonus {{time}}.",
+    "notEnoughFight": "\n\n{emote:commands.report} \"All'avventuriero appartenente alle {emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) che trova questo testo, **se combatte qualche battaglia usando il comando {command:fight}**, può vincere queste ricompense:\n\n{{rewards}}\"\n\nSi riparte velocemente, temendo di non riuscire a combattere abbastanza giocatori prima della fine della stagione {{time}}.",
+    "rewardToday": "\n\n{emote:commands.report} \"**Le ricompense della Lega sono disponibili!** Riscatta la tua ricompensa entro la fine della settimana con il comando {command:leaguebonus} !\"\n\nSiete di nuovo in viaggio, impazienti di riscuotere il vostro bonus."
   },
   "winGuildXP": {
     "stories": [
-      "{{guild}}La reputazione di ** ** sembra precedervi. Quando apprendono che siete un membro della gilda, gli avventurieri che vi hanno seguito per le ultime miglia vi tributano il loro più profondo rispetto.",
-      "{{guild}}Dopo alcuni incontri vittoriosi, applichi il marchio di gilda ** ** sui resti dei tuoi aggressori. Chiunque passi di lì lo riconoscerà.",
-      "Le vostre buone azioni nella regione hanno conquistato gran parte della popolazione.{{guild}}Quando vi chiedono come ringraziarvi, chiedete loro di ricordare il nome ** **.",
-      "Congratulazioni!{{guild}}Nel corso degli anni, la vostra gilda, ** **, si è fatta un nome in tutto il regno.",
-      "{{guild}}** ** sta diventando sempre più popolare con il passare del tempo! Ci auguriamo che continui a farlo, ed è per questo che ti offriamo questo bonus xp!",
-      "{{guild}}Entrando in una locanda, l'oste riconosce l'emblema sul vostro scudo, il simbolo della gilda ** **. Decide di offrire un giro generale di bevande in vostro onore, con grande effetto sugli altri clienti."
+      "La reputazione di **{{guild}}** sembra precedervi. Quando apprendono che siete un membro della gilda, gli avventurieri che vi hanno seguito per le ultime miglia vi tributano il loro più profondo rispetto.",
+      "Dopo alcuni incontri vittoriosi, applichi il marchio di gilda **{{guild}}** sui resti dei tuoi aggressori. Chiunque passi di lì lo riconoscerà.",
+      "Le vostre buone azioni nella regione hanno conquistato gran parte della popolazione. Quando vi chiedono come ringraziarvi, chiedete loro di ricordare il nome **{{guild}}**.",
+      "Congratulazioni! Nel corso degli anni, la vostra gilda, **{{guild}}**, si è fatta un nome in tutto il regno.",
+      "**{{guild}}** sta diventando sempre più popolare con il passare del tempo! Ci auguriamo che continui a farlo, ed è per questo che ti offriamo questo bonus xp!",
+      "Entrando in una locanda, l'oste riconosce l'emblema sul vostro scudo, il simbolo della gilda **{{guild}}**. Decide di offrire un giro generale di bevande in vostro onore, con grande effetto sugli altri clienti."
     ],
-    "end": " {{xp}} {emote:unitValues.xp}La tua gilda vince ** ** ."
+    "end": " La tua gilda vince **{{xp}}** {emote:unitValues.xp}."
   },
   "winEnergy": {
     "stories": [
       "incontrate una giovane donna che si presenta come Hilda la guaritrice. Dopo una breve chiacchierata, accettate di farle provare il suo ultimo rimedio su di voi. **Recuperate tutta la vostra energia** {emote:unitValues.energy}",
-      "vi imbattete in una giovane donna che si offre di offrirvi un trattamento. Accettate e vi viene data una bevanda deliziosa. {emote:unitValues.energy}**Recuperate tutte le vostre energie.",
-      "vi trovate faccia a faccia con una giovane donna accompagnata da una capra. Lei vi offre una cura miracolosa. Incuriositi, accettate e, contro ogni previsione, vi sentite subito meglio. {emote:unitValues.energy}**Recuperate tutte le vostre energie",
-      "incontrate una giovane donna che si offre di curarvi. Accettate e vi sentite subito meglio. {emote:unitValues.energy}**Recuperate tutte le vostre energie",
-      "incontrate una donna vestita di bianco che si offre di curarvi. Accettate il suo trattamento. {emote:unitValues.energy}**Recuperate tutta la vostra energia",
-      "incontrate una donna che si descrive come guaritrice. Dopo aver discusso un po', si scopre che è in viaggio verso i pascoli e che offre servizi di guarigione lungo la strada. Accettate un misterioso rimedio. {emote:unitValues.energy}**Recuperate tutta la vostra energia",
-      "incontrate una giovane donna che si offre di curarvi. Accettate e vi sentite subito meglio. {emote:unitValues.energy}**Recuperate tutte le vostre energie"
+      "vi imbattete in una giovane donna che si offre di offrirvi un trattamento. Accettate e vi viene data una bevanda deliziosa. **Recuperate tutte le vostre energie.**{emote:unitValues.energy}",
+      "vi trovate faccia a faccia con una giovane donna accompagnata da una capra. Lei vi offre una cura miracolosa. Incuriositi, accettate e, contro ogni previsione, vi sentite subito meglio. **Recuperate tutte le vostre energie**{emote:unitValues.energy}",
+      "incontrate una giovane donna che si offre di curarvi. Accettate e vi sentite subito meglio. **Recuperate tutte le vostre energie**{emote:unitValues.energy}",
+      "incontrate una donna vestita di bianco che si offre di curarvi. Accettate il suo trattamento. **Recuperate tutta la vostra energia**{emote:unitValues.energy}",
+      "incontrate una donna che si descrive come guaritrice. Dopo aver discusso un po', si scopre che è in viaggio verso i pascoli e che offre servizi di guarigione lungo la strada. Accettate un misterioso rimedio. **Recuperate tutta la vostra energia**{emote:unitValues.energy}",
+      "incontrate una giovane donna che si offre di curarvi. Accettate e vi sentite subito meglio. **Recuperate tutte le vostre energie**{emote:unitValues.energy}"
     ]
   },
   "doNothing": {
@@ -448,18 +448,18 @@
       "Durante il tragitto, vi imbattete in una bestia che non sembra molto amichevole. Decidete di scappare, ma vi raggiunge rapidamente. Vi voltate e gli sferrate un duro colpo. Questo è sufficiente per sbarazzarsi dell'avversario e riprendere il cammino.",
       "Con la coda dell'occhio, notate una borsa piena d'oro cadere dalla tasca di un avventuriero che cammina davanti a voi. Lo avverti immediatamente e gli restituisci la borsa. L'avventuriero vi ringrazia per la vostra gentilezza."
     ],
-    "end": " {{xp}} {emote:unitValues.xp}Hai vinto ** ** ."
+    "end": " Hai vinto **{{xp}}** {emote:unitValues.xp}."
   },
   "staffMember": {
     "context": [
-      "Mentre si cammina intorno a un burrone, si incontra un bardo.{{pseudo}}{{sentence}}Mentre camminate, vi racconta la storia di ** **, \" \".",
-      "Mentre camminate, notate un grande poster.{{pseudo}}Sembra elogiare le gesta di ** ** **...{{sentence}}\" \".",
-      "{{sentence}}Durante una delle vostre avventure, sentite una storia, \" \", ma non conoscete il protagonista.{{pseudo}}Dopo un po' di ricerche, vi rendete conto che la storia parla di ** ** ! Il nome suona familiare...",
-      "Entrando in un edificio lungo la strada, chiacchierate per un po' con il gestore del locale. Gli chiedete di parlarvi delle leggende locali.{{pseudo}}{{sentence}}Lui descrive ** **, \" \".",
-      "Lungo la strada, incontrate un uomo anziano che decidete di accompagnare.{{pseudo}}{{sentence}}Mentre camminate insieme, vi racconta la storia di ** ** : \" \".",
-      "Mentre camminate lungo la strada, notate un libro malconcio a terra.{{pseudo}}Si intitola ** **, lo si apre e si leggono le prime frasi...{{sentence}}\"",
-      "Dopo una lunga e monotona passeggiata, ci si imbatte in qualcuno che canta in onore di **{{pseudo}}**... {emote:other.singing} \"{{sentence}} {emote:other.singing}",
-      "Mentre viaggiate, una nuvola di polvere appare in lontananza.{{pseudo}}Qualche minuto dopo, un cavaliere si ferma davanti a voi, dicendo che sta cercando ** **.{{sentence}}Al vostro sguardo curioso, aggiunge: \"**\"."
+      "Mentre si cammina intorno a un burrone, si incontra un bardo. Mentre camminate, vi racconta la storia di **{{pseudo}}**, \"{{sentence}}\".",
+      "Mentre camminate, notate un grande poster. Sembra elogiare le gesta di **{{pseudo}}**... \"{{sentence}}\".",
+      "Durante una delle vostre avventure, sentite una storia, \"{{sentence}}\", ma non conoscete il protagonista. Dopo un po' di ricerche, vi rendete conto che la storia parla di **{{pseudo}}** ! Il nome suona familiare...",
+      "Entrando in un edificio lungo la strada, chiacchierate per un po' con il gestore del locale. Gli chiedete di parlarvi delle leggende locali. Lui descrive **{{pseudo}}**, \"{{sentence}}\".",
+      "Lungo la strada, incontrate un uomo anziano che decidete di accompagnare. Mentre camminate insieme, vi racconta la storia di **{{pseudo}}** : \"{{sentence}}\".",
+      "Mentre camminate lungo la strada, notate un libro malconcio a terra. Si intitola **{{pseudo}}**, lo si apre e si leggono le prime frasi... \"{{sentence}}\".",
+      "Dopo una lunga e monotona passeggiata, ci si imbatte in qualcuno che canta in onore di **{{pseudo}}**... {emote:other.singing} \"{{sentence}}\" {emote:other.singing}.",
+      "Mentre viaggiate, una nuvola di polvere appare in lontananza. Qualche minuto dopo, un cavaliere si ferma davanti a voi, dicendo che sta cercando **{{pseudo}}**. Al vostro sguardo curioso, aggiunge: \"{{sentence}}\"."
     ],
     "members": {
       "Nysvaa": "un pretendente alla mano della principessa che non intende conquistarla combattendo, ma dimostrando la sua astuzia durante le sue avventure (e la sua fortuna, un po'... molto)",
@@ -520,18 +520,18 @@
     ],
     "witchEventResults": {
       "ingredientIntros": [
-        "{{witchEvent}}Si decide di aggiungere ** alla pozione nella speranza di migliorarla...",
-        "{{witchEvent}}Si decide di prendere la pozione mentre la strega è di spalle...",
-        "{{witchEvent}}Consigliate alla strega di ** ** la sua pozione...",
-        "{{witchEvent}}Seguendo il tuo consiglio, la strega decide di aggiungere ** alla sua pozione...",
-        "{{witchEvent}}Seguite il vostro istinto e decidete di ** ** la dubbia miscela...",
-        "{{witchEvent}}Si decide di aggiungere ** alla pozione, sperando che migliori il risultato...",
-        "{{witchEvent}}Osi ** ** la pozione...",
-        "{{witchEvent}}Dopo aver studiato il contenuto della pentola, si decide di dare un'occhiata alla lista degli ingredienti..."
+        "Si decide di aggiungere **{{witchEvent}}** alla pozione nella speranza di migliorarla...",
+        "Si prende la decisione di **{{witchEvent}}** la pozione mentre la strega è girata di spalle...",
+        "Consigliate alla strega di **{{witchEvent}}** la sua pozione...",
+        "Seguendo il tuo consiglio, la strega decide di aggiungere **{{witchEvent}}** alla sua pozione...",
+        "Seguite il vostro istinto e decidete di **{{witchEvent}}** la dubbia miscela...",
+        "Si decide di aggiungere **{{witchEvent}}** alla pozione, sperando che migliori il risultato...",
+        "Osi **{{witchEvent}}** la pozione...",
+        "Dopo aver studiato il contenuto della pentola, si decide di **{{witchEvent}}** guardare la lista degli ingredienti..."
       ],
       "adviceIntros": [
-        "{{witchEvent}}Impietosito, le consigli di fare ** ** per ottenere un risultato migliore...",
-        "{{witchEvent}}Decidete di aiutare la strega consigliandole di ** **..."
+        "Impietosito, le consigli di fare **{{witchEvent}}** per ottenere un risultato migliore...",
+        "Decidete di aiutare la strega consigliandole di **{{witchEvent}}**..."
       ],
       "outcomes": {
         "1": [
@@ -542,9 +542,9 @@
         ],
         "2": {
           "time": [
-            "Quando si riprende il viaggio, ci si rende conto che la sosta è stata più lunga del previsto.{{lostTime}} :clock2:Si perde ** Min **",
-            "Mentre si riparte, ci si rende conto di quanto tempo si è perso in questa preparazione.{{lostTime}} :clock2:Avete perso ** Min **",
-            "Tornando sui propri passi, si inizia a rimpiangere il tempo sprecato in attesa di questa preparazione.{{lostTime}} :clock2:Si perde ** Min **"
+            "Quando si riprende il viaggio, ci si rende conto che la sosta è stata più lunga del previsto. Si perde **{{lostTime}} Min :clock2:**",
+            "Mentre si riparte, ci si rende conto di quanto tempo si è perso in questa preparazione. Avete perso **{{lostTime}} Min :clock2:**",
+            "Tornando sui propri passi, si inizia a rimpiangere il tempo sprecato in attesa di questa preparazione. Si perde **{{lostTime}} Min :clock2:**"
           ],
           "scared": [
             "Una volta terminata la pozione, decidete di berne un sorso. Immediatamente si viene trasportati in un'intensa allucinazione. Il vostro futuro non sembra molto promettente... {emote:effects.scared}",
@@ -564,12 +564,12 @@
           ]
         },
         "3": [
-          "Quando la pozione è finita, la strega vi porge un bicchiere. Ancora bruciacchiato, lo fai cadere maldestramente sul piede.{{lifeLoss}} {emote:unitValues.lostHealth}Si perde ** **.",
-          "Proprio mentre stavate per finire la pozione, la vecchia strega fa cadere maldestramente il calderone su di voi.{{lifeLoss}} {emote:unitValues.lostHealth}Si perde ** **.",
-          "Sebbene la pozione abbia un buon profumo, non è così salutare come si sperava.{{lifeLoss}} {emote:unitValues.lostHealth}Si perde ** **.",
-          "Il sapore della pozione è molto strano. Forse avresti dovuto ascoltare il tuo istinto e non assaggiarla...{{lifeLoss}} {emote:unitValues.lostHealth}Perdi ** **.",
-          "I fumi della pozione sono sufficienti a farvi ammalare. Te ne vai senza chiedere aiuto, ma non senza subire le conseguenze dell'inalazione dei fumi.{{lifeLoss}} {emote:unitValues.lostHealth}Si perde ** **.",
-          "Proprio mentre l'anziana signora sta per versare l'ultima goccia nel calderone, si sente un tonfo. Il calderone sembra essere esploso.{{lifeLoss}} {emote:unitValues.lostHealth}Si perde ** **."
+          "Quando la pozione è finita, la strega vi porge un bicchiere. Ancora bruciacchiato, lo fai cadere maldestramente sul piede.Si perde **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Proprio mentre stavate per finire la pozione, la vecchia strega fa cadere maldestramente il calderone su di voi. Si perde **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Sebbene la pozione abbia un buon profumo, non è così salutare come si sperava. Si perde **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Il sapore della pozione è molto strano. Forse avresti dovuto ascoltare il tuo istinto e non assaggiarla... Perdi **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "I fumi della pozione sono sufficienti a farvi ammalare. Te ne vai senza chiedere aiuto, ma non senza subire le conseguenze dell'inalazione dei fumi. Si perde **{{lifeLoss}} {emote:unitValues.lostHealth}**.",
+          "Proprio mentre l'anziana signora sta per versare l'ultima goccia nel calderone, si sente un tonfo. Il calderone sembra essere esploso. Si perde **{{lifeLoss}} {emote:unitValues.lostHealth}**."
         ],
         "4": [
           "Purtroppo la pozione sembra completamente carbonizzata e imbevibile. Decidete di non rischiare di berla e ve ne andate in fretta.",
@@ -616,17 +616,17 @@
   },
   "space": {
     "before_search_format": "{{seIntro}}{{intro}}. {{searchAction}}.\n\n{emote:other.telescope} *{{search}}*.",
-    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}}{{specific}} {{outro}}** **. .",
+    "after_search_format": "{{oldMessage}}\n\n{{actionIntro}} {{action}} **{{specific}}**. {{outro}}.",
     "intro": [
-      "{{name}}si incontra un oracolo che afferma di chiamarsi ** ** ** **",
-      "Un uomo vi sembra strano, così andate a incontrarlo.{{name}}Sostiene di essere un oracolo di nome ** **.",
-      "{{name}}si incontra un oracolo chiamato ** ** **",
-      "passate accanto a un oracolo che vi chiama.{{name}}Dice che il suo nome è ** ** **",
-      "{{name}}si viene avvicinati da un uomo che dice di chiamarsi ** ** **.",
-      "{{name}}un oracolo di nome ** ** vi chiama a raccolta",
-      "{{name}}uno sconosciuto che sostiene di chiamarsi ** ** vi chiede di avvicinarvi",
-      "{{name}}un uomo appare dal nulla, corre verso di voi e si presenta come ** ** **",
-      "{{name}}uno sconosciuto sospettoso vi chiede di avvicinarvi, dopodiché vi dice che il suo nome è ** ** **."
+      "si incontra un oracolo che afferma di chiamarsi **{{name}}**",
+      "un uomo vi sembra strano, così andate a incontrarlo. Sostiene di essere un oracolo di nome **{{name}}**",
+      "si incontra un oracolo chiamato **{{name}}**",
+      "passate accanto a un oracolo che vi chiama. Dice che il suo nome è **{{name}}**",
+      "si viene avvicinati da un uomo che dice di chiamarsi **{{name}}**",
+      "un oracolo di nome **{{name}}** vi chiama a raccolta",
+      "uno sconosciuto che sostiene di chiamarsi **{{name}}** vi chiede di avvicinarvi",
+      "un uomo appare dal nulla, corre verso di voi e si presenta come **{{name}}**",
+      "uno sconosciuto sospettoso vi chiede di avvicinarvi, dopodiché vi dice che il suo nome è **{{name}}**"
     ],
     "searchAction": [
       "Vi dice che può darvi informazioni sul cielo, ma che ha bisogno di tempo per osservarlo.",
