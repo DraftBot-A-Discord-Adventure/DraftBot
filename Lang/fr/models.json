@@ -557,6 +557,22 @@
       "name_one": "Attaque simple",
       "name_other": "Attaques simples"
     },
+    "icySeductionAttack": {
+      "description": "Utilise un charme envoûtant et froid qui peut geler ou rendre confus l'adversaire en plus de lui infliger des dégâts.",
+      "name_one": "Attaque séduction glaciale",
+      "name_other": "Attaque séductions glaciales"
+    },
+    "frozenKissAttack": {
+      "description": "Dépose un baiser glacial sur son adversaire, si l'adversaire était déjà gelé, cette attaque lui infligera moins de dégâts.",
+      "name_one": "Attaque baiser gelé",
+      "name_other": "Attaques baisers gelés"
+    },
+    "spectralRevengeAttack": {
+      "description": "Si la dernière attaque subie n'était pas magique, contre-attaque en infligeant des dégâts à son assaillant.",
+      "customMessage": "ne parvient pas à se venger de son adversaire.",
+      "name_one": "Revanche spectrale",
+      "name_other": "Revanches spectrales"
+    },
     "ambush": {
       "description": "Le combattant se cache pour préparer une embuscade. La prochaine attaque infligera plus de dégâts et l'adversaire ne peut pas être attaqué.",
       "customMessage": "se cache pour préparer une embuscade...",
@@ -1796,3 +1812,4 @@
     }
   }
 }
+
