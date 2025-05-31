@@ -27,5 +27,5 @@ export class CommandMapDisplayRes extends DraftBotPacket {
 		forced: boolean;
 	};
 
-	inEvent!: boolean;
+	hasArrived!: boolean;
 }

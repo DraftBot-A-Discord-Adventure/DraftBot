@@ -1,4 +1,5 @@
 export const FightAlterations = {
+	BLEEDING: "bleeding",
 	BLIND: "blind",
 	BURNED: "burned",
 	ALLIES_ARE_PRESENT: "alliesArePresent",

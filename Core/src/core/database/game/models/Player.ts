@@ -32,7 +32,6 @@ import { GenericItem } from "../../../../data/GenericItem";
 import {
 	Class, ClassDataController
 } from "../../../../data/Class";
-import { BlockingUtils } from "../../../utils/BlockingUtils";
 import {
 	League, LeagueDataController
 } from "../../../../data/League";
@@ -47,7 +46,6 @@ import { EntityConstants } from "../../../../../../Lib/src/constants/EntityConst
 import { ClassInfoConstants } from "../../../../../../Lib/src/constants/ClassInfoConstants";
 import { GuildConstants } from "../../../../../../Lib/src/constants/GuildConstants";
 import { MapConstants } from "../../../../../../Lib/src/constants/MapConstants";
-import { BlockingConstants } from "../../../../../../Lib/src/constants/BlockingConstants";
 import { Effect } from "../../../../../../Lib/src/types/Effect";
 import { ScheduledReportNotifications } from "./ScheduledReportNotification";
 import { PacketUtils } from "../../../utils/PacketUtils";
@@ -768,14 +766,6 @@ export class Player extends Model {
 		this.fightPointsLost = Math.min(energy, this.getMaxCumulativeEnergy());
 		draftBotInstance.logsDatabase.logEnergyChange(this.keycloakId, this.fightPointsLost, reason)
 			.then();
-	}
-
-	/**
-	 * Returns true if the player is currently blocked by a report
-	 */
-	public isInEvent(): boolean {
-		const blockingReasons = BlockingUtils.getPlayerBlockingReason(this.keycloakId);
-		return blockingReasons.includes(BlockingConstants.REASONS.REPORT) || blockingReasons.includes(BlockingConstants.REASONS.CHOOSE_DESTINATION);
 	}
 
 	/**

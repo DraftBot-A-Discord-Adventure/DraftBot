@@ -1,5 +1,5 @@
 {
-  "type": "snowmenField",
+  "type": "blessedDoors",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

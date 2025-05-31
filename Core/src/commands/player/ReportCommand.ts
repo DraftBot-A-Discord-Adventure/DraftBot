@@ -42,7 +42,8 @@ import { PlayerSmallEvents } from "../../core/database/game/models/PlayerSmallEv
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { ReactionCollectorPveFight } from "../../../../Lib/src/packets/interaction/ReactionCollectorPveFight";
 import {
-	ReactionCollectorChooseDestination, ReactionCollectorChooseDestinationReaction
+	ReactionCollectorChooseDestination,
+	ReactionCollectorChooseDestinationReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorChooseDestination";
 import { MapCache } from "../../core/maps/MapCache";
 import { TravelTime } from "../../core/maps/TravelTime";
@@ -54,7 +55,8 @@ import {
 	BigEvent, BigEventDataController
 } from "../../data/BigEvent";
 import {
-	ReactionCollectorBigEvent, ReactionCollectorBigEventPossibilityReaction
+	ReactionCollectorBigEvent,
+	ReactionCollectorBigEventPossibilityReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorBigEvent";
 import { Possibility } from "../../data/events/Possibility";
 import { applyPossibilityOutcome } from "../../data/events/PossibilityOutcome";
@@ -489,7 +491,8 @@ async function doPVEBoss(
 	context: PacketContext
 ): Promise<void> {
 	const seed = player.id + millisecondsToSeconds(player.startTravelDate.valueOf());
-	const monsterObj = MonsterDataController.instance.getRandomMonster(player.getDestination().id, seed);
+	const mapId = player.getDestination().id;
+	const monsterObj = MonsterDataController.instance.getRandomMonster(mapId, seed);
 	const randomLevel = player.level - PVEConstants.MONSTER_LEVEL_RANDOM_RANGE / 2 + seed % PVEConstants.MONSTER_LEVEL_RANDOM_RANGE;
 	const fightCallback = async (fight: FightController, endFightResponse: DraftBotPacket[]): Promise<void> => {
 		if (fight) {
@@ -566,7 +569,8 @@ async function doPVEBoss(
 			defense: monsterFighter.getDefense(),
 			speed: monsterFighter.getSpeed(),
 			energy: monsterFighter.getEnergy()
-		}
+		},
+		mapId
 	});
 
 	const endCallback: EndCallback = async (collector: ReactionCollectorInstance, response: DraftBotPacket[]) => {

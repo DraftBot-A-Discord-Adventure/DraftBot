@@ -11,22 +11,23 @@ import { MapLinkDataController } from "../../data/MapLink";
 import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
+import { Maps } from "../../core/maps/Maps";
 
 /**
  * Get the map information for the player
  * @param player
  * @param destination
- * @param isInEvent
+ * @param hasArrived
  * @param language
  */
-function getMapInformation(player: Player, destination: MapLocation, isInEvent: boolean, language: Language): {
+function getMapInformation(player: Player, destination: MapLocation, hasArrived: boolean, language: Language): {
 	name: string;
 	fallback?: string;
 	forced: boolean;
 } {
 	const mapLink = MapLinkDataController.instance.getById(player.mapLinkId);
 
-	if (!isInEvent && mapLink.forcedImage) {
+	if (!hasArrived && mapLink.forcedImage) {
 		return {
 			name: mapLink.forcedImage,
 			forced: true
@@ -35,7 +36,7 @@ function getMapInformation(player: Player, destination: MapLocation, isInEvent: 
 
 	const departure = player.getPreviousMap();
 
-	if (isInEvent) {
+	if (hasArrived) {
 		return {
 			name: mapLink.forcedImage ?? `${language}_${destination.id}_`,
 			fallback: mapLink.forcedImage ? null : `en_${destination.id}_`,
@@ -65,16 +66,16 @@ export class MapCommand {
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE
 	})
 	execute(response: DraftBotPacket[], player: Player, packet: CommandMapPacketReq): void {
-		const isInEvent = player.isInEvent();
+		const hasArrived = Maps.isArrived(player, new Date());
 		const destinationMap = player.getDestination();
 
-		const mapInformation = getMapInformation(player, destinationMap, isInEvent, packet.language);
+		const mapInformation = getMapInformation(player, destinationMap, hasArrived, packet.language);
 
 		response.push(makePacket(CommandMapDisplayRes, {
 			mapId: destinationMap.id,
 			mapLink: mapInformation,
 			mapType: destinationMap.type,
-			inEvent: isInEvent
+			hasArrived
 		}));
 	}
 }
