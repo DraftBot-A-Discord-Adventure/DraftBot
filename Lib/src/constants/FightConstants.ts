@@ -87,13 +87,17 @@ export abstract class FightConstants {
 				WEAK: "weak"
 			},
 			MONSTER: {
+				AERIAL_DIVE_ATTACK: "aerialDiveAttack",
+				BLIZZARD_RAGE_ATTACK: "blizzardRageAttack",
 				BOULDER_TOSS_ATTACK: "boulderTossAttack",
 				CHARGE_CLUB_SMASH_ATTACK: "chargeClubSmashAttack",
 				CLAW_ATTACK: "clawAttack",
 				CLUB_SMASH_ATTACK: "clubSmashAttack",
+				CRYSTALLINE_ARMOR_ATTACK: "crystallineArmorAttack",
 				ERUPTION_ATTACK: "eruptionAttack",
 				FAMILY_MEAL_ATTACK: "familyMealAttack",
 				FROZEN_KISS_ATTACK: "frozenKissAttack",
+				GLACIAL_BREATH_ATTACK: "glacialBreathAttack",
 				GRAB_AND_THROW_ATTACK: "grabAndThrowAttack",
 				HEAT_DRAIN_ATTACK: "heatDrainAttack",
 				HEAT_MUD_ATTACK: "heatMudAttack",

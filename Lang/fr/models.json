@@ -557,6 +557,30 @@
       "name_one": "Attaque simple",
       "name_other": "Attaques simples"
     },
+    "glacialBreathAttack": {
+      "description": "Un souffle glacial qui inflige des dégâts à l'adversaire et peut le geler.",
+      "name_one": "Attaque souffle glacial",
+      "name_other": "Attaques souffles glacials"
+    },
+    "blizzardRageAttack": {
+      "description": "Un souffle de blizzard qui inflige des dégâts à l'adversaire et peut le geler.",
+      "customMessage": "invoque la rage du blizzard sur son adversaire, mais les vents glacés font déjà rage dans l'arène.",
+      "name_one": "Attaque rage de blizzard",
+      "name_other": "Attaques rages de blizzard"
+    },
+    "aerialDiveAttack": {
+      "description": "Un plongeon aérien qui inflige des dégâts à l'adversaire. Ne fonctionne pas si l'adversaire utilise une attaque à distance.",
+      "customMessage": "s'élance dans les airs pour plonger sur son adversaire, mais celui-ci parvient à le maintenir à distance grâce à ses attaques.",
+      "name_one": "Attaque plongée aérienne",
+      "name_other": "Attaques plongées aériennes"
+    },
+    "crystallineArmorAttack": {
+      "description": "Une attaque qui utilise l'armure cristalline de l'adversaire pour infliger des dégâts. N'infligera des dégâts que si l'adversaire vient de faire une attaque physique.",
+      "customMessage": "fait briller son armure cristalline dans l'espoir de blesser son adversaire, mais les pointes acérées n'ont pas été touchées.",
+      "name_one": "Attaque armure cristalline",
+      "name_other": "Attaques armures cristallines"
+    },
+
     "icySeductionAttack": {
       "description": "Utilise un charme envoûtant et froid qui peut geler ou rendre confus l'adversaire en plus de lui infliger des dégâts.",
       "name_one": "Attaque séduction glaciale",
