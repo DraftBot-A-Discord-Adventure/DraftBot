@@ -21,17 +21,17 @@
     {
       "id": "tailWhipAttack",
       "minLevel": 0,
-      "weight": 4
+      "weight": 5
     },
     {
       "id": "grabAndThrowAttack",
       "minLevel": 40,
-      "weight": 1
+      "weight": 2
     },
     {
       "id": "ambush",
       "minLevel": 80,
-      "weight": 1
+      "weight": 4
     }
   ],
   "maps": [
