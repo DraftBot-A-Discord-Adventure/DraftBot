@@ -1,5 +1,5 @@
 {
-  "baseEnergyValue": 50,
+  "baseEnergyValue": 110,
   "attackRatio": 60,
   "defenseRatio": 35,
   "speedRatio": 120,
@@ -11,25 +11,25 @@
     {
       "id": "hardBiteAttack",
       "minLevel": 0,
-      "weight": 3
-    },
-    {
-      "id": "grabAndThrowAttack",
-      "minLevel": 40,
       "weight": 2
     },
     {
-      "id": "slamAttack",
-      "minLevel": 0,
+      "id": "stealth",
+      "minLevel": 40,
       "weight": 1
     },
     {
-      "id": "tailWhipAttack",
+      "id": "howlAttack",
+      "minLevel": 0,
+      "weight": 3
+    },
+    {
+      "id": "clawAttack",
       "minLevel": 0,
       "weight": 5
     },
     {
-      "id": "ambushAttack",
+      "id": "callPack",
       "minLevel": 80,
       "weight": 4
     }

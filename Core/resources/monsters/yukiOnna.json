@@ -1,37 +1,37 @@
 {
-  "baseEnergyValue": 50,
-  "attackRatio": 50,
-  "defenseRatio": 50,
-  "speedRatio": 50,
-  "breath": 5,
-  "maxBreath": 15,
+  "baseEnergyValue": 30,
+  "attackRatio": 45,
+  "defenseRatio": 15,
+  "speedRatio": 70,
+  "breath": 3,
+  "maxBreath": 18,
   "breathRegen": 5,
   "rewardFactor": 0.5,
   "attacks": [
     {
-      "id": "simpleAttack",
+      "id": "heatDrainAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 2
     },
     {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
-    },
-    {
-      "id": "simpleAttack",
+      "id": "breathTakingAttack",
       "minLevel": 50,
+      "weight": 3
+    },
+    {
+      "id": "icySeductionAttack",
+      "minLevel": 110,
       "weight": 1
+    },
+    {
+      "id": "frozenKissAttack",
+      "minLevel": 0,
+      "weight": 4
+    },
+    {
+      "id": "spectralRevengeAttack",
+      "minLevel": 0,
+      "weight": 4
     }
   ],
   "maps": [
