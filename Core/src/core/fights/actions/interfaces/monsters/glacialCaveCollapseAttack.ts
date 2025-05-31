@@ -10,9 +10,9 @@ import {
 import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
 
 const use: FightActionFunc = (sender, receiver) => {
-	// Check if the opponent has just made a ranged attack
+	// Check if the opponent has just made a physical attack
 	const receiverLastAction = receiver.fightActionsHistory[receiver.fightActionsHistory.length - 1];
-	if (receiverLastAction && FightActionType.DISTANCE === receiverLastAction.type) {
+	if (receiverLastAction && FightActionType.PHYSICAL === receiverLastAction.type) {
 		return {
 			...customMessageActionResult(),
 			damages: 0
@@ -25,8 +25,8 @@ const use: FightActionFunc = (sender, receiver) => {
 			receiver
 		},
 		{
-			critical: 20,
-			failure: 15
+			critical: 0,
+			failure: 5
 		},
 		{
 			attackInfo: getAttackInfo(),
@@ -39,16 +39,16 @@ export default use;
 
 function getAttackInfo(): attackInfo {
 	return {
-		minDamage: 70,
+		minDamage: 50,
 		averageDamage: 180,
-		maxDamage: 250
+		maxDamage: 300
 	};
 }
 
 function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 	return {
 		attackerStats: [
-			sender.getSpeed(),
+			350,
 			sender.getAttack()
 		],
 		defenderStats: [
@@ -56,8 +56,8 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 			receiver.getDefense()
 		],
 		statsEffect: [
-			0.6,
-			0.4
+			0.3,
+			0.7
 		]
 	};
 }

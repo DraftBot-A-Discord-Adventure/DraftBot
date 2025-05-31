@@ -1,37 +1,37 @@
 {
-  "baseEnergyValue": 50,
-  "attackRatio": 50,
-  "defenseRatio": 50,
-  "speedRatio": 50,
-  "breath": 5,
-  "maxBreath": 15,
-  "breathRegen": 5,
-  "rewardFactor": 0.5,
+  "baseEnergyValue": 250,
+  "attackRatio": 200,
+  "defenseRatio": 85,
+  "speedRatio": 110,
+  "breath": 10,
+  "maxBreath": 40,
+  "breathRegen": 6,
+  "rewardFactor": 1.4,
   "attacks": [
     {
-      "id": "simpleAttack",
+      "id": "tailWhipAttack",
       "minLevel": 0,
       "weight": 1
     },
     {
-      "id": "simpleAttack",
-      "minLevel": 0,
-      "weight": 1
+      "id": "startPolarEmbraceAttack",
+      "minLevel": 70,
+      "weight": 2
     },
     {
-      "id": "simpleAttack",
+      "id": "crystallineArmorAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 3
     },
     {
-      "id": "simpleAttack",
+      "id": "glacialBreathAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 4
     },
     {
-      "id": "simpleAttack",
+      "id": "glacialCaveCollapseAttack",
       "minLevel": 50,
-      "weight": 1
+      "weight": 3
     }
   ],
   "maps": [

@@ -1923,6 +1923,7 @@ export const DraftBotIcons: {
 		full: "😴",
 		getDirty: "💩",
 		glacialBreathAttack: "🐉",
+		glacialCaveCollapseAttack: "💥",
 		grabAndThrowAttack: "🥋",
 		guildAttack: "🏟️",
 		hardBiteAttack: "🦷",
@@ -1932,6 +1933,7 @@ export const DraftBotIcons: {
 		howlAttack: "🌕",
 		icySeductionAttack: "❄️",
 		intenseAttack: "😤",
+		isStuckInPolarEmbrace: "🤍",
 		lavaWaveAttack: "♨️",
 		lightRayAttack: "🔆",
 		magicMimicAttack: "🎭",
@@ -1963,6 +1965,7 @@ export const DraftBotIcons: {
 		slamAttack: "🦶",
 		slowed: "🦥",
 		spectralRevengeAttack: "👻",
+		startPolarEmbraceAttack: "🤍",
 		stealth: "😶‍🌫️",
 		stoneSkinAttack: "🧱",
 		stunned: "😖",
@@ -1973,6 +1976,7 @@ export const DraftBotIcons: {
 		ultimateAttack: "☄️",
 		weak: "🤧",
 		webShotAttack: "🕸️"
+
 	},
 	classKinds: {
 		basic: "⚖️",
