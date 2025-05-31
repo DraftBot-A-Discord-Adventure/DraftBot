@@ -673,15 +673,15 @@
       "Partirete senza rimpiangere la vostra sosta",
       "Continuate il vostro cammino perplesso"
     ],
-    "nObjectsCrossTheSky_one": "{{count}} attraverserà",
-    "nObjectsCrossTheSky_other": "{{count}} passerà attraverso",
+    "nObjectsCrossTheSky_one": "{{count}} oggetto attraverserà",
+    "nObjectsCrossTheSky_other": "{{count}} oggetti attraverseranno",
     "days_one": "giorno",
     "days_other": "giorni",
     "specific": {
       "neoWS": [
         "{{objectWhichWillCrossTheSky}} il cielo di oggi",
-        "{{randomObjectName}} {{randomObjectDiameter}} l'oggetto denominato \" \", con un diametro di circa metri, sta passando oggi vicino al pianeta",
-        "{{randomObjectName}} {{randomObjectDistance}} l'oggetto denominato \" \" passa a una distanza di circa un milione di chilometri dal pianeta",
+        "l'oggetto denominato \"{{randomObjectName}}\", con un diametro di circa {{randomObjectDiameter}} metri, sta passando oggi vicino al pianeta",
+        "l'oggetto denominato \"{{randomObjectName}}\" passa a una distanza di circa {{randomObjectDistance}} milioni di chilometri dal pianeta",
         "{{randomObjectName}} {{randomObjectDistance}} l'asteroide denominato \" \" supera il nostro pianeta di qualche milione di chilometri",
         "{{randomObjectName}}l'asteroide denominato \" \" potrebbe essere visibile oggi",
         "{{randomObjectName}}l'asteroide denominato \" \" passerà vicino al pianeta",
