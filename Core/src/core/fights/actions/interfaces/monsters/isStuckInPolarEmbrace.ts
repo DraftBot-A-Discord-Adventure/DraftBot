@@ -1,38 +1,47 @@
 import { Fighter } from "../../../fighter/Fighter";
 import {
-	attackInfo, statsInfo
+	attackInfo, FightActionController, statsInfo
 } from "../../FightActionController";
-import { FightActionFunc } from "../../../../../data/FightAction";
-import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
 import {
-	customMessageActionResult
-} from "../../../../../../../Lib/src/types/FightActionResult";
+	FightActionFunc
+} from "../../../../../data/FightAction";
+import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import { customMessageActionResult } from "../../../../../../../Lib/src/types/FightActionResult";
 import { FightActionType } from "../../../../../../../Lib/src/types/FightActionType";
+import { FightAlterations } from "../../FightAlterations";
 
 const use: FightActionFunc = (sender, receiver) => {
-	// Check if the opponent has just made a ranged attack
 	const receiverLastAction = receiver.fightActionsHistory[receiver.fightActionsHistory.length - 1];
-	if (receiverLastAction && FightActionType.DISTANCE === receiverLastAction.type) {
+	if (receiverLastAction && FightActionType.PHYSICAL === receiverLastAction.type) {
 		return {
 			...customMessageActionResult(),
 			damages: 0
 		};
 	}
 
-	return simpleDamageFightAction(
+
+	const result = simpleDamageFightAction(
 		{
 			sender,
 			receiver
 		},
 		{
-			critical: 20,
-			failure: 15
+			critical: 30,
+			failure: 0
 		},
 		{
 			attackInfo: getAttackInfo(),
 			statsInfo: getStatsInfo(sender, receiver)
 		}
 	);
+
+	if (Math.random() < 0.2) {
+		FightActionController.applyAlteration(result, {
+			selfTarget: false,
+			alteration: FightAlterations.FROZEN
+		}, receiver);
+	}
+	return result;
 };
 
 export default use;
@@ -40,7 +49,7 @@ export default use;
 function getAttackInfo(): attackInfo {
 	return {
 		minDamage: 70,
-		averageDamage: 180,
+		averageDamage: 90,
 		maxDamage: 250
 	};
 }
@@ -56,8 +65,8 @@ function getStatsInfo(sender: Fighter, receiver: Fighter): statsInfo {
 			receiver.getDefense()
 		],
 		statsEffect: [
-			0.6,
-			0.4
+			0.1,
+			0.9
 		]
 	};
 }

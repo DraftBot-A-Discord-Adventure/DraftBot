@@ -557,6 +557,24 @@
       "name_one": "Attaque simple",
       "name_other": "Attaques simples"
     },
+    "glacialCaveCollapseAttack": {
+      "description": "Fait s'effondrer des stalactites de glace depuis le plafond de la grotte.",
+      "customMessage": "rugit si fort que des stalactites de glace se détachent du plafond ! Mais l'ennemi est suffisamment proche pour éviter l'attaque.",
+      "name_one": "Attaque effondrement glacial",
+      "name_other": "Attaques effondrements glaciaux"
+    },
+    "startPolarEmbraceAttack": {
+      "description": "Enserre sa cible dans ses griffes glacées, il ne sera pas simple de s'en libérer.",
+      "customMessage": "ne parvient pas à attraper son adversaire qui la tient à distance respectable grâce à ses attaques",
+      "name_one": "Attaque étreinte polaire",
+      "name_other": "Attaques étreintes polaires"
+    },
+    "isStuckInPolarEmbrace": {
+      "description": "Inflige des dégâts à l'adversaire agrippée dans l'étreinte",
+      "customMessage": "ne parvient pas à maintenir son accroche sur son adversaire qui parvient à se libérer grâce à ses attaques",
+      "name_one": "Attaque étreinte polaire",
+      "name_other": "Attaques étreintes polaires"
+    },
     "glacialBreathAttack": {
       "description": "Un souffle glacial qui inflige des dégâts à l'adversaire et peut le geler.",
       "name_one": "Attaque souffle glacial",
@@ -1832,7 +1850,7 @@
       "yukiOnna": "Vous pénétrez dans les ruines du village dévasté, où le silence oppressant n'est brisé que par le sifflement lugubre du vent à travers les structures effondrées. Chaque pas résonne étrangement dans cette désolation, comme si les pierres elles-mêmes gardaient la mémoire des tragédies passées. Vous explorez prudemment les décombres, tentant d'imaginer la prospérité qui régnait autrefois en ces lieux. Soudain, une mélodie cristalline flotte dans l'air glacé, si belle qu'elle vous attire irrésistiblement vers sa source. Au détour d'une maison écroulée, vous apercevez une silhouette éthérée d'une beauté saisissante. Une femme en kimono blanc immaculé semble glisser sur la neige sans laisser de traces. Ses longs cheveux noirs flottent dans une brise invisible tandis que sa peau d'albâtre rayonne d'une lueur spectrale. Mais quand elle tourne son visage vers vous, vous réalisez avec horreur que ses yeux sont deux puits de néant glacé. La Yuki-Onna, esprit vengeur des montagnes enneigées, vous dévoile un rictus qui promet une mort aussi belle que terrible."
     },
     "1107": {
-      "femaleIceDragon": "Vous avancez dans cette région inexplorée, guidé par une curiosité mêlée d'appréhension. Le mur de glace qui se dresse devant vous dans cette grotte souterraine reflète une silhouette si imposante qu'elle défie l'imagination. Plus vous approchez dans la pénombre glacée, plus vous réalisez l'ampleur de la créature qui se cache derrière cette barrière naturelle. Soudain, des fissures apparaissent dans la glace, s'étendant comme des toiles d'araignée géantes. Un grondement sourd fait vibrer les parois rocheuses autour de vous. Le mur explose dans un fracas apocalyptique, projetant des blocs de glace de la taille de rochers. À travers ce rideau de cristaux brisés émerge la plus majestueuse des créatures : une dragonne de glace aux dimensions pharaoniques. Dans l'espace confiné de la grotte, sa présence semble encore plus imposante, ses ailes repliées touchant presque les voûtes de pierre. Contrairement à son congénère mâle, elle possède une beauté terrifiante, ses écailles irisées captant et réfléchissant la faible lumière en arcs-en-ciel glacés. Ses yeux, d'un bleu plus profond que les abysses océaniques, brillent d'une sagesse ancienne et d'une fureur maternelle. Car derrière elle, vous apercevez la raison de sa férocité : un œuf gigantesque aux reflets nacrés, pulsant d'une lueur mystérieuse. Vous venez de pénétrer dans sa nurserie, et aucune intrusion ne restera impunie dans le sanctuaire de la future progéniture de la Reine des Glaces..."
+      "femaleIceDragon": "Vous avancez dans cette région inexplorée, guidé par une curiosité mêlée d'appréhension. Le mur de glace qui se dresse devant vous reflète une silhouette si imposante qu'elle défie l'imagination. Plus vous approchez dans la pénombre glacée, plus vous réalisez l'ampleur de la créature cachée derrière cette barrière. Soudain, des fissures apparaissent dans la glace, s'étendant comme des toiles d'araignée. Un grondement sourd fait vibrer les parois rocheuses. Le mur explose dans un fracas apocalyptique, projetant des blocs de glace massifs. À travers ce rideau de cristaux brisés émerge la plus majestueuse des créatures : une dragonne de glace aux dimensions pharaoniques. Sa présence semble imposante, ses ailes repliées touchant presque les voûtes de pierre. Elle possède une beauté terrifiante, ses écailles irisées captant la faible lumière en arcs-en-ciel glacés. Ses yeux, d'un bleu profond comme les abysses, brillent d'une sagesse ancienne et d'une fureur maternelle. Derrière elle, vous apercevez un œuf gigantesque aux reflets nacrés, pulsant d'une lueur mystérieuse. Vous venez de pénétrer dans sa nurserie, et aucune intrusion ne restera impunie dans le sanctuaire de la Reine des Glaces..."
     }
   }
 }

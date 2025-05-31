@@ -8,6 +8,7 @@ import {
 import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
 import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import { simpleDamageFightAction } from "../../templates/SimpleDamageFightActionTemplate";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, receiver, fightAction) => {
 	const result = simpleDamageFightAction(
@@ -33,7 +34,7 @@ const use: FightActionFunc = (sender, receiver, fightAction) => {
 		value: 1.5
 	}, sender, fightAction);
 
-	sender.nextFightAction = FightActionDataController.instance.getById("chargingAttack");
+	sender.nextFightAction = FightActionDataController.instance.getById(FightConstants.FIGHT_ACTIONS.PLAYER.CHARGING_ATTACK);
 	return result;
 };
 

@@ -115,7 +115,9 @@ export abstract class FightConstants {
 				STEALTH: "stealth",
 				STONE_SKIN_ATTACK: "stoneSkinAttack",
 				SUMMON_ATTACK: "summonAttack",
-				WEB_SHOT_ATTACK: "webShotAttack"
+				WEB_SHOT_ATTACK: "webShotAttack",
+				START_POLAR_EMBRACE_ATTACK: "startPolarEmbraceAttack",
+				IS_STUCK_IN_POLAR_EMBRACE: "isStuckInPolarEmbrace"
 			},
 			PET: {
 				BITE: "bite",
@@ -180,6 +182,7 @@ export abstract class FightConstants {
 				ENERGETIC_ATTACK: "energeticAttack",
 				FIRE_ATTACK: "fireAttack",
 				GET_DIRTY: "getDirty",
+				GLACIAL_CAVE_COLLAPSE_ATTACK: "glacialCaveCollapseAttack",
 				GUILD_ATTACK: "guildAttack",
 				HEAVY_ATTACK: "heavyAttack",
 				INTENSE_ATTACK: "intenseAttack",

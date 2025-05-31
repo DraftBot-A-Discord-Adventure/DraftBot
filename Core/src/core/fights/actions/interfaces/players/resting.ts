@@ -7,9 +7,10 @@ import {
 	customMessageActionResult, FightStatBuffed
 } from "../../../../../../../Lib/src/types/FightActionResult";
 import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
+import { FightConstants } from "../../../../../../../Lib/src/constants/FightConstants";
 
 const use: FightActionFunc = (sender, _receiver, fightAction) => {
-	const count = sender.fightActionsHistory.filter(action => action.id === "resting").length;
+	const count = sender.fightActionsHistory.filter(action => action.id === FightConstants.FIGHT_ACTIONS.PLAYER.RESTING).length;
 
 	sender.nextFightAction = null;
 
