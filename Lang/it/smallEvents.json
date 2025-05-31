@@ -682,31 +682,31 @@
         "{{objectWhichWillCrossTheSky}} il cielo di oggi",
         "l'oggetto denominato \"{{randomObjectName}}\", con un diametro di circa {{randomObjectDiameter}} metri, sta passando oggi vicino al pianeta",
         "l'oggetto denominato \"{{randomObjectName}}\" passa a una distanza di circa {{randomObjectDistance}} milioni di chilometri dal pianeta",
-        "{{randomObjectName}} {{randomObjectDistance}} l'asteroide denominato \" \" supera il nostro pianeta di qualche milione di chilometri",
-        "{{randomObjectName}}l'asteroide denominato \" \" potrebbe essere visibile oggi",
-        "{{randomObjectName}}l'asteroide denominato \" \" passerà vicino al pianeta",
-        "{{randomObjectName}} {{randomObjectDistance}} l'asteroide chiamato \" \" passerà a un milione di chilometri da noi"
+        "l'asteroide denominato \"{{randomObjectName}}\" supera il nostro pianeta di qualche {{randomObjectDistance}} milione di chilometri",
+        "l'asteroide denominato \"{{randomObjectName}}\" potrebbe essere visibile oggi",
+        "l'asteroide denominato \"{{randomObjectName}}\" passerà vicino al pianeta",
+        "l'asteroide chiamato \"{{randomObjectName}}\" passerà a {{randomObjectDistance}} milioni di chilometri da noi"
       ],
       "moonPhase": [
-        "{{mainValue}} è al momento",
+        "è {{mainValue}} al momento",
         "{{mainValue}} sta attualmente illuminando il cielo",
-        "{{mainValue}}dietro le nuvole è",
-        "{{mainValue}}il cielo rado lascia intravedere"
+        "dietro le nuvole è {{mainValue}}",
+        "il cielo rado lascia intravedere {{mainValue}}"
       ],
       "nextFullMoon": [
-        "{{mainValue}} {{days}}la prossima luna piena è in",
-        "{{mainValue}} {{days}}la luna piena risplenderà su",
-        "{{mainValue}} {{days}}possiamo vedere la luna piena su",
+        "la prossima luna piena è in {{mainValue}} {{days}}",
+        "la luna piena risplenderà su {{mainValue}} {{days}}",
+        "possiamo vedere la luna piena su {{mainValue}} {{days}}",
         "su {{mainValue}} {{days}}, si può vedere la luna piena"
       ],
       "nextPartialLunarEclipse": [
-        "{{mainValue}} {{days}}la prossima eclissi lunare parziale è in",
+        "la prossima eclissi lunare parziale è in {{mainValue}} {{days}}",
         "su {{mainValue}} {{days}}, sarà visibile un'eclissi lunare parziale",
         "nel prossimo {{mainValue}} {{days}} , sarete abbastanza fortunati da assistere a un'eclissi lunare parziale",
-        "{{mainValue}} {{days}}il momento per vedere la prossima eclissi lunare parziale è"
+        "il momento per vedere la prossima eclissi lunare parziale è {{mainValue}} {{days}}"
       ],
       "nextTotalLunarEclipse": [
-        "{{mainValue}} {{days}}la prossima eclissi lunare totale è in",
+        "la prossima eclissi lunare totale è in {{mainValue}} {{days}}",
         "da {{mainValue}} {{days}}, si assisterà a un'eclissi lunare completa",
         "nel prossimo {{mainValue}} {{days}} , sarete abbastanza fortunati da assistere a un'eclissi lunare totale",
         "Se si osserva il cielo all'indirizzo {{mainValue}} {{days}}, si può vedere un'eclissi lunare totale."
@@ -736,64 +736,64 @@
   },
   "findPet": {
     "food_m": [
-      "{{pet}}trovate un ** ** che sembra essere ferito. Sfortunatamente, avete già un compagno e non c'è posto nella vostra gilda per lui, quindi decidete di finirlo in fretta per poter recuperare la sua carcassa.",
-      "{{pet}}si trova un ** **. Non potendo accoglierlo, lo consegnate a un mercante di passaggio. In cambio, vi offre della carne."
+      "trovate un **{{pet}}** che sembra essere ferito. Sfortunatamente, avete già un compagno e non c'è posto nella vostra gilda per lui, quindi decidete di finirlo in fretta per poter recuperare la sua carcassa.",
+      "si trova un **{{pet}}**. Non potendo accoglierlo, lo consegnate a un mercante di passaggio. In cambio, vi offre della carne."
     ],
     "food_f": [
-      "{{pet}}trovate una ** ** che sembra essere ferita. Purtroppo avete già un compagno e nella vostra gilda non c'è posto per lei, quindi decidete di finirla in fretta per recuperare la sua carcassa.",
-      "{{pet}}trovate una ** ** **. Non potendo accoglierla, la consegnate a un mercante di passaggio. In cambio, vi offre della carne."
+      "trovate una **{{pet}}** che sembra essere ferita. Purtroppo avete già un compagno e nella vostra gilda non c'è posto per lei, quindi decidete di finirla in fretta per recuperare la sua carcassa.",
+      "trovate una **{{pet}}**. Non potendo accoglierla, la consegnate a un mercante di passaggio. In cambio, vi offre della carne."
     ],
     "noFood_m": [
-      "{{pet}}si trova un ** **. Non potendo accoglierlo, lo date a un mercante di passaggio. Il mercante rifiuta e lo lascia andare.",
-      "{{pet}}si trova un ** **. Poiché non avete lo spazio per accoglierlo, lo date a un commerciante di passaggio. Questi è felice di prendersi cura di lui.",
-      "{{pet}}vedete un'anziana signora che cerca di far scendere un ** ** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo consegnate, solo per scoprire che non le appartiene. Poiché non c'è più spazio nel vostro rifugio, non potete portarlo con voi."
+      "si trova un **{{pet}}**. Non potendo accoglierlo, lo date a un mercante di passaggio. Il mercante rifiuta e lo lascia andare.",
+      "si trova un **{{pet}}**. Poiché non avete lo spazio per accoglierlo, lo date a un commerciante di passaggio. Questi è felice di prendersi cura di lui.",
+      "vedete un'anziana signora che cerca di far scendere un **{{pet}}** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo consegnate, solo per scoprire che non le appartiene. Poiché non c'è più spazio nel vostro rifugio, non potete portarlo con voi."
     ],
     "noFood_f": [
-      "{{pet}}trovate una ** ** **. Non potendo accoglierla, la consegnate a un mercante di passaggio. Lui rifiuta e la lascia andare.",
-      "{{pet}}trovate una ** ** **. Poiché non avete lo spazio per accoglierla, la date a un mercante di passaggio. Lui è felice di prendersi cura di lei.",
-      "{{pet}}vedete un'anziana signora che cerca di far scendere un ** ** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete, solo per scoprire che non le appartiene. Non essendoci più spazio nel vostro rifugio, non potete portarlo con voi."
+      "trovate una **{{pet}}**. Non potendo accoglierla, la consegnate a un mercante di passaggio. Lui rifiuta e la lascia andare.",
+      "trovate una **{{pet}}**. Poiché non avete lo spazio per accoglierla, la date a un mercante di passaggio. Lui è felice di prendersi cura di lei.",
+      "vedete un'anziana signora che cerca di far scendere un **{{pet}}** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete, solo per scoprire che non le appartiene. Non essendoci più spazio nel vostro rifugio, non potete portarlo con voi."
     ],
     "givePetPlayer_m": [
-      "{{pet}}si individua un ** ** smarrito. Avendo sempre desiderato un compagno, si cade nel suo incantesimo e si decide di prendersene cura.",
-      "{{pet}}vedete un'anziana signora che cerca di far scendere un ** ** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete ma scoprite che non le appartiene. Si decide di portarlo con sé.",
-      "Sentite un rumore provenire da un cespuglio e, incuriositi, decidete di andare a dare un'occhiata.{{pet}}Scoprite un ** ** che vi fissa negli occhi e poi inizia a seguirvi, così decidete di adottarlo.",
-      "{{pet}}decidete di fare un riposino, quando qualcosa vi sveglia: un ** ** stava rovistando nella vostra borsa! Ma non sembra volerti attaccare e anzi sembra che tu gli piaccia, quindi decidi di tenerlo."
+      "si individua un **{{pet}}** smarrito. Avendo sempre desiderato un compagno, si cade nel suo incantesimo e si decide di prendersene cura.",
+      "vedete un'anziana signora che cerca di far scendere un **{{pet}}** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete ma scoprite che non le appartiene. Si decide di portarlo con sé.",
+      "sentite un rumore provenire da un cespuglio e, incuriositi, decidete di andare a dare un'occhiata. Scoprite un **{{pet}}** che vi fissa negli occhi e poi inizia a seguirvi, così decidete di adottarlo.",
+      "decidete di fare un riposino, quando qualcosa vi sveglia: un **{{pet}}** stava rovistando nella vostra borsa! Ma non sembra volerti attaccare e anzi sembra che tu gli piaccia, quindi decidi di tenerlo."
     ],
     "givePetPlayer_f": [
-      "{{pet}}si individua un ** ** smarrito. Avendo sempre desiderato un compagno, si cade nel suo incantesimo e si decide di prendersene cura.",
-      "{{pet}}vedete un'anziana signora che cerca di far scendere un ** ** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete ma scoprite che non le appartiene. Si decide di portarlo con sé.",
-      "Sentite un rumore provenire da un cespuglio e, incuriositi, decidete di andare a dare un'occhiata.{{pet}}Scoprite un ** ** che vi fissa negli occhi e poi inizia a seguirvi, così decidete di adottarlo.",
-      "{{pet}}decidete di fare un riposino, quando qualcosa vi sveglia: un ** ** stava rovistando nella vostra borsa! Ma non sembra volerti attaccare e anzi sembra che tu gli piaccia, quindi decidi di tenerlo."
+      "si individua un **{{pet}}** smarrito. Avendo sempre desiderato un compagno, si cade nel suo incantesimo e si decide di prendersene cura.",
+      "vedete un'anziana signora che cerca di far scendere un **{{pet}}** da un albero. Accettate di aiutarla e la convincete rapidamente a scendere. Pensando che sia il suo animale domestico, glielo porgete ma scoprite che non le appartiene. Si decide di portarlo con sé.",
+      "sentite un rumore provenire da un cespuglio e, incuriositi, decidete di andare a dare un'occhiata. Scoprite un **.{{pet}}** che vi fissa negli occhi e poi inizia a seguirvi, così decidete di adottarlo.",
+      "decidete di fare un riposino, quando qualcosa vi sveglia: un **{{pet}}** stava rovistando nella vostra borsa! Ma non sembra volerti attaccare e anzi sembra che tu gli piaccia, quindi decidi di tenerlo."
     ],
     "givePetGuild_m": [
-      "{{pet}}si individua un ** ** smarrito. Anche se avete già un compagno, decidete di riportarlo alla vostra gilda in modo che qualcuno possa prendersi cura di lui.",
-      "{{pet}}si nota un ** ** errante che sembra affamato. Gli dai i resti del tuo ultimo pasto. Lo apprezza e sembra intenzionato a seguirvi nel vostro viaggio. Avendo un compagno, lo lasci alle cure della tua gilda.",
-      "vedete un gruppo di bambini in cerchio.{{pet}}Ci si avvicina e si scopre che stanno maltrattando un povero piccolo ** **. Li convincete ad andarsene, ma lui è troppo in difficoltà. Riuscite a rimetterlo in piedi e a farlo riposare nel vostro rifugio."
+      "si individua un **{{pet}}** smarrito. Anche se avete già un compagno, decidete di riportarlo alla vostra gilda in modo che qualcuno possa prendersi cura di lui.",
+      "si nota un **{{pet}}** errante che sembra affamato. Gli dai i resti del tuo ultimo pasto. Lo apprezza e sembra intenzionato a seguirvi nel vostro viaggio. Avendo un compagno, lo lasci alle cure della tua gilda.",
+      "vedete un gruppo di bambini in cerchio. Ci si avvicina e si scopre che stanno maltrattando un povero piccolo **{{pet}}**. Li convincete ad andarsene, ma lui è troppo in difficoltà. Riuscite a rimetterlo in piedi e a farlo riposare nel vostro rifugio."
     ],
     "givePetGuild_f": [
-      "{{pet}}si individua un ** ** smarrito. Anche se avete già un compagno, decidete di riportarlo alla vostra gilda in modo che qualcuno possa prendersene cura.",
-      "{{pet}}si individua una randagia ** ** che sembra affamata. Così le date i resti del vostro ultimo pasto. Lei lo apprezza e sembra intenzionata a seguirvi nel vostro viaggio. Avendo una compagna, la lasciate alle cure della vostra gilda.",
-      "si vede un gruppo di bambini in cerchio.{{pet}}Ci si avvicina e si scopre che stanno maltrattando una povera bambina ** **. Li convincete ad andarsene, ma lei è troppo in difficoltà. Riuscite a rimetterla in piedi e a farla riposare nel vostro rifugio."
+      "si individua un **{{pet}}** smarrito. Anche se avete già un compagno, decidete di riportarlo alla vostra gilda in modo che qualcuno possa prendersene cura.",
+      "si individua una randagia **{{pet}}** che sembra affamata. Così le date i resti del vostro ultimo pasto. Lei lo apprezza e sembra intenzionata a seguirvi nel vostro viaggio. Avendo una compagna, la lasciate alle cure della vostra gilda.",
+      "si vede un gruppo di bambini in cerchio. Ci si avvicina e si scopre che stanno maltrattando una povera bambina **{{pet}}**. Li convincete ad andarsene, ma lei è troppo in difficoltà. Riuscite a rimetterla in piedi e a farla riposare nel vostro rifugio."
     ]
   },
   "botFacts": {
     "stories": [
-      "ricevete una lettera dal re. Vi scrive a proposito del concorso per la mano della principessa a cui state partecipando. {{botFact}} Quando leggete la lettera, scoprite che siete di nuovo in viaggio.",
-      "passate accanto a un contadino su un carro che sembra essere di buon umore. Incuriositi dal suo atteggiamento, gli chiedete ragione del suo buon umore. {{botFact}} Lui vi spiega che state arrivando.",
-      "si nota un accampamento di avventurieri sul ciglio di un sentiero. {{botFact}} Vi fermate un attimo per chiedergli un consiglio su quale strada prendere e lui vi indica la direzione giusta, aggiungendo che quella è la strada da seguire.",
-      "vedrete un pannello informativo. Su di esso sono affissi diversi manifesti su festival e altri eventi della zona. {{botFact}} Uno di questi parla del recente discorso del Re, in cui ha detto che dovreste continuare il vostro cammino.",
-      "{{botFact}} passate davanti a una folla di persone e nel rumore della folla sentite un oratore che annuncia che continuerete per la vostra strada senza ascoltare ciò che ha da dire.",
-      "{{botFact}} Vedete in lontananza un mendicante appoggiato al tronco di un albero e, mentre vi avvicinate per dargli una moneta, sentite le sue strane parole: ripete più volte che dovete allontanarvi il più possibile da questo individuo sospetto."
+      "ricevete una lettera dal re. Vi scrive a proposito del concorso per la mano della principessa a cui state partecipando. Quando leggete la lettera, scoprite che {{botFact}} siete di nuovo in viaggio.",
+      "passate accanto a un contadino su un carro che sembra essere di buon umore. Incuriositi dal suo atteggiamento, gli chiedete ragione del suo buon umore. Lui vi spiega che {{botFact}} state arrivando.",
+      "si nota un accampamento di avventurieri sul ciglio di un sentiero. Vi fermate un attimo per chiedergli un consiglio su quale strada prendere e lui vi indica la direzione giusta, aggiungendo che {{botFact}} quella è la strada da seguire.",
+      "vedrete un pannello informativo. Su di esso sono affissi diversi manifesti su festival e altri eventi della zona. Uno di questi parla del recente discorso del Re, in cui ha detto che {{botFact}} dovreste continuare il vostro cammino.",
+      "passate davanti a una folla di persone e nel rumore della folla sentite un oratore che annuncia che {{botFact}} continuerete per la vostra strada senza ascoltare ciò che ha da dire.",
+      "vedete in lontananza un mendicante appoggiato al tronco di un albero e, mentre vi avvicinate per dargli una moneta, sentite le sue strane parole: ripete più volte che {{botFact}} dovete allontanarvi il più possibile da questo individuo sospetto."
     ],
     "possibleInfo": {
       "nbMeanPoints": "Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno ottenuto un punteggio medio di **{{infoNumber}} {emote:unitValues.score}**. Incoraggiati da questa notizia,",
       "meanWeeklyScore": "Secondo un recente conteggio dei punti effettuato dagli organizzatori, i candidati hanno raccolto una media di **{{infoNumber}} {emote:unitValues.score} questa settimana**. Siamo rattristati da questa notizia,",
-      "levelMean": "{{infoNumber}}L'ultimo censimento ha rilevato che gli avventurieri hanno raggiunto in media il **livello **. Senza sapere cosa fare di questa informazione,",
+      "levelMean": "l'ultimo censimento ha rilevato che gli avventurieri hanno raggiunto in media il **livello {{infoNumber}}**. Senza sapere cosa fare di questa informazione,",
       "nbMeanMoney": "la banca del Paese ha contato una media di **{{infoNumber}} {emote:unitValues.money}** nei portafogli dei suoi clienti. Divertito da questa notizia,",
       "sumAllMoney": "la banca del Paese ha **{{infoNumber}} {emote:unitValues.money}** in circolazione in questo momento. Sono sorpreso da questa notizia,",
       "richestPlayer": "la banca del Paese ha stimato che il più ricco avventuriero ha attualmente **{{infoNumber}} {emote:unitValues.money}** sul suo conto. Stupito da questa notizia,",
-      "feistyPets": "La SPAC, Société Protectrice des Animaux de la Contrée, si batte per aiutare gli **animaux fielleux** ad avere una vita migliore.{{infoNumber}}Hanno contato ** **. Questa notizia mi ha deluso e confortato allo stesso tempo,",
-      "percentMalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali della zona sono maschi. Sono lieto di apprendere questa notizia,",
+      "feistyPets": "la SPAC, ovvero la Società per la Protezione degli Animali del Paese, si batte per aiutare gli **animali amareggiati** a ottenere una vita migliore. Hanno identificato **{{infoNumber}}**. Delusi e confortati da questa notizia,",
+      "percentMalePets": "la SPAC, o Società per la Protezione degli Animali nella Regione, ha scoperto che il **{{infoNumber}}%** degli animali nella regione sono maschi. Felici di questa notizia,",
       "percentFemalePets": "{{infoNumber}}La SPAC, Société Protectrice des Animaux de la Contrée, ha scoperto che il ** %** degli animali presenti nell'area sono femmine. Sono lieto di apprendere questa notizia,",
       "guildLevelMean": "{{infoNumber}}l'AGC, o Agenzia per le Gilde del Contry, ha notato che le gilde attuali hanno raggiunto in media il **livello **. Incuriosito da questa informazione,",
       "nbPlayersHaventStartedTheAdventure_zero": "Il SAFAC, o Service Anti-Fraude des Aventuriers de la Contrée, ha scoperto che **nessun avventuriero** è svanito nel nulla subito dopo aver ottenuto la licenza di avventuriero. Sono in soggezione per tutti questi coraggiosi avventurieri,",
