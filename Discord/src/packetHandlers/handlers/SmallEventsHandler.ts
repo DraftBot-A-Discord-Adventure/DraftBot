@@ -88,6 +88,8 @@ import {
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
+import { SmallEventInfosFightPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventInfosFightPacket";
+import { infosFightResult } from "../../smallEvents/infosFight";
 
 
 export function getRandomSmallEventIntro(language: Language): string {
@@ -1008,5 +1010,10 @@ export default class SmallEventsHandler {
 				)
 			]
 		});
+	}
+
+	@packetHandler(SmallEventInfosFightPacket)
+	async smallEventInfosFight(context: PacketContext, _packet: SmallEventDwarfPetFan): Promise<void> {
+		await infosFightResult(context);
 	}
 }
