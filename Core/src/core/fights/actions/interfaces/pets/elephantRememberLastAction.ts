@@ -33,7 +33,8 @@ const use: PetAssistanceFunc = async (fighter, opponent, turn, _fightController)
 		}
 	}
 
-	if (fighter.getLastFightActionUsed().breath === 0) {
+	const lastAction = fighter.getLastFightActionUsed();
+	if (!lastAction || lastAction.breath === 0) {
 		return Promise.resolve({
 			assistanceStatus: PetAssistanceState.FAILURE
 		});
@@ -47,7 +48,7 @@ const use: PetAssistanceFunc = async (fighter, opponent, turn, _fightController)
 		selfTarget: true,
 		stat: FightStatBuffed.BREATH,
 		operator: FightStatModifierOperation.ADDITION,
-		value: fighter.getLastFightActionUsed().breath
+		value: lastAction.breath
 	}, fighter, this);
 
 	return Promise.resolve(result);
