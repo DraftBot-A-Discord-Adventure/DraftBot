@@ -6,7 +6,7 @@
   "breath": 3,
   "maxBreath": 18,
   "breathRegen": 5,
-  "rewardFactor": 0.5,
+  "rewardFactor": 0.4,
   "attacks": [
     {
       "id": "heatDrainAttack",

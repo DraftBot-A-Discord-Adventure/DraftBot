@@ -6,7 +6,7 @@
   "breath": 10,
   "maxBreath": 40,
   "breathRegen": 6,
-  "rewardFactor": 1.4,
+  "rewardFactor": 1.3,
   "attacks": [
     {
       "id": "tailWhipAttack",
