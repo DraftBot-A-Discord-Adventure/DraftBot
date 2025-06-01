@@ -122,8 +122,6 @@ export class Player extends Model {
 
 	declare startTravelDate: Date;
 
-	declare notifications: string;
-
 	declare defenseGloryPoints: number;
 
 	declare attackGloryPoints: number;
@@ -1567,14 +1565,6 @@ export function initModel(sequelize: Sequelize): void {
 		startTravelDate: {
 			type: DataTypes.DATE,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.START_TRAVEL_DATE
-		},
-		notifications: {
-			type: DataTypes.STRING,
-			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.NOTIFICATIONS
-		},
-		attackGloryPoints: {
-			type: DataTypes.INTEGER,
-			defaultValue: FightConstants.ELO.DEFAULT_ELO
 		},
 		defenseGloryPoints: {
 			type: DataTypes.INTEGER,
