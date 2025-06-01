@@ -1729,5 +1729,16 @@
     "badge": [
       "Le regard de Talvar se fait grave, puis s’illumine d’une lueur de fierté. Chaque geste, chaque expression trahit une admiration sincère. Il reconnaît pleinement la valeur de vos actes, saluant votre courage, votre discernement et le respect dont vous avez fait preuve envers les créatures. En guise de reconnaissance, il vous remet le badge {emote:badges.animal_lover}, un présent lourd de sens. Cette marque d’estime scelle votre lien. Vous vous séparez dans un silence chargé de respect, unis par une compréhension tacite que seuls partagent ceux qui ont œuvré pour une cause plus grande qu’eux-mêmes."
     ]
+  },
+  "infosFight": {
+    "fightActions": {
+      "benediction": {
+        "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",
+        "name_one": "Bénédiction"
+      }
+  },
+    "alterations": {
+      // Mettre altérations
+    }
   }
 }
