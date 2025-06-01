@@ -1908,7 +1908,7 @@ export const DraftBotIcons: {
 		concentration: "🎯",
 		confused: "🤯",
 		counterAttack: "🥊",
-		cristalShardAttack: "🔮",
+		crystalShardAttack: "🔮",
 		crystallineArmorAttack: "🧊",
 		cursed: "👻",
 		cursedAttack: "😈",

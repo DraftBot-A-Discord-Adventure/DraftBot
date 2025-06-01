@@ -654,7 +654,7 @@
       "name_one": "Attaque rayon de lumière",
       "name_other": "Attaques rayon de lumière"
     },
-    "cristalShardAttack": {
+    "crystalShardAttack": {
       "description": "Une attaque à distance qui inflige des dégâts plus importants sur les adversaire plus lent.",
       "name_one": "Attaque éclat de cristal",
       "name_other": "Attaques éclats de cristal"
