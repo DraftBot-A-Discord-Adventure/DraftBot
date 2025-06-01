@@ -6,7 +6,7 @@
   "breath": 18,
   "maxBreath": 25,
   "breathRegen": 4,
-  "rewardFactor": 0.6,
+  "rewardFactor": 0.35,
   "attacks": [
     {
       "id": "hardBiteAttack",
