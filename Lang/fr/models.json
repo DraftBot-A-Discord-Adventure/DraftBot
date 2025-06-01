@@ -563,6 +563,29 @@
       "name_one": "Attaque effondrement glacial",
       "name_other": "Attaques effondrements glaciaux"
     },
+    "chargeChargeRadiantBlastAttack": {
+      "description": "Se prépare à lancer une attaque puissante.",
+      "customMessage": "charge son énergie et se prépare à lancer une attaque puissante.",
+      "name_one": "Attaque rayon radieux explosif",
+      "name_other": "Attaques rayons radieux explosifs"
+    },
+    "chargeRadiantBlastAttack": {
+      "description": "Continue de se préparer à lancer une attaque puissante.",
+      "customMessage": "continue de charger son énergie et de se préparer à lancer une attaque puissante.",
+      "name_one": "Attaque rayon radieux explosif",
+      "name_other": "Attaques rayons radieux explosifs"
+    },
+    "radiantBlastAttack": {
+      "description": "Lance une attaque puissante qui inflige des dégâts à l'adversaire et peut le brûler ou l'éblouir.",
+      "name_one": "Attaque rayon radieux explosif",
+      "name_other": "Attaques rayons radieux explosifs"
+    },
+    "hammerQuakeAttack": {
+      "description": "Frappe le sol avec une telle force qu'il provoque un tremblement de terre, infligeant des dégâts à tous les adversaires et ayant une chance de les étourdir.",
+      "customMessage": "frappe le sol avec une force titanesque, provoquant un tremblement de terre ! Mais l'ennemi s'élève dans les airs avec son compagnon ailé, échappant aux secousses.",
+      "name_one": "Attaque marteau sismique",
+      "name_other": "Attaque marteaux sismiques"
+    },
     "startPolarEmbraceAttack": {
       "description": "Enserre sa cible dans ses griffes glacées, il ne sera pas simple de s'en libérer.",
       "customMessage": "ne parvient pas à attraper son adversaire qui la tient à distance respectable grâce à ses attaques",
@@ -1259,12 +1282,12 @@
       "description": "Le gardien des portes sacrées. Empêcher les aventuriers de passer est son devoir, et il utilisera son marteau divin pour vous faire comprendre que vous n'êtes pas le bienvenu."
     },
     "maleIceDragon": {
-      "name": "Dragon de glace mâle",
+      "name": "Seigneur des glaces",
       "description": "Un majestueux dragon aux écailles cristallines qui règne depuis les sommets glacés. Perché sur les pics les plus élevés, il surveille son territoire d'un œil vigilant. Son souffle glacial peut transformer un aventurier en statue de glace en quelques secondes, et ses serres acérées lui permettent de fondre sur ses proies depuis les hauteurs avec une précision mortelle."
     },
     "femaleIceDragon": {
-      "name": "Dragon de glace femelle",
-      "description": "Une redoutable gardienne qui protège férocement son trésor et sa progéniture dans les profondeurs glacées de son antre. Plus agressive que son compagnon, elle n'hésite pas à déchaîner sa fureur contre quiconque ose s'approcher de son nid. Ses écailles scintillent comme des diamants et sa queue peut briser la glace la plus épaisse d'un seul coup."
+      "name": "Mère des glaces",
+      "description": "Une redoutable dragonne qui protège férocement son trésor et sa progéniture dans les profondeurs glacées de son antre. Plus agressive que son compagnon, elle n'hésite pas à déchaîner sa fureur contre quiconque ose s'approcher de son nid. Ses écailles scintillent comme des diamants et sa queue peut briser la glace la plus épaisse d'un seul coup."
     }
   },
   "objects": {

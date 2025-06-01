@@ -646,6 +646,23 @@ export abstract class PetConstants {
 		3,
 		5
 	];
+
+	static FLYING_PETS = [
+		PetConstants.PETS.BIRD,
+		PetConstants.PETS.DUCK,
+		PetConstants.PETS.OWL,
+		PetConstants.PETS.BAT,
+		PetConstants.PETS.SWAN,
+		PetConstants.PETS.FLAMINGO,
+		PetConstants.PETS.PARROT,
+		PetConstants.PETS.EAGLE,
+		PetConstants.PETS.DOVE,
+		PetConstants.PETS.DRAGON,
+		PetConstants.PETS.SCARLET_DUCK,
+		PetConstants.PETS.BLACK_BIRD,
+		PetConstants.PETS.RAVEN,
+		PetConstants.PETS.PHOENIX
+	];
 }
 
 export enum PET_ENTITY_GIVE_RETURN {

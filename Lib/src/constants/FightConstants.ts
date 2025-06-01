@@ -90,7 +90,9 @@ export abstract class FightConstants {
 				AERIAL_DIVE_ATTACK: "aerialDiveAttack",
 				BLIZZARD_RAGE_ATTACK: "blizzardRageAttack",
 				BOULDER_TOSS_ATTACK: "boulderTossAttack",
+				CHARGE_CHARGE_RADIANT_BLAST_ATTACK: "chargeChargeRadiantBlastAttack",
 				CHARGE_CLUB_SMASH_ATTACK: "chargeClubSmashAttack",
+				CHARGE_RADIANT_BLAST_ATTACK: "chargeRadiantBlastAttack",
 				CLAW_ATTACK: "clawAttack",
 				CLUB_SMASH_ATTACK: "clubSmashAttack",
 				CRYSTALLINE_ARMOR_ATTACK: "crystallineArmorAttack",
@@ -99,25 +101,27 @@ export abstract class FightConstants {
 				FROZEN_KISS_ATTACK: "frozenKissAttack",
 				GLACIAL_BREATH_ATTACK: "glacialBreathAttack",
 				GRAB_AND_THROW_ATTACK: "grabAndThrowAttack",
+				HAMMER_QUAKE_ATTACK: "hammerQuakeAttack",
 				HEAT_DRAIN_ATTACK: "heatDrainAttack",
 				HEAT_MUD_ATTACK: "heatMudAttack",
 				ICY_SEDUCTION_ATTACK: "icySeductionAttack",
+				IS_STUCK_IN_POLAR_EMBRACE: "isStuckInPolarEmbrace",
 				LAVA_WAVE_ATTACK: "lavaWaveAttack",
 				MAGIC_MIMIC_ATTACK: "magicMimicAttack",
 				MAGMA_BATH_ATTACK: "magmaBathAttack",
 				MUD_SHOT_ATTACK: "mudShotAttack",
 				OUTRAGE_ATTACK: "outrageAttack",
 				PETRIFICATION_ATTACK: "petrificationAttack",
+				RADIANT_BLAST_ATTACK: "radiantBlastAttack",
 				ROAR_ATTACK: "roarAttack",
 				ROCK_SHIELD_ATTACK: "rockShieldAttack",
 				SLAM_ATTACK: "slamAttack",
 				SPECTRAL_REVENGE_ATTACK: "spectralRevengeAttack",
+				START_POLAR_EMBRACE_ATTACK: "startPolarEmbraceAttack",
 				STEALTH: "stealth",
 				STONE_SKIN_ATTACK: "stoneSkinAttack",
 				SUMMON_ATTACK: "summonAttack",
-				WEB_SHOT_ATTACK: "webShotAttack",
-				START_POLAR_EMBRACE_ATTACK: "startPolarEmbraceAttack",
-				IS_STUCK_IN_POLAR_EMBRACE: "isStuckInPolarEmbrace"
+				WEB_SHOT_ATTACK: "webShotAttack"
 			},
 			PET: {
 				BITE: "bite",
@@ -232,7 +236,9 @@ export abstract class FightConstants {
 
 	static readonly GOD_MOVES = [
 		FightConstants.FIGHT_ACTIONS.PLAYER.BENEDICTION,
-		FightConstants.FIGHT_ACTIONS.PLAYER.DIVINE_ATTACK
+		FightConstants.FIGHT_ACTIONS.PLAYER.DIVINE_ATTACK,
+		FightConstants.FIGHT_ACTIONS.MONSTER.RADIANT_BLAST_ATTACK,
+		FightConstants.FIGHT_ACTIONS.MONSTER.HAMMER_QUAKE_ATTACK
 	];
 
 	static readonly ELO = {

@@ -1,37 +1,37 @@
 {
-  "baseEnergyValue": 50,
-  "attackRatio": 50,
-  "defenseRatio": 50,
-  "speedRatio": 50,
-  "breath": 5,
-  "maxBreath": 15,
+  "baseEnergyValue": 360,
+  "attackRatio": 170,
+  "defenseRatio": 120,
+  "speedRatio": 20,
+  "breath": 15,
+  "maxBreath": 35,
   "breathRegen": 5,
-  "rewardFactor": 0.5,
+  "rewardFactor": 0.85,
   "attacks": [
     {
-      "id": "simpleAttack",
+      "id": "divineAttack",
       "minLevel": 0,
       "weight": 1
     },
     {
-      "id": "simpleAttack",
+      "id": "powerfulAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 3
     },
     {
-      "id": "simpleAttack",
+      "id": "resting",
       "minLevel": 0,
-      "weight": 1
+      "weight": 2
     },
     {
-      "id": "simpleAttack",
+      "id": "chargeChargeRadiantBlastAttack",
       "minLevel": 0,
-      "weight": 1
+      "weight": 3
     },
     {
-      "id": "simpleAttack",
+      "id": "hammerQuakeAttack",
       "minLevel": 50,
-      "weight": 1
+      "weight": 2
     }
   ],
   "maps": [
