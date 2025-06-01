@@ -869,23 +869,23 @@
     },
     "1102": {
       "description": "Une grande caverne dans laquelle le moindre rayon de soleil qui rentre est démultiplié par les cristaux rendant celle-ci très lumineuse. Des stalactites pointus et des stalagmites tranchantes, synonymes de blessures graves voir mortelles si l’une d’elle nous tombe dessus ou que l’on fait un pas de travers, forment le décor de la caverne. Si vous osez vous aventurez plus loin, vous devrez choisir entre sortir vers le sommet du pic enneigée ou vous enfoncer encore plus profond.",
-      "name": "Caverne de cristal",
-      "particle": "vers la"
+      "name": "Kristallkerker",
+      "particle": "in Richtung"
     },
     "1103": {
       "description": "Deux majestueuses portes se dressent en haut d’une longue série de marches. Les monter ne sera pas de tout repos. On raconte qu’elles ont été construites par une civilisation ancienne en l’honneur d’une divinité.",
       "name": "Portes sacrées",
-      "particle": "vers les"
+      "particle": "in die"
     },
     "1104": {
       "description": "Dans la chaîne de montagnes, ce pic se démarque par la violence de ses tempêtes de neige et la vitesse de ses vents. Il est si haut que l’oxygène y est rare et que le risque de mourir de froid est élevé si vous n’avez pas déjà succombé aux animaux sauvages…",
-      "name": "Pic enneigé",
-      "particle": "vers le"
+      "name": "Pic Lenneiß",
+      "particle": "in Richtung"
     },
     "1105": {
       "description": "Un grand lac au cœur de la montagne dont la traversée n’est pas sans risque. Comme la température est glaciale, le fait qu’il ne soit pas gelé reste un mystère. Nul n’en connait sa profondeur ni sa faune.",
       "name": "Lac souterrain",
-      "particle": "vers le"
+      "particle": "in Richtung"
     },
     "1106": {
       "description": "Un village riche abandonné dont il ne reste que ruines et désolations. On peut y voir le toit d’un manoir qui a plié sous le poids de la cloche de l’église effondrée. Il y règne un silence pesant parfois interrompu par les cris de souffrance des âmes égarés.",
@@ -895,7 +895,7 @@
     "1107": {
       "description": "Personne ne s'est encore aventuré jusque là. Au loin, vous voyez une gigantesque silhouette se réfléchir sur un mur de glace.",
       "name": "Nid glacé",
-      "particle": "vers le"
+      "particle": "in Richtung"
     },
     "12": {
       "description": "Ein großes, leeres, nordisches Plädot ohne großes Interesse.",
@@ -1070,7 +1070,7 @@
       "prefix": "von"
     },
     "crystalCavern": {
-      "name": "Caverne de cristal",
+      "name": "Kristallkerker",
       "prefix": "von"
     },
     "de": {
@@ -1135,19 +1135,19 @@
     },
     "blessedDoors": {
       "name": "",
-      "prefix": "des"
+      "prefix": "von"
     },
     "icePeak": {
       "name": "Pic",
-      "prefix": "du"
+      "prefix": "von"
     },
     "undergroundLake": {
       "name": "Lac",
-      "prefix": "du"
+      "prefix": "von"
     },
     "dragonsNest": {
       "name": "",
-      "prefix": "du"
+      "prefix": "von"
     }
   },
   "missions": {
@@ -1269,7 +1269,7 @@
       "description": "Un être né des cristaux de la caverne. Il n'hésitera pas à utiliser ses pouvoirs élémentaires pour vous faire valser à l'autre bout du chemin."
     },
     "crocodile": {
-      "name": "Crocodile",
+      "name": "Krokodil",
       "description": "Un grand crocodile terrifiant, à la recherche d'un aventurier pour en faire son festin."
     },
     "yukiOnna": {
