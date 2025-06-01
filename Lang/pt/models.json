@@ -1135,19 +1135,19 @@
     },
     "blessedDoors": {
       "name": "",
-      "prefix": "des"
+      "prefix": "de"
     },
     "icePeak": {
-      "name": "Pic",
-      "prefix": "du"
+      "name": "Pica-pau",
+      "prefix": "de"
     },
     "undergroundLake": {
       "name": "Lac",
-      "prefix": "du"
+      "prefix": "de"
     },
     "dragonsNest": {
       "name": "",
-      "prefix": "du"
+      "prefix": "de"
     }
   },
   "missions": {
