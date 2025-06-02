@@ -79,7 +79,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 	if (!player.hasBadge(Badge.ANIMAL_LOVER) && RandomUtils.draftbotRandom.bool(SmallEventConstants.DWARF_PET_FAN.ALL_PETS_SEEN.BADGE_ANIMAL_LOVER_PROBABILITY)) {
 		player.addBadge(Badge.ANIMAL_LOVER);
 		response.push(makePacket(SmallEventDwarfPetFan, {
-			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.BADGE,
+			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.BADGE
 		}));
 		await player.save();
 		return;
