@@ -144,7 +144,7 @@
       "stop": "retrouve la vue."
     },
     "boomerangAttack": {
-      "description": "Lance un boomerang qui inflige des dégâts à l'ennemi jusqu'à 3 fois.",
+      "description": "Cette attaque peut infliger jusqu'à 2 retours des dégâts.",
       "name_one": "Attaque boomerang",
       "name_other": "Attaques boomerang"
     },
@@ -179,7 +179,7 @@
       "name_other": "Attaques canons"
     },
     "chargeChargingAttack": {
-      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial.",
+      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial, infligeant au passage de lourds dégâts.",
       "name_one": "Attaque chargée",
       "name_other": "Attaques chargées"
     },
@@ -189,7 +189,7 @@
       "name_other": "Attaques gourdin"
     },
     "chargeUltimateAttack": {
-      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Sinon, la précision de cette attaque est de 70. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
+      "description": "Nécessite un tour pour charger l’attaque. Si l’attaquant dispose de moins de 45% de son énergie, cette attaque ne peut pas échouer. Cette attaque ne peut être utilisée qu’une fois par joueur et par combat.",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
     },
@@ -278,7 +278,7 @@
       "afraid": "est aidé par **{{petNickname}}** qui, bien que se rappelant parfaitement des événements récents, tremble trop de peur pour pouvoir restituer le souffle perdu."
     },
     "energeticAttack": {
-      "description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin.",
+      "description": "La moitié des dégâts de cette attaque sont restitués au lanceur sous forme de soin. Ignore une partie de la défense adverse.",
       "name_one": "Attaque énergique",
       "name_other": "Attaques énergiques"
     },
@@ -351,7 +351,7 @@
       "name_other": "Attaques boue brûlante"
     },
     "heavyAttack": {
-      "description": "Les dégâts de cette attaque sont réduits de 90% si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%.",
+      "description": "Échoue si le défenseur dispose de moins de défense que l'attaquant. La défense de l'ennemi est réduite de 25%",
       "name_one": "Attaque lourde",
       "name_other": "Attaques lourdes"
     },
@@ -366,7 +366,7 @@
       "success": "est aidé par **{{petNickname}}** qui utilise ses pouvoirs hypnotiques pour rendre l'ennemi confus."
     },
     "intenseAttack": {
-      "description": "Ignore une partie de la défense de l'adversaire. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
+      "description": "La défense permet de se protéger efficacement de cette attaque. N'échoue jamais sur un adversaire plus rapide. Fonctionne mieux sur un adversaire rapide. Force le lanceur à utiliser l'action \"repos\" au tour suivant. Ne peut pas tuer l'adversaire.",
       "name_one": "Attaque intense",
       "name_other": "Attaques intenses"
     },
@@ -478,7 +478,7 @@
       "success": "reçoit le soutien de **{{petNickname}}** qui décide de mordre son adversaire... Ce dernier ne se sent soudainement pas très bien."
     },
     "powerfulAttack": {
-      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
+      "description": "Cette attaque a 25 % de chance de faire plus de dégâts, au prix d'un étourdissement de l'attaquant. Réduit la vitesse de l'adversaire. Après 3 utilisations, les dégâts de l'attaque sont réduits de 70%.",
       "name_one": "Attaque puissante",
       "name_other": "Attaques puissantes"
     },
@@ -548,7 +548,7 @@
       "generalEffect": "est assisté par **{{petNickname}}** qui fait fuir les poissons."
     },
     "shieldAttack": {
-      "description": "Utilise le bouclier de l’attaquant pour attaquer. L’altération \"affaibli\" réduit l’attaque de 70% durant 2 tours.",
+      "description": "Utilise la défense de l’attaquant pour attaquer, affaiblissant l'adversaire, ce qui réduit son attaque de 70% durant 2 tours.",
       "name_one": "Attaque bouclier",
       "name_other": "Attaques boucliers"
     },
