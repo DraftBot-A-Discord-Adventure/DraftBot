@@ -94,25 +94,6 @@ export function getRandomSmallEventIntro(language: Language): string {
 	return StringUtils.getRandomTranslation("smallEvents:intro", language);
 }
 
-function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
-	if (!packet.playerHavePet) {
-		if (packet.arePetsAllSeen) {
-			if (packet.arePetsAllSeen.isBadgeReward) {
-				return "badge";
-			}
-			return "allPetsSeen";
-		}
-		return "noPet";
-	}
-	if (packet.isPetFeisty) {
-		return "petIsFeisty";
-	}
-	if (packet.newPetSeen) {
-		return "newPetSeen";
-	}
-	return "petAlreadySeen";
-}
-
 export default class SmallEventsHandler {
 	@packetHandler(SmallEventAdvanceTimePacket)
 	async smallEventAdvanceTime(context: PacketContext, packet: SmallEventAdvanceTimePacket): Promise<void> {
@@ -992,15 +973,14 @@ export default class SmallEventsHandler {
 	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFan): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const lng = interaction!.userLanguage;
-		const keyStory = getDwarfPetFanStoryKey(packet);
-		const keyReward = packet.arePetsAllSeen ? packet.arePetsAllSeen.isGemReward ? "gem" : "money" : "gem";
+		const keyReward = packet.isGemReward ? "gem" : "money";
 		await interaction?.editReply({
 			embeds: [
 				new DraftbotSmallEventEmbed(
 					"dwarfPetFan",
-					`${StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)} ${StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${keyStory}`, lng, {
-						context: packet.playerHavePet ? packet.petSex : "m",
-						pet: packet.playerHavePet ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
+					`${StringUtils.getRandomTranslation("smallEvents:dwarfPetFan.intro", lng)} ${StringUtils.getRandomTranslation(`smallEvents:dwarfPetFan.${packet.interactionName}`, lng, {
+						context: packet.petTypeId ? packet.petSex : "m",
+						pet: packet.petTypeId ? PetUtils.petToShortString(lng, packet.petNickname, packet.petTypeId!, packet.petSex!) : "",
 						reward: i18n.t(`smallEvents:dwarfPetFan.reward.${keyReward}`, {
 							lng,
 							amount: packet.amount
