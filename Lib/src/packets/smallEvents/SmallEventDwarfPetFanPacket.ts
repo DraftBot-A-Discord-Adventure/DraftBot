@@ -21,6 +21,7 @@ export class SmallEventDwarfPetFan extends SmallEventPacket {
 
 	arePetsAllSeen?: {
 		isGemReward: boolean;
+		isBadgeReward: boolean;
 	};
 
 	isPetFeisty?: boolean;
