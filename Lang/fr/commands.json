@@ -33,7 +33,7 @@
     "embedTitle": "Guilde {{guildName}} | Niveau {{level}}",
     "description": "{emote:messages.description} `{{description}}`",
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
+    "memberInfo": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score}{{islandStatusIcon}})\n",
     "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} membres",
     "infoTitle": "Informations",
     "islandInfo": "{emote:guild.isOnPveIsland} Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}}\n",

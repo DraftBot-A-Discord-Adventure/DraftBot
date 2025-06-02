@@ -1,6 +1,6 @@
 {
   "properties": {
-    "possibleInfos": [
+    "possibleInfo": [
       "nbMeanPoints",
       "meanWeeklyScore",
       "nbPlayersHaventStartedTheAdventure",
