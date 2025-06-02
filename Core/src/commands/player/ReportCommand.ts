@@ -532,6 +532,10 @@ async function doPVEBoss(
 				}));
 				await MissionsController.update(player, endFightResponse, { missionId: "winBoss" });
 			}
+			else {
+				// Make sure the player has no energy left after a loss even if he levelled up
+				player.setEnergyLost(player.getMaxCumulativeEnergy(), NumberChangeReason.PVE_FIGHT);
+			}
 
 			await player.save();
 
