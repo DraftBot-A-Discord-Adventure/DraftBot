@@ -375,7 +375,8 @@
       "funny": "Badge given to a funny person",
       "rich": "Badge bought in the shop",
       "top_1_before_reset": "Person who has reached the top of the ranking after the reset",
-      "very_powerful_guild": "Member of a very powerful guild"
+      "very_powerful_guild": "Member of a very powerful guild",
+      "animal_lover": "Person who has shown all the pets to Talvar the dwarf"
     },
     "fightRanking": {
       "fieldName": "Glory points and league:",
