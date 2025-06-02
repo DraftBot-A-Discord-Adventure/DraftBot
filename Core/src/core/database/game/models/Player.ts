@@ -1566,6 +1566,10 @@ export function initModel(sequelize: Sequelize): void {
 			type: DataTypes.DATE,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.START_TRAVEL_DATE
 		},
+		attackGloryPoints: {
+			type: DataTypes.INTEGER,
+			defaultValue: FightConstants.ELO.DEFAULT_ELO
+		},
 		defenseGloryPoints: {
 			type: DataTypes.INTEGER,
 			defaultValue: FightConstants.ELO.DEFAULT_ELO
