@@ -255,7 +255,6 @@ export abstract class SmallEventConstants {
 	static readonly DWARF_PET_FAN = {
 		NEW_PET_SEEN_REWARD: 1,
 		ALL_PETS_SEEN: {
-			BADGE_ANIMAL_LOVER_PROBABILITY: 0.05,
 			GEM_PROBABILITY: 0.02,
 			GEM_REWARD: 1,
 			MONEY_REWARD: 150
