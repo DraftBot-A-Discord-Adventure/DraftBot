@@ -883,15 +883,15 @@ export class LogsDatabase extends Database {
 	 * @param guildPetsEntities
 	 */
 	public async logGuildDestroy(guild: Guild, members: Player[], guildPetsEntities: PetEntity[]): Promise<void> {
-		const guildInfos: GuildLikeType = {
+		const guildInfo: GuildLikeType = {
 			id: guild.id,
 			name: guild.name,
 			creationDate: guild.creationDate,
 			chiefId: guild.chiefId
 		};
-		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfos);
+		const logGuild = await LogsDatabase.findOrCreateGuild(guildInfo);
 		for (const member of members) {
-			if (member.id !== guildInfos.chiefId) {
+			if (member.id !== guildInfo.chiefId) {
 				await LogsDatabase.logGuildLeave(guild, member.keycloakId);
 			}
 		}

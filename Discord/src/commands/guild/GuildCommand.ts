@@ -97,9 +97,9 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 		});
 		return;
 	}
-	let membersInfos = "";
+	let membersInfo = "";
 	for (const member of packet.data!.members) {
-		membersInfos += i18n.t("commands:guild.memberInfos", {
+		membersInfo += i18n.t("commands:guild.memberInfos", {
 			lng,
 			icon: getMemberTypeIcon(member, packet),
 			pseudo: await DisplayUtils.getEscapedUsername(member.keycloakId, lng),
@@ -121,7 +121,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 				memberCount: packet.data!.members.length,
 				maxGuildMembers: GuildConstants.MAX_GUILD_MEMBERS
 			}),
-			value: membersInfos
+			value: membersInfo
 		});
 	if (packet.data!.level >= GuildConstants.GOLDEN_GUILD_LEVEL) {
 		guildCommandEmbed.setColor(ColorConstants.GOLD);

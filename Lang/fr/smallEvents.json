@@ -1727,7 +1727,7 @@
       "Devant l'absence de familier à vos côtés, les yeux de Talvar brillent d'une mission à accomplir. Il vous initie aux secrets de l'apprivoisement et aux rituels sacrés qui scellent l'amitié entre l'homme et l'animal. Ses enseignements résonnent de traditions ancestrales et de savoirs oubliés. Vous continuez votre route, dépositaire de ces connaissances précieuses et peut-être appelé à les mettre en pratique dans un avenir proche."
     ]
   },
-  "infosFight": {
+  "infoFight": {
     "fightActions": {
       "benediction": {
         "description": "Fait partie du groupe des \"actions des dieux\". Échoue si 1 action des dieux a déjà été effectuée dans le combat. Augmente toutes les statistiques du lanceur. Plus la bénédiction est utilisée tard dans le combat, plus l'augmentation des statistiques est importante.",

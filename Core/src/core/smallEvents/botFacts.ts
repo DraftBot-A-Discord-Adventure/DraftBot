@@ -11,7 +11,7 @@ import { SmallEventBotFactsPacket } from "../../../../Lib/src/packets/smallEvent
 import { Maps } from "../maps/Maps";
 
 type BotFactsProperties = {
-	possibleInfos: string[];
+	possibleInfo: string[];
 };
 
 const getNbPlayersWithGivenClass = async (): Promise<[number, number]> => {
@@ -23,7 +23,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 	canBeExecuted: Maps.isOnContinent,
 	executeSmallEvent: async (response, player): Promise<void> => {
 		const botFactsProperties = SmallEventDataController.instance.getById("botFacts").getProperties<BotFactsProperties>();
-		const information = RandomUtils.draftbotRandom.pick(Object.values(botFactsProperties.possibleInfos));
+		const information = RandomUtils.draftbotRandom.pick(Object.values(botFactsProperties.possibleInfo));
 		const packet: SmallEventBotFactsPacket = {
 			information, infoNumber: 0
 		};
