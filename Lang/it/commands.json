@@ -35,7 +35,7 @@
     "separator": " | ",
     "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} {emote:announcements.trophy} | {{score}} {emote:unitValues.score} {{islandStatusIcon}})\n",
     "members": "{emote:guild.membersCount} {{memberCount}} / {{maxGuildMembers}} membri",
-    "infoTitle": "Informazione",
+    "infoTitle": "Informazioni",
     "islandInfo": "{emote:guild.isOnPveIsland} Numero di alleati sull'isola misteriosa: {{membersOnPveIsland}}\n",
     "info": "{emote:unitValues.xp} {{experience}} | {emote:unitValues.guildPoint} {{guildPoints}} | {emote:announcements.trophy} {{ranking}}",
     "xpNeeded": "{{xp}} / {{xpToLevelUp}}",
@@ -375,7 +375,8 @@
       "funny": ":joy: `Badge regalato a una persona divertente`",
       "rich": ":money_mouth: `Badge comprato nel negozio`",
       "top_1_before_reset": ":first_place: `Persona che ha per primo ottenuto il primo posto della dopo il reset`",
-      "very_powerful_guild": ":mirror_ball: `Membro di una gilda molto potente`"
+      "very_powerful_guild": ":mirror_ball: `Membro di una gilda molto potente`",
+      "animal_lover": "Personne ayant montré tous les familiers à Talvar le nain"
     },
     "fightRanking": {
       "fieldName": "Gloria e lega :",
