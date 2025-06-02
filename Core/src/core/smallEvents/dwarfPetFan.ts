@@ -15,7 +15,7 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
-import {Badge} from "../../../../Lib/src/types/Badge";
+import { Badge } from "../../../../Lib/src/types/Badge";
 
 /**
  * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
