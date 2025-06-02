@@ -251,4 +251,22 @@ export abstract class SmallEventConstants {
 		ROAD_OF_WONDERS_MULTIPLIER: 1.5,
 		REDUCTION_TIP_PROBABILITY: 0.2 // 20% chance to have a reduction tip
 	};
+
+	static readonly DWARF_PET_FAN = {
+		NEW_PET_SEEN_REWARD: 1,
+		ALL_PETS_SEEN: {
+			BADGE_ANIMAL_LOVER_PROBABILITY: 0.05,
+			GEM_PROBABILITY: 0.02,
+			GEM_REWARD: 1,
+			MONEY_REWARD: 150
+		},
+		INTERACTIONS_NAMES: {
+			BADGE: "badge",
+			NO_PET: "noPet",
+			PET_ALREADY_SEEN: "petAlreadySeen",
+			NEW_PET_SEEN: "newPetSeen",
+			ALL_PETS_SEEN: "allPetsSeen",
+			FEISTY_PET: "petIsFeisty"
+		}
+	};
 }

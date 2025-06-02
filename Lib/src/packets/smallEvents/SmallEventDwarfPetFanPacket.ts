@@ -13,16 +13,9 @@ export class SmallEventDwarfPetFan extends SmallEventPacket {
 
 	petTypeId?: number;
 
-	playerHavePet?: boolean;
-
 	amount?: number;
 
-	newPetSeen?: boolean;
+	interactionName!: string;
 
-	arePetsAllSeen?: {
-		isGemReward: boolean;
-		isBadgeReward: boolean;
-	};
-
-	isPetFeisty?: boolean;
+	isGemReward?: boolean;
 }
