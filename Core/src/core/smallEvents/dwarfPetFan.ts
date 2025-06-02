@@ -85,6 +85,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 				isGemReward: false, isBadgeReward: true
 			}
 		}));
+		await player.save();
 		return;
 	}
 
