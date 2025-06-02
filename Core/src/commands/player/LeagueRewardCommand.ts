@@ -67,6 +67,7 @@ export default class LeagueRewardCommand {
 		await giveItemToPlayer(response, context, player, item);
 		draftBotInstance.logsDatabase.logPlayerLeagueReward(player.keycloakId, leagueLastSeason.id)
 			.then();
+		await player.save();
 		response.push(makePacket(CommandLeagueRewardSuccessPacketRes, {
 			score: scoreToAward,
 			money: moneyToAward,
