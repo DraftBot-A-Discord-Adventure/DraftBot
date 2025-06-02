@@ -11,7 +11,7 @@ export const commandInfo: ITestCommand = {
 /**
  * Give you information about the map you are on
  */
-const mapInfosTestCommand: ExecuteTestCommandLike = async player => {
+const mapInfoTestCommand: ExecuteTestCommandLike = async player => {
 	const currMap = player.getDestination();
 	const prevMap = player.getPreviousMap();
 	const travelling = Maps.isTravelling(player);
@@ -29,4 +29,4 @@ ${travelling
 Players : :speech_balloon: ${await currMap.playersCount(prevMap.id)} player(s) on this map`;
 };
 
-commandInfo.execute = mapInfosTestCommand;
+commandInfo.execute = mapInfoTestCommand;
