@@ -25,5 +25,6 @@ export enum Badge {
 	LEGENDARY_PET = "legendary_pet",
 	MISSION_COMPLETER = "mission_completer",
 	GOOD_BUG_REPORTER = "good_bug_reporter",
-	VOTER = "voter"
+	VOTER = "voter",
+	ANIMAL_LOVER = "animal_lover"
 }

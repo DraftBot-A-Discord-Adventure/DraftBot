@@ -97,6 +97,9 @@ export function getRandomSmallEventIntro(language: Language): string {
 function getDwarfPetFanStoryKey(packet: SmallEventDwarfPetFan): string {
 	if (!packet.playerHavePet) {
 		if (packet.arePetsAllSeen) {
+			if (packet.arePetsAllSeen.isBadgeReward) {
+				return "badge";
+			}
 			return "allPetsSeen";
 		}
 		return "noPet";

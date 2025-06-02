@@ -15,6 +15,7 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
+import {Badge} from "../../../../Lib/src/types/Badge";
 
 /**
  * Return true if the player has a pet AND the pet is not feisty AND the dwarf never saw this pet from it
@@ -77,6 +78,16 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 		return;
 	}
 
+	if (!player.hasBadge(Badge.ANIMAL_LOVER) && RandomUtils.draftbotRandom.bool(Constants.DWARF_PET_FAN.ALL_PETS_SEEN.BADGE_ANIMAL_LOVER_PROBABILITY)) {
+		player.addBadge(Badge.ANIMAL_LOVER);
+		response.push(makePacket(SmallEventDwarfPetFan, {
+			arePetsAllSeen: {
+				isGemReward: false, isBadgeReward: true
+			}
+		}));
+		return;
+	}
+
 	// Give a gem
 	if (RandomUtils.draftbotRandom.bool(Constants.DWARF_PET_FAN.ALL_PETS_SEEN.GEM_PROBABILITY)) {
 		const missionInfo = await PlayerMissionsInfos.getOfPlayer(player.id);
@@ -88,7 +99,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 		await missionInfo.save();
 		response.push(makePacket(SmallEventDwarfPetFan, {
 			arePetsAllSeen: {
-				isGemReward: true
+				isGemReward: true, isBadgeReward: false
 			},
 			amount: Constants.DWARF_PET_FAN.ALL_PETS_SEEN.GEM_REWARD
 		}));
@@ -104,7 +115,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 	await player.save();
 	response.push(makePacket(SmallEventDwarfPetFan, {
 		arePetsAllSeen: {
-			isGemReward: false
+			isGemReward: false, isBadgeReward: false
 		},
 		amount: Constants.DWARF_PET_FAN.ALL_PETS_SEEN.MONEY_REWARD
 	}));

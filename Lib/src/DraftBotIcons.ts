@@ -2066,7 +2066,8 @@ export const DraftBotIcons: {
 		[Badge.LEGENDARY_PET]: "💞",
 		[Badge.MISSION_COMPLETER]: "💍",
 		[Badge.GOOD_BUG_REPORTER]: "🕊️",
-		[Badge.VOTER]: "🗳️"
+		[Badge.VOTER]: "🗳️",
+		[Badge.ANIMAL_LOVER]: "🐾"
 	},
 	itemKinds: [
 		"⚔️",
