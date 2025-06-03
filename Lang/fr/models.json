@@ -179,7 +179,7 @@
       "name_other": "Attaques canons"
     },
     "chargeChargingAttack": {
-      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est replacée à son niveau initial, infligeant au passage de lourds dégâts.",
+      "description": "Attaque sur 2 tours. Durant le premier tour, la défense du lanceur est augmentée de 50 %. Durant le second tour, la défense du lanceur est diminuée, infligeant au passage de lourds dégâts.",
       "name_one": "Attaque chargée",
       "name_other": "Attaques chargées"
     },
@@ -246,12 +246,12 @@
       "stop": "subit les conséquences du maléfice."
     },
     "cursedAttack": {
-      "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur...",
+      "description": "Maudit l'adversaire, peut être en subira-t-il les conséquences dans le futur... Soigne le lanceur si l'adversaire a plus de 40% de son énergie.",
       "name_one": "Attaque maudite",
       "name_other": "Attaques maudites"
     },
     "darkAttack": {
-      "description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée.",
+      "description": "Ignore la défense de l'adversaire. Plus efficace contre un joueur ayant une attaque élevée. Aveugle l'adversaire ou rend au lanceur une partie de son souffle perdu. L'altération \"aveuglé\" dure au moins 1 tour et rend l'adversaire incapable d'attaquer parfois, tout en réduisant sa défense et sa vitesse.",
       "name_one": "Attaque sombre",
       "name_other": "Attaques sombres"
     },
@@ -294,7 +294,7 @@
       "name_other": "Repas de famille"
     },
     "fireAttack": {
-      "description": "Grande chance de brûler l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Brûle l'adversaire. L'altération \"brûlé\" inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Attaque feu",
       "name_other": "Attaques feu"
     },
@@ -469,7 +469,7 @@
       "stop": "n'est plus empoisonné."
     },
     "poisonousAttack": {
-      "description": "Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
+      "description": "Plus efficace en début de combat. Empoisonne l'adversaire. L'altération \"empoisonné\" dure au moins trois tours et inflige des dégâts à votre adversaire sur la durée.",
       "name_one": "Attaque empoisonnée",
       "name_other": "Attaques empoisonnées"
     },
