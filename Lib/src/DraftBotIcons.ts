@@ -1011,7 +1011,8 @@ export const DraftBotIcons: {
 		winGuildXP: "⭐",
 		winHealth: "❤️",
 		winPersonalXP: "⭐",
-		witch: "🧹"
+		witch: "🧹",
+		infoFight: "🏰"
 	},
 	pets: {
 		0: {

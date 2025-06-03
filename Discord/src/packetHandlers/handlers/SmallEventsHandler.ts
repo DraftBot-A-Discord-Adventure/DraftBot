@@ -87,7 +87,7 @@ import {
 } from "../../../../Lib/src/packets/smallEvents/SmallEventEpicItemShopPacket";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
-import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
+import { SmallEventDwarfPetFanPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import { SmallEventInfoFightPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventInfoFightPacket";
 import { infoFightResult } from "../../smallEvents/infoFight";
 
@@ -971,8 +971,8 @@ export default class SmallEventsHandler {
 		await epicItemShopHandler(context, "smallEvents:epicItemShop.notEnoughMoney");
 	}
 
-	@packetHandler(SmallEventDwarfPetFan)
-	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFan): Promise<void> {
+	@packetHandler(SmallEventDwarfPetFanPacket)
+	async smallEventDwarfPetFan(context: PacketContext, packet: SmallEventDwarfPetFanPacket): Promise<void> {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 		const lng = interaction!.userLanguage;
 		const keyReward = packet.isGemReward ? "gem" : "money";
@@ -996,7 +996,7 @@ export default class SmallEventsHandler {
 	}
 
 	@packetHandler(SmallEventInfoFightPacket)
-	async smallEventInfoFight(context: PacketContext, _packet: SmallEventDwarfPetFan): Promise<void> {
+	async smallEventInfoFight(context: PacketContext, _packet: SmallEventInfoFightPacket): Promise<void> {
 		await infoFightResult(context);
 	}
 }
