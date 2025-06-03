@@ -341,7 +341,7 @@
     },
     "heatDrainAttack": {
       "description": "Hol die Wärme des Spielers zurück, was den Angriff des Werbenden erhöht und den Gegner giert.",
-      "customMessage": "draine la chaleur de son adversaire.",
+      "customMessage": "entzieht seinem Gegner Wärme.",
       "name_one": "Hitzewärm",
       "name_other": "Hitzeeinwirkung"
     },
