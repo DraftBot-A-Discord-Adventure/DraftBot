@@ -341,7 +341,7 @@
     },
     "heatDrainAttack": {
       "description": "Recupera il calore del giocatore, che aumenta allora l'attacco del lanciatore e gela l'avversario.",
-      "customMessage": "draine la chaleur de son adversaire.",
+      "customMessage": "prosciuga il calore dell'avversario.",
       "name_one": "Scarico del calore",
       "name_other": "Scariche del calore "
     },
@@ -558,42 +558,42 @@
       "name_other": "Attacchi semplici"
     },
     "glacialCaveCollapseAttack": {
-      "description": "Fait s'effondrer des stalactites de glace depuis le plafond de la grotte.",
-      "customMessage": "rugit si fort que des stalactites de glace se détachent du plafond ! Mais l'ennemi est suffisamment proche pour éviter l'attaque.",
-      "name_one": "Attaque effondrement glacial",
-      "name_other": "Attaques effondrements glaciaux"
+      "description": "Fa crollare le stalattiti di ghiaccio dal soffitto della grotta.",
+      "customMessage": "ruggisce così forte che le stalattiti di ghiaccio si staccano dal soffitto! Ma il nemico è abbastanza vicino da evitare l'attacco.",
+      "name_one": "Attacco di crollo del ghiaccio",
+      "name_other": "Attacchi di crollo del ghiaccio"
     },
     "chargeChargeRadiantBlastAttack": {
-      "description": "Se prépare à lancer une attaque puissante.",
-      "customMessage": "charge son énergie et se prépare à lancer une attaque puissante.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Si prepara a sferrare un attacco potente.",
+      "customMessage": "si carica di energia e si prepara a sferrare un potente attacco.",
+      "name_one": "Attacco con raggio esplosivo radiante",
+      "name_other": "Attacchi esplosivi a raggio radiante"
     },
     "chargeRadiantBlastAttack": {
-      "description": "Continue de se préparer à lancer une attaque puissante.",
-      "customMessage": "continue de charger son énergie et de se préparer à lancer une attaque puissante.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Continua a prepararsi per sferrare un attacco potente.",
+      "customMessage": "continua a caricare la sua energia e si prepara a sferrare un potente attacco.",
+      "name_one": "Attacco con raggio esplosivo radiante",
+      "name_other": "Attacchi esplosivi a raggio radiante"
     },
     "radiantBlastAttack": {
-      "description": "Lance une attaque puissante qui inflige des dégâts à l'adversaire et peut le brûler ou l'éblouir.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Sferra un potente attacco che infligge danni all'avversario e può bruciarlo o abbagliarlo.",
+      "name_one": "Attacco con raggio esplosivo radiante",
+      "name_other": "Attacchi esplosivi a raggio radiante"
     },
     "hammerQuakeAttack": {
-      "description": "Frappe le sol avec une telle force qu'il provoque un tremblement de terre, infligeant des dégâts à tous les adversaires et ayant une chance de les étourdir.",
-      "customMessage": "frappe le sol avec une force titanesque, provoquant un tremblement de terre ! Mais l'ennemi s'élève dans les airs avec son compagnon ailé, échappant aux secousses.",
-      "name_one": "Attaque marteau sismique",
-      "name_other": "Attaque marteaux sismiques"
+      "description": "Colpisce il terreno con una forza tale da provocare un terremoto, infliggendo danni a tutti gli avversari e avendo la possibilità di stordirli.",
+      "customMessage": "colpisce il suolo con forza titanica, provocando un terremoto! Ma il nemico si alza in volo con il suo compagno alato, sfuggendo alle scosse.",
+      "name_one": "Attacco con martello sismico",
+      "name_other": "Attacco con martelli sismici"
     },
     "startPolarEmbraceAttack": {
-      "description": "Enserre sa cible dans ses griffes glacées, il ne sera pas simple de s'en libérer.",
-      "customMessage": "ne parvient pas à attraper son adversaire qui la tient à distance respectable grâce à ses attaques",
-      "name_one": "Attaque étreinte polaire",
-      "name_other": "Attaques étreintes polaires"
+      "description": "Stringendo il bersaglio tra i suoi artigli ghiacciati, non sarà facile liberarsi.",
+      "customMessage": "non riesce a prendere la sua avversaria, che la tiene a una distanza rispettabile con i suoi attacchi",
+      "name_one": "Attacco dell'abbraccio polare",
+      "name_other": "Attacchi dell'abbracci polare"
     },
     "isStuckInPolarEmbrace": {
-      "description": "Inflige des dégâts à l'adversaire agrippée dans l'étreinte",
+      "description": "Infligge danni all'avversario afferrato nell'abbraccio",
       "customMessage": "ne parvient pas à maintenir son accroche sur son adversaire qui parvient à se libérer grâce à ses attaques",
       "name_one": "Attaque étreinte polaire",
       "name_other": "Attaques étreintes polaires"
