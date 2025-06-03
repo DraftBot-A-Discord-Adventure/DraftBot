@@ -558,27 +558,27 @@
       "name_other": "Einfache Attacken"
     },
     "glacialCaveCollapseAttack": {
-      "description": "Fait s'effondrer des stalactites de glace depuis le plafond de la grotte.",
-      "customMessage": "rugit si fort que des stalactites de glace se détachent du plafond ! Mais l'ennemi est suffisamment proche pour éviter l'attaque.",
-      "name_one": "Attaque effondrement glacial",
-      "name_other": "Attaques effondrements glaciaux"
+      "description": "Bewirkt, dass Eisstalaktiten von der Höhlendecke stürzen.",
+      "customMessage": "brüllt so laut, dass sich Eiszapfen von der Decke lösen! Doch der Feind ist nah genug, um dem Angriff auszuweichen.",
+      "name_one": "Eiskollaps-Angriff",
+      "name_other": "Eiseinsturzangriffe"
     },
     "chargeChargeRadiantBlastAttack": {
-      "description": "Se prépare à lancer une attaque puissante.",
-      "customMessage": "charge son énergie et se prépare à lancer une attaque puissante.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Bereitet sich auf einen mächtigen Angriff vor.",
+      "customMessage": "lädt seine Energie auf und bereitet sich auf einen mächtigen Angriff vor.",
+      "name_one": "Explosiver Strahlungsstrahlenangriff",
+      "name_other": "Explosive Strahlenangriffe"
     },
     "chargeRadiantBlastAttack": {
-      "description": "Continue de se préparer à lancer une attaque puissante.",
-      "customMessage": "continue de charger son énergie et de se préparer à lancer une attaque puissante.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Bereiten Sie sich weiterhin auf einen mächtigen Angriff vor.",
+      "customMessage": "lädt weiterhin seine Energie auf und bereitet sich auf einen mächtigen Angriff vor.",
+      "name_one": "Explosiver Strahlungsstrahlenangriff",
+      "name_other": "Explosive Strahlenangriffe"
     },
     "radiantBlastAttack": {
-      "description": "Lance une attaque puissante qui inflige des dégâts à l'adversaire et peut le brûler ou l'éblouir.",
-      "name_one": "Attaque rayon radieux explosif",
-      "name_other": "Attaques rayons radieux explosifs"
+      "description": "Startet einen mächtigen Angriff, der dem Gegner Schaden zufügt und ihn verbrennen oder blenden kann.",
+      "name_one": "Explosiver Strahlungsstrahlenangriff",
+      "name_other": "Explosive Strahlenangriffe"
     },
     "hammerQuakeAttack": {
       "description": "Frappe le sol avec une telle force qu'il provoque un tremblement de terre, infligeant des dégâts à tous les adversaires et ayant une chance de les étourdir.",
