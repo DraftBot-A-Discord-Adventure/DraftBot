@@ -4,7 +4,7 @@ import Player from "../database/game/models/Player";
 import {
 	DraftBotPacket, makePacket
 } from "../../../../Lib/src/packets/DraftBotPacket";
-import { SmallEventDwarfPetFan } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
+import { SmallEventDwarfPetFanPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventDwarfPetFanPacket";
 import {
 	PetEntities, PetEntity
 } from "../database/game/models/PetEntity";
@@ -32,12 +32,12 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
 
 	// Check if the player has a pet
 	if (!player.petId) {
-		response.push(makePacket(SmallEventDwarfPetFan, { interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.NO_PET }));
+		response.push(makePacket(SmallEventDwarfPetFanPacket, { interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.NO_PET }));
 		return false;
 	}
 
 	if (petEntity.isFeisty()) {
-		response.push(makePacket(SmallEventDwarfPetFan, {
+		response.push(makePacket(SmallEventDwarfPetFanPacket, {
 			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.FEISTY_PET,
 			petNickname: petEntity.nickname,
 			petSex: petEntity.sex as SexTypeShort,
@@ -48,7 +48,7 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
 
 	// Check if the dwarf has already seen this pet
 	if (await DwarfPetsSeen.isPetSeen(player, petEntity.typeId)) {
-		response.push(makePacket(SmallEventDwarfPetFan, {
+		response.push(makePacket(SmallEventDwarfPetFanPacket, {
 			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.PET_ALREADY_SEEN,
 			petNickname: petEntity.nickname,
 			petSex: petEntity.sex as SexTypeShort,
@@ -67,7 +67,7 @@ async function canContinueSmallEvent(response: DraftBotPacket[], player: Player,
  */
 async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, petEntity: PetEntity): Promise<void> {
 	if (player.petId && petEntity.isFeisty()) {
-		response.push(makePacket(SmallEventDwarfPetFan, {
+		response.push(makePacket(SmallEventDwarfPetFanPacket, {
 			petNickname: petEntity.nickname,
 			petSex: petEntity.sex as SexTypeShort,
 			petTypeId: petEntity.typeId,
@@ -78,7 +78,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 
 	if (!player.hasBadge(Badge.ANIMAL_LOVER)) {
 		player.addBadge(Badge.ANIMAL_LOVER);
-		response.push(makePacket(SmallEventDwarfPetFan, {
+		response.push(makePacket(SmallEventDwarfPetFanPacket, {
 			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.BADGE
 		}));
 		await player.save();
@@ -94,7 +94,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 			NumberChangeReason.SMALL_EVENT
 		);
 		await missionInfo.save();
-		response.push(makePacket(SmallEventDwarfPetFan, {
+		response.push(makePacket(SmallEventDwarfPetFanPacket, {
 			interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.ALL_PETS_SEEN,
 			isGemReward: true,
 			amount: SmallEventConstants.DWARF_PET_FAN.ALL_PETS_SEEN.GEM_REWARD
@@ -109,7 +109,7 @@ async function manageAllPetsAreSeen(response: DraftBotPacket[], player: Player, 
 		reason: NumberChangeReason.SMALL_EVENT
 	});
 	await player.save();
-	response.push(makePacket(SmallEventDwarfPetFan, {
+	response.push(makePacket(SmallEventDwarfPetFanPacket, {
 		interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.ALL_PETS_SEEN,
 		amount: SmallEventConstants.DWARF_PET_FAN.ALL_PETS_SEEN.MONEY_REWARD
 	}));
@@ -129,7 +129,7 @@ async function manageNewPetSeen(response: DraftBotPacket[], player: Player, petE
 		player.keycloakId,
 		NumberChangeReason.SMALL_EVENT
 	);
-	response.push(makePacket(SmallEventDwarfPetFan, {
+	response.push(makePacket(SmallEventDwarfPetFanPacket, {
 		interactionName: SmallEventConstants.DWARF_PET_FAN.INTERACTIONS_NAMES.NEW_PET_SEEN,
 		amount: SmallEventConstants.DWARF_PET_FAN.NEW_PET_SEEN_REWARD,
 		petNickname: petEntity.nickname,
