@@ -6,7 +6,7 @@ import { SmallEventPacket } from "./SmallEventPacket";
 import { SexTypeShort } from "../../constants/StringConstants";
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
-export class SmallEventDwarfPetFan extends SmallEventPacket {
+export class SmallEventDwarfPetFanPacket extends SmallEventPacket {
 	petNickname?: string | undefined;
 
 	petSex?: SexTypeShort;
