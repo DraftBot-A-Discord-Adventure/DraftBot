@@ -99,7 +99,7 @@ export async function handleCommandGuildPacketRes(packet: CommandGuildPacketRes,
 	}
 	let membersInfo = "";
 	for (const member of packet.data!.members) {
-		membersInfo += i18n.t("commands:guild.memberInfos", {
+		membersInfo += i18n.t("commands:guild.memberInfo", {
 			lng,
 			icon: getMemberTypeIcon(member, packet),
 			pseudo: await DisplayUtils.getEscapedUsername(member.keycloakId, lng),
