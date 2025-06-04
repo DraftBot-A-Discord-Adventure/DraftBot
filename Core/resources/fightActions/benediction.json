@@ -1,6 +1,5 @@
 {
   "breath": 8,
   "missionVariant": 0,
-  "type": "magic",
-  "isAlteration": false
+  "type": "magic"
 }
