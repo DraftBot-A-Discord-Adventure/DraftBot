@@ -8,7 +8,7 @@ import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/F
 import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 
 const MIN_ENERGY_THRESHOLD = 0;
-const MAX_ENERGY_THRESHOLD = 170;
+const MAX_ENERGY_THRESHOLD = 320;
 
 const use: PetAssistanceFunc = (fighter, _opponent, _turn, _fightController): Promise<PetAssistanceResult | null> => {
 	// Check if the fighter's current energy is within the defined threshold
