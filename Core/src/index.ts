@@ -4,7 +4,10 @@ import {
 	DraftBotPacket, makePacket, PacketContext, PacketLike
 } from "../../Lib/src/packets/DraftBotPacket";
 import {
-	ErrorMaintenancePacket, ErrorPacket, ErrorResetIsNow, ErrorSeasonEndIsNow
+	ErrorMaintenancePacket,
+	ErrorPacket,
+	ErrorResetIsNow,
+	ErrorSeasonEndIsNow
 } from "../../Lib/src/packets/commands/ErrorPacket";
 import { connect } from "mqtt";
 import { PacketUtils } from "./core/utils/PacketUtils";
@@ -66,18 +69,21 @@ function globalStopOfPlayers(response: DraftBotPacket[], dataJson: {
 }): boolean {
 	if (
 		botConfig.MODE_MAINTENANCE
-		&& !CoreConstants.BYPASS_MAINTENANCE_PACKETS.includes(dataJson.packet.name)
+		&& !CoreConstants.BYPASS_MAINTENANCE_AND_RESETS_PACKETS.includes(dataJson.packet.name)
 		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.MAINTENANCE)
 		&& !(dataJson.context as PacketContext).rightGroups?.includes(RightGroup.ADMIN)
 	) {
 		response.push(makePacket(ErrorMaintenancePacket, {}));
 		return true;
 	}
-	if (resetIsNow()) {
+	if (resetIsNow()
+		&& !CoreConstants.BYPASS_MAINTENANCE_AND_RESETS_PACKETS.includes(dataJson.packet.name)
+	) {
 		response.push(makePacket(ErrorResetIsNow, {}));
 		return true;
 	}
-	if (seasonEndIsNow()) {
+	if (seasonEndIsNow()
+		&& !CoreConstants.BYPASS_MAINTENANCE_AND_RESETS_PACKETS.includes(dataJson.packet.name)) {
 		response.push(makePacket(ErrorSeasonEndIsNow, {}));
 		return true;
 	}
