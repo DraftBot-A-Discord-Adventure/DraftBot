@@ -155,7 +155,6 @@
       "success": "monte sur le dos de **{{petNickname}}** pour se déplacer plus rapidement."
     },
     "boulderTossAttack": {
-      "description": "Attaque moyenne qui a des chances d'étourdir l'adversaire.",
       "name_one": "Attaque rocheuse",
       "name_other": "Attaques rocheuses"
     },
@@ -184,7 +183,6 @@
       "name_other": "Attaques chargées"
     },
     "chargeClubSmashAttack": {
-      "description": "Nécessite un tour pour charger l'attaque. Délivre une charge puissante au tour suivant.",
       "name_one": "Attaque gourdin",
       "name_other": "Attaques gourdin"
     },
@@ -283,13 +281,11 @@
       "name_other": "Attaques énergiques"
     },
     "eruptionAttack": {
-      "description": "Fait entrer en éruption le volcan qui crache des rochers en fusion sur les joueurs, seul les plus rapides pourront éviter les dégâts.",
       "customMessage": "fait entrer en éruption le volcan, seul les adversaires les plus rapide parviennent à éviter l'éruption.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
     "familyMealAttack": {
-      "description": "Appelle des alliés pour dévorer l'adversaire et l'empoisonner.",
       "name_one": "Repas de famille",
       "name_other": "Repas de famille"
     },
@@ -323,7 +319,6 @@
       "success": "ordonne à **{{petNickname}}** d'attaquer. L'animal éclate de rage et se met à frapper tout ce qui passe à proximité de lui."
     },
     "grabAndThrowAttack": {
-      "description": "Projette l'adversaire s'il utilise une attaque physique, infligeant des dégâts moyens et ayant une chance d'étourdir l'adversaire.",
       "name_one": "Attaque projection",
       "name_other": "Attaques projections"
     },
@@ -340,13 +335,11 @@
       "success": "est soigné par **{{petNickname}}** qui lui redonne de l'énergie."
     },
     "heatDrainAttack": {
-      "description": "Récupère la chaleur du joueur, ce qui augmente l'attaque du lanceur et gèle l'adversaire.",
       "customMessage": "draine la chaleur de son adversaire.",
       "name_one": "Drain de chaleur",
       "name_other": "Drains de chaleur"
     },
     "heatMudAttack": {
-      "description": "Chauffe la boue dans l'arène pour faire des dégâts aux adversaires sales.",
       "name_one": "Attaque boue brûlante",
       "name_other": "Attaques boue brûlante"
     },
@@ -374,17 +367,14 @@
       "generalEffect": "demande de l'aide à **{{petNickname}}** qui, avec une indifférence remarquable, fixe l'adversaire d'un regard vide."
     },
     "lavaWaveAttack": {
-      "description": "Attaque très puissante utilisable en dernier recours et infligeant à coup sûr l'altération \"Brûlé\" à l'adversaire.",
       "name_one": "Attaque vague de lave",
       "name_other": "Attaque vagues de lave"
     },
     "magicMimicAttack": {
-      "description": "Permet de riposter après une attaque magique de l'adversaire.",
       "name_one": "Attaque mimique magique",
       "name_other": "Attaques mimique magiques"
     },
     "magmaBathAttack": {
-      "description": "S'applique au lanceur. Celui-ci se repose dans la lave et récupère son énergie. Le nombre de points de combats récupérés est divisé par 4 après 4 utilisations.",
       "customMessage": "part se baigner dans la lave et récupère de l'énergie.",
       "name_one": "Bain de magma",
       "name_other": "Bains de magma"
@@ -393,7 +383,6 @@
       "success": "reçoit l'aide de **{{petNickname}}** qui pétrifie son adversaire d'un coup d'œil."
     },
     "mudShotAttack": {
-      "description": "Attaque à distance qui inflige des dégâts et rend l'adversaire sale.",
       "name_one": "Attaque tir de boue",
       "name_other": "Attaques tir de boue"
     },
@@ -410,7 +399,6 @@
       "stop": "n'est plus en colère mais devient étourdi."
     },
     "outrageAttack": {
-      "description": "Échoue si vous utilisez cette action alors que vous avez une altération d'état. L'altération \"en colère\" double l'attaque mais baisse la défense. Au bout de 2 tours, l'effet disparait et l'attaquant devient confus.",
       "customMessage": "se met en colère.",
       "name_one": "Colère",
       "name_other": "Colères"
@@ -443,7 +431,6 @@
       "success": "est aidé par **{{petNickname}}** qui se décide enfin à charger l'adversaire avec force."
     },
     "petrificationAttack": {
-      "description": "Pétrifie la cible pendant 2 tours mais augmente sa défense de 200%.",
       "customMessage": "pétrifie son adversaire.",
       "name_one": "Pétrification",
       "name_other": "Pétrifications"
@@ -526,12 +513,10 @@
       "success": "est soutenu par **{{petNickname}}** qui blesse son adversaire suite à son attaque."
     },
     "roarAttack": {
-      "description": "Baisse l'attaque et la vitesse de l'adversaire.",
       "name_one": "Rugissement",
       "name_other": "Rugissements"
     },
     "rockShieldAttack": {
-      "description": "Réduit de moitié la prochaine attaque reçue.",
       "customMessage": "accumule de la roche pour se défendre...",
       "name_one": "Bouclier de roche",
       "name_other": "Bouclier de roche"
@@ -558,125 +543,103 @@
       "name_other": "Attaques simples"
     },
     "glacialCaveCollapseAttack": {
-      "description": "Fait s'effondrer des stalactites de glace depuis le plafond de la grotte.",
       "customMessage": "rugit si fort que des stalactites de glace se détachent du plafond ! Mais l'ennemi est suffisamment proche pour éviter l'attaque.",
       "name_one": "Attaque effondrement glacial",
       "name_other": "Attaques effondrements glaciaux"
     },
     "chargeChargeRadiantBlastAttack": {
-      "description": "Se prépare à lancer une attaque puissante.",
       "customMessage": "charge son énergie et se prépare à lancer une attaque puissante.",
       "name_one": "Attaque rayon radieux explosif",
       "name_other": "Attaques rayons radieux explosifs"
     },
     "chargeRadiantBlastAttack": {
-      "description": "Continue de se préparer à lancer une attaque puissante.",
       "customMessage": "continue de charger son énergie et de se préparer à lancer une attaque puissante.",
       "name_one": "Attaque rayon radieux explosif",
       "name_other": "Attaques rayons radieux explosifs"
     },
     "radiantBlastAttack": {
-      "description": "Lance une attaque puissante qui inflige des dégâts à l'adversaire et peut le brûler ou l'éblouir.",
       "name_one": "Attaque rayon radieux explosif",
       "name_other": "Attaques rayons radieux explosifs"
     },
     "hammerQuakeAttack": {
-      "description": "Frappe le sol avec une telle force qu'il provoque un tremblement de terre, infligeant des dégâts à tous les adversaires et ayant une chance de les étourdir.",
       "customMessage": "frappe le sol avec une force titanesque, provoquant un tremblement de terre ! Mais l'ennemi s'élève dans les airs avec son compagnon ailé, échappant aux secousses.",
       "name_one": "Attaque marteau sismique",
       "name_other": "Attaque marteaux sismiques"
     },
     "startPolarEmbraceAttack": {
-      "description": "Enserre sa cible dans ses griffes glacées, il ne sera pas simple de s'en libérer.",
       "customMessage": "ne parvient pas à attraper son adversaire qui la tient à distance respectable grâce à ses attaques",
       "name_one": "Attaque étreinte polaire",
       "name_other": "Attaques étreintes polaires"
     },
     "isStuckInPolarEmbrace": {
-      "description": "Inflige des dégâts à l'adversaire agrippée dans l'étreinte",
       "customMessage": "ne parvient pas à maintenir son accroche sur son adversaire qui parvient à se libérer grâce à ses attaques",
       "name_one": "Attaque étreinte polaire",
       "name_other": "Attaques étreintes polaires"
     },
     "glacialBreathAttack": {
-      "description": "Un souffle glacial qui inflige des dégâts à l'adversaire et peut le geler.",
       "name_one": "Attaque souffle glacial",
       "name_other": "Attaques souffles glacials"
     },
     "blizzardRageAttack": {
-      "description": "Un souffle de blizzard qui inflige des dégâts à l'adversaire et peut le geler.",
       "customMessage": "invoque la rage du blizzard sur son adversaire, mais les vents glacés font déjà rage dans l'arène.",
       "name_one": "Attaque rage de blizzard",
       "name_other": "Attaques rages de blizzard"
     },
     "aerialDiveAttack": {
-      "description": "Un plongeon aérien qui inflige des dégâts à l'adversaire. Ne fonctionne pas si l'adversaire utilise une attaque à distance.",
       "customMessage": "s'élance dans les airs pour plonger sur son adversaire, mais celui-ci parvient à le maintenir à distance grâce à ses attaques.",
       "name_one": "Attaque plongée aérienne",
       "name_other": "Attaques plongées aériennes"
     },
     "crystallineArmorAttack": {
-      "description": "Une attaque qui utilise l'armure cristalline de l'adversaire pour infliger des dégâts. N'infligera des dégâts que si l'adversaire vient de faire une attaque physique.",
       "customMessage": "fait briller son armure cristalline dans l'espoir de blesser son adversaire, mais les pointes acérées n'ont pas été touchées.",
       "name_one": "Attaque armure cristalline",
       "name_other": "Attaques armures cristallines"
     },
 
     "icySeductionAttack": {
-      "description": "Utilise un charme envoûtant et froid qui peut geler ou rendre confus l'adversaire en plus de lui infliger des dégâts.",
       "name_one": "Attaque séduction glaciale",
       "name_other": "Attaque séductions glaciales"
     },
     "frozenKissAttack": {
-      "description": "Dépose un baiser glacial sur son adversaire, si l'adversaire était déjà gelé, cette attaque lui infligera moins de dégâts.",
       "name_one": "Attaque baiser gelé",
       "name_other": "Attaques baisers gelés"
     },
     "spectralRevengeAttack": {
-      "description": "Si la dernière attaque subie n'était pas magique, contre-attaque en infligeant des dégâts à son assaillant.",
       "customMessage": "ne parvient pas à se venger de son adversaire.",
       "name_one": "Revanche spectrale",
       "name_other": "Revanches spectrales"
     },
     "ambush": {
-      "description": "Le combattant se cache pour préparer une embuscade. La prochaine attaque infligera plus de dégâts et l'adversaire ne peut pas être attaqué.",
       "customMessage": "se cache pour préparer une embuscade...",
       "name_one": "Embuscade",
       "name_other": "Embuscades"
     },
     "tailWhipAttack": {
-      "description": "Utilise sa puissante queue pour frapper l'adversaire, infligeant des dégâts moyens et ayant une chance d'étourdir.",
       "name_one": "Attaque coup de queue",
       "name_other": "Attaques coups de queue"
     },
     "lightRayAttack": {
-      "description": "Une puissant rayon de lumière qui inflige des dégâts à l'adversaire et peut le brûler.",
       "name_one": "Attaque rayon de lumière",
       "name_other": "Attaques rayon de lumière"
     },
     "crystalShardAttack": {
-      "description": "Une attaque à distance qui inflige des dégâts plus importants sur les adversaire plus lent.",
       "name_one": "Attaque éclat de cristal",
       "name_other": "Attaques éclats de cristal"
     },
     "clawAttack": {
-      "description": "Une attaque basé sur un violent coup de griffe.",
       "name_one": "Attaque griffe",
       "name_other": "Attaques griffes"
     },
     "callPack": {
-      "description": "Appelle votre meute pour vous aider et attaquer.",
       "customMessage": "appelle sa meute d'un hurlement strident.",
       "name_one": "Appel à la meute",
       "name_other": "Appels à la meute"
     },
     "packAttack": {
-      "description": "Attaque de meute qui inflige des dégâts.",
       "name_one": "Attaque de meute",
       "name_other": "Attaques de meute"
     },
     "slamAttack": {
-      "description": "Attaque faible-moyenne qui réduit la vitesse de l'adversaire.",
       "name_one": "Attaque impact",
       "name_other": "Impacts"
     },
@@ -717,13 +680,11 @@
       "success": "demande l'aide de **{{petNickname}}** qui s'élance bravement et s'empare de l'arme ennemie dans un acte de hardiesse."
     },
     "stealth": {
-      "description": "Se cache discrètement pour doubler les dégâts de la prochaine attaque.",
       "customMessage": "se cache discrètement pour effectuer des préparatifs augmentant les dégâts de sa prochaine attaque...",
       "name_one": "Discrétion",
       "name_other": "Discrétions"
     },
     "stoneSkinAttack": {
-      "description": "Plus cette action est effectuée à la suite, plus le bonus de défense est important.",
       "customMessage": "durcit sa peau et se protège.",
       "name_one": "Peau de roche",
       "name_other": "Peaux de roche"
@@ -735,7 +696,6 @@
       "stop": "n'est plus étourdi."
     },
     "summonAttack": {
-      "description": "Invoque des alliés pour vous aider et attaquer très fort.",
       "name_one": "Invocation d'alliés",
       "name_other": "Invocations d'alliés"
     },
@@ -758,7 +718,6 @@
       "success": "fait appel à **{{petNickname}}** qui, malgré une détermination féroce et des efforts acharnés, ne parvient qu'à infliger un impact négligeable sur le combat."
     },
     "ultimateAttack": {
-      "description": "",
       "name_one": "Attaque ultime",
       "name_other": "Attaques ultimes"
     },
@@ -778,12 +737,10 @@
       "stop": "n'est plus affaibli."
     },
     "webShotAttack": {
-      "description": "Envoie un jet de toile qui blesse et ralentit l'adversaire.",
       "name_one": "Attaque jet de toile",
       "name_other": "Attaques jets de toile"
     },
     "hardBiteAttack": {
-      "description": "Inflige des dégâts et fais saigner l'adversaire.",
       "name_one": "Attaque morsure puissante",
       "name_other": "Attaques morsures puissantes"
     },
@@ -794,7 +751,6 @@
       "stop": "n'est plus en train de saigner."
     },
     "howlAttack": {
-      "description": "Pousse un hurlement pour augmenter une statistique au hasard.",
       "customMessage": "hurle au ciel.",
       "name_one": "Hurlement",
       "name_other": "Hurlements"
