@@ -6,14 +6,7 @@ import {
 	NotificationsConfigurations
 } from "../../database/discord/models/NotificationsConfiguration";
 import {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonInteraction,
-	ButtonStyle,
-	InteractionResponse,
-	Message,
-	parseEmoji,
-	User
+	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji, User
 } from "discord.js";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -80,22 +73,28 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	}
 
 	// Build and send the message
-	let msg: Message<boolean> | InteractionResponse<boolean> | null;
+	let reply;
 	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng);
-	const msgOption = {
-		embeds: [embed],
-		components: [row]
-	};
 	if (!interaction.isButton()) {
-		msg = await interaction.reply(msgOption);
+		reply = await interaction.reply({ // Reply is picky on the signature, so the options can't be factorized into a single variable
+			embeds: [embed],
+			components: [row],
+			withResponse: true
+		});
 	}
 	else {
-		msg = await (interaction as ButtonInteraction).update(msgOption);
+		reply = await (interaction as ButtonInteraction).update({
+			embeds: [embed],
+			components: [row],
+			withResponse: true
+		});
 	}
 
-	if (!msg) {
+	if (!reply?.resource?.message) {
 		return;
 	}
+
+	const msg = reply.resource.message;
 
 	// Create the collector
 	const buttonCollector = msg.createMessageComponentCollector({

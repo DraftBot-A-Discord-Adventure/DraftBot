@@ -1,5 +1,6 @@
 import {
-	CommandClassesInfoPacketReq, CommandClassesInfoPacketRes
+	CommandClassesInfoPacketReq,
+	CommandClassesInfoPacketRes
 } from "../../../../Lib/src/packets/commands/CommandClassesInfoPacket";
 import {
 	makePacket, PacketContext
@@ -13,7 +14,11 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import { ClassInfoConstants } from "../../../../Lib/src/constants/ClassInfoConstants";
 import { Language } from "../../../../Lib/src/Language";
 import {
-	ActionRowBuilder, EmbedField, StringSelectMenuBuilder, StringSelectMenuInteraction, StringSelectMenuOptionBuilder
+	ActionRowBuilder,
+	EmbedField,
+	StringSelectMenuBuilder,
+	StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder
 } from "discord.js";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -141,13 +146,15 @@ export async function handleCommandClassesInfoPacketRes(packet: CommandClassesIn
 		.addOptions(classesMenuOptions);
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(classSelectionMenu);
-	const msg = await interaction.reply({
+	const reply = await interaction.reply({
 		embeds: [classListEmbed],
-		components: [row]
+		components: [row],
+		withResponse: true
 	});
-	if (!msg) {
+	if (!reply?.resource?.message) {
 		return;
 	}
+	const msg = reply.resource.message;
 	const collector = msg.createMessageComponentCollector({
 		filter: menuInteraction => menuInteraction.customId === ClassInfoConstants.MENU_IDS.CLASS_SELECTION,
 		time: Constants.MESSAGES.COLLECTOR_TIME

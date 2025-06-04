@@ -40,19 +40,21 @@ async function getPacket(interaction: DraftbotInteraction, keycloakUser: Keycloa
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 		.addComponents(languageSelectionMenu);
 
-	const msg = await interaction.reply({
+	const reply = await interaction.reply({
 		embeds: [
 			new DraftBotEmbed()
 				.setTitle(i18n.t("commands:language.title", { lng }))
 				.setDescription(i18n.t("commands:language.description", { lng }))
 		],
-		components: [row]
+		components: [row],
+		withResponse: true
 	});
 
-	if (!msg) {
+	if (!reply?.resource?.message) {
 		return null;
 	}
 
+	const msg = reply.resource.message;
 	const collector = msg.createMessageComponentCollector({
 		filter: menuInteraction => menuInteraction.customId === selectLanguageMenuId,
 		time: Constants.MESSAGES.COLLECTOR_TIME

@@ -9,7 +9,14 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import { DiscordCache } from "../bot/DiscordCache";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, InteractionCallbackResponse, InteractionResponse, Message, MessageComponentInteraction, parseEmoji
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonInteraction,
+	ButtonStyle,
+	InteractionCallbackResponse,
+	Message,
+	MessageComponentInteraction,
+	parseEmoji
 } from "discord.js";
 import { DraftBotIcons } from "../../../Lib/src/DraftBotIcons";
 import { DraftBotEmbed } from "../messages/DraftBotEmbed";
@@ -304,12 +311,21 @@ export class DiscordCollectorUtils {
 		const sendManner = getSendingManner(interaction, options.sendManners);
 
 		// Edit message
-		const msg: Message | InteractionResponse | InteractionCallbackResponse | null = await MANNER_TO_METHOD[sendManner](interaction)({
+		const reply: Message | InteractionCallbackResponse | null = await MANNER_TO_METHOD[sendManner](interaction)({
 			components: rows,
+			withResponse: true,
 			...embed instanceof DraftBotEmbed
 				? { embeds: [embed] }
 				: { content: embed }
 		});
+
+		let msg;
+		if (reply instanceof InteractionCallbackResponse) {
+			msg = reply.resource?.message;
+		}
+		else {
+			msg = reply;
+		}
 
 		if (!msg) {
 			return null;

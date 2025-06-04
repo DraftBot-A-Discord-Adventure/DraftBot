@@ -199,14 +199,16 @@ export class DraftbotInteraction extends DraftbotInteractionWithoutSendCommands 
 	}
 
 	public async reply(options: InteractionReplyOptions & { withResponse: true }, fallback?: () => void | Promise<void>): Promise<InteractionCallbackResponse | null>;
-	public async reply(options: string | MessagePayload | InteractionReplyOptions & { withResponse?: false }, fallback?: () => void | Promise<void>): Promise<InteractionResponse | null>;
+
+	// Yes, we need to omit createMessageComponentCollector because the response is not a message and so the collectors are created on the interaction and not the message, and it mixes everything up
+	public async reply(options: string | MessagePayload | InteractionReplyOptions & { withResponse?: false }, fallback?: () => void | Promise<void>): Promise<Omit<InteractionResponse, "createMessageComponentCollector"> | null>;
 
 	/**
 	 * Send a reply to the user
 	 * @param options classic discord.js send options
 	 * @param fallback function to execute if the bot can't send the message
 	 */
-	public async reply<T extends string | MessagePayload | InteractionReplyOptions>(options: T, fallback?: () => void | Promise<void>): Promise<ReturnType<T> | null> {
+	public async reply<T extends string | MessagePayload | InteractionReplyOptions>(options: T, fallback?: () => void | Promise<void>): Promise<Omit<ReturnType<T>, "createMessageComponentCollector"> | null> {
 		return await (DraftbotInteraction.prototype.commonSendCommand<T>).call(
 			this,
 			(CommandInteraction.prototype.reply as ReplyFunctionLike<T>).bind(this),
