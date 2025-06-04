@@ -33,7 +33,7 @@
     "embedTitle": "Gremio {{guildName}} | Nivel {{level}}",
     "description": ":scroll:{{description}}`",
     "separator": " | ",
-    "memberInfos": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
+    "memberInfo": "{{icon}} - **{{pseudo}}** ({{ranking}} :trophy: | {{score}} :medal:{{islandStatusIcon}})\n",
     "members": ":person_pouting: {{memberCount}}/{{maxGuildMembers}} membres",
     "infoTitle": "Información",
     "islandInfo": ":island: Nombre d'alliés sur l'île mystérieuse : {{membersOnPveIsland}\n",
@@ -375,7 +375,8 @@
       "funny": ":joy: Insignia entregada a una persona divertida",
       "rich": ":money_mouth: Insignia comprada en la tienda",
       "top_1_before_reset": ":first_place: Persona que alcanzó la cima de la clasificación tras el reinicio`.",
-      "very_powerful_guild": ":mirror_ball: Miembro de un gremio muy poderoso"
+      "very_powerful_guild": ":mirror_ball: Miembro de un gremio muy poderoso",
+      "animal_lover": "Persona que mostró todas las mascotas a Talvar el enano"
     },
     "fightRanking": {
       "fieldName": "Gloria y liga :",

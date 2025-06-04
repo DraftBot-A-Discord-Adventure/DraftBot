@@ -216,7 +216,7 @@
     "È possibile liberare un solo animale domestico all'ora.",
     "Non si può entrare in un'isola misteriosa se si è appena entrati in una gilda.",
     "Si dice che gli equipaggiamenti rari diventino più economici nei pressi della Via delle Meraviglie.",
-    "I giocatori di bonneteau si tengono alla larga dalla The Road Of Wonders e dalla Marshy Road, poiché si dice che uno spirito si aggiri lì e li attacchi in modo specifico.",
+    "Les joueurs de bonneteau se tiennent à l'écart de la route des merveilles, la route marécageuse et du mont célestrum car on raconte qu'un esprit y rôde et s'attaque spécifiquement à eux.",
     "Avete trovato tutti i piccoli segreti sulla mappa?",
     "Le gilde possono livellare fino al livello 150.",
     "Non esitate a recarvi dal veterinario per far valutare l'età del vostro animale.",
@@ -229,6 +229,11 @@
     "Si dice che i giocatori di bonneteau evitino la Marshy Road.",
     "Si dice che i giocatori del gioco del bonneteau evitino il Mount Celestrum.",
     "Si dice che un nano che vive sulle montagne del Monte Celestrum abbia un'eccedenza di gemme.",
-    "I nani del Monte Celestrum sono famosi per il loro amore per gli animali."
+    "I nani del Monte Celestrum sono famosi per il loro amore per gli animali.",
+    "Les potions légendaires et mythiques ne sont pas disponibles en potion du jour.",
+    "Les potions sans effet ne sont pas disponibles en potion du jour.",
+    "Durant un combat, il n'est pas possible d'avoir deux altérations d'état en même temps.",
+    "Il existe une centaine de familiers différents.",
+    "Il parait que le nain du mont Célestrum est un grand amateur d'animaux."
   ]
 }

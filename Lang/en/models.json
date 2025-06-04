@@ -144,7 +144,7 @@
       "stop": "regains their sight."
     },
     "boomerangAttack": {
-      "description": "Throws a boomerang that deals damage to the enemy up to 3 times.",
+      "description": "This attack can inflict damages up to 2 additional times.",
       "name_one": "Boomerang attack",
       "name_other": "Boomerang attacks"
     },
@@ -155,7 +155,6 @@
       "success": "rides on the back of **{{petNickname}}** to move faster."
     },
     "boulderTossAttack": {
-      "description": "Average attack that has a chance to stun the opponent.",
       "name_one": "Boulder toss",
       "name_other": "Boulder tosses"
     },
@@ -179,17 +178,16 @@
       "name_other": "Cannon attacks"
     },
     "chargeChargingAttack": {
-      "description": "2-turn attack. During the first round, the caster's defense is increased by 50%. During the second round, the caster's defense is reset to its initial level.",
+      "description": "Attacks for 2 turns. During the first turn, the user's defense is increased by 50%. During the second turn, the user's defense is decreased, dealing heavy damage in the process.",
       "name_one": "Charging attack",
       "name_other": "Charging attacks"
     },
     "chargeClubSmashAttack": {
-      "description": "Requires one turn to charge the attack. Delivers a powerful charge the following turn.",
       "name_one": "Club smash",
       "name_other": "Club smashes"
     },
     "chargeUltimateAttack": {
-      "description": "Requires a turn to charge the attack. If the attacker has less than 45% of their remaining energy, this attack won't fail. Otherwise, its precision is 70. This attack can only be used once per player and per fight.",
+      "description": "Requires one turn to charge the attack. If the attacker has less than 45% of their energy, this attack cannot miss. This attack can only be used once per player per battle.",
       "name_one": "Ultimate attack",
       "name_other": "Ultimate attacks"
     },
@@ -246,12 +244,12 @@
       "stop": "suffers the consequences of the curse."
     },
     "cursedAttack": {
-      "description": "Curses the opponent, maybe he will suffer the consequences in the future...",
+      "description": "Curse the opponent, perhaps he will suffer the consequences in the future... Heals the caster if the opponent has more than 40% of his energy.",
       "name_one": "Cursed attack",
       "name_other": "Cursed attacks"
     },
     "darkAttack": {
-      "description": "Ignores the opponent's defense. More effective against a player with a high attack.",
+      "description": "Ignores the opponent's defense. Most effective against a player with high attack. Blinds the opponent or restores some of the user's lost breath. The \"blinded\" debuff lasts at least 1 turn and sometimes renders the opponent unable to attack, while also reducing their defense and speed.",
       "name_one": "Dark attack",
       "name_other": "Dark attacks"
     },
@@ -278,23 +276,21 @@
       "afraid": "is aided by **{{petNickname}}** who, despite remembering recent events perfectly, trembles too much with fear to be able to restore lost breath."
     },
     "energeticAttack": {
-      "description": "Half of the damage dealt by this attack is restored to the caster in the form of healing.",
+      "description": "Half of this attack's damage is returned to the caster as healing. Ignores part of the enemy's defense.",
       "name_one": "Energetic attack",
       "name_other": "Energetic attacks"
     },
     "eruptionAttack": {
-      "description": "The volcano erupts and spits molten rock at players, with only the fastest able to avoid damage.",
       "customMessage": "causes the volcano to erupt, with only the fastest opponents able to avoid the eruption.",
       "name_one": "Eruption",
       "name_other": "Eruptions"
     },
     "familyMealAttack": {
-      "description": "Summons allies to eat the target and poison them.",
       "name_one": "Family meal",
       "name_other": "Family meals"
     },
     "fireAttack": {
-      "description": "Great chance to burn your opponent. The \"burned\" alteration inflicts damage on your opponent over time.",
+      "description": "Burns the opponent. The \"burned\" condition inflicts damage to your opponent over time.",
       "name_one": "Fire attack",
       "name_other": "Fire attacks"
     },
@@ -323,7 +319,6 @@
       "success": "orders **{{petNickname}}** to attack. The animal bursts into a rage and starts hitting everything in sight."
     },
     "grabAndThrowAttack": {
-      "description": "Throws the opponent if he uses a physical attack, inflicting average damage and having a chance to stun the opponent",
       "name_one": "Grab and throw attack",
       "name_other": "Grab and throw attacks"
     },
@@ -340,18 +335,16 @@
       "success": "is treated by **{{petNickname}}** who gives him back his energy."
     },
     "heatDrainAttack": {
-      "description": "Drains the player's heat, which increases the launcher's attack and freezes the opponent.",
-      "customMessage": "drains your heat.",
+      "customMessage": "drains the heat of his opponent.",
       "name_one": "Heat drain",
       "name_other": "Heat drains"
     },
     "heatMudAttack": {
-      "description": "Heat up the mud in the arena to wreak havoc on dirty opponents.",
       "name_one": "Burning mud attack",
       "name_other": "Burning mud attacks"
     },
     "heavyAttack": {
-      "description": "The damage of this attack is reduced by 90% if the defender has less defense than the attacker. Enemy defense is reduced by 25%.",
+      "description": "Fails if the defender has less defense than the attacker. The enemy's defense is reduced by 25%.",
       "name_one": "Heavy attack",
       "name_other": "Heavy attacks"
     },
@@ -366,7 +359,7 @@
       "success": "is helped by **{{petNickname}}** who uses his hypnotic powers to confuse the enemy."
     },
     "intenseAttack": {
-      "description": "Ignores part of your opponent's defense. Never fails on a faster opponent. Works best on a fast opponent. Forces the caster to use the \"rest\" action next turn. Cannot kill opponent.",
+      "description": "Defense effectively protects against this attack. Never fails on a faster opponent. Works best on a faster opponent. Forces the user to use the \"rest\" action on the next turn. Cannot kill the opponent.",
       "name_one": "Intense attack",
       "name_other": "Intense attacks"
     },
@@ -374,17 +367,14 @@
       "generalEffect": "asks for help from **{{petNickname}}** who, with remarkable indifference, stares blankly at his opponent."
     },
     "lavaWaveAttack": {
-      "description": "Very powerful attack that can only be used as a last resort and inflicts the \"Burned\" alteration to the opponent.",
       "name_one": "Lava wave",
       "name_other": "Lava waves"
     },
     "magicMimicAttack": {
-      "description": "Allows you to strike back after an opponent's magic attack.",
       "name_one": "Magic mimic attack",
       "name_other": "Magic mimic attacks"
     },
     "magmaBathAttack": {
-      "description": "Applies to the launcher. He rests in the lava and recovers his energy. The amount of energy recovered is divided by 4 after 4 uses.",
       "customMessage": "bathes in the lava and recovers energy.",
       "name_one": "Magma bath",
       "name_other": "Magma baths"
@@ -393,7 +383,6 @@
       "success": "receives help from **{{petNickname}}** who petrifies his opponent with a glance."
     },
     "mudShotAttack": {
-      "description": "Ranged attack that inflicts damage and makes the opponent dirty.",
       "name_one": "Mud shot attack",
       "name_other": "Mud shot attacks"
     },
@@ -410,7 +399,6 @@
       "stop": "is no longer angry but becomes giddy."
     },
     "outrageAttack": {
-      "description": "Fails if you use this action while altered. The \"angry\" alteration doubles attack but lowers defense. After 2 turns, the effect disappears and the attacker becomes confused.",
       "customMessage": "gets angry.",
       "name_one": "Outrage",
       "name_other": "Outrages"
@@ -443,7 +431,6 @@
       "success": "is helped by **{{petNickname}}** who finally decides to charge his opponent with force."
     },
     "petrificationAttack": {
-      "description": "Petrifies the target during 2 turns but raises its defense by 200%.",
       "customMessage": "petrifies his opponent.",
       "name_one": "Petrification",
       "name_other": "Petrifications"
@@ -469,7 +456,7 @@
       "stop": "is no longer poisoned."
     },
     "poisonousAttack": {
-      "description": "Poisons the opponent. The \"poisoned\" alteration lasts at least three turns and inflicts damage on your opponent over time.",
+      "description": "Most effective at the start of a fight. Poisons the opponent. The \"poisoned\" condition lasts at least three turns and inflicts damage to your opponent over time.",
       "name_one": "Poisonous attack",
       "name_other": "Poisonous attacks"
     },
@@ -478,7 +465,7 @@
       "success": "receives support from **{{petNickname}}** who decides to bite his opponent... The latter is suddenly not feeling well."
     },
     "powerfulAttack": {
-      "description": "This attack has a 25% chance of doing more damage, at the cost of stunning the attacker. After 3 uses, the attack's damage is reduced by 70%.",
+      "description": "This attack has a 25% chance to do more damage at the cost of a stun of the attacker. Reduces opponent speed. For 3 uses, 70% of attack damage is reduced.",
       "name_one": "Powerful Attack",
       "name_other": "Powerful Attacks"
     },
@@ -526,12 +513,10 @@
       "success": "is supported by **{{petNickname}}** who injures his opponent following his attack."
     },
     "roarAttack": {
-      "description": "Lowers the attack and speed of the adversary.",
       "name_one": "Roar",
       "name_other": "Roars"
     },
     "rockShieldAttack": {
-      "description": "Halves the damages of the next attack received.",
       "customMessage": "accumulates rock to defend itself...",
       "name_one": "Stone shield",
       "name_other": "Stone shields"
@@ -548,7 +533,7 @@
       "generalEffect": "is assisted by **{{petNickname}}** which scares the fish away."
     },
     "shieldAttack": {
-      "description": "Uses the attacker's shield to attack. The alteration \"weakened\" reduces the attack by 70% for 2 turns.",
+      "description": "Use the attacker's defense to attack, weakening the opponent, reducing their attack by 70% for 2 rounds.",
       "name_one": "Shield attack",
       "name_other": "Shield attacks"
     },
@@ -557,8 +542,103 @@
       "name_one": "Simple attack",
       "name_other": "Simple attacks"
     },
+    "glacialCaveCollapseAttack": {
+      "customMessage": "roars so loud that ice stalactites stand out from the ceiling! But the enemy is close enough to avoid attack.",
+      "name_one": "Coldbreakdown attack",
+      "name_other": "Frost Fall Attacks"
+    },
+    "chargeChargeRadiantBlastAttack": {
+      "customMessage": "loads its power and prepares itself to launch a powerful attack.",
+      "name_one": "Radiant explosive attack",
+      "name_other": "Radiant Explosive Attacks"
+    },
+    "chargeRadiantBlastAttack": {
+      "customMessage": "continues to charge its power and prepare to launch a powerful attack.",
+      "name_one": "Radiant explosive attack",
+      "name_other": "Radiant Explosive Attacks"
+    },
+    "radiantBlastAttack": {
+      "name_one": "Radiant explosive attack",
+      "name_other": "Radiant Explosive Attacks"
+    },
+    "hammerQuakeAttack": {
+      "customMessage": "hit the ground with a titanic force, provoking an earthquake! But the enemy jumped up in the air with his winged companion, escaping from the jolt.",
+      "name_one": "Seismic Hammer Attack",
+      "name_other": "Seismic Hammer Attack"
+    },
+    "startPolarEmbraceAttack": {
+      "customMessage": "failed to catch his opponent who kept him from a respectable distance due to his attacks",
+      "name_one": "Polar Embrace Attack",
+      "name_other": "Polar Plate Attacks"
+    },
+    "isStuckInPolarEmbrace": {
+      "customMessage": "fails to keep its hook on its opponent who manages to fend off because of his attacks",
+      "name_one": "Polar Embrace Attack",
+      "name_other": "Polar Plate Attacks"
+    },
+    "glacialBreathAttack": {
+      "name_one": "Chillbreath Attack",
+      "name_other": "Frost Breath Attacks"
+    },
+    "blizzardRageAttack": {
+      "customMessage": "summons the blizzard's rage at his opponent, but the icy winds are already raging in the area.",
+      "name_one": "blizzard rage attack",
+      "name_other": "blizzard rage attacks"
+    },
+    "aerialDiveAttack": {
+      "customMessage": "flew into the air to dive into his opponent, but he manages to keep him at a distance thanks to his attacks.",
+      "name_one": "Aether Plunge Attack",
+      "name_other": "Aetheric Plunge Attacks"
+    },
+    "crystallineArmorAttack": {
+      "customMessage": "makes its crystalline armor shine in the hope of injuring its opponent, but the tipped spikes have not been hit.",
+      "name_one": "Crystal Armor Attack",
+      "name_other": "Crystal Armor Attacks"
+    },
+    "icySeductionAttack": {
+      "name_one": "Icy Deduction Attack",
+      "name_other": "Frost Deduction Attack"
+    },
+    "frozenKissAttack": {
+      "name_one": "Frozen Kiss Attack",
+      "name_other": "Kissed Attacks"
+    },
+    "spectralRevengeAttack": {
+      "customMessage": "failed to avenge his opponent.",
+      "name_one": "Spectral Revenge",
+      "name_other": "Spectral Revapors"
+    },
+    "ambush": {
+      "customMessage": "hiding to prepare ambush...",
+      "name_one": "Ambush",
+      "name_other": "Ambush"
+    },
+    "tailWhipAttack": {
+      "name_one": "Tail Strike Attack",
+      "name_other": "Tail Strikes"
+    },
+    "lightRayAttack": {
+      "name_one": "Light Radius Attack",
+      "name_other": "Light Radius Attack"
+    },
+    "crystalShardAttack": {
+      "name_one": "Crystal Shard Attack",
+      "name_other": "Crystal Shards Attacks"
+    },
+    "clawAttack": {
+      "name_one": "Claw Attack",
+      "name_other": "Claw Attacks"
+    },
+    "callPack": {
+      "customMessage": "calls his pack with a strident howl.",
+      "name_one": "Call to Pack",
+      "name_other": "Pack calls"
+    },
+    "packAttack": {
+      "name_one": "Pack Attack",
+      "name_other": "Pack Attacks"
+    },
     "slamAttack": {
-      "description": "Below average attack that reduces the speed of the opponent.",
       "name_one": "Slam attack",
       "name_other": "Slam attacks"
     },
@@ -599,13 +679,11 @@
       "success": "asks for help from **{{petNickname}}** who bravely dashes forward and seizes the enemy's weapon in an act of boldness."
     },
     "stealth": {
-      "description": "Discreetly hides to double the damage of the next attack.",
       "customMessage": "discreetly hides to make preparations that will increase the damage of his next attack...",
       "name_one": "Stealth",
       "name_other": "Stealth"
     },
     "stoneSkinAttack": {
-      "description": "More this action is done, more the defense boost is important.",
       "customMessage": "hardens its skin and protects itself.",
       "name_one": "Stone skin",
       "name_other": "Stone skins"
@@ -617,7 +695,6 @@
       "stop": "is no longer dizzy."
     },
     "summonAttack": {
-      "description": "Summons allies to help you and attack very hard.",
       "name_one": "Ally Summoning",
       "name_other": "Ally Summoning"
     },
@@ -640,7 +717,6 @@
       "success": "calls on **{{petNickname}}** who, despite fierce determination and relentless efforts, only manages to inflict a negligible impact on the fight."
     },
     "ultimateAttack": {
-      "description": "",
       "name_one": "Ultimate attack",
       "name_other": "Ultimate attacks"
     },
@@ -660,9 +736,23 @@
       "stop": "is no longer weakened."
     },
     "webShotAttack": {
-      "description": "Do a web shot that hurts and slows the opponent.",
       "name_one": "Web shot",
       "name_other": "Web shots"
+    },
+    "hardBiteAttack": {
+      "name_one": "Powerful Bite Attack",
+      "name_other": "Powerful Bite Attacks"
+    },
+    "bleeding": {
+      "name": "is bleeding",
+      "new": "bleeding.",
+      "active": "bleeding.",
+      "stop": "is no longer bleeding."
+    },
+    "howlAttack": {
+      "customMessage": "Howls in the sky.",
+      "name_one": "Howl",
+      "name_other": "Howls"
     }
   },
   "leagues": {
@@ -729,34 +819,39 @@
       "particle": "of the"
     },
     "1101": {
-      "description": "As its name indicates, this vast expanse of frozen land is not conducive to rest. Very cold and very dry, there remain however some robust trees.",
-      "name": "Frozen tundra",
+      "description": "An area of frozen land or climate is merciless. Permanent snow conditions make it difficult to make progress and mapping of the place, where all types of arctic animals can be crossed.",
+      "name": "Tundra",
       "particle": "of the"
     },
     "1102": {
-      "description": "Large frozen lake, the lake of knowledge is a calm and restful place. You can hear a fine breeze sliding on the ice of the lake. Ideal to meditate after exploring this immense wild island.",
-      "name": "Lake of knowledge",
-      "particle": "of the"
-    },
-    "1103": {
-      "description": "A very large plain where many snowmen are built. Who created the first snowman? Nobody knows. It's far too cold for them to melt. However, some travelers have fun creating new ones.",
-      "name": "Snowmen plain",
-      "particle": "of the"
-    },
-    "1104": {
-      "description": "A magnificent ice cave. Hundreds of stalactites and stalagmites decorate this cave. A natural light illuminates these ice crystals and gives the impression of thousands of stars. If we forget the hundreds of explorers' corpses that have slipped and impaled themselves on the stalagmites, this cave is of an incredible beauty or of a sadness without name. The crystal cave is a dangerous way to reach for the top of the snowy peak.",
+      "description": "A large cave in which any sunshine that comes in is multiply by the crystals making the crystal bright in it. Sharp stalactites and sharp stalagmites, synonyms of serious injuries and deadly injuries if one of them falls on us or takes a step of the way, form the caves of the cave. If you dare to venture further, you will have to choose whether to climb to the top of the snowy peak or go deeper still.",
       "name": "Crystal cave",
       "particle": "of the"
     },
-    "1105": {
-      "description": "This cave, very similar to its sister, the Crystal Cave, has a great advantage. It leads to the snowy peak through the depths of the earth. It is a long way on the ice and the rock. It owes its name to the caves that go deep underground and show beautiful ice formations.",
-      "name": "Cavern heart of ice",
+    "1103": {
+      "description": "Two majestic doors are located at the top of a long range of walks and climbing them will not be easy. It is said that they were built by an ancient civilization in honour of a deity.",
+      "name": "Sacred Doors",
       "particle": "of the"
     },
-    "1106": {
-      "description": "This gigantic peak dominates the whole island. It is visible from miles around. Very difficult to access, the snowy peak shelters old wooden structures dating from an ancient civilization. The two paths leading to it being very perilous, few people have been able to see these structures with their own eyes.",
+    "1104": {
+      "description": "In the mountain chain, this peak is marked by the violence of its snowstorms and the speed of its winds. It is so high that oxygen is rare and the risk of dying of cold is high if you have not already succumbed to wild animals…",
       "name": "Snowy peak",
+      "particle": "of"
+    },
+    "1105": {
+      "description": "A large lake in the heart of the mountain whose crossing is not without risk. As the temperature is cold, the fact that it is not frozen remains a mystery. No one knows its depth or its wildlife.",
+      "name": "Underground Lake",
+      "particle": "of"
+    },
+    "1106": {
+      "description": "An abandoned rich village of which only ruins and settlements remain. Here you can see the roof of a manor that bent under the weight of the bell of the collapsed church. There is a silence sometimes interrupted by the cries of suffering of the railway stations.",
+      "name": "Village devastated",
       "particle": "of the"
+    },
+    "1107": {
+      "description": "No one has yet ventured to the point. In the distance, you see a gigantic silhouette fleeting on an ice wall.",
+      "name": "Ice Nest",
+      "particle": "of"
     },
     "12": {
       "description": "A great empty Nordic plain, without much interest.",
@@ -931,7 +1026,7 @@
       "prefix": "of the"
     },
     "crystalCavern": {
-      "name": "Crystal cavern",
+      "name": "Crystal cave",
       "prefix": "of the"
     },
     "de": {
@@ -944,14 +1039,6 @@
     },
     "iceBeach": {
       "name": "Ice beach",
-      "prefix": "of the"
-    },
-    "iceCavern": {
-      "name": "Ice cavern",
-      "prefix": "of the"
-    },
-    "iceLake": {
-      "name": "Frozen lake",
       "prefix": "of the"
     },
     "la": {
@@ -986,14 +1073,6 @@
       "name": "Ruins",
       "prefix": "of the"
     },
-    "snowMountain": {
-      "name": "Peak",
-      "prefix": "of the"
-    },
-    "snowmenField": {
-      "name": "Plain",
-      "prefix": "of the"
-    },
     "testZone": {
       "name": "",
       "prefix": "of the"
@@ -1008,6 +1087,22 @@
     },
     "volcano": {
       "name": "Volcano",
+      "prefix": "of the"
+    },
+    "blessedDoors": {
+      "name": "",
+      "prefix": "of the"
+    },
+    "icePeak": {
+      "name": "Peak",
+      "prefix": "of the"
+    },
+    "undergroundLake": {
+      "name": "Lake",
+      "prefix": "of the"
+    },
+    "dragonsNest": {
+      "name": "",
       "prefix": "of the"
     }
   },
@@ -1120,6 +1215,34 @@
     "slimyMutant": {
       "name": "Slimy Mutant",
       "description": "The Slime Mutant is a monster that can copy other monsters or its opponent directly. It is highly versatile and can adapt to any situation."
+    },
+    "whiteWolf": {
+      "name": "White Wolf",
+      "description": "A felicitous and agile predator. Its sealed claws could seal your fate. The cold and winding trails offer a great advantage in the face of reckless adventurers."
+    },
+    "shinyElementary": {
+      "name": "Glossy elementary",
+      "description": "A cave crystals. It won't behave to use its elementary powers to get you to the other end of the way."
+    },
+    "crocodile": {
+      "name": "Crocodile",
+      "description": "A terrifying crocodile, looking for an adventurer to make it his feast."
+    },
+    "yukiOnna": {
+      "name": "Yuki-Onna",
+      "description": "A snow-minded woman. She's beautiful but also dangerous. She can freeze her prey with a simple glance and make them disappear into the snow."
+    },
+    "celestialGuardian": {
+      "name": "This Keeper",
+      "description": "The guardian of the sacred gates. Empowering adventurers is his duty, and he will use his divine hammer to make you understand that you are not welcome."
+    },
+    "maleIceDragon": {
+      "name": "Ice Lord",
+      "description": "A majestic dragon with crystalline scale that reigns from the icy peaks. Perched on the highest peaks, he watched his territory with a watchful eye. Its icy breath can turn an adventurer into an ice statue in a few seconds, and its tight greenhouses allow it to melt on its prey from heights with deadly precision."
+    },
+    "femaleIceDragon": {
+      "name": "Ice Queen",
+      "description": "A fearsome dragon that farewell protects its treasure, and its progeny in the icy depths of its lair. Aggressive than her companion, she is not bewitching her fury against anyone daring to approach her nest. Its scales glitter like diamonds and its tail can break the thickest ice at once."
     }
   },
   "objects": {
@@ -1668,5 +1791,45 @@
     "genericGiveNoSlot": "You get a new pet: **{{pet}}**. However, you don't have room for him.",
     "genericGiveGuild": "You get a new pet: **{{pet}}**. Place it in the guild hut.",
     "genericGivePlayer": "You get a new pet: **{{pet}}**. You decide to take him with you."
+  },
+  "pveMapsStory": {
+    "1001": {
+      "forestTroll": "You dive into the Numerous Forest, or the volcanic ashes dance in the air like a grey snow. The reduced visibility forces you to move cautiously between century-old trees with blackened trunks. Suddenly, a deaf crack breaks the disturbing silence. The branches bend and break under immense weight. Through the ash sail, a massive silhouette emerges: a colossal troll, its rugged volcanic soot skin. Its glowing eyes broke the dusty darkened while it grows a roar that shakes the trees around. This primitive drill keeper does not clearly understand your intrusion into his domain...",
+      "slimyMutant": "The more you progress in the Numerous Forest, the more oppressive the atmosphere. Volcanic ashes seem to absorb all sounds, creating almost supernatural silence. Then you notice something strange — your own shadow seems to be moving independently of your movements. You turn abruptly and discover with horror a gelatin and verdatre mass that slowly inverts to you. But the most disturbing thing is that it begins to take your appearance, copying your traits, your veins, even your weapons. The Vaseux Mutant watches you with your own eyes, a malicious smile deforming what should be your face. This perfect mimetisme makes the fight come all the more destabilizing ..."
+    },
+    "1002": {
+      "skeleton": "As you progress on the path, the ruins of an ancient village appear on the horizon. At first sight, the places seem peaceful despite the collapsed roofs. You advance cautiously between the houses that have been built, scrutinizing every corner in the hope of finding a sign of life. Suddenly, in the turn of a lane, you freeze, and a dry crack rings on the ground. In front of you stands a skeleton with an empty eye, armed to the teeth, seemingly ready to listen..."
+    },
+    "1003": {
+      "spider": "You arrive in the middle of an abandoned mine, the old wooden frame causes the walls to collapse. You enter, cleansing the many canvases passing through, and explore the galleries. The more you move on, the more tiny slabs massage around your feet. The horror cries of these small creatures are forced to shine in the cave. You feel the ground vibrated, something big is approaching at high speed, it is nothing more than an abominal spiked of huge size, Seeing the corpses of her children to your feet, she shouts with rage and runs over you."
+    },
+    "1004": {
+      "rockGolem": "As you walk on the steep trail, you decide to take a break. The breath is short, you drop on a rock that finally thinks you can rest after fighting all these monsters. It is then that you hear a noise similar to that of a distant landing. You get up precipitously and before your eyes a huge rock golem emerges from the slopes of the mountain. It seems slow but knowing that you should never underestimate your opponent you gain your weapon ready to face this new threat..."
+    },
+    "1005": {
+      "magmaTitan": "Gathering your deepest strengths, you bravely climb the volcano. The warmth of the ground permeates you, but your bravery holds you up. The touching air, loaded with magmatic lifts, makes you spin the skin. With every inspiration, the nausee wins. Your wounded wakes up, each step is heavier than the previous one, but you are running off than cut. As you think you touch the tip of your troubles, the ground trembles. The magma freezes, the lava flows and together they take shape. An entity. A colossus stands before you. Blood, foggy like this volcano, pulses into you. You prepare for the ultimate battle."
+    },
+    "1101": {
+      "whiteWolf": "In this ruthless tundra, every step you take deep into the cool snow. The icy wind whipps your face while the perpetual weather reduces your visibility to a few meters. Your limbs are gradually numbing despite your efforts to maintain your bloodstream. Suddenly, you notice a dark shape that moves silently through the snow curtain. You freeze, all your senses on alert. A deafened rumble pierces the howl of the wind. Then emerges from the storm two eyes of an icy blue, shining with a wild intelligence. A majestic and imposing white wolf stands in front of you. Its immaculate fur blends perfectly with its environment, and its fangs glow in the darkness. This Arctic predator judges you, evaluating whether you have a prey or a threat. His sharp gaze seems to read in your eye while he prepares to bounce..."
+    },
+    "1102": {
+      "shinyElementary": "You continue your adventure in the crystal cave, a path in the slopes of the mountain that allows you to access other landscapes. You can see from the beautiful gems coming out of the walls that the place bears its name. Your steps sound against the surrounding walls, their sound back to you just like your image that reflects against the thousands of precious stones. You play with the echo while admiring the place, but all of a sudden, a sound that doesn't seem to come from you until your tympans. Crystals seem to be typing each other, stronger and stronger. Suddenly, a cluster of these stones takes on a humanoi<unk> form twice as large as you. The light that crosses this entity decomposes into a beautiful rainbow, but in view of the aggression that the creation has towards you, you feel it will be necessary to stop this beautiful illumination."
+    },
+    "1103": {
+      "celestialGuardian": "You get out of the crystal cave and you find yourself dazzled by the sun reflecting on the snow around you. Takes several seconds to get used to brightness, you can see hundreds of steps that have two gigantic doors surrounded by two equally large statues. You do not intend to stop in such a good way, so you start climbing hard one after the other. You are careful not to fall on the stones made slippery by the ice that formed on it. After several minutes of intense walking, you arrive at the feet of the building. The entries on the doors are not familiar: indeed, they are written in a writing that is unknown to you. In any case, the doors are on your way, and you need to cross them to move forward. So you try to place your palm on the cold stone, and suddenly a mechanism becomes active and the doors begin to grind. After several seconds, the doors are finally completely open, but the mechanism does not stop making noise. Then when you turn on your right, you notice that the statue begins to move and catch a hammer that is on its scale..."
+    },
+    "1104": {
+      "maleIceDragon": "The climb of the snowy peak has led you to full strength. At this dizzying altitude, each breathing is a fight against the rare air that bruises your lungs. Your steps crack on the hard snow by strong winds that threaten to cause you to lose balance at every moment. As you thought you had reached the top, the ground trembles beneath your feet. A titanic roar shakes the icy air, so powerful that it provokes an avalanche in the distance. Looking up towards the low clouds, you see a gigantic shadow hovering over you. Suddenly, it plunges into the earth in a deafening crack. A colossal ice dragon landed in front of you, its crystalline scales glittering like a thousand diamonds. Its breath instantly turns the air into icy fog while its blue arctic eyes fix you with a thousand intelligence. This high lord decided that your intrusion into his domain would meditate a definitive answer..."
+    },
+    "1105": {
+      "crocodile": "You are cautiously approaching the shores of the underground lake, intrigued by this mystical geology. How can these waters remain liquid in such a cold? The ambient temperature should normally turn this lake into a solid ice block. You kneel down to examine the dark water, trying to pierce the secret of its abysmal depth. It was then that a bunch of bubbles slowly risen to the surface, disturbing the perfect mirror of the lake. You recover instinctively when sudden, the water starts boiling violently. A monstrous maw erupts from the depths, armed with prehistoric fangs. A giant crocodile, adapted to the extreme cold by thousands of years of evolution, emerges from its aquatic lair. Its thick and scaling skin bears the marks of countless fights. Its yellow eyes, cold like the ice that surrounds it, look at you with the relentless patience of a perfect predator. He watched in these mysterical waters devouring everything that dared to reach his territory..."
+    },
+    "1106": {
+      "yukiOnna": "You are in the ruins of the devastated village, or oppressive silence is broken only by the gloomy whistle of the wind through the collapsed structures. Each step echoes in this desolation, as if the stones themselves kept the memory of the tragedies passed. You are cautiously exploring the rubble, trying to imagine the nature that once reigned there. Suddenly, a crystalline melody floats in the icy air, so beautiful that it attracts you irresistibly to its source. Surrounded by a stunned house, you can see a striking silhouette. A woman in immaculate white kimono seems to slip on the snow without leaving any traces. Its long black hair floats in an invisible breeze, while its albarestre skin radiates with spectral glow. But when she turns her face towards you, you realize with horror that her eyes are two icy neant wells. The Yuki-Onna, the vengeful spirit of the snowy mountains, reveals you a smile that promises a death as beautiful as it is terrible."
+    },
+    "1107": {
+      "femaleIceDragon": "You are advancing in this unexplored area, guided by a curiosity. The ice wall in front of you reflects such an imposing silhouette that it challenges imagination. The closer you get into the icy count, the greater the size of the creature hidden behind this barrier. Suddenly, cracks appear in the ice, spreading like sour canvas. A deafened rumble makes the rock walls vibrate. The wall explodes in an apocalyptic fracture, throwing massive ice blocks. Through this broken crystal curtain emerges the most majestic of creatures: an ice dragon of pharaotic dimensions. Its presence seems imposing and its wings repaired almost to the stone will. It has a terrifying beauty, with its iriseed scales capturing the weak light in icy rainbows. Her eyes, deep blue like the abysses, shine with ancient wisdom and maternal fury. Behind it you see a gigantic egg with pearl reflections, pulling with mystery. You have just peeled in his nursery, and no intrusion will go unpunished in the Ice Queen's Sanctuary..."
+    }
   }
 }
+
