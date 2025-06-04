@@ -216,7 +216,7 @@
     "On raconte que les équipements rares deviennent moins chers autour de la route des merveilles.",
     "Les joueurs de bonneteau se tiennent à l'écart de la route des merveilles et de la route marécageuse car on raconte qu'un esprit y rôde et s'attaque spécifiquement à eux.",
     "Avez vous trouvé tous les petits secrets de la carte ?",
-    "Les guildes peuvent monter de niveau jusqu'au niveau 150.",
+    "Les joueurs de bonneteau se tiennent à l'écart de la route des merveilles, la route marécageuse et du mont célestrum car on raconte qu'un esprit y rôde et s'attaque spécifiquement à eux.",
     "N'hésitez pas à visiter le vétérinaire pour faire évaluer l'âge de votre familier.",
     "Votre familier peut vous assister lors des combats.",
     "Curieux d'en apprendre plus sur votre familier ? Visitez le vétérinaire !",
@@ -229,6 +229,11 @@
     "Diz-se que os jogadores de bonneteau evitam a estrada pantanosa.",
     "Diz-se que os jogadores do jogo do bonneteau evitam o Monte Celestrum.",
     "Há rumores de que um anão que vive nas montanhas do Monte Celestrum tem um excedente de pedras preciosas.",
-    "Os anões do Monte Celestrum são conhecidos pelo seu amor pelos animais."
+    "Os anões do Monte Celestrum são conhecidos pelo seu amor pelos animais.",
+    "Les potions légendaires et mythiques ne sont pas disponibles en potion du jour.",
+    "Les potions sans effet ne sont pas disponibles en potion du jour.",
+    "Durant un combat, il n'est pas possible d'avoir deux altérations d'état en même temps.",
+    "Il existe une centaine de familiers différents.",
+    "Il parait que le nain du mont Célestrum est un grand amateur d'animaux."
   ]
 }
