@@ -7,7 +7,7 @@ export async function infoFightResult(context: PacketContext): Promise<void> {
 	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
 	const lng = interaction!.userLanguage;
 	const intro = StringUtils.getRandomTranslation("smallEvents:infoFight.intro", lng);
-	const description = StringUtils.getRandomTranslation(`smallEvents:infoFight.fightActions`, lng);
+	const description = StringUtils.getRandomTranslation("smallEvents:infoFight.fightActions", lng);
 	await interaction?.editReply({
 		embeds: [
 			new DraftbotSmallEventEmbed(
