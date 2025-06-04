@@ -90,4 +90,53 @@ describe("FightConstants fight_actions models.json validation", () => {
 			});
 		}
 	});
+
+	describe("PLAYER and MONSTER actions have infoFight event entries", () => {
+		const smallEventsPath = path.join(__dirname, "../../../Lang/fr/smallEvents.json");
+		const smallEvents = JSON.parse(fs.readFileSync(smallEventsPath, "utf-8"));
+		const infoFightActions = smallEvents.infoFight.fightActions;
+
+		// Some attacks, it's okay to not have an entry in infoFight.fightActions
+		const EXCEPTIONS = [
+			"chargeChargingAttack", // Multiple turns attack is merged into one entry
+			"chargeUltimateAttack", // Multiple turns attack is merged into one entry
+			"chargingAttack",
+			"getDirty", // Only triggered by the whale
+			"none", // Not really an attack
+			"chargeChargeRadiantBlastAttack", // Multiple turns attack is merged into one entry
+			"chargeRadiantBlastAttack", // Multiple turns attacks are merged into one entry
+			"chargeClubSmashAttack", // Multiple turns attacks are merged into one entry
+		];
+
+		function hasFightActionEntry(id) {
+			const emote = `{emote:fightActions.${id}}`;
+			return infoFightActions.some((entry) => typeof entry === "string" && entry.includes(emote));
+		}
+
+		describe("PLAYER actions", () => {
+			const ids = Object.values(FightConstants.FIGHT_ACTIONS.PLAYER);
+			for (const id of ids) {
+				it(`${id} should have an entry in infoFight.fightActions (unless excepted)`, () => {
+					if (EXCEPTIONS.includes(id)) {
+						expect(true).toBe(true);
+						return;
+					}
+					expect(hasFightActionEntry(id)).toBe(true);
+				});
+			}
+		});
+
+		describe("MONSTER actions", () => {
+			const ids = Object.values(FightConstants.FIGHT_ACTIONS.MONSTER);
+			for (const id of ids) {
+				it(`${id} should have an entry in infoFight.fightActions (unless excepted)`, () => {
+					if (EXCEPTIONS.includes(id)) {
+						expect(true).toBe(true);
+						return;
+					}
+					expect(hasFightActionEntry(id)).toBe(true);
+				});
+			}
+		});
+	});
 });
