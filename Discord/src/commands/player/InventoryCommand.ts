@@ -144,13 +144,15 @@ export async function handleCommandInventoryPacketRes(packet: CommandInventoryPa
 		.setStyle(ButtonStyle.Primary);
 	const equippedEmbed = getEquippedEmbed(packet, username, lng);
 	const backupEmbed = getBackupEmbed(packet, username, lng);
-	const msg = await interaction.reply({
+	const reply = await interaction.reply({
 		embeds: [equippedEmbed],
-		components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)]
+		components: [new ActionRowBuilder<ButtonBuilder>().addComponents(switchItemsButton)],
+		withResponse: true
 	});
-	if (!msg) {
+	if (!reply?.resource?.message) {
 		return;
 	}
+	const msg = reply.resource.message;
 	const collector = msg.createMessageComponentCollector({
 		filter: buttonInteraction => buttonInteraction.customId === buttonId,
 		time: Constants.MESSAGES.COLLECTOR_TIME

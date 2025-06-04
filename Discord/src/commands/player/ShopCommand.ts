@@ -487,14 +487,17 @@ export async function shopCollector(context: PacketContext, packet: ReactionColl
 			currency: data.currency
 		}));
 
-	const msg = await interaction.reply({
+	const reply = await interaction.reply({
 		embeds: [embed],
-		components: [selectRow, buttonRow]
+		components: [selectRow, buttonRow],
+		withResponse: true
 	});
 
-	if (!msg) {
+	if (!reply?.resource?.message) {
 		return null;
 	}
+
+	const msg = reply.resource.message;
 
 	const buttonCollector = msg.createMessageComponentCollector({
 		time: packet.endTime - Date.now()
