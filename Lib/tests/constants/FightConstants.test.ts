@@ -2,6 +2,7 @@ import {describe, expect, it} from "vitest";
 import {FightConstants} from "../../src/constants/FightConstants";
 import * as path from "node:path";
 import * as fs from "node:fs";
+import { DraftBotIcons } from "../../src/DraftBotIcons";
 
 describe("FightConstants fight_actions models.json validation", () => {
 	const modelsPath = path.join(__dirname, "../../../Lang/fr/models.json");
@@ -100,7 +101,6 @@ describe("FightConstants fight_actions models.json validation", () => {
 		const EXCEPTIONS = [
 			"chargeChargingAttack", // Multiple turns attack is merged into one entry
 			"chargeUltimateAttack", // Multiple turns attack is merged into one entry
-			"chargingAttack",
 			"getDirty", // Only triggered by the whale
 			"none", // Not really an attack
 			"chargeChargeRadiantBlastAttack", // Multiple turns attack is merged into one entry
@@ -138,5 +138,21 @@ describe("FightConstants fight_actions models.json validation", () => {
 				});
 			}
 		});
+	});
+
+	describe("All fight actions (except PET) have an associated icon in DraftBotIcons.fightActions", () => {
+		const iconKeys = Object.keys(DraftBotIcons.fightActions);
+
+		const allFightActionIds = [
+			...Object.values(FightConstants.FIGHT_ACTIONS.MONSTER),
+			...Object.values(FightConstants.FIGHT_ACTIONS.PLAYER),
+			...Object.values(FightConstants.FIGHT_ACTIONS.ALTERATION)
+		];
+
+		for (const id of allFightActionIds) {
+			it(`${id} should have an icon in DraftBotIcons.fightActions`, () => {
+				expect(iconKeys).toContain(id);
+			});
+		}
 	});
 });
