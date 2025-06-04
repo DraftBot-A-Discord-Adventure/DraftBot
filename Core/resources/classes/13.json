@@ -3,7 +3,7 @@
   "defense": 50,
   "speed": 40,
   "health": 65,
-  "fightPoint": 60,
+  "fightPoint": 90,
   "baseBreath": 12,
   "maxBreath": 12,
   "breathRegen": 3,
