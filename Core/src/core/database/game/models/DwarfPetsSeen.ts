@@ -49,6 +49,15 @@ export class DwarfPetsSeen extends Model {
 
 		return petsSeen === PetDataController.instance.getPetsCount();
 	}
+
+	static async getPetsSeen(player: Player): Promise<number[]> {
+		const petsSeen = await DwarfPetsSeen.findAll({
+			where: {
+				playerId: player.id
+			}
+		});
+		return petsSeen.map(pet => pet.petTypeId);
+	}
 }
 
 
