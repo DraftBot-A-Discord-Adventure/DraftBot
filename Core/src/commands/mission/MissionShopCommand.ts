@@ -170,12 +170,12 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				nextFeed: pet.getFeedCooldown(petModel),
 				fightAssistId: getAiPetBehavior(petModel.id).id,
 				ageCategory: PetUtils.getAgeCategory(pet.id),
-				...(randomPetDwarfModel && {
+				...randomPetDwarfModel && {
 					randomPetDwarf: {
 						typeId: randomPetDwarfModel.id,
 						sex: PetConstants.SEX.MALE as SexTypeShort
 					}
-				})
+				}
 			}));
 			return true;
 		}
