@@ -3,7 +3,7 @@ import {
 } from "sequelize";
 import Player from "./Player";
 import { PetDataController } from "../../../../data/Pet";
-import {RandomUtils} from "../../../../../../Lib/src/utils/RandomUtils";
+import { RandomUtils } from "../../../../../../Lib/src/utils/RandomUtils";
 
 export class DwarfPetsSeen extends Model {
 	declare readonly playerId: number;
