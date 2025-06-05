@@ -44,7 +44,7 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 
 	ageCategory!: string;
 
-	randomPetDwarf!: {
+	randomPetDwarf?: {
 		typeId: number;
 		sex: SexTypeShort;
 	};

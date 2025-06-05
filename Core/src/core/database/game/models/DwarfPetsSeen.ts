@@ -77,7 +77,7 @@ export class DwarfPetsSeen extends Model {
 
 	static async getRandomPetNotSeenId(player: Player): Promise<number> {
 		const petsNotSeenIds = await DwarfPetsSeen.getPetsNotSeenId(player);
-		return RandomUtils.draftbotRandom.pick(petsNotSeenIds);
+		return petsNotSeenIds.length > 0 ? RandomUtils.draftbotRandom.pick(petsNotSeenIds) : 0;
 	}
 }
 

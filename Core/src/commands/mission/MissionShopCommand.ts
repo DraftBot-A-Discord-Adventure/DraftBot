@@ -158,7 +158,7 @@ function getValueLovePointsPetShopItem(): ShopItem {
 			const pet = await PetEntities.getById(player.petId);
 			const petModel = PetDataController.instance.getById(pet.typeId);
 			const randomPetNotShownToDwarfId = await DwarfPetsSeen.getRandomPetNotSeenId(player);
-			const randomPetDwarfModel = PetDataController.instance.getById(randomPetNotShownToDwarfId);
+			const randomPetDwarfModel = randomPetNotShownToDwarfId !== 0 ? PetDataController.instance.getById(randomPetNotShownToDwarfId) : null;
 			response.push(makePacket(CommandMissionShopPetInformation, {
 				nickname: pet.nickname,
 				petId: pet.id,
@@ -170,9 +170,12 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				nextFeed: pet.getFeedCooldown(petModel),
 				fightAssistId: getAiPetBehavior(petModel.id).id,
 				ageCategory: PetUtils.getAgeCategory(pet.id),
-				randomPetDwarf: {
-					typeId: randomPetDwarfModel.id, sex: PetConstants.SEX.MALE
-				}
+				...(randomPetDwarfModel && {
+					randomPetDwarf: {
+						typeId: randomPetDwarfModel.id,
+						sex: PetConstants.SEX.MALE as SexTypeShort
+					}
+				})
 			}));
 			return true;
 		}
