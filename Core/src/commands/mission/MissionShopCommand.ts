@@ -49,13 +49,16 @@ import {
 	ReactionCollectorSkipMissionShopItemCloseReaction,
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import {PetConstants, PetDiet} from "../../../../Lib/src/constants/PetConstants";
+import {
+	PetConstants,
+	PetDiet
+} from "../../../../Lib/src/constants/PetConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 import { PetUtils } from "../../core/utils/PetUtils";
 import { Badge } from "../../../../Lib/src/types/Badge";
-import {DwarfPetsSeen} from "../../core/database/game/models/DwarfPetsSeen";
+import { DwarfPetsSeen } from "../../core/database/game/models/DwarfPetsSeen";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
