@@ -67,7 +67,7 @@ export class DwarfPetsSeen extends Model {
 	static async getPetsNotSeenId(player: Player): Promise<number[]> {
 		const petsSeenId = await DwarfPetsSeen.getPetsSeenId(player);
 		const petsNotSeenIds: number[] = [];
-		for (let i = 0; i <= PetDataController.instance.getPetsCount(); i++) {
+		for (let i = 1; i <= PetDataController.instance.getPetsCount(); i++) {
 			if (!petsSeenId.includes(i)) {
 				petsNotSeenIds.push(i);
 			}
