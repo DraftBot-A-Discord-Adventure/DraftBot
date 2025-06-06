@@ -21,6 +21,12 @@ export class NotificationsConfiguration extends Model {
 
 	declare guildDailyChannelId?: string;
 
+	declare guildKickEnabled: boolean;
+
+	declare guildKickSendType: number;
+
+	declare guildKickChannelId?: string;
+
 	declare playerFreedFromJailEnabled: boolean;
 
 	declare playerFreedFromJailSendType: number;
@@ -78,6 +84,18 @@ export function initModel(sequelize: Sequelize): void {
 			defaultValue: NotificationSendTypeEnum.DM
 		},
 		guildDailyChannelId: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(32)
+		},
+		guildKickEnabled: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
+		},
+		guildKickSendType: {
+			type: DataTypes.INTEGER,
+			defaultValue: NotificationSendTypeEnum.DM
+		},
+		guildKickChannelId: {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(32)
 		},

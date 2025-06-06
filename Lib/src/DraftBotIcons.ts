@@ -2083,6 +2083,7 @@ export const DraftBotIcons: {
 		types: {
 			report: "📰",
 			guildDaily: "🏟️",
+			guildKick: "🏟️",
 			playerFreedFromJail: "🔓",
 			fightChallenge: "⚔️"
 		}

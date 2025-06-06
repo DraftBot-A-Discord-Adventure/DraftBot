@@ -52,6 +52,24 @@ export abstract class NotificationsTypes {
 		}
 	};
 
+	static GUILD_KICK: NotificationType = {
+		emote: DraftBotIcons.notifications.types.guildKick,
+		customId: "guildKick",
+		i18nKey: "commands:notifications.types.guildKick",
+		value: notificationsConfiguration => ({
+			enabled: notificationsConfiguration.guildKickEnabled,
+			sendType: notificationsConfiguration.guildKickSendType,
+			channelId: notificationsConfiguration.guildKickChannelId
+		}),
+		toggleCallback: (notificationsConfiguration): void => {
+			notificationsConfiguration.guildKickEnabled = !notificationsConfiguration.guildKickEnabled;
+		},
+		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
+			notificationsConfiguration.guildKickSendType = sendType;
+			notificationsConfiguration.guildKickChannelId = channelId;
+		}
+	};
+
 	static PLAYER_FREED_FROM_JAIL: NotificationType = {
 		emote: DraftBotIcons.notifications.types.playerFreedFromJail,
 		customId: "playerFreedFromJail",
