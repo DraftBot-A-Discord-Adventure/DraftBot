@@ -72,7 +72,7 @@ export abstract class NotificationsTypes {
 
 	static GUILD_STATUS_CHANGE: NotificationType = {
 		emote: DraftBotIcons.notifications.types.guildStatusChange,
-		customId: "guildKick",
+		customId: "guildStatusChange",
 		i18nKey: "commands:notifications.types.guildStatusChange",
 		value: notificationsConfiguration => ({
 			enabled: notificationsConfiguration.guildStatusChangeEnabled,
