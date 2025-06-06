@@ -110,6 +110,7 @@ export abstract class NotificationsTypes {
 		NotificationsTypes.REPORT,
 		NotificationsTypes.GUILD_DAILY,
 		NotificationsTypes.PLAYER_FREED_FROM_JAIL,
-		NotificationsTypes.FIGHT_CHALLENGE
+		NotificationsTypes.FIGHT_CHALLENGE,
+		NotificationsTypes.GUILD_KICK
 	];
 }
