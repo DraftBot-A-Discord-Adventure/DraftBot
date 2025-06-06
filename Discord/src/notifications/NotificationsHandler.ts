@@ -74,7 +74,7 @@ export abstract class NotificationsHandler {
 			}
 			case GuildKickNotificationPacket.name: {
 				const packet = notification.packet as GuildKickNotificationPacket;
-				notificationContent = i18n.t("bot:notificationGuildDaily", {
+				notificationContent = i18n.t("bot:notificationGuildKick", {
 					lng,
 					pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakId, lng),
 					guildName: packet.guildName
