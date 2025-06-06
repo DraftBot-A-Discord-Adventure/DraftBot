@@ -6,7 +6,13 @@ import {
 	NotificationsConfigurations
 } from "../../database/discord/models/NotificationsConfiguration";
 import {
-	ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, parseEmoji, User
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	parseEmoji,
+	StringSelectMenuBuilder, StringSelectMenuInteraction,
+	StringSelectMenuOptionBuilder,
+	User
 } from "discord.js";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
@@ -48,7 +54,7 @@ function clearCurrentCollector(userId: string): void {
 	}
 }
 
-async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
+async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
 	clearCurrentCollector(interaction.user.id);
 
 	// Build the rows and buttons
@@ -75,7 +81,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	// Build and send the message
 	let reply;
 	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng);
-	if (!interaction.isButton()) {
+	if (!interaction.isButton() && !interaction.isStringSelectMenu()) {
 		reply = await interaction.reply({ // Reply is picky on the signature, so the options can't be factorized into a single variable
 			embeds: [embed],
 			components: [row],
@@ -83,7 +89,7 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 		});
 	}
 	else {
-		reply = await (interaction as ButtonInteraction).update({
+		reply = await (interaction as StringSelectMenuInteraction).update({
 			embeds: [embed],
 			components: [row],
 			withResponse: true
@@ -97,30 +103,30 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	const msg = reply.resource.message;
 
 	// Create the collector
-	const buttonCollector = msg.createMessageComponentCollector({
+	const MenuCollector = msg.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(interaction.user.id, (): void => buttonCollector.stop());
+	currentCollectors.set(interaction.user.id, (): void => MenuCollector.stop());
 
-	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-		if (buttonInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
+	MenuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
+		if (menuInteraction.user.id !== interaction.user.id) {
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
 			return;
 		}
 
-		if (buttonInteraction.customId === chooseEnabledCustomId) {
-			buttonCollector.stop(forceStopReason);
-			await chooseEnabled(buttonInteraction, notificationsConfiguration, lng);
+		if (menuInteraction.customId === chooseEnabledCustomId) {
+			MenuCollector.stop(forceStopReason);
+			await chooseEnabled(menuInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
-		if (buttonInteraction.customId === chooseSendTypeCustomId) {
-			buttonCollector.stop(forceStopReason);
-			await chooseSendType(buttonInteraction, notificationsConfiguration, lng);
+		if (menuInteraction.customId === chooseSendTypeCustomId) {
+			MenuCollector.stop(forceStopReason);
+			await chooseSendType(menuInteraction, notificationsConfiguration, lng);
 		}
 	});
 
-	buttonCollector.on("end", async (_, reason) => {
+	MenuCollector.on("end", async (_, reason) => {
 		currentCollectors.delete(interaction.user.id);
 
 		if (reason !== forceStopReason) {
@@ -129,138 +135,154 @@ async function mainPage(interaction: DraftbotInteraction | ButtonInteraction, no
 	});
 }
 
-function getSettingsRows(notificationsConfiguration: NotificationsConfiguration, keepOnlyEnabled: boolean, lng: Language): ActionRowBuilder<ButtonBuilder>[] {
-	const rowNotifications = new ActionRowBuilder<ButtonBuilder>();
-	NotificationsTypes.ALL.forEach(notificationType => {
+function getSettingsSelectMenu(
+	notificationsConfiguration: NotificationsConfiguration,
+	keepOnlyEnabled: boolean,
+	lng: Language,
+	customId: string,
+	includeBack = true
+): ActionRowBuilder<StringSelectMenuBuilder> {
+	const selectMenu = new StringSelectMenuBuilder()
+		.setCustomId(customId)
+		.setPlaceholder(i18n.t("commands:notifications.selectPlaceholder", { lng }));
+
+	for (const notificationType of NotificationsTypes.ALL) {
 		if (keepOnlyEnabled && !notificationType.value(notificationsConfiguration).enabled) {
-			return;
+			continue;
 		}
 
-		rowNotifications.addComponents(new ButtonBuilder()
-			.setEmoji(parseEmoji(notificationType.emote)!)
-			.setCustomId(notificationType.customId)
+		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
 			.setLabel(i18n.t(notificationType.i18nKey, { lng }))
-			.setStyle(ButtonStyle.Secondary));
-	});
-	const rowBack = new ActionRowBuilder<ButtonBuilder>();
-	rowBack.addComponents(new ButtonBuilder()
-		.setEmoji(parseEmoji(DraftBotIcons.notifications.back)!)
-		.setLabel(i18n.t("commands:notifications.back", { lng }))
-		.setCustomId(backButtonCustomId)
-		.setStyle(ButtonStyle.Secondary));
+			.setEmoji(parseEmoji(notificationType.emote)!)
+			.setValue(notificationType.customId));
+	}
 
-	return [rowNotifications, rowBack];
+	if (includeBack) {
+		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
+			.setLabel(i18n.t("commands:notifications.back", { lng }))
+			.setEmoji(parseEmoji(DraftBotIcons.notifications.back)!)
+			.setValue(backButtonCustomId));
+	}
+
+	return new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectMenu);
 }
 
-async function chooseEnabled(buttonInteraction: ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
-	clearCurrentCollector(buttonInteraction.user.id);
 
-	// Build the rows and buttons
-	const rows = getSettingsRows(notificationsConfiguration, false, lng);
+async function chooseEnabled(interaction: StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
+	clearCurrentCollector(interaction.user.id);
 
-	// Build and send the message
-	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
-	const msg = await buttonInteraction.update({
-		embeds: [embed], components: rows
+	const row = getSettingsSelectMenu(notificationsConfiguration, false, lng, "enableNotificationsMenu");
+
+	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
+	const msg = await interaction.update({
+		embeds: [embed],
+		components: [row],
+		withResponse: true
 	});
 
-	// Create the collector
-	const buttonCollector = msg.createMessageComponentCollector({
+	const menuCollector = msg.resource!.message!.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(buttonInteraction.user.id, (): void => buttonCollector.stop());
+	currentCollectors.set(interaction.user.id, (): void => menuCollector.stop());
 
-	buttonCollector.on("collect", async (collectorButtonInteraction: ButtonInteraction) => {
-		if (collectorButtonInteraction.user.id !== buttonInteraction.user.id) {
-			await sendInteractionNotForYou(collectorButtonInteraction.user, collectorButtonInteraction, lng);
+	menuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
+		if (menuInteraction.user.id !== interaction.user.id) {
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
 			return;
 		}
 
-		if (collectorButtonInteraction.customId === backButtonCustomId) {
-			buttonCollector.stop(forceStopReason);
-			await mainPage(collectorButtonInteraction, notificationsConfiguration, lng);
+		await menuInteraction.deferUpdate();
+
+		if (menuInteraction.values[0] === backButtonCustomId) {
+			menuCollector.stop(forceStopReason);
+			await mainPage(menuInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
-		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
+
+		const notificationType = NotificationsTypes.ALL.find(nt => nt.customId === menuInteraction.values[0]);
 		if (notificationType) {
 			notificationType.toggleCallback(notificationsConfiguration);
 			await notificationsConfiguration.save();
-			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
-			await collectorButtonInteraction.update({
-				embeds: [embed],
-				components: rows
+
+			const updatedEmbed = getNotificationsEmbed(notificationsConfiguration, menuInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
+			await menuInteraction.editReply({
+				embeds: [updatedEmbed],
+				components: [row]
 			});
 		}
 	});
 
-	buttonCollector.on("end", async (_, reason) => {
-		currentCollectors.delete(buttonInteraction.user.id);
-
+	menuCollector.on("end", async (_, reason) => {
+		currentCollectors.delete(interaction.user.id);
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.edit({ components: [] });
+			await msg.resource!.message!.edit({ components: [] });
 		}
 	});
 }
 
-async function chooseSendType(buttonInteraction: ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
-	clearCurrentCollector(buttonInteraction.user.id);
 
-	// Build the rows and buttons
-	const rows = getSettingsRows(notificationsConfiguration, true, lng);
+async function chooseSendType(interaction: StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
+	clearCurrentCollector(interaction.user.id);
 
-	// Build and send the message
-	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
-	const msg = await buttonInteraction.update({
-		embeds: [embed], components: rows
+	const row = getSettingsSelectMenu(notificationsConfiguration, true, lng, "sendTypeNotificationsMenu");
+
+	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
+	const msg = await interaction.update({
+		embeds: [embed],
+		components: [row],
+		withResponse: true
 	});
 
-	// Create the collector
-	const buttonCollector = msg.createMessageComponentCollector({
+	const menuCollector = msg.resource!.message!.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(buttonInteraction.user.id, (): void => buttonCollector.stop());
+	currentCollectors.set(interaction.user.id, (): void => menuCollector.stop());
 
-	buttonCollector.on("collect", async (collectorButtonInteraction: ButtonInteraction) => {
-		if (buttonInteraction.user.id !== collectorButtonInteraction.user.id) {
-			await sendInteractionNotForYou(collectorButtonInteraction.user, collectorButtonInteraction, lng);
+	menuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
+		if (menuInteraction.user.id !== interaction.user.id) {
+			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
 			return;
 		}
 
-		if (collectorButtonInteraction.customId === backButtonCustomId) {
-			buttonCollector.stop(forceStopReason);
-			await mainPage(collectorButtonInteraction, notificationsConfiguration, lng);
+		await menuInteraction.deferUpdate();
+
+		if (menuInteraction.values[0] === backButtonCustomId) {
+			menuCollector.stop(forceStopReason);
+			await mainPage(menuInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
-		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorButtonInteraction.customId);
+
+		const notificationType = NotificationsTypes.ALL.find(nt => nt.customId === menuInteraction.values[0]);
 		if (notificationType) {
 			notificationType.changeSendTypeCallback(
 				notificationsConfiguration,
 				(notificationType.value(notificationsConfiguration).sendType + 1) % (Object.keys(NotificationSendTypeEnum).length / 2),
-				buttonInteraction.channel!.id
+				interaction.channel!.id
 			);
 			await notificationsConfiguration.save();
 
-			const embed = getNotificationsEmbed(notificationsConfiguration, collectorButtonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
-			await collectorButtonInteraction.update({
-				embeds: [embed],
-				components: rows
+			const updatedEmbed = getNotificationsEmbed(notificationsConfiguration, menuInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
+			await menuInteraction.editReply({
+				embeds: [updatedEmbed],
+				components: [row]
 			});
 		}
 	});
 
-	buttonCollector.on("end", async (_, reason) => {
-		currentCollectors.delete(buttonInteraction.user.id);
+	menuCollector.on("end", async (_, reason) => {
+		currentCollectors.delete(interaction.user.id);
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.edit({ components: [] });
+			await msg.resource!.message!.edit({ components: [] });
 		}
 	});
 }
+
 
 function getNotificationsEmbed(notificationsConfiguration: NotificationsConfiguration, user: User, lng: Language, footer?: string): DraftBotEmbed {
 	let description = "";

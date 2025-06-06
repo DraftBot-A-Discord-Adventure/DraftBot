@@ -939,7 +939,8 @@
     "inChannel": "Dans le salon {{channel}}",
     "footerEnableDisable": "Utilisez les boutons ci-dessous pour activer ou désactiver les notifications.",
     "back": "Retour",
-    "footerSendLocation": "Utilisez les boutons ci-dessous pour choisir où vous souhaitez recevoir les notifications."
+    "footerSendLocation": "Utilisez les boutons ci-dessous pour choisir où vous souhaitez recevoir les notifications.",
+    "selectPlaceholder": "Sélectionnez une notification à modifier"
   },
   "maintenance": {
     "title": "Maintenance",
