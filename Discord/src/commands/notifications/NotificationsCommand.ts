@@ -7,7 +7,7 @@ import {
 } from "../../database/discord/models/NotificationsConfiguration";
 import {
 	ActionRowBuilder,
-	ButtonBuilder,
+	ButtonBuilder, ButtonInteraction,
 	ButtonStyle,
 	parseEmoji,
 	StringSelectMenuBuilder, StringSelectMenuInteraction,
@@ -89,7 +89,7 @@ async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInter
 		});
 	}
 	else {
-		reply = await (interaction as StringSelectMenuInteraction).update({
+		reply = await (interaction as ButtonInteraction | StringSelectMenuInteraction).update({
 			embeds: [embed],
 			components: [row],
 			withResponse: true
