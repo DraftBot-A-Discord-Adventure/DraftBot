@@ -70,6 +70,24 @@ export abstract class NotificationsTypes {
 		}
 	};
 
+	static GUILD_STATUS_CHANGE: NotificationType = {
+		emote: DraftBotIcons.notifications.types.guildStatusChange,
+		customId: "guildKick",
+		i18nKey: "commands:notifications.types.guildStatusChange",
+		value: notificationsConfiguration => ({
+			enabled: notificationsConfiguration.guildStatusChangeEnabled,
+			sendType: notificationsConfiguration.guildStatusChangeSendType,
+			channelId: notificationsConfiguration.guildStatusChangeChannelId
+		}),
+		toggleCallback: (notificationsConfiguration): void => {
+			notificationsConfiguration.guildStatusChangeEnabled = !notificationsConfiguration.guildStatusChangeEnabled;
+		},
+		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
+			notificationsConfiguration.guildStatusChangeSendType = sendType;
+			notificationsConfiguration.guildStatusChangeChannelId = channelId;
+		}
+	};
+
 	static PLAYER_FREED_FROM_JAIL: NotificationType = {
 		emote: DraftBotIcons.notifications.types.playerFreedFromJail,
 		customId: "playerFreedFromJail",
@@ -111,6 +129,7 @@ export abstract class NotificationsTypes {
 		NotificationsTypes.GUILD_DAILY,
 		NotificationsTypes.PLAYER_FREED_FROM_JAIL,
 		NotificationsTypes.FIGHT_CHALLENGE,
-		NotificationsTypes.GUILD_KICK
+		NotificationsTypes.GUILD_KICK,
+		NotificationsTypes.GUILD_STATUS_CHANGE
 	];
 }

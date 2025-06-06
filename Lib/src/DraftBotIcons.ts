@@ -2085,7 +2085,8 @@ export const DraftBotIcons: {
 			guildDaily: "🏟️",
 			guildKick: "🚪",
 			playerFreedFromJail: "🔓",
-			fightChallenge: "⚔️"
+			fightChallenge: "⚔️",
+			guildStatusChange: "📜"
 		}
 	},
 	missions: {

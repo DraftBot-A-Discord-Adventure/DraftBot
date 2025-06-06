@@ -927,7 +927,8 @@
       "guildDaily": "Récompenses de guilde",
       "playerFreedFromJail": "Libération de prison",
       "fightChallenge": "Attaqué par un autre joueur",
-      "guildKick": "Exclusion de guilde"
+      "guildKick": "Exclusion de guilde",
+      "guildStatusChange": "Changement de statut au sein de la guilde"
     },
     "enableDisable": "Activer/Désactiver",
     "sendLocationField": "Endroit d'envoi :",

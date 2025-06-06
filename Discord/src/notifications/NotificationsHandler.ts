@@ -23,6 +23,7 @@ import { DraftBotLogger } from "../../../Lib/src/logs/DraftBotLogger";
 import { PlayerFreedFromJailNotificationPacket } from "../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
 import { PlayerWasAttackedNotificationPacket } from "../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 import { GuildKickNotificationPacket } from "../../../Lib/src/packets/notifications/GuildKickNotificationPacket";
+import { GuildStatusChangeNotificationPacket } from "../../../Lib/src/packets/notifications/GuildStatusChangeNotificationPacket";
 
 export abstract class NotificationsHandler {
 	/**
@@ -80,6 +81,16 @@ export abstract class NotificationsHandler {
 					guildName: packet.guildName
 				});
 				notificationType = NotificationsTypes.GUILD_KICK;
+				break;
+			}
+			case GuildStatusChangeNotificationPacket.name: {
+				const packet = notification.packet as GuildStatusChangeNotificationPacket;
+				const keyNotification = packet.becomeChief ? "becomeChief" : packet.becomeElder ? "becomeElder" : "becomeMember";
+				notificationContent = i18n.t(`bot:notificationGuildStatusChange.${keyNotification}`, {
+					lng,
+					guildName: packet.guildName
+				});
+				notificationType = NotificationsTypes.GUILD_STATUS_CHANGE;
 				break;
 			}
 			case PlayerFreedFromJailNotificationPacket.name: {

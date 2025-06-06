@@ -27,6 +27,12 @@ export class NotificationsConfiguration extends Model {
 
 	declare guildKickChannelId?: string;
 
+	declare guildStatusChangeEnabled: boolean;
+
+	declare guildStatusChangeSendType: number;
+
+	declare guildStatusChangeChannelId?: string;
+
 	declare playerFreedFromJailEnabled: boolean;
 
 	declare playerFreedFromJailSendType: number;
@@ -96,6 +102,18 @@ export function initModel(sequelize: Sequelize): void {
 			defaultValue: NotificationSendTypeEnum.DM
 		},
 		guildKickChannelId: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(32)
+		},
+		guildStatusChangeEnabled: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
+		},
+		guildStatusChangeSendType: {
+			type: DataTypes.INTEGER,
+			defaultValue: NotificationSendTypeEnum.DM
+		},
+		guildStatusChangeChannelId: {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(32)
 		},
