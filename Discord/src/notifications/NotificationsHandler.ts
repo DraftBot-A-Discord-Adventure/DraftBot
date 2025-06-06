@@ -76,7 +76,7 @@ export abstract class NotificationsHandler {
 				const packet = notification.packet as GuildKickNotificationPacket;
 				notificationContent = i18n.t("bot:notificationGuildKick", {
 					lng,
-					pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakId, lng),
+					pseudo: await DisplayUtils.getEscapedUsername(packet.keycloakIdOfExecutor, lng),
 					guildName: packet.guildName
 				});
 				notificationType = NotificationsTypes.GUILD_KICK;

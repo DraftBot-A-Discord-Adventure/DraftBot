@@ -63,7 +63,8 @@ async function acceptGuildKick(player: Player, kickedPlayer: Player, response: D
 	}));
 	const notifications: GuildKickNotificationPacket[] = [];
 	notifications.push(makePacket(GuildKickNotificationPacket, {
-		keycloakId: player.keycloakId,
+		keycloakId: kickedPlayer.keycloakId,
+		keycloakIdOfExecutor: player.keycloakId,
 		guildName: guild.name
 	}));
 	PacketUtils.sendNotifications(notifications);
