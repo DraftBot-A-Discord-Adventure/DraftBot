@@ -173,7 +173,8 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				...randomPetDwarfModel && {
 					randomPetDwarf: {
 						typeId: randomPetDwarfModel.id,
-						sex: PetConstants.SEX.MALE as SexTypeShort
+						sex: PetConstants.SEX.MALE as SexTypeShort,
+						numberOfPetsNotSeen: await DwarfPetsSeen.getNumberOfPetsNotSeen(player)
 					}
 				}
 			}));

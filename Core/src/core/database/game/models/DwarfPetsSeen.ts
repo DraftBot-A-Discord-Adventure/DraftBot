@@ -67,7 +67,7 @@ export class DwarfPetsSeen extends Model {
 	static async getPetsNotSeenId(player: Player): Promise<number[]> {
 		const petsSeenId = await DwarfPetsSeen.getPetsSeenId(player);
 		const petsNotSeenIds: number[] = [];
-		for (let i = 1; i <= PetDataController.instance.getPetsCount(); i++) {
+		for (let i = 1; i < PetDataController.instance.getPetsCount(); i++) {
 			if (!petsSeenId.includes(i)) {
 				petsNotSeenIds.push(i);
 			}
@@ -78,6 +78,11 @@ export class DwarfPetsSeen extends Model {
 	static async getRandomPetNotSeenId(player: Player): Promise<number> {
 		const petsNotSeenIds = await DwarfPetsSeen.getPetsNotSeenId(player);
 		return petsNotSeenIds.length > 0 ? RandomUtils.draftbotRandom.pick(petsNotSeenIds) : 0;
+	}
+
+	static async getNumberOfPetsNotSeen(player: Player): Promise<number> {
+		const petsNotSeenIds = await DwarfPetsSeen.getPetsNotSeenId(player);
+		return petsNotSeenIds.length;
 	}
 }
 

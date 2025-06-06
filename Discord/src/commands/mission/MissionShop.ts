@@ -97,9 +97,9 @@ export async function handleLovePointsValueShopItem(packet: CommandMissionShopPe
 					commentOnFightEffect: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.commentOnFightEffect.${packet.fightAssistId}`, lng),
 					commentOnResult: StringUtils.getRandomTranslation(`commands:shop.shopItems.lovePointsValue.advice.${packet.loveLevel}`, lng),
 					dwarfPet: packet.randomPetDwarf
-						? i18n.t("commands:shop.shopItems.lovePointsValue.dwarf", {
-							lng,
-							pet: PetUtils.petToShortString(lng, undefined, packet.randomPetDwarf.typeId, packet.randomPetDwarf.sex)
+						? StringUtils.getRandomTranslation("commands:shop.shopItems.lovePointsValue.dwarf", lng, {
+							pet: PetUtils.petToShortString(lng, undefined, packet.randomPetDwarf.typeId, packet.randomPetDwarf.sex),
+							numberOfPetsNotSeen: packet.randomPetDwarf.numberOfPetsNotSeen
 						})
 						: ""
 				}))

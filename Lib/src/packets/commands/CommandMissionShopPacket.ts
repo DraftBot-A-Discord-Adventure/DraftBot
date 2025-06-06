@@ -47,6 +47,7 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 	randomPetDwarf?: {
 		typeId: number;
 		sex: SexTypeShort;
+		numberOfPetsNotSeen: number;
 	};
 }
 
