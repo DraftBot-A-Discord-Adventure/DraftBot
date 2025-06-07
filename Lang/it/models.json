@@ -1234,10 +1234,10 @@
     },
     "celestialGuardian": {
       "name": "Gardien céleste",
-      "description": "Le gardien des portes sacrées. Empêcher les aventuriers de passer est son devoir, et il utilisera son marteau divin pour vous faire comprendre que vous n'êtes pas le bienvenu."
+      "description": "Il guardiano dei sacri cancelli. Il suo compito è impedire agli avventurieri di passare e userà il suo martello divino per farvi capire che non siete i benvenuti."
     },
     "maleIceDragon": {
-      "name": "Seigneur des glaces",
+      "name": "Signore del ghiaccio",
       "description": "Un maestoso drago dalle scaglie cristalline che regna dalle cime ghiacciate. Appollaiato sulle cime più alte, tiene d'occhio il suo territorio. Il suo alito gelido può trasformare un avventuriero in una statua di ghiaccio in pochi secondi e i suoi artigli affilati gli permettono di colpire le sue prede dall'alto con una precisione micidiale."
     },
     "femaleIceDragon": {
