@@ -819,17 +819,17 @@
       "particle": "verso lo"
     },
     "1101": {
-      "description": "Une étendue de terre gelée où le climat est sans pitié. Une tempête permanente de neige rend difficile la progression et la cartographie du lieu. On peut y croiser tous types d’animaux arctiques.",
+      "description": "Una distesa di terra ghiacciata dove il clima è impietoso. Una tempesta di neve permanente rende difficile l'avanzamento e la mappatura dell'area. Qui si possono osservare tutti i tipi di animali artici.",
       "name": "Tundra",
       "particle": "verso la"
     },
     "1102": {
-      "description": "Une grande caverne dans laquelle le moindre rayon de soleil qui rentre est démultiplié par les cristaux rendant celle-ci très lumineuse. Des stalactites pointus et des stalagmites tranchantes, synonymes de blessures graves voir mortelles si l’une d’elle nous tombe dessus ou que l’on fait un pas de travers, forment le décor de la caverne. Si vous osez vous aventurez plus loin, vous devrez choisir entre sortir vers le sommet du pic enneigée ou vous enfoncer encore plus profond.",
+      "description": "Una grande caverna in cui il minimo raggio di sole che entra viene moltiplicato dai cristalli, rendendola molto luminosa. Stalattiti e stalagmiti aguzze, sinonimo di ferite gravi o addirittura mortali in caso di caduta o di passo falso, fanno da sfondo alla caverna. Se osate avventurarvi oltre, dovrete scegliere se salire fino alla cima del picco innevato o scendere ancora più in profondità.",
       "name": "Grotta di cristallo",
       "particle": "verso la"
     },
     "1103": {
-      "description": "Deux majestueuses portes se dressent en haut d’une longue série de marches. Les monter ne sera pas de tout repos. On raconte qu’elles ont été construites par une civilisation ancienne en l’honneur d’une divinité.",
+      "description": "Due maestose porte si trovano in cima a una lunga serie di gradini. Salirle non sarà facile. Si dice che siano state costruite da un'antica civiltà in onore di una divinità.",
       "name": "Portes sacrées",
       "particle": "verso gli"
     },
@@ -844,12 +844,12 @@
       "particle": "verso lo"
     },
     "1106": {
-      "description": "Un village riche abandonné dont il ne reste que ruines et désolations. On peut y voir le toit d’un manoir qui a plié sous le poids de la cloche de l’église effondrée. Il y règne un silence pesant parfois interrompu par les cris de souffrance des âmes égarés.",
+      "description": "Un villaggio ricco e abbandonato di cui rimangono solo rovine e desolazione. Il tetto di una casa padronale può essere visto piegarsi sotto il peso della campana della chiesa crollata. Qui regna un silenzio pesante, interrotto di tanto in tanto dalle grida sofferenti delle anime perdute.",
       "name": "Village dévasté",
       "particle": "verso lo"
     },
     "1107": {
-      "description": "Personne ne s'est encore aventuré jusque là. Au loin, vous voyez une gigantesque silhouette se réfléchir sur un mur de glace.",
+      "description": "Nessuno si è ancora avventurato così lontano. In lontananza, si vede una sagoma gigantesca riflessa su una parete di ghiaccio.",
       "name": "Nid glacé",
       "particle": "verso lo"
     },
@@ -1218,19 +1218,19 @@
     },
     "whiteWolf": {
       "name": "Loup blanc",
-      "description": "Un prédateur féroce et agile. Ses griffes acérées pourraient sceller votre destin. Le froid et les sentiers sinueux lui offrent un grand avantage face aux aventuriers imprudents."
+      "description": "Un predatore feroce e agile. I suoi artigli affilati potrebbero segnare il vostro destino. Il freddo e i sentieri tortuosi gli danno un grande vantaggio sugli avventurieri incauti."
     },
     "shinyElementary": {
       "name": "Élémentaire brillant",
-      "description": "Un être né des cristaux de la caverne. Il n'hésitera pas à utiliser ses pouvoirs élémentaires pour vous faire valser à l'autre bout du chemin."
+      "description": "Un essere nato dai cristalli della grotta. Non esiterà a usare i suoi poteri elementali per mandarvi all'altro capo del sentiero."
     },
     "crocodile": {
       "name": "Coccodrillo",
-      "description": "Un grand crocodile terrifiant, à la recherche d'un aventurier pour en faire son festin."
+      "description": "Un grande e terrificante coccodrillo in cerca di un avventuriero con cui banchettare."
     },
     "yukiOnna": {
       "name": "Yuki-Onna",
-      "description": "Une femme esprit des neiges. Elle est très belle mais aussi très dangereuse. Elle peut geler ses proies d'un simple regard et les faire disparaître dans la neige."
+      "description": "Uno spirito delle nevi femmina. È molto bella ma anche molto pericolosa. Può congelare le sue prede con uno sguardo e farle sparire nella neve."
     },
     "celestialGuardian": {
       "name": "Gardien céleste",
