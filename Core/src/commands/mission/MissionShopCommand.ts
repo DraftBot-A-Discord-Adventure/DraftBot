@@ -49,12 +49,16 @@ import {
 	ReactionCollectorSkipMissionShopItemCloseReaction,
 	ReactionCollectorSkipMissionShopItemReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorSkipMissionShopItem";
-import { PetDiet } from "../../../../Lib/src/constants/PetConstants";
+import {
+	PetConstants,
+	PetDiet
+} from "../../../../Lib/src/constants/PetConstants";
 import { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 import { getAiPetBehavior } from "../../core/fights/PetAssistManager";
 import { PetUtils } from "../../core/utils/PetUtils";
 import { Badge } from "../../../../Lib/src/types/Badge";
+import { DwarfPetsSeen } from "../../core/database/game/models/DwarfPetsSeen";
 
 /**
  * Calculate the amount of money the player will have if he buys some with gems
@@ -153,6 +157,8 @@ function getValueLovePointsPetShopItem(): ShopItem {
 			}
 			const pet = await PetEntities.getById(player.petId);
 			const petModel = PetDataController.instance.getById(pet.typeId);
+			const randomPetNotShownToDwarfId = await DwarfPetsSeen.getRandomPetNotSeenId(player);
+			const randomPetDwarfModel = randomPetNotShownToDwarfId !== 0 ? PetDataController.instance.getById(randomPetNotShownToDwarfId) : null;
 			response.push(makePacket(CommandMissionShopPetInformation, {
 				nickname: pet.nickname,
 				petId: pet.id,
@@ -163,7 +169,14 @@ function getValueLovePointsPetShopItem(): ShopItem {
 				diet: petModel.diet as PetDiet,
 				nextFeed: pet.getFeedCooldown(petModel),
 				fightAssistId: getAiPetBehavior(petModel.id).id,
-				ageCategory: PetUtils.getAgeCategory(pet.id)
+				ageCategory: PetUtils.getAgeCategory(pet.id),
+				...randomPetDwarfModel && {
+					randomPetDwarf: {
+						typeId: randomPetDwarfModel.id,
+						sex: PetConstants.SEX.MALE as SexTypeShort,
+						numberOfPetsNotSeen: await DwarfPetsSeen.getNumberOfPetsNotSeen(player)
+					}
+				}
 			}));
 			return true;
 		}

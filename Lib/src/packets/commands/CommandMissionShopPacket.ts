@@ -43,6 +43,12 @@ export class CommandMissionShopPetInformation extends DraftBotPacket {
 	fightAssistId!: string;
 
 	ageCategory!: string;
+
+	randomPetDwarf?: {
+		typeId: number;
+		sex: SexTypeShort;
+		numberOfPetsNotSeen: number;
+	};
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
