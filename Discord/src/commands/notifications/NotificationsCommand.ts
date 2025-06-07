@@ -1,29 +1,30 @@
-import { ICommand } from "../ICommand";
-import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import { SlashCommandBuilderGenerator } from "../SlashCommandBuilderGenerator";
+import { ICommand } from "../ICommand";
 import {
 	NotificationsConfiguration,
 	NotificationsConfigurations
 } from "../../database/discord/models/NotificationsConfiguration";
+import { DraftbotInteraction } from "../../messages/DraftbotInteraction";
 import {
 	ActionRowBuilder,
-	ButtonBuilder, ButtonInteraction,
-	ButtonStyle,
-	parseEmoji,
-	StringSelectMenuBuilder, StringSelectMenuInteraction,
-	StringSelectMenuOptionBuilder,
-	User
+	ButtonBuilder,
+	ButtonInteraction, ButtonStyle, parseEmoji, StringSelectMenuBuilder,
+	StringSelectMenuInteraction, StringSelectMenuOptionBuilder, User
 } from "discord.js";
-import { Constants } from "../../../../Lib/src/constants/Constants";
+import { Language } from "../../../../Lib/src/Language";
 import { DraftBotIcons } from "../../../../Lib/src/DraftBotIcons";
 import i18n from "../../translations/i18n";
-import { Language } from "../../../../Lib/src/Language";
+import { NotificationsTypes } from "../../notifications/NotificationType";
+import {
+	NotificationSendType,
+	NotificationSendTypeEnum
+} from "../../notifications/NotificationSendType";
 import { DraftBotEmbed } from "../../messages/DraftBotEmbed";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
+import { Constants } from "../../../../Lib/src/constants/Constants";
 import {
-	NotificationSendType, NotificationSendTypeEnum
-} from "../../notifications/NotificationSendType";
-import { NotificationsTypes } from "../../notifications/NotificationType";
+	NotificationsConstantsClass
+} from "../../../../Lib/src/constants/NotificationsConstants";
 
 /**
  * Map of the current notification configuration collectors
@@ -35,8 +36,13 @@ import { NotificationsTypes } from "../../notifications/NotificationType";
 
 const currentCollectors = new Map<string, () => void>();
 
+function clearCurrentCollector(userId: string): void {
+	const currentCollector = currentCollectors.get(userId);
+	if (currentCollector) {
+		currentCollector();
+	}
+}
 
-const backButtonCustomId = "back";
 const forceStopReason = "force";
 
 async function getPacket(interaction: DraftbotInteraction): Promise<null> {
@@ -47,11 +53,35 @@ async function getPacket(interaction: DraftbotInteraction): Promise<null> {
 	return null;
 }
 
-function clearCurrentCollector(userId: string): void {
-	const currentCollector = currentCollectors.get(userId);
-	if (currentCollector) {
-		currentCollector();
+export const commandInfo: ICommand = {
+	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("notifications"),
+	getPacket,
+	mainGuildCommand: false
+};
+
+
+function getNotificationsEmbed(notificationsConfiguration: NotificationsConfiguration, user: User, lng: Language, footer?: string): DraftBotEmbed {
+	let description = "";
+	NotificationsTypes.ALL.forEach(notificationType => {
+		const notificationTypeValue = notificationType.value(notificationsConfiguration);
+		const sendLocation = NotificationSendType.toString(notificationTypeValue.sendType, lng, notificationTypeValue.channelId);
+		description
+			+= `${notificationType.emote} **__${i18n.t(notificationType.i18nKey, { lng })}__**
+- **${i18n.t("commands:notifications.enabledField", { lng })}** ${notificationTypeValue.enabled ? DraftBotIcons.collectors.accept : DraftBotIcons.collectors.refuse}`;
+		if (notificationTypeValue.enabled) {
+			description += `\n- **${i18n.t("commands:notifications.sendLocationField", { lng })}** ${sendLocation}`;
+		}
+		description += "\n\n";
+	});
+
+	const embed = new DraftBotEmbed()
+		.formatAuthor(i18n.t("commands:notifications.embedTitle", { lng }), user)
+		.setDescription(description);
+	if (footer) {
+		embed.setFooter({ text: footer });
 	}
+
+	return embed;
 }
 
 async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
@@ -81,13 +111,15 @@ async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInter
 	// Build and send the message
 	let reply;
 	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng);
-	if (!interaction.isButton() && !interaction.isStringSelectMenu()) {
+	if (!interaction.isStringSelectMenu()) {
 		reply = await interaction.reply({ // Reply is picky on the signature, so the options can't be factorized into a single variable
 			embeds: [embed],
 			components: [row],
 			withResponse: true
 		});
 	}
+
+	// Click on Buttons/Menu
 	else {
 		reply = await (interaction as ButtonInteraction | StringSelectMenuInteraction).update({
 			embeds: [embed],
@@ -99,34 +131,33 @@ async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInter
 	if (!reply?.resource?.message) {
 		return;
 	}
-
 	const msg = reply.resource.message;
 
 	// Create the collector
-	const MenuCollector = msg.createMessageComponentCollector({
+	const buttonCollector = msg.createMessageComponentCollector({
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(interaction.user.id, (): void => MenuCollector.stop());
 
-	MenuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
-		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
+	buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
+		currentCollectors.set(interaction.user.id, (): void => buttonCollector.stop());
+		if (buttonInteraction.user.id !== interaction.user.id) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 			return;
 		}
 
-		if (menuInteraction.customId === chooseEnabledCustomId) {
-			MenuCollector.stop(forceStopReason);
-			await chooseEnabled(menuInteraction, notificationsConfiguration, lng);
+		if (buttonInteraction.customId === chooseEnabledCustomId) {
+			buttonCollector.stop(forceStopReason);
+			await chooseEnabled(buttonInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
-		if (menuInteraction.customId === chooseSendTypeCustomId) {
-			MenuCollector.stop(forceStopReason);
-			await chooseSendType(menuInteraction, notificationsConfiguration, lng);
+		if (buttonInteraction.customId === chooseSendTypeCustomId) {
+			buttonCollector.stop(forceStopReason);
+			await chooseSendType(buttonInteraction, notificationsConfiguration, lng);
 		}
 	});
 
-	MenuCollector.on("end", async (_, reason) => {
+	buttonCollector.on("end", async (_, reason) => {
 		currentCollectors.delete(interaction.user.id);
 
 		if (reason !== forceStopReason) {
@@ -135,181 +166,147 @@ async function mainPage(interaction: DraftbotInteraction | StringSelectMenuInter
 	});
 }
 
-function getSettingsSelectMenu(
-	notificationsConfiguration: NotificationsConfiguration,
-	keepOnlyEnabled: boolean,
-	lng: Language,
-	customId: string,
-	includeBack = true
-): ActionRowBuilder<StringSelectMenuBuilder> {
-	const selectMenu = new StringSelectMenuBuilder()
-		.setCustomId(customId)
-		.setPlaceholder(i18n.t("commands:notifications.selectPlaceholder", { lng }));
+function getSettingsRows(notificationsConfiguration: NotificationsConfiguration, keepOnlyEnabled: boolean, lng: Language): ActionRowBuilder<StringSelectMenuBuilder>[] {
+	const notificationsOptions: StringSelectMenuOptionBuilder[] = [];
 
-	for (const notificationType of NotificationsTypes.ALL) {
+	NotificationsTypes.ALL.forEach(notificationType => {
 		if (keepOnlyEnabled && !notificationType.value(notificationsConfiguration).enabled) {
-			continue;
+			return;
 		}
+		notificationsOptions.push(
+			new StringSelectMenuOptionBuilder()
+				.setLabel(i18n.t(notificationType.i18nKey, { lng }))
+				.setEmoji(parseEmoji(notificationType.emote)!)
+				.setValue(notificationType.customId)
+		);
+	});
 
-		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
-			.setLabel(i18n.t(notificationType.i18nKey, { lng }))
-			.setEmoji(parseEmoji(notificationType.emote)!)
-			.setValue(notificationType.customId));
-	}
-
-	if (includeBack) {
-		selectMenu.addOptions(new StringSelectMenuOptionBuilder()
+	notificationsOptions.push(
+		new StringSelectMenuOptionBuilder()
 			.setLabel(i18n.t("commands:notifications.back", { lng }))
 			.setEmoji(parseEmoji(DraftBotIcons.notifications.back)!)
-			.setValue(backButtonCustomId));
-	}
+			.setValue(NotificationsConstantsClass.MENU_IDS.BACK)
+	);
 
-	return new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(selectMenu);
+	const rowNotificationsSelectionMenu = new StringSelectMenuBuilder()
+		.setCustomId(NotificationsConstantsClass.MENU_IDS.NOTIFICATIONS_SELECTION)
+		.setPlaceholder(i18n.t("commands:notifications.selectPlaceholder", { lng }))
+		.addOptions(notificationsOptions);
+
+	const rowNotifications = new ActionRowBuilder<StringSelectMenuBuilder>()
+		.addComponents(rowNotificationsSelectionMenu);
+
+	return [rowNotifications];
 }
 
 
-async function chooseEnabled(interaction: StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
-	clearCurrentCollector(interaction.user.id);
+async function chooseEnabled(buttonInteraction: ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
+	clearCurrentCollector(buttonInteraction.user.id);
 
-	const row = getSettingsSelectMenu(notificationsConfiguration, false, lng, "enableNotificationsMenu");
+	// Build the menu
+	const menu = getSettingsRows(notificationsConfiguration, false, lng);
 
-	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
-	const msg = await interaction.update({
-		embeds: [embed],
-		components: [row],
-		withResponse: true
+	// Build and send the message
+	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
+	const msg = await buttonInteraction.update({
+		embeds: [embed], components: menu
 	});
 
-	const menuCollector = msg.resource!.message!.createMessageComponentCollector({
+	// Create the collector
+	const menuCollector = msg.createMessageComponentCollector({
+		filter: menuInteraction => menuInteraction.customId === NotificationsConstantsClass.MENU_IDS.NOTIFICATIONS_SELECTION,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(interaction.user.id, (): void => menuCollector.stop());
+	currentCollectors.set(buttonInteraction.user.id, (): void => menuCollector.stop());
 
-	menuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
-		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
+	menuCollector.on("collect", async (collectorMenuInteraction: StringSelectMenuInteraction) => {
+		if (collectorMenuInteraction.user.id !== buttonInteraction.user.id) {
+			await sendInteractionNotForYou(collectorMenuInteraction.user, collectorMenuInteraction, lng);
 			return;
 		}
 
-		await menuInteraction.deferUpdate();
-
-		if (menuInteraction.values[0] === backButtonCustomId) {
+		if (collectorMenuInteraction.values[0] === NotificationsConstantsClass.MENU_IDS.BACK) {
 			menuCollector.stop(forceStopReason);
-			await mainPage(menuInteraction, notificationsConfiguration, lng);
+			await mainPage(collectorMenuInteraction, notificationsConfiguration, lng);
 			return;
 		}
-
-
-		const notificationType = NotificationsTypes.ALL.find(nt => nt.customId === menuInteraction.values[0]);
+		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorMenuInteraction.values[0]);
 		if (notificationType) {
 			notificationType.toggleCallback(notificationsConfiguration);
 			await notificationsConfiguration.save();
-
-			const updatedEmbed = getNotificationsEmbed(notificationsConfiguration, menuInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
-			await menuInteraction.editReply({
-				embeds: [updatedEmbed],
-				components: [row]
+			const embed = getNotificationsEmbed(notificationsConfiguration, collectorMenuInteraction.user, lng, i18n.t("commands:notifications.footerEnableDisable", { lng }));
+			await collectorMenuInteraction.update({
+				embeds: [embed],
+				components: menu
 			});
 		}
 	});
 
 	menuCollector.on("end", async (_, reason) => {
-		currentCollectors.delete(interaction.user.id);
+		currentCollectors.delete(buttonInteraction.user.id);
+
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.resource!.message!.edit({ components: [] });
+			await msg.edit({ components: [] });
 		}
 	});
 }
 
+async function chooseSendType(buttonInteraction: ButtonInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
+	clearCurrentCollector(buttonInteraction.user.id);
 
-async function chooseSendType(interaction: StringSelectMenuInteraction, notificationsConfiguration: NotificationsConfiguration, lng: Language): Promise<void> {
-	clearCurrentCollector(interaction.user.id);
+	// Build the menu
+	const menu = getSettingsRows(notificationsConfiguration, false, lng);
 
-	const row = getSettingsSelectMenu(notificationsConfiguration, true, lng, "sendTypeNotificationsMenu");
-
-	const embed = getNotificationsEmbed(notificationsConfiguration, interaction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
-	const msg = await interaction.update({
-		embeds: [embed],
-		components: [row],
-		withResponse: true
+	// Build and send the message
+	const embed = getNotificationsEmbed(notificationsConfiguration, buttonInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
+	const msg = await buttonInteraction.update({
+		embeds: [embed], components: menu
 	});
 
-	const menuCollector = msg.resource!.message!.createMessageComponentCollector({
+	// Create the collector
+	const menuCollector = msg.createMessageComponentCollector({
+		filter: menuInteraction => menuInteraction.customId === NotificationsConstantsClass.MENU_IDS.NOTIFICATIONS_SELECTION,
 		time: Constants.MESSAGES.COLLECTOR_TIME
 	});
-	currentCollectors.set(interaction.user.id, (): void => menuCollector.stop());
+	currentCollectors.set(buttonInteraction.user.id, (): void => menuCollector.stop());
 
-	menuCollector.on("collect", async (menuInteraction: StringSelectMenuInteraction) => {
-		if (menuInteraction.user.id !== interaction.user.id) {
-			await sendInteractionNotForYou(menuInteraction.user, menuInteraction, lng);
+	menuCollector.on("collect", async (collectorMenuInteraction: StringSelectMenuInteraction) => {
+		if (buttonInteraction.user.id !== collectorMenuInteraction.user.id) {
+			await sendInteractionNotForYou(collectorMenuInteraction.user, collectorMenuInteraction, lng);
 			return;
 		}
 
-		await menuInteraction.deferUpdate();
-
-		if (menuInteraction.values[0] === backButtonCustomId) {
+		if (collectorMenuInteraction.values[0] === NotificationsConstantsClass.MENU_IDS.BACK) {
 			menuCollector.stop(forceStopReason);
-			await mainPage(menuInteraction, notificationsConfiguration, lng);
+			await mainPage(collectorMenuInteraction, notificationsConfiguration, lng);
 			return;
 		}
 
-
-		const notificationType = NotificationsTypes.ALL.find(nt => nt.customId === menuInteraction.values[0]);
+		const notificationType = NotificationsTypes.ALL.find(notificationType => notificationType.customId === collectorMenuInteraction.values[0]);
 		if (notificationType) {
 			notificationType.changeSendTypeCallback(
 				notificationsConfiguration,
 				(notificationType.value(notificationsConfiguration).sendType + 1) % (Object.keys(NotificationSendTypeEnum).length / 2),
-				interaction.channel!.id
+				buttonInteraction.channel!.id
 			);
 			await notificationsConfiguration.save();
 
-			const updatedEmbed = getNotificationsEmbed(notificationsConfiguration, menuInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
-			await menuInteraction.editReply({
-				embeds: [updatedEmbed],
-				components: [row]
+			const embed = getNotificationsEmbed(notificationsConfiguration, collectorMenuInteraction.user, lng, i18n.t("commands:notifications.footerSendLocation", { lng }));
+			await collectorMenuInteraction.update({
+				embeds: [embed],
+				components: menu
 			});
 		}
 	});
 
 	menuCollector.on("end", async (_, reason) => {
-		currentCollectors.delete(interaction.user.id);
+		currentCollectors.delete(buttonInteraction.user.id);
 		await notificationsConfiguration.save();
 
 		if (reason !== forceStopReason) {
-			await msg.resource!.message!.edit({ components: [] });
+			await msg.edit({ components: [] });
 		}
 	});
 }
-
-
-function getNotificationsEmbed(notificationsConfiguration: NotificationsConfiguration, user: User, lng: Language, footer?: string): DraftBotEmbed {
-	let description = "";
-	NotificationsTypes.ALL.forEach(notificationType => {
-		const notificationTypeValue = notificationType.value(notificationsConfiguration);
-		const sendLocation = NotificationSendType.toString(notificationTypeValue.sendType, lng, notificationTypeValue.channelId);
-		description
-			+= `${notificationType.emote} **__${i18n.t(notificationType.i18nKey, { lng })}__**
-- **${i18n.t("commands:notifications.enabledField", { lng })}** ${notificationTypeValue.enabled ? DraftBotIcons.collectors.accept : DraftBotIcons.collectors.refuse}`;
-		if (notificationTypeValue.enabled) {
-			description += `\n- **${i18n.t("commands:notifications.sendLocationField", { lng })}** ${sendLocation}`;
-		}
-		description += "\n\n";
-	});
-
-	const embed = new DraftBotEmbed()
-		.formatAuthor(i18n.t("commands:notifications.embedTitle", { lng }), user)
-		.setDescription(description);
-	if (footer) {
-		embed.setFooter({ text: footer });
-	}
-
-	return embed;
-}
-
-export const commandInfo: ICommand = {
-	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("notifications"),
-	getPacket,
-	mainGuildCommand: false
-};
