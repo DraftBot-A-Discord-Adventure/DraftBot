@@ -20,6 +20,8 @@ import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { draftBotInstance } from "../../index";
 import { LogsDatabase } from "../../core/database/logs/LogsDatabase";
+import { PacketUtils } from "../../core/utils/PacketUtils";
+import { GuildStatusChangeNotificationPacket } from "../../../../Lib/src/packets/notifications/GuildStatusChangeNotificationPacket";
 
 
 /**
@@ -57,6 +59,13 @@ async function acceptGuildLeave(player: Player, response: DraftBotPacket[]): Pro
 				guild.save(),
 				player.save()
 			]);
+			const notifications: GuildStatusChangeNotificationPacket[] = [];
+			notifications.push(makePacket(GuildStatusChangeNotificationPacket, {
+				keycloakId: elder.keycloakId,
+				becomeChief: true,
+				guildName: guild.name
+			}));
+			PacketUtils.sendNotifications(notifications);
 			return;
 		}
 
