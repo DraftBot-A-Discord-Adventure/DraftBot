@@ -741,18 +741,18 @@
     },
     "hardBiteAttack": {
       "name_one": "Potente attacco con morso",
-      "name_other": "Attaques morsures puissantes"
+      "name_other": "Potenti attacchi con il morso"
     },
     "bleeding": {
-      "name": "en train de saigner",
-      "new": "saigne.",
-      "active": "saigne.",
-      "stop": "n'est plus en train de saigner."
+      "name": "sanguinamento",
+      "new": "sanguinamento.",
+      "active": "sanguinamento.",
+      "stop": "non sanguina più."
     },
     "howlAttack": {
-      "customMessage": "hurle au ciel.",
-      "name_one": "Hurlement",
-      "name_other": "Hurlements"
+      "customMessage": "urla al cielo.",
+      "name_one": "L'ululato",
+      "name_other": "L'ululato"
     }
   },
   "leagues": {
@@ -830,7 +830,7 @@
     },
     "1103": {
       "description": "Due maestose porte si trovano in cima a una lunga serie di gradini. Salirle non sarà facile. Si dice che siano state costruite da un'antica civiltà in onore di una divinità.",
-      "name": "Portes sacrées",
+      "name": "Porte sacre",
       "particle": "verso gli"
     },
     "1104": {
@@ -840,17 +840,17 @@
     },
     "1105": {
       "description": "Un grande lago nel cuore delle montagne, attraversato non senza rischi. Poiché la temperatura è gelida, il fatto che non sia ghiacciato rimane un mistero. Nessuno conosce la sua profondità o la sua fauna.",
-      "name": "Lac souterrain",
+      "name": "Lago sotterraneo",
       "particle": "verso lo"
     },
     "1106": {
       "description": "Un villaggio ricco e abbandonato di cui rimangono solo rovine e desolazione. Il tetto di una casa padronale può essere visto piegarsi sotto il peso della campana della chiesa crollata. Qui regna un silenzio pesante, interrotto di tanto in tanto dalle grida sofferenti delle anime perdute.",
-      "name": "Village dévasté",
+      "name": "Villaggio devastato",
       "particle": "verso lo"
     },
     "1107": {
       "description": "Nessuno si è ancora avventurato così lontano. In lontananza, si vede una sagoma gigantesca riflessa su una parete di ghiaccio.",
-      "name": "Nid glacé",
+      "name": "Nido congelato",
       "particle": "verso lo"
     },
     "12": {
@@ -1217,11 +1217,11 @@
       "description": "Lo Slime Mutante è un mostro che può copiare altri mostri o direttamente l'avversario. È molto versatile e può adattarsi a qualsiasi situazione."
     },
     "whiteWolf": {
-      "name": "Loup blanc",
+      "name": "Lupo bianco",
       "description": "Un predatore feroce e agile. I suoi artigli affilati potrebbero segnare il vostro destino. Il freddo e i sentieri tortuosi gli danno un grande vantaggio sugli avventurieri incauti."
     },
     "shinyElementary": {
-      "name": "Élémentaire brillant",
+      "name": "Elementare luminoso",
       "description": "Un essere nato dai cristalli della grotta. Non esiterà a usare i suoi poteri elementali per mandarvi all'altro capo del sentiero."
     },
     "crocodile": {
@@ -1233,7 +1233,7 @@
       "description": "Uno spirito delle nevi femmina. È molto bella ma anche molto pericolosa. Può congelare le sue prede con uno sguardo e farle sparire nella neve."
     },
     "celestialGuardian": {
-      "name": "Gardien céleste",
+      "name": "Guardiano Celeste",
       "description": "Il guardiano dei sacri cancelli. Il suo compito è impedire agli avventurieri di passare e userà il suo martello divino per farvi capire che non siete i benvenuti."
     },
     "maleIceDragon": {
