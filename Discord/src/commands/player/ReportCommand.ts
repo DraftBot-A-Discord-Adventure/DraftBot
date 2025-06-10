@@ -278,8 +278,12 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 					.replace("2", "?");
 			return `${
 				EmoteUtils.translateEmojiToDiscord(DraftBotIcons.mapTypes[destinationReaction.mapTypeId])
-			} ${
-				i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} (${duration})`;
+			} ${destinationReaction.enterInCity
+				? i18n.t("commands:report.city.enterIn", {
+					lng, mapLocationId: destinationReaction.mapId
+				})
+				: ""}${
+				i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} ${destinationReaction.enterInCity ? "" : `(${duration})`}`;
 		})
 	}, {
 		refuse: {
