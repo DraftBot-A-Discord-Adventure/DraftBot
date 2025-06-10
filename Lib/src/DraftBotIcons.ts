@@ -213,6 +213,10 @@ export const DraftBotIcons: {
 		lost: string;
 		draw: string;
 	};
+	city: {
+		exit: string;
+		stay: string;
+	};
 } = {
 	effects: {
 		notStarted: "👶",
@@ -2291,5 +2295,9 @@ export const DraftBotIcons: {
 		won: "🟢",
 		lost: "🔴",
 		draw: "🟡"
+	},
+	city: {
+		exit: "🏃‍➡️",
+		stay: "👀"
 	}
 };
