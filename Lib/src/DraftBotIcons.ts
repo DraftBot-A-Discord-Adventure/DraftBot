@@ -213,6 +213,13 @@ export const DraftBotIcons: {
 		lost: string;
 		draw: string;
 	};
+	city: {
+		exit: string;
+		stay: string;
+	};
+	meals: {
+		[mealId: string]: string;
+	};
 } = {
 	effects: {
 		notStarted: "👶",
@@ -2291,5 +2298,34 @@ export const DraftBotIcons: {
 		won: "🟢",
 		lost: "🔴",
 		draw: "🟡"
+	},
+	city: {
+		exit: "🏃‍➡️",
+		stay: "👀"
+	},
+	meals: {
+		breadAndCheese: "🧀",
+		roastedFowl: "🍗",
+		roastedBeef: "🥩",
+		stew: "🍲",
+		lordPie: "🥧",
+		potatoSoup: "🥔",
+		friedEggs: "🍳",
+		curryRice: "🍛",
+		sushi: "🍣",
+		bravesPanOfFood: "🍳",
+		fishAndChips: "🍟",
+		coldVegetableStew: "🥗",
+		roastedPork: "🍖",
+		oysterPlatter: "🦪",
+		tamale: "🫔",
+		friedShrimp: "🍤",
+		clamChowder: "🍲",
+		grilledFish: "🐟",
+		lobsterRoll: "🦞",
+		jellyfishCarpaccio: "🪼",
+		bread: "🍞",
+		pretzels: "🥨",
+		simpleSalad: "🥗"
 	}
 };
