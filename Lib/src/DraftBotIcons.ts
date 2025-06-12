@@ -831,7 +831,7 @@ export const DraftBotIcons: {
 		},
 		69: {
 			accept: "👍",
-			comrpomise: "🤝",
+			compromise: "🤝",
 			deny: "👿",
 			end: {
 				0: "👁️"
