@@ -18,7 +18,7 @@
           "health": -70
         },
         "1": {
-          "effect": "sleeping:",
+          "effect": "sleeping",
           "money": 400
         }
       }
