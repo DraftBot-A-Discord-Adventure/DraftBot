@@ -208,6 +208,23 @@ function sendHelpDm(interaction: CrowniclesInteraction, lng: Language): void {
 }
 
 /**
+ * Build the embed field appended to /help replies when the command is invoked
+ * in DM. Reminds the player that Crownicles is meant to be played on a server
+ * and points them to the official server.
+ */
+function buildDmNoticeField(lng: Language): {
+	name: string; value: string;
+} {
+	return {
+		name: i18n.t("commands:help.dmNoticeTitle", { lng }),
+		value: i18n.t("commands:help.dmNoticeValue", {
+			lng,
+			inviteLink: HelpConstants.HELP_INVITE_LINK
+		})
+	};
+}
+
+/**
  * Get the list of available commands and information about what they do
  */
 async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
@@ -220,15 +237,7 @@ async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
 	if (!askedCommand) {
 		generateGenericHelpMessage(helpMessage, interaction);
 		if (isDm) {
-			helpMessage.addFields([
-				{
-					name: i18n.t("commands:help.dmNoticeTitle", { lng }),
-					value: i18n.t("commands:help.dmNoticeValue", {
-						lng,
-						inviteLink: HelpConstants.HELP_INVITE_LINK
-					})
-				}
-			]);
+			helpMessage.addFields([buildDmNoticeField(lng)]);
 		}
 		await interaction.reply({
 			embeds: [helpMessage]
@@ -241,15 +250,7 @@ async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
 		if (!command) {
 			generateGenericHelpMessage(helpMessage, interaction);
 			if (isDm) {
-				helpMessage.addFields([
-					{
-						name: i18n.t("commands:help.dmNoticeTitle", { lng }),
-						value: i18n.t("commands:help.dmNoticeValue", {
-							lng,
-							inviteLink: HelpConstants.HELP_INVITE_LINK
-						})
-					}
-				]);
+				helpMessage.addFields([buildDmNoticeField(lng)]);
 			}
 			await interaction.reply({
 				embeds: [helpMessage]
@@ -282,15 +283,7 @@ async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
 				inline: true
 			});
 		if (isDm) {
-			helpMessage.addFields([
-				{
-					name: i18n.t("commands:help.dmNoticeTitle", { lng }),
-					value: i18n.t("commands:help.dmNoticeValue", {
-						lng,
-						inviteLink: HelpConstants.HELP_INVITE_LINK
-					})
-				}
-			]);
+			helpMessage.addFields([buildDmNoticeField(lng)]);
 		}
 		await interaction.reply({
 			embeds: [helpMessage]
