@@ -23,6 +23,9 @@ import {useFight} from "@/src/store/FightStore";
 import {MEMORABLE_MOMENT_KINDS, MemorableMoment, memorableMomentStore, useMemorableMoment} from "@/src/store/MemorableMomentStore";
 import {usePlayerProfile} from "@/src/store/usePlayerProfile";
 import {useReducedMotion} from "@/src/store/useReducedMotion";
+import {AppStateChange, useAppState, useAppStateChange} from "@/src/store/AppState";
+import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
+import {useQueryClient} from "@tanstack/react-query";
 import {i18n} from "@/src/translations/i18n";
 
 /** The card is a 4:5 portrait, the shape social feeds crop the least. */
@@ -288,7 +291,7 @@ function useAppearance(): Animated.Value {
 	return shown;
 }
 
-function MemorableMomentWindow({moment}: {moment: MemorableMoment}): ReactNode {
+function MemorableMomentWindow({moment, onClose}: {moment: MemorableMoment; onClose: () => void}): ReactNode {
 	const pseudo = usePlayerPseudo();
 	const {width} = useWindowDimensions();
 	const card = useRef<View>(null);
@@ -296,7 +299,7 @@ function MemorableMomentWindow({moment}: {moment: MemorableMoment}): ReactNode {
 	const {share, sharing, failed} = useShareCard(card);
 	const shown = useAppearance();
 	const cardWidth = Math.min(width - 2 * Theme.spacing.xxl, MOMENT_CARD.maxWidth);
-	return <NativeWindow transparent animationType="none" statusBarTranslucent onRequestClose={memorableMomentStore.dismiss}>
+	return <NativeWindow transparent animationType="none" statusBarTranslucent onRequestClose={onClose}>
 		<View style={styles.layer} accessibilityViewIsModal testID="memorable-moment">
 			<Animated.View style={[styles.backdrop, {opacity: shown}]} />
 			<Animated.View style={{width: cardWidth, opacity: shown, transform: [{scale: shown.interpolate({inputRange: [0, 1], outputRange: [MOMENT_MOTION.fromScale, 1]})}]}}>
@@ -306,7 +309,7 @@ function MemorableMomentWindow({moment}: {moment: MemorableMoment}): ReactNode {
 				<View style={styles.actions}>
 					<ActionBanner icon={Share} label={i18n.t("app:moments.share")} pending={sharing} onPress={share} />
 					{failed ? <Text style={styles.failed}>{i18n.t("app:moments.shareFailed")}</Text> : null}
-					<Pressable accessibilityRole="button" onPress={memorableMomentStore.dismiss} style={({pressed}): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]} testID="moment-continue">
+					<Pressable accessibilityRole="button" onPress={onClose} style={({pressed}): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]} testID="moment-continue">
 						<Text style={styles.laterLabel}>{i18n.t("app:common.continue")}</Text>
 					</Pressable>
 				</View>
@@ -315,23 +318,64 @@ function MemorableMomentWindow({moment}: {moment: MemorableMoment}): ReactNode {
 	</NativeWindow>;
 }
 
-/** Badges come from many places, some while the app is closed: they are spotted when the profile changes. */
+const VISIBLE_BADGE_SET = new Set<string>(VISIBLE_BADGES);
+
+/**
+ * Core keeps which badges no device of the player celebrated yet, so one won while the app was closed,
+ * or celebrated on another phone, is handled once. A badge the profile gains asks Core again.
+ */
 function useBadgeMoments(): void {
+	const appState = useAppState();
 	const profile = usePlayerProfile();
-	const data = profile.status === "ready" ? profile.data : null;
+	const change = useAppStateChange();
+	const queryClient = useQueryClient();
+	const unrevealed = appState.status === "ready" ? appState.data.unrevealedBadges : null;
+	const owned = profile.status === "ready" ? profile.data.badges : null;
+	const ownedKey = owned?.join() ?? null;
+	const previousOwnedKey = useRef(ownedKey);
 	useEffect(() => {
-		if (!data) return;
-		memorableMomentStore.observeBadges(data.pseudo, data.badges, VISIBLE_BADGES)
-			.catch((error: unknown) => console.warn("Could not compare the badges with the ones already seen", error));
-	}, [data]);
+		const previous = previousOwnedKey.current;
+		previousOwnedKey.current = ownedKey;
+		if (previous === null || ownedKey === previous) return;
+		queryClient.invalidateQueries({queryKey: gameKey(GAME_ENTITIES.APP_STATE)})
+			.catch((error: unknown) => console.warn("Could not ask which badges to celebrate", error));
+	}, [ownedKey, queryClient]);
+	useEffect(() => {
+		if (!unrevealed || !owned) return;
+		const hidden = unrevealed.filter(badge => !VISIBLE_BADGE_SET.has(badge));
+		if (hidden.length > 0) change({revealedBadges: hidden});
+		memorableMomentStore.announceBadges(unrevealed.filter(badge => VISIBLE_BADGE_SET.has(badge)), {
+			owned: owned.filter(badge => VISIBLE_BADGE_SET.has(badge)).length,
+			total: VISIBLE_BADGES.length
+		});
+	}, [unrevealed, owned, change]);
+}
+
+/** Mythical finds and boss records Core keeps until a device has shown them, even if the app closed first. */
+function useRevealedMoments(): void {
+	const appState = useAppState();
+	const reveals = appState.status === "ready" ? appState.data.reveals : null;
+	useEffect(() => {
+		if (reveals) memorableMomentStore.announceReveals(reveals);
+	}, [reveals]);
+}
+
+function acknowledgement(moment: MemorableMoment): AppStateChange {
+	return moment.kind === MEMORABLE_MOMENT_KINDS.BADGE ? {revealedBadges: [moment.badge]} : {acknowledged: [moment.revealId]};
 }
 
 /** Offers to share a moment worth remembering once the game has nothing else to tell and no fight is shown. */
 export function MemorableMomentOverlay(): ReactNode {
 	useBadgeMoments();
+	useRevealedMoments();
 	const moment = useMemorableMoment();
 	const myTurn = useAnnouncementTurn();
 	const {visible: fighting} = useFight();
+	const change = useAppStateChange();
 	if (!moment || !myTurn || fighting) return null;
-	return <MemorableMomentWindow key={`${moment.kind}-${moment.at}`} moment={moment} />;
+	const close = (): void => {
+		change(acknowledgement(moment));
+		memorableMomentStore.dismiss();
+	};
+	return <MemorableMomentWindow key={`${moment.kind}-${moment.at}`} moment={moment} onClose={close} />;
 }

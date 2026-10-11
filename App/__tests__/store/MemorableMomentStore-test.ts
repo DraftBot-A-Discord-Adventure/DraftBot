@@ -1,16 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ItemFoundRes} from "ws-packets/src/fromServer/inventory/ItemFoundRes";
-import {FightMonsterRewardRes} from "ws-packets/src/fromServer/fight/FightRes";
 import {ItemRarity} from "ws-packets/src/objects/ItemRarity";
 import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
 import {MEMORABLE_MOMENT_KINDS, memorableMomentStore} from "@/src/store/MemorableMomentStore";
 
-const CELEBRATED = ["rich", "top_week", "legendary_pet"] as const;
-
-function dispatch(wireName: string, packet: object): void {
-	Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(wireName, packet);
-}
+const PROGRESS = {owned: 2, total: 29};
+const AT = 1_790_000_000_000;
 
 function item(rarity: ItemRarity): ItemWithDetails {
 	const stat = (baseValue: number): {baseValue: number; upgradeValue: number; maxValue: number} => ({baseValue, upgradeValue: 0, maxValue: baseValue});
@@ -27,61 +20,43 @@ function drain(): string[] {
 }
 
 describe("MemorableMomentStore", () => {
-	beforeEach(async (): Promise<void> => {
+	beforeEach((): void => {
 		drain();
-		await AsyncStorage.clear();
 	});
 
-	it("learns the badges of the first profile it reads without celebrating them", async () => {
-		await memorableMomentStore.observeBadges("newcomer", ["rich", "top_week"], CELEBRATED);
+	it("queues the badges Core still lists, with how many the player now owns", () => {
+		memorableMomentStore.announceBadges(["legendary_pet", "rich"], PROGRESS);
+
+		expect(memorableMomentStore.getSnapshot()).toEqual(expect.objectContaining({kind: MEMORABLE_MOMENT_KINDS.BADGE, badge: "legendary_pet", ...PROGRESS}));
+		expect(drain()).toEqual([MEMORABLE_MOMENT_KINDS.BADGE, MEMORABLE_MOMENT_KINDS.BADGE]);
+	});
+
+	it("queues a badge once per session, even when Core lists it again before the acknowledgement lands", () => {
+		memorableMomentStore.announceBadges(["top_week"], PROGRESS);
+		memorableMomentStore.announceBadges(["top_week"], PROGRESS);
+		memorableMomentStore.dismiss();
+		memorableMomentStore.announceBadges(["top_week"], PROGRESS);
 
 		expect(memorableMomentStore.getSnapshot()).toBeNull();
-		expect(JSON.parse(await AsyncStorage.getItem("memorableMoments.knownBadges.newcomer") ?? "[]")).toEqual(["rich", "top_week"]);
 	});
 
-	it("celebrates a badge gained while the app was closed, with how many the player now owns", async () => {
-		await AsyncStorage.setItem("memorableMoments.knownBadges.veteran", JSON.stringify(["rich"]));
-
-		await memorableMomentStore.observeBadges("veteran", ["rich", "legendary_pet"], CELEBRATED);
-
-		expect(memorableMomentStore.getSnapshot()).toEqual(expect.objectContaining({
-			kind: MEMORABLE_MOMENT_KINDS.BADGE, badge: "legendary_pet", owned: 2, total: CELEBRATED.length
-		}));
-	});
-
-	it("celebrates a badge once, even when the profile is read twice before the storage answers", async () => {
-		await memorableMomentStore.observeBadges("collector", ["rich"], CELEBRATED);
-
-		await Promise.all([
-			memorableMomentStore.observeBadges("collector", ["rich", "top_week"], CELEBRATED),
-			memorableMomentStore.observeBadges("collector", ["rich", "top_week"], CELEBRATED)
+	it("queues the mythical finds and boss records Core kept, dated when they happened, and skips its other reveals", () => {
+		memorableMomentStore.announceReveals([
+			{id: 1},
+			{id: 2, memorable: {at: AT, mythicItem: item(ItemRarity.MYTHICAL)}},
+			{id: 3, memorable: {at: AT, bossRecord: {monsterId: "kraken", monsterLevel: 80, classId: 7}}}
 		]);
 
-		expect(drain()).toEqual([MEMORABLE_MOMENT_KINDS.BADGE]);
-	});
-
-	it("keeps quiet about badges that are not shown to players", async () => {
-		await AsyncStorage.setItem("memorableMoments.knownBadges.supporter", JSON.stringify([]));
-
-		await memorableMomentStore.observeBadges("supporter", ["donor"], CELEBRATED);
-
-		expect(memorableMomentStore.getSnapshot()).toBeNull();
-	});
-
-	it("celebrates a found item only when it is mythical", () => {
-		dispatch(ItemFoundRes.wireName, {item: item(ItemRarity.LEGENDARY), kept: true});
-		expect(memorableMomentStore.getSnapshot()).toBeNull();
-
-		dispatch(ItemFoundRes.wireName, {item: item(ItemRarity.MYTHICAL), kept: false});
-		expect(memorableMomentStore.getSnapshot()).toEqual(expect.objectContaining({kind: MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM}));
-	});
-
-	it("celebrates a boss win only when Core says it set a record, after the moments already waiting", () => {
-		const reward = {money: 100, experience: 50, guildXp: 0, guildPoints: 0};
-		dispatch(ItemFoundRes.wireName, {item: item(ItemRarity.MYTHICAL), kept: true});
-		dispatch(FightMonsterRewardRes.wireName, {reward});
-		dispatch(FightMonsterRewardRes.wireName, {reward: {...reward, bossRecord: {monsterId: "kraken", monsterLevel: 80, classId: 7}}});
-
+		expect(memorableMomentStore.getSnapshot()).toEqual(expect.objectContaining({kind: MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM, revealId: 2, at: AT}));
 		expect(drain()).toEqual([MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM, MEMORABLE_MOMENT_KINDS.BOSS_RECORD]);
+	});
+
+	it("queues a kept moment once per session, even when Core lists it again before the acknowledgement lands", () => {
+		const reveal = {id: 4, memorable: {at: AT, bossRecord: {monsterId: "kraken", monsterLevel: 80, classId: 7}}};
+		memorableMomentStore.announceReveals([reveal]);
+		memorableMomentStore.dismiss();
+		memorableMomentStore.announceReveals([reveal]);
+
+		expect(memorableMomentStore.getSnapshot()).toBeNull();
 	});
 });

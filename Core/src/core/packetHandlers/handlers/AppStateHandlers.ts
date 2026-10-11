@@ -16,31 +16,42 @@ import {
 	pendingRevealsOf, seenFlags, storePendingReveals, withSeen
 } from "../../appState/AppState";
 import { PacketUtils } from "../../utils/PacketUtils";
+import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
+import { Badge } from "../../../../../Lib/src/types/Badge";
 
 type AppStateChange = {
 	seen: AppStateFlag[];
 	acknowledged: number[];
+	revealedBadges: Badge[];
 };
 
-/** This packet comes over MQTT: only known flags and whole ids may reach the database. */
+const BADGES = new Set<string>(Object.values(Badge));
+
+function isBadge(value: unknown): value is Badge {
+	return typeof value === "string" && BADGES.has(value);
+}
+
+/** This packet comes over MQTT: only known flags, badges and whole ids may reach the database. */
 function validChange(packet: CommandAppStateReq): AppStateChange | null {
 	const seen = packet.seen ?? [];
 	const acknowledged = packet.acknowledged ?? [];
-	if (!Array.isArray(seen) || !Array.isArray(acknowledged)) {
+	const revealedBadges = packet.revealedBadges ?? [];
+	if (!Array.isArray(seen) || !Array.isArray(acknowledged) || !Array.isArray(revealedBadges)) {
 		return null;
 	}
-	if (!seen.every(isAppStateFlag) || !acknowledged.every(Number.isInteger)) {
+	if (!seen.every(isAppStateFlag) || !acknowledged.every(Number.isInteger) || !revealedBadges.every(isBadge)) {
 		return null;
 	}
 	return {
-		seen, acknowledged
+		seen, acknowledged, revealedBadges
 	};
 }
 
-function appStateResponse(info: PlayerMissionsInfo): CommandAppStateRes {
+function appStateResponse(info: PlayerMissionsInfo, unrevealedBadges: Badge[]): CommandAppStateRes {
 	return makePacket(CommandAppStateRes, {
 		seen: seenFlags(info.appSeen),
-		reveals: pendingRevealsOf(info)
+		reveals: pendingRevealsOf(info),
+		unrevealedBadges
 	});
 }
 
@@ -60,14 +71,16 @@ export default class AppStateHandlers {
 			return;
 		}
 		const player = await Players.getOrRegister(context.keycloakId!);
+		await PlayerBadgesManager.markRevealedInApp(player.id, change.revealedBadges);
+		const unrevealedBadges = await PlayerBadgesManager.getUnrevealedInApp(player.id);
 		const info = await PlayerMissionsInfos.getOfPlayer(player.id);
 		if (change.seen.length === 0 && change.acknowledged.length === 0) {
-			response.push(appStateResponse(info));
+			response.push(appStateResponse(info, unrevealedBadges));
 			return;
 		}
 		response.push(await PlayerMissionsInfo.withLocked(player.id, async locked => {
 			await applyChangeUnderLock(locked, change);
-			return appStateResponse(locked);
+			return appStateResponse(locked, unrevealedBadges);
 		}));
 	}
 }

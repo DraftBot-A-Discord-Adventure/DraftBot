@@ -18,8 +18,8 @@ function letterReveal(id: number, trial: number): PendingReveal {
 	return {id, letter: {trial}} as unknown as PendingReveal;
 }
 
-function state(reveals: PendingReveal[]): AppStateRes {
-	return Object.assign(new AppStateRes(), {seen: ["fork"], reveals});
+function state(reveals: PendingReveal[], unrevealedBadges: AppStateRes["unrevealedBadges"] = []): AppStateRes {
+	return Object.assign(new AppStateRes(), {seen: ["fork"], reveals, unrevealedBadges});
 }
 
 describe("state the app keeps on Core", () => {
@@ -27,6 +27,11 @@ describe("state the app keeps on Core", () => {
 		const next = withChange(state([missionsReveal(1, ["a"]), letterReveal(2, 1)]), {seen: ["fork", "royalSeal"], acknowledged: [1]});
 		expect(next.seen).toEqual(["fork", "royalSeal"]);
 		expect(next.reveals.map(reveal => reveal.id)).toEqual([2]);
+	});
+
+	it("stops listing a badge as soon as the app has celebrated it", () => {
+		const next = withChange(state([], ["rich", "top_week"]), {revealedBadges: ["rich"]});
+		expect(next.unrevealedBadges).toEqual(["top_week"]);
 	});
 
 	it("gathers every mission Core still holds for the player, and where they come from", () => {

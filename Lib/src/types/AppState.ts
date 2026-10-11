@@ -1,5 +1,7 @@
 import { MissionsCompletedPacket } from "../packets/events/MissionsCompletedPacket";
 import { RoyalLetterPacket } from "../packets/events/RoyalLetterPacket";
+import { ItemWithDetails } from "./ItemWithDetails";
+import { PveBossNewRecord } from "./PveBossRecord";
 
 /**
  * What the app has already shown a character: unlock announcements, tabs visited and the guide's
@@ -33,9 +35,17 @@ export function isAppStateFlag(value: unknown): value is AppStateFlag {
 	return APP_STATE_FLAGS.some(flag => flag === value);
 }
 
+/** A moment worth sharing the app has not shown yet, with when it happened. */
+export type MemorableReveal = {
+	at: number;
+	mythicItem?: ItemWithDetails;
+	bossRecord?: PveBossNewRecord;
+};
+
 /** Something Core credited and told the app, kept until the player has seen it there. */
 export type PendingReveal = {
 	id: number;
 	missions?: MissionsCompletedPacket;
 	letter?: RoyalLetterPacket;
+	memorable?: MemorableReveal;
 };

@@ -3,6 +3,9 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {MissionsCompletedRes} from "ws-packets/src/fromServer/missions/MissionsCompletedRes";
 import {BlessingActivatedRes} from "ws-packets/src/fromServer/character/BlessingActivatedRes";
 import {RoyalLetterRes} from "ws-packets/src/fromServer/onboarding/RoyalLetterRes";
+import {ItemFoundRes} from "ws-packets/src/fromServer/inventory/ItemFoundRes";
+import {FightMonsterRewardRes} from "ws-packets/src/fromServer/fight/FightRes";
+import {ItemRarity} from "ws-packets/src/objects/ItemRarity";
 import {AppConstants} from "@/src/AppConstants";
 import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
 import {WebSocketClient} from "@/src/networking/WebSocketClient";
@@ -35,7 +38,7 @@ function refresh(queryClient: QueryClient, entity: typeof GAME_ENTITIES[keyof ty
 
 /**
  * Completed missions change the list, and Core now keeps them to show; a token reward also changes
- * what the report offers to spend. A royal letter is kept the same way.
+ * what the report offers to spend. A royal letter, a mythical find and a boss record are kept the same way.
  */
 function useRewardsRefresh(queryClient: QueryClient): void {
 	useEffect(() => WebSocketClient.getInstance().registerPushedPacketHandler<MissionsCompletedRes>(MissionsCompletedRes.wireName, packet => {
@@ -46,6 +49,12 @@ function useRewardsRefresh(queryClient: QueryClient): void {
 	}), [queryClient]);
 	useEffect(() => WebSocketClient.getInstance().registerPushedPacketHandler(RoyalLetterRes.wireName, () => {
 		refresh(queryClient, GAME_ENTITIES.APP_STATE);
+	}), [queryClient]);
+	useEffect(() => WebSocketClient.getInstance().registerPushedPacketHandler<ItemFoundRes>(ItemFoundRes.wireName, packet => {
+		if (packet.item.rarity === ItemRarity.MYTHICAL) refresh(queryClient, GAME_ENTITIES.APP_STATE);
+	}), [queryClient]);
+	useEffect(() => WebSocketClient.getInstance().registerPushedPacketHandler<FightMonsterRewardRes>(FightMonsterRewardRes.wireName, packet => {
+		if (packet.reward.bossRecord) refresh(queryClient, GAME_ENTITIES.APP_STATE);
 	}), [queryClient]);
 }
 

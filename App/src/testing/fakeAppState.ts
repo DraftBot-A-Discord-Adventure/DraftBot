@@ -5,7 +5,7 @@ import type {useAppState, useAppStateChange, withChange} from "@/src/store/AppSt
 type AppStateHooks = {useAppState: typeof useAppState; useAppStateChange: typeof useAppStateChange};
 
 function emptyState(): AppStateRes {
-	return Object.assign(new AppStateRes(), {seen: [], reveals: []});
+	return Object.assign(new AppStateRes(), {seen: [], reveals: [], unrevealedBadges: []});
 }
 
 /**

@@ -16,6 +16,8 @@ import { AppStateReq } from "../../../WsPackets/src/fromClient/AppStateReq";
 import AppStateClientTranslator from "../../src/packets/fromClient/translators/AppStateClientTranslator";
 import AppStateServerTranslator from "../../src/packets/fromServer/translators/AppStateServerTranslator";
 import { InvalidClientPacketError } from "../../src/packets/fromClient/InvalidClientPacketError";
+import { Badge } from "../../../Lib/src/types/Badge";
+import { BADGE_CODES } from "../../../WsPackets/src/objects/Badge";
 
 const CONTEXT: PacketContext = {
 	frontEndOrigin: "websocket", frontEndSubOrigin: "", keycloakId: "authenticated-player", webSocket: {}
@@ -41,6 +43,12 @@ describe("app state over WebSocket", () => {
 		expect(() => AppStateClientTranslator.translate(CONTEXT, request({ acknowledged: [1.5] }))).toThrow(InvalidClientPacketError);
 	});
 
+	it("passes the badges the app celebrated on to Core, and refuses badges that do not exist", async () => {
+		const result = await AppStateClientTranslator.translate(CONTEXT, request({ revealedBadges: [Badge.TOP_WEEK] }));
+		expect(result).toEqual(makePacket(CommandAppStateReq, { revealedBadges: [Badge.TOP_WEEK] }));
+		expect(() => AppStateClientTranslator.translate(CONTEXT, request({ revealedBadges: ["made_up"] }))).toThrow(InvalidClientPacketError);
+	});
+
 	it("hands the kept rewards over as the app reads them live, without the player's identity", async () => {
 		const missions = makePacket(MissionsCompletedPacket, {
 			keycloakId: "private-id",
@@ -50,10 +58,11 @@ describe("app state over WebSocket", () => {
 			keycloakId: "private-id", letter: 1, letters: 7, tokens: 20, money: 2000, gems: 0
 		});
 		const packet = makePacket(CommandAppStateRes, {
-			seen: ["journeyRecorded"], reveals: [{ id: 1, missions }, { id: 2, letter }]
+			seen: ["journeyRecorded"], reveals: [{ id: 1, missions }, { id: 2, letter }], unrevealedBadges: [Badge.RICH]
 		});
 		const result = await AppStateServerTranslator.translate(CONTEXT, JSON.parse(JSON.stringify(packet)));
 		expect(result.seen).toEqual(["journeyRecorded"]);
+		expect(result.unrevealedBadges).toEqual([BADGE_CODES.RICH]);
 		expect(result.reveals.map(reveal => reveal.id)).toEqual([1, 2]);
 		expect(result.reveals[0].missions?.missions[0].reward.tokens).toBe(1);
 		expect(result.reveals[1].letter?.tokens).toBe(20);

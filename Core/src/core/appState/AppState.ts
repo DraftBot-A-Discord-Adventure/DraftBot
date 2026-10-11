@@ -2,10 +2,13 @@ import {
 	CrowniclesPacket, PacketContext
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
-	APP_STATE_FLAGS, AppStateFlag, PendingReveal
+	APP_STATE_FLAGS, AppStateFlag, MemorableReveal, PendingReveal
 } from "../../../../Lib/src/types/AppState";
 import { MissionsCompletedPacket } from "../../../../Lib/src/packets/events/MissionsCompletedPacket";
 import { RoyalLetterPacket } from "../../../../Lib/src/packets/events/RoyalLetterPacket";
+import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
+import { CommandReportMonsterRewardRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import { ItemRarity } from "../../../../Lib/src/constants/ItemConstants";
 import { Players } from "../database/game/models/Player";
 import {
 	PlayerMissionsInfo, PlayerMissionsInfos
@@ -57,7 +60,22 @@ export function appendReveals(kept: readonly PendingReveal[], added: readonly Ne
 	];
 }
 
-function revealOf(packet: CrowniclesPacket): {
+/** A mythical find or a boss record: told to whoever the response goes to, since these packets name no player. */
+function memorableRevealOf(packet: CrowniclesPacket): MemorableReveal | null {
+	if (packet instanceof ItemFoundPacket && packet.itemWithDetails.rarity === ItemRarity.MYTHICAL) {
+		return {
+			at: Date.now(), mythicItem: packet.itemWithDetails
+		};
+	}
+	if (packet instanceof CommandReportMonsterRewardRes && packet.bossRecord) {
+		return {
+			at: Date.now(), bossRecord: packet.bossRecord
+		};
+	}
+	return null;
+}
+
+function revealOf(packet: CrowniclesPacket, context: PacketContext): {
 	keycloakId: string; reveal: NewReveal;
 } | null {
 	if (packet instanceof MissionsCompletedPacket && packet.missions.length > 0) {
@@ -70,7 +88,13 @@ function revealOf(packet: CrowniclesPacket): {
 			keycloakId: packet.keycloakId, reveal: { letter: packet }
 		};
 	}
-	return null;
+	const keycloakId = context.keycloakId;
+	const memorable = keycloakId ? memorableRevealOf(packet) : null;
+	return keycloakId && memorable
+		? {
+			keycloakId, reveal: { memorable }
+		}
+		: null;
 }
 
 async function keepForPlayer(keycloakId: string, reveals: readonly NewReveal[]): Promise<void> {
@@ -95,7 +119,7 @@ export async function keepPendingReveals(context: PacketContext, packets: readon
 		return;
 	}
 	const byPlayer = new Map<string, NewReveal[]>();
-	for (const found of packets.map(revealOf)) {
+	for (const found of packets.map(packet => revealOf(packet, context))) {
 		if (found) {
 			byPlayer.set(found.keycloakId, [...byPlayer.get(found.keycloakId) ?? [], found.reveal]);
 		}

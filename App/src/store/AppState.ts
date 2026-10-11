@@ -4,26 +4,30 @@ import {makeFromClientPacket} from "ws-packets/src/MakePackets";
 import {AppStateReq} from "ws-packets/src/fromClient/AppStateReq";
 import {AppStateRes} from "ws-packets/src/fromServer/appState/AppStateRes";
 import {AppStateFlag} from "ws-packets/src/objects/AppState";
+import {Badge} from "ws-packets/src/objects/Badge";
 import {GameAnswer, GameClient} from "@/src/networking/GameClient";
 import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
 import {RequestState, useGameQuery} from "@/src/store/useGameQuery";
 
-/** What the app just showed the character: flags to set, reveals now seen. */
-export type AppStateChange = {seen?: readonly AppStateFlag[]; acknowledged?: readonly number[]};
+/** What the app just showed the character: flags to set, reveals now seen, badges now celebrated. */
+export type AppStateChange = {seen?: readonly AppStateFlag[]; acknowledged?: readonly number[]; revealedBadges?: readonly Badge[]};
 
 function requestAppState(change: AppStateChange = {}): Promise<GameAnswer<AppStateRes>> {
 	return GameClient.request(makeFromClientPacket<AppStateReq>(AppStateReq, {
 		...change.seen ? {seen: [...change.seen]} : {},
-		...change.acknowledged ? {acknowledged: [...change.acknowledged]} : {}
+		...change.acknowledged ? {acknowledged: [...change.acknowledged]} : {},
+		...change.revealedBadges ? {revealedBadges: [...change.revealedBadges]} : {}
 	}), AppStateRes);
 }
 
 /** The state as it will be once Core has applied the change, drawn at once so nothing is shown twice. */
 export function withChange(state: AppStateRes, change: AppStateChange): AppStateRes {
 	const acknowledged = new Set(change.acknowledged ?? []);
+	const revealed = new Set<string>(change.revealedBadges ?? []);
 	return Object.assign(new AppStateRes(), {
 		seen: [...new Set([...state.seen, ...change.seen ?? []])],
-		reveals: state.reveals.filter(reveal => !acknowledged.has(reveal.id))
+		reveals: state.reveals.filter(reveal => !acknowledged.has(reveal.id)),
+		unrevealedBadges: state.unrevealedBadges.filter(badge => !revealed.has(badge))
 	});
 }
 

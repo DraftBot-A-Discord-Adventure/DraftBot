@@ -64,6 +64,7 @@ async function exportInventoryData(
 	if (badges.length > 0) {
 		csvFiles["02_badges.csv"] = toCSV(badges.map(badge => ({
 			badge: badge.badge,
+			revealedInApp: badge.revealedInApp,
 			createdAt: badge.createdAt,
 			updatedAt: badge.updatedAt
 		})));

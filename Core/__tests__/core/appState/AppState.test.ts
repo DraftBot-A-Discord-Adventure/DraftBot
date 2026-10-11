@@ -8,6 +8,11 @@ import { MissionsCompletedPacket } from "../../../../Lib/src/packets/events/Miss
 import { RoyalLetterPacket } from "../../../../Lib/src/packets/events/RoyalLetterPacket";
 import { MissionType } from "../../../../Lib/src/types/CompletedMission";
 import { APP_STATE_FLAGS } from "../../../../Lib/src/types/AppState";
+import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
+import { CommandReportMonsterRewardRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
+import {
+	ItemNature, ItemRarity
+} from "../../../../Lib/src/constants/ItemConstants";
 import { Players } from "../../../src/core/database/game/models/Player";
 import { PlayerMissionsInfo } from "../../../src/core/database/game/models/PlayerMissionsInfo";
 import {
@@ -41,6 +46,15 @@ function missions(): MissionsCompletedPacket {
 	return makePacket(MissionsCompletedPacket, {
 		keycloakId: "player",
 		missions: [{ missionId: "commandMission", missionType: MissionType.CAMPAIGN, missionObjective: 1, missionVariant: 0, numberDone: 1, pointsToWin: 0, xpToWin: 10, gemsToWin: 1, moneyToWin: 0 }]
+	});
+}
+
+function found(rarity: ItemRarity): ItemFoundPacket {
+	return makePacket(ItemFoundPacket, {
+		itemWithDetails: {
+			id: 57, rarity, itemCategory: 2, nature: ItemNature.HEALTH, power: 266, maxPower: 266
+		},
+		kept: true
 	});
 }
 
@@ -99,5 +113,28 @@ describe("rewards kept for the app", () => {
 	it("keeps nothing for Discord, which shows everything as it happens", async () => {
 		await keepPendingReveals(DISCORD, [missions(), letter()]);
 		expect(PlayerMissionsInfo.withLocked).not.toHaveBeenCalled();
+	});
+
+	it("keeps a mythical find and a boss record for the player the response goes to, but no lesser find nor plain boss win", async () => {
+		const bossRecord = {
+			monsterId: "kraken", monsterLevel: 80, classId: 7
+		} as const;
+		const reward = {
+			money: 1, experience: 1, guildXp: 0, guildPoints: 0
+		};
+		await keepPendingReveals(WEBSOCKET, [
+			found(ItemRarity.LEGENDARY),
+			found(ItemRarity.MYTHICAL),
+			makePacket(CommandReportMonsterRewardRes, reward),
+			makePacket(CommandReportMonsterRewardRes, {
+				...reward, bossRecord
+			})
+		]);
+
+		expect(Players.getByKeycloakId).toHaveBeenCalledWith("player");
+		const kept = pendingRevealsOf({ pendingReveals: saved[0] });
+		expect(kept.map(reveal => reveal.memorable?.mythicItem?.rarity)).toEqual([ItemRarity.MYTHICAL, undefined]);
+		expect(kept[1].memorable?.bossRecord).toEqual(bossRecord);
+		expect(kept.every(reveal => typeof reveal.memorable?.at === "number")).toBe(true);
 	});
 });

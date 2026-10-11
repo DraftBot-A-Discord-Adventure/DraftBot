@@ -1,11 +1,8 @@
 import {useSyncExternalStore} from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ItemFoundRes} from "ws-packets/src/fromServer/inventory/ItemFoundRes";
-import {FightMonsterRewardRes} from "ws-packets/src/fromServer/fight/FightRes";
+import {PendingReveal} from "ws-packets/src/fromServer/appState/AppStateRes";
+import {Badge} from "ws-packets/src/objects/Badge";
 import {BossRecord} from "ws-packets/src/objects/Fight";
-import {ItemRarity} from "ws-packets/src/objects/ItemRarity";
 import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
 
 export const MEMORABLE_MOMENT_KINDS = {
 	BADGE: "badge",
@@ -14,32 +11,31 @@ export const MEMORABLE_MOMENT_KINDS = {
 } as const;
 
 export type MemorableMoment = {at: number} & (
-	| {kind: typeof MEMORABLE_MOMENT_KINDS.BADGE; badge: string; owned: number; total: number}
-	| {kind: typeof MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM; item: ItemWithDetails}
-	| {kind: typeof MEMORABLE_MOMENT_KINDS.BOSS_RECORD; record: BossRecord}
+	| {kind: typeof MEMORABLE_MOMENT_KINDS.BADGE; badge: Badge; owned: number; total: number}
+	| {kind: typeof MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM; item: ItemWithDetails; revealId: number}
+	| {kind: typeof MEMORABLE_MOMENT_KINDS.BOSS_RECORD; record: BossRecord; revealId: number}
 );
 
-const KNOWN_BADGES_STORAGE_KEY = "memorableMoments.knownBadges.";
+/** How many badges the player owns once the new ones count, out of all those that can be won. */
+export type BadgeProgress = {owned: number; total: number};
 
-type KnownBadges = {badges: Set<string>; baseline: boolean};
+function momentOfReveal(reveal: PendingReveal): MemorableMoment | null {
+	const memorable = reveal.memorable;
+	if (memorable?.mythicItem) return {kind: MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM, item: memorable.mythicItem, revealId: reveal.id, at: memorable.at};
+	if (memorable?.bossRecord) return {kind: MEMORABLE_MOMENT_KINDS.BOSS_RECORD, record: memorable.bossRecord, revealId: reveal.id, at: memorable.at};
+	return null;
+}
 
 /** The moments worth sharing, shown one after the other once the game has nothing else to tell. */
 class MemorableMomentStore {
 	private queue: MemorableMoment[] = [];
 
-	private readonly knownBadges = new Map<string, Promise<KnownBadges>>();
+	/** Core lists a moment until the acknowledgement lands: a refresh in between must not queue it twice. */
+	private readonly announcedBadges = new Set<Badge>();
+
+	private readonly announcedReveals = new Set<number>();
 
 	private readonly listeners = new Set<() => void>();
-
-	public constructor() {
-		const client = WebSocketClient.getInstance();
-		client.registerPushedPacketHandler<ItemFoundRes>(ItemFoundRes.wireName, packet => {
-			if (packet.item.rarity === ItemRarity.MYTHICAL) this.add({kind: MEMORABLE_MOMENT_KINDS.MYTHIC_ITEM, item: packet.item, at: Date.now()});
-		});
-		client.registerPushedPacketHandler<FightMonsterRewardRes>(FightMonsterRewardRes.wireName, packet => {
-			if (packet.reward.bossRecord) this.add({kind: MEMORABLE_MOMENT_KINDS.BOSS_RECORD, record: packet.reward.bossRecord, at: Date.now()});
-		});
-	}
 
 	public readonly subscribe = (listener: () => void): (() => void) => {
 		this.listeners.add(listener);
@@ -56,30 +52,23 @@ class MemorableMomentStore {
 		this.notify();
 	};
 
-	/** Compares the profile with the badges this device already saw; the first reading only learns them. */
-	public readonly observeBadges = async (owner: string, badges: string[], celebrated: readonly string[]): Promise<void> => {
-		const known = await this.knownBadgesOf(owner);
-		const earned = known.baseline ? [] : badges.filter(badge => !known.badges.has(badge));
-		const learned = known.baseline || earned.length > 0;
-		known.baseline = false;
-		for (const badge of badges) known.badges.add(badge);
-		const owned = badges.filter(badge => celebrated.includes(badge)).length;
-		for (const badge of earned.filter(badge => celebrated.includes(badge))) {
-			this.add({kind: MEMORABLE_MOMENT_KINDS.BADGE, badge, owned, total: celebrated.length, at: Date.now()});
+	/** Queues the badges no device of the player has celebrated yet, each once per session. */
+	public readonly announceBadges = (badges: readonly Badge[], progress: BadgeProgress): void => {
+		for (const badge of badges.filter(candidate => !this.announcedBadges.has(candidate))) {
+			this.announcedBadges.add(badge);
+			this.add({kind: MEMORABLE_MOMENT_KINDS.BADGE, badge, ...progress, at: Date.now()});
 		}
-		if (learned) await AsyncStorage.setItem(KNOWN_BADGES_STORAGE_KEY + owner, JSON.stringify([...known.badges]));
 	};
 
-	private knownBadgesOf(owner: string): Promise<KnownBadges> {
-		let known = this.knownBadges.get(owner);
-		if (!known) {
-			known = AsyncStorage.getItem(KNOWN_BADGES_STORAGE_KEY + owner).then(saved => (saved === null
-				? {badges: new Set<string>(), baseline: true}
-				: {badges: new Set<string>(JSON.parse(saved) as string[]), baseline: false}));
-			this.knownBadges.set(owner, known);
+	/** Queues the mythical finds and boss records Core keeps for the app, each once per session. */
+	public readonly announceReveals = (reveals: readonly PendingReveal[]): void => {
+		for (const reveal of reveals.filter(candidate => !this.announcedReveals.has(candidate.id))) {
+			const moment = momentOfReveal(reveal);
+			if (!moment) continue;
+			this.announcedReveals.add(reveal.id);
+			this.add(moment);
 		}
-		return known;
-	}
+	};
 
 	private add(moment: MemorableMoment): void {
 		this.queue = [...this.queue, moment];

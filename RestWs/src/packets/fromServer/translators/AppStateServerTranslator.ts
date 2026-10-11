@@ -13,7 +13,8 @@ async function revealOf(context: PacketContext, reveal: LibPendingReveal): Promi
 	return {
 		id: reveal.id,
 		...reveal.missions ? { missions: await MissionsCompletedServerTranslator.translate(context, reveal.missions) } : {},
-		...reveal.letter ? { letter: await RoyalLetterServerTranslator.translate(context, reveal.letter) } : {}
+		...reveal.letter ? { letter: await RoyalLetterServerTranslator.translate(context, reveal.letter) } : {},
+		...reveal.memorable ? { memorable: reveal.memorable } : {}
 	};
 }
 
@@ -22,7 +23,8 @@ export default class AppStateServerTranslator {
 	public static async translate(context: PacketContext, packet: CommandAppStateRes): Promise<AppStateRes> {
 		return asyncMakeFromServerPacket(AppStateRes, {
 			seen: packet.seen,
-			reveals: await Promise.all(packet.reveals.map(reveal => revealOf(context, reveal)))
+			reveals: await Promise.all(packet.reveals.map(reveal => revealOf(context, reveal))),
+			unrevealedBadges: packet.unrevealedBadges
 		});
 	}
 }

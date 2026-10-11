@@ -319,6 +319,7 @@ const PLAYER_DATA_EXPORT_FIELD_COVERAGE = {
 	],
 	"PlayerBadges": [
 		"badge",
+		"revealedInApp",
 		"createdAt",
 		"updatedAt"
 	],
