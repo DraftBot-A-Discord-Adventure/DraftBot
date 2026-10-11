@@ -56,8 +56,8 @@ export default class TournamentPacketHandlers {
 	}
 
 	@packetHandler(CommandTournamentCancelPacketRes)
-	async cancel(context: PacketContext, packet: CommandTournamentCancelPacketRes): Promise<void> {
-		await handleTournamentCancel(context, packet);
+	async cancel(context: PacketContext, _packet: CommandTournamentCancelPacketRes): Promise<void> {
+		await handleTournamentCancel(context);
 	}
 
 	@packetHandler(CommandTournamentTopPacketRes)

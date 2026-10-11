@@ -38,9 +38,10 @@ export const TOURNAMENT_MENU_IDS = {
 	ADMIN_CANCEL_SELECT_PREFIX: "TOURNAMENT_ADMIN_CANCEL_SELECT_",
 	ADMIN_CANCEL_CONFIRM: "TOURNAMENT_ADMIN_CANCEL_CONFIRM",
 	OWNER_ROOT: "TOURNAMENT_OWNER_ROOT",
-	OWNER_RESUME: "TOURNAMENT_OWNER_RESUME",
-	OWNER_RESUME_SELECT_PREFIX: "TOURNAMENT_OWNER_RESUME_SELECT_",
-	OWNER_RESUME_CONFIRM: "TOURNAMENT_OWNER_RESUME_CONFIRM",
+	OWNER_AUTHORIZE: "TOURNAMENT_OWNER_AUTHORIZE",
+	RESUME: "TOURNAMENT_RESUME",
+	RESUME_SELECT_PREFIX: "TOURNAMENT_RESUME_SELECT_",
+	RESUME_CONFIRM: "TOURNAMENT_RESUME_CONFIRM",
 	CREATE_REGISTRATION_PREFIX: "TOURNAMENT_CREATE_REGISTRATION_",
 	CREATE_COMBAT_PREFIX: "TOURNAMENT_CREATE_COMBAT_",
 	CREATE_LEVEL_MODE_PREFIX: "TOURNAMENT_CREATE_LEVEL_MODE_",
@@ -226,6 +227,13 @@ export async function sendPacketFromMenu(
 	PacketUtils.sendPacketToBackend(context, packet);
 }
 
+export function getTournamentLabel(tournament: TournamentMenuSummary, lng: Language): string {
+	return i18n.t("commands:tournament.menu.tournamentLabel", {
+		lng,
+		channel: `<#${tournament.discordChannelId}>`
+	});
+}
+
 export function getTournamentSummaryDescription(summary: TournamentMenuSummary, lng: Language): string {
 	const phaseEnd = summary.status === TournamentStatuses.REGISTRATION
 		? finishInTimeDisplay(new Date(summary.registrationEndsAt))
@@ -236,7 +244,6 @@ export function getTournamentSummaryDescription(summary: TournamentMenuSummary, 
 		lng,
 		status: i18n.t(`commands:tournament.statuses.${summary.status}`, { lng }),
 		count: summary.participantCount,
-		channel: `<#${summary.discordChannelId}>`,
 		phaseEnd
 	});
 }
@@ -269,11 +276,8 @@ export function buildTournamentSelectionMenu(options: TournamentSelectionMenuOpt
 		addSeparator(container);
 		addCitySection({
 			container,
-			emote: CrowniclesIcons.collectors.previousPage,
-			title: i18n.t("commands:tournament.menu.tournamentLabel", {
-				lng,
-				tournamentId: tournament.id
-			}),
+			emote: CrowniclesIcons.notifications.types.tournament,
+			title: getTournamentLabel(tournament, lng),
 			description: getTournamentSummaryDescription(tournament, lng),
 			customId: `${selectPrefix}${tournament.id}`,
 			buttonLabel: i18n.t("commands:tournament.menu.chooseButton", { lng }),
@@ -316,11 +320,8 @@ export function buildTournamentConfirmationMenu(options: TournamentConfirmationM
 		i18n.t(titleKey, { lng }),
 		i18n.t(descriptionKey, {
 			lng,
-			tournament: i18n.t("commands:tournament.menu.tournamentLabel", {
-				lng,
-				tournamentId: tournament.id
-			}),
-			channel: `<#${tournament.discordChannelId}>`
+			tournament: getTournamentLabel(tournament, lng),
+			currentChannel: `<#${context.interaction.channelId}>`
 		})
 	);
 	addCitySection({

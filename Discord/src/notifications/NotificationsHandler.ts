@@ -33,6 +33,13 @@ import { SexTypeShort } from "../../../Lib/src/constants/StringConstants";
 import { ZipArchive } from "archiver";
 import { DiscordConstants } from "../DiscordConstants";
 import { TournamentNotificationPacket } from "../../../Lib/src/packets/notifications/TournamentNotificationPacket";
+import { TournamentDefenseNotificationPacket } from "../../../Lib/src/packets/notifications/TournamentDefenseNotificationPacket";
+import { TournamentChannelAnnouncementPacket } from "../../../Lib/src/packets/notifications/TournamentChannelAnnouncementPacket";
+import { NotificationPacket } from "../../../Lib/src/packets/notifications/NotificationPacket";
+import { postTournamentChannelAnnouncement } from "../commands/tournament/TournamentAnnouncements";
+import {
+	getTournamentDefenseNotificationContent, getTournamentNotificationContent
+} from "../commands/tournament/TournamentNotificationContents";
 
 /**
  * Create a ZIP buffer from CSV files
@@ -88,14 +95,22 @@ export abstract class NotificationsHandler {
 	 */
 	static sendNotifications(notificationSerializedPacket: NotificationsSerializedPacket): void {
 		for (const notification of notificationSerializedPacket.notifications) {
-			this._processSingleNotification(notification)
-				.catch(error => {
-					CrowniclesLogger.error(`Failed to process notification: ${error}`);
+			const processing = notification.type === TournamentChannelAnnouncementPacket.name
+				? postTournamentChannelAnnouncement(notification.packet as TournamentChannelAnnouncementPacket)
+				: this._processSingleNotification({
+					type: notification.type,
+					packet: notification.packet as NotificationPacket
 				});
+			processing.catch(error => {
+				CrowniclesLogger.error(`Failed to process notification: ${error}`);
+			});
 		}
 	}
 
-	private static async _processSingleNotification(notification: NotificationsSerializedPacket["notifications"][0]): Promise<void> {
+	private static async _processSingleNotification(notification: {
+		type: string;
+		packet: NotificationPacket;
+	}): Promise<void> {
 		const keycloakId = notification.packet.keycloakId;
 
 		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
@@ -193,22 +208,12 @@ export abstract class NotificationsHandler {
 				break;
 			}
 			case TournamentNotificationPacket.name: {
-				const packet = notification.packet as TournamentNotificationPacket;
-				const category = i18n.t(`commands:tournament.categories.${packet.category}`, { lng });
-				const winner = packet.winnerKeycloakId
-					? await DisplayUtils.getEscapedUsername(packet.winnerKeycloakId, lng)
-					: i18n.t("notifications:tournament.noWinner", { lng });
-				const eventKey = packet.cancellationReason ? "cancelled" : packet.event;
-				notificationContent = i18n.t(`notifications:tournament.${eventKey}`, {
-					lng,
-					category,
-					winner,
-					rank: packet.rank ?? i18n.t("notifications:tournament.unranked", { lng }),
-					xp: packet.xp ?? 0,
-					money: packet.money ?? 0,
-					count: packet.itemCount ?? 0,
-					reason: packet.cancellationReason ?? ""
-				});
+				notificationContent = await getTournamentNotificationContent(notification.packet as TournamentNotificationPacket, lng);
+				notificationType = NotificationsTypes.TOURNAMENT;
+				break;
+			}
+			case TournamentDefenseNotificationPacket.name: {
+				notificationContent = await getTournamentDefenseNotificationContent(notification.packet as TournamentDefenseNotificationPacket, lng);
 				notificationType = NotificationsTypes.TOURNAMENT;
 				break;
 			}

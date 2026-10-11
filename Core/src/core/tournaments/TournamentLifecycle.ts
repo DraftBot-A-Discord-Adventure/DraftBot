@@ -1,8 +1,9 @@
 import { Op } from "sequelize";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import {
-	TournamentCategories, TournamentNotificationEvents, TournamentStatus, TournamentStatuses
+	TournamentCancellationReasons, TournamentCategories, TournamentNotificationEvents, TournamentStatus, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
+import { getTournamentEligibleCategories } from "../../../../Lib/src/utils/TournamentUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import {
 	LockKey, withLockedEntities
@@ -123,6 +124,13 @@ async function freezeTournamentAttempt(snapshot: TournamentParticipantSnapshot):
 	});
 }
 
+function hasEnoughParticipants(tournament: Tournament, participants: TournamentParticipant[]): boolean {
+	const categoryCounts = getCategoryCounts(participants);
+	return participants.length >= TournamentConstants.MINIMUM_TOTAL_PARTICIPANTS
+		&& getTournamentEligibleCategories(tournament)
+			.every(category => categoryCounts[category] >= TournamentConstants.MINIMUM_PARTICIPANTS_PER_CATEGORY);
+}
+
 async function advanceRegistration(tournament: Tournament): Promise<void> {
 	let event: TournamentEventData | null = null;
 	await Tournament.withLocked(tournament.id, async lockedTournament => {
@@ -130,17 +138,13 @@ async function advanceRegistration(tournament: Tournament): Promise<void> {
 			return;
 		}
 		const participants = await TournamentParticipant.findAll({ where: { tournamentId: lockedTournament.id } });
-		const categoryCounts = getCategoryCounts(participants);
-		const hasEnoughParticipants = participants.length >= TournamentConstants.MINIMUM_TOTAL_PARTICIPANTS
-			&& categoryCounts[TournamentCategories.LEVEL_50] >= TournamentConstants.MINIMUM_PARTICIPANTS_PER_CATEGORY
-			&& categoryCounts[TournamentCategories.LEVEL_100] >= TournamentConstants.MINIMUM_PARTICIPANTS_PER_CATEGORY;
-		if (!hasEnoughParticipants) {
+		if (!hasEnoughParticipants(lockedTournament, participants)) {
 			lockedTournament.status = TournamentStatuses.CANCELLED;
 			lockedTournament.rewardsDistributed = true;
-			lockedTournament.cancellationReason = "tooFewParticipants";
+			lockedTournament.cancellationReason = TournamentCancellationReasons.TOO_FEW_PARTICIPANTS;
 			event = {
 				event: TournamentNotificationEvents.ENDED,
-				cancellationReason: "tooFewParticipants"
+				cancellationReason: TournamentCancellationReasons.TOO_FEW_PARTICIPANTS
 			};
 		}
 		else {

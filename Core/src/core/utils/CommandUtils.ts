@@ -19,7 +19,9 @@ import { MapCache } from "../maps/MapCache";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { verifyCommandAccess } from "../tournaments/TournamentAccess";
-import type { TournamentCommandAccess } from "../tournaments/TournamentTypes";
+import {
+	TournamentAccessResults, type TournamentCommandAccess
+} from "../tournaments/TournamentTypes";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -72,12 +74,20 @@ async function runRequirementChecks(
 	response: CrowniclesPacket[],
 	requirements: RequirementsWithoutBlocked
 ): Promise<boolean> {
+	const tournamentAccess = await verifyCommandAccess(player, context, response, requirements.tournamentAccess ?? "none");
+	if (tournamentAccess === TournamentAccessResults.DENIED) {
+		return false;
+	}
+	const inTournamentFight = tournamentAccess === TournamentAccessResults.TOURNAMENT_FIGHT;
 	const checks: RequirementCheck[] = [
-		verifyCommandAccess.bind(undefined, player, context, response, requirements.tournamentAccess ?? "none"),
-		CommandUtils.checkEffects.bind(CommandUtils, player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? []),
+		inTournamentFight
+			? CommandUtils.checkEffects.bind(CommandUtils, player, response, [], CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD)
+			: CommandUtils.checkEffects.bind(CommandUtils, player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? []),
 		verifyLevelRequirement.bind(undefined, player, response, requirements.level),
 		verifyRightGroupRequirement.bind(undefined, context, response, requirements.rightGroup),
-		verifyWhereRequirement.bind(undefined, player, response, requirements.whereAllowed),
+		inTournamentFight
+			? (): boolean => true
+			: verifyWhereRequirement.bind(undefined, player, response, requirements.whereAllowed),
 		verifyGuildRequirement.bind(undefined, player, response, requirements)
 	];
 	for (const check of checks) {

@@ -10,6 +10,7 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { PacketUtils } from "../../utils/PacketUtils";
+import { getTournamentErrorDescription } from "./TournamentDisplayUtils";
 import {
 	discordConfig, crowniclesClient
 } from "../../bot/CrowniclesShard";
@@ -56,7 +57,7 @@ export async function replyTournamentError(interaction: CrowniclesInteraction, k
 			new CrowniclesEmbed()
 				.setErrorColor()
 				.setTitle(i18n.t("commands:tournament.errorTitle", { lng: interaction.userLanguage }))
-				.setDescription(i18n.t(`commands:tournament.errors.${key}`, { lng: interaction.userLanguage }))
+				.setDescription(getTournamentErrorDescription(key, interaction.userLanguage))
 		],
 		flags: MessageFlags.Ephemeral
 	});

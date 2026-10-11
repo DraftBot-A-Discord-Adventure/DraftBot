@@ -32,10 +32,26 @@ export type TournamentLevelSettings = {
 export const TournamentNotificationEvents = {
 	STARTED: "started",
 	ENDING: "ending",
-	ENDED: "ended"
+	ENDED: "ended",
+	PAUSED: "paused"
 } as const;
 
 export type TournamentNotificationEvent = typeof TournamentNotificationEvents[keyof typeof TournamentNotificationEvents];
+
+export const TournamentCancellationReasons = {
+	TOO_FEW_PARTICIPANTS: "tooFewParticipants",
+	MANUAL: "manual"
+} as const;
+
+export type TournamentCancellationReason = typeof TournamentCancellationReasons[keyof typeof TournamentCancellationReasons];
+
+export const TournamentDefenseOutcomes = {
+	WON: "won",
+	LOST: "lost",
+	DRAW: "draw"
+} as const;
+
+export type TournamentDefenseOutcome = typeof TournamentDefenseOutcomes[keyof typeof TournamentDefenseOutcomes];
 
 export type TournamentTopEntry = {
 	playerKeycloakId: string;
@@ -57,6 +73,19 @@ export type TournamentRewardSummary = {
 	money: number;
 	itemCount: number;
 	granted: boolean;
+};
+
+export const TournamentRegistrationChanges = {
+	REGISTERED: "registered",
+	UNREGISTERED: "unregistered"
+} as const;
+
+export type TournamentRegistrationChange = typeof TournamentRegistrationChanges[keyof typeof TournamentRegistrationChanges];
+
+export type TournamentFightRecord = {
+	wins: number;
+	losses: number;
+	draws: number;
 };
 
 export type TournamentMenuSummary = {

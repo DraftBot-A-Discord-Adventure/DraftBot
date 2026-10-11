@@ -5,7 +5,11 @@ import {
 	TournamentNotificationPacket
 } from "../../../../Lib/src/packets/notifications/TournamentNotificationPacket";
 import {
-	TournamentCategories, TournamentCategory, TournamentNotificationEvents, TournamentStatuses
+	TournamentAnnouncementEvents, TournamentChannelAnnouncementPacket
+} from "../../../../Lib/src/packets/notifications/TournamentChannelAnnouncementPacket";
+import {
+	TournamentCancellationReason, TournamentCategories, TournamentCategory, TournamentNotificationEvent,
+	TournamentNotificationEvents, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
 import { PacketUtils } from "../utils/PacketUtils";
 import TournamentParticipant from "../database/game/models/TournamentParticipant";
@@ -13,13 +17,14 @@ import Tournament from "../database/game/models/Tournament";
 import {
 	withLockedEntities
 } from "../../../../Lib/src/locks/withLockedEntities";
-import { getCategoryCounts } from "./TournamentRules";
 
 const TEST_PLAYER_PREFIX = "tournament-test-";
 
+type ClaimableTournamentEvent = Exclude<TournamentNotificationEvent, typeof TournamentNotificationEvents.PAUSED>;
+
 export type TournamentEventData = {
-	event: typeof TournamentNotificationEvents[keyof typeof TournamentNotificationEvents];
-	cancellationReason?: string;
+	event: ClaimableTournamentEvent;
+	cancellationReason?: TournamentCancellationReason;
 };
 
 const sentFieldByEvent = {
@@ -29,6 +34,12 @@ const sentFieldByEvent = {
 } as const;
 
 type TournamentNotificationSentField = typeof sentFieldByEvent[keyof typeof sentFieldByEvent];
+
+type TournamentEventClaim = {
+	tournament: Tournament;
+	participants: TournamentParticipant[];
+	firstClaim: boolean;
+};
 
 class TournamentParticipantsChangedError extends Error {
 }
@@ -80,7 +91,7 @@ async function claimTournamentEventAttempt(
 	tournamentId: number,
 	participantIds: number[],
 	eventData: TournamentEventData
-): Promise<TournamentParticipant[]> {
+): Promise<TournamentEventClaim | null> {
 	const participantLockKeys = participantIds.map(participantId => TournamentParticipant.lockKey(participantId));
 	return await withLockedEntities(
 		[
@@ -93,16 +104,17 @@ async function claimTournamentEventAttempt(
 				participants
 			} = getLockedNotificationEntities(entities, participantIds.length);
 			if (!isEventApplicable(tournament.status, eventData.event)) {
-				return [];
+				return null;
 			}
 			const currentParticipants = await TournamentParticipant.findAll({ where: { tournamentId } });
 			if (hasParticipantSnapshotChanged(participantIds, currentParticipants)) {
 				throw new TournamentParticipantsChangedError();
 			}
 			const sentField: TournamentNotificationSentField = sentFieldByEvent[eventData.event];
+			const firstClaim = !tournament[sentField];
 			const participantsToNotify = participants.filter(participant => !participant[sentField]);
-			if (participantsToNotify.length === 0) {
-				return [];
+			if (participantsToNotify.length === 0 && !firstClaim) {
+				return null;
 			}
 			await Promise.all(participantsToNotify.map(async participant => {
 				participant[sentField] = true;
@@ -110,7 +122,11 @@ async function claimTournamentEventAttempt(
 			}));
 			tournament[sentField] = true;
 			await tournament.save();
-			return participantsToNotify;
+			return {
+				tournament,
+				participants: participantsToNotify,
+				firstClaim
+			};
 		}
 	);
 }
@@ -121,13 +137,14 @@ export async function claimTournamentEvent(
 ): Promise<void> {
 	while (true) {
 		const participantIds = await getParticipantIds(tournamentId);
-		if (participantIds.length === 0) {
-			return;
-		}
 		try {
-			const lockedParticipants = await claimTournamentEventAttempt(tournamentId, participantIds, eventData);
-			if (lockedParticipants.length > 0) {
-				sendTournamentEvent(tournamentId, lockedParticipants, eventData);
+			const claim = await claimTournamentEventAttempt(tournamentId, participantIds, eventData);
+			if (!claim) {
+				return;
+			}
+			sendTournamentEvent(claim.tournament, claim.participants, eventData);
+			if (claim.firstClaim) {
+				await announceTournamentEvent(claim.tournament, eventData);
 			}
 			return;
 		}
@@ -139,15 +156,67 @@ export async function claimTournamentEvent(
 	}
 }
 
-export function sendTournamentEvent(
-	tournamentId: number,
-	participants: TournamentParticipant[],
-	eventData: TournamentEventData
-): void {
-	if (participants.some(participant => participant.keycloakId.startsWith(TEST_PLAYER_PREFIX))) {
+export function isTournamentTestPlayer(keycloakId: string): boolean {
+	return keycloakId.startsWith(TEST_PLAYER_PREFIX);
+}
+
+function isTestTournament(participants: TournamentParticipant[]): boolean {
+	return participants.some(participant => isTournamentTestPlayer(participant.keycloakId));
+}
+
+async function announceTournamentEvent(tournament: Tournament, eventData: TournamentEventData): Promise<void> {
+	if (eventData.event === TournamentNotificationEvents.ENDING) {
 		return;
 	}
-	const categoryCounts = getCategoryCounts(participants);
+	const participants = await TournamentParticipant.findAll({ where: { tournamentId: tournament.id } });
+	if (isTestTournament(participants)) {
+		return;
+	}
+	const baseAnnouncement = {
+		discordChannelId: tournament.discordChannelId,
+		language: tournament.language,
+		combatEndsAt: tournament.combatEndsAt.getTime()
+	};
+	let announcement: TournamentChannelAnnouncementPacket;
+	if (eventData.event === TournamentNotificationEvents.STARTED) {
+		announcement = {
+			...baseAnnouncement,
+			event: TournamentAnnouncementEvents.STARTED
+		};
+	}
+	else if (tournament.status === TournamentStatuses.COMPLETED) {
+		announcement = {
+			...baseAnnouncement,
+			event: TournamentAnnouncementEvents.COMPLETED,
+			winners: participants
+				.filter(participant => participant.isWinner)
+				.map(participant => ({
+					category: participant.category,
+					keycloakId: participant.keycloakId
+				}))
+		};
+	}
+	else {
+		announcement = {
+			...baseAnnouncement,
+			event: TournamentAnnouncementEvents.CANCELLED,
+			...eventData.cancellationReason ? { cancellationReason: eventData.cancellationReason } : {}
+		};
+	}
+	PacketUtils.sendNotifications([makePacket(TournamentChannelAnnouncementPacket, announcement)]);
+}
+
+export function sendTournamentEvent(
+	tournament: Tournament,
+	participants: TournamentParticipant[],
+	eventData: {
+		event: TournamentNotificationEvent;
+		cancellationReason?: TournamentCancellationReason;
+	}
+): void {
+	if (participants.length === 0 || isTestTournament(participants)) {
+		return;
+	}
 	const winnersByCategory = new Map<TournamentCategory, string | undefined>(
 		Object.values(TournamentCategories).map(category => [
 			category,
@@ -157,10 +226,9 @@ export function sendTournamentEvent(
 	PacketUtils.sendNotifications(participants.map(participant => makePacket(TournamentNotificationPacket, {
 		keycloakId: participant.keycloakId,
 		event: eventData.event,
-		tournamentId,
+		tournamentId: tournament.id,
 		category: participant.category,
-		participantCount: participants.length,
-		categoryParticipantCount: categoryCounts[participant.category],
+		combatEndsAt: tournament.combatEndsAt.getTime(),
 		winnerKeycloakId: winnersByCategory.get(participant.category),
 		rank: participant.finalRank ?? undefined,
 		xp: participant.rewardXp || undefined,
