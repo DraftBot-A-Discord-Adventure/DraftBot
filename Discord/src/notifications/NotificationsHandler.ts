@@ -196,6 +196,27 @@ const NOTIFICATION_RENDERERS: Record<string, NotificationRenderer> = {
 	})
 };
 
+type NotificationRecipient = {
+	discordId: string;
+	lng: Language;
+};
+
+async function getNotificationRecipient(keycloakId: string): Promise<NotificationRecipient> {
+	const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
+	const missingRecipientError = `Keycloak user with id ${keycloakId} not found or missing discordId`;
+	if (getUser.isError) {
+		throw missingRecipientError;
+	}
+	const discordId = getUser.payload.user.attributes.discordId?.[0];
+	if (!discordId || discordId === "0") {
+		throw missingRecipientError;
+	}
+	return {
+		discordId,
+		lng: getUser.payload.user.attributes.language[0] as Language
+	};
+}
+
 export abstract class NotificationsHandler {
 	/**
 	 * This function is called to send a batch of notifications
@@ -221,13 +242,9 @@ export abstract class NotificationsHandler {
 	}): Promise<void> {
 		const keycloakId = notification.packet.keycloakId;
 
-		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
-
-		if (getUser.isError || !getUser.payload.user.attributes.discordId || getUser.payload.user.attributes.discordId[0] === "0") {
-			throw `Keycloak user with id ${keycloakId} not found or missing discordId`;
-		}
-		const discordId = getUser.payload.user.attributes.discordId[0];
-		const lng = getUser.payload.user.attributes.language[0] as Language;
+		const {
+			discordId, lng
+		} = await getNotificationRecipient(keycloakId);
 
 		if (notification.type === GDPRExportCompleteNotificationPacket.name) {
 			// GDPR export is handled separately - send DM directly with ZIP attachment
