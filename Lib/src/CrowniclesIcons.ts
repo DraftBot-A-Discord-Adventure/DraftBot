@@ -212,6 +212,7 @@ export const CrowniclesIcons: {
 		pet: string;
 		guild: string;
 		fight: string;
+		journal: string;
 	};
 	other: { [otherId: string]: string };
 	guild: {
@@ -2601,7 +2602,8 @@ export const CrowniclesIcons: {
 		profile: "👤",
 		pet: "🐾",
 		guild: "🏰",
-		fight: "⚔️"
+		fight: "⚔️",
+		journal: "📔"
 	},
 	other: {
 		trash: "🗑️",

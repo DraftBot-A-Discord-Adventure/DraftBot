@@ -725,7 +725,7 @@ function AdventureTools({onOpen}: {onOpen: (tool: AdventureTool) => void}): Reac
 	return <QuickActions>
 		<QuickAction icon={AppIcons.getIcon("expedition.map")} onPress={(): void => onOpen(ADVENTURE_TOOL_NAMES.MAP)}>{i18n.t("app:map.title")}</QuickAction>
 		<QuickAction icon={AppIcons.getIcon("missions.campaign")} badge={missionsToClaim} onPress={(): void => onOpen(ADVENTURE_TOOL_NAMES.MISSIONS)}>{i18n.t("app:profile.titles.missions")}</QuickAction>
-		<QuickAction icon={AppIcons.getIcon("commands.report")} onPress={(): void => onOpen(ADVENTURE_TOOL_NAMES.JOURNAL)}>{i18n.t("app:adventure.journal.title")}</QuickAction>
+		<QuickAction icon={AppIcons.getIcon("navigation.journal")} onPress={(): void => onOpen(ADVENTURE_TOOL_NAMES.JOURNAL)}>{i18n.t("app:adventure.journal.title")}</QuickAction>
 	</QuickActions>;
 }
 
