@@ -589,6 +589,22 @@ describe("Adventure screen", () => {
 		expect(screen.queryByText("app:adventure.fields.nextStop")).toBeNull();
 	});
 
+	it("keeps the time an alteration cost once it is over, so the traveller is not shown as arrived too early", async () => {
+		const cured = {
+			...report(),
+			startTime: Date.now() - 60 * 60_000,
+			arriveTime: Date.now() + 10 * 60_000,
+			nextStopTime: Date.now() + 5 * 60_000,
+			effectDuration: 30 * 60_000
+		};
+		mockReport(cured);
+
+		await render(<Adventure />);
+
+		expect(screen.queryByText("app:adventure.travel.arrivedTitle")).toBeNull();
+		expect(screen.getByText("app:adventure.fields.timeRemaining")).toBeTruthy();
+	});
+
 	it("offers only the free report once it is ready, so no token is wasted", async () => {
 		mockReport(report(), true);
 

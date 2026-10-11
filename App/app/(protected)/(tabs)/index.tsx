@@ -250,7 +250,8 @@ function getTravelMetrics(packet: ReportTravelSummaryRes, currentTime: number): 
 	const effectIsActive = isEffectActive(packet, currentTime);
 	let travelledTime = currentTime - packet.startTime;
 
-	if (packet.effectEndTime !== undefined && currentTime > packet.effectEndTime) {
+	// Core drops the end of an alteration once it is over, but its duration still delays the arrival.
+	if (packet.effectEndTime === undefined || currentTime > packet.effectEndTime) {
 		travelledTime -= effectDuration;
 	}
 	else if (effectIsActive && effectStartTime !== null) {
