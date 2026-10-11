@@ -659,6 +659,47 @@ describe("CookingFeatureHandler", () => {
 				expect(packetArg).toHaveProperty("recipeId", "test_recipe");
 			});
 
+			it("should ignore a second craft click until the first craft is answered", async () => {
+				const ctx = createHandlerContext({
+					homeData: createCookingHomeData(2),
+					packet: createMockPacket([{ type: ReactionCollectorHomeMenuReaction.name }]) as HomeFeatureHandlerContext["packet"]
+				});
+				const craftValue = `${HomeMenuIds.COOKING_CRAFT_PREFIX}0:test_recipe`;
+				const nestedMenus = createMockNestedMenus();
+				nestedMenus.message = {
+					reply: vi.fn().mockResolvedValue(undefined)
+				} as any;
+				const sendMock = DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse as ReturnType<typeof vi.fn>;
+				sendMock.mockResolvedValue(undefined);
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				expect(sendMock).toHaveBeenCalledTimes(1);
+
+				await simulateMqttResponse(CommandReportCookingCraftRes.name, {
+					success: true,
+					recipeId: "test_recipe",
+					cookingXpGained: 50,
+					outputType: CookingOutputType.POTION,
+					cookingLevelUp: true,
+					newCookingLevel: 11,
+					newCookingGrade: "scullion",
+					menu: {
+						cookingLevel: 11,
+						cookingGrade: "scullion",
+						currentSlots: [createSlotWithRecipe({ recipeId: "other_recipe" })],
+						isIgnited: true
+					}
+				} as CommandReportCookingCraftRes);
+
+				// Craft result then level up embed: no stale second craft answered with "craftUnavailable"
+				expect(nestedMenus.message.reply).toHaveBeenCalledTimes(2);
+				expect((nestedMenus.message.reply as ReturnType<typeof vi.fn>).mock.calls[1][0]).toHaveProperty("embeds");
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				expect(sendMock).toHaveBeenCalledTimes(2);
+			});
+
 			it("should handle craft success response", async () => {
 				const ctx = createHandlerContext({
 					homeData: createCookingHomeData(2),
