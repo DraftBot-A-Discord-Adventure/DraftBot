@@ -91,7 +91,7 @@ export async function getStatusData(context: PacketContext, player: Player): Pro
 }
 
 export async function getTopData(context: PacketContext, player: Player, requestedPage?: number): Promise<TournamentTopData> {
-	const tournament = await findTournamentForContext(context, true);
+	const tournament = await findTournamentForContext(context, false);
 	if (!tournament) {
 		throw new TournamentDomainError(TournamentErrorCodes.NOT_FOUND);
 	}

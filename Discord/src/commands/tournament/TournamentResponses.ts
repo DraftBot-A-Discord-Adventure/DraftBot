@@ -33,6 +33,7 @@ import {
 import { TopDataType } from "../../../../Lib/src/types/TopDataType";
 import { TopTiming } from "../../../../Lib/src/types/TopTimings";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
+import { clearTournamentChannelCache } from "./TournamentCommandGuard";
 
 const COMPONENTS_V2_FLAGS = ["IsComponentsV2"] as const;
 
@@ -95,6 +96,7 @@ export function handleTournamentGenerateCode(context: PacketContext, packet: Com
 }
 
 export function handleTournamentCreate(context: PacketContext, packet: CommandTournamentCreatePacketRes): Promise<void> {
+	clearTournamentChannelCache();
 	return editTournamentMenuReply(context, "commands:tournament.createTitle", interaction => i18n.t("commands:tournament.created", {
 		lng: interaction.userLanguage,
 		tournamentId: packet.tournamentId,
@@ -219,6 +221,7 @@ export async function handleTournamentStatus(context: PacketContext, packet: Com
 }
 
 export function handleTournamentResume(context: PacketContext, packet: CommandTournamentResumePacketRes): Promise<void> {
+	clearTournamentChannelCache();
 	return editTournamentMenuReply(context, "commands:tournament.resumeTitle", interaction => i18n.t("commands:tournament.resumed", {
 		lng: interaction.userLanguage,
 		tournamentId: packet.tournamentId,
@@ -227,6 +230,7 @@ export function handleTournamentResume(context: PacketContext, packet: CommandTo
 }
 
 export function handleTournamentCancel(context: PacketContext, packet: CommandTournamentCancelPacketRes): Promise<void> {
+	clearTournamentChannelCache();
 	return editTournamentMenuReply(context, "commands:tournament.cancelTitle", interaction => i18n.t("commands:tournament.cancelled", {
 		lng: interaction.userLanguage,
 		tournamentId: packet.tournamentId

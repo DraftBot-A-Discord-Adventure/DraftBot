@@ -73,7 +73,10 @@ export abstract class TournamentConstants {
 
 	static readonly BO3_WINS_TO_FINISH = 2;
 
-	static readonly CONTEXT_QUERY_TIMEOUT_MS = 5000;
+	// Must stay well below the 3 seconds Discord gives to acknowledge an interaction
+	static readonly CONTEXT_QUERY_TIMEOUT_MS = 1500;
+
+	static readonly CONTEXT_CACHE_TTL_MS = 60_000;
 
 	static readonly TOP_ELEMENTS_PER_PAGE = 15;
 }

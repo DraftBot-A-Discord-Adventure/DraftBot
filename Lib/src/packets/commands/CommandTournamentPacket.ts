@@ -35,10 +35,6 @@ export class CommandTournamentContextPacketReq extends CrowniclesPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentContextPacketRes extends CrowniclesPacket {
 	active!: boolean;
-
-	participant!: boolean;
-
-	status?: TournamentStatus;
 }
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
