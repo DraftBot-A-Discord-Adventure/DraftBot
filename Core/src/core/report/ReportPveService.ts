@@ -276,9 +276,23 @@ type ApplyPveBossWinRewardsCtx = {
 	monster: PveBossOpponent;
 };
 
+/** What a boss win adds to the reward packet: its loot, and on a final boss a recipe and maybe a record. */
+async function bossRewardExtras(ctx: ApplyPveBossWinRewardsCtx, materialLoot: MaterialQuantity[], isFinalBoss: boolean): Promise<Parameters<typeof sendMonsterRewardPacket>[4]> {
+	const {
+		fight, player, mapId, monster
+	} = ctx;
+	const bossRecipe = isFinalBoss ? await RecipeDiscoveryService.discoverFromBoss(player, mapId) : null;
+	const bossRecord = isFinalBoss && !fight.isADraw() ? await finalBossNewRecord(player, monster) : null;
+	return {
+		...materialLoot.length > 0 ? { materialLoot } : {},
+		...bossRecipe ? { discoveredRecipe: RecipeDiscoveryService.toDisplayInfo(bossRecipe) } : {},
+		...bossRecord ? { bossRecord } : {}
+	};
+}
+
 async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<void> {
 	const {
-		fight, player, rewards, endFightResponse, mapId, monster
+		fight, player, rewards, endFightResponse, mapId
 	} = ctx;
 	const result = await handlePveFightRewards(fight, player, rewards, endFightResponse);
 
@@ -290,14 +304,7 @@ async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<v
 	}
 
 	const isFinalBoss = Maps.isAtFinalPveBoss(player);
-	const bossRecipe = isFinalBoss ? await RecipeDiscoveryService.discoverFromBoss(player, mapId) : null;
-	const bossRecord = isFinalBoss && !fight.isADraw() ? await finalBossNewRecord(player, monster) : null;
-
-	sendMonsterRewardPacket(endFightResponse, rewards, result, fight, {
-		...materialLoot.length > 0 ? { materialLoot } : {},
-		...bossRecipe ? { discoveredRecipe: RecipeDiscoveryService.toDisplayInfo(bossRecipe) } : {},
-		...bossRecord ? { bossRecord } : {}
-	});
+	sendMonsterRewardPacket(endFightResponse, rewards, result, fight, await bossRewardExtras(ctx, materialLoot, isFinalBoss));
 	await MissionsController.update(player, endFightResponse, {
 		missionId: PVE_BOSS_MISSION_IDS.WIN_BOSS satisfies PveBossMissionId
 	});

@@ -18,18 +18,24 @@ function isValidTimestamp(until: number): boolean {
 	return Number.isSafeInteger(until) && until >= 0;
 }
 
+function assertValidRequest({
+	page, until
+}: AdventureHistoryReq): void {
+	if (page !== undefined && !isValidPage(page)) {
+		throw new InvalidClientPacketError("Invalid adventure history page");
+	}
+	if (until !== undefined && !isValidTimestamp(until)) {
+		throw new InvalidClientPacketError("Invalid adventure history timestamp");
+	}
+}
+
 export default class AdventureHistoryClientTranslator {
 	@fromClientTranslator(AdventureHistoryReq)
 	public static translate(_context: PacketContext, packet: AdventureHistoryReq): Promise<CommandAdventureHistoryReq> {
+		assertValidRequest(packet);
 		const {
 			page, until
 		} = packet;
-		if (page !== undefined && !isValidPage(page)) {
-			throw new InvalidClientPacketError("Invalid adventure history page");
-		}
-		if (until !== undefined && !isValidTimestamp(until)) {
-			throw new InvalidClientPacketError("Invalid adventure history timestamp");
-		}
 		return asyncMakePacket(CommandAdventureHistoryReq, {
 			...page === undefined ? {} : { page },
 			...until === undefined ? {} : { until: asSeconds(Math.floor(millisecondsToSeconds(asMilliseconds(until)))) }
