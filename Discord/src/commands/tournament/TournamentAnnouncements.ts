@@ -1,7 +1,4 @@
 import {
-	BaseGuildTextChannel, TextChannel
-} from "discord.js";
-import {
 	TournamentAnnouncementEvents, TournamentChannelAnnouncementPacket
 } from "../../../../Lib/src/packets/notifications/TournamentChannelAnnouncementPacket";
 import {
@@ -14,7 +11,7 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { CrowniclesEmbed } from "../../messages/CrowniclesEmbed";
 import { CrowniclesInteraction } from "../../messages/CrowniclesInteraction";
 import { DisplayUtils } from "../../utils/DisplayUtils";
-import { crowniclesClient } from "../../bot/CrowniclesShard";
+import { sendInGuildChannelFromAnyShard } from "../../utils/ShardChannelUtils";
 import i18n from "../../translations/i18n";
 import {
 	getTournamentCategoryLabel, getTournamentLevelRuleDescription, getTournamentThresholdsSummary
@@ -88,21 +85,7 @@ async function getAnnouncementDescription(packet: TournamentChannelAnnouncementP
  */
 export async function postTournamentChannelAnnouncement(packet: TournamentChannelAnnouncementPacket): Promise<void> {
 	const embed = buildAnnouncementEmbed(await getAnnouncementDescription(packet), packet.language);
-	const posted = await crowniclesClient.shard!.broadcastEval((client, context) =>
-		client.channels.fetch(context.channelId)
-			.then(channel => {
-				if ((<BaseGuildTextChannel>channel).guild.shardId === client.shard!.ids[0]) {
-					return (<TextChannel>channel).send(context.message).then(() => true);
-				}
-				return false;
-			})
-			.catch(() => false), {
-		context: {
-			channelId: packet.discordChannelId,
-			message: { embeds: [embed.toJSON()] }
-		}
-	});
-	if (!posted.includes(true)) {
+	if (!await sendInGuildChannelFromAnyShard(packet.discordChannelId, { embeds: [embed.toJSON()] })) {
 		CrowniclesLogger.warn(`Tournament announcement could not be posted in channel ${packet.discordChannelId}`);
 	}
 }

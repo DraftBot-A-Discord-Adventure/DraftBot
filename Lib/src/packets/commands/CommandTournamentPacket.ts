@@ -25,7 +25,13 @@ export const TournamentErrorCodes = {
 	NOT_REGISTERED: "notRegistered",
 	COMBAT_NOT_STARTED: "combatNotStarted",
 	CHANNEL_ALREADY_USED: "channelAlreadyUsed",
-	UNEXPECTED: "unexpected"
+	UNEXPECTED: "unexpected",
+
+	// Checked by the front before any packet is sent
+	GUILD_ONLY: "guildOnly",
+	OWNER_ONLY: "ownerOnly",
+	ADMINISTRATOR_ONLY: "administratorOnly",
+	MISSING_CHANNEL_PERMISSIONS: "missingChannelPermissions"
 } as const;
 
 export type TournamentErrorCode = typeof TournamentErrorCodes[keyof typeof TournamentErrorCodes];

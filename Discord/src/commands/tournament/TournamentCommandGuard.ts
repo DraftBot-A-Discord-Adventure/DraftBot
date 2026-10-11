@@ -1,5 +1,5 @@
 import {
-	CommandTournamentContextPacketReq, CommandTournamentContextPacketRes
+	CommandTournamentContextPacketReq, CommandTournamentContextPacketRes, TournamentErrorCodes
 } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import {
 	makePacket, PacketContext
@@ -80,6 +80,6 @@ export async function checkTournamentCommandAccess(
 	if (!await isTournamentChannel(interaction, context)) {
 		return true;
 	}
-	await replyTournamentError(interaction, "accessDenied");
+	await replyTournamentError(interaction, TournamentErrorCodes.ACCESS_DENIED);
 	return false;
 }
