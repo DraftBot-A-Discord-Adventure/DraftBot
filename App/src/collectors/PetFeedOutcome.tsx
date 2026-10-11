@@ -10,8 +10,9 @@ import {
 import { Note } from "@/src/design/Primitives";
 import { useKnownPet } from "@/src/store/useKnownPet";
 import {
-	ActionBanner, BottomSheet, JournalEntry
+	ActionBanner, JournalEntry
 } from "@/src/design/Sections";
+import { BottomSheet } from "@/src/design/BottomSheet";
 import { Story } from "@/src/design/Story";
 import { PawPrint } from "@/src/design/FightIcons";
 import { usePlayerPseudo } from "@/src/collectors/EventOutcomeScreen";

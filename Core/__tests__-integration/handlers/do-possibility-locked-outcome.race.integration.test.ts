@@ -139,7 +139,7 @@ describe("doPossibility locked outcome race", () => {
 		now.setMilliseconds(0);
 		const clock = vi.spyOn(Date, "now").mockReturnValue(now.valueOf());
 		const timers = vi.spyOn(globalThis, "setTimeout");
-		const sentPackets = vi.spyOn(PacketUtils, "sendPackets").mockImplementation(() => {});
+		const sentPackets = vi.spyOn(PacketUtils, "sendPackets").mockReturnValue(undefined);
 		try {
 			const response: CrowniclesPacket[] = [];
 			await locks.withLockedEntities([

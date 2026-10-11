@@ -45,6 +45,34 @@ jest.mock("@/src/AppIcons", () => ({ AppIcons: {
 } }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 
+type HistoryFight = Parameters<typeof FightHistoryContent>[0]["history"][number];
+
+function gloryOf(change: HistoryFight["glory"]["change"], leaguesChanges: HistoryFight["glory"]["leaguesChanges"]): HistoryFight["glory"] {
+	return {
+		initial: {
+			me: 500, opponent: 600
+		},
+		change,
+		leaguesChanges
+	};
+}
+
+/** A defense lost against Arsene, unless the test says otherwise. */
+function historyFight(fight: Partial<HistoryFight> & Pick<HistoryFight, "glory">): HistoryFight {
+	return {
+		id: 42,
+		initiator: false,
+		opponentName: "Arsene",
+		opponentRef: "ref-arsene",
+		result: EloGameResult.LOSS,
+		date: 1_900_000_000_000,
+		classes: {
+			me: 1, opponent: 2
+		},
+		...fight
+	};
+}
+
 const LEAGUES = Object.assign(new LeagueInfoRes(), {
 	currentLeagueId: 0,
 	glory: 123,
@@ -184,28 +212,11 @@ describe("arena references", () => {
 	});
 	it("distinguishes a defense from an attack and shows the glory swing at a glance", async () => {
 		await render(<FightHistoryContent history={[
-			{
-				id: 42,
-				initiator: false,
-				opponentName: "Arsene",
-				opponentRef: "ref-arsene",
-				result: EloGameResult.LOSS,
-				date: 1_900_000_000_000,
-				classes: {
-					me: 1, opponent: 2
-				},
-				glory: {
-					initial: {
-						me: 500, opponent: 600
-					},
-					change: {
-						me: -10, opponent: 15
-					},
-					leaguesChanges: { me: {
-						oldLeague: 2, newLeague: 1
-					} }
-				}
-			}
+			historyFight({ glory: gloryOf({
+				me: -10, opponent: 15
+			}, { me: {
+				oldLeague: 2, newLeague: 1
+			} }) })
 		]} />);
 		expect(screen.getByText("Arsene")).toBeTruthy();
 		expect(screen.getByText("app:arena.defeat")).toBeTruthy();
@@ -214,54 +225,27 @@ describe("arena references", () => {
 	});
 	it("opens the opponent's profile from a fight of the history", async () => {
 		await render(<FightHistoryContent history={[
-			{
-				id: 42,
-				initiator: false,
-				opponentName: "Arsene",
-				opponentRef: "ref-arsene",
-				result: EloGameResult.LOSS,
-				date: 1_900_000_000_000,
-				classes: {
-					me: 1, opponent: 2
-				},
-				glory: {
-					initial: {
-						me: 500, opponent: 600
-					},
-					change: {
-						me: -10, opponent: 15
-					},
-					leaguesChanges: {}
-				}
-			}
+			historyFight({ glory: gloryOf({
+				me: -10, opponent: 15
+			}, {}) })
 		]} />);
 		await fireEvent.press(screen.getByText("Arsene"));
 		expect(mockPush).toHaveBeenCalledWith(expect.objectContaining({ params: expect.objectContaining({ ref: "ref-arsene" }) }));
 	});
 	it("signs a won fight and reports a promotion", async () => {
 		await render(<FightHistoryContent history={[
-			{
+			historyFight({
 				id: 43,
 				initiator: true,
 				opponentName: "Yuno",
 				opponentRef: "ref-yuno",
 				result: EloGameResult.WIN,
-				date: 1_900_000_000_000,
-				classes: {
-					me: 1, opponent: 2
-				},
-				glory: {
-					initial: {
-						me: 500, opponent: 600
-					},
-					change: {
-						me: 42, opponent: -15
-					},
-					leaguesChanges: { me: {
-						oldLeague: 1, newLeague: 2
-					} }
-				}
-			}
+				glory: gloryOf({
+					me: 42, opponent: -15
+				}, { me: {
+					oldLeague: 1, newLeague: 2
+				} })
+			})
 		]} />);
 		expect(screen.getByText("Yuno")).toBeTruthy();
 		expect(screen.getByText("+42")).toBeTruthy();

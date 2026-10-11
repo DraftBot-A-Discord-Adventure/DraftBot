@@ -111,35 +111,27 @@ export function useFightPlayback(fight: FightSnapshot, controls: PlaybackControl
 			fightStore.markPlayed(fight.introduction.fightId, record.sequence);
 		}
 	};
-	const finishMotion = (): void => {
-		if (!record) {
-			return;
-		}
-		if (cursor.readSequence === record.sequence) {
-			complete();
-			return;
-		}
-		setCursor(previous => ({
-			...previous, impactSequence: record.sequence, finishedSequence: record.sequence
-		}));
-	};
 
 	/*
 	 * The outcome is readable as soon as the action appears, so reading runs alongside the animation
 	 * instead of after it: whichever of the two ends last moves on to the next action.
 	 */
-	const markRead = (): void => {
+	const endPart = (otherEndedAt: number | undefined, ended: (sequence: number) => Partial<PlaybackCursor>) => (): void => {
 		if (!record) {
 			return;
 		}
-		if (cursor.finishedSequence === record.sequence) {
+		if (otherEndedAt === record.sequence) {
 			complete();
 			return;
 		}
 		setCursor(previous => ({
-			...previous, readSequence: record.sequence
+			...previous, ...ended(record.sequence)
 		}));
 	};
+	const finishMotion = endPart(cursor.readSequence, sequence => ({
+		impactSequence: sequence, finishedSequence: sequence
+	}));
+	const markRead = endPart(cursor.finishedSequence, sequence => ({ readSequence: sequence }));
 	useReadingTime(record, controls, markRead);
 	return {
 		record,

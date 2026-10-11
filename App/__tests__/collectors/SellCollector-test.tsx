@@ -108,48 +108,46 @@ describe("sale confirmation", () => {
 });
 
 describe("item left behind after a find", () => {
-	it("announces the money received for the replaced equipment", async () => {
+	async function renderLeftBehind(item: {
+		id: number; category: number;
+	}, sale: {
+		autoSell: boolean; soldMoney: number;
+	}): Promise<void> {
 		await render(<InventoryOutcome outcome={{
 			kind: "refused",
 			packet: {
-				item: {
-					id: 7, category: 0
-				},
-				autoSell: false,
-				soldMoney: 132
+				item, ...sale
 			}
 		}} onContinue={jest.fn()} />);
+	}
+
+	it("announces the money received for the replaced equipment", async () => {
+		await renderLeftBehind({
+			id: 7, category: 0
+		}, {
+			autoSell: false, soldMoney: 132
+		});
 		expect(screen.getByText("commands:sell.soldMessageTitle")).toBeTruthy();
 		expect(screen.getByText("models:weapons.7")).toBeTruthy();
 		expect(screen.getByText("app:inventoryActions.gain:132")).toBeTruthy();
 	});
 
 	it("says the find was already owned when Core sold it automatically", async () => {
-		await render(<InventoryOutcome outcome={{
-			kind: "refused",
-			packet: {
-				item: {
-					id: 7, category: 0
-				},
-				autoSell: true,
-				soldMoney: 40
-			}
-		}} onContinue={jest.fn()} />);
+		await renderLeftBehind({
+			id: 7, category: 0
+		}, {
+			autoSell: true, soldMoney: 40
+		});
 		expect(screen.getByText("commands:sell.soldMessageAlreadyOwnTitle")).toBeTruthy();
 		expect(screen.getByText("app:inventoryActions.gain:40")).toBeTruthy();
 	});
 
 	it("announces a destroyed potion without any gain", async () => {
-		await render(<InventoryOutcome outcome={{
-			kind: "refused",
-			packet: {
-				item: {
-					id: 43, category: 2
-				},
-				autoSell: false,
-				soldMoney: 0
-			}
-		}} onContinue={jest.fn()} />);
+		await renderLeftBehind({
+			id: 43, category: 2
+		}, {
+			autoSell: false, soldMoney: 0
+		});
 		expect(screen.getByText("commands:sell.potionDestroyedTitle")).toBeTruthy();
 		expect(screen.queryByText(/inventoryActions.gain/)).toBeNull();
 	});

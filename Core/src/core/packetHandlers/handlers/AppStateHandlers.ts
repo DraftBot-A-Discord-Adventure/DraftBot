@@ -31,20 +31,29 @@ function isBadge(value: unknown): value is Badge {
 	return typeof value === "string" && BADGES.has(value);
 }
 
+function isWholeNumber(value: unknown): value is number {
+	return Number.isInteger(value);
+}
+
+/** An absent list is empty; anything else must be a list of known items only. */
+function validList<Item>(value: unknown, isItem: (item: unknown) => item is Item): Item[] | null {
+	const list = value ?? [];
+	return Array.isArray(list) && list.every(isItem) ? list : null;
+}
+
 /** This packet comes over MQTT: only known flags, badges and whole ids may reach the database. */
 function validChange(packet: CommandAppStateReq): AppStateChange | null {
-	const seen = packet.seen ?? [];
-	const acknowledged = packet.acknowledged ?? [];
-	const revealedBadges = packet.revealedBadges ?? [];
-	if (!Array.isArray(seen) || !Array.isArray(acknowledged) || !Array.isArray(revealedBadges)) {
+	const seen = validList(packet.seen, isAppStateFlag);
+	const acknowledged = validList(packet.acknowledged, isWholeNumber);
+	const revealedBadges = validList(packet.revealedBadges, isBadge);
+	if (seen === null || acknowledged === null) {
 		return null;
 	}
-	if (!seen.every(isAppStateFlag) || !acknowledged.every(Number.isInteger) || !revealedBadges.every(isBadge)) {
-		return null;
-	}
-	return {
-		seen, acknowledged, revealedBadges
-	};
+	return revealedBadges === null
+		? null
+		: {
+			seen, acknowledged, revealedBadges
+		};
 }
 
 function appStateResponse(info: PlayerMissionsInfo, unrevealedBadges: Badge[]): CommandAppStateRes {

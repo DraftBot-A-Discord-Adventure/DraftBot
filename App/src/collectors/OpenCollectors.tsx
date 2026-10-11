@@ -10,8 +10,9 @@ import {
 	ItemAcceptCollector, ItemChoiceCollector
 } from "@/src/collectors/ItemRewardCollector";
 import {
-	BottomSheet, FULL_SCREEN_KINDS, FullScreen
+	FULL_SCREEN_KINDS, FullScreen
 } from "@/src/design/Sections";
+import { BottomSheet } from "@/src/design/BottomSheet";
 import { Theme } from "@/src/design/Theme";
 import {
 	CLASSES_DATA_KINDS, DAILY_BONUS_DATA_KINDS, DRINK_DATA_KINDS, EQUIP_DATA_KINDS, EXPEDITION_DATA_KINDS, ITEM_DATA_KINDS, PET_FEED_DATA_KINDS,

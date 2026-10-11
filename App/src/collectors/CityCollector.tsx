@@ -180,13 +180,19 @@ function cityServiceOptions(data: CityCollectorData): Pick<CityGroupingOptions, 
 	};
 }
 
+function rentToClaim(notary: CityMobileSnapshot["apartmentNotary"]): number | undefined {
+	return notary?.ownedApartments.filter(apartment => apartment.canClaim).reduce((total, apartment) => total + apartment.accumulatedRent, 0);
+}
+
 function cityHomeOptions(snapshot: CityMobileSnapshot | undefined): Pick<CityGroupingOptions, "homeOwned" | "homeManage" | "homeElsewhere" | "apartmentForSale" | "rentToClaim"> {
+	const home = snapshot?.home;
+	const notary = snapshot?.apartmentNotary;
 	return {
-		homeOwned: snapshot?.home?.owned,
-		homeManage: snapshot?.home?.manage,
-		homeElsewhere: snapshot?.home?.elsewhere,
-		apartmentForSale: snapshot?.apartmentNotary?.forSale !== undefined,
-		rentToClaim: snapshot?.apartmentNotary?.ownedApartments.filter(apartment => apartment.canClaim).reduce((total, apartment) => total + apartment.accumulatedRent, 0)
+		homeOwned: home?.owned,
+		homeManage: home?.manage,
+		homeElsewhere: home?.elsewhere,
+		apartmentForSale: notary?.forSale !== undefined,
+		rentToClaim: rentToClaim(notary)
 	};
 }
 

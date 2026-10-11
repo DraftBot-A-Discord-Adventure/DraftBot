@@ -98,7 +98,9 @@ function mapOwnedHome(ownedHome: NonNullable<ReactionCollectorCityData["home"]["
 	};
 }
 
-function mapHomeManage(manage: NonNullable<ReactionCollectorCityData["home"]["manage"]>): CityMobileHomeManage {
+type HomeManage = NonNullable<ReactionCollectorCityData["home"]["manage"]>;
+
+function homeManagePrices(manage: HomeManage): Partial<CityMobileHomeManage> {
 	return {
 		...manage.newPrice === undefined ? {} : { newPrice: manage.newPrice },
 		...manage.upgrade === undefined
@@ -107,13 +109,25 @@ function mapHomeManage(manage: NonNullable<ReactionCollectorCityData["home"]["ma
 				upgradePrice: manage.upgrade.price,
 				upgradeChanges: homeUpgradeChanges(manage.upgrade.oldFeatures, manage.upgrade.newFeatures)
 			},
-		...manage.movePrice === undefined ? {} : { movePrice: manage.movePrice },
-		currentMoney: manage.currentMoney,
+		...manage.movePrice === undefined ? {} : { movePrice: manage.movePrice }
+	};
+}
+
+function homeManagePermissions(manage: HomeManage): Partial<CityMobileHomeManage> {
+	return {
 		...manage.canBuy === undefined ? {} : { canBuy: manage.canBuy },
 		...manage.canUpgrade === undefined ? {} : { canUpgrade: manage.canUpgrade },
 		...manage.canMove === undefined ? {} : { canMove: manage.canMove },
 		...manage.requiredPlayerLevelForUpgrade === undefined ? {} : { requiredPlayerLevelForUpgrade: manage.requiredPlayerLevelForUpgrade },
 		...manage.isMaxLevel ? { isMaxLevel: true } : {}
+	};
+}
+
+function mapHomeManage(manage: HomeManage): CityMobileHomeManage {
+	return {
+		...homeManagePrices(manage),
+		currentMoney: manage.currentMoney,
+		...homeManagePermissions(manage)
 	};
 }
 

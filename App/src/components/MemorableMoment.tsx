@@ -45,6 +45,7 @@ import {
 	GAME_ENTITIES, gameKey
 } from "@/src/store/GameEntities";
 import { useQueryClient } from "@tanstack/react-query";
+import type { Badge } from "ws-packets/src/objects/Badge";
 import { i18n } from "@/src/translations/i18n";
 
 /** The card is a 4:5 portrait, the shape social feeds crop the least. */
@@ -278,6 +279,39 @@ function EmblemGlow({ color }: { color: string }): ReactNode {
 	</Svg>;
 }
 
+function CardMiddle({ content }: { content: MomentCardContent }): ReactNode {
+	const { accent } = content.palette;
+	return <View style={cardStyles.middle}>
+		<View style={[cardStyles.emblem, { borderColor: accent }]}>
+			<EmblemGlow color={accent} />
+			<TwemojiIcon emoji={content.emoji} size={MOMENT_CARD.emblemEmoji} />
+		</View>
+		<Text style={[cardStyles.eyebrow, { color: accent }]}>{content.eyebrow}</Text>
+		<Text style={cardStyles.title} numberOfLines={2} adjustsFontSizeToFit>{content.title}</Text>
+		<TwemojiText containerStyle={cardStyles.subtitleBox} textStyle={cardStyles.subtitle} emojiSize={Theme.fontSize.body} numberOfLines={2}>{content.subtitle}</TwemojiText>
+		{content.record
+			? <View style={cardStyles.record}>
+				<Text style={[cardStyles.recordLevel, { color: accent }]}>{i18n.t("app:inventory.level", { level: content.record.level })}</Text>
+				<Text style={cardStyles.recordCaption}>{content.record.caption}</Text>
+			</View>
+			: null}
+	</View>;
+}
+
+function CardFooter({
+	accent, pseudo, date
+}: {
+	accent: string; pseudo: string; date: string;
+}): ReactNode {
+	return <View style={[cardStyles.footer, { borderTopColor: accent }]}>
+		<Text style={cardStyles.pseudo} numberOfLines={1}>{pseudo}</Text>
+		<View style={cardStyles.signature}>
+			<Text style={cardStyles.date}>{date}</Text>
+			<Text style={[cardStyles.host, { color: accent }]}>{AppConstants.WEBSITE_HOST}</Text>
+		</View>
+	</View>;
+}
+
 /** The image a player shares: the moment, whose it is and when, signed by the game. */
 export function MomentCard({
 	content, pseudo, date
@@ -293,28 +327,8 @@ export function MomentCard({
 				<Image source={crowniclesCrown} style={cardStyles.logo} contentFit="contain" accessible={false} />
 				<Text style={cardStyles.wordmark}>{AppConstants.BRAND_NAME}</Text>
 			</View>
-			<View style={cardStyles.middle}>
-				<View style={[cardStyles.emblem, { borderColor: accent }]}>
-					<EmblemGlow color={accent} />
-					<TwemojiIcon emoji={content.emoji} size={MOMENT_CARD.emblemEmoji} />
-				</View>
-				<Text style={[cardStyles.eyebrow, { color: accent }]}>{content.eyebrow}</Text>
-				<Text style={cardStyles.title} numberOfLines={2} adjustsFontSizeToFit>{content.title}</Text>
-				<TwemojiText containerStyle={cardStyles.subtitleBox} textStyle={cardStyles.subtitle} emojiSize={Theme.fontSize.body} numberOfLines={2}>{content.subtitle}</TwemojiText>
-				{content.record
-					? <View style={cardStyles.record}>
-						<Text style={[cardStyles.recordLevel, { color: accent }]}>{i18n.t("app:inventory.level", { level: content.record.level })}</Text>
-						<Text style={cardStyles.recordCaption}>{content.record.caption}</Text>
-					</View>
-					: null}
-			</View>
-			<View style={[cardStyles.footer, { borderTopColor: accent }]}>
-				<Text style={cardStyles.pseudo} numberOfLines={1}>{pseudo}</Text>
-				<View style={cardStyles.signature}>
-					<Text style={cardStyles.date}>{date}</Text>
-					<Text style={[cardStyles.host, { color: accent }]}>{AppConstants.WEBSITE_HOST}</Text>
-				</View>
-			</View>
+			<CardMiddle content={content} />
+			<CardFooter accent={accent} pseudo={pseudo} date={date} />
 		</View>
 	</View>;
 }
@@ -388,6 +402,18 @@ function useAppearance(): Animated.Value {
 	return shown;
 }
 
+function MomentActions({
+	share, sharing, failed, onClose
+}: ReturnType<typeof useShareCard> & { onClose: () => void }): ReactNode {
+	return <View style={styles.actions}>
+		<ActionBanner icon={Share} label={i18n.t("app:moments.share")} pending={sharing} onPress={share} />
+		{failed ? <Text style={styles.failed}>{i18n.t("app:moments.shareFailed")}</Text> : null}
+		<Pressable accessibilityRole="button" onPress={onClose} style={({ pressed }): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]} testID="moment-continue">
+			<Text style={styles.laterLabel}>{i18n.t("app:common.continue")}</Text>
+		</Pressable>
+	</View>;
+}
+
 function MemorableMomentWindow({
 	moment, onClose
 }: {
@@ -397,33 +423,27 @@ function MemorableMomentWindow({
 	const { width } = useWindowDimensions();
 	const card = useRef<View>(null);
 	const content = useMemo(() => momentContent(moment), [moment]);
-	const {
-		share, sharing, failed
-	} = useShareCard(card);
+	const sharing = useShareCard(card);
 	const shown = useAppearance();
 	const cardWidth = Math.min(width - 2 * Theme.spacing.xxl, MOMENT_CARD.maxWidth);
+	const appearing = {
+		width: cardWidth,
+		opacity: shown,
+		transform: [
+			{ scale: shown.interpolate({
+				inputRange: [0, 1], outputRange: [MOMENT_MOTION.fromScale, 1]
+			}) }
+		]
+	};
+	const shared = <View ref={card} collapsable={false}>
+		<MomentCard content={content} pseudo={pseudo} date={momentDate(moment.at)} />
+	</View>;
 	return <NativeWindow transparent animationType="none" statusBarTranslucent onRequestClose={onClose}>
 		<View style={styles.layer} accessibilityViewIsModal testID="memorable-moment">
 			<Animated.View style={[styles.backdrop, { opacity: shown }]} />
-			<Animated.View style={{
-				width: cardWidth,
-				opacity: shown,
-				transform: [
-					{ scale: shown.interpolate({
-						inputRange: [0, 1], outputRange: [MOMENT_MOTION.fromScale, 1]
-					}) }
-				]
-			}}>
-				<View ref={card} collapsable={false}>
-					<MomentCard content={content} pseudo={pseudo} date={momentDate(moment.at)} />
-				</View>
-				<View style={styles.actions}>
-					<ActionBanner icon={Share} label={i18n.t("app:moments.share")} pending={sharing} onPress={share} />
-					{failed ? <Text style={styles.failed}>{i18n.t("app:moments.shareFailed")}</Text> : null}
-					<Pressable accessibilityRole="button" onPress={onClose} style={({ pressed }): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]} testID="moment-continue">
-						<Text style={styles.laterLabel}>{i18n.t("app:common.continue")}</Text>
-					</Pressable>
-				</View>
+			<Animated.View style={appearing}>
+				{shared}
+				<MomentActions {...sharing} onClose={onClose} />
 			</Animated.View>
 		</View>
 	</NativeWindow>;
@@ -431,17 +451,9 @@ function MemorableMomentWindow({
 
 const VISIBLE_BADGE_SET = new Set<string>(VISIBLE_BADGES);
 
-/**
- * Core keeps which badges no device of the player celebrated yet, so one won while the app was closed,
- * or celebrated on another phone, is handled once. A badge the profile gains asks Core again.
- */
-function useBadgeMoments(): void {
-	const appState = useAppState();
-	const profile = usePlayerProfile();
-	const change = useAppStateChange();
+/** A badge the profile gains asks Core again which ones are still to celebrate. */
+function useBadgeGainRefresh(owned: readonly string[] | null): void {
 	const queryClient = useQueryClient();
-	const unrevealed = appState.status === "ready" ? appState.data.unrevealedBadges : null;
-	const owned = profile.status === "ready" ? profile.data.badges : null;
 	const ownedKey = owned?.join() ?? null;
 	const previousOwnedKey = useRef(ownedKey);
 	useEffect(() => {
@@ -453,18 +465,35 @@ function useBadgeMoments(): void {
 		queryClient.invalidateQueries({ queryKey: gameKey(GAME_ENTITIES.APP_STATE) })
 			.catch((error: unknown) => console.warn("Could not ask which badges to celebrate", error));
 	}, [ownedKey, queryClient]);
+}
+
+/** Badges the app does not show are acknowledged silently; the others are celebrated. */
+function announceUnrevealed(unrevealed: readonly Badge[], owned: readonly string[], change: (change: AppStateChange) => void): void {
+	const hidden = unrevealed.filter(badge => !VISIBLE_BADGE_SET.has(badge));
+	if (hidden.length > 0) {
+		change({ revealedBadges: hidden });
+	}
+	memorableMomentStore.announceBadges(unrevealed.filter(badge => VISIBLE_BADGE_SET.has(badge)), {
+		owned: owned.filter(badge => VISIBLE_BADGE_SET.has(badge)).length,
+		total: VISIBLE_BADGES.length
+	});
+}
+
+/**
+ * Core keeps which badges no device of the player celebrated yet, so one won while the app was closed,
+ * or celebrated on another phone, is handled once.
+ */
+function useBadgeMoments(): void {
+	const appState = useAppState();
+	const profile = usePlayerProfile();
+	const change = useAppStateChange();
+	const unrevealed = appState.status === "ready" ? appState.data.unrevealedBadges : null;
+	const owned = profile.status === "ready" ? profile.data.badges : null;
+	useBadgeGainRefresh(owned);
 	useEffect(() => {
-		if (!unrevealed || !owned) {
-			return;
+		if (unrevealed && owned) {
+			announceUnrevealed(unrevealed, owned, change);
 		}
-		const hidden = unrevealed.filter(badge => !VISIBLE_BADGE_SET.has(badge));
-		if (hidden.length > 0) {
-			change({ revealedBadges: hidden });
-		}
-		memorableMomentStore.announceBadges(unrevealed.filter(badge => VISIBLE_BADGE_SET.has(badge)), {
-			owned: owned.filter(badge => VISIBLE_BADGE_SET.has(badge)).length,
-			total: VISIBLE_BADGES.length
-		});
 	}, [
 		unrevealed,
 		owned,
@@ -487,6 +516,11 @@ function acknowledgement(moment: MemorableMoment): AppStateChange {
 	return moment.kind === MEMORABLE_MOMENT_KINDS.BADGE ? { revealedBadges: [moment.badge] } : { acknowledged: [moment.revealId] };
 }
 
+/** A moment waits for the other announcements and for any fight on screen. */
+function momentCanShow(myTurn: boolean, fighting: boolean): boolean {
+	return myTurn && !fighting;
+}
+
 /** Offers to share a moment worth remembering once the game has nothing else to tell and no fight is shown. */
 export function MemorableMomentOverlay(): ReactNode {
 	useBadgeMoments();
@@ -495,7 +529,7 @@ export function MemorableMomentOverlay(): ReactNode {
 	const myTurn = useAnnouncementTurn();
 	const { visible: fighting } = useFight();
 	const change = useAppStateChange();
-	if (!moment || !myTurn || fighting) {
+	if (!moment || !momentCanShow(myTurn, fighting)) {
 		return null;
 	}
 	const close = (): void => {

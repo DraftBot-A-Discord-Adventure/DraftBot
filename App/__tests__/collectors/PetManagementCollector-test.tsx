@@ -11,74 +11,47 @@ jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string =
 const PET = {
 	typeId: 1, nickname: "Aster", sex: "m", rarity: 1, loveLevel: 3, force: 10, feedDelay: 2
 };
+
+function transferCollector(): ReactionCollectorCreation {
+	return Object.assign(new ReactionCollectorCreation(), {
+		id: "transfer",
+		endTime: Date.now() + 60_000,
+		data: {
+			type: "petTransfer",
+			data: {
+				ownPet: PET, shelterPets: []
+			}
+		},
+		reactions: [
+			{
+				type: "refuse", data: {}
+			}, {
+				type: "petDeposit", data: {}
+			}
+		]
+	});
+}
+
+async function renderTransfer(onChoose = jest.fn()): Promise<jest.Mock> {
+	await render(<PetManagementCollector collector={transferCollector()} onChoose={onChoose} submitting={false} />);
+	return onChoose;
+}
+
 describe("pet management confirmation", () => {
 	it("confirms the transfer inside the row and preserves the original index", async () => {
-		const collector = Object.assign(new ReactionCollectorCreation(), {
-			id: "transfer",
-			endTime: Date.now() + 60_000,
-			data: {
-				type: "petTransfer",
-				data: {
-					ownPet: PET, shelterPets: []
-				}
-			},
-			reactions: [
-				{
-					type: "refuse", data: {}
-				}, {
-					type: "petDeposit", data: {}
-				}
-			]
-		});
-		const onChoose = jest.fn();
-		await render(<PetManagementCollector collector={collector} onChoose={onChoose} submitting={false} />);
+		const onChoose = await renderTransfer();
 		await fireEvent.press(screen.getByText("app:pet.management.deposit"));
 		expect(onChoose).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:pet.management.confirmTransfer"));
 		expect(onChoose).toHaveBeenCalledWith(1);
 	});
 	it("leaves the transfer without asking anything when backing out", async () => {
-		const collector = Object.assign(new ReactionCollectorCreation(), {
-			id: "transfer",
-			endTime: Date.now() + 60_000,
-			data: {
-				type: "petTransfer",
-				data: {
-					ownPet: PET, shelterPets: []
-				}
-			},
-			reactions: [
-				{
-					type: "refuse", data: {}
-				}, {
-					type: "petDeposit", data: {}
-				}
-			]
-		});
-		const onChoose = jest.fn();
-		await render(<PetManagementCollector collector={collector} onChoose={onChoose} submitting={false} />);
+		const onChoose = await renderTransfer();
 		await fireEvent.press(screen.getByText("app:common.back"));
 		expect(onChoose).toHaveBeenCalledWith(0);
 	});
 	it("closes the transfer window as soon as the answer leaves, without waiting for the server", async () => {
-		const collector = Object.assign(new ReactionCollectorCreation(), {
-			id: "transfer",
-			endTime: Date.now() + 60_000,
-			data: {
-				type: "petTransfer",
-				data: {
-					ownPet: PET, shelterPets: []
-				}
-			},
-			reactions: [
-				{
-					type: "refuse", data: {}
-				}, {
-					type: "petDeposit", data: {}
-				}
-			]
-		});
-		await render(<PetManagementCollector collector={collector} onChoose={jest.fn()} submitting={false} />);
+		await renderTransfer();
 		await fireEvent.press(screen.getByText("app:pet.management.deposit"));
 		await fireEvent.press(screen.getByText("app:pet.management.confirmTransfer"));
 		expect(screen.queryByText("app:pet.management.confirmTransfer")).toBeNull();

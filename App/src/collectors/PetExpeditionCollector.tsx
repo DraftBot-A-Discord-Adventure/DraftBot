@@ -11,8 +11,9 @@ import {
 	Button, ButtonRow, Note, Screen
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, BottomSheet, Effect, EFFECT_TONES, ExpandableList, Fact, FullScreen, JournalEntry, Standing
+	ActionBanner, Effect, EFFECT_TONES, ExpandableList, Fact, FullScreen, JournalEntry, Standing
 } from "@/src/design/Sections";
+import { BottomSheet } from "@/src/design/BottomSheet";
 import {
 	Check, Flag, PawPrint
 } from "@/src/design/FightIcons";

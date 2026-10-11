@@ -179,26 +179,26 @@ describe("fight session", () => {
 			status: null, logs: []
 		});
 	});
-	it("says nothing when the player declines the duel but still reports real failures", () => {
+	it.each([
+		{
+			case: "says nothing when the player declines the duel", error: FIGHT_ERRORS.REFUSED, shown: null, visible: false
+		},
+		{
+			case: "still reports a real failure", error: FIGHT_ERRORS.NO_OPPONENT, shown: FIGHT_ERRORS.NO_OPPONENT, visible: false
+		},
+		{
+			case: "keeps the battle screen closed for a fight that never started", error: FIGHT_ERRORS.ENERGY, shown: FIGHT_ERRORS.ENERGY, visible: false
+		},
+		{
+			case: "opens the battle screen for a fight that was actually interrupted", error: FIGHT_ERRORS.BUGGED, shown: FIGHT_ERRORS.BUGGED, visible: true
+		}
+	])("$case", ({
+		error, shown, visible
+	}) => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		registry.dispatch(FightErrorRes.wireName, { error: FIGHT_ERRORS.REFUSED });
+		registry.dispatch(FightErrorRes.wireName, { error });
 		expect(fightStore.getSnapshot()).toMatchObject({
-			error: null, visible: false
-		});
-		registry.dispatch(FightErrorRes.wireName, { error: FIGHT_ERRORS.NO_OPPONENT });
-		expect(fightStore.getSnapshot()).toMatchObject({
-			error: FIGHT_ERRORS.NO_OPPONENT, visible: false
-		});
-	});
-	it("opens the battle screen only for a fight that was actually interrupted", () => {
-		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		registry.dispatch(FightErrorRes.wireName, { error: FIGHT_ERRORS.ENERGY });
-		expect(fightStore.getSnapshot()).toMatchObject({
-			error: FIGHT_ERRORS.ENERGY, visible: false
-		});
-		registry.dispatch(FightErrorRes.wireName, { error: FIGHT_ERRORS.BUGGED });
-		expect(fightStore.getSnapshot()).toMatchObject({
-			error: FIGHT_ERRORS.BUGGED, visible: true
+			error: shown, visible
 		});
 	});
 	it("preserves its journal when a resumed introduction arrives for the same duel", () => {

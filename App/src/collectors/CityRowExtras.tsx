@@ -36,18 +36,22 @@ function upgradeBenefits(changes: HomeUpgradeChange[]): Benefit[] {
 	}));
 }
 
+function apartmentBuyBenefits(snapshot: CityMobileSnapshot | undefined): Benefit[] {
+	const elsewhere = snapshot?.home?.elsewhere;
+	const forSale = snapshot?.apartmentNotary?.forSale;
+	return apartmentBenefits(apartmentRentedHere(snapshot), {
+		...forSale ? { price: forSale.price } : {},
+		...elsewhere ? { home: elsewhere } : {}
+	});
+}
+
+const ROW_BENEFITS: Partial<Record<string, (snapshot: CityMobileSnapshot | undefined) => Benefit[]>> = {
+	[CITY_REACTION_KINDS.UPGRADE_HOME]: snapshot => upgradeBenefits(snapshot?.home?.manage?.upgradeChanges ?? []),
+	[CITY_REACTION_KINDS.APARTMENT_BUY]: apartmentBuyBenefits
+};
+
 function rowBenefits(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): Benefit[] {
-	switch (reaction.type) {
-		case CITY_REACTION_KINDS.UPGRADE_HOME: return upgradeBenefits(snapshot?.home?.manage?.upgradeChanges ?? []);
-		case CITY_REACTION_KINDS.APARTMENT_BUY: {
-			const elsewhere = snapshot?.home?.elsewhere;
-			return apartmentBenefits(apartmentRentedHere(snapshot), {
-				...snapshot?.apartmentNotary?.forSale ? { price: snapshot.apartmentNotary.forSale.price } : {},
-				...elsewhere ? { home: elsewhere } : {}
-			});
-		}
-		default: return [];
-	}
+	return ROW_BENEFITS[reaction.type]?.(snapshot) ?? [];
 }
 
 /** What the player weighs before confirming: everything a home upgrade or an apartment brings. */

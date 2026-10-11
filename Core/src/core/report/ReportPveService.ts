@@ -222,9 +222,7 @@ function sendMonsterRewardPacket(
 				petNickname: fight.petReactionData.petNickname
 			}
 			: undefined,
-		...extras.materialLoot && extras.materialLoot.length > 0 ? { materialLoot: extras.materialLoot } : {},
-		...extras.discoveredRecipe ? { discoveredRecipe: extras.discoveredRecipe } : {},
-		...extras.bossRecord ? { bossRecord: extras.bossRecord } : {}
+		...extras
 	}));
 }
 
@@ -296,7 +294,7 @@ async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<v
 	const bossRecord = isFinalBoss && !fight.isADraw() ? await finalBossNewRecord(player, monster) : null;
 
 	sendMonsterRewardPacket(endFightResponse, rewards, result, fight, {
-		materialLoot,
+		...materialLoot.length > 0 ? { materialLoot } : {},
 		...bossRecipe ? { discoveredRecipe: RecipeDiscoveryService.toDisplayInfo(bossRecipe) } : {},
 		...bossRecord ? { bossRecord } : {}
 	});

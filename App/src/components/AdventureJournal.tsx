@@ -71,6 +71,10 @@ function MemoryEntry({ memory }: { memory: AdventureHistoryEvent }): ReactNode {
 	</ExpandableEntry>;
 }
 
+function memoryKey(memory: AdventureHistoryEvent): string {
+	return `${memory.date}-${memory.eventId}-${memory.possibilityId}-${memory.outcomeId}`;
+}
+
 function groupByDay(memories: AdventureHistoryEvent[]): {
 	label: string; memories: AdventureHistoryEvent[];
 }[] {
@@ -142,7 +146,7 @@ export function AdventureJournalContent({ first }: { first: AdventureHistoryRes 
 		{memories.length === 0 ? <Note>{i18n.t("app:adventure.journal.empty")}</Note> : null}
 		{groupByDay(memories).map((day, dayIndex) => <View key={day.label}>
 			<SectionHeader first={dayIndex === 0}>{day.label}</SectionHeader>
-			<ExpandableList>{day.memories.map((memory, index) => <MemoryEntry key={`${memory.date}-${index}`} memory={memory} />)}</ExpandableList>
+			<ExpandableList>{day.memories.map(memory => <MemoryEntry key={memoryKey(memory)} memory={memory} />)}</ExpandableList>
 		</View>)}
 		{older.failed ? <Note>{i18n.t("app:adventure.journal.unavailable")}</Note> : null}
 		{older.load

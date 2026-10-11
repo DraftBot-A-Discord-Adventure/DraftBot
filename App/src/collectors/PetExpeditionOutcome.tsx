@@ -8,8 +8,9 @@ import {
 	Note, Screen
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, BottomSheet, Effect, EFFECT_TONES, FULL_SCREEN_KINDS, FullScreen, JournalEntry, QuestionSheet, Toast
+	ActionBanner, Effect, EFFECT_TONES, FULL_SCREEN_KINDS, FullScreen, JournalEntry, QuestionSheet, Toast
 } from "@/src/design/Sections";
+import { BottomSheet } from "@/src/design/BottomSheet";
 import {
 	ArrowRight, BookOpen
 } from "@/src/design/FightIcons";

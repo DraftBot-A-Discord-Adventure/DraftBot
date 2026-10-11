@@ -75,6 +75,32 @@ async function renderOverview(pet: Partial<PetRes>, effect = NO_EFFECT): Promise
 	return onPage;
 }
 
+const EXPEDITION_PET = {
+	petTypeId: 1, petSex: "m"
+};
+
+function expeditionCollector(id: string, data: object, reactions: object[]): ReactionCollectorCreation {
+	return Object.assign(new ReactionCollectorCreation(), {
+		id, endTime: Date.now() + 60_000, data, reactions
+	});
+}
+
+function expeditionBetween(startTime: number, endTime: number): NonNullable<PetRes["expeditionInProgress"]> {
+	return {
+		startTime, endTime, riskRate: 1, difficulty: 1, locationType: "forest" as const, mapLocationId: 3, foodConsumed: 6, riskCategory: "low"
+	};
+}
+
+async function renderFeedOutcome(outcome: Parameters<typeof PetFeedOutcome>[0]["outcome"]): Promise<void> {
+	const client = new QueryClient({ defaultOptions: { queries: {
+		retry: false, gcTime: Infinity
+	} } });
+	client.setQueryData(gameKey(GAME_ENTITIES.PET), {
+		kind: "answer", packet: Object.assign(new PetRes(), { pet: PET })
+	});
+	await render(<QueryClientProvider client={client}><PetFeedOutcome outcome={outcome} onContinue={jest.fn()} /></QueryClientProvider>);
+}
+
 describe("pet care screens", () => {
 	beforeEach(() => jest.clearAllMocks());
 
@@ -134,69 +160,44 @@ describe("pet care screens", () => {
 	});
 
 	it("recalls the pet without showing Core's question once the page confirmed it", async () => {
-		const progress = Object.assign(new ReactionCollectorCreation(), {
-			id: "progress",
-			endTime: Date.now() + 60_000,
+		const progress = expeditionCollector("progress", {
+			type: "expeditionProgress",
 			data: {
-				type: "expeditionProgress",
-				data: {
-					pet: {
-						petTypeId: 1, petSex: "m"
-					},
-					locationType: "forest",
-					returnTime: Date.now() + 60_000,
-					riskCategory: "low"
-				}
-			},
-			reactions: [
-				{
-					type: "expeditionRecall", data: {}
-				}, {
-					type: "expeditionClose", data: {}
-				}
-			]
-		});
+				pet: EXPEDITION_PET, locationType: "forest", returnTime: Date.now() + 60_000, riskCategory: "low"
+			}
+		}, [
+			{
+				type: "expeditionRecall", data: {}
+			}, {
+				type: "expeditionClose", data: {}
+			}
+		]);
 		jest.mocked(GameClient.request).mockResolvedValue({
 			kind: "answer", packet: progress
 		});
-		const expedition = {
-			startTime: Date.now(), endTime: Date.now() + 60_000, riskRate: 1, difficulty: 1, locationType: "forest" as const, mapLocationId: 3, foodConsumed: 6, riskCategory: "low"
-		};
-		await renderOverview({ expeditionInProgress: expedition });
+		await renderOverview({ expeditionInProgress: expeditionBetween(Date.now(), Date.now() + 60_000) });
 		await fireEvent.press(screen.getByText("app:expedition.recall"));
 		await fireEvent.press(screen.getByText("app:expedition.confirmRecall"));
 		await waitFor(() => expect(mockAnswerWithoutShowing).toHaveBeenCalledWith("progress", 0));
 	});
 
 	it("offers to claim the rewards once the pet is due back, and claims them without another question", async () => {
-		const finished = Object.assign(new ReactionCollectorCreation(), {
-			id: "finished",
-			endTime: Date.now() + 60_000,
+		const finished = expeditionCollector("finished", {
+			type: "expeditionFinished",
 			data: {
-				type: "expeditionFinished",
-				data: {
-					pet: {
-						petTypeId: 1, petSex: "m"
-					},
-					locationType: "forest",
-					riskCategory: "low"
-				}
-			},
-			reactions: [
-				{
-					type: "unknown", data: { serverType: "future" }
-				}, {
-					type: "expeditionClaim", data: {}
-				}
-			]
-		});
+				pet: EXPEDITION_PET, locationType: "forest", riskCategory: "low"
+			}
+		}, [
+			{
+				type: "unknown", data: { serverType: "future" }
+			}, {
+				type: "expeditionClaim", data: {}
+			}
+		]);
 		jest.mocked(GameClient.request).mockResolvedValue({
 			kind: "answer", packet: finished
 		});
-		const expedition = {
-			startTime: Date.now() - 120_000, endTime: Date.now() - 1_000, riskRate: 1, difficulty: 1, locationType: "forest" as const, mapLocationId: 3, foodConsumed: 6, riskCategory: "low"
-		};
-		await renderOverview({ expeditionInProgress: expedition });
+		await renderOverview({ expeditionInProgress: expeditionBetween(Date.now() - 120_000, Date.now() - 1_000) });
 		expect(screen.getByText("app:expedition.away.back")).toBeTruthy();
 		expect(screen.queryByText("app:expedition.recall")).toBeNull();
 		await fireEvent.press(screen.getByText("app:expedition.claim"));
@@ -380,28 +381,16 @@ describe("pet care screens", () => {
 	});
 
 	it("dances the pet the client already knows once the meal succeeds", async () => {
-		const client = new QueryClient({ defaultOptions: { queries: {
-			retry: false, gcTime: Infinity
-		} } });
-		client.setQueryData(gameKey(GAME_ENTITIES.PET), {
-			kind: "answer", packet: Object.assign(new PetRes(), { pet: PET })
-		});
-		await render(<QueryClientProvider client={client}><PetFeedOutcome outcome={{
+		await renderFeedOutcome({
 			success: true, result: PET_FEED_RESULTS.VERY_HAPPY
-		}} onContinue={jest.fn()} /></QueryClientProvider>);
+		});
 		expect(screen.getByTestId("pet-feast", { includeHiddenElements: true })).toBeTruthy();
 	});
 
 	it("leaves a refused meal without a celebration", async () => {
-		const client = new QueryClient({ defaultOptions: { queries: {
-			retry: false, gcTime: Infinity
-		} } });
-		client.setQueryData(gameKey(GAME_ENTITIES.PET), {
-			kind: "answer", packet: Object.assign(new PetRes(), { pet: PET })
-		});
-		await render(<QueryClientProvider client={client}><PetFeedOutcome outcome={{
+		await renderFeedOutcome({
 			success: false, error: PET_FEED_ERRORS.NO_MONEY
-		}} onContinue={jest.fn()} /></QueryClientProvider>);
+		});
 		expect(screen.queryByTestId("pet-feast", { includeHiddenElements: true })).toBeNull();
 		expect(screen.getByText("commands:petFeed.noMoney")).toBeTruthy();
 	});

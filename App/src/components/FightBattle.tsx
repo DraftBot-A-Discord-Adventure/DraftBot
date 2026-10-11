@@ -10,9 +10,8 @@ import { FightEnd } from "ws-packets/src/objects/Fight";
 import {
 	Button, ButtonRow, Note
 } from "@/src/design/Primitives";
-import {
-	QuestionSheet, SheetScrollView
-} from "@/src/design/Sections";
+import { QuestionSheet } from "@/src/design/Sections";
+import { SheetScrollView } from "@/src/design/BottomSheet";
 import { Theme } from "@/src/design/Theme";
 import {
 	FightActions, FightActionsWaiting

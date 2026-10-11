@@ -51,6 +51,28 @@ const HAPTICS_RESTRICTION = {
 	message: "Vibrate through Haptics from @/src/design/Haptics, which follows the player's vibration setting."
 };
 
+/**
+ * Animation keyframe tables: one particle per line keeps its six frames side by side, so a timing reads across
+ * the effect. One element and one property per line turned these 830 lines into 9 000 nobody could compare.
+ */
+const KEYFRAME_TABLES = {
+	files: [
+		"src/display/FightAttackSignatures.ts",
+		"src/display/FightChoreography.ts",
+		"src/display/FightEffectPrimitives.ts",
+		"src/display/FightOutcomeEffects.ts",
+		"src/display/FightSpellSignatures.ts",
+		"src/display/FightTrajectories.ts",
+		"src/display/PetDance.ts"
+	],
+	rules: {
+		"@stylistic/array-bracket-newline": "off",
+		"@stylistic/array-element-newline": "off",
+		"@stylistic/object-curly-newline": "off",
+		"@stylistic/max-len": "off"
+	}
+};
+
 module.exports = defineConfig([
 	expoConfig,
 	{
@@ -90,6 +112,7 @@ module.exports = defineConfig([
 		files: ["__tests__/**/*.{ts,tsx}", "jest.setup.ts"],
 		rules: APP_TEST_RULE_EXCEPTIONS
 	},
+	KEYFRAME_TABLES,
 
 	// Screen formats are decided in docs/adr/0001-formats-ecran.html: windows are opened by the design primitives only.
 	{

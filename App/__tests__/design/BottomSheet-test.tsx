@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import {
 	BottomSheet, SheetScrollView, sheetDragStarts
-} from "@/src/design/Sections";
+} from "@/src/design/BottomSheet";
 import { SwipeBack } from "@/src/design/SwipeBack";
 
 jest.mock("expo-router", () => ({ useFocusEffect: jest.fn() }));

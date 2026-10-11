@@ -5,7 +5,7 @@ import {
 	AMOUNT_UNITS, formatMoney, formatNumber
 } from "@/src/display/Amounts";
 import {
-	ExpandableList, Fact, Figures, Gauge
+	ExpandableList, Fact, Figure, Figures, Gauge
 } from "@/src/design/Sections";
 import { i18n } from "@/src/translations/i18n";
 import { joinFacts } from "@/src/display/Facts";
@@ -97,61 +97,49 @@ function renderHomeBedSummary(snapshot: CityMobileSnapshot, colors: Palette): Re
 	</>;
 }
 
-function renderHomeChestSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const home = snapshot.home?.owned;
-	return home
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.storedItems"), value: formatNumber(home.chestItemCount ?? 0)
-			},
-			{
-				caption: i18n.t("app:city.summary.depositableItems"), value: formatNumber(home.depositableItemCount ?? 0)
-			}
-		]} />
-		: null;
+/** A home room sums itself up in two figures, shown only to the owner. */
+function homeSummary(figures: (home: OwnedHome) => Figure[]): SummaryRenderer {
+	return function homeRoomSummary(snapshot: CityMobileSnapshot): ReactNode {
+		const home = snapshot.home?.owned;
+		return home ? <Figures items={figures(home)} /> : null;
+	};
 }
 
-function renderHomeCookingSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const home = snapshot.home?.owned;
-	return home
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.cooking"), value: formatNumber(home.cookingLevel ?? 0)
-			},
-			{
-				caption: i18n.t("app:city.summary.cookingSlots"), value: formatNumber(home.cookingSlots ?? 0)
-			}
-		]} />
-		: null;
-}
+const renderHomeChestSummary = homeSummary(home => [
+	{
+		caption: i18n.t("app:city.summary.storedItems"), value: formatNumber(home.chestItemCount ?? 0)
+	},
+	{
+		caption: i18n.t("app:city.summary.depositableItems"), value: formatNumber(home.depositableItemCount ?? 0)
+	}
+]);
 
-function renderHomeGardenSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const home = snapshot.home?.owned;
-	return home
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.gardenPlots"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
-			},
-			{
-				caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
-			}
-		]} />
-		: null;
-}
+const renderHomeCookingSummary = homeSummary(home => [
+	{
+		caption: i18n.t("app:city.summary.cooking"), value: formatNumber(home.cookingLevel ?? 0)
+	},
+	{
+		caption: i18n.t("app:city.summary.cookingSlots"), value: formatNumber(home.cookingSlots ?? 0)
+	}
+]);
 
-function renderHomeUpgradeSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const home = snapshot.home?.owned;
-	return home
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
-			},
-			{
-				caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
-			}
-		]} />
-		: null;
-}
+const renderHomeGardenSummary = homeSummary(home => [
+	{
+		caption: i18n.t("app:city.summary.gardenPlots"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
+	},
+	{
+		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+	}
+]);
+
+const renderHomeUpgradeSummary = homeSummary(home => [
+	{
+		caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
+	},
+	{
+		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+	}
+]);
 
 function renderEnchanterSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const data = snapshot.enchanter;

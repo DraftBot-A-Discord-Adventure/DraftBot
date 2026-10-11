@@ -109,7 +109,7 @@ export class FightActionDataController extends DataControllerString<FightAction>
 		const files = readdirSync(path);
 		for (const file of files) {
 			if (file.endsWith(".js")) {
-				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default;
+				const defaultFunc = require(`${relativePath}/${file.substring(0, file.length - 3)}`).default; // skipcq: JS-0359 -- actions are discovered on disk at runtime, like the other data controllers
 				const fightActionName = file.substring(0, file.length - 3);
 				FightActionDataController.fightActionsFunctionsCache.set(fightActionName, defaultFunc);
 			}

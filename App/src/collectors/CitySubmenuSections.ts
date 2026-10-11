@@ -40,19 +40,20 @@ function simpleSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityM
 	return factories[view]?.();
 }
 
+const NOTARY_TITLE_KEYS: Partial<Record<string, string>> = {
+	[CITY_REACTION_KINDS.APARTMENT_BUY]: "app:city.titles.apartments",
+	[CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT]: "app:city.titles.apartments",
+	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: "app:city.labels.guildDomain"
+};
+
+const GROUPED_TITLE_KEYS: Partial<Record<CitySubmenu, (type: string) => string>> = {
+	notary: type => NOTARY_TITLE_KEYS[type] ?? "app:city.titles.yourHome",
+	blacksmith: type => type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT ? "app:city.titles.disenchant" : "app:city.titles.equipment",
+	scrapDealer: () => "app:city.titles.recycling"
+};
+
 function groupedTitleKey(view: CitySubmenu, type: string): string {
-	if (view === "notary") {
-		return type === CITY_REACTION_KINDS.APARTMENT_BUY || type === CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT
-			? "app:city.titles.apartments"
-			: type === CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY ? "app:city.labels.guildDomain" : "app:city.titles.yourHome";
-	}
-	if (view === "blacksmith") {
-		return type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT ? "app:city.titles.disenchant" : "app:city.titles.equipment";
-	}
-	if (view === "scrapDealer") {
-		return "app:city.titles.recycling";
-	}
-	return "app:city.titles.actions";
+	return GROUPED_TITLE_KEYS[view]?.(type) ?? "app:city.titles.actions";
 }
 
 function groupedSections(view: CitySubmenu, entries: CityEntry[], pinned: Record<string, CityListItem[]> = {}): CitySubmenuSection[] {
@@ -66,22 +67,35 @@ function groupedSections(view: CitySubmenu, entries: CityEntry[], pinned: Record
 	return Object.entries(groups).map(([titleKey, items]) => section(titleKey, items));
 }
 
+type HomeManage = NonNullable<NonNullable<CityMobileSnapshot["home"]>["manage"]>;
+
+function homeUpgradeLimitReason(manage: HomeManage | undefined): string | undefined {
+	if (manage?.requiredPlayerLevelForUpgrade !== undefined) {
+		return i18n.t("app:city.locks.playerLevel", { level: manage.requiredPlayerLevelForUpgrade });
+	}
+	return manage?.isMaxLevel ? i18n.t("app:city.locks.homeMaxLevel") : undefined;
+}
+
+/** The home the upgrade would give, or the current one once it is at its highest level. */
+function homeUpgradeIcon(level: number | undefined, isMaxLevel: boolean | undefined): string {
+	if (level === undefined) {
+		return "city.manageHome";
+	}
+	return `city.home.${isMaxLevel ? level : level + 1}`;
+}
+
 /** The upgrade Core does not offer yet, or no longer: said on a greyed row rather than silently left out. */
 function homeUpgradeLimit(snapshot: CityMobileSnapshot | undefined): CityListItem[] {
 	const manage = snapshot?.home?.manage;
-	const level = snapshot?.home?.owned?.level;
-	const reason = manage?.requiredPlayerLevelForUpgrade === undefined
-		? manage?.isMaxLevel ? i18n.t("app:city.locks.homeMaxLevel") : undefined
-		: i18n.t("app:city.locks.playerLevel", { level: manage.requiredPlayerLevelForUpgrade });
+	const reason = homeUpgradeLimitReason(manage);
 	if (!reason) {
 		return [];
 	}
-	const nextLevel = level === undefined || manage?.isMaxLevel ? level : level + 1;
 	return [
 		{
 			kind: "info",
 			key: "home-upgrade-limit",
-			iconPath: nextLevel === undefined ? "city.manageHome" : `city.home.${nextLevel}`,
+			iconPath: homeUpgradeIcon(snapshot?.home?.owned?.level, manage?.isMaxLevel),
 			title: i18n.t("app:city.reactions.upgradeHome"),
 			subtitle: i18n.t("app:city.subtitles.upgradeHome"),
 			lock: { reason }

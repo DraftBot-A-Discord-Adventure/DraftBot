@@ -1,9 +1,9 @@
 import {
-	createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState
+	ReactNode, useEffect, useMemo, useRef, useState
 } from "react";
 import {
-	Animated, ActivityIndicator, Easing, GestureResponderEvent, KeyboardAvoidingView, ModalProps, PanResponder, PanResponderGestureState, Platform,
-	Pressable, ScrollView, StyleProp, StyleSheet, Switch, Text, TextStyle, useWindowDimensions, View, ViewStyle
+	Animated, ActivityIndicator, Easing, ModalProps, Platform,
+	Pressable, StyleSheet, Switch, Text, TextStyle, View, ViewStyle
 } from "react-native";
 import { NativeWindow } from "@/src/design/NativeWindow";
 import { NotificationFeedbackType } from "expo-haptics";
@@ -17,9 +17,7 @@ import {
 import {
 	CountBadge, PendingMotion, Screen, usePressMotion
 } from "@/src/design/Primitives";
-import {
-	SwipeBack, useSuspendSwipeBack
-} from "@/src/design/SwipeBack";
+import { SwipeBack } from "@/src/design/SwipeBack";
 import { Theme } from "@/src/design/Theme";
 import {
 	splitLeadingEmoji, TwemojiText
@@ -27,15 +25,16 @@ import {
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { i18n } from "@/src/translations/i18n";
 import {
-	createStyles, useColors
+	createStyles, styleGroup, useColors
 } from "@/src/design/ThemeContext";
+import { BottomSheet } from "@/src/design/BottomSheet";
 
 /**
  * The grammar every detail screen is written in: an identity banner, a row of figures, a dark
  * call to action that says beforehand why it cannot be pressed, and expandable lists.
  */
 
-const useStyles = createStyles(colors => ({
+const identityStylesOf = styleGroup(colors => ({
 	surface: {
 		flex: 1, backgroundColor: colors.paper
 	},
@@ -59,7 +58,10 @@ const useStyles = createStyles(colors => ({
 	},
 	chevron: {
 		fontFamily: Theme.fonts.regular, fontSize: Theme.fontSize.chevron, color: colors.faint
-	},
+	}
+}));
+
+const bannerStylesOf = styleGroup(colors => ({
 	figures: {
 		flexDirection: "row", paddingVertical: Theme.spacing.lg, paddingHorizontal: Theme.spacing.md
 	},
@@ -97,7 +99,10 @@ const useStyles = createStyles(colors => ({
 	},
 	lockRefusal: { color: colors.red },
 	disabled: { opacity: 0.5 },
-	pressed: { opacity: 0.7 },
+	pressed: { opacity: 0.7 }
+}));
+
+const listStylesOf = styleGroup(colors => ({
 
 	/** Rows sit together on one card: the card and the spacing group them, no rule is drawn between them. */
 	list: {
@@ -126,31 +131,8 @@ const useStyles = createStyles(colors => ({
 		flex: 1, minWidth: 0
 	},
 	dangerLabel: { color: colors.red },
-	detailBackdrop: {
-		flex: 1, justifyContent: "flex-end"
-	},
-	detailVeil: {
-		...StyleSheet.absoluteFill, backgroundColor: colors.overlay
-	},
-	detailCard: {
-		backgroundColor: colors.paper, borderTopLeftRadius: Theme.radius * 2, borderTopRightRadius: Theme.radius * 2, paddingHorizontal: Theme.spacing.xl, paddingTop: Theme.spacing.md, gap: Theme.spacing.lg, maxHeight: "85%"
-	},
-	detailGrabber: {
-		alignSelf: "center", width: 40, height: 4, borderRadius: 2, backgroundColor: colors.line
-	},
 	detailHead: {
 		flexDirection: "row", alignItems: "center", gap: Theme.spacing.md
-	},
-	detailBody: {
-		gap: Theme.spacing.md, paddingHorizontal: Theme.spacing.xl
-	},
-	sheetHandle: {
-		gap: Theme.spacing.lg, minHeight: Theme.dimensions.compactRowMinHeight
-	},
-
-	// Spans the card's margins so the scroll indicator runs in them, not over right-aligned values.
-	sheetScroll: {
-		flexGrow: 0, marginHorizontal: -Theme.spacing.xl
 	},
 	back: {
 		alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: Theme.spacing.xs, height: 34, paddingLeft: Theme.spacing.sm, paddingRight: Theme.spacing.md, borderRadius: Theme.pillRadius, backgroundColor: colors.wash, marginBottom: Theme.spacing.lg
@@ -160,7 +142,10 @@ const useStyles = createStyles(colors => ({
 	},
 
 	/** The icon set only ships a downward chevron; a quarter turn points it back. */
-	backChevron: { transform: [{ rotate: "90deg" }] },
+	backChevron: { transform: [{ rotate: "90deg" }] }
+}));
+
+const factStylesOf = styleGroup(colors => ({
 	fact: {
 		minHeight: 44, flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: Theme.spacing.md, paddingVertical: Theme.spacing.md, paddingHorizontal: Theme.spacing.md
 	},
@@ -192,7 +177,10 @@ const useStyles = createStyles(colors => ({
 	},
 	gaugeFill: {
 		height: "100%", borderRadius: 999
-	},
+	}
+}));
+
+const toastStylesOf = styleGroup(colors => ({
 	toastLayer: {
 		...StyleSheet.absoluteFill, paddingHorizontal: Theme.spacing.lg
 	},
@@ -223,7 +211,10 @@ const useStyles = createStyles(colors => ({
 	},
 	toastAmount: {
 		fontFamily: Theme.fonts.extraBold, fontSize: Theme.fontSize.title, color: colors.paper, fontVariant: ["tabular-nums"]
-	},
+	}
+}));
+
+const effectStylesOf = styleGroup(colors => ({
 	effects: {
 		flexDirection: "row", flexWrap: "wrap", gap: Theme.spacing.sm
 	},
@@ -241,7 +232,10 @@ const useStyles = createStyles(colors => ({
 	effectNeutral: { color: colors.ink },
 	effectGainChip: { backgroundColor: colors.greenWash },
 	effectLossChip: { backgroundColor: colors.redWash },
-	effectNeutralChip: { backgroundColor: colors.wash },
+	effectNeutralChip: { backgroundColor: colors.wash }
+}));
+
+const cardStylesOf = styleGroup(colors => ({
 	journal: {
 		marginBottom: Theme.spacing.xl,
 		padding: Theme.spacing.xl,
@@ -286,6 +280,16 @@ const useStyles = createStyles(colors => ({
 		fontFamily: Theme.fonts.semiBold, fontSize: Theme.fontSize.caption, color: colors.green
 	},
 	lineGauge: { paddingTop: Theme.spacing.lg }
+}));
+
+const useStyles = createStyles(colors => ({
+	...identityStylesOf(colors),
+	...bannerStylesOf(colors),
+	...listStylesOf(colors),
+	...factStylesOf(colors),
+	...toastStylesOf(colors),
+	...effectStylesOf(colors),
+	...cardStylesOf(colors)
 }));
 
 type SectionStyles = ReturnType<typeof useStyles>;
@@ -678,298 +682,6 @@ export function Sheet({
 	</FullScreen>;
 }
 
-/** Settles quickly with a hint of bounce, like a sheet dropped on a table. */
-const SHEET_SPRING = {
-	damping: 22, stiffness: 220, mass: 0.9, useNativeDriver: true
-} as const;
-const SHEET_DISMISS = {
-	distance: 90, velocity: 0.8, slop: 10, verticalRatio: 2, pull: 70
-} as const;
-const SHEET_LEAVE = { returnAfterMs: 1_500 } as const;
-
-/** Stiff and clamped: the sheet keeps the finger's momentum and leaves without bouncing at the bottom. */
-const SHEET_LEAVE_SPRING = {
-	stiffness: 260, damping: 30, mass: 1, overshootClamping: true, useNativeDriver: true
-} as const;
-const MILLISECONDS_PER_SECOND = 1_000;
-const SHEET_SCROLL_THROTTLE_MS = 16;
-
-type SheetDrag = Pick<PanResponderGestureState, "dx" | "dy" | "numberActiveTouches">;
-
-export function sheetDragStarts(gesture: SheetDrag, scrollOffset = 0): boolean {
-	return gesture.numberActiveTouches === 1 && scrollOffset <= 0 && gesture.dy > SHEET_DISMISS.slop && gesture.dy > Math.abs(gesture.dx) * SHEET_DISMISS.verticalRatio;
-}
-
-class SheetGestureState {
-	private scrollOffset = 0;
-
-	private nestedScrollOffset = 0;
-
-	private scrollAtTouchStart = 0;
-
-	private interrupted = false;
-
-	public updateScroll(offset: number): void { this.scrollOffset = offset; }
-
-	public updateNestedScroll(offset: number): void { this.nestedScrollOffset = offset; }
-
-	public beginTouch(): void { this.scrollAtTouchStart = Math.max(this.scrollOffset, this.nestedScrollOffset); }
-
-	public starts(gesture: SheetDrag): boolean { return sheetDragStarts(gesture, this.scrollAtTouchStart); }
-
-	public beginDrag(): void { this.interrupted = false; }
-
-	public acceptsMove(touches: number): boolean {
-		if (touches > 1) {
-			this.interrupted = true;
-		}
-		return !this.interrupted;
-	}
-
-
-	// A drag that ends up sideways is a swipe across the content, never a request to close.
-	public closes(gesture: Pick<PanResponderGestureState, "dx" | "dy" | "vy">): boolean {
-		return !this.interrupted && gesture.dy > Math.abs(gesture.dx) && (gesture.dy > SHEET_DISMISS.distance || gesture.vy > SHEET_DISMISS.velocity);
-	}
-}
-
-/**
- * Closing slides the sheet down before its owner removes it. A sheet its owner keeps open (a question
- * that must be answered) comes back up rather than linger off screen, swallowing every touch.
- */
-function useSheetLeave(offset: Animated.Value, height: number, onClose: () => void): (velocity?: number) => void {
-	const reducedMotion = useReducedMotion();
-	const leaving = useRef(false);
-	const close = useRef(onClose);
-	const comeBack = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const mounted = useRef(true);
-	useEffect(() => {
-		close.current = onClose;
-	}, [onClose]);
-	useEffect(() => {
-		mounted.current = true;
-		return (): void => {
-			mounted.current = false;
-			if (comeBack.current) {
-				clearTimeout(comeBack.current);
-			}
-		};
-	}, []);
-	return useCallback((velocity = 0): void => {
-		if (leaving.current) {
-			return;
-		}
-		leaving.current = true;
-		const closed = (): void => {
-			if (!mounted.current) {
-				return;
-			}
-			close.current();
-			comeBack.current = setTimeout(() => {
-				leaving.current = false;
-				Animated.spring(offset, {
-					toValue: 0, ...SHEET_SPRING
-				}).start();
-			}, SHEET_LEAVE.returnAfterMs);
-		};
-		if (reducedMotion) {
-			closed();
-			return;
-		}
-
-		// The gesture measures pixels per millisecond, the spring pixels per second.
-		Animated.spring(offset, {
-			toValue: height, velocity: velocity * MILLISECONDS_PER_SECOND, ...SHEET_LEAVE_SPRING
-		}).start(closed);
-	}, [
-		height,
-		offset,
-		reducedMotion
-	]);
-}
-
-/** Where a scroller nested in a sheet reports how far down it is, so the sheet knows when a downward drag is a scroll. */
-const SheetScrollContext = createContext<(offset: number) => void>(() => undefined);
-
-/**
- * Everything that rises from the bottom: the detail of a line, a quick question, a short result.
- * A tap above it or a downward drag of its header or unscrolled content puts it away.
- */
-export function BottomSheet({
-	onClose, onShown, onDismissed, visible = true, heading, children, testID
-}: {
-	onClose: () => void;
-
-	/** Once the sheet has settled, for an animation that should not play while it is still rising. */
-	onShown?: () => void;
-
-	/** Once iOS has fully put the sheet away, after `visible` turned false. */
-	onDismissed?: () => void;
-	visible?: boolean;
-	heading?: ReactNode;
-	children: ReactNode;
-	testID?: string;
-}): ReactNode {
-	const styles = useStyles();
-	const insets = useSafeAreaInsets();
-	const { height } = useWindowDimensions();
-	const [offset] = useState(() => new Animated.Value(height));
-	const [gestureState] = useState(() => new SheetGestureState());
-	const leave = useSheetLeave(offset, height, onClose);
-	useSuspendSwipeBack(visible);
-	const shown = useRef(onShown);
-	useEffect(() => {
-		shown.current = onShown;
-	}, [onShown]);
-	useEffect(() => {
-		Animated.spring(offset, {
-			toValue: 0, ...SHEET_SPRING
-		}).start(({ finished }) => {
-			if (finished) {
-				shown.current?.();
-			}
-		});
-	}, [offset]);
-	const dragHandlers = useMemo(() => ({
-		onPanResponderGrant: (): void => {
-			gestureState.beginDrag();
-			offset.stopAnimation();
-		},
-		onPanResponderMove: (_event: GestureResponderEvent, gesture: PanResponderGestureState): void => {
-			if (!gestureState.acceptsMove(gesture.numberActiveTouches)) {
-				Animated.spring(offset, {
-					toValue: 0, ...SHEET_SPRING
-				}).start();
-				return;
-			}
-			offset.setValue(Math.max(0, gesture.dy));
-		},
-		onPanResponderRelease: (_event: GestureResponderEvent, gesture: PanResponderGestureState): void => {
-			if (gestureState.closes(gesture)) {
-				leave(gesture.vy);
-				return;
-			}
-
-			// A sheet that cannot be dismissed yet settles back instead of staying where the finger left it.
-			Animated.spring(offset, {
-				toValue: 0, ...SHEET_SPRING
-			}).start();
-		},
-		onPanResponderTerminate: (): void => {
-			Animated.spring(offset, {
-				toValue: 0, ...SHEET_SPRING
-			}).start();
-		}
-	}), [
-		gestureState,
-		offset,
-		leave
-	]);
-	const headerDrag = useMemo(() => PanResponder.create({
-		// The native window claims every touch nobody inside takes at its start, and its descendants are then never asked again: the header takes it first.
-		onStartShouldSetPanResponder: (): boolean => true,
-		onMoveShouldSetPanResponderCapture: (_event, gesture): boolean => sheetDragStarts(gesture),
-		...dragHandlers
-	}), [dragHandlers]);
-	const contentDrag = useMemo(() => PanResponder.create({
-		onStartShouldSetPanResponderCapture: (): boolean => {
-			gestureState.beginTouch();
-			return false;
-		},
-		onMoveShouldSetPanResponderCapture: (_event, gesture): boolean => gestureState.starts(gesture),
-		...dragHandlers
-	}), [dragHandlers, gestureState]);
-	const reportNestedScroll = useCallback((offset: number): void => gestureState.updateNestedScroll(offset), [gestureState]);
-	return <NativeWindow visible={visible} transparent animationType="fade" statusBarTranslucent onRequestClose={(): void => leave()} {...onDismissed ? { onDismiss: onDismissed } : {}}>
-		<KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined} style={styles.detailBackdrop}>
-			{/* The veil lightens as the sheet goes down, so a drag or a close reads as one movement. */}
-			<Animated.View pointerEvents="none" style={[
-				styles.detailVeil, { opacity: offset.interpolate({
-					inputRange: [0, height], outputRange: [1, 0], extrapolate: "clamp"
-				}) }
-			]} />
-			<Pressable accessibilityRole="button" accessibilityLabel={i18n.t("app:common.back")} style={StyleSheet.absoluteFill} onPress={(): void => leave()} testID="detail-sheet-backdrop" />
-			<Animated.View {...contentDrag.panHandlers} style={[
-				styles.detailCard, {
-					paddingBottom: insets.bottom + Theme.spacing.xl, transform: [{ translateY: offset }]
-				}
-			]} testID={testID}>
-				<View {...headerDrag.panHandlers} style={styles.sheetHandle} testID="bottom-sheet-handle">
-					<View style={styles.detailGrabber} />
-					{heading}
-				</View>
-				<ScrollView
-					style={styles.sheetScroll}
-					contentContainerStyle={styles.detailBody}
-					keyboardShouldPersistTaps="handled"
-					onScroll={event => gestureState.updateScroll(event.nativeEvent.contentOffset.y)}
-
-					// iOS hands the pull to the scroll view: released far enough past the top, the content takes the sheet away.
-					alwaysBounceVertical
-					onScrollEndDrag={event => {
-						if (event.nativeEvent.contentOffset.y < -SHEET_DISMISS.pull) {
-							leave();
-						}
-					}}
-					scrollEventThrottle={SHEET_SCROLL_THROTTLE_MS}
-				><SheetScrollContext.Provider value={reportNestedScroll}>{children}</SheetScrollContext.Provider></ScrollView>
-			</Animated.View>
-		</KeyboardAvoidingView>
-	</NativeWindow>;
-}
-
-/**
- * A scroller of its own inside a sheet, for a long list kept to part of the screen. Dragging down its
- * scrolled content reads it back instead of taking the sheet away. Started at the end, it opens on the latest lines.
- */
-export function SheetScrollView({
-	style, startAtEnd = false, children, testID
-}: {
-	style?: StyleProp<ViewStyle>;
-	startAtEnd?: boolean;
-	children: ReactNode;
-	testID?: string;
-}): ReactNode {
-	const report = useContext(SheetScrollContext);
-	const scroll = useRef<ScrollView>(null);
-	const size = useRef({
-		viewport: 0, content: 0, positioned: false, endPending: false
-	});
-
-	// Not every platform reports the jump to the end as a scroll: the offset it lands on is reported here.
-	const reportEnd = (): void => {
-		const {
-			viewport, content, endPending
-		} = size.current;
-		if (!endPending || viewport <= 0) {
-			return;
-		}
-		size.current.endPending = false;
-		report(Math.max(0, content - viewport));
-	};
-	return <ScrollView
-		ref={scroll}
-		style={style}
-		scrollEventThrottle={SHEET_SCROLL_THROTTLE_MS}
-		onScroll={(event): void => report(event.nativeEvent.contentOffset.y)}
-		onLayout={(event): void => {
-			size.current.viewport = event.nativeEvent.layout.height;
-			reportEnd();
-		}}
-		onContentSizeChange={(_width, height): void => {
-			size.current.content = height;
-			if (!startAtEnd || size.current.positioned) {
-				return;
-			}
-			size.current.positioned = true;
-			size.current.endPending = true;
-			scroll.current?.scrollToEnd({ animated: false });
-			reportEnd();
-		}}
-		{...testID ? { testID } : {}}
-	>{children}</ScrollView>;
-}
-
 /** A short question or result in a bottom sheet, headed like a page so the player knows what it is about. */
 export function QuestionSheet({
 	caption, title, subtitle, emblem, onClose, onShown, children, testID
@@ -1056,6 +768,45 @@ function bannerAvailability(pending: boolean, disabled: boolean, lock: Lock | un
 	};
 }
 
+/** Assistive tech hears what the banner also does, or how much it has to collect. */
+function bannerAccessibility(label: string, badge: number, detail: string | undefined): {
+	accessibilityLabel?: string; accessibilityHint?: string;
+} {
+	if (detail) {
+		return {
+			accessibilityLabel: label, accessibilityHint: detail
+		};
+	}
+	return badge > 0
+		? {
+			accessibilityLabel: label, accessibilityHint: i18n.t("app:common.toCollect", { count: badge })
+		}
+		: {};
+}
+
+function BannerGlyph({
+	glyph, pending, iconScale
+}: {
+	glyph: ReactNode; pending: boolean; iconScale: Animated.Value;
+}): ReactNode {
+	const styles = useStyles();
+	return <View style={styles.bannerIcon}>
+		{pending ? <PendingMotion>{glyph}</PendingMotion> : <Animated.View style={{ transform: [{ scale: iconScale }] }}>{glyph}</Animated.View>}
+	</View>;
+}
+
+function BannerLabel({
+	label, detail
+}: {
+	label: string; detail: string | undefined;
+}): ReactNode {
+	const styles = useStyles();
+	return <View style={styles.bannerLabelBox}>
+		<TwemojiText textStyle={styles.bannerLabel} emojiSize={Theme.fontSize.button} numberOfLines={BANNER_LABEL_LINES}>{label}</TwemojiText>
+		{detail ? <Text style={styles.bannerDetail} numberOfLines={BANNER_LABEL_LINES}>{detail}</Text> : null}
+	</View>;
+}
+
 export function ActionBanner({
 	icon: Icon, emoji, label, detail, onPress, pending = false, disabled = false, lock, hint, badge = 0, testID
 }: {
@@ -1097,16 +848,7 @@ export function ActionBanner({
 		<Pressable accessible={false} {...refusable ? { onPress: shake } : {}}>
 			<Pressable
 				accessibilityRole="button"
-				{...badge > 0
-					? {
-						accessibilityLabel: label, accessibilityHint: i18n.t("app:common.toCollect", { count: badge })
-					}
-					: {}}
-				{...detail
-					? {
-						accessibilityLabel: label, accessibilityHint: detail
-					}
-					: {}}
+				{...bannerAccessibility(label, badge, detail)}
 				accessibilityState={{
 					disabled: blocked, busy: pending
 				}}
@@ -1119,13 +861,8 @@ export function ActionBanner({
 					pressed && styles.pressed,
 					{ transform: [{ scale }, { translateX: offset }] }
 				]}>
-					<View style={styles.bannerIcon}>
-						{pending ? <PendingMotion>{glyph}</PendingMotion> : <Animated.View style={{ transform: [{ scale: iconScale }] }}>{glyph}</Animated.View>}
-					</View>
-					<View style={styles.bannerLabelBox}>
-						<TwemojiText textStyle={styles.bannerLabel} emojiSize={Theme.fontSize.button} numberOfLines={BANNER_LABEL_LINES}>{label}</TwemojiText>
-						{detail ? <Text style={styles.bannerDetail} numberOfLines={BANNER_LABEL_LINES}>{detail}</Text> : null}
-					</View>
+					<BannerGlyph glyph={glyph} pending={pending} iconScale={iconScale} />
+					<BannerLabel label={label} detail={detail} />
 					<CountBadge count={badge} />
 					<ArrowRight size={18} color={colors.paper} />
 				</Animated.View>}

@@ -61,8 +61,9 @@ import {
 	EmptyState, Note, QuickAction, QuickActions, Screen
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, BottomSheet, Figure, Figures, Standing
+	ActionBanner, Figure, Figures, Standing
 } from "@/src/design/Sections";
+import { BottomSheet } from "@/src/design/BottomSheet";
 import { Entrance } from "@/src/design/Entrance";
 import {
 	CureEmblem, Cure, HappyEmblem

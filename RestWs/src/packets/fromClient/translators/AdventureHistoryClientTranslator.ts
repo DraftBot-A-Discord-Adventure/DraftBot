@@ -10,18 +10,29 @@ import {
 } from "../../../../../Lib/src/utils/TimeUtils";
 import { AdventureHistoryReq } from "../../../../../WsPackets/src/fromClient/AdventureHistoryReq";
 
+function isValidPage(page: number): boolean {
+	return Number.isInteger(page) && page >= 0 && page <= AdventureHistoryConstants.MAX_PAGE;
+}
+
+function isValidTimestamp(until: number): boolean {
+	return Number.isSafeInteger(until) && until >= 0;
+}
+
 export default class AdventureHistoryClientTranslator {
 	@fromClientTranslator(AdventureHistoryReq)
 	public static translate(_context: PacketContext, packet: AdventureHistoryReq): Promise<CommandAdventureHistoryReq> {
-		if (packet.page !== undefined && (!Number.isInteger(packet.page) || packet.page < 0 || packet.page > AdventureHistoryConstants.MAX_PAGE)) {
+		const {
+			page, until
+		} = packet;
+		if (page !== undefined && !isValidPage(page)) {
 			throw new InvalidClientPacketError("Invalid adventure history page");
 		}
-		if (packet.until !== undefined && (!Number.isSafeInteger(packet.until) || packet.until < 0)) {
+		if (until !== undefined && !isValidTimestamp(until)) {
 			throw new InvalidClientPacketError("Invalid adventure history timestamp");
 		}
 		return asyncMakePacket(CommandAdventureHistoryReq, {
-			...packet.page !== undefined ? { page: packet.page } : {},
-			...packet.until !== undefined ? { until: asSeconds(Math.floor(millisecondsToSeconds(asMilliseconds(packet.until)))) } : {}
+			...page === undefined ? {} : { page },
+			...until === undefined ? {} : { until: asSeconds(Math.floor(millisecondsToSeconds(asMilliseconds(until)))) }
 		});
 	}
 }
