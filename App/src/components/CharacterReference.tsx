@@ -28,7 +28,7 @@ import {i18n} from "@/src/translations/i18n";
 import {createStyles, useColors} from "@/src/design/ThemeContext";
 
 const HIDDEN_BADGES = new Set<Badge>([BADGE_CODES.DONOR, BADGE_CODES.VOTER]);
-const VISIBLE_BADGES = Object.values(BADGE_CODES).filter(badge => !HIDDEN_BADGES.has(badge));
+export const VISIBLE_BADGES = Object.values(BADGE_CODES).filter(badge => !HIDDEN_BADGES.has(badge));
 const BLESSING_EMBLEM_SIZE = 40;
 const BADGE_EMOJI_SIZE = 28;
 const GUIDE_URL = "https://guide.crownicles.com";

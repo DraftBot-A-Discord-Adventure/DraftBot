@@ -19,6 +19,18 @@ export type MonsterReward = {
 	};
 	materialLoot?: MaterialQuantity[];
 	discoveredRecipe?: RecipeDisplay;
+
+	/** Set when this win beats the best level the player's class had ever beaten this final boss at. */
+	bossRecord?: BossRecord;
+};
+
+export type BossRecord = {
+	monsterId: string;
+	monsterLevel: number;
+	classId: number;
+
+	/** Absent the first time this class beats the boss. */
+	previousLevel?: number;
 };
 
 export type FightPlayerStats = {

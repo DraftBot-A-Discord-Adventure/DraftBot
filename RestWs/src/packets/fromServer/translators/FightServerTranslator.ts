@@ -141,7 +141,8 @@ export default class FightServerTranslator {
 			guildPoints: packet.guildPoints,
 			...packet.petReaction ? { petReaction: packet.petReaction } : {},
 			...packet.materialLoot?.length ? { materialLoot: packet.materialLoot } : {},
-			...packet.discoveredRecipe ? { discoveredRecipe: packet.discoveredRecipe } : {}
+			...packet.discoveredRecipe ? { discoveredRecipe: packet.discoveredRecipe } : {},
+			...packet.bossRecord ? { bossRecord: packet.bossRecord } : {}
 		} });
 	}
 

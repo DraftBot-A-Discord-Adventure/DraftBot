@@ -19,7 +19,7 @@ import { PetFood } from "../../types/PetFood";
 import { MaterialQuantity } from "../../types/MaterialQuantity";
 import { ApartmentLocationRef } from "../../types/ApartmentLocation";
 import {
-	FinalPveBossId, PveBossLeaderboardEntry, PveBossPersonalRecord
+	FinalPveBossId, PveBossLeaderboardEntry, PveBossNewRecord, PveBossPersonalRecord
 } from "../../types/PveBossRecord";
 import type { CookingRecipeId } from "../../types/CookingRecipe";
 export {
@@ -125,6 +125,8 @@ export class CommandReportMonsterRewardRes extends CrowniclesPacket {
 	 * Cooking recipe learned from the notes left by a defeated island boss.
 	 */
 	discoveredRecipe?: RecipeDisplayInfo;
+
+	bossRecord?: PveBossNewRecord;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

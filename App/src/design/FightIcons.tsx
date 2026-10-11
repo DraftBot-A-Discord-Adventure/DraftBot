@@ -35,6 +35,7 @@ import {
 	Play as NativePlay,
 	Plus as NativePlus,
 	Search as NativeSearch,
+	Share as NativeShare,
 	Shield as NativeShield,
 	ShoppingBag as NativeShoppingBag,
 	Skull as NativeSkull,
@@ -111,6 +112,7 @@ export const Pause = iconComponent(NativePause);
 export const Play = iconComponent(NativePlay);
 export const Plus = iconComponent(NativePlus);
 export const Search = iconComponent(NativeSearch);
+export const Share = iconComponent(NativeShare);
 export const Shield = iconComponent(NativeShield);
 export const ShoppingBag = iconComponent(NativeShoppingBag);
 export const Skull = iconComponent(NativeSkull);

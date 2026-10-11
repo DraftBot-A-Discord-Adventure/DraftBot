@@ -6,6 +6,9 @@ export abstract class AppConstants {
 		TERMS: "https://crownicles.com/conditionsutilisation/"
 	} as const;
 
+	// Signs the images players share outside the app
+	static readonly WEBSITE_HOST = "crownicles.com";
+
 	// How long a cached entity is served without asking the server again, when no action invalidated it
 	static readonly GAME_STATE_STALE_TIME = 30000; // 30 seconds
 }

@@ -43,4 +43,18 @@ describe("island boss encounter", () => {
 
 		expect(JSON.parse(JSON.stringify(result))).toEqual({reward: {money: 120, experience: 340, guildXp: 0, guildPoints: 15}});
 	});
+
+	it("hands over the record a final boss win sets, so the app can offer to share it", async () => {
+		const bossRecord = {monsterId: "magmaTitan", monsterLevel: 142, classId: 7, previousLevel: 130} as const;
+
+		const result = await FightServerTranslator.monsterReward(CONTEXT, makePacket(CommandReportMonsterRewardRes, {
+			money: 120,
+			experience: 340,
+			guildXp: 0,
+			guildPoints: 15,
+			bossRecord
+		}));
+
+		expect(result.reward.bossRecord).toStrictEqual(bossRecord);
+	});
 });
