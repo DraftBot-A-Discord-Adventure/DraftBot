@@ -23,7 +23,7 @@ async function verifyParticipantAccess(
 	response: CrowniclesPacket[],
 	access: TournamentCommandAccess
 ): Promise<boolean> {
-	if (tournament.status === TournamentStatuses.PAUSED && access !== "participant") {
+	if (tournament.status === TournamentStatuses.PAUSED) {
 		pushError(response, TournamentErrorCodes.PAUSED);
 		return false;
 	}
@@ -49,7 +49,7 @@ export async function verifyCommandAccess(
 		return true;
 	}
 	await processDueTournaments();
-	const tournament = await findTournamentForContext(context, true);
+	const tournament = await findTournamentForContext(context, false);
 	if (!tournament) {
 		return true;
 	}

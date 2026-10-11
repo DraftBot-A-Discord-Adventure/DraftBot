@@ -15,14 +15,14 @@ import {
 import { TournamentStatuses } from "../../../../Lib/src/types/Tournament";
 import type { TournamentStatusData } from "../../core/tournaments/TournamentRules";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
-import Player, { Players } from "../../core/database/game/models/Player";
+import Player from "../../core/database/game/models/Player";
 import type Tournament from "../../core/database/game/models/Tournament";
 import {
 	adminCommand, commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import { TournamentDomainError } from "../../core/tournaments/TournamentErrors";
 import {
-	findTournamentForContext, getParticipant, getTournamentAdminMenuData, getTournamentOwnerMenuData
+	findTournamentForContext, getTournamentAdminMenuData, getTournamentOwnerMenuData
 } from "../../core/tournaments/TournamentQueries";
 import {
 	pauseTournamentForChannel, resumeTournament
@@ -112,15 +112,8 @@ async function getStatusForPlayerCommand(
 export default class TournamentCommand {
 	@adminCommand(CommandTournamentContextPacketReq, (): boolean => true)
 	static async context(response: CrowniclesPacket[], _packet: CommandTournamentContextPacketReq, context: PacketContext): Promise<void> {
-		const tournament = await findTournamentForContext(context, true);
-		const player = context.keycloakId ? await Players.getByKeycloakId(context.keycloakId) : null;
-		const participant = tournament && player
-			? await getParticipant(tournament.id, player.id)
-			: null;
 		response.push(makePacket(CommandTournamentContextPacketRes, {
-			active: tournament !== null,
-			participant: participant !== null,
-			status: tournament?.status
+			active: await findTournamentForContext(context, false) !== null
 		}));
 	}
 
