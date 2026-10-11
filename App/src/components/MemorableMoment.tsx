@@ -31,8 +31,9 @@ const MOMENT_CARD = {
 	aspectRatio: 0.8,
 	radius: 24,
 	frameInset: 10,
+	frameOpacity: 0.45,
 
-	/** The crown fills about half of its transparent square, so the box is drawn larger than the crown and pulled in. */
+	/** The crown fills half of its transparent square: drawn larger, then pulled in. */
 	logo: 48,
 	logoInset: -10,
 	emblem: 112,
@@ -46,7 +47,12 @@ const MOMENT_CARD = {
 	wordmarkSpacing: 3
 } as const;
 
-const MOMENT_MOTION = {appearMs: 260, fromScale: 0.9} as const;
+const MOMENT_MOTION = {appearMs: 260, fromScale: 0.9, overshoot: 1.4} as const;
+
+const SHARED_IMAGE = {format: "png", mimeType: "image/png", uti: "public.png"} as const;
+
+/** How strongly the halo shines, from the emblem outwards. */
+const GLOW_STOPS = [{offset: 0, opacity: 0.55}, {offset: 0.6, opacity: 0.12}, {offset: 1, opacity: 0}] as const;
 
 /** What the card says, whatever the moment it celebrates. */
 export type MomentCardContent = {
@@ -108,12 +114,12 @@ const cardStyles = StyleSheet.create({
 		left: MOMENT_CARD.frameInset,
 		borderRadius: MOMENT_CARD.radius - MOMENT_CARD.frameInset / 2,
 		borderWidth: 1,
-		opacity: 0.45
+		opacity: MOMENT_CARD.frameOpacity
 	},
 	content: {flex: 1, alignItems: "center", paddingHorizontal: Theme.spacing.xxl, paddingTop: Theme.spacing.xxl, paddingBottom: Theme.spacing.xl},
 	brand: {flexDirection: "row", alignItems: "center"},
 	logo: {width: MOMENT_CARD.logo, height: MOMENT_CARD.logo, marginVertical: MOMENT_CARD.logoInset, marginLeft: MOMENT_CARD.logoInset},
-	wordmark: {fontFamily: Theme.fonts.bold, fontSize: Theme.fontSize.eyebrow, letterSpacing: MOMENT_CARD.wordmarkSpacing, color: BRAND_COLORS.cream},
+	wordmark: {fontFamily: Theme.fonts.bold, fontSize: Theme.fontSize.eyebrow, letterSpacing: MOMENT_CARD.wordmarkSpacing, textTransform: "uppercase", color: BRAND_COLORS.cream},
 	middle: {flex: 1, alignSelf: "stretch", alignItems: "center", justifyContent: "center"},
 	emblem: {
 		width: MOMENT_CARD.emblem,
@@ -197,9 +203,7 @@ function EmblemGlow({color}: {color: string}): ReactNode {
 	return <Svg style={cardStyles.rays} viewBox="0 0 100 100">
 		<Defs>
 			<RadialGradient id="momentCardGlow" cx="50" cy="50" r="50" gradientUnits="userSpaceOnUse">
-				<Stop offset="0" stopColor={color} stopOpacity={0.55} />
-				<Stop offset="0.6" stopColor={color} stopOpacity={0.12} />
-				<Stop offset="1" stopColor={color} stopOpacity={0} />
+				{GLOW_STOPS.map(stop => <Stop key={stop.offset} offset={stop.offset} stopColor={color} stopOpacity={stop.opacity} />)}
 			</RadialGradient>
 		</Defs>
 		<Path d={SUNBURST} fill="url(#momentCardGlow)" />
@@ -215,7 +219,7 @@ export function MomentCard({content, pseudo, date}: {content: MomentCardContent;
 		<View style={cardStyles.content}>
 			<View style={cardStyles.brand}>
 				<Image source={crowniclesCrown} style={cardStyles.logo} contentFit="contain" accessible={false} />
-				<Text style={cardStyles.wordmark}>CROWNICLES</Text>
+				<Text style={cardStyles.wordmark}>{AppConstants.BRAND_NAME}</Text>
 			</View>
 			<View style={cardStyles.middle}>
 				<View style={[cardStyles.emblem, {borderColor: accent}]}>
@@ -226,7 +230,7 @@ export function MomentCard({content, pseudo, date}: {content: MomentCardContent;
 				<Text style={cardStyles.title} numberOfLines={2} adjustsFontSizeToFit>{content.title}</Text>
 				<TwemojiText containerStyle={cardStyles.subtitleBox} textStyle={cardStyles.subtitle} emojiSize={Theme.fontSize.body} numberOfLines={2}>{content.subtitle}</TwemojiText>
 				{content.record ? <View style={cardStyles.record}>
-					<Text style={[cardStyles.recordLevel, {color: accent}]}>{i18n.t("app:moments.bossLevel", {level: content.record.level})}</Text>
+					<Text style={[cardStyles.recordLevel, {color: accent}]}>{i18n.t("app:inventory.level", {level: content.record.level})}</Text>
 					<Text style={cardStyles.recordCaption}>{content.record.caption}</Text>
 				</View> : null}
 			</View>
@@ -253,8 +257,8 @@ const styles = StyleSheet.create({
 
 async function shareCard(card: RefObject<View | null>): Promise<void> {
 	if (!await isAvailableAsync()) throw new Error("Sharing is not available on this device");
-	const uri = await captureRef(card, {format: "png", quality: 1, result: "tmpfile"});
-	await shareAsync(uri, {mimeType: "image/png", UTI: "public.png", dialogTitle: i18n.t("app:moments.share")});
+	const uri = await captureRef(card, {format: SHARED_IMAGE.format, quality: 1, result: "tmpfile"});
+	await shareAsync(uri, {mimeType: SHARED_IMAGE.mimeType, UTI: SHARED_IMAGE.uti, dialogTitle: i18n.t("app:moments.share")});
 }
 
 function useShareCard(card: RefObject<View | null>): {share: () => void; sharing: boolean; failed: boolean} {
@@ -279,7 +283,7 @@ function useAppearance(): Animated.Value {
 	useEffect(() => {
 		notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
 		if (reducedMotion) return;
-		Animated.timing(shown, {toValue: 1, duration: MOMENT_MOTION.appearMs, easing: Easing.out(Easing.back(1.4)), useNativeDriver: true}).start();
+		Animated.timing(shown, {toValue: 1, duration: MOMENT_MOTION.appearMs, easing: Easing.out(Easing.back(MOMENT_MOTION.overshoot)), useNativeDriver: true}).start();
 	}, [reducedMotion, shown]);
 	return shown;
 }
@@ -303,7 +307,7 @@ function MemorableMomentWindow({moment}: {moment: MemorableMoment}): ReactNode {
 					<ActionBanner icon={Share} label={i18n.t("app:moments.share")} pending={sharing} onPress={share} />
 					{failed ? <Text style={styles.failed}>{i18n.t("app:moments.shareFailed")}</Text> : null}
 					<Pressable accessibilityRole="button" onPress={memorableMomentStore.dismiss} style={({pressed}): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]} testID="moment-continue">
-						<Text style={styles.laterLabel}>{i18n.t("app:moments.continue")}</Text>
+						<Text style={styles.laterLabel}>{i18n.t("app:common.continue")}</Text>
 					</Pressable>
 				</View>
 			</Animated.View>

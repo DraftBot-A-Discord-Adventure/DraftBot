@@ -56,10 +56,7 @@ class MemorableMomentStore {
 		this.notify();
 	};
 
-	/**
-	 * Badges are awarded by many flows, some while the app is closed: the profile is compared with the
-	 * badges this device already saw for the character. The first reading only learns them.
-	 */
+	/** Compares the profile with the badges this device already saw; the first reading only learns them. */
 	public readonly observeBadges = async (owner: string, badges: string[], celebrated: readonly string[]): Promise<void> => {
 		const known = await this.knownBadgesOf(owner);
 		const earned = known.baseline ? [] : badges.filter(badge => !known.badges.has(badge));

@@ -7,6 +7,8 @@ export abstract class AppConstants {
 	} as const;
 
 	// Signs the images players share outside the app
+	static readonly BRAND_NAME = "Crownicles";
+
 	static readonly WEBSITE_HOST = "crownicles.com";
 
 	// How long a cached entity is served without asking the server again, when no action invalidated it

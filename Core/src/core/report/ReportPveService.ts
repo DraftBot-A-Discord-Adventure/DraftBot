@@ -229,8 +229,7 @@ function sendMonsterRewardPacket(
 }
 
 /**
- * The record a final boss win sets, or null when this class already beat the boss at a level as high.
- * A failed lookup only costs the player the chance to share the moment, never the rewards.
+ * The record a final boss win sets, or null if this class already beat the boss as high; a failed lookup only skips sharing.
  */
 export async function finalBossNewRecord(player: Player, monster: PveBossOpponent): Promise<PveBossNewRecord | null> {
 	if (!LogsPveBossRecordsRequests.isFinalBossId(monster.id)) {

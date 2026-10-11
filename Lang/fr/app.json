@@ -1453,11 +1453,9 @@
       "bossRecord": "Nouveau record"
     },
     "badgeProgress": "Badge {{owned}} sur {{total}}",
-    "bossLevel": "Niveau {{level}}",
     "previousRecord": "Ancien record : niveau {{level}}",
     "firstWin": "Première victoire de cette classe",
     "share": "Partager ce moment",
-    "continue": "Continuer",
     "shareFailed": "Le partage n'a pas pu s'ouvrir sur cet appareil."
   },
   "missions": {
