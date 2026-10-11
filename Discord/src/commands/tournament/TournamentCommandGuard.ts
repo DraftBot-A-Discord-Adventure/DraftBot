@@ -16,14 +16,19 @@ const TOURNAMENT_COMMAND_NAMES = new Set([
 	"top"
 ]);
 
-export function isAllowedInTournament(commandName: string, participant: boolean, owner: boolean): boolean {
+const TOURNAMENT_MANAGEMENT_COMMAND_NAMES = new Set([
+	"tournament-admin",
+	"tournament-owner"
+]);
+
+// Debug commands must stay usable in a tournament channel, otherwise test fixtures can no longer be cleaned up
+const TOURNAMENT_BYPASS_COMMAND_NAMES = new Set(["test"]);
+
+export function isAllowedInTournament(commandName: string, participant: boolean, _owner: boolean): boolean {
 	if (commandName === "tournament") {
 		return true;
 	}
-	if (commandName.startsWith("tournament-")) {
-		if (commandName === "tournament-resume") {
-			return owner;
-		}
+	if (TOURNAMENT_MANAGEMENT_COMMAND_NAMES.has(commandName) || TOURNAMENT_BYPASS_COMMAND_NAMES.has(commandName)) {
 		return true;
 	}
 	return participant && TOURNAMENT_COMMAND_NAMES.has(commandName);

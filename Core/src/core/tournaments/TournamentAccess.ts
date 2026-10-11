@@ -17,20 +17,6 @@ function pushError(response: CrowniclesPacket[], errorCode: typeof TournamentErr
 	response.push(makePacket(CommandTournamentErrorPacketRes, { errorCode }));
 }
 
-function isRegistrationOpen(tournament: Tournament): boolean {
-	return tournament.status === TournamentStatuses.REGISTRATION || tournament.status === TournamentStatuses.COMBAT;
-}
-
-function verifyRegistrationAccess(tournament: Tournament, response: CrowniclesPacket[]): boolean {
-	if (isRegistrationOpen(tournament)) {
-		return true;
-	}
-	pushError(response, tournament.status === TournamentStatuses.PAUSED
-		? TournamentErrorCodes.PAUSED
-		: TournamentErrorCodes.INVALID_PHASE);
-	return false;
-}
-
 async function verifyParticipantAccess(
 	tournament: Tournament,
 	player: Player,
@@ -59,6 +45,9 @@ export async function verifyCommandAccess(
 	response: CrowniclesPacket[],
 	access: TournamentCommandAccess
 ): Promise<boolean> {
+	if (access === "bypass") {
+		return true;
+	}
 	await processDueTournaments();
 	const tournament = await findTournamentForContext(context, true);
 	if (!tournament) {
@@ -70,9 +59,6 @@ export async function verifyCommandAccess(
 	if (access === "none") {
 		pushError(response, TournamentErrorCodes.ACCESS_DENIED);
 		return false;
-	}
-	if (access === "registration") {
-		return verifyRegistrationAccess(tournament, response);
 	}
 	return await verifyParticipantAccess(tournament, player, response, access);
 }
