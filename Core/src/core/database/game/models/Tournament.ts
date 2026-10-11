@@ -5,8 +5,11 @@ import {
 	LockKey, withLockedEntities
 } from "../../../../../../Lib/src/locks/withLockedEntities";
 import {
-	TournamentLevelLimitMode, TournamentStatus
+	TournamentCancellationReason, TournamentLevelLimitMode, TournamentStatus
 } from "../../../../../../Lib/src/types/Tournament";
+import {
+	Language, LANGUAGE
+} from "../../../../../../Lib/src/Language";
 
 export class Tournament extends Model {
 	declare readonly id: number;
@@ -39,7 +42,9 @@ export class Tournament extends Model {
 
 	declare rewardsDistributed: boolean;
 
-	declare cancellationReason: string | null;
+	declare cancellationReason: TournamentCancellationReason | null;
+
+	declare language: Language;
 
 	declare createdAt: Date;
 
@@ -134,6 +139,12 @@ export function initModel(sequelize: Sequelize): void {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(64),
 			allowNull: true
+		},
+		language: {
+			// eslint-disable-next-line new-cap
+			type: DataTypes.STRING(8),
+			allowNull: false,
+			defaultValue: LANGUAGE.DEFAULT_LANGUAGE
 		},
 		createdAt: {
 			type: DataTypes.DATE,

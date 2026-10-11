@@ -1,5 +1,5 @@
 import {
-	TournamentNotificationEvents, TournamentStatuses
+	TournamentCancellationReason, TournamentNotificationEvents, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
 import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { claimTournamentEvent } from "./TournamentNotifications";
@@ -9,7 +9,7 @@ import { TournamentDomainError } from "./TournamentErrors";
 export type TournamentCancellationRequest = {
 	tournamentId: number;
 	discordGuildId: string;
-	reason: string;
+	reason: TournamentCancellationReason;
 	isGuildAdministrator: boolean;
 };
 

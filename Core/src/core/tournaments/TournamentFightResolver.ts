@@ -3,8 +3,11 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { TournamentFightRewardPacket } from "../../../../Lib/src/packets/fights/TournamentFightRewardPacket";
 import {
-	TournamentStatuses
+	TournamentDefenseOutcome, TournamentDefenseOutcomes, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
+import { TournamentDefenseNotificationPacket } from "../../../../Lib/src/packets/notifications/TournamentDefenseNotificationPacket";
+import { PacketUtils } from "../utils/PacketUtils";
+import { isTournamentTestPlayer } from "./TournamentNotifications";
 import {
 	Locked, withLockedEntities
 } from "../../../../Lib/src/locks/withLockedEntities";
@@ -33,6 +36,7 @@ type TournamentGloryChanges = {
 	attackerGlory: number;
 	defenderKeycloakId: string;
 	defenderGlory: number;
+	defenderGloryChange: number;
 };
 
 type TournamentGlorySnapshot = {
@@ -132,7 +136,8 @@ async function resolveTournamentFightUnderLock(
 		attackerKeycloakId: attacker.keycloakId,
 		attackerGlory: attacker.attackGloryPoints,
 		defenderKeycloakId: defender.keycloakId,
-		defenderGlory: defender.defenseGloryPoints
+		defenderGlory: defender.defenseGloryPoints,
+		defenderGloryChange: defender.getTotalGloryPoints() - snapshot.defenderTotal
 	};
 }
 
@@ -146,6 +151,27 @@ async function logTournamentGloryChanges(gloryChanges: TournamentGloryChanges): 
 	catch (error) {
 		CrowniclesLogger.errorWithObj("Tournament glory log failed after fight commit", error);
 	}
+}
+
+function getDefenseOutcome(parameters: TournamentFightParameters): TournamentDefenseOutcome {
+	if (parameters.isDraw) {
+		return TournamentDefenseOutcomes.DRAW;
+	}
+	return parameters.attackerWon ? TournamentDefenseOutcomes.LOST : TournamentDefenseOutcomes.WON;
+}
+
+function notifyTournamentDefender(parameters: TournamentFightParameters, gloryChanges: TournamentGloryChanges): void {
+	if (isTournamentTestPlayer(gloryChanges.defenderKeycloakId)) {
+		return;
+	}
+	PacketUtils.sendNotifications([
+		makePacket(TournamentDefenseNotificationPacket, {
+			keycloakId: gloryChanges.defenderKeycloakId,
+			attackerKeycloakId: gloryChanges.attackerKeycloakId,
+			outcome: getDefenseOutcome(parameters),
+			gloryChange: gloryChanges.defenderGloryChange
+		})
+	]);
 }
 
 export async function resolveTournamentFight(fight: FightController, response: CrowniclesPacket[]): Promise<void> {
@@ -176,5 +202,6 @@ export async function resolveTournamentFight(fight: FightController, response: C
 	);
 	if (gloryChanges) {
 		await logTournamentGloryChanges(gloryChanges);
+		notifyTournamentDefender(parameters, gloryChanges);
 	}
 }

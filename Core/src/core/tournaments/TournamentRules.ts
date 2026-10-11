@@ -1,8 +1,8 @@
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import { ItemRarity } from "../../../../Lib/src/constants/ItemConstants";
 import {
-	TournamentCategories, TournamentCategory, TournamentLevelLimitModes, TournamentLevelSettings,
-	TournamentNotificationEvent, TournamentRewardSummary, TournamentStatus, TournamentStatuses, TournamentTopCategory
+	TournamentCategories, TournamentCategory, TournamentFightRecord, TournamentLevelLimitModes, TournamentLevelSettings,
+	TournamentRewardSummary, TournamentStatus, TournamentStatuses, TournamentTopCategory
 } from "../../../../Lib/src/types/Tournament";
 import {
 	asHours, hoursToMilliseconds
@@ -30,6 +30,7 @@ export type TournamentStatusData = {
 	totalGloryPoints?: number;
 	lateRegistration?: boolean;
 	rank?: number;
+	record?: TournamentFightRecord;
 	reward?: TournamentRewardSummary;
 };
 
@@ -39,11 +40,6 @@ export type TournamentTopData = {
 	pageNumber: number;
 	totalPages: number;
 	elementsPerPage: number;
-};
-
-export type TournamentEventData = {
-	event: TournamentNotificationEvent;
-	cancellationReason?: string;
 };
 
 export const ACTIVE_STATUSES = [
@@ -66,7 +62,7 @@ export const PROCESSABLE_STATUSES = [
 ];
 
 export function getCategoryForLevel(level: number): TournamentCategory {
-	return level >= 100 ? TournamentCategories.LEVEL_100 : TournamentCategories.LEVEL_50;
+	return level >= TournamentConstants.HIGH_CATEGORY_MIN_LEVEL ? TournamentCategories.LEVEL_100 : TournamentCategories.LEVEL_50;
 }
 
 export function getEffectiveLevel(
@@ -74,7 +70,9 @@ export function getEffectiveLevel(
 	level: number,
 	levelSettings?: TournamentLevelSettings
 ): number {
-	const categoryCap = category === TournamentCategories.LEVEL_50 ? 50 : 100;
+	const categoryCap = category === TournamentCategories.LEVEL_50
+		? TournamentConstants.LOW_CATEGORY_LEVEL_CAP
+		: TournamentConstants.HIGH_CATEGORY_LEVEL_CAP;
 	if (!levelSettings || levelSettings.levelLimitMode === TournamentLevelLimitModes.CATEGORY) {
 		return Math.min(level, categoryCap);
 	}

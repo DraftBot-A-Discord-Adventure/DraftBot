@@ -4,14 +4,17 @@ import {
 import {
 	CommandTournamentStatusPacketRes
 } from "../../../../../Lib/src/packets/commands/CommandTournamentPacket";
-import { TournamentCategories, TournamentStatuses } from "../../../../../Lib/src/types/Tournament";
+import {
+	TournamentCategories, TournamentRegistrationChanges, TournamentStatuses
+} from "../../../../../Lib/src/types/Tournament";
 
 const mocks = vi.hoisted(() => ({
 	claimTournamentReward: vi.fn(),
 	findTournamentForContext: vi.fn(),
 	getParticipant: vi.fn(),
 	getStatusData: vi.fn(),
-	registerPlayer: vi.fn()
+	registerPlayer: vi.fn(),
+	unregisterPlayer: vi.fn()
 }));
 
 vi.mock("../../../../src/core/utils/CommandUtils", () => ({
@@ -35,7 +38,8 @@ vi.mock("../../../../src/core/tournaments/TournamentQueries", () => ({
 }));
 
 vi.mock("../../../../src/core/tournaments/TournamentRegistration", () => ({
-	registerPlayer: mocks.registerPlayer
+	registerPlayer: mocks.registerPlayer,
+	unregisterPlayer: mocks.unregisterPlayer
 }));
 
 vi.mock("../../../../src/core/tournaments/TournamentRanking", () => ({
@@ -98,11 +102,8 @@ describe("TournamentCommand player entry point", () => {
 		mocks.findTournamentForContext.mockResolvedValue({ id: 42 });
 	});
 
-	it("registers a non-participant and returns the refreshed total glory", async () => {
-		mocks.getStatusData
-			.mockResolvedValueOnce(buildStatus())
-			.mockResolvedValueOnce(buildStatus(TournamentCategories.LEVEL_50));
-		mocks.registerPlayer.mockResolvedValue({ tournamentId: 42 });
+	it("offers registration to a non-participant without registering them", async () => {
+		mocks.getStatusData.mockResolvedValue(buildStatus());
 
 		const response: unknown[] = [];
 		await TournamentCommand.status(response as never, { id: 7 } as never, {} as never, {
@@ -111,13 +112,60 @@ describe("TournamentCommand player entry point", () => {
 		} as never);
 
 		const status = response[0] as CommandTournamentStatusPacketRes;
+		expect(mocks.registerPlayer).not.toHaveBeenCalled();
+		expect(status.registrationChange).toBeUndefined();
+		expect(status.canRegister).toBe(true);
+		expect(status.canUnregister).toBe(false);
+	});
+
+	it("does not offer registration outside of the tournament channel", async () => {
+		mocks.getStatusData.mockResolvedValue(buildStatus());
+		mocks.findTournamentForContext.mockResolvedValue(null);
+
+		const response: unknown[] = [];
+		await TournamentCommand.status(response as never, { id: 7 } as never, {} as never, {
+			frontEndSubOrigin: "guild-id",
+			discord: { channel: "other-channel-id" }
+		} as never);
+
+		const status = response[0] as CommandTournamentStatusPacketRes;
+		expect(status.canRegister).toBe(false);
+	});
+
+	it("registers on explicit request and returns the refreshed total glory", async () => {
+		mocks.getStatusData.mockResolvedValue(buildStatus(TournamentCategories.LEVEL_50));
+		mocks.registerPlayer.mockResolvedValue({ tournamentId: 42 });
+
+		const response: unknown[] = [];
+		await TournamentCommand.register(response as never, { id: 7 } as never, {} as never, {
+			frontEndSubOrigin: "guild-id",
+			discord: { channel: "channel-id" }
+		} as never);
+
+		const status = response[0] as CommandTournamentStatusPacketRes;
 		expect(mocks.registerPlayer).toHaveBeenCalledOnce();
-		expect(mocks.getStatusData).toHaveBeenCalledTimes(2);
-		expect(status.newlyRegistered).toBe(true);
+		expect(status.registrationChange).toBe(TournamentRegistrationChanges.REGISTERED);
 		expect(status.category).toBe(TournamentCategories.LEVEL_50);
 		expect(status.totalGloryPoints).toBe(1500);
+		expect(status.canUnregister).toBe(true);
 		expect("attackGloryPoints" in status).toBe(false);
 		expect("defenseGloryPoints" in status).toBe(false);
+	});
+
+	it("unregisters on explicit request during the registration phase", async () => {
+		mocks.getStatusData.mockResolvedValue(buildStatus());
+		mocks.unregisterPlayer.mockResolvedValue(undefined);
+
+		const response: unknown[] = [];
+		await TournamentCommand.unregister(response as never, { id: 7 } as never, {} as never, {
+			frontEndSubOrigin: "guild-id",
+			discord: { channel: "channel-id" }
+		} as never);
+
+		const status = response[0] as CommandTournamentStatusPacketRes;
+		expect(mocks.unregisterPlayer).toHaveBeenCalledOnce();
+		expect(status.registrationChange).toBe(TournamentRegistrationChanges.UNREGISTERED);
+		expect(status.canRegister).toBe(true);
 	});
 
 	it("returns the participant status without attempting a second registration", async () => {
@@ -132,7 +180,7 @@ describe("TournamentCommand player entry point", () => {
 		const status = response[0] as CommandTournamentStatusPacketRes;
 		expect(mocks.registerPlayer).not.toHaveBeenCalled();
 		expect(mocks.getStatusData).toHaveBeenCalledOnce();
-		expect(status.newlyRegistered).toBe(false);
+		expect(status.canRegister).toBe(false);
 		expect(status.totalGloryPoints).toBe(1500);
 	});
 });

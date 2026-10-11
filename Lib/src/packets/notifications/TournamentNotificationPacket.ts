@@ -1,6 +1,6 @@
 import { NotificationPacket } from "./NotificationPacket";
 import {
-	TournamentCategory, TournamentNotificationEvent
+	TournamentCancellationReason, TournamentCategory, TournamentNotificationEvent
 } from "../../types/Tournament";
 
 export class TournamentNotificationPacket extends NotificationPacket {
@@ -10,9 +10,7 @@ export class TournamentNotificationPacket extends NotificationPacket {
 
 	category!: TournamentCategory;
 
-	participantCount!: number;
-
-	categoryParticipantCount!: number;
+	combatEndsAt!: number;
 
 	winnerKeycloakId?: string;
 
@@ -24,5 +22,5 @@ export class TournamentNotificationPacket extends NotificationPacket {
 
 	itemCount?: number;
 
-	cancellationReason?: string;
+	cancellationReason?: TournamentCancellationReason;
 }

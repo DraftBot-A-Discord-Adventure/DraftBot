@@ -10,9 +10,12 @@ import {
 	CommandTournamentGenerateCodePacketRes, CommandTournamentResumePacketReq,
 	CommandTournamentResumePacketRes, CommandTournamentStatusPacketReq,
 	CommandTournamentStatusPacketRes, CommandTournamentOwnerMenuPacketReq,
-	CommandTournamentOwnerMenuPacketRes, CommandTournamentPausePacketReq, TournamentErrorCodes
+	CommandTournamentOwnerMenuPacketRes, CommandTournamentPausePacketReq, CommandTournamentRegisterPacketReq,
+	CommandTournamentUnregisterPacketReq, TournamentErrorCodes
 } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
-import { TournamentStatuses } from "../../../../Lib/src/types/Tournament";
+import {
+	TournamentCancellationReasons, TournamentRegistrationChange, TournamentRegistrationChanges, TournamentStatuses
+} from "../../../../Lib/src/types/Tournament";
 import type { TournamentStatusData } from "../../core/tournaments/TournamentRules";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import Player from "../../core/database/game/models/Player";
@@ -30,7 +33,9 @@ import {
 import {
 	generateTournamentCode, createTournament
 } from "../../core/tournaments/TournamentCreation";
-import { registerPlayer } from "../../core/tournaments/TournamentRegistration";
+import {
+	registerPlayer, unregisterPlayer
+} from "../../core/tournaments/TournamentRegistration";
 import { getStatusData } from "../../core/tournaments/TournamentRanking";
 import { cancelTournament } from "../../core/tournaments/TournamentCancellation";
 import { claimTournamentReward } from "../../core/tournaments/TournamentRewards";
@@ -45,69 +50,49 @@ function pushTournamentError(response: CrowniclesPacket[], error: unknown, reaso
 	}
 	CrowniclesLogger.errorWithObj(reason, error);
 	response.push(makePacket(CommandTournamentErrorPacketRes, {
-		errorCode: TournamentErrorCodes.NOT_FOUND
+		errorCode: TournamentErrorCodes.UNEXPECTED
 	}));
 }
 
-type AutomaticRegistrationResult = {
-	newlyRegistered: boolean;
-	shouldRefreshStatus: boolean;
-};
+type TournamentRegistrationActions = Pick<CommandTournamentStatusPacketRes, "canRegister" | "canUnregister">;
 
-function canAutomaticallyRegister(
+function getRegistrationActions(
 	status: TournamentStatusData,
 	contextTournament: Tournament | null
-): boolean {
-	return !status.category
-		&& contextTournament?.id === status.tournamentId
-		&& (status.status === TournamentStatuses.REGISTRATION || status.status === TournamentStatuses.COMBAT);
-}
-
-async function automaticallyRegisterPlayer(
-	context: PacketContext,
-	player: Player,
-	status: TournamentStatusData,
-	contextTournament: Tournament | null
-): Promise<AutomaticRegistrationResult> {
-	if (!canAutomaticallyRegister(status, contextTournament)) {
-		return {
-			newlyRegistered: false,
-			shouldRefreshStatus: false
-		};
-	}
-	try {
-		await registerPlayer(context, player);
-		return {
-			newlyRegistered: true,
-			shouldRefreshStatus: true
-		};
-	}
-	catch (error) {
-		if (!(error instanceof TournamentDomainError) || error.code !== TournamentErrorCodes.ALREADY_REGISTERED) {
-			throw error;
-		}
-		return {
-			newlyRegistered: false,
-			shouldRefreshStatus: true
-		};
-	}
-}
-
-async function getStatusForPlayerCommand(
-	context: PacketContext,
-	player: Player
-): Promise<{
-	status: TournamentStatusData;
-	newlyRegistered: boolean;
-}> {
-	const initialStatus = await getStatusData(context, player);
-	const contextTournament = await findTournamentForContext(context, false);
-	const registration = await automaticallyRegisterPlayer(context, player, initialStatus, contextTournament);
+): TournamentRegistrationActions {
+	const inTournamentChannel = contextTournament?.id === status.tournamentId;
 	return {
-		status: registration.shouldRefreshStatus ? await getStatusData(context, player) : initialStatus,
-		newlyRegistered: registration.newlyRegistered
+		canRegister: inTournamentChannel
+			&& !status.category
+			&& (status.status === TournamentStatuses.REGISTRATION || status.status === TournamentStatuses.COMBAT),
+		canUnregister: inTournamentChannel
+			&& Boolean(status.category)
+			&& status.status === TournamentStatuses.REGISTRATION
 	};
 }
+
+async function pushStatus(
+	response: CrowniclesPacket[],
+	context: PacketContext,
+	player: Player,
+	registrationChange?: TournamentRegistrationChange
+): Promise<void> {
+	const status = await getStatusData(context, player);
+	const contextTournament = await findTournamentForContext(context, false);
+	response.push(makePacket(CommandTournamentStatusPacketRes, {
+		...status,
+		...getRegistrationActions(status, contextTournament),
+		...registrationChange ? { registrationChange } : {}
+	}));
+}
+
+const PLAYER_TOURNAMENT_REQUIREMENTS: Parameters<typeof commandRequires>[1] = {
+	notBlocked: true,
+	level: TournamentConstants.MINIMUM_PLAYER_LEVEL,
+	whereAllowed: CommandUtils.WHERE.EVERYWHERE,
+	disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
+	tournamentAccess: "status"
+};
 
 export default class TournamentCommand {
 	@adminCommand(CommandTournamentContextPacketReq, (): boolean => true)
@@ -147,7 +132,6 @@ export default class TournamentCommand {
 		try {
 			const result = await generateTournamentCode(context.frontEndSubOrigin);
 			response.push(makePacket(CommandTournamentGenerateCodePacketRes, {
-				code: result.code,
 				expiresAt: result.expiresAt.getTime()
 			}));
 		}
@@ -170,7 +154,6 @@ export default class TournamentCommand {
 				...packet.levelCap !== undefined ? { levelCap: packet.levelCap } : {}
 			});
 			response.push(makePacket(CommandTournamentCreatePacketRes, {
-				tournamentId: tournament.id,
 				registrationEndsAt: tournament.registrationEndsAt.getTime(),
 				combatEndsAt: tournament.combatEndsAt.getTime(),
 				channelId: tournament.discordChannelId,
@@ -183,33 +166,44 @@ export default class TournamentCommand {
 		}
 	}
 
-	@commandRequires(CommandTournamentStatusPacketReq, {
-		notBlocked: true,
-		level: TournamentConstants.MINIMUM_PLAYER_LEVEL,
-		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
-		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-		tournamentAccess: "status"
-	})
+	@commandRequires(CommandTournamentStatusPacketReq, PLAYER_TOURNAMENT_REQUIREMENTS)
 	static async status(response: CrowniclesPacket[], player: Player, _packet: CommandTournamentStatusPacketReq, context: PacketContext): Promise<void> {
 		try {
-			await claimTournamentReward(context, response, player);
-			const statusData = await getStatusForPlayerCommand(context, player);
-			response.push(makePacket(CommandTournamentStatusPacketRes, {
-				...statusData.status,
-				newlyRegistered: statusData.newlyRegistered
-			}));
+			await claimTournamentReward(response, player);
+			await pushStatus(response, context, player);
 		}
 		catch (error) {
 			pushTournamentError(response, error, "Tournament status retrieval failed");
 		}
 	}
 
-	@adminCommand(CommandTournamentResumePacketReq, context => context.discord?.isBotOwner === true)
+	@commandRequires(CommandTournamentRegisterPacketReq, PLAYER_TOURNAMENT_REQUIREMENTS)
+	static async register(response: CrowniclesPacket[], player: Player, _packet: CommandTournamentRegisterPacketReq, context: PacketContext): Promise<void> {
+		try {
+			await registerPlayer(context, player);
+			await pushStatus(response, context, player, TournamentRegistrationChanges.REGISTERED);
+		}
+		catch (error) {
+			pushTournamentError(response, error, "Tournament registration failed");
+		}
+	}
+
+	@commandRequires(CommandTournamentUnregisterPacketReq, PLAYER_TOURNAMENT_REQUIREMENTS)
+	static async unregister(response: CrowniclesPacket[], player: Player, _packet: CommandTournamentUnregisterPacketReq, context: PacketContext): Promise<void> {
+		try {
+			await unregisterPlayer(context, player);
+			await pushStatus(response, context, player, TournamentRegistrationChanges.UNREGISTERED);
+		}
+		catch (error) {
+			pushTournamentError(response, error, "Tournament unregistration failed");
+		}
+	}
+
+	@adminCommand(CommandTournamentResumePacketReq, context => context.discord?.isBotOwner === true || context.discord?.isGuildAdministrator === true)
 	static async resume(response: CrowniclesPacket[], packet: CommandTournamentResumePacketReq, context: PacketContext): Promise<void> {
 		try {
 			const tournament = await resumeTournament(packet.tournamentId, context);
 			response.push(makePacket(CommandTournamentResumePacketRes, {
-				tournamentId: tournament.id,
 				channelId: tournament.discordChannelId
 			}));
 		}
@@ -224,12 +218,10 @@ export default class TournamentCommand {
 			await cancelTournament({
 				tournamentId: packet.tournamentId,
 				discordGuildId: context.frontEndSubOrigin,
-				reason: "manual",
+				reason: TournamentCancellationReasons.MANUAL,
 				isGuildAdministrator: context.discord?.isGuildAdministrator === true
 			});
-			response.push(makePacket(CommandTournamentCancelPacketRes, {
-				tournamentId: packet.tournamentId
-			}));
+			response.push(makePacket(CommandTournamentCancelPacketRes, {}));
 		}
 		catch (error) {
 			pushTournamentError(response, error, "Tournament cancellation failed");

@@ -1,8 +1,9 @@
 import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
+import { Op } from "sequelize";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import {
-	CrowniclesPacket, makePacket, PacketContext
+	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
 	Locked, LockedRowNotFoundError, withLockedEntities
@@ -16,7 +17,6 @@ import Player from "../database/game/models/Player";
 import { PlayerBadgesManager } from "../database/game/models/PlayerBadges";
 import { Tournament } from "../database/game/models/Tournament";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
-import { findLatestTournamentForGuild } from "./TournamentQueries";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { getTournamentRewardItemMinimumRarity } from "./TournamentRules";
 import {
@@ -113,27 +113,29 @@ async function markRewardsAsDistributed(tournamentId: number): Promise<void> {
 	});
 }
 
-async function findTournamentRewardClaim(
-	context: PacketContext,
-	player: Player
-): Promise<TournamentRewardClaim | null> {
-	const tournament = await findLatestTournamentForGuild(context.frontEndSubOrigin);
-	if (!tournament || tournament.status !== TournamentStatuses.COMPLETED) {
-		return null;
-	}
-	const participant = await TournamentParticipant.findOne({
+async function findTournamentRewardClaims(player: Player): Promise<TournamentRewardClaim[]> {
+	const participants = await TournamentParticipant.findAll({
 		where: {
-			tournamentId: tournament.id,
-			playerId: player.id
+			playerId: player.id,
+			rewardGrantedAt: null,
+			finalRank: { [Op.ne]: null }
 		}
 	});
-	if (!participant || participant.rewardGrantedAt) {
-		return null;
+	if (participants.length === 0) {
+		return [];
 	}
-	return {
-		tournament,
-		participant
-	};
+	const tournaments = await Tournament.findAll({
+		where: {
+			id: { [Op.in]: participants.map(participant => participant.tournamentId) },
+			status: TournamentStatuses.COMPLETED
+		}
+	});
+	return tournaments.flatMap(tournament => participants
+		.filter(participant => participant.tournamentId === tournament.id)
+		.map(participant => ({
+			tournament,
+			participant
+		})));
 }
 
 async function claimRewardForParticipant(
@@ -182,20 +184,21 @@ async function markClaimedRewardsAsDistributed(claim: TournamentRewardClaim): Pr
 	}
 }
 
-export async function claimTournamentReward(
-	context: PacketContext,
-	response: CrowniclesPacket[],
-	player: Player
-): Promise<void> {
-	const claim = await findTournamentRewardClaim(context, player);
-	if (!claim) {
-		return;
-	}
-	const responseStart = response.length;
-	const rewardItem = await claimRewardForParticipant(claim, response, responseStart);
+async function claimSingleTournamentReward(claim: TournamentRewardClaim, response: CrowniclesPacket[]): Promise<void> {
+	const rewardItem = await claimRewardForParticipant(claim, response, response.length);
 	if (!rewardItem) {
 		return;
 	}
 	await logClaimedReward(claim, rewardItem);
 	await markClaimedRewardsAsDistributed(claim);
+}
+
+// Rewards are kept until claimed, even if the player has since joined a tournament elsewhere
+export async function claimTournamentReward(
+	response: CrowniclesPacket[],
+	player: Player
+): Promise<void> {
+	for (const claim of await findTournamentRewardClaims(player)) {
+		await claimSingleTournamentReward(claim, response);
+	}
 }

@@ -10,8 +10,8 @@ import {
 	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
-	TournamentLevelLimitModes, type TournamentLevelLimitMode,
-	type TournamentMenuSummary
+	TournamentLevelLimitModes, TournamentStatuses, type TournamentLevelLimitMode,
+	type TournamentLevelSettings, type TournamentMenuSummary
 } from "../../../../Lib/src/types/Tournament";
 import { CrowniclesIcons } from "../../../../Lib/src/CrowniclesIcons";
 import { addButtonToRow } from "../../utils/DiscordCollectorUtils";
@@ -28,6 +28,12 @@ import {
 import type {
 	CrowniclesNestedMenu, CrowniclesNestedMenus
 } from "../../messages/CrowniclesNestedMenus";
+import {
+	addResumeSection, buildResumeMenu
+} from "./TournamentOwnerMenus";
+import {
+	getTournamentLevelRuleDescription, getTournamentThresholdsSummary
+} from "./TournamentDisplayUtils";
 
 export type TournamentCreationMenuState = {
 	registrationDays?: number;
@@ -57,6 +63,16 @@ type DurationChoiceOptions = {
 
 function getLanguage(context: TournamentMenuContext): TournamentMenuContext["interaction"]["userLanguage"] {
 	return context.interaction.userLanguage;
+}
+
+const ADMIN_ROOT_NAVIGATION_IDS = [
+	TOURNAMENT_MENU_IDS.ADMIN_CREATE,
+	TOURNAMENT_MENU_IDS.ADMIN_CANCEL,
+	TOURNAMENT_MENU_IDS.RESUME
+] as const;
+
+function getPausedTournaments(packet: CommandTournamentAdminMenuPacketRes): TournamentMenuSummary[] {
+	return packet.tournaments.filter(tournament => tournament.status === TournamentStatuses.PAUSED);
 }
 
 function buildAdminCancelConfirmationMenu(
@@ -130,6 +146,7 @@ function buildAdminRootMenu(
 		buttonStyle: ReportCityButtonStyles.DESTRUCTIVE,
 		disabled: packet.tournaments.length === 0
 	});
+	addResumeSection(container, context, getPausedTournaments(packet));
 	addMenuNavigation(container, undefined, lng);
 	return {
 		containers: [container],
@@ -137,12 +154,9 @@ function buildAdminRootMenu(
 			if (!componentInteraction.isButton()) {
 				return;
 			}
-			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.ADMIN_CREATE) {
-				await changeMenu(componentInteraction, nestedMenus, TOURNAMENT_MENU_IDS.ADMIN_CREATE);
-				return;
-			}
-			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.ADMIN_CANCEL) {
-				await changeMenu(componentInteraction, nestedMenus, TOURNAMENT_MENU_IDS.ADMIN_CANCEL);
+			const targetMenuId = ADMIN_ROOT_NAVIGATION_IDS.find(menuId => menuId === componentInteraction.customId);
+			if (targetMenuId) {
+				await changeMenu(componentInteraction, nestedMenus, targetMenuId);
 				return;
 			}
 			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.CLOSE) {
@@ -265,11 +279,42 @@ function applyCreationSelection(customId: string, state: TournamentCreationMenuS
 	return true;
 }
 
+function getCreationLevelSettings(state: TournamentCreationMenuState): TournamentLevelSettings {
+	return {
+		levelLimitMode: state.levelLimitMode,
+		levelCap: state.levelCap ?? null
+	};
+}
+
+function getSelectedLevelRuleDescription(state: TournamentCreationMenuState, lng: TournamentMenuContext["interaction"]["userLanguage"]): string {
+	if (isCustomLevelMode(state.levelLimitMode) && state.levelCap === undefined) {
+		return i18n.t("commands:tournament.menu.levelCapMissing", { lng });
+	}
+	return i18n.t("commands:tournament.menu.levelModeSelected", {
+		lng,
+		levelRule: getTournamentLevelRuleDescription(getCreationLevelSettings(state), lng)
+	});
+}
+
+function getMissingCreationChoiceDescription(state: TournamentCreationMenuState, lng: TournamentMenuContext["interaction"]["userLanguage"]): string | null {
+	if (state.registrationDays === undefined || state.combatDays === undefined) {
+		return i18n.t("commands:tournament.menu.createMissingDurations", { lng });
+	}
+	if (!isCreationComplete(state)) {
+		return i18n.t("commands:tournament.menu.createMissingLevelCap", { lng });
+	}
+	return null;
+}
+
 function buildAdminCreateContainer(context: TournamentMenuContext, state: TournamentCreationMenuState): ContainerBuilder {
 	const lng = getLanguage(context);
 	const container = createContainer(
 		i18n.t("commands:tournament.menu.createWizardTitle", { lng }),
-		i18n.t("commands:tournament.menu.createWizardDescription", { lng })
+		i18n.t("commands:tournament.menu.createWizardDescription", {
+			lng,
+			channel: `<#${context.interaction.channelId}>`,
+			thresholds: getTournamentThresholdsSummary(getCreationLevelSettings(state), lng)
+		})
 	);
 	addButtonChoiceSection({
 		container,
@@ -305,7 +350,12 @@ function buildAdminCreateContainer(context: TournamentMenuContext, state: Tourna
 			choices: buildLevelCapChoices(state)
 		});
 	}
+	container.addTextDisplayComponents(new TextDisplayBuilder().setContent(getSelectedLevelRuleDescription(state, lng)));
 	addSeparator(container);
+	const missingChoice = getMissingCreationChoiceDescription(state, lng);
+	if (missingChoice) {
+		container.addTextDisplayComponents(new TextDisplayBuilder().setContent(missingChoice));
+	}
 	const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(new ButtonBuilder()
 		.setCustomId(TOURNAMENT_MENU_IDS.CREATE_CONFIRM)
 		.setLabel(i18n.t("commands:tournament.menu.createConfirmButton", { lng }))
@@ -364,11 +414,14 @@ export function buildAdminMenus(
 	const creationState: TournamentCreationMenuState = {
 		levelLimitMode: TournamentLevelLimitModes.CATEGORY
 	};
+	const mainMenu = buildAdminRootMenu(context, packet);
 	const menus = new Map<string, CrowniclesNestedMenu>();
+	menus.set(TOURNAMENT_MENU_IDS.ADMIN_ROOT, mainMenu);
 	menus.set(TOURNAMENT_MENU_IDS.ADMIN_CREATE, buildAdminCreateMenu(context, creationState));
 	menus.set(TOURNAMENT_MENU_IDS.ADMIN_CANCEL, buildAdminCancelMenu(context, packet.tournaments));
+	menus.set(TOURNAMENT_MENU_IDS.RESUME, buildResumeMenu(context, getPausedTournaments(packet), TOURNAMENT_MENU_IDS.ADMIN_ROOT));
 	return {
-		mainMenu: buildAdminRootMenu(context, packet),
+		mainMenu,
 		menus
 	};
 }
