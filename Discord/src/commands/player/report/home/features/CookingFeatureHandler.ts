@@ -924,11 +924,17 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	): Promise<void> {
 		const state = this.getState(ctx);
 		state.craftPending = true;
+		const releaseCraft = (): void => {
+			state.craftPending = false;
+		};
+
+		// Sending resolves at once: hold the guard until the answer so a slow craft cannot be clicked twice
 		try {
 			await DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse(
 				ctx.context,
 				makePacket(CommandReportCookingCraftReq, craftSelection),
 				async (_responseContext, packetName, responsePacket) => {
+					releaseCraft();
 					if (packetName !== CommandReportCookingCraftRes.name) {
 						return;
 					}
@@ -942,11 +948,13 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 					} = this.buildCraftResultMessages(response, ctx);
 
 					await this.sendCraftFollowup(ctx, nestedMenus, craftResult, levelUpEmbed);
-				}
+				},
+				{ onTimeout: releaseCraft }
 			);
 		}
-		finally {
-			state.craftPending = false;
+		catch (error) {
+			releaseCraft();
+			throw error;
 		}
 	}
 
