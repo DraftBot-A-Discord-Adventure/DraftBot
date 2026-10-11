@@ -42,9 +42,18 @@ describe("cooking craft reaching a new grade", () => {
 		await env?.teardown();
 	});
 
-	it("answers with the level up when the craft reaches a new grade", async () => {
+	type GradeUpCraft = {
+		player: PlayerType;
+		context: PacketContext;
+		craftPacket: {
+			slotIndex: number;
+			recipeId: string;
+		};
+	};
+
+	async function prepareGradeUpCraft(keycloakId: string, pinCraftedRecipe: boolean): Promise<GradeUpCraft> {
 		const player = await Player.create({
-			keycloakId: KEYCLOAK_ID,
+			keycloakId,
 			level: 50,
 			cookingLevel: LEVEL_BEFORE_GRADE
 		});
@@ -71,46 +80,74 @@ describe("cooking craft reaching a new grade", () => {
 		});
 		const cookingSlots = home.getLevel()!.features.cookingSlots;
 		expect(cookingSlots).toBeGreaterThan(0);
-		const slots = await cooking.getSlotRecipes({
+		let slot = (await cooking.getSlotRecipes({
 			player, homeId: home.id, cookingSlots
-		});
-		const slot = slots.find(candidate => candidate.recipe)!;
+		})).find(candidate => candidate.recipe)!;
+		if (pinCraftedRecipe) {
+			// Pinning anchors the recipe in a slot of its own, so look it up again afterwards
+			player.pinnedCookingRecipeId = slot.recipe!.id;
+			await player.save();
+			const pinnedRecipeId = slot.recipe!.id;
+			slot = (await cooking.getSlotRecipes({
+				player, homeId: home.id, cookingSlots
+			})).find(candidate => candidate.recipe?.id === pinnedRecipeId)!;
+		}
 		for (const plant of slot.recipe!.ingredients.plants) {
 			await plantStorages.addPlant(home.id, plant.plantId as never, plant.quantity, 999);
 		}
 		for (const material of slot.recipe!.ingredients.materials) {
 			await materials.giveMaterial(player.id, material.materialId, material.quantity);
 		}
-
-		const context = {
-			frontEndOrigin: "discord",
-			frontEndSubOrigin: "guild",
-			keycloakId: KEYCLOAK_ID,
-			discord: {
-				user: KEYCLOAK_ID,
-				interaction: "interaction",
-				channel: "channel",
-				language: "fr",
-				shardId: 0
+		return {
+			player,
+			context: {
+				frontEndOrigin: "discord",
+				frontEndSubOrigin: "guild",
+				keycloakId,
+				discord: {
+					user: keycloakId,
+					interaction: "interaction",
+					channel: "channel",
+					language: "fr",
+					shardId: 0
+				}
+			} as PacketContext,
+			craftPacket: {
+				slotIndex: slot.slotIndex,
+				recipeId: slot.recipe!.id
 			}
-		} as PacketContext;
-		const craftPacket = {
-			slotIndex: slot.slotIndex,
-			recipeId: slot.recipe!.id
 		};
-		const response = await reportCooking.handleCookingCraft(KEYCLOAK_ID, craftPacket, context);
+	}
 
+	function expectGradeUpResponse(response: unknown[]): void {
 		expect(response[0]).toMatchObject({
-			success: true,
 			cookingLevelUp: true,
 			newCookingLevel: LEVEL_BEFORE_GRADE + 1,
 			newCookingGrade: getCookingGrade(LEVEL_BEFORE_GRADE + 1).id,
 			error: undefined
 		});
+	}
 
-		// A second click on the same button is what showed "craftUnavailable" instead of the level up (#4890)
+	it("answers with the level up when the craft reaches a new grade", async () => {
+		const {
+			player, context, craftPacket
+		} = await prepareGradeUpCraft(KEYCLOAK_ID, false);
+
+		expectGradeUpResponse(await reportCooking.handleCookingCraft(KEYCLOAK_ID, craftPacket, context));
+
+		// Clicking the same button again from the stale menu is what displayed "craftUnavailable"
 		const staleResponse = await reportCooking.handleCookingCraft(KEYCLOAK_ID, craftPacket, context);
 		expect(staleResponse[0]).toMatchObject({ error: CookingCraftErrors.CRAFT_UNAVAILABLE });
 		expect((await Player.findByPk(player.id))!.cookingLevel).toBe(LEVEL_BEFORE_GRADE + 1);
+	});
+
+	it("answers when the crafted recipe was pinned instead of failing the mission update", async () => {
+		const keycloakId = `${KEYCLOAK_ID}-pinned`;
+		const {
+			player, context, craftPacket
+		} = await prepareGradeUpCraft(keycloakId, true);
+
+		expectGradeUpResponse(await reportCooking.handleCookingCraft(keycloakId, craftPacket, context));
+		expect((await Player.findByPk(player.id))!.pinnedCookingRecipeId).toBeNull();
 	});
 });

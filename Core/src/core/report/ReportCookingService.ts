@@ -888,7 +888,10 @@ async function executeReadyCookingCraft(
 			if (lockedPlayer.pinnedCookingRecipeId === observedPinnedId) {
 				lockedPlayer.pinnedCookingRecipeId = null;
 				await lockedPlayer.save();
+
+				// Mirror the persisted value without dirtying the instance, or the mission update below throws (#4890)
 				craftContext.player.pinnedCookingRecipeId = null;
+				craftContext.player.changed("pinnedCookingRecipeId", false);
 			}
 
 			/*
