@@ -44,6 +44,13 @@ const APP_TEST_RULE_EXCEPTIONS = {
 	"@typescript-eslint/explicit-function-return-type": "off"
 };
 
+/** The player chooses when the app vibrates: every vibration goes through Haptics, which applies that setting. */
+const HAPTICS_RESTRICTION = {
+	name: "expo-haptics",
+	importNames: ["impactAsync", "notificationAsync", "selectionAsync", "performAndroidHapticsAsync"],
+	message: "Vibrate through Haptics from @/src/design/Haptics, which follows the player's vibration setting."
+};
+
 module.exports = defineConfig([
 	expoConfig,
 	{
@@ -100,7 +107,8 @@ module.exports = defineConfig([
 						name: "@/src/design/Sections",
 						importNames: ["SheetModal", "ModalSurface"],
 						message: "These build the primitives; use FullScreen or BottomSheet instead: see App/docs/adr/0001-formats-ecran.html."
-					}
+					},
+					HAPTICS_RESTRICTION
 				]
 			}]
 		}
@@ -109,7 +117,7 @@ module.exports = defineConfig([
 	// iOS loses a window opened while another one moves or while the app wakes up: every native window waits its turn in NativeWindow.
 	{
 		files: ["src/design/**/*.{ts,tsx}"],
-		ignores: ["src/design/NativeWindow.tsx"],
+		ignores: ["src/design/NativeWindow.tsx", "src/design/Haptics.ts"],
 		rules: {
 			"no-restricted-imports": ["error", {
 				paths: [
@@ -117,7 +125,8 @@ module.exports = defineConfig([
 						name: "react-native",
 						importNames: ["Modal"],
 						message: "Open native windows through NativeWindow, which waits for the app to be active and for the other windows to settle."
-					}
+					},
+					HAPTICS_RESTRICTION
 				]
 			}]
 		}

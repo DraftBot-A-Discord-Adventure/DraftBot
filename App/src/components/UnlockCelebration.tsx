@@ -4,9 +4,8 @@ import {
 import {
 	Animated, Easing, Pressable, Text, View
 } from "react-native";
-import {
-	notificationAsync, NotificationFeedbackType
-} from "expo-haptics";
+import { NotificationFeedbackType } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { NativeWindow } from "@/src/design/NativeWindow";
 import { AppIcons } from "@/src/AppIcons";
 import { ActionBanner } from "@/src/design/Sections";
@@ -233,7 +232,7 @@ export function Celebration({
 	const [shown] = useState(() => new Animated.Value(reducedMotion ? 1 : 0));
 	const [burst] = useState(() => new Animated.Value(reducedMotion ? 1 : 0));
 	useEffect(() => {
-		notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
+		Haptics.notification(NotificationFeedbackType.Success);
 		if (reducedMotion) {
 			return;
 		}

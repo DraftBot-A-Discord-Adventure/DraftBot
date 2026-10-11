@@ -5,9 +5,8 @@ import {
 	Animated, Easing, StyleSheet, Text, View
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-	notificationAsync, NotificationFeedbackType
-} from "expo-haptics";
+import { NotificationFeedbackType } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { AppIcons } from "@/src/AppIcons";
 import {
 	Note, Screen
@@ -244,7 +243,7 @@ function useDeparture(start: () => void, failure: string | null): {
 			return;
 		}
 		setStarted(true);
-		notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
+		Haptics.notification(NotificationFeedbackType.Success);
 		if (reducedMotion) {
 			start();
 			return;

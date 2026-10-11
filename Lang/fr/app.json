@@ -240,6 +240,13 @@
       "label": "Conseils de voyage",
       "hint": "Des astuces sur le jeu apparaissent sur la page Aventure à partir du niveau 5."
     },
+    "haptics": {
+      "label": "Vibrations",
+      "hint": "Avec le son, l'appareil ne vibre que si son volume n'est pas à zéro.",
+      "always": "Toujours",
+      "withSound": "Avec le son",
+      "never": "Jamais"
+    },
     "developerMode": "Mode développeur",
     "testCommands": {
       "title": "Commandes test",

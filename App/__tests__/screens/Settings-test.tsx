@@ -20,6 +20,9 @@ import {
 import {
 	GAME_SERVICE_AVAILABILITY, GAME_SERVICE_PROVIDERS
 } from "@/src/gameServices/GameServicesTypes";
+import {
+	HAPTICS_MODES, hapticsPreference
+} from "@/src/preferences/HapticsPreference";
 
 const mockPush = jest.fn();
 const mockDisconnect = jest.fn();
@@ -143,6 +146,18 @@ describe("settings", () => {
 			version: "6.0.5", build: "3"
 		})}`)).toBeTruthy();
 		await waitFor(() => expect(screen.getByText("6.0.4")).toBeTruthy());
+	});
+
+	it("keeps the chosen vibrations on this device", async () => {
+		await renderSettings();
+
+		await fireEvent.press(screen.getByText("app:settings.haptics.withSound"));
+		expect(hapticsPreference.getSnapshot()).toBe(HAPTICS_MODES.WITH_SOUND);
+
+		await fireEvent.press(screen.getByText("app:settings.haptics.never"));
+		expect(hapticsPreference.getSnapshot()).toBe(HAPTICS_MODES.NEVER);
+
+		hapticsPreference.set(HAPTICS_MODES.ALWAYS);
 	});
 
 	it("sums up the notifications and opens their page", async () => {

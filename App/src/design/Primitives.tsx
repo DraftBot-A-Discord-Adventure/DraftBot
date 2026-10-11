@@ -1,9 +1,8 @@
 import {
 	ReactNode, useEffect, useState
 } from "react";
-import {
-	impactAsync, ImpactFeedbackStyle
-} from "expo-haptics";
+import { ImpactFeedbackStyle } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import {
 	Animated, Easing, Platform, Pressable, type PressableProps, ScrollView, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle
 } from "react-native";
@@ -461,7 +460,7 @@ export function usePressMotion(onPress: () => void): {
 				}
 			},
 			onPress: (): void => {
-				impactAsync(ImpactFeedbackStyle.Medium).catch(() => undefined);
+				Haptics.impact(ImpactFeedbackStyle.Medium);
 				if (!reducedMotion) {
 					iconScale.setValue(QUICK_ACTION_MOTION.iconPop);
 					spring(iconScale, 1, 18);

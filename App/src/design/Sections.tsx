@@ -6,9 +6,8 @@ import {
 	Pressable, ScrollView, StyleProp, StyleSheet, Switch, Text, TextStyle, useWindowDimensions, View, ViewStyle
 } from "react-native";
 import { NativeWindow } from "@/src/design/NativeWindow";
-import {
-	notificationAsync, NotificationFeedbackType
-} from "expo-haptics";
+import { NotificationFeedbackType } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useReducedMotion } from "@/src/store/useReducedMotion";
 import { UnitIcon } from "@/src/components/UnitIcon";
@@ -1036,7 +1035,7 @@ function useRefusalShake(): {
 	return {
 		offset,
 		shake: (): void => {
-			notificationAsync(NotificationFeedbackType.Warning).catch(() => undefined);
+			Haptics.notification(NotificationFeedbackType.Warning);
 			if (reducedMotion) {
 				return;
 			}

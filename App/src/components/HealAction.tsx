@@ -1,9 +1,8 @@
 import {
 	ReactNode, useState
 } from "react";
-import {
-	notificationAsync, NotificationFeedbackType
-} from "expo-haptics";
+import { NotificationFeedbackType } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
 import { ReportBuyHealReq } from "ws-packets/src/fromClient/ReportBuyHealReq";
 import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
@@ -62,7 +61,7 @@ export function acceptAnswer(collector: ReactionCollectorCreation): SilentAnswer
 }
 
 export function celebrate(): void {
-	notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
+	Haptics.notification(NotificationFeedbackType.Success);
 }
 
 /** The heal button already names its price, so pressing it answers Core's confirmation the same way. */

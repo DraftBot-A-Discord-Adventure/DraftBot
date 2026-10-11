@@ -4,9 +4,8 @@ import {
 import {
 	Animated, Easing, EasingFunction, Pressable
 } from "react-native";
-import {
-	impactAsync, ImpactFeedbackStyle
-} from "expo-haptics";
+import { ImpactFeedbackStyle } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { AppIcons } from "@/src/AppIcons";
 import {
 	PaletteColor, Theme
@@ -373,7 +372,7 @@ export function HappyEmblem({ emoji }: { emoji: string }): ReactNode {
 		};
 		blast.setValue(0);
 		setPhase("blast");
-		impactAsync(ImpactFeedbackStyle.Heavy).catch(() => undefined);
+		Haptics.impact(ImpactFeedbackStyle.Heavy);
 		timing(blast, 1, reducedMotion ? 0 : EASTER_EGG.blastMs, Easing.out(Easing.cubic)).start(() => {
 			setPhase("gone");
 			returnTimer.current = setTimeout(comeBack, EASTER_EGG.goneMs);

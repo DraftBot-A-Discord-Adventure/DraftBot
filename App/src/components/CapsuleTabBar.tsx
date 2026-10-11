@@ -4,7 +4,7 @@ import {
 import {
 	Animated, Easing, LayoutChangeEvent, Pressable, StyleSheet, View
 } from "react-native";
-import { selectionAsync } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { LucideIcon } from "@/src/design/FightIcons";
 import { CountBadge } from "@/src/design/Primitives";
@@ -298,7 +298,7 @@ export function CapsuleTabBar({
 	]);
 	const focusIndex = Math.max(tabs.findIndex(tab => tab.name === focused), 0);
 	const select = (tab: CapsuleTab): void => {
-		selectionAsync().catch(() => undefined);
+		Haptics.selection();
 		onSelect(tab.name);
 	};
 	return <View style={[

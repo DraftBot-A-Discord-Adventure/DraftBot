@@ -16,6 +16,9 @@ import { PreferencesContext } from "@/src/preferences/PreferencesContext";
 import {
 	travelAdvicePreference, useTravelAdvicesShown
 } from "@/src/preferences/TravelAdvicePreference";
+import {
+	HAPTICS_MODES, hapticsPreference, useHapticsMode
+} from "@/src/preferences/HapticsPreference";
 import { GameClient } from "@/src/networking/GameClient";
 import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import { useGameQuery } from "@/src/store/useGameQuery";
@@ -73,6 +76,7 @@ function GameSettings(): ReactNode {
 		speed, setSpeed
 	} = useFightSpeed();
 	const travelAdvices = useTravelAdvicesShown();
+	const haptics = useHapticsMode();
 	return <>
 		<SectionHeader first>{i18n.t("app:settings.sections.game")}</SectionHeader>
 		<ExpandableList>
@@ -92,6 +96,19 @@ function GameSettings(): ReactNode {
 				value={travelAdvices}
 				onChange={travelAdvicePreference.set}
 			/>
+			<ChoiceRow label={i18n.t("app:settings.haptics.label")} caption={i18n.t("app:settings.haptics.hint")}>
+				<SegmentedControl label={i18n.t("app:settings.haptics.label")} value={haptics} onChange={hapticsPreference.set} options={[
+					{
+						value: HAPTICS_MODES.ALWAYS, label: i18n.t("app:settings.haptics.always")
+					},
+					{
+						value: HAPTICS_MODES.WITH_SOUND, label: i18n.t("app:settings.haptics.withSound")
+					},
+					{
+						value: HAPTICS_MODES.NEVER, label: i18n.t("app:settings.haptics.never")
+					}
+				]} />
+			</ChoiceRow>
 		</ExpandableList>
 	</>;
 }

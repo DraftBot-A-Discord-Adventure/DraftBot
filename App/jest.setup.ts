@@ -20,6 +20,9 @@ jest.mock("expo-router", () => ({
 // The test renderer has no app state nor window transitions to wait for: windows open as asked (NativeWindow-test covers the wait).
 jest.mock("@/src/design/NativeWindow", () => ({ NativeWindow: jest.requireActual("react-native").Modal }));
 
+// The volume is read by a native module the test environment does not link: the phone is never muted here.
+jest.mock("react-native-volume-manager", () => ({ getVolume: jest.fn(() => Promise.resolve({ volume: 1 })) }));
+
 // Reanimated drives its values from a native worklet runtime the test environment does not have.
 jest.mock("react-native-reanimated", () => {
 	const { View } = jest.requireActual("react-native");

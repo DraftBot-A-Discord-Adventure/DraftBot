@@ -5,9 +5,8 @@ import {
 	Animated, Easing, Pressable, StyleSheet, Text, useWindowDimensions, View
 } from "react-native";
 import { Image } from "expo-image";
-import {
-	notificationAsync, NotificationFeedbackType
-} from "expo-haptics";
+import { NotificationFeedbackType } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import {
 	isAvailableAsync, shareAsync
 } from "expo-sharing";
@@ -378,7 +377,7 @@ function useAppearance(): Animated.Value {
 	const reducedMotion = useReducedMotion();
 	const [shown] = useState(() => new Animated.Value(reducedMotion ? 1 : 0));
 	useEffect(() => {
-		notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
+		Haptics.notification(NotificationFeedbackType.Success);
 		if (reducedMotion) {
 			return;
 		}
