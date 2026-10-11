@@ -1,9 +1,17 @@
-import {ReactNode} from "react";
-import {CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction} from "ws-packets/src/fromServer/collectors";
-import {HOME_UPGRADE_CHANGES, HomeUpgradeChange} from "ws-packets/src/objects/HomeUpgrade";
-import {apartmentBenefits, apartmentRentedHere} from "@/src/collectors/ApartmentBenefits";
-import {Benefit, Benefits} from "@/src/components/Benefits";
-import {i18n} from "@/src/translations/i18n";
+import { ReactNode } from "react";
+import {
+	CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction
+} from "ws-packets/src/fromServer/collectors";
+import {
+	HOME_UPGRADE_CHANGES, HomeUpgradeChange
+} from "ws-packets/src/objects/HomeUpgrade";
+import {
+	apartmentBenefits, apartmentRentedHere
+} from "@/src/collectors/ApartmentBenefits";
+import {
+	Benefit, Benefits
+} from "@/src/components/Benefits";
+import { i18n } from "@/src/translations/i18n";
 
 const UPGRADE_CHANGE_ICONS: Record<HomeUpgradeChange, string> = {
 	[HOME_UPGRADE_CHANGES.CHEST]: "city.homeUpgrades.chest",
@@ -34,8 +42,8 @@ function rowBenefits(reaction: ReactionCollectorReaction, snapshot: CityMobileSn
 		case CITY_REACTION_KINDS.APARTMENT_BUY: {
 			const elsewhere = snapshot?.home?.elsewhere;
 			return apartmentBenefits(apartmentRentedHere(snapshot), {
-				...snapshot?.apartmentNotary?.forSale ? {price: snapshot.apartmentNotary.forSale.price} : {},
-				...elsewhere ? {home: elsewhere} : {}
+				...snapshot?.apartmentNotary?.forSale ? { price: snapshot.apartmentNotary.forSale.price } : {},
+				...elsewhere ? { home: elsewhere } : {}
 			});
 		}
 		default: return [];

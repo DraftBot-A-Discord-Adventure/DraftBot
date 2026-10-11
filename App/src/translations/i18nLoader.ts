@@ -1,16 +1,16 @@
 import i18next from "i18next";
-import {AppIcons} from "@/src/AppIcons";
-import {loadGameRules} from "@/src/rules/GameRules";
-import type {AssetsBundle} from "../../../WsPackets/src/objects/AssetsBundle";
-import {embeddedTranslations} from "@/src/translations/embeddedTranslations";
+import { AppIcons } from "@/src/AppIcons";
+import { loadGameRules } from "@/src/rules/GameRules";
+import type { AssetsBundle } from "../../../WsPackets/src/objects/AssetsBundle";
+import { embeddedTranslations } from "@/src/translations/embeddedTranslations";
 
 const warnedMissingKeys = new Set<string>();
 
 i18next.init({
 	lng: "fr",
 	fallbackLng: "fr",
-	resources: {fr: embeddedTranslations},
-	interpolation: {escapeValue: false},
+	resources: { fr: embeddedTranslations },
+	interpolation: { escapeValue: false },
 	initAsync: false,
 	saveMissing: true,
 	missingKeyHandler: (languages, namespace, key): void => {

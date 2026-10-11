@@ -1,5 +1,5 @@
-import {maybeCompleteAuthSession} from "expo-web-browser";
-import {View} from "react-native";
+import { maybeCompleteAuthSession } from "expo-web-browser";
+import { View } from "react-native";
 
 maybeCompleteAuthSession();
 

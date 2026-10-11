@@ -1,10 +1,12 @@
 import {
 	createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState
 } from "react";
-import {Animated, BackHandler, PanResponder, useWindowDimensions} from "react-native";
-import {useFocusEffect} from "expo-router";
-import {Palette} from "@/src/design/Theme";
-import {createStyles} from "@/src/design/ThemeContext";
+import {
+	Animated, BackHandler, PanResponder, useWindowDimensions, type ViewStyle
+} from "react-native";
+import { useFocusEffect } from "expo-router";
+import { Palette } from "@/src/design/Theme";
+import { createStyles } from "@/src/design/ThemeContext";
 
 /** Where a finger may start the gesture, so a tap on a row is never mistaken for a way out. */
 const EDGE_WIDTH = 42;
@@ -13,7 +15,9 @@ const RELEASE_RATIO = 0.32;
 const RELEASE_VELOCITY = 0.5;
 const CLOSE_DURATION = 170;
 
-type Gesture = {x0: number; dx: number; dy: number; vx: number};
+type Gesture = {
+	x0: number; dx: number; dy: number; vx: number;
+};
 
 /** A drag the view should follow: born on the edge, clearly horizontal, already under way. */
 export function edgeSwipeStarts(gesture: Pick<Gesture, "x0" | "dx" | "dy">): boolean {
@@ -25,17 +29,19 @@ export function edgeSwipeCloses(gesture: Pick<Gesture, "dx" | "vx">, width: numb
 	return gesture.dx > width * RELEASE_RATIO || gesture.vx > RELEASE_VELOCITY;
 }
 
-const sheetStyleOf = (colors: Palette) => ({
-	backgroundColor: colors.wash,
-	shadowColor: colors.shadow,
-	shadowOpacity: 0.16,
-	shadowRadius: 12,
-	shadowOffset: {
-		width: -4,
-		height: 0
-	},
-	elevation: 12
-});
+function sheetStyleOf(colors: Palette): ViewStyle {
+	return {
+		backgroundColor: colors.wash,
+		shadowColor: colors.shadow,
+		shadowOpacity: 0.16,
+		shadowRadius: 12,
+		shadowOffset: {
+			width: -4,
+			height: 0
+		},
+		elevation: 12
+	};
+}
 
 const useStyles = createStyles(colors => ({
 	sheet: {
@@ -60,10 +66,13 @@ const SwipeBackSuspension = createContext<(() => () => void) | null>(null);
 class Suspensions {
 	private count = 0;
 
-	public get active(): boolean {return this.count > 0;}
+	public get active(): boolean { return this.count > 0; }
+
 	public readonly add = (): () => void => {
 		this.count += 1;
-		return (): void => {this.count -= 1;};
+		return (): void => {
+			this.count -= 1;
+		};
 	};
 }
 
@@ -77,7 +86,7 @@ export function useSuspendSwipeBack(active: boolean): void {
 }
 
 /** Tab paging and the back gesture both live on a horizontal drag, so only one of them may listen at a time. */
-export function SwipeBackBoundary({children}: {children: ReactNode}): ReactNode {
+export function SwipeBackBoundary({ children }: { children: ReactNode }): ReactNode {
 	const [depth, setDepth] = useState(0);
 	const change = useCallback((delta: number) => setDepth(current => current + delta), []);
 	return <SwipeBackDepth.Provider value={change}><SwipeBackOpen.Provider value={depth > 0}>{children}</SwipeBackOpen.Provider></SwipeBackDepth.Provider>;
@@ -89,12 +98,17 @@ export function useSwipeBackOpen(): boolean {
 }
 
 /** Dragging from the left edge closes the view, the same way a pushed route would. */
-export function SwipeBack({onClose, overlay, children}: {onClose: () => void; overlay?: boolean; children: ReactNode}): ReactNode {
+export function SwipeBack({
+	onClose, overlay, children
+}: {
+	onClose: () => void; overlay?: boolean; children: ReactNode;
+}): ReactNode {
 	const styles = useStyles();
-	const {width} = useWindowDimensions();
+	const { width } = useWindowDimensions();
 	const [translateX] = useState(() => new Animated.Value(0));
 	const [suspensions] = useState(() => new Suspensions());
 	const reportDepth = useContext(SwipeBackDepth);
+
 	// A sub-page left open in another tab must not hold the paging of the tab on screen.
 	useFocusEffect(useCallback(() => {
 		reportDepth?.(1);
@@ -132,8 +146,13 @@ export function SwipeBack({onClose, overlay, children}: {onClose: () => void; ov
 			},
 			onPanResponderTerminate: settle
 		});
-	}, [onClose, suspensions, translateX, width]);
-	return <Animated.View testID="swipe-back" style={[overlay ? styles.overlay : styles.sheet, {transform: [{translateX}]}]} {...responder.panHandlers}>
+	}, [
+		onClose,
+		suspensions,
+		translateX,
+		width
+	]);
+	return <Animated.View testID="swipe-back" style={[overlay ? styles.overlay : styles.sheet, { transform: [{ translateX }] }]} {...responder.panHandlers}>
 		<SwipeBackSuspension.Provider value={suspensions.add}>{children}</SwipeBackSuspension.Provider>
 	</Animated.View>;
 }

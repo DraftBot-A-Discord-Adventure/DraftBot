@@ -1,8 +1,10 @@
-import {RestApi} from "@/src/networking/RestApi";
-import {APP_PROTOCOL_VERSION} from "ws-packets/src/AppCompatibility";
+import { RestApi } from "@/src/networking/RestApi";
+import { APP_PROTOCOL_VERSION } from "ws-packets/src/AppCompatibility";
 
 function answer(status: number, body: object = {}): void {
-	jest.spyOn(globalThis, "fetch").mockResolvedValue({ok: status < 400, status, json: async () => body} as Response);
+	jest.spyOn(globalThis, "fetch").mockResolvedValue({
+		ok: status < 400, status, json: async () => body
+	} as Response);
 }
 
 describe("app compatibility check", () => {
@@ -12,10 +14,18 @@ describe("app compatibility check", () => {
 	afterEach(() => jest.restoreAllMocks());
 
 	it.each([
-		{case: "the same protocol", body: {protocolVersion: APP_PROTOCOL_VERSION}, expected: "upToDate"},
-		{case: "a newer server", body: {protocolVersion: APP_PROTOCOL_VERSION + 1}, expected: "appOutdated"},
-		{case: "an older server", body: {protocolVersion: APP_PROTOCOL_VERSION - 1}, expected: "serverOutdated"}
-	])("tells which side is behind against $case", async ({body, expected}) => {
+		{
+			case: "the same protocol", body: { protocolVersion: APP_PROTOCOL_VERSION }, expected: "upToDate"
+		},
+		{
+			case: "a newer server", body: { protocolVersion: APP_PROTOCOL_VERSION + 1 }, expected: "appOutdated"
+		},
+		{
+			case: "an older server", body: { protocolVersion: APP_PROTOCOL_VERSION - 1 }, expected: "serverOutdated"
+		}
+	])("tells which side is behind against $case", async ({
+		body, expected
+	}) => {
 		answer(200, body);
 		await expect(RestApi.getCompatibility()).resolves.toBe(expected);
 	});

@@ -1,17 +1,25 @@
-import {ReactNode, useEffect} from "react";
-import {useRouter} from "expo-router";
-import {useQueryClient} from "@tanstack/react-query";
-import {AppNotificationRes} from "ws-packets/src/fromServer/settings/AppNotificationRes";
-import {NOTIFICATION_TYPES, NotificationType} from "ws-packets/src/objects/NotificationPreferences";
-import {AppIcons} from "@/src/AppIcons";
-import {useAnnouncementTurn} from "@/src/components/useToastTurn";
-import {Toast} from "@/src/design/Sections";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {NOTIFICATION_ROUTES} from "@/src/notifications/NotificationRoutes";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {PushedAnnouncementStore, usePushedAnnouncement} from "@/src/store/PushedAnnouncementStore";
-import {GAME_ENTITIES, GameEntity, gameKey} from "@/src/store/GameEntities";
-import {useBlessingAnnouncement} from "@/src/store/BlessingAnnouncementStore";
+import {
+	ReactNode, useEffect
+} from "react";
+import { useRouter } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { AppNotificationRes } from "ws-packets/src/fromServer/settings/AppNotificationRes";
+import {
+	NOTIFICATION_TYPES, NotificationType
+} from "ws-packets/src/objects/NotificationPreferences";
+import { AppIcons } from "@/src/AppIcons";
+import { useAnnouncementTurn } from "@/src/components/useToastTurn";
+import { Toast } from "@/src/design/Sections";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { NOTIFICATION_ROUTES } from "@/src/notifications/NotificationRoutes";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import {
+	PushedAnnouncementStore, usePushedAnnouncement
+} from "@/src/store/PushedAnnouncementStore";
+import {
+	GAME_ENTITIES, GameEntity, gameKey
+} from "@/src/store/GameEntities";
+import { useBlessingAnnouncement } from "@/src/store/BlessingAnnouncementStore";
 
 const TOAST_EMBLEM_SIZE = 24;
 
@@ -41,7 +49,7 @@ export function useAppNotificationRefresh(): void {
 	const queryClient = useQueryClient();
 	useEffect(() => WebSocketClient.getInstance().registerPushedPacketHandler<AppNotificationRes>(AppNotificationRes.wireName, packet => {
 		for (const entity of STALE_ENTITIES[packet.notificationType] ?? []) {
-			queryClient.invalidateQueries({queryKey: gameKey(entity)}).then();
+			queryClient.invalidateQueries({ queryKey: gameKey(entity) }).then();
 		}
 	}), [queryClient]);
 }
@@ -53,8 +61,12 @@ export function AppNotificationToast(): ReactNode {
 	const myTurn = useAnnouncementTurn();
 	const blessing = useBlessingAnnouncement();
 	const waiting = !myTurn || Boolean(blessing);
-	if (waiting) return null;
-	if (!packet) return null;
+	if (waiting) {
+		return null;
+	}
+	if (!packet) {
+		return null;
+	}
 	return <Toast
 		emblem={<TwemojiIcon emoji={AppIcons.getIcon(`notifications.types.${packet.notificationType}`)} size={TOAST_EMBLEM_SIZE} />}
 		title={packet.title}

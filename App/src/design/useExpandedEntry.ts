@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 export type ExpandedEntry<T> = {
 	isExpanded: (key: T) => boolean;

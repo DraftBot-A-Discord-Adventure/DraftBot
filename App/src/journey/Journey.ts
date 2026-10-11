@@ -1,7 +1,7 @@
-import type {Href} from "expo-router";
-import type {JourneyLevels} from "ws-packets/src/objects/Journey";
-import {ONBOARDING_MISSION_IDS} from "ws-packets/src/objects/Onboarding";
-import {gameRules} from "@/src/rules/GameRules";
+import type { Href } from "expo-router";
+import type { JourneyLevels } from "ws-packets/src/objects/Journey";
+import { ONBOARDING_MISSION_IDS } from "ws-packets/src/objects/Onboarding";
+import { gameRules } from "@/src/rules/GameRules";
 
 /** The parts of the game a newcomer discovers one after the other, in that order. */
 export const JOURNEY_FEATURES = {
@@ -75,21 +75,38 @@ function reached(progress: JourneyProgress, level: keyof JourneyLevels): boolean
 }
 
 export const JOURNEY_STEPS: readonly JourneyStep[] = [
-	{feature: JOURNEY_FEATURES.PROFILE, tab: JOURNEY_TABS.PROFILE, route: "/profile", icon: "navigation.profile", isUnlocked: progress => progress.started && progress.inventoryTaught},
 	{
-		feature: JOURNEY_FEATURES.CLASSES, tab: JOURNEY_TABS.ARENA, route: "/arena/classes", icon: "commands.classes", unlockLevel: "classes",
+		feature: JOURNEY_FEATURES.PROFILE, tab: JOURNEY_TABS.PROFILE, route: "/profile", icon: "navigation.profile", isUnlocked: progress => progress.started && progress.inventoryTaught
+	},
+	{
+		feature: JOURNEY_FEATURES.CLASSES,
+		tab: JOURNEY_TABS.ARENA,
+		route: "/arena/classes",
+		icon: "commands.classes",
+		unlockLevel: "classes",
 		isUnlocked: progress => reached(progress, "classes")
 	},
 	{
-		feature: JOURNEY_FEATURES.FIGHTS, tab: JOURNEY_TABS.ARENA, route: "/arena", icon: "navigation.fight", unlockLevel: "fights",
+		feature: JOURNEY_FEATURES.FIGHTS,
+		tab: JOURNEY_TABS.ARENA,
+		route: "/arena",
+		icon: "navigation.fight",
+		unlockLevel: "fights",
 		isUnlocked: progress => reached(progress, "fights")
 	},
 	{
-		feature: JOURNEY_FEATURES.GUILD, tab: JOURNEY_TABS.GUILD, route: "/guild", icon: "navigation.guild", unlockLevel: "guild",
+		feature: JOURNEY_FEATURES.GUILD,
+		tab: JOURNEY_TABS.GUILD,
+		route: "/guild",
+		icon: "navigation.guild",
+		unlockLevel: "guild",
 		isUnlocked: progress => progress.hasGuild || reached(progress, "guild")
 	},
 	{
-		feature: JOURNEY_FEATURES.PET, tab: JOURNEY_TABS.PET, route: "/pet", icon: "navigation.pet",
+		feature: JOURNEY_FEATURES.PET,
+		tab: JOURNEY_TABS.PET,
+		route: "/pet",
+		icon: "navigation.pet",
 		isUnlocked: progress => progress.metPet
 	}
 ];
@@ -104,10 +121,16 @@ export function openTabs(unlocked: readonly JourneyFeature[]): JourneyTab[] {
 }
 
 /** The closest part of the game a level still keeps closed. */
-export function nextLevelStep(progress: JourneyProgress): JourneyStep & {level: number} | null {
+export function nextLevelStep(progress: JourneyProgress): JourneyStep & { level: number } | null {
 	const closed = JOURNEY_STEPS.filter(step => !step.isUnlocked(progress)).flatMap(step => {
 		const level = journeyStepLevel(step);
-		return level === undefined ? [] : [{...step, level}];
+		return level === undefined
+			? []
+			: [
+				{
+					...step, level
+				}
+			];
 	});
-	return closed.reduce<JourneyStep & {level: number} | null>((closest, step) => closest === null || step.level < closest.level ? step : closest, null);
+	return closed.reduce<JourneyStep & { level: number } | null>((closest, step) => closest === null || step.level < closest.level ? step : closest, null);
 }

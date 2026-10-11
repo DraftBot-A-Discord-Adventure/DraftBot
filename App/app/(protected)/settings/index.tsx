@@ -1,39 +1,55 @@
-import React, {ReactNode, useContext, useRef, useState} from "react";
-import {Linking} from "react-native";
-import {useRouter} from "expo-router";
-import {nativeApplicationVersion, nativeBuildVersion} from "expo-application";
+import React, {
+	ReactNode, useContext, useRef, useState
+} from "react";
+import { Linking } from "react-native";
+import { useRouter } from "expo-router";
+import {
+	nativeApplicationVersion, nativeBuildVersion
+} from "expo-application";
 import Constants from "expo-constants";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {VersionReq} from "ws-packets/src/fromClient/PlayerUtilityReq";
-import {VersionRes} from "ws-packets/src/fromServer/common/PlayerUtilityRes";
-import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
-import {AuthContext} from "@/src/authentication/AuthContext";
-import {PreferencesContext} from "@/src/preferences/PreferencesContext";
-import {travelAdvicePreference, useTravelAdvicesShown} from "@/src/preferences/TravelAdvicePreference";
-import {GameClient} from "@/src/networking/GameClient";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {useGameQuery} from "@/src/store/useGameQuery";
-import {GAME_ENTITIES} from "@/src/store/GameEntities";
-import {useFightSpeed} from "@/src/store/useFightSpeed";
-import {usePing} from "@/src/store/usePing";
-import {enabledCount, useNotificationPreferences} from "@/src/store/useNotificationPreferences";
-import {FIGHT_SPEEDS} from "@/src/display/FightMotion";
-import {cancelReportNotification} from "@/src/notifications/ReportNotifications";
-import {forgetPushDevice} from "@/src/notifications/PushRegistration";
-import {NOTIFICATION_PERMISSIONS, useNotificationPermission} from "@/src/notifications/NotificationPermission";
-import {Page} from "@/src/design/DetailScreen";
-import {Note, SectionHeader} from "@/src/design/Primitives";
-import {ActionBanner, ChoiceRow, EntryRow, ExpandableList, QuestionSheet, Refusal, Standing, SwitchRow} from "@/src/design/Sections";
-import {SegmentedControl} from "@/src/design/SegmentedControl";
-import {THEME_PREFERENCES} from "@/src/design/ThemePreference";
-import {useTheme} from "@/src/design/ThemeContext";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {BookOpen, LogOut, Shield, UserRound} from "@/src/design/FightIcons";
-import {AppConstants} from "@/src/AppConstants";
-import {Theme} from "@/src/design/Theme";
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
-import {GameServicesSettings} from "@/src/gameServices/GameServicesSettings";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { VersionReq } from "ws-packets/src/fromClient/PlayerUtilityReq";
+import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
+import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { AuthContext } from "@/src/authentication/AuthContext";
+import { PreferencesContext } from "@/src/preferences/PreferencesContext";
+import {
+	travelAdvicePreference, useTravelAdvicesShown
+} from "@/src/preferences/TravelAdvicePreference";
+import { GameClient } from "@/src/networking/GameClient";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { useGameQuery } from "@/src/store/useGameQuery";
+import { GAME_ENTITIES } from "@/src/store/GameEntities";
+import { useFightSpeed } from "@/src/store/useFightSpeed";
+import { usePing } from "@/src/store/usePing";
+import {
+	enabledCount, useNotificationPreferences
+} from "@/src/store/useNotificationPreferences";
+import { FIGHT_SPEEDS } from "@/src/display/FightMotion";
+import { cancelReportNotification } from "@/src/notifications/ReportNotifications";
+import { forgetPushDevice } from "@/src/notifications/PushRegistration";
+import {
+	NOTIFICATION_PERMISSIONS, useNotificationPermission
+} from "@/src/notifications/NotificationPermission";
+import { Page } from "@/src/design/DetailScreen";
+import {
+	Note, SectionHeader
+} from "@/src/design/Primitives";
+import {
+	ActionBanner, ChoiceRow, EntryRow, ExpandableList, QuestionSheet, Refusal, Standing, SwitchRow
+} from "@/src/design/Sections";
+import { SegmentedControl } from "@/src/design/SegmentedControl";
+import { THEME_PREFERENCES } from "@/src/design/ThemePreference";
+import { useTheme } from "@/src/design/ThemeContext";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import {
+	BookOpen, LogOut, Shield, UserRound
+} from "@/src/design/FightIcons";
+import { AppConstants } from "@/src/AppConstants";
+import { Theme } from "@/src/design/Theme";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
+import { GameServicesSettings } from "@/src/gameServices/GameServicesSettings";
 
 const ROW_EMBLEM_SIZE = 24;
 type LegalPageUrl = typeof AppConstants.LEGAL_URLS[keyof typeof AppConstants.LEGAL_URLS];
@@ -46,20 +62,28 @@ function rowEmblem(path: string): ReactNode {
 function appVersion(): string {
 	const version = nativeApplicationVersion ?? Constants.expoConfig?.version ?? "?";
 	return nativeApplicationVersion && nativeBuildVersion
-		? i18n.t("app:settings.appVersionValue", {version, build: nativeBuildVersion})
+		? i18n.t("app:settings.appVersionValue", {
+			version, build: nativeBuildVersion
+		})
 		: version;
 }
 
 function GameSettings(): ReactNode {
-	const {speed, setSpeed} = useFightSpeed();
+	const {
+		speed, setSpeed
+	} = useFightSpeed();
 	const travelAdvices = useTravelAdvicesShown();
 	return <>
 		<SectionHeader first>{i18n.t("app:settings.sections.game")}</SectionHeader>
 		<ExpandableList>
 			<ChoiceRow label={i18n.t("app:battle.speed.label")}>
 				<SegmentedControl label={i18n.t("app:battle.speed.label")} value={speed} onChange={setSpeed} options={[
-					{value: FIGHT_SPEEDS.NORMAL, label: i18n.t("app:battle.speed.normal")},
-					{value: FIGHT_SPEEDS.FAST, label: i18n.t("app:battle.speed.fast")}
+					{
+						value: FIGHT_SPEEDS.NORMAL, label: i18n.t("app:battle.speed.normal")
+					},
+					{
+						value: FIGHT_SPEEDS.FAST, label: i18n.t("app:battle.speed.fast")
+					}
 				]} />
 			</ChoiceRow>
 			<SwitchRow
@@ -79,9 +103,15 @@ function DisplaySettings(): ReactNode {
 		<ExpandableList>
 			<ChoiceRow label={i18n.t("app:settings.theme.label")}>
 				<SegmentedControl label={i18n.t("app:settings.theme.label")} value={theme.preference} onChange={theme.setPreference} options={[
-					{value: THEME_PREFERENCES.SYSTEM, label: i18n.t("app:settings.theme.system")},
-					{value: THEME_PREFERENCES.LIGHT, label: i18n.t("app:settings.theme.light")},
-					{value: THEME_PREFERENCES.DARK, label: i18n.t("app:settings.theme.dark")}
+					{
+						value: THEME_PREFERENCES.SYSTEM, label: i18n.t("app:settings.theme.system")
+					},
+					{
+						value: THEME_PREFERENCES.LIGHT, label: i18n.t("app:settings.theme.light")
+					},
+					{
+						value: THEME_PREFERENCES.DARK, label: i18n.t("app:settings.theme.dark")
+					}
 				]} />
 			</ChoiceRow>
 		</ExpandableList>
@@ -98,7 +128,7 @@ function notificationSummary(permission: ReturnType<typeof useNotificationPermis
 
 function NotificationsEntry(): ReactNode {
 	const router = useRouter();
-	const {permission} = useNotificationPermission();
+	const { permission } = useNotificationPermission();
 	const summary = notificationSummary(permission, enabledCount(useNotificationPreferences()));
 	return <>
 		<SectionHeader>{i18n.t("app:settings.sections.notifications")}</SectionHeader>
@@ -106,7 +136,7 @@ function NotificationsEntry(): ReactNode {
 			<EntryRow
 				emblem={rowEmblem("notifications.bell")}
 				title={i18n.t("app:settings.notifications.entry")}
-				{...summary ? {subtitle: summary} : {}}
+				{...summary ? { subtitle: summary } : {}}
 				onPress={(): void => router.push("/settings/notifications")}
 			/>
 		</ExpandableList>
@@ -133,23 +163,32 @@ function useSessionExit(): SessionExit {
 	const [pending, setPending] = useState(false);
 	const [failed, setFailed] = useState(false);
 	const leave = (): void => {
-		if (leaving.current) return;
+		if (leaving.current) {
+			return;
+		}
 		leaving.current = true;
 		setPending(true);
 		setFailed(false);
 		endSession(authState).catch((error: unknown): void => {
 			console.warn("Failed to end session:", error);
 			setFailed(true);
-		}).finally((): void => {
-			leaving.current = false;
-			setPending(false);
-		});
+		})
+			.finally((): void => {
+				leaving.current = false;
+				setPending(false);
+			});
 	};
-	return {pending, failed, leave};
+	return {
+		pending, failed, leave
+	};
 }
 
 /** Leaving is confirmed in place: the session and this device's notifications go with it. */
-function LogoutSheet({onClose, sessionExit}: {onClose: () => void; sessionExit: SessionExit}): ReactNode {
+function LogoutSheet({
+	onClose, sessionExit
+}: {
+	onClose: () => void; sessionExit: SessionExit;
+}): ReactNode {
 	return <QuestionSheet
 		caption={i18n.t("app:settings.sections.account")}
 		title={i18n.t("app:settings.logoutConfirm.title")}
@@ -175,20 +214,24 @@ function AccountSettings(): ReactNode {
 			<EntryRow title={i18n.t("app:settings.deleteAccount.entry")} disabled={sessionExit.pending} danger onPress={(): void => router.push("/settings/delete-account")} />
 		</ExpandableList>
 		{sessionExit.failed && !leaving ? <Refusal>{i18n.t("app:settings.changeAccountFailed")}</Refusal> : null}
-		{leaving ? <LogoutSheet sessionExit={sessionExit} onClose={(): void => {
-			if (!sessionExit.pending) setLeaving(false);
-		}} /> : null}
+		{leaving
+			? <LogoutSheet sessionExit={sessionExit} onClose={(): void => {
+				if (!sessionExit.pending) {
+					setLeaving(false);
+				}
+			}} />
+			: null}
 	</>;
 }
 
 function DeveloperTools(): ReactNode {
 	const router = useRouter();
 	const ping = usePing();
-	const latency = ping.latency === null ? undefined : i18n.t("app:settings.pingValue", {value: ping.latency});
+	const latency = ping.latency === null ? undefined : i18n.t("app:settings.pingValue", { value: ping.latency });
 	return <>
 		<EntryRow
 			title={i18n.t("app:settings.ping")}
-			{...latency ? {end: latency} : {}}
+			{...latency ? { end: latency } : {}}
 			disabled={ping.pending}
 			onPress={ping.measure}
 		/>

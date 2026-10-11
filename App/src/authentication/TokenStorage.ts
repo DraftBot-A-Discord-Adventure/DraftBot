@@ -1,6 +1,8 @@
-import {Platform} from "react-native";
+import { Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {deleteItemAsync, getItemAsync, setItemAsync} from "expo-secure-store";
+import {
+	deleteItemAsync, getItemAsync, setItemAsync
+} from "expo-secure-store";
 
 /**
  * Where the session is kept between launches.

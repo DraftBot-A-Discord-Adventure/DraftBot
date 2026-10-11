@@ -1,5 +1,7 @@
-import {Href} from "expo-router";
-import {NOTIFICATION_TYPES, NotificationType} from "ws-packets/src/objects/NotificationPreferences";
+import { Href } from "expo-router";
+import {
+	NOTIFICATION_TYPES, NotificationType
+} from "ws-packets/src/objects/NotificationPreferences";
 
 /** Where a notification is carried in the data of a push, local or remote. */
 export const NOTIFICATION_TYPE_KEY = "notificationType";

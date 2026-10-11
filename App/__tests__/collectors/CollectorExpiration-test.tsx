@@ -1,13 +1,19 @@
-import {ReactElement} from "react";
-import {fireEvent, render, screen, waitFor, act} from "@testing-library/react-native";
-import {AppState, Text, type AppStateStatus} from "react-native";
-import {CollectorPrompt} from "@/src/collectors/CollectorPrompt";
-import {CollectorsProvider, useCollectors} from "@/src/collectors/CollectorsContext";
-import {collectorsStore} from "@/src/collectors/CollectorsStore";
-import {GameQueryProvider} from "@/src/store/GameQueryProvider";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
+import { ReactElement } from "react";
+import {
+	fireEvent, render, screen, waitFor, act
+} from "@testing-library/react-native";
+import {
+	AppState, Text, type AppStateStatus
+} from "react-native";
+import { CollectorPrompt } from "@/src/collectors/CollectorPrompt";
+import {
+	CollectorsProvider, useCollectors
+} from "@/src/collectors/CollectorsContext";
+import { collectorsStore } from "@/src/collectors/CollectorsStore";
+import { GameQueryProvider } from "@/src/store/GameQueryProvider";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
 
 jest.mock("@/src/collectors/CollectorLabels", () => ({
 	collectorDescription: (): undefined => undefined,
@@ -28,14 +34,14 @@ function collector(endTime: number): ReactionCollectorCreation {
 		endTime,
 		data: {
 			type: "unknown",
-			data: {serverType: "test"}
+			data: { serverType: "test" }
 		},
 		reactions: []
 	};
 }
 
 function CollectorCount(): ReactElement {
-	const {open} = useCollectors();
+	const { open } = useCollectors();
 	return <Text>{open.length}</Text>;
 }
 
@@ -51,7 +57,14 @@ describe("collector expiration", () => {
 
 		await render(
 			<CollectorPrompt
-				collector={{...collector(endTime), reactions: [{type: "unknown", data: {serverType: "choice"}}]}}
+				collector={{
+					...collector(endTime),
+					reactions: [
+						{
+							type: "unknown", data: { serverType: "choice" }
+						}
+					]
+				}}
 				onChoose={onChoose}
 			/>
 		);
@@ -71,7 +84,7 @@ describe("collector expiration", () => {
 		const appStateListeners: ((state: AppStateStatus) => void)[] = [];
 		const addEventListener = jest.spyOn(AppState, "addEventListener").mockImplementation((_event, listener) => {
 			appStateListeners.push(listener);
-			return {remove: jest.fn()};
+			return { remove: jest.fn() };
 		});
 
 		try {
@@ -105,7 +118,7 @@ describe("collector expiration", () => {
 
 	it("removes the previous player's collectors when the session ends", async () => {
 		const sendPacket = jest.spyOn(WebSocketClient.getInstance(), "sendPacket").mockImplementation();
-		const addEventListener = jest.spyOn(AppState, "addEventListener").mockReturnValue({remove: jest.fn()});
+		const addEventListener = jest.spyOn(AppState, "addEventListener").mockReturnValue({ remove: jest.fn() });
 		try {
 			const view = await render(
 				<GameQueryProvider>

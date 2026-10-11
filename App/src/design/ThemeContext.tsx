@@ -1,8 +1,16 @@
-import {createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {Appearance, StyleSheet, useColorScheme} from "react-native";
-import {setBackgroundColorAsync} from "expo-system-ui";
-import {Palette, PALETTES, PaletteColor, Tint} from "@/src/design/Theme";
-import {ColorScheme, saveThemePreference, storedThemePreference, THEME_PREFERENCES, ThemePreference} from "@/src/design/ThemePreference";
+import {
+	createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState
+} from "react";
+import {
+	Appearance, StyleSheet, useColorScheme
+} from "react-native";
+import { setBackgroundColorAsync } from "expo-system-ui";
+import {
+	Palette, PALETTES, PaletteColor, Tint
+} from "@/src/design/Theme";
+import {
+	ColorScheme, saveThemePreference, storedThemePreference, THEME_PREFERENCES, ThemePreference
+} from "@/src/design/ThemePreference";
 
 type ThemeState = {
 	preference: ThemePreference;
@@ -25,12 +33,14 @@ function applyNativeScheme(preference: ThemePreference): void {
 }
 
 export function resolveScheme(preference: ThemePreference, system: string | null | undefined): ColorScheme {
-	if (preference !== THEME_PREFERENCES.SYSTEM) return preference;
+	if (preference !== THEME_PREFERENCES.SYSTEM) {
+		return preference;
+	}
 	return system === THEME_PREFERENCES.DARK ? THEME_PREFERENCES.DARK : THEME_PREFERENCES.LIGHT;
 }
 
 /** The single source of the palette: a new choice or a new system scheme repaints the app in place. */
-export function ThemeRoot({children}: {children: ReactNode}): ReactNode {
+export function ThemeRoot({ children }: { children: ReactNode }): ReactNode {
 	const [preference, setStoredPreference] = useState(storedThemePreference);
 	const system = useColorScheme();
 	const scheme = resolveScheme(preference, system);
@@ -46,7 +56,13 @@ export function ThemeRoot({children}: {children: ReactNode}): ReactNode {
 		setStoredPreference(next);
 	}, []);
 
-	const value = useMemo((): ThemeState => ({preference, scheme, colors: PALETTES[scheme], setPreference}), [preference, scheme, setPreference]);
+	const value = useMemo((): ThemeState => ({
+		preference, scheme, colors: PALETTES[scheme], setPreference
+	}), [
+		preference,
+		scheme,
+		setPreference
+	]);
 	return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
@@ -75,4 +91,9 @@ export function createStyles<Styles extends StyleSheet.NamedStyles<Styles>>(fact
 		}
 		return styles;
 	};
+}
+
+/** One part of a large style sheet, merged into the factory given to createStyles; its keys stay inferred. */
+export function styleGroup<Styles extends StyleSheet.NamedStyles<Styles>>(factory: (colors: Palette) => Styles): (colors: Palette) => Styles {
+	return factory;
 }

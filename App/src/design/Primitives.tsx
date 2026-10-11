@@ -1,19 +1,29 @@
-import {ReactNode, useEffect, useState} from "react";
-import {impactAsync, ImpactFeedbackStyle} from "expo-haptics";
-import {Animated, Easing, Platform, Pressable, type PressableProps, ScrollView, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle} from "react-native";
-import {type Palette, Theme} from "@/src/design/Theme";
-import {LucideIcon} from "@/src/design/FightIcons";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {TwemojiText} from "@/src/design/TwemojiText";
-import {useReducedMotion} from "@/src/store/useReducedMotion";
-import {KeyboardRevealProvider, useKeyboardAvoidance} from "@/src/design/KeyboardAvoidance";
-import {createStyles, useColors} from "@/src/design/ThemeContext";
-import {i18n} from "@/src/translations/i18n";
+import {
+	ReactNode, useEffect, useState
+} from "react";
+import {
+	impactAsync, ImpactFeedbackStyle
+} from "expo-haptics";
+import {
+	Animated, Easing, Platform, Pressable, type PressableProps, ScrollView, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle
+} from "react-native";
+import { Theme } from "@/src/design/Theme";
+import { LucideIcon } from "@/src/design/FightIcons";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { TwemojiText } from "@/src/design/TwemojiText";
+import { useReducedMotion } from "@/src/store/useReducedMotion";
+import {
+	KeyboardRevealProvider, useKeyboardAvoidance
+} from "@/src/design/KeyboardAvoidance";
+import {
+	createStyles, styleGroup, useColors
+} from "@/src/design/ThemeContext";
+import { i18n } from "@/src/translations/i18n";
 
 /** The scroll offset only feeds the keyboard reveal, which needs no finer grain than a frame. */
 const SCROLL_EVENT_THROTTLE_MS = 16;
 
-const screenStylesOf = (colors: Palette) => StyleSheet.create({
+const screenStylesOf = styleGroup(colors => StyleSheet.create({
 	screenContent: {
 		flexGrow: 1,
 		paddingTop: Theme.spacing.screenTop,
@@ -47,9 +57,9 @@ const screenStylesOf = (colors: Palette) => StyleSheet.create({
 		fontSize: Theme.fontSize.body,
 		lineHeight: Theme.lineHeight.heroSubtitle
 	}
-});
+}));
 
-const sectionStylesOf = (colors: Palette) => StyleSheet.create({
+const sectionStylesOf = styleGroup(colors => StyleSheet.create({
 	sectionHead: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -58,9 +68,7 @@ const sectionStylesOf = (colors: Palette) => StyleSheet.create({
 		marginBottom: Theme.spacing.sectionActionGap,
 		marginTop: Theme.spacing.sectionGap
 	},
-	sectionHeadFirst: {
-		marginTop: 0
-	},
+	sectionHeadFirst: { marginTop: 0 },
 	sectionTitle: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -90,9 +98,7 @@ const sectionStylesOf = (colors: Palette) => StyleSheet.create({
 		fontFamily: Theme.fonts.semiBold,
 		fontSize: Theme.fontSize.bodySmall
 	},
-	rowDisabled: {
-		opacity: 0.5
-	},
+	rowDisabled: { opacity: 0.5 },
 	empty: {
 		paddingVertical: Theme.spacing.xl,
 		paddingHorizontal: Theme.spacing.lg,
@@ -105,13 +111,15 @@ const sectionStylesOf = (colors: Palette) => StyleSheet.create({
 		lineHeight: Theme.lineHeight.note,
 		textAlign: "center"
 	}
-});
+}));
 
-const fieldStylesOf = (colors: Palette) => StyleSheet.create({
+const fieldStylesOf = styleGroup(colors => StyleSheet.create({
 	keyValue: {
 		flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: Theme.spacing.md, paddingVertical: 10, paddingHorizontal: Theme.spacing.lg
 	},
-	keyValueLabel: { color: colors.muted, fontFamily: Theme.fonts.regular, fontSize: Theme.fontSize.body, lineHeight: Theme.lineHeight.body },
+	keyValueLabel: {
+		color: colors.muted, fontFamily: Theme.fonts.regular, fontSize: Theme.fontSize.body, lineHeight: Theme.lineHeight.body
+	},
 	keyValueLabelContainer: { flexShrink: 1 },
 	keyValueValue: {
 		color: colors.ink,
@@ -121,18 +129,24 @@ const fieldStylesOf = (colors: Palette) => StyleSheet.create({
 		flexShrink: 1,
 		textAlign: "right"
 	},
-	keyValueValueContainer: { flexShrink: 1, alignItems: "flex-end" },
-	stat: { paddingVertical: Theme.spacing.md, paddingHorizontal: Theme.spacing.lg },
+	keyValueValueContainer: {
+		flexShrink: 1, alignItems: "flex-end"
+	},
+	stat: {
+		paddingVertical: Theme.spacing.md, paddingHorizontal: Theme.spacing.lg
+	},
 	statHead: {
 		flexDirection: "row", justifyContent: "space-between", marginBottom: Theme.spacing.sm
 	},
 	track: {
 		height: 5, borderRadius: 3, backgroundColor: colors.line, overflow: "hidden"
 	},
-	fill: { height: "100%", borderRadius: 3 },
+	fill: {
+		height: "100%", borderRadius: 3
+	},
 	note: {
 		paddingVertical: Theme.spacing.noteVertical,
-		paddingHorizontal: Theme.spacing.lg,
+		paddingHorizontal: Theme.spacing.lg
 	},
 	noteText: {
 		fontFamily: Theme.fonts.regular,
@@ -140,9 +154,9 @@ const fieldStylesOf = (colors: Palette) => StyleSheet.create({
 		lineHeight: Theme.lineHeight.note,
 		color: colors.muted
 	}
-});
+}));
 
-const buttonStylesOf = (colors: Palette) => StyleSheet.create({
+const buttonStylesOf = styleGroup(colors => StyleSheet.create({
 	buttonRow: {
 		flexDirection: "row",
 		flexWrap: "wrap",
@@ -163,7 +177,7 @@ const buttonStylesOf = (colors: Palette) => StyleSheet.create({
 	},
 	buttonPressed: {
 		backgroundColor: colors.wash,
-		transform: [{scale: 0.985}]
+		transform: [{ scale: 0.985 }]
 	},
 	buttonPrimary: {
 		borderColor: colors.ink,
@@ -175,7 +189,7 @@ const buttonStylesOf = (colors: Palette) => StyleSheet.create({
 	buttonText: {
 		color: colors.ink,
 		fontFamily: Theme.fonts.semiBold,
-		fontSize: Theme.fontSize.button,
+		fontSize: Theme.fontSize.button
 	},
 	buttonLabel: {
 		flexDirection: "row",
@@ -185,15 +199,15 @@ const buttonStylesOf = (colors: Palette) => StyleSheet.create({
 	buttonPrimaryText: {
 		color: colors.paper
 	},
-	buttonDangerText: {
-		color: colors.red
-	}
-});
+	buttonDangerText: { color: colors.red }
+}));
 
 /** The red pill counting what waits to be collected behind a tab or a tile. */
-const COUNT_BADGE = {height: 20, padding: 5, border: 2, max: 9} as const;
+const COUNT_BADGE = {
+	height: 20, padding: 5, border: 2, max: 9
+} as const;
 
-const quickActionStylesOf = (colors: Palette) => StyleSheet.create({
+const quickActionStylesOf = styleGroup(colors => StyleSheet.create({
 	quickActions: {
 		flexDirection: "row",
 		gap: Theme.spacing.sm,
@@ -216,8 +230,10 @@ const quickActionStylesOf = (colors: Palette) => StyleSheet.create({
 	quickActionPressed: {
 		backgroundColor: colors.wash
 	},
-	quickActionSlot: {flex: 1},
-	quickActionBadge: {position: "absolute", top: -COUNT_BADGE.height / 3, right: -COUNT_BADGE.height / 3},
+	quickActionSlot: { flex: 1 },
+	quickActionBadge: {
+		position: "absolute", top: -COUNT_BADGE.height / 3, right: -COUNT_BADGE.height / 3
+	},
 	countBadge: {
 		minWidth: COUNT_BADGE.height,
 		height: COUNT_BADGE.height,
@@ -243,7 +259,7 @@ const quickActionStylesOf = (colors: Palette) => StyleSheet.create({
 		lineHeight: Theme.lineHeight.tabLabel,
 		textAlign: "center"
 	}
-});
+}));
 
 const useStyles = createStyles(colors => ({
 	...screenStylesOf(colors),
@@ -279,10 +295,18 @@ type QuickActionProps = {
 };
 
 const buttonVariantStyles = {
-	secondary: {button: undefined, text: undefined},
-	primary: {button: "buttonPrimary", text: "buttonPrimaryText"},
-	danger: {button: "buttonDanger", text: "buttonDangerText"}
-} as const satisfies Record<ButtonVariant, {button?: keyof PrimitiveStyles; text?: keyof PrimitiveStyles}>;
+	secondary: {
+		button: undefined, text: undefined
+	},
+	primary: {
+		button: "buttonPrimary", text: "buttonPrimaryText"
+	},
+	danger: {
+		button: "buttonDanger", text: "buttonDangerText"
+	}
+} as const satisfies Record<ButtonVariant, {
+	button?: keyof PrimitiveStyles; text?: keyof PrimitiveStyles;
+}>;
 
 function variantStyle(styles: PrimitiveStyles, key: keyof PrimitiveStyles | undefined): StyleProp<ViewStyle & TextStyle> {
 	return key ? styles[key] : undefined;
@@ -293,16 +317,20 @@ function variantStyle(styles: PrimitiveStyles, key: keyof PrimitiveStyles | unde
  * a progress bar and a footnote.
  */
 
-export function Screen({ children, contentContainerStyle }: {
+export function Screen({
+	children, contentContainerStyle
+}: {
 	children: ReactNode;
 	contentContainerStyle?: StyleProp<ViewStyle>;
 }): ReactNode {
 	const styles = useStyles();
-	const {scrollRef, clearance, onScroll, reveal} = useKeyboardAvoidance();
+	const {
+		scrollRef, clearance, onScroll, reveal
+	} = useKeyboardAvoidance();
 
 	return <ScrollView
 		ref={scrollRef}
-		style={{marginBottom: clearance}}
+		style={{ marginBottom: clearance }}
 		contentContainerStyle={[styles.screenContent, contentContainerStyle]}
 		automaticallyAdjustKeyboardInsets
 		keyboardShouldPersistTaps="handled"
@@ -314,12 +342,16 @@ export function Screen({ children, contentContainerStyle }: {
 	</ScrollView>;
 }
 
-export function SectionHeader({ children, action, icon, first = false }: {
+export function SectionHeader({
+	children, action, icon, first = false
+}: {
 	children: string;
 
 	/** The game emoji of what the section holds, when it has one. */
 	icon?: string;
-	action?: { label?: string; hint?: string; onPress?: () => void };
+	action?: {
+		label?: string; hint?: string; onPress?: () => void;
+	};
 	first?: boolean;
 }): ReactNode {
 	const styles = useStyles();
@@ -330,11 +362,13 @@ export function SectionHeader({ children, action, icon, first = false }: {
 				<Text style={styles.sectionHeader}>{children}</Text>
 			</View>
 			{action?.hint ? <Text style={styles.sectionHint}>{action.hint}</Text> : null}
-			{action?.label && action.onPress ? (
-				<Pressable accessibilityRole="button" onPress={action.onPress} style={styles.sectionAction}>
-					<Text style={styles.sectionActionText}>{action.label}</Text>
-				</Pressable>
-			) : null}
+			{action?.label && action.onPress
+				? (
+					<Pressable accessibilityRole="button" onPress={action.onPress} style={styles.sectionAction}>
+						<Text style={styles.sectionActionText}>{action.label}</Text>
+					</Pressable>
+				)
+				: null}
 		</View>
 	);
 }
@@ -353,7 +387,9 @@ function getButtonStyle(styles: PrimitiveStyles, variant: ButtonVariant, disable
 	];
 }
 
-export function Button({children, onPress, variant = "secondary", disabled = false, icon: Icon, emoji}: ButtonProps): ReactNode {
+export function Button({
+	children, onPress, variant = "secondary", disabled = false, icon: Icon, emoji
+}: ButtonProps): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
 	const button = (
@@ -375,7 +411,7 @@ export function Button({children, onPress, variant = "secondary", disabled = fal
 			accessibilityRole="button"
 			disabled={disabled}
 			onPress={onPress}
-			style={({pressed}) => getButtonStyle(styles, variant, disabled, pressed)}
+			style={({ pressed }) => getButtonStyle(styles, variant, disabled, pressed)}
 		>
 			{button}
 		</Pressable>
@@ -393,14 +429,20 @@ export function QuickActions({ children }: { children: ReactNode }): ReactNode {
 }
 
 /** How far a quick action sinks under the finger, and how far its emoji jumps once released. */
-const QUICK_ACTION_MOTION = {pressedScale: 0.93, iconPop: 1.35} as const;
+const QUICK_ACTION_MOTION = {
+	pressedScale: 0.93, iconPop: 1.35
+} as const;
 
 function spring(value: Animated.Value, toValue: number, bounciness: number): void {
-	Animated.spring(value, {toValue, bounciness, speed: 28, useNativeDriver: true}).start();
+	Animated.spring(value, {
+		toValue, bounciness, speed: 28, useNativeDriver: true
+	}).start();
 }
 
 /** A control pressed many times a session: it sinks under the finger, springs back, its emoji pops and the phone taps back. */
-export function usePressMotion(onPress: () => void): {scale: Animated.Value; iconScale: Animated.Value; handlers: Pick<PressableProps, "onPressIn" | "onPressOut" | "onPress">} {
+export function usePressMotion(onPress: () => void): {
+	scale: Animated.Value; iconScale: Animated.Value; handlers: Pick<PressableProps, "onPressIn" | "onPressOut" | "onPress">;
+} {
 	const reducedMotion = useReducedMotion();
 	const [scale] = useState(() => new Animated.Value(1));
 	const [iconScale] = useState(() => new Animated.Value(1));
@@ -409,10 +451,14 @@ export function usePressMotion(onPress: () => void): {scale: Animated.Value; ico
 		iconScale,
 		handlers: {
 			onPressIn: (): void => {
-				if (!reducedMotion) spring(scale, QUICK_ACTION_MOTION.pressedScale, 0);
+				if (!reducedMotion) {
+					spring(scale, QUICK_ACTION_MOTION.pressedScale, 0);
+				}
 			},
 			onPressOut: (): void => {
-				if (!reducedMotion) spring(scale, 1, 14);
+				if (!reducedMotion) {
+					spring(scale, 1, 14);
+				}
 			},
 			onPress: (): void => {
 				impactAsync(ImpactFeedbackStyle.Medium).catch(() => undefined);
@@ -427,43 +473,81 @@ export function usePressMotion(onPress: () => void): {scale: Animated.Value; ico
 }
 
 /** While the server answers, the control's own icon flips and hops like a tossed coin. */
-const PENDING_MOTION = {turnMs: 850, hop: -6, perspective: 400, dimmedOpacity: 0.35} as const;
+const PENDING_MOTION = {
+	turnMs: 850, hop: -6, perspective: 400, dimmedOpacity: 0.35
+} as const;
 
-export function PendingMotion({children}: {children: ReactNode}): ReactNode {
+export function PendingMotion({ children }: { children: ReactNode }): ReactNode {
 	const reducedMotion = useReducedMotion();
 	const [turn] = useState(() => new Animated.Value(0));
 	useEffect(() => {
-		const loop = Animated.loop(Animated.timing(turn, {toValue: 1, duration: PENDING_MOTION.turnMs, easing: Easing.inOut(Easing.quad), useNativeDriver: true}));
+		const loop = Animated.loop(Animated.timing(turn, {
+			toValue: 1, duration: PENDING_MOTION.turnMs, easing: Easing.inOut(Easing.quad), useNativeDriver: true
+		}));
 		loop.start();
 		return (): void => loop.stop();
 	}, [turn]);
 	const style = reducedMotion
-		? {opacity: turn.interpolate({inputRange: [0, 0.5, 1], outputRange: [1, PENDING_MOTION.dimmedOpacity, 1]})}
-		: {transform: [
-			{perspective: PENDING_MOTION.perspective},
-			{translateY: turn.interpolate({inputRange: [0, 0.5, 1], outputRange: [0, PENDING_MOTION.hop, 0]})},
-			{rotateY: turn.interpolate({inputRange: [0, 1], outputRange: ["0deg", "360deg"]})}
-		]};
+		? { opacity: turn.interpolate({
+			inputRange: [
+				0,
+				0.5,
+				1
+			],
+			outputRange: [
+				1,
+				PENDING_MOTION.dimmedOpacity,
+				1
+			]
+		}) }
+		: { transform: [
+			{ perspective: PENDING_MOTION.perspective },
+			{ translateY: turn.interpolate({
+				inputRange: [
+					0,
+					0.5,
+					1
+				],
+				outputRange: [
+					0,
+					PENDING_MOTION.hop,
+					0
+				]
+			}) },
+			{ rotateY: turn.interpolate({
+				inputRange: [0, 1], outputRange: ["0deg", "360deg"]
+			}) }
+		] };
 	return <Animated.View style={style} testID="pending-motion">{children}</Animated.View>;
 }
 
 /** Counts what waits to be collected, so the player follows the pills down to it; nothing when nothing waits. */
-export function CountBadge({count, testID}: {count: number; testID?: string}): ReactNode {
+export function CountBadge({
+	count, testID
+}: {
+	count: number; testID?: string;
+}): ReactNode {
 	const styles = useStyles();
-	if (count <= 0) return null;
+	if (count <= 0) {
+		return null;
+	}
 	return <View
 		style={styles.countBadge}
-		accessibilityLabel={i18n.t("app:common.toCollect", {count})}
+		accessibilityLabel={i18n.t("app:common.toCollect", { count })}
 		testID={testID ?? "count-badge"}
 	>
 		<Text style={styles.countBadgeText}>{count > COUNT_BADGE.max ? `${COUNT_BADGE.max}+` : String(count)}</Text>
 	</View>;
 }
 
-function QuickActionContent({icon, label, iconScale, badge}: {icon: string; label: string; iconScale?: Animated.Value; badge?: number}): ReactNode {
+function QuickActionContent({
+	icon, label, iconScale, badge
+}: {
+	icon: string; label: string; iconScale?: Animated.Value; badge?: number;
+}): ReactNode {
 	const styles = useStyles();
 	return <>
-		<Animated.View style={iconScale ? {transform: [{scale: iconScale}]} : undefined}>
+		<Animated.View style={iconScale ? { transform: [{ scale: iconScale }] } : undefined}>
 			<TwemojiIcon emoji={icon} size={Theme.dimensions.quickActionIcon} />
 		</Animated.View>
 		<Text style={styles.quickActionLabel}>{label}</Text>
@@ -471,37 +555,43 @@ function QuickActionContent({icon, label, iconScale, badge}: {icon: string; labe
 	</>;
 }
 
-function PressableQuickAction({icon, children, onPress, disabled, badge}: Required<Omit<QuickActionProps, "badge">> & Pick<QuickActionProps, "badge">): ReactNode {
+function PressableQuickAction({
+	icon, children, onPress, disabled, badge
+}: Required<Omit<QuickActionProps, "badge">> & Pick<QuickActionProps, "badge">): ReactNode {
 	const styles = useStyles();
-	const {scale, iconScale, handlers} = usePressMotion(onPress);
+	const {
+		scale, iconScale, handlers
+	} = usePressMotion(onPress);
 	return (
 		<Pressable
 			accessibilityRole="button"
-			accessibilityState={{disabled}}
+			accessibilityState={{ disabled }}
 			disabled={disabled}
 			{...handlers}
 			style={styles.quickActionSlot}
 		>
-			{({pressed}): ReactNode => <Animated.View style={[
+			{({ pressed }): ReactNode => <Animated.View style={[
 				styles.quickAction,
 				pressed && styles.quickActionPressed,
 				disabled && styles.rowDisabled,
-				{transform: [{scale}]}
+				{ transform: [{ scale }] }
 			]}>
-				<QuickActionContent icon={icon} label={children} iconScale={iconScale} {...badge ? {badge} : {}} />
+				<QuickActionContent icon={icon} label={children} iconScale={iconScale} {...badge ? { badge } : {}} />
 			</Animated.View>}
 		</Pressable>
 	);
 }
 
-export function QuickAction({icon, children, onPress, disabled = false, badge}: QuickActionProps): ReactNode {
+export function QuickAction({
+	icon, children, onPress, disabled = false, badge
+}: QuickActionProps): ReactNode {
 	const styles = useStyles();
 	if (!onPress) {
 		return <View style={[styles.quickAction, disabled && styles.rowDisabled]}>
-			<QuickActionContent icon={icon} label={children} {...badge ? {badge} : {}} />
+			<QuickActionContent icon={icon} label={children} {...badge ? { badge } : {}} />
 		</View>;
 	}
-	return <PressableQuickAction icon={icon} onPress={onPress} disabled={disabled} {...badge ? {badge} : {}}>{children}</PressableQuickAction>;
+	return <PressableQuickAction icon={icon} onPress={onPress} disabled={disabled} {...badge ? { badge } : {}}>{children}</PressableQuickAction>;
 }
 
 export function EmptyState({ children }: { children: string }): ReactNode {

@@ -1,12 +1,24 @@
-import {Animated} from "react-native";
-import {act, fireEvent, render, screen} from "@testing-library/react-native";
-import {CapsuleTab, CapsuleTabBar} from "@/src/components/CapsuleTabBar";
-import {Compass, PawPrint, UserRound} from "@/src/design/FightIcons";
+import { Animated } from "react-native";
+import {
+	act, fireEvent, render, screen
+} from "@testing-library/react-native";
+import {
+	CapsuleTab, CapsuleTabBar
+} from "@/src/components/CapsuleTabBar";
+import {
+	Compass, PawPrint, UserRound
+} from "@/src/design/FightIcons";
 
 const TABS: CapsuleTab[] = [
-	{name: "index", title: "Aventure", Icon: Compass, isNew: false, progress: 0.4},
-	{name: "profile", title: "Profil", Icon: UserRound, isNew: false},
-	{name: "pet", title: "Familier", Icon: PawPrint, isNew: true}
+	{
+		name: "index", title: "Aventure", Icon: Compass, isNew: false, progress: 0.4
+	},
+	{
+		name: "profile", title: "Profil", Icon: UserRound, isNew: false
+	},
+	{
+		name: "pet", title: "Familier", Icon: PawPrint, isNew: true
+	}
 ];
 
 const BAR_WIDTH = 360;
@@ -18,72 +30,87 @@ function bar(focused: string, onSelect: (name: string) => void = jest.fn()): Rea
 
 /** The icons are placed once the capsule knows its width. */
 async function laidOut(): Promise<void> {
-	await fireEvent(screen.getByTestId("capsule-track"), "layout", {nativeEvent: {layout: {width: BAR_WIDTH, height: 48}}});
+	await fireEvent(screen.getByTestId("capsule-track"), "layout", { nativeEvent: { layout: {
+		width: BAR_WIDTH, height: 48
+	} } });
 }
 
 describe("CapsuleTabBar", () => {
 	it("marks the focused tab as selected and names every tab to assistive technologies", async () => {
 		await render(bar("profile"));
 
-		expect(screen.getByRole("tab", {name: "Profil"})).toBeSelected();
-		expect(screen.getByRole("tab", {name: "Aventure"})).not.toBeSelected();
-		expect(screen.getByRole("tab", {name: "Familier"})).not.toBeSelected();
+		expect(screen.getByRole("tab", { name: "Profil" })).toBeSelected();
+		expect(screen.getByRole("tab", { name: "Aventure" })).not.toBeSelected();
+		expect(screen.getByRole("tab", { name: "Familier" })).not.toBeSelected();
 	});
 
 	it("forwards presses on both the active tab and another tab to the navigator", async () => {
 		const onSelect = jest.fn();
 		await render(bar("profile", onSelect));
 
-		await fireEvent.press(screen.getByRole("tab", {name: "Profil"}));
+		await fireEvent.press(screen.getByRole("tab", { name: "Profil" }));
 		expect(onSelect).toHaveBeenCalledWith("profile");
 
-		await fireEvent.press(screen.getByRole("tab", {name: "Familier"}));
+		await fireEvent.press(screen.getByRole("tab", { name: "Familier" }));
 		expect(onSelect).toHaveBeenLastCalledWith("pet");
 		expect(onSelect).toHaveBeenCalledTimes(2);
 	});
 
 	it("dots a newly opened tab until it is the one shown", async () => {
-		const {rerender} = await render(bar("index"));
+		const { rerender } = await render(bar("index"));
 		await laidOut();
-		expect(screen.getByTestId("tab-new-mark", {includeHiddenElements: true})).toBeTruthy();
+		expect(screen.getByTestId("tab-new-mark", { includeHiddenElements: true })).toBeTruthy();
 
 		await rerender(bar("pet"));
-		expect(screen.queryByTestId("tab-new-mark", {includeHiddenElements: true})).toBeNull();
+		expect(screen.queryByTestId("tab-new-mark", { includeHiddenElements: true })).toBeNull();
 	});
 
 	it("rings only the tab that follows a progress, in both of its shades", async () => {
 		await render(bar("profile"));
 		await laidOut();
 
-		expect(screen.getAllByTestId("progress-ring", {includeHiddenElements: true})).toHaveLength(2);
+		expect(screen.getAllByTestId("progress-ring", { includeHiddenElements: true })).toHaveLength(2);
 	});
 
 	it("counts on its icon what waits behind a tab, even the open one, and says it to assistive technologies", async () => {
-		const tabs = TABS.map(tab => tab.name === "pet" ? {...tab, badge: 12} : tab.name === "profile" ? {...tab, badge: 1} : tab);
+		const tabs = TABS.map(tab => tab.name === "pet"
+			? {
+				...tab, badge: 12
+			}
+			: tab.name === "profile"
+				? {
+					...tab, badge: 1
+				}
+				: tab);
 		await render(<CapsuleTabBar tabs={tabs} focused="profile" position={new Animated.Value(1)} onSelect={jest.fn()} />);
 		await laidOut();
 
-		expect(screen.getByTestId("tab-badge-profile", {includeHiddenElements: true})).toHaveTextContent("1");
-		expect(screen.getByTestId("tab-badge-pet", {includeHiddenElements: true})).toHaveTextContent("9+");
-		expect(screen.queryByTestId("tab-badge-index", {includeHiddenElements: true})).toBeNull();
+		expect(screen.getByTestId("tab-badge-profile", { includeHiddenElements: true })).toHaveTextContent("1");
+		expect(screen.getByTestId("tab-badge-pet", { includeHiddenElements: true })).toHaveTextContent("9+");
+		expect(screen.queryByTestId("tab-badge-index", { includeHiddenElements: true })).toBeNull();
+
 		// The pill already draws the eye: the new-tab dot would only crowd the same corner.
-		expect(screen.queryByTestId("tab-new-mark", {includeHiddenElements: true})).toBeNull();
-		expect(screen.getByRole("tab", {name: "Familier"})).toHaveAccessibilityValue({text: "12 à récupérer"});
+		expect(screen.queryByTestId("tab-new-mark", { includeHiddenElements: true })).toBeNull();
+		expect(screen.getByRole("tab", { name: "Familier" })).toHaveAccessibilityValue({ text: "12 à récupérer" });
 	});
 
 	it("keeps reading the pager's position while hidden, so the bar still follows it once shown again", async () => {
 		const position = new Animated.Value(0);
-		const detach = jest.spyOn(position as Animated.Value & {__detach: () => void}, "__detach");
+		const detach = jest.spyOn(position as Animated.Value & { __detach: () => void }, "__detach");
 		const shown = (hidden: boolean): React.JSX.Element => <CapsuleTabBar tabs={TABS} focused="index" position={position} onSelect={jest.fn()} hidden={hidden} />;
-		const {rerender} = await render(shown(false));
+		const { rerender } = await render(shown(false));
 		await laidOut();
 
 		await rerender(shown(true));
-		await fireEvent(screen.getByTestId("capsule-track", {includeHiddenElements: true}), "layout", {nativeEvent: {layout: {width: 0, height: 0}}});
+		await fireEvent(screen.getByTestId("capsule-track", { includeHiddenElements: true }), "layout", { nativeEvent: { layout: {
+			width: 0, height: 0
+		} } });
 		await rerender(shown(false));
-		await act(async (): Promise<void> => { await Promise.resolve(); });
+		await act(async (): Promise<void> => {
+			await Promise.resolve();
+		});
 
 		expect(detach).not.toHaveBeenCalled();
-		expect(screen.getByTestId("capsule-bar")).not.toHaveStyle({display: "none"});
+		expect(screen.getByTestId("capsule-bar")).not.toHaveStyle({ display: "none" });
 	});
 });

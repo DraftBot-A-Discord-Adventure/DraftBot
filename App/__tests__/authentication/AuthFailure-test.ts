@@ -1,4 +1,4 @@
-import type {AuthSessionResult} from "expo-auth-session";
+import type { AuthSessionResult } from "expo-auth-session";
 import {
 	AUTH_FAILURES, AuthFailure, failureOfAuthResult, reasonOfUnknownError
 } from "@/src/authentication/AuthFailure";
@@ -17,13 +17,13 @@ function errorResult(params: Record<string, string>, errorCode?: string): AuthSe
 describe("AuthFailure", () => {
 	it("treats backing out of the browser as a cancellation, not an error", () => {
 		for (const type of ["dismiss", "cancel"] as const) {
-			expect(failureOfAuthResult({type} as AuthSessionResult).reason).toBe(AUTH_FAILURES.CANCELLED);
+			expect(failureOfAuthResult({ type } as AuthSessionResult).reason).toBe(AUTH_FAILURES.CANCELLED);
 		}
 	});
 
 	it("tells a refused authorization apart from an unexplained failure", () => {
-		expect(failureOfAuthResult(errorResult({error: "access_denied"})).reason).toBe(AUTH_FAILURES.DENIED);
-		expect(failureOfAuthResult(errorResult({error: "server_error"})).reason).toBe(AUTH_FAILURES.UNKNOWN);
+		expect(failureOfAuthResult(errorResult({ error: "access_denied" })).reason).toBe(AUTH_FAILURES.DENIED);
+		expect(failureOfAuthResult(errorResult({ error: "server_error" })).reason).toBe(AUTH_FAILURES.UNKNOWN);
 	});
 
 	it("keeps the protocol wording out of the message shown and inside the error", () => {

@@ -1,21 +1,37 @@
-import {FightParticipant, FightLogEntry, FightEffect} from "ws-packets/src/objects/Fight";
-import {i18n} from "@/src/translations/i18n";
-import {FightImpact} from "@/src/display/FightMotion";
-import type {FightEffectTone} from "@/src/components/FightNarrative";
-import {formatNumber} from "@/src/display/Amounts";
-import {petName} from "@/src/display/PetDisplay";
+import {
+	FightParticipant, FightLogEntry, FightEffect
+} from "ws-packets/src/objects/Fight";
+import { i18n } from "@/src/translations/i18n";
+import { FightImpact } from "@/src/display/FightMotion";
+import type { FightEffectTone } from "@/src/components/FightNarrative";
+import { formatNumber } from "@/src/display/Amounts";
+import { petName } from "@/src/display/PetDisplay";
 
-const DESCRIPTIVE_STATUSES = new Set(["new", "active", "stop", "randomAction", "noAction", "generalEffect", "success", "afraid", "failure"]);
+const DESCRIPTIVE_STATUSES = new Set([
+	"new",
+	"active",
+	"stop",
+	"randomAction",
+	"noAction",
+	"generalEffect",
+	"success",
+	"afraid",
+	"failure"
+]);
 
 export function fighterSubtitle(fighter: FightParticipant): string {
 	const classLabel = fighter.classId === undefined ? "" : i18n.t(`models:classes.${fighter.classId}`);
-	const level = fighter.level === undefined ? "" : i18n.t("app:battle.level", {level: fighter.level});
+	const level = fighter.level === undefined ? "" : i18n.t("app:battle.level", { level: fighter.level });
 	return [classLabel, level].filter(Boolean).join(" · ");
 }
 
 export function fighterName(fighter: FightParticipant): string {
-	if (fighter.isSelf) return i18n.t("app:arena.you");
-	if (fighter.monsterId) return i18n.t(`models:monsters.${fighter.monsterId}.name`, {defaultValue: i18n.t("app:arena.opponent")});
+	if (fighter.isSelf) {
+		return i18n.t("app:arena.you");
+	}
+	if (fighter.monsterId) {
+		return i18n.t(`models:monsters.${fighter.monsterId}.name`, { defaultValue: i18n.t("app:arena.opponent") });
+	}
 	return fighter.name ?? i18n.t("error:unknownPlayer");
 }
 
@@ -24,7 +40,9 @@ export function fighterDisplayName(fighter: FightParticipant): string {
 }
 
 export function fightActionName(actionId: string): string {
-	return i18n.t(`models:fight_actions.${actionId}.name`, {count: 1, defaultValue: i18n.t("app:arena.action")});
+	return i18n.t(`models:fight_actions.${actionId}.name`, {
+		count: 1, defaultValue: i18n.t("app:arena.action")
+	});
 }
 
 export function fightImpactLabel(impact: FightImpact): string {
@@ -37,24 +55,54 @@ const EFFECT_TONES: Readonly<Record<string, FightEffectTone>> = {
 };
 
 const EFFECT_ICONS: Readonly<Record<string, string>> = {
-	damages: "unitValues.lostHealth", reflectedDamages: "unitValues.lostHealth", energy: "unitValues.energy", breath: "unitValues.breath",
-	attack: "unitValues.attack", defense: "unitValues.defense", speed: "unitValues.speed"
+	damages: "unitValues.lostHealth",
+	reflectedDamages: "unitValues.lostHealth",
+	energy: "unitValues.energy",
+	breath: "unitValues.breath",
+	attack: "unitValues.attack",
+	defense: "unitValues.defense",
+	speed: "unitValues.speed"
 };
 
-export type FightConsequence = {id: string; tone: FightEffectTone; text: string; iconPath?: string};
+export type FightConsequence = {
+	id: string; tone: FightEffectTone; text: string; iconPath?: string;
+};
 
 function effectLines(effect: FightEffect | undefined, side: "self" | "opponent"): FightConsequence[] {
-	if (!effect) return [];
+	if (!effect) {
+		return [];
+	}
 	return Object.entries(effect).flatMap(([key, value]): FightConsequence[] => {
-		const common = {id: `${side}-${key}`, tone: EFFECT_TONES[key] ?? "neutral", ...EFFECT_ICONS[key] ? {iconPath: EFFECT_ICONS[key]} : {}};
+		const common = {
+			id: `${side}-${key}`, tone: EFFECT_TONES[key] ?? "neutral", ...EFFECT_ICONS[key] ? { iconPath: EFFECT_ICONS[key] } : {}
+		};
 		if (typeof value === "number") {
-			const text = i18n.t(`commands:fight.actions.fightActionEffects.${side}.${key}`, {operator: value >= 0 ? "+" : "-", amount: Math.abs(value), defaultValue: ""});
-			return text ? [{...common, text}] : [];
+			const text = i18n.t(`commands:fight.actions.fightActionEffects.${side}.${key}`, {
+				operator: value >= 0 ? "+" : "-", amount: Math.abs(value), defaultValue: ""
+			});
+			return text
+				? [
+					{
+						...common, text
+					}
+				]
+				: [];
 		}
-		if (!value) return [];
-		const text = i18n.t(`commands:fight.actions.fightActionEffects.${side}.${key}`, {effect: fightActionName(value), defaultValue: ""});
+		if (!value) {
+			return [];
+		}
+		const text = i18n.t(`commands:fight.actions.fightActionEffects.${side}.${key}`, {
+			effect: fightActionName(value), defaultValue: ""
+		});
+
 		// An alteration is better recognised by its own icon than by a generic one.
-		return text ? [{...common, text, iconPath: `fightActions.${value}`}] : [];
+		return text
+			? [
+				{
+					...common, text, iconPath: `fightActions.${value}`
+				}
+			]
+			: [];
 	});
 }
 
@@ -64,7 +112,9 @@ export function fightConsequences(entry: FightLogEntry): FightConsequence[] {
 }
 
 function narrativeActor(entry: FightLogEntry): string {
-	if (entry.fighter.name || entry.fighter.monsterId) return fighterDisplayName(entry.fighter);
+	if (entry.fighter.name || entry.fighter.monsterId) {
+		return fighterDisplayName(entry.fighter);
+	}
 	return i18n.t(entry.fighter.isSelf ? "app:battle.story.self" : "app:battle.story.opponent");
 }
 
@@ -72,8 +122,10 @@ function narrativeActor(entry: FightLogEntry): string {
 function attackResult(entry: FightLogEntry, seed: number, attack: string): string {
 	const status = entry.status ?? "normal";
 	const variants = i18n.tArray(`commands:fight.actions.attacksResults.${status}`);
-	if (!variants.length) return i18n.t("app:battle.story.generic", {attack});
-	return i18n.t(`commands:fight.actions.attacksResults.${status}.${Math.abs(seed) % variants.length}`, {attack});
+	if (!variants.length) {
+		return i18n.t("app:battle.story.generic", { attack });
+	}
+	return i18n.t(`commands:fight.actions.attacksResults.${status}.${Math.abs(seed) % variants.length}`, { attack });
 }
 
 /** The Core reports the effects of the substituted action, so its name is the one the story must use. */
@@ -85,10 +137,19 @@ function executedActionId(entry: FightLogEntry): string {
 function descriptiveAction(entry: FightLogEntry): string {
 	const actionId = executedActionId(entry);
 	const petNickname = entry.pet ? petName(entry.pet) : "";
+
 	// Same order as the Discord history, so both frontends tell the same thing about an action.
-	if (DESCRIPTIVE_STATUSES.has(entry.status ?? "")) return i18n.t(`models:fight_actions.${actionId}.${entry.status}`, {petNickname, defaultValue: ""});
-	if (entry.customMessage) return i18n.t(`models:fight_actions.${actionId}.customMessage`, {defaultValue: ""});
-	if (entry.customMessageFail) return i18n.t(`models:fight_actions.${actionId}.customMessageFail`, {defaultValue: ""});
+	if (DESCRIPTIVE_STATUSES.has(entry.status ?? "")) {
+		return i18n.t(`models:fight_actions.${actionId}.${entry.status}`, {
+			petNickname, defaultValue: ""
+		});
+	}
+	if (entry.customMessage) {
+		return i18n.t(`models:fight_actions.${actionId}.customMessage`, { defaultValue: "" });
+	}
+	if (entry.customMessageFail) {
+		return i18n.t(`models:fight_actions.${actionId}.customMessageFail`, { defaultValue: "" });
+	}
 	return "";
 }
 
@@ -97,19 +158,29 @@ function narrativeAction(entry: FightLogEntry, seed: number): string {
 }
 
 export function fightEntryTitle(entry: FightLogEntry): string {
-	if (entry.pet) return i18n.t("app:battle.story.petAction", {pet: petName(entry.pet)});
+	if (entry.pet) {
+		return i18n.t("app:battle.story.petAction", { pet: petName(entry.pet) });
+	}
 	const actionId = executedActionId(entry);
 	return actionId === entry.fightActionId
 		? fightActionName(actionId)
-		: i18n.t("app:battle.story.substitution", {selected: fightActionName(entry.fightActionId), used: fightActionName(actionId)});
+		: i18n.t("app:battle.story.substitution", {
+			selected: fightActionName(entry.fightActionId), used: fightActionName(actionId)
+		});
 }
 
 export function fightNarrative(entry: FightLogEntry, seed = 0): string {
-	return i18n.t("app:battle.story.sentence", {fighter: narrativeActor(entry), action: narrativeAction(entry, seed)});
+	return i18n.t("app:battle.story.sentence", {
+		fighter: narrativeActor(entry), action: narrativeAction(entry, seed)
+	});
 }
 
 /** The story only when it teaches something: a plain hit or miss is already said by its name and badge. */
 export function fightStory(entry: FightLogEntry): string | null {
 	const action = descriptiveAction(entry);
-	return action ? i18n.t("app:battle.story.sentence", {fighter: narrativeActor(entry), action}) : null;
+	return action
+		? i18n.t("app:battle.story.sentence", {
+			fighter: narrativeActor(entry), action
+		})
+		: null;
 }

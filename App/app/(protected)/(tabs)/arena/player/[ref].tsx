@@ -1,1 +1,1 @@
-export {default} from "@/app/(protected)/player/[ref]";
+export { default } from "@/app/(protected)/player/[ref]";

@@ -1,4 +1,4 @@
-import {useSyncExternalStore} from "react";
+import { useSyncExternalStore } from "react";
 
 type Listener = () => void;
 
@@ -11,7 +11,9 @@ const listeners = new Set<Listener>();
 /** Whether the runner is dashing to the next stop, so what follows the road can race along with it. */
 export const travelDashStore = {
 	set(value: boolean): void {
-		if (dashing === value) return;
+		if (dashing === value) {
+			return;
+		}
 		dashing = value;
 		listeners.forEach(listener => listener());
 	},

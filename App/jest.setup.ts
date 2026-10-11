@@ -1,7 +1,7 @@
-import type {EffectCallback} from "react";
-import {clearTestQueryClients} from "./src/testing/testUtils";
-import {fakeGameRules} from "./src/testing/fakeGameRules";
-import {loadGameRules} from "./src/rules/GameRules";
+import type { EffectCallback } from "react";
+import { clearTestQueryClients } from "./src/testing/testUtils";
+import { fakeGameRules } from "./src/testing/fakeGameRules";
+import { loadGameRules } from "./src/rules/GameRules";
 
 // Outside the app shell no assets bundle is downloaded: screens read the rules a server would send.
 loadGameRules(fakeGameRules);
@@ -18,18 +18,18 @@ jest.mock("expo-router", () => ({
 }));
 
 // The test renderer has no app state nor window transitions to wait for: windows open as asked (NativeWindow-test covers the wait).
-jest.mock("@/src/design/NativeWindow", () => ({NativeWindow: jest.requireActual("react-native").Modal}));
+jest.mock("@/src/design/NativeWindow", () => ({ NativeWindow: jest.requireActual("react-native").Modal }));
 
 // Reanimated drives its values from a native worklet runtime the test environment does not have.
 jest.mock("react-native-reanimated", () => {
-	const {View} = jest.requireActual("react-native");
+	const { View } = jest.requireActual("react-native");
 	return {
 		__esModule: true,
 		default: {
 			View,
 			createAnimatedComponent: (component: unknown) => component
 		},
-		useSharedValue: (value: unknown) => ({value}),
+		useSharedValue: (value: unknown) => ({ value }),
 		useAnimatedStyle: (style: () => object) => style(),
 		withTiming: (value: unknown) => value,
 		withSpring: (value: unknown) => value,

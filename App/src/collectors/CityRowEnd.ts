@@ -1,5 +1,7 @@
-import {CITY_REACTION_KINDS, CityMobileItem, CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction} from "ws-packets/src/fromServer/collectors";
-import {formatMoney} from "@/src/display/Amounts";
+import {
+	CITY_REACTION_KINDS, CityMobileItem, CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction
+} from "ws-packets/src/fromServer/collectors";
+import { formatMoney } from "@/src/display/Amounts";
 
 type UpgradeItemsResolver = (snapshot: CityMobileSnapshot | undefined) => CityMobileUpgradeItem[] | undefined;
 
@@ -9,26 +11,32 @@ const UPGRADE_ITEMS_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"],
 };
 
 function upgradeEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	if (!item) return undefined;
+	if (!item) {
+		return undefined;
+	}
 	const upgrades = UPGRADE_ITEMS_RESOLVERS[reaction.type]?.(snapshot);
 	const upgrade = upgrades?.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
 	return upgrade ? formatMoney(upgrade.upgradeCost) : undefined;
 }
 
 function disenchantEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	if (!item) return undefined;
+	if (!item) {
+		return undefined;
+	}
 	const disenchant = snapshot?.blacksmith?.disenchantableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
 	return disenchant ? formatMoney(disenchant.disenchantCost) : undefined;
 }
 
 function recycleEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	if (!item) return undefined;
+	if (!item) {
+		return undefined;
+	}
 	const recycle = snapshot?.scrapDealer?.recyclableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
 	return recycle && recycle.recoveredMoney > 0 ? formatMoney(recycle.recoveredMoney) : undefined;
 }
 
 function apartmentRentEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
-	const apartmentId = (reaction.data as {apartmentId?: number}).apartmentId;
+	const apartmentId = (reaction.data as { apartmentId?: number }).apartmentId;
 	const apartment = snapshot?.apartmentNotary?.ownedApartments.find(candidate => candidate.apartmentId === apartmentId);
 	return apartment && apartment.accumulatedRent > 0 ? formatMoney(apartment.accumulatedRent) : undefined;
 }
@@ -37,8 +45,8 @@ type EndResolver = (reaction: ReactionCollectorReaction, snapshot: CityMobileSna
 
 const END_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], EndResolver>> = {
 	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: (_reaction, snapshot) => snapshot?.guildDomainNotary ? formatMoney(snapshot.guildDomainNotary.cost) : undefined,
-	[CITY_REACTION_KINDS.INN_MEAL]: reaction => formatMoney((reaction.data as {price: number}).price),
-	[CITY_REACTION_KINDS.INN_ROOM]: reaction => formatMoney((reaction.data as {price: number}).price),
+	[CITY_REACTION_KINDS.INN_MEAL]: reaction => formatMoney((reaction.data as { price: number }).price),
+	[CITY_REACTION_KINDS.INN_ROOM]: reaction => formatMoney((reaction.data as { price: number }).price),
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: upgradeEnd,
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: upgradeEnd,
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (_, snapshot, item) => disenchantEnd(snapshot, item),

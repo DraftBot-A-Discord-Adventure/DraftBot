@@ -1,11 +1,11 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import {
 	CITY_REACTION_KINDS,
 	ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import {AppIcons} from "@/src/AppIcons";
-import {Theme} from "@/src/design/Theme";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
+import { AppIcons } from "@/src/AppIcons";
+import { Theme } from "@/src/design/Theme";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 
 const CITY_ICON_PATHS: Partial<Record<ReactionCollectorReaction["type"], string>> = {
 	[CITY_REACTION_KINDS.EXIT]: "city.exit",

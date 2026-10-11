@@ -1,7 +1,9 @@
-import {useSyncExternalStore} from "react";
+import { useSyncExternalStore } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {createPlatformGames} from "./PlatformGames";
-import {GameServicesSnapshot, GameServicesStore} from "./GameServicesStore";
+import { createPlatformGames } from "./PlatformGames";
+import {
+	GameServicesSnapshot, GameServicesStore
+} from "./GameServicesStore";
 
 export const gameServicesStore = new GameServicesStore(createPlatformGames(), AsyncStorage);
 

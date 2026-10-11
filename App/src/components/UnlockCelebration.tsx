@@ -1,23 +1,37 @@
-import {ReactNode, useEffect, useState} from "react";
-import {Animated, Easing, Pressable, Text, View} from "react-native";
-import {notificationAsync, NotificationFeedbackType} from "expo-haptics";
-import {NativeWindow} from "@/src/design/NativeWindow";
-import {AppIcons} from "@/src/AppIcons";
-import {ActionBanner} from "@/src/design/Sections";
-import {FarewellEmblem, useMotionLoop} from "@/src/design/Farewell";
-import {ArrowRight, Sparkles} from "@/src/design/FightIcons";
-import {Theme} from "@/src/design/Theme";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {journeyStepLevel, JourneyStep} from "@/src/journey/Journey";
-import {useCollectors} from "@/src/collectors/CollectorsContext";
-import {holdsAdventureTab} from "@/src/collectors/CollectorRouting";
+import {
+	ReactNode, useEffect, useState
+} from "react";
+import {
+	Animated, Easing, Pressable, Text, View
+} from "react-native";
+import {
+	notificationAsync, NotificationFeedbackType
+} from "expo-haptics";
+import { NativeWindow } from "@/src/design/NativeWindow";
+import { AppIcons } from "@/src/AppIcons";
+import { ActionBanner } from "@/src/design/Sections";
+import {
+	FarewellEmblem, useMotionLoop
+} from "@/src/design/Farewell";
+import {
+	ArrowRight, Sparkles
+} from "@/src/design/FightIcons";
+import { Theme } from "@/src/design/Theme";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import {
+	journeyStepLevel, JourneyStep
+} from "@/src/journey/Journey";
+import { useCollectors } from "@/src/collectors/CollectorsContext";
+import { holdsAdventureTab } from "@/src/collectors/CollectorRouting";
 import {
 	useAutomaticSmallEventOutcome, useBigEventOutcome, useHealOutcome, useLotteryOutcome, useShopResult,
 	useSmallEventChoiceOutcome, useTokenOutcome, useWitchOutcome
 } from "@/src/collectors/ReportEventStore";
-import {useReducedMotion} from "@/src/store/useReducedMotion";
-import {i18n} from "@/src/translations/i18n";
-import {createStyles, useColors} from "@/src/design/ThemeContext";
+import { useReducedMotion } from "@/src/store/useReducedMotion";
+import { i18n } from "@/src/translations/i18n";
+import {
+	createStyles, useColors
+} from "@/src/design/ThemeContext";
 
 const CELEBRATION_MOTION = {
 	backdropMs: 220,
@@ -33,16 +47,35 @@ const CELEBRATION_MOTION = {
 } as const;
 
 /** The angles, in radians, at which the sparks fly out of the emblem. */
-const SPARK_ANGLES = [-2.6, -1.9, -1.2, -0.5, 0.2, 0.9] as const;
+const SPARK_ANGLES = [
+	-2.6,
+	-1.9,
+	-1.2,
+	-0.5,
+	0.2,
+	0.9
+] as const;
 
-const FILL = {position: "absolute", top: 0, right: 0, bottom: 0, left: 0} as const;
+const FILL = {
+	position: "absolute", top: 0, right: 0, bottom: 0, left: 0
+} as const;
 
 const useStyles = createStyles(colors => ({
-	layer: {...FILL, justifyContent: "center", padding: Theme.spacing.xxl},
-	backdrop: {...FILL, backgroundColor: colors.overlay},
-	card: {alignItems: "center", paddingTop: Theme.spacing.xl, paddingBottom: Theme.spacing.xl, paddingHorizontal: Theme.spacing.xl, borderRadius: Theme.radius, backgroundColor: colors.paper},
-	burst: {position: "absolute", alignItems: "center", justifyContent: "center"},
-	ring: {position: "absolute", width: CELEBRATION_MOTION.ring, height: CELEBRATION_MOTION.ring, borderRadius: CELEBRATION_MOTION.ring / 2, borderWidth: 3, borderColor: colors.gold},
+	layer: {
+		...FILL, justifyContent: "center", padding: Theme.spacing.xxl
+	},
+	backdrop: {
+		...FILL, backgroundColor: colors.overlay
+	},
+	card: {
+		alignItems: "center", paddingTop: Theme.spacing.xl, paddingBottom: Theme.spacing.xl, paddingHorizontal: Theme.spacing.xl, borderRadius: Theme.radius, backgroundColor: colors.paper
+	},
+	burst: {
+		position: "absolute", alignItems: "center", justifyContent: "center"
+	},
+	ring: {
+		position: "absolute", width: CELEBRATION_MOTION.ring, height: CELEBRATION_MOTION.ring, borderRadius: CELEBRATION_MOTION.ring / 2, borderWidth: 3, borderColor: colors.gold
+	},
 	eyebrow: {
 		fontFamily: Theme.fonts.semiBold,
 		fontSize: Theme.fontSize.eyebrow,
@@ -51,7 +84,9 @@ const useStyles = createStyles(colors => ({
 		textTransform: "uppercase",
 		color: colors.gold
 	},
-	title: {marginTop: Theme.spacing.xs, fontFamily: Theme.fonts.bold, fontSize: Theme.fontSize.title, textAlign: "center", color: colors.ink},
+	title: {
+		marginTop: Theme.spacing.xs, fontFamily: Theme.fonts.bold, fontSize: Theme.fontSize.title, textAlign: "center", color: colors.ink
+	},
 	description: {
 		marginTop: Theme.spacing.sm,
 		fontFamily: Theme.fonts.regular,
@@ -60,14 +95,22 @@ const useStyles = createStyles(colors => ({
 		textAlign: "center",
 		color: colors.muted
 	},
-	actions: {alignSelf: "stretch", gap: Theme.spacing.sm, marginTop: Theme.spacing.xl},
-	later: {flexDirection: "row", alignItems: "center", justifyContent: "center", gap: Theme.spacing.xs, paddingVertical: Theme.spacing.md},
-	laterLabel: {fontFamily: Theme.fonts.semiBold, fontSize: Theme.fontSize.bodySmall, color: colors.muted},
-	pressed: {opacity: 0.6}
+	actions: {
+		alignSelf: "stretch", gap: Theme.spacing.sm, marginTop: Theme.spacing.xl
+	},
+	later: {
+		flexDirection: "row", alignItems: "center", justifyContent: "center", gap: Theme.spacing.xs, paddingVertical: Theme.spacing.md
+	},
+	laterLabel: {
+		fontFamily: Theme.fonts.semiBold, fontSize: Theme.fontSize.bodySmall, color: colors.muted
+	},
+	pressed: { opacity: 0.6 }
 }));
 
 function between(value: Animated.Value, input: [number, number], output: [number, number]): Animated.AnimatedInterpolation<number> {
-	return value.interpolate({inputRange: input, outputRange: output, extrapolate: "clamp"});
+	return value.interpolate({
+		inputRange: input, outputRange: output, extrapolate: "clamp"
+	});
 }
 
 type CelebrationProps = {
@@ -82,8 +125,12 @@ type CelebrationProps = {
 /** The stories the adventure tab is telling, read before moving on. */
 function useAdventureStories(): unknown[] {
 	return [
-		useBigEventOutcome(), useLotteryOutcome(), useWitchOutcome(), useSmallEventChoiceOutcome(),
-		useAutomaticSmallEventOutcome(), useShopResult()
+		useBigEventOutcome(),
+		useLotteryOutcome(),
+		useWitchOutcome(),
+		useSmallEventChoiceOutcome(),
+		useAutomaticSmallEventOutcome(),
+		useShopResult()
 	];
 }
 
@@ -94,38 +141,78 @@ export function useAdventureTelling(): boolean {
 
 /** Whether the adventure tab is telling a story or asking something, which an unlock must not cover. */
 export function useAdventureBusy(): boolean {
-	const {open} = useCollectors();
-	const outcomes = [...useAdventureStories(), useTokenOutcome(), useHealOutcome()];
+	const { open } = useCollectors();
+	const outcomes = [
+		...useAdventureStories(),
+		useTokenOutcome(),
+		useHealOutcome()
+	];
 	return open.length > 0 || outcomes.some(outcome => outcome !== null);
 }
 
 /** Whether an event holds the player on the adventure tab; a heal or a token spent is too quick to hide the tabs for. */
 export function useAdventureHoldsTabs(): boolean {
-	const {open} = useCollectors();
+	const { open } = useCollectors();
 	const telling = useAdventureTelling();
 	return open.some(holdsAdventureTab) || telling;
 }
 
 /** The emblem of what just opened pops out of a golden ring while sparks fly away from it. */
-function UnlockEmblem({icon, burst}: {icon: string; burst: Animated.Value}): ReactNode {
+function UnlockEmblem({
+	icon, burst
+}: {
+	icon: string; burst: Animated.Value;
+}): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
 	const halo = useMotionLoop(CELEBRATION_MOTION.haloMs, true);
 	return <FarewellEmblem pulse={halo} haloColor={colors.goldWash}>
-		<Animated.View style={[styles.ring, {
-			opacity: between(burst, [0.2, 1], [0.9, 0]),
-			transform: [{scale: between(burst, [0.2, 1], [0.6, CELEBRATION_MOTION.ringSpread])}]
-		}]} />
-		{SPARK_ANGLES.map(angle => <Animated.View key={angle} style={[styles.burst, {
-			opacity: burst.interpolate({inputRange: [0, 0.3, 0.6, 1], outputRange: [0, 1, 1, 0]}),
-			transform: [
-				{translateX: between(burst, [0.25, 1], [0, Math.cos(angle) * CELEBRATION_MOTION.sparkReach])},
-				{translateY: between(burst, [0.25, 1], [0, Math.sin(angle) * CELEBRATION_MOTION.sparkReach])}
-			]
-		}]}>
+		<Animated.View style={[
+			styles.ring, {
+				opacity: between(burst, [0.2, 1], [0.9, 0]),
+				transform: [{ scale: between(burst, [0.2, 1], [0.6, CELEBRATION_MOTION.ringSpread]) }]
+			}
+		]} />
+		{SPARK_ANGLES.map(angle => <Animated.View key={angle} style={[
+			styles.burst, {
+				opacity: burst.interpolate({
+					inputRange: [
+						0,
+						0.3,
+						0.6,
+						1
+					],
+					outputRange: [
+						0,
+						1,
+						1,
+						0
+					]
+				}),
+				transform: [
+					{ translateX: between(burst, [0.25, 1], [0, Math.cos(angle) * CELEBRATION_MOTION.sparkReach]) },
+					{ translateY: between(burst, [0.25, 1], [0, Math.sin(angle) * CELEBRATION_MOTION.sparkReach]) }
+				]
+			}
+		]}>
 			<Sparkles size={CELEBRATION_MOTION.sparkSize} color={colors.gold} />
 		</Animated.View>)}
-		<Animated.View style={{transform: [{scale: burst.interpolate({inputRange: [0, 0.45, 0.75, 1], outputRange: [0.2, CELEBRATION_MOTION.emblemOvershoot, 0.95, 1]})}]}}>
+		<Animated.View style={{ transform: [
+			{ scale: burst.interpolate({
+				inputRange: [
+					0,
+					0.45,
+					0.75,
+					1
+				],
+				outputRange: [
+					0.2,
+					CELEBRATION_MOTION.emblemOvershoot,
+					0.95,
+					1
+				]
+			}) }
+		] }}>
 			<TwemojiIcon emoji={AppIcons.getIcon(icon)} size={CELEBRATION_MOTION.emblem} />
 		</Animated.View>
 	</FarewellEmblem>;
@@ -134,30 +221,44 @@ function UnlockEmblem({icon, burst}: {icon: string; burst: Animated.Value}): Rea
 /** A pet or a guild can open its tab before the level does: the level is only named when it is what opened it. */
 function eyebrow(step: JourneyStep, level: number): string {
 	const unlockLevel = journeyStepLevel(step);
-	return unlockLevel !== undefined && level >= unlockLevel ? i18n.t("app:journey.unlockedAtLevel", {level: unlockLevel}) : i18n.t("app:journey.unlocked");
+	return unlockLevel !== undefined && level >= unlockLevel ? i18n.t("app:journey.unlockedAtLevel", { level: unlockLevel }) : i18n.t("app:journey.unlocked");
 }
 
 /** A card that bursts in over a dimmed screen, for the moments the game wants the player to stop on. */
-export function Celebration({icon, eyebrow: caption, title, description, children, testID}: CelebrationProps): ReactNode {
+export function Celebration({
+	icon, eyebrow: caption, title, description, children, testID
+}: CelebrationProps): ReactNode {
 	const styles = useStyles();
 	const reducedMotion = useReducedMotion();
 	const [shown] = useState(() => new Animated.Value(reducedMotion ? 1 : 0));
 	const [burst] = useState(() => new Animated.Value(reducedMotion ? 1 : 0));
 	useEffect(() => {
 		notificationAsync(NotificationFeedbackType.Success).catch(() => undefined);
-		if (reducedMotion) return;
+		if (reducedMotion) {
+			return;
+		}
 		Animated.sequence([
-			Animated.timing(shown, {toValue: 1, duration: CELEBRATION_MOTION.backdropMs, easing: Easing.out(Easing.quad), useNativeDriver: true}),
+			Animated.timing(shown, {
+				toValue: 1, duration: CELEBRATION_MOTION.backdropMs, easing: Easing.out(Easing.quad), useNativeDriver: true
+			}),
 			Animated.delay(CELEBRATION_MOTION.cardDelayMs),
-			Animated.timing(burst, {toValue: 1, duration: CELEBRATION_MOTION.burstMs, easing: Easing.out(Easing.cubic), useNativeDriver: true})
+			Animated.timing(burst, {
+				toValue: 1, duration: CELEBRATION_MOTION.burstMs, easing: Easing.out(Easing.cubic), useNativeDriver: true
+			})
 		]).start();
-	}, [burst, reducedMotion, shown]);
-	return <View style={styles.layer} {...testID ? {testID} : {}} accessibilityViewIsModal>
-		<Animated.View style={[styles.backdrop, {opacity: shown}]} />
-		<Animated.View style={[styles.card, {
-			opacity: shown,
-			transform: [{scale: between(shown, [0, 1], [0.92, 1])}]
-		}]}>
+	}, [
+		burst,
+		reducedMotion,
+		shown
+	]);
+	return <View style={styles.layer} {...testID ? { testID } : {}} accessibilityViewIsModal>
+		<Animated.View style={[styles.backdrop, { opacity: shown }]} />
+		<Animated.View style={[
+			styles.card, {
+				opacity: shown,
+				transform: [{ scale: between(shown, [0, 1], [0.92, 1]) }]
+			}
+		]}>
 			<UnlockEmblem icon={icon} burst={burst} />
 			<Text style={styles.eyebrow}>{caption}</Text>
 			<Text style={styles.title}>{title}</Text>
@@ -168,7 +269,9 @@ export function Celebration({icon, eyebrow: caption, title, description, childre
 }
 
 /** The celebration in its own window over the whole app, the way every celebration outside the tabs' layer opens. */
-export function CelebrationModal({onClose, ...celebration}: CelebrationProps & {onClose: () => void}): ReactNode {
+export function CelebrationModal({
+	onClose, ...celebration
+}: CelebrationProps & { onClose: () => void }): ReactNode {
 	return <NativeWindow transparent animationType="none" statusBarTranslucent onRequestClose={onClose}>
 		<Celebration {...celebration} />
 	</NativeWindow>;
@@ -178,7 +281,11 @@ export function CelebrationModal({onClose, ...celebration}: CelebrationProps & {
  * A part of the game opening is a moment of its own: it takes the screen over the tabs, says what it
  * holds, and leads there at once or lets the player come back to it through the tab's mark.
  */
-export function UnlockCelebration({step, level, onDiscover, onLater}: {step: JourneyStep; level: number; onDiscover: () => void; onLater: () => void}): ReactNode {
+export function UnlockCelebration({
+	step, level, onDiscover, onLater
+}: {
+	step: JourneyStep; level: number; onDiscover: () => void; onLater: () => void;
+}): ReactNode {
 	const styles = useStyles();
 	return <Celebration
 		icon={step.icon}
@@ -188,7 +295,7 @@ export function UnlockCelebration({step, level, onDiscover, onLater}: {step: Jou
 		testID="unlock-celebration"
 	>
 		<ActionBanner icon={ArrowRight} emoji={AppIcons.getIcon(step.icon)} label={i18n.t("app:journey.discover")} onPress={onDiscover} testID="unlock-discover" />
-		<Pressable accessibilityRole="button" onPress={onLater} style={({pressed}): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]}>
+		<Pressable accessibilityRole="button" onPress={onLater} style={({ pressed }): object[] => [styles.later, pressed && styles.pressed].filter(Boolean) as object[]}>
 			<Text style={styles.laterLabel}>{i18n.t("app:journey.later")}</Text>
 		</Pressable>
 	</Celebration>;

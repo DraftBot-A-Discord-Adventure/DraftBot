@@ -1,23 +1,29 @@
-import {ReactNode, useState} from "react";
-import {View} from "react-native";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {AdventureHistoryReq} from "ws-packets/src/fromClient/AdventureHistoryReq";
-import {AdventureHistoryRes} from "ws-packets/src/fromServer/history/AdventureHistoryRes";
-import {AdventureHistoryEvent} from "ws-packets/src/objects/AdventureHistory";
-import {BIG_EVENT_END_POSSIBILITY_ID} from "ws-packets/src/fromServer/collectors";
-import {GameClient} from "@/src/networking/GameClient";
-import {GAME_ENTITIES} from "@/src/store/GameEntities";
-import {useGameQuery} from "@/src/store/useGameQuery";
-import {GameQueryContent} from "@/src/components/GameQueryContent";
-import {Button, ButtonRow, Note, SectionHeader} from "@/src/design/Primitives";
-import {ExpandableEntry, ExpandableList} from "@/src/design/Sections";
-import {Story} from "@/src/design/Story";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {Theme} from "@/src/design/Theme";
-import {plainStory} from "@/src/display/Markdown";
-import {missionDate} from "@/src/display/Missions";
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
+import {
+	ReactNode, useState
+} from "react";
+import { View } from "react-native";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { AdventureHistoryReq } from "ws-packets/src/fromClient/AdventureHistoryReq";
+import { AdventureHistoryRes } from "ws-packets/src/fromServer/history/AdventureHistoryRes";
+import { AdventureHistoryEvent } from "ws-packets/src/objects/AdventureHistory";
+import { BIG_EVENT_END_POSSIBILITY_ID } from "ws-packets/src/fromServer/collectors";
+import { GameClient } from "@/src/networking/GameClient";
+import { GAME_ENTITIES } from "@/src/store/GameEntities";
+import { useGameQuery } from "@/src/store/useGameQuery";
+import { GameQueryContent } from "@/src/components/GameQueryContent";
+import {
+	Button, ButtonRow, Note, SectionHeader
+} from "@/src/design/Primitives";
+import {
+	ExpandableEntry, ExpandableList
+} from "@/src/design/Sections";
+import { Story } from "@/src/design/Story";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { Theme } from "@/src/design/Theme";
+import { plainStory } from "@/src/display/Markdown";
+import { missionDate } from "@/src/display/Missions";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
 
 /** The emoji the outcome screen showed for this memory, so the player recognises it. */
 function memoryIcon(memory: AdventureHistoryEvent): string | null {
@@ -38,14 +44,16 @@ function memoryPlace(memory: AdventureHistoryEvent): string {
 }
 
 function memoryDay(date: number): string {
-	return new Intl.DateTimeFormat(i18n.language, {weekday: "long", day: "numeric", month: "long"}).format(date);
+	return new Intl.DateTimeFormat(i18n.language, {
+		weekday: "long", day: "numeric", month: "long"
+	}).format(date);
 }
 
 function memoryTime(date: number): string {
-	return new Intl.DateTimeFormat(i18n.language, {timeStyle: "short"}).format(date);
+	return new Intl.DateTimeFormat(i18n.language, { timeStyle: "short" }).format(date);
 }
 
-function MemoryEntry({memory}: {memory: AdventureHistoryEvent}): ReactNode {
+function MemoryEntry({ memory }: { memory: AdventureHistoryEvent }): ReactNode {
 	const [expanded, setExpanded] = useState(false);
 	const icon = memoryIcon(memory);
 	return <ExpandableEntry
@@ -63,22 +71,32 @@ function MemoryEntry({memory}: {memory: AdventureHistoryEvent}): ReactNode {
 	</ExpandableEntry>;
 }
 
-function groupByDay(memories: AdventureHistoryEvent[]): {label: string; memories: AdventureHistoryEvent[]}[] {
+function groupByDay(memories: AdventureHistoryEvent[]): {
+	label: string; memories: AdventureHistoryEvent[];
+}[] {
 	const days = new Map<string, AdventureHistoryEvent[]>();
 	for (const memory of memories) {
 		const label = memoryDay(memory.date);
-		days.set(label, [...(days.get(label) ?? []), memory]);
+		days.set(label, [...days.get(label) ?? [], memory]);
 	}
-	return [...days].map(([label, dayMemories]) => ({label, memories: dayMemories}));
+	return [...days].map(([label, dayMemories]) => ({
+		label, memories: dayMemories
+	}));
 }
 
-type OlderPages = {pages: AdventureHistoryRes[]; pending: boolean; failed: boolean; load: (() => void) | null};
+type OlderPages = {
+	pages: AdventureHistoryRes[]; pending: boolean; failed: boolean; load: (() => void) | null;
+};
 
 /**
  * Later pages hang on the first page's time fence: a refreshed first page starts a new reading and drops them.
  */
 function useOlderPages(first: AdventureHistoryRes): OlderPages {
-	const [loaded, setLoaded] = useState<{until: number; pages: AdventureHistoryRes[]}>({until: first.until, pages: []});
+	const [loaded, setLoaded] = useState<{
+		until: number; pages: AdventureHistoryRes[];
+	}>({
+		until: first.until, pages: []
+	});
 	const [pending, setPending] = useState(false);
 	const [failed, setFailed] = useState(false);
 	const pages = loaded.until === first.until ? loaded.pages : [];
@@ -86,37 +104,52 @@ function useOlderPages(first: AdventureHistoryRes): OlderPages {
 	const load = async (): Promise<void> => {
 		setPending(true);
 		setFailed(false);
-		const answer = await GameClient.request(makeFromClientPacket(AdventureHistoryReq, {page: nextPage, until: first.until}), AdventureHistoryRes);
+		const answer = await GameClient.request(makeFromClientPacket(AdventureHistoryReq, {
+			page: nextPage, until: first.until
+		}), AdventureHistoryRes);
 		setPending(false);
 		if (answer.kind !== "answer" || !answer.packet.available) {
 			setFailed(true);
 			return;
 		}
-		setLoaded({until: first.until, pages: [...pages, answer.packet]});
-	};
-	return {pages, pending, failed, load: nextPage === undefined ? null : (): void => {
-		load().catch(() => {
-			setPending(false);
-			setFailed(true);
+		setLoaded({
+			until: first.until, pages: [...pages, answer.packet]
 		});
-	}};
+	};
+	return {
+		pages,
+		pending,
+		failed,
+		load: nextPage === undefined
+			? null
+			: (): void => {
+				load().catch(() => {
+					setPending(false);
+					setFailed(true);
+				});
+			}
+	};
 }
 
-export function AdventureJournalContent({first}: {first: AdventureHistoryRes}): ReactNode {
+export function AdventureJournalContent({ first }: { first: AdventureHistoryRes }): ReactNode {
 	const older = useOlderPages(first);
-	if (!first.available) return <Note>{i18n.t("app:adventure.journal.unavailable")}</Note>;
+	if (!first.available) {
+		return <Note>{i18n.t("app:adventure.journal.unavailable")}</Note>;
+	}
 	const memories = [first, ...older.pages].flatMap(page => page.entries);
 	return <>
-		<Note>{i18n.t("app:adventure.journal.window", {date: missionDate(first.windowStartsAt)})}</Note>
+		<Note>{i18n.t("app:adventure.journal.window", { date: missionDate(first.windowStartsAt) })}</Note>
 		{memories.length === 0 ? <Note>{i18n.t("app:adventure.journal.empty")}</Note> : null}
 		{groupByDay(memories).map((day, dayIndex) => <View key={day.label}>
 			<SectionHeader first={dayIndex === 0}>{day.label}</SectionHeader>
 			<ExpandableList>{day.memories.map((memory, index) => <MemoryEntry key={`${memory.date}-${index}`} memory={memory} />)}</ExpandableList>
 		</View>)}
 		{older.failed ? <Note>{i18n.t("app:adventure.journal.unavailable")}</Note> : null}
-		{older.load ? <ButtonRow>
-			<Button onPress={older.pending ? undefined : older.load} disabled={older.pending}>{i18n.t("app:adventure.journal.more")}</Button>
-		</ButtonRow> : null}
+		{older.load
+			? <ButtonRow>
+				<Button onPress={older.pending ? undefined : older.load} disabled={older.pending}>{i18n.t("app:adventure.journal.more")}</Button>
+			</ButtonRow>
+			: null}
 	</>;
 }
 

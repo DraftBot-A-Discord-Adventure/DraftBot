@@ -1,34 +1,50 @@
-import {Fragment, ReactNode} from "react";
-import {useRouter} from "expo-router";
-import {NotificationType} from "ws-packets/src/objects/NotificationPreferences";
-import {NOTIFICATION_GROUPS, useNotificationPreferenceChange, useNotificationPreferences} from "@/src/store/useNotificationPreferences";
-import {NOTIFICATION_PERMISSIONS, useNotificationPermission} from "@/src/notifications/NotificationPermission";
-import {Page} from "@/src/design/DetailScreen";
-import {SectionHeader} from "@/src/design/Primitives";
-import {ActionBanner, ExpandableList, Refusal, Standing, SwitchRow} from "@/src/design/Sections";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {Bell} from "@/src/design/FightIcons";
-import {Theme} from "@/src/design/Theme";
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
+import {
+	Fragment, ReactNode
+} from "react";
+import { useRouter } from "expo-router";
+import { NotificationType } from "ws-packets/src/objects/NotificationPreferences";
+import {
+	NOTIFICATION_GROUPS, useNotificationPreferenceChange, useNotificationPreferences
+} from "@/src/store/useNotificationPreferences";
+import {
+	NOTIFICATION_PERMISSIONS, useNotificationPermission
+} from "@/src/notifications/NotificationPermission";
+import { Page } from "@/src/design/DetailScreen";
+import { SectionHeader } from "@/src/design/Primitives";
+import {
+	ActionBanner, ExpandableList, Refusal, Standing, SwitchRow
+} from "@/src/design/Sections";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { Bell } from "@/src/design/FightIcons";
+import { Theme } from "@/src/design/Theme";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
 
 const ROW_EMBLEM_SIZE = 24;
 
 /** The switches mean nothing while the phone refuses: the way to allow it comes before them. */
 function PermissionBanner(): ReactNode {
-	const {permission, allow} = useNotificationPermission();
-	if (permission === null || permission === NOTIFICATION_PERMISSIONS.GRANTED) return null;
+	const {
+		permission, allow
+	} = useNotificationPermission();
+	if (permission === null || permission === NOTIFICATION_PERMISSIONS.GRANTED) {
+		return null;
+	}
 	const blocked = permission === NOTIFICATION_PERMISSIONS.BLOCKED;
 	return <ActionBanner
 		icon={Bell}
 		label={i18n.t(blocked ? "app:settings.notifications.permission.openSettings" : "app:settings.notifications.permission.allow")}
-		hint={{reason: i18n.t("app:settings.notifications.permission.off")}}
+		hint={{ reason: i18n.t("app:settings.notifications.permission.off") }}
 		onPress={allow}
 		testID="notifications-permission"
 	/>;
 }
 
-function NotificationSwitch({type, value, pending, onChange}: {type: NotificationType; value: boolean | undefined; pending: boolean; onChange: (enabled: boolean) => void}): ReactNode {
+function NotificationSwitch({
+	type, value, pending, onChange
+}: {
+	type: NotificationType; value: boolean | undefined; pending: boolean; onChange: (enabled: boolean) => void;
+}): ReactNode {
 	return <SwitchRow
 		emblem={<TwemojiIcon emoji={AppIcons.getIcon(`notifications.types.${type}`)} size={ROW_EMBLEM_SIZE} />}
 		label={i18n.t(`app:settings.notifications.types.${type}`)}
@@ -64,7 +80,9 @@ export default function NotificationSettings(): ReactNode {
 					value={state.status === "ready" ? state.data.preferences[type] : undefined}
 					pending={change.pending}
 					onChange={(enabled): void => {
-						change.submit({type, enabled}).then();
+						change.submit({
+							type, enabled
+						}).then();
 					}}
 				/>)}
 			</ExpandableList>

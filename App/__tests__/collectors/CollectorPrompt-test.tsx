@@ -1,13 +1,14 @@
-import {ReactElement} from "react";
-import {fireEvent, render, screen} from "@testing-library/react-native";
-import {CollectorPrompt} from "@/src/collectors/CollectorPrompt";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	fireEvent, render, screen
+} from "@testing-library/react-native";
+import { CollectorPrompt } from "@/src/collectors/CollectorPrompt";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
 
 jest.mock("@/src/collectors/CollectorLabels", () => ({
 	collectorDescription: (): undefined => undefined,
 	collectorTitle: (): string => "collector title",
-	isChoosable: (reaction: {type: string}): boolean => reaction.type !== "unknown",
-	reactionLabel: (reaction: {type: string}): string => reaction.type === "unknown" ? "unknown choice" : "valid choice"
+	isChoosable: (reaction: { type: string }): boolean => reaction.type !== "unknown",
+	reactionLabel: (reaction: { type: string }): string => reaction.type === "unknown" ? "unknown choice" : "valid choice"
 }));
 
 jest.mock("@/src/translations/i18n", () => ({
@@ -15,7 +16,7 @@ jest.mock("@/src/translations/i18n", () => ({
 		t: (key: string): string => key
 	}
 }));
-jest.mock("@/src/display/Clock", () => ({clockTime: (): string => "12:30"}));
+jest.mock("@/src/display/Clock", () => ({ clockTime: (): string => "12:30" }));
 
 function collector(): ReactionCollectorCreation {
 	return {
@@ -23,11 +24,15 @@ function collector(): ReactionCollectorCreation {
 		endTime: Date.now() + 60_000,
 		data: {
 			type: "unknown",
-			data: {serverType: "test"}
+			data: { serverType: "test" }
 		},
 		reactions: [
-			{type: "accept", data: {}},
-			{type: "unknown", data: {serverType: "future"}}
+			{
+				type: "accept", data: {}
+			},
+			{
+				type: "unknown", data: { serverType: "future" }
+			}
 		]
 	};
 }
@@ -36,7 +41,7 @@ describe("CollectorPrompt", () => {
 	it("presents choices as explicit actions with the deadline after them instead of a countdown target", async () => {
 		await render(<CollectorPrompt collector={collector()} onChoose={jest.fn()} />);
 		expect(screen.getByText("app:collector.yourAction")).toBeTruthy();
-		expect(screen.getByRole("button", {name: "valid choice"})).toBeTruthy();
+		expect(screen.getByRole("button", { name: "valid choice" })).toBeTruthy();
 		expect(screen.getByText("app:collector.replyBefore")).toBeTruthy();
 		expect(screen.queryByText("app:collector.timeLeft")).toBeNull();
 	});
@@ -70,7 +75,9 @@ describe("CollectorPrompt", () => {
 		const view = await render(<CollectorPrompt collector={firstCollector} onChoose={onChoose} />);
 
 		await fireEvent.press(screen.getByText("valid choice"));
-		await view.rerender(<CollectorPrompt collector={{...firstCollector, id: "collector-2"}} onChoose={onChoose} />);
+		await view.rerender(<CollectorPrompt collector={{
+			...firstCollector, id: "collector-2"
+		}} onChoose={onChoose} />);
 		await fireEvent.press(screen.getByText("valid choice"));
 
 		expect(onChoose).toHaveBeenCalledTimes(2);
@@ -78,7 +85,9 @@ describe("CollectorPrompt", () => {
 
 	it("shows an expired reply deadline and does not submit any choice", async () => {
 		const onChoose = jest.fn();
-		await render(<CollectorPrompt collector={{...collector(), endTime: Date.now() - 1000}} onChoose={onChoose} />);
+		await render(<CollectorPrompt collector={{
+			...collector(), endTime: Date.now() - 1000
+		}} onChoose={onChoose} />);
 		expect(screen.getByText("app:collector.expired")).toBeTruthy();
 		await fireEvent.press(screen.getByText("valid choice"));
 		expect(onChoose).not.toHaveBeenCalled();
@@ -87,8 +96,10 @@ describe("CollectorPrompt", () => {
 	it("keeps the server index when an unavailable reaction precedes the selectable action", async () => {
 		const onChoose = jest.fn();
 		const incoming = collector();
-		await render(<CollectorPrompt collector={{...incoming, reactions: [...incoming.reactions].reverse()}} onChoose={onChoose} />);
-		await fireEvent.press(screen.getByRole("button", {name: "valid choice"}));
+		await render(<CollectorPrompt collector={{
+			...incoming, reactions: [...incoming.reactions].reverse()
+		}} onChoose={onChoose} />);
+		await fireEvent.press(screen.getByRole("button", { name: "valid choice" }));
 		expect(onChoose).toHaveBeenCalledWith(1);
 	});
 

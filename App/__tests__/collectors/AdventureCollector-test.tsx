@@ -1,28 +1,37 @@
-import type {ReactElement} from "react";
-import {fireEvent, render, screen} from "@testing-library/react-native";
-import {Image, Platform} from "react-native";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import type { ReactElement } from "react";
+import {
+	fireEvent, render, screen
+} from "@testing-library/react-native";
+import {
+	Image, Platform
+} from "react-native";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
 import {
 	BIG_EVENT_DATA_KINDS, BIG_EVENT_REACTION_KINDS, GENERIC_REACTION_KINDS,
 	REPORT_COLLECTOR_DATA_KINDS, REPORT_COLLECTOR_REACTION_KINDS,
 	SMALL_EVENT_DATA_KINDS, SMALL_EVENT_REACTION_KINDS, CITY_DATA_KINDS, CITY_REACTION_KINDS,
 	SHOP_DATA_KINDS, SHOP_REACTION_KINDS
 } from "ws-packets/src/fromServer/collectors";
-import {ReportBigEventResultRes} from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
+import { ReportBigEventResultRes } from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
 import {
 	SmallEventWitchResultRes, WITCH_OUTCOMES
 } from "ws-packets/src/fromServer/smallEvents/SmallEventWitchResultRes";
 import {
 	AdventureCollector, BigEventOutcome, HealOutcome, LotteryOutcome, TokenOutcome, WitchOutcome
 } from "@/src/collectors/AdventureCollector";
-import {CityMenu} from "@/src/collectors/CityCollector";
-import {PveFightOutcomeScreen} from "@/src/collectors/PveFightCollector";
-import {PVE_FIGHT_OUTCOMES} from "@/src/collectors/ReportEventStore";
-import {ADVENTURE_MISSIONS} from "@/src/navigation/AdventureTools";
+import { CityMenu } from "@/src/collectors/CityCollector";
+import { PveFightOutcomeScreen } from "@/src/collectors/PveFightCollector";
+import { PVE_FIGHT_OUTCOMES } from "@/src/collectors/ReportEventStore";
+import { ADVENTURE_MISSIONS } from "@/src/navigation/AdventureTools";
 
 const mockPush = jest.fn();
 const mockNavigate = jest.fn();
-jest.mock("expo-router", () => ({useFocusEffect: jest.fn(), useRouter: () => ({push: mockPush, navigate: mockNavigate})}));
+jest.mock("expo-router", () => ({
+	useFocusEffect: jest.fn(),
+	useRouter: () => ({
+		push: mockPush, navigate: mockNavigate
+	})
+}));
 
 jest.mock("@/src/onboarding/Contest", () => ({
 	useContest: (): null => null
@@ -43,9 +52,11 @@ jest.mock("@/src/collectors/CollectorLabels", () => ({
 	itemDisplayName: (): string => "offered-item",
 	itemIconPath: (): null => null,
 	isChoosable: (): boolean => true,
-	isEventPrompt: (data: {type: string}): boolean => data.type.startsWith("smallEvent") || data.type.startsWith("bigEvent"),
+	isEventPrompt: (data: { type: string }): boolean => data.type.startsWith("smallEvent") || data.type.startsWith("bigEvent"),
 	eventPromptIcon: (): undefined => undefined,
-	reactionLabel: (reaction: {type: string; data: {name?: string}}): string => reaction.data.name ?? reaction.type
+	reactionLabel: (reaction: {
+		type: string; data: { name?: string };
+	}): string => reaction.data.name ?? reaction.type
 }));
 
 jest.mock("@/src/translations/i18n", () => ({
@@ -56,7 +67,9 @@ jest.mock("@/src/translations/i18n", () => ({
 }));
 
 jest.mock("@/src/store/usePlayerProfile", () => ({
-	usePlayerProfile: (): object => ({status: "ready", data: {pseudo: "Drapht"}})
+	usePlayerProfile: (): object => ({
+		status: "ready", data: { pseudo: "Drapht" }
+	})
 }));
 
 const mockMapState = jest.fn();
@@ -70,10 +83,22 @@ function destinationCollector(): ReactionCollectorCreation {
 	return {
 		id: "destination",
 		endTime: Date.now() + 60_000,
-		data: {type: REPORT_COLLECTOR_DATA_KINDS.DESTINATION, data: {}},
+		data: {
+			type: REPORT_COLLECTOR_DATA_KINDS.DESTINATION, data: {}
+		},
 		reactions: [
-			{type: REPORT_COLLECTOR_REACTION_KINDS.DESTINATION, data: {mapId: 2, mapTypeId: "fo", tripDurationMinutes: 60}},
-			{type: REPORT_COLLECTOR_REACTION_KINDS.DESTINATION, data: {mapId: 3, mapTypeId: "mo", tripDurationMinutes: 90}}
+			{
+				type: REPORT_COLLECTOR_REACTION_KINDS.DESTINATION,
+				data: {
+					mapId: 2, mapTypeId: "fo", tripDurationMinutes: 60
+				}
+			},
+			{
+				type: REPORT_COLLECTOR_REACTION_KINDS.DESTINATION,
+				data: {
+					mapId: 3, mapTypeId: "mo", tripDurationMinutes: 90
+				}
+			}
 		]
 	};
 }
@@ -84,12 +109,16 @@ function smallEvent(): ReactionCollectorCreation {
 		endTime: Date.now() + 60_000,
 		data: {
 			type: SMALL_EVENT_DATA_KINDS.ALTAR,
-			data: {poolAmount: 10, poolThreshold: 100}
+			data: {
+				poolAmount: 10, poolThreshold: 100
+			}
 		},
-		reactions: [{
-			type: SMALL_EVENT_REACTION_KINDS.ALTAR_CONTRIBUTE,
-			data: {amount: 5}
-		}]
+		reactions: [
+			{
+				type: SMALL_EVENT_REACTION_KINDS.ALTAR_CONTRIBUTE,
+				data: { amount: 5 }
+			}
+		]
 	};
 }
 
@@ -100,7 +129,9 @@ function bigEventOutcome(): ReportBigEventResultRes {
 		outcomeId: "success",
 		score: 15,
 		experience: 10,
-		effect: {name: "slowed", time: 15},
+		effect: {
+			name: "slowed", time: 15
+		},
 		health: -3,
 		money: 20,
 		energy: -2,
@@ -116,8 +147,12 @@ function confirmationCollector(id: string, data: ReactionCollectorCreation["data
 		endTime: Date.now() + 60_000,
 		data,
 		reactions: [
-			{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}},
-			{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
+			{
+				type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+			},
+			{
+				type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+			}
 		]
 	};
 }
@@ -164,77 +199,159 @@ function cityCollector(): ReactionCollectorCreation {
 				availableServices: ["blacksmith", "bossArchivist"],
 				snapshot: {
 					home: {
-					owned: {
-						level: 3,
-						bedHealthRegeneration: 12,
-						gardenPlots: 0,
-						hasBed: true,
-						hasChest: false,
-						hasGarden: false,
-						hasCooking: false,
-						hasUpgradeStation: false,
-						upgradeableItemCount: 0
-					}
-				},
-					shops: [{shopId: "generalShop", isEmpty: true}],
+						owned: {
+							level: 3,
+							bedHealthRegeneration: 12,
+							gardenPlots: 0,
+							hasBed: true,
+							hasChest: false,
+							hasGarden: false,
+							hasCooking: false,
+							hasUpgradeStation: false,
+							upgradeableItemCount: 0
+						}
+					},
+					shops: [
+						{
+							shopId: "generalShop", isEmpty: true
+						}
+					],
 					guildFoodShop: {
-						guildName: "Les tests", playerMoney: 0, treasury: 0,
-						food: {common: 0, herbivorous: 0, carnivorous: 0, ultimate: 0},
-						foodCaps: [150, 90, 90, 30], foodPrices: [20, 250, 250, 600],
-						maxBuyableFood: [0, 0, 0, 0], maxFoodCosts: [0, 0, 0, 0], canUseShop: true
+						guildName: "Les tests",
+						playerMoney: 0,
+						treasury: 0,
+						food: {
+							common: 0, herbivorous: 0, carnivorous: 0, ultimate: 0
+						},
+						foodCaps: [
+							150,
+							90,
+							90,
+							30
+						],
+						foodPrices: [
+							20,
+							250,
+							250,
+							600
+						],
+						maxBuyableFood: [
+							0,
+							0,
+							0,
+							0
+						],
+						maxFoodCosts: [
+							0,
+							0,
+							0,
+							0
+						],
+						canUseShop: true
 					}
 				}
 			}
 		},
 		reactions: [
-			{type: CITY_REACTION_KINDS.EXIT, data: {}},
-			{type: CITY_REACTION_KINDS.HOME_MENU, data: {}},
-			{type: CITY_REACTION_KINDS.BLACKSMITH_MENU, data: {}},
-			{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
+			{
+				type: CITY_REACTION_KINDS.EXIT, data: {}
+			},
+			{
+				type: CITY_REACTION_KINDS.HOME_MENU, data: {}
+			},
+			{
+				type: CITY_REACTION_KINDS.BLACKSMITH_MENU, data: {}
+			},
+			{
+				type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+			}
 		]
 	};
 }
 
 function cityHomePurchase(price = 950, canBuy = true): ReactionCollectorCreation {
 	const collector = cityCollector();
-	if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
+	if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+		throw new Error("Expected a city collector fixture");
+	}
 	const cityData = collector.data.data;
 	collector.data = {
 		type: CITY_DATA_KINDS.CITY,
 		data: {
 			...cityData,
-			snapshot: {...cityData.snapshot, home: {manage: {newPrice: price, currentMoney: 2_000, canBuy}}}
+			snapshot: {
+				...cityData.snapshot,
+				home: { manage: {
+					newPrice: price, currentMoney: 2_000, canBuy
+				} }
+			}
 		}
 	};
-	collector.reactions.splice(1, 0, {type: CITY_REACTION_KINDS.BUY_HOME, data: {}});
+	collector.reactions.splice(1, 0, {
+		type: CITY_REACTION_KINDS.BUY_HOME, data: {}
+	});
 	return collector;
 }
 
 /** A city with one inn serving a meal and a room, possibly still waiting to serve them again. */
-function cityInn(innCooldowns?: {mealAvailableAt?: number; roomAvailableAt?: number}): ReactionCollectorCreation {
+function cityInn(innCooldowns?: {
+	mealAvailableAt?: number; roomAvailableAt?: number;
+}): ReactionCollectorCreation {
 	const collector = cityCollector();
-	if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
-	collector.data.data.snapshot = {...collector.data.data.snapshot, inns: [{innId: "goldenInn"}], ...innCooldowns ? {innCooldowns} : {}};
+	if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+		throw new Error("Expected a city collector fixture");
+	}
+	collector.data.data.snapshot = {
+		...collector.data.data.snapshot, inns: [{ innId: "goldenInn" }], ...innCooldowns ? { innCooldowns } : {}
+	};
 	collector.reactions.splice(1, 0,
-		{type: CITY_REACTION_KINDS.INN_MEAL, data: {innId: "goldenInn", mealId: "soup", price: 20, energy: 40}},
-		{type: CITY_REACTION_KINDS.INN_ROOM, data: {innId: "goldenInn", roomId: "suite", price: 50, health: 60}});
+		{
+			type: CITY_REACTION_KINDS.INN_MEAL,
+			data: {
+				innId: "goldenInn", mealId: "soup", price: 20, energy: 40
+			}
+		},
+		{
+			type: CITY_REACTION_KINDS.INN_ROOM,
+			data: {
+				innId: "goldenInn", roomId: "suite", price: 50, health: 60
+			}
+		});
 	return collector;
 }
 
 /** A shop selling one item, closed by the reaction right after it. */
-function shopCollector(id: string, data: {availableCurrency: number; shopId?: string}, item: {shopItemId: number; shopCategoryId: string}): ReactionCollectorCreation {
+function shopCollector(id: string, data: {
+	availableCurrency: number; shopId?: string;
+}, item: {
+	shopItemId: number; shopCategoryId: string;
+}): ReactionCollectorCreation {
 	return {
 		id,
 		endTime: Date.now() + 60_000,
-		data: {type: SHOP_DATA_KINDS.COLLECTOR, data: {currency: "gem", ...data}},
+		data: {
+			type: SHOP_DATA_KINDS.COLLECTOR,
+			data: {
+				currency: "gem", ...data
+			}
+		},
 		reactions: [
-			{type: SHOP_REACTION_KINDS.ITEM, data: {...item, amount: 1, price: 3}},
-			{type: SHOP_REACTION_KINDS.CLOSE, data: {}}
+			{
+				type: SHOP_REACTION_KINDS.ITEM,
+				data: {
+					...item, amount: 1, price: 3
+				}
+			},
+			{
+				type: SHOP_REACTION_KINDS.CLOSE, data: {}
+			}
 		]
 	};
 }
 
-const VETERINARIAN_TREATMENT = {shopItemId: 14, shopCategoryId: "services"};
+const VETERINARIAN_TREATMENT = {
+	shopItemId: 14, shopCategoryId: "services"
+};
 
 function merchantCollector(): ReactionCollectorCreation {
 	return {
@@ -242,12 +359,20 @@ function merchantCollector(): ReactionCollectorCreation {
 		endTime: Date.now() + 60_000,
 		data: {
 			type: REPORT_COLLECTOR_DATA_KINDS.TOKEN_MERCHANT,
-			data: {pricePerToken: 375, playerMoney: 2_000, playerTokens: 0, maxTokens: 20, maxDaily: 10, maxWeekly: 30, amounts: [1, 5]}
+			data: {
+				pricePerToken: 375, playerMoney: 2_000, playerTokens: 0, maxTokens: 20, maxDaily: 10, maxWeekly: 30, amounts: [1, 5]
+			}
 		},
 		reactions: [
-			{type: REPORT_COLLECTOR_REACTION_KINDS.TOKEN_MERCHANT_BUY, data: {amount: 1}},
-			{type: REPORT_COLLECTOR_REACTION_KINDS.TOKEN_MERCHANT_BUY, data: {amount: 5}},
-			{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
+			{
+				type: REPORT_COLLECTOR_REACTION_KINDS.TOKEN_MERCHANT_BUY, data: { amount: 1 }
+			},
+			{
+				type: REPORT_COLLECTOR_REACTION_KINDS.TOKEN_MERCHANT_BUY, data: { amount: 5 }
+			},
+			{
+				type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+			}
 		]
 	};
 }
@@ -284,7 +409,12 @@ const collectorScenarios: CollectorScenario[] = [
 		name: "tells the PVE island invitation with the Discord text before its choices",
 		collector: () => confirmationCollector("pve-island", {
 			type: SMALL_EVENT_DATA_KINDS.PVE_ISLAND,
-			data: {price: 0, energy: {current: 80, max: 100}}
+			data: {
+				price: 0,
+				energy: {
+					current: 80, max: 100
+				}
+			}
 		}),
 		choiceText: GENERIC_REACTION_KINDS.ACCEPT,
 		assertView: () => {
@@ -297,10 +427,16 @@ const collectorScenarios: CollectorScenario[] = [
 		collector: () => ({
 			id: "big-event",
 			endTime: Date.now() + 60_000,
-			data: {type: BIG_EVENT_DATA_KINDS.COLLECTOR, data: {eventId: 18}},
+			data: {
+				type: BIG_EVENT_DATA_KINDS.COLLECTOR, data: { eventId: 18 }
+			},
 			reactions: [
-				{type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: {name: "end"}},
-				{type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: {name: "search"}}
+				{
+					type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "end" }
+				},
+				{
+					type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "search" }
+				}
 			]
 		}),
 		choiceText: "search",
@@ -319,9 +455,15 @@ const collectorScenarios: CollectorScenario[] = [
 					rarity: 1,
 					itemCategory: 0,
 					itemLevel: 2,
-					attack: {baseValue: 1, upgradeValue: 2, maxValue: 3},
-					defense: {baseValue: 1, upgradeValue: 2, maxValue: 3},
-					speed: {baseValue: 1, upgradeValue: 2, maxValue: 3}
+					attack: {
+						baseValue: 1, upgradeValue: 2, maxValue: 3
+					},
+					defense: {
+						baseValue: 1, upgradeValue: 2, maxValue: 3
+					},
+					speed: {
+						baseValue: 1, upgradeValue: 2, maxValue: 3
+					}
 				},
 				price: 200
 			}
@@ -339,7 +481,9 @@ const collectorScenarios: CollectorScenario[] = [
 			type: SMALL_EVENT_DATA_KINDS.RECIPE_SHOP,
 			data: {
 				source: "farmer",
-				recipe: {recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"},
+				recipe: {
+					recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"
+				},
 				recipeCost: 300
 			}
 		}),
@@ -355,7 +499,9 @@ const collectorScenarios: CollectorScenario[] = [
 			type: SMALL_EVENT_DATA_KINDS.RECIPE_SHOP,
 			data: {
 				source: "farmer",
-				recipe: {recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"},
+				recipe: {
+					recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"
+				},
 				recipeCost: 300
 			}
 		}),
@@ -368,7 +514,10 @@ const collectorScenarios: CollectorScenario[] = [
 	{
 		name: "renders the confirmation before spending travel tokens",
 		collector: () => confirmationCollector("use-tokens", {
-			type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 2, playerTokens: 5}
+			type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+			data: {
+				cost: 2, playerTokens: 5
+			}
 		}),
 		choiceText: "app:adventure.tokens.use.confirm",
 		assertView: () => {
@@ -380,7 +529,10 @@ const collectorScenarios: CollectorScenario[] = [
 	{
 		name: "renders the alteration cure confirmation with the server price",
 		collector: () => confirmationCollector("buy-heal", {
-			type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL, data: {healPrice: 410, playerMoney: 1_000}
+			type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL,
+			data: {
+				healPrice: 410, playerMoney: 1_000
+			}
 		}),
 		choiceText: "app:adventure.heal.use.confirm",
 		assertView: () => {
@@ -409,7 +561,9 @@ const outcomeScenarios: OutcomeScenario[] = [
 				timeLostMinutes: 15,
 				lifeLoss: 10,
 				outcome: WITCH_OUTCOMES.POTION,
-				discoveredRecipe: {recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"}
+				discoveredRecipe: {
+					recipeId: "healthPotion", level: 2, recipeType: "POTION_HEALTH"
+				}
 			} as SmallEventWitchResultRes}
 			onContinue={onContinue}
 		/>,
@@ -437,7 +591,9 @@ const outcomeScenarios: OutcomeScenario[] = [
 	{
 		name: "leaves out the effects section when a big event changed nothing for the player",
 		renderOutcome: onContinue => <BigEventOutcome
-			outcome={{...bigEventOutcome(), score: 0, experience: 0, health: 0, money: 0, energy: 0, gems: 0, tokens: 0, effect: undefined}}
+			outcome={{
+				...bigEventOutcome(), score: 0, experience: 0, health: 0, money: 0, energy: 0, gems: 0, tokens: 0, effect: undefined
+			}}
 			onContinue={onContinue}
 		/>,
 		continueText: "app:adventure.event.continue",
@@ -447,7 +603,9 @@ const outcomeScenarios: OutcomeScenario[] = [
 	},
 	{
 		name: "shows a token purchase result before returning to the journey",
-		renderOutcome: onContinue => <TokenOutcome outcome={{kind: "bought", packet: {amount: 5}}} onContinue={onContinue} />,
+		renderOutcome: onContinue => <TokenOutcome outcome={{
+			kind: "bought", packet: { amount: 5 }
+		}} onContinue={onContinue} />,
 		continueText: "app:adventure.tokens.continue",
 		assertView: () => {
 			expect(screen.getByText("commands:report.tokenMerchant.boughtTitle")).toBeTruthy();
@@ -457,7 +615,9 @@ const outcomeScenarios: OutcomeScenario[] = [
 	},
 	{
 		name: "sends the player back on the road with ways to earn tokens once the merchant has sold out",
-		renderOutcome: onContinue => <TokenOutcome outcome={{kind: "tooMuch", packet: {}}} onContinue={onContinue} />,
+		renderOutcome: onContinue => <TokenOutcome outcome={{
+			kind: "tooMuch", packet: {}
+		}} onContinue={onContinue} />,
 		continueText: "app:adventure.tokens.away.continue",
 		assertView: () => {
 			expect(screen.getByText("app:adventure.tokens.away.title")).toBeTruthy();
@@ -467,7 +627,12 @@ const outcomeScenarios: OutcomeScenario[] = [
 	},
 	{
 		name: "shows the cure result before returning to the journey",
-		renderOutcome: onContinue => <HealOutcome outcome={{kind: "accepted", packet: {healPrice: 410, isArrived: false}}} onContinue={onContinue} />,
+		renderOutcome: onContinue => <HealOutcome outcome={{
+			kind: "accepted",
+			packet: {
+				healPrice: 410, isArrived: false
+			}
+		}} onContinue={onContinue} />,
 		continueText: "app:adventure.heal.continue",
 		assertView: () => {
 			expect(screen.getByText("commands:report.healSuccessTitle")).toBeTruthy();
@@ -480,7 +645,9 @@ const outcomeScenarios: OutcomeScenario[] = [
 		renderOutcome: onContinue => <LotteryOutcome
 			outcome={{
 				kind: "win",
-				packet: {lostTime: 15, winAmount: 40, winReward: "money", level: "medium"}
+				packet: {
+					lostTime: 15, winAmount: 40, winReward: "money", level: "medium"
+				}
 			}}
 			onContinue={onContinue}
 		/>,
@@ -524,7 +691,9 @@ describe("AdventureCollector", () => {
 	it("opens a city top-level menu locally before submitting a nested action", async () => {
 		const onChoose = jest.fn();
 		const collector = cityCollector();
-		collector.reactions.splice(2, 0, {type: CITY_REACTION_KINDS.HOME_BED, data: {}});
+		collector.reactions.splice(2, 0, {
+			type: CITY_REACTION_KINDS.HOME_BED, data: {}
+		});
 		await render(<AdventureCollector collector={collector} onChoose={onChoose} submitting={false} />);
 
 		await fireEvent.press(screen.getByText("app:city.labels.home"));
@@ -546,15 +715,21 @@ describe("AdventureCollector", () => {
 		mockPush.mockClear();
 		const onChoose = jest.fn();
 		const collector = cityCollector();
-		if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected city fixture");
+		if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+			throw new Error("Expected city fixture");
+		}
 		const home = collector.data.data.snapshot?.home?.owned;
-		if (!home) throw new Error("Expected home fixture");
+		if (!home) {
+			throw new Error("Expected home fixture");
+		}
 		home.hasChest = true;
 		home.hasCooking = true;
 		await render(<AdventureCollector collector={collector} onChoose={onChoose} submitting={false} />);
 		await fireEvent.press(screen.getByText("app:city.labels.home"));
 		await fireEvent.press(screen.getByText(label));
-		expect(mockPush).toHaveBeenCalledWith({pathname: "/home/[service]", params: {service}});
+		expect(mockPush).toHaveBeenCalledWith({
+			pathname: "/home/[service]", params: { service }
+		});
 		expect(onChoose).not.toHaveBeenCalled();
 	});
 
@@ -601,7 +776,9 @@ describe("AdventureCollector", () => {
 		jest.replaceProperty(Platform, "OS", "android");
 		const onChoose = jest.fn();
 		const hour = 3_600_000;
-		await render(<CityMenu collector={cityInn({mealAvailableAt: Date.now() + 3 * hour, roomAvailableAt: Date.now() + 5 * hour})} onChoose={onChoose} submitting={false} />);
+		await render(<CityMenu collector={cityInn({
+			mealAvailableAt: Date.now() + 3 * hour, roomAvailableAt: Date.now() + 5 * hour
+		})} onChoose={onChoose} submitting={false} />);
 		await fireEvent.press(screen.getByText("app:city.labels.inn"));
 		expect(screen.getByText("app:city.locks.mealCooldown")).toBeTruthy();
 		expect(screen.getByText("app:city.locks.roomCooldown")).toBeTruthy();
@@ -612,7 +789,7 @@ describe("AdventureCollector", () => {
 	});
 
 	it("serves an inn meal again once the time Core sent has passed", async () => {
-		await render(<CityMenu collector={cityInn({mealAvailableAt: Date.now() - 1_000})} onChoose={jest.fn()} submitting={false} />);
+		await render(<CityMenu collector={cityInn({ mealAvailableAt: Date.now() - 1_000 })} onChoose={jest.fn()} submitting={false} />);
 		await fireEvent.press(screen.getByText("app:city.labels.inn"));
 		expect(screen.queryByText("app:city.locks.mealCooldown")).toBeNull();
 	});
@@ -632,8 +809,15 @@ describe("AdventureCollector", () => {
 
 	it("shows the next home upgrade greyed with the level it needs, instead of leaving it out", async () => {
 		const collector = cityHomePurchase();
-		if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
-		collector.data.data.snapshot = {...collector.data.data.snapshot, home: {manage: {currentMoney: 2_000, requiredPlayerLevelForUpgrade: 70}}};
+		if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+			throw new Error("Expected a city collector fixture");
+		}
+		collector.data.data.snapshot = {
+			...collector.data.data.snapshot,
+			home: { manage: {
+				currentMoney: 2_000, requiredPlayerLevelForUpgrade: 70
+			} }
+		};
 		collector.reactions = collector.reactions.filter(reaction => reaction.type !== CITY_REACTION_KINDS.BUY_HOME);
 		await render(<CityMenu collector={collector} onChoose={jest.fn()} submitting={false} />);
 
@@ -644,11 +828,22 @@ describe("AdventureCollector", () => {
 
 	it("says where the home stands in a city without it, and that an apartment here would open it", async () => {
 		const collector = cityCollector();
-		if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
+		if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+			throw new Error("Expected a city collector fixture");
+		}
 		collector.data.data.snapshot = {
 			...collector.data.data.snapshot,
-			home: {elsewhere: {mapLocationId: 23, level: 2, hasCooking: true}},
-			apartmentNotary: {forSale: {price: 9_000, canAfford: true}, ownedApartments: [], ownedCount: 0, accumulatedRent: 0}
+			home: { elsewhere: {
+				mapLocationId: 23, level: 2, hasCooking: true
+			} },
+			apartmentNotary: {
+				forSale: {
+					price: 9_000, canAfford: true
+				},
+				ownedApartments: [],
+				ownedCount: 0,
+				accumulatedRent: 0
+			}
 		};
 		collector.reactions = collector.reactions.filter(reaction => reaction.type !== CITY_REACTION_KINDS.HOME_MENU);
 		await render(<CityMenu collector={collector} onChoose={jest.fn()} submitting={false} />);
@@ -659,16 +854,36 @@ describe("AdventureCollector", () => {
 
 	it("tells on the notary's row that rent waits, so collecting it teaches what apartments earn", async () => {
 		const collector = cityHomePurchase();
-		if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
-		collector.data.data.snapshot = {...collector.data.data.snapshot, apartmentNotary: {ownedApartments: [{apartmentId: 1, mapLocationId: 23, accumulatedRent: 424, isRented: true, canClaim: true}], ownedCount: 1, accumulatedRent: 424}};
+		if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+			throw new Error("Expected a city collector fixture");
+		}
+		collector.data.data.snapshot = {
+			...collector.data.data.snapshot,
+			apartmentNotary: {
+				ownedApartments: [
+					{
+						apartmentId: 1, mapLocationId: 23, accumulatedRent: 424, isRented: true, canClaim: true
+					}
+				],
+				ownedCount: 1,
+				accumulatedRent: 424
+			}
+		};
 		await render(<CityMenu collector={collector} onChoose={jest.fn()} submitting={false} />);
 		expect(screen.getByText("app:city.subtitles.notaryRent")).toBeTruthy();
 	});
 
 	it("shows a homeless player the apartment the notary will sell once they own a home", async () => {
 		const collector = cityHomePurchase();
-		if (collector.data.type !== CITY_DATA_KINDS.CITY) throw new Error("Expected a city collector fixture");
-		collector.data.data.snapshot = {...collector.data.data.snapshot, apartmentNotary: {ownedApartments: [], ownedCount: 0, accumulatedRent: 0, requiresHomePrice: 6_000}};
+		if (collector.data.type !== CITY_DATA_KINDS.CITY) {
+			throw new Error("Expected a city collector fixture");
+		}
+		collector.data.data.snapshot = {
+			...collector.data.data.snapshot,
+			apartmentNotary: {
+				ownedApartments: [], ownedCount: 0, accumulatedRent: 0, requiresHomePrice: 6_000
+			}
+		};
 		await render(<CityMenu collector={collector} onChoose={jest.fn()} submitting={false} />);
 
 		await fireEvent.press(screen.getByText("app:city.actions.notary"));
@@ -691,7 +906,9 @@ describe("AdventureCollector", () => {
 	it("presents a commerce with its purse and says what the purchase does before buying", async () => {
 		const platform = jest.replaceProperty(Platform, "OS", "android");
 		const onChoose = jest.fn();
-		const collector = shopCollector("veterinarian", {availableCurrency: 51, shopId: "veterinarian"}, VETERINARIAN_TREATMENT);
+		const collector = shopCollector("veterinarian", {
+			availableCurrency: 51, shopId: "veterinarian"
+		}, VETERINARIAN_TREATMENT);
 		await render(<AdventureCollector collector={collector} onChoose={onChoose} submitting={false} />);
 
 		expect(screen.getByText("commands:report.city.shops.veterinarian.label")).toBeTruthy();
@@ -708,7 +925,9 @@ describe("AdventureCollector", () => {
 
 	it("leaves a commerce through the back chevron", async () => {
 		const onChoose = jest.fn();
-		const collector = shopCollector("leaving-shop", {availableCurrency: 51, shopId: "veterinarian"}, VETERINARIAN_TREATMENT);
+		const collector = shopCollector("leaving-shop", {
+			availableCurrency: 51, shopId: "veterinarian"
+		}, VETERINARIAN_TREATMENT);
 		await render(<AdventureCollector collector={collector} onChoose={onChoose} submitting={false} />);
 
 		await fireEvent.press(screen.getByLabelText("app:city.shop.close"));
@@ -717,12 +936,16 @@ describe("AdventureCollector", () => {
 
 	it("says on the row why an article costs more than the available currency, and does not buy it", async () => {
 		const onChoose = jest.fn();
-		const collector = shopCollector("unaffordable-shop", {availableCurrency: 2}, {shopItemId: 4, shopCategoryId: "slots"});
+		const collector = shopCollector("unaffordable-shop", { availableCurrency: 2 }, {
+			shopItemId: 4, shopCategoryId: "slots"
+		});
 		await render(<AdventureCollector collector={collector} onChoose={onChoose} submitting={false} />);
 
 		expect(screen.getByText("app:city.locks.missingMoney")).toBeTruthy();
 		await fireEvent.press(screen.getByText("commands:shop.shopItems.slotExtension.name"));
-		expect(screen.getByRole("button", {name: "app:city.shop.buyFor", disabled: true})).toBeTruthy();
+		expect(screen.getByRole("button", {
+			name: "app:city.shop.buyFor", disabled: true
+		})).toBeTruthy();
 		expect(onChoose).not.toHaveBeenCalled();
 	});
 
@@ -731,18 +954,25 @@ describe("AdventureCollector", () => {
 	});
 
 	it("shows the map above the destination choices", async () => {
-		mockMapState.mockReturnValue({status: "ready", data: {mapId: 1, mapType: "ci", hasArrived: true, imageUrl: MAP_IMAGE_URL}});
-		jest.spyOn(Image, "getSize").mockImplementationOnce(() => Promise.resolve({width: 4096, height: 2744}));
+		mockMapState.mockReturnValue({
+			status: "ready",
+			data: {
+				mapId: 1, mapType: "ci", hasArrived: true, imageUrl: MAP_IMAGE_URL
+			}
+		});
+		jest.spyOn(Image, "getSize").mockImplementationOnce(() => Promise.resolve({
+			width: 4096, height: 2744
+		}));
 		const onChoose = jest.fn();
 		await render(<AdventureCollector collector={destinationCollector()} onChoose={onChoose} submitting={false} />);
 
-		expect(screen.getByLabelText("app:map.image").props.source).toEqual({uri: MAP_IMAGE_URL});
+		expect(screen.getByLabelText("app:map.image").props.source).toEqual({ uri: MAP_IMAGE_URL });
 		await fireEvent.press(screen.getAllByText(REPORT_COLLECTOR_REACTION_KINDS.DESTINATION)[1]);
 		expect(onChoose).toHaveBeenCalledWith(1);
 	});
 
 	it("keeps the destination choices answerable when the map cannot be loaded", async () => {
-		mockMapState.mockReturnValue({status: "error"});
+		mockMapState.mockReturnValue({ status: "error" });
 		const onChoose = jest.fn();
 		await render(<AdventureCollector collector={destinationCollector()} onChoose={onChoose} submitting={false} />);
 
@@ -754,16 +984,27 @@ describe("AdventureCollector", () => {
 });
 
 describe("island boss encounter", () => {
-	const monster = {id: "forestTroll", level: 42, energy: 1_500, attack: 310, defense: 180, speed: 90};
+	const monster = {
+		id: "forestTroll", level: 42, energy: 1_500, attack: 310, defense: 180, speed: 90
+	};
 
 	it("introduces the boss with its statistics and answers at the original indexes", async () => {
 		const onChoose = jest.fn();
-		await render(<AdventureCollector collector={confirmationCollector("pve-fight", {type: REPORT_COLLECTOR_DATA_KINDS.PVE_FIGHT, data: {monster, mapId: 1001}})} onChoose={onChoose} submitting={false} />);
+		await render(<AdventureCollector collector={confirmationCollector("pve-fight", {
+			type: REPORT_COLLECTOR_DATA_KINDS.PVE_FIGHT,
+			data: {
+				monster, mapId: 1001
+			}
+		})} onChoose={onChoose} submitting={false} />);
 
 		expect(screen.getByText("small-event-description")).toBeTruthy();
 		expect(screen.getByText("models:monsters.forestTroll.name")).toBeTruthy();
 		expect(screen.getByText("models:monsters.forestTroll.description")).toBeTruthy();
-		for (const value of ["310", "180", "90"]) expect(screen.getByText(value)).toBeTruthy();
+		for (const value of [
+			"310",
+			"180",
+			"90"
+		]) { expect(screen.getByText(value)).toBeTruthy(); }
 
 		await fireEvent.press(screen.getByText(GENERIC_REACTION_KINDS.REFUSE));
 		expect(onChoose).toHaveBeenCalledWith(1);

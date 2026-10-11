@@ -1,5 +1,7 @@
-import {AppStateFlag} from "ws-packets/src/objects/AppState";
-import {useAppState, useAppStateChange} from "@/src/store/AppState";
+import { AppStateFlag } from "ws-packets/src/objects/AppState";
+import {
+	useAppState, useAppStateChange
+} from "@/src/store/AppState";
 
 /** The moments of the contest the guide stages once per character, then never again; Core keeps them. */
 export const ONBOARDING_MOMENTS = {
@@ -24,6 +26,7 @@ export const ONBOARDING_MOMENTS = {
 export type OnboardingMoment = typeof ONBOARDING_MOMENTS[keyof typeof ONBOARDING_MOMENTS];
 
 export type OnboardingMoments = {
+
 	/** Unknown until Core has told what was shown: nothing is staged before. */
 	ready: boolean;
 	seen: (moment: OnboardingMoment) => boolean;
@@ -37,8 +40,10 @@ export function useOnboardingMoments(): OnboardingMoments {
 	return {
 		ready: seen !== null,
 		seen: moment => seen?.includes(moment) ?? true,
-		mark: moment => {
-			if (seen && !seen.includes(moment)) change({seen: [moment]});
+		mark: (moment): void => {
+			if (seen && !seen.includes(moment)) {
+				change({ seen: [moment] });
+			}
 		}
 	};
 }

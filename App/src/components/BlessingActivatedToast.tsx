@@ -1,10 +1,12 @@
-import {ReactNode} from "react";
-import {AppIcons} from "@/src/AppIcons";
-import {useAnnouncementTurn} from "@/src/components/useToastTurn";
-import {Toast} from "@/src/design/Sections";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {blessingAnnouncementStore, useBlessingAnnouncement} from "@/src/store/BlessingAnnouncementStore";
-import {i18n} from "@/src/translations/i18n";
+import { ReactNode } from "react";
+import { AppIcons } from "@/src/AppIcons";
+import { useAnnouncementTurn } from "@/src/components/useToastTurn";
+import { Toast } from "@/src/design/Sections";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import {
+	blessingAnnouncementStore, useBlessingAnnouncement
+} from "@/src/store/BlessingAnnouncementStore";
+import { i18n } from "@/src/translations/i18n";
 
 const TOAST_EMBLEM_SIZE = 24;
 
@@ -12,10 +14,12 @@ const TOAST_EMBLEM_SIZE = 24;
 export function BlessingActivatedToast(): ReactNode {
 	const blessing = useBlessingAnnouncement();
 	const myTurn = useAnnouncementTurn();
-	if (!myTurn || !blessing) return null;
+	if (!myTurn || !blessing) {
+		return null;
+	}
 	return <Toast
 		emblem={<TwemojiIcon emoji={AppIcons.getIcon("announcements.blessing")} size={TOAST_EMBLEM_SIZE} />}
-		title={i18n.t("app:reference.blessing.activated", {name: i18n.t(`bot:blessingNames.${blessing.blessingType}`)})}
+		title={i18n.t("app:reference.blessing.activated", { name: i18n.t(`bot:blessingNames.${blessing.blessingType}`) })}
 		subtitle={i18n.t(`bot:blessingEffects.${blessing.blessingType}`)}
 		onDismiss={blessingAnnouncementStore.announced}
 	/>;

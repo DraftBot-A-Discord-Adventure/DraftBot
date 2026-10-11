@@ -1,18 +1,22 @@
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {InventoryReq} from "ws-packets/src/fromClient/InventoryReq";
-import {LeagueInfoReq} from "ws-packets/src/fromClient/RankingsReq";
-import {InventoryRes} from "ws-packets/src/fromServer/inventory/InventoryRes";
-import {LeagueInfoRes} from "ws-packets/src/fromServer/fight/RankingsRes";
-import {GuildRes} from "ws-packets/src/fromServer/guild/GuildRes";
-import {PlayerNotFound} from "ws-packets/src/fromServer/common/PlayerNotFound";
-import {GameClient} from "@/src/networking/GameClient";
-import {GAME_ENTITIES} from "@/src/store/GameEntities";
-import {RequestState, useGameQuery} from "@/src/store/useGameQuery";
-import {useOwnGuild} from "@/src/store/useGuild";
-import {useMissionRewards} from "@/src/store/MissionRewardsStore";
-import {givesDailyBonus} from "@/src/display/ItemEffects";
-import {useCurrentTime} from "@/src/store/useCurrentTime";
-import {JOURNEY_TABS, JourneyTab} from "@/src/journey/Journey";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { InventoryReq } from "ws-packets/src/fromClient/InventoryReq";
+import { LeagueInfoReq } from "ws-packets/src/fromClient/RankingsReq";
+import { InventoryRes } from "ws-packets/src/fromServer/inventory/InventoryRes";
+import { LeagueInfoRes } from "ws-packets/src/fromServer/fight/RankingsRes";
+import { GuildRes } from "ws-packets/src/fromServer/guild/GuildRes";
+import { PlayerNotFound } from "ws-packets/src/fromServer/common/PlayerNotFound";
+import { GameClient } from "@/src/networking/GameClient";
+import { GAME_ENTITIES } from "@/src/store/GameEntities";
+import {
+	RequestState, useGameQuery
+} from "@/src/store/useGameQuery";
+import { useOwnGuild } from "@/src/store/useGuild";
+import { useMissionRewards } from "@/src/store/MissionRewardsStore";
+import { givesDailyBonus } from "@/src/display/ItemEffects";
+import { useCurrentTime } from "@/src/store/useCurrentTime";
+import {
+	JOURNEY_TABS, JourneyTab
+} from "@/src/journey/Journey";
 
 /** A daily bonus or a guild reward becomes available on its own: the pills look at the clock this often. */
 export const CLAIMABLES_TICK_MS = 30_000;
@@ -21,7 +25,7 @@ export const CLAIMABLES_TICK_MS = 30_000;
 export function useOwnInventory(): RequestState<InventoryRes> {
 	return useGameQuery(
 		GAME_ENTITIES.INVENTORY,
-		() => GameClient.request(makeFromClientPacket(InventoryReq, {askedPlayer: {}}), InventoryRes, [PlayerNotFound])
+		() => GameClient.request(makeFromClientPacket(InventoryReq, { askedPlayer: {} }), InventoryRes, [PlayerNotFound])
 	);
 }
 
@@ -32,11 +36,19 @@ export function useLeagueInfo(): RequestState<LeagueInfoRes> {
 
 /** The daily bonus waits once its delay ran out and an object, worn or kept aside, can give it. */
 export function dailyBonusClaimable(state: RequestState<InventoryRes>, now: number): boolean {
-	if (state.status !== "ready" || now === 0) return false;
-	const {data, dailyBonusAvailableAt} = state.data;
-	if (!data) return false;
+	if (state.status !== "ready" || now === 0) {
+		return false;
+	}
+	const {
+		data, dailyBonusAvailableAt
+	} = state.data;
+	if (!data) {
+		return false;
+	}
 	const waiting = dailyBonusAvailableAt === undefined || dailyBonusAvailableAt > now;
-	if (waiting) return false;
+	if (waiting) {
+		return false;
+	}
 	return givesDailyBonus(data.object) || data.backupObjects.some(entry => givesDailyBonus(entry.display));
 }
 

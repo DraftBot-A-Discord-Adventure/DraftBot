@@ -1,6 +1,6 @@
-import {formatDurationMinutes} from "@/src/display/ItemEffects";
+import { formatDurationMinutes } from "@/src/display/ItemEffects";
 
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string, options?: object): string => `${key}${options ? ` ${JSON.stringify(options)}` : ""}`}}));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?: object): string => `${key}${options ? ` ${JSON.stringify(options)}` : ""}` } }));
 
 describe("durations", () => {
 	it("says whole hours without a trailing zero minute", () => {

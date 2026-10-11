@@ -1,15 +1,21 @@
-import {fireEvent, screen, waitFor} from "@testing-library/react-native";
-import {ReportReq} from "ws-packets/src/fromClient/ReportReq";
-import {AdventureWelcome} from "@/src/components/AdventureWelcome";
-import {GameClient} from "@/src/networking/GameClient";
-import {clearTestQueryClients, renderWithGameQuery} from "@/src/testing/testUtils";
+import {
+	fireEvent, screen, waitFor
+} from "@testing-library/react-native";
+import { ReportReq } from "ws-packets/src/fromClient/ReportReq";
+import { AdventureWelcome } from "@/src/components/AdventureWelcome";
+import { GameClient } from "@/src/networking/GameClient";
+import {
+	clearTestQueryClients, renderWithGameQuery
+} from "@/src/testing/testUtils";
 
-jest.mock("expo-router", () => ({useFocusEffect: jest.fn()}));
-jest.mock("@/src/networking/GameClient", () => ({GameClient: {request: jest.fn()}}));
-jest.mock("@/src/networking/WebSocketClient", () => ({WebSocketClient: {getInstance: (): object => ({registerPushedPacketHandler: (): (() => void) => () => undefined})}}));
-jest.mock("@/src/AppIcons", () => ({AppIcons: {getIcon: (): string => "", getIconOrNull: (): null => null}}));
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string): string => key}}));
-jest.mock("@/src/store/useReducedMotion", () => ({useReducedMotion: (): boolean => true}));
+jest.mock("expo-router", () => ({ useFocusEffect: jest.fn() }));
+jest.mock("@/src/networking/GameClient", () => ({ GameClient: { request: jest.fn() } }));
+jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: (): object => ({ registerPushedPacketHandler: (): () => void => () => undefined }) } }));
+jest.mock("@/src/AppIcons", () => ({ AppIcons: {
+	getIcon: (): string => "", getIconOrNull: (): null => null
+} }));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
+jest.mock("@/src/store/useReducedMotion", () => ({ useReducedMotion: (): boolean => true }));
 
 describe("adventure welcome", () => {
 	beforeEach(() => jest.clearAllMocks());
@@ -24,7 +30,9 @@ describe("adventure welcome", () => {
 	});
 
 	it("sends the first report when the player sets off", async () => {
-		jest.mocked(GameClient.request).mockResolvedValue({kind: "alternative", packetName: "SmallEventResultRes", packet: {}});
+		jest.mocked(GameClient.request).mockResolvedValue({
+			kind: "alternative", packetName: "SmallEventResultRes", packet: {}
+		});
 		await renderWithGameQuery(<AdventureWelcome />);
 		await fireEvent.press(screen.getByText("app:welcome.depart"));
 		await waitFor(() => expect(GameClient.request).toHaveBeenCalledTimes(1));
@@ -32,7 +40,7 @@ describe("adventure welcome", () => {
 	});
 
 	it("lets the player set off again when the first report is refused", async () => {
-		jest.mocked(GameClient.request).mockResolvedValue({kind: "timeout"});
+		jest.mocked(GameClient.request).mockResolvedValue({ kind: "timeout" });
 		await renderWithGameQuery(<AdventureWelcome />);
 		await fireEvent.press(screen.getByText("app:welcome.depart"));
 		expect(await screen.findByText("app:common.connectionError")).toBeTruthy();

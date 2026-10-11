@@ -14,12 +14,14 @@ import type {
 	CityNavigationItem,
 	CitySubmenu
 } from "@/src/collectors/CityCollector";
-import {compactCityDescription} from "@/src/collectors/CityRowDetails";
-import {homeIconPath} from "@/src/collectors/CityHomeItems";
-import {formatMoney} from "@/src/display/Amounts";
-import {i18n} from "@/src/translations/i18n";
+import { compactCityDescription } from "@/src/collectors/CityRowDetails";
+import { homeIconPath } from "@/src/collectors/CityHomeItems";
+import { formatMoney } from "@/src/display/Amounts";
+import { i18n } from "@/src/translations/i18n";
 
-export type {CityGroupingOptions, CityNavigationItem};
+export type {
+	CityGroupingOptions, CityNavigationItem
+};
 
 const CITY_REACTION_ORDER: Partial<Record<ReactionCollectorReaction["type"], number>> = {
 	[CITY_REACTION_KINDS.HOME_MENU]: 0,
@@ -60,31 +62,69 @@ const CITY_SUBMENU_ORDER: Record<CitySubmenu, number> = {
 	guild: 0
 };
 
-type CityNavigationDefinition = {iconPath: string; titleKey: string; subtitleKey: string};
-
-const CITY_NAVIGATION_META: Record<Exclude<CitySubmenu, "inn">, CityNavigationDefinition> = {
-	home: {iconPath: "city.home.5", titleKey: "app:city.labels.home", subtitleKey: "app:city.subtitles.homeScreen"},
-	homeBed: {iconPath: "city.homeUpgrades.bed", titleKey: "app:city.labels.bed", subtitleKey: "app:city.subtitles.bed"},
-	homeChest: {iconPath: "city.homeUpgrades.chest", titleKey: "app:city.labels.chest", subtitleKey: "app:city.subtitles.chest"},
-	homeGarden: {iconPath: "city.homeUpgrades.garden", titleKey: "app:city.labels.garden", subtitleKey: "app:city.subtitles.garden"},
-	homeCooking: {iconPath: "city.homeUpgrades.cooking", titleKey: "app:city.labels.cooking", subtitleKey: "app:city.subtitles.cookingScreen"},
-	homeUpgrade: {iconPath: "city.homeUpgrades.upgradeEquipment", titleKey: "app:city.labels.upgradeStation", subtitleKey: "app:city.subtitles.upgradeStation"},
-	notary: {iconPath: "city.manageHome", titleKey: "app:city.actions.notary", subtitleKey: "app:city.subtitles.notary"},
-	enchanter: {iconPath: "city.services.enchanter", titleKey: "app:city.labels.enchanter", subtitleKey: "commands:report.city.reactions.enchanter.description"},
-	blacksmith: {iconPath: "city.services.blacksmith", titleKey: "app:city.labels.blacksmith", subtitleKey: "commands:report.city.blacksmith.menuDescription"},
-	scrapDealer: {iconPath: "city.services.scrapDealer", titleKey: "app:city.labels.scrapDealer", subtitleKey: "commands:report.city.scrapDealer.menuDescription"},
-	royalBlacksmith: {iconPath: "city.services.royalBlacksmith", titleKey: "app:city.labels.royalBlacksmith", subtitleKey: "commands:report.city.royalBlacksmith.menuDescription"},
-	guild: {iconPath: "city.guildDomain.menu", titleKey: "app:city.labels.guildDomain", subtitleKey: "app:city.notes.guildDomain"}
+type CityNavigationDefinition = {
+	iconPath: string; titleKey: string; subtitleKey: string;
 };
 
-type CityNavigationConfig = {group: Exclude<CityGroup, "elsewhere">; view: Exclude<CitySubmenu, "inn">; key: string};
+const CITY_NAVIGATION_META: Record<Exclude<CitySubmenu, "inn">, CityNavigationDefinition> = {
+	home: {
+		iconPath: "city.home.5", titleKey: "app:city.labels.home", subtitleKey: "app:city.subtitles.homeScreen"
+	},
+	homeBed: {
+		iconPath: "city.homeUpgrades.bed", titleKey: "app:city.labels.bed", subtitleKey: "app:city.subtitles.bed"
+	},
+	homeChest: {
+		iconPath: "city.homeUpgrades.chest", titleKey: "app:city.labels.chest", subtitleKey: "app:city.subtitles.chest"
+	},
+	homeGarden: {
+		iconPath: "city.homeUpgrades.garden", titleKey: "app:city.labels.garden", subtitleKey: "app:city.subtitles.garden"
+	},
+	homeCooking: {
+		iconPath: "city.homeUpgrades.cooking", titleKey: "app:city.labels.cooking", subtitleKey: "app:city.subtitles.cookingScreen"
+	},
+	homeUpgrade: {
+		iconPath: "city.homeUpgrades.upgradeEquipment", titleKey: "app:city.labels.upgradeStation", subtitleKey: "app:city.subtitles.upgradeStation"
+	},
+	notary: {
+		iconPath: "city.manageHome", titleKey: "app:city.actions.notary", subtitleKey: "app:city.subtitles.notary"
+	},
+	enchanter: {
+		iconPath: "city.services.enchanter", titleKey: "app:city.labels.enchanter", subtitleKey: "commands:report.city.reactions.enchanter.description"
+	},
+	blacksmith: {
+		iconPath: "city.services.blacksmith", titleKey: "app:city.labels.blacksmith", subtitleKey: "commands:report.city.blacksmith.menuDescription"
+	},
+	scrapDealer: {
+		iconPath: "city.services.scrapDealer", titleKey: "app:city.labels.scrapDealer", subtitleKey: "commands:report.city.scrapDealer.menuDescription"
+	},
+	royalBlacksmith: {
+		iconPath: "city.services.royalBlacksmith", titleKey: "app:city.labels.royalBlacksmith", subtitleKey: "commands:report.city.royalBlacksmith.menuDescription"
+	},
+	guild: {
+		iconPath: "city.guildDomain.menu", titleKey: "app:city.labels.guildDomain", subtitleKey: "app:city.notes.guildDomain"
+	}
+};
+
+type CityNavigationConfig = {
+	group: Exclude<CityGroup, "elsewhere">; view: Exclude<CitySubmenu, "inn">; key: string;
+};
 
 const CITY_NAVIGATION_REACTIONS: Partial<Record<ReactionCollectorReaction["type"], CityNavigationConfig>> = {
-	[CITY_REACTION_KINDS.HOME_MENU]: {group: "housing", view: "home", key: "home"},
-	[CITY_REACTION_KINDS.BLACKSMITH_MENU]: {group: "services", view: "blacksmith", key: "blacksmith"},
-	[CITY_REACTION_KINDS.SCRAP_DEALER_MENU]: {group: "services", view: "scrapDealer", key: "scrap-dealer"},
-	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_MENU]: {group: "services", view: "royalBlacksmith", key: "royal-blacksmith"},
-	[CITY_REACTION_KINDS.GUILD_DOMAIN_MENU]: {group: "guild", view: "guild", key: "guild-domain"}
+	[CITY_REACTION_KINDS.HOME_MENU]: {
+		group: "housing", view: "home", key: "home"
+	},
+	[CITY_REACTION_KINDS.BLACKSMITH_MENU]: {
+		group: "services", view: "blacksmith", key: "blacksmith"
+	},
+	[CITY_REACTION_KINDS.SCRAP_DEALER_MENU]: {
+		group: "services", view: "scrapDealer", key: "scrap-dealer"
+	},
+	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_MENU]: {
+		group: "services", view: "royalBlacksmith", key: "royal-blacksmith"
+	},
+	[CITY_REACTION_KINDS.GUILD_DOMAIN_MENU]: {
+		group: "guild", view: "guild", key: "guild-domain"
+	}
 };
 
 const CITY_SUBMENU_REACTIONS: Partial<Record<ReactionCollectorReaction["type"], CitySubmenu>> = {
@@ -107,58 +147,78 @@ const CITY_SUBMENU_REACTIONS: Partial<Record<ReactionCollectorReaction["type"], 
 
 export function cityNavigationMeta(view: Exclude<CitySubmenu, "inn">): Omit<CityNavigationItem, "kind" | "key" | "view"> {
 	const definition = CITY_NAVIGATION_META[view];
-	return {iconPath: definition.iconPath, title: i18n.t(definition.titleKey), subtitle: i18n.t(definition.subtitleKey)};
+	return {
+		iconPath: definition.iconPath, title: i18n.t(definition.titleKey), subtitle: i18n.t(definition.subtitleKey)
+	};
 }
 
 function navigationItem(view: Exclude<CitySubmenu, "inn">, key: string): CityNavigationItem {
-	return {kind: "navigation", key, view, ...cityNavigationMeta(view)};
+	return {
+		kind: "navigation", key, view, ...cityNavigationMeta(view)
+	};
 }
 
 function homeNavigationItem(homeOwned: NonNullable<CityMobileSnapshot["home"]>["owned"]): CityNavigationItem {
 	const apartment = homeOwned?.isApartment === true;
-	return {kind: "navigation", key: "home", view: "home", iconPath: homeIconPath(homeOwned?.level), title: i18n.t(apartment ? "app:city.labels.apartment" : "app:city.labels.home"), subtitle: i18n.t(apartment ? "commands:report.city.homes.goToOwnedApartmentDescription" : "commands:report.city.homes.goToOwnedHomeDescription")};
+	return {
+		kind: "navigation", key: "home", view: "home", iconPath: homeIconPath(homeOwned?.level), title: i18n.t(apartment ? "app:city.labels.apartment" : "app:city.labels.home"), subtitle: i18n.t(apartment ? "commands:report.city.homes.goToOwnedApartmentDescription" : "commands:report.city.homes.goToOwnedHomeDescription")
+	};
 }
 
 function innNavigationItem(innId: string): CityNavigationItem {
-	return {kind: "navigation", key: `inn-${innId}`, view: "inn", innId, iconPath: "city.inn", title: i18n.t("app:city.labels.inn", {name: i18n.t(`commands:report.city.inns.names.${innId}`)}), subtitle: i18n.t("commands:report.city.reactions.inn.description")};
+	return {
+		kind: "navigation", key: `inn-${innId}`, view: "inn", innId, iconPath: "city.inn", title: i18n.t("app:city.labels.inn", { name: i18n.t(`commands:report.city.inns.names.${innId}`) }), subtitle: i18n.t("commands:report.city.reactions.inn.description")
+	};
 }
 
 function sortCityItems(left: CityListItem, right: CityListItem): number {
-	const order = (item: CityListItem) => item.kind === "navigation" ? CITY_SUBMENU_ORDER[item.view] : item.kind === "info" ? Number.MAX_SAFE_INTEGER : CITY_REACTION_ORDER[item.entry.reaction.type] ?? Number.MAX_SAFE_INTEGER;
+	const order = (item: CityListItem): number => item.kind === "navigation" ? CITY_SUBMENU_ORDER[item.view] : item.kind === "info" ? Number.MAX_SAFE_INTEGER : CITY_REACTION_ORDER[item.entry.reaction.type] ?? Number.MAX_SAFE_INTEGER;
 	return order(left) - order(right);
 }
 
 function emptyCityGroups(): Record<CityGroup, CityListItem[]> {
-	return {housing: [], services: [], shops: [], guild: [], quit: []};
+	return {
+		housing: [], services: [], shops: [], guild: [], quit: []
+	};
 }
 
 function emptyCitySubmenus(): Record<CitySubmenu, CityEntry[]> {
-	return {home: [], homeBed: [], homeChest: [], homeGarden: [], homeCooking: [], homeUpgrade: [], notary: [], inn: [], enchanter: [], blacksmith: [], scrapDealer: [], royalBlacksmith: [], guild: []};
+	return {
+		home: [], homeBed: [], homeChest: [], homeGarden: [], homeCooking: [], homeUpgrade: [], notary: [], inn: [], enchanter: [], blacksmith: [], scrapDealer: [], royalBlacksmith: [], guild: []
+	};
 }
 
 function addNavigationEntry(state: CityGroupingState, entry: CityEntry, options: CityGroupingOptions): boolean {
 	const navigation = CITY_NAVIGATION_REACTIONS[entry.reaction.type];
-	if (!navigation) return false;
+	if (!navigation) {
+		return false;
+	}
 	state.groups[navigation.group].push(navigation.view === "home" ? homeNavigationItem(options.homeOwned) : navigationItem(navigation.view, navigation.key));
 	return true;
 }
 
 function addTerminalEntry(state: CityGroupingState, entry: CityEntry): boolean {
 	if (entry.reaction.type === CITY_REACTION_KINDS.EXIT) {
-		state.groups.quit.push({kind: "reaction", entry});
+		state.groups.quit.push({
+			kind: "reaction", entry
+		});
 		return true;
 	}
 	if (entry.reaction.type === CITY_REACTION_KINDS.SHOP) {
-		state.groups.shops.push({kind: "reaction", entry});
+		state.groups.shops.push({
+			kind: "reaction", entry
+		});
 		return true;
 	}
 	return false;
 }
 
 function addInnEntry(state: CityGroupingState, entry: CityEntry): boolean {
-	if (entry.reaction.type !== CITY_REACTION_KINDS.INN_MEAL && entry.reaction.type !== CITY_REACTION_KINDS.INN_ROOM) return false;
-	const innId = (entry.reaction.data as {innId: string}).innId;
-	state.inns.set(innId, [...(state.inns.get(innId) ?? []), entry]);
+	if (entry.reaction.type !== CITY_REACTION_KINDS.INN_MEAL && entry.reaction.type !== CITY_REACTION_KINDS.INN_ROOM) {
+		return false;
+	}
+	const innId = (entry.reaction.data as { innId: string }).innId;
+	state.inns.set(innId, [...state.inns.get(innId) ?? [], entry]);
 	return true;
 }
 
@@ -168,7 +228,9 @@ function addSubmenuEntry(state: CityGroupingState, entry: CityEntry): boolean {
 		return true;
 	}
 	const submenu = CITY_SUBMENU_REACTIONS[entry.reaction.type];
-	if (!submenu) return false;
+	if (!submenu) {
+		return false;
+	}
 	state.submenus[submenu].push(entry);
 	state.hasNotary ||= submenu === "notary";
 	state.hasGuildActions ||= submenu === "guild";
@@ -179,21 +241,29 @@ type CityEntryHandler = (state: CityGroupingState, entry: CityEntry, options: Ci
 
 const CITY_ENTRY_HANDLERS: CityEntryHandler[] = [
 	addNavigationEntry,
-	(state, entry) => addTerminalEntry(state, entry),
-	(state, entry) => addInnEntry(state, entry),
-	(state, entry) => addSubmenuEntry(state, entry)
+	(state, entry): boolean => addTerminalEntry(state, entry),
+	(state, entry): boolean => addInnEntry(state, entry),
+	(state, entry): boolean => addSubmenuEntry(state, entry)
 ];
 
 function addCityEntry(state: CityGroupingState, entry: CityEntry, options: CityGroupingOptions): void {
-	if (entry.reaction.type === GENERIC_REACTION_KINDS.REFUSE) return;
-	for (const handler of CITY_ENTRY_HANDLERS) {
-		if (handler(state, entry, options)) return;
+	if (entry.reaction.type === GENERIC_REACTION_KINDS.REFUSE) {
+		return;
 	}
-	state.groups.services.push({kind: "reaction", entry});
+	for (const handler of CITY_ENTRY_HANDLERS) {
+		if (handler(state, entry, options)) {
+			return;
+		}
+	}
+	state.groups.services.push({
+		kind: "reaction", entry
+	});
 }
 
 function addAvailableInn(state: CityGroupingState, innId: string, existingInnIds: Set<string>): void {
-	if (existingInnIds.has(innId)) return;
+	if (existingInnIds.has(innId)) {
+		return;
+	}
 	state.groups.services.push(innNavigationItem(innId));
 	existingInnIds.add(innId);
 }
@@ -211,24 +281,40 @@ function addInnServices(state: CityGroupingState, innIds: string[] | undefined):
 
 /** A rent waiting at the notary is said on his row, so collecting it is how the player learns apartments pay. */
 function addNotaryService(state: CityGroupingState, rentToClaim: number | undefined): void {
-	if (!state.hasNotary) return;
+	if (!state.hasNotary) {
+		return;
+	}
 	const notary = navigationItem("notary", "notary");
-	state.groups.housing.push(rentToClaim ? {...notary, subtitle: i18n.t("app:city.subtitles.notaryRent", {amount: formatMoney(rentToClaim)})} : notary);
+	state.groups.housing.push(rentToClaim
+		? {
+			...notary, subtitle: i18n.t("app:city.subtitles.notaryRent", { amount: formatMoney(rentToClaim) })
+		}
+		: notary);
 }
 
 function addGuildService(state: CityGroupingState): void {
-	if (!state.hasGuildActions) return;
+	if (!state.hasGuildActions) {
+		return;
+	}
 	const hasGuildNavigation = state.groups.guild.some(item => item.kind === "navigation" && item.view === "guild");
-	if (hasGuildNavigation) return;
+	if (hasGuildNavigation) {
+		return;
+	}
 	state.groups.guild.push(navigationItem("guild", "guild-domain"));
 }
 
 function addEnchanterService(state: CityGroupingState, availableServices: string[] | undefined): void {
-	if (state.submenus.enchanter.length > 0 || availableServices?.includes("enchanter")) state.groups.services.push(navigationItem("enchanter", "enchanter"));
+	if (state.submenus.enchanter.length > 0 || availableServices?.includes("enchanter")) {
+		state.groups.services.push(navigationItem("enchanter", "enchanter"));
+	}
 }
 
 function addBossArchivistService(state: CityGroupingState, availableServices: string[] | undefined): void {
-	if (availableServices?.includes("bossArchivist")) state.groups.services.push({kind: "info", key: "boss-archivist", iconPath: "city.services.bossArchivist", title: i18n.t("commands:report.city.bossArchivist.serviceTitle"), subtitle: compactCityDescription(i18n.t("commands:report.city.bossArchivist.serviceDescription"))});
+	if (availableServices?.includes("bossArchivist")) {
+		state.groups.services.push({
+			kind: "info", key: "boss-archivist", iconPath: "city.services.bossArchivist", title: i18n.t("commands:report.city.bossArchivist.serviceTitle"), subtitle: compactCityDescription(i18n.t("commands:report.city.bossArchivist.serviceDescription"))
+		});
+	}
 }
 
 function addAvailableServices(state: CityGroupingState, options: CityGroupingOptions): void {
@@ -240,43 +326,80 @@ function addAvailableServices(state: CityGroupingState, options: CityGroupingOpt
 
 function addEmptyShops(state: CityGroupingState, shops: CityGroupingOptions["shops"]): void {
 	for (const shop of shops ?? []) {
-		if (!shop.isEmpty) continue;
-		state.groups.shops.push({kind: "info", key: `empty-shop-${shop.shopId}`, iconPath: `city.shops.${shop.shopId}`, title: i18n.t(`commands:report.city.shops.${shop.shopId}.label`), subtitle: compactCityDescription(i18n.t("commands:report.city.shopEmptyDescription"))});
+		if (!shop.isEmpty) {
+			continue;
+		}
+		state.groups.shops.push({
+			kind: "info", key: `empty-shop-${shop.shopId}`, iconPath: `city.shops.${shop.shopId}`, title: i18n.t(`commands:report.city.shops.${shop.shopId}.label`), subtitle: compactCityDescription(i18n.t("commands:report.city.shopEmptyDescription"))
+		});
 	}
 }
 
 function addGuildFoodShop(state: CityGroupingState, foodShop: CityGroupingOptions["guildFoodShop"]): void {
-	if (!foodShop) return;
-	state.groups.guild.push({kind: "navigation", view: "guild", key: "guild-food-shop", iconPath: "expedition.food", title: i18n.t("commands:report.city.guildFoodShop.label"), subtitle: i18n.t("app:guildDomain.foodShopDescription", {guild: foodShop.guildName})});
+	if (!foodShop) {
+		return;
+	}
+	state.groups.guild.push({
+		kind: "navigation", view: "guild", key: "guild-food-shop", iconPath: "expedition.food", title: i18n.t("commands:report.city.guildFoodShop.label"), subtitle: i18n.t("app:guildDomain.foodShopDescription", { guild: foodShop.guildName })
+	});
 }
 
 function decorateHomeNavigation(state: CityGroupingState, home: CityGroupingOptions["homeOwned"]): void {
-	if (!home) return;
-	state.groups.housing = state.groups.housing.map(item => item.kind === "navigation" && item.view === "home" ? {...item, iconPath: homeIconPath(home.level), subtitle: i18n.t("app:city.subtitles.homeDetails", {level: home.level, services: [home.hasBed ? i18n.t("app:city.summary.bed") : null, home.hasChest ? i18n.t("app:city.summary.chest") : null, home.hasGarden ? i18n.t("app:city.summary.garden") : null, home.hasCooking ? i18n.t("app:city.summary.cooking") : null, home.hasUpgradeStation ? i18n.t("app:city.summary.forge") : null].filter(Boolean).join(", ")})} : item);
+	if (!home) {
+		return;
+	}
+	state.groups.housing = state.groups.housing.map(item => item.kind === "navigation" && item.view === "home"
+		? {
+			...item,
+			iconPath: homeIconPath(home.level),
+			subtitle: i18n.t("app:city.subtitles.homeDetails", {
+				level: home.level,
+				services: [
+					home.hasBed ? i18n.t("app:city.summary.bed") : null,
+					home.hasChest ? i18n.t("app:city.summary.chest") : null,
+					home.hasGarden ? i18n.t("app:city.summary.garden") : null,
+					home.hasCooking ? i18n.t("app:city.summary.cooking") : null,
+					home.hasUpgradeStation ? i18n.t("app:city.summary.forge") : null
+				].filter(Boolean).join(", ")
+			})
+		}
+		: item);
 }
 
 /** The home the player cannot reach from here, and the apartment that would open it when the city sells one. */
-function addHomeElsewhere(model: CityMenuModel, {homeElsewhere, apartmentForSale}: CityGroupingOptions): void {
-	if (!homeElsewhere) return;
-	const values = {mapLocationId: homeElsewhere.mapLocationId};
+function addHomeElsewhere(model: CityMenuModel, {
+	homeElsewhere, apartmentForSale
+}: CityGroupingOptions): void {
+	if (!homeElsewhere) {
+		return;
+	}
+	const values = { mapLocationId: homeElsewhere.mapLocationId };
 	model.groups.housing.unshift({
 		kind: "info",
 		key: "home-elsewhere",
 		iconPath: homeIconPath(homeElsewhere.level),
 		title: i18n.t("app:city.labels.home"),
 		subtitle: "",
-		lock: {reason: i18n.t(apartmentForSale ? "app:city.locks.homeElsewhereApartment" : "app:city.locks.homeElsewhere", values)}
+		lock: { reason: i18n.t(apartmentForSale ? "app:city.locks.homeElsewhereApartment" : "app:city.locks.homeElsewhere", values) }
 	});
 }
 
 function sortCityModel(state: CityGroupingState): CityMenuModel {
-	for (const group of Object.values(state.groups)) group.sort(sortCityItems);
-	for (const submenu of Object.values(state.submenus)) submenu.sort((left, right) => (CITY_REACTION_ORDER[left.reaction.type] ?? Number.MAX_SAFE_INTEGER) - (CITY_REACTION_ORDER[right.reaction.type] ?? Number.MAX_SAFE_INTEGER));
-	return {groups: state.groups, submenus: state.submenus};
+	for (const group of Object.values(state.groups)) {
+		group.sort(sortCityItems);
+	}
+	for (const submenu of Object.values(state.submenus)) {
+		submenu.sort((left, right) => (CITY_REACTION_ORDER[left.reaction.type] ?? Number.MAX_SAFE_INTEGER) - (CITY_REACTION_ORDER[right.reaction.type] ?? Number.MAX_SAFE_INTEGER));
+	}
+	return {
+		groups: state.groups, submenus: state.submenus
+	};
 }
 
 export function groupCityEntries(entries: CityEntry[], options: CityGroupingOptions = {}): CityMenuModel {
-	const state: CityGroupingState = {groups: emptyCityGroups(), submenus: emptyCitySubmenus(), inns: new Map(), hasNotary: Boolean(options.homeManage), hasGuildActions: false};
+	const state: CityGroupingState = {
+		groups: emptyCityGroups(), submenus: emptyCitySubmenus(), inns: new Map(), hasNotary: Boolean(options.homeManage), hasGuildActions: false
+	};
 	entries.forEach(entry => addCityEntry(state, entry, options));
 	addAvailableServices(state, options);
 	addInnServices(state, options.innIds);
@@ -288,11 +411,17 @@ export function groupCityEntries(entries: CityEntry[], options: CityGroupingOpti
 	return model;
 }
 
-export function submenuTitle(view: CitySubmenu, innId?: string): {eyebrow: string; title: string; subtitle?: string} {
+export function submenuTitle(view: CitySubmenu, innId?: string): {
+	eyebrow: string; title: string; subtitle?: string;
+} {
 	if (view === "inn" && innId) {
 		const name = i18n.t(`commands:report.city.inns.names.${innId}`);
-		return {eyebrow: i18n.t("app:city.titles.eyebrow"), title: i18n.t("app:city.labels.inn", {name}), subtitle: compactCityDescription(i18n.t("commands:report.city.reactions.inn.description"))};
+		return {
+			eyebrow: i18n.t("app:city.titles.eyebrow"), title: i18n.t("app:city.labels.inn", { name }), subtitle: compactCityDescription(i18n.t("commands:report.city.reactions.inn.description"))
+		};
 	}
 	const meta = cityNavigationMeta(view as Exclude<CitySubmenu, "inn">);
-	return {eyebrow: i18n.t("app:city.titles.eyebrow"), title: meta.title, subtitle: meta.subtitle};
+	return {
+		eyebrow: i18n.t("app:city.titles.eyebrow"), title: meta.title, subtitle: meta.subtitle
+	};
 }

@@ -1,7 +1,12 @@
-import {useCallback} from "react";
-import {useQueryClient} from "@tanstack/react-query";
-import {BIG_EVENT_DATA_KINDS, CLASSES_DATA_KINDS, DAILY_BONUS_DATA_KINDS, DRINK_DATA_KINDS, EQUIP_DATA_KINDS, EXPEDITION_DATA_KINDS, GUILD_DATA_KINDS, ITEM_DATA_KINDS, PET_FEED_DATA_KINDS, PET_MANAGEMENT_DATA_KINDS, PLAYER_UTILITY_DATA_KINDS, ReactionCollectorDataKind, SELL_DATA_KINDS,FIGHT_DATA_KINDS} from "ws-packets/src/fromServer/collectors";
-import {GAME_ENTITIES, gameKey, GameEntity} from "@/src/store/GameEntities";
+import { useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+	BIG_EVENT_DATA_KINDS, CLASSES_DATA_KINDS, DAILY_BONUS_DATA_KINDS, DRINK_DATA_KINDS, EQUIP_DATA_KINDS, EXPEDITION_DATA_KINDS, GUILD_DATA_KINDS,
+	ITEM_DATA_KINDS, PET_FEED_DATA_KINDS, PET_MANAGEMENT_DATA_KINDS, PLAYER_UTILITY_DATA_KINDS, ReactionCollectorDataKind, SELL_DATA_KINDS, FIGHT_DATA_KINDS
+} from "ws-packets/src/fromServer/collectors";
+import {
+	GAME_ENTITIES, gameKey, GameEntity
+} from "@/src/store/GameEntities";
 
 /**
  * What answering a collector changes in the game state.
@@ -41,15 +46,17 @@ export function useGameInvalidations(): { afterCollector: (kind: ReactionCollect
 	const queryClient = useQueryClient();
 
 	const afterCollector = useCallback((kind: ReactionCollectorDataKind): void => {
-		if (RESULT_OWNED_COLLECTORS.has(kind)) return;
+		if (RESULT_OWNED_COLLECTORS.has(kind)) {
+			return;
+		}
 		const entities = new Set<GameEntity>([
 			GAME_ENTITIES.PROFILE,
 			GAME_ENTITIES.MAP,
-				GAME_ENTITIES.REPORT,
-			...(COLLECTOR_INVALIDATES[kind] ?? [])
+			GAME_ENTITIES.REPORT,
+			...COLLECTOR_INVALIDATES[kind] ?? []
 		]);
 		for (const entity of entities) {
-			queryClient.invalidateQueries({ queryKey: gameKey(entity) }).catch((error) => {
+			queryClient.invalidateQueries({ queryKey: gameKey(entity) }).catch(error => {
 				console.error(`Failed to invalidate ${entity}:`, error);
 			});
 		}

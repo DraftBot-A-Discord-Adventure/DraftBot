@@ -1,4 +1,6 @@
-import {getItem, setItem} from "expo-secure-store";
+import {
+	getItem, setItem
+} from "expo-secure-store";
 
 export const THEME_PREFERENCES = {
 	SYSTEM: "system",

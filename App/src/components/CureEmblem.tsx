@@ -1,14 +1,26 @@
-import {ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
-import {Animated, Easing, EasingFunction, Pressable} from "react-native";
-import {impactAsync, ImpactFeedbackStyle} from "expo-haptics";
-import {AppIcons} from "@/src/AppIcons";
-import {PaletteColor, Theme} from "@/src/design/Theme";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {useReducedMotion} from "@/src/store/useReducedMotion";
-import {createStyles, useColors} from "@/src/design/ThemeContext";
+import {
+	ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState
+} from "react";
+import {
+	Animated, Easing, EasingFunction, Pressable
+} from "react-native";
+import {
+	impactAsync, ImpactFeedbackStyle
+} from "expo-haptics";
+import { AppIcons } from "@/src/AppIcons";
+import {
+	PaletteColor, Theme
+} from "@/src/design/Theme";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { useReducedMotion } from "@/src/store/useReducedMotion";
+import {
+	createStyles, useColors
+} from "@/src/design/ThemeContext";
 
 /** The ailment emoji the heal removes, and what happens once it is gone. */
-export type Cure = {from: string; onDone: () => void};
+export type Cure = {
+	from: string; onDone: () => void;
+};
 
 const CURE_MOTION = {
 	shakeStepMs: 55,
@@ -34,28 +46,48 @@ const CURE_MOTION = {
 } as const;
 
 /** The healthy face hops and wiggles, like a traveller in good spirits. */
-const HAPPY_MOTION = {stepMs: 150, hop: -5, tilt: "10deg"} as const;
+const HAPPY_MOTION = {
+	stepMs: 150, hop: -5, tilt: "10deg"
+} as const;
 
 const EMBLEM_BOX = 48;
 
 const useStyles = createStyles(() => ({
-	box: {width: EMBLEM_BOX, height: EMBLEM_BOX, alignItems: "center", justifyContent: "center"},
-	layer: {position: "absolute"},
-	ring: {position: "absolute", width: EMBLEM_BOX, height: EMBLEM_BOX, borderRadius: EMBLEM_BOX / 2, borderWidth: CURE_MOTION.ringWidth},
-	spark: {position: "absolute", width: CURE_MOTION.sparkSize, height: CURE_MOTION.sparkSize, borderRadius: CURE_MOTION.sparkSize / 2}
+	box: {
+		width: EMBLEM_BOX, height: EMBLEM_BOX, alignItems: "center", justifyContent: "center"
+	},
+	layer: { position: "absolute" },
+	ring: {
+		position: "absolute", width: EMBLEM_BOX, height: EMBLEM_BOX, borderRadius: EMBLEM_BOX / 2, borderWidth: CURE_MOTION.ringWidth
+	},
+	spark: {
+		position: "absolute", width: CURE_MOTION.sparkSize, height: CURE_MOTION.sparkSize, borderRadius: CURE_MOTION.sparkSize / 2
+	}
 }));
 
-const SPARK_COLORS: readonly PaletteColor[] = ["gold", "green", "blue", "violet", "red"];
+const SPARK_COLORS: readonly PaletteColor[] = [
+	"gold",
+	"green",
+	"blue",
+	"violet",
+	"red"
+];
 
 function timing(value: Animated.Value, toValue: number, duration: number, easing: EasingFunction = Easing.inOut(Easing.quad)): Animated.CompositeAnimation {
-	return Animated.timing(value, {toValue, duration, easing, useNativeDriver: true});
+	return Animated.timing(value, {
+		toValue, duration, easing, useNativeDriver: true
+	});
 }
 
 function fade(value: Animated.Value, inputRange: number[], outputRange: number[]): Animated.AnimatedInterpolation<number> {
-	return value.interpolate({inputRange, outputRange, extrapolate: "clamp"});
+	return value.interpolate({
+		inputRange, outputRange, extrapolate: "clamp"
+	});
 }
 
-function useHappyDance(): {wiggle: Animated.Value; dance: (onEnd?: () => void) => void} {
+function useHappyDance(): {
+	wiggle: Animated.Value; dance: (onEnd?: () => void) => void;
+} {
 	const reducedMotion = useReducedMotion();
 	const [wiggle] = useState(() => new Animated.Value(0));
 	const dance = useCallback((onEnd?: () => void): void => {
@@ -64,35 +96,81 @@ function useHappyDance(): {wiggle: Animated.Value; dance: (onEnd?: () => void) =
 			return;
 		}
 		const step = (toValue: number, steps = 1): Animated.CompositeAnimation => timing(wiggle, toValue, HAPPY_MOTION.stepMs * steps);
-		Animated.sequence([step(1), step(-1, 2), step(1, 2), step(0)]).start(() => onEnd?.());
+		Animated.sequence([
+			step(1),
+			step(-1, 2),
+			step(1, 2),
+			step(0)
+		]).start(() => onEnd?.());
 	}, [reducedMotion, wiggle]);
-	return {wiggle, dance};
+	return {
+		wiggle, dance
+	};
 }
 
-function DanceMotion({wiggle, children}: {wiggle: Animated.Value; children: ReactNode}): ReactNode {
-	return <Animated.View style={{transform: [
-		{translateY: wiggle.interpolate({inputRange: [-1, 0, 1], outputRange: [HAPPY_MOTION.hop, 0, HAPPY_MOTION.hop]})},
-		{rotate: wiggle.interpolate({inputRange: [-1, 1], outputRange: [`-${HAPPY_MOTION.tilt}`, HAPPY_MOTION.tilt]})}
-	]}}>{children}</Animated.View>;
+function DanceMotion({
+	wiggle, children
+}: {
+	wiggle: Animated.Value; children: ReactNode;
+}): ReactNode {
+	return <Animated.View style={{ transform: [
+		{ translateY: wiggle.interpolate({
+			inputRange: [
+				-1,
+				0,
+				1
+			],
+			outputRange: [
+				HAPPY_MOTION.hop,
+				0,
+				HAPPY_MOTION.hop
+			]
+		}) },
+		{ rotate: wiggle.interpolate({
+			inputRange: [-1, 1], outputRange: [`-${HAPPY_MOTION.tilt}`, HAPPY_MOTION.tilt]
+		}) }
+	] }}>{children}</Animated.View>;
 }
 
-function Sparks({burst}: {burst: Animated.Value}): ReactNode {
+function Sparks({ burst }: { burst: Animated.Value }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
-	return Array.from({length: CURE_MOTION.sparks}, (_, index) => {
+	return Array.from({ length: CURE_MOTION.sparks }, (_, index) => {
 		const angle = 2 * Math.PI * index / CURE_MOTION.sparks;
 		return <Animated.View
 			key={index}
 			pointerEvents="none"
-			style={[styles.spark, {
-				backgroundColor: colors[SPARK_COLORS[index % SPARK_COLORS.length]],
-				opacity: fade(burst, [0, 0.15, 1], [0, 1, 0]),
-				transform: [
-					{translateX: burst.interpolate({inputRange: [0, 1], outputRange: [0, Math.cos(angle) * CURE_MOTION.burstRadius]})},
-					{translateY: burst.interpolate({inputRange: [0, 1], outputRange: [0, Math.sin(angle) * CURE_MOTION.burstRadius]})},
-					{scale: fade(burst, [0, 0.3, 1], [0.4, 1, 0.5])}
-				]
-			}]}
+			style={[
+				styles.spark, {
+					backgroundColor: colors[SPARK_COLORS[index % SPARK_COLORS.length]],
+					opacity: fade(burst, [
+						0,
+						0.15,
+						1
+					], [
+						0,
+						1,
+						0
+					]),
+					transform: [
+						{ translateX: burst.interpolate({
+							inputRange: [0, 1], outputRange: [0, Math.cos(angle) * CURE_MOTION.burstRadius]
+						}) },
+						{ translateY: burst.interpolate({
+							inputRange: [0, 1], outputRange: [0, Math.sin(angle) * CURE_MOTION.burstRadius]
+						}) },
+						{ scale: fade(burst, [
+							0,
+							0.3,
+							1
+						], [
+							0.4,
+							1,
+							0.5
+						]) }
+					]
+				}
+			]}
 		/>;
 	});
 }
@@ -105,18 +183,20 @@ function flourish(values: CureValues, healed: boolean): Animated.CompositeAnimat
 	if (healed) {
 		return Animated.parallel([ring, timing(values.burst, 1, CURE_MOTION.burstMs, Easing.out(Easing.cubic))]);
 	}
-	const pulses = Array.from({length: CURE_MOTION.pulses}, () => [timing(values.pulse, 1, CURE_MOTION.pulseMs), timing(values.pulse, 0, CURE_MOTION.pulseMs)]).flat();
+	const pulses = Array.from({ length: CURE_MOTION.pulses }, () => [timing(values.pulse, 1, CURE_MOTION.pulseMs), timing(values.pulse, 0, CURE_MOTION.pulseMs)]).flat();
 	return Animated.parallel([ring, Animated.sequence(pulses)]);
 }
 
 function shakeOff(shake: Animated.Value): Animated.CompositeAnimation {
-	const steps = Array.from({length: CURE_MOTION.shakes}, (_, index) => timing(shake, index % 2 === 0 ? 1 : -1, CURE_MOTION.shakeStepMs));
+	const steps = Array.from({ length: CURE_MOTION.shakes }, (_, index) => timing(shake, index % 2 === 0 ? 1 : -1, CURE_MOTION.shakeStepMs));
 	return Animated.sequence([...steps, timing(shake, 0, CURE_MOTION.shakeStepMs)]);
 }
 
 /** The first emoji trembles; each next one spins in over the previous, then flourishes. */
 function stageAnimation(values: CureValues, stage: number, last: number): Animated.CompositeAnimation {
-	if (stage === 0) return shakeOff(values.shake);
+	if (stage === 0) {
+		return shakeOff(values.shake);
+	}
 	values.swap.setValue(0);
 	values.ring.setValue(0);
 	values.burst.setValue(0);
@@ -127,40 +207,70 @@ function stageAnimation(values: CureValues, stage: number, last: number): Animat
 	]);
 }
 
-function CureRing({ring, healed}: {ring: Animated.Value; healed: boolean}): ReactNode {
+function CureRing({
+	ring, healed
+}: {
+	ring: Animated.Value; healed: boolean;
+}): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
-	return <Animated.View pointerEvents="none" style={[styles.ring, {
-		borderColor: healed ? colors.green : colors.red,
-		opacity: fade(ring, [0, 1], [CURE_MOTION.ringOpacity, 0]),
-		transform: [{scale: ring.interpolate({inputRange: [0, 1], outputRange: [CURE_MOTION.ringFrom, CURE_MOTION.ringTo]})}]
-	}]} />;
+	return <Animated.View pointerEvents="none" style={[
+		styles.ring, {
+			borderColor: healed ? colors.green : colors.red,
+			opacity: fade(ring, [0, 1], [CURE_MOTION.ringOpacity, 0]),
+			transform: [
+				{ scale: ring.interpolate({
+					inputRange: [0, 1], outputRange: [CURE_MOTION.ringFrom, CURE_MOTION.ringTo]
+				}) }
+			]
+		}
+	]} />;
 }
 
-function LeavingEmoji({emoji, swap}: {emoji: string; swap: Animated.Value}): ReactNode {
+function LeavingEmoji({
+	emoji, swap
+}: {
+	emoji: string; swap: Animated.Value;
+}): ReactNode {
 	const styles = useStyles();
-	return <Animated.View style={[styles.layer, {
-		opacity: fade(swap, [0, 1], [1, 0]),
-		transform: [
-			{scale: fade(swap, [0, 1], [1, CURE_MOTION.leaveScale])},
-			{rotate: swap.interpolate({inputRange: [0, 1], outputRange: ["0deg", CURE_MOTION.leaveSpin]})}
-		]
-	}]}>
+	return <Animated.View style={[
+		styles.layer, {
+			opacity: fade(swap, [0, 1], [1, 0]),
+			transform: [
+				{ scale: fade(swap, [0, 1], [1, CURE_MOTION.leaveScale]) },
+				{ rotate: swap.interpolate({
+					inputRange: [0, 1], outputRange: ["0deg", CURE_MOTION.leaveSpin]
+				}) }
+			]
+		}
+	]}>
 		<TwemojiIcon emoji={emoji} size={Theme.dimensions.headerIcon} />
 	</Animated.View>;
 }
 
-function ArrivingEmoji({emoji, values, wiggle}: {emoji: string; values: CureValues; wiggle: Animated.Value}): ReactNode {
+function ArrivingEmoji({
+	emoji, values, wiggle
+}: {
+	emoji: string; values: CureValues; wiggle: Animated.Value;
+}): ReactNode {
 	const styles = useStyles();
-	return <Animated.View style={[styles.layer, {
-		opacity: fade(values.swap, [0, 0.3], [0, 1]),
-		transform: [
-			{scale: values.swap},
-			{rotate: values.swap.interpolate({inputRange: [0, 1], outputRange: [CURE_MOTION.arriveSpin, "0deg"]})},
-			{rotate: values.shake.interpolate({inputRange: [-1, 1], outputRange: [`-${CURE_MOTION.shakeTilt}`, CURE_MOTION.shakeTilt]})},
-			{scale: values.pulse.interpolate({inputRange: [0, 1], outputRange: [1, CURE_MOTION.pulseScale]})}
-		]
-	}]}>
+	return <Animated.View style={[
+		styles.layer, {
+			opacity: fade(values.swap, [0, 0.3], [0, 1]),
+			transform: [
+				{ scale: values.swap },
+				{ rotate: values.swap.interpolate({
+					inputRange: [0, 1], outputRange: [CURE_MOTION.arriveSpin, "0deg"]
+				}) },
+				{ rotate: values.shake.interpolate({
+					inputRange: [-1, 1], outputRange: [`-${CURE_MOTION.shakeTilt}`, CURE_MOTION.shakeTilt]
+				}) },
+				{ scale: values.pulse.interpolate({
+					inputRange: [0, 1], outputRange: [1, CURE_MOTION.pulseScale]
+				}) }
+			]
+		}
+	]}>
 		<DanceMotion wiggle={wiggle}>
 			<TwemojiIcon emoji={emoji} size={Theme.dimensions.headerIcon} />
 		</DanceMotion>
@@ -168,10 +278,12 @@ function ArrivingEmoji({emoji, values, wiggle}: {emoji: string; values: CureValu
 }
 
 /** The ailment trembles and spins away as the hospital takes its place, which then gives way to the healthy face. */
-export function CureEmblem({cure}: {cure: Cure}): ReactNode {
+export function CureEmblem({ cure }: { cure: Cure }): ReactNode {
 	const styles = useStyles();
 	const reducedMotion = useReducedMotion();
-	const {wiggle, dance} = useHappyDance();
+	const {
+		wiggle, dance
+	} = useHappyDance();
 	const [values] = useState((): CureValues => ({
 		shake: new Animated.Value(0),
 		swap: new Animated.Value(1),
@@ -180,7 +292,11 @@ export function CureEmblem({cure}: {cure: Cure}): ReactNode {
 		burst: new Animated.Value(0)
 	}));
 	const [stage, setStage] = useState(0);
-	const stages = [cure.from, AppIcons.getIconOrNull("effects.healed"), AppIcons.getIconOrNull("effects.none")]
+	const stages = [
+		cure.from,
+		AppIcons.getIconOrNull("effects.healed"),
+		AppIcons.getIconOrNull("effects.none")
+	]
 		.filter((emoji): emoji is string => Boolean(emoji));
 	const last = stages.length - 1;
 	const healed = stage === last && stage > 0;
@@ -192,13 +308,24 @@ export function CureEmblem({cure}: {cure: Cure}): ReactNode {
 			return undefined;
 		}
 		const animation = stageAnimation(values, stage, last);
-		animation.start(({finished}) => {
-			if (!finished) return;
-			if (stage < last) setStage(stage + 1);
-			else dance(cure.onDone);
+		animation.start(({ finished }) => {
+			if (!finished) {
+				return;
+			}
+			if (stage < last) {
+				setStage(stage + 1);
+			}
+			else { dance(cure.onDone); }
 		});
 		return (): void => animation.stop();
-	}, [cure, dance, last, reducedMotion, stage, values]);
+	}, [
+		cure,
+		dance,
+		last,
+		reducedMotion,
+		stage,
+		values
+	]);
 
 	const leaving = stage > 0 ? stages[stage - 1] : null;
 	return <Animated.View style={styles.box}>
@@ -210,21 +337,29 @@ export function CureEmblem({cure}: {cure: Cure}): ReactNode {
 }
 
 /** Touching the healthy face makes it dance; ten seconds of frantic tapping make it blow up, then come back. */
-const EASTER_EGG = {spamMs: 10_000, maxGapMs: 700, blastMs: 650, blastScale: 2.4, swellScale: 1.6, goneMs: 3_000, returnMs: 420} as const;
+const EASTER_EGG = {
+	spamMs: 10_000, maxGapMs: 700, blastMs: 650, blastScale: 2.4, swellScale: 1.6, goneMs: 3_000, returnMs: 420
+} as const;
 
 type HappyPhase = "happy" | "blast" | "gone";
 
-export function HappyEmblem({emoji}: {emoji: string}): ReactNode {
+export function HappyEmblem({ emoji }: { emoji: string }): ReactNode {
 	const styles = useStyles();
 	const reducedMotion = useReducedMotion();
-	const {wiggle, dance} = useHappyDance();
+	const {
+		wiggle, dance
+	} = useHappyDance();
 	const [phase, setPhase] = useState<HappyPhase>("happy");
 	const [blast] = useState(() => new Animated.Value(0));
 	const [comeback] = useState(() => new Animated.Value(1));
-	const streak = useRef({start: 0, last: 0});
+	const streak = useRef({
+		start: 0, last: 0
+	});
 	const returnTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	useEffect(() => (): void => {
-		if (returnTimer.current) clearTimeout(returnTimer.current);
+		if (returnTimer.current) {
+			clearTimeout(returnTimer.current);
+		}
 	}, []);
 
 	const comeBack = (): void => {
@@ -233,7 +368,9 @@ export function HappyEmblem({emoji}: {emoji: string}): ReactNode {
 		timing(comeback, 1, EASTER_EGG.returnMs, Easing.out(Easing.back(2))).start();
 	};
 	const explode = (): void => {
-		streak.current = {start: 0, last: 0};
+		streak.current = {
+			start: 0, last: 0
+		};
 		blast.setValue(0);
 		setPhase("blast");
 		impactAsync(ImpactFeedbackStyle.Heavy).catch(() => undefined);
@@ -243,33 +380,61 @@ export function HappyEmblem({emoji}: {emoji: string}): ReactNode {
 		});
 	};
 	const press = (): void => {
-		if (phase !== "happy") return;
+		if (phase !== "happy") {
+			return;
+		}
 		const now = Date.now();
 		const tapping = streak.current;
-		if (now - tapping.last > EASTER_EGG.maxGapMs) tapping.start = now;
+		if (now - tapping.last > EASTER_EGG.maxGapMs) {
+			tapping.start = now;
+		}
 		tapping.last = now;
-		if (now - tapping.start >= EASTER_EGG.spamMs) explode();
-		else dance();
+		if (now - tapping.start >= EASTER_EGG.spamMs) {
+			explode();
+		}
+		else { dance(); }
 	};
 
 	const face = <TwemojiIcon emoji={emoji} size={Theme.dimensions.headerIcon} />;
 	const explosion = AppIcons.getIconOrNull("other.explosion");
 	return <Pressable onPress={press} testID="happy-emblem" style={styles.box}>
-		{phase === "happy" ? <Animated.View style={{opacity: comeback, transform: [{scale: comeback}]}}>
-			<DanceMotion wiggle={wiggle}>{face}</DanceMotion>
-		</Animated.View> : null}
-		{phase === "blast" ? <>
-			<Animated.View style={[styles.layer, {
-				opacity: fade(blast, [0, 0.35], [1, 0]),
-				transform: [{scale: fade(blast, [0, 0.35], [1, EASTER_EGG.swellScale])}]
-			}]}>{face}</Animated.View>
-			<Sparks burst={blast} />
-			{explosion ? <Animated.View style={[styles.layer, {
-				opacity: fade(blast, [0, 0.15, 0.7, 1], [0, 1, 1, 0]),
-				transform: [{scale: fade(blast, [0, 1], [0.3, EASTER_EGG.blastScale])}]
-			}]}>
-				<TwemojiIcon emoji={explosion} size={Theme.dimensions.headerIcon} />
-			</Animated.View> : null}
-		</> : null}
+		{phase === "happy"
+			? <Animated.View style={{
+				opacity: comeback, transform: [{ scale: comeback }]
+			}}>
+				<DanceMotion wiggle={wiggle}>{face}</DanceMotion>
+			</Animated.View>
+			: null}
+		{phase === "blast"
+			? <>
+				<Animated.View style={[
+					styles.layer, {
+						opacity: fade(blast, [0, 0.35], [1, 0]),
+						transform: [{ scale: fade(blast, [0, 0.35], [1, EASTER_EGG.swellScale]) }]
+					}
+				]}>{face}</Animated.View>
+				<Sparks burst={blast} />
+				{explosion
+					? <Animated.View style={[
+						styles.layer, {
+							opacity: fade(blast, [
+								0,
+								0.15,
+								0.7,
+								1
+							], [
+								0,
+								1,
+								1,
+								0
+							]),
+							transform: [{ scale: fade(blast, [0, 1], [0.3, EASTER_EGG.blastScale]) }]
+						}
+					]}>
+						<TwemojiIcon emoji={explosion} size={Theme.dimensions.headerIcon} />
+					</Animated.View>
+					: null}
+			</>
+			: null}
 	</Pressable>;
 }

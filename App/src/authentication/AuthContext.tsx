@@ -1,22 +1,36 @@
-import React, {PropsWithChildren, useEffect} from "react";
-import {useRouter} from "expo-router";
-import {deleteStoredToken, readFullStoredToken, readStoredToken, TOKEN_STORAGE_KEY_TEMPLATE, writeStoredToken} from "@/src/authentication/TokenStorage";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {AuthToken} from "@/src/authentication/AuthToken";
-import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
-import {collectorsStore} from "@/src/collectors/CollectorsStore";
-import {reportEventStore} from "@/src/collectors/ReportEventStore";
-import {fightStore} from "@/src/store/FightStore";
-import {isAccountCollisionOpen, RestApi} from "@/src/networking/RestApi";
+import React, {
+	PropsWithChildren, useEffect
+} from "react";
+import { useRouter } from "expo-router";
+import {
+	deleteStoredToken, readFullStoredToken, readStoredToken, TOKEN_STORAGE_KEY_TEMPLATE, writeStoredToken
+} from "@/src/authentication/TokenStorage";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { AuthToken } from "@/src/authentication/AuthToken";
+import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { collectorsStore } from "@/src/collectors/CollectorsStore";
+import { reportEventStore } from "@/src/collectors/ReportEventStore";
+import { fightStore } from "@/src/store/FightStore";
+import {
+	isAccountCollisionOpen, RestApi
+} from "@/src/networking/RestApi";
 
 /** States of a session already shown to the player: logging in again from them is not a first arrival */
-const SESSION_STATES: ReadonlySet<AuthStateEnum> = new Set([AuthStateEnum.LOGGED_IN, AuthStateEnum.RECONNECTING_NO_PACKET_QUEUE, AuthStateEnum.RECONNECTING_PACKET_QUEUE]);
+const SESSION_STATES: ReadonlySet<AuthStateEnum> = new Set([
+	AuthStateEnum.LOGGED_IN,
+	AuthStateEnum.RECONNECTING_NO_PACKET_QUEUE,
+	AuthStateEnum.RECONNECTING_PACKET_QUEUE
+]);
 
 /** States that send the player back to the login screen */
-const LOGIN_STATES: ReadonlySet<AuthStateEnum> = new Set([AuthStateEnum.NO_TOKEN, AuthStateEnum.TOKEN_INVALID_OR_EXPIRED, AuthStateEnum.ACCOUNT_COLLISION]);
+const LOGIN_STATES: ReadonlySet<AuthStateEnum> = new Set([
+	AuthStateEnum.NO_TOKEN,
+	AuthStateEnum.TOKEN_INVALID_OR_EXPIRED,
+	AuthStateEnum.ACCOUNT_COLLISION
+]);
 
 async function loadStoredToken(): Promise<AuthToken | null> {
-	const token = await readFullStoredToken().catch((error) => {
+	const token = await readFullStoredToken().catch(error => {
 		console.error("Failed to load token:", error);
 		return "";
 	});
@@ -34,7 +48,7 @@ type AuthState = {
 	setState: (state: AuthStateEnum) => void;
 	saveToken: (token: AuthToken) => Promise<void>;
 	clearToken: () => Promise<void>;
-}
+};
 
 export const AuthContext = React.createContext<AuthState>({
 	state: AuthStateEnum.NOT_READY,
@@ -68,10 +82,12 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 	const navigateToAuthenticatedRoot = (): void => {
 		cancelPendingNavigation();
 
-		// AuthProvider is mounted just above the root navigator. A direct replace from the first
-		// websocket callback can therefore run before Expo Router has mounted its navigation ref.
-		// Defer it briefly and retry while the root is mounting instead of crashing the app with
-		// "Attempted to navigate before mounting the Root Layout component".
+		/*
+		 * AuthProvider is mounted just above the root navigator. A direct replace from the first
+		 * websocket callback can therefore run before Expo Router has mounted its navigation ref.
+		 * Defer it briefly and retry while the root is mounting instead of crashing the app with
+		 * "Attempted to navigate before mounting the Root Layout component".
+		 */
 		const attempt = (): void => {
 			try {
 				router.replace("/");
@@ -99,7 +115,7 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 				shouldContinue = false; // Stop if no more token parts are found
 			}
 		}
-	}
+	};
 
 	const runTokenEdit = (edit: () => Promise<void>): Promise<void> => {
 		const done = tokenEdits.current.then(edit);
@@ -151,13 +167,14 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 			return;
 		}
 
-		await WebSocketClient.getInstance().init(authToken, onStateChange, saveToken, clearToken).catch((error) => {
-			console.error("Failed to initialize WebSocketClient:", error);
-			if (currentState.current === AuthStateEnum.CONNECTING) {
-				onStateChange(AuthStateEnum.CONNECTION_ERROR);
-			}
-		});
-	}
+		await WebSocketClient.getInstance().init(authToken, onStateChange, saveToken, clearToken)
+			.catch(error => {
+				console.error("Failed to initialize WebSocketClient:", error);
+				if (currentState.current === AuthStateEnum.CONNECTING) {
+					onStateChange(AuthStateEnum.CONNECTION_ERROR);
+				}
+			});
+	};
 
 	const returnToLogin = (): void => {
 		WebSocketClient.getInstance().disconnect();
@@ -170,10 +187,11 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 
 	// Happens when the connection cannot be established
 	const restartAuthentication = (onStateChange: (newState: AuthStateEnum) => void): void => {
-		startAuthenticationFlow(onStateChange).then().catch(err => {
-			console.error("Error during authentication flow restart:", err);
-			onStateChange(AuthStateEnum.NO_TOKEN);
-		});
+		startAuthenticationFlow(onStateChange).then()
+			.catch(err => {
+				console.error("Error during authentication flow restart:", err);
+				onStateChange(AuthStateEnum.NO_TOKEN);
+			});
 		router.replace("/");
 	};
 
@@ -192,11 +210,12 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 		else if (newState === AuthStateEnum.NOT_READY) {
 			restartAuthentication(setStateInternal);
 		}
-	}
+	};
 
 	useEffect(() => {
 		startAuthenticationFlow(setStateInternal)
-			.then().catch((error) => {
+			.then()
+			.catch(error => {
 				console.error("Error during authentication flow:", error);
 				setStateInternal(AuthStateEnum.NO_TOKEN);
 			});
@@ -205,8 +224,10 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 	useEffect(() => cancelPendingNavigation, []);
 
 	return (
-			<AuthContext.Provider value={{ state, setState: setStateInternal, saveToken, clearToken }}>
-				{children}
-			</AuthContext.Provider>
-	)
+		<AuthContext.Provider value={{
+			state, setState: setStateInternal, saveToken, clearToken
+		}}>
+			{children}
+		</AuthContext.Provider>
+	);
 }

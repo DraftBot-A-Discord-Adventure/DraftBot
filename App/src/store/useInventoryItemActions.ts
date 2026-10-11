@@ -1,14 +1,22 @@
-import {EquipActionReq} from "ws-packets/src/fromClient/EquipActionReq";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {DAILY_BONUS_REACTION_KINDS, DRINK_REACTION_KINDS, ReactionCollectorReaction, SELL_REACTION_KINDS} from "ws-packets/src/fromServer/collectors";
-import {EQUIP_ACTIONS, EQUIP_ERRORS, EquipAction} from "ws-packets/src/objects/EquipCategoryData";
-import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {givesDailyBonus, isDrinkable} from "@/src/display/ItemEffects";
-import {CommandMenu, INVENTORY_MENUS, useCommandMenus} from "@/src/store/useInventoryMenus";
-import {useEquipmentActions} from "@/src/store/useEquipmentActions";
-import type {Lock} from "@/src/design/Sections";
-import {i18n} from "@/src/translations/i18n";
+import { EquipActionReq } from "ws-packets/src/fromClient/EquipActionReq";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	DAILY_BONUS_REACTION_KINDS, DRINK_REACTION_KINDS, ReactionCollectorReaction, SELL_REACTION_KINDS
+} from "ws-packets/src/fromServer/collectors";
+import {
+	EQUIP_ACTIONS, EQUIP_ERRORS, EquipAction
+} from "ws-packets/src/objects/EquipCategoryData";
+import { ItemWithDetails } from "ws-packets/src/objects/ItemWithDetails";
+import {
+	givesDailyBonus, isDrinkable
+} from "@/src/display/ItemEffects";
+import {
+	CommandMenu, INVENTORY_MENUS, useCommandMenus
+} from "@/src/store/useInventoryMenus";
+import { useEquipmentActions } from "@/src/store/useEquipmentActions";
+import type { Lock } from "@/src/design/Sections";
+import { i18n } from "@/src/translations/i18n";
 
 export const ITEM_ACTIONS = {
 	EQUIP: "equip",
@@ -26,12 +34,18 @@ export type ItemKind = "weapon" | "armor" | "potion" | "object";
 export const EQUIPPED_SLOT = 0;
 
 /** An item where the inventory shows it: worn, or kept in a numbered reserve slot. */
-export type InventoryItem = {item: ItemWithDetails; kind: ItemKind; slot: number; equipped: boolean};
+export type InventoryItem = {
+	item: ItemWithDetails; kind: ItemKind; slot: number; equipped: boolean;
+};
 
 /** What the rest of the inventory decides about an item: whether it can be put away, whether the daily bonus is ready. */
-export type ItemActionContext = {reserveFull: boolean; dailyLock: Lock | undefined; equippedObjectGivesDaily: boolean};
+export type ItemActionContext = {
+	reserveFull: boolean; dailyLock: Lock | undefined; equippedObjectGivesDaily: boolean;
+};
 
-export type ItemActionChoice = {action: ItemAction; lock?: Lock};
+export type ItemActionChoice = {
+	action: ItemAction; lock?: Lock;
+};
 
 type EquipmentAction = typeof ITEM_ACTIONS.EQUIP | typeof ITEM_ACTIONS.DEPOSIT;
 type MenuAction = Exclude<ItemAction, EquipmentAction>;
@@ -39,29 +53,45 @@ type ReactionMatcher = (reaction: ReactionCollectorReaction, entry: InventoryIte
 
 /** Potions are never bought back: selling one only throws it away. */
 function saleAction(entry: InventoryItem): ItemActionChoice {
-	return {action: entry.kind === "potion" ? ITEM_ACTIONS.DISCARD : ITEM_ACTIONS.SELL};
+	return { action: entry.kind === "potion" ? ITEM_ACTIONS.DISCARD : ITEM_ACTIONS.SELL };
 }
 
 function consumeAction(entry: InventoryItem, context: ItemActionContext): ItemActionChoice[] {
-	if (entry.kind === "potion") return isDrinkable(entry.item) ? [{action: ITEM_ACTIONS.DRINK}] : [];
-	if (entry.kind !== "object" || !givesDailyBonus(entry.item)) return [];
+	if (entry.kind === "potion") {
+		return isDrinkable(entry.item) ? [{ action: ITEM_ACTIONS.DRINK }] : [];
+	}
+	if (entry.kind !== "object" || !givesDailyBonus(entry.item)) {
+		return [];
+	}
 
 	// The server always spends the worn object first, so a reserve one is only offered when the worn one cannot.
-	if (!entry.equipped && context.equippedObjectGivesDaily) return [];
-	return [{action: ITEM_ACTIONS.DAILY, ...context.dailyLock ? {lock: context.dailyLock} : {}}];
+	if (!entry.equipped && context.equippedObjectGivesDaily) {
+		return [];
+	}
+	return [
+		{
+			action: ITEM_ACTIONS.DAILY, ...context.dailyLock ? { lock: context.dailyLock } : {}
+		}
+	];
 }
 
 /** What can be done with an item from where it lies, the most likely action first. */
 export function itemActions(entry: InventoryItem, context: ItemActionContext): ItemActionChoice[] {
-	if (entry.item.id === 0) return [];
+	if (entry.item.id === 0) {
+		return [];
+	}
 	if (entry.equipped) {
 		const deposit: ItemActionChoice = {
 			action: ITEM_ACTIONS.DEPOSIT,
-			...context.reserveFull ? {lock: {reason: i18n.t(`app:equipment.errors.${EQUIP_ERRORS.RESERVE_FULL}`)}} : {}
+			...context.reserveFull ? { lock: { reason: i18n.t(`app:equipment.errors.${EQUIP_ERRORS.RESERVE_FULL}`) } } : {}
 		};
 		return [...consumeAction(entry, context), deposit];
 	}
-	return [...consumeAction(entry, context), {action: ITEM_ACTIONS.EQUIP}, saleAction(entry)];
+	return [
+		...consumeAction(entry, context),
+		{ action: ITEM_ACTIONS.EQUIP },
+		saleAction(entry)
+	];
 }
 
 const sellsThisItem: ReactionMatcher = (reaction, entry) => reaction.type === SELL_REACTION_KINDS.ITEM

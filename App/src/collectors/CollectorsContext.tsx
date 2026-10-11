@@ -1,11 +1,13 @@
-import {createContext, ReactNode, useContext, useEffect, useMemo, useRef, useSyncExternalStore} from "react";
-import {AppState} from "react-native";
-import type {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {collectorsStore} from "@/src/collectors/CollectorsStore";
-import {reportEventStore} from "@/src/collectors/ReportEventStore";
-import {useGameInvalidations} from "@/src/store/GameInvalidations";
-import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
-import {fightStore} from "@/src/store/FightStore";
+import {
+	createContext, ReactNode, useContext, useEffect, useMemo, useRef, useSyncExternalStore
+} from "react";
+import { AppState } from "react-native";
+import type { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import { collectorsStore } from "@/src/collectors/CollectorsStore";
+import { reportEventStore } from "@/src/collectors/ReportEventStore";
+import { useGameInvalidations } from "@/src/store/GameInvalidations";
+import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { fightStore } from "@/src/store/FightStore";
 
 type CollectorsState = {
 	open: ReactionCollectorCreation[];
@@ -38,7 +40,11 @@ const CollectorsContext = createContext<CollectorsState | null>(null);
  * open one without being asked. Keeping them here rather than in a screen is what makes both cases
  * work with the same code.
  */
-export function CollectorsProvider({ children, authState }: { children: ReactNode; authState?: AuthStateEnum }): ReactNode {
+export function CollectorsProvider({
+	children, authState
+}: {
+	children: ReactNode; authState?: AuthStateEnum;
+}): ReactNode {
 	const { afterCollector } = useGameInvalidations();
 	const previousAuthState = useRef<AuthStateEnum>(AuthStateEnum.NOT_READY);
 	const open = useSyncExternalStore(collectorsStore.subscribe, collectorsStore.getSnapshot, collectorsStore.getSnapshot);

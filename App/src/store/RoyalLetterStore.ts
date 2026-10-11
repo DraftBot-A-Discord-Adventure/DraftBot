@@ -1,13 +1,21 @@
-import {PendingReveal} from "ws-packets/src/fromServer/appState/AppStateRes";
-import {RoyalLetterRes} from "ws-packets/src/fromServer/onboarding/RoyalLetterRes";
-import {useAppState, useAppStateChange} from "@/src/store/AppState";
+import { PendingReveal } from "ws-packets/src/fromServer/appState/AppStateRes";
+import { RoyalLetterRes } from "ws-packets/src/fromServer/onboarding/RoyalLetterRes";
+import {
+	useAppState, useAppStateChange
+} from "@/src/store/AppState";
 
-export type UnreadRoyalLetter = {id: number; letter: RoyalLetterRes};
+export type UnreadRoyalLetter = {
+	id: number; letter: RoyalLetterRes;
+};
 
 /** The oldest letter Core still keeps for the player to read. */
 export function firstUnreadLetter(reveals: readonly PendingReveal[]): UnreadRoyalLetter | null {
 	const reveal = reveals.find(candidate => candidate.letter !== undefined);
-	return reveal?.letter ? {id: reveal.id, letter: reveal.letter} : null;
+	return reveal?.letter
+		? {
+			id: reveal.id, letter: reveal.letter
+		}
+		: null;
 }
 
 export function useRoyalLetter(): UnreadRoyalLetter | null {
@@ -17,5 +25,5 @@ export function useRoyalLetter(): UnreadRoyalLetter | null {
 
 export function useReadRoyalLetter(): (unread: UnreadRoyalLetter) => void {
 	const change = useAppStateChange();
-	return unread => change({acknowledged: [unread.id]});
+	return unread => change({ acknowledged: [unread.id] });
 }

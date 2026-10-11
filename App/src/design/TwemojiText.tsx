@@ -1,8 +1,10 @@
-import {parse} from "@twemoji/parser";
-import {ReactNode} from "react";
-import {Platform, StyleProp, Text, TextStyle, View, ViewStyle} from "react-native";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {Theme} from "@/src/design/Theme";
+import { parse } from "@twemoji/parser";
+import { ReactNode } from "react";
+import {
+	Platform, StyleProp, Text, TextStyle, View, ViewStyle
+} from "react-native";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { Theme } from "@/src/design/Theme";
 
 /**
  * The text split into words and emojis, ready to be laid out on a wrapping line.
@@ -10,7 +12,9 @@ import {Theme} from "@/src/design/Theme";
  * Exposed so prose that also carries emphasis can style each piece without re-implementing the
  * emoji substitution.
  */
-export function twemojiParts({text, textStyle, emojiSize, iosEmojiVerticalOffset, keyPrefix = ""}: {
+export function twemojiParts({
+	text, textStyle, emojiSize, iosEmojiVerticalOffset, keyPrefix = ""
+}: {
 	text: string;
 	textStyle?: StyleProp<TextStyle>;
 	emojiSize: number;
@@ -55,15 +59,23 @@ export function twemojiParts({text, textStyle, emojiSize, iosEmojiVerticalOffset
 }
 
 /** Game texts open with their emoji: split it off so it can take an icon slot and the rest a title style. */
-export function splitLeadingEmoji(label: string): {emoji?: string; text: string} {
+export function splitLeadingEmoji(label: string): {
+	emoji?: string; text: string;
+} {
 	const trimmed = label.trimStart();
 	const [first] = parse(trimmed);
-	if (first?.indices[0] !== 0) return {text: trimmed};
-	return {emoji: first.text, text: trimmed.slice(first.indices[1]).trimStart()};
+	if (first?.indices[0] !== 0) {
+		return { text: trimmed };
+	}
+	return {
+		emoji: first.text, text: trimmed.slice(first.indices[1]).trimStart()
+	};
 }
 
 /** Laid out as one paragraph, so a long label wraps its words after the emoji instead of pushing the text below it. */
-export function TwemojiText({children, textStyle, containerStyle, emojiSize, iosEmojiVerticalOffset = Theme.emoji.iosFieldOffset, numberOfLines}: {
+export function TwemojiText({
+	children, textStyle, containerStyle, emojiSize, iosEmojiVerticalOffset = Theme.emoji.iosFieldOffset, numberOfLines
+}: {
 	children: string;
 	textStyle?: StyleProp<TextStyle>;
 	containerStyle?: StyleProp<ViewStyle>;

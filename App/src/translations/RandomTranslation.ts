@@ -1,5 +1,5 @@
-import {TOptions} from "i18next";
-import {i18n} from "@/src/translations/i18n";
+import { TOptions } from "i18next";
+import { i18n } from "@/src/translations/i18n";
 
 function stableStringHash(value: string): number {
 	let hash = 0;

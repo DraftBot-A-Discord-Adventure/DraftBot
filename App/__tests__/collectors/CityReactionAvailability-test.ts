@@ -1,11 +1,17 @@
-import {CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction} from "ws-packets/src/fromServer/collectors";
-import {cityReactionAvailable} from "@/src/collectors/CityReactionAvailability";
-import {cityReactionLock} from "@/src/collectors/CityReactionLocks";
+import {
+	CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction
+} from "ws-packets/src/fromServer/collectors";
+import { cityReactionAvailable } from "@/src/collectors/CityReactionAvailability";
+import { cityReactionLock } from "@/src/collectors/CityReactionLocks";
 
-const upgrade = {type: CITY_REACTION_KINDS.UPGRADE_HOME, data: {}} as ReactionCollectorReaction;
+const upgrade = {
+	type: CITY_REACTION_KINDS.UPGRADE_HOME, data: {}
+} as ReactionCollectorReaction;
 
 function notary(manage: object): CityMobileSnapshot {
-	return {home: {manage: {currentMoney: 12_849, upgradePrice: 19_800, ...manage}}} as CityMobileSnapshot;
+	return { home: { manage: {
+		currentMoney: 12_849, upgradePrice: 19_800, ...manage
+	} } } as CityMobileSnapshot;
 }
 
 describe("home purchases at the notary", () => {
@@ -14,14 +20,24 @@ describe("home purchases at the notary", () => {
 	});
 
 	it("can be pressed once Core grants them", () => {
-		expect(cityReactionAvailable(upgrade, notary({canUpgrade: true}))).toBe(true);
+		expect(cityReactionAvailable(upgrade, notary({ canUpgrade: true }))).toBe(true);
 	});
 });
 
 describe("apartment rent", () => {
-	const claim = {type: CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT, data: {apartmentId: 7}} as ReactionCollectorReaction;
+	const claim = {
+		type: CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT, data: { apartmentId: 7 }
+	} as ReactionCollectorReaction;
 	const owning = (isRented: boolean): CityMobileSnapshot => ({
-		apartmentNotary: {ownedApartments: [{apartmentId: 7, mapLocationId: 23, accumulatedRent: 40, isRented, canClaim: false}], ownedCount: 1, accumulatedRent: 40}
+		apartmentNotary: {
+			ownedApartments: [
+				{
+					apartmentId: 7, mapLocationId: 23, accumulatedRent: 40, isRented, canClaim: false
+				}
+			],
+			ownedCount: 1,
+			accumulatedRent: 40
+		}
 	});
 
 	it("tells a foothold earns nothing rather than asking to wait", () => {

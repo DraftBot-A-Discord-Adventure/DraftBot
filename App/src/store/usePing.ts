@@ -1,8 +1,8 @@
-import {useState} from "react";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {PingReq} from "ws-packets/src/fromClient/PingReq";
-import {PingRes} from "ws-packets/src/fromServer/ping/PingRes";
-import {GameClient} from "@/src/networking/GameClient";
+import { useState } from "react";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { PingReq } from "ws-packets/src/fromClient/PingReq";
+import { PingRes } from "ws-packets/src/fromServer/ping/PingRes";
+import { GameClient } from "@/src/networking/GameClient";
 
 export type Ping = {
 	pending: boolean;
@@ -20,9 +20,11 @@ export function usePing(): Ping {
 		setPending(true);
 		setLatency(null);
 		const time = Date.now();
-		GameClient.request(makeFromClientPacket(PingReq, {time}), PingRes)
+		GameClient.request(makeFromClientPacket(PingReq, { time }), PingRes)
 			.then(answer => setLatency(answer.kind === "answer" ? Date.now() - time : null))
 			.finally(() => setPending(false));
 	};
-	return {pending, latency, measure};
+	return {
+		pending, latency, measure
+	};
 }

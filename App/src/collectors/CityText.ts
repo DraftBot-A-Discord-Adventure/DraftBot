@@ -1,4 +1,4 @@
-import {i18n} from "@/src/translations/i18n";
+import { i18n } from "@/src/translations/i18n";
 
 export function compactCityDescription(description: string): string {
 	const firstParagraph = description.split("\n\n")[0].trim();
@@ -6,6 +6,8 @@ export function compactCityDescription(description: string): string {
 	return (firstSentence ?? firstParagraph).trim();
 }
 
-export function materialSummary(materials: {materialId: number; quantity: number; playerQuantity: number}[]): string {
+export function materialSummary(materials: {
+	materialId: number; quantity: number; playerQuantity: number;
+}[]): string {
 	return materials.map(material => `${material.quantity} × ${i18n.t(`models:materials.${material.materialId}`)} (${material.playerQuantity})`).join(", ");
 }

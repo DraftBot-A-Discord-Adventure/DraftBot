@@ -1,15 +1,19 @@
-import {ReactElement} from "react";
-import {act, render, screen, waitFor} from "@testing-library/react-native";
-import {Text} from "react-native";
-import {useQuery} from "@tanstack/react-query";
-import {MissionsCompletedRes} from "ws-packets/src/fromServer/missions/MissionsCompletedRes";
-import {MISSION_TYPES} from "ws-packets/src/objects/Mission";
-import {AuthStateEnum} from "@/src/authentication/AuthStateEnum";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
-import {GameQueryProvider} from "@/src/store/GameQueryProvider";
+import { ReactElement } from "react";
+import {
+	act, render, screen, waitFor
+} from "@testing-library/react-native";
+import { Text } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { MissionsCompletedRes } from "ws-packets/src/fromServer/missions/MissionsCompletedRes";
+import { MISSION_TYPES } from "ws-packets/src/objects/Mission";
+import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import {
+	GAME_ENTITIES, gameKey
+} from "@/src/store/GameEntities";
+import { GameQueryProvider } from "@/src/store/GameQueryProvider";
 
-function ProfileReader({onRead}: { onRead: () => void }): ReactElement {
+function ProfileReader({ onRead }: { onRead: () => void }): ReactElement {
 	const query = useQuery({
 		queryKey: ["profile"],
 		queryFn: async (): Promise<string> => {
@@ -21,8 +25,10 @@ function ProfileReader({onRead}: { onRead: () => void }): ReactElement {
 	return <Text>{query.data}</Text>;
 }
 
-function MissionReader({read}: {read: () => Promise<string>}): ReactElement {
-	const query = useQuery({queryKey: gameKey(GAME_ENTITIES.MISSIONS), queryFn: read});
+function MissionReader({ read }: { read: () => Promise<string> }): ReactElement {
+	const query = useQuery({
+		queryKey: gameKey(GAME_ENTITIES.MISSIONS), queryFn: read
+	});
 	return <Text>{query.data}</Text>;
 }
 
@@ -54,10 +60,14 @@ describe("GameQueryProvider", () => {
 		await waitFor(() => expect(screen.getByText("earn 100")).toBeTruthy());
 
 		missionName = "next campaign mission";
-		const reward = {points: 0, experience: 0, gems: 0, money: 0};
+		const reward = {
+			points: 0, experience: 0, gems: 0, money: 0
+		};
 		const completion = new MissionsCompletedRes();
 		completion.missions = [MISSION_TYPES.CAMPAIGN, MISSION_TYPES.DAILY].map(missionType => ({
-			mission: {missionId: "earnMoney", missionObjective: 100, missionVariant: 0, numberDone: 100, missionType},
+			mission: {
+				missionId: "earnMoney", missionObjective: 100, missionVariant: 0, numberDone: 100, missionType
+			},
 			reward
 		}));
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
@@ -71,16 +81,24 @@ describe("GameQueryProvider", () => {
 	it("loads the next account without showing a previous account's late cached response", async () => {
 		let finishPrevious!: (name: string) => void;
 		let finishCurrent!: (name: string) => void;
-		const previous = jest.fn(() => new Promise<string>(resolve => { finishPrevious = resolve; }));
-		const current = jest.fn(() => new Promise<string>(resolve => { finishCurrent = resolve; }));
+		const previous = jest.fn(() => new Promise<string>(resolve => {
+			finishPrevious = resolve;
+		}));
+		const current = jest.fn(() => new Promise<string>(resolve => {
+			finishCurrent = resolve;
+		}));
 		const view = await render(<GameQueryProvider authState={AuthStateEnum.LOGGED_IN}><MissionReader read={previous} /></GameQueryProvider>);
 		await waitFor(() => expect(previous).toHaveBeenCalledTimes(1));
 		await view.rerender(<Text>signed out</Text>);
 		await view.rerender(<GameQueryProvider authState={AuthStateEnum.LOGGED_IN}><MissionReader read={current} /></GameQueryProvider>);
 		await waitFor(() => expect(current).toHaveBeenCalledTimes(1));
-		await act(async (): Promise<void> => { finishPrevious("previous account's missions"); });
+		await act(async (): Promise<void> => {
+			finishPrevious("previous account's missions");
+		});
 		expect(screen.queryByText("previous account's missions")).toBeNull();
-		await act(async (): Promise<void> => { finishCurrent("current account's missions"); });
+		await act(async (): Promise<void> => {
+			finishCurrent("current account's missions");
+		});
 		await waitFor(() => expect(screen.getByText("current account's missions")).toBeTruthy());
 		expect(screen.queryByText("previous account's missions")).toBeNull();
 		await view.unmount();

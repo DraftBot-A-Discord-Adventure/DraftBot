@@ -1,6 +1,8 @@
-import {render, screen} from "@testing-library/react-native";
-import {Story} from "@/src/design/Story";
-import {ChoiceAction} from "@/src/design/Sections";
+import {
+	render, screen
+} from "@testing-library/react-native";
+import { Story } from "@/src/design/Story";
+import { ChoiceAction } from "@/src/design/Sections";
 
 describe("game prose", () => {
 	it("renders Discord emphasis as emphasis instead of showing its markers", async () => {
@@ -19,8 +21,8 @@ describe("game prose", () => {
 		const emoji = "\u{1FA99}";
 		const label = `${emoji} Small reward`;
 		await render(<ChoiceAction label={label} onPress={jest.fn()} />);
-		expect(screen.getByRole("button", {name: label})).toHaveStyle({alignItems: "center"});
-		expect(screen.getByLabelText(emoji)).toHaveStyle({transform: [{translateY: 0}]});
+		expect(screen.getByRole("button", { name: label })).toHaveStyle({ alignItems: "center" });
+		expect(screen.getByLabelText(emoji)).toHaveStyle({ transform: [{ translateY: 0 }] });
 		expect(screen.getByText("Small reward")).toBeTruthy();
 		expect(screen.queryByText(label)).toBeNull();
 	});

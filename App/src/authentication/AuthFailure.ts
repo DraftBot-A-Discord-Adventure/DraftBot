@@ -1,4 +1,4 @@
-import type {AuthSessionResult} from "expo-auth-session";
+import type { AuthSessionResult } from "expo-auth-session";
 
 /** What the player needs to be told, never the protocol wording behind it. */
 export const AUTH_FAILURES = {
@@ -13,7 +13,11 @@ export const AUTH_FAILURES = {
 export type AuthFailureReason = typeof AUTH_FAILURES[keyof typeof AUTH_FAILURES];
 
 /** The OAuth errors that mean the player, not the network, said no. */
-const DENIED_ERROR_CODES: ReadonlySet<string> = new Set(["access_denied", "consent_required", "login_required"]);
+const DENIED_ERROR_CODES: ReadonlySet<string> = new Set([
+	"access_denied",
+	"consent_required",
+	"login_required"
+]);
 const CANCELLED_RESULT_TYPES: ReadonlySet<AuthSessionResult["type"]> = new Set(["dismiss", "cancel"]);
 
 export class AuthFailure extends Error {

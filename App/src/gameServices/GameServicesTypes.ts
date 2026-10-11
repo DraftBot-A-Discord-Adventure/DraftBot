@@ -1,4 +1,4 @@
-import type {GameAchievementId} from "./Achievements";
+import type { GameAchievementId } from "./Achievements";
 
 export const GAME_SERVICE_PROVIDERS = {
 	GAME_CENTER: "gameCenter",
@@ -30,10 +30,14 @@ export const GAME_SERVICE_AVAILABILITY = {
 } as const;
 
 export type GameServiceAvailability = typeof GAME_SERVICE_AVAILABILITY[keyof typeof GAME_SERVICE_AVAILABILITY];
-export type GamePlatformPlayer = {id: string; displayName: string};
+export type GamePlatformPlayer = {
+	id: string; displayName: string;
+};
 
 export function platformAvailability(configured: boolean, nativeAvailable: boolean): GameServiceAvailability {
-	if (!configured) return GAME_SERVICE_AVAILABILITY.NOT_CONFIGURED;
+	if (!configured) {
+		return GAME_SERVICE_AVAILABILITY.NOT_CONFIGURED;
+	}
 	return nativeAvailable ? GAME_SERVICE_AVAILABILITY.AVAILABLE : GAME_SERVICE_AVAILABILITY.NATIVE_UNAVAILABLE;
 }
 

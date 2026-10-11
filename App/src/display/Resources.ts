@@ -1,5 +1,5 @@
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
 
 /** Materials wear their own emoji wherever they are listed, and the generic pouch when the pack has none. */
 export function materialName(materialId: number): string {

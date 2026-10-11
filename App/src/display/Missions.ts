@@ -1,13 +1,17 @@
-import {CompletedMission, Mission, MissionReward, MissionTravel, MISSION_VARIANTS} from "ws-packets/src/objects/Mission";
-import {i18n} from "@/src/translations/i18n";
-import {formatDurationMinutes} from "@/src/display/ItemEffects";
-import {AppIcons} from "@/src/AppIcons";
+import {
+	CompletedMission, Mission, MissionReward, MissionTravel, MISSION_VARIANTS
+} from "ws-packets/src/objects/Mission";
+import { i18n } from "@/src/translations/i18n";
+import { formatDurationMinutes } from "@/src/display/ItemEffects";
+import { AppIcons } from "@/src/AppIcons";
 
 const MILLISECONDS_PER_HOUR = 3_600_000;
 const MINUTES_PER_HOUR = 60;
 
 export function missionDate(timestamp: number): string {
-	return new Intl.DateTimeFormat(i18n.language, {dateStyle: "short", timeStyle: "short"}).format(timestamp);
+	return new Intl.DateTimeFormat(i18n.language, {
+		dateStyle: "short", timeStyle: "short"
+	}).format(timestamp);
 }
 
 function travelVariant(travel: MissionTravel, now: number): string {
@@ -27,41 +31,59 @@ function travelVariant(travel: MissionTravel, now: number): string {
 }
 
 function missionVariant(mission: Mission, now: number): string {
-	if (mission.travel) return travelVariant(mission.travel, now);
+	if (mission.travel) {
+		return travelVariant(mission.travel, now);
+	}
 	switch (mission.missionId) {
 		case MISSION_VARIANTS.CLASS_TIER: return String(mission.missionVariant + 1);
 		case MISSION_VARIANTS.EXPEDITION_DURATION: return formatDurationMinutes(mission.missionVariant);
 		case MISSION_VARIANTS.TRAVEL_DURATION: return formatDurationMinutes(mission.missionVariant * MINUTES_PER_HOUR);
-		case MISSION_VARIANTS.EXPEDITION_RISK: return i18n.t("app:missions.risk", {icon: AppIcons.getIcon(`expedition.risk.${mission.riskCategory}`), risk: i18n.t(`commands:petExpedition.riskCategories.${mission.riskCategory}`)});
+		case MISSION_VARIANTS.EXPEDITION_RISK: return i18n.t("app:missions.risk", {
+			icon: AppIcons.getIcon(`expedition.risk.${mission.riskCategory}`), risk: i18n.t(`commands:petExpedition.riskCategories.${mission.riskCategory}`)
+		});
 		case MISSION_VARIANTS.FIGHT_ATTACKS:
 		case MISSION_VARIANTS.FINISH_WITH_ATTACK:
-			return i18n.t(`models:missionVariants.${mission.missionId}`, {variant: mission.fightAction, count: mission.missionObjective});
-		default: return i18n.t([`models:missionVariants.${mission.missionId}`, "models:missionVariants.default"], {variant: mission.missionVariant, mapType: mission.mapType});
+			return i18n.t(`models:missionVariants.${mission.missionId}`, {
+				variant: mission.fightAction, count: mission.missionObjective
+			});
+		default: return i18n.t([`models:missionVariants.${mission.missionId}`, "models:missionVariants.default"], {
+			variant: mission.missionVariant, mapType: mission.mapType
+		});
 	}
 }
 
 export function missionDescription(mission: Mission, now: number): string {
-	return i18n.t(`models:missions.${mission.missionId}`, {count: mission.missionObjective, variantText: missionVariant(mission, now), context: "app"});
+	return i18n.t(`models:missions.${mission.missionId}`, {
+		count: mission.missionObjective, variantText: missionVariant(mission, now), context: "app"
+	});
 }
 
 /** The same mission can be completed twice before it is claimed: each occurrence is numbered. */
-export function missionRows(missions: readonly CompletedMission[]): {key: string; completed: CompletedMission}[] {
+export function missionRows(missions: readonly CompletedMission[]): {
+	key: string; completed: CompletedMission;
+}[] {
 	const seen = new Map<string, number>();
 	return missions.map(completed => {
-		const {missionType, missionId, missionVariant, missionObjective} = completed.mission;
+		const {
+			missionType, missionId, missionVariant, missionObjective
+		} = completed.mission;
 		const identity = `${missionType}:${missionId}:${missionVariant}:${missionObjective}`;
 		const occurrence = (seen.get(identity) ?? 0) + 1;
 		seen.set(identity, occurrence);
-		return {key: `${identity}#${occurrence}`, completed};
+		return {
+			key: `${identity}#${occurrence}`, completed
+		};
 	});
 }
 
 export function missionRewardTotal(missions: readonly CompletedMission[]): Required<Omit<MissionReward, "petRewardTypeId">> {
-	return missions.reduce((total, {reward}) => ({
+	return missions.reduce((total, { reward }) => ({
 		points: total.points + reward.points,
 		experience: total.experience + reward.experience,
 		gems: total.gems + reward.gems,
 		money: total.money + reward.money,
 		tokens: total.tokens + (reward.tokens ?? 0)
-	}), {points: 0, experience: 0, gems: 0, money: 0, tokens: 0});
+	}), {
+		points: 0, experience: 0, gems: 0, money: 0, tokens: 0
+	});
 }

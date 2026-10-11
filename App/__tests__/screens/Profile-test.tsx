@@ -1,17 +1,19 @@
-import {fireEvent, render} from "@testing-library/react-native";
-import {ProfileRes} from "ws-packets/src/fromServer/profile/ProfileRes";
+import {
+	fireEvent, render
+} from "@testing-library/react-native";
+import { ProfileRes } from "ws-packets/src/fromServer/profile/ProfileRes";
 import Profile from "@/app/(protected)/(tabs)/profile";
-import {useGameQuery} from "@/src/store/useGameQuery";
-import {usePlayerProfile} from "@/src/store/usePlayerProfile";
-import {fakeAppState} from "@/src/testing/fakeAppState";
+import { useGameQuery } from "@/src/store/useGameQuery";
+import { usePlayerProfile } from "@/src/store/usePlayerProfile";
+import { fakeAppState } from "@/src/testing/fakeAppState";
 
 jest.mock("@react-native-async-storage/async-storage", () => require("@react-native-async-storage/async-storage/jest/async-storage-mock"));
 
 const mockPush = jest.fn();
 
 jest.mock("expo-router", () => ({
-	useNavigation: (): {setOptions: jest.Mock} => ({setOptions: jest.fn()}),
-	useRouter: (): {push: jest.Mock} => ({push: mockPush}),
+	useNavigation: (): { setOptions: jest.Mock } => ({ setOptions: jest.fn() }),
+	useRouter: (): { push: jest.Mock } => ({ push: mockPush }),
 	useFocusEffect: jest.fn()
 }));
 
@@ -20,7 +22,7 @@ jest.mock("@/src/store/useGameQuery", () => ({
 }));
 
 jest.mock("@/src/store/AppState", () => require("@/src/testing/fakeAppState").fakeAppState.hooks);
-jest.mock("@tanstack/react-query", () => ({useQueryClient: (): object => ({resetQueries: jest.fn(() => Promise.resolve())})}));
+jest.mock("@tanstack/react-query", () => ({ useQueryClient: (): object => ({ resetQueries: jest.fn(() => Promise.resolve()) }) }));
 
 jest.mock("@/src/store/usePlayerProfile", () => ({
 	usePlayerProfile: jest.fn()
@@ -30,9 +32,13 @@ jest.mock("@/src/components/Inventory", () => ({
 	Inventory: (): null => null
 }));
 
-const mockMissions = jest.fn((): object => ({status: "empty"}));
-jest.mock("@/src/components/Missions", () => ({Missions: (): null => null, useMissions: (): object => mockMissions()}));
-jest.mock("expo-secure-store", () => ({getItem: (): null => null, setItem: jest.fn()}));
+const mockMissions = jest.fn((): object => ({ status: "empty" }));
+jest.mock("@/src/components/Missions", () => ({
+	Missions: (): null => null, useMissions: (): object => mockMissions()
+}));
+jest.mock("expo-secure-store", () => ({
+	getItem: (): null => null, setItem: jest.fn()
+}));
 
 jest.mock("@/src/AppIcons", () => ({
 	AppIcons: {
@@ -55,19 +61,35 @@ function profile(): ProfileRes {
 		pseudo: "Aventurier",
 		classId: 1,
 		level: 12,
-		health: {value: 80, max: 100},
-		experience: {value: 25, max: 100},
+		health: {
+			value: 80, max: 100
+		},
+		experience: {
+			value: 25, max: 100
+		},
 		money: 400,
-		tokens: {value: 3, max: 10},
-		missions: {gems: 8, campaignProgression: 50},
-		rank: {unranked: false, rank: 2, numberOfPlayers: 10, score: 900},
-		effect: {healed: true, timeLeft: 0, effect: "none", hasTimeDisplay: false},
+		tokens: {
+			value: 3, max: 10
+		},
+		missions: {
+			gems: 8, campaignProgression: 50
+		},
+		rank: {
+			unranked: false, rank: 2, numberOfPlayers: 10, score: 900
+		},
+		effect: {
+			healed: true, timeLeft: 0, effect: "none", hasTimeDisplay: false
+		},
 		stats: {
-			energy: {value: 10, max: 20},
+			energy: {
+				value: 10, max: 20
+			},
 			attack: 5,
 			defense: 6,
 			speed: 7,
-			breath: {base: 2, max: 4, regen: 1}
+			breath: {
+				base: 2, max: 4, regen: 1
+			}
 		},
 		badges: []
 	} as ProfileRes;
@@ -77,8 +99,12 @@ describe("Profile screen", () => {
 	beforeEach((): void => {
 		jest.clearAllMocks();
 		fakeAppState.reset();
-		mockedUsePlayerProfile.mockReturnValue({status: "ready", data: profile()});
-		mockedUseGameQuery.mockReturnValue({status: "ready", data: {foundPlayer: true} as never});
+		mockedUsePlayerProfile.mockReturnValue({
+			status: "ready", data: profile()
+		});
+		mockedUseGameQuery.mockReturnValue({
+			status: "ready", data: { foundPlayer: true } as never
+		});
 	});
 
 	it("composes the profile from the shared design primitives", async () => {
@@ -95,28 +121,33 @@ describe("Profile screen", () => {
 		const view = await render(<Profile />);
 		expect(view.getByText("app:profile.fields.attack")).toBeTruthy();
 		expect(view.getByText("app:profile.fields.energy")).toBeTruthy();
-		expect(view.queryByRole("button", {name: "app:profile.titles.statistics"})).toBeNull();
+		expect(view.queryByRole("button", { name: "app:profile.titles.statistics" })).toBeNull();
 	});
 
 	it("hands the sub-pages over to the navigation stack, so the back gesture works", async () => {
 		const view = await render(<Profile />);
-		await fireEvent.press(view.getByRole("button", {name: /app:profile.titles.inventory/}));
+		await fireEvent.press(view.getByRole("button", { name: /app:profile.titles.inventory/ }));
 		expect(mockPush).toHaveBeenCalledWith("/profile/inventory");
-		await fireEvent.press(view.getByRole("button", {name: /app:profile.titles.unlock/}));
+		await fireEvent.press(view.getByRole("button", { name: /app:profile.titles.unlock/ }));
 		expect(mockPush).toHaveBeenCalledWith("/profile/unlock");
-		await fireEvent.press(view.getByRole("button", {name: "app:profile.titles.rankings"}));
+		await fireEvent.press(view.getByRole("button", { name: "app:profile.titles.rankings" }));
 		expect(mockPush).toHaveBeenCalledWith("/profile/rankings");
-		expect(view.queryByRole("button", {name: /app:profile.titles.missions/})).toBeNull();
+		expect(view.queryByRole("button", { name: /app:profile.titles.missions/ })).toBeNull();
 	});
 
 	it("explains once to a contest candidate what their new profile holds", async () => {
-		mockMissions.mockReturnValue({status: "ready", data: {campaignProgression: 5, missions: []}});
+		mockMissions.mockReturnValue({
+			status: "ready",
+			data: {
+				campaignProgression: 5, missions: []
+			}
+		});
 		const view = await render(<Profile />);
 		expect(view.getByTestId("guide-tip-profile")).toBeTruthy();
 
 		await fireEvent.press(view.getByText("app:contest.tips.understood"));
 
 		expect(view.queryByTestId("guide-tip-profile")).toBeNull();
-		mockMissions.mockReturnValue({status: "empty"});
+		mockMissions.mockReturnValue({ status: "empty" });
 	});
 });

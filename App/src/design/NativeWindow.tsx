@@ -1,5 +1,9 @@
-import {ReactNode, useEffect, useState, useSyncExternalStore} from "react";
-import {AppState, Modal, ModalProps} from "react-native";
+import {
+	ReactNode, useEffect, useState, useSyncExternalStore
+} from "react";
+import {
+	AppState, Modal, ModalProps
+} from "react-native";
 
 /** How long a window may take to appear or go before the next one stops waiting for the platform to say so. */
 const TRANSITION_TIMEOUT_MS = 1_000;
@@ -19,7 +23,9 @@ type WindowTurns = {
 /** What one window is going through, kept outside React so the platform callbacks can settle it. */
 class NativeWindowLife {
 	private state: WindowState = "idle";
+
 	private appearing: (() => void) | null = null;
+
 	private leaving: (() => void) | null = null;
 
 	public constructor(private readonly turns: WindowTurns) {}
@@ -27,7 +33,9 @@ class NativeWindowLife {
 	public readonly isShown = (): boolean => this.state === "shown";
 
 	public ask(): void {
-		if (this.state !== "idle") return;
+		if (this.state !== "idle") {
+			return;
+		}
 		this.state = "waiting";
 		this.turns.enqueue(this);
 	}
@@ -67,7 +75,9 @@ class NativeWindowLife {
 		const shown = this.state === "shown";
 		this.withdraw();
 		this.left();
-		if (shown) this.turns.start(REMOVAL_TRANSITION_MS);
+		if (shown) {
+			this.turns.start(REMOVAL_TRANSITION_MS);
+		}
 	}
 }
 
@@ -78,14 +88,16 @@ class NativeWindowLife {
  */
 class WindowTransitions implements WindowTurns {
 	private running = 0;
+
 	private readonly queue: NativeWindowLife[] = [];
+
 	private readonly listeners = new Set<() => void>();
 
 	public constructor() {
 		AppState.addEventListener("change", () => this.grant());
 	}
 
-	public readonly subscribe = (listener: () => void): (() => void) => {
+	public readonly subscribe = (listener: () => void): () => void => {
 		this.listeners.add(listener);
 		return (): void => {
 			this.listeners.delete(listener);
@@ -99,16 +111,22 @@ class WindowTransitions implements WindowTurns {
 
 	public readonly dequeue = (window: NativeWindowLife): void => {
 		const position = this.queue.indexOf(window);
-		if (position >= 0) this.queue.splice(position, 1);
+		if (position >= 0) {
+			this.queue.splice(position, 1);
+		}
 	};
 
 	/** Holds the other windows back until the returned callback runs, or until the platform has had time enough. */
-	public readonly start = (timeoutMs = TRANSITION_TIMEOUT_MS): (() => void) => {
+	public readonly start = (timeoutMs = TRANSITION_TIMEOUT_MS): () => void => {
 		this.running++;
 		this.emit();
-		const transition: {ended: boolean; timer?: ReturnType<typeof setTimeout>} = {ended: false};
+		const transition: {
+			ended: boolean; timer?: ReturnType<typeof setTimeout>;
+		} = { ended: false };
 		const end = (): void => {
-			if (transition.ended) return;
+			if (transition.ended) {
+				return;
+			}
 			transition.ended = true;
 			clearTimeout(transition.timer);
 			this.running--;
@@ -121,12 +139,16 @@ class WindowTransitions implements WindowTurns {
 	/** The windows appear in the order they were asked for, one transition at a time, only in the foreground. */
 	private grant(): void {
 		const next = AppState.currentState === "active" && this.running === 0 ? this.queue.shift() : undefined;
-		if (next) next.appear();
-		else this.emit();
+		if (next) {
+			next.appear();
+		}
+		else { this.emit(); }
 	}
 
 	private emit(): void {
-		for (const listener of this.listeners) listener();
+		for (const listener of this.listeners) {
+			listener();
+		}
 	}
 }
 
@@ -136,14 +158,24 @@ const windowTransitions = new WindowTransitions();
  * The one way the app opens a native window. It appears once the app is active and no other window is
  * appearing or leaving, then stays until it is asked away: it never disappears because another one waits.
  */
-export function NativeWindow({visible = true, onShow, onDismiss, ...props}: ModalProps): ReactNode {
+export function NativeWindow({
+	visible = true, onShow, onDismiss, ...props
+}: ModalProps): ReactNode {
 	const [life] = useState(() => new NativeWindowLife(windowTransitions));
 	const shown = useSyncExternalStore(windowTransitions.subscribe, life.isShown, life.isShown);
 	useEffect(() => {
-		if (visible) life.ask();
-		else if (life.withdraw()) onDismiss?.();
-	}, [life, visible, onDismiss]);
-	useEffect(() => () => life.removed(), [life]);
+		if (visible) {
+			life.ask();
+		}
+		else if (life.withdraw()) {
+			onDismiss?.();
+		}
+	}, [
+		life,
+		visible,
+		onDismiss
+	]);
+	useEffect(() => (): void => life.removed(), [life]);
 	return <Modal
 		{...props}
 		visible={shown}

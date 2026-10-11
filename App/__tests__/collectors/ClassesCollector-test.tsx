@@ -1,17 +1,42 @@
-import {fireEvent, render, screen} from "@testing-library/react-native";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {ClassesCollector} from "@/src/collectors/ClassesCollector";
-import {ClassOutcome} from "@/src/collectors/ClassOutcome";
+import {
+	fireEvent, render, screen
+} from "@testing-library/react-native";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import { ClassesCollector } from "@/src/collectors/ClassesCollector";
+import { ClassOutcome } from "@/src/collectors/ClassOutcome";
 
-jest.mock("expo-router", () => ({useFocusEffect: jest.fn()}));
-jest.mock("@/src/AppIcons", () => ({AppIcons: {getIcon: (): string => "", getIconOrNull: (): null => null}}));
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string, options?: Record<string, unknown>): string => key === "app:classes.name" ? String(options?.name) : key}}));
+jest.mock("expo-router", () => ({ useFocusEffect: jest.fn() }));
+jest.mock("@/src/AppIcons", () => ({ AppIcons: {
+	getIcon: (): string => "", getIconOrNull: (): null => null
+} }));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?: Record<string, unknown>): string => key === "app:classes.name" ? String(options?.name) : key } }));
 
 function collector(): ReactionCollectorCreation {
 	return Object.assign(new ReactionCollectorCreation(), {
-		id: "classes", endTime: Date.now() + 60_000,
-		data: {type: "classes", data: {cooldownSeconds: 604800, classesDetails: [{id: 7, energy: 333, attack: 50, defense: 30, speed: 20, health: 99, initialBreath: 5, maxBreath: 12, breathRegen: 3}]}},
-		reactions: [{type: "unknown", data: {serverType: "futureChoice"}}, {type: "chooseClass", data: {classId: 7}}, {type: "refuse", data: {}}]
+		id: "classes",
+		endTime: Date.now() + 60_000,
+		data: {
+			type: "classes",
+			data: {
+				cooldownSeconds: 604800,
+				classesDetails: [
+					{
+						id: 7, energy: 333, attack: 50, defense: 30, speed: 20, health: 99, initialBreath: 5, maxBreath: 12, breathRegen: 3
+					}
+				]
+			}
+		},
+		reactions: [
+			{
+				type: "unknown", data: { serverType: "futureChoice" }
+			},
+			{
+				type: "chooseClass", data: { classId: 7 }
+			},
+			{
+				type: "refuse", data: {}
+			}
+		]
 	});
 }
 
@@ -45,14 +70,18 @@ describe("class selection", () => {
 	});
 
 	it("celebrates the changed class by its name, without an unfilled name template", async () => {
-		await render(<ClassOutcome outcome={{kind: "success", classId: 7}} onContinue={jest.fn()} />);
+		await render(<ClassOutcome outcome={{
+			kind: "success", classId: 7
+		}} onContinue={jest.fn()} />);
 		expect(screen.getByTestId("class-changed")).toBeTruthy();
 		expect(screen.getByText("app:classes.outcomes.success")).toBeTruthy();
 		expect(screen.getByText("models:classes.7")).toBeTruthy();
 	});
 
 	it("tells a refused change in passing, the button having said it beforehand", async () => {
-		await render(<ClassOutcome outcome={{kind: "cooldown", timestamp: Date.now() + 60_000}} onContinue={jest.fn()} />);
+		await render(<ClassOutcome outcome={{
+			kind: "cooldown", timestamp: Date.now() + 60_000
+		}} onContinue={jest.fn()} />);
 		expect(screen.getByRole("alert")).toBeTruthy();
 		expect(screen.getByText("app:classes.outcomes.cooldown")).toBeTruthy();
 	});

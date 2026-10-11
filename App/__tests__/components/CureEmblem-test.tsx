@@ -1,10 +1,14 @@
-import {act, fireEvent, render, screen} from "@testing-library/react-native";
-import {HappyEmblem} from "@/src/components/CureEmblem";
+import {
+	act, fireEvent, render, screen
+} from "@testing-library/react-native";
+import { HappyEmblem } from "@/src/components/CureEmblem";
 
-jest.mock("expo-haptics", () => ({impactAsync: jest.fn(() => Promise.resolve()), ImpactFeedbackStyle: {Heavy: "heavy"}}));
+jest.mock("expo-haptics", () => ({
+	impactAsync: jest.fn(() => Promise.resolve()), ImpactFeedbackStyle: { Heavy: "heavy" }
+}));
 
 jest.mock("@/src/AppIcons", () => ({
-	AppIcons: {getIconOrNull: (path: string): string | null => (path === "other.explosion" ? "💥" : null)}
+	AppIcons: { getIconOrNull: (path: string): string | null => path === "other.explosion" ? "💥" : null }
 }));
 
 const TAP_EVERY_MS = 500;
@@ -26,7 +30,7 @@ async function tap(): Promise<void> {
 // Simulated clock: on the real one, a loaded machine lets the animations overrun the waits.
 describe("HappyEmblem easter egg", () => {
 	beforeEach(() => {
-		jest.useFakeTimers({now: 1_700_000_000_000});
+		jest.useFakeTimers({ now: 1_700_000_000_000 });
 	});
 
 	afterEach(() => {

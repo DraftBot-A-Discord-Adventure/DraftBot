@@ -1,11 +1,15 @@
-import {useEffect, useRef, useState} from "react";
-import {useQueryClient} from "@tanstack/react-query";
-import {EquipActionReq} from "ws-packets/src/fromClient/EquipActionReq";
-import {EquipActionRes} from "ws-packets/src/fromServer/equip/EquipActionRes";
-import {Blocked} from "ws-packets/src/fromServer/common/Blocked";
-import {EquipCategoryData} from "ws-packets/src/objects/EquipCategoryData";
-import {GameClient} from "@/src/networking/GameClient";
-import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
+import {
+	useEffect, useRef, useState
+} from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { EquipActionReq } from "ws-packets/src/fromClient/EquipActionReq";
+import { EquipActionRes } from "ws-packets/src/fromServer/equip/EquipActionRes";
+import { Blocked } from "ws-packets/src/fromServer/common/Blocked";
+import { EquipCategoryData } from "ws-packets/src/objects/EquipCategoryData";
+import { GameClient } from "@/src/networking/GameClient";
+import {
+	GAME_ENTITIES, gameKey
+} from "@/src/store/GameEntities";
 
 type EquipmentActions = {
 	categories: EquipCategoryData[];
@@ -24,17 +28,23 @@ export function useEquipmentActions(initialCategories: EquipCategoryData[]): Equ
 
 	useEffect(() => {
 		active.current = true;
-		return (): void => { active.current = false; };
+		return (): void => {
+			active.current = false;
+		};
 	}, []);
 
 	const submit = async (action: EquipActionReq): Promise<void> => {
-		if (inFlight.current) return;
+		if (inFlight.current) {
+			return;
+		}
 		inFlight.current = true;
 		setPending(true);
 		setError(null);
 		try {
 			const answer = await GameClient.request(action, EquipActionRes, [Blocked]);
-			if (!active.current) return;
+			if (!active.current) {
+				return;
+			}
 			if (answer.kind !== "answer") {
 				setError("app:common.connectionError");
 				return;
@@ -45,16 +55,22 @@ export function useEquipmentActions(initialCategories: EquipCategoryData[]): Equ
 			}
 			setCategories(answer.packet.categories);
 			await Promise.all([GAME_ENTITIES.INVENTORY, GAME_ENTITIES.PROFILE].map(entity =>
-				queryClient.invalidateQueries({queryKey: gameKey(entity)})));
+				queryClient.invalidateQueries({ queryKey: gameKey(entity) })));
 		}
 		catch {
-			if (active.current) setError("app:common.connectionError");
+			if (active.current) {
+				setError("app:common.connectionError");
+			}
 		}
 		finally {
 			inFlight.current = false;
-			if (active.current) setPending(false);
+			if (active.current) {
+				setPending(false);
+			}
 		}
 	};
 
-	return {categories, pending, error, submit};
+	return {
+		categories, pending, error, submit
+	};
 }

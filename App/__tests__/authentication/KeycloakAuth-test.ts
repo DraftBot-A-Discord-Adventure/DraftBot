@@ -1,8 +1,8 @@
 import {
 	IDENTITY_PROVIDERS, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
-import {KeycloakOAuth2Token} from "@/src/authentication/KeycloakOAuth2Token";
-import {AUTH_FAILURES} from "@/src/authentication/AuthFailure";
+import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
+import { AUTH_FAILURES } from "@/src/authentication/AuthFailure";
 
 const mockPromptAsync = jest.fn();
 const mockAuthRequestConfigs: Record<string, unknown>[] = [];
@@ -18,7 +18,7 @@ jest.mock("expo-auth-session", () => ({
 		}
 	},
 	makeRedirectUri: (): string => "crownicles://auth",
-	ResponseType: {Code: "code"}
+	ResponseType: { Code: "code" }
 }));
 
 jest.mock("@/src/translations/i18nLoader", () => ({
@@ -52,79 +52,86 @@ describe("KeycloakAuth", () => {
 
 	it("accepts Keycloak offline token responses without a refresh expiry", async () => {
 		const token = offlineToken();
-		const response = new Response(JSON.stringify(token), {status: 200});
+		const response = new Response(JSON.stringify(token), { status: 200 });
 		const fetch = jest.spyOn(globalThis, "fetch").mockResolvedValue(response);
 
 		await expect(KeycloakAuth.refresh("refresh-token")).resolves.toEqual(token);
 		expect(fetch).toHaveBeenCalledWith(
 			"https://keycloak.example.com/realms/crownicles/protocol/openid-connect/token",
-			expect.objectContaining({method: "POST"})
+			expect.objectContaining({ method: "POST" })
 		);
 	});
 
 	it("names the provider so Keycloak skips its picker", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",
-			params: {code: "authorization-code"}
+			params: { code: "authorization-code" }
 		});
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), { status: 200 }));
 
 		await KeycloakAuth.login(IDENTITY_PROVIDERS.DISCORD);
 
-		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({extraParams: {kc_idp_hint: "discord", prompt: "login"}});
-		expect(mockPromptAsync).toHaveBeenCalledWith(expect.any(Object), expect.objectContaining({preferEphemeralSession: true}));
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
+			kc_idp_hint: "discord", prompt: "login"
+		} });
+		expect(mockPromptAsync).toHaveBeenCalledWith(expect.any(Object), expect.objectContaining({ preferEphemeralSession: true }));
 	});
 
 	it("leaves the choice to Keycloak when no provider is named", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",
-			params: {code: "authorization-code"}
+			params: { code: "authorization-code" }
 		});
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), { status: 200 }));
 
 		await KeycloakAuth.login();
 
 		expect(mockAuthRequestConfigs.at(-1)?.extraParams).not.toHaveProperty("kc_idp_hint");
-		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({extraParams: {prompt: "login"}});
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: { prompt: "login" } });
 	});
 
 	it("opens the sign-up page and returns the token of the account just created", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",
-			params: {code: "authorization-code"}
+			params: { code: "authorization-code" }
 		});
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), { status: 200 }));
 
 		await expect(KeycloakAuth.register()).resolves.toEqual(offlineToken());
-		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({extraParams: {prompt: "create", ui_locales: "fr"}, usePKCE: true});
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({
+			extraParams: {
+				prompt: "create", ui_locales: "fr"
+			},
+			usePKCE: true
+		});
 		expect(mockPromptAsync.mock.calls.at(-1)?.[1]).not.toHaveProperty("preferEphemeralSession");
 	});
 
 	it("asks Keycloak for the pages in the language of the app", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",
-			params: {code: "authorization-code"}
+			params: { code: "authorization-code" }
 		});
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), { status: 200 }));
 
 		await KeycloakAuth.login();
 
-		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({extraParams: {ui_locales: "fr"}});
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: { ui_locales: "fr" } });
 	});
 
 	it("reports a cancellation as such rather than as a failure", async () => {
-		mockPromptAsync.mockResolvedValue({type: "dismiss"});
+		mockPromptAsync.mockResolvedValue({ type: "dismiss" });
 
-		await expect(KeycloakAuth.login()).rejects.toMatchObject({reason: AUTH_FAILURES.CANCELLED});
+		await expect(KeycloakAuth.login()).rejects.toMatchObject({ reason: AUTH_FAILURES.CANCELLED });
 	});
 
 	it("reports an unusable token without leaking the protocol wording", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",
-			params: {code: "authorization-code"}
+			params: { code: "authorization-code" }
 		});
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({access_token: "only-this"}), {status: 200}));
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ access_token: "only-this" }), { status: 200 }));
 
-		await expect(KeycloakAuth.login()).rejects.toMatchObject({reason: AUTH_FAILURES.INVALID_TOKEN});
+		await expect(KeycloakAuth.login()).rejects.toMatchObject({ reason: AUTH_FAILURES.INVALID_TOKEN });
 	});
 });

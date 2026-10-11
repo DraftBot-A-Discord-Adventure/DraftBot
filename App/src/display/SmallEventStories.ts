@@ -1,13 +1,17 @@
-import {SmallEventResultData} from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
-import {Mission} from "ws-packets/src/objects/Mission";
-import {PetSex} from "ws-packets/src/objects/OwnedPet";
-import {AppIcons} from "@/src/AppIcons";
-import {formatDurationMinutes} from "@/src/display/ItemEffects";
-import {missionDate, missionDescription} from "@/src/display/Missions";
-import {petIcon, petName, petShortField} from "@/src/display/PetDisplay";
-import {anyTranslation} from "@/src/translations/RandomTranslation";
-import {i18n} from "@/src/translations/i18n";
-import {joinParagraphs} from "@/src/display/Paragraphs";
+import { SmallEventResultData } from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
+import { Mission } from "ws-packets/src/objects/Mission";
+import { PetSex } from "ws-packets/src/objects/OwnedPet";
+import { AppIcons } from "@/src/AppIcons";
+import { formatDurationMinutes } from "@/src/display/ItemEffects";
+import {
+	missionDate, missionDescription
+} from "@/src/display/Missions";
+import {
+	petIcon, petName, petShortField
+} from "@/src/display/PetDisplay";
+import { anyTranslation } from "@/src/translations/RandomTranslation";
+import { i18n } from "@/src/translations/i18n";
+import { joinParagraphs } from "@/src/display/Paragraphs";
 
 /**
  * The stories Discord tells for the small events that ask nothing of the player, rebuilt from the
@@ -60,17 +64,27 @@ function icon(path: string): string {
 	return AppIcons.getIconOrNull(path) ?? "";
 }
 
-function pet(data: Data, fields: {type: string; sex: string; nickname?: string}): string {
+function pet(data: Data, fields: {
+	type: string; sex: string; nickname?: string;
+}): string {
 	const nickname = fields.nickname ? str(data, fields.nickname) : undefined;
-	return petShortField({typeId: num(data, fields.type) ?? 0, sex: sex(data[fields.sex]), ...nickname ? {nickname} : {}});
+	return petShortField({
+		typeId: num(data, fields.type) ?? 0, sex: sex(data[fields.sex]), ...nickname ? { nickname } : {}
+	});
 }
 
-const OWN_PET = {type: "petTypeId", sex: "petSex", nickname: "petNickname"};
+const OWN_PET = {
+	type: "petTypeId", sex: "petSex", nickname: "petNickname"
+};
 
 /** The other player's class, in the singular and plural forms the interaction texts use. */
-function classDisplays(details: Data): {class: string; classPlural: string} {
+function classDisplays(details: Data): {
+	class: string; classPlural: string;
+} {
 	const id = num(details, "classId") ?? 0;
-	return {class: i18n.t("models:classFormat", {id}), classPlural: i18n.t("models:classPluralFormat", {id})};
+	return {
+		class: i18n.t("models:classFormat", { id }), classPlural: i18n.t("models:classPluralFormat", { id })
+	};
 }
 
 /** Where each piece of the other player's equipment is named, keyed by the text parameter that shows it. */
@@ -99,25 +113,29 @@ function timeUntil(timestamp: number): string {
 		return missionDate(timestamp);
 	}
 	const left = timestamp - Date.now();
-	const format = new Intl.RelativeTimeFormat(i18n.language, {numeric: "auto"});
-	if (Math.abs(left) >= DAY_MS) return format.format(Math.round(left / DAY_MS), "day");
-	if (Math.abs(left) >= HOUR_MS) return format.format(Math.round(left / HOUR_MS), "hour");
+	const format = new Intl.RelativeTimeFormat(i18n.language, { numeric: "auto" });
+	if (Math.abs(left) >= DAY_MS) {
+		return format.format(Math.round(left / DAY_MS), "day");
+	}
+	if (Math.abs(left) >= HOUR_MS) {
+		return format.format(Math.round(left / HOUR_MS), "hour");
+	}
 	return format.format(Math.round(left / MINUTE_MS), "minute");
 }
 
 const BIG_BAD_STORIES: Record<string, StoryBuilder> = {
-	LIFE_LOSS: data => any("bigBad.lifeLoss", {lifeLoss: num(data, "lifeLost")}),
+	LIFE_LOSS: data => any("bigBad.lifeLoss", { lifeLoss: num(data, "lifeLost") }),
 	ALTERATION: data => `${t(`bigBad.alterationStories.${str(data, "receivedStory")}`)} ${icon(`effects.${str(data, "effectId")}`)}`,
-	MONEY_LOSS: data => any("bigBad.moneyLoss", {moneyLost: num(data, "moneyLost")})
+	MONEY_LOSS: data => any("bigBad.moneyLoss", { moneyLost: num(data, "moneyLost") })
 };
 
 function dwarfPetFanStory(data: Data): string {
 	const hasPet = num(data, "petTypeId") !== undefined;
 	const amount = num(data, "amount");
 	return `${any("dwarfPetFan.intro")} ${any(`dwarfPetFan.${str(data, "interactionName")}`, {
-		...hasPet ? {context: data.petSex} : {},
+		...hasPet ? { context: data.petSex } : {},
 		pet: hasPet ? pet(data, OWN_PET) : "",
-		reward: amount === undefined ? "" : t(`dwarfPetFan.reward.${data.isGemReward === true ? "gem" : "money"}`, {amount})
+		reward: amount === undefined ? "" : t(`dwarfPetFan.reward.${data.isGemReward === true ? "gem" : "money"}`, { amount })
 	})}`;
 }
 
@@ -126,16 +144,22 @@ function expeditionPet(data: Data): string {
 }
 
 function expeditionBonusKey(data: Data): string {
-	if (data.bonusCombatPotion) return "expeditionAdvice.expeditionBonus.combatPotion";
-	if (data.bonusItem) return "expeditionAdvice.expeditionBonus.pointsAndItem";
-	if (data.bonusMoney) return "expeditionAdvice.expeditionBonus.pointsAndMoney";
+	if (data.bonusCombatPotion) {
+		return "expeditionAdvice.expeditionBonus.combatPotion";
+	}
+	if (data.bonusItem) {
+		return "expeditionAdvice.expeditionBonus.pointsAndItem";
+	}
+	if (data.bonusMoney) {
+		return "expeditionAdvice.expeditionBonus.pointsAndMoney";
+	}
 	return "expeditionAdvice.expeditionBonus.points";
 }
 
 const EXPEDITION_STORIES: Record<string, StoryBuilder> = {
-	conditionNotMetPetHungry: data => any("expeditionAdvice.conditions.petHungry", {pet: expeditionPet(data)}),
-	conditionNotMetPetFeisty: data => any("expeditionAdvice.conditions.petFeisty", {pet: expeditionPet(data)}),
-	conditionNotMetPetNotSeenByTalvar: data => any("expeditionAdvice.conditions.petNotSeenByTalvar", {pet: expeditionPet(data)}),
+	conditionNotMetPetHungry: data => any("expeditionAdvice.conditions.petHungry", { pet: expeditionPet(data) }),
+	conditionNotMetPetFeisty: data => any("expeditionAdvice.conditions.petFeisty", { pet: expeditionPet(data) }),
+	conditionNotMetPetNotSeenByTalvar: data => any("expeditionAdvice.conditions.petNotSeenByTalvar", { pet: expeditionPet(data) }),
 	conditionNotMetNoPet: () => any("expeditionAdvice.conditions.noPet"),
 	conditionNotMetNoGuild: () => any("expeditionAdvice.conditions.noGuild"),
 	conditionNotMetLevelTooLow: data => any("expeditionAdvice.conditions.levelTooLow", {
@@ -145,8 +169,10 @@ const EXPEDITION_STORIES: Record<string, StoryBuilder> = {
 		const intros = i18n.tArray("smallEvents:expeditionAdvice.talismanIntro");
 		return intros[(num(data, "encounterCount") ?? 1) - 1] ?? intros[0];
 	},
-	talismanReceived: data => any("expeditionAdvice.talismanReceived", {pet: expeditionPet(data)}),
-	expeditionBonus: data => t(expeditionBonusKey(data), {pet: expeditionPet(data), bonusPoints: num(data, "bonusPoints"), bonusMoney: num(data, "bonusMoney")})
+	talismanReceived: data => any("expeditionAdvice.talismanReceived", { pet: expeditionPet(data) }),
+	expeditionBonus: data => t(expeditionBonusKey(data), {
+		pet: expeditionPet(data), bonusPoints: num(data, "bonusPoints"), bonusMoney: num(data, "bonusMoney")
+	})
 };
 
 function findMaterialStory(data: Data): string {
@@ -167,7 +193,9 @@ function findMissionStory(data: Data): string {
 }
 
 function findPetKey(data: Data): string {
-	if (data.isPetReceived === true) return data.petIsReceivedByGuild === true ? "givePetGuild" : "givePetPlayer";
+	if (data.isPetReceived === true) {
+		return data.petIsReceivedByGuild === true ? "givePetGuild" : "givePetPlayer";
+	}
 	return data.isPetFood === true ? "food" : "noFood";
 }
 
@@ -185,8 +213,16 @@ function otherPlayerDetails(details: Data): Record<string, unknown> {
 		level: num(details, "level"),
 		...classDisplays(details),
 		advice: anyAdvice(),
-		petEmote: hasPet ? petIcon({typeId: petId!, sex: sex(details.petSex)}) : "",
-		petName: hasPet ? petName({typeId: petId!, sex: sex(details.petSex), ...str(details, "petName") ? {nickname: str(details, "petName")} : {}}) : "",
+		petEmote: hasPet
+			? petIcon({
+				typeId: petId!, sex: sex(details.petSex)
+			})
+			: "",
+		petName: hasPet
+			? petName({
+				typeId: petId!, sex: sex(details.petSex), ...str(details, "petName") ? { nickname: str(details, "petName") } : {}
+			})
+			: "",
 		guildName: str(details, "guildName"),
 		...equipmentDisplays(details),
 		leagueEmoji: leagueId === undefined ? "" : icon(`leagues.${leagueId}`),
@@ -202,25 +238,35 @@ function otherPlayerDetails(details: Data): Record<string, unknown> {
 function interactOtherPlayersStory(data: Data): string {
 	const pseudo = str(data, "playerName");
 	const details = record(data, "data");
-	if (!pseudo || !details) return any("interactOtherPlayers.no_one");
+	if (!pseudo || !details) {
+		return any("interactOtherPlayers.no_one");
+	}
 	const rank = num(details, "rank");
-	const playerDisplay = t(`interactOtherPlayers.playerDisplay${rank ? "Ranked" : "Unranked"}`, {pseudo, rank});
+	const playerDisplay = t(`interactOtherPlayers.playerDisplay${rank ? "Ranked" : "Unranked"}`, {
+		pseudo, rank
+	});
 	const interaction = str(data, "playerInteraction") ?? "";
 	if (interaction === "EFFECT") {
-		return any(`interactOtherPlayers.effect.${str(details, "effectId")}`, {playerDisplay});
+		return any(`interactOtherPlayers.effect.${str(details, "effectId")}`, { playerDisplay });
 	}
-	return any(`interactOtherPlayers.${interaction.toLowerCase()}`, {playerDisplay, ...otherPlayerDetails(details)});
+	return any(`interactOtherPlayers.${interaction.toLowerCase()}`, {
+		playerDisplay, ...otherPlayerDetails(details)
+	});
 }
 
 function leagueRewardKey(data: Data): string {
-	if (data.rewardToday === true) return "rewardToday";
+	if (data.rewardToday === true) {
+		return "rewardToday";
+	}
 	return data.enoughFights === true ? "endMessage" : "notEnoughFight";
 }
 
 function leagueRewardStory(data: Data): string {
 	const endMessage = t(`leagueReward.${leagueRewardKey(data)}`, {
 		leagueId: num(data, "leagueId"),
-		rewards: t("leagueReward.reward", {money: num(data, "money"), xp: num(data, "xp")}),
+		rewards: t("leagueReward.reward", {
+			money: num(data, "money"), xp: num(data, "xp")
+		}),
 		time: timeUntil(num(data, "nextRewardDate") ?? Date.now())
 	});
 	return smallEventIntro() + any("leagueReward.intrigue") + endMessage;
@@ -237,11 +283,13 @@ function petStory(data: Data): string {
 		pet: pet(data, OWN_PET),
 		amount,
 		amountDisplay: amount && PET_TIME_INTERACTIONS.has(interaction) ? duration(amount) : amount,
-		food: food ? `${icon(`foods.${food}`)} ${i18n.t(`models:foods.${food}`, {count: 1})}` : null,
+		food: food ? `${icon(`foods.${food}`)} ${i18n.t(`models:foods.${food}`, { count: 1 })}` : null,
 		badge: icon("badges.legendary_pet"),
 		randomAnimal: t("pet.randomAnimal", {
 			context: data.randomPetSex,
-			randomAnimal: pet(data, {type: "randomPetTypeId", sex: "randomPetSex"})
+			randomAnimal: pet(data, {
+				type: "randomPetTypeId", sex: "randomPetSex"
+			})
 		})
 	});
 }
@@ -251,7 +299,7 @@ function smallBadStory(data: Data): string {
 	const effectId = str(data, "effectId");
 	const amount = num(data, "amount");
 	const key = issue === "timeLost" && effectId ? `smallBad.${issue}.${effectId}.stories` : `smallBad.${issue}.stories`;
-	return smallEventIntro() + any(key, {amount: issue === "timeLost" ? duration(amount) : amount});
+	return smallEventIntro() + any(key, { amount: issue === "timeLost" ? duration(amount) : amount });
 }
 
 /** The moon phase is named; every other sky event shows its number as is. */
@@ -263,7 +311,7 @@ function spaceSpecificValue(data: Data): unknown {
 export function spaceSkyWatchingStory(): string {
 	return t("space.before_search_format", {
 		seIntro: smallEventIntro(),
-		intro: any("space.intro", {name: any("space.names")}),
+		intro: any("space.intro", { name: any("space.names") }),
 		searchAction: any("space.searchAction"),
 		search: any("space.search")
 	});
@@ -280,7 +328,7 @@ export function spaceResultStory(data: Data, before = spaceSkyWatchingStory()): 
 		action: any("space.action"),
 		specific: any(`space.specific.${event}`, {
 			mainValue: spaceSpecificValue(data),
-			objectWhichWillCrossTheSky: t("space.nObjectsCrossTheSky", {count: mainValue}),
+			objectWhichWillCrossTheSky: t("space.nObjectsCrossTheSky", { count: mainValue }),
 			days: t(mainValue > 1 ? "space.days_other" : "space.days_one"),
 			randomObjectName: str(values, "randomObjectName"),
 			randomObjectDistance: num(values, "randomObjectDistance"),
@@ -293,7 +341,9 @@ export function spaceResultStory(data: Data, before = spaceSkyWatchingStory()): 
 function staffMemberStory(): string {
 	const members = Object.keys(i18n.tRecord("smallEvents:staffMember.members"));
 	const member = members[Math.floor(Math.random() * members.length)];
-	return any("staffMember.context", {pseudo: member, sentence: t(`staffMember.members.${member}`)});
+	return any("staffMember.context", {
+		pseudo: member, sentence: t(`staffMember.members.${member}`)
+	});
 }
 
 function withIntro(key: string, options?: (data: Data) => Record<string, unknown>): StoryBuilder {
@@ -301,29 +351,36 @@ function withIntro(key: string, options?: (data: Data) => Record<string, unknown
 }
 
 const STORIES: Record<string, StoryBuilder> = {
-	advanceTime: withIntro("advanceTime.stories", data => ({time: num(data, "amount"), timeDisplay: duration(num(data, "amount"))})),
+	advanceTime: withIntro("advanceTime.stories", data => ({
+		time: num(data, "amount"), timeDisplay: duration(num(data, "amount"))
+	})),
 	altarFirstEncounter: () => smallEventIntro() + t("altar.firstEncounter"),
 	bigBad: data => smallEventIntro() + (BIG_BAD_STORIES[str(data, "kind") ?? ""]?.(data) ?? ""),
-	boatAdvice: () => any("boatAdvice.intro", {advice: any("boatAdvice.advices")}),
+	boatAdvice: () => any("boatAdvice.intro", { advice: any("boatAdvice.advices") }),
 	bonusGuildPVEIsland: data => joinParagraphs([
 		t(`bonusGuildPVEIsland.events.${num(data, "event")}.intro`),
-		t(`bonusGuildPVEIsland.events.${num(data, "event")}.${str(data, "result")}.${str(data, "surrounding")}`, {amount: num(data, "amount"), emoteKey: str(data, "emoteKey")})
+		t(`bonusGuildPVEIsland.events.${num(data, "event")}.${str(data, "result")}.${str(data, "surrounding")}`, {
+			amount: num(data, "amount"), emoteKey: str(data, "emoteKey")
+		})
 	]),
 	botFacts: withIntro("botFacts.stories", data => ({
 		botFact: t(`botFacts.possibleInfo.${str(data, "information")}`, {
-			count: num(data, "infoNumber"), infoNumber: num(data, "infoNumber"), infoComplement: i18n.t("models:classFormat", {id: num(data, "infoComplement") ?? 0})
+			count: num(data, "infoNumber"), infoNumber: num(data, "infoNumber"), infoComplement: i18n.t("models:classFormat", { id: num(data, "infoComplement") ?? 0 })
 		})
 	})),
-	class: data => smallEventIntro() + any(`class.${str(data, "classKind")}.${str(data, "interactionName")}`, {amount: num(data, "amount")}),
+	class: data => smallEventIntro() + any(`class.${str(data, "classKind")}.${str(data, "interactionName")}`, { amount: num(data, "amount") }),
 	doNothing: () => any("doNothing.stories"),
 	dwarfPetFan: dwarfPetFanStory,
 	expeditionAdvice: data => (EXPEDITION_STORIES[str(data, "interactionType") ?? ""] ?? ((): string => any("expeditionAdvice.advice")))(data),
-	farmer: data => smallEventIntro() + any("farmer.stories") + any(`farmer.rewards.${str(data, "interactionName")}`, {count: num(data, "amount")}),
+	farmer: data => smallEventIntro() + any("farmer.stories") + any(`farmer.rewards.${str(data, "interactionName")}`, { count: num(data, "amount") }),
 	findItem: withIntro("findItem.stories"),
 	findMaterial: findMaterialStory,
 	findMission: findMissionStory,
 	findPet: data => smallEventIntro() + any(`findPet.${findPetKey(data)}`, {
-		context: data.petSex, pet: pet(data, {type: "petTypeID", sex: "petSex"})
+		context: data.petSex,
+		pet: pet(data, {
+			type: "petTypeID", sex: "petSex"
+		})
 	}),
 	findPotion: withIntro("findPotion.stories"),
 	haunted: () => any("haunted"),
@@ -333,18 +390,22 @@ const STORIES: Record<string, StoryBuilder> = {
 	interactOtherPlayers: interactOtherPlayersStory,
 	leagueReward: leagueRewardStory,
 	pet: petStory,
-	petDropToken: withIntro("petDropToken.stories", data => ({pet: pet(data, OWN_PET), owner: str(data, "ownerName")})),
+	petDropToken: withIntro("petDropToken.stories", data => ({
+		pet: pet(data, OWN_PET), owner: str(data, "ownerName")
+	})),
 	smallBad: smallBadStory,
 	spaceInitial: spaceSkyWatchingStory,
 	spaceResult: spaceResultStory,
 	staffMember: staffMemberStory,
 	ultimateFoodMerchant: data => smallEventIntro() + any("ultimateFoodMerchant.stories")
-		+ any(`ultimateFoodMerchant.rewards.${str(data, "interactionName")}`, {count: num(data, "amount"), moneyEmote: icon("unitValues.money")}),
+		+ any(`ultimateFoodMerchant.rewards.${str(data, "interactionName")}`, {
+			count: num(data, "amount"), moneyEmote: icon("unitValues.money")
+		}),
 	winEnergy: withIntro("winEnergy.stories"),
-	winEnergyOnIsland: withIntro("winEnergyOnIsland.stories", data => ({energy: num(data, "amount")})),
-	winGuildXP: data => any("winGuildXP.stories", {guild: str(data, "guildName")}) + t("winGuildXP.end", {xp: num(data, "amount")}),
-	winHealth: withIntro("winHealth.stories", data => ({health: num(data, "amount")})),
-	winPersonalXP: data => smallEventIntro() + any("winPersonalXP.stories") + t("winPersonalXP.end", {xp: num(data, "amount")})
+	winEnergyOnIsland: withIntro("winEnergyOnIsland.stories", data => ({ energy: num(data, "amount") })),
+	winGuildXP: data => any("winGuildXP.stories", { guild: str(data, "guildName") }) + t("winGuildXP.end", { xp: num(data, "amount") }),
+	winHealth: withIntro("winHealth.stories", data => ({ health: num(data, "amount") })),
+	winPersonalXP: data => smallEventIntro() + any("winPersonalXP.stories") + t("winPersonalXP.end", { xp: num(data, "amount") })
 };
 
 /** Some small events send a packet whose name is not the one their emoji is filed under. */

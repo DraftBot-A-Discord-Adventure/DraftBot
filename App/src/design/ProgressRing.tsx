@@ -1,7 +1,12 @@
-import {ReactElement, ReactNode, useMemo} from "react";
-import {Animated, View, ViewStyle} from "react-native";
+import {
+	ReactElement, ReactNode, useMemo
+} from "react";
+import {
+	Animated, View, ViewStyle
+} from "react-native";
 
 type ProgressRingProps = {
+
 	/** From 0 to 1; animated so the ring can glide between two readings. */
 	progress: Animated.Value;
 	size: number;
@@ -22,9 +27,13 @@ type HalfArcProps = Omit<ProgressRingProps, "progress" | "children"> & {
 };
 
 /** One half of the ring: an arc turned into view, clipped by the half it lives in. */
-function HalfArc({side, rotate, size, thickness, color}: HalfArcProps): ReactElement {
+function HalfArc({
+	side, rotate, size, thickness, color
+}: HalfArcProps): ReactElement {
 	const half = size / 2;
-	const clip: ViewStyle = {position: "absolute", top: 0, width: half, height: size, overflow: "hidden", [side]: 0};
+	const clip: ViewStyle = {
+		position: "absolute", top: 0, width: half, height: size, overflow: "hidden", [side]: 0
+	};
 	const arc: ViewStyle = {
 		position: "absolute",
 		top: 0,
@@ -37,7 +46,7 @@ function HalfArc({side, rotate, size, thickness, color}: HalfArcProps): ReactEle
 		borderTopColor: color,
 		borderRightColor: color
 	};
-	return <View style={clip}><Animated.View style={[arc, {transform: [{rotate}]}]} /></View>;
+	return <View style={clip}><Animated.View style={[arc, { transform: [{ rotate }] }]} /></View>;
 }
 
 /** Turns the arc from hidden to shown while the progress crosses its half of the ring. */
@@ -50,11 +59,19 @@ function arcRotation(progress: Animated.Value, from: number): Animated.AnimatedI
 }
 
 /** A thin ring filling clockwise from the top, drawn without any vector library. */
-export function ProgressRing({progress, size, thickness, color, children}: ProgressRingProps): ReactElement {
+export function ProgressRing({
+	progress, size, thickness, color, children
+}: ProgressRingProps): ReactElement {
 	// New interpolation nodes on every render would detach the running native animation.
-	const rotations = useMemo(() => ({right: arcRotation(progress, 0), left: arcRotation(progress, HALF_TURN)}), [progress]);
-	const track: ViewStyle = {position: "absolute", width: size, height: size, borderRadius: size / 2, borderWidth: thickness, borderColor: color, opacity: TRACK_OPACITY};
-	return <View style={{width: size, height: size, alignItems: "center", justifyContent: "center"}} testID="progress-ring">
+	const rotations = useMemo(() => ({
+		right: arcRotation(progress, 0), left: arcRotation(progress, HALF_TURN)
+	}), [progress]);
+	const track: ViewStyle = {
+		position: "absolute", width: size, height: size, borderRadius: size / 2, borderWidth: thickness, borderColor: color, opacity: TRACK_OPACITY
+	};
+	return <View style={{
+		width: size, height: size, alignItems: "center", justifyContent: "center"
+	}} testID="progress-ring">
 		<View style={track} />
 		<HalfArc side="right" rotate={rotations.right} size={size} thickness={thickness} color={color} />
 		<HalfArc side="left" rotate={rotations.left} size={size} thickness={thickness} color={color} />

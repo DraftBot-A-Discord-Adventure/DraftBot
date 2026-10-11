@@ -1,4 +1,6 @@
-import React, {PropsWithChildren, useEffect} from "react";
+import React, {
+	PropsWithChildren, ReactNode, useEffect
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface PreferencesValues {
@@ -8,7 +10,7 @@ interface PreferencesValues {
 type Preferences = {
 	setDevMode(devMode: boolean): void;
 	getDevMode(): boolean;
-}
+};
 
 export const PreferencesContext = React.createContext<Preferences>({
 	setDevMode(): void {
@@ -20,7 +22,7 @@ export const PreferencesContext = React.createContext<Preferences>({
 	}
 });
 
-export function PreferencesProvider({ children }: PropsWithChildren) {
+export function PreferencesProvider({ children }: PropsWithChildren): ReactNode {
 	const [preferences, setPreferences] = React.useState<PreferencesValues>({
 		devMode: false
 	});
@@ -28,21 +30,25 @@ export function PreferencesProvider({ children }: PropsWithChildren) {
 	const savePreferences = async (): Promise<void> => {
 		try {
 			await AsyncStorage.setItem("preferences", JSON.stringify(preferences));
-		} catch (error) {
+		}
+		catch (error) {
 			console.error("Failed to save preferences:", error);
 		}
-	}
+	};
 
 	const setDevMode = (devMode: boolean): void => {
-		setPreferences(prev => ({ ...prev, devMode }));
-		savePreferences().then().catch(error => {
-			console.error("Failed to save preferences:", error);
-		});
+		setPreferences(prev => ({
+			...prev, devMode
+		}));
+		savePreferences().then()
+			.catch(error => {
+				console.error("Failed to save preferences:", error);
+			});
 	};
 
 	const getDevMode = (): boolean => {
 		return preferences.devMode;
-	}
+	};
 
 	const loadPreferences = async (): Promise<PreferencesValues | null> => {
 		try {
@@ -50,27 +56,31 @@ export function PreferencesProvider({ children }: PropsWithChildren) {
 			if (storedPreferences) {
 				const parsedPreferences = JSON.parse(storedPreferences);
 				return {
-					devMode: parsedPreferences.devMode || false,
+					devMode: parsedPreferences.devMode || false
 				};
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			console.error("Failed to load preferences:", error);
 		}
 		return null;
-	}
+	};
 
 	useEffect(() => {
 		loadPreferences().then(storedPreferences => {
 			if (storedPreferences) {
 				setPreferences(storedPreferences);
 			}
-		}).catch(error => {
-			console.error("Failed to load preferences on mount:", error);
-		});
+		})
+			.catch(error => {
+				console.error("Failed to load preferences on mount:", error);
+			});
 	}, []);
 
 	return (
-		<PreferencesContext.Provider value={{ setDevMode, getDevMode }}>
+		<PreferencesContext.Provider value={{
+			setDevMode, getDevMode
+		}}>
 			{children}
 		</PreferencesContext.Provider>
 	);

@@ -1,10 +1,12 @@
-import {ShopPetCheckupRes} from "ws-packets/src/fromServer/shop/ShopRes";
-import {PetSex} from "ws-packets/src/objects/OwnedPet";
-import {AppIcons} from "@/src/AppIcons";
-import {petIcon, petTypeName} from "@/src/display/PetDisplay";
-import {formatDurationMinutes} from "@/src/display/ItemEffects";
-import {i18n} from "@/src/translations/i18n";
-import {randomTranslation} from "@/src/translations/RandomTranslation";
+import { ShopPetCheckupRes } from "ws-packets/src/fromServer/shop/ShopRes";
+import { PetSex } from "ws-packets/src/objects/OwnedPet";
+import { AppIcons } from "@/src/AppIcons";
+import {
+	petIcon, petTypeName
+} from "@/src/display/PetDisplay";
+import { formatDurationMinutes } from "@/src/display/ItemEffects";
+import { i18n } from "@/src/translations/i18n";
+import { randomTranslation } from "@/src/translations/RandomTranslation";
 
 const KEY = "commands:shop.shopItems.lovePointsValue";
 const SECONDS_PER_MINUTE = 60;
@@ -12,8 +14,12 @@ const MILLISECONDS_PER_MINUTE = 60_000;
 
 function shortPet(typeId: number, sex: PetSex, nickname?: string): string {
 	return i18n.t("commands:pet.shortPetField", {
-		emote: petIcon({typeId, sex}),
-		name: nickname || petTypeName({typeId, sex})
+		emote: petIcon({
+			typeId, sex
+		}),
+		name: nickname || petTypeName({
+			typeId, sex
+		})
 	});
 }
 
@@ -28,8 +34,8 @@ function expeditionSection(pet: ShopPetCheckupRes): string {
 		return i18n.t(`${KEY}.noPreferences`);
 	}
 	return i18n.t(`${KEY}.expeditionPreferences`, {
-		likedLocations: liked.length > 0 ? i18n.t(`${KEY}.likedLocations`, {locations: liked.map(locationType).join(", ")}) : "",
-		dislikedLocations: disliked.length > 0 ? i18n.t(`${KEY}.dislikedLocations`, {locations: disliked.map(locationType).join(", ")}) : ""
+		likedLocations: liked.length > 0 ? i18n.t(`${KEY}.likedLocations`, { locations: liked.map(locationType).join(", ") }) : "",
+		dislikedLocations: disliked.length > 0 ? i18n.t(`${KEY}.dislikedLocations`, { locations: disliked.map(locationType).join(", ") }) : ""
 	});
 }
 
@@ -54,10 +60,12 @@ export function petCheckupReport(pet: ShopPetCheckupRes): string {
 	const report = i18n.t(`${KEY}.giveDesc`, {
 		petName: shortPet(pet.typeId, pet.sex, pet.nickname),
 		commentOnResult: randomTranslation(`${KEY}.advice.${pet.loveLevel}`),
-		commentOnPetAge: i18n.t(`${KEY}.ageComment`, {context: pet.ageCategory, age: pet.petId - 1}),
+		commentOnPetAge: i18n.t(`${KEY}.ageComment`, {
+			context: pet.ageCategory, age: pet.petId - 1
+		}),
 		actualLP: pet.lovePoints,
 		maxLovePoints: pet.maxLovePoints,
-		diet: i18n.t("models:diet", {context: pet.diet}),
+		diet: i18n.t("models:diet", { context: pet.diet }),
 		force: pet.force,
 		speed: pet.speed,
 		feedDelay: formatDurationMinutes(pet.feedDelay / SECONDS_PER_MINUTE),
@@ -67,6 +75,6 @@ export function petCheckupReport(pet: ShopPetCheckupRes): string {
 		dwarfPet: dwarfAside(pet)
 	});
 	return pet.lovePointsGained
-		? report + i18n.t(`${KEY}.lovePointsGained`, {amount: pet.lovePointsGained})
+		? report + i18n.t(`${KEY}.lovePointsGained`, { amount: pet.lovePointsGained })
 		: report;
 }

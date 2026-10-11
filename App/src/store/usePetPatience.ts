@@ -1,9 +1,15 @@
-import {useEffect, useRef, useState} from "react";
+import {
+	useEffect, useRef, useState
+} from "react";
 
 /** How many strokes in a row a pet tolerates before walking off for a moment. */
-export const PET_PATIENCE = {STROKES: 5, WITHIN_MS: 6_000, SULK_MS: 5_000};
+export const PET_PATIENCE = {
+	STROKES: 5, WITHIN_MS: 6_000, SULK_MS: 5_000
+};
 
-export type PetPatience = {strokes: number; hadEnough: boolean; stroke: () => void};
+export type PetPatience = {
+	strokes: number; hadEnough: boolean; stroke: () => void;
+};
 
 /**
  * Counts the strokes a pet has just received.
@@ -16,7 +22,9 @@ export function usePetPatience(): PetPatience {
 	const [hadEnough, setHadEnough] = useState(false);
 	const recent = useRef<number[]>([]);
 	useEffect(() => {
-		if (!hadEnough) return undefined;
+		if (!hadEnough) {
+			return undefined;
+		}
 		const forgiveness = setTimeout(() => {
 			recent.current = [];
 			setHadEnough(false);
@@ -27,7 +35,11 @@ export function usePetPatience(): PetPatience {
 		const now = Date.now();
 		recent.current = [...recent.current.filter(at => now - at < PET_PATIENCE.WITHIN_MS), now];
 		setStrokes(count => count + 1);
-		if (recent.current.length >= PET_PATIENCE.STROKES) setHadEnough(true);
+		if (recent.current.length >= PET_PATIENCE.STROKES) {
+			setHadEnough(true);
+		}
 	};
-	return {strokes, hadEnough, stroke};
+	return {
+		strokes, hadEnough, stroke
+	};
 }

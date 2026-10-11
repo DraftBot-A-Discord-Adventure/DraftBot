@@ -1,6 +1,8 @@
-import {ComponentType, ReactNode, useMemo, useState} from "react";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {ReportBigEventResultRes} from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
+import {
+	ComponentType, ReactNode, useMemo, useState
+} from "react";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import { ReportBigEventResultRes } from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
 import {
 	SmallEventWitchResultRes, WITCH_OUTCOMES
 } from "ws-packets/src/fromServer/smallEvents/SmallEventWitchResultRes";
@@ -9,40 +11,52 @@ import {
 	REPORT_COLLECTOR_REACTION_KINDS, CITY_DATA_KINDS, SHOP_DATA_KINDS, SMALL_EVENT_DATA_KINDS,
 	ReactionCollectorData, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import {AppIcons} from "@/src/AppIcons";
-import {AMOUNT_UNITS, formatAmount, formatMoney} from "@/src/display/Amounts";
-import {formatDurationMinutes} from "@/src/display/ItemEffects";
-import {CollectorChoices} from "@/src/collectors/CollectorPrompt";
-import {CityCollector} from "@/src/collectors/CityCollector";
-import {BuyCategorySlotCollector, ShopCollector, SkipMissionCollector} from "@/src/collectors/ShopCollector";
-import {SmallEventShopCollector} from "@/src/collectors/SmallEventShopCollector";
-import {RecipeShopCollector} from "@/src/collectors/RecipeShopCollector";
-import {PveIslandInvitationCollector} from "@/src/collectors/PveIslandInvitationCollector";
-import {PveFightCollector} from "@/src/collectors/PveFightCollector";
-import {collectorDescription, collectorTitle, eventPromptIcon, isEventPrompt} from "@/src/collectors/CollectorLabels";
+import { AppIcons } from "@/src/AppIcons";
+import {
+	AMOUNT_UNITS, formatAmount, formatMoney
+} from "@/src/display/Amounts";
+import { formatDurationMinutes } from "@/src/display/ItemEffects";
+import { CollectorChoices } from "@/src/collectors/CollectorPrompt";
+import { CityCollector } from "@/src/collectors/CityCollector";
+import {
+	BuyCategorySlotCollector, ShopCollector, SkipMissionCollector
+} from "@/src/collectors/ShopCollector";
+import { SmallEventShopCollector } from "@/src/collectors/SmallEventShopCollector";
+import { RecipeShopCollector } from "@/src/collectors/RecipeShopCollector";
+import { PveIslandInvitationCollector } from "@/src/collectors/PveIslandInvitationCollector";
+import { PveFightCollector } from "@/src/collectors/PveFightCollector";
+import {
+	collectorDescription, collectorTitle, eventPromptIcon, isEventPrompt
+} from "@/src/collectors/CollectorLabels";
 import type {
 	HealOutcome as HealOutcomeData, LotteryOutcome as LotteryOutcomeData,
 	TokenOutcomeRequiringAcknowledgement
 } from "@/src/collectors/ReportEventStore";
-import {Button, ButtonRow, Screen} from "@/src/design/Primitives";
-import {Theme} from "@/src/design/Theme";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {i18n} from "@/src/translations/i18n";
-import {joinParagraphs} from "@/src/display/Paragraphs";
-import {ActionBanner, Card, Effect, ExpandableEntry, ExpandableList, Fact, QuestionSheet, Standing} from "@/src/design/Sections";
-import {Check} from "@/src/design/FightIcons";
-import {EventJournal, EventOutcomeScreen, usePlayerPseudo} from "@/src/collectors/EventOutcomeScreen";
-import {plainStory} from "@/src/display/Markdown";
-import {TokenMerchantAway} from "@/src/components/TokenMerchantAway";
-import {DestinationMap} from "@/src/components/WorldMap";
+import {
+	Button, ButtonRow, Screen
+} from "@/src/design/Primitives";
+import { Theme } from "@/src/design/Theme";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { i18n } from "@/src/translations/i18n";
+import { joinParagraphs } from "@/src/display/Paragraphs";
+import {
+	ActionBanner, Card, Effect, ExpandableEntry, ExpandableList, Fact, QuestionSheet, Standing
+} from "@/src/design/Sections";
+import { Check } from "@/src/design/FightIcons";
+import {
+	EventJournal, EventOutcomeScreen, usePlayerPseudo
+} from "@/src/collectors/EventOutcomeScreen";
+import { plainStory } from "@/src/display/Markdown";
+import { TokenMerchantAway } from "@/src/components/TokenMerchantAway";
+import { DestinationMap } from "@/src/components/WorldMap";
 import {
 	amountEffect, gainEffect, lossEffect, lostAmountEffect, presentEffects
 } from "@/src/display/OutcomeEffects";
-import {LotteryReward} from "ws-packets/src/fromServer/smallEvents/SmallEventLotteryRes";
-import {anyTranslation} from "@/src/translations/RandomTranslation";
-import {useContest} from "@/src/onboarding/Contest";
-import {GuideTip} from "@/src/onboarding/GuideTip";
-import {ONBOARDING_MISSION_IDS} from "ws-packets/src/objects/Onboarding";
+import { LotteryReward } from "ws-packets/src/fromServer/smallEvents/SmallEventLotteryRes";
+import { anyTranslation } from "@/src/translations/RandomTranslation";
+import { useContest } from "@/src/onboarding/Contest";
+import { GuideTip } from "@/src/onboarding/GuideTip";
+import { ONBOARDING_MISSION_IDS } from "ws-packets/src/objects/Onboarding";
 
 /** Being occupied is the alteration that only costs time: Discord never draws its emoji after a story. */
 const OCCUPIED_EFFECT = "occupied";
@@ -87,7 +101,7 @@ function lotteryOutcomeText(outcome: LotteryOutcomeData): string {
 			return i18n.t(`smallEvents:lottery.${outcome.packet.level}.success`, {
 				lostTime: outcome.packet.lostTime,
 				lostTimeDisplay: formatDurationMinutes(outcome.packet.lostTime)
-			}) + i18n.t(`smallEvents:lottery.rewardTypeText.${outcome.packet.winReward}`, {reward: outcome.packet.winAmount});
+			}) + i18n.t(`smallEvents:lottery.rewardTypeText.${outcome.packet.winReward}`, { reward: outcome.packet.winAmount });
 		case "lose":
 			return i18n.t(`smallEvents:lottery.${outcome.packet.level}.${outcome.packet.moneyLost > 0 ? "failWithMalus" : "fail"}`, {
 				lostTime: outcome.packet.lostTime,
@@ -101,8 +115,8 @@ function lotteryOutcomeText(outcome: LotteryOutcomeData): string {
 	}
 }
 
-type TokenMerchantData = Extract<ReactionCollectorData, {type: typeof REPORT_COLLECTOR_DATA_KINDS.TOKEN_MERCHANT}>;
-type BuyHealData = Extract<ReactionCollectorData, {type: typeof REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL}>;
+type TokenMerchantData = Extract<ReactionCollectorData, { type: typeof REPORT_COLLECTOR_DATA_KINDS.TOKEN_MERCHANT }>;
+type BuyHealData = Extract<ReactionCollectorData, { type: typeof REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL }>;
 
 function merchantReactionIndex(reactions: ReactionCollectorReaction[], amount: number): number {
 	return reactions.findIndex(reaction => reaction.type === REPORT_COLLECTOR_REACTION_KINDS.TOKEN_MERCHANT_BUY
@@ -110,7 +124,9 @@ function merchantReactionIndex(reactions: ReactionCollectorReaction[], amount: n
 }
 
 /** Each bundle is bought from its own row, where its price and the money left are already written. */
-function MerchantPurchase({amount, data, index, expanded, onToggle, onChoose, submitting}: {
+function MerchantPurchase({
+	amount, data, index, expanded, onToggle, onChoose, submitting
+}: {
 	amount: number;
 	data: TokenMerchantData["data"];
 	index: number;
@@ -122,8 +138,10 @@ function MerchantPurchase({amount, data, index, expanded, onToggle, onChoose, su
 	const price = amount * data.pricePerToken;
 	const affordable = index >= 0 && price <= data.playerMoney;
 	return <ExpandableEntry
-		label={plainStory(i18n.t("commands:report.tokenMerchant.buyButton", {count: amount, price}))}
-		{...affordable ? {} : {caption: i18n.t("app:city.locks.missingMoney", {amount: formatMoney(price - data.playerMoney)})}}
+		label={plainStory(i18n.t("commands:report.tokenMerchant.buyButton", {
+			count: amount, price
+		}))}
+		{...affordable ? {} : { caption: i18n.t("app:city.locks.missingMoney", { amount: formatMoney(price - data.playerMoney) }) }}
 		dimmed={submitting || !affordable}
 		expanded={expanded}
 		onToggle={onToggle}
@@ -137,13 +155,15 @@ function MerchantPurchase({amount, data, index, expanded, onToggle, onChoose, su
 			icon={Check}
 			label={i18n.t("app:adventure.tokens.merchant.confirm")}
 			pending={submitting}
-			{...affordable ? {} : {lock: {reason: i18n.t("app:city.locks.missingMoney", {amount: formatMoney(price - data.playerMoney)})}}}
+			{...affordable ? {} : { lock: { reason: i18n.t("app:city.locks.missingMoney", { amount: formatMoney(price - data.playerMoney) }) } }}
 			onPress={(): void => onChoose(index)}
 		/>
 	</ExpandableEntry>;
 }
 
-function TokenUseCollector({collector, onChoose, submitting}: {
+function TokenUseCollector({
+	collector, onChoose, submitting
+}: {
 	collector: ReactionCollectorCreation;
 	onChoose: (reactionIndex: number) => void;
 	submitting: boolean;
@@ -162,15 +182,15 @@ function TokenUseCollector({collector, onChoose, submitting}: {
 		<QuestionSheet
 			caption={i18n.t("app:adventure.tokens.merchant.eyebrow")}
 			title={i18n.t("app:adventure.tokens.use.title")}
-			subtitle={i18n.t("app:adventure.tokens.use.description", {count: collector.data.data.cost})}
+			subtitle={i18n.t("app:adventure.tokens.use.description", { count: collector.data.data.cost })}
 			emblem={<TwemojiIcon emoji={AppIcons.getIcon("unitValues.token")} size={Theme.dimensions.headerIcon} />}
 			onClose={canRefuse ? (): void => onChoose(refuseIndex) : (): void => undefined}
 		>
 			<ActionBanner
 				icon={Check}
-				label={i18n.t("app:adventure.tokens.use.confirm", {count: collector.data.data.cost})}
+				label={i18n.t("app:adventure.tokens.use.confirm", { count: collector.data.data.cost })}
 				pending={submitting}
-				{...canConfirm ? {} : {lock: {reason: i18n.t("app:adventure.tokens.use.description", {count: collector.data.data.cost})}}}
+				{...canConfirm ? {} : { lock: { reason: i18n.t("app:adventure.tokens.use.description", { count: collector.data.data.cost }) } }}
 				onPress={(): void => onChoose(acceptIndex)}
 			/>
 			<ButtonRow>
@@ -182,7 +202,9 @@ function TokenUseCollector({collector, onChoose, submitting}: {
 	);
 }
 
-function BuyHealCollector({collector, onChoose, submitting}: {
+function BuyHealCollector({
+	collector, onChoose, submitting
+}: {
 	collector: ReactionCollectorCreation;
 	onChoose: (reactionIndex: number) => void;
 	submitting: boolean;
@@ -200,7 +222,9 @@ function BuyHealCollector({collector, onChoose, submitting}: {
 		<QuestionSheet
 			caption={i18n.t("app:adventure.heal.use.eyebrow")}
 			title={i18n.t("app:adventure.heal.use.title")}
-			subtitle={i18n.t("app:adventure.heal.use.description", {price: data.data.healPrice, money: data.data.playerMoney})}
+			subtitle={i18n.t("app:adventure.heal.use.description", {
+				price: data.data.healPrice, money: data.data.playerMoney
+			})}
 			emblem={<TwemojiIcon emoji={AppIcons.getIcon("shopItems.healAlteration")} size={Theme.dimensions.headerIcon} />}
 			onClose={canRefuse ? (): void => onChoose(refuseIndex) : (): void => undefined}
 		>
@@ -210,7 +234,7 @@ function BuyHealCollector({collector, onChoose, submitting}: {
 			</ExpandableList>
 			<ActionBanner
 				icon={Check}
-				label={i18n.t("app:adventure.heal.use.confirm", {price: data.data.healPrice})}
+				label={i18n.t("app:adventure.heal.use.confirm", { price: data.data.healPrice })}
 				pending={!canConfirm}
 				onPress={(): void => onChoose(acceptIndex)}
 			/>
@@ -223,7 +247,9 @@ function BuyHealCollector({collector, onChoose, submitting}: {
 	);
 }
 
-function TokenMerchantCollector({collector, onChoose, submitting}: {
+function TokenMerchantCollector({
+	collector, onChoose, submitting
+}: {
 	collector: ReactionCollectorCreation;
 	onChoose: (reactionIndex: number) => void;
 	submitting: boolean;
@@ -233,7 +259,7 @@ function TokenMerchantCollector({collector, onChoose, submitting}: {
 	if (collector.data.type !== REPORT_COLLECTOR_DATA_KINDS.TOKEN_MERCHANT) {
 		return null;
 	}
-	const {amounts} = collector.data.data;
+	const { amounts } = collector.data.data;
 	const data = collector.data.data;
 	const refuseIndex = reactionIndex(collector, GENERIC_REACTION_KINDS.REFUSE);
 
@@ -241,7 +267,7 @@ function TokenMerchantCollector({collector, onChoose, submitting}: {
 		<Screen>
 			<EventJournal
 				emoji={AppIcons.getIconOrNull("unitValues.token") ?? undefined}
-				title={plainStory(i18n.t("commands:report.tokenMerchant.title", {pseudo}))}
+				title={plainStory(i18n.t("commands:report.tokenMerchant.title", { pseudo }))}
 				story={i18n.t("commands:report.tokenMerchant.description", data)}
 			/>
 			<Card>{amounts.map(amount => <MerchantPurchase
@@ -254,11 +280,13 @@ function TokenMerchantCollector({collector, onChoose, submitting}: {
 				onChoose={onChoose}
 				submitting={submitting}
 			/>)}</Card>
-			{refuseIndex >= 0 ? <ButtonRow>
-				<Button disabled={submitting} onPress={submitting ? undefined : (): void => onChoose(refuseIndex)}>
-					{plainStory(i18n.t("commands:report.tokenMerchant.refuseButton"))}
-				</Button>
-			</ButtonRow> : null}
+			{refuseIndex >= 0
+				? <ButtonRow>
+					<Button disabled={submitting} onPress={submitting ? undefined : (): void => onChoose(refuseIndex)}>
+						{plainStory(i18n.t("commands:report.tokenMerchant.refuseButton"))}
+					</Button>
+				</ButtonRow>
+				: null}
 		</Screen>
 	);
 }
@@ -284,11 +312,13 @@ const SPECIALIZED_COLLECTORS: Partial<Record<ReactionCollectorData["type"], Comp
 };
 
 /** Reaching the first city is the contest's next trial: the guide holds the newcomer back before a new road. */
-function DestinationGuide({collector}: {collector: ReactionCollectorCreation}): ReactNode {
+function DestinationGuide({ collector }: { collector: ReactionCollectorCreation }): ReactNode {
 	const contest = useContest();
 	const canStay = reactionIndex(collector, REPORT_COLLECTOR_REACTION_KINDS.STAY_IN_CITY) >= 0;
 	const shopTrial = contest?.missionId === ONBOARDING_MISSION_IDS.VISIT_CITY_NPC;
-	if (!canStay || !shopTrial) return null;
+	if (!canStay || !shopTrial) {
+		return null;
+	}
 	return <GuideTip text={i18n.t("app:contest.tips.stayInCity")} testID="guide-tip-stay-in-city" />;
 }
 
@@ -321,6 +351,7 @@ export function AdventureCollector(props: AdventureCollectorProps): ReactNode {
 		</Screen>
 	);
 }
+
 /** Every unit a big event may hand out or take away, with the emoji the game uses for it. */
 const OUTCOME_UNITS = {
 	score: "score",
@@ -350,7 +381,9 @@ function tokensReceived(outcome: TokenOutcomeRequiringAcknowledgement): number |
 }
 
 /** The token merchant's answer, told with the words Discord uses and the tokens it handed over. */
-export function TokenOutcome({outcome, onContinue}: {
+export function TokenOutcome({
+	outcome, onContinue
+}: {
 	outcome: TokenOutcomeRequiringAcknowledgement;
 	onContinue: () => void;
 }): ReactNode {
@@ -362,9 +395,9 @@ export function TokenOutcome({outcome, onContinue}: {
 	const received = tokensReceived(outcome);
 	return <EventOutcomeScreen
 		emoji={AppIcons.getIconOrNull("unitValues.token") ?? undefined}
-		title={plainStory(i18n.t(`${key}Title`, {pseudo}))}
-		story={i18n.t(`${key}Description`, received === undefined ? {} : {count: received})}
-		effects={presentEffects([received === undefined ? null : amountEffect(i18n.t("app:adventure.event.fields.tokens"), received, {gain: OUTCOME_UNITS.token})])}
+		title={plainStory(i18n.t(`${key}Title`, { pseudo }))}
+		story={i18n.t(`${key}Description`, received === undefined ? {} : { count: received })}
+		effects={presentEffects([received === undefined ? null : amountEffect(i18n.t("app:adventure.event.fields.tokens"), received, { gain: OUTCOME_UNITS.token })])}
 		continueLabel={i18n.t("app:adventure.tokens.continue")}
 		onContinue={onContinue}
 	/>;
@@ -393,7 +426,9 @@ const HEAL_TITLE_KEYS: Partial<Record<HealOutcomeData["kind"], string>> = {
 };
 
 /** Shows the result of buying an alteration cure before refreshing the adventure report. */
-export function HealOutcome({outcome, onContinue}: {
+export function HealOutcome({
+	outcome, onContinue
+}: {
 	outcome: HealOutcomeData;
 	onContinue: () => void;
 }): ReactNode {
@@ -401,7 +436,7 @@ export function HealOutcome({outcome, onContinue}: {
 	const titleKey = HEAL_TITLE_KEYS[outcome.kind];
 	return <EventOutcomeScreen
 		emoji={AppIcons.getIconOrNull("shopItems.healAlteration") ?? undefined}
-		{...titleKey ? {title: plainStory(i18n.t(titleKey, {pseudo}))} : {}}
+		{...titleKey ? { title: plainStory(i18n.t(titleKey, { pseudo })) } : {}}
 		story={healStory(outcome)}
 		effects={outcome.kind === "accepted" ? presentEffects([lostAmountEffect(i18n.t("app:adventure.event.fields.money"), outcome.packet.healPrice, OUTCOME_UNITS.lostMoney)]) : []}
 		continueLabel={i18n.t("app:adventure.heal.continue")}
@@ -410,20 +445,26 @@ export function HealOutcome({outcome, onContinue}: {
 }
 
 /** The alteration an event inflicts, worn by its own emoji when the asset pack has one. */
-function alterationEffect(effect: {name: string; time: number}): Effect {
+function alterationEffect(effect: {
+	name: string; time: number;
+}): Effect {
 	const emoji = AppIcons.getIconOrNull(`effects.${effect.name}`);
-	return lossEffect(i18n.t("app:adventure.event.fields.timeLost"), formatDurationMinutes(effect.time), emoji ? {emoji} : {unit: OUTCOME_UNITS.time});
+	return lossEffect(i18n.t("app:adventure.event.fields.timeLost"), formatDurationMinutes(effect.time), emoji ? { emoji } : { unit: OUTCOME_UNITS.time });
 }
 
 function outcomeChanges(outcome: ReportBigEventResultRes): Effect[] {
 	return presentEffects([
-		amountEffect(i18n.t("app:adventure.event.fields.points"), outcome.score, {gain: OUTCOME_UNITS.score}),
-		amountEffect(i18n.t("app:adventure.event.fields.experience"), outcome.experience, {gain: OUTCOME_UNITS.xp}),
-		amountEffect(i18n.t("app:adventure.event.fields.money"), outcome.money, {gain: OUTCOME_UNITS.money, loss: OUTCOME_UNITS.lostMoney}),
-		amountEffect(i18n.t("app:adventure.event.fields.health"), outcome.health, {gain: OUTCOME_UNITS.health, loss: OUTCOME_UNITS.lostHealth}),
-		amountEffect(i18n.t("app:adventure.event.fields.energy"), outcome.energy, {gain: OUTCOME_UNITS.energy}),
-		amountEffect(i18n.t("app:adventure.event.fields.gems"), outcome.gems, {gain: OUTCOME_UNITS.gem}),
-		amountEffect(i18n.t("app:adventure.event.fields.tokens"), outcome.tokens, {gain: OUTCOME_UNITS.token}),
+		amountEffect(i18n.t("app:adventure.event.fields.points"), outcome.score, { gain: OUTCOME_UNITS.score }),
+		amountEffect(i18n.t("app:adventure.event.fields.experience"), outcome.experience, { gain: OUTCOME_UNITS.xp }),
+		amountEffect(i18n.t("app:adventure.event.fields.money"), outcome.money, {
+			gain: OUTCOME_UNITS.money, loss: OUTCOME_UNITS.lostMoney
+		}),
+		amountEffect(i18n.t("app:adventure.event.fields.health"), outcome.health, {
+			gain: OUTCOME_UNITS.health, loss: OUTCOME_UNITS.lostHealth
+		}),
+		amountEffect(i18n.t("app:adventure.event.fields.energy"), outcome.energy, { gain: OUTCOME_UNITS.energy }),
+		amountEffect(i18n.t("app:adventure.event.fields.gems"), outcome.gems, { gain: OUTCOME_UNITS.gem }),
+		amountEffect(i18n.t("app:adventure.event.fields.tokens"), outcome.tokens, { gain: OUTCOME_UNITS.token }),
 		outcome.effect === undefined ? null : alterationEffect(outcome.effect)
 	]);
 }
@@ -432,7 +473,9 @@ function outcomeChanges(outcome: ReportBigEventResultRes): Effect[] {
  * The end of the story the player just took part in, told as Discord tells it: the outcome the game
  * wrote, followed by the emoji of the alteration it inflicted, and what it cost or brought.
  */
-export function BigEventOutcome({outcome, onContinue}: {
+export function BigEventOutcome({
+	outcome, onContinue
+}: {
 	outcome: ReportBigEventResultRes;
 	onContinue: () => void;
 }): ReactNode {
@@ -455,14 +498,14 @@ const LOTTERY_REWARD_UNITS: Record<LotteryReward, string> = {
 };
 
 function lostTimeEffect(lostTime: number): Effect | null {
-	return lostTime > 0 ? lossEffect(i18n.t("app:adventure.event.fields.timeLost"), formatDurationMinutes(lostTime), {unit: OUTCOME_UNITS.time}) : null;
+	return lostTime > 0 ? lossEffect(i18n.t("app:adventure.event.fields.timeLost"), formatDurationMinutes(lostTime), { unit: OUTCOME_UNITS.time }) : null;
 }
 
 function lotteryEffects(outcome: LotteryOutcomeData): Effect[] {
 	switch (outcome.kind) {
 		case "win":
 			return presentEffects([
-				amountEffect(i18n.t(`app:adventure.lottery.rewards.${outcome.packet.winReward}`), outcome.packet.winAmount, {gain: LOTTERY_REWARD_UNITS[outcome.packet.winReward]}),
+				amountEffect(i18n.t(`app:adventure.lottery.rewards.${outcome.packet.winReward}`), outcome.packet.winAmount, { gain: LOTTERY_REWARD_UNITS[outcome.packet.winReward] }),
 				lostTimeEffect(outcome.packet.lostTime)
 			]);
 		case "lose":
@@ -476,7 +519,9 @@ function lotteryEffects(outcome: LotteryOutcomeData): Effect[] {
 }
 
 /** Shows the exact resolution sent after a lottery collector is answered. */
-export function LotteryOutcome({outcome, onContinue}: {
+export function LotteryOutcome({
+	outcome, onContinue
+}: {
 	outcome: LotteryOutcomeData;
 	onContinue: () => void;
 }): ReactNode {
@@ -499,8 +544,12 @@ function witchCostTime(outcome: SmallEventWitchResultRes): boolean {
 }
 
 function witchTimeOutro(outcome: SmallEventWitchResultRes): string {
-	if (!witchCostTime(outcome)) return "";
-	return ` ${anyTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", {lostTime: outcome.timeLostMinutes, lostTimeDisplay: formatDurationMinutes(outcome.timeLostMinutes)})}`;
+	if (!witchCostTime(outcome)) {
+		return "";
+	}
+	return ` ${anyTranslation("smallEvents:witch.witchEventResults.outcomes.2.time", {
+		lostTime: outcome.timeLostMinutes, lostTimeDisplay: formatDurationMinutes(outcome.timeLostMinutes)
+	})}`;
 }
 
 function witchForcedEffectUnnamed(outcome: SmallEventWitchResultRes): boolean {
@@ -509,13 +558,15 @@ function witchForcedEffectUnnamed(outcome: SmallEventWitchResultRes): boolean {
 
 /** A forced effect the outcome text does not already name gets its emoji appended, as on Discord. */
 function witchForcedEmoji(outcome: SmallEventWitchResultRes): string {
-	if (!witchForcedEffectUnnamed(outcome)) return "";
+	if (!witchForcedEffectUnnamed(outcome)) {
+		return "";
+	}
 	return ` ${AppIcons.getIconOrNull(`effects.${outcome.effectId}`) ?? ""}`;
 }
 
 function witchRecipe(outcome: SmallEventWitchResultRes): string | null {
 	return outcome.discoveredRecipe
-		? i18n.t("commands:report.city.homes.cooking.recipeDiscovered", {recipe: i18n.t("models:cooking.recipeDisplay", outcome.discoveredRecipe)})
+		? i18n.t("commands:report.city.homes.cooking.recipeDiscovered", { recipe: i18n.t("models:cooking.recipeDisplay", outcome.discoveredRecipe) })
 		: null;
 }
 
@@ -524,8 +575,8 @@ function witchOutcomeDescription(outcome: SmallEventWitchResultRes): string {
 	const outcomeKey = outcome.outcome === WITCH_OUTCOMES.EFFECT ? `2.${outcome.effectId}` : String(outcome.outcome + 1);
 	const witchEvent = `${i18n.t(`smallEvents:witch.witchEventNames.${outcome.ingredientId}`)} ${AppIcons.getIconOrNull(`witchSmallEvent.${outcome.ingredientId}`) ?? ""}`.toLowerCase();
 	return joinParagraphs([
-		`${anyTranslation(`smallEvents:witch.witchEventResults.${outcome.isIngredient ? "ingredientIntros" : "adviceIntros"}`, {witchEvent})} ${
-			anyTranslation(`smallEvents:witch.witchEventResults.outcomes.${outcomeKey}`, {lifeLoss: outcome.lifeLoss})}${witchTimeOutro(outcome)}${witchForcedEmoji(outcome)}`,
+		`${anyTranslation(`smallEvents:witch.witchEventResults.${outcome.isIngredient ? "ingredientIntros" : "adviceIntros"}`, { witchEvent })} ${
+			anyTranslation(`smallEvents:witch.witchEventResults.outcomes.${outcomeKey}`, { lifeLoss: outcome.lifeLoss })}${witchTimeOutro(outcome)}${witchForcedEmoji(outcome)}`,
 		witchRecipe(outcome)
 	]);
 }
@@ -535,7 +586,7 @@ function witchEffect(outcome: SmallEventWitchResultRes): Effect | null {
 		return null;
 	}
 	const emoji = AppIcons.getIconOrNull(`effects.${outcome.effectId}`);
-	return lossEffect(i18n.t("app:adventure.witch.fields.effect"), i18n.t(`error:effects.${outcome.effectId}.self`), emoji ? {emoji} : {});
+	return lossEffect(i18n.t("app:adventure.witch.fields.effect"), i18n.t(`error:effects.${outcome.effectId}.self`), emoji ? { emoji } : {});
 }
 
 function witchEffects(outcome: SmallEventWitchResultRes): Effect[] {
@@ -549,7 +600,9 @@ function witchEffects(outcome: SmallEventWitchResultRes): Effect[] {
 	]);
 }
 
-export function WitchOutcome({outcome, onContinue}: {
+export function WitchOutcome({
+	outcome, onContinue
+}: {
 	outcome: SmallEventWitchResultRes;
 	onContinue: () => void;
 }): ReactNode {

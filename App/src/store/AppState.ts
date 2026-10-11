@@ -1,22 +1,30 @@
-import {useCallback} from "react";
-import {useQueryClient} from "@tanstack/react-query";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {AppStateReq} from "ws-packets/src/fromClient/AppStateReq";
-import {AppStateRes} from "ws-packets/src/fromServer/appState/AppStateRes";
-import {AppStateFlag} from "ws-packets/src/objects/AppState";
-import {Badge} from "ws-packets/src/objects/Badge";
-import {GameAnswer, GameClient} from "@/src/networking/GameClient";
-import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
-import {RequestState, useGameQuery} from "@/src/store/useGameQuery";
+import { useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { AppStateReq } from "ws-packets/src/fromClient/AppStateReq";
+import { AppStateRes } from "ws-packets/src/fromServer/appState/AppStateRes";
+import { AppStateFlag } from "ws-packets/src/objects/AppState";
+import { Badge } from "ws-packets/src/objects/Badge";
+import {
+	GameAnswer, GameClient
+} from "@/src/networking/GameClient";
+import {
+	GAME_ENTITIES, gameKey
+} from "@/src/store/GameEntities";
+import {
+	RequestState, useGameQuery
+} from "@/src/store/useGameQuery";
 
 /** What the app just showed the character: flags to set, reveals now seen, badges now celebrated. */
-export type AppStateChange = {seen?: readonly AppStateFlag[]; acknowledged?: readonly number[]; revealedBadges?: readonly Badge[]};
+export type AppStateChange = {
+	seen?: readonly AppStateFlag[]; acknowledged?: readonly number[]; revealedBadges?: readonly Badge[];
+};
 
 function requestAppState(change: AppStateChange = {}): Promise<GameAnswer<AppStateRes>> {
 	return GameClient.request(makeFromClientPacket<AppStateReq>(AppStateReq, {
-		...change.seen ? {seen: [...change.seen]} : {},
-		...change.acknowledged ? {acknowledged: [...change.acknowledged]} : {},
-		...change.revealedBadges ? {revealedBadges: [...change.revealedBadges]} : {}
+		...change.seen ? { seen: [...change.seen] } : {},
+		...change.acknowledged ? { acknowledged: [...change.acknowledged] } : {},
+		...change.revealedBadges ? { revealedBadges: [...change.revealedBadges] } : {}
 	}), AppStateRes);
 }
 
@@ -42,11 +50,15 @@ export function useAppStateChange(): (change: AppStateChange) => void {
 		const key = gameKey(GAME_ENTITIES.APP_STATE);
 		const current = queryClient.getQueryData<GameAnswer<AppStateRes>>(key);
 		if (current?.kind === "answer") {
-			queryClient.setQueryData(key, (): GameAnswer<AppStateRes> => ({kind: "answer", packet: withChange(current.packet, change)}));
+			queryClient.setQueryData(key, (): GameAnswer<AppStateRes> => ({
+				kind: "answer", packet: withChange(current.packet, change)
+			}));
 		}
 		requestAppState(change)
 			.then(answer => {
-				if (answer.kind === "answer") queryClient.setQueryData(key, answer);
+				if (answer.kind === "answer") {
+					queryClient.setQueryData(key, answer);
+				}
 			})
 			.catch(error => console.error("Failed to record what the app showed:", error));
 	}, [queryClient]);

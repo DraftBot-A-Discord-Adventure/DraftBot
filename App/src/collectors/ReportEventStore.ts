@@ -1,14 +1,14 @@
-import {useSyncExternalStore} from "react";
-import {ReportBigEventResultRes} from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
+import { useSyncExternalStore } from "react";
+import { ReportBigEventResultRes } from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
 import {
 	SmallEventLotteryLoseRes,
 	SmallEventLotteryNoAnswerRes,
 	SmallEventLotteryPoorRes,
 	SmallEventLotteryWinRes
 } from "ws-packets/src/fromServer/smallEvents/SmallEventLotteryRes";
-import {SmallEventResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
-import {SmallEventWitchResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventWitchResultRes";
-import {SmallEventChoiceResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventChoiceResultRes";
+import { SmallEventResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
+import { SmallEventWitchResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventWitchResultRes";
+import { SmallEventChoiceResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventChoiceResultRes";
 import {
 	ReportTokenMerchantBoughtRes,
 	ReportTokenMerchantCannotAffordRes,
@@ -26,51 +26,99 @@ import {
 	ReportBuyHealNoAlterationRes,
 	ReportBuyHealRefusedRes
 } from "ws-packets/src/fromServer/report/ReportHealRes";
-import {ShopNoPetRes, ShopOutcome, ShopOutcomeRes, ShopPetCheckupRes} from "ws-packets/src/fromServer/shop/ShopRes";
-import {ReportPveFightRefusedRes, ReportPveNoMonsterRes} from "ws-packets/src/fromServer/report/ReportPveFightRes";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
+import {
+	ShopNoPetRes, ShopOutcome, ShopOutcomeRes, ShopPetCheckupRes
+} from "ws-packets/src/fromServer/shop/ShopRes";
+import {
+	ReportPveFightRefusedRes, ReportPveNoMonsterRes
+} from "ws-packets/src/fromServer/report/ReportPveFightRes";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
 
 type Listener = () => void;
 
-const SILENT_SMALL_EVENT_SUFFIXES = ["RefusePacket", "RefusedPacket", "NoAnswerPacket"];
+const SILENT_SMALL_EVENT_SUFFIXES = [
+	"RefusePacket",
+	"RefusedPacket",
+	"NoAnswerPacket"
+];
 
 function shouldPresentAutomaticSmallEvent(outcome: SmallEventResultRes): boolean {
 	return !SILENT_SMALL_EVENT_SUFFIXES.some(suffix => outcome.eventName.endsWith(suffix));
 }
 
 export type LotteryOutcome =
-	| {kind: "noAnswer"; packet: SmallEventLotteryNoAnswerRes}
-	| {kind: "poor"; packet: SmallEventLotteryPoorRes}
-	| {kind: "win"; packet: SmallEventLotteryWinRes}
-	| {kind: "lose"; packet: SmallEventLotteryLoseRes};
+	| {
+		kind: "noAnswer"; packet: SmallEventLotteryNoAnswerRes;
+	}
+	| {
+		kind: "poor"; packet: SmallEventLotteryPoorRes;
+	}
+	| {
+		kind: "win"; packet: SmallEventLotteryWinRes;
+	}
+	| {
+		kind: "lose"; packet: SmallEventLotteryLoseRes;
+	};
 
 export type TokenOutcome =
-	| {kind: "used"; packet: ReportUseTokensAcceptedRes}
-	| {kind: "useRefused"; packet: ReportUseTokensRefusedRes}
-	| {kind: "bought"; packet: ReportTokenMerchantBoughtRes}
-	| {kind: "tooMuch"; packet: ReportTokenMerchantTooMuchRes}
-	| {kind: "full"; packet: ReportTokenMerchantFullRes}
-	| {kind: "merchantRefused"; packet: ReportTokenMerchantRefusedRes}
-	| {kind: "cannotAfford"; packet: ReportTokenMerchantCannotAffordRes}
-	| {kind: "charity"; packet: ReportTokenMerchantCharityRes}
-	| {kind: "charityAlreadyUsed"; packet: ReportTokenMerchantCharityAlreadyUsedRes};
+	| {
+		kind: "used"; packet: ReportUseTokensAcceptedRes;
+	}
+	| {
+		kind: "useRefused"; packet: ReportUseTokensRefusedRes;
+	}
+	| {
+		kind: "bought"; packet: ReportTokenMerchantBoughtRes;
+	}
+	| {
+		kind: "tooMuch"; packet: ReportTokenMerchantTooMuchRes;
+	}
+	| {
+		kind: "full"; packet: ReportTokenMerchantFullRes;
+	}
+	| {
+		kind: "merchantRefused"; packet: ReportTokenMerchantRefusedRes;
+	}
+	| {
+		kind: "cannotAfford"; packet: ReportTokenMerchantCannotAffordRes;
+	}
+	| {
+		kind: "charity"; packet: ReportTokenMerchantCharityRes;
+	}
+	| {
+		kind: "charityAlreadyUsed"; packet: ReportTokenMerchantCharityAlreadyUsedRes;
+	};
 
 export type TokenOutcomeRequiringAcknowledgement = Exclude<TokenOutcome,
-{kind: "used" | "useRefused" | "merchantRefused"}>;
+	{ kind: "used" | "useRefused" | "merchantRefused" }>;
 
 export type HealOutcome =
-	| {kind: "accepted"; packet: ReportBuyHealAcceptedRes}
-	| {kind: "refused"; packet: ReportBuyHealRefusedRes}
-	| {kind: "noAlteration"; packet: ReportBuyHealNoAlterationRes}
-	| {kind: "cannotHealOccupied"; packet: ReportBuyHealCannotHealOccupiedRes};
+	| {
+		kind: "accepted"; packet: ReportBuyHealAcceptedRes;
+	}
+	| {
+		kind: "refused"; packet: ReportBuyHealRefusedRes;
+	}
+	| {
+		kind: "noAlteration"; packet: ReportBuyHealNoAlterationRes;
+	}
+	| {
+		kind: "cannotHealOccupied"; packet: ReportBuyHealCannotHealOccupiedRes;
+	};
 
 export type ShopResult =
-	| {kind: "checkup"; packet: ShopPetCheckupRes}
-	| {kind: "noPet"}
-	| {kind: "outcome"; outcome: ShopOutcome};
+	| {
+		kind: "checkup"; packet: ShopPetCheckupRes;
+	}
+	| { kind: "noPet" }
+	| {
+		kind: "outcome"; outcome: ShopOutcome;
+	};
 
 /** How an island boss encounter ended when no fight took place. */
-export const PVE_FIGHT_OUTCOMES = {REFUSED: "refused", NO_MONSTER: "noMonster"} as const;
+export const PVE_FIGHT_OUTCOMES = {
+	REFUSED: "refused", NO_MONSTER: "noMonster"
+} as const;
 export type PveFightOutcome = typeof PVE_FIGHT_OUTCOMES[keyof typeof PVE_FIGHT_OUTCOMES];
 
 /**
@@ -101,34 +149,72 @@ class ReportEventStore {
 	public constructor() {
 		const client = WebSocketClient.getInstance();
 		client.registerPushedPacketHandler(ReportBigEventResultRes.wireName, this.setOutcome);
-		client.registerPushedPacketHandler<SmallEventLotteryNoAnswerRes>(SmallEventLotteryNoAnswerRes.wireName, packet => this.setLotteryOutcome({kind: "noAnswer", packet}));
-		client.registerPushedPacketHandler<SmallEventLotteryPoorRes>(SmallEventLotteryPoorRes.wireName, packet => this.setLotteryOutcome({kind: "poor", packet}));
-		client.registerPushedPacketHandler<SmallEventLotteryWinRes>(SmallEventLotteryWinRes.wireName, packet => this.setLotteryOutcome({kind: "win", packet}));
-		client.registerPushedPacketHandler<SmallEventLotteryLoseRes>(SmallEventLotteryLoseRes.wireName, packet => this.setLotteryOutcome({kind: "lose", packet}));
+		client.registerPushedPacketHandler<SmallEventLotteryNoAnswerRes>(SmallEventLotteryNoAnswerRes.wireName, packet => this.setLotteryOutcome({
+			kind: "noAnswer", packet
+		}));
+		client.registerPushedPacketHandler<SmallEventLotteryPoorRes>(SmallEventLotteryPoorRes.wireName, packet => this.setLotteryOutcome({
+			kind: "poor", packet
+		}));
+		client.registerPushedPacketHandler<SmallEventLotteryWinRes>(SmallEventLotteryWinRes.wireName, packet => this.setLotteryOutcome({
+			kind: "win", packet
+		}));
+		client.registerPushedPacketHandler<SmallEventLotteryLoseRes>(SmallEventLotteryLoseRes.wireName, packet => this.setLotteryOutcome({
+			kind: "lose", packet
+		}));
 		client.registerPushedPacketHandler<SmallEventResultRes>(SmallEventResultRes.wireName, this.setAutomaticOutcome);
 		client.registerPushedPacketHandler<SmallEventWitchResultRes>(SmallEventWitchResultRes.wireName, this.setWitchOutcome);
 		client.registerPushedPacketHandler<SmallEventChoiceResultRes>(SmallEventChoiceResultRes.wireName, this.setChoiceOutcome);
-		client.registerPushedPacketHandler<ReportUseTokensAcceptedRes>(ReportUseTokensAcceptedRes.wireName, packet => this.setTokenOutcome({kind: "used", packet}));
-		client.registerPushedPacketHandler<ReportUseTokensRefusedRes>(ReportUseTokensRefusedRes.wireName, packet => this.setTokenOutcome({kind: "useRefused", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantBoughtRes>(ReportTokenMerchantBoughtRes.wireName, packet => this.setTokenOutcome({kind: "bought", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantTooMuchRes>(ReportTokenMerchantTooMuchRes.wireName, packet => this.setTokenOutcome({kind: "tooMuch", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantFullRes>(ReportTokenMerchantFullRes.wireName, packet => this.setTokenOutcome({kind: "full", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantRefusedRes>(ReportTokenMerchantRefusedRes.wireName, packet => this.setTokenOutcome({kind: "merchantRefused", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantCannotAffordRes>(ReportTokenMerchantCannotAffordRes.wireName, packet => this.setTokenOutcome({kind: "cannotAfford", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantCharityRes>(ReportTokenMerchantCharityRes.wireName, packet => this.setTokenOutcome({kind: "charity", packet}));
-		client.registerPushedPacketHandler<ReportTokenMerchantCharityAlreadyUsedRes>(ReportTokenMerchantCharityAlreadyUsedRes.wireName, packet => this.setTokenOutcome({kind: "charityAlreadyUsed", packet}));
-		client.registerPushedPacketHandler<ReportBuyHealAcceptedRes>(ReportBuyHealAcceptedRes.wireName, packet => this.setHealOutcome({kind: "accepted", packet}));
-		client.registerPushedPacketHandler<ReportBuyHealRefusedRes>(ReportBuyHealRefusedRes.wireName, packet => this.setHealOutcome({kind: "refused", packet}));
-		client.registerPushedPacketHandler<ReportBuyHealNoAlterationRes>(ReportBuyHealNoAlterationRes.wireName, packet => this.setHealOutcome({kind: "noAlteration", packet}));
-		client.registerPushedPacketHandler<ReportBuyHealCannotHealOccupiedRes>(ReportBuyHealCannotHealOccupiedRes.wireName, packet => this.setHealOutcome({kind: "cannotHealOccupied", packet}));
-		client.registerPushedPacketHandler<ShopPetCheckupRes>(ShopPetCheckupRes.wireName, packet => this.setShopResult({kind: "checkup", packet}));
-		client.registerPushedPacketHandler<ShopNoPetRes>(ShopNoPetRes.wireName, () => this.setShopResult({kind: "noPet"}));
-		client.registerPushedPacketHandler<ShopOutcomeRes>(ShopOutcomeRes.wireName, packet => this.setShopResult({kind: "outcome", outcome: packet.outcome}));
+		client.registerPushedPacketHandler<ReportUseTokensAcceptedRes>(ReportUseTokensAcceptedRes.wireName, packet => this.setTokenOutcome({
+			kind: "used", packet
+		}));
+		client.registerPushedPacketHandler<ReportUseTokensRefusedRes>(ReportUseTokensRefusedRes.wireName, packet => this.setTokenOutcome({
+			kind: "useRefused", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantBoughtRes>(ReportTokenMerchantBoughtRes.wireName, packet => this.setTokenOutcome({
+			kind: "bought", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantTooMuchRes>(ReportTokenMerchantTooMuchRes.wireName, packet => this.setTokenOutcome({
+			kind: "tooMuch", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantFullRes>(ReportTokenMerchantFullRes.wireName, packet => this.setTokenOutcome({
+			kind: "full", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantRefusedRes>(ReportTokenMerchantRefusedRes.wireName, packet => this.setTokenOutcome({
+			kind: "merchantRefused", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantCannotAffordRes>(ReportTokenMerchantCannotAffordRes.wireName, packet => this.setTokenOutcome({
+			kind: "cannotAfford", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantCharityRes>(ReportTokenMerchantCharityRes.wireName, packet => this.setTokenOutcome({
+			kind: "charity", packet
+		}));
+		client.registerPushedPacketHandler<ReportTokenMerchantCharityAlreadyUsedRes>(ReportTokenMerchantCharityAlreadyUsedRes.wireName, packet => this.setTokenOutcome({
+			kind: "charityAlreadyUsed", packet
+		}));
+		client.registerPushedPacketHandler<ReportBuyHealAcceptedRes>(ReportBuyHealAcceptedRes.wireName, packet => this.setHealOutcome({
+			kind: "accepted", packet
+		}));
+		client.registerPushedPacketHandler<ReportBuyHealRefusedRes>(ReportBuyHealRefusedRes.wireName, packet => this.setHealOutcome({
+			kind: "refused", packet
+		}));
+		client.registerPushedPacketHandler<ReportBuyHealNoAlterationRes>(ReportBuyHealNoAlterationRes.wireName, packet => this.setHealOutcome({
+			kind: "noAlteration", packet
+		}));
+		client.registerPushedPacketHandler<ReportBuyHealCannotHealOccupiedRes>(ReportBuyHealCannotHealOccupiedRes.wireName, packet => this.setHealOutcome({
+			kind: "cannotHealOccupied", packet
+		}));
+		client.registerPushedPacketHandler<ShopPetCheckupRes>(ShopPetCheckupRes.wireName, packet => this.setShopResult({
+			kind: "checkup", packet
+		}));
+		client.registerPushedPacketHandler<ShopNoPetRes>(ShopNoPetRes.wireName, () => this.setShopResult({ kind: "noPet" }));
+		client.registerPushedPacketHandler<ShopOutcomeRes>(ShopOutcomeRes.wireName, packet => this.setShopResult({
+			kind: "outcome", outcome: packet.outcome
+		}));
 		client.registerPushedPacketHandler<ReportPveFightRefusedRes>(ReportPveFightRefusedRes.wireName, () => this.setPveFightOutcome(PVE_FIGHT_OUTCOMES.REFUSED));
 		client.registerPushedPacketHandler<ReportPveNoMonsterRes>(ReportPveNoMonsterRes.wireName, () => this.setPveFightOutcome(PVE_FIGHT_OUTCOMES.NO_MONSTER));
 	}
 
-	public readonly subscribe = (listener: Listener): (() => void) => {
+	public readonly subscribe = (listener: Listener): () => void => {
 		this.listeners.add(listener);
 		return (): void => {
 			this.listeners.delete(listener);

@@ -1,4 +1,4 @@
-import {ReportTravelSummaryRes} from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
+import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
 
 export function isAlterationReport(packet: ReportTravelSummaryRes): boolean {
 	return packet.effect !== undefined && packet.effect !== "none";
@@ -25,9 +25,13 @@ function reportWaitStart(packet: ReportTravelSummaryRes): number {
 /** How much of the wait for the next report, stop, arrival or end of an alteration, has gone by. */
 export function reportWaitProgress(packet: ReportTravelSummaryRes, currentTime: number): number | undefined {
 	const readyAt = reportReadyAt(packet);
-	if (readyAt === undefined) return undefined;
+	if (readyAt === undefined) {
+		return undefined;
+	}
 	const start = reportWaitStart(packet);
 	const wait = readyAt - start;
-	if (wait <= 0) return 1;
+	if (wait <= 0) {
+		return 1;
+	}
 	return Math.min(Math.max((currentTime - start) / wait, 0), 1);
 }

@@ -1,8 +1,8 @@
 // skipcq: JS-C1003 - i18next does not expose itself as an ES Module.
 import * as i18next from "i18next";
-import {Language} from "@/src/translations/Language";
-import {AppIcons} from "@/src/AppIcons";
-import {currentLanguage} from "@/src/translations/i18nLoader";
+import { Language } from "@/src/translations/Language";
+import { AppIcons } from "@/src/AppIcons";
+import { currentLanguage } from "@/src/translations/i18nLoader";
 
 /**
  * Get the corresponding to emote for the given emote name
@@ -156,7 +156,9 @@ export class I18nCrownicles {
 	 * for small-event stories, so the app can reuse those resources safely.
 	 */
 	static tArray(key: string, options?: i18next.TOptions): string[] {
-		const value = i18next.t(key, {...options, returnObjects: true});
+		const value = i18next.t(key, {
+			...options, returnObjects: true
+		});
 		if (Array.isArray(value)) {
 			return value.map(crowniclesFormat);
 		}
@@ -168,13 +170,17 @@ export class I18nCrownicles {
 
 	/** Variants written around a Discord command explain that command: the app keeps only the others. */
 	static tArrayWithoutCommands(key: string, options?: i18next.TOptions): string[] {
-		const value: unknown = i18next.t(key, {...options, returnObjects: true});
+		const value: unknown = i18next.t(key, {
+			...options, returnObjects: true
+		});
 		return Array.isArray(value) ? value.filter(variant => typeof variant === "string" && variant.search(COMMAND_MENTION) === -1).map(crowniclesFormat) : [];
 	}
 
 	/** Return a keyed translation object, as Discord's `tRecord` does. */
 	static tRecord(key: string, options?: i18next.TOptions): Record<string, string> {
-		const value: unknown = i18next.t(key, {...options, returnObjects: true});
+		const value: unknown = i18next.t(key, {
+			...options, returnObjects: true
+		});
 		return typeof value === "object" && value !== null && !Array.isArray(value) ? formatObjectTranslation(value) : {};
 	}
 

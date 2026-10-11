@@ -1,4 +1,4 @@
-import {plainStory} from "@/src/display/Markdown";
+import { plainStory } from "@/src/display/Markdown";
 
 describe("plainStory", () => {
 	it("drops the Discord emphasis around a value", () => {

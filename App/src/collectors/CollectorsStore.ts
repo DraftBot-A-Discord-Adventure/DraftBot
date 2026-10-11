@@ -1,14 +1,18 @@
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {ReactionCollectorStop, COLLECTOR_STOP_REASONS} from "ws-packets/src/fromServer/common/ReactionCollectorStop";
-import {ReactionCollectorEnded} from "ws-packets/src/fromServer/common/ReactionCollectorEnded";
-import {ReactionCollectorReactReq} from "ws-packets/src/fromClient/ReactionCollectorReactReq";
-import {CommandGetCurrentReactionCollectorsReq} from "ws-packets/src/fromClient/GetCurrentReactionCollectorsReq";
-import {CommandGetCurrentReactionCollectorsRes} from "ws-packets/src/fromServer/getCurrentReactionCollectors/GetCurrentReactionCollectorsRes";
-import {CITY_DATA_KINDS, ReactionCollectorDataKind} from "ws-packets/src/fromServer/collectors";
-import {ReportStayInCity} from "ws-packets/src/fromServer/report/ReportStayInCity";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {AppConstants} from "@/src/AppConstants";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	ReactionCollectorStop, COLLECTOR_STOP_REASONS
+} from "ws-packets/src/fromServer/common/ReactionCollectorStop";
+import { ReactionCollectorEnded } from "ws-packets/src/fromServer/common/ReactionCollectorEnded";
+import { ReactionCollectorReactReq } from "ws-packets/src/fromClient/ReactionCollectorReactReq";
+import { CommandGetCurrentReactionCollectorsReq } from "ws-packets/src/fromClient/GetCurrentReactionCollectorsReq";
+import { CommandGetCurrentReactionCollectorsRes } from "ws-packets/src/fromServer/getCurrentReactionCollectors/GetCurrentReactionCollectorsRes";
+import {
+	CITY_DATA_KINDS, ReactionCollectorDataKind
+} from "ws-packets/src/fromServer/collectors";
+import { ReportStayInCity } from "ws-packets/src/fromServer/report/ReportStayInCity";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { AppConstants } from "@/src/AppConstants";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
 
 /** The server-issued identifier a collector is answered and stopped by. */
 type CollectorId = ReactionCollectorCreation["id"];
@@ -36,6 +40,7 @@ class CollectorsStore {
 	private readonly resolutionListeners = new Set<ResolutionListener>();
 
 	private snapshot: ReactionCollectorCreation[] = [];
+
 	private sessionVersion = 0;
 
 	public constructor() {
@@ -45,7 +50,7 @@ class CollectorsStore {
 		client.registerPushedPacketHandler(ReportStayInCity.wireName, this.stayInCity);
 	}
 
-	public readonly subscribe = (listener: StoreListener): (() => void) => {
+	public readonly subscribe = (listener: StoreListener): () => void => {
 		this.listeners.add(listener);
 		return (): void => {
 			this.listeners.delete(listener);
@@ -54,7 +59,7 @@ class CollectorsStore {
 
 	public readonly getSnapshot = (): ReactionCollectorCreation[] => this.snapshot;
 
-	public readonly subscribeToResolution = (listener: ResolutionListener): (() => void) => {
+	public readonly subscribeToResolution = (listener: ResolutionListener): () => void => {
 		this.resolutionListeners.add(listener);
 		return (): void => {
 			this.resolutionListeners.delete(listener);
@@ -89,13 +94,15 @@ class CollectorsStore {
 			makeFromClientPacket(CommandGetCurrentReactionCollectorsReq, {}),
 			{
 				[CommandGetCurrentReactionCollectorsRes.wireName]: (packet: CommandGetCurrentReactionCollectorsRes): void => {
-					if (sessionVersion !== this.sessionVersion) return;
+					if (sessionVersion !== this.sessionVersion) {
+						return;
+					}
 					for (const collector of packet.collectors) {
 						this.track(collector);
 					}
 				}
 			},
-			{time: AppConstants.PACKET_TIMEOUT}
+			{ time: AppConstants.PACKET_TIMEOUT }
 		);
 	};
 
@@ -154,7 +161,9 @@ class CollectorsStore {
 	private readonly trackPushed = (collector: ReactionCollectorCreation): void => {
 		const sessionVersion = this.sessionVersion;
 		setTimeout((): void => {
-			if (sessionVersion === this.sessionVersion) this.track(collector);
+			if (sessionVersion === this.sessionVersion) {
+				this.track(collector);
+			}
 		}, 0);
 	};
 
@@ -165,13 +174,17 @@ class CollectorsStore {
 			reactionIndex
 		}), {
 			[ReactionCollectorEnded.wireName]: (): void => {
-				if (sessionVersion !== this.sessionVersion) return;
+				if (sessionVersion !== this.sessionVersion) {
+					return;
+				}
 				const answeredKind = this.answeredKinds.get(collectorId);
 				this.finished.add(collectorId);
 				this.forget(collectorId);
 				this.hidden.delete(collectorId);
 				this.answeredKinds.delete(collectorId);
-				if (answeredKind) this.notifyResolution(answeredKind);
+				if (answeredKind) {
+					this.notifyResolution(answeredKind);
+				}
 			}
 		});
 	};

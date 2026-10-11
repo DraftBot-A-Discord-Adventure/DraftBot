@@ -1,21 +1,27 @@
-import {ReactNode} from "react";
-import {Text} from "react-native";
-import type {CityEntry, CityInfoItem, CityListItem, CityMenuData, CityNavigationItem, CityReactionItem} from "@/src/collectors/CityCollector";
+import { ReactNode } from "react";
+import { Text } from "react-native";
+import type {
+	CityInfoItem, CityListItem, CityMenuData, CityNavigationItem, CityReactionItem
+} from "@/src/collectors/CityCollector";
 import {
 	CITY_DATA_KINDS,
 	CITY_REACTION_KINDS,
 	CityMobileSnapshot,
 	ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import {isChoosable} from "@/src/collectors/CollectorLabels";
-import {cityReactionLock} from "@/src/collectors/CityReactionLocks";
-import {plainStory} from "@/src/display/Markdown";
-import {SectionHeader} from "@/src/design/Primitives";
-import {Check} from "@/src/design/FightIcons";
-import {ActionBanner, ENTRY_CHEVRONS, ExpandableEntry, ExpandableList, Lock, LockHint, useSectionStyles} from "@/src/design/Sections";
-import {ExpandedEntry, useExpandedEntry} from "@/src/design/useExpandedEntry";
-import {useAfterDismissal} from "@/src/design/useAfterDismissal";
-import {i18n} from "@/src/translations/i18n";
+import { isChoosable } from "@/src/collectors/CollectorLabels";
+import { cityReactionLock } from "@/src/collectors/CityReactionLocks";
+import { plainStory } from "@/src/display/Markdown";
+import { SectionHeader } from "@/src/design/Primitives";
+import { Check } from "@/src/design/FightIcons";
+import {
+	ActionBanner, ENTRY_CHEVRONS, ExpandableEntry, ExpandableList, Lock, LockHint, useSectionStyles
+} from "@/src/design/Sections";
+import {
+	ExpandedEntry, useExpandedEntry
+} from "@/src/design/useExpandedEntry";
+import { useAfterDismissal } from "@/src/design/useAfterDismissal";
+import { i18n } from "@/src/translations/i18n";
 
 /** Actions that spend something, and therefore ask for a second tap inside the unfolded row. */
 const CITY_REACTIONS_REQUIRING_CONFIRMATION = new Set<ReactionCollectorReaction["type"]>([
@@ -51,14 +57,18 @@ type CityRowsProps = {
 	rowDetails?: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => ReactNode;
 };
 
-type ReactionRowState = {snapshot: CityMobileSnapshot | undefined; choosable: boolean; lock: Lock | undefined};
+type ReactionRowState = {
+	snapshot: CityMobileSnapshot | undefined; choosable: boolean; lock: Lock | undefined;
+};
 
 function entryCaption(subtitle: string | undefined, lock: Lock | undefined, expanded: boolean): ReactNode {
-	if (lock && !expanded) return <LockHint lock={lock} />;
+	if (lock && !expanded) {
+		return <LockHint lock={lock} />;
+	}
 	return subtitle === undefined ? undefined : plainStory(subtitle);
 }
 
-function EntryEnd({value}: {value: string | undefined}): ReactNode {
+function EntryEnd({ value }: { value: string | undefined }): ReactNode {
 	const sectionStyles = useSectionStyles();
 	return value ? <Text style={sectionStyles.caption}>{plainStory(value)}</Text> : null;
 }
@@ -72,15 +82,19 @@ function staticEntry(item: CityNavigationItem | CityInfoItem, props: CityRowsPro
 		label={item.title}
 		caption={item.kind === "info" && item.lock ? <LockHint lock={item.lock} /> : item.subtitle}
 		chevron={navigation ? ENTRY_CHEVRONS.FORWARD : ENTRY_CHEVRONS.NONE}
-		{...navigation ? {dimmed: props.locked} : {dimmed: Boolean(item.lock)}}
+		{...navigation ? { dimmed: props.locked } : { dimmed: Boolean(item.lock) }}
 		expanded={false}
 		onToggle={(): void => {
-			if (item.kind === "navigation" && !props.locked) props.onNavigate(item);
+			if (item.kind === "navigation" && !props.locked) {
+				props.onNavigate(item);
+			}
 		}}
 	/>;
 }
 
-function reactionRowState(reaction: ReactionCollectorReaction, {collector, reactionAvailable}: CityRowsProps): ReactionRowState {
+function reactionRowState(reaction: ReactionCollectorReaction, {
+	collector, reactionAvailable
+}: CityRowsProps): ReactionRowState {
 	const snapshot = collector.data.type === CITY_DATA_KINDS.CITY ? collector.data.data.snapshot : undefined;
 	const available = reactionAvailable(reaction, snapshot);
 	return {
@@ -91,13 +105,23 @@ function reactionRowState(reaction: ReactionCollectorReaction, {collector, react
 }
 
 /** The one sheet a list unfolds at a time, and the choice it sends once put away. */
-type CitySheet = {unfolding: ExpandedEntry<string>; confirmation: ReturnType<typeof useAfterDismissal>};
+type CitySheet = {
+	unfolding: ExpandedEntry<string>; confirmation: ReturnType<typeof useAfterDismissal>;
+};
 
-function reactionEntry(item: CityReactionItem, props: CityRowsProps, {unfolding, confirmation}: CitySheet): ReactNode {
-	const {collector, locked, onChoose, rowIcon, rowTitle, rowSubtitle, rowEnd} = props;
-	const {reaction, index} = item.entry;
+function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
+	unfolding, confirmation
+}: CitySheet): ReactNode {
+	const {
+		collector, locked, onChoose, rowIcon, rowTitle, rowSubtitle, rowEnd
+	} = props;
+	const {
+		reaction, index
+	} = item.entry;
 	const key = JSON.stringify(reaction);
-	const {snapshot, choosable, lock} = reactionRowState(reaction, props);
+	const {
+		snapshot, choosable, lock
+	} = reactionRowState(reaction, props);
 	const confirms = CITY_REACTIONS_REQUIRING_CONFIRMATION.has(reaction.type);
 	const expanded = confirms && unfolding.isExpanded(key);
 	const shared = {
@@ -114,7 +138,9 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {unfolding,
 			chevron={ENTRY_CHEVRONS.FORWARD}
 			expanded={false}
 			onToggle={(): void => {
-				if (!shared.dimmed) onChoose(index);
+				if (!shared.dimmed) {
+					onChoose(index);
+				}
 			}}
 		/>;
 	}
@@ -134,7 +160,7 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {unfolding,
 				confirmation.defer(() => onChoose(index));
 				unfolding.collapse();
 			}}
-			{...lock ? {lock} : {}}
+			{...lock ? { lock } : {}}
 		/>
 	</ExpandableEntry>;
 }
@@ -144,16 +170,22 @@ function cityEntry(item: CityListItem, props: CityRowsProps, sheet: CitySheet): 
 }
 
 export function CityRows(props: CityRowsProps): ReactNode {
-	const sheet = {unfolding: useExpandedEntry<string>(), confirmation: useAfterDismissal()};
+	const sheet = {
+		unfolding: useExpandedEntry<string>(), confirmation: useAfterDismissal()
+	};
 	return <ExpandableList>{props.items.map(item => cityEntry(item, props, sheet))}</ExpandableList>;
 }
 
-export function CitySection({title, hint, items, first = false, ...rowProps}: CityRowsProps & {title: string; hint?: string; first?: boolean}): ReactNode {
+export function CitySection({
+	title, hint, items, first = false, ...rowProps
+}: CityRowsProps & {
+	title: string; hint?: string; first?: boolean;
+}): ReactNode {
 	if (items.length === 0) {
 		return null;
 	}
 	return <>
-		<SectionHeader first={first} action={hint ? {hint} : undefined}>{title}</SectionHeader>
+		<SectionHeader first={first} action={hint ? { hint } : undefined}>{title}</SectionHeader>
 		<CityRows items={items} {...rowProps} />
 	</>;
 }

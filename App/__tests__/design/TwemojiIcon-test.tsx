@@ -1,14 +1,18 @@
-import {render} from "@testing-library/react-native";
-import {createElement} from "react";
-import {Platform} from "react-native";
-import {twemojiAssetUrl} from "@/src/design/TwemojiIcon";
-import {TwemojiText} from "@/src/design/TwemojiText";
-import {Theme} from "@/src/design/Theme";
-import {ArrowRight, Cannon} from "@/src/design/FightIcons";
+import { render } from "@testing-library/react-native";
+import { createElement } from "react";
+import { Platform } from "react-native";
+import { twemojiAssetUrl } from "@/src/design/TwemojiIcon";
+import { TwemojiText } from "@/src/design/TwemojiText";
+import { Theme } from "@/src/design/Theme";
+import {
+	ArrowRight, Cannon
+} from "@/src/design/FightIcons";
 
 describe("action icons", () => {
-	it.each([ArrowRight, Cannon])("renders light strokes directly on a native SVG", async (Icon) => {
-		const {toJSON} = await render(createElement(Icon, {size: 20, color: "#ffffff"}));
+	it.each([ArrowRight, Cannon])("renders light strokes directly on a native SVG", async Icon => {
+		const { toJSON } = await render(createElement(Icon, {
+			size: 20, color: "#ffffff"
+		}));
 		expect(toJSON()).toEqual(expect.objectContaining({
 			props: expect.objectContaining({
 				stroke: "#ffffff",
@@ -16,9 +20,13 @@ describe("action icons", () => {
 				bbWidth: 20,
 				bbHeight: 20
 			}),
-			children: expect.arrayContaining([expect.objectContaining({
-				props: expect.objectContaining({stroke: {type: 0, payload: Number.parseInt("ffffffff", 16)}})
-			})])
+			children: expect.arrayContaining([
+				expect.objectContaining({
+					props: expect.objectContaining({ stroke: {
+						type: 0, payload: Number.parseInt("ffffffff", 16)
+					} })
+				})
+			])
 		}));
 	});
 });
@@ -42,43 +50,41 @@ describe("twemojiAssetUrl", () => {
 
 	it("renders translated emojis as image assets instead of native text", async () => {
 		const femaleSymbol = String.fromCodePoint(0x26a7, 0xfe0f);
-		const {getByLabelText, queryByText, toJSON} = await render(
-			createElement(TwemojiText, {emojiSize: 14, children: `Femelle ${femaleSymbol}`})
-		);
+		const {
+			getByLabelText, queryByText, toJSON
+		} = await render(<TwemojiText emojiSize={14}>{`Femelle ${femaleSymbol}`}</TwemojiText>);
 
 		const image = getByLabelText(femaleSymbol);
 		expect(image).toBeTruthy();
 		expect(toJSON()).toEqual(
 			expect.objectContaining({
-				children: [expect.objectContaining({
-					type: "Text",
-					children: expect.arrayContaining([expect.objectContaining({
-						props: expect.objectContaining({accessibilityLabel: femaleSymbol})
-					})])
-				})]
+				children: [
+					expect.objectContaining({
+						type: "Text",
+						children: expect.arrayContaining([
+							expect.objectContaining({
+								props: expect.objectContaining({ accessibilityLabel: femaleSymbol })
+							})
+						])
+					})
+				]
 			})
 		);
 		expect(queryByText(femaleSymbol)).toBeNull();
 		expect(image.props.style).toEqual(
 			expect.objectContaining({
-				transform: [{translateY: Platform.OS === "ios" ? Theme.emoji.iosFieldOffset : 0}]
+				transform: [{ translateY: Platform.OS === "ios" ? Theme.emoji.iosFieldOffset : 0 }]
 			})
 		);
 	});
 
 	it("applies an iOS-only offset when a text role provides one", async () => {
 		const femaleSymbol = String.fromCodePoint(0x26a7, 0xfe0f);
-		const {getByLabelText} = await render(
-			createElement(TwemojiText, {
-				children: femaleSymbol,
-				emojiSize: 14,
-				iosEmojiVerticalOffset: -4
-			})
-		);
+		const { getByLabelText } = await render(<TwemojiText emojiSize={14} iosEmojiVerticalOffset={-4}>{femaleSymbol}</TwemojiText>);
 
 		expect(getByLabelText(femaleSymbol).props.style).toEqual(
 			expect.objectContaining({
-				transform: [{translateY: Platform.OS === "ios" ? -4 : 0}]
+				transform: [{ translateY: Platform.OS === "ios" ? -4 : 0 }]
 			})
 		);
 	});

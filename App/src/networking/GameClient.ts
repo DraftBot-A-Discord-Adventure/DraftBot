@@ -1,9 +1,9 @@
-import {FromClientPacket} from "ws-packets/src/fromClient/FromClientPacket";
-import {FromServerPacket} from "ws-packets/src/fromServer/FromServerPacket";
-import {FromServerPacketLike} from "ws-packets/src/MakePackets";
-import {CommandRejected} from "ws-packets/src/fromServer/common/CommandRejected";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {AppConstants} from "@/src/AppConstants";
+import { FromClientPacket } from "ws-packets/src/fromClient/FromClientPacket";
+import { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
+import { FromServerPacketLike } from "ws-packets/src/MakePackets";
+import { CommandRejected } from "ws-packets/src/fromServer/common/CommandRejected";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { AppConstants } from "@/src/AppConstants";
 
 /**
  * What a request came back with.
@@ -13,9 +13,15 @@ import {AppConstants} from "@/src/AppConstants";
  * about the empty state.
  */
 export type GameAnswer<Answer extends FromServerPacket> =
-	| { kind: "answer"; packet: Answer }
-	| { kind: "alternative"; packetName: string; packet: FromServerPacket }
-	| { kind: "rejected"; packet: CommandRejected }
+	| {
+		kind: "answer"; packet: Answer;
+	}
+	| {
+		kind: "alternative"; packetName: string; packet: FromServerPacket;
+	}
+	| {
+		kind: "rejected"; packet: CommandRejected;
+	}
 	| { kind: "timeout" };
 
 /**
@@ -38,11 +44,17 @@ export class GameClient {
 	): Promise<GameAnswer<Answer>> {
 		return new Promise(resolve => {
 			const handlers: { [packetName: string]: (packet: never) => void } = {
-				[CommandRejected.wireName]: (packet: CommandRejected): void => resolve({kind: "rejected", packet}),
-				[expected.wireName]: (packet: Answer): void => resolve({ kind: "answer", packet })
+				[CommandRejected.wireName]: (packet: CommandRejected): void => resolve({
+					kind: "rejected", packet
+				}),
+				[expected.wireName]: (packet: Answer): void => resolve({
+					kind: "answer", packet
+				})
 			};
 			for (const alternative of alternatives) {
-				handlers[alternative.wireName] = (packet: FromServerPacket): void => resolve({ kind: "alternative", packetName: alternative.wireName, packet });
+				handlers[alternative.wireName] = (packet: FromServerPacket): void => resolve({
+					kind: "alternative", packetName: alternative.wireName, packet
+				});
 			}
 
 			WebSocketClient.getInstance().sendPacket(request, handlers, {

@@ -1,8 +1,8 @@
-import {COMMAND_REJECTIONS} from "ws-packets/src/objects/CommandRejection";
-import {FromServerPacket} from "ws-packets/src/fromServer/FromServerPacket";
-import {PLAYER_EFFECTS} from "ws-packets/src/objects/PlayerUtility";
-import {usePlayerProfile} from "@/src/store/usePlayerProfile";
-import {RequestState} from "@/src/store/useGameQuery";
+import { COMMAND_REJECTIONS } from "ws-packets/src/objects/CommandRejection";
+import { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
+import { PLAYER_EFFECTS } from "ws-packets/src/objects/PlayerUtility";
+import { usePlayerProfile } from "@/src/store/usePlayerProfile";
+import { RequestState } from "@/src/store/useGameQuery";
 
 /** Core refuses most commands to a character who has not set off yet. */
 export function refusedAsNotStarted(state: RequestState<FromServerPacket>): boolean {

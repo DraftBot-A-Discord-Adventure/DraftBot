@@ -1,13 +1,19 @@
-import {ReactNode} from "react";
-import {Text, TextStyle, View} from "react-native";
-import {ProfileRes} from "ws-packets/src/fromServer/profile/ProfileRes";
-import {AppIcons} from "@/src/AppIcons";
-import {AMOUNT_UNITS, AmountUnit, formatNumber} from "@/src/display/Amounts";
-import {Theme} from "@/src/design/Theme";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {usePlayerProfile} from "@/src/store/usePlayerProfile";
-import {i18n} from "@/src/translations/i18n";
-import {createStyles, useColors} from "@/src/design/ThemeContext";
+import { ReactNode } from "react";
+import {
+	Text, TextStyle, View
+} from "react-native";
+import { ProfileRes } from "ws-packets/src/fromServer/profile/ProfileRes";
+import { AppIcons } from "@/src/AppIcons";
+import {
+	AMOUNT_UNITS, AmountUnit, formatNumber
+} from "@/src/display/Amounts";
+import { Theme } from "@/src/design/Theme";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { usePlayerProfile } from "@/src/store/usePlayerProfile";
+import { i18n } from "@/src/translations/i18n";
+import {
+	createStyles, useColors
+} from "@/src/design/ThemeContext";
 
 const FULL_RATIO = 1;
 
@@ -84,9 +90,7 @@ const useStyles = createStyles(colors => ({
 		alignItems: "center",
 		gap: Theme.spacing.xs
 	},
-	score: {
-		alignItems: "flex-end"
-	},
+	score: { alignItems: "flex-end" },
 	scoreValue: {
 		color: colors.ink,
 		fontFamily: Theme.fonts.bold,
@@ -100,7 +104,11 @@ function ratioOf(current: number, max: number): number {
 }
 
 /** These labels hold on one line: centring the emoji on it beats the baseline an inline image sits on. */
-function EmojiLabel({emoji, text, textStyle, size}: {emoji: string; text: string; textStyle: TextStyle; size: number}): ReactNode {
+function EmojiLabel({
+	emoji, text, textStyle, size
+}: {
+	emoji: string; text: string; textStyle: TextStyle; size: number;
+}): ReactNode {
 	const styles = useStyles();
 	return <View style={styles.emojiLabel}>
 		<TwemojiIcon emoji={emoji} size={size} />
@@ -108,7 +116,9 @@ function EmojiLabel({emoji, text, textStyle, size}: {emoji: string; text: string
 	</View>;
 }
 
-function Vital({icon, label, current, max, color}: {
+function Vital({
+	icon, label, current, max, color
+}: {
 	icon: string;
 	label: string;
 	current: number;
@@ -123,16 +133,22 @@ function Vital({icon, label, current, max, color}: {
 				<Text style={styles.vitalValue}>{`${formatNumber(current)} / ${formatNumber(max)}`}</Text>
 			</View>
 			<View style={styles.track}>
-				<View style={[styles.fill, {
-					width: `${Math.min(1, Math.max(0, ratioOf(current, max))) * 100}%`,
-					backgroundColor: color
-				}]} />
+				<View style={[
+					styles.fill, {
+						width: `${Math.min(1, Math.max(0, ratioOf(current, max))) * 100}%`,
+						backgroundColor: color
+					}
+				]} />
 			</View>
 		</View>
 	);
 }
 
-function Chip({unit, value}: { unit: AmountUnit; value: number }): ReactNode {
+function Chip({
+	unit, value
+}: {
+	unit: AmountUnit; value: number;
+}): ReactNode {
 	const styles = useStyles();
 	return (
 		<View style={styles.chip}>
@@ -142,7 +158,7 @@ function Chip({unit, value}: { unit: AmountUnit; value: number }): ReactNode {
 }
 
 /** The total points rank the player against everyone: the figure worth keeping in sight. */
-function Score({score}: {score: number}): ReactNode {
+function Score({ score }: { score: number }): ReactNode {
 	const styles = useStyles();
 	return (
 		<View style={styles.score} testID="vitals-score">
@@ -152,7 +168,7 @@ function Score({score}: {score: number}): ReactNode {
 	);
 }
 
-function VitalsBand({profile}: { profile: ProfileRes }): ReactNode {
+function VitalsBand({ profile }: { profile: ProfileRes }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
 	return (

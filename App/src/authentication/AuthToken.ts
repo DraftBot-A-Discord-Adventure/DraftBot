@@ -1,5 +1,5 @@
-import {KeycloakAuth} from "@/src/authentication/KeycloakAuth";
-import {KeycloakOAuth2Token} from "@/src/authentication/KeycloakOAuth2Token";
+import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
+import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 
 const REFRESH_TOKEN_NEVER_EXPIRES = "never";
 
@@ -35,7 +35,7 @@ export class AuthToken {
 
 	/**
 	 * Checks if the access token is valid and not expired.
-	 * @return {boolean} True if the access token has been refreshed, false otherwise.
+	 * @returns True if the access token has been refreshed, false otherwise.
 	 */
 	public async refreshIfNeeded(): Promise<boolean> {
 		if (this.isAccessTokenExpired() && !this.isRefreshTokenExpired()) {

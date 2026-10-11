@@ -1,11 +1,17 @@
-import {useSyncExternalStore} from "react";
-import {AppStateRes} from "ws-packets/src/fromServer/appState/AppStateRes";
-import type {useAppState, useAppStateChange, withChange} from "@/src/store/AppState";
+import { useSyncExternalStore } from "react";
+import { AppStateRes } from "ws-packets/src/fromServer/appState/AppStateRes";
+import type {
+	useAppState, useAppStateChange, withChange
+} from "@/src/store/AppState";
 
-type AppStateHooks = {useAppState: typeof useAppState; useAppStateChange: typeof useAppStateChange};
+type AppStateHooks = {
+	useAppState: typeof useAppState; useAppStateChange: typeof useAppStateChange;
+};
 
 function emptyState(): AppStateRes {
-	return Object.assign(new AppStateRes(), {seen: [], reveals: [], unrevealedBadges: []});
+	return Object.assign(new AppStateRes(), {
+		seen: [], reveals: [], unrevealedBadges: []
+	});
 }
 
 /**
@@ -20,15 +26,17 @@ class FakeAppState {
 	private readonly listeners = new Set<() => void>();
 
 	public readonly hooks: AppStateHooks = {
-		useAppState: () => ({status: "ready", data: useSyncExternalStore(this.subscribe, this.snapshot)}),
-		useAppStateChange: () => change => this.set(jest.requireActual<{withChange: typeof withChange}>("@/src/store/AppState").withChange(this.state, change))
+		useAppState: () => ({
+			status: "ready", data: useSyncExternalStore(this.subscribe, this.snapshot)
+		}),
+		useAppStateChange: () => change => this.set(jest.requireActual<{ withChange: typeof withChange }>("@/src/store/AppState").withChange(this.state, change))
 	};
 
 	public reset(): void {
 		this.set(emptyState());
 	}
 
-	private readonly subscribe = (listener: () => void): (() => void) => {
+	private readonly subscribe = (listener: () => void): () => void => {
 		this.listeners.add(listener);
 		return (): void => {
 			this.listeners.delete(listener);
@@ -39,7 +47,9 @@ class FakeAppState {
 
 	private set(state: AppStateRes): void {
 		this.state = state;
-		for (const listener of this.listeners) listener();
+		for (const listener of this.listeners) {
+			listener();
+		}
 	}
 }
 

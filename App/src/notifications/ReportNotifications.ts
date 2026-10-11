@@ -4,12 +4,14 @@ import {
 	requestPermissionsAsync,
 	setNotificationHandler
 } from "expo-notifications";
-import {registerForPush} from "@/src/notifications/PushRegistration";
-import {LEGACY_TRAVEL_NOTIFICATION_ID} from "@/src/notifications/NotificationRoutes";
+import { registerForPush } from "@/src/notifications/PushRegistration";
+import { LEGACY_TRAVEL_NOTIFICATION_ID } from "@/src/notifications/NotificationRoutes";
 
 // While the app is open the screen already tells what changed, pushed or not: the notification is for when it is not.
 setNotificationHandler({
-	handleNotification: () => Promise.resolve({shouldShowBanner: false, shouldShowList: false, shouldPlaySound: false, shouldSetBadge: false})
+	handleNotification: () => Promise.resolve({
+		shouldShowBanner: false, shouldShowList: false, shouldPlaySound: false, shouldSetBadge: false
+	})
 });
 
 export function cancelReportNotification(): Promise<void> {
@@ -25,10 +27,14 @@ export async function reportNotificationsAllowed(): Promise<boolean> {
 export async function requestReportNotifications(): Promise<boolean> {
 	const current = await getPermissionsAsync();
 	const granted = current.granted || current.canAskAgain && (await requestPermissionsAsync()).granted;
-	if (granted) await registerForPush().catch(error => console.warn("Push notifications unavailable:", error));
+	if (granted) {
+		await registerForPush().catch(error => console.warn("Push notifications unavailable:", error));
+	}
 	return granted;
 }
 
 export function allowPermissionPrompt(allowed: boolean): void {
-	if (allowed) requestReportNotifications().catch(error => console.warn("Push notifications not allowed:", error));
+	if (allowed) {
+		requestReportNotifications().catch(error => console.warn("Push notifications not allowed:", error));
+	}
 }

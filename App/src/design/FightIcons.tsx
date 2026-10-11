@@ -1,4 +1,4 @@
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 import {
 	ArrowRight as NativeArrowRight,
 	AtSign as NativeAtSign,
@@ -53,10 +53,14 @@ import {
 	X as NativeX,
 	Zap as NativeZap
 } from "lucide-react-native";
-import Svg, {Circle, Path, SvgProps} from "react-native-svg";
-import {useColors} from "@/src/design/ThemeContext";
+import Svg, {
+	Circle, Path, SvgProps
+} from "react-native-svg";
+import { useColors } from "@/src/design/ThemeContext";
 
-type IconProps = {size?: number; color?: string};
+type IconProps = {
+	size?: number; color?: string;
+};
 export type LucideIcon = (props: IconProps) => ReactElement;
 
 function cannonDrawing(props: SvgProps): ReactElement {
@@ -70,9 +74,11 @@ function cannonDrawing(props: SvgProps): ReactElement {
 }
 
 function iconComponent(Component: React.ComponentType<SvgProps>): LucideIcon {
-	return function Icon({size = 24, color}: IconProps): ReactElement {
+	return function Icon({
+		size = 24, color
+	}: IconProps): ReactElement {
 		const colors = useColors();
-		return <Component width={size} height={size} color={color ?? colors.ink} accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={{flexShrink: 0}} />;
+		return <Component width={size} height={size} color={color ?? colors.ink} accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={{ flexShrink: 0 }} />;
 	};
 }
 

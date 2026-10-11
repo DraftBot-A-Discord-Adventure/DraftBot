@@ -1,38 +1,50 @@
-import {act, fireEvent, render, screen, waitFor, within} from "@testing-library/react-native";
-import {ProfileRes} from "ws-packets/src/fromServer/profile/ProfileRes";
-import {ReportTravelSummaryRes} from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
-import {SmallEventResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
-import Adventure, {reportRefreshDelay, tokenOutcomeNeedsAcknowledgement} from "@/app/(protected)/(tabs)/index";
-import {ReportCityActionRes, ReportViewRes} from "ws-packets/src/fromServer/report/ReportViewRes";
-import {ReportCityActionReq, ReportViewReq} from "ws-packets/src/fromClient/ReportViewReq";
-import {REPORT_CITY_ACTION_RESULTS} from "ws-packets/src/objects/ReportView";
-import {ReportReq} from "ws-packets/src/fromClient/ReportReq";
-import {ReportUseTokensReq} from "ws-packets/src/fromClient/ReportUseTokensReq";
-import {ReportBuyHealReq} from "ws-packets/src/fromClient/ReportBuyHealReq";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
-import {GameClient} from "@/src/networking/GameClient";
+import {
+	act, fireEvent, render, screen, waitFor, within
+} from "@testing-library/react-native";
+import { ProfileRes } from "ws-packets/src/fromServer/profile/ProfileRes";
+import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
+import { SmallEventResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
+import Adventure, {
+	reportRefreshDelay, tokenOutcomeNeedsAcknowledgement
+} from "@/app/(protected)/(tabs)/index";
+import {
+	ReportCityActionRes, ReportViewRes
+} from "ws-packets/src/fromServer/report/ReportViewRes";
+import {
+	ReportCityActionReq, ReportViewReq
+} from "ws-packets/src/fromClient/ReportViewReq";
+import { REPORT_CITY_ACTION_RESULTS } from "ws-packets/src/objects/ReportView";
+import { ReportReq } from "ws-packets/src/fromClient/ReportReq";
+import { ReportUseTokensReq } from "ws-packets/src/fromClient/ReportUseTokensReq";
+import { ReportBuyHealReq } from "ws-packets/src/fromClient/ReportBuyHealReq";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	GAME_ENTITIES, gameKey
+} from "@/src/store/GameEntities";
+import { GameClient } from "@/src/networking/GameClient";
 import {
 	CITY_DATA_KINDS, CITY_REACTION_KINDS, GENERIC_REACTION_KINDS, REPORT_COLLECTOR_DATA_KINDS, SMALL_EVENT_DATA_KINDS
 } from "ws-packets/src/fromServer/collectors";
-import {AppIcons} from "@/src/AppIcons";
-import {usePlayerProfile} from "@/src/store/usePlayerProfile";
-import {useGameQuery} from "@/src/store/useGameQuery";
-import {useCollectors} from "@/src/collectors/CollectorsContext";
-import {reportEventStore} from "@/src/collectors/ReportEventStore";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {ReportUseTokensAcceptedRes} from "ws-packets/src/fromServer/report/ReportTokenRes";
-import {ReportBuyHealAcceptedRes} from "ws-packets/src/fromServer/report/ReportHealRes";
-import {ReportBigEventResultRes} from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
-import {MissionsRes} from "ws-packets/src/fromServer/missions/MissionsRes";
-import {MISSION_TYPES} from "ws-packets/src/objects/Mission";
-import {useMissions} from "@/src/components/Missions";
-import {i18n} from "@/src/translations/i18n";
-import {fakeAppState} from "@/src/testing/fakeAppState";
-import {travelAdvicePreference} from "@/src/preferences/TravelAdvicePreference";
-import {fakeGameRules} from "@/src/testing/fakeGameRules";
-import {PLAYER_EFFECTS} from "ws-packets/src/objects/PlayerUtility";
-import {ADVENTURE_MISSIONS, ADVENTURE_TOOL_NAMES, ADVENTURE_TOOL_PARAM} from "@/src/navigation/AdventureTools";
+import { AppIcons } from "@/src/AppIcons";
+import { usePlayerProfile } from "@/src/store/usePlayerProfile";
+import { useGameQuery } from "@/src/store/useGameQuery";
+import { useCollectors } from "@/src/collectors/CollectorsContext";
+import { reportEventStore } from "@/src/collectors/ReportEventStore";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { ReportUseTokensAcceptedRes } from "ws-packets/src/fromServer/report/ReportTokenRes";
+import { ReportBuyHealAcceptedRes } from "ws-packets/src/fromServer/report/ReportHealRes";
+import { ReportBigEventResultRes } from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
+import { MissionsRes } from "ws-packets/src/fromServer/missions/MissionsRes";
+import { MISSION_TYPES } from "ws-packets/src/objects/Mission";
+import { useMissions } from "@/src/components/Missions";
+import { i18n } from "@/src/translations/i18n";
+import { fakeAppState } from "@/src/testing/fakeAppState";
+import { travelAdvicePreference } from "@/src/preferences/TravelAdvicePreference";
+import { fakeGameRules } from "@/src/testing/fakeGameRules";
+import { PLAYER_EFFECTS } from "ws-packets/src/objects/PlayerUtility";
+import {
+	ADVENTURE_MISSIONS, ADVENTURE_TOOL_NAMES, ADVENTURE_TOOL_PARAM
+} from "@/src/navigation/AdventureTools";
 
 /** Delivers a packet exactly as Core pushes it through the socket. */
 function pushFromCore(wireName: string, packet: object): void {
@@ -41,15 +53,17 @@ function pushFromCore(wireName: string, packet: object): void {
 
 const mockNavigate = jest.fn();
 const mockSearchParams = jest.fn((): Record<string, string> => ({}));
-const mockTabPress: {listener: (() => void) | null} = {listener: null};
+const mockTabPress: { listener: (() => void) | null } = { listener: null };
 
 jest.mock("expo-router", () => ({
 	useFocusEffect: (): void => undefined,
-	useRouter: (): object => ({push: jest.fn(), navigate: mockNavigate, setParams: jest.fn()}),
+	useRouter: (): object => ({
+		push: jest.fn(), navigate: mockNavigate, setParams: jest.fn()
+	}),
 	useLocalSearchParams: (): Record<string, string> => mockSearchParams(),
 	useNavigation: (): object => ({
 		isFocused: (): boolean => true,
-		addListener: (_event: string, listener: () => void): (() => void) => {
+		addListener: (_event: string, listener: () => void): () => void => {
 			mockTabPress.listener = listener;
 			return (): void => undefined;
 		}
@@ -71,13 +85,15 @@ jest.mock("@/src/collectors/CollectorsContext", () => ({
 }));
 
 jest.mock("@/src/components/Missions", () => ({
-	useMissions: jest.fn((): object => ({status: "loading"})),
+	useMissions: jest.fn((): object => ({ status: "loading" })),
 	Missions: (): null => null
 }));
 
-jest.mock("expo-secure-store", () => ({getItem: (): null => null, setItem: jest.fn()}));
+jest.mock("expo-secure-store", () => ({
+	getItem: (): null => null, setItem: jest.fn()
+}));
 
-const mockQueryClient = {invalidateQueries: jest.fn(() => Promise.resolve())};
+const mockQueryClient = { invalidateQueries: jest.fn(() => Promise.resolve()) };
 
 jest.mock("@tanstack/react-query", () => ({
 	useQueryClient: (): typeof mockQueryClient => mockQueryClient
@@ -105,61 +121,110 @@ const mockedAppIcons = jest.mocked(AppIcons);
 
 function report(showEnergy = false): ReportTravelSummaryRes {
 	return {
-		startMap: {id: 1, type: "main"},
-		endMap: {id: 2, type: "main"},
+		startMap: {
+			id: 1, type: "main"
+		},
+		endMap: {
+			id: 2, type: "main"
+		},
 		startTime: Date.now() - 60_000,
 		arriveTime: Date.now() + 3_600_000,
 		lastStopTime: Date.now() - 60_000,
 		nextStopTime: Date.now() + 600_000,
 		isOnBoat: false,
-		points: {show: true, cumulated: 42},
-		energy: {show: showEnergy, current: 8, max: 10},
-		tokens: {cost: 1, canAfford: true},
+		points: {
+			show: true, cumulated: 42
+		},
+		energy: {
+			show: showEnergy, current: 8, max: 10
+		},
+		tokens: {
+			cost: 1, canAfford: true
+		},
 		isInCity: false
 	};
 }
 
 function mockReport(travel = report(), reportReady = false): ReportViewRes {
-	const view = Object.assign(new ReportViewRes(), {travel, reportReady});
-	mockedUseGameQuery.mockReturnValue({status: "ready", data: view});
+	const view = Object.assign(new ReportViewRes(), {
+		travel, reportReady
+	});
+	mockedUseGameQuery.mockReturnValue({
+		status: "ready", data: view
+	});
 	return view;
 }
 
 /** A contest candidate whose current campaign mission is the given one, at its campaign position. */
 function mockContestAt(missionId: string): void {
 	const campaignProgression = fakeGameRules.onboardingTrials.flatMap(trial => trial.missions).findIndex(id => id === missionId) + 1;
-	jest.mocked(useMissions).mockReturnValue({status: "ready", data: {
-		campaignProgression,
-		missions: [{missionId, missionType: MISSION_TYPES.CAMPAIGN, missionVariant: 0, missionObjective: 1, numberDone: 0}]
-	} as unknown as MissionsRes});
+	jest.mocked(useMissions).mockReturnValue({
+		status: "ready",
+		data: {
+			campaignProgression,
+			missions: [
+				{
+					missionId, missionType: MISSION_TYPES.CAMPAIGN, missionVariant: 0, missionObjective: 1, numberDone: 0
+				}
+			]
+		} as unknown as MissionsRes
+	});
 }
 
 function mockCity(): ReportViewRes {
-	const view = mockReport({...report(), isInCity: true});
+	const view = mockReport({
+		...report(), isInCity: true
+	});
 	view.city = {
-		data: {type: CITY_DATA_KINDS.CITY, data: {mapLocationId: 10, mapTypeId: "ci", availableServices: []}},
-		actions: [{id: "a".repeat(64), reaction: {type: CITY_REACTION_KINDS.EXIT, data: {}}}]
+		data: {
+			type: CITY_DATA_KINDS.CITY,
+			data: {
+				mapLocationId: 10, mapTypeId: "ci", availableServices: []
+			}
+		},
+		actions: [
+			{
+				id: "a".repeat(64),
+				reaction: {
+					type: CITY_REACTION_KINDS.EXIT, data: {}
+				}
+			}
+		]
 	};
 	return view;
 }
 
 function profile(): ProfileRes {
 	return {
-		health: {value: 75, max: 100},
+		health: {
+			value: 75, max: 100
+		},
 		stats: {
-			energy: {value: 8, max: 10},
+			energy: {
+				value: 8, max: 10
+			},
 			attack: 12,
 			defense: 9,
 			speed: 7,
-			breath: {base: 3, max: 8, regen: 1}
+			breath: {
+				base: 3, max: 8, regen: 1
+			}
 		},
-		missions: {gems: 3, campaignProgression: 4},
+		missions: {
+			gems: 3, campaignProgression: 4
+		},
 		level: 12,
-		experience: {value: 100, max: 900},
+		experience: {
+			value: 100, max: 900
+		},
 		pseudo: "Aster",
 		money: 1_240,
-		tokens: {value: 2, max: 5},
-		rank: {unranked: false, rank: 4, numberOfPlayers: 20, score: 12_345}
+		tokens: {
+			value: 2, max: 5
+		},
+		rank: {
+			unranked: false, rank: 4, numberOfPlayers: 20, score: 12_345
+		}
 	} as ProfileRes;
 }
 
@@ -170,9 +235,13 @@ describe("Adventure screen", () => {
 		fakeAppState.reset();
 		jest.mocked(i18n.tArray).mockImplementation((key: string): string[] => [`${key}:only`]);
 		jest.mocked(i18n.tArrayWithoutCommands).mockImplementation((key: string): string[] => [`${key}:only`]);
-		jest.mocked(useMissions).mockReturnValue({status: "loading"});
-		mockedUsePlayerProfile.mockReturnValue({status: "ready", data: profile()});
-		mockedUseCollectors.mockReturnValue({open: [], track: jest.fn(), react: jest.fn(), isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()});
+		jest.mocked(useMissions).mockReturnValue({ status: "loading" });
+		mockedUsePlayerProfile.mockReturnValue({
+			status: "ready", data: profile()
+		});
+		mockedUseCollectors.mockReturnValue({
+			open: [], track: jest.fn(), react: jest.fn(), isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+		});
 	});
 
 	it("matches the travel report composition from the mobile mockup", async () => {
@@ -192,10 +261,23 @@ describe("Adventure screen", () => {
 		const confirmation: ReactionCollectorCreation = {
 			id: "use-tokens",
 			endTime: Date.now() + 60_000,
-			data: {type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 1, playerTokens: 5}},
-			reactions: [{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}, {type: GENERIC_REACTION_KINDS.ACCEPT, data: {}}]
+			data: {
+				type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+				data: {
+					cost: 1, playerTokens: 5
+				}
+			},
+			reactions: [
+				{
+					type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+				}, {
+					type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+				}
+			]
 		};
-		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({kind: "answer", packet: confirmation});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({
+			kind: "answer", packet: confirmation
+		});
 
 		await render(<Adventure />);
 		await fireEvent.press(screen.getByText("app:adventure.quick.advanceWithCost"));
@@ -212,39 +294,69 @@ describe("Adventure screen", () => {
 		const confirmation: ReactionCollectorCreation = {
 			id: "use-tokens",
 			endTime: Date.now() + 60_000,
-			data: {type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 1, playerTokens: 5}},
-			reactions: [{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}}, {type: GENERIC_REACTION_KINDS.REFUSE, data: {}}]
+			data: {
+				type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+				data: {
+					cost: 1, playerTokens: 5
+				}
+			},
+			reactions: [
+				{
+					type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+				}, {
+					type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+				}
+			]
 		};
 		const request = jest.spyOn(GameClient, "request")
-			.mockResolvedValueOnce({kind: "answer", packet: confirmation})
-			.mockResolvedValueOnce({kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()});
+			.mockResolvedValueOnce({
+				kind: "answer", packet: confirmation
+			})
+			.mockResolvedValueOnce({
+				kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()
+			});
 
 		await render(<Adventure />);
 		await fireEvent.press(screen.getByText("app:adventure.quick.advanceWithCost"));
 		expect(request).toHaveBeenCalledTimes(1);
 
-		await act(async () => pushFromCore(ReportUseTokensAcceptedRes.wireName, {tokensSpent: 1, isArrived: false}));
+		await act(async () => pushFromCore(ReportUseTokensAcceptedRes.wireName, {
+			tokensSpent: 1, isArrived: false
+		}));
 		expect(request).toHaveBeenCalledTimes(1);
 
-		await waitFor(() => expect(request).toHaveBeenCalledTimes(2), {timeout: 3_000});
+		await waitFor(() => expect(request).toHaveBeenCalledTimes(2), { timeout: 3_000 });
 		expect(request.mock.calls[1][0]).toBeInstanceOf(ReportReq);
 		reportEventStore.clearTokens();
 	});
 
 	it("welcomes the character who has not set off, and waits for them to leave", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "ready", data: Object.assign(new ReportViewRes(), {reportReady: true})});
-		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()});
+		mockedUseGameQuery.mockReturnValue({
+			status: "ready", data: Object.assign(new ReportViewRes(), { reportReady: true })
+		});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({
+			kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()
+		});
 		await render(<Adventure />);
 		expect(screen.getByText("app:welcome.title")).toBeTruthy();
 		expect(request).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:welcome.depart"));
-		await waitFor(() => expect(request).toHaveBeenCalledTimes(1), {timeout: 4_000});
+		await waitFor(() => expect(request).toHaveBeenCalledTimes(1), { timeout: 4_000 });
 		expect(request.mock.calls[0][0]).toBeInstanceOf(ReportReq);
 	});
 
 	it("keeps a newcomer's screen free of what their next levels will open", async () => {
 		mockReport();
-		mockedUsePlayerProfile.mockReturnValue({status: "ready", data: {...profile(), level: 5, experience: {value: 40, max: 250}} as ProfileRes});
+		mockedUsePlayerProfile.mockReturnValue({
+			status: "ready",
+			data: {
+				...profile(),
+				level: 5,
+				experience: {
+					value: 40, max: 250
+				}
+			} as ProfileRes
+		});
 		await render(<Adventure />);
 		expect(screen.queryByText(/app:journey\.features/)).toBeNull();
 		expect(screen.queryByText("app:utilities.unlock")).toBeNull();
@@ -252,7 +364,9 @@ describe("Adventure screen", () => {
 	});
 
 	it("leads a candidate who just set off to the missions, where the first reward waits", async () => {
-		mockReport({...report(), tokens: undefined});
+		mockReport({
+			...report(), tokens: undefined
+		});
 		mockContestAt("commandMission");
 		await render(<Adventure />);
 
@@ -263,13 +377,15 @@ describe("Adventure screen", () => {
 
 	it("opens the missions another screen asked for", async () => {
 		mockReport();
-		mockSearchParams.mockReturnValueOnce({[ADVENTURE_TOOL_PARAM]: ADVENTURE_TOOL_NAMES.MISSIONS});
+		mockSearchParams.mockReturnValueOnce({ [ADVENTURE_TOOL_PARAM]: ADVENTURE_TOOL_NAMES.MISSIONS });
 		await render(<Adventure />);
 		expect(screen.getAllByText("app:profile.titles.missions").length).toBeGreaterThan(1);
 	});
 
 	it("offers no way to advance while the road has no token to spend on it", async () => {
-		mockReport({...report(), tokens: undefined});
+		mockReport({
+			...report(), tokens: undefined
+		});
 		await render(<Adventure />);
 		expect(screen.queryByText("app:adventure.quick.advanceWithCost")).toBeNull();
 		expect(screen.queryByText("app:adventure.quick.getTokens")).toBeNull();
@@ -279,7 +395,7 @@ describe("Adventure screen", () => {
 	it("shows a candidate how a token buys time on the road, until they spend one", async () => {
 		mockReport();
 		mockContestAt("findOrBuyItem");
-		jest.spyOn(GameClient, "request").mockResolvedValue({kind: "timeout"});
+		jest.spyOn(GameClient, "request").mockResolvedValue({ kind: "timeout" });
 		await render(<Adventure />);
 		expect(screen.getByTestId("guide-tip-tokens")).toBeTruthy();
 
@@ -289,7 +405,9 @@ describe("Adventure screen", () => {
 	});
 
 	it("explains once why a mishap holds the candidate back", async () => {
-		mockReport({...report(), effect: PLAYER_EFFECTS.OCCUPIED, effectEndTime: Date.now() + 1_800_000});
+		mockReport({
+			...report(), effect: PLAYER_EFFECTS.OCCUPIED, effectEndTime: Date.now() + 1_800_000
+		});
 		mockContestAt("findOrBuyItem");
 		await render(<Adventure />);
 
@@ -317,14 +435,18 @@ describe("Adventure screen", () => {
 
 	it("shows a passive city and sends a city action only when the player chooses to leave", async () => {
 		mockCity();
-		const request = jest.spyOn(GameClient, "request").mockResolvedValue({kind: "answer", packet: Object.assign(new ReportCityActionRes(), {result: REPORT_CITY_ACTION_RESULTS.EXECUTED})});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValue({
+			kind: "answer", packet: Object.assign(new ReportCityActionRes(), { result: REPORT_CITY_ACTION_RESULTS.EXECUTED })
+		});
 		await render(<Adventure />);
 		expect(screen.getByText("app:city.titles.eyebrow")).toBeTruthy();
 		expect(request).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("commands:report.city.reactions.exit.label"));
 		expect(request).toHaveBeenCalledTimes(1);
 		expect(request.mock.calls[0][0]).toBeInstanceOf(ReportCityActionReq);
-		expect(request.mock.calls[0][0]).toMatchObject({mapLocationId: 10, actionId: "a".repeat(64)});
+		expect(request.mock.calls[0][0]).toMatchObject({
+			mapLocationId: 10, actionId: "a".repeat(64)
+		});
 		expect(mockedUseCollectors.mock.results[0].value.track).not.toHaveBeenCalled();
 	});
 
@@ -332,13 +454,29 @@ describe("Adventure screen", () => {
 		mockCity();
 		const react = jest.fn();
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "city-token-confirmation",
-				endTime: Date.now() + 60_000,
-				data: {type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 1, playerTokens: 5}},
-				reactions: [{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}}, {type: GENERIC_REACTION_KINDS.REFUSE, data: {}}]
-			}],
-			track: jest.fn(), react, isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			open: [
+				{
+					id: "city-token-confirmation",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+						data: {
+							cost: 1, playerTokens: 5
+						}
+					},
+					reactions: [
+						{
+							type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+						}, {
+							type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+						}
+					]
+				}
+			],
+			track: jest.fn(),
+			react,
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 		await render(<Adventure />);
 		expect(screen.getByText("app:city.titles.eyebrow")).toBeTruthy();
@@ -356,7 +494,12 @@ describe("Adventure screen", () => {
 
 	it("keeps the advices away from a newcomer, who has the guide to follow", async () => {
 		mockReport();
-		mockedUsePlayerProfile.mockReturnValue({status: "ready", data: {...profile(), level: 4} as ProfileRes});
+		mockedUsePlayerProfile.mockReturnValue({
+			status: "ready",
+			data: {
+				...profile(), level: 4
+			} as ProfileRes
+		});
 
 		await render(<Adventure />);
 
@@ -388,7 +531,7 @@ describe("Adventure screen", () => {
 		const afterSmallEvent = report();
 		afterSmallEvent.lastSmallEventId = "lottery";
 		mockReport(afterSmallEvent);
-		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => (path === "smallEvents.lottery" ? "icon:lottery" : null));
+		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => path === "smallEvents.lottery" ? "icon:lottery" : null);
 
 		await render(<Adventure />);
 
@@ -406,8 +549,12 @@ describe("Adventure screen", () => {
 
 	it("offers to buy tokens instead of advancing when the player cannot afford it", async () => {
 		const poor = report();
-		poor.tokens = {cost: 3, canAfford: false};
-		poor.heal = {price: 410, canAfford: false};
+		poor.tokens = {
+			cost: 3, canAfford: false
+		};
+		poor.heal = {
+			price: 410, canAfford: false
+		};
 		mockReport(poor);
 
 		await render(<Adventure />);
@@ -418,7 +565,9 @@ describe("Adventure screen", () => {
 	});
 
 	it("counts the last minute of the whole trip in seconds, like the next stop", async () => {
-		mockReport({...report(), arriveTime: Date.now() + 30_000, nextStopTime: Date.now() + 60_000});
+		mockReport({
+			...report(), arriveTime: Date.now() + 30_000, nextStopTime: Date.now() + 60_000
+		});
 
 		await render(<Adventure />);
 
@@ -427,7 +576,9 @@ describe("Adventure screen", () => {
 	});
 
 	it("says the traveller has arrived instead of counting zero minutes", async () => {
-		const arrived = {...report(), startTime: Date.now() - 7_200_000, arriveTime: Date.now() - 60_000, nextStopTime: Date.now() - 60_000};
+		const arrived = {
+			...report(), startTime: Date.now() - 7_200_000, arriveTime: Date.now() - 60_000, nextStopTime: Date.now() - 60_000
+		};
 		mockReport(arrived, true);
 
 		await render(<Adventure />);
@@ -444,7 +595,7 @@ describe("Adventure screen", () => {
 		await render(<Adventure />);
 
 		expect(screen.queryByText("app:adventure.quick.advanceWithCost")).toBeNull();
-		expect(screen.getByRole("button", {name: "app:adventure.continueReport"})).toBeTruthy();
+		expect(screen.getByRole("button", { name: "app:adventure.continueReport" })).toBeTruthy();
 	});
 
 	it("merges the token advance into the single journey action while the report waits", async () => {
@@ -475,18 +626,30 @@ describe("Adventure screen", () => {
 	it("keeps the travel report visible behind the token confirmation", async () => {
 		mockReport();
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "use-tokens",
-				endTime: Date.now() + 60_000,
-				data: {type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 2, playerTokens: 5}},
-				reactions: [
-					{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}},
-					{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
-				]
-			}],
+			open: [
+				{
+					id: "use-tokens",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+						data: {
+							cost: 2, playerTokens: 5
+						}
+					},
+					reactions: [
+						{
+							type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+						},
+						{
+							type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+						}
+					]
+				}
+			],
 			track: jest.fn(),
 			react: jest.fn(),
-			isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 
 		await render(<Adventure />);
@@ -496,20 +659,34 @@ describe("Adventure screen", () => {
 	});
 
 	it("keeps a recovered token confirmation actionable when Core blocks the report", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "empty", packetName: "Blocked"});
+		mockedUseGameQuery.mockReturnValue({
+			status: "empty", packetName: "Blocked"
+		});
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "recovered-use-tokens",
-				endTime: Date.now() + 60_000,
-				data: {type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS, data: {cost: 1, playerTokens: 5}},
-				reactions: [
-					{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}},
-					{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
-				]
-			}],
+			open: [
+				{
+					id: "recovered-use-tokens",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: REPORT_COLLECTOR_DATA_KINDS.USE_TOKENS,
+						data: {
+							cost: 1, playerTokens: 5
+						}
+					},
+					reactions: [
+						{
+							type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+						},
+						{
+							type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+						}
+					]
+				}
+			],
 			track: jest.fn(),
 			react: jest.fn(),
-			isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 
 		await render(<Adventure />);
@@ -519,20 +696,37 @@ describe("Adventure screen", () => {
 	});
 
 	it("routes a PVE island invitation into the Adventure screen", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "empty", packetName: "Blocked"});
+		mockedUseGameQuery.mockReturnValue({
+			status: "empty", packetName: "Blocked"
+		});
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "pve-island",
-				endTime: Date.now() + 60_000,
-				data: {type: SMALL_EVENT_DATA_KINDS.PVE_ISLAND, data: {price: 3, energy: {current: 80, max: 100}}},
-				reactions: [
-					{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}},
-					{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
-				]
-			}],
+			open: [
+				{
+					id: "pve-island",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: SMALL_EVENT_DATA_KINDS.PVE_ISLAND,
+						data: {
+							price: 3,
+							energy: {
+								current: 80, max: 100
+							}
+						}
+					},
+					reactions: [
+						{
+							type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+						},
+						{
+							type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+						}
+					]
+				}
+			],
 			track: jest.fn(),
 			react: jest.fn(),
-			isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 
 		await render(<Adventure />);
@@ -543,11 +737,14 @@ describe("Adventure screen", () => {
 
 	it("smiles next to the title when nothing holds the player back", async () => {
 		mockReport();
-		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => ({"effects.none": "😃", "mapTypes.main": "🌲"})[path] ?? null);
+		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => ({
+			"effects.none": "😃", "mapTypes.main": "🌲"
+		})[path] ?? null);
 
 		await render(<Adventure />);
 
 		expect(screen.getByLabelText("😃")).toBeTruthy();
+
 		// Only the two ends of the travel path still show the map type.
 		expect(screen.getAllByLabelText("🌲")).toHaveLength(2);
 	});
@@ -557,7 +754,9 @@ describe("Adventure screen", () => {
 		altered.effect = "sick";
 		altered.effectDuration = 30 * 60_000;
 		altered.effectEndTime = Date.now() + altered.effectDuration;
-		altered.heal = {price: 410, canAfford: true};
+		altered.heal = {
+			price: 410, canAfford: true
+		};
 		altered.tokens = undefined;
 		altered.isInCity = true;
 		mockReport(altered);
@@ -575,15 +774,30 @@ describe("Adventure screen", () => {
 		altered.effect = "sick";
 		altered.effectDuration = 30 * 60_000;
 		altered.effectEndTime = Date.now() + altered.effectDuration;
-		altered.heal = {price: 410, canAfford: true};
+		altered.heal = {
+			price: 410, canAfford: true
+		};
 		mockReport(altered);
 		const confirmation: ReactionCollectorCreation = {
 			id: "buy-heal",
 			endTime: Date.now() + 60_000,
-			data: {type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL, data: {healPrice: 410, playerMoney: 1_000}},
-			reactions: [{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}, {type: GENERIC_REACTION_KINDS.ACCEPT, data: {}}]
+			data: {
+				type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL,
+				data: {
+					healPrice: 410, playerMoney: 1_000
+				}
+			},
+			reactions: [
+				{
+					type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+				}, {
+					type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+				}
+			]
 		};
-		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({kind: "answer", packet: confirmation});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({
+			kind: "answer", packet: confirmation
+		});
 
 		await render(<Adventure />);
 		await fireEvent.press(screen.getByText("app:adventure.quick.healWithCost"));
@@ -605,8 +819,8 @@ describe("Adventure screen", () => {
 		await fireEvent.press(screen.getByText("app:adventure.event.continue"));
 
 		expect(reportEventStore.getSnapshot()).toBeNull();
-		expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith({queryKey: gameKey(GAME_ENTITIES.REPORT)});
-		expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith({queryKey: gameKey(GAME_ENTITIES.PROFILE)});
+		expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith({ queryKey: gameKey(GAME_ENTITIES.REPORT) });
+		expect(mockQueryClient.invalidateQueries).toHaveBeenCalledWith({ queryKey: gameKey(GAME_ENTITIES.PROFILE) });
 	});
 
 	it("plays the cure on the emblem before opening the heal result", async () => {
@@ -614,26 +828,45 @@ describe("Adventure screen", () => {
 		altered.effect = "sick";
 		altered.effectDuration = 30 * 60_000;
 		altered.effectEndTime = Date.now() + altered.effectDuration;
-		altered.heal = {price: 410, canAfford: true};
+		altered.heal = {
+			price: 410, canAfford: true
+		};
 		mockReport(altered);
-		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => ({"effects.sick": "🤢", "effects.healed": "🏥", "effects.none": "😃"})[path] ?? null);
+		mockedAppIcons.getIconOrNull.mockImplementation((path: string) => ({
+			"effects.sick": "🤢", "effects.healed": "🏥", "effects.none": "😃"
+		})[path] ?? null);
 		const confirmation: ReactionCollectorCreation = {
 			id: "buy-heal",
 			endTime: Date.now() + 60_000,
-			data: {type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL, data: {healPrice: 410, playerMoney: 1_000}},
-			reactions: [{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}}, {type: GENERIC_REACTION_KINDS.REFUSE, data: {}}]
+			data: {
+				type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL,
+				data: {
+					healPrice: 410, playerMoney: 1_000
+				}
+			},
+			reactions: [
+				{
+					type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+				}, {
+					type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+				}
+			]
 		};
-		jest.spyOn(GameClient, "request").mockResolvedValueOnce({kind: "answer", packet: confirmation});
+		jest.spyOn(GameClient, "request").mockResolvedValueOnce({
+			kind: "answer", packet: confirmation
+		});
 
 		await render(<Adventure />);
 		await fireEvent.press(screen.getByText("app:adventure.quick.healWithCost"));
-		await act(async () => pushFromCore(ReportBuyHealAcceptedRes.wireName, {healPrice: 410, isArrived: false}));
+		await act(async () => pushFromCore(ReportBuyHealAcceptedRes.wireName, {
+			healPrice: 410, isArrived: false
+		}));
 
 		expect(screen.getByText("app:adventure.alteration.eyebrow")).toBeTruthy();
 		expect(screen.getByLabelText("🤢")).toBeTruthy();
-		await waitFor(() => expect(screen.getByLabelText("🏥")).toBeTruthy(), {timeout: 3_000});
-		await waitFor(() => expect(screen.getByLabelText("😃")).toBeTruthy(), {timeout: 3_000});
-		await waitFor(() => expect(screen.queryByText("app:adventure.alteration.eyebrow")).toBeNull(), {timeout: 3_000});
+		await waitFor(() => expect(screen.getByLabelText("🏥")).toBeTruthy(), { timeout: 3_000 });
+		await waitFor(() => expect(screen.getByLabelText("😃")).toBeTruthy(), { timeout: 3_000 });
+		await waitFor(() => expect(screen.queryByText("app:adventure.alteration.eyebrow")).toBeNull(), { timeout: 3_000 });
 		reportEventStore.clearHeal();
 	});
 
@@ -642,23 +875,37 @@ describe("Adventure screen", () => {
 		altered.effect = "sick";
 		altered.effectDuration = 30 * 60_000;
 		altered.effectEndTime = Date.now() + altered.effectDuration;
-		altered.heal = {price: 410, canAfford: true};
+		altered.heal = {
+			price: 410, canAfford: true
+		};
 		altered.tokens = undefined;
 		altered.isInCity = true;
 		mockReport(altered);
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "buy-heal",
-				endTime: Date.now() + 60_000,
-				data: {type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL, data: {healPrice: 410, playerMoney: 1_000}},
-				reactions: [
-					{type: GENERIC_REACTION_KINDS.ACCEPT, data: {}},
-					{type: GENERIC_REACTION_KINDS.REFUSE, data: {}}
-				]
-			}],
+			open: [
+				{
+					id: "buy-heal",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: REPORT_COLLECTOR_DATA_KINDS.BUY_HEAL,
+						data: {
+							healPrice: 410, playerMoney: 1_000
+						}
+					},
+					reactions: [
+						{
+							type: GENERIC_REACTION_KINDS.ACCEPT, data: {}
+						},
+						{
+							type: GENERIC_REACTION_KINDS.REFUSE, data: {}
+						}
+					]
+				}
+			],
 			track: jest.fn(),
 			react: jest.fn(),
-			isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 
 		await render(<Adventure />);
@@ -683,24 +930,39 @@ describe("Adventure screen", () => {
 	});
 
 	it("greys the report until the stop, without repeating the countdown under it", async () => {
-		mockReport({...report(), tokens: undefined});
+		mockReport({
+			...report(), tokens: undefined
+		});
 
 		await render(<Adventure />);
 
-		expect(screen.getByRole("button", {name: "app:adventure.continueReport"}).props.accessibilityState).toMatchObject({disabled: true});
+		expect(screen.getByRole("button", { name: "app:adventure.continueReport" }).props.accessibilityState).toMatchObject({ disabled: true });
 		expect(screen.queryByText("app:adventure.notReadyAt")).toBeNull();
 	});
 
 	it("resumes automatically after advancing, cancelling, or leaving the token merchant", () => {
-		expect(tokenOutcomeNeedsAcknowledgement({kind: "used", packet: {tokensSpent: 1, isArrived: false}})).toBe(false);
-		expect(tokenOutcomeNeedsAcknowledgement({kind: "useRefused", packet: {}})).toBe(false);
-		expect(tokenOutcomeNeedsAcknowledgement({kind: "merchantRefused", packet: {}})).toBe(false);
-		expect(tokenOutcomeNeedsAcknowledgement({kind: "bought", packet: {amount: 5}})).toBe(true);
+		expect(tokenOutcomeNeedsAcknowledgement({
+			kind: "used",
+			packet: {
+				tokensSpent: 1, isArrived: false
+			}
+		})).toBe(false);
+		expect(tokenOutcomeNeedsAcknowledgement({
+			kind: "useRefused", packet: {}
+		})).toBe(false);
+		expect(tokenOutcomeNeedsAcknowledgement({
+			kind: "merchantRefused", packet: {}
+		})).toBe(false);
+		expect(tokenOutcomeNeedsAcknowledgement({
+			kind: "bought", packet: { amount: 5 }
+		})).toBe(true);
 	});
 
 	it("only reads adventure state when mounting or refreshing the query", async () => {
 		const view = mockReport();
-		const request = jest.spyOn(GameClient, "request").mockResolvedValue({kind: "answer", packet: view});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValue({
+			kind: "answer", packet: view
+		});
 		await render(<Adventure />);
 		expect(request).not.toHaveBeenCalled();
 		const query = mockedUseGameQuery.mock.calls.find(([entity]) => entity === GAME_ENTITIES.REPORT)![1];
@@ -712,16 +974,18 @@ describe("Adventure screen", () => {
 
 	it("executes the report only after a click and does not replay an automatic small event", async () => {
 		mockReport(report(), true);
-		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()});
+		const request = jest.spyOn(GameClient, "request").mockResolvedValueOnce({
+			kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()
+		});
 		await render(<Adventure />);
 		expect(request).not.toHaveBeenCalled();
-		await fireEvent.press(screen.getByRole("button", {name: "app:adventure.continueReport"}));
+		await fireEvent.press(screen.getByRole("button", { name: "app:adventure.continueReport" }));
 		expect(request).toHaveBeenCalledTimes(1);
 		expect(request.mock.calls[0][0]).toBeInstanceOf(ReportReq);
 	});
 
 	it("renders a readable loading state", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "loading"});
+		mockedUseGameQuery.mockReturnValue({ status: "loading" });
 
 		await render(<Adventure />);
 
@@ -729,17 +993,22 @@ describe("Adventure screen", () => {
 	});
 
 	it("renders a pending action instead of an endless spinner", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "loading"});
+		mockedUseGameQuery.mockReturnValue({ status: "loading" });
 		mockedUseCollectors.mockReturnValue({
-			open: [{
-				id: "collector-1",
-				endTime: Date.now() + 60_000,
-				data: {type: "unknown", data: {serverType: "test"}},
-				reactions: []
-			}],
+			open: [
+				{
+					id: "collector-1",
+					endTime: Date.now() + 60_000,
+					data: {
+						type: "unknown", data: { serverType: "test" }
+					},
+					reactions: []
+				}
+			],
 			track: jest.fn(),
 			react: jest.fn(),
-			isAnswerPending: jest.fn(() => false), answerWithoutShowing: jest.fn()
+			isAnswerPending: jest.fn(() => false),
+			answerWithoutShowing: jest.fn()
 		});
 
 		await render(<Adventure />);
@@ -748,7 +1017,7 @@ describe("Adventure screen", () => {
 	});
 
 	it("renders an error state instead of a blank screen", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "failed"});
+		mockedUseGameQuery.mockReturnValue({ status: "failed" });
 
 		await render(<Adventure />);
 
@@ -756,7 +1025,9 @@ describe("Adventure screen", () => {
 	});
 
 	it("renders the empty state returned by the data layer", async () => {
-		mockedUseGameQuery.mockReturnValue({status: "empty", packetName: "ReportUnavailable"});
+		mockedUseGameQuery.mockReturnValue({
+			status: "empty", packetName: "ReportUnavailable"
+		});
 
 		await render(<Adventure />);
 

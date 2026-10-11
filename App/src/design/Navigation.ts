@@ -1,5 +1,5 @@
-import {Theme} from "@/src/design/Theme";
-import {createStyles} from "@/src/design/ThemeContext";
+import { Theme } from "@/src/design/Theme";
+import { createStyles } from "@/src/design/ThemeContext";
 
 export const useNavigationStyles = createStyles(colors => ({
 	header: {
@@ -12,6 +12,7 @@ export const useNavigationStyles = createStyles(colors => ({
 		borderBottomWidth: 1,
 		borderBottomColor: colors.line
 	},
+
 	/** Balances the settings button so the identity stays centred. */
 	headerSpacer: {
 		width: Theme.dimensions.headerIcon

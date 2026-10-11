@@ -1,6 +1,8 @@
-import {AuthToken, AuthTokenData} from "@/src/authentication/AuthToken";
-import {KeycloakAuth} from "@/src/authentication/KeycloakAuth";
-import {KeycloakOAuth2Token} from "@/src/authentication/KeycloakOAuth2Token";
+import {
+	AuthToken, AuthTokenData
+} from "@/src/authentication/AuthToken";
+import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
+import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 
 function tokenData(overrides: Partial<AuthTokenData> = {}): AuthTokenData {
 	return {

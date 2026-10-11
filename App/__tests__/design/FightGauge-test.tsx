@@ -1,6 +1,8 @@
-import {render, screen} from "@testing-library/react-native";
-import {FightGauge} from "@/src/components/FightGauge";
-import {Animated} from "react-native";
+import {
+	render, screen
+} from "@testing-library/react-native";
+import { FightGauge } from "@/src/components/FightGauge";
+import { Animated } from "react-native";
 
 describe("fight gauge number formatting", () => {
 	it("formats four-digit and larger energy values only once", async () => {
@@ -13,13 +15,15 @@ describe("fight gauge number formatting", () => {
 		expect(screen.getByText("0 / 1\u202f250")).toBeTruthy();
 	});
 	it("changes the main fill immediately even while the loss trail has not animated", async () => {
-		const timing = jest.spyOn(Animated, "timing").mockReturnValue({start: jest.fn(), stop: jest.fn(), reset: jest.fn()});
+		const timing = jest.spyOn(Animated, "timing").mockReturnValue({
+			start: jest.fn(), stop: jest.fn(), reset: jest.fn()
+		});
 		try {
 			const view = await render(<FightGauge label="Energy" value={100} max={100} color="#3F9A5C" />);
 			await view.rerender(<FightGauge label="Energy" value={63} max={100} color="#3F9A5C" />);
-			expect(screen.getByTestId("fight-gauge-fill")).toHaveStyle({width: "63%"});
+			expect(screen.getByTestId("fight-gauge-fill")).toHaveStyle({ width: "63%" });
 			expect(screen.getByText("63 / 100")).toBeTruthy();
 		}
-		finally {timing.mockRestore();}
+		finally { timing.mockRestore(); }
 	});
 });

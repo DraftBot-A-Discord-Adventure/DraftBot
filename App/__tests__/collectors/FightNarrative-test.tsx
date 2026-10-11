@@ -1,12 +1,26 @@
-import {render, screen} from "@testing-library/react-native";
-import {FightEventStory, FightLog} from "@/src/components/FightDetails";
-import {FightLogRecord} from "@/src/store/FightStore";
-import {AppIcons} from "@/src/AppIcons";
+import {
+	render, screen
+} from "@testing-library/react-native";
+import {
+	FightEventStory, FightLog
+} from "@/src/components/FightDetails";
+import { FightLogRecord } from "@/src/store/FightStore";
+import { AppIcons } from "@/src/AppIcons";
 
-const PET_ACTION: FightLogRecord = {sequence: 1, entry: {
-	fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "stealWeapon", status: "success",
-	pet: {typeId: 1, nickname: "Milo", rarity: 1, sex: "m", loveLevel: 5, force: 10, feedDelay: 0}
-}};
+const PET_ACTION: FightLogRecord = {
+	sequence: 1,
+	entry: {
+		fightId: "story",
+		fighter: {
+			isSelf: true, name: "Drapht"
+		},
+		fightActionId: "stealWeapon",
+		status: "success",
+		pet: {
+			typeId: 1, nickname: "Milo", rarity: 1, sex: "m", loveLevel: 5, force: 10, feedDelay: 0
+		}
+	}
+};
 
 describe("live combat narrative", () => {
 	it("renders the pet-specific story with its nickname and without raw Markdown", async () => {
@@ -15,13 +29,32 @@ describe("live combat narrative", () => {
 		expect(screen.queryByText(/\*\*|\{\{petNickname\}\}/)).toBeNull();
 	});
 	it.each([true, false])("keeps chronological order in compact and expanded history (compact: %s)", async compact => {
-		const defense: FightLogRecord = {sequence: 2, entry: {fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "defenseBuff", status: "normal", customMessage: true}};
+		const defense: FightLogRecord = {
+			sequence: 2,
+			entry: {
+				fightId: "story",
+				fighter: {
+					isSelf: true, name: "Drapht"
+				},
+				fightActionId: "defenseBuff",
+				status: "normal",
+				customMessage: true
+			}
+		};
 		const view = await render(<FightLog entries={[PET_ACTION, defense]} compact={compact} />);
 		const rendered = JSON.stringify(view.toJSON());
 		expect(rendered.indexOf("Intervention de Milo")).toBeLessThan(rendered.indexOf("Boost de la défense"));
 	});
 	it("retains older actions in the live history instead of dropping them", async () => {
-		const entries = [1, 2, 3, 4, 5].map(sequence => ({...PET_ACTION, sequence}));
+		const entries = [
+			1,
+			2,
+			3,
+			4,
+			5
+		].map(sequence => ({
+			...PET_ACTION, sequence
+		}));
 		await render(<FightLog entries={entries} compact />);
 		expect(screen.getAllByText("Intervention de Milo")).toHaveLength(5);
 		expect(screen.getAllByText(/Drapht demande l'aide de Milo qui s'élance/)).toHaveLength(5);
@@ -36,11 +69,35 @@ describe("live combat narrative", () => {
 		expect(screen.queryByText(/s'apprête/)).toBeNull();
 	});
 	it("labels effects exactly like the Discord history does", async () => {
-		const stats = {power: 73, maxEnergy: 100, attack: 10, defense: 10, speed: 10, breath: 5, maxBreath: 10, breathRegen: 2};
-		const record: FightLogRecord = {sequence: 2, entry: {
-			fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "energeticAttack", status: "normal",
-			fightActionEffectDealt: {damages: 27, reflectedDamages: 3}, fightActionEffectReceived: {energy: 8}
-		}, after: {fightId: "story", numberOfTurn: 2, maxNumberOfTurn: 30, activeFighter: {isSelf: true, stats}, defendingFighter: {isSelf: false, name: "Arsene", stats}}};
+		const stats = {
+			power: 73, maxEnergy: 100, attack: 10, defense: 10, speed: 10, breath: 5, maxBreath: 10, breathRegen: 2
+		};
+		const record: FightLogRecord = {
+			sequence: 2,
+			entry: {
+				fightId: "story",
+				fighter: {
+					isSelf: true, name: "Drapht"
+				},
+				fightActionId: "energeticAttack",
+				status: "normal",
+				fightActionEffectDealt: {
+					damages: 27, reflectedDamages: 3
+				},
+				fightActionEffectReceived: { energy: 8 }
+			},
+			after: {
+				fightId: "story",
+				numberOfTurn: 2,
+				maxNumberOfTurn: 30,
+				activeFighter: {
+					isSelf: true, stats
+				},
+				defendingFighter: {
+					isSelf: false, name: "Arsene", stats
+				}
+			}
+		};
 		await render(<FightEventStory record={record} />);
 		expect(screen.getByText(/Énergie récupérée : 8/)).toBeTruthy();
 		expect(screen.getByText(/Dégâts infligés : 27/)).toBeTruthy();
@@ -50,9 +107,18 @@ describe("live combat narrative", () => {
 	it("shows the matching game icon next to each effect", async () => {
 		jest.spyOn(AppIcons, "getIconOrNull").mockImplementation((path: string) => path === "unitValues.lostHealth" ? "\u{1F494}" : null);
 		try {
-			const record: FightLogRecord = {sequence: 4, entry: {
-				fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "energeticAttack", status: "normal", fightActionEffectDealt: {damages: 27}
-			}};
+			const record: FightLogRecord = {
+				sequence: 4,
+				entry: {
+					fightId: "story",
+					fighter: {
+						isSelf: true, name: "Drapht"
+					},
+					fightActionId: "energeticAttack",
+					status: "normal",
+					fightActionEffectDealt: { damages: 27 }
+				}
+			};
 			await render(<FightEventStory record={record} />);
 			expect(screen.getByLabelText("\u{1F494}")).toBeTruthy();
 		}
@@ -61,11 +127,33 @@ describe("live combat narrative", () => {
 		}
 	});
 	it("uses the custom defensive action description instead of a generic successful attack", async () => {
-		await render(<FightEventStory record={{sequence: 3, entry: {fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "defenseBuff", status: "normal", customMessage: true}}} />);
+		await render(<FightEventStory record={{
+			sequence: 3,
+			entry: {
+				fightId: "story",
+				fighter: {
+					isSelf: true, name: "Drapht"
+				},
+				fightActionId: "defenseBuff",
+				status: "normal",
+				customMessage: true
+			}
+		}} />);
 		expect(screen.getByText("Drapht se prépare à se défendre...")).toBeTruthy();
 	});
 	it("names the substituted action in both the title and the story", async () => {
-		const record: FightLogRecord = {sequence: 4, entry: {fightId: "story", fighter: {isSelf: true, name: "Drapht"}, fightActionId: "counterAttack", usedFightActionId: "fireAttack", status: "normal"}};
+		const record: FightLogRecord = {
+			sequence: 4,
+			entry: {
+				fightId: "story",
+				fighter: {
+					isSelf: true, name: "Drapht"
+				},
+				fightActionId: "counterAttack",
+				usedFightActionId: "fireAttack",
+				status: "normal"
+			}
+		};
 		await render(<FightLog entries={[record]} />);
 		expect(screen.getByText("Attaque riposte → Attaque feu")).toBeTruthy();
 		await render(<FightEventStory record={record} />);

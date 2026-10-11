@@ -1,6 +1,8 @@
 import * as Notifications from "expo-notifications";
-import {allowPermissionPrompt, cancelReportNotification, requestReportNotifications} from "@/src/notifications/ReportNotifications";
-import {registerForPush} from "@/src/notifications/PushRegistration";
+import {
+	allowPermissionPrompt, cancelReportNotification, requestReportNotifications
+} from "@/src/notifications/ReportNotifications";
+import { registerForPush } from "@/src/notifications/PushRegistration";
 
 jest.mock("expo-notifications", () => ({
 	setNotificationHandler: jest.fn(),
@@ -10,17 +12,21 @@ jest.mock("expo-notifications", () => ({
 	scheduleNotificationAsync: jest.fn(() => Promise.resolve("report-ready")),
 	cancelScheduledNotificationAsync: jest.fn(() => Promise.resolve()),
 	useLastNotificationResponse: jest.fn(),
-	AndroidImportance: {DEFAULT: 3},
-	SchedulableTriggerInputTypes: {DATE: "date"}
+	AndroidImportance: { DEFAULT: 3 },
+	SchedulableTriggerInputTypes: { DATE: "date" }
 }));
-jest.mock("expo-router", () => ({useRouter: jest.fn(), useFocusEffect: jest.fn()}));
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string): string => key}}));
-jest.mock("@/src/notifications/PushRegistration", () => ({registerForPush: jest.fn(() => Promise.resolve())}));
+jest.mock("expo-router", () => ({
+	useRouter: jest.fn(), useFocusEffect: jest.fn()
+}));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
+jest.mock("@/src/notifications/PushRegistration", () => ({ registerForPush: jest.fn(() => Promise.resolve()) }));
 
 const mocked = jest.mocked(Notifications);
 
 function allowed(granted: boolean, canAskAgain = false): void {
-	mocked.getPermissionsAsync.mockResolvedValue({granted, canAskAgain} as Awaited<ReturnType<typeof Notifications.getPermissionsAsync>>);
+	mocked.getPermissionsAsync.mockResolvedValue({
+		granted, canAskAgain
+	} as Awaited<ReturnType<typeof Notifications.getPermissionsAsync>>);
 }
 
 describe("server-only travel notifications", () => {
@@ -53,7 +59,9 @@ describe("server-only travel notifications", () => {
 
 	it("registers server pushes after the player accepts the permission", async () => {
 		allowed(false, true);
-		mocked.requestPermissionsAsync.mockResolvedValue({granted: true, canAskAgain: true} as Awaited<ReturnType<typeof Notifications.requestPermissionsAsync>>);
+		mocked.requestPermissionsAsync.mockResolvedValue({
+			granted: true, canAskAgain: true
+		} as Awaited<ReturnType<typeof Notifications.requestPermissionsAsync>>);
 		expect(await requestReportNotifications()).toBe(true);
 		expect(registerForPush).toHaveBeenCalledTimes(1);
 		expect(mocked.scheduleNotificationAsync).not.toHaveBeenCalled();

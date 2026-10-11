@@ -1,9 +1,13 @@
-import {ReactNode} from "react";
-import {act, render, screen} from "@testing-library/react-native";
-import {AppState, AppStateStatus, ModalProps, Text} from "react-native";
+import { ReactNode } from "react";
+import {
+	act, render, screen
+} from "@testing-library/react-native";
+import {
+	AppState, AppStateStatus, ModalProps, Text
+} from "react-native";
 
 // The setup replaces the windows by plain modals for every other test.
-const {NativeWindow} = jest.requireActual<typeof import("@/src/design/NativeWindow")>("@/src/design/NativeWindow");
+const { NativeWindow } = jest.requireActual<typeof import("@/src/design/NativeWindow")>("@/src/design/NativeWindow");
 
 /** The windows listen to the app state from their import on: the test plays the platform's part. */
 const appStateListeners = jest.mocked(AppState.addEventListener).mock.calls
@@ -11,7 +15,9 @@ const appStateListeners = jest.mocked(AppState.addEventListener).mock.calls
 	.map(([, listener]) => listener as (state: AppStateStatus) => void);
 
 async function setAppState(state: AppStateStatus): Promise<void> {
-	Object.defineProperty(AppState, "currentState", {value: state, configurable: true});
+	Object.defineProperty(AppState, "currentState", {
+		value: state, configurable: true
+	});
 	await act(async () => appStateListeners.forEach(listener => listener(state)));
 }
 
@@ -23,14 +29,22 @@ async function report(callback: (() => void) | undefined): Promise<void> {
 /** The native window holding a content, reached through the props the test renderer kept on it. */
 function windowOf(testID: string): ModalProps {
 	let node = screen.getByTestId(testID).parent;
-	while (node && !("onShow" in node.props)) node = node.parent;
-	if (!node) throw new Error(`No window around ${testID}`);
+	while (node && !("onShow" in node.props)) {
+		node = node.parent;
+	}
+	if (!node) {
+		throw new Error(`No window around ${testID}`);
+	}
 	return node.props as ModalProps;
 }
 
-function Windows({first, second, onFirstDismissed}: {first: boolean; second: boolean; onFirstDismissed?: () => void}): ReactNode {
+function Windows({
+	first, second, onFirstDismissed
+}: {
+	first: boolean; second: boolean; onFirstDismissed?: () => void;
+}): ReactNode {
 	return <>
-		<NativeWindow visible={first} {...onFirstDismissed ? {onDismiss: onFirstDismissed} : {}}><Text testID="first">first</Text></NativeWindow>
+		<NativeWindow visible={first} {...onFirstDismissed ? { onDismiss: onFirstDismissed } : {}}><Text testID="first">first</Text></NativeWindow>
 		<NativeWindow visible={second}><Text testID="second">second</Text></NativeWindow>
 	</>;
 }

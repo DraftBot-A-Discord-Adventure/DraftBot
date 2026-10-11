@@ -1,4 +1,6 @@
-import {ColorScheme, THEME_PREFERENCES} from "@/src/design/ThemePreference";
+import {
+	ColorScheme, THEME_PREFERENCES
+} from "@/src/design/ThemePreference";
 
 const LIGHT_COLORS = {
 	ink: "#0B0B0C",
@@ -14,6 +16,7 @@ const LIGHT_COLORS = {
 	green: "#3F9A5C",
 	blue: "#2F6FD0",
 	violet: "#6C56C8",
+
 	/** Behind what is selected, black whatever the theme, and the text it carries. */
 	selection: "#0B0B0C",
 	selectionInk: "#FFFFFF",
@@ -78,21 +81,37 @@ export const BRAND_COLORS = {
 } as const;
 
 /** A shared card's backdrop, from top to bottom, and the light its frame, ring and figures catch. */
-export type MomentPalette = {top: HexColor; bottom: HexColor; accent: HexColor};
+export type MomentPalette = {
+	top: HexColor; bottom: HexColor; accent: HexColor;
+};
 
 /** The logo's tints by default; a mythical find shines like its gem. */
 export const MOMENT_PALETTES = {
-	brand: {top: BRAND_COLORS.terracotta, bottom: BRAND_COLORS.terracottaDeep, accent: BRAND_COLORS.goldLight},
-	mythicItem: {top: "#7A3FE0", bottom: "#1B1446", accent: "#A8F0FF"}
+	brand: {
+		top: BRAND_COLORS.terracotta, bottom: BRAND_COLORS.terracottaDeep, accent: BRAND_COLORS.goldLight
+	},
+	mythicItem: {
+		top: "#7A3FE0", bottom: "#1B1446", accent: "#A8F0FF"
+	}
 } as const satisfies Record<string, MomentPalette>;
 
 /** A boss record takes the colours of the boss's lair, keyed by monster id. */
 export const BOSS_MOMENT_PALETTES: Readonly<Partial<Record<string, MomentPalette>>> = {
-	magmaTitan: {top: "#E2531B", bottom: "#3A0905", accent: "#FFC266"},
-	maleIceDragon: {top: "#3F86C2", bottom: "#0A2342", accent: "#D6F1FF"},
-	femaleIceDragon: {top: "#6A84D6", bottom: "#1B1648", accent: "#E4E9FF"},
-	kraken: {top: "#0E7C7B", bottom: "#03201F", accent: "#7EF2D8"},
-	leviathan: {top: "#1F4E9C", bottom: "#050A24", accent: "#8EC5FF"}
+	magmaTitan: {
+		top: "#E2531B", bottom: "#3A0905", accent: "#FFC266"
+	},
+	maleIceDragon: {
+		top: "#3F86C2", bottom: "#0A2342", accent: "#D6F1FF"
+	},
+	femaleIceDragon: {
+		top: "#6A84D6", bottom: "#1B1648", accent: "#E4E9FF"
+	},
+	kraken: {
+		top: "#0E7C7B", bottom: "#03201F", accent: "#7EF2D8"
+	},
+	leviathan: {
+		top: "#1F4E9C", bottom: "#050A24", accent: "#8EC5FF"
+	}
 };
 
 /**
@@ -132,6 +151,7 @@ export const Theme = {
 	dimensions: {
 		itemHeight: 80,
 		itemMinHeight: 68,
+
 		/** A row with a name only, no emblem nor caption: a settings line. */
 		compactRowMinHeight: 52,
 		actionButtonMinWidth: 60,
@@ -144,8 +164,10 @@ export const Theme = {
 	emoji: {
 		iosHeroOffset: 2,
 		iosFieldOffset: -2,
+
 		/** A caption's line leaves no room above the emoji: lifted, iOS cuts its top. */
 		iosCaptionOffset: 0,
+
 		/** Android sets an inline emoji on the baseline, above the words it sits among. */
 		androidStoryOffset: 2
 	},

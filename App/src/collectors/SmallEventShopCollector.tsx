@@ -1,24 +1,36 @@
-import {ReactNode, useState} from "react";
-import {StyleSheet, View} from "react-native";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	ReactNode, useState
+} from "react";
+import {
+	StyleSheet, View
+} from "react-native";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
 import {
 	GENERIC_REACTION_KINDS, ReactionCollectorData, SMALL_EVENT_DATA_KINDS
 } from "ws-packets/src/fromServer/collectors";
-import {formatNumber} from "@/src/display/Amounts";
-import {collectorDescription, eventPromptIcon, itemDisplayName} from "@/src/collectors/CollectorLabels";
-import {EventJournal} from "@/src/collectors/EventOutcomeScreen";
-import {Button} from "@/src/design/Primitives";
-import {ActionBanner, Figure, Figures, Standing} from "@/src/design/Sections";
-import {inventoryItemDetails, inventoryItemEmblem} from "@/src/components/InventoryItemRow";
-import {ItemDetails} from "@/src/components/ItemDetails";
-import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {Page} from "@/src/design/DetailScreen";
-import {ShoppingBag} from "@/src/design/FightIcons";
-import {Theme} from "@/src/design/Theme";
-import {i18n} from "@/src/translations/i18n";
+import { formatNumber } from "@/src/display/Amounts";
+import {
+	collectorDescription, eventPromptIcon, itemDisplayName
+} from "@/src/collectors/CollectorLabels";
+import { EventJournal } from "@/src/collectors/EventOutcomeScreen";
+import { Button } from "@/src/design/Primitives";
+import {
+	ActionBanner, Figure, Figures, Standing
+} from "@/src/design/Sections";
+import {
+	inventoryItemDetails, inventoryItemEmblem
+} from "@/src/components/InventoryItemRow";
+import { ItemDetails } from "@/src/components/ItemDetails";
+import { ItemWithDetails } from "ws-packets/src/objects/ItemWithDetails";
+import { Page } from "@/src/design/DetailScreen";
+import { ShoppingBag } from "@/src/design/FightIcons";
+import { Theme } from "@/src/design/Theme";
+import { i18n } from "@/src/translations/i18n";
 
 const styles = StyleSheet.create({
-	actions: {marginTop: Theme.spacing.xl, gap: Theme.spacing.sm}
+	actions: {
+		marginTop: Theme.spacing.xl, gap: Theme.spacing.sm
+	}
 });
 
 type ShopSmallEventData = Extract<ReactionCollectorData, {
@@ -27,14 +39,18 @@ type ShopSmallEventData = Extract<ReactionCollectorData, {
 
 /** The level and stats are already in the item's caption, so the price is the only figure left. */
 function itemFigures(data: ShopSmallEventData): Figure[] {
-	return [{caption: i18n.t("app:collector.shop.fields.price"), value: formatNumber(data.data.price), unit: "money"}];
+	return [
+		{
+			caption: i18n.t("app:collector.shop.fields.price"), value: formatNumber(data.data.price), unit: "money"
+		}
+	];
 }
 
 /** The item's name first, then the caption every item wears: rarity, level, stats, enchantment. */
-function OfferedItem({item}: {item: ItemWithDetails}): ReactNode {
+function OfferedItem({ item }: { item: ItemWithDetails }): ReactNode {
 	const emblem = inventoryItemEmblem(item);
 	return <Standing
-		{...emblem ? {emblem} : {}}
+		{...emblem ? { emblem } : {}}
 		caption={i18n.tArray("smallEvents:shop.types")[item.itemCategory] ?? ""}
 		title={itemDisplayName(item)}
 		subtitle={inventoryItemDetails(item)}
@@ -42,20 +58,24 @@ function OfferedItem({item}: {item: ItemWithDetails}): ReactNode {
 }
 
 /** Buying or walking on, the same way for every travelling merchant. */
-export function MerchantOfferActions({item, locked, onBuy, onLeave}: {
+export function MerchantOfferActions({
+	item, locked, onBuy, onLeave
+}: {
 	item: string;
 	locked: boolean;
 	onBuy: () => void;
 	onLeave: () => void;
 }): ReactNode {
 	return <View style={styles.actions}>
-		<ActionBanner icon={ShoppingBag} label={i18n.t("app:city.shop.buyItem", {item})} pending={locked} onPress={onBuy} />
+		<ActionBanner icon={ShoppingBag} label={i18n.t("app:city.shop.buyItem", { item })} pending={locked} onPress={onBuy} />
 		<Button disabled={locked} onPress={onLeave}>{i18n.t("app:collector.shop.refuse")}</Button>
 	</View>;
 }
 
 /** A travelling merchant has one thing to sell, so the offer itself is the screen. */
-export function SmallEventShopCollector({collector, onChoose, submitting}: {
+export function SmallEventShopCollector({
+	collector, onChoose, submitting
+}: {
 	collector: ReactionCollectorCreation;
 	onChoose: (reactionIndex: number) => void;
 	submitting: boolean;

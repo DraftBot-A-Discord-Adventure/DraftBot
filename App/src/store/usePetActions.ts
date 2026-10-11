@@ -1,15 +1,27 @@
-import {useEffect, useRef, useState} from "react";
-import {useQueryClient} from "@tanstack/react-query";
-import {makeFromClientPacket} from "ws-packets/src/MakePackets";
-import {PetCaressReq, PetNickReq} from "ws-packets/src/fromClient/PetCareReq";
-import {PetCaressRes, PetNickRes} from "ws-packets/src/fromServer/pet/PetCareRes";
-import {Blocked} from "ws-packets/src/fromServer/common/Blocked";
-import {GameAnswer, GameClient} from "@/src/networking/GameClient";
-import {GAME_ENTITIES, gameKey} from "@/src/store/GameEntities";
-import {commandRejectionMessage} from "@/src/display/CommandRejection";
-import {i18n} from "@/src/translations/i18n";
+import {
+	useEffect, useRef, useState
+} from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import {
+	PetCaressReq, PetNickReq
+} from "ws-packets/src/fromClient/PetCareReq";
+import {
+	PetCaressRes, PetNickRes
+} from "ws-packets/src/fromServer/pet/PetCareRes";
+import { Blocked } from "ws-packets/src/fromServer/common/Blocked";
+import {
+	GameAnswer, GameClient
+} from "@/src/networking/GameClient";
+import {
+	GAME_ENTITIES, gameKey
+} from "@/src/store/GameEntities";
+import { commandRejectionMessage } from "@/src/display/CommandRejection";
+import { i18n } from "@/src/translations/i18n";
 
-type PetCareAction = {type: "caress"} | {type: "rename"; nickname: string};
+type PetCareAction = { type: "caress" } | {
+	type: "rename"; nickname: string;
+};
 export type PetActions = {
 	pending: boolean;
 	message: string | null;
@@ -20,25 +32,37 @@ export type PetActions = {
 	clearMessage: () => void;
 };
 function requestCare(action: PetCareAction): Promise<GameAnswer<PetCaressRes | PetNickRes>> {
-	if (action.type === "caress") return GameClient.request(makeFromClientPacket(PetCaressReq, {}), PetCaressRes, [Blocked]);
-	return GameClient.request(makeFromClientPacket(PetNickReq, {newNickname: action.nickname}), PetNickRes, [Blocked]);
+	if (action.type === "caress") {
+		return GameClient.request(makeFromClientPacket(PetCaressReq, {}), PetCaressRes, [Blocked]);
+	}
+	return GameClient.request(makeFromClientPacket(PetNickReq, { newNickname: action.nickname }), PetNickRes, [Blocked]);
 }
 
-function careFailure(answer: Exclude<GameAnswer<PetCaressRes | PetNickRes>, {kind: "answer"}>): string {
-	if (answer.kind === "rejected") return commandRejectionMessage(answer.packet.rejection);
+function careFailure(answer: Exclude<GameAnswer<PetCaressRes | PetNickRes>, { kind: "answer" }>): string {
+	if (answer.kind === "rejected") {
+		return commandRejectionMessage(answer.packet.rejection);
+	}
 	return i18n.t(answer.kind === "alternative" ? "app:collector.pending" : "app:common.connectionError");
 }
 
 /** A caress says itself through the pet's own reaction, so it leaves no line of text behind. */
 function careResult(packet: PetCaressRes | PetNickRes): string | null {
-	if (!("foundPet" in packet)) return null;
-	if (!packet.foundPet) return i18n.t("app:pet.noPet");
-	if (!packet.nickNameIsAcceptable) return i18n.t("app:pet.care.invalidNickname");
-	return packet.newNickname ? i18n.t("app:pet.care.renamed", {nickname: packet.newNickname}) : i18n.t("app:pet.care.cleared");
+	if (!("foundPet" in packet)) {
+		return null;
+	}
+	if (!packet.foundPet) {
+		return i18n.t("app:pet.noPet");
+	}
+	if (!packet.nickNameIsAcceptable) {
+		return i18n.t("app:pet.care.invalidNickname");
+	}
+	return packet.newNickname ? i18n.t("app:pet.care.renamed", { nickname: packet.newNickname }) : i18n.t("app:pet.care.cleared");
 }
 
 function careSucceeded(packet: PetCaressRes | PetNickRes): boolean {
-	if (!("foundPet" in packet)) return true;
+	if (!("foundPet" in packet)) {
+		return true;
+	}
 	return Boolean(packet.foundPet && packet.nickNameIsAcceptable);
 }
 
@@ -51,15 +75,21 @@ export function usePetActions(): PetActions {
 	const active = useRef(true);
 	useEffect(() => {
 		active.current = true;
-		return (): void => {active.current = false;};
+		return (): void => {
+			active.current = false;
+		};
 	}, []);
 	const say = (text: string | null, refused: boolean): void => {
-		if (!active.current) return;
+		if (!active.current) {
+			return;
+		}
 		setMessage(text);
 		setFailed(refused);
 	};
 	const care = async (action: PetCareAction): Promise<boolean> => {
-		if (inFlight.current) return false;
+		if (inFlight.current) {
+			return false;
+		}
 		inFlight.current = true;
 		setPending(true);
 		try {
@@ -68,8 +98,12 @@ export function usePetActions(): PetActions {
 				say(careFailure(answer), true);
 				return false;
 			}
-			for (const entity of [GAME_ENTITIES.PET, GAME_ENTITIES.PROFILE, GAME_ENTITIES.MISSIONS]) {
-				await queryClient.invalidateQueries({queryKey: gameKey(entity)});
+			for (const entity of [
+				GAME_ENTITIES.PET,
+				GAME_ENTITIES.PROFILE,
+				GAME_ENTITIES.MISSIONS
+			]) {
+				await queryClient.invalidateQueries({ queryKey: gameKey(entity) });
 			}
 			const succeeded = careSucceeded(answer.packet);
 			say(careResult(answer.packet), !succeeded);
@@ -81,8 +115,12 @@ export function usePetActions(): PetActions {
 		}
 		finally {
 			inFlight.current = false;
-			if (active.current) setPending(false);
+			if (active.current) {
+				setPending(false);
+			}
 		}
 	};
-	return {pending, message, failed, care, clearMessage: (): void => setMessage(null)};
+	return {
+		pending, message, failed, care, clearMessage: (): void => setMessage(null)
+	};
 }

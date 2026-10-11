@@ -1,21 +1,25 @@
 import { ReactElement } from "react";
 import { Text } from "react-native";
-import { screen, waitFor, act } from "@testing-library/react-native";
+import {
+	screen, waitFor, act
+} from "@testing-library/react-native";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { useGameInvalidations } from "@/src/store/GameInvalidations";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { GameAnswer } from "@/src/networking/GameClient";
-import { CLASSES_DATA_KINDS, DRINK_DATA_KINDS, ITEM_DATA_KINDS } from "ws-packets/src/fromServer/collectors";
+import {
+	CLASSES_DATA_KINDS, DRINK_DATA_KINDS, ITEM_DATA_KINDS
+} from "ws-packets/src/fromServer/collectors";
 import { ProfileRes } from "ws-packets/src/fromServer/profile/ProfileRes";
 import { InventoryRes } from "ws-packets/src/fromServer/inventory/InventoryRes";
-import {renderWithGameQuery} from "@/src/testing/testUtils";
-import {useInventoryOutcome} from "@/src/store/useInventoryOutcome";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {DrinkRes} from "ws-packets/src/fromServer/drink/DrinkRes";
-import {DailyBonusRes} from "ws-packets/src/fromServer/inventory/DailyBonusRes";
-import {ItemNature} from "ws-packets/src/objects/ItemNature";
-import {ClassesRes} from "ws-packets/src/fromServer/classes/ClassesRes";
-import {useClassOutcome} from "@/src/store/useClassOutcome";
+import { renderWithGameQuery } from "@/src/testing/testUtils";
+import { useInventoryOutcome } from "@/src/store/useInventoryOutcome";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { DrinkRes } from "ws-packets/src/fromServer/drink/DrinkRes";
+import { DailyBonusRes } from "ws-packets/src/fromServer/inventory/DailyBonusRes";
+import { ItemNature } from "ws-packets/src/objects/ItemNature";
+import { ClassesRes } from "ws-packets/src/fromServer/classes/ClassesRes";
+import { useClassOutcome } from "@/src/store/useClassOutcome";
 
 jest.mock("expo-router", () => ({
 	useFocusEffect: (): void => undefined
@@ -30,21 +34,27 @@ describe("invalidation after a collector is answered", () => {
 		let profileReads = 0;
 		const readProfile = (): Promise<GameAnswer<ProfileRes>> => {
 			profileReads++;
-			return Promise.resolve({kind: "answer", packet: {classId: profileReads === 1 ? 2 : 7} as ProfileRes});
+			return Promise.resolve({
+				kind: "answer", packet: { classId: profileReads === 1 ? 2 : 7 } as ProfileRes
+			});
 		};
 		let stopCollector = (): void => undefined;
 		function ClassScreen(): ReactElement {
 			const profile = useGameQuery(GAME_ENTITIES.PROFILE, readProfile);
-			const {afterCollector} = useGameInvalidations();
+			const { afterCollector } = useGameInvalidations();
 			useClassOutcome();
 			stopCollector = (): void => afterCollector(CLASSES_DATA_KINDS.COLLECTOR);
 			return <Text>{profile.status === "ready" ? `class ${profile.data.classId}` : profile.status}</Text>;
 		}
 		await renderWithGameQuery(<ClassScreen />);
 		await waitFor(() => expect(screen.getByText("class 2")).toBeTruthy());
-		await act(async () => {stopCollector();});
+		await act(async () => {
+			stopCollector();
+		});
 		expect(profileReads).toBe(1);
-		await act(async () => {Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(ClassesRes.wireName, {classId: 7});});
+		await act(async () => {
+			Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(ClassesRes.wireName, { classId: 7 });
+		});
 		await waitFor(() => expect(screen.getByText("class 7")).toBeTruthy());
 		expect(profileReads).toBe(2);
 	});
@@ -55,11 +65,15 @@ describe("invalidation after a collector is answered", () => {
 
 		const readProfile = (): Promise<GameAnswer<ProfileRes>> => {
 			profileReads++;
-			return Promise.resolve({ kind: "answer", packet: { health: { value: profileReads === 1 ? 50 : 67 } } as ProfileRes });
+			return Promise.resolve({
+				kind: "answer", packet: { health: { value: profileReads === 1 ? 50 : 67 } } as ProfileRes
+			});
 		};
 		const readInventory = (): Promise<GameAnswer<InventoryRes>> => {
 			inventoryReads++;
-			return Promise.resolve({ kind: "answer", packet: { foundPlayer: true } as InventoryRes });
+			return Promise.resolve({
+				kind: "answer", packet: { foundPlayer: true } as InventoryRes
+			});
 		};
 
 		let answerDrink = (): void => undefined;
@@ -72,7 +86,9 @@ describe("invalidation after a collector is answered", () => {
 
 			answerDrink = (): void => {
 				afterCollector(DRINK_DATA_KINDS.COLLECTOR);
-				Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(DrinkRes.wireName, {value: 17, itemNature: ItemNature.HEALTH});
+				Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(DrinkRes.wireName, {
+					value: 17, itemNature: ItemNature.HEALTH
+				});
 			};
 
 			return <Text>{profile.status === "ready" ? `health ${profile.data.health.value}` : profile.status}</Text>;
@@ -95,7 +111,9 @@ describe("invalidation after a collector is answered", () => {
 		let profileReads = 0;
 		const readProfile = (): Promise<GameAnswer<ProfileRes>> => {
 			profileReads++;
-			return Promise.resolve({kind: "answer", packet: {money: profileReads === 1 ? 50 : 75} as ProfileRes});
+			return Promise.resolve({
+				kind: "answer", packet: { money: profileReads === 1 ? 50 : 75 } as ProfileRes
+			});
 		};
 		function DailyScreen(): ReactElement {
 			const profile = useGameQuery(GAME_ENTITIES.PROFILE, readProfile);
@@ -105,7 +123,9 @@ describe("invalidation after a collector is answered", () => {
 		await renderWithGameQuery(<DailyScreen />);
 		await waitFor(() => expect(screen.getByText("money 50")).toBeTruthy());
 		await act(async () => {
-			Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(DailyBonusRes.wireName, {value: 25, itemNature: ItemNature.MONEY});
+			Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry").dispatch(DailyBonusRes.wireName, {
+				value: 25, itemNature: ItemNature.MONEY
+			});
 		});
 		await waitFor(() => expect(screen.getByText("money 75")).toBeTruthy());
 		expect(profileReads).toBe(2);
@@ -115,7 +135,9 @@ describe("invalidation after a collector is answered", () => {
 		let profileReads = 0;
 		const readProfile = (): Promise<GameAnswer<ProfileRes>> => {
 			profileReads++;
-			return Promise.resolve({ kind: "answer", packet: { level: profileReads } as ProfileRes });
+			return Promise.resolve({
+				kind: "answer", packet: { level: profileReads } as ProfileRes
+			});
 		};
 
 		let answerUnknown = (): void => undefined;
@@ -142,7 +164,9 @@ describe("invalidation after a collector is answered", () => {
 		let petReads = 0;
 		const readPet = (): Promise<GameAnswer<ProfileRes>> => {
 			petReads++;
-			return Promise.resolve({ kind: "answer", packet: {} as ProfileRes });
+			return Promise.resolve({
+				kind: "answer", packet: {} as ProfileRes
+			});
 		};
 
 		let answerDrink = (): void => undefined;
@@ -170,7 +194,9 @@ describe("invalidation after a collector is answered", () => {
 		let inventoryReads = 0;
 		const readInventory = (): Promise<GameAnswer<InventoryRes>> => {
 			inventoryReads++;
-			return Promise.resolve({ kind: "answer", packet: { foundPlayer: true } as InventoryRes });
+			return Promise.resolve({
+				kind: "answer", packet: { foundPlayer: true } as InventoryRes
+			});
 		};
 
 		let answerItem = (): void => undefined;

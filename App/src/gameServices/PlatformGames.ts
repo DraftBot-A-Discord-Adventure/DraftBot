@@ -1,4 +1,6 @@
-import {GAME_SERVICE_AVAILABILITY, GAME_SERVICE_ERRORS, GAME_SERVICE_PROVIDERS, PlatformGames} from "./GameServicesTypes";
+import {
+	GAME_SERVICE_AVAILABILITY, GAME_SERVICE_ERRORS, GAME_SERVICE_PROVIDERS, PlatformGames
+} from "./GameServicesTypes";
 
 export function createPlatformGames(): PlatformGames {
 	return {

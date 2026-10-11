@@ -1,15 +1,23 @@
-import {ReactNode, useState} from "react";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {GENERIC_REACTION_KINDS, SMALL_EVENT_DATA_KINDS} from "ws-packets/src/fromServer/collectors";
-import {collectorDescription, eventPromptIcon} from "@/src/collectors/CollectorLabels";
-import {EventJournal} from "@/src/collectors/EventOutcomeScreen";
-import {MerchantOfferActions} from "@/src/collectors/SmallEventShopCollector";
-import {Page} from "@/src/design/DetailScreen";
-import {plainStory} from "@/src/display/Markdown";
-import {i18n} from "@/src/translations/i18n";
+import {
+	ReactNode, useState
+} from "react";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	GENERIC_REACTION_KINDS, SMALL_EVENT_DATA_KINDS
+} from "ws-packets/src/fromServer/collectors";
+import {
+	collectorDescription, eventPromptIcon
+} from "@/src/collectors/CollectorLabels";
+import { EventJournal } from "@/src/collectors/EventOutcomeScreen";
+import { MerchantOfferActions } from "@/src/collectors/SmallEventShopCollector";
+import { Page } from "@/src/design/DetailScreen";
+import { plainStory } from "@/src/display/Markdown";
+import { i18n } from "@/src/translations/i18n";
 
 /** A recipe seller makes a single offer, told the same way as any other travelling merchant. */
-export function RecipeShopCollector({collector, onChoose, submitting}: {
+export function RecipeShopCollector({
+	collector, onChoose, submitting
+}: {
 	collector: ReactionCollectorCreation;
 	onChoose: (reactionIndex: number) => void;
 	submitting: boolean;
@@ -18,7 +26,7 @@ export function RecipeShopCollector({collector, onChoose, submitting}: {
 	if (collector.data.type !== SMALL_EVENT_DATA_KINDS.RECIPE_SHOP) {
 		return null;
 	}
-	const {recipe} = collector.data.data;
+	const { recipe } = collector.data.data;
 	const recipeName = plainStory(i18n.t("models:cooking.recipeDisplay", recipe));
 	const locked = answered || submitting;
 	const choose = (index: number): void => {

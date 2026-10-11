@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import {i18n} from "@/src/translations/i18n";
+import { i18n } from "@/src/translations/i18n";
 import frenchAdvices from "../../../Lang/fr/advices.json";
 import frenchApp from "../../../Lang/fr/app.json";
 
@@ -9,9 +9,10 @@ const fs = jest.requireActual<{
 	readdirSync(directory: string): string[];
 	readFileSync(file: string, encoding: "utf8"): string;
 }>("node:fs");
-const path = jest.requireActual<{join(...paths: string[]): string}>("node:path");
+const path = jest.requireActual<{ join(...paths: string[]): string }>("node:path");
 
 const FRENCH_ROOT = path.join(__dirname, "../../../Lang/fr");
+
 /** Advices are filtered out of the app when they name a command, and the bot texts are never shown there. */
 const DISCORD_ONLY_NAMESPACES = ["advices.json", "bot.json"];
 const COMMAND_MENTION = /{command:(.*?)}/g;
@@ -53,7 +54,7 @@ describe("command mentions", () => {
 	it("resolves every app label to the names the screens display", () => {
 		const unresolved = Object.keys(frenchApp.commandMentions)
 			.map(command => i18n.t(`app:commandMentions.${command}`))
-			.filter(label => /\$t\(|\w\.\w/.test(label));
+			.filter(label => (/\$t\(|\w\.\w/).test(label));
 
 		expect(unresolved).toEqual([]);
 	});

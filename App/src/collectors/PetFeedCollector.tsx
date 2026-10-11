@@ -1,74 +1,123 @@
-import {ReactNode, useState} from "react";
-import {View} from "react-native";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {GENERIC_REACTION_KINDS, PET_FEED_DATA_KINDS, PET_FEED_REACTION_KINDS} from "ws-packets/src/fromServer/collectors";
-import {OwnedPet} from "ws-packets/src/objects/OwnedPet";
-import {PetFood} from "ws-packets/src/objects/PetFood";
-import {countdownLabel, useSecondsLeft} from "@/src/collectors/CollectorPrompt";
-import {useCollectorAnswer} from "@/src/collectors/useCollectorAnswer";
-import {formatMoney} from "@/src/display/Amounts";
-import {petIcon, petName} from "@/src/display/PetDisplay";
-import {CircleAlert, Clock3, Utensils} from "@/src/design/FightIcons";
-import {Note, Screen} from "@/src/design/Primitives";
-import {ActionBanner, BackButton, ENTRY_CHEVRONS, ExpandableEntry, ExpandableList, FullScreen, Lock, LockHint, Standing} from "@/src/design/Sections";
-import {TwemojiIcon} from "@/src/design/TwemojiIcon";
-import {Theme} from "@/src/design/Theme";
-import {createStyles} from "@/src/design/ThemeContext";
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
+import {
+	ReactNode, useState
+} from "react";
+import { View } from "react-native";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	GENERIC_REACTION_KINDS, PET_FEED_DATA_KINDS, PET_FEED_REACTION_KINDS
+} from "ws-packets/src/fromServer/collectors";
+import { OwnedPet } from "ws-packets/src/objects/OwnedPet";
+import { PetFood } from "ws-packets/src/objects/PetFood";
+import {
+	countdownLabel, useSecondsLeft
+} from "@/src/collectors/CollectorPrompt";
+import { useCollectorAnswer } from "@/src/collectors/useCollectorAnswer";
+import { formatMoney } from "@/src/display/Amounts";
+import {
+	petIcon, petName
+} from "@/src/display/PetDisplay";
+import {
+	CircleAlert, Clock3, Utensils
+} from "@/src/design/FightIcons";
+import {
+	Note, Screen
+} from "@/src/design/Primitives";
+import {
+	ActionBanner, BackButton, ENTRY_CHEVRONS, ExpandableEntry, ExpandableList, FullScreen, Lock, LockHint, Standing
+} from "@/src/design/Sections";
+import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { Theme } from "@/src/design/Theme";
+import { createStyles } from "@/src/design/ThemeContext";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
 
 const FOOD_EMBLEM_SIZE = 26;
 const PET_EMBLEM_SIZE = 34;
 
 const useStyles = createStyles(() => ({
-	decision: {marginTop: Theme.spacing.xl}
+	decision: { marginTop: Theme.spacing.xl }
 }));
 
-type PetFeedProps = {collector: ReactionCollectorCreation; onChoose: (index: number) => void; submitting: boolean};
+type PetFeedProps = {
+	collector: ReactionCollectorCreation; onChoose: (index: number) => void; submitting: boolean;
+};
+
 /** The position in the collector is the answer, so every meal carries the index it was sent at. */
-type FeedOption = {index: number; food: PetFood; caption: string; soldOut: boolean};
+type FeedOption = {
+	index: number; food: PetFood; caption: string; soldOut: boolean;
+};
 
 function feedOptions(collector: ReactionCollectorCreation): FeedOption[] {
 	if (collector.data.type === PET_FEED_DATA_KINDS.PERSONAL) {
-		const {food, price} = collector.data.data;
+		const {
+			food, price
+		} = collector.data.data;
 		const index = collector.reactions.findIndex(reaction => reaction.type === GENERIC_REACTION_KINDS.ACCEPT);
-		return index < 0 ? [] : [{index, food, caption: formatMoney(price), soldOut: false}];
+		return index < 0
+			? []
+			: [
+				{
+					index, food, caption: formatMoney(price), soldOut: false
+				}
+			];
 	}
 	return collector.reactions.flatMap((reaction, index) => reaction.type === PET_FEED_REACTION_KINDS.FOOD
-		? [{
-			index,
-			food: reaction.data.food,
-			caption: i18n.t("app:pet.feed.storage", {amount: reaction.data.amount, max: reaction.data.maxAmount}),
-			soldOut: reaction.data.amount === 0
-		}]
+		? [
+			{
+				index,
+				food: reaction.data.food,
+				caption: i18n.t("app:pet.feed.storage", {
+					amount: reaction.data.amount, max: reaction.data.maxAmount
+				}),
+				soldOut: reaction.data.amount === 0
+			}
+		]
 		: []);
 }
 
 function foodName(food: PetFood): string {
-	return i18n.t(`models:foods.${food}`, {count: 1, context: "capitalized"});
+	return i18n.t(`models:foods.${food}`, {
+		count: 1, context: "capitalized"
+	});
 }
 
-function FoodEmblem({food}: {food: PetFood}): ReactNode {
+function FoodEmblem({ food }: { food: PetFood }): ReactNode {
 	const icon = AppIcons.getIconOrNull(`foods.${food}`);
 	return icon ? <TwemojiIcon emoji={icon} size={FOOD_EMBLEM_SIZE} /> : null;
 }
 
 function feedLock(option: FeedOption, expired: boolean): Lock | null {
-	if (expired) return {reason: i18n.t("app:collector.expired"), icon: Clock3};
-	return option.soldOut ? {reason: i18n.t("app:pet.feed.errors.emptyStorage"), icon: CircleAlert} : null;
+	if (expired) {
+		return {
+			reason: i18n.t("app:collector.expired"), icon: Clock3
+		};
+	}
+	return option.soldOut
+		? {
+			reason: i18n.t("app:pet.feed.errors.emptyStorage"), icon: CircleAlert
+		}
+		: null;
 }
 
-function FeedAction({lock, pending, onPress}: {lock: Lock | null; pending: boolean; onPress: () => void}): ReactNode {
+function FeedAction({
+	lock, pending, onPress
+}: {
+	lock: Lock | null; pending: boolean; onPress: () => void;
+}): ReactNode {
 	return <ActionBanner
 		icon={Utensils}
 		label={i18n.t("app:pet.care.feed")}
 		pending={pending}
 		onPress={onPress}
-		{...lock ? {lock} : {}}
+		{...lock ? { lock } : {}}
 	/>;
 }
 
-function FeedMenu({collector, pet, onChoose, submitting, onClose}: PetFeedProps & {pet: OwnedPet; onClose: () => void}): ReactNode {
+function FeedMenu({
+	collector, pet, onChoose, submitting, onClose
+}: PetFeedProps & {
+	pet: OwnedPet; onClose: () => void;
+}): ReactNode {
 	const styles = useStyles();
 	const options = feedOptions(collector);
 	const [expanded, setExpanded] = useState<number | undefined>();
@@ -79,6 +128,7 @@ function FeedMenu({collector, pet, onChoose, submitting, onClose}: PetFeedProps 
 		setAnswered(true);
 		onChoose(index);
 	};
+
 	// A lone food needs no picking: its button sits right under it.
 	const lone = options.length === 1 ? options[0] : null;
 	return <Screen>
@@ -86,7 +136,7 @@ function FeedMenu({collector, pet, onChoose, submitting, onClose}: PetFeedProps 
 		<Standing
 			emblem={<TwemojiIcon emoji={petIcon(pet)} size={PET_EMBLEM_SIZE} />}
 			caption={i18n.t("app:pet.eyebrow")}
-			title={i18n.t("app:pet.care.feedPet", {pet: petName(pet)})}
+			title={i18n.t("app:pet.care.feedPet", { pet: petName(pet) })}
 		/>
 		<ExpandableList>{options.map(option => {
 			const lock = feedLock(option, secondsLeft === 0);
@@ -98,9 +148,11 @@ function FeedMenu({collector, pet, onChoose, submitting, onClose}: PetFeedProps 
 				caption={lock && !open ? <LockHint lock={lock} /> : option.caption}
 				dimmed={Boolean(lock)}
 				expanded={open}
-				{...lone ? {chevron: ENTRY_CHEVRONS.NONE} : {}}
+				{...lone ? { chevron: ENTRY_CHEVRONS.NONE } : {}}
 				onToggle={(): void => {
-					if (!lone) setExpanded(previous => previous === option.index ? undefined : option.index);
+					if (!lone) {
+						setExpanded(previous => previous === option.index ? undefined : option.index);
+					}
 				}}
 			>
 				<FeedAction lock={lock} pending={pending} onPress={(): void => choose(option.index)} />
@@ -112,13 +164,17 @@ function FeedMenu({collector, pet, onChoose, submitting, onClose}: PetFeedProps 
 }
 
 export function PetFeedCollector(props: PetFeedProps): ReactNode {
-	const {locked, answer} = useCollectorAnswer(props.collector, props.onChoose, props.submitting);
+	const {
+		locked, answer
+	} = useCollectorAnswer(props.collector, props.onChoose, props.submitting);
 	const close = (): void => {
 		const index = props.collector.reactions.findIndex(reaction => reaction.type === GENERIC_REACTION_KINDS.REFUSE);
 		answer(index);
 	};
 	const data = props.collector.data;
-	if (data.type !== PET_FEED_DATA_KINDS.GUILD && data.type !== PET_FEED_DATA_KINDS.PERSONAL) return null;
+	if (data.type !== PET_FEED_DATA_KINDS.GUILD && data.type !== PET_FEED_DATA_KINDS.PERSONAL) {
+		return null;
+	}
 	return <FullScreen onClose={close}>
 		<FeedMenu {...props} pet={data.data.pet} onChoose={answer} submitting={locked} onClose={close} />
 	</FullScreen>;

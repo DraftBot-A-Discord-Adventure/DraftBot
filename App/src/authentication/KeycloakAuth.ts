@@ -5,15 +5,15 @@ import {
 	type AuthRequestPromptOptions,
 	type DiscoveryDocument
 } from "expo-auth-session";
-import {Appearance} from "react-native";
-import {KeycloakOAuth2Token} from "@/src/authentication/KeycloakOAuth2Token";
+import { Appearance } from "react-native";
+import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import {
 	AUTH_FAILURES, AuthFailure, failureOfAuthResult
 } from "@/src/authentication/AuthFailure";
-import {PALETTES} from "@/src/design/Theme";
-import {resolveScheme} from "@/src/design/ThemeContext";
-import {storedThemePreference} from "@/src/design/ThemePreference";
-import {currentLanguage} from "@/src/translations/i18nLoader";
+import { PALETTES } from "@/src/design/Theme";
+import { resolveScheme } from "@/src/design/ThemeContext";
+import { storedThemePreference } from "@/src/design/ThemePreference";
+import { currentLanguage } from "@/src/translations/i18nLoader";
 
 /**
  * Aliases of the identity providers declared in the realm.
@@ -33,7 +33,9 @@ const AUTH_PROMPTS = {
 } as const;
 
 type AuthPrompt = typeof AUTH_PROMPTS[keyof typeof AUTH_PROMPTS];
-type AuthorizationParameters = {prompt: AuthPrompt; kc_idp_hint?: IdentityProvider};
+type AuthorizationParameters = {
+	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider;
+};
 
 /**
  * Dressing of the in-app browser that shows the Keycloak pages.
@@ -49,7 +51,7 @@ function browserPresentation(prompt: AuthPrompt): AuthRequestPromptOptions {
 		toolbarColor: colors.paper,
 		controlsColor: colors.ink,
 		showTitle: false,
-		...prompt === AUTH_PROMPTS.LOGIN ? {preferEphemeralSession: true} : {}
+		...prompt === AUTH_PROMPTS.LOGIN ? { preferEphemeralSession: true } : {}
 	};
 }
 
@@ -105,7 +107,7 @@ export class KeycloakAuth {
 	public static login(identityProvider?: IdentityProvider): Promise<KeycloakOAuth2Token> {
 		return KeycloakAuth.authorize({
 			prompt: AUTH_PROMPTS.LOGIN,
-			...identityProvider ? {kc_idp_hint: identityProvider} : {}
+			...identityProvider ? { kc_idp_hint: identityProvider } : {}
 		});
 	}
 
@@ -114,13 +116,16 @@ export class KeycloakAuth {
 	 * same browser session, so the player comes back signed in.
 	 */
 	public static register(): Promise<KeycloakOAuth2Token> {
-		return KeycloakAuth.authorize({prompt: AUTH_PROMPTS.REGISTER});
+		return KeycloakAuth.authorize({ prompt: AUTH_PROMPTS.REGISTER });
 	}
 
 	private static async authorize(entryParams: AuthorizationParameters): Promise<KeycloakOAuth2Token> {
 		const redirectUri = getRedirectUri();
-		// Typed as a string, but i18next answers nothing until it has loaded its resources, and
-		// login is reachable before that.
+
+		/*
+		 * Typed as a string, but i18next answers nothing until it has loaded its resources, and
+		 * login is reachable before that.
+		 */
 		const language = currentLanguage() as string | undefined;
 		const request = new AuthRequest({
 			clientId: getClientId(),
@@ -129,9 +134,11 @@ export class KeycloakAuth {
 			responseType: ResponseType.Code,
 			usePKCE: true,
 			extraParams: {
-				// Keycloak falls back to the realm default without this, so its pages would ignore
-				// the language the player already chose in the app.
-				...language ? {ui_locales: language} : {},
+				/*
+				 * Keycloak falls back to the realm default without this, so its pages would ignore
+				 * the language the player already chose in the app.
+				 */
+				...language ? { ui_locales: language } : {},
 				...entryParams
 			}
 		});
@@ -157,8 +164,10 @@ export class KeycloakAuth {
 		});
 	}
 
-	// Queried directly instead of through expo-auth-session, whose token model drops the
-	// refresh_expires_in field that the app needs to know when a re-login is required.
+	/*
+	 * Queried directly instead of through expo-auth-session, whose token model drops the
+	 * refresh_expires_in field that the app needs to know when a re-login is required.
+	 */
 	private static async requestToken(params: Record<string, string>): Promise<KeycloakOAuth2Token> {
 		const response = await fetch(`${getRealmUrl()}/protocol/openid-connect/token`, {
 			method: "POST",

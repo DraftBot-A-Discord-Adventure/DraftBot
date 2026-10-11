@@ -1,6 +1,8 @@
-import {OwnedPet, PetSex} from "ws-packets/src/objects/OwnedPet";
-import {i18n} from "@/src/translations/i18n";
-import {AppIcons} from "@/src/AppIcons";
+import {
+	OwnedPet, PetSex
+} from "ws-packets/src/objects/OwnedPet";
+import { i18n } from "@/src/translations/i18n";
+import { AppIcons } from "@/src/AppIcons";
 
 const RARITY_RANGE = {
 	MIN: 0,
@@ -27,13 +29,15 @@ export function petNickname(pet: OwnedPet): string {
 	return pet.nickname ? pet.nickname : i18n.t("commands:pet.noNickname");
 }
 
-export function petName(pet: Pick<OwnedPet, "typeId" | "sex"> & {nickname?: string}): string {
+export function petName(pet: Pick<OwnedPet, "typeId" | "sex"> & { nickname?: string }): string {
 	return pet.nickname || petTypeName(pet);
 }
 
 /** The pet as game texts quote it: its emoji, then its nickname or its species. */
-export function petShortField(pet: Pick<OwnedPet, "typeId" | "sex"> & {nickname?: string}): string {
-	return i18n.t("commands:pet.shortPetField", {emote: petIcon(pet), name: petName(pet)});
+export function petShortField(pet: Pick<OwnedPet, "typeId" | "sex"> & { nickname?: string }): string {
+	return i18n.t("commands:pet.shortPetField", {
+		emote: petIcon(pet), name: petName(pet)
+	});
 }
 
 export function petRarity(pet: OwnedPet): string {

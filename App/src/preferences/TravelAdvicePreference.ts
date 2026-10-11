@@ -1,5 +1,7 @@
-import {useSyncExternalStore} from "react";
-import {getItem, setItem} from "expo-secure-store";
+import { useSyncExternalStore } from "react";
+import {
+	getItem, setItem
+} from "expo-secure-store";
 
 const STORAGE_KEY = "travelAdvices";
 const HIDDEN = "hidden";
@@ -11,7 +13,7 @@ class TravelAdvicePreference {
 
 	private readonly listeners = new Set<() => void>();
 
-	public readonly subscribe = (listener: () => void): (() => void) => {
+	public readonly subscribe = (listener: () => void): () => void => {
 		this.listeners.add(listener);
 		return (): void => {
 			this.listeners.delete(listener);
@@ -33,7 +35,9 @@ class TravelAdvicePreference {
 	public readonly set = (shown: boolean): void => {
 		this.shown = shown;
 		setItem(STORAGE_KEY, shown ? SHOWN : HIDDEN);
-		for (const listener of this.listeners) listener();
+		for (const listener of this.listeners) {
+			listener();
+		}
 	};
 }
 

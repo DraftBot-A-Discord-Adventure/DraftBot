@@ -1,7 +1,13 @@
-import {useCallback, useEffect, useState} from "react";
-import {AppState, Linking} from "react-native";
-import {getPermissionsAsync, NotificationPermissionsStatus, requestPermissionsAsync} from "expo-notifications";
-import {registerForPush} from "@/src/notifications/PushRegistration";
+import {
+	useCallback, useEffect, useState
+} from "react";
+import {
+	AppState, Linking
+} from "react-native";
+import {
+	getPermissionsAsync, NotificationPermissionsStatus, requestPermissionsAsync
+} from "expo-notifications";
+import { registerForPush } from "@/src/notifications/PushRegistration";
 
 export const NOTIFICATION_PERMISSIONS = {
 	GRANTED: "granted",
@@ -16,7 +22,9 @@ export const NOTIFICATION_PERMISSIONS = {
 export type NotificationPermission = typeof NOTIFICATION_PERMISSIONS[keyof typeof NOTIFICATION_PERMISSIONS];
 
 function permissionOf(status: NotificationPermissionsStatus): NotificationPermission {
-	if (status.granted) return NOTIFICATION_PERMISSIONS.GRANTED;
+	if (status.granted) {
+		return NOTIFICATION_PERMISSIONS.GRANTED;
+	}
 	return status.canAskAgain ? NOTIFICATION_PERMISSIONS.ASKABLE : NOTIFICATION_PERMISSIONS.BLOCKED;
 }
 
@@ -31,12 +39,15 @@ export type NotificationPermissionState = {
 export function useNotificationPermission(): NotificationPermissionState {
 	const [permission, setPermission] = useState<NotificationPermission | null>(null);
 	const refresh = useCallback((): void => {
-		getPermissionsAsync().then(status => setPermission(permissionOf(status))).catch(() => setPermission(null));
+		getPermissionsAsync().then(status => setPermission(permissionOf(status)))
+			.catch(() => setPermission(null));
 	}, []);
 	useEffect(() => {
 		refresh();
 		const subscription = AppState.addEventListener("change", state => {
-			if (state === "active") refresh();
+			if (state === "active") {
+				refresh();
+			}
 		});
 		return (): void => subscription.remove();
 	}, [refresh]);
@@ -52,5 +63,7 @@ export function useNotificationPermission(): NotificationPermissionState {
 			})
 			.catch(error => console.warn("Notifications not allowed:", error));
 	}, [permission]);
-	return {permission, allow};
+	return {
+		permission, allow
+	};
 }

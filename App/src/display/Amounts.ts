@@ -1,5 +1,5 @@
-import {AppIcons} from "@/src/AppIcons";
-import {i18n} from "@/src/translations/i18n";
+import { AppIcons } from "@/src/AppIcons";
+import { i18n } from "@/src/translations/i18n";
 
 /**
  * Units the game prints right after a number, named after their entry in the shared icon set.

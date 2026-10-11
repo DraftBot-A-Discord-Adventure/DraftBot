@@ -1,10 +1,18 @@
-import {TurboModule, TurboModuleRegistry} from "react-native";
-import GooglePlayGames, {GooglePlayGamesPlayer} from "react-native-google-play-games";
-import {gameServicesConfiguration} from "./GameServicesConfig";
-import {GAME_SERVICE_PROVIDERS, GamePlatformPlayer, PlatformGames, platformAvailability} from "./GameServicesTypes";
+import {
+	TurboModule, TurboModuleRegistry
+} from "react-native";
+import GooglePlayGames, { GooglePlayGamesPlayer } from "react-native-google-play-games";
+import { gameServicesConfiguration } from "./GameServicesConfig";
+import {
+	GAME_SERVICE_PROVIDERS, GamePlatformPlayer, PlatformGames, platformAvailability
+} from "./GameServicesTypes";
 
 function playerIdentity(player: GooglePlayGamesPlayer | null): GamePlatformPlayer | null {
-	return player ? {id: player.id, displayName: player.displayName} : null;
+	return player
+		? {
+			id: player.id, displayName: player.displayName
+		}
+		: null;
 }
 
 async function authenticatedPlayer(): Promise<GamePlatformPlayer | null> {
@@ -21,9 +29,15 @@ export function createPlatformGames(): PlatformGames {
 		availability: platformAvailability(configured, native !== null),
 		getPlayer: () => usable ? authenticatedPlayer() : Promise.resolve(null),
 		connect: async () => playerIdentity(await GooglePlayGames.isAuthenticated() ? await GooglePlayGames.getPlayer() : await GooglePlayGames.signIn()),
-		unlockAchievement: async achievement => {await GooglePlayGames.unlockAchievement(config.achievements[achievement]);},
-		submitTopweekScore: async score => {await GooglePlayGames.submitScore(config.topweekLeaderboardId, score);},
+		unlockAchievement: async (achievement): Promise<void> => {
+			await GooglePlayGames.unlockAchievement(config.achievements[achievement]);
+		},
+		submitTopweekScore: async (score): Promise<void> => {
+			await GooglePlayGames.submitScore(config.topweekLeaderboardId, score);
+		},
 		showAchievements: GooglePlayGames.showAchievements,
-		showTopweekLeaderboard: async () => {await GooglePlayGames.showLeaderboard(config.topweekLeaderboardId);}
+		showTopweekLeaderboard: async (): Promise<void> => {
+			await GooglePlayGames.showLeaderboard(config.topweekLeaderboardId);
+		}
 	};
 }

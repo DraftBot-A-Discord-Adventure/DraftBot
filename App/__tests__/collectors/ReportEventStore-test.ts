@@ -1,14 +1,14 @@
-import {ReportBigEventResultRes} from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
-import {SmallEventLotteryWinRes} from "ws-packets/src/fromServer/smallEvents/SmallEventLotteryRes";
-import {SmallEventResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
-import {SmallEventChoiceResultRes} from "ws-packets/src/fromServer/smallEvents/SmallEventChoiceResultRes";
+import { ReportBigEventResultRes } from "ws-packets/src/fromServer/report/ReportBigEventResultRes";
+import { SmallEventLotteryWinRes } from "ws-packets/src/fromServer/smallEvents/SmallEventLotteryRes";
+import { SmallEventResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
+import { SmallEventChoiceResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventChoiceResultRes";
 import {
 	SmallEventWitchResultRes, WITCH_OUTCOMES
 } from "ws-packets/src/fromServer/smallEvents/SmallEventWitchResultRes";
-import {ReportUseTokensAcceptedRes} from "ws-packets/src/fromServer/report/ReportTokenRes";
-import {ReportBuyHealAcceptedRes} from "ws-packets/src/fromServer/report/ReportHealRes";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {reportEventStore} from "@/src/collectors/ReportEventStore";
+import { ReportUseTokensAcceptedRes } from "ws-packets/src/fromServer/report/ReportTokenRes";
+import { ReportBuyHealAcceptedRes } from "ws-packets/src/fromServer/report/ReportHealRes";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { reportEventStore } from "@/src/collectors/ReportEventStore";
 
 function outcome(): ReportBigEventResultRes {
 	return {
@@ -58,18 +58,24 @@ describe("ReportEventStore", () => {
 
 		registry.dispatch(SmallEventLotteryWinRes.wireName, result);
 
-		expect(reportEventStore.getLotterySnapshot()).toEqual({kind: "win", packet: result});
+		expect(reportEventStore.getLotterySnapshot()).toEqual({
+			kind: "win", packet: result
+		});
 		reportEventStore.clearLottery();
 		expect(reportEventStore.getLotterySnapshot()).toBeNull();
 	});
 
 	it("keeps a token result until the player continues", () => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		const result: ReportUseTokensAcceptedRes = {tokensSpent: 2, isArrived: true};
+		const result: ReportUseTokensAcceptedRes = {
+			tokensSpent: 2, isArrived: true
+		};
 
 		registry.dispatch(ReportUseTokensAcceptedRes.wireName, result);
 
-		expect(reportEventStore.getTokenSnapshot()).toEqual({kind: "used", packet: result});
+		expect(reportEventStore.getTokenSnapshot()).toEqual({
+			kind: "used", packet: result
+		});
 		reportEventStore.clearTokens();
 		expect(reportEventStore.getTokenSnapshot()).toBeNull();
 	});
@@ -78,7 +84,9 @@ describe("ReportEventStore", () => {
 		const listener = jest.fn();
 		const unsubscribe = reportEventStore.subscribe(listener);
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		const result = {eventName: "SmallEventShopRefusePacket", data: {}} as SmallEventResultRes;
+		const result = {
+			eventName: "SmallEventShopRefusePacket", data: {}
+		} as SmallEventResultRes;
 
 		registry.dispatch(SmallEventResultRes.wireName, result);
 
@@ -88,8 +96,15 @@ describe("ReportEventStore", () => {
 
 	it("shows the astronomer at once instead of waiting for his result in silence", () => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		const searching = {eventName: "SmallEventSpaceInitialPacket", data: {}} as SmallEventResultRes;
-		const found = {eventName: "SmallEventSpaceResultPacket", data: {chosenEvent: "neoWS", values: {mainValue: 3}}} as SmallEventResultRes;
+		const searching = {
+			eventName: "SmallEventSpaceInitialPacket", data: {}
+		} as SmallEventResultRes;
+		const found = {
+			eventName: "SmallEventSpaceResultPacket",
+			data: {
+				chosenEvent: "neoWS", values: { mainValue: 3 }
+			}
+		} as SmallEventResultRes;
 
 		registry.dispatch(SmallEventResultRes.wireName, searching);
 		expect(reportEventStore.getAutomaticSnapshot()).toBe(searching);
@@ -99,7 +114,9 @@ describe("ReportEventStore", () => {
 
 	it("keeps an automatic mini-event result until the player continues", () => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		const result = {eventName: "SmallEventWinHealthPacket", data: {amount: 12}} as SmallEventResultRes;
+		const result = {
+			eventName: "SmallEventWinHealthPacket", data: { amount: 12 }
+		} as SmallEventResultRes;
 
 		registry.dispatch(SmallEventResultRes.wireName, result);
 
@@ -129,7 +146,9 @@ describe("ReportEventStore", () => {
 
 	it("keeps an interactive small-event result until the player continues", () => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
-		const result = {result: {event: "fightPet", outcome: "success", actionId: "attack", isFemale: false}} as SmallEventChoiceResultRes;
+		const result = { result: {
+			event: "fightPet", outcome: "success", actionId: "attack", isFemale: false
+		} } as SmallEventChoiceResultRes;
 
 		registry.dispatch(SmallEventChoiceResultRes.wireName, result);
 
@@ -141,8 +160,10 @@ describe("ReportEventStore", () => {
 	it("clears every pending result when the player session ends", () => {
 		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
 		registry.dispatch(ReportBigEventResultRes.wireName, outcome());
-		registry.dispatch(SmallEventResultRes.wireName, {eventName: "SmallEventDoNothingPacket", data: {}});
-		registry.dispatch(ReportBuyHealAcceptedRes.wireName, {price: 10});
+		registry.dispatch(SmallEventResultRes.wireName, {
+			eventName: "SmallEventDoNothingPacket", data: {}
+		});
+		registry.dispatch(ReportBuyHealAcceptedRes.wireName, { price: 10 });
 
 		reportEventStore.reset();
 

@@ -1,31 +1,41 @@
 import React from "react";
-import {Text} from "react-native";
-import {act, fireEvent, render, waitFor} from "@testing-library/react-native";
-import {BootGate} from "@/src/translations/BootGate";
-import {AssetsManager, CachedBundle} from "@/src/assets/AssetsManager";
-import {applyServerBundle} from "@/src/translations/i18nLoader";
-import {RestApi} from "@/src/networking/RestApi";
-import {fakeGameRules} from "@/src/testing/fakeGameRules";
+import { Text } from "react-native";
+import {
+	act, fireEvent, render, waitFor
+} from "@testing-library/react-native";
+import { BootGate } from "@/src/translations/BootGate";
+import {
+	AssetsManager, CachedBundle
+} from "@/src/assets/AssetsManager";
+import { applyServerBundle } from "@/src/translations/i18nLoader";
+import { RestApi } from "@/src/networking/RestApi";
+import { fakeGameRules } from "@/src/testing/fakeGameRules";
 
-jest.mock("@/src/assets/AssetsManager", () => ({AssetsManager: {
+jest.mock("@/src/assets/AssetsManager", () => ({ AssetsManager: {
 	loadCachedBundle: jest.fn(),
 	syncBundle: jest.fn()
-}}));
-jest.mock("@/src/translations/i18nLoader", () => ({applyServerBundle: jest.fn()}));
-jest.mock("@/src/networking/RestApi", () => ({RestApi: {getCompatibility: jest.fn()}}));
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string): string => key}}));
+} }));
+jest.mock("@/src/translations/i18nLoader", () => ({ applyServerBundle: jest.fn() }));
+jest.mock("@/src/networking/RestApi", () => ({ RestApi: { getCompatibility: jest.fn() } }));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 jest.mock("@/src/design/Primitives", () => {
 	const react = jest.requireActual("react");
 	const reactNative = jest.requireActual("react-native");
-	return {Button: ({onPress, children}: {onPress: () => void; children: string}) => react.createElement(
+	return { Button: ({
+		onPress, children
+	}: {
+		onPress: () => void; children: string;
+	}) => react.createElement(
 		reactNative.Pressable,
-		{onPress},
+		{ onPress },
 		react.createElement(reactNative.Text, null, children)
-	)};
+	) };
 });
 
 const bundle = {
-	bundle: {language: "fr" as const, namespaces: {app: {boot: {updating: "Préparation"}}}, icons: {}, rules: fakeGameRules},
+	bundle: {
+		language: "fr" as const, namespaces: { app: { boot: { updating: "Préparation" } } }, icons: {}, rules: fakeGameRules
+	},
 	etag: '"bundle-hash"'
 };
 const mockedLoadCachedBundle = jest.mocked(AssetsManager.loadCachedBundle);
@@ -55,7 +65,8 @@ describe("BootGate", () => {
 	});
 
 	it("waits for a server being updated and lets the player try again", async () => {
-		jest.mocked(RestApi.getCompatibility).mockResolvedValueOnce("serverOutdated").mockResolvedValue("upToDate");
+		jest.mocked(RestApi.getCompatibility).mockResolvedValueOnce("serverOutdated")
+			.mockResolvedValue("upToDate");
 		const view = await renderGate();
 
 		await waitFor(() => expect(view.getByText("app:boot.serverOutdated")).toBeTruthy());

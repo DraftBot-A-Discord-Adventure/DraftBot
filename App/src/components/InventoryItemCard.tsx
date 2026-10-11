@@ -1,18 +1,28 @@
-import {ReactNode, useState} from "react";
-import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {inventoryItemDetails, inventoryItemEmblem} from "@/src/components/InventoryItemRow";
-import {itemDisplayName} from "@/src/collectors/CollectorLabels";
-import {ArrowRight, Coins, Droplets, Gift, LucideIcon, Swords, X} from "@/src/design/FightIcons";
-import {Button, ButtonRow, CountBadge, Note} from "@/src/design/Primitives";
-import {ActionBanner, ExpandableEntry, LockHint, useSectionStyles} from "@/src/design/Sections";
-import {ItemDetails} from "@/src/components/ItemDetails";
-import {ExpandedEntry} from "@/src/design/useExpandedEntry";
-import {Theme} from "@/src/design/Theme";
-import {TwemojiText} from "@/src/design/TwemojiText";
+import {
+	ReactNode, useState
+} from "react";
+import { ItemWithDetails } from "ws-packets/src/objects/ItemWithDetails";
+import {
+	inventoryItemDetails, inventoryItemEmblem
+} from "@/src/components/InventoryItemRow";
+import { itemDisplayName } from "@/src/collectors/CollectorLabels";
+import {
+	ArrowRight, Coins, Droplets, Gift, LucideIcon, Swords, X
+} from "@/src/design/FightIcons";
+import {
+	Button, ButtonRow, CountBadge, Note
+} from "@/src/design/Primitives";
+import {
+	ActionBanner, ExpandableEntry, LockHint, useSectionStyles
+} from "@/src/design/Sections";
+import { ItemDetails } from "@/src/components/ItemDetails";
+import { ExpandedEntry } from "@/src/design/useExpandedEntry";
+import { Theme } from "@/src/design/Theme";
+import { TwemojiText } from "@/src/design/TwemojiText";
 import {
 	InventoryItem, InventoryItemActions, ITEM_ACTIONS, ItemAction, ItemActionChoice
 } from "@/src/store/useInventoryItemActions";
-import {i18n} from "@/src/translations/i18n";
+import { i18n } from "@/src/translations/i18n";
 
 const ACTION_ICONS: Record<ItemAction, LucideIcon> = {
 	[ITEM_ACTIONS.EQUIP]: Swords,
@@ -38,7 +48,11 @@ export function inventoryItemKey(entry: InventoryItem): string {
 }
 
 /** What the item is, and on the closed row already, why one of its actions is refused; a full reserve only shows once unfolded. */
-function ItemCaption({item, choices, expanded}: {item: ItemWithDetails; choices: ItemActionChoice[]; expanded: boolean}): ReactNode {
+function ItemCaption({
+	item, choices, expanded
+}: {
+	item: ItemWithDetails; choices: ItemActionChoice[]; expanded: boolean;
+}): ReactNode {
 	const sectionStyles = useSectionStyles();
 	const lock = expanded ? undefined : choices.find(choice => choice.lock && choice.action !== ITEM_ACTIONS.DEPOSIT)?.lock;
 	return <>
@@ -51,20 +65,30 @@ function actionLabel(action: ItemAction, confirming: boolean): string {
 	return i18n.t(confirming ? "app:inventory.actions.confirm" : `app:inventory.actions.${action}`);
 }
 
-type ActionPress = {confirming: ItemAction | null; pending: boolean; press: (action: ItemAction) => void};
+type ActionPress = {
+	confirming: ItemAction | null; pending: boolean; press: (action: ItemAction) => void;
+};
 
-function MainItemAction({choice, pending, press, badge}: {choice: ItemActionChoice; pending: boolean; press: (action: ItemAction) => void; badge: number}): ReactNode {
+function MainItemAction({
+	choice, pending, press, badge
+}: {
+	choice: ItemActionChoice; pending: boolean; press: (action: ItemAction) => void; badge: number;
+}): ReactNode {
 	return <ActionBanner
 		icon={ACTION_ICONS[choice.action]}
 		label={actionLabel(choice.action, false)}
 		pending={pending}
 		badge={badge}
-		{...choice.lock ? {lock: choice.lock} : {}}
+		{...choice.lock ? { lock: choice.lock } : {}}
 		onPress={(): void => press(choice.action)}
 	/>;
 }
 
-function OtherItemAction({choice, state}: {choice: ItemActionChoice; state: ActionPress}): ReactNode {
+function OtherItemAction({
+	choice, state
+}: {
+	choice: ItemActionChoice; state: ActionPress;
+}): ReactNode {
 	const confirming = state.confirming === choice.action;
 	return <Button
 		icon={ACTION_ICONS[choice.action]}
@@ -74,7 +98,11 @@ function OtherItemAction({choice, state}: {choice: ItemActionChoice; state: Acti
 	>{actionLabel(choice.action, confirming)}</Button>;
 }
 
-function OtherItemActions({choices, state}: {choices: ItemActionChoice[]; state: ActionPress}): ReactNode {
+function OtherItemActions({
+	choices, state
+}: {
+	choices: ItemActionChoice[]; state: ActionPress;
+}): ReactNode {
 	const confirmation = state.confirming ? CONFIRMATIONS[state.confirming] : undefined;
 	return <>
 		{choices.length > 0 ? <ButtonRow>{choices.map(choice => <OtherItemAction key={choice.action} choice={choice} state={state} />)}</ButtonRow> : null}
@@ -84,7 +112,9 @@ function OtherItemActions({choices, state}: {choices: ItemActionChoice[]; state:
 }
 
 /** The most likely action as the dark bar, the others as buttons under it; parting with the item asks twice. */
-function ItemActions({entry, choices, actions, onDone, badge}: {
+function ItemActions({
+	entry, choices, actions, onDone, badge
+}: {
 	entry: InventoryItem;
 	choices: ItemActionChoice[];
 	actions: InventoryItemActions;
@@ -98,17 +128,22 @@ function ItemActions({entry, choices, actions, onDone, badge}: {
 			return;
 		}
 		setConfirming(null);
-		actions.run(action, entry).then(onDone).catch(console.error);
+		actions.run(action, entry).then(onDone)
+			.catch(console.error);
 	};
 	const main = isIrreversible(choices[0].action) ? undefined : choices[0];
 	return <>
 		{main ? <MainItemAction choice={main} pending={actions.pending} press={press} badge={badge} /> : null}
-		<OtherItemActions choices={main ? choices.slice(1) : choices} state={{confirming, pending: actions.pending, press}} />
+		<OtherItemActions choices={main ? choices.slice(1) : choices} state={{
+			confirming, pending: actions.pending, press
+		}} />
 	</>;
 }
 
 /** An item of the inventory, which unfolds to show what it is worth and what can be done with it. */
-export function InventoryItemCard({entry, choices, actions, unfolding, badge = 0}: {
+export function InventoryItemCard({
+	entry, choices, actions, unfolding, badge = 0
+}: {
 	entry: InventoryItem;
 	choices: ItemActionChoice[];
 	actions: InventoryItemActions;

@@ -1,9 +1,11 @@
-import {expeditionProgress} from "@/src/display/PetExpedition";
+import { expeditionProgress } from "@/src/display/PetExpedition";
 
-jest.mock("@/src/translations/i18n", () => ({i18n: {t: (key: string): string => key}}));
+jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 
 const HOUR = 3_600_000;
-const EXPEDITION = {startTime: 10 * HOUR, endTime: 14 * HOUR};
+const EXPEDITION = {
+	startTime: 10 * HOUR, endTime: 14 * HOUR
+};
 
 describe("expeditionProgress", () => {
 	it("measures the time the pet has been away against the whole expedition", () => {

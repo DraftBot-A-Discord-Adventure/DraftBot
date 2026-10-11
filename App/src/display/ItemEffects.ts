@@ -1,10 +1,15 @@
-import {ItemNature} from "ws-packets/src/objects/ItemNature";
-import {ItemWithDetails} from "ws-packets/src/objects/ItemWithDetails";
-import {SupportItem} from "ws-packets/src/objects/SupportItem";
-import {i18n} from "@/src/translations/i18n";
-import {formatNumber} from "@/src/display/Amounts";
+import { ItemNature } from "ws-packets/src/objects/ItemNature";
+import { ItemWithDetails } from "ws-packets/src/objects/ItemWithDetails";
+import { SupportItem } from "ws-packets/src/objects/SupportItem";
+import { i18n } from "@/src/translations/i18n";
+import { formatNumber } from "@/src/display/Amounts";
 
-const ITEM_TYPES_BY_CATEGORY = ["weapon", "armor", "potion", "object"] as const;
+const ITEM_TYPES_BY_CATEGORY = [
+	"weapon",
+	"armor",
+	"potion",
+	"object"
+] as const;
 
 const MINUTES_PER_HOUR = 60;
 
@@ -32,7 +37,11 @@ export function natureUnit(nature: ItemNature): string | undefined {
 }
 
 /** Natures only a fight can use: such a potion cannot be drunk and such an object gives no daily bonus. */
-const FIGHT_NATURES: ReadonlySet<ItemNature> = new Set([ItemNature.ATTACK, ItemNature.DEFENSE, ItemNature.SPEED]);
+const FIGHT_NATURES: ReadonlySet<ItemNature> = new Set([
+	ItemNature.ATTACK,
+	ItemNature.DEFENSE,
+	ItemNature.SPEED
+]);
 
 function isSupportItem(item: ItemWithDetails): item is SupportItem {
 	return "nature" in item;
@@ -50,10 +59,14 @@ export function formatDurationMinutes(totalMinutes: number): string {
 	const bounded = Math.max(0, Math.ceil(totalMinutes));
 	const hours = Math.floor(bounded / MINUTES_PER_HOUR);
 	const minutes = bounded % MINUTES_PER_HOUR;
-	if (hours === 0) return i18n.t("app:adventure.duration.minutes", {count: bounded});
+	if (hours === 0) {
+		return i18n.t("app:adventure.duration.minutes", { count: bounded });
+	}
 	return minutes === 0
-		? i18n.t("app:adventure.duration.hours", {count: hours})
-		: i18n.t("app:adventure.duration.hoursMinutes", {hours, minutes});
+		? i18n.t("app:adventure.duration.hours", { count: hours })
+		: i18n.t("app:adventure.duration.hoursMinutes", {
+			hours, minutes
+		});
 }
 
 const MILLISECONDS_PER_MINUTE = 60_000;
@@ -69,18 +82,21 @@ export function effectAmount(nature: ItemNature, value: number): string {
 }
 
 export function itemEffect(nature: ItemNature, value: number): string {
-	return i18n.t(`items:potionsNaturesWithoutEmote.${nature}`, {power: effectAmount(nature, value)});
+	return i18n.t(`items:potionsNaturesWithoutEmote.${nature}`, { power: effectAmount(nature, value) });
 }
 
 export function consumableDescription(item: ItemWithDetails): string {
-	if (!("nature" in item)) return i18n.t(`items:raritiesWithoutEmote.${item.rarity}`);
+	if (!("nature" in item)) {
+		return i18n.t(`items:raritiesWithoutEmote.${item.rarity}`);
+	}
 	const key = isPotionCategory(item.itemCategory) ? "potionsNaturesWithoutEmote" : "objectsNaturesWithoutEmote";
-	return i18n.t(`items:${key}.${item.nature}`, {power: effectAmount(item.nature, item.power)});
+	return i18n.t(`items:${key}.${item.nature}`, { power: effectAmount(item.nature, item.power) });
 }
 
 /** The effect as Discord writes it, behind the emoji of its nature. */
 export function consumableEffect(item: SupportItem): string {
 	const key = isPotionCategory(item.itemCategory) ? "potionsNatures" : "objectsNatures";
+
 	// These keys format the number themselves: a pre-formatted "1 250" would read as NaN.
-	return i18n.t(`items:${key}.${item.nature}`, {power: item.nature === ItemNature.TIME_SPEEDUP ? formatDurationMinutes(item.power) : item.power});
+	return i18n.t(`items:${key}.${item.nature}`, { power: item.nature === ItemNature.TIME_SPEEDUP ? formatDurationMinutes(item.power) : item.power });
 }

@@ -1,5 +1,9 @@
-import type {AssetsBundle, AssetsBundleLanguage} from "../../../WsPackets/src/objects/AssetsBundle";
-import {APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, compareProtocolVersions} from "../../../WsPackets/src/AppCompatibility";
+import type {
+	AssetsBundle, AssetsBundleLanguage
+} from "../../../WsPackets/src/objects/AssetsBundle";
+import {
+	APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, compareProtocolVersions
+} from "../../../WsPackets/src/AppCompatibility";
 import {
 	ACCOUNT_COLLISION_ENDPOINTS, ACCOUNT_COLLISION_ERRORS, AccountCollisionCheck, AccountCollisionChoice,
 	AccountCollisionError, AccountCollisionProof, AccountCollisionResolution
@@ -21,8 +25,10 @@ export class AccountDeletionRequestFailure extends Error {
 }
 
 export type AssetsBundleResponse =
-	| {status: "notModified"}
-	| {status: "ok"; bundle: AssetsBundle; etag: string};
+	| { status: "notModified" }
+	| {
+		status: "ok"; bundle: AssetsBundle; etag: string;
+	};
 
 export class AccountCollisionRequestFailure extends Error {
 	public constructor(public readonly reason: AccountCollisionError) {
@@ -42,7 +48,9 @@ export function isAccountCollisionOpen(check: AccountCollisionCheck): boolean {
 }
 
 function deletionFailure(status: number, confirming: boolean): AccountDeletionFailure {
-	if (status === 401) return ACCOUNT_DELETION_FAILURES.UNAUTHORIZED;
+	if (status === 401) {
+		return ACCOUNT_DELETION_FAILURES.UNAUTHORIZED;
+	}
 	return status === 403 && confirming ? ACCOUNT_DELETION_FAILURES.INVALID_CODE : ACCOUNT_DELETION_FAILURES.UNAVAILABLE;
 }
 
@@ -59,7 +67,9 @@ export class RestApi {
 		const controller = new AbortController();
 		const timeout = setTimeout(() => controller.abort(), timeoutMs);
 		try {
-			return await fetch(url, {...init, signal: controller.signal});
+			return await fetch(url, {
+				...init, signal: controller.signal
+			});
 		}
 		finally {
 			clearTimeout(timeout);
@@ -88,14 +98,14 @@ export class RestApi {
 	 */
 	public static async getCompatibility(): Promise<AppCompatibilityStatus | null> {
 		try {
-			const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}/app/compatibility`, {method: "GET"}, REST_TIMEOUT_MS);
+			const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}/app/compatibility`, { method: "GET" }, REST_TIMEOUT_MS);
 			if (response.status === 404) {
 				return compareProtocolVersions(APP_PROTOCOL_VERSION, 0);
 			}
 			if (!response.ok) {
 				return null;
 			}
-			const {protocolVersion} = await response.json() as AppCompatibility;
+			const { protocolVersion } = await response.json() as AppCompatibility;
 			return compareProtocolVersions(APP_PROTOCOL_VERSION, protocolVersion);
 		}
 		catch (error) {
@@ -106,15 +116,15 @@ export class RestApi {
 
 	public static async getAssetsBundle(language: AssetsBundleLanguage, etag?: string): Promise<AssetsBundleResponse> {
 		const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}/assets/bundle?lang=${encodeURIComponent(language)}`, {
-				method: "GET",
-				headers: {
-					"Accept": "application/json",
-					...(etag ? {"If-None-Match": etag} : {})
-				},
-			}, REST_TIMEOUT_MS);
+			method: "GET",
+			headers: {
+				Accept: "application/json",
+				...etag ? { "If-None-Match": etag } : {}
+			}
+		}, REST_TIMEOUT_MS);
 
 		if (response.status === 304) {
-			return {status: "notModified"};
+			return { status: "notModified" };
 		}
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
@@ -125,7 +135,9 @@ export class RestApi {
 		if (!responseEtag) {
 			throw new Error("Assets bundle response is missing its ETag.");
 		}
-		return {status: "ok", bundle, etag: responseEtag};
+		return {
+			status: "ok", bundle, etag: responseEtag
+		};
 	}
 
 	private static async accountDeletionRequest(accessToken: AccessToken, code?: DeletionCode): Promise<boolean> {
@@ -136,9 +148,11 @@ export class RestApi {
 				"Content-Type": "application/json",
 				"Authorization": `Bearer ${accessToken}`
 			},
-			...confirming ? {body: JSON.stringify({code: code.trim().toUpperCase()})} : {}
+			...confirming ? { body: JSON.stringify({ code: code.trim().toUpperCase() }) } : {}
 		}, REST_TIMEOUT_MS);
-		if (response.ok) return true;
+		if (response.ok) {
+			return true;
+		}
 		throw new AccountDeletionRequestFailure(deletionFailure(response.status, confirming));
 	}
 
@@ -155,11 +169,13 @@ export class RestApi {
 	private static async accountCollisionRequest<T>(endpoint: AccountCollisionEndpoint, accessToken: AccessToken, body?: object): Promise<T> {
 		const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}${endpoint}`, {
 			method: body ? "POST" : "GET",
-			headers: {"Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`},
-			...body ? {body: JSON.stringify(body)} : {}
+			headers: {
+				"Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`
+			},
+			...body ? { body: JSON.stringify(body) } : {}
 		}, REST_TIMEOUT_MS);
 		if (!response.ok) {
-			const failure = await response.json() as {error?: AccountCollisionError};
+			const failure = await response.json() as { error?: AccountCollisionError };
 			throw new AccountCollisionRequestFailure(failure.error ?? ACCOUNT_COLLISION_ERRORS.UNAVAILABLE);
 		}
 		return response.json() as Promise<T>;
@@ -170,10 +186,12 @@ export class RestApi {
 	}
 
 	public static verifyAccountCollision(discordToken: AccessToken, emailToken: AccessToken): Promise<AccountCollisionProof> {
-		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.VERIFY, discordToken, {emailToken});
+		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.VERIFY, discordToken, { emailToken });
 	}
 
 	public static resolveAccountCollision(accessToken: AccessToken, proof: CollisionProof, keep: AccountCollisionChoice): Promise<AccountCollisionResolution> {
-		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, accessToken, {proof, keep});
+		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, accessToken, {
+			proof, keep
+		});
 	}
 }

@@ -1,18 +1,29 @@
-import {act, renderHook} from "@testing-library/react-native";
-import {AppState, AppStateStatus} from "react-native";
-import {useLastNotificationResponse} from "expo-notifications";
-import {useNotificationNavigation} from "@/src/notifications/useNotifications";
+import {
+	act, renderHook
+} from "@testing-library/react-native";
+import {
+	AppState, AppStateStatus
+} from "react-native";
+import { useLastNotificationResponse } from "expo-notifications";
+import { useNotificationNavigation } from "@/src/notifications/useNotifications";
 
 const mockNavigate = jest.fn();
-jest.mock("expo-router", () => ({useRouter: () => ({navigate: mockNavigate})}));
-jest.mock("expo-notifications", () => ({useLastNotificationResponse: jest.fn()}));
+jest.mock("expo-router", () => ({ useRouter: () => ({ navigate: mockNavigate }) }));
+jest.mock("expo-notifications", () => ({ useLastNotificationResponse: jest.fn() }));
 
 function tapped(notificationType: string): ReturnType<typeof useLastNotificationResponse> {
-	return {notification: {date: 1, request: {identifier: "tap", content: {data: {notificationType}}}}} as unknown as ReturnType<typeof useLastNotificationResponse>;
+	return { notification: {
+		date: 1,
+		request: {
+			identifier: "tap", content: { data: { notificationType } }
+		}
+	} } as unknown as ReturnType<typeof useLastNotificationResponse>;
 }
 
 function setAppState(state: AppStateStatus): void {
-	Object.defineProperty(AppState, "currentState", {value: state, configurable: true});
+	Object.defineProperty(AppState, "currentState", {
+		value: state, configurable: true
+	});
 }
 
 describe("tapping a notification", () => {

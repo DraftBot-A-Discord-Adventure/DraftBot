@@ -1,9 +1,15 @@
-import {getItem, setItem} from "expo-secure-store";
-import {AppStateFlag} from "ws-packets/src/objects/AppState";
-import {isJourneyTab, JOURNEY_FEATURES, JourneyFeature, JourneyTab} from "@/src/journey/Journey";
+import {
+	getItem, setItem
+} from "expo-secure-store";
+import { AppStateFlag } from "ws-packets/src/objects/AppState";
+import {
+	isJourneyTab, JOURNEY_FEATURES, JourneyFeature, JourneyTab
+} from "@/src/journey/Journey";
 
 /** Which unlocks the player has already been shown, and which tabs they have opened since. */
-export type JourneyRecord = {announced: readonly JourneyFeature[]; visited: readonly JourneyFeature[]};
+export type JourneyRecord = {
+	announced: readonly JourneyFeature[]; visited: readonly JourneyFeature[];
+};
 
 const RECORDED: AppStateFlag = "journeyRecorded";
 const LAST_TABS_KEY = "journeyLastTabs";
@@ -18,7 +24,9 @@ export function visitedFlag(feature: JourneyFeature): AppStateFlag {
 
 /** The record Core keeps on the character; none until the app has written the first one. */
 export function journeyRecordOf(seen: readonly AppStateFlag[]): JourneyRecord | null {
-	if (!seen.includes(RECORDED)) return null;
+	if (!seen.includes(RECORDED)) {
+		return null;
+	}
 	const features = Object.values(JOURNEY_FEATURES);
 	return {
 		announced: features.filter(feature => seen.includes(announcedFlag(feature))),
@@ -65,7 +73,9 @@ class JourneyStore {
 	}
 
 	public saveLastTabs(tabs: readonly JourneyTab[]): void {
-		if (this.knownTabs?.join() === tabs.join()) return;
+		if (this.knownTabs?.join() === tabs.join()) {
+			return;
+		}
 		this.knownTabs = tabs;
 		try {
 			setItem(LAST_TABS_KEY, JSON.stringify(tabs));

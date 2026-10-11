@@ -1,7 +1,7 @@
-import {ReactNode} from "react";
-import {render} from "@testing-library/react-native";
-import {QueryClient} from "@tanstack/react-query";
-import {GameQueryProvider} from "@/src/store/GameQueryProvider";
+import { ReactNode } from "react";
+import { render } from "@testing-library/react-native";
+import { QueryClient } from "@tanstack/react-query";
+import { GameQueryProvider } from "@/src/store/GameQueryProvider";
 
 const testQueryClients = new Set<QueryClient>();
 

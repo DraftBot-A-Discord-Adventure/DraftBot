@@ -33,8 +33,12 @@ jest.mock("@/src/AppIcons", () => {
 jest.mock("@/src/translations/i18n", () => ({
 	i18n: {
 		t: (key: string, options?: Record<string, unknown>): string => {
-			if (key === "app:adventure.duration.minutes") return `${options?.count} minutes`;
-			if (key === "app:collector.choices.destination") return `${options?.destination} (${options?.duration})`;
+			if (key === "app:adventure.duration.minutes") {
+				return `${options?.count} minutes`;
+			}
+			if (key === "app:collector.choices.destination") {
+				return `${options?.destination} (${options?.duration})`;
+			}
 			return key;
 		},
 		tArray: (): string[] => []
@@ -43,7 +47,7 @@ jest.mock("@/src/translations/i18n", () => ({
 
 const eventData = {
 	type: BIG_EVENT_DATA_KINDS.COLLECTOR,
-	data: {eventId: 19}
+	data: { eventId: 19 }
 };
 
 describe("CollectorLabels", () => {
@@ -55,25 +59,27 @@ describe("CollectorLabels", () => {
 	it("uses the event-specific icon and possibility translation", () => {
 		expect(reactionLabel({
 			type: BIG_EVENT_REACTION_KINDS.POSSIBILITY,
-			data: {name: "butch"}
+			data: { name: "butch" }
 		}, eventData)).toBe("🦊 events:19.possibilities.butch.text");
 	});
 
 	it("falls back to the end icon when the event asset stores outcomes under end", () => {
 		expect(reactionLabel({
 			type: BIG_EVENT_REACTION_KINDS.POSSIBILITY,
-			data: {name: "end"}
+			data: { name: "end" }
 		}, eventData)).toBe("🚶 events:19.possibilities.end.text");
 	});
 
 	it("uses the small-event payload to render a narrative and its action", () => {
 		const altarData = {
 			type: SMALL_EVENT_DATA_KINDS.ALTAR,
-			data: {poolAmount: 12, poolThreshold: 100}
+			data: {
+				poolAmount: 12, poolThreshold: 100
+			}
 		} as const;
 		const altarReaction = {
 			type: SMALL_EVENT_REACTION_KINDS.ALTAR_CONTRIBUTE,
-			data: {amount: 5}
+			data: { amount: 5 }
 		} as const;
 
 		expect(collectorTitle(altarData)).toBe("app:collector.titles.altar");
@@ -84,11 +90,13 @@ describe("CollectorLabels", () => {
 	it("keeps the server choice identifiable for gendered and dynamic actions", () => {
 		const badPetData = {
 			type: SMALL_EVENT_DATA_KINDS.BAD_PET,
-			data: {petId: 2, sex: "m", petNickname: "Milo"}
+			data: {
+				petId: 2, sex: "m", petNickname: "Milo"
+			}
 		} as const;
 		const badPetReaction = {
 			type: SMALL_EVENT_REACTION_KINDS.BAD_PET,
-			data: {id: "intimidate"}
+			data: { id: "intimidate" }
 		} as const;
 		const witchData = {
 			type: SMALL_EVENT_DATA_KINDS.WITCH,
@@ -96,7 +104,7 @@ describe("CollectorLabels", () => {
 		} as const;
 		const witchReaction = {
 			type: SMALL_EVENT_REACTION_KINDS.WITCH,
-			data: {id: "bat"}
+			data: { id: "bat" }
 		} as const;
 
 		expect(collectorDescription(badPetData)).toBe("smallEvents:badPet.intro");
@@ -113,7 +121,7 @@ describe("CollectorLabels", () => {
 			type: SMALL_EVENT_REACTION_KINDS.GOBLETS_GAME,
 			data: {}
 		};
-		Object.assign(reaction.data, {id: "futureGoblet"});
+		Object.assign(reaction.data, { id: "futureGoblet" });
 
 		expect(reactionLabel(reaction, data)).toBe("app:collector.unknownChoice");
 		expect(isChoosable(reaction, data)).toBe(false);
@@ -125,36 +133,56 @@ describe("CollectorLabels", () => {
 			data: {}
 		} as const;
 		const goblets = [
-			{id: "metal", strategy: "classic", icon: "🐲"},
-			{id: "biggest", strategy: "safe", icon: "🪣"},
-			{id: "sparkling", strategy: "risky", icon: "✨"},
-			{id: "cracked", strategy: "gambler", icon: "💀"}
+			{
+				id: "metal", strategy: "classic", icon: "🐲"
+			},
+			{
+				id: "biggest", strategy: "safe", icon: "🪣"
+			},
+			{
+				id: "sparkling", strategy: "risky", icon: "✨"
+			},
+			{
+				id: "cracked", strategy: "gambler", icon: "💀"
+			}
 		] as const;
 
 		for (const goblet of goblets) {
 			expect(reactionLabel({
 				type: SMALL_EVENT_REACTION_KINDS.GOBLETS_GAME,
-				data: {id: goblet.id, strategy: goblet.strategy}
+				data: {
+					id: goblet.id, strategy: goblet.strategy
+				}
 			}, data)).toBe(`${goblet.icon} smallEvents:gobletsGame.goblets.${goblet.id}.name`);
 		}
 	});
 
 	it("uses the Discord emoji for each pet food choice", () => {
 		const choices = [
-			{type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_INVESTIGATE, label: "smallEvents:petFood.choices.investigate", icon: "❓"},
-			{type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_SEND_PET, label: "smallEvents:petFood.choices.sendPet", icon: "🐕‍🦺"},
-			{type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_CONTINUE, label: "smallEvents:petFood.choices.continue", icon: "🚶"}
+			{
+				type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_INVESTIGATE, label: "smallEvents:petFood.choices.investigate", icon: "❓"
+			},
+			{
+				type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_SEND_PET, label: "smallEvents:petFood.choices.sendPet", icon: "🐕‍🦺"
+			},
+			{
+				type: SMALL_EVENT_REACTION_KINDS.PET_FOOD_CONTINUE, label: "smallEvents:petFood.choices.continue", icon: "🚶"
+			}
 		] as const;
 
 		for (const choice of choices) {
-			expect(reactionLabel({type: choice.type, data: {}}, eventData)).toBe(`${choice.icon} ${choice.label}`);
+			expect(reactionLabel({
+				type: choice.type, data: {}
+			}, eventData)).toBe(`${choice.icon} ${choice.label}`);
 		}
 	});
 
 	it("tells the gardener's offer with the Discord story and seed price", () => {
 		const data = {
 			type: SMALL_EVENT_DATA_KINDS.GARDENER,
-			data: {seedId: 2, cost: 30, conditionKey: "paid", isFirstEncounter: true}
+			data: {
+				seedId: 2, cost: 30, conditionKey: "paid", isFirstEncounter: true
+			}
 		} as const;
 
 		expect(collectorDescription(data)).toBe("smallEvents:introsmallEvents:gardener.stories.firstsmallEvents:gardener.rewards.seed.paid");
@@ -163,7 +191,9 @@ describe("CollectorLabels", () => {
 	it("names the other adventurer and their rank, as Discord does", () => {
 		const data = {
 			type: SMALL_EVENT_DATA_KINDS.INTERACT_OTHER_PLAYERS,
-			data: {rank: 4, playerName: "Aventurier"}
+			data: {
+				rank: 4, playerName: "Aventurier"
+			}
 		} as const;
 
 		expect(collectorDescription(data)).toBe("smallEvents:interactOtherPlayers.poor");
@@ -171,7 +201,9 @@ describe("CollectorLabels", () => {
 	});
 
 	it("tells a destination choice as a menu, not as a journal entry", () => {
-		expect(isEventPrompt({type: REPORT_COLLECTOR_DATA_KINDS.DESTINATION, data: {}} as ReactionCollectorData)).toBe(false);
+		expect(isEventPrompt({
+			type: REPORT_COLLECTOR_DATA_KINDS.DESTINATION, data: {}
+		} as ReactionCollectorData)).toBe(false);
 	});
 
 	it("renders the item that would be replaced", () => {
@@ -180,17 +212,27 @@ describe("CollectorLabels", () => {
 			rarity: 1,
 			itemCategory: 0,
 			itemLevel: 2,
-			attack: {baseValue: 1, upgradeValue: 2, maxValue: 3},
-			defense: {baseValue: 1, upgradeValue: 2, maxValue: 3},
-			speed: {baseValue: 1, upgradeValue: 2, maxValue: 3}
+			attack: {
+				baseValue: 1, upgradeValue: 2, maxValue: 3
+			},
+			defense: {
+				baseValue: 1, upgradeValue: 2, maxValue: 3
+			},
+			speed: {
+				baseValue: 1, upgradeValue: 2, maxValue: 3
+			}
 		};
 		const data = {
 			type: ITEM_DATA_KINDS.CHOICE,
-			data: {foundItem: {...itemDetails, id: 8}}
+			data: { foundItem: {
+				...itemDetails, id: 8
+			} }
 		} as const;
 		const reaction = {
 			type: ITEM_REACTION_KINDS.CHOICE_ITEM,
-			data: {slot: 2, itemWithDetails: itemDetails}
+			data: {
+				slot: 2, itemWithDetails: itemDetails
+			}
 		} as const;
 
 		expect(collectorDescription(data)).toBeUndefined();
@@ -204,7 +246,9 @@ describe("CollectorLabels", () => {
 		} as const;
 		const reaction = {
 			type: REPORT_COLLECTOR_REACTION_KINDS.DESTINATION,
-			data: {mapId: 3, mapTypeId: "port", tripDurationMinutes: 15}
+			data: {
+				mapId: 3, mapTypeId: "port", tripDurationMinutes: 15
+			}
 		} as const;
 
 		expect(collectorTitle(data)).toBe("app:collector.titles.destination");
@@ -216,12 +260,21 @@ describe("CollectorLabels", () => {
 	it("uses explicit actions for the PVE island invitation", () => {
 		const data = {
 			type: SMALL_EVENT_DATA_KINDS.PVE_ISLAND,
-			data: {price: 3, energy: {current: 80, max: 100}}
+			data: {
+				price: 3,
+				energy: {
+					current: 80, max: 100
+				}
+			}
 		} as const;
 
 		expect(collectorTitle(data)).toBe("app:collector.pveIsland.title");
 		expect(collectorDescription(data)).toBe("smallEvents:introsmallEvents:goToPVEIsland.stories\n\nsmallEvents:goToPVEIsland.confirm");
-		expect(reactionLabel({type: "accept", data: {}}, data)).toContain("app:collector.pveIsland.embark");
-		expect(reactionLabel({type: "refuse", data: {}}, data)).toContain("app:collector.pveIsland.continueJourney");
+		expect(reactionLabel({
+			type: "accept", data: {}
+		}, data)).toContain("app:collector.pveIsland.embark");
+		expect(reactionLabel({
+			type: "refuse", data: {}
+		}, data)).toContain("app:collector.pveIsland.continueJourney");
 	});
 });

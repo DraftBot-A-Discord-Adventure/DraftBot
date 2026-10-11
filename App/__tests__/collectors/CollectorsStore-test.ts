@@ -1,12 +1,14 @@
-import {collectorsStore} from "@/src/collectors/CollectorsStore";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {COLLECTOR_STOP_REASONS, ReactionCollectorStop} from "ws-packets/src/fromServer/common/ReactionCollectorStop";
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {ReactionCollectorReactReq} from "ws-packets/src/fromClient/ReactionCollectorReactReq";
-import {ReactionCollectorEnded} from "ws-packets/src/fromServer/common/ReactionCollectorEnded";
-import {CommandGetCurrentReactionCollectorsRes} from "ws-packets/src/fromServer/getCurrentReactionCollectors/GetCurrentReactionCollectorsRes";
-import {CITY_DATA_KINDS} from "ws-packets/src/fromServer/collectors";
-import {ReportStayInCity} from "ws-packets/src/fromServer/report/ReportStayInCity";
+import { collectorsStore } from "@/src/collectors/CollectorsStore";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import {
+	COLLECTOR_STOP_REASONS, ReactionCollectorStop
+} from "ws-packets/src/fromServer/common/ReactionCollectorStop";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import { ReactionCollectorReactReq } from "ws-packets/src/fromClient/ReactionCollectorReactReq";
+import { ReactionCollectorEnded } from "ws-packets/src/fromServer/common/ReactionCollectorEnded";
+import { CommandGetCurrentReactionCollectorsRes } from "ws-packets/src/fromServer/getCurrentReactionCollectors/GetCurrentReactionCollectorsRes";
+import { CITY_DATA_KINDS } from "ws-packets/src/fromServer/collectors";
+import { ReportStayInCity } from "ws-packets/src/fromServer/report/ReportStayInCity";
 
 function collector(id: string, endTime = Date.now() + 60_000): ReactionCollectorCreation {
 	return {
@@ -14,7 +16,7 @@ function collector(id: string, endTime = Date.now() + 60_000): ReactionCollector
 		endTime,
 		data: {
 			type: "unknown",
-			data: {serverType: "test"}
+			data: { serverType: "test" }
 		},
 		reactions: []
 	};
@@ -58,7 +60,9 @@ describe("CollectorsStore", () => {
 		expect(collectorsStore.isAnswerPending(item.id)).toBe(true);
 
 		const stop = new ReactionCollectorStop();
-		Object.assign(stop, {collectorId: item.id, reason: COLLECTOR_STOP_REASONS.RESOLVED});
+		Object.assign(stop, {
+			collectorId: item.id, reason: COLLECTOR_STOP_REASONS.RESOLVED
+		});
 		const registeredHandler = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
 		registeredHandler.dispatch(ReactionCollectorStop.wireName, stop);
 		expect(collectorsStore.getSnapshot()).toHaveLength(0);
@@ -126,7 +130,9 @@ describe("CollectorsStore", () => {
 		registeredHandler.dispatch(ReactionCollectorCreation.wireName, item);
 		collectorsStore.answerWithoutShowing(item.id, 0);
 		const stop = new ReactionCollectorStop();
-		Object.assign(stop, {collectorId: item.id, reason: COLLECTOR_STOP_REASONS.RESOLVED});
+		Object.assign(stop, {
+			collectorId: item.id, reason: COLLECTOR_STOP_REASONS.RESOLVED
+		});
 		registeredHandler.dispatch(ReactionCollectorStop.wireName, stop);
 		jest.runOnlyPendingTimers();
 

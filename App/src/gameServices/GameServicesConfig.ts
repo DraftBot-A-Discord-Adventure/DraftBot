@@ -1,6 +1,10 @@
 import Constants from "expo-constants";
-import {GAME_ACHIEVEMENTS, GameAchievementId} from "./Achievements";
-import {GAME_CENTER_MODES, GameCenterMode, GAME_SERVICE_PROVIDERS, GameServiceProvider} from "./GameServicesTypes";
+import {
+	GAME_ACHIEVEMENTS, GameAchievementId
+} from "./Achievements";
+import {
+	GAME_CENTER_MODES, GameCenterMode, GAME_SERVICE_PROVIDERS, GameServiceProvider
+} from "./GameServicesTypes";
 
 export type GameServicesConfiguration = {
 	appId: string;
@@ -27,7 +31,7 @@ export function gameServicesConfiguration(provider: GameServiceProvider): GameSe
 	return {
 		appId: provider === GAME_SERVICE_PROVIDERS.PLAY_GAMES ? identifier(config.appId) : "",
 		gameCenterMode: gameCenterMode(config.mode),
-		achievements: {[GAME_ACHIEVEMENTS.PVP_FIGHT_COMPLETED]: identifier(config.pvpAchievementId)},
+		achievements: { [GAME_ACHIEVEMENTS.PVP_FIGHT_COMPLETED]: identifier(config.pvpAchievementId) },
 		topweekLeaderboardId: identifier(config.topweekLeaderboardId)
 	};
 }

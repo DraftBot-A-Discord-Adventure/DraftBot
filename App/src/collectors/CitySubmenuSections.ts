@@ -1,6 +1,10 @@
-import {CITY_REACTION_KINDS, CityMobileSnapshot} from "ws-packets/src/fromServer/collectors";
-import {i18n} from "@/src/translations/i18n";
-import type {CityEntry, CityListItem, CitySubmenu, CitySubmenuSection} from "@/src/collectors/CityCollector";
+import {
+	CITY_REACTION_KINDS, CityMobileSnapshot
+} from "ws-packets/src/fromServer/collectors";
+import { i18n } from "@/src/translations/i18n";
+import type {
+	CityEntry, CityListItem, CitySubmenu, CitySubmenuSection
+} from "@/src/collectors/CityCollector";
 
 export type SubmenuDependencies = {
 	homeFeatureItems: (snapshot: CityMobileSnapshot | undefined) => CityListItem[];
@@ -8,13 +12,17 @@ export type SubmenuDependencies = {
 	enchantmentCatalogItems: () => CityListItem[];
 };
 
-const reactionItems = (entries: CityEntry[]): CityListItem[] => entries.map(entry => ({kind: "reaction" as const, entry}));
-const section = (titleKey: string, items: CityListItem[]): CitySubmenuSection => ({title: i18n.t(titleKey), items});
+const reactionItems = (entries: CityEntry[]): CityListItem[] => entries.map(entry => ({
+	kind: "reaction" as const, entry
+}));
+const section = (titleKey: string, items: CityListItem[]): CitySubmenuSection => ({
+	title: i18n.t(titleKey), items
+});
 
 function innSections(entries: CityEntry[]): CitySubmenuSection[] {
 	return [
 		section("app:city.titles.meals", reactionItems(entries.filter(entry => entry.reaction.type === CITY_REACTION_KINDS.INN_MEAL))),
-		section("app:city.titles.rooms", reactionItems(entries.filter(entry => entry.reaction.type === CITY_REACTION_KINDS.INN_ROOM)) )
+		section("app:city.titles.rooms", reactionItems(entries.filter(entry => entry.reaction.type === CITY_REACTION_KINDS.INN_ROOM)))
 	];
 }
 
@@ -38,8 +46,12 @@ function groupedTitleKey(view: CitySubmenu, type: string): string {
 			? "app:city.titles.apartments"
 			: type === CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY ? "app:city.labels.guildDomain" : "app:city.titles.yourHome";
 	}
-	if (view === "blacksmith") return type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT ? "app:city.titles.disenchant" : "app:city.titles.equipment";
-	if (view === "scrapDealer") return "app:city.titles.recycling";
+	if (view === "blacksmith") {
+		return type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT ? "app:city.titles.disenchant" : "app:city.titles.equipment";
+	}
+	if (view === "scrapDealer") {
+		return "app:city.titles.recycling";
+	}
 	return "app:city.titles.actions";
 }
 
@@ -47,7 +59,9 @@ function groupedSections(view: CitySubmenu, entries: CityEntry[], pinned: Record
 	const groups: Record<string, CityListItem[]> = Object.fromEntries(Object.entries(pinned).map(([titleKey, items]) => [titleKey, [...items]]));
 	for (const entry of entries) {
 		const titleKey = groupedTitleKey(view, entry.reaction.type);
-		(groups[titleKey] ??= []).push({kind: "reaction", entry});
+		(groups[titleKey] ??= []).push({
+			kind: "reaction", entry
+		});
 	}
 	return Object.entries(groups).map(([titleKey, items]) => section(titleKey, items));
 }
@@ -58,30 +72,38 @@ function homeUpgradeLimit(snapshot: CityMobileSnapshot | undefined): CityListIte
 	const level = snapshot?.home?.owned?.level;
 	const reason = manage?.requiredPlayerLevelForUpgrade === undefined
 		? manage?.isMaxLevel ? i18n.t("app:city.locks.homeMaxLevel") : undefined
-		: i18n.t("app:city.locks.playerLevel", {level: manage.requiredPlayerLevelForUpgrade});
-	if (!reason) return [];
+		: i18n.t("app:city.locks.playerLevel", { level: manage.requiredPlayerLevelForUpgrade });
+	if (!reason) {
+		return [];
+	}
 	const nextLevel = level === undefined || manage?.isMaxLevel ? level : level + 1;
-	return [{
-		kind: "info",
-		key: "home-upgrade-limit",
-		iconPath: nextLevel === undefined ? "city.manageHome" : `city.home.${nextLevel}`,
-		title: i18n.t("app:city.reactions.upgradeHome"),
-		subtitle: i18n.t("app:city.subtitles.upgradeHome"),
-		lock: {reason}
-	}];
+	return [
+		{
+			kind: "info",
+			key: "home-upgrade-limit",
+			iconPath: nextLevel === undefined ? "city.manageHome" : `city.home.${nextLevel}`,
+			title: i18n.t("app:city.reactions.upgradeHome"),
+			subtitle: i18n.t("app:city.subtitles.upgradeHome"),
+			lock: { reason }
+		}
+	];
 }
 
 /** An apartment a beginner cannot buy yet: shown with its reason, so the notary teaches it exists. */
 function apartmentRequiringHome(snapshot: CityMobileSnapshot | undefined): CityListItem[] {
-	if (snapshot?.apartmentNotary?.requiresHomePrice === undefined) return [];
-	return [{
-		kind: "info",
-		key: "apartment-requires-home",
-		iconPath: "city.apartmentNotary.buy",
-		title: i18n.t("commands:report.city.homes.apartmentNotary.buyButtonLabel"),
-		subtitle: i18n.t("app:city.subtitles.buyApartmentFoothold"),
-		lock: {reason: i18n.t("app:city.locks.apartmentRequiresHome")}
-	}];
+	if (snapshot?.apartmentNotary?.requiresHomePrice === undefined) {
+		return [];
+	}
+	return [
+		{
+			kind: "info",
+			key: "apartment-requires-home",
+			iconPath: "city.apartmentNotary.buy",
+			title: i18n.t("commands:report.city.homes.apartmentNotary.buyButtonLabel"),
+			subtitle: i18n.t("app:city.subtitles.buyApartmentFoothold"),
+			lock: { reason: i18n.t("app:city.locks.apartmentRequiresHome") }
+		}
+	];
 }
 
 export function submenuSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityMobileSnapshot | undefined, deps: SubmenuDependencies): CitySubmenuSection[] {

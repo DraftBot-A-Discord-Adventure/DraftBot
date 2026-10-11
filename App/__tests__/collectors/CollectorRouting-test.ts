@@ -1,9 +1,20 @@
-import {ReactionCollectorCreation} from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import {BIG_EVENT_DATA_KINDS, CITY_DATA_KINDS, ITEM_DATA_KINDS, SMALL_EVENT_DATA_KINDS} from "ws-packets/src/fromServer/collectors";
-import {holdsAdventureTab, isAdventureCollector, isAdventureScreenCollector, isFoundItemCollector} from "@/src/collectors/CollectorRouting";
+import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
+import {
+	BIG_EVENT_DATA_KINDS, CITY_DATA_KINDS, ITEM_DATA_KINDS, SMALL_EVENT_DATA_KINDS
+} from "ws-packets/src/fromServer/collectors";
+import {
+	holdsAdventureTab, isAdventureCollector, isAdventureScreenCollector, isFoundItemCollector
+} from "@/src/collectors/CollectorRouting";
 
 function collectorOf(type: string): ReactionCollectorCreation {
-	return {id: type, endTime: Date.now() + 60_000, data: {type, data: {}}, reactions: []} as ReactionCollectorCreation;
+	return {
+		id: type,
+		endTime: Date.now() + 60_000,
+		data: {
+			type, data: {}
+		},
+		reactions: []
+	} as ReactionCollectorCreation;
 }
 
 describe("CollectorRouting", () => {

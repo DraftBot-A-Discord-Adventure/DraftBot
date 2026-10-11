@@ -1,9 +1,9 @@
-import {GameClient} from "@/src/networking/GameClient";
-import {WebSocketClient} from "@/src/networking/WebSocketClient";
-import {AppConstants} from "@/src/AppConstants";
-import {FromClientPacket} from "ws-packets/src/fromClient/FromClientPacket";
-import {FromServerPacket} from "ws-packets/src/fromServer/FromServerPacket";
-import {CommandRejected} from "ws-packets/src/fromServer/common/CommandRejected";
+import { GameClient } from "@/src/networking/GameClient";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { AppConstants } from "@/src/AppConstants";
+import { FromClientPacket } from "ws-packets/src/fromClient/FromClientPacket";
+import { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
+import { CommandRejected } from "ws-packets/src/fromServer/common/CommandRejected";
 
 class TestRequest extends FromClientPacket {
 	static readonly wireName = "TestRequest";
@@ -25,12 +25,12 @@ describe("GameClient", () => {
 	it("resolves the expected answer", async () => {
 		const request = new TestRequest();
 		const sendPacket = jest.spyOn(WebSocketClient.getInstance(), "sendPacket").mockImplementation((_packet, handlers) => {
-			handlers[TestResponse.wireName]({value: "ok"} as never);
+			handlers[TestResponse.wireName]({ value: "ok" } as never);
 		});
 
 		await expect(GameClient.request(request, TestResponse)).resolves.toEqual({
 			kind: "answer",
-			packet: {value: "ok"}
+			packet: { value: "ok" }
 		});
 		expect(sendPacket).toHaveBeenCalledWith(request, expect.any(Object), expect.objectContaining({
 			time: AppConstants.PACKET_TIMEOUT
@@ -38,7 +38,7 @@ describe("GameClient", () => {
 	});
 
 	it("turns a legitimate alternative response into a named answer that keeps its content", async () => {
-		const alternative = {needFight: 2};
+		const alternative = { needFight: 2 };
 		jest.spyOn(WebSocketClient.getInstance(), "sendPacket").mockImplementation((_packet, handlers) => {
 			handlers[TestAlternative.wireName](alternative as never);
 		});
@@ -55,13 +55,20 @@ describe("GameClient", () => {
 			timeout?.callback?.();
 		});
 
-		await expect(GameClient.request(new TestRequest(), TestResponse)).resolves.toEqual({kind: "timeout"});
+		await expect(GameClient.request(new TestRequest(), TestResponse)).resolves.toEqual({ kind: "timeout" });
 	});
 
 	it("returns a typed server refusal without waiting for a timeout", async () => {
 		jest.spyOn(WebSocketClient.getInstance(), "sendPacket").mockImplementation((_packet, handlers) => {
-			handlers[CommandRejected.wireName]({rejection: {type: "level", requiredLevel: 10}} as never);
+			handlers[CommandRejected.wireName]({ rejection: {
+				type: "level", requiredLevel: 10
+			} } as never);
 		});
-		await expect(GameClient.request(new TestRequest(), TestResponse)).resolves.toEqual({kind: "rejected", packet: {rejection: {type: "level", requiredLevel: 10}}});
+		await expect(GameClient.request(new TestRequest(), TestResponse)).resolves.toEqual({
+			kind: "rejected",
+			packet: { rejection: {
+				type: "level", requiredLevel: 10
+			} }
+		});
 	});
 });

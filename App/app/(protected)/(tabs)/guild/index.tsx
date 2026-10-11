@@ -1,11 +1,11 @@
-import {ReactNode} from "react";
-import {useRouter} from "expo-router";
-import {GAME_ENTITIES} from "@/src/store/GameEntities";
-import {useOwnGuild} from "@/src/store/useGuild";
-import {GameQueryContent} from "@/src/components/GameQueryContent";
-import {GuildOverview} from "@/src/components/Guild";
-import {GuildAbsent} from "@/src/components/GuildAbsent";
-import {Screen} from "@/src/design/Primitives";
+import { ReactNode } from "react";
+import { useRouter } from "expo-router";
+import { GAME_ENTITIES } from "@/src/store/GameEntities";
+import { useOwnGuild } from "@/src/store/useGuild";
+import { GameQueryContent } from "@/src/components/GameQueryContent";
+import { GuildOverview } from "@/src/components/Guild";
+import { GuildAbsent } from "@/src/components/GuildAbsent";
+import { Screen } from "@/src/design/Primitives";
 
 export default function Guild(): ReactNode {
 	const router = useRouter();

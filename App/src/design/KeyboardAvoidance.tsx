@@ -4,7 +4,7 @@ import {
 import {
 	Keyboard, NativeScrollEvent, NativeSyntheticEvent, Platform, ScrollView, TextInput, View
 } from "react-native";
-import {Theme} from "@/src/design/Theme";
+import { Theme } from "@/src/design/Theme";
 
 /** Space kept between what must stay in sight and the top of the keyboard. */
 const REVEAL_MARGIN = Theme.spacing.lg;
@@ -13,10 +13,14 @@ const REVEAL_MARGIN = Theme.spacing.lg;
 const SETTLE_DELAY_MS = 80;
 
 /** A vertical span in window coordinates. */
-export type WindowSpan = {top: number; bottom: number};
+export type WindowSpan = {
+	top: number; bottom: number;
+};
 
 type Measurable = Pick<View, "measureInWindow">;
-type RevealRequest = {field: Measurable; form: Measurable};
+type RevealRequest = {
+	field: Measurable; form: Measurable;
+};
 type Reveal = (request: RevealRequest) => void;
 
 const RevealContext = createContext<Reveal | null>(null);
@@ -34,18 +38,22 @@ export function revealOffset(form: WindowSpan, field: WindowSpan, visible: Windo
 
 function spanOf(target: Measurable): Promise<WindowSpan> {
 	return new Promise(resolve => {
-		target.measureInWindow((_x, y, _width, height) => resolve({top: y, bottom: y + height}));
+		target.measureInWindow((_x, y, _width, height) => resolve({
+			top: y, bottom: y + height
+		}));
 	});
 }
 
 /** What must stay in sight together while one of its fields is typed in: the fields and the action that sends them. */
-export function FormBlock({children}: {children: ReactNode}): ReactNode {
+export function FormBlock({ children }: { children: ReactNode }): ReactNode {
 	const ref = useRef<View>(null);
 	return <FormContext.Provider value={ref}><View ref={ref}>{children}</View></FormContext.Provider>;
 }
 
 /** Asks the screen, once focused, to bring the field's form above the keyboard; alone, the field and its hint. */
-export function useRevealOnFocus(): {inputRef: RefObject<TextInput | null>; rootRef: RefObject<View | null>; onFocus: () => void} {
+export function useRevealOnFocus(): {
+	inputRef: RefObject<TextInput | null>; rootRef: RefObject<View | null>; onFocus: () => void;
+} {
 	const reveal = useContext(RevealContext);
 	const form = useContext(FormContext);
 	const inputRef = useRef<TextInput>(null);
@@ -53,10 +61,16 @@ export function useRevealOnFocus(): {inputRef: RefObject<TextInput | null>; root
 	const onFocus = (): void => {
 		const field = inputRef.current;
 		const block = form?.current ?? rootRef.current;
-		if (!field || !block) return;
-		reveal?.({field, form: block});
+		if (!field || !block) {
+			return;
+		}
+		reveal?.({
+			field, form: block
+		});
 	};
-	return {inputRef, rootRef, onFocus};
+	return {
+		inputRef, rootRef, onFocus
+	};
 }
 
 type KeyboardAvoidance = {
@@ -71,10 +85,26 @@ type KeyboardAvoidance = {
 /** Scrolls just enough to bring the requested form above the keyboard. */
 async function scrollFormIntoSight(scrollView: ScrollView, target: RevealRequest, keyboardTop: number, offset: number): Promise<void> {
 	const scroll = scrollView.getNativeScrollRef();
-	if (!scroll) return;
-	const [viewport, form, field] = await Promise.all([spanOf(scroll), spanOf(target.form), spanOf(target.field)]);
-	const delta = revealOffset(form, field, {top: viewport.top, bottom: Math.min(viewport.bottom, keyboardTop)});
-	if (delta > 0) scrollView.scrollTo({y: offset + delta, animated: true});
+	if (!scroll) {
+		return;
+	}
+	const [
+		viewport,
+		form,
+		field
+	] = await Promise.all([
+		spanOf(scroll),
+		spanOf(target.form),
+		spanOf(target.field)
+	]);
+	const delta = revealOffset(form, field, {
+		top: viewport.top, bottom: Math.min(viewport.bottom, keyboardTop)
+	});
+	if (delta > 0) {
+		scrollView.scrollTo({
+			y: offset + delta, animated: true
+		});
+	}
 }
 
 /**
@@ -89,7 +119,7 @@ function useKeyboardFrame(scrollRef: RefObject<ScrollView | null>, keyboardTop: 
 			applied.current = value;
 			setClearance(value);
 		};
-		const shown = Keyboard.addListener("keyboardDidShow", ({endCoordinates}) => {
+		const shown = Keyboard.addListener("keyboardDidShow", ({ endCoordinates }) => {
 			keyboardTop.current = endCoordinates.screenY;
 			if (Platform.OS === "android") {
 				scrollRef.current?.getNativeScrollRef()?.measureInWindow((_x, y, _width, height) => {
@@ -102,13 +132,20 @@ function useKeyboardFrame(scrollRef: RefObject<ScrollView | null>, keyboardTop: 
 		const hidden = Keyboard.addListener("keyboardDidHide", () => {
 			keyboardTop.current = null;
 			onHidden();
-			if (Platform.OS === "android") apply(0);
+			if (Platform.OS === "android") {
+				apply(0);
+			}
 		});
 		return (): void => {
 			shown.remove();
 			hidden.remove();
 		};
-	}, [scrollRef, keyboardTop, onShown, onHidden]);
+	}, [
+		scrollRef,
+		keyboardTop,
+		onShown,
+		onHidden
+	]);
 	return clearance;
 }
 
@@ -126,13 +163,19 @@ export function useKeyboardAvoidance(): KeyboardAvoidance {
 	const keyboardTop = useRef<number | null>(null);
 
 	const settleThenReveal = useCallback((): void => {
-		if (timer.current) clearTimeout(timer.current);
+		if (timer.current) {
+			clearTimeout(timer.current);
+		}
 		timer.current = setTimeout(() => {
 			const target = request.current;
 			const top = keyboardTop.current;
 			const view = scrollRef.current;
-			if (!target || top === null) return;
-			if (view) scrollFormIntoSight(view, target, top, offset.current).catch(console.warn);
+			if (!target || top === null) {
+				return;
+			}
+			if (view) {
+				scrollFormIntoSight(view, target, top, offset.current).catch(console.warn);
+			}
 		}, SETTLE_DELAY_MS);
 	}, []);
 	const forget = useCallback((): void => {
@@ -141,24 +184,35 @@ export function useKeyboardAvoidance(): KeyboardAvoidance {
 	const clearance = useKeyboardFrame(scrollRef, keyboardTop, settleThenReveal, forget);
 
 	useEffect(() => (): void => {
-		if (timer.current) clearTimeout(timer.current);
+		if (timer.current) {
+			clearTimeout(timer.current);
+		}
 	}, []);
 
 	const reveal = useCallback((next: RevealRequest): void => {
 		request.current = next;
+
 		// A field focused while the keyboard is already up gets no new keyboard event.
-		if (keyboardTop.current !== null) settleThenReveal();
+		if (keyboardTop.current !== null) {
+			settleThenReveal();
+		}
 	}, [settleThenReveal]);
 
 	const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>): void => {
 		offset.current = event.nativeEvent.contentOffset.y;
 	}, []);
 
-	return {scrollRef, clearance, onScroll, reveal};
+	return {
+		scrollRef, clearance, onScroll, reveal
+	};
 }
 
 /** Lets the fields of a scroll view ask it to keep their form above the keyboard. */
-export function KeyboardRevealProvider({reveal, children}: {reveal: Reveal; children: ReactNode}): ReactNode {
+export function KeyboardRevealProvider({
+	reveal, children
+}: {
+	reveal: Reveal; children: ReactNode;
+}): ReactNode {
 	return <RevealContext.Provider value={reveal}>{children}</RevealContext.Provider>;
 }
 

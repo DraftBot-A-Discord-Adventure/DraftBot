@@ -1,5 +1,5 @@
-import type {FromServerPacket} from "ws-packets/src/fromServer/FromServerPacket";
-import {PushedPacketRegistry} from "@/src/networking/PushedPacketRegistry";
+import type { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
+import { PushedPacketRegistry } from "@/src/networking/PushedPacketRegistry";
 
 type TestPushedPacket = FromServerPacket & { value: string };
 
@@ -8,14 +8,14 @@ describe("PushedPacketRegistry", () => {
 		const registry = new PushedPacketRegistry();
 		const firstHandler = jest.fn();
 		const secondHandler = jest.fn();
-		const packet = {value: "hello"} as TestPushedPacket;
+		const packet = { value: "hello" } as TestPushedPacket;
 
 		const unregisterFirst = registry.register("TestPushedPacket", firstHandler);
 		registry.register("TestPushedPacket", secondHandler);
 
 		expect(registry.dispatch("TestPushedPacket", packet)).toBe(true);
-		expect(firstHandler).toHaveBeenCalledWith(packet, {answersRequest: false});
-		expect(secondHandler).toHaveBeenCalledWith(packet, {answersRequest: false});
+		expect(firstHandler).toHaveBeenCalledWith(packet, { answersRequest: false });
+		expect(secondHandler).toHaveBeenCalledWith(packet, { answersRequest: false });
 
 		unregisterFirst();
 		registry.dispatch("TestPushedPacket", packet);

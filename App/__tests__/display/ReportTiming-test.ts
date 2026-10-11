@@ -1,10 +1,12 @@
-import {ReportTravelSummaryRes} from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
-import {reportWaitProgress} from "@/src/display/ReportTiming";
+import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
+import { reportWaitProgress } from "@/src/display/ReportTiming";
 
 const MINUTE = 60_000;
 
 function travel(values: Partial<ReportTravelSummaryRes>): ReportTravelSummaryRes {
-	return {startTime: 0, arriveTime: 100 * MINUTE, lastStopTime: 20 * MINUTE, nextStopTime: 30 * MINUTE, isInCity: false, ...values} as ReportTravelSummaryRes;
+	return {
+		startTime: 0, arriveTime: 100 * MINUTE, lastStopTime: 20 * MINUTE, nextStopTime: 30 * MINUTE, isInCity: false, ...values
+	} as ReportTravelSummaryRes;
 }
 
 describe("reportWaitProgress", () => {
@@ -13,11 +15,13 @@ describe("reportWaitProgress", () => {
 	});
 
 	it("waits for the arrival when it comes before the next stop", () => {
-		expect(reportWaitProgress(travel({arriveTime: 24 * MINUTE}), 22 * MINUTE)).toBe(0.5);
+		expect(reportWaitProgress(travel({ arriveTime: 24 * MINUTE }), 22 * MINUTE)).toBe(0.5);
 	});
 
 	it("counts an alteration's wait from when it began", () => {
-		const altered = travel({effect: "sleeping", effectEndTime: 50 * MINUTE, effectDuration: 40 * MINUTE, lastStopTime: 50 * MINUTE, nextStopTime: 60 * MINUTE});
+		const altered = travel({
+			effect: "sleeping", effectEndTime: 50 * MINUTE, effectDuration: 40 * MINUTE, lastStopTime: 50 * MINUTE, nextStopTime: 60 * MINUTE
+		});
 
 		expect(reportWaitProgress(altered, 35 * MINUTE)).toBe(0.5);
 	});
@@ -28,6 +32,6 @@ describe("reportWaitProgress", () => {
 	});
 
 	it("has nothing to follow in a city without alteration", () => {
-		expect(reportWaitProgress(travel({isInCity: true}), 25 * MINUTE)).toBeUndefined();
+		expect(reportWaitProgress(travel({ isInCity: true }), 25 * MINUTE)).toBeUndefined();
 	});
 });

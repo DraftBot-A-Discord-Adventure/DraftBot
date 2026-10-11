@@ -8,9 +8,11 @@ import {
 	readAsStringAsync,
 	writeAsStringAsync
 } from "expo-file-system/legacy";
-import {RestApi} from "@/src/networking/RestApi";
-import {hasEveryGameRule} from "@/src/rules/GameRules";
-import type {AssetsBundle, AssetsBundleLanguage} from "../../../WsPackets/src/objects/AssetsBundle";
+import { RestApi } from "@/src/networking/RestApi";
+import { hasEveryGameRule } from "@/src/rules/GameRules";
+import type {
+	AssetsBundle, AssetsBundleLanguage
+} from "../../../WsPackets/src/objects/AssetsBundle";
 
 export interface CachedBundle {
 	etag: string;
@@ -36,6 +38,7 @@ function isAssetsBundle(value: unknown, language: AssetsBundleLanguage): value i
 
 export class AssetsManager {
 	private static legacyCacheRemoved = false;
+
 	private static readonly activeSyncs = new Map<AssetsBundleLanguage, Promise<CachedBundle>>();
 
 	static async loadCachedBundle(language: AssetsBundleLanguage): Promise<CachedBundle | null> {
@@ -45,7 +48,7 @@ export class AssetsManager {
 
 		if (!this.legacyCacheRemoved) {
 			this.legacyCacheRemoved = true;
-			await deleteAsync(`${documentDirectory}assets`, {idempotent: true}).catch(error => {
+			await deleteAsync(`${documentDirectory}assets`, { idempotent: true }).catch(error => {
 				console.warn("Failed to remove legacy assets cache:", error);
 			});
 		}
@@ -58,14 +61,16 @@ export class AssetsManager {
 			}
 			const parsed: unknown = JSON.parse(await readAsStringAsync(cacheFile));
 			if (isRecord(parsed) && typeof parsed.etag === "string" && isAssetsBundle(parsed.bundle, language)) {
-				return {etag: parsed.etag, bundle: parsed.bundle};
+				return {
+					etag: parsed.etag, bundle: parsed.bundle
+				};
 			}
 		}
 		catch (error) {
 			console.warn("Ignoring invalid cached translation bundle:", error);
 		}
 
-		await deleteAsync(cacheFile, {idempotent: true}).catch(() => undefined);
+		await deleteAsync(cacheFile, { idempotent: true }).catch(() => undefined);
 		return null;
 	}
 
@@ -101,7 +106,9 @@ export class AssetsManager {
 				if (!isAssetsBundle(response.bundle, language)) {
 					throw new Error("Server returned an invalid translation bundle.");
 				}
-				const nextBundle = {bundle: response.bundle, etag: response.etag};
+				const nextBundle = {
+					bundle: response.bundle, etag: response.etag
+				};
 				webCache.set(language, nextBundle);
 				await this.writeCachedBundle(nextBundle, language).catch(error => {
 					console.warn("Failed to persist translation bundle cache:", error);
@@ -125,13 +132,15 @@ export class AssetsManager {
 		const cacheDirectory = `${documentDirectory}i18n`;
 		const finalPath = `${cacheDirectory}/bundle-${language}.json`;
 		const temporaryPath = `${finalPath}.tmp`;
-		await makeDirectoryAsync(cacheDirectory, {intermediates: true});
+		await makeDirectoryAsync(cacheDirectory, { intermediates: true });
 		try {
-			await writeAsStringAsync(temporaryPath, JSON.stringify(cached), {encoding: EncodingType.UTF8});
-			await moveAsync({from: temporaryPath, to: finalPath});
+			await writeAsStringAsync(temporaryPath, JSON.stringify(cached), { encoding: EncodingType.UTF8 });
+			await moveAsync({
+				from: temporaryPath, to: finalPath
+			});
 		}
 		catch (error) {
-			await deleteAsync(temporaryPath, {idempotent: true}).catch(() => undefined);
+			await deleteAsync(temporaryPath, { idempotent: true }).catch(() => undefined);
 			throw error;
 		}
 	}
