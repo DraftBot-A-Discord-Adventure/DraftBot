@@ -20,7 +20,9 @@ import {
 import { HomeMenuIds } from "../HomeMenuConstants";
 
 import { DiscordMQTT } from "../../../../../bot/DiscordMQTT";
-import { makePacket } from "../../../../../../../Lib/src/packets/CrowniclesPacket";
+import {
+	CrowniclesPacket, makePacket, PacketContext
+} from "../../../../../../../Lib/src/packets/CrowniclesPacket";
 import {
 	CommandReportCookingIgniteReq,
 	CommandReportCookingIgniteRes,
@@ -49,6 +51,7 @@ import { buildCustomId } from "../../../../../utils/CustomIdUtils";
 import { buildRecipeDiscoveryMessage } from "../../../../../utils/CookingDisplayUtils";
 import { ReactionCollectorRefuseReaction } from "../../../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import type { CookingRecipeId } from "../../../../../../../Lib/src/types/CookingRecipe";
+import type { CookingCraftError } from "../../../../../../../Lib/src/types/CookingTypes";
 
 /**
  * Cosmetic cache of the last menu state known to the client.
@@ -904,6 +907,10 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			}
 		}
 
+		this.releaseCookingSession(ctx);
+	}
+
+	private releaseCookingSession(ctx: HomeFeatureHandlerContext): void {
 		this.sessions.delete(ctx.user.id);
 
 		const reactionIndex = ctx.packet.reactions.findIndex(
@@ -912,6 +919,34 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		if (reactionIndex !== -1) {
 			DiscordCollectorUtils.sendReaction(ctx.packet, ctx.context, ctx.context.keycloakId!, null, reactionIndex);
 		}
+	}
+
+	/**
+	 * Nothing was consumed and the furnace is still lit: show the refreshed recipes so the player can pick again
+	 */
+	private async showBlockedCraft(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, error: CookingCraftError): Promise<void> {
+		// CookingCraftError values are themselves the i18n key suffixes
+		this.registerIgnitedMenu(ctx, nestedMenus, `\n${i18n.t(`commands:report.city.homes.cooking.${error}`, { lng: ctx.lng })}`);
+		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
+	}
+
+	/**
+	 * The Core answered with something else than a craft result (e.g. an internal error): show it instead of
+	 * swallowing it, and close the furnace like after a craft since its state is unknown
+	 */
+	private async handleUnexpectedCraftAnswer(
+		ctx: HomeFeatureHandlerContext,
+		nestedMenus: CrowniclesNestedMenus,
+		answer: {
+			context: PacketContext;
+			packetName: string;
+			packet: CrowniclesPacket;
+		}
+	): Promise<void> {
+		await DiscordMQTT.packetListener.getListener(answer.packetName)?.(answer.context, answer.packet);
+		this.registerIgnitedMenu(ctx, nestedMenus, "", true);
+		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
+		this.releaseCookingSession(ctx);
 	}
 
 	/**
@@ -933,21 +968,30 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			await DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse(
 				ctx.context,
 				makePacket(CommandReportCookingCraftReq, craftSelection),
-				async (_responseContext, packetName, responsePacket) => {
+				async (responseContext, packetName, responsePacket) => {
 					releaseCraft();
 					if (packetName !== CommandReportCookingCraftRes.name) {
+						await this.handleUnexpectedCraftAnswer(ctx, nestedMenus, {
+							context: responseContext,
+							packetName,
+							packet: responsePacket
+						});
 						return;
 					}
 
 					const response = responsePacket as CommandReportCookingCraftRes;
 					this.applySnapshot(ctx, response.menu);
+					if (response.error) {
+						await this.showBlockedCraft(ctx, nestedMenus, response.error);
+						return;
+					}
 
-					const {
-						craftResult,
-						levelUpEmbed
-					} = this.buildCraftResultMessages(response, ctx);
-
-					await this.sendCraftFollowup(ctx, nestedMenus, craftResult, levelUpEmbed);
+					await this.sendCraftFollowup(
+						ctx,
+						nestedMenus,
+						this.buildCraftResultMessage(response, ctx),
+						this.buildLevelUpEmbed(response, ctx)
+					);
 				},
 				{ onTimeout: releaseCraft }
 			);
@@ -959,28 +1003,13 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
-	 * Build the craft result notification message and optional level-up embed
+	 * Build the craft result notification message
 	 */
-	private buildCraftResultMessages(response: CommandReportCookingCraftRes, ctx: HomeFeatureHandlerContext): {
-		craftResult: string;
-		levelUpEmbed?: CrowniclesEmbed;
-	} {
-		if (response.error) {
-			// CookingCraftError values are themselves the i18n key suffixes
-			return { craftResult: i18n.t(`commands:report.city.homes.cooking.${response.error}`, { lng: ctx.lng }) };
-		}
-
-		let message = this.buildCraftBaseMessage(response, ctx);
-		message += this.buildCraftOutputMessage(response, ctx);
-		message += this.buildDiscoveredRecipesMessage(response, ctx);
-		if (response.masterChefBadgeEarned) {
-			message += i18n.t("commands:report.city.homes.cooking.masterChefBadgeEarned", { lng: ctx.lng });
-		}
-
-		return {
-			craftResult: message,
-			levelUpEmbed: this.buildLevelUpEmbed(response, ctx)
-		};
+	private buildCraftResultMessage(response: CommandReportCookingCraftRes, ctx: HomeFeatureHandlerContext): string {
+		return this.buildCraftBaseMessage(response, ctx)
+			+ this.buildCraftOutputMessage(response, ctx)
+			+ this.buildDiscoveredRecipesMessage(response, ctx)
+			+ (response.masterChefBadgeEarned ? i18n.t("commands:report.city.homes.cooking.masterChefBadgeEarned", { lng: ctx.lng }) : "");
 	}
 
 	/**

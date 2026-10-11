@@ -39,6 +39,9 @@ vi.mock("../../../Discord/src/bot/DiscordMQTT", () => ({
 	DiscordMQTT: {
 		asyncPacketSender: {
 			sendPacketAndHandleResponse: vi.fn()
+		},
+		packetListener: {
+			getListener: vi.fn()
 		}
 	}
 }));
@@ -105,6 +108,8 @@ import {
 import { CookingCraftErrors, CookingSlotData } from "../../../Lib/src/types/CookingTypes";
 import { CookingOutputType, RecipeType } from "../../../Lib/src/constants/CookingConstants";
 import { ReactionCollectorHomeMenuReaction } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import { ReactionCollectorRefuseReaction } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { DiscordCollectorUtils } from "../../src/utils/DiscordCollectorUtils";
 import { HomeFeatureHandlerContext } from "../../src/commands/player/report/home/HomeMenuTypes";
 
 /**
@@ -739,10 +744,10 @@ describe("CookingFeatureHandler", () => {
 				expect(nestedMenus.message.reply).toHaveBeenCalled();
 			});
 
-			it("should handle craft error response", async () => {
+			it("should keep the furnace usable with refreshed recipes when a craft is refused", async () => {
 				const ctx = createHandlerContext({
 					homeData: createCookingHomeData(2),
-					packet: createMockPacket([{ type: ReactionCollectorHomeMenuReaction.name }]) as HomeFeatureHandlerContext["packet"]
+					packet: createMockPacket([{ type: ReactionCollectorRefuseReaction.name }]) as HomeFeatureHandlerContext["packet"]
 				});
 				const craftValue = `${HomeMenuIds.COOKING_CRAFT_PREFIX}0:test_recipe`;
 				const interaction = createMockComponentInteraction(craftValue);
@@ -754,7 +759,7 @@ describe("CookingFeatureHandler", () => {
 				await handler.handleSubMenuSelection(ctx, craftValue, interaction as any, nestedMenus as any);
 
 				await simulateMqttResponse(CommandReportCookingCraftRes.name, {
-					error: CookingCraftErrors.INVENTORY_FULL,
+					error: CookingCraftErrors.CRAFT_UNAVAILABLE,
 					recipeId: "testRecipe",
 					cookingXpGained: 0,
 					success: false,
@@ -762,14 +767,38 @@ describe("CookingFeatureHandler", () => {
 					menu: {
 						cookingLevel: 5,
 						cookingGrade: "apprentice",
-						currentSlots: [createSlotWithRecipe()],
+						currentSlots: [createSlotWithRecipe({ recipeId: "refreshed_recipe" })],
 						isIgnited: true
 					}
 				} as CommandReportCookingCraftRes);
 
-				expect(nestedMenus.message.reply).toHaveBeenCalled();
-				const replyContent = (nestedMenus.message.reply as ReturnType<typeof vi.fn>).mock.calls[0][0];
-				expect(replyContent.content).toContain("inventoryFull");
+				const registeredMenu = (nestedMenus.registerMenu as ReturnType<typeof vi.fn>).mock.calls.at(-1)![1];
+				const renderedMenu = JSON.stringify(registeredMenu.containers[0].toJSON());
+				expect(registeredMenu.createCollector).toEqual(expect.any(Function));
+				expect(renderedMenu).toContain("craftUnavailable");
+				expect(renderedMenu).toContain("refreshed_recipe");
+				expect(nestedMenus.message.reply).not.toHaveBeenCalled();
+				expect(DiscordCollectorUtils.sendReaction).not.toHaveBeenCalled();
+			});
+
+			it("should show an unexpected answer instead of swallowing it and close the furnace", async () => {
+				const ctx = createHandlerContext({
+					homeData: createCookingHomeData(2),
+					packet: createMockPacket([{ type: ReactionCollectorRefuseReaction.name }]) as HomeFeatureHandlerContext["packet"]
+				});
+				const craftValue = `${HomeMenuIds.COOKING_CRAFT_PREFIX}0:test_recipe`;
+				const nestedMenus = createMockNestedMenus();
+				const errorListener = vi.fn().mockResolvedValue(undefined);
+				(DiscordMQTT.packetListener.getListener as ReturnType<typeof vi.fn>).mockReturnValue(errorListener);
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				await simulateMqttResponse("ErrorInternalPacket", { reason: "boom" });
+
+				expect(DiscordMQTT.packetListener.getListener).toHaveBeenCalledWith("ErrorInternalPacket");
+				expect(errorListener).toHaveBeenCalledOnce();
+				const registeredMenu = (nestedMenus.registerMenu as ReturnType<typeof vi.fn>).mock.calls.at(-1)![1];
+				expect(registeredMenu.createCollector).toBeUndefined();
+				expect(DiscordCollectorUtils.sendReaction).toHaveBeenCalled();
 			});
 
 			it("should handle craft with level up and grade change", async () => {
