@@ -135,6 +135,9 @@ function buildParticipationField(packet: StatusPacket, lng: Language): EmbedFiel
 			rank: packet.rank ?? i18n.t("commands:tournament.unranked", { lng }),
 			categoryParticipantCount: packet.categoryCounts[packet.category],
 			totalGloryPoints: DisplayUtils.formatNumber(packet.totalGloryPoints ?? 0, lng),
+			lateRegistration: packet.lateRegistration
+				? i18n.t("commands:tournament.participationField.lateRegistration", { lng })
+				: "",
 			record
 		}),
 		inline: false

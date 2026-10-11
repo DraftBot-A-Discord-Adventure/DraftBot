@@ -2892,7 +2892,8 @@
     },
     "participationField": {
       "fieldName": "Votre participation :",
-      "fieldValue": "{{category}} | {emote:announcements.trophy} {{rank}} / {{categoryParticipantCount, number}} | {emote:unitValues.glory} **{{totalGloryPoints}}**{{record}}",
+      "fieldValue": "{{category}} | {emote:announcements.trophy} {{rank}} / {{categoryParticipantCount, number}} | {emote:unitValues.glory} **{{totalGloryPoints}}**{{lateRegistration}}{{record}}",
+      "lateRegistration": " · inscription tardive",
       "record": "\nVictoires : **{{wins}}** · Défaites : **{{losses}}** · Égalités : **{{draws}}**"
     },
     "notRegisteredField": {

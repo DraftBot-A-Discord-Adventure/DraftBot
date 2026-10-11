@@ -21,7 +21,7 @@ import { TournamentConstants } from "../../../../Lib/src/constants/TournamentCon
 import Player from "../../core/database/game/models/Player";
 import type Tournament from "../../core/database/game/models/Tournament";
 import {
-	adminCommand, commandRequires, CommandUtils
+	adminCommand, CommandRequirements, commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import { TournamentDomainError } from "../../core/tournaments/TournamentErrors";
 import {
@@ -86,7 +86,7 @@ async function pushStatus(
 	}));
 }
 
-const PLAYER_TOURNAMENT_REQUIREMENTS: Parameters<typeof commandRequires>[1] = {
+const PLAYER_TOURNAMENT_REQUIREMENTS: CommandRequirements = {
 	notBlocked: true,
 	level: TournamentConstants.MINIMUM_PLAYER_LEVEL,
 	whereAllowed: CommandUtils.WHERE.EVERYWHERE,

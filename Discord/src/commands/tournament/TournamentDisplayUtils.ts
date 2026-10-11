@@ -4,10 +4,11 @@ import {
 } from "../../../../Lib/src/types/Tournament";
 import { getTournamentEligibleCategories } from "../../../../Lib/src/utils/TournamentUtils";
 import { Language } from "../../../../Lib/src/Language";
+import { TournamentErrorCode } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import i18n from "../../translations/i18n";
 
-export function getTournamentErrorDescription(errorKey: string, lng: Language): string {
-	return i18n.t(`commands:tournament.errors.${errorKey}`, {
+export function getTournamentErrorDescription(errorCode: TournamentErrorCode, lng: Language): string {
+	return i18n.t(`commands:tournament.errors.${errorCode}`, {
 		lng,
 		minLevel: TournamentConstants.MINIMUM_PLAYER_LEVEL,
 		minMembers: TournamentConstants.MINIMUM_SERVER_MEMBER_COUNT,

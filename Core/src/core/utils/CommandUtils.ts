@@ -23,7 +23,7 @@ import {
 	TournamentAccessResults, type TournamentCommandAccess
 } from "../tournaments/TournamentTypes";
 
-type Requirements = {
+export type CommandRequirements = {
 	disallowedEffects?: Effect[];
 	allowedEffects?: Effect[];
 	level?: number;
@@ -35,7 +35,7 @@ type Requirements = {
 	tournamentAccess?: TournamentCommandAccess;
 };
 
-type RequirementsWithoutBlocked = Omit<Requirements, "notBlocked">;
+type RequirementsWithoutBlocked = Omit<CommandRequirements, "notBlocked">;
 
 type RequirementCheck = () => boolean | Promise<boolean>;
 
@@ -291,7 +291,7 @@ export abstract class CommandUtils {
 		return allowed;
 	}
 
-	static verifyNotStartedWithoutPlayerInstance(requirements: Requirements, response: CrowniclesPacket[]): boolean {
+	static verifyNotStartedWithoutPlayerInstance(requirements: CommandRequirements, response: CrowniclesPacket[]): boolean {
 		if (requirements.disallowedEffects?.includes(Effect.NOT_STARTED) || (requirements.allowedEffects && !requirements.allowedEffects.includes(Effect.NOT_STARTED))
 		) {
 			response.push(makePacket(RequirementEffectPacket, {
@@ -320,7 +320,7 @@ type WithoutPlayerPacketListenerCallbackServer = (...args: any[]) => void | Prom
  * @param packet
  * @param requirements
  */
-export const commandRequires = <T extends CrowniclesPacket>(packet: PacketLike<T>, requirements: Requirements) =>
+export const commandRequires = <T extends CrowniclesPacket>(packet: PacketLike<T>, requirements: CommandRequirements) =>
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Decorator needs flexible signature to accept methods with varying parameter counts
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<any>): void => {
 		const originalMethod = descriptor.value as WithPlayerPacketListenerCallbackServer;
