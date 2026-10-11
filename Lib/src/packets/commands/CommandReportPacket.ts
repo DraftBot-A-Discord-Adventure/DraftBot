@@ -323,6 +323,10 @@ export class CommandReportUpgradeItemMissingMaterialsRes extends CrowniclesPacke
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportUpgradeItemMaxLevelRes extends CrowniclesPacket {}
 
+/** The targeted inventory slot no longer holds the equipment shown when the city menu was opened (chest, inventory switch...). */
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandReportEquipmentChangedRes extends CrowniclesPacket {}
+
 // Blacksmith packets
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

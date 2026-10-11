@@ -11,7 +11,7 @@ import {
 	ItemCategory, ItemRarity
 } from "../../constants/ItemConstants";
 import {
-	HomeFeatures, ChestSlotsPerCategory
+	HomeFeatures, ChestSlotsPerCategory, getSlotCountForCategory
 } from "../../types/HomeFeatures";
 import {
 	BuildingUpgradeEligibilityMap, DepositTierAffordability
@@ -736,11 +736,7 @@ export class ReactionCollectorCity extends ReactionCollector {
 		const homeBedReactions = isRemoteGardenView
 			? []
 			: [this.buildReaction(ReactionCollectorHomeBedReaction, {})];
-		const upgradeItemReactions = this.data.home.owned.upgradeStation?.upgradeableItems.map(item =>
-			this.buildReaction(ReactionCollectorUpgradeItemReaction, {
-				slot: item.slot,
-				itemCategory: item.category
-			})) ?? [];
+		const upgradeItemReactions = this.buildUpgradeItemReactions();
 
 		const gardenReactions = this.buildGardenReactions();
 
@@ -750,6 +746,34 @@ export class ReactionCollectorCity extends ReactionCollector {
 			...upgradeItemReactions,
 			...gardenReactions
 		];
+	}
+
+	/**
+	 * The chest can bring any equipment into any inventory slot while the city stays open,
+	 * so every reachable equipment slot gets a reaction, not only the ones upgradeable on opening.
+	 */
+	private buildUpgradeItemReactions(): {
+		type: string; data: ReactionCollectorReaction;
+	}[] {
+		const owned = this.data.home.owned;
+		if (!owned?.upgradeStation) {
+			return [];
+		}
+		const { upgradeableItems } = owned.upgradeStation;
+		const inventoryCapacity = owned.chest?.inventoryCapacity;
+
+		return [ItemCategory.WEAPON, ItemCategory.ARMOR].flatMap(itemCategory => {
+			const listedSlots = upgradeableItems.filter(item => item.category === itemCategory).map(item => item.slot);
+			const slots = inventoryCapacity
+				? Array.from({
+					length: Math.max(getSlotCountForCategory(inventoryCapacity, itemCategory), ...listedSlots.map(slot => slot + 1))
+				}, (_, slot) => slot)
+				: listedSlots;
+			return slots.map(slot => this.buildReaction(ReactionCollectorUpgradeItemReaction, {
+				slot,
+				itemCategory
+			}));
+		});
 	}
 
 	private buildGardenReactions(): {

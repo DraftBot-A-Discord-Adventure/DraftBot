@@ -703,6 +703,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 				if (ctx.homeData.upgradeStation && response.upgradeStation) {
 					ctx.homeData.upgradeStation = response.upgradeStation;
 				}
+				ctx.refreshInventoryMenus(nestedMenus);
 
 				// Re-register the chest categories menu with updated counts
 				this.refreshChestCategoriesMenu(ctx, nestedMenus);

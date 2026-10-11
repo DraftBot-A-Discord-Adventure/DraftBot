@@ -502,6 +502,7 @@ describe("ChestFeatureHandler", () => {
 			);
 
 			expect(ctx.homeData.upgradeStation).toBe(refreshedUpgradeStation);
+			expect(ctx.refreshInventoryMenus).toHaveBeenCalledWith(menus);
 		});
 
 		it("should send plant deposit MQTT packet", async () => {
