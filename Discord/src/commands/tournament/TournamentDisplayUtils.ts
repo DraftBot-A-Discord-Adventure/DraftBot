@@ -54,6 +54,11 @@ export function getTournamentThresholdsSummary(levelSettings: TournamentLevelSet
 	});
 }
 
+export type TournamentParticipantCounts = {
+	total: number;
+	byCategory: Record<TournamentCategory, number>;
+};
+
 /**
  * Progress of the registrations towards the thresholds required for the fights to start
  * @param levelSettings
@@ -62,10 +67,7 @@ export function getTournamentThresholdsSummary(levelSettings: TournamentLevelSet
  */
 export function getTournamentThresholdsProgress(
 	levelSettings: TournamentLevelSettings,
-	counts: {
-		total: number;
-		byCategory: Record<TournamentCategory, number>;
-	},
+	counts: TournamentParticipantCounts,
 	lng: Language
 ): string {
 	const lines = [

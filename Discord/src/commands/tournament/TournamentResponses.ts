@@ -22,7 +22,6 @@ import { TournamentFightRewardPacket } from "../../../../Lib/src/packets/fights/
 import {
 	escapeUsername, StringUtils
 } from "../../utils/StringUtils";
-import { DiscordCache } from "../../bot/DiscordCache";
 import { DiscordMQTT } from "../../bot/DiscordMQTT";
 import { CrowniclesPaginatedEmbed } from "../../messages/CrowniclesPaginatedEmbed";
 import { TopDataType } from "../../../../Lib/src/types/TopDataType";
@@ -30,6 +29,7 @@ import { TopTiming } from "../../../../Lib/src/types/TopTimings";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { clearTournamentChannelCache } from "./TournamentCommandGuard";
 import { displayTournamentStatus } from "./TournamentStatusDisplay";
+import { getInteraction } from "./TournamentMenuUtils";
 import {
 	announceTournamentCreation, announceTournamentResume
 } from "./TournamentAnnouncements";
@@ -38,10 +38,6 @@ import {
 } from "./TournamentDisplayUtils";
 
 const COMPONENTS_V2_FLAGS = ["IsComponentsV2"] as const;
-
-function getInteraction(context: PacketContext): CrowniclesInteraction | null {
-	return context.discord?.interaction ? DiscordCache.getInteraction(context.discord.interaction) : null;
-}
 
 type TournamentEmbedBuilder = (interaction: CrowniclesInteraction) => CrowniclesEmbed;
 
