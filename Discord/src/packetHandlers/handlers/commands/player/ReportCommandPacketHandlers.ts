@@ -42,6 +42,7 @@ import {
 	CommandReportTravelSummaryRes,
 	CommandReportUpgradeHomeRes,
 	CommandReportUpgradeItemMaxLevelRes,
+	CommandReportEquipmentChangedRes,
 	CommandReportUpgradeItemMissingMaterialsRes,
 	CommandReportUpgradeItemRes,
 	CommandReportUseTokensAcceptPacketRes,
@@ -339,6 +340,15 @@ export default class ReportCommandPacketHandlers {
 			context,
 			titleKey: "commands:report.city.homes.upgradeItemMaxLevelTitle",
 			descriptionKey: "commands:report.city.homes.upgradeItemMaxLevelDescription"
+		});
+	}
+
+	@packetHandler(CommandReportEquipmentChangedRes)
+	async reportEquipmentChangedRes(context: PacketContext, _packet: CommandReportEquipmentChangedRes): Promise<void> {
+		await sendBlacksmithReply({
+			context,
+			titleKey: "commands:report.city.equipmentChangedTitle",
+			descriptionKey: "commands:report.city.equipmentChangedDescription"
 		});
 	}
 

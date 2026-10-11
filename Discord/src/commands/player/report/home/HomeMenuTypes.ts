@@ -35,6 +35,9 @@ export interface HomeFeatureHandlerContext {
 	user: User;
 	pseudo: string;
 	collectorTime: number;
+
+	/** Rebuild the already registered menus listing the inventory, after it changed in place (chest actions) */
+	refreshInventoryMenus: (nestedMenus: CrowniclesNestedMenus) => void;
 }
 
 /**

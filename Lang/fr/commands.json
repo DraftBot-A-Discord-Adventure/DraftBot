@@ -860,6 +860,8 @@
       "stayDescription": "Utilisez la commande {command:report} pour profiter des services disponibles en ville ou reprendre votre aventure.",
       "stayInCityChoice": "{emote:mapTypes.ci} Entrer en ville",
       "shopEmptyDescription": "Aucun service à proposer pour le moment.",
+      "equipmentChangedTitle": "{{pseudo}}, l'équipement a changé !",
+      "equipmentChangedDescription": "L'équipement choisi n'est plus le même à cet emplacement de l'inventaire : il a été déplacé depuis l'ouverture du menu. Rien n'a été dépensé, consultez à nouveau le menu pour voir votre inventaire à jour.",
       "exitInn": "Sortir de l'auberge",
       "reactions": {
         "exit": {

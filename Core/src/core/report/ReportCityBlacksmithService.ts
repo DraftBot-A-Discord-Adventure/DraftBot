@@ -15,6 +15,7 @@ import {
 	CommandReportBlacksmithMissingMaterialsRes,
 	CommandReportBlacksmithNotEnoughMoneyRes,
 	CommandReportBlacksmithUpgradeRes,
+	CommandReportEquipmentChangedRes,
 	CommandReportUpgradeItemMaxLevelRes,
 	CommandReportUpgradeItemMissingMaterialsRes,
 	CommandReportUpgradeItemRes
@@ -29,6 +30,7 @@ import { MissionsController } from "../missions/MissionsController";
 import { Homes } from "../database/game/models/Home";
 import { buildUpgradeStationData } from "./ReportCityService";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
+import { MainItemDetails } from "../../../../Lib/src/types/MainItemDetails";
 
 export interface UpgradeItemValidationResult {
 	itemToUpgrade?: {
@@ -175,6 +177,25 @@ async function getInventorySlotForReaction(
 }
 
 /**
+ * The slot targeted by a city-menu reaction, provided it still holds the equipment the menu was built for.
+ * The chest or an inventory switch may have moved another equipment there since, and the listed prices
+ * and levels would then apply to it.
+ */
+export async function getListedInventorySlotUnderLock(
+	lockedPlayer: Locked<Player>,
+	reaction: InventoryReaction,
+	listedItem: MainItemDetails,
+	response: CrowniclesPacket[]
+): Promise<PlayerInventorySlot | null> {
+	const inventorySlot = await findInventorySlotForReaction(lockedPlayer.id, reaction);
+	if (!inventorySlot?.holdsItem(listedItem)) {
+		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
+		return null;
+	}
+	return inventorySlot;
+}
+
+/**
  * Validate an upgrade item request from the upgrade station
  */
 export function validateUpgradeItemRequest(
@@ -192,7 +213,7 @@ export function validateUpgradeItemRequest(
 	);
 
 	if (!itemToUpgrade) {
-		return { logError: `Player ${player.keycloakId} tried to upgrade an item that doesn't exist in the upgrade station.` };
+		return { error: makePacket(CommandReportEquipmentChangedRes, {}) };
 	}
 
 	const maxLevelAtHome = data.home.owned?.features.maxItemUpgradeLevel ?? 1;
@@ -210,6 +231,9 @@ export function validateUpgradeItemRequest(
 /**
  * Handle upgrade item reaction — player upgrades an item at the home upgrade station.
  *
+ * The collector data is not trusted: the chest may have changed the inventory since it
+ * was built, so the request is only validated against data rebuilt under the lock.
+ *
  * Concurrency: the material consume + inventory slot mutation runs
  * inside `withLockedPlayerAndMissions` so two concurrent home-upgrade requests
  * on the same player cannot both pass the validation snapshot and
@@ -221,19 +245,6 @@ export async function handleUpgradeItemReaction(
 	data: ReactionCollectorCityData,
 	response: CrowniclesPacket[]
 ): Promise<void> {
-	await player.reload();
-
-	const validation = validateUpgradeItemRequest(player, reaction, data);
-
-	if (validation.logError) {
-		CrowniclesLogger.error(validation.logError);
-		return;
-	}
-	if (validation.error) {
-		response.push(validation.error);
-		return;
-	}
-
 	await withLockedPlayerAndMissions(player.id, async lockedPlayer => {
 		await executeUpgradeItemUnderLock({
 			lockedPlayer, reaction, data, response
@@ -417,6 +428,11 @@ async function executeBlacksmithUpgrade(params: {
 		lockedPlayer, reaction, itemToUpgrade, executionData, response
 	} = params;
 
+	const inventorySlot = await getListedInventorySlotUnderLock(lockedPlayer, reaction, itemToUpgrade.details, response);
+	if (!inventorySlot) {
+		return;
+	}
+
 	if (lockedPlayer.money < executionData.totalCost) {
 		pushBlacksmithMissingMoneyResponse(response, executionData.totalCost, lockedPlayer.money);
 		return;
@@ -435,11 +451,6 @@ async function executeBlacksmithUpgrade(params: {
 		amount: executionData.totalCost,
 		reason: NumberChangeReason.BLACKSMITH_UPGRADE
 	});
-
-	const inventorySlot = await getInventorySlotForReaction(lockedPlayer, reaction, "upgrade");
-	if (!inventorySlot) {
-		return;
-	}
 
 	inventorySlot.itemLevel = itemToUpgrade.nextLevel;
 	await inventorySlot.save();
@@ -497,6 +508,11 @@ export async function handleBlacksmithDisenchantReaction(
 	}
 
 	await withLockedPlayerAndMissions(player.id, async lockedPlayer => {
+		const inventorySlot = await getListedInventorySlotUnderLock(lockedPlayer, reaction, itemToDisenchant.details, response);
+		if (!inventorySlot) {
+			return;
+		}
+
 		// Re-validate against the freshly-locked row.
 		if (lockedPlayer.money < itemToDisenchant.disenchantCost) {
 			pushBlacksmithMissingMoneyResponse(response, itemToDisenchant.disenchantCost, lockedPlayer.money);
@@ -508,11 +524,6 @@ export async function handleBlacksmithDisenchantReaction(
 			amount: itemToDisenchant.disenchantCost,
 			reason: NumberChangeReason.BLACKSMITH_DISENCHANT
 		});
-
-		const inventorySlot = await getInventorySlotForReaction(lockedPlayer, reaction, "disenchant");
-		if (!inventorySlot) {
-			return;
-		}
 
 		inventorySlot.itemEnchantmentId = null;
 		await inventorySlot.save();

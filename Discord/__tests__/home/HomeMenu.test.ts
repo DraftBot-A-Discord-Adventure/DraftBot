@@ -82,6 +82,9 @@ import {
 import { ReactionCollectorCityData } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { ReportCityMenuIds } from "../../src/commands/player/report/ReportCityMenuConstants";
 import { ActionRowBuilder } from "discord.js";
+import {
+	ItemCategory, ItemRarity
+} from "../../../Lib/src/constants/ItemConstants";
 
 /**
  * Create mock HomeMenuParams for testing
@@ -337,5 +340,52 @@ describe("getHomeSubMenus", () => {
 				.map((b: any) => b.data?.custom_id);
 			expect(allButtons).not.toContain(ReportCityMenuIds.STAY_IN_CITY);
 		}
+	});
+});
+
+describe("refreshInventoryMenus", () => {
+	const withdrawnSword = {
+		slot: 1,
+		category: ItemCategory.WEAPON,
+		details: {
+			id: 9,
+			rarity: ItemRarity.COMMON,
+			itemCategory: ItemCategory.WEAPON,
+			itemLevel: 0,
+			attack: { baseValue: 10, upgradeValue: 0, maxValue: Infinity },
+			defense: { baseValue: 0, upgradeValue: 0, maxValue: Infinity },
+			speed: { baseValue: 0, upgradeValue: 0, maxValue: Infinity }
+		},
+		nextLevel: 1,
+		requiredMaterials: [],
+		canUpgrade: true
+	};
+
+	function renderMenu(menu: unknown): string {
+		return JSON.stringify((menu as { containers: { toJSON: () => unknown }[] }).containers.map(container => container.toJSON()));
+	}
+
+	it("rebuilds the home menu and the upgrade station with the equipment withdrawn from the chest (#4789)", () => {
+		const homeData = createHomeData({
+			upgradeStation: {
+				upgradeableItems: [],
+				maxUpgradeableRarity: ItemRarity.EPIC
+			}
+		});
+		homeData.features.upgradeItemMaximumRarity = ItemRarity.EPIC;
+		const upgradeStationHandler = homeFeatureRegistry.getHandler("upgradeStation")!;
+		const addContent = vi.spyOn(upgradeStationHandler, "addSubMenuContainerContent");
+		getHomeSubMenus(createMockHomeMenuParams({ homeData }));
+		const ctx = addContent.mock.calls[0][0];
+		addContent.mockRestore();
+
+		ctx.homeData.upgradeStation!.upgradeableItems = [withdrawnSword as never];
+		const nestedMenus = { registerMenu: vi.fn() };
+		ctx.refreshInventoryMenus(nestedMenus as never);
+
+		const registered = new Map(nestedMenus.registerMenu.mock.calls as [string, unknown][]);
+		expect([...registered.keys()]).toEqual([HomeMenuIds.HOME_MENU, HomeMenuIds.UPGRADE_STATION_MENU]);
+		expect(renderMenu(registered.get(HomeMenuIds.HOME_MENU))).toContain("upgradeStation.menuDescription|{\\\"count\\\":1}");
+		expect(renderMenu(registered.get(HomeMenuIds.UPGRADE_STATION_MENU))).toContain(`${HomeMenuIds.UPGRADE_ITEM_PREFIX}0`);
 	});
 });

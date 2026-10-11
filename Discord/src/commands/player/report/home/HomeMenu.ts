@@ -8,7 +8,7 @@ import i18n from "../../../../translations/i18n";
 import { ReactionCollectorCityData } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { CrowniclesIcons } from "../../../../../../Lib/src/CrowniclesIcons";
 import {
-	CrowniclesNestedMenu, CrowniclesNestedMenuCollector, CrowniclesNestedMenuCollectorFactory
+	CrowniclesNestedMenu, CrowniclesNestedMenuCollector, CrowniclesNestedMenuCollectorFactory, CrowniclesNestedMenus
 } from "../../../../messages/CrowniclesNestedMenus";
 import { sendInteractionNotForYou } from "../../../../utils/ErrorUtils";
 import { homeFeatureRegistry } from "./HomeFeatureRegistry";
@@ -232,25 +232,11 @@ function createMainHomeMenuCollector(
 }
 
 export function getHomeMenu(params: HomeMenuParams): CrowniclesNestedMenu {
-	const {
-		context, interaction, packet, collectorTime, pseudo
-	} = params;
-	const homeData = (packet.data.data as ReactionCollectorCityData).home.owned!;
-	const isApartment = Boolean(homeData.isApartment);
-	const lng = interaction.userLanguage;
-
-	const handlerContext: HomeFeatureHandlerContext = {
-		context,
-		packet,
-		homeData,
-		lng,
-		user: interaction.user,
-		pseudo,
-		collectorTime
-	};
+	const handlerContext = buildHandlerContext(params);
+	const isApartment = Boolean(handlerContext.homeData.isApartment);
 
 	return {
-		containers: [buildMainHomeContainer(handlerContext, isApartment, pseudo)],
+		containers: [buildMainHomeContainer(handlerContext, isApartment, params.pseudo)],
 		createCollector: createMainHomeMenuCollector(params, handlerContext)
 	};
 }
@@ -259,22 +245,7 @@ export function getHomeMenu(params: HomeMenuParams): CrowniclesNestedMenu {
  * Get all home sub-menus for registration in the nested menu system
  */
 export function getHomeSubMenus(params: HomeMenuParams): Map<string, CrowniclesNestedMenu> {
-	const {
-		context, interaction, packet, collectorTime, pseudo
-	} = params;
-	const homeData = (packet.data.data as ReactionCollectorCityData).home.owned!;
-	const lng = interaction.userLanguage;
-
-	const handlerContext: HomeFeatureHandlerContext = {
-		context,
-		packet,
-		homeData,
-		lng,
-		user: interaction.user,
-		pseudo,
-		collectorTime
-	};
-
+	const handlerContext = buildHandlerContext(params);
 	const subMenus = new Map<string, CrowniclesNestedMenu>();
 
 	// Create sub-menus for each available feature
@@ -289,4 +260,31 @@ export function getHomeSubMenus(params: HomeMenuParams): Map<string, CrowniclesN
 	}
 
 	return subMenus;
+}
+
+function buildHandlerContext(params: HomeMenuParams): HomeFeatureHandlerContext {
+	return {
+		context: params.context,
+		packet: params.packet,
+		homeData: (params.packet.data.data as ReactionCollectorCityData).home.owned!,
+		lng: params.interaction.userLanguage,
+		user: params.interaction.user,
+		pseudo: params.pseudo,
+		collectorTime: params.collectorTime,
+		refreshInventoryMenus: nestedMenus => refreshInventoryMenus(params, nestedMenus)
+	};
+}
+
+/**
+ * The home menu counts the upgradeable equipment and the upgrade station lists it: both are built once
+ * when the city opens, so they must be rebuilt when the chest moves equipment in or out of the inventory.
+ */
+function refreshInventoryMenus(params: HomeMenuParams, nestedMenus: CrowniclesNestedMenus): void {
+	nestedMenus.registerMenu(HomeMenuIds.HOME_MENU, getHomeMenu(params));
+
+	const handlerContext = buildHandlerContext(params);
+	const upgradeStation = homeFeatureRegistry.getHandlerByMenuValue(handlerContext, HomeMenuIds.UPGRADE_STATION_MENU);
+	if (upgradeStation) {
+		nestedMenus.registerMenu(HomeMenuIds.UPGRADE_STATION_MENU, createFeatureSubMenu(upgradeStation, handlerContext, params));
+	}
 }
