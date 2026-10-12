@@ -16,6 +16,7 @@ import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
 import { HomeConstants } from "../../../Lib/src/constants/HomeConstants";
 import { RoyalBlacksmithConstants } from "../../../Lib/src/constants/BlacksmithConstants";
 import { HomeLevel } from "../../../Lib/src/types/HomeLevel";
+import { ItemEnchantment } from "../../../Lib/src/types/ItemEnchantment";
 import { CrowniclesPacket } from "../../../Lib/src/packets/CrowniclesPacket";
 import { ReactionCollectorCityData } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 
@@ -25,6 +26,7 @@ type BlacksmithDataModule = typeof import("../../src/core/report/ReportBlacksmit
 type RoyalBlacksmithDataModule = typeof import("../../src/core/report/ReportRoyalBlacksmithService");
 type RoyalBlacksmithServiceModule = typeof import("../../src/core/report/ReportCityRoyalBlacksmithService");
 type InventorySlotModule = typeof import("../../src/core/database/game/models/InventorySlot");
+type EnchanterServiceModule = typeof import("../../src/core/report/ReportCityEnchanterService");
 
 const KEYCLOAK_ID = "city-inventory-snapshot";
 const HOME_LEVEL = HomeLevel.LEVEL_8;
@@ -60,6 +62,7 @@ describe("City services after a chest action (issue #4789)", () => {
 	let royalBlacksmithData: RoyalBlacksmithDataModule;
 	let royalBlacksmithService: RoyalBlacksmithServiceModule;
 	let inventorySlots: InventorySlotModule;
+	let enchanterService: EnchanterServiceModule;
 
 	async function setupPlayer(params: {
 		equippedWeapon: number;
@@ -143,6 +146,7 @@ describe("City services after a chest action (issue #4789)", () => {
 		royalBlacksmithData = loadProductionModule<RoyalBlacksmithDataModule>("core/report/ReportRoyalBlacksmithService");
 		royalBlacksmithService = loadProductionModule<RoyalBlacksmithServiceModule>("core/report/ReportCityRoyalBlacksmithService");
 		inventorySlots = loadProductionModule<InventorySlotModule>("core/database/game/models/InventorySlot");
+		enchanterService = loadProductionModule<EnchanterServiceModule>("core/report/ReportCityEnchanterService");
 	});
 
 	afterAll(async () => {
@@ -254,5 +258,39 @@ describe("City services after a chest action (issue #4789)", () => {
 		const epicSlot = await getWeaponSlot(player.id, 0);
 		expect(epicSlot?.itemId).toBe(EPIC_WEAPON_ID);
 		expect(epicSlot?.itemLevel).toBe(previousLevel);
+	});
+
+	it("refuses to enchant the equipment that was swapped into the chest", async () => {
+		const player = await setupPlayer({
+			equippedWeapon: SABRE_ID,
+			chestWeapon: EPIC_WEAPON_ID,
+			itemLevel: 0
+		});
+		const enchantment = ItemEnchantment.PVP_ATTACK_1;
+		const openingData = {
+			enchanter: await cityService.buildEnchanterData({
+				inventory: await inventorySlots.InventorySlots.getOfPlayer(player.id),
+				player
+			}, {
+				enchantment,
+				enchantmentId: enchantment.id,
+				isPlayerMage: false
+			})
+		} as unknown as ReactionCollectorCityData;
+		expect(openingData.enchanter!.enchantableItems.map(item => item.slot)).toEqual([0]);
+
+		await runChestAction(HomeConstants.CHEST_ACTIONS.SWAP, 0);
+		const response: CrowniclesPacket[] = [];
+		await enchanterService.handleEnchantReaction(player, {
+			slot: 0,
+			itemCategory: ItemCategory.WEAPON
+		}, openingData, response);
+
+		expect(packetNames(response)).toEqual(["CommandReportEquipmentChangedRes"]);
+		await player.reload();
+		expect(player.money).toBe(PLAYER_MONEY);
+		const epicSlot = await getWeaponSlot(player.id, 0);
+		expect(epicSlot?.itemId).toBe(EPIC_WEAPON_ID);
+		expect(epicSlot?.itemEnchantmentId).toBeNull();
 	});
 });

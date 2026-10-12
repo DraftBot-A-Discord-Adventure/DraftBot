@@ -4,10 +4,12 @@ import {
 	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
+	ReactionCollectorCityData,
 	ReactionCollectorEnchantReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {
 	CommandReportEnchantNotEnoughCurrenciesRes,
+	CommandReportEquipmentChangedRes,
 	CommandReportItemCannotBeEnchantedRes,
 	CommandReportItemEnchantedRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
@@ -88,13 +90,22 @@ function pushMissingCurrenciesResponse(params: {
 async function getEnchantableItem(
 	player: Player,
 	reaction: ReactionCollectorEnchantReaction,
-	enchantment: ItemEnchantment,
+	context: {
+		enchantment: ItemEnchantment;
+		data: ReactionCollectorCityData;
+	},
 	response: CrowniclesPacket[]
 ): Promise<InventorySlot | null> {
 	const itemToEnchant = await InventorySlots.getItem(player.id, reaction.slot, reaction.itemCategory);
-	const canBeEnchanted = itemToEnchant?.isWeaponOrArmor()
+	const listedItem = context.data.enchanter?.enchantableItems.find(item => item.slot === reaction.slot && item.category === reaction.itemCategory);
+	if (!listedItem || !itemToEnchant?.holdsItem(listedItem.details)) {
+		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
+		return null;
+	}
+
+	const canBeEnchanted = itemToEnchant.isWeaponOrArmor()
 		&& !itemToEnchant.itemEnchantmentId
-		&& itemToEnchant.itemCategory === enchantment.kind.slot;
+		&& itemToEnchant.itemCategory === context.enchantment.kind.slot;
 
 	if (!canBeEnchanted) {
 		CrowniclesLogger.error("Player tried to enchant an item that doesn't exist or cannot be enchanted. It shouldn't happen because the player must not be able to switch items while in the collector.");
@@ -111,6 +122,7 @@ async function getEnchantableItem(
 async function checkEnchantmentConditions(
 	player: Player,
 	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData,
 	response: CrowniclesPacket[]
 ): Promise<{
 	enchantment: ItemEnchantment;
@@ -139,7 +151,10 @@ async function checkEnchantmentConditions(
 		return null;
 	}
 
-	const itemToEnchant = await getEnchantableItem(player, reaction, pricingData.enchantment, response);
+	const itemToEnchant = await getEnchantableItem(player, reaction, {
+		enchantment: pricingData.enchantment,
+		data
+	}, response);
 	if (!itemToEnchant) {
 		return null;
 	}
@@ -271,8 +286,13 @@ async function enchantItem(params: EnchantItemParams): Promise<void> {
 /**
  * Handle enchant reaction — player enchants an item at the enchanter
  */
-export async function handleEnchantReaction(player: Player, reaction: ReactionCollectorEnchantReaction, response: CrowniclesPacket[]): Promise<void> {
-	const conditions = await checkEnchantmentConditions(player, reaction, response);
+export async function handleEnchantReaction(
+	player: Player,
+	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<void> {
+	const conditions = await checkEnchantmentConditions(player, reaction, data, response);
 	if (!conditions) {
 		return;
 	}
