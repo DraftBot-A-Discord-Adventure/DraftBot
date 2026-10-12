@@ -1,4 +1,9 @@
 <#import "template.ftl" as layout>
+<#macro pageAction href label>
+    <div id="kc-form-buttons">
+        <a class="crownicles-page-action ${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" href="${href}">${label}</a>
+    </div>
+</#macro>
 <@layout.registrationLayout displayMessage=false; section>
     <#if section = "header">
         <#if messageHeader??>
@@ -13,16 +18,14 @@
         <#assign gameUri = (client.attributes["crownicles.returnUri"])!"">
         <#if skipLink??>
         <#elseif pageRedirectUri?has_content>
-            <p><a href="${pageRedirectUri}">${msg("backToApplication")}</a></p>
+            <@pageAction href=pageRedirectUri label=msg("backToApplication")/>
         <#elseif actionUri?has_content>
-            <p><a href="${actionUri}">${msg("proceedWithAction")}</a></p>
+            <@pageAction href=actionUri label=msg("proceedWithAction")/>
         <#elseif gameUri?has_content>
             <#-- In the game's sheet, this ends the browser session; in the phone's browser, it opens the game. -->
-            <div id="kc-form-buttons">
-                <a id="crownicles-back-to-game" href="${gameUri}" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}">${msg("crowniclesBackToGame")}</a>
-            </div>
+            <@pageAction href=gameUri label=msg("crowniclesBackToGame")/>
         <#elseif (client.baseUrl)?has_content>
-            <p><a href="${client.baseUrl}">${msg("backToApplication")}</a></p>
+            <@pageAction href=client.baseUrl label=msg("backToApplication")/>
         <#else>
             <p class="instruction">${msg("crowniclesReturnToGame")}</p>
         </#if>

@@ -296,6 +296,18 @@ a:hover {
 	color: var(--crownicles-muted);
 }
 
+/* Bootstrap's grid floats the columns and offsets them: inside the card, every block takes its full width. */
+#kc-content-wrapper .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#kc-content-wrapper [class*="col-"] {
+	float: none;
+	padding-left: 0;
+	padding-right: 0;
+}
+
 #kc-form-buttons {
 	margin-top: 18px;
 	display: flex;
@@ -373,22 +385,70 @@ a:hover {
 	display: none;
 }
 
-/* Resending the verification mail is a POST, drawn as the surrounding text's link. */
-.crownicles-link-button {
-	font: inherit;
-	color: var(--crownicles-ink);
-	font-weight: 600;
-	text-decoration: underline;
-	text-underline-offset: 3px;
-	background: none;
-	border: none;
-	padding: 0;
-	cursor: pointer;
+/* PatternFly's display rules would otherwise show the elements the scripts hide. */
+[hidden] {
+	display: none !important;
 }
 
-#crownicles-verify-email-continue:not([hidden]),
-#crownicles-back-to-game {
+/* Links drawn as buttons. */
+#crownicles-verify-email-continue,
+.crownicles-page-action {
 	display: block;
 	text-align: center;
 	text-decoration: none;
+}
+
+#kc-verify-email-resend-form .pf-c-button {
+	width: 100%;
+}
+
+/* What the verification page waits for, while it checks by itself. */
+.crownicles-status {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 18px 0 0;
+	padding: 12px 14px;
+	border-radius: 10px;
+	background: var(--crownicles-wash);
+	font-size: 13.5px;
+	font-weight: 500;
+	color: var(--crownicles-ink);
+}
+
+.crownicles-spinner {
+	flex: 0 0 auto;
+	width: 14px;
+	height: 14px;
+	border: 2px solid var(--crownicles-line);
+	border-top-color: var(--crownicles-ink);
+	border-radius: 50%;
+	animation: crownicles-spin 0.9s linear infinite;
+}
+
+@keyframes crownicles-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.crownicles-spinner {
+		animation: none;
+	}
+}
+
+.crownicles-hint {
+	margin: 14px 0 0;
+	font-size: 12.5px;
+	color: var(--crownicles-faint);
+	text-align: center;
+}
+
+.instruction strong {
+	color: var(--crownicles-ink);
+}
+
+#crownicles-verify-email-not-yet {
+	color: var(--crownicles-red);
 }
