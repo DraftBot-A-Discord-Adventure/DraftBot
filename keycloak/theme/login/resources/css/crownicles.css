@@ -102,6 +102,43 @@ body.login-pf {
 	margin: 0 0 6px;
 }
 
+.crownicles-lead {
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: -0.3px;
+	text-align: center;
+	color: var(--crownicles-ink);
+	margin: 0 0 12px;
+}
+
+/* The account being signed in, and the way to start over: a quiet line above the form. */
+#kc-username {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin: 0 0 10px;
+}
+
+#kc-username #kc-attempted-username {
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--crownicles-ink);
+	overflow-wrap: anywhere;
+}
+
+#reset-login {
+	color: var(--crownicles-muted);
+	text-decoration: none;
+}
+
+/* Its hover bubble sits off-screen and makes the whole page scroll sideways on a phone. */
+#reset-login .kc-tooltip-text {
+	display: none;
+}
+
 #kc-info-message p,
 #kc-username,
 .instruction,
@@ -258,6 +295,7 @@ input[type="submit"].pf-c-button,
 }
 
 #kc-social-providers h2,
+#kc-social-providers h4,
 #kc-social-providers hr {
 	display: none;
 }
@@ -451,4 +489,70 @@ a:hover {
 
 #crownicles-verify-email-not-yet {
 	color: var(--crownicles-red);
+}
+
+/* Every field the game asks for is needed: the asterisks and their legend only add noise. */
+.subtitle,
+label .required {
+	display: none;
+}
+
+/* The password page, once the account is known: no rule above the field, room around the links. */
+#kc-form-login .no-bottom-margin hr {
+	display: none;
+}
+
+#kc-form-options {
+	margin-top: 10px;
+}
+
+#kc-select-try-another-way-form {
+	margin-top: 16px;
+	text-align: center;
+	font-size: 13.5px;
+}
+
+/* Choosing how to sign in: one outlined pill per way, like the app's secondary actions. */
+.select-auth-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.select-auth-box-parent {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	padding: 14px 18px;
+	text-align: left;
+	background: var(--crownicles-paper);
+	border: 1px solid var(--crownicles-line);
+	border-radius: 14px;
+	border-top: 1px solid var(--crownicles-line);
+	font-family: var(--crownicles-font);
+	cursor: pointer;
+}
+
+.select-auth-box-parent:hover {
+	border-color: var(--crownicles-ink);
+}
+
+.select-auth-box-icon {
+	display: none;
+}
+
+.select-auth-box-headline {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--crownicles-ink);
+}
+
+.select-auth-box-desc {
+	font-size: 13px;
+	color: var(--crownicles-muted);
+}
+
+.select-auth-box-arrow {
+	color: var(--crownicles-faint);
 }

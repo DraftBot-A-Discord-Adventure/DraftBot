@@ -1,5 +1,5 @@
 import {
-	EMAIL_CHANGE_OUTCOMES, IDENTITY_PROVIDERS, KeycloakAuth
+	ACCOUNT_ACTION_OUTCOMES, IDENTITY_PROVIDERS, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
 import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import { AUTH_FAILURES } from "@/src/authentication/AuthFailure";
@@ -151,7 +151,7 @@ describe("KeycloakAuth", () => {
 		});
 		const fetch = jest.spyOn(globalThis, "fetch");
 
-		await expect(KeycloakAuth.changeEmail()).resolves.toBe(EMAIL_CHANGE_OUTCOMES.PENDING);
+		await expect(KeycloakAuth.changeEmail()).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.PENDING);
 
 		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
 			kc_action: "UPDATE_EMAIL", prompt: "login"
@@ -169,17 +169,17 @@ describe("KeycloakAuth", () => {
 			result: {
 				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=cancelled"
 			},
-			outcome: EMAIL_CHANGE_OUTCOMES.CANCELLED
+			outcome: ACCOUNT_ACTION_OUTCOMES.CANCELLED
 		},
 		{
 			result: {
 				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=success"
 			},
-			outcome: EMAIL_CHANGE_OUTCOMES.UPDATED
+			outcome: ACCOUNT_ACTION_OUTCOMES.UPDATED
 		},
 		{
 			result: { type: "dismiss" },
-			outcome: EMAIL_CHANGE_OUTCOMES.CANCELLED
+			outcome: ACCOUNT_ACTION_OUTCOMES.CANCELLED
 		}
 	])("reads how the email change ended: $outcome", async ({
 		result, outcome
@@ -198,6 +198,17 @@ describe("KeycloakAuth", () => {
 		});
 
 		await expect(KeycloakAuth.changeEmail()).rejects.toMatchObject({ reason: AUTH_FAILURES.UNKNOWN });
+	});
+
+	it("opens the password page in the same way, and reads that it was saved", async () => {
+		mockOpenAuthSession.mockResolvedValue({
+			type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_PASSWORD&kc_action_status=success"
+		});
+
+		await expect(KeycloakAuth.changePassword()).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.UPDATED);
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
+			kc_action: "UPDATE_PASSWORD", prompt: "login"
+		} });
 	});
 
 	it("reads the current address from Keycloak with the session's access token", async () => {

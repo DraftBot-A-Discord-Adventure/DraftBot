@@ -1,7 +1,9 @@
 import React, {
 	PropsWithChildren, useEffect
 } from "react";
-import { useRouter } from "expo-router";
+import {
+	useNavigationContainerRef, useRouter
+} from "expo-router";
 import {
 	deleteStoredToken, readFullStoredToken, readStoredToken, TOKEN_STORAGE_KEY_TEMPLATE, writeStoredToken
 } from "@/src/authentication/TokenStorage";
@@ -21,6 +23,14 @@ const SESSION_STATES: ReadonlySet<AuthStateEnum> = new Set([
 	AuthStateEnum.RECONNECTING_NO_PACKET_QUEUE,
 	AuthStateEnum.RECONNECTING_PACKET_QUEUE
 ]);
+
+/** The root screens on either side of the session. */
+const ROOT_SCREENS = {
+	GAME: "(protected)",
+	LOGIN: "login"
+} as const;
+
+type RootScreen = typeof ROOT_SCREENS[keyof typeof ROOT_SCREENS];
 
 /** States that send the player back to the login screen */
 const LOGIN_STATES: ReadonlySet<AuthStateEnum> = new Set([
@@ -70,6 +80,7 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 	const currentState = React.useRef(state);
 	const tokenEdits = React.useRef<Promise<void>>(Promise.resolve());
 	const router = useRouter();
+	const navigationRef = useNavigationContainerRef();
 	const initialNavigationTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const cancelPendingNavigation = (): void => {
@@ -79,26 +90,26 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 		}
 	};
 
-	const navigateToAuthenticatedRoot = (): void => {
+	/**
+	 * Leaves the given screen alone in the root stack, so going back never crosses the session
+	 * boundary. A link opened from a mail can stack the game over the login screen, for instance.
+	 *
+	 * AuthProvider is mounted just above the root navigator, so the first websocket callback can run
+	 * before Expo Router has mounted it: the reset waits for it instead of being lost.
+	 */
+	const resetRootTo = (screen: RootScreen): void => {
 		cancelPendingNavigation();
-
-		/*
-		 * AuthProvider is mounted just above the root navigator. A direct replace from the first
-		 * websocket callback can therefore run before Expo Router has mounted its navigation ref.
-		 * Defer it briefly and retry while the root is mounting instead of crashing the app with
-		 * "Attempted to navigate before mounting the Root Layout component".
-		 */
 		const attempt = (): void => {
-			try {
-				router.replace("/");
-				initialNavigationTimer.current = null;
-			}
-			catch (error) {
-				console.warn("Root navigator is not ready yet; retrying authenticated navigation:", error);
+			if (!navigationRef.isReady()) {
 				initialNavigationTimer.current = setTimeout(attempt, 100);
+				return;
 			}
+			initialNavigationTimer.current = null;
+			navigationRef.reset({
+				index: 0, routes: [{ name: screen }]
+			});
 		};
-		initialNavigationTimer.current = setTimeout(attempt, 100);
+		attempt();
 	};
 
 	const clearStoredToken = async (): Promise<void> => {
@@ -178,11 +189,10 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 
 	const returnToLogin = (): void => {
 		WebSocketClient.getInstance().disconnect();
-		cancelPendingNavigation();
 		collectorsStore.reset();
 		reportEventStore.reset();
 		fightStore.reset();
-		router.replace("/login");
+		resetRootTo(ROOT_SCREENS.LOGIN);
 	};
 
 	// Happens when the connection cannot be established
@@ -202,7 +212,7 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 		console.log("Auth state changed from", previousState, "to", newState);
 
 		if (newState === AuthStateEnum.LOGGED_IN && !SESSION_STATES.has(previousState)) {
-			navigateToAuthenticatedRoot();
+			resetRootTo(ROOT_SCREENS.GAME);
 		}
 		else if (LOGIN_STATES.has(newState)) {
 			returnToLogin();

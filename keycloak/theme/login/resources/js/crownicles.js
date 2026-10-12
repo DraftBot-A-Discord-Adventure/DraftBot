@@ -1,6 +1,49 @@
 "use strict";
 
 const VERIFY_EMAIL_POLL_MS = 4000;
+const SIGN_IN_LINK_POLL_MS = 2500;
+
+/** The sign-in link is opened on any device: this page asks Keycloak until it was, then carries on. */
+function watchSignInLink() {
+	const status = document.getElementById("crownicles-link-status");
+	const expired = document.getElementById("crownicles-link-expired");
+	if (!status || !expired || !status.dataset.polling) {
+		return;
+	}
+	const showExpired = () => {
+		status.hidden = true;
+		expired.hidden = false;
+	};
+	const ask = async () => {
+		try {
+			const response = await fetch(status.dataset.polling, {
+				cache: "no-store", credentials: "same-origin"
+			});
+			if (response.status === 401 || response.status === 404) {
+				showExpired();
+				return;
+			}
+			if (response.ok) {
+				const { state } = await response.json();
+				if (state === "confirmed") {
+					window.location.replace(status.dataset.continue);
+					return;
+				}
+				if (state === "expired") {
+					showExpired();
+					return;
+				}
+			}
+		}
+		catch {
+			// Offline for a moment: the next round asks again.
+		}
+		setTimeout(ask, SIGN_IN_LINK_POLL_MS);
+	};
+	ask();
+}
+
+document.addEventListener("DOMContentLoaded", watchSignInLink);
 
 document.addEventListener("DOMContentLoaded", () => {
 	// The link is opened from the mail app: this page notices the confirmation by itself.

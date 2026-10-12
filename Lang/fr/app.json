@@ -276,6 +276,12 @@
       "awaitingLink": "Un lien de confirmation attend sur la nouvelle adresse : le changement prendra effet à son ouverture.",
       "failed": "Le changement d'adresse n'a pas pu s'ouvrir. Réessayez dans un instant."
     },
+    "password": {
+      "entry": "Mot de passe",
+      "hint": "Facultatif : pour se connecter sans attendre de lien par email",
+      "saved": "Mot de passe enregistré : il peut servir dès la prochaine connexion.",
+      "failed": "Le choix du mot de passe n'a pas pu s'ouvrir. Réessayez dans un instant."
+    },
     "title": "Réglages",
     "eyebrow": "Application",
     "sections": {

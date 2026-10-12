@@ -25,6 +25,7 @@ import {
 	HeartPulse as NativeHeartPulse,
 	History as NativeHistory,
 	Info as NativeInfo,
+	KeyRound as NativeKeyRound,
 	LogOut as NativeLogOut,
 	Maximize2 as NativeMaximize2,
 	Medal as NativeMedal,
@@ -98,6 +99,7 @@ export const Clock3 = iconComponent(NativeClock3);
 export const Coins = iconComponent(NativeCoins);
 export const Compass = iconComponent(NativeCompass);
 export const Crosshair = iconComponent(NativeCrosshair);
+export const KeyRound = iconComponent(NativeKeyRound);
 export const Droplets = iconComponent(NativeDroplets);
 export const Flame = iconComponent(NativeFlame);
 export const Flag = iconComponent(NativeFlag);

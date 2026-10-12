@@ -20,8 +20,14 @@ import { fightStore } from "@/src/store/FightStore";
 import { FightIntroductionRes } from "ws-packets/src/fromServer/fight/FightRes";
 import { ReportUseTokensAcceptedRes } from "ws-packets/src/fromServer/report/ReportTokenRes";
 
-const mockReplace = jest.fn();
-jest.mock("expo-router", () => ({ useRouter: (): object => ({ replace: mockReplace }) }));
+const mockReset = jest.fn();
+const mockNavigationRef = {
+	isReady: jest.fn((): boolean => true), reset: mockReset
+};
+jest.mock("expo-router", () => ({
+	useRouter: (): object => ({ replace: jest.fn() }),
+	useNavigationContainerRef: (): object => mockNavigationRef
+}));
 jest.mock("@react-native-async-storage/async-storage", () => require("@react-native-async-storage/async-storage/jest/async-storage-mock"));
 jest.mock("@/src/authentication/TokenStorage", () => ({
 	...jest.requireActual<typeof import("@/src/authentication/TokenStorage")>("@/src/authentication/TokenStorage"),
@@ -82,7 +88,7 @@ describe("account session ownership", () => {
 		expect(collectorsStore.getSnapshot()).toHaveLength(1);
 		expect(fightStore.getSnapshot().visible).toBe(true);
 		expect(reportEventStore.getTokenSnapshot()).not.toBeNull();
-		mockReplace.mockClear();
+		mockReset.mockClear();
 		await act(() => authState.setState(endedState));
 		await act(() => jest.advanceTimersByTime(100));
 		expect(collectorsStore.getSnapshot()).toEqual([]);
@@ -90,11 +96,28 @@ describe("account session ownership", () => {
 			introduction: null, visible: false, logs: []
 		});
 		expect(reportEventStore.getTokenSnapshot()).toBeNull();
-		expect(mockReplace).toHaveBeenCalledWith("/login");
-		expect(mockReplace).not.toHaveBeenCalledWith("/");
+		expect(mockReset).toHaveBeenCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledWith({
+			index: 0, routes: [{ name: "login" }]
+		});
 		await act(() => authState.setState(AuthStateEnum.LOGGED_IN));
 		expect(collectorsStore.getSnapshot()).toEqual([]);
 		expect(fightStore.getSnapshot().visible).toBe(false);
+	});
+
+	it("leaves the game alone in the root stack once signed in, so going back cannot reach the login screen", async () => {
+		await render(<AuthProvider><AuthProbe /></AuthProvider>);
+		await waitFor(() => expect(screen.getByText(String(AuthStateEnum.NO_TOKEN))).toBeTruthy());
+		mockReset.mockClear();
+		mockNavigationRef.isReady.mockReturnValueOnce(false);
+		await act(() => authState.setState(AuthStateEnum.LOGGED_IN));
+		expect(mockReset).not.toHaveBeenCalled();
+
+		await act(() => jest.advanceTimersByTime(100));
+
+		expect(mockReset).toHaveBeenCalledWith({
+			index: 0, routes: [{ name: "(protected)" }]
+		});
 	});
 
 	it("deletes all token parts before resolving session cleanup", async () => {

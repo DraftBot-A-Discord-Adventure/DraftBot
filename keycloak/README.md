@@ -29,6 +29,12 @@ docker-compose up -d
 You can find the docker-compose file here:
 [docker-compose.yml](./docker-compose.yml)
 
+The image is built from [Dockerfile](./Dockerfile), which adds the
+[Phase Two magic link extension](https://github.com/p2-inc/keycloak-magic-link) (Elastic License 2.0):
+players sign in and sign up with a link sent by mail, the password staying optional. The browser and
+registration flows of `realm.json` use it, so every Keycloak importing the realm needs that image (or the
+jar in `/opt/keycloak/providers/`). After changing the version, run `docker compose build keycloak`.
+
 ## Choosing the address Keycloak answers on
 
 `KC_HOSTNAME` pins the address Keycloak puts in the tokens it issues and in the redirect URIs it

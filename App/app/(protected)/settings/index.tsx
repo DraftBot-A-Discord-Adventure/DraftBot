@@ -15,6 +15,7 @@ import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { AuthContext } from "@/src/authentication/AuthContext";
 import { useEmailChange } from "@/src/authentication/EmailChange";
+import { usePasswordChange } from "@/src/authentication/AccountAction";
 import { PreferencesContext } from "@/src/preferences/PreferencesContext";
 import {
 	travelAdvicePreference, useTravelAdvicesShown
@@ -54,7 +55,7 @@ import {
 } from "@/src/design/ThemeTransition";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import {
-	AtSign, BookOpen, LogOut, Shield, UserRound
+	AtSign, BookOpen, KeyRound, LogOut, Shield, UserRound
 } from "@/src/design/FightIcons";
 import { AppConstants } from "@/src/AppConstants";
 import { Theme } from "@/src/design/Theme";
@@ -245,6 +246,7 @@ function AccountSettings(): ReactNode {
 	const [leaving, setLeaving] = useState(false);
 	const sessionExit = useSessionExit();
 	const emailChange = useEmailChange();
+	const passwordChange = usePasswordChange();
 	return <>
 		<SectionHeader>{i18n.t("app:settings.sections.account")}</SectionHeader>
 		{sessionExit.pending ? <Note>{i18n.t("app:settings.leavingAccount")}</Note> : null}
@@ -256,12 +258,21 @@ function AccountSettings(): ReactNode {
 				disabled={emailChange.changing || sessionExit.pending}
 				onPress={emailChange.change}
 			/>
+			<EntryRow
+				emblem={<KeyRound size={ROW_EMBLEM_SIZE} />}
+				title={i18n.t("app:settings.password.entry")}
+				subtitle={i18n.t("app:settings.password.hint")}
+				disabled={passwordChange.running || sessionExit.pending}
+				onPress={passwordChange.start}
+			/>
 			<EntryRow emblem={<UserRound size={ROW_EMBLEM_SIZE} />} title={i18n.t("app:settings.changeAccount")} disabled={sessionExit.pending} onPress={sessionExit.leave} />
 			<EntryRow title={i18n.t("app:settings.logout")} disabled={sessionExit.pending} onPress={(): void => setLeaving(true)} />
 			<EntryRow title={i18n.t("app:settings.deleteAccount.entry")} disabled={sessionExit.pending} danger onPress={(): void => router.push("/settings/delete-account")} />
 		</ExpandableList>
 		{emailChange.awaitingLink ? <Note>{i18n.t("app:settings.email.awaitingLink")}</Note> : null}
 		{emailChange.failed ? <Refusal>{i18n.t("app:settings.email.failed")}</Refusal> : null}
+		{passwordChange.saved ? <Note>{i18n.t("app:settings.password.saved")}</Note> : null}
+		{passwordChange.failed ? <Refusal>{i18n.t("app:settings.password.failed")}</Refusal> : null}
 		{sessionExit.failed && !leaving ? <Refusal>{i18n.t("app:settings.changeAccountFailed")}</Refusal> : null}
 		{leaving
 			? <LogoutSheet sessionExit={sessionExit} onClose={(): void => {

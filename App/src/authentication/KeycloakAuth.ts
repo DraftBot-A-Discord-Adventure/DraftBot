@@ -39,7 +39,8 @@ type AuthPrompt = typeof AUTH_PROMPTS[keyof typeof AUTH_PROMPTS];
 
 /** Account actions the app asks Keycloak to run on a signed-in player. */
 const KEYCLOAK_ACTIONS = {
-	UPDATE_EMAIL: "UPDATE_EMAIL"
+	UPDATE_EMAIL: "UPDATE_EMAIL",
+	UPDATE_PASSWORD: "UPDATE_PASSWORD"
 } as const;
 
 type KeycloakAction = typeof KEYCLOAK_ACTIONS[keyof typeof KEYCLOAK_ACTIONS];
@@ -47,17 +48,15 @@ type AuthorizationParameters = {
 	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction;
 };
 
-/** How an email change ended when its browser window closed. */
-export const EMAIL_CHANGE_OUTCOMES = {
-	/** A confirmation link was sent to the new address, which replaces the current one once opened. */
+/** How an account action ended when its browser window closed. */
+export const ACCOUNT_ACTION_OUTCOMES = {
+	/** An email change sent its confirmation link: the new address replaces the current one once opened. */
 	PENDING: "pending",
-
-	/** Keycloak replaced the address at once, which it only does when the realm skips its verification. */
 	UPDATED: "updated",
 	CANCELLED: "cancelled"
 } as const;
 
-export type EmailChangeOutcome = typeof EMAIL_CHANGE_OUTCOMES[keyof typeof EMAIL_CHANGE_OUTCOMES];
+export type AccountActionOutcome = typeof ACCOUNT_ACTION_OUTCOMES[keyof typeof ACCOUNT_ACTION_OUTCOMES];
 
 /** Values of `kc_action_status`, the parameter Keycloak adds when an account action ends. */
 const ACTION_STATUSES = {
@@ -75,9 +74,9 @@ function queryParameter(url: string, name: string): string | undefined {
  * The confirmation page offers a way back to the game which carries no parameter: Keycloak still
  * waits for the link at that point, so it cannot end the action itself.
  */
-function emailChangeOutcome(result: WebBrowserAuthSessionResult): EmailChangeOutcome {
+function accountActionOutcome(result: WebBrowserAuthSessionResult): AccountActionOutcome {
 	if (result.type !== "success") {
-		return EMAIL_CHANGE_OUTCOMES.CANCELLED;
+		return ACCOUNT_ACTION_OUTCOMES.CANCELLED;
 	}
 	const error = queryParameter(result.url, "error");
 	if (error) {
@@ -85,13 +84,13 @@ function emailChangeOutcome(result: WebBrowserAuthSessionResult): EmailChangeOut
 	}
 	switch (queryParameter(result.url, "kc_action_status")) {
 		case undefined:
-			return EMAIL_CHANGE_OUTCOMES.PENDING;
+			return ACCOUNT_ACTION_OUTCOMES.PENDING;
 		case ACTION_STATUSES.SUCCESS:
-			return EMAIL_CHANGE_OUTCOMES.UPDATED;
+			return ACCOUNT_ACTION_OUTCOMES.UPDATED;
 		case ACTION_STATUSES.CANCELLED:
-			return EMAIL_CHANGE_OUTCOMES.CANCELLED;
+			return ACCOUNT_ACTION_OUTCOMES.CANCELLED;
 		default:
-			throw new AuthFailure(AUTH_FAILURES.UNKNOWN, "Keycloak could not run the email change.");
+			throw new AuthFailure(AUTH_FAILURES.UNKNOWN, "Keycloak could not run the account action.");
 	}
 }
 
@@ -170,26 +169,34 @@ export class KeycloakAuth {
 	}
 
 	/**
-	 * Opens Keycloak's sign-up page. The address is confirmed and the password chosen within the
-	 * same browser session, so the player comes back signed in.
+	 * Opens Keycloak's sign-up page: a pseudo and an address, then the link sent there confirms it
+	 * and signs the player in, wherever it is opened.
 	 */
 	public static register(): Promise<KeycloakOAuth2Token> {
 		return KeycloakAuth.authorize({ prompt: AUTH_PROMPTS.REGISTER });
 	}
 
+	/** Opens Keycloak's email change, once the player signed in again. */
+	public static changeEmail(): Promise<AccountActionOutcome> {
+		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_EMAIL);
+	}
+
+	/** Sets or replaces the password, which spares waiting for a link to sign in. */
+	public static changePassword(): Promise<AccountActionOutcome> {
+		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_PASSWORD);
+	}
+
 	/**
-	 * Opens Keycloak's email change after asking the password again.
-	 *
-	 * The code Keycloak hands back is never exchanged: the app keeps its own session, which reads
-	 * the new address once confirmed, and only needs to know how the action ended.
+	 * The code Keycloak hands back is never exchanged: the app keeps its own session, and only needs
+	 * to know how the action ended.
 	 */
-	public static async changeEmail(): Promise<EmailChangeOutcome> {
+	private static async runAccountAction(action: KeycloakAction): Promise<AccountActionOutcome> {
 		const entryParams: AuthorizationParameters = {
 			prompt: AUTH_PROMPTS.LOGIN,
-			kc_action: KEYCLOAK_ACTIONS.UPDATE_EMAIL
+			kc_action: action
 		};
 		const url = await KeycloakAuth.authRequest(entryParams).makeAuthUrlAsync(getDiscovery());
-		return emailChangeOutcome(await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt)));
+		return accountActionOutcome(await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt)));
 	}
 
 	/** Read from Keycloak rather than from the token, whose copy only changes at its next refresh. */

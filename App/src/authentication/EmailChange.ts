@@ -1,10 +1,11 @@
 import {
-	useCallback, useEffect, useRef, useState
+	useCallback, useEffect, useState
 } from "react";
 import { AppState } from "react-native";
 import {
-	EMAIL_CHANGE_OUTCOMES, KeycloakAuth
+	ACCOUNT_ACTION_OUTCOMES, AccountActionOutcome, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
+import { useAccountAction } from "@/src/authentication/AccountAction";
 import { WebSocketClient } from "@/src/networking/WebSocketClient";
 
 export type EmailChange = {
@@ -32,10 +33,7 @@ async function readAccountEmail(): Promise<string | null> {
  */
 export function useEmailChange(): EmailChange {
 	const [email, setEmail] = useState<string | null>(null);
-	const [changing, setChanging] = useState(false);
-	const [failed, setFailed] = useState(false);
 	const [linkSentFrom, setLinkSentFrom] = useState<string | null>(null);
-	const running = useRef(false);
 
 	const refresh = useCallback((): void => {
 		readAccountEmail().then(setEmail)
@@ -52,35 +50,19 @@ export function useEmailChange(): EmailChange {
 		return (): void => subscription.remove();
 	}, [refresh]);
 
-	const change = useCallback((): void => {
-		if (running.current) {
-			return;
+	const onOutcome = useCallback((outcome: AccountActionOutcome): void => {
+		if (outcome === ACCOUNT_ACTION_OUTCOMES.PENDING) {
+			setLinkSentFrom(email);
 		}
-		running.current = true;
-		setChanging(true);
-		setFailed(false);
-		KeycloakAuth.changeEmail()
-			.then(outcome => {
-				if (outcome === EMAIL_CHANGE_OUTCOMES.PENDING) {
-					setLinkSentFrom(email);
-				}
-				refresh();
-			})
-			.catch((error: unknown) => {
-				console.warn("Email change failed:", error);
-				setFailed(true);
-			})
-			.finally(() => {
-				running.current = false;
-				setChanging(false);
-			});
+		refresh();
 	}, [email, refresh]);
+	const action = useAccountAction(KeycloakAuth.changeEmail, onOutcome);
 
 	return {
 		email,
-		changing,
+		changing: action.running,
 		awaitingLink: linkSentFrom !== null && linkSentFrom === email,
-		failed,
-		change
+		failed: action.failed,
+		change: action.start
 	};
 }
