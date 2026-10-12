@@ -19,6 +19,9 @@ interface ShardRetryPlan {
 
 type ShardRetryTimer = ReturnType<typeof setTimeout>;
 
+/**
+ * Respawns dead or failed shards with a bounded backoff that honours Discord's session-start quota
+ */
 export class ShardSpawnSupervisor {
 	private readonly rest: REST;
 
@@ -34,6 +37,9 @@ export class ShardSpawnSupervisor {
 		this.rest = new REST({ version: "10" }).setToken(discordClientToken);
 	}
 
+	/**
+	 * Schedule a respawn whenever the shard dies, unless the death was requested through killIntentionally
+	 */
 	public watch(shard: Shard): void {
 		shard.on("ready", () => this.clearRetry(shard.id));
 		shard.on("death", () => {
@@ -42,10 +48,13 @@ export class ShardSpawnSupervisor {
 			}
 
 			CrowniclesLogger.error(`Shard ${shard.id} exited`);
-			void this.scheduleRetry(shard);
+			this.scheduleRetry(shard).then();
 		});
 	}
 
+	/**
+	 * Kill a shard without scheduling a respawn; returns false when the kill failed
+	 */
 	public killIntentionally(shard: Shard): boolean {
 		this.clearRetry(shard.id);
 		if (!shard.process && !shard.worker) {
@@ -64,10 +73,16 @@ export class ShardSpawnSupervisor {
 		}
 	}
 
+	/**
+	 * Drop any pending respawn of the given shard, e.g. before replacing it
+	 */
 	public cancelRetry(shardId: number): void {
 		this.clearRetry(shardId);
 	}
 
+	/**
+	 * Clean up a shard whose spawn failed and schedule its respawn
+	 */
 	public handleSpawnFailure(shard: Shard): void {
 		if (shard.process || shard.worker) {
 			try {
@@ -79,7 +94,7 @@ export class ShardSpawnSupervisor {
 		}
 
 		if (!shard.process && !shard.worker) {
-			void this.scheduleRetry(shard);
+			this.scheduleRetry(shard).then();
 		}
 	}
 
@@ -116,7 +131,7 @@ export class ShardSpawnSupervisor {
 
 			const retryTimer = setTimeout(() => {
 				this.retryTimers.delete(shard.id);
-				void shard.spawn().catch(error => {
+				shard.spawn().catch(error => {
 					CrowniclesLogger.errorWithObj(`Error while respawning shard ${shard.id}`, error);
 					this.handleSpawnFailure(shard);
 				});

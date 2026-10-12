@@ -10,6 +10,9 @@ export interface ShardSpawnRetryOptions {
 	jitterMs: number;
 }
 
+/**
+ * Delay before respawning a shard: wait for the session quota reset when exhausted, otherwise exponential backoff
+ */
 export function getShardSpawnRetryDelay({
 	attempt,
 	requiredSessions,
