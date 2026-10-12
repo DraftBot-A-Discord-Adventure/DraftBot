@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync } from "fs";
 import { resolve } from "path";
-import { SlashCommandBuilderGenerator } from "../../src/commands/SlashCommandBuilderGenerator";
+import {
+	getValidDiscordName, SlashCommandBuilderGenerator
+} from "../../src/commands/SlashCommandBuilderGenerator";
+import { HelpConstants } from "../../../Lib/src/constants/HelpConstants";
 
 const LANG_DIR = resolve(__dirname, "../../../Lang");
 
@@ -45,9 +48,29 @@ describe("DiscordBuilder translations", () => {
 	}
 
 	it("should fall back to the command key when a translated name is invalid", () => {
-		const command = SlashCommandBuilderGenerator.generateBaseCommand("giveBadge").toJSON();
+		expect(getValidDiscordName("pet/nick", "petNick")).toBe("petnick");
+	});
 
-		expect(command.name).toBe("givebadge");
-		expect(command.name_localizations?.fr).toBe("donnerbadge");
+	it("should join a translated name written as separate words (#4864)", () => {
+		const command = SlashCommandBuilderGenerator.generateBaseCommand("petNick").toJSON();
+
+		expect(command.name).toBe("petnickname");
+		expect(command.name_localizations?.fr).toBe("surnomfamilier");
+	});
+
+	// Mentions are resolved against the registered (English) names: a mismatch renders "COMMAND NOT FOUND" (#4864)
+	it("should only mention registered commands in /help and in the French translations", () => {
+		const readBuilder = (lang: string): Record<string, { name?: string }> =>
+			JSON.parse(readFileSync(resolve(LANG_DIR, lang, "discordBuilder.json"), "utf8"));
+		const englishBuilder = readBuilder("en");
+		const registeredNames = new Set([...Object.keys(readBuilder("fr")), ...Object.keys(englishBuilder)]
+			.map(section => getValidDiscordName(englishBuilder[section]?.name ?? section, section)));
+
+		const frenchMentions = readdirSync(resolve(LANG_DIR, "fr"))
+			.flatMap(file => [...readFileSync(resolve(LANG_DIR, "fr", file), "utf8").matchAll(/\{command:([^} ]+)/gu)]
+				.map(match => match[1]));
+		const helpNames = Object.values(HelpConstants.COMMANDS_DATA).map(command => command.NAME.split(" ")[0]);
+
+		expect([...new Set([...frenchMentions, ...helpNames])].filter(name => !registeredNames.has(name))).toEqual([]);
 	});
 });

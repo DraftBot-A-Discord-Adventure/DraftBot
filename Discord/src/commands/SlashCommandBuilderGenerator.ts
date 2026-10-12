@@ -10,11 +10,15 @@ import { LANGUAGE } from "../../../Lib/src/Language";
 const DISCORD_NAME_MAX_LENGTH = 32;
 const DISCORD_NAME_PATTERN = /^[\p{Ll}\p{Lm}\p{Lo}\p{N}\p{sc=Devanagari}\p{sc=Thai}_-]+$/u;
 
-function getValidDiscordName(translatedName: string, fallbackName: string): string {
-	const normalizedFallbackName = fallbackName.toLowerCase();
-	return translatedName.length <= DISCORD_NAME_MAX_LENGTH && DISCORD_NAME_PATTERN.test(translatedName)
-		? translatedName
-		: normalizedFallbackName;
+/**
+ * Discord name for a translated command or option name, falling back to the section name when it cannot be used as is
+ */
+export function getValidDiscordName(translatedName: string, fallbackName: string): string {
+	// Translators may write a name as separate words ("pet nickname"): joining them keeps the command name stable (#4864)
+	const name = translatedName.toLowerCase().replace(/\s+/gu, "");
+	return name.length <= DISCORD_NAME_MAX_LENGTH && DISCORD_NAME_PATTERN.test(name)
+		? name
+		: fallbackName.toLowerCase();
 }
 
 
