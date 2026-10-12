@@ -223,10 +223,10 @@ const ProfileHeader = (): ReactNode => {
 	const journey = useJourney();
 	const profile = state.status === "ready" ? state.data : null;
 
-	// The class emblem leads to the class comparison, once the arena that hosts it is open.
-	const showClassInfo = journey.tabs.includes(JOURNEY_TABS.ARENA) ? (): void => router.push("/arena/classes") : undefined;
+	// The pseudo leads to the player's profile, once its tab is open.
+	const showProfile = journey.tabs.includes(JOURNEY_TABS.PROFILE) ? (): void => router.navigate("/profile") : undefined;
 	return (
-		<TouchableOpacity disabled={!showClassInfo} onPress={showClassInfo} style={navigationStyles.profileHeader}>
+		<TouchableOpacity disabled={!showProfile} onPress={showProfile} style={navigationStyles.profileHeader}>
 			<ProfileIdentity profile={profile} />
 		</TouchableOpacity>
 	);
