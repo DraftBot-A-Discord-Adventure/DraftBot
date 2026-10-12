@@ -57,4 +57,15 @@ describe("Go back outcomes", () => {
 		expect(Object.values(hermitEvent.possibilities.goBack.outcomes)
 			.every(outcome => outcome.goBackToPreviousMap)).toBe(true);
 	});
+
+	// The U-turn is forbidden towards a city, so without a replacement the choice simply vanishes (#4844)
+	it("replaces every go back possibility when the U-turn is impossible", () => {
+		const withoutReplacement = events
+			.filter(([, event]) => Object.values(event.possibilities ?? {}).some(possibility => possibility.condition?.canGoBack === true))
+			.filter(([, event]) => !Object.values(event.possibilities ?? {}).some(possibility => possibility.condition?.canGoBack === false
+				&& !Object.values(possibility.outcomes).some(outcome => outcome.goBackToPreviousMap)))
+			.map(([file]) => file);
+
+		expect(withoutReplacement).toEqual([]);
+	});
 });
