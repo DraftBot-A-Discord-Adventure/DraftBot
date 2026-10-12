@@ -17,7 +17,7 @@ const APP_RULE_EXCEPTIONS = {
 		allow: [
 			"^(access|refresh|id)_token$",
 			"^(refresh_)?expires_in$",
-			"^(token_type|session_state|ui_locales|kc_idp_hint|grant_type|redirect_uri|client_id|code_verifier|error_description)$",
+			"^(token_type|session_state|ui_locales|kc_idp_hint|kc_action|grant_type|redirect_uri|client_id|code_verifier|error_description)$",
 			"^Inter_\\d{3}\\w+$",
 			"^(strong|em)_(open|close)$"
 		]

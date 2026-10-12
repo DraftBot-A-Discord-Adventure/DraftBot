@@ -192,6 +192,7 @@ input[type="submit"].pf-c-button,
 /* Secondary actions, including the identity providers: outlined pill. */
 .pf-c-button.pf-m-control,
 .pf-c-button.pf-m-secondary,
+.pf-c-button.btn-default,
 .kc-social-links .pf-c-button {
 	font-family: var(--crownicles-font);
 	font-size: 15px;
@@ -297,6 +298,21 @@ a:hover {
 
 #kc-form-buttons {
 	margin-top: 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+/* A checkbox reads as a sentence, not as the uppercase caption of a field. */
+.checkbox label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13.5px;
+	font-weight: 500;
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--crownicles-muted);
 }
 
 /* Feedback: a thin coloured rule instead of PatternFly's filled banner. */
@@ -370,7 +386,8 @@ a:hover {
 	cursor: pointer;
 }
 
-#crownicles-verify-email-continue:not([hidden]) {
+#crownicles-verify-email-continue:not([hidden]),
+#crownicles-back-to-game {
 	display: block;
 	text-align: center;
 	text-decoration: none;

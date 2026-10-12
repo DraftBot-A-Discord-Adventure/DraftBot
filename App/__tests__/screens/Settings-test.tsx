@@ -1,7 +1,9 @@
 import {
 	act, fireEvent, render, screen, waitFor
 } from "@testing-library/react-native";
-import { Linking } from "react-native";
+import {
+	AppState, type AppStateStatus, Linking
+} from "react-native";
 import {
 	QueryClient, QueryClientProvider
 } from "@tanstack/react-query";
@@ -24,6 +26,9 @@ import {
 import {
 	HAPTICS_MODES, hapticsPreference
 } from "@/src/preferences/HapticsPreference";
+import {
+	EMAIL_CHANGE_OUTCOMES, KeycloakAuth
+} from "@/src/authentication/KeycloakAuth";
 
 const mockPush = jest.fn();
 const mockDisconnect = jest.fn();
@@ -50,8 +55,16 @@ jest.mock("@/src/notifications/PushRegistration", () => ({
 jest.mock("@/src/notifications/ReportNotifications", () => ({ cancelReportNotification: jest.fn() }));
 jest.mock("@/src/networking/GameClient", () => ({ GameClient: { request: jest.fn() } }));
 jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: () => ({
-	disconnect: mockDisconnect, registerPushedPacketHandler: (): () => void => (): void => {}
+	disconnect: mockDisconnect,
+	registerPushedPacketHandler: (): () => void => (): void => {},
+	getCurrentAccessToken: (): Promise<string> => Promise.resolve("access-token")
 }) } }));
+jest.mock("@/src/authentication/KeycloakAuth", () => ({
+	...jest.requireActual("@/src/authentication/KeycloakAuth"),
+	KeycloakAuth: {
+		accountEmail: jest.fn(), changeEmail: jest.fn()
+	}
+}));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?: object): string => options ? `${key} ${JSON.stringify(options)}` : key } }));
 jest.mock("@/src/AppIcons", () => ({ AppIcons: { getIcon: (path: string): string => `icon:${path}` } }));
 jest.mock("@/src/gameServices/GameServices", () => ({
@@ -112,9 +125,66 @@ describe("settings", () => {
 		jest.mocked(Notifications.getPermissionsAsync).mockResolvedValue({
 			granted: true, canAskAgain: true
 		} as Awaited<ReturnType<typeof Notifications.getPermissionsAsync>>);
+		jest.mocked(KeycloakAuth.accountEmail).mockResolvedValue("player@example.com");
 	});
 
 	afterEach(() => jest.restoreAllMocks());
+
+	it("shows the account address, then waits for the link sent to the new one", async () => {
+		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(EMAIL_CHANGE_OUTCOMES.PENDING);
+		await renderSettings();
+		await waitFor(() => expect(screen.getByText("player@example.com")).toBeTruthy());
+
+		await fireEvent.press(screen.getByText("app:settings.email.entry"));
+
+		await waitFor(() => expect(screen.getByText("app:settings.email.awaitingLink")).toBeTruthy());
+		expect(KeycloakAuth.changeEmail).toHaveBeenCalledTimes(1);
+	});
+
+	it("drops the wait once the confirmed address comes back", async () => {
+		const foregroundListeners: ((state: AppStateStatus) => void)[] = [];
+		jest.spyOn(AppState, "addEventListener").mockImplementation((_type, listener) => {
+			foregroundListeners.push(listener);
+			return { remove: jest.fn() };
+		});
+		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(EMAIL_CHANGE_OUTCOMES.PENDING);
+		await renderSettings();
+		await fireEvent.press(screen.getByText("app:settings.email.entry"));
+		await waitFor(() => expect(screen.getByText("app:settings.email.awaitingLink")).toBeTruthy());
+
+		jest.mocked(KeycloakAuth.accountEmail).mockResolvedValue("new@example.com");
+		await act(async () => {
+			foregroundListeners.forEach(listener => listener("active"));
+			await Promise.resolve();
+		});
+
+		await waitFor(() => expect(screen.getByText("new@example.com")).toBeTruthy());
+		expect(screen.queryByText("app:settings.email.awaitingLink")).toBeNull();
+	});
+
+	it("says nothing when the player backs out of the email change", async () => {
+		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(EMAIL_CHANGE_OUTCOMES.CANCELLED);
+		await renderSettings();
+		await fireEvent.press(screen.getByText("app:settings.email.entry"));
+
+		await waitFor(() => expect(KeycloakAuth.changeEmail).toHaveBeenCalled());
+		expect(screen.queryByText("app:settings.email.awaitingLink")).toBeNull();
+		expect(screen.queryByText("app:settings.email.failed")).toBeNull();
+	});
+
+	it("lets the player retry an email change that could not open", async () => {
+		jest.spyOn(console, "warn").mockImplementation(() => undefined);
+		jest.mocked(KeycloakAuth.changeEmail).mockRejectedValueOnce(new Error("unreachable"))
+			.mockResolvedValue(EMAIL_CHANGE_OUTCOMES.CANCELLED);
+		await renderSettings();
+		await fireEvent.press(screen.getByText("app:settings.email.entry"));
+		await waitFor(() => expect(screen.getByText("app:settings.email.failed")).toBeTruthy());
+
+		await fireEvent.press(screen.getByText("app:settings.email.entry"));
+
+		await waitFor(() => expect(screen.queryByText("app:settings.email.failed")).toBeNull());
+		expect(KeycloakAuth.changeEmail).toHaveBeenCalledTimes(2);
+	});
 
 	it.each([
 		{

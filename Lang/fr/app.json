@@ -271,6 +271,11 @@
     "changeAccount": "Changer de compte",
     "leavingAccount": "Fermeture de la session en cours…",
     "changeAccountFailed": "La session n'a pas pu être fermée. Réessayez dans un instant.",
+    "email": {
+      "entry": "Adresse email",
+      "awaitingLink": "Un lien de confirmation attend sur la nouvelle adresse : le changement prendra effet à son ouverture.",
+      "failed": "Le changement d'adresse n'a pas pu s'ouvrir. Réessayez dans un instant."
+    },
     "title": "Réglages",
     "eyebrow": "Application",
     "sections": {

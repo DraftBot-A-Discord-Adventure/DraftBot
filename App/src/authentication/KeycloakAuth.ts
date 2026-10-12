@@ -5,6 +5,9 @@ import {
 	type AuthRequestPromptOptions,
 	type DiscoveryDocument
 } from "expo-auth-session";
+import {
+	openAuthSessionAsync, type WebBrowserAuthSessionResult
+} from "expo-web-browser";
 import { Appearance } from "react-native";
 import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import {
@@ -33,9 +36,64 @@ const AUTH_PROMPTS = {
 } as const;
 
 type AuthPrompt = typeof AUTH_PROMPTS[keyof typeof AUTH_PROMPTS];
+
+/** Account actions the app asks Keycloak to run on a signed-in player. */
+const KEYCLOAK_ACTIONS = {
+	UPDATE_EMAIL: "UPDATE_EMAIL"
+} as const;
+
+type KeycloakAction = typeof KEYCLOAK_ACTIONS[keyof typeof KEYCLOAK_ACTIONS];
 type AuthorizationParameters = {
-	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider;
+	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction;
 };
+
+/** How an email change ended when its browser window closed. */
+export const EMAIL_CHANGE_OUTCOMES = {
+	/** A confirmation link was sent to the new address, which replaces the current one once opened. */
+	PENDING: "pending",
+
+	/** Keycloak replaced the address at once, which it only does when the realm skips its verification. */
+	UPDATED: "updated",
+	CANCELLED: "cancelled"
+} as const;
+
+export type EmailChangeOutcome = typeof EMAIL_CHANGE_OUTCOMES[keyof typeof EMAIL_CHANGE_OUTCOMES];
+
+/** Values of `kc_action_status`, the parameter Keycloak adds when an account action ends. */
+const ACTION_STATUSES = {
+	SUCCESS: "success",
+	CANCELLED: "cancelled"
+} as const;
+
+/** React Native's `URL` lacks `searchParams`: the few parameters read here are matched directly. */
+function queryParameter(url: string, name: string): string | undefined {
+	const value = new RegExp(`[?&]${name}=([^&#]*)`, "u").exec(url)?.[1];
+	return value === undefined ? undefined : decodeURIComponent(value);
+}
+
+/**
+ * The confirmation page offers a way back to the game which carries no parameter: Keycloak still
+ * waits for the link at that point, so it cannot end the action itself.
+ */
+function emailChangeOutcome(result: WebBrowserAuthSessionResult): EmailChangeOutcome {
+	if (result.type !== "success") {
+		return EMAIL_CHANGE_OUTCOMES.CANCELLED;
+	}
+	const error = queryParameter(result.url, "error");
+	if (error) {
+		throw new AuthFailure(AUTH_FAILURES.UNKNOWN, queryParameter(result.url, "error_description") ?? error);
+	}
+	switch (queryParameter(result.url, "kc_action_status")) {
+		case undefined:
+			return EMAIL_CHANGE_OUTCOMES.PENDING;
+		case ACTION_STATUSES.SUCCESS:
+			return EMAIL_CHANGE_OUTCOMES.UPDATED;
+		case ACTION_STATUSES.CANCELLED:
+			return EMAIL_CHANGE_OUTCOMES.CANCELLED;
+		default:
+			throw new AuthFailure(AUTH_FAILURES.UNKNOWN, "Keycloak could not run the email change.");
+	}
+}
 
 /**
  * Dressing of the in-app browser that shows the Keycloak pages.
@@ -119,17 +177,44 @@ export class KeycloakAuth {
 		return KeycloakAuth.authorize({ prompt: AUTH_PROMPTS.REGISTER });
 	}
 
-	private static async authorize(entryParams: AuthorizationParameters): Promise<KeycloakOAuth2Token> {
-		const redirectUri = getRedirectUri();
+	/**
+	 * Opens Keycloak's email change after asking the password again.
+	 *
+	 * The code Keycloak hands back is never exchanged: the app keeps its own session, which reads
+	 * the new address once confirmed, and only needs to know how the action ended.
+	 */
+	public static async changeEmail(): Promise<EmailChangeOutcome> {
+		const entryParams: AuthorizationParameters = {
+			prompt: AUTH_PROMPTS.LOGIN,
+			kc_action: KEYCLOAK_ACTIONS.UPDATE_EMAIL
+		};
+		const url = await KeycloakAuth.authRequest(entryParams).makeAuthUrlAsync(getDiscovery());
+		return emailChangeOutcome(await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt)));
+	}
 
+	/** Read from Keycloak rather than from the token, whose copy only changes at its next refresh. */
+	public static async accountEmail(accessToken: string): Promise<string | null> {
+		const response = await fetch(`${getRealmUrl()}/protocol/openid-connect/userinfo`, {
+			headers: { Authorization: `Bearer ${accessToken}` }
+		});
+
+		if (!response.ok) {
+			throw new AuthFailure(AUTH_FAILURES.UNREACHABLE, `Keycloak userinfo request failed with status ${response.status}`);
+		}
+
+		const userInfo = await response.json() as { email?: string };
+		return userInfo.email ?? null;
+	}
+
+	private static authRequest(entryParams: AuthorizationParameters): AuthRequest {
 		/*
 		 * Typed as a string, but i18next answers nothing until it has loaded its resources, and
 		 * login is reachable before that.
 		 */
 		const language = currentLanguage() as string | undefined;
-		const request = new AuthRequest({
+		return new AuthRequest({
 			clientId: getClientId(),
-			redirectUri,
+			redirectUri: getRedirectUri(),
 			scopes: ["openid", "offline_access"],
 			responseType: ResponseType.Code,
 			usePKCE: true,
@@ -142,7 +227,10 @@ export class KeycloakAuth {
 				...entryParams
 			}
 		});
+	}
 
+	private static async authorize(entryParams: AuthorizationParameters): Promise<KeycloakOAuth2Token> {
+		const request = KeycloakAuth.authRequest(entryParams);
 		const result = await request.promptAsync(getDiscovery(), browserPresentation(entryParams.prompt));
 
 		if (result.type !== "success") {
@@ -152,7 +240,7 @@ export class KeycloakAuth {
 		return KeycloakAuth.requestToken({
 			grant_type: "authorization_code",
 			code: result.params.code,
-			redirect_uri: redirectUri,
+			redirect_uri: getRedirectUri(),
 			code_verifier: request.codeVerifier ?? ""
 		});
 	}

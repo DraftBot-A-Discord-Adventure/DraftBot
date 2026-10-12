@@ -1,10 +1,11 @@
 import {
-	IDENTITY_PROVIDERS, KeycloakAuth
+	EMAIL_CHANGE_OUTCOMES, IDENTITY_PROVIDERS, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
 import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import { AUTH_FAILURES } from "@/src/authentication/AuthFailure";
 
 const mockPromptAsync = jest.fn();
+const mockOpenAuthSession = jest.fn();
 const mockAuthRequestConfigs: Record<string, unknown>[] = [];
 
 jest.mock("expo-auth-session", () => ({
@@ -16,9 +17,17 @@ jest.mock("expo-auth-session", () => ({
 		public constructor(config: Record<string, unknown>) {
 			mockAuthRequestConfigs.push(config);
 		}
+
+		public makeAuthUrlAsync(): Promise<string> {
+			return Promise.resolve("https://keycloak.example.com/auth?state=s");
+		}
 	},
 	makeRedirectUri: (): string => "crownicles://auth",
 	ResponseType: { Code: "code" }
+}));
+
+jest.mock("expo-web-browser", () => ({
+	openAuthSessionAsync: (...args: unknown[]): unknown => mockOpenAuthSession(...args)
 }));
 
 jest.mock("@/src/translations/i18nLoader", () => ({
@@ -44,6 +53,7 @@ describe("KeycloakAuth", () => {
 		process.env.EXPO_PUBLIC_KEYCLOAK_CLIENT_ID = "crownicles-app";
 		mockAuthRequestConfigs.length = 0;
 		mockPromptAsync.mockReset();
+		mockOpenAuthSession.mockReset();
 	});
 
 	afterEach((): void => {
@@ -133,5 +143,76 @@ describe("KeycloakAuth", () => {
 		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ access_token: "only-this" }), { status: 200 }));
 
 		await expect(KeycloakAuth.login()).rejects.toMatchObject({ reason: AUTH_FAILURES.INVALID_TOKEN });
+	});
+
+	it("asks the password again before opening the email change, in a throwaway browser session", async () => {
+		mockOpenAuthSession.mockResolvedValue({
+			type: "success", url: "crownicles://"
+		});
+		const fetch = jest.spyOn(globalThis, "fetch");
+
+		await expect(KeycloakAuth.changeEmail()).resolves.toBe(EMAIL_CHANGE_OUTCOMES.PENDING);
+
+		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
+			kc_action: "UPDATE_EMAIL", prompt: "login"
+		} });
+		expect(mockOpenAuthSession).toHaveBeenCalledWith(
+			"https://keycloak.example.com/auth?state=s",
+			"crownicles://auth",
+			expect.objectContaining({ preferEphemeralSession: true })
+		);
+		expect(fetch).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		{
+			result: {
+				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=cancelled"
+			},
+			outcome: EMAIL_CHANGE_OUTCOMES.CANCELLED
+		},
+		{
+			result: {
+				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=success"
+			},
+			outcome: EMAIL_CHANGE_OUTCOMES.UPDATED
+		},
+		{
+			result: { type: "dismiss" },
+			outcome: EMAIL_CHANGE_OUTCOMES.CANCELLED
+		}
+	])("reads how the email change ended: $outcome", async ({
+		result, outcome
+	}) => {
+		mockOpenAuthSession.mockResolvedValue(result);
+
+		await expect(KeycloakAuth.changeEmail()).resolves.toBe(outcome);
+	});
+
+	it.each([
+		"crownicles://auth?error=access_denied&error_description=refused",
+		"crownicles://auth?kc_action=UPDATE_EMAIL&kc_action_status=error"
+	])("reports a Keycloak failure of the email change: %s", async url => {
+		mockOpenAuthSession.mockResolvedValue({
+			type: "success", url
+		});
+
+		await expect(KeycloakAuth.changeEmail()).rejects.toMatchObject({ reason: AUTH_FAILURES.UNKNOWN });
+	});
+
+	it("reads the current address from Keycloak with the session's access token", async () => {
+		const fetch = jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ email: "player@example.com" }), { status: 200 }));
+
+		await expect(KeycloakAuth.accountEmail("access-token")).resolves.toBe("player@example.com");
+		expect(fetch).toHaveBeenCalledWith(
+			"https://keycloak.example.com/realms/crownicles/protocol/openid-connect/userinfo",
+			{ headers: { Authorization: "Bearer access-token" } }
+		);
+	});
+
+	it("has no address to show for an account without one", async () => {
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ sub: "id" }), { status: 200 }));
+
+		await expect(KeycloakAuth.accountEmail("access-token")).resolves.toBeNull();
 	});
 });

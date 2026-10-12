@@ -941,7 +941,8 @@
       "attributes": {
         "realm_client": "false",
         "post.logout.redirect.uris": "crownicles://*##exp://*",
-        "pkce.code.challenge.method": "S256"
+        "pkce.code.challenge.method": "S256",
+        "crownicles.returnUri": "crownicles://"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": true,
@@ -2427,6 +2428,17 @@
       "defaultAction": false,
       "priority": 1000,
       "config": {}
+    },
+    {
+      "alias": "UPDATE_EMAIL",
+      "name": "Update Email",
+      "providerId": "UPDATE_EMAIL",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 1001,
+      "config": {
+        "verifyEmail": "true"
+      }
     }
   ],
   "browserFlow": "browser",
@@ -2444,7 +2456,9 @@
     "parRequestUriLifespan": "60",
     "cibaInterval": "5",
     "realmReusableOtpCode": "false",
-    "actionTokenGeneratedByUserLifespan.verify-email": "900"
+    "actionTokenGeneratedByUserLifespan.verify-email": "900",
+    "actionTokenGeneratedByUserLifespan.reset-credentials": "900",
+    "actionTokenGeneratedByUserLifespan.update-email": "900"
   },
   "keycloakVersion": "22.0.3",
   "userManagedAccessAllowed": false,
