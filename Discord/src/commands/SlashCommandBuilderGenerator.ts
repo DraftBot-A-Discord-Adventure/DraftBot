@@ -7,21 +7,6 @@ import {
 import i18n from "../translations/i18n";
 import { LANGUAGE } from "../../../Lib/src/Language";
 
-const DISCORD_NAME_MAX_LENGTH = 32;
-const DISCORD_NAME_PATTERN = /^[\p{Ll}\p{Lm}\p{Lo}\p{N}\p{sc=Devanagari}\p{sc=Thai}_-]+$/u;
-
-/**
- * Discord name for a translated command or option name, falling back to the section name when it cannot be used as is
- */
-export function getValidDiscordName(translatedName: string, fallbackName: string): string {
-	// Translators may write a name as separate words ("pet nickname"): joining them keeps the command name stable (#4864)
-	const name = translatedName.toLowerCase().replace(/\s+/gu, "");
-	return name.length <= DISCORD_NAME_MAX_LENGTH && DISCORD_NAME_PATTERN.test(name)
-		? name
-		: fallbackName.toLowerCase();
-}
-
-
 export class SlashCommandBuilderGenerator {
 	/**
 	 * This is used to avoid having to write the same code for each command this method create a base command with a name and a description from the translation modules of the command
@@ -34,14 +19,8 @@ export class SlashCommandBuilderGenerator {
 			lng: LANGUAGE.FRENCH,
 			defaultValue: commandSectionName
 		});
-		const englishName = getValidDiscordName(i18n.t(nameKey, {
-			lng: LANGUAGE.ENGLISH,
-			defaultValue: commandSectionName
-		}), commandSectionName);
-		const frenchName = getValidDiscordName(i18n.t(nameKey, {
-			lng: LANGUAGE.FRENCH,
-			defaultValue: commandSectionName
-		}), commandSectionName);
+		const englishName = i18n.t(nameKey, { lng: LANGUAGE.ENGLISH });
+		const frenchName = i18n.t(nameKey, { lng: LANGUAGE.FRENCH });
 
 		return new SlashCommandBuilder()
 			.setName(englishName)
@@ -58,8 +37,9 @@ export class SlashCommandBuilderGenerator {
 	}
 
 	static generateSubCommand(commandSectionName: string, subCommandSectionName: string): SlashCommandSubcommandBuilder {
-		const englishName = getValidDiscordName(i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`, { lng: LANGUAGE.ENGLISH }), subCommandSectionName);
-		const frenchName = getValidDiscordName(i18n.t(`discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`, { lng: LANGUAGE.FRENCH }), subCommandSectionName);
+		const nameKey = `discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`;
+		const englishName = i18n.t(nameKey, { lng: LANGUAGE.ENGLISH });
+		const frenchName = i18n.t(nameKey, { lng: LANGUAGE.FRENCH });
 
 		return new SlashCommandSubcommandBuilder()
 			.setName(englishName)
@@ -79,8 +59,9 @@ export class SlashCommandBuilderGenerator {
 	 * @param option Option to populate
 	 */
 	static generateOption<T extends ApplicationCommandOptionBase>(commandSectionName: string, optionSectionName: string, option: T): T {
-		const englishName = getValidDiscordName(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, { lng: LANGUAGE.ENGLISH }), optionSectionName);
-		const frenchName = getValidDiscordName(i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, { lng: LANGUAGE.FRENCH }), optionSectionName);
+		const nameKey = `discordBuilder:${commandSectionName}.options.${optionSectionName}.name`;
+		const englishName = i18n.t(nameKey, { lng: LANGUAGE.ENGLISH });
+		const frenchName = i18n.t(nameKey, { lng: LANGUAGE.FRENCH });
 
 		return option.setName(englishName)
 			.setNameLocalizations({
