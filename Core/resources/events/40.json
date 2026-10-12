@@ -60,6 +60,19 @@
           "goBackToPreviousMap": true
         }
       }
+    },
+    "keepGoing": {
+      "condition": {
+        "canGoBack": false
+      },
+      "outcomes": {
+        "0": {
+          "money": 150
+        },
+        "1": {
+          "money": -250
+        }
+      }
     }
   },
   "triggers": [

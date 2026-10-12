@@ -25,7 +25,7 @@ async function verifyConditionCanAcceptPet(condition: PossibilityCondition, play
 
 export async function verifyPossibilityCondition(condition: PossibilityCondition, player: Player): Promise<boolean> {
 	return player.level >= (condition.level ?? 0)
-		&& (!condition.canGoBack || Maps.getGoBackMapLink(player) !== null)
+		&& (condition.canGoBack === undefined || (Maps.getGoBackMapLink(player) !== null) === condition.canGoBack)
 		&& await verifyConditionCanAcceptPet(condition, player);
 }
 
@@ -34,7 +34,8 @@ export interface PossibilityCondition {
 	canAcceptPet?: boolean;
 
 	/**
-	 * Only offer this possibility when the player may actually go back to the map they come from.
+	 * `true`: only offer this possibility when the player may go back to the map they come from.
+	 * `false`: only offer it when they may not, to replace the go back choice instead of losing it.
 	 */
 	canGoBack?: boolean;
 }
