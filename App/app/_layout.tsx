@@ -15,6 +15,7 @@ import { BootGate } from "@/src/translations/BootGate";
 import {
 	ThemeRoot, useColors, useTheme
 } from "@/src/design/ThemeContext";
+import { ThemeTransitionRoot } from "@/src/design/ThemeTransition";
 
 SplashScreen.preventAutoHideAsync().catch((error: unknown) => {
 	console.warn("Unable to keep the native splash screen visible:", error);
@@ -93,5 +94,5 @@ function ThemedApp(): ReactNode {
 }
 
 export default function RootLayout(): ReactNode {
-	return <ThemeRoot><ThemedApp /></ThemeRoot>;
+	return <ThemeRoot><ThemeTransitionRoot><ThemedApp /></ThemeTransitionRoot></ThemeRoot>;
 }

@@ -1,7 +1,9 @@
 import React, {
 	ReactNode, useContext, useRef, useState
 } from "react";
-import { Linking } from "react-native";
+import {
+	Linking, View
+} from "react-native";
 import { useRouter } from "expo-router";
 import {
 	nativeApplicationVersion, nativeBuildVersion
@@ -19,10 +21,10 @@ import {
 import {
 	HAPTICS_MODES, HapticsMode, hapticsPreference, useHapticsMode
 } from "@/src/preferences/HapticsPreference";
-import { GameClient } from "@/src/networking/GameClient";
-import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import { ImpactFeedbackStyle } from "expo-haptics";
 import { Haptics } from "@/src/design/Haptics";
+import { GameClient } from "@/src/networking/GameClient";
+import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useFightSpeed } from "@/src/store/useFightSpeed";
@@ -46,6 +48,9 @@ import {
 import { SegmentedControl } from "@/src/design/SegmentedControl";
 import { THEME_PREFERENCES } from "@/src/design/ThemePreference";
 import { useTheme } from "@/src/design/ThemeContext";
+import {
+	ThemeOrigin, useThemeChange
+} from "@/src/design/ThemeTransition";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import {
 	BookOpen, LogOut, Shield, UserRound
@@ -73,17 +78,17 @@ function appVersion(): string {
 		: version;
 }
 
-function GameSettings(): ReactNode {
-	const {
-		speed, setSpeed
-	} = useFightSpeed();
-	const travelAdvices = useTravelAdvicesShown();
 /** The new setting answers at once: a vibration, unless it rules one out right now. */
 function chooseHapticsMode(mode: HapticsMode): void {
 	hapticsPreference.set(mode);
 	Haptics.impact(ImpactFeedbackStyle.Medium);
 }
 
+function GameSettings(): ReactNode {
+	const {
+		speed, setSpeed
+	} = useFightSpeed();
+	const travelAdvices = useTravelAdvicesShown();
 	const haptics = useHapticsMode();
 	return <>
 		<SectionHeader first>{i18n.t("app:settings.sections.game")}</SectionHeader>
@@ -123,21 +128,29 @@ function chooseHapticsMode(mode: HapticsMode): void {
 
 function DisplaySettings(): ReactNode {
 	const theme = useTheme();
+	const changeTheme = useThemeChange();
+	const touch = useRef<ThemeOrigin | undefined>(undefined);
 	return <>
 		<SectionHeader>{i18n.t("app:settings.sections.display")}</SectionHeader>
 		<ExpandableList>
 			<ChoiceRow label={i18n.t("app:settings.theme.label")}>
-				<SegmentedControl label={i18n.t("app:settings.theme.label")} value={theme.preference} onChange={theme.setPreference} options={[
-					{
-						value: THEME_PREFERENCES.SYSTEM, label: i18n.t("app:settings.theme.system")
-					},
-					{
-						value: THEME_PREFERENCES.LIGHT, label: i18n.t("app:settings.theme.light")
-					},
-					{
-						value: THEME_PREFERENCES.DARK, label: i18n.t("app:settings.theme.dark")
-					}
-				]} />
+				<View onTouchStart={(event): void => {
+					touch.current = {
+						x: event.nativeEvent.pageX, y: event.nativeEvent.pageY
+					};
+				}}>
+					<SegmentedControl label={i18n.t("app:settings.theme.label")} value={theme.preference} onChange={(preference): void => changeTheme(preference, touch.current)} options={[
+						{
+							value: THEME_PREFERENCES.SYSTEM, label: i18n.t("app:settings.theme.system")
+						},
+						{
+							value: THEME_PREFERENCES.LIGHT, label: i18n.t("app:settings.theme.light")
+						},
+						{
+							value: THEME_PREFERENCES.DARK, label: i18n.t("app:settings.theme.dark")
+						}
+					]} />
+				</View>
 			</ChoiceRow>
 		</ExpandableList>
 	</>;
