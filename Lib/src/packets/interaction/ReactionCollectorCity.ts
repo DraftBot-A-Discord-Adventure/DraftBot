@@ -11,7 +11,7 @@ import {
 	ItemCategory, ItemRarity
 } from "../../constants/ItemConstants";
 import {
-	HomeFeatures, ChestSlotsPerCategory, getSlotCountForCategory
+	HomeFeatures, ChestSlotsPerCategory
 } from "../../types/HomeFeatures";
 import {
 	BuildingUpgradeEligibilityMap, DepositTierAffordability
@@ -525,6 +525,9 @@ export class ReactionCollectorHomeMenuReaction extends ReactionCollectorReaction
 
 export class ReactionCollectorHomeBedReaction extends ReactionCollectorReaction {}
 
+/** Leaving the chest after moving equipment: the city is rebuilt so every service lists the current inventory */
+export class ReactionCollectorHomeChestCloseReaction extends ReactionCollectorReaction {}
+
 export class ReactionCollectorUpgradeItemReaction extends ReactionCollectorReaction {
 	slot!: number;
 
@@ -619,6 +622,7 @@ type CityReaction =
 	| ReactionCollectorCityUpgradeHomeReaction
 	| ReactionCollectorCityMoveHomeReaction
 	| ReactionCollectorHomeMenuReaction
+	| ReactionCollectorHomeChestCloseReaction
 	| ReactionCollectorUpgradeItemReaction
 	| ReactionCollectorBlacksmithMenuReaction
 	| ReactionCollectorBlacksmithUpgradeReaction
@@ -736,44 +740,24 @@ export class ReactionCollectorCity extends ReactionCollector {
 		const homeBedReactions = isRemoteGardenView
 			? []
 			: [this.buildReaction(ReactionCollectorHomeBedReaction, {})];
-		const upgradeItemReactions = this.buildUpgradeItemReactions();
+		const upgradeItemReactions = this.data.home.owned.upgradeStation?.upgradeableItems.map(item =>
+			this.buildReaction(ReactionCollectorUpgradeItemReaction, {
+				slot: item.slot,
+				itemCategory: item.category
+			})) ?? [];
 
 		const gardenReactions = this.buildGardenReactions();
+		const chestCloseReactions = this.data.home.owned.chest
+			? [this.buildReaction(ReactionCollectorHomeChestCloseReaction, {})]
+			: [];
 
 		return [
 			homeMenuReaction,
 			...homeBedReactions,
 			...upgradeItemReactions,
-			...gardenReactions
+			...gardenReactions,
+			...chestCloseReactions
 		];
-	}
-
-	/**
-	 * The chest can bring any equipment into any inventory slot while the city stays open,
-	 * so every reachable equipment slot gets a reaction, not only the ones upgradeable on opening.
-	 */
-	private buildUpgradeItemReactions(): {
-		type: string; data: ReactionCollectorReaction;
-	}[] {
-		const owned = this.data.home.owned;
-		if (!owned?.upgradeStation) {
-			return [];
-		}
-		const { upgradeableItems } = owned.upgradeStation;
-		const inventoryCapacity = owned.chest?.inventoryCapacity;
-
-		return [ItemCategory.WEAPON, ItemCategory.ARMOR].flatMap(itemCategory => {
-			const listedSlots = upgradeableItems.filter(item => item.category === itemCategory).map(item => item.slot);
-			const slots = inventoryCapacity
-				? Array.from({
-					length: Math.max(getSlotCountForCategory(inventoryCapacity, itemCategory), ...listedSlots.map(slot => slot + 1))
-				}, (_, slot) => slot)
-				: listedSlots;
-			return slots.map(slot => this.buildReaction(ReactionCollectorUpgradeItemReaction, {
-				slot,
-				itemCategory
-			}));
-		});
 	}
 
 	private buildGardenReactions(): {

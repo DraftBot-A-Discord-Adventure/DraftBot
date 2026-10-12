@@ -861,7 +861,7 @@
       "stayInCityChoice": "{emote:mapTypes.ci} Entrer en ville",
       "shopEmptyDescription": "Aucun service à proposer pour le moment.",
       "equipmentChangedTitle": "{{pseudo}}, l'équipement a changé !",
-      "equipmentChangedDescription": "L'équipement choisi n'est plus le même à cet emplacement de l'inventaire : il a été déplacé depuis l'ouverture du menu. Rien n'a été dépensé, consultez à nouveau le menu pour voir votre inventaire à jour.",
+      "equipmentChangedDescription": "L'équipement choisi n'est plus le même à cet emplacement de l'inventaire : il a été déplacé depuis l'ouverture du menu. Rien n'a été dépensé et le menu a été mis à jour avec votre inventaire actuel.",
       "exitInn": "Sortir de l'auberge",
       "reactions": {
         "exit": {

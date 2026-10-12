@@ -3,6 +3,7 @@
  * These are used as custom IDs for Discord buttons in the city report menus.
  */
 import { ButtonStyle } from "discord.js";
+import { CityNestedMenuIds } from "../../../../../Lib/src/constants/CityNestedMenuIds";
 
 export const ReportCityMenuIds = {
 	// --- Navigation ---
@@ -10,16 +11,16 @@ export const ReportCityMenuIds = {
 	BACK_TO_CITY: "BACK_TO_CITY",
 
 	/** Blacksmith sub-menu */
-	BLACKSMITH_MENU: "BLACKSMITH_MENU",
+	BLACKSMITH_MENU: CityNestedMenuIds.BLACKSMITH,
 
 	/** Scrap dealer sub-menu */
 	SCRAP_DEALER_MENU: "SCRAP_DEALER_MENU",
 
 	/** Royal Blacksmith sub-menu (special: only at the royal castle, lvl 100+ for level-5 upgrades). */
-	ROYAL_BLACKSMITH_MENU: "ROYAL_BLACKSMITH_MENU",
+	ROYAL_BLACKSMITH_MENU: CityNestedMenuIds.ROYAL_BLACKSMITH,
 
 	/** Enchanter sub-menu */
-	ENCHANTER_MENU: "ENCHANTER_MENU",
+	ENCHANTER_MENU: CityNestedMenuIds.ENCHANTER,
 
 	/** Castle archivist who tracks final island boss records. */
 	BOSS_ARCHIVIST_MENU: "BOSS_ARCHIVIST_MENU",

@@ -54,6 +54,17 @@ vi.mock("../../../Discord/src/utils/ErrorUtils", async (importOriginal) => {
 	};
 });
 
+vi.mock("../../../Discord/src/utils/DiscordCollectorUtils", async (importOriginal) => {
+	const actual = await importOriginal<typeof import("../../src/utils/DiscordCollectorUtils")>();
+	return {
+		...actual,
+		DiscordCollectorUtils: {
+			...actual.DiscordCollectorUtils,
+			sendReaction: vi.fn()
+		}
+	};
+});
+
 // ===== Imports =====
 
 import { ChestFeatureHandler } from "../../src/commands/player/report/home/features/ChestFeatureHandler";
@@ -62,9 +73,14 @@ import {
 	createHandlerContext,
 	createHomeData,
 	createMockComponentInteraction,
-	createMockNestedMenus
+	createMockNestedMenus,
+	createMockPacket
 } from "./homeTestUtils";
 import { DiscordMQTT } from "../../src/bot/DiscordMQTT";
+import { DiscordCollectorUtils } from "../../src/utils/DiscordCollectorUtils";
+import {
+	ReactionCollectorHomeChestCloseReaction, ReactionCollectorHomeMenuReaction
+} from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
 import {
 	ActionRowBuilder, ContainerBuilder
@@ -461,48 +477,47 @@ describe("ChestFeatureHandler", () => {
 			expect(mockSendPacket).toHaveBeenCalledOnce();
 		});
 
-		it("should refresh the upgrade station after an inventory mutation", async () => {
-			const previousUpgradeStation = {
-				upgradeableItems: [],
-				maxUpgradeableRarity: 1
-			};
-			const refreshedUpgradeStation = {
-				upgradeableItems: [],
-				maxUpgradeableRarity: 2
-			};
+		it("should rebuild the city when leaving the chest after moving equipment (#4789)", async () => {
 			const ctx = createHandlerContext({
 				homeData: createChestHomeData({
-					upgradeStation: previousUpgradeStation,
 					chestItems: [{
 						slot: 1,
 						category: ItemCategory.WEAPON,
 						details: { itemId: 1, attack: 10, defense: 0, speed: 0, level: 1 }
 					}]
-				})
+				}),
+				packet: createMockPacket([{ type: ReactionCollectorHomeMenuReaction.name }, { type: ReactionCollectorHomeChestCloseReaction.name }])
 			});
-			const interaction = createMockComponentInteraction();
 			const menus = createMockNestedMenus();
-			const mockSendPacket = vi.mocked(DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse);
-			mockSendPacket.mockImplementation(async (context, _packet, callback) => {
+			vi.mocked(DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse).mockImplementation(async (context, _packet, callback) => {
 				await callback(context, "CommandReportHomeChestActionRes", {
 					success: true,
 					chestItems: [],
 					depositableItems: [],
 					slotsPerCategory: { weapon: 1, armor: 1, object: 1, potion: 1 },
-					inventoryCapacity: { weapon: 2, armor: 1, object: 1, potion: 1 },
-					upgradeStation: refreshedUpgradeStation
+					inventoryCapacity: { weapon: 2, armor: 1, object: 1, potion: 1 }
 				} as never);
 			});
+			await handler.handleSubMenuSelection(ctx, `${HomeMenuIds.CHEST_WITHDRAW_PREFIX}${ItemCategory.WEAPON}_1`, createMockComponentInteraction() as never, menus as never);
+			vi.mocked(menus.changeMenu).mockClear();
 
-			await handler.handleSubMenuSelection(
-				ctx,
-				`${HomeMenuIds.CHEST_WITHDRAW_PREFIX}${ItemCategory.WEAPON}_1`,
-				interaction as never,
-				menus as never
-			);
+			await handler.handleSubMenuSelection(ctx, HomeMenuIds.BACK_TO_HOME, createMockComponentInteraction(HomeMenuIds.BACK_TO_HOME) as never, menus as never);
 
-			expect(ctx.homeData.upgradeStation).toBe(refreshedUpgradeStation);
-			expect(ctx.refreshInventoryMenus).toHaveBeenCalledWith(menus);
+			expect(DiscordCollectorUtils.sendReaction).toHaveBeenCalledWith(ctx.packet, ctx.context, ctx.context.keycloakId, expect.anything(), 1);
+			expect(menus.changeMenu).not.toHaveBeenCalled();
+		});
+
+		it("should simply go back home when no equipment moved", async () => {
+			const ctx = createHandlerContext({
+				homeData: createChestHomeData(),
+				packet: createMockPacket([{ type: ReactionCollectorHomeChestCloseReaction.name }])
+			});
+			const menus = createMockNestedMenus();
+
+			await handler.handleSubMenuSelection(ctx, HomeMenuIds.BACK_TO_HOME, createMockComponentInteraction(HomeMenuIds.BACK_TO_HOME) as never, menus as never);
+
+			expect(menus.changeMenu).toHaveBeenCalledWith(HomeMenuIds.HOME_MENU);
+			expect(DiscordCollectorUtils.sendReaction).not.toHaveBeenCalled();
 		});
 
 		it("should send plant deposit MQTT packet", async () => {

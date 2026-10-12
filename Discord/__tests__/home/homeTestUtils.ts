@@ -184,7 +184,6 @@ export function createHandlerContext(overrides?: Partial<{
 		lng: overrides?.lng ?? LANGUAGE.FRENCH,
 		user,
 		pseudo: "TestPlayer",
-		collectorTime: overrides?.collectorTime ?? 60000,
-		refreshInventoryMenus: vi.fn()
+		collectorTime: overrides?.collectorTime ?? 60000
 	};
 }
