@@ -6,6 +6,7 @@ import {
 	QueryClient, QueryClientProvider
 } from "@tanstack/react-query";
 import * as Notifications from "expo-notifications";
+import { impactAsync } from "expo-haptics";
 import { NotificationPreferencesRes } from "ws-packets/src/fromServer/settings/NotificationPreferencesRes";
 import { NOTIFICATION_TYPES } from "ws-packets/src/objects/NotificationPreferences";
 import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
@@ -39,6 +40,9 @@ jest.mock("expo-notifications", () => ({
 }));
 jest.mock("expo-application", () => ({
 	nativeApplicationVersion: "6.0.5", nativeBuildVersion: "3"
+}));
+jest.mock("expo-haptics", () => ({
+	impactAsync: jest.fn(() => Promise.resolve()), ImpactFeedbackStyle: { Medium: "medium" }
 }));
 jest.mock("@/src/notifications/PushRegistration", () => ({
 	registerForPush: jest.fn(() => Promise.resolve()), forgetPushDevice: jest.fn()
@@ -148,14 +152,17 @@ describe("settings", () => {
 		await waitFor(() => expect(screen.getByText("6.0.4")).toBeTruthy());
 	});
 
-	it("keeps the chosen vibrations on this device", async () => {
+	it("keeps the chosen vibrations on this device and lets the player feel them at once", async () => {
 		await renderSettings();
 
 		await fireEvent.press(screen.getByText("app:settings.haptics.withSound"));
 		expect(hapticsPreference.getSnapshot()).toBe(HAPTICS_MODES.WITH_SOUND);
+		await waitFor(() => expect(impactAsync).toHaveBeenCalledTimes(1));
 
 		await fireEvent.press(screen.getByText("app:settings.haptics.never"));
 		expect(hapticsPreference.getSnapshot()).toBe(HAPTICS_MODES.NEVER);
+		await act(async () => undefined);
+		expect(impactAsync).toHaveBeenCalledTimes(1);
 
 		hapticsPreference.set(HAPTICS_MODES.ALWAYS);
 	});

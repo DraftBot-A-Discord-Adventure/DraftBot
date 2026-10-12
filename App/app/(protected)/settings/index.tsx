@@ -17,10 +17,12 @@ import {
 	travelAdvicePreference, useTravelAdvicesShown
 } from "@/src/preferences/TravelAdvicePreference";
 import {
-	HAPTICS_MODES, hapticsPreference, useHapticsMode
+	HAPTICS_MODES, HapticsMode, hapticsPreference, useHapticsMode
 } from "@/src/preferences/HapticsPreference";
 import { GameClient } from "@/src/networking/GameClient";
 import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { ImpactFeedbackStyle } from "expo-haptics";
+import { Haptics } from "@/src/design/Haptics";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useFightSpeed } from "@/src/store/useFightSpeed";
@@ -76,6 +78,12 @@ function GameSettings(): ReactNode {
 		speed, setSpeed
 	} = useFightSpeed();
 	const travelAdvices = useTravelAdvicesShown();
+/** The new setting answers at once: a vibration, unless it rules one out right now. */
+function chooseHapticsMode(mode: HapticsMode): void {
+	hapticsPreference.set(mode);
+	Haptics.impact(ImpactFeedbackStyle.Medium);
+}
+
 	const haptics = useHapticsMode();
 	return <>
 		<SectionHeader first>{i18n.t("app:settings.sections.game")}</SectionHeader>
@@ -97,7 +105,7 @@ function GameSettings(): ReactNode {
 				onChange={travelAdvicePreference.set}
 			/>
 			<ChoiceRow label={i18n.t("app:settings.haptics.label")} caption={i18n.t("app:settings.haptics.hint")}>
-				<SegmentedControl label={i18n.t("app:settings.haptics.label")} value={haptics} onChange={hapticsPreference.set} options={[
+				<SegmentedControl label={i18n.t("app:settings.haptics.label")} value={haptics} onChange={chooseHapticsMode} options={[
 					{
 						value: HAPTICS_MODES.ALWAYS, label: i18n.t("app:settings.haptics.always")
 					},
