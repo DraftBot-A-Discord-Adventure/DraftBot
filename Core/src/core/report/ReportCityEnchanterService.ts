@@ -87,6 +87,24 @@ function pushMissingCurrenciesResponse(params: {
 	}));
 }
 
+/**
+ * Whether the slot still holds the equipment the enchanter listed when the city was opened
+ */
+function holdsListedItem(
+	item: InventorySlot | null,
+	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData
+): item is InventorySlot {
+	const listedItem = data.enchanter?.enchantableItems.find(listed => listed.slot === reaction.slot && listed.category === reaction.itemCategory);
+	return Boolean(listedItem && item?.holdsItem(listedItem.details));
+}
+
+function canBeEnchanted(item: InventorySlot, enchantment: ItemEnchantment): boolean {
+	return item.isWeaponOrArmor()
+		&& !item.itemEnchantmentId
+		&& item.itemCategory === enchantment.kind.slot;
+}
+
 async function getEnchantableItem(
 	player: Player,
 	reaction: ReactionCollectorEnchantReaction,
@@ -97,17 +115,12 @@ async function getEnchantableItem(
 	response: CrowniclesPacket[]
 ): Promise<InventorySlot | null> {
 	const itemToEnchant = await InventorySlots.getItem(player.id, reaction.slot, reaction.itemCategory);
-	const listedItem = context.data.enchanter?.enchantableItems.find(item => item.slot === reaction.slot && item.category === reaction.itemCategory);
-	if (!listedItem || !itemToEnchant?.holdsItem(listedItem.details)) {
+	if (!holdsListedItem(itemToEnchant, reaction, context.data)) {
 		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
 		return null;
 	}
 
-	const canBeEnchanted = itemToEnchant.isWeaponOrArmor()
-		&& !itemToEnchant.itemEnchantmentId
-		&& itemToEnchant.itemCategory === context.enchantment.kind.slot;
-
-	if (!canBeEnchanted) {
+	if (!canBeEnchanted(itemToEnchant, context.enchantment)) {
 		CrowniclesLogger.error("Player tried to enchant an item that doesn't exist or cannot be enchanted. It shouldn't happen because the player must not be able to switch items while in the collector.");
 		response.push(makePacket(CommandReportItemCannotBeEnchantedRes, {}));
 		return null;
