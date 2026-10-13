@@ -402,7 +402,7 @@ export class AccountCollisionService {
 		if (identities.isError) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.CONFLICT);
 		}
-		await this.persist(resolvedUser(kept, intent));
+		await this.persist(resolvedUser(await this.userById(intent.keptId), intent));
 		return { kept: intent.choice };
 	}
 
@@ -437,7 +437,7 @@ export class AccountCollisionService {
 		return verified.pair;
 	}
 
-	/** Writes the intent on the kept account before deleting anything, so an interrupted resolution can be finished. */
+	/** Records the choice and Discord lookup on the kept account before deletion, so the bot never recreates the discarded identity. */
 	private async recordAndFinish(pair: CollisionPair, intent: ResolutionIntent, proof: CollisionProofId): Promise<AccountCollisionResolution> {
 		const discord = await this.userById(pair.discord.id);
 		const emailAccount = await this.userById(pair.emailAccount.id);
@@ -449,7 +449,9 @@ export class AccountCollisionService {
 		await this.persist({
 			...kept,
 			attributes: {
-				...kept.attributes, accountCollisionResolution: [JSON.stringify(intent)]
+				...kept.attributes,
+				discordId: [intent.discordId],
+				accountCollisionResolution: [JSON.stringify(intent)]
 			}
 		});
 		const result = await this.finish(intent);

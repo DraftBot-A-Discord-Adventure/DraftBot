@@ -177,6 +177,34 @@ describe("account collision resolution", () => {
 		expect(users.get("email-user")?.attributes.discordId).toEqual([DISCORD_ID]);
 	});
 
+	it("keeps the selected account discoverable by the bot when Discord linking is interrupted", async () => {
+		const service = new AccountCollisionService(CONFIG);
+		const proof = await service.verify("discord-token", "email-token");
+		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockResolvedValueOnce({isError: true, status: 503, payload: {}});
+		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
+		const botOwners = [...users.values()].filter(account => account.attributes.discordId?.[0] === DISCORD_ID);
+		expect(botOwners.map(account => account.id)).toEqual(["email-user"]);
+		expect(botOwners[0].attributes.accountCollisionResolution).toBeDefined();
+		await expect(new AccountCollisionService(CONFIG).resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
+		expect(users.size).toBe(1);
+	});
+
+	it("preserves account fields updated while the Discord identity is being linked", async () => {
+		const service = new AccountCollisionService(CONFIG);
+		const proof = await service.verify("discord-token", "email-token");
+		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockImplementationOnce(async () => {
+			await KeycloakUtils.updateUser(CONFIG, {
+				...users.get("email-user")!,
+				attributes: {...users.get("email-user")!.attributes, gameUsername: ["Updated hero"], language: ["en"]}
+			});
+			return {isError: false, status: 204, payload: {changed: true}};
+		});
+		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
+		expect(users.get("email-user")?.attributes.gameUsername).toEqual(["Updated hero"]);
+		expect(users.get("email-user")?.attributes.language).toEqual(["en"]);
+		expect(users.get("email-user")?.attributes.discordId).toEqual([DISCORD_ID]);
+	});
+
 	it("serializes opposite confirmations so they cannot delete both accounts", async () => {
 		const service = new AccountCollisionService(CONFIG);
 		const first = await service.verify("discord-token", "email-token");

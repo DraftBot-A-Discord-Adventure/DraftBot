@@ -1,5 +1,5 @@
 import {
-	ReactElement, useCallback, useContext, useEffect, useRef, useState
+	ReactElement, useCallback, useContext, useEffect, useEffectEvent, useRef, useState
 } from "react";
 import { AppState } from "react-native";
 import { AuthContext } from "@/src/authentication/AuthContext";
@@ -32,6 +32,7 @@ import {
 
 const REVERIFIABLE_ERRORS: ReadonlySet<AccountCollisionError> = new Set([ACCOUNT_COLLISION_ERRORS.PROOF_EXPIRED, ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED]);
 const KEEP_BOTH_EMBLEM_SIZE = 20;
+const COLLISION_RECHECK_MS = 4_000;
 
 export type AccountCollisionLoginState = {
 	token: AuthToken; check: AccountCollisionCheck;
@@ -114,7 +115,7 @@ function useExclusiveTask(): {
 	const [pending, setPending] = useState(false);
 	const [failure, setFailure] = useState<string | null>(null);
 	const running = useRef(false);
-	const run = (task: () => Promise<void>): void => {
+	const run = useCallback((task: () => Promise<void>): void => {
 		if (running.current) {
 			return;
 		}
@@ -126,7 +127,7 @@ function useExclusiveTask(): {
 				running.current = false;
 				setPending(false);
 			});
-	};
+	}, []);
 	return {
 		pending, failure, run
 	};
@@ -160,6 +161,7 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 	const [choice, setChoice] = useState<AccountCollisionChoice | "">(state.check.pending ?? "");
 	const [confirmed, setConfirmed] = useState<AuthToken | null>(state.check.pending ? state.token : null);
 	const [proof, setProof] = useState("");
+	const restored = useRef(false);
 	const {
 		pending, failure, run
 	} = useExclusiveTask();
@@ -170,14 +172,14 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 		setChoice("");
 	};
 
-	const settle = async (kept: AuthToken, chosen: AccountCollisionChoice, proven: string): Promise<void> => {
+	const settle = useCallback(async (kept: AuthToken, chosen: AccountCollisionChoice, proven: string): Promise<void> => {
 		await auth.saveToken(kept);
 		setConfirmed(kept);
 		await sendChoice(kept, chosen, {
 			proof: proven, onStale: restart
 		});
 		await onAuthenticated(kept);
-	};
+	}, [auth, onAuthenticated]);
 
 	const keep = (chosen: AccountCollisionChoice): void => run(async (): Promise<void> => {
 		setChoice(chosen);
@@ -186,11 +188,30 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 		await settle(verified[chosen], chosen, verified.proof.proof);
 	});
 
-	const resume = (): void => run(async (): Promise<void> => {
+	const resume = useCallback((): void => run(async (): Promise<void> => {
+		if (!isAccountCollisionOpen(state.check)) {
+			await onAuthenticated(state.token);
+			return;
+		}
 		if (confirmed && choice) {
 			await settle(confirmed, choice, proof);
 		}
-	});
+	}), [
+		state,
+		onAuthenticated,
+		confirmed,
+		choice,
+		proof,
+		settle,
+		run
+	]);
+
+	useEffect((): void => {
+		if (!isAccountCollisionOpen(state.check) && !restored.current) {
+			restored.current = true;
+			resume();
+		}
+	}, [state.check, resume]);
 
 	return {
 		confirmed: confirmed !== null, choice, pending, failure, keep, resume
@@ -203,41 +224,99 @@ type KeepBoth = {
 	/** The new address waits for its confirmation link: the collision ends once it is opened. */
 	awaitingLink: boolean;
 	failed: boolean;
+	failure: string | null;
 	change: () => void;
 };
 
+type CollisionWatch = {
+	opening: boolean; failure: string | null;
+};
+
+function useCollisionWatch(token: AuthToken, onAuthenticated: (token: AuthToken) => Promise<void>, watching: boolean): CollisionWatch {
+	const [opening, setOpening] = useState(false);
+	const [failure, setFailure] = useState<string | null>(null);
+	const checking = useRef(false);
+	const openingSession = useRef(false);
+	const authenticate = useEffectEvent(onAuthenticated);
+	useEffect(() => {
+		if (!watching) {
+			return undefined;
+		}
+		let cancelled = false;
+		const recheck = async (): Promise<void> => {
+			if (cancelled) {
+				return;
+			}
+			if (checking.current || openingSession.current) {
+				return;
+			}
+			checking.current = true;
+			let startedOpening = false;
+			try {
+				const check = await RestApi.checkAccountCollision(await accessToken(token));
+				if (cancelled) {
+					return;
+				}
+				setFailure(null);
+				if (!isAccountCollisionOpen(check)) {
+					openingSession.current = true;
+					startedOpening = true;
+					setOpening(true);
+					await authenticate(token);
+				}
+			}
+			catch (error) {
+				if (startedOpening) {
+					openingSession.current = false;
+				}
+				if (!cancelled) {
+					setOpening(false);
+					setFailure(failureText(error));
+				}
+			}
+			finally {
+				checking.current = false;
+			}
+		};
+		const recheckWhenActive = (): void => {
+			if (AppState.currentState !== "background" && AppState.currentState !== "inactive") {
+				recheck();
+			}
+		};
+		recheckWhenActive();
+		const timer = setInterval(recheckWhenActive, COLLISION_RECHECK_MS);
+		const subscription = AppState.addEventListener("change", appState => {
+			if (appState === "active") {
+				recheckWhenActive();
+			}
+		});
+		return (): void => {
+			cancelled = true;
+			clearInterval(timer);
+			subscription.remove();
+		};
+	}, [token, watching]);
+	return {
+		opening, failure
+	};
+}
+
 /** Gives the email account another address, then lets the player in as soon as the two accounts no longer collide */
-function useKeepBoth(state: AccountCollisionLoginState, onAuthenticated: (token: AuthToken) => Promise<void>): KeepBoth {
+function useKeepBoth(state: AccountCollisionLoginState, onAuthenticated: (token: AuthToken) => Promise<void>, disabled: boolean): KeepBoth {
 	const email = state.check.collision?.email;
 	const { token } = state;
 	const [awaitingLink, setAwaitingLink] = useState(false);
-	const recheck = useCallback((): void => {
-		accessToken(token).then(access => RestApi.checkAccountCollision(access))
-			.then(check => isAccountCollisionOpen(check) ? undefined : onAuthenticated(token))
-			.catch((error: unknown): void => console.warn("Could not check the account collision again:", error));
-	}, [token, onAuthenticated]);
 	const onOutcome = useCallback((outcome: AccountActionOutcome): void => {
-		setAwaitingLink(outcome === ACCOUNT_ACTION_OUTCOMES.PENDING);
-		recheck();
-	}, [recheck]);
+		if (outcome !== ACCOUNT_ACTION_OUTCOMES.CANCELLED) {
+			setAwaitingLink(true);
+		}
+	}, []);
 	const changeEmail = useCallback((): Promise<AccountActionOutcome> => KeycloakAuth.changeEmail(email), [email]);
 	const action = useAccountAction(changeEmail, onOutcome);
-
-	// The link is usually opened in the phone's browser: coming back to the game is the moment to look again.
-	useEffect(() => {
-		if (!awaitingLink) {
-			return undefined;
-		}
-		const subscription = AppState.addEventListener("change", appState => {
-			if (appState === "active") {
-				recheck();
-			}
-		});
-		return (): void => subscription.remove();
-	}, [awaitingLink, recheck]);
+	const watch = useCollisionWatch(token, onAuthenticated, awaitingLink && !disabled);
 
 	return {
-		changing: action.running, awaitingLink, failed: action.failed, change: action.start
+		changing: action.running || watch.opening, awaitingLink, failed: action.failed, failure: watch.failure, change: action.start
 	};
 }
 
@@ -270,6 +349,7 @@ function KeepBothSection({
 		</Card>
 		{keepBoth.awaitingLink ? <Note>{i18n.t("app:auth.collision.keepBoth.awaitingLink")}</Note> : null}
 		{keepBoth.failed ? <Refusal>{i18n.t("app:auth.collision.keepBoth.failed")}</Refusal> : null}
+		{keepBoth.failure ? <Refusal>{keepBoth.failure}</Refusal> : null}
 	</>;
 }
 
@@ -290,7 +370,7 @@ function ChoiceView({
 		<Note>{i18n.t(`app:auth.collision.intro.${current}`)}</Note>
 		<SectionHeader>{i18n.t("app:auth.collision.choose")}</SectionHeader>
 		<Note>{i18n.t("app:auth.collision.deletion")}</Note>
-		<TaskStatus failure={flow.failure} pending={flow.pending} />
+		<TaskStatus failure={flow.failure} pending={busy} />
 		{accountsInOrder(current).map(kind => <CollisionAccountCard
 			key={kind}
 			kind={kind}
@@ -305,13 +385,13 @@ function ChoiceView({
 	</Screen>;
 }
 
-/** The choice is already recorded: only finishing it is left */
+/** Resumes a confirmed choice, or opens a session whose collision is already settled. */
 function ResumeView({ flow }: { flow: CollisionChoiceFlow }): ReactElement {
 	return <Screen>
-		<Standing caption={i18n.t("app:auth.collision.caption")} title={i18n.t("app:auth.collision.resumeTitle")} />
-		<Note>{i18n.t("app:auth.collision.resumeNote")}</Note>
+		<Standing caption={i18n.t("app:auth.collision.caption")} title={i18n.t(flow.confirmed ? "app:auth.collision.resumeTitle" : "app:auth.loginTitle")} />
+		{flow.confirmed ? <Note>{i18n.t("app:auth.collision.resumeNote")}</Note> : null}
 		<TaskStatus failure={flow.failure} pending={flow.pending} />
-		<ActionBanner icon={Check} label={i18n.t("app:auth.collision.resume")} pending={flow.pending} onPress={flow.resume} />
+		<ActionBanner icon={Check} label={i18n.t(flow.confirmed ? "app:auth.collision.resume" : "app:common.continue")} pending={flow.pending} onPress={flow.resume} />
 	</Screen>;
 }
 
@@ -323,7 +403,7 @@ export function AccountCollisionScreen({
 	onCancel: () => void;
 }): ReactElement {
 	const flow = useCollisionChoice(state, onAuthenticated);
-	const keepBoth = useKeepBoth(state, onAuthenticated);
+	const keepBoth = useKeepBoth(state, onAuthenticated, flow.pending || flow.confirmed);
 	const collision = state.check.collision;
 	if (flow.confirmed || !collision) {
 		return <ResumeView flow={flow} />;

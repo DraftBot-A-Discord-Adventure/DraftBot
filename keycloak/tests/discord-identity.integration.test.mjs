@@ -8,6 +8,7 @@ import { spawnSync } from "node:child_process";
 
 const require = createRequire(import.meta.url);
 const { KeycloakUtils } = require("../../Lib/dist/src/keycloak/KeycloakUtils.js");
+const { KeycloakUtils: ServiceKeycloakUtils } = require("../../RestWs/dist/Lib/src/keycloak/KeycloakUtils.js");
 const { AccountCollisionService } = require("../../RestWs/dist/RestWs/src/services/AccountCollisionService.js");
 const requireApp = createRequire(new URL("../../App/package.json", import.meta.url));
 const { JSDOM } = requireApp("jsdom");
@@ -285,3 +286,36 @@ for (const choice of ["discord", "email"]) {
 		assert.equal(nextDiscordLogin.sub, kept.sub);
 	});
 }
+
+test("real Keycloak: an interrupted email choice remains the bot owner and can finish", async () => {
+	const discordId = "123456789012345692";
+	const email = "interrupted-choice@example.test";
+	const username = "interrupted-choice-email";
+	const created = await KeycloakUtils.registerUser(CONFIG, {keycloakUsername: `discord-${discordId}`, discordId, gameUsername: "Discarded hero", language: "fr"});
+	assert.equal(created.isError, false);
+	const keptId = await createUser({username, email, emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	profile = {...profile, id: discordId, email, verified: true};
+	const discordSession = await authorize();
+	const emailSession = await authorize(false, {username, password: "synthetic-password-only"});
+	const service = new AccountCollisionService(CONFIG);
+	const proof = await service.verify(discordSession.accessToken, emailSession.accessToken);
+	const linkIdentity = ServiceKeycloakUtils.linkDiscordIdentity;
+	ServiceKeycloakUtils.linkDiscordIdentity = async () => ({isError: true, status: 503, payload: {}});
+	try {
+		await assert.rejects(service.resolve(emailSession.accessToken, proof.proof, "email"), {status: 409});
+	}
+	finally {
+		ServiceKeycloakUtils.linkDiscordIdentity = linkIdentity;
+	}
+	const deleted = await fetch(`${BASE}/admin/realms/${REALM}/users/${created.payload.user.id}`, {headers: {Authorization: `Bearer ${adminToken}`}});
+	assert.equal(deleted.status, 404);
+	const botLookup = await KeycloakUtils.getOrRegisterDiscordUser(CONFIG, discordId, "Kept bot hero", "fr");
+	assert.equal(botLookup.isError, false);
+	assert.equal(botLookup.payload.user.id, keptId);
+	assert.deepEqual(await new AccountCollisionService(CONFIG).check(emailSession.accessToken), {collision: null, pending: "email"});
+	assert.deepEqual(await new AccountCollisionService(CONFIG).resolve(emailSession.accessToken, "", "email"), {kept: "email"});
+	const kept = await admin(`/${REALM}/users/${keptId}`);
+	assert.deepEqual(kept.attributes.gameUsername, ["Kept bot hero"]);
+	assert.equal(kept.attributes.accountCollisionResolution, undefined);
+	assert.equal((await authorize()).sub, keptId);
+});
