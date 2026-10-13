@@ -111,15 +111,12 @@ function readIntent(user: KeycloakUser): ResolutionIntent | null {
 	return intent;
 }
 
-/** Discord's address on its account, usable only once Discord has verified it. */
+/** Discord's address on its account, only once Discord has verified it: an unverified one proves nothing. */
 function discordContact(discord: KeycloakUser): DiscordContact | null {
 	const email = attribute(discord, "discordEmail");
 	const discordId = attribute(discord, "discordId");
-	if (!email || !discordId) {
+	if (!email || !discordId || !hasVerifiedDiscordEmail(discord)) {
 		return null;
-	}
-	if (!hasVerifiedDiscordEmail(discord)) {
-		throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNVERIFIED_EMAIL);
 	}
 	return {
 		email: normalizedEmail(email), discordId
@@ -211,15 +208,11 @@ export class AccountCollisionService {
 		if (result.isError) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAVAILABLE, 503);
 		}
-		return soleAccount(result.payload.users.filter(user => user.id !== discordUserId));
+		return soleAccount(result.payload.users.filter(user => user.id !== discordUserId && user.emailVerified));
 	}
 
-	private async findPair(token: AccessToken): Promise<CollisionPair | null> {
-		const identity = await this.sessionIdentity(token);
-		if (identity.identity_provider !== KeycloakConstants.IDENTITY_PROVIDERS.DISCORD) {
-			return null;
-		}
-		const discord = await this.userById(identity.sub);
+	/** Only Discord sign-ins write the Discord address on an account, so holding one makes it the Discord side. */
+	private async findPair(discord: KeycloakUser): Promise<CollisionPair | null> {
 		const contact = discordContact(discord);
 		if (!contact) {
 			return null;
@@ -240,7 +233,7 @@ export class AccountCollisionService {
 				collision: null, pending: intent.choice
 			};
 		}
-		const pair = await this.findPair(token);
+		const pair = await this.findPair(user);
 		if (pair) {
 			return {
 				collision: viewOf(pair), current: ACCOUNT_COLLISION_CHOICES.DISCORD
@@ -305,7 +298,7 @@ export class AccountCollisionService {
 	}
 
 	public async verify(discordToken: AccessToken, emailToken: AccessToken): Promise<AccountCollisionProof> {
-		const pair = await this.findPair(discordToken);
+		const pair = await this.findPair(await this.authenticatedUser(discordToken));
 		if (!pair) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
 		}

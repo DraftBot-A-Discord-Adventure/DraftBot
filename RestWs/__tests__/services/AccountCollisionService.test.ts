@@ -50,10 +50,15 @@ describe("account collision resolution", () => {
 		vi.mocked(KeycloakUtils.getFederatedIdentities).mockResolvedValue({isError: false, status: 200, payload: {identities: []}});
 	});
 
-	it("detects the two accounts only from an authenticated Discord session", async () => {
+	it("detects the two accounts from either account's session", async () => {
 		const service = new AccountCollisionService(CONFIG);
 		await expect(service.check("discord-token")).resolves.toEqual({collision: {email: EMAIL, discord: {name: "Historical hero"}, emailAccount: {name: "New hero"}}, current: ACCOUNT_COLLISION_CHOICES.DISCORD});
 		await expect(service.check("email-token")).resolves.toEqual({collision: {email: EMAIL, discord: {name: "Historical hero"}, emailAccount: {name: "New hero"}}, current: ACCOUNT_COLLISION_CHOICES.EMAIL});
+	});
+
+	it("detects the Discord side even when the session does not name its identity provider", async () => {
+		vi.mocked(KeycloakUtils.getSessionIdentity).mockResolvedValue({isError: false, status: 200, payload: {identity: {sub: "discord-user"}}});
+		await expect(new AccountCollisionService(CONFIG).check("discord-token")).resolves.toMatchObject({current: ACCOUNT_COLLISION_CHOICES.DISCORD});
 	});
 
 	it.each([
@@ -78,10 +83,19 @@ describe("account collision resolution", () => {
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
-	it("does not allow an unverified Discord email to authorize the collision", async () => {
+	it("ignores a Discord email that Discord has not verified", async () => {
 		users.get("discord-user")!.attributes.discordEmailVerified = ["false"];
-		await expect(new AccountCollisionService(CONFIG).check("discord-token")).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNVERIFIED_EMAIL});
-		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
+		const service = new AccountCollisionService(CONFIG);
+		await expect(service.check("discord-token")).resolves.toEqual({collision: null});
+		await expect(service.check("email-token")).resolves.toEqual({collision: null});
+		await expect(service.verify("discord-token", "email-token")).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+	});
+
+	it("does not let an account that never verified the address block the Discord account", async () => {
+		users.get("email-user")!.emailVerified = false;
+		const service = new AccountCollisionService(CONFIG);
+		await expect(service.check("discord-token")).resolves.toEqual({collision: null});
+		await expect(service.check("email-token")).resolves.toEqual({collision: null});
 	});
 
 	it("requires the token of the account chosen to be kept", async () => {

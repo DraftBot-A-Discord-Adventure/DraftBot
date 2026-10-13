@@ -100,6 +100,29 @@ describe("Keycloak account identity", () => {
 		expect(fetch.mock.calls.filter(([url]) => url.includes("?q=discordId:"))).toHaveLength(2);
 	});
 
+	it.each([
+		"getDiscordUser", "getOrRegisterDiscordUser", "getKeycloakIdFromDiscordId"
+	] as const)("restores a missing game username without recreating the Discord account (%s)", async lookup => {
+		const account = legacyUser();
+		Reflect.deleteProperty(account.attributes, "gameUsername");
+		const fetch = vi.fn(async (url: string, init?: RequestInit): Promise<Response> => {
+			if (url.endsWith("/token")) return Response.json({access_token: "test-token", expires_in: 3600});
+			if (init?.method === "PUT") return new Response(null, {status: 204});
+			return Response.json([account]);
+		});
+		vi.stubGlobal("fetch", fetch);
+		const result = lookup === "getOrRegisterDiscordUser"
+			? await KeycloakUtils.getOrRegisterDiscordUser(CONFIG, DISCORD_ID, "Restored hero", "fr")
+			: await KeycloakUtils[lookup](CONFIG, DISCORD_ID, "Restored hero");
+		expect(result.isError).toBe(false);
+		const update = fetch.mock.calls.find(([_url, init]) => init?.method === "PUT");
+		expect(update?.[0]).toBe(`${CONFIG.url}/admin/realms/${CONFIG.realm}/users/${USER_ID}`);
+		expect(JSON.parse(update![1]!.body as string)).toMatchObject({
+			id: USER_ID, attributes: {gameUsername: ["Restored hero"], discordId: [DISCORD_ID]}
+		});
+		expect(fetch.mock.calls.some(([url, init]) => url.endsWith("/users") && init?.method === "POST")).toBe(false);
+	});
+
 	it("links the historical Keycloak ID without updating or deleting either account", async () => {
 		const fetch = vi.fn(async (url: string, init?: RequestInit): Promise<Response> => {
 			if (url.endsWith("/token")) return Response.json({access_token: "test-token", expires_in: 3600});

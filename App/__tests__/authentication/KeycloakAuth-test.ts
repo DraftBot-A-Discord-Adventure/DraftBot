@@ -100,6 +100,21 @@ describe("KeycloakAuth", () => {
 		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: { prompt: "login" } });
 	});
 
+	it("types in the account to sign in to, in a throwaway browser session", async () => {
+		mockPromptAsync.mockResolvedValue({
+			type: "success",
+			params: { code: "authorization-code" }
+		});
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), { status: 200 }));
+
+		await KeycloakAuth.loginAs("player@example.test");
+
+		expect(mockAuthRequestConfigs.at(-1)).toHaveProperty("extraParams.login_hint", "player@example.test");
+		expect(mockAuthRequestConfigs.at(-1)).toHaveProperty("extraParams.prompt", "login");
+		expect(mockAuthRequestConfigs.at(-1)?.extraParams).not.toHaveProperty("kc_idp_hint");
+		expect(mockPromptAsync).toHaveBeenCalledWith(expect.any(Object), expect.objectContaining({ preferEphemeralSession: true }));
+	});
+
 	it("opens the sign-up page and returns the token of the account just created", async () => {
 		mockPromptAsync.mockResolvedValue({
 			type: "success",

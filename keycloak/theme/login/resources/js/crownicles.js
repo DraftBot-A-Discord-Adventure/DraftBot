@@ -7,12 +7,23 @@ const SIGN_IN_LINK_POLL_MS = 2500;
 function watchSignInLink() {
 	const status = document.getElementById("crownicles-link-status");
 	const expired = document.getElementById("crownicles-link-expired");
-	if (!status || !expired || !status.dataset.polling) {
+	const opened = document.getElementById("crownicles-link-opened");
+	const carryOn = document.getElementById("crownicles-link-continue");
+	if (!status || !expired || !opened || !carryOn || !status.dataset.polling) {
 		return;
 	}
 	const showExpired = () => {
 		status.hidden = true;
 		expired.hidden = false;
+	};
+	const showOpened = () => {
+		status.hidden = true;
+		opened.hidden = false;
+		carryOn.hidden = false;
+		// Chrome only lets a tap reopen the app: going on by itself there would end on a prompt that soon vanishes.
+		if (!/Android/iu.test(navigator.userAgent)) {
+			window.location.replace(carryOn.href);
+		}
 	};
 	const ask = async () => {
 		try {
@@ -26,7 +37,7 @@ function watchSignInLink() {
 			if (response.ok) {
 				const { state } = await response.json();
 				if (state === "confirmed") {
-					window.location.replace(status.dataset.continue);
+					showOpened();
 					return;
 				}
 				if (state === "expired") {

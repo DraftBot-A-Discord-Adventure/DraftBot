@@ -25,7 +25,7 @@ jest.mock("@/src/networking/RestApi", () => ({
 jest.mock("@/src/authentication/KeycloakAuth", () => ({
 	IDENTITY_PROVIDERS: { DISCORD: "discord" },
 	KeycloakAuth: {
-		login: jest.fn(), refresh: jest.fn()
+		login: jest.fn(), loginAs: jest.fn(), refresh: jest.fn()
 	}
 }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?: object): string => options ? `${key} ${JSON.stringify(options)}` : key } }));
@@ -71,6 +71,7 @@ describe("account collision choice", () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		jest.mocked(KeycloakAuth.login).mockResolvedValue(keycloakLogin("email-access"));
+		jest.mocked(KeycloakAuth.loginAs).mockResolvedValue(keycloakLogin("email-access"));
 		jest.mocked(RestApi.verifyAccountCollision).mockResolvedValue({
 			proof: "verified-proof", collision
 		});
@@ -105,6 +106,7 @@ describe("account collision choice", () => {
 		await verifyAndConfirm(label);
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
 		expect(RestApi.verifyAccountCollision).toHaveBeenCalledWith("discord-access", "email-access");
+		expect(KeycloakAuth.loginAs).toHaveBeenCalledWith(collision.email);
 		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith(access, "verified-proof", choice);
 		expect(saveToken).toHaveBeenCalledTimes(1);
 		expect((saveToken.mock.calls[0][0] as AuthToken).getAccessToken()).toBe(access);
@@ -118,6 +120,7 @@ describe("account collision choice", () => {
 		await fireEvent.press(screen.getByText("app:auth.collision.verifyDiscord"));
 		await waitFor(() => expect(RestApi.verifyAccountCollision).toHaveBeenCalled());
 		expect(KeycloakAuth.login).toHaveBeenCalledWith("discord");
+		expect(KeycloakAuth.loginAs).not.toHaveBeenCalled();
 		expect(RestApi.verifyAccountCollision).toHaveBeenCalledWith("discord-access", "email-access");
 	});
 

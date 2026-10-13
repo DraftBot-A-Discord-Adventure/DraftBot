@@ -44,8 +44,10 @@ const KEYCLOAK_ACTIONS = {
 } as const;
 
 type KeycloakAction = typeof KEYCLOAK_ACTIONS[keyof typeof KEYCLOAK_ACTIONS];
+const LOGIN_HINT_PARAMETER = "login_hint";
+
 type AuthorizationParameters = {
-	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction;
+	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction; [LOGIN_HINT_PARAMETER]?: string;
 };
 
 /** How an account action ended when its browser window closed. */
@@ -165,6 +167,13 @@ export class KeycloakAuth {
 		return KeycloakAuth.authorize({
 			prompt: AUTH_PROMPTS.LOGIN,
 			...identityProvider ? { kc_idp_hint: identityProvider } : {}
+		});
+	}
+
+	/** Signs in to the account known by this address or pseudo, already typed in. */
+	public static loginAs(account: string): Promise<KeycloakOAuth2Token> {
+		return KeycloakAuth.authorize({
+			prompt: AUTH_PROMPTS.LOGIN, [LOGIN_HINT_PARAMETER]: account
 		});
 	}
 

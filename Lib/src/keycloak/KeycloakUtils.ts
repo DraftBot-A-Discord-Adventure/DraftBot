@@ -475,7 +475,7 @@ export abstract class KeycloakUtils {
 		const user: KeycloakUser = obj.length === 1 ? obj[0] : null;
 
 		if (user) {
-			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername?.[0] !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}
@@ -519,7 +519,7 @@ export abstract class KeycloakUtils {
 		else {
 			user = obj[0] as KeycloakUser;
 
-			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername?.[0] !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}
@@ -551,7 +551,7 @@ export abstract class KeycloakUtils {
 		const id = user?.id;
 
 		if (user && id) {
-			if (gameUsername && user.attributes.gameUsername[0] !== gameUsername) {
+			if (gameUsername && user.attributes.gameUsername?.[0] !== gameUsername) {
 				await KeycloakUtils.updateGameUsername(user, gameUsername, keycloakConfig);
 			}
 		}

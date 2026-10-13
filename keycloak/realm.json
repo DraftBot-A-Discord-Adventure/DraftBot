@@ -1593,7 +1593,7 @@
       "identityProviderAlias": "discord",
       "identityProviderMapper": "oidc-user-attribute-idp-mapper",
       "config": {
-        "syncMode": "FORCE",
+        "syncMode": "IMPORT",
         "claim": "global_name",
         "user.attribute": "gameUsername"
       }

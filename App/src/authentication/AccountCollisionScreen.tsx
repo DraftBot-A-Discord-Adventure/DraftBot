@@ -4,6 +4,7 @@ import {
 import { View } from "react-native";
 import { AuthContext } from "@/src/authentication/AuthContext";
 import { AuthToken } from "@/src/authentication/AuthToken";
+import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import {
 	AUTH_FAILURES, reasonOfUnknownError
 } from "@/src/authentication/AuthFailure";
@@ -67,10 +68,18 @@ async function collisionRemains(kept: AuthToken): Promise<boolean> {
 	return isAccountCollisionOpen(current);
 }
 
+/** The account still to prove: Discord, or the one holding the shared address, typed in for the player */
+function signInToOtherAccount(collision: AccountCollision | null, startedFromEmail: boolean): Promise<KeycloakOAuth2Token> {
+	if (startedFromEmail) {
+		return KeycloakAuth.login(IDENTITY_PROVIDERS.DISCORD);
+	}
+	return collision ? KeycloakAuth.loginAs(collision.email) : KeycloakAuth.login();
+}
+
 /** Signs in to the other account, then proves both belong to the player */
-async function verifiedAccounts(token: AuthToken, startedFromEmail: boolean): Promise<VerifiedAccounts> {
-	const second = AuthToken.fromKeycloakOAuth2Token(await KeycloakAuth.login(startedFromEmail ? IDENTITY_PROVIDERS.DISCORD : undefined));
-	const [discord, email] = startedFromEmail ? [second, token] : [token, second];
+async function verifiedAccounts(state: AccountCollisionLoginState, startedFromEmail: boolean): Promise<VerifiedAccounts> {
+	const second = AuthToken.fromKeycloakOAuth2Token(await signInToOtherAccount(state.check.collision, startedFromEmail));
+	const [discord, email] = startedFromEmail ? [second, state.token] : [state.token, second];
 	const proof = await RestApi.verifyAccountCollision(await accessToken(discord), await accessToken(email));
 	return {
 		discord, email, proof
@@ -200,7 +209,7 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 	const startedFromEmail = state.check.current === ACCOUNT_COLLISION_CHOICES.EMAIL;
 
 	const verify = (): void => run(async (): Promise<void> => {
-		setVerified(await verifiedAccounts(state.token, startedFromEmail));
+		setVerified(await verifiedAccounts(state, startedFromEmail));
 	});
 
 	const restart = (): void => {
