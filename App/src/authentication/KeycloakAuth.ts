@@ -185,9 +185,9 @@ export class KeycloakAuth {
 		return KeycloakAuth.authorize({ prompt: AUTH_PROMPTS.REGISTER });
 	}
 
-	/** Opens Keycloak's email change, once the player signed in again. */
-	public static changeEmail(): Promise<AccountActionOutcome> {
-		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_EMAIL);
+	/** Opens Keycloak's email change, once the player signed in again; `account` is typed in for them. */
+	public static changeEmail(account?: string): Promise<AccountActionOutcome> {
+		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_EMAIL, account);
 	}
 
 	/** Sets or replaces the password, which spares waiting for a link to sign in. */
@@ -199,10 +199,11 @@ export class KeycloakAuth {
 	 * The code Keycloak hands back is never exchanged: the app keeps its own session, and only needs
 	 * to know how the action ended.
 	 */
-	private static async runAccountAction(action: KeycloakAction): Promise<AccountActionOutcome> {
+	private static async runAccountAction(action: KeycloakAction, account?: string): Promise<AccountActionOutcome> {
 		const entryParams: AuthorizationParameters = {
 			prompt: AUTH_PROMPTS.LOGIN,
-			kc_action: action
+			kc_action: action,
+			...account ? { [LOGIN_HINT_PARAMETER]: account } : {}
 		};
 		const url = await KeycloakAuth.authRequest(entryParams).makeAuthUrlAsync(getDiscovery());
 		return accountActionOutcome(await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt)));

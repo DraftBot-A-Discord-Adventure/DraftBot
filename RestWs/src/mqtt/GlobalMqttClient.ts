@@ -9,6 +9,7 @@ import { WebSocketServer } from "../services/WebSocketServer";
 import { getServerTranslator } from "../packets/fromServer/FromServerTranslator";
 import { translateSmallEventResult } from "../packets/fromServer/translators/SmallEventResultServerTranslator";
 import { SmallEventResultRes } from "../../../WsPackets/src/fromServer/smallEvents/SmallEventResultRes";
+import { MqttManager } from "./MqttManager";
 
 /**
  * Global MQTT client class for communication with the backend
@@ -43,6 +44,9 @@ export class GlobalMqttClient extends RestWsMqttClient {
 		// Translate the packets to the client format
 		const translatedPackets = [];
 		for (const packet of dataJson.packets) {
+			if (await MqttManager.asyncPacketSender.handleResponse(context, packet.name, packet.packet)) {
+				continue;
+			}
 			const translator = getServerTranslator(packet.name);
 			if (!translator) {
 				if (packet.name.startsWith("SmallEvent") && packet.name.endsWith("Packet")) {

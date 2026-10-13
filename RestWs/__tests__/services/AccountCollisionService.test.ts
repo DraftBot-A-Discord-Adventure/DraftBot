@@ -52,8 +52,22 @@ describe("account collision resolution", () => {
 
 	it("detects the two accounts from either account's session", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		await expect(service.check("discord-token")).resolves.toEqual({collision: {email: EMAIL, discord: {name: "Historical hero"}, emailAccount: {name: "New hero"}}, current: ACCOUNT_COLLISION_CHOICES.DISCORD});
-		await expect(service.check("email-token")).resolves.toEqual({collision: {email: EMAIL, discord: {name: "Historical hero"}, emailAccount: {name: "New hero"}}, current: ACCOUNT_COLLISION_CHOICES.EMAIL});
+		const collision = {email: EMAIL, discord: {name: "Historical hero", createdAt: 0}, emailAccount: {name: "New hero", createdAt: 0}};
+		await expect(service.check("discord-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD});
+		await expect(service.check("email-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.EMAIL});
+	});
+
+	it("describes each account with its creation date and the adventure the game knows of it", async () => {
+		users.get("discord-user")!.createdTimestamp = 1_600_000_000_000;
+		users.get("email-user")!.createdTimestamp = 1_700_000_000_000;
+		const adventures = vi.fn().mockResolvedValue([{keycloakId: "discord-user", level: 42, score: 12_345, classId: 7}]);
+		const check = await new AccountCollisionService(CONFIG, undefined, adventures).check("email-token");
+		expect(adventures).toHaveBeenCalledExactlyOnceWith("email-user", ["discord-user", "email-user"]);
+		expect(check.collision).toEqual({
+			email: EMAIL,
+			discord: {name: "Historical hero", createdAt: 1_600_000_000_000, adventure: {level: 42, score: 12_345, classId: 7}},
+			emailAccount: {name: "New hero", createdAt: 1_700_000_000_000}
+		});
 	});
 
 	it("detects the Discord side even when the session does not name its identity provider", async () => {

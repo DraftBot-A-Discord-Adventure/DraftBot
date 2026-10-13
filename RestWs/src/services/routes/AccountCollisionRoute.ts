@@ -11,6 +11,7 @@ import {
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { WebSocketServer } from "../WebSocketServer";
 import { WEBSOCKET_ACCOUNT_DELETED_REASON } from "../../../../WsPackets/src/WebSocketCloseReasons";
+import { coreAccountAdventures } from "../CoreAccountAdventures";
 
 type VerifyBody = { emailToken: string };
 type ResolveBody = {
@@ -38,7 +39,7 @@ async function respond(reply: FastifyReply, action: () => Promise<object>): Prom
 
 export function setupAccountCollisionRoutes(
 	server: FastifyInstance,
-	service: AccountCollisionService = new AccountCollisionService(keycloakConfig, id => WebSocketServer.closeConnection(id, WEBSOCKET_ACCOUNT_DELETED_REASON))
+	service: AccountCollisionService = new AccountCollisionService(keycloakConfig, id => WebSocketServer.closeConnection(id, WEBSOCKET_ACCOUNT_DELETED_REASON), coreAccountAdventures)
 ): void {
 	server.get(ACCOUNT_COLLISION_ENDPOINTS.CHECK, async (request, reply): Promise<void> => {
 		await respond(reply, () => service.check(bearerToken(request)));

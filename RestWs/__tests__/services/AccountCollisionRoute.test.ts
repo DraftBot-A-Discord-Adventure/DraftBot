@@ -12,7 +12,7 @@ afterEach(async () => { await server?.close(); });
 describe("account collision HTTP boundary", () => {
 	it("forwards only authenticated session tokens, never client-supplied account IDs", async () => {
 		const service = new AccountCollisionService({url: "https://keycloak.test", realm: "test", clientId: "test", clientSecret: "test-only"});
-		const verify = vi.spyOn(service, "verify").mockResolvedValue({proof: "proof", collision: {email: "test@example.test", discord: {name: "Discord"}, emailAccount: {name: "Email"}}});
+		const verify = vi.spyOn(service, "verify").mockResolvedValue({proof: "proof", collision: {email: "test@example.test", discord: {name: "Discord", createdAt: 0}, emailAccount: {name: "Email", createdAt: 0}}});
 		server = fastify();
 		setupAccountCollisionRoutes(server, service);
 		const response = await server.inject({method: "POST", url: ACCOUNT_COLLISION_ENDPOINTS.VERIFY, headers: {authorization: "Bearer discord-token"}, payload: {emailToken: "email-token"}});

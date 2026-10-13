@@ -22,10 +22,24 @@ export const ACCOUNT_COLLISION_ERRORS = {
 
 export type AccountCollisionError = typeof ACCOUNT_COLLISION_ERRORS[keyof typeof ACCOUNT_COLLISION_ERRORS];
 
+export type CollisionAccountAdventure = {
+	level: number; score: number; classId: number;
+};
+
+export type CollisionAccount = {
+	name: string;
+
+	/** Milliseconds since the epoch. */
+	createdAt: number;
+
+	/** Absent when the account never started an adventure, or when the game could not tell in time. */
+	adventure?: CollisionAccountAdventure;
+};
+
 export type AccountCollision = {
 	email: string;
-	discord: { name: string };
-	emailAccount: { name: string };
+	discord: CollisionAccount;
+	emailAccount: CollisionAccount;
 };
 
 export type AccountCollisionCheck = {

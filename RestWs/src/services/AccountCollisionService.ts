@@ -6,9 +6,11 @@ import { KeycloakFederalIdentity } from "../../../Lib/src/keycloak/KeycloakFeder
 import { KeycloakSessionIdentity } from "../../../Lib/src/keycloak/KeycloakSessionIdentity";
 import { AsyncLock } from "../../../Lib/src/locks/AsyncLock";
 import {
-	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionCheck, AccountCollisionChoice, AccountCollisionError, AccountCollisionProof, AccountCollisionResolution
+	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionCheck, AccountCollisionChoice, AccountCollisionError,
+	AccountCollisionProof, AccountCollisionResolution, CollisionAccount
 } from "../../../WsPackets/src/objects/AccountCollision";
 import { KeycloakConstants } from "../../../Lib/src/constants/KeycloakConstants";
+import { AccountAdventure } from "../../../Lib/src/types/AccountAdventure";
 
 const PROOF_TTL_MS = 15 * 60 * 1000;
 const RESOLUTION_VERSION = 1;
@@ -49,6 +51,10 @@ type ResolutionIntent = ResolvedAccounts & DiscordContact & {
 type KeycloakCallStatus = {
 	isError: boolean; status: number;
 };
+
+/** Reads where the accounts stand in the game; answers the ones it could read, never fails. */
+export type AccountAdventures = (requesterId: KeycloakId, accountIds: KeycloakId[]) => Promise<AccountAdventure[]>;
+
 export class AccountCollisionFailure extends Error {
 	public constructor(public readonly reason: AccountCollisionError, public readonly status = 409) {
 		super(reason);
@@ -60,9 +66,21 @@ function normalizedEmail(email: EmailAddress): EmailAddress {
 function accountName(user: KeycloakUser): string {
 	return attribute(user, "gameUsername") ?? user.username;
 }
-function viewOf(pair: CollisionPair): AccountCollision {
+function accountView(user: KeycloakUser, adventures: AccountAdventure[] = []): CollisionAccount {
+	const adventure = adventures.find(candidate => candidate.keycloakId === user.id);
 	return {
-		email: pair.email, discord: { name: accountName(pair.discord) }, emailAccount: { name: accountName(pair.emailAccount) }
+		name: accountName(user),
+		createdAt: user.createdTimestamp,
+		...adventure
+			? { adventure: {
+				level: adventure.level, score: adventure.score, classId: adventure.classId
+			} }
+			: {}
+	};
+}
+function viewOf(pair: CollisionPair, adventures: AccountAdventure[] = []): AccountCollision {
+	return {
+		email: pair.email, discord: accountView(pair.discord, adventures), emailAccount: accountView(pair.emailAccount, adventures)
 	};
 }
 function lockKey(accounts: ResolvedAccounts): string {
@@ -179,7 +197,16 @@ export class AccountCollisionService {
 
 	private readonly locks = new Map<string, PairLock>();
 
-	public constructor(private readonly config: KeycloakConfig, private readonly onIdentityDeleted: (id: KeycloakId) => void = (): void => undefined) {
+	public constructor(
+		private readonly config: KeycloakConfig,
+		private readonly onIdentityDeleted: (id: KeycloakId) => void = (): void => undefined,
+		private readonly adventures: AccountAdventures = (): Promise<AccountAdventure[]> => Promise.resolve([])
+	) {
+	}
+
+	/** Both accounts as the player sees them, so they recognise the one they want to keep. */
+	private async describe(pair: CollisionPair, requesterId: KeycloakId): Promise<AccountCollision> {
+		return viewOf(pair, await this.adventures(requesterId, [pair.discord.id, pair.emailAccount.id]));
 	}
 
 	private async sessionIdentity(token: AccessToken): Promise<KeycloakSessionIdentity> {
@@ -236,7 +263,7 @@ export class AccountCollisionService {
 		const pair = await this.findPair(user);
 		if (pair) {
 			return {
-				collision: viewOf(pair), current: ACCOUNT_COLLISION_CHOICES.DISCORD
+				collision: await this.describe(pair, user.id), current: ACCOUNT_COLLISION_CHOICES.DISCORD
 			};
 		}
 		return this.checkEmailAccount(user);
@@ -273,9 +300,9 @@ export class AccountCollisionService {
 			return { collision: null };
 		}
 		return {
-			collision: viewOf({
+			collision: await this.describe({
 				discord: discord.account, emailAccount: user, email, discordId: discord.discordId
-			}),
+			}, user.id),
 			current: ACCOUNT_COLLISION_CHOICES.EMAIL
 		};
 	}
