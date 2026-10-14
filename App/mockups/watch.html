@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crownicles — maquette montre (#4927)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+	--ink: #0B0B0C; --muted: #6E6E73; --line: #E6E6E8; --wash: #F4F4F5;
+	--gold: #DDAE55; --green: #5DBE7B; --red: #E8716C; --terracotta: #B95E4B;
+	--zoom: 1.35;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--ink); background: #fff; }
+header.page { padding: 28px 36px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+header.page h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
+header.page p { margin: 6px 0 0; color: var(--muted); max-width: 760px; line-height: 1.45; }
+.legend { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { display: inline-block; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; border: 1px solid var(--line); }
+.tag.p0 { background: #EAF5EE; color: #2D7A47; border-color: #CBE7D5; }
+.tag.p1 { background: #F8EFDD; color: #8A6420; border-color: #EEDDBA; }
+.tag.phone { background: var(--wash); color: var(--muted); }
+.tag.os { background: #EEF3FC; color: #2F5FB0; border-color: #D5E2F7; }
+
+.layout { display: grid; grid-template-columns: 290px 1fr; min-height: calc(100vh - 110px); }
+nav { border-right: 1px solid var(--line); padding: 18px 14px; overflow-y: auto; }
+nav h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 18px 10px 6px; }
+nav h3:first-child { margin-top: 0; }
+nav button { display: flex; width: 100%; align-items: center; gap: 8px; text-align: left; border: 0; background: none; padding: 8px 10px; border-radius: 10px; font: inherit; font-size: 14px; cursor: pointer; color: var(--ink); }
+nav button:hover { background: var(--wash); }
+nav button.active { background: var(--ink); color: #fff; }
+nav button .e { width: 22px; text-align: center; }
+nav button .tag { margin-left: auto; font-size: 10px; padding: 1px 7px; }
+nav button.active .tag { border-color: transparent; }
+
+.stage { padding: 24px 36px 40px; }
+.scenario-head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.scenario-head h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.scenario-desc { color: var(--muted); margin: 6px 0 0; max-width: 820px; line-height: 1.5; }
+.controls { display: flex; gap: 8px; margin: 16px 0 0; flex-wrap: wrap; }
+.pill { border-radius: 999px; border: 1px solid var(--ink); background: #fff; padding: 7px 14px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.pill.dark { background: var(--ink); color: #fff; }
+.pill:disabled { opacity: .35; cursor: default; }
+.screen-key { color: var(--muted); font-size: 13px; align-self: center; margin-left: 6px; }
+
+.devices { display: flex; gap: 44px; flex-wrap: wrap; align-items: flex-start; margin-top: 26px; }
+figure.device { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+figure.device figcaption { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.4; }
+figure.device figcaption b { color: var(--ink); display: block; font-size: 14px; }
+.zoom { zoom: var(--zoom); }
+
+details.json { margin-top: 30px; max-width: 980px; }
+details.json summary { cursor: pointer; font-weight: 600; }
+details.json pre { background: var(--wash); border-radius: 12px; padding: 14px 16px; font-size: 12px; overflow: auto; max-height: 360px; }
+.notes { margin-top: 26px; max-width: 980px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.note { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font-size: 13px; line-height: 1.5; }
+.note b { display: block; margin-bottom: 4px; }
+
+/* ---------- Commun aux écrans ---------- */
+.screen { position: relative; background: #000; color: #fff; overflow: hidden; user-select: none; }
+.scroll { position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+.gain { color: var(--green); } .loss { color: var(--red); } .neutral { color: #C9C9CE; }
+
+/* ---------- Apple Watch ---------- */
+.aw-case { position: relative; width: 236px; height: 284px; border-radius: 62px; background: linear-gradient(145deg, #3A3A3E, #17171A); padding: 18px; box-shadow: inset 0 0 0 2px #4A4A50; }
+.aw-crown { position: absolute; right: -9px; top: 70px; width: 12px; height: 44px; border-radius: 5px; background: linear-gradient(90deg, #555, #2A2A2E); }
+.aw-side { position: absolute; right: -5px; top: 140px; width: 6px; height: 54px; border-radius: 3px; background: #2C2C30; }
+.aw-screen { width: 200px; height: 248px; border-radius: 44px; font-family: -apple-system, "SF Pro Text", Inter, sans-serif; }
+.aw-screen .scroll { padding: 30px 12px 16px; }
+.aw-top { position: absolute; top: 0; left: 0; right: 0; height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 6px 18px 0 20px; z-index: 2; background: linear-gradient(#000 70%, transparent); font-size: 13px; font-weight: 600; }
+.aw-top .app { color: var(--gold); display: flex; align-items: center; gap: 5px; }
+.aw-top .time { color: #fff; }
+.aw-hero { display: flex; align-items: center; gap: 8px; margin: 2px 0 6px; }
+.aw-hero .emoji { font-size: 30px; line-height: 1; }
+.aw-hero .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--gold); font-weight: 700; }
+.aw-hero .title { font-size: 16px; font-weight: 700; line-height: 1.15; }
+.aw-story { font-size: 15px; line-height: 1.3; margin: 0 0 10px; color: #F2F2F3; }
+.aw-story b { color: #fff; }
+.aw-note { font-size: 12px; color: #A1A1A8; margin: -4px 0 10px; }
+.aw-choice { width: 100%; display: flex; align-items: center; gap: 9px; background: #232326; color: #fff; border: 0; border-radius: 16px; padding: 10px 11px; margin: 0 0 6px; text-align: left; font: inherit; cursor: pointer; }
+.aw-choice:hover { background: #2E2E32; }
+.aw-choice .e { font-size: 21px; line-height: 1; }
+.aw-choice b { display: block; font-size: 15px; font-weight: 600; line-height: 1.2; }
+.aw-choice small { display: block; font-size: 12px; color: #A1A1A8; margin-top: 2px; line-height: 1.2; }
+.aw-choice.primary { background: var(--gold); color: #1A1406; justify-content: center; }
+.aw-choice.primary small { color: #4A3A12; }
+.aw-choice.disabled { background: #18181A; color: #77777D; cursor: default; }
+.aw-choice.disabled small { color: var(--red); }
+.aw-choice.link { background: none; justify-content: center; color: #A1A1A8; padding: 6px; font-size: 14px; }
+.aw-effects { background: #161618; border-radius: 14px; padding: 6px 10px; margin: 0 0 10px; }
+.aw-effect { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; padding: 4px 0; }
+.aw-effect .i { width: 20px; text-align: center; }
+.aw-center { text-align: center; padding-top: 0; }
+.aw-center .emoji { font-size: 32px; }
+.aw-center h4 { margin: 4px 0; font-size: 16px; line-height: 1.2; }
+.aw-center p { margin: 0 0 10px; font-size: 13px; color: #C9C9CE; line-height: 1.3; }
+.aw-route { font-size: 13px; color: #C9C9CE; display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.aw-bar { height: 6px; background: #2A2A2E; border-radius: 3px; margin: 8px 0 10px; overflow: hidden; }
+.aw-bar span { display: block; height: 100%; background: var(--gold); border-radius: 3px; }
+.aw-big { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.aw-sub { font-size: 13px; color: #A1A1A8; margin: 2px 0 10px; }
+.aw-vitals { display: flex; gap: 12px; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.aw-effectline { font-size: 14px; background: #2A1F12; color: #F3C77A; border-radius: 12px; padding: 7px 10px; margin-bottom: 8px; }
+.aw-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.aw-compare div { background: #161618; border-radius: 12px; padding: 7px 8px; font-size: 12px; line-height: 1.3; }
+.aw-compare div b { display: block; font-size: 13px; color: #fff; }
+.aw-compare .lbl { color: var(--gold); font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: .04em; }
+.ring { transform: rotate(-90deg); }
+.aw-notif { padding: 6px 4px; }
+.aw-notif .head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.app-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--terracotta); display: grid; place-items: center; font-size: 17px; }
+.aw-notif .head b { font-size: 14px; }
+.aw-notif .head span { font-size: 12px; color: #A1A1A8; display: block; }
+.aw-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.aw-face .clock { font-size: 64px; font-weight: 300; letter-spacing: -0.04em; }
+.aw-face .date { color: var(--red); font-weight: 600; font-size: 14px; }
+.aw-face .compl { margin-top: 14px; display: flex; gap: 14px; }
+
+/* ---------- Wear OS ---------- */
+.wo-case { position: relative; width: 252px; height: 252px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #4A4D52, #1E1F22 70%); padding: 18px; box-shadow: inset 0 0 0 2px #5A5D63; }
+.wo-crown { position: absolute; right: -8px; top: 104px; width: 12px; height: 40px; border-radius: 6px; background: linear-gradient(90deg, #5A5D63, #2A2C30); }
+.wo-screen { width: 216px; height: 216px; border-radius: 50%; font-family: Roboto, Inter, sans-serif; }
+.wo-screen .scroll { padding: 30px 26px 40px; text-align: center; -webkit-mask-image: linear-gradient(transparent 0, #000 16%, #000 82%, transparent 100%); mask-image: linear-gradient(transparent 0, #000 16%, #000 82%, transparent 100%); }
+.wo-time { position: absolute; top: 9px; left: 0; right: 0; text-align: center; font-size: 12px; font-weight: 500; color: #E3E3E8; z-index: 2; }
+.wo-arc { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.wo-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+.wo-emoji { font-size: 30px; line-height: 1.1; margin: 2px 0; }
+.wo-story { font-size: 14px; line-height: 1.32; margin: 4px 0 10px; color: #F2F2F3; }
+.wo-note { font-size: 11px; color: #A1A1A8; margin: -6px 0 8px; }
+.wo-chip { width: 100%; display: flex; align-items: center; gap: 8px; background: #2B2C31; color: #fff; border: 0; border-radius: 26px; padding: 9px 14px; margin: 0 0 6px; text-align: left; font: inherit; cursor: pointer; min-height: 48px; }
+.wo-chip:hover { background: #36373D; }
+.wo-chip .e { font-size: 19px; }
+.wo-chip b { display: block; font-size: 14px; font-weight: 500; line-height: 1.2; }
+.wo-chip small { display: block; font-size: 11px; color: #A9A9B1; line-height: 1.2; margin-top: 1px; }
+.wo-chip.primary { background: var(--gold); color: #1A1406; justify-content: center; }
+.wo-chip.primary small { color: #4A3A12; }
+.wo-chip.disabled { background: #1A1B1E; color: #77777D; cursor: default; }
+.wo-chip.disabled small { color: var(--red); }
+.wo-chip.link { background: none; justify-content: center; color: #A9A9B1; min-height: 36px; }
+.wo-effects { margin: 0 0 10px; }
+.wo-effect { font-size: 15px; font-weight: 500; padding: 2px 0; }
+.wo-title { font-size: 16px; font-weight: 700; margin: 4px 0; }
+.wo-msg { font-size: 13px; color: #C9C9CE; line-height: 1.3; margin: 0 0 12px; }
+.wo-big { font-size: 32px; font-weight: 700; line-height: 1; margin-top: 4px; }
+.wo-sub { font-size: 12px; color: #A9A9B1; margin-bottom: 8px; }
+.wo-route { font-size: 12px; color: #C9C9CE; margin-bottom: 4px; }
+.wo-vitals { font-size: 13px; margin-bottom: 8px; display: flex; justify-content: center; gap: 10px; }
+.wo-effectline { font-size: 12px; color: #F3C77A; margin-bottom: 8px; }
+.wo-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 8px; text-align: left; }
+.wo-compare div { background: #1A1B1E; border-radius: 12px; padding: 6px 7px; font-size: 11px; line-height: 1.25; }
+.wo-compare div b { display: block; font-size: 12px; }
+.wo-compare .lbl { color: var(--gold); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.wo-tile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
+
+/* ---------- Garmin ---------- */
+.gm-case { position: relative; width: 278px; height: 278px; border-radius: 50%; background: radial-gradient(circle at 40% 30%, #3C3F44, #121315 72%); padding: 22px; box-shadow: inset 0 0 0 3px #2A2C30, inset 0 0 0 9px #1C1D20; }
+.gm-btn { position: absolute; width: 14px; height: 30px; border-radius: 5px; background: linear-gradient(90deg, #44474D, #24262A); border: 0; cursor: pointer; padding: 0; }
+.gm-btn:hover { background: #6A6E76; }
+.gm-btn span { position: absolute; font-family: Inter, sans-serif; font-size: 9px; font-weight: 700; color: var(--muted); white-space: nowrap; top: 9px; letter-spacing: .04em; }
+.gm-btn.left span { right: 20px; } .gm-btn.right span { left: 20px; }
+.gm-btn.start { right: -8px; top: 64px; transform: rotate(-35deg); background: linear-gradient(90deg, #8A2E22, #5A1C14); }
+.gm-btn.start span { transform: rotate(35deg); }
+.gm-btn.back { right: -8px; bottom: 64px; transform: rotate(35deg); }
+.gm-btn.back span { transform: rotate(-35deg); }
+.gm-btn.up { left: -10px; top: 124px; }
+.gm-btn.down { left: -8px; bottom: 60px; transform: rotate(-35deg); }
+.gm-btn.down span { transform: rotate(35deg); }
+.gm-btn.light { left: -8px; top: 60px; transform: rotate(35deg); cursor: default; }
+.gm-btn.light span { transform: rotate(-35deg); }
+.gm-screen { width: 234px; height: 234px; border-radius: 50%; font-family: "Roboto Condensed", "Arial Narrow", sans-serif; background: #000; }
+.gm-screen .scroll { padding: 30px 30px 56px; text-align: center; overflow-y: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 12%, #000 72%, transparent 80%); mask-image: linear-gradient(transparent 0, #000 12%, #000 72%, transparent 80%); }
+.gm-head { font-size: 13px; font-weight: 700; color: #FFAA00; text-transform: uppercase; letter-spacing: .04em; }
+.gm-glyph { font-size: 22px; color: #FFAA00; line-height: 1.1; }
+.gm-text { font-size: 15px; line-height: 1.25; color: #fff; margin-top: 4px; text-align: center; }
+.gm-hint { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 0 18px; text-align: center; font-size: 12px; color: #AAAAAA; z-index: 2; }
+.gm-hint b { color: #FFAA00; }
+.gm-page { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 10px; color: #AAAAAA; z-index: 2; }
+.gm-menu { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 22px; }
+.gm-menu .t { text-align: center; color: #FFAA00; font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 4px; }
+.gm-item { text-align: center; color: #AAAAAA; font-size: 15px; padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.gm-item.focus { color: #000; background: #fff; font-weight: 700; white-space: normal; border-radius: 4px; padding: 6px 8px; }
+.gm-item.focus small { display: block; font-weight: 400; font-size: 12px; color: #333; }
+.gm-item.focus.disabled { background: #555; color: #CCC; }
+.gm-item.focus.disabled small { color: #FF5555; }
+.gm-item small { display: none; }
+.gm-effect { font-size: 15px; font-weight: 700; }
+.gm-big { font-size: 40px; font-weight: 700; line-height: 1; }
+.gm-sub { font-size: 13px; color: #AAAAAA; }
+.gm-gain { color: #55FF55; } .gm-loss { color: #FF5555; }
+</style>
+</head>
+<body>
+<header class="page">
+	<div>
+		<h1>Crownicles au poignet</h1>
+		<p>Maquette de l'app montre compagnon décrite dans l'issue #4927. Le même écran (<code>WatchScreen</code>, construit par RestWs) est rendu par chaque plateforme selon ses conventions. Les écrans sont interactifs : touchez les choix ; sur Garmin, utilisez les boutons du boîtier (START, BACK, UP, DOWN). La molette de la souris fait défiler le texte, comme la couronne.</p>
+	</div>
+	<div class="legend">
+		<span class="tag p0">P0 — indispensable</span>
+		<span class="tag p1">P1 — utile</span>
+		<span class="tag phone">Renvoi au téléphone</span>
+		<span class="tag os">Système</span>
+	</div>
+</header>
+<div class="layout">
+	<nav id="nav"></nav>
+	<section class="stage">
+		<div class="scenario-head"><h2 id="sc-title"></h2><span id="sc-tag"></span></div>
+		<p class="scenario-desc" id="sc-desc"></p>
+		<div class="controls">
+			<button class="pill dark" id="restart">Recommencer le scénario</button>
+			<button class="pill" id="expire">Simuler l'expiration du choix</button>
+			<span class="screen-key" id="screen-key"></span>
+		</div>
+		<div class="devices">
+			<figure class="device">
+				<div class="zoom"><div class="aw-case"><div class="aw-crown"></div><div class="aw-side"></div><div class="screen aw-screen" id="apple"></div></div></div>
+				<figcaption><b>Apple Watch</b>SwiftUI · 46 mm · emojis système</figcaption>
+			</figure>
+			<figure class="device">
+				<div class="zoom"><div class="wo-case"><div class="wo-crown"></div><div class="screen wo-screen" id="wear"></div></div></div>
+				<figcaption><b>Wear OS</b>Compose for Wear OS · écran rond · arc de progression</figcaption>
+			</figure>
+			<figure class="device">
+				<div class="zoom"><div class="gm-case">
+					<button class="gm-btn left light" aria-label="LIGHT"><span>LIGHT</span></button>
+					<button class="gm-btn left up" data-gm="up" aria-label="UP"><span>UP</span></button>
+					<button class="gm-btn left down" data-gm="down" aria-label="DOWN"><span>DOWN</span></button>
+					<button class="gm-btn right start" data-gm="start" aria-label="START"><span>START</span></button>
+					<button class="gm-btn right back" data-gm="back" aria-label="BACK"><span>BACK</span></button>
+					<div class="screen gm-screen" id="garmin"></div>
+				</div></div>
+				<figcaption><b>Garmin</b>Connect IQ · MIP 64 couleurs · pas d'emoji, navigation aux boutons</figcaption>
+			</figure>
+		</div>
+		<div class="notes" id="notes"></div>
+		<details class="json"><summary>WatchScreen renvoyé par RestWs pour cet écran</summary><pre id="json"></pre></details>
+	</section>
+</div>
+
+<script>
+"use strict";
+
+/* ===================== Données : un scénario = des écrans WatchScreen ===================== */
+// Les champs « go » / « onExpire » servent seulement à enchaîner la maquette : ils ne font pas partie du protocole.
+
+const IDLE_BASE = {
+	kind: "idle",
+	travel: { from: { name: "Ville Forte", emoji: "🏘️" }, to: { name: "Plage Sentinelle", emoji: "🏖️" }, progress: 0.62, nextStopIn: "12 min" },
+	vitals: { health: { current: 84, max: 120 }, energy: { current: 45, max: 100 } },
+	report: { label: "Faire le rapport", disabledReason: "Prochain arrêt dans 12 min" }
+};
+const IDLE_READY = { ...IDLE_BASE, travel: { ...IDLE_BASE.travel, progress: 0.71, nextStopIn: "maintenant" }, report: { label: "Faire le rapport" } };
+const IDLE_AFTER = { ...IDLE_BASE, travel: { ...IDLE_BASE.travel, progress: 0.74, nextStopIn: "48 min" }, report: { label: "Faire le rapport", disabledReason: "Prochain arrêt dans 48 min" } };
+
+const LOTTERY = {
+	kind: "event", family: "smallEvent", emoji: "🎰", eyebrow: "Mini-event",
+	story: "Vous croisez le chemin d'un homme qui vous interpelle. Curieux, vous vous arrêtez. Celui-ci vous propose de participer à un jeu de hasard qu'il a créé. Vous pouvez choisir entre plusieurs niveaux de récompense.",
+	choices: [
+		{ index: 0, emoji: "🪙", label: "Petite récompense", detail: "Sans risque", confirm: false, go: "easy" },
+		{ index: 1, emoji: "💵", label: "Moyenne récompense", detail: "Peut coûter du temps", confirm: false, go: "medium" },
+		{ index: 2, emoji: "💰", label: "Grosse récompense", detail: "Risqué", confirm: true, go: "hard" }
+	],
+	expiresIn: 120, onExpire: "expired"
+};
+
+const SCENARIOS = [
+	{
+		id: "idle", group: "Voyage", tag: "p0", emoji: "🧭", title: "Écran d'attente",
+		desc: "Ce que la montre affiche entre deux arrêts : trajet, temps restant avant le prochain arrêt, PV et énergie. Le bouton Rapport n'est pas disponible et dit pourquoi, directement sur le bouton.",
+		notes: [["Règle de design", "Un bouton indisponible dit pourquoi avant qu'on appuie : la raison est écrite sur le bouton lui-même, jamais cachée."], ["Rien n'est déclenché", "Cet écran vient de GET /watch/screen : l'ouvrir ne lance pas de rapport."]],
+		start: "idle", screens: { idle: IDLE_BASE }
+	},
+	{
+		id: "notif", group: "Voyage", tag: "os", emoji: "🔔", title: "Notification « arrêt disponible »",
+		desc: "Core envoie déjà cette notification. Sur Apple Watch et Wear OS, son bouton ouvre directement l'écran de l'arrêt. Sur Garmin, une notification ne peut pas lancer l'app : le joueur passe par le glance Crownicles.",
+		notes: [["Vibration", "Une vibration courte à l'arrivée de la notification, une autre quand le résultat s'affiche."]],
+		start: "notif", screens: {
+			notif: { kind: "notification", title: "Un nouvel arrêt vous attend", body: "Votre route vers Plage Sentinelle vous réserve une rencontre.", actions: [{ label: "Faire le rapport", go: "lottery" }, { label: "Plus tard", go: "later" }] },
+			lottery: LOTTERY,
+			easy: { kind: "outcome", emoji: "🪙", eyebrow: "Mini-event", story: "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.", effects: [{ icon: "💰", value: "+45", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			medium: { kind: "outcome", emoji: "💵", eyebrow: "Mini-event", story: "Vous tentez votre chance et gagnez au jeu. L'homme vous récompense comme il se doit. Cependant, vous perdez **45 min**.", effects: [{ icon: "💰", value: "+150", tone: "gain" }, { icon: "🕜", value: "−45 min", tone: "loss" }], next: { label: "Suivant", go: "after" } },
+			hard: { kind: "outcome", emoji: "💰", eyebrow: "Mini-event", story: "La chance n'est pas au rendez-vous : vous perdez au jeu de l'homme et repartez les poches plus légères.", effects: [{ icon: "💸", value: "−80", tone: "loss" }], next: { label: "Suivant", go: "after" } },
+			expired: { kind: "outcome", emoji: "⌛", eyebrow: "Trop tard", title: "Votre personnage a choisi pour vous", story: "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.", effects: [{ icon: "💰", value: "+45", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			later: { ...IDLE_READY, report: { label: "Faire le rapport", go: "lottery" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "auto", group: "Mini-events", tag: "p0", emoji: "❤️", title: "Mini-event automatique",
+		desc: "26 mini-events n'attendent aucun choix : rapport, récit, effets, et c'est terminé. C'est le cas le plus fréquent, il doit tenir en un coup d'œil.",
+		notes: [["Effets", "Toujours en liste, avec une icône et une couleur de gain ou de perte, jamais noyés dans le texte."]],
+		start: "ready", screens: {
+			ready: { ...IDLE_READY, report: { label: "Faire le rapport", go: "result" } },
+			result: { kind: "outcome", emoji: "❤️", eyebrow: "Mini-event", story: "Vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques-uns, et reprenez votre route.", effects: [{ icon: "❤️", value: "+12 PV", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "lottery", group: "Mini-events", tag: "p0", emoji: "🎰", title: "Mini-event à choix : loterie",
+		desc: "Les choix apparaissent sous le récit : on lit d'abord, on choisit ensuite. Chaque bouton a un libellé, et un détail qui annonce le risque. Le choix risqué demande une confirmation.",
+		notes: [["Temps restant", "Anneau discret en haut (Apple), arc autour de l'écran (Wear OS, Garmin). « Simuler l'expiration » montre l'écran Trop tard."], ["Pas de choix accidentel", "« Grosse récompense » a confirm: true : un écran de confirmation s'intercale."]],
+		start: "lottery", screens: {
+			lottery: LOTTERY,
+			easy: { kind: "outcome", emoji: "🪙", eyebrow: "Mini-event", story: "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.", effects: [{ icon: "💰", value: "+45", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			medium: { kind: "outcome", emoji: "💵", eyebrow: "Mini-event", story: "Vous tentez votre chance et gagnez au jeu. L'homme vous récompense comme il se doit. Cependant, vous perdez **45 min**.", effects: [{ icon: "💰", value: "+150", tone: "gain" }, { icon: "🕜", value: "−45 min", tone: "loss" }], next: { label: "Suivant", go: "after" } },
+			hard: { kind: "outcome", emoji: "💰", eyebrow: "Mini-event", story: "La chance n'est pas au rendez-vous : vous perdez au jeu de l'homme et repartez les poches plus légères.", effects: [{ icon: "💸", value: "−80", tone: "loss" }], next: { label: "Suivant", go: "after" } },
+			expired: { kind: "outcome", emoji: "⌛", eyebrow: "Trop tard", title: "Votre personnage a choisi pour vous", story: "Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.", effects: [{ icon: "💰", value: "+45", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "goblets", group: "Mini-events", tag: "p0", emoji: "🥛", title: "Mini-event à 4 choix : gobelets",
+		desc: "Quatre choix, c'est le maximum visible sans défiler sur Apple Watch. La description du jeu devient le détail de chaque bouton.",
+		notes: [["Libellés courts", "Le libellé reste sur 1 ou 2 lignes ; la nuance (prudent, risqué…) passe dans le détail."]],
+		start: "goblets", screens: {
+			goblets: {
+				kind: "event", family: "smallEvent", emoji: "🥛", eyebrow: "Mini-event",
+				story: "Un homme qui vous paraît suspect vous pousse vers une table où sont posés quatre mystérieux gobelets. Vous devez en choisir un, et recevoir la récompense, quelle qu'elle soit.",
+				choices: [
+					{ index: 0, emoji: "🐲", label: "En métal", detail: "Classique et équilibré", confirm: false, go: "result" },
+					{ index: 1, emoji: "🪣", label: "Le plus grand", detail: "Prudent, moins risqué", confirm: false, go: "result" },
+					{ index: 2, emoji: "✨", label: "Scintillant", detail: "Risqué, peut rapporter gros", confirm: false, go: "result" },
+					{ index: 3, emoji: "💀", label: "Fissuré", detail: "Tout ou rien", confirm: true, go: "result" }
+				],
+				expiresIn: 120, onExpire: "result"
+			},
+			result: { kind: "outcome", emoji: "🥛", eyebrow: "Mini-event", story: "Sous le gobelet se cache une petite bourse. L'homme vous laisse enfin repartir.", effects: [{ icon: "💰", value: "+120", tone: "gain" }, { icon: "❤️", value: "−6 PV", tone: "loss" }], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "item", group: "Mini-events", tag: "p0", emoji: "❕", title: "Objet trouvé, inventaire plein",
+		desc: "Fréquent après findItem / findPotion. La comparaison se limite à l'essentiel : nom, rareté, valeur principale. Remplacer l'arme fait perdre l'ancienne : confirmation.",
+		notes: [["Pourquoi en P0", "Le renvoyer au téléphone casserait l'usage : c'est l'interruption la plus fréquente pendant un voyage."]],
+		start: "item", screens: {
+			item: {
+				kind: "event", family: "item", emoji: "❕", eyebrow: "Objet trouvé",
+				story: "Vous trouvez une arme au bord du chemin, mais votre inventaire est plein.",
+				comparison: { found: { name: "Marteau de combat", rarity: "Rare", stat: "🗡️ 52" }, current: { name: "Sabre", rarity: "Peu commun", stat: "🗡️ 38" } },
+				choices: [
+					{ index: 0, emoji: "🔄", label: "Prendre le marteau", detail: "Le sabre sera jeté", confirm: true, go: "taken" },
+					{ index: 1, emoji: "🗡️", label: "Garder le sabre", detail: "Le marteau reste au sol", confirm: false, go: "kept" }
+				],
+				expiresIn: 120, onExpire: "kept"
+			},
+			taken: { kind: "outcome", emoji: "🔨", eyebrow: "Objet trouvé", story: "Vous laissez votre sabre au bord du chemin et repartez avec le **Marteau de combat**.", effects: [{ icon: "🗡️", value: "38 → 52", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			kept: { kind: "outcome", emoji: "🗡️", eyebrow: "Objet trouvé", story: "Vous gardez votre **Sabre** et laissez le marteau derrière vous.", effects: [], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "shop", group: "Mini-events", tag: "p1", emoji: "🛒", title: "Marchand ambulant (argent insuffisant)",
+		desc: "Les boutiques de mini-event deviennent un oui/non : nom, rareté, prix et solde. Ici le joueur n'a pas assez d'argent : le bouton reste visible et dit ce qui manque.",
+		notes: [["Solde visible", "Le solde s'affiche sous le récit : le joueur n'a pas besoin d'aller le chercher ailleurs."]],
+		start: "shop", screens: {
+			shop: {
+				kind: "event", family: "smallEvent", emoji: "🛒", eyebrow: "Mini-event",
+				story: "Alors que vous voyagez tranquillement, vous rencontrez un marchand ambulant qui vous propose une offre spéciale : **Armure Mk IX** (épique).",
+				note: "Votre bourse : 780 💰",
+				choices: [
+					{ index: 0, emoji: "💰", label: "Acheter · 900 💰", disabledReason: "Il vous manque 120 💰", confirm: true, go: "after" },
+					{ index: 1, emoji: "🚶", label: "Passer votre chemin", confirm: false, go: "refused" }
+				],
+				expiresIn: 120, onExpire: "refused"
+			},
+			refused: { kind: "outcome", emoji: "🚶", eyebrow: "Mini-event", story: "Vous saluez le marchand et reprenez votre route.", effects: [], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "resume", group: "Mini-events", tag: "p0", emoji: "💬", title: "Reprise d'un choix ouvert sur Discord",
+		desc: "Le joueur a lancé /report sur Discord puis est parti. La montre reprend le collecteur ouvert (GetCurrentReactionCollectors) s'il est d'un type pris en charge.",
+		notes: [["Origine", "Une petite ligne rappelle où l'action a commencé, pour que le joueur ne soit pas surpris."]],
+		start: "witch", screens: {
+			witch: {
+				kind: "event", family: "smallEvent", emoji: "🧹", eyebrow: "Mini-event", resumedFrom: "discord",
+				story: "Vous remarquez une femme âgée, qui vous fait signe. Elle est voûtée, squelettique, mais son regard vous paraît malicieux. Elle vous propose de choisir un ingrédient pour sa potion.",
+				choices: [
+					{ index: 0, emoji: "🐸", label: "Une grenouille", confirm: false, go: "result" },
+					{ index: 1, emoji: "🍄", label: "Un champignon", confirm: false, go: "result" },
+					{ index: 2, emoji: "🦇", label: "Une aile de chauve-souris", confirm: false, go: "result" },
+					{ index: 3, emoji: "🚶", label: "Refuser poliment", confirm: false, go: "result" }
+				],
+				expiresIn: 64, onExpire: "result"
+			},
+			result: { kind: "outcome", emoji: "🧪", eyebrow: "Mini-event", story: "La sorcière mélange l'ingrédient à sa préparation et vous tend la fiole. Vous vous sentez revigoré.", effects: [{ icon: "⚡", value: "+20", tone: "gain" }], next: { label: "Suivant", go: "after" } },
+			after: IDLE_AFTER
+		}
+	},
+	{
+		id: "big", group: "Grands events", tag: "p0", emoji: "🌲", title: "Grand event puis destination",
+		desc: "Arrivée au bout du trajet : récit, possibilités (emoji ET libellé), résultat, puis choix de la destination. Sans ce dernier écran, la boucle de voyage s'arrêterait sur la montre.",
+		notes: [["Résultat complet", "Points, XP, PV, temps perdu : tout ce que renvoie ReportBigEventResultRes, en liste."], ["Rester en ville", "Si la destination proposée est une ville et que le joueur y reste, la montre passe à l'écran « Vous êtes en ville »."]],
+		start: "event", screens: {
+			event: {
+				kind: "event", family: "bigEvent", emoji: "🏞️", eyebrow: "Grand event",
+				story: "Un arbre est tombé sur le chemin et bloque le passage !",
+				choices: [
+					{ index: 0, emoji: "🪓", label: "Couper l'arbre et continuer", confirm: false, go: "cut" },
+					{ index: 1, emoji: "🚶", label: "Passer par un autre chemin", confirm: false, go: "other" }
+				],
+				expiresIn: 120, onExpire: "expired"
+			},
+			cut: { kind: "outcome", emoji: "🪓", eyebrow: "Grand event", story: "Couper cet arbre aura pris 30 minutes !", effects: [{ icon: "🏅", value: "+120 points", tone: "gain" }, { icon: "⭐", value: "+45 XP", tone: "gain" }, { icon: "🕑", value: "Occupé 30 min", tone: "loss" }], next: { label: "Choisir la destination", go: "destination" } },
+			other: { kind: "outcome", emoji: "🚶", eyebrow: "Grand event", story: "Passer par un autre chemin semblait être une bonne solution, mais malheureusement, vous vous êtes blessé en marchant.", effects: [{ icon: "🏅", value: "+134 points", tone: "gain" }, { icon: "⭐", value: "+45 XP", tone: "gain" }, { icon: "💔", value: "−5 PV", tone: "loss" }, { icon: "🕑", value: "Occupé 30 min", tone: "loss" }], next: { label: "Choisir la destination", go: "destination" } },
+			expired: { kind: "outcome", emoji: "⌛", eyebrow: "Trop tard", title: "Votre personnage a choisi pour vous", story: "L'arbre a bien été coupé et la route est dégagée, mais malheureusement, des pillards ont volé quasiment tout ce que vous aviez récolté depuis votre dernier voyage !", effects: [{ icon: "🕑", value: "Occupé 1 h 40", tone: "loss" }], next: { label: "Choisir la destination", go: "destination" } },
+			destination: {
+				kind: "event", family: "destination", emoji: "🧭", eyebrow: "Destination",
+				story: "Vous êtes arrivé à **Plage Sentinelle**. Où aller ensuite ?",
+				choices: [
+					{ index: 0, emoji: "🏘️", label: "Ville Forte", detail: "Ville · 1 h 45 de trajet", confirm: false, go: "toCity" },
+					{ index: 1, emoji: "🏞️", label: "Grand Axe", detail: "2 h 30 de trajet", confirm: false, go: "toRoad" }
+				],
+				expiresIn: 120, onExpire: "toRoad"
+			},
+			toCity: { ...IDLE_BASE, travel: { from: { name: "Plage Sentinelle", emoji: "🏖️" }, to: { name: "Ville Forte", emoji: "🏘️" }, progress: 0.02, nextStopIn: "35 min" }, report: { label: "Faire le rapport", disabledReason: "Prochain arrêt dans 35 min" } },
+			toRoad: { ...IDLE_BASE, travel: { from: { name: "Plage Sentinelle", emoji: "🏖️" }, to: { name: "Grand Axe", emoji: "🏞️" }, progress: 0.02, nextStopIn: "35 min" }, report: { label: "Faire le rapport", disabledReason: "Prochain arrêt dans 35 min" } }
+		}
+	},
+	{
+		id: "altered", group: "Voyage", tag: "p1", emoji: "🤕", title: "Altération en cours",
+		desc: "Ce n'est pas un blocage : l'écran d'attente montre l'altération et sa durée. En P1, soigner ou utiliser des jetons en oui/non, avec le prix.",
+		notes: [["Raison sur le bouton", "Le rapport indique pourquoi il attend ; le soin indique ce qu'il coûte."]],
+		start: "idle", screens: {
+			idle: { ...IDLE_BASE, effect: { emoji: "🤕", label: "Blessé", remaining: "1 h 12" }, report: { label: "Faire le rapport", disabledReason: "Possible une fois soigné" },
+				choices: [
+					{ index: 0, emoji: "💊", label: "Se soigner · 450 💰", confirm: true, go: "healed" },
+					{ index: 1, emoji: "🪙", label: "Utiliser 2 jetons", detail: "Vous en avez 5", confirm: true, go: "healed" }
+				] },
+			healed: { kind: "outcome", emoji: "😃", eyebrow: "Soin", story: "Vous êtes soigné et pouvez reprendre la route.", effects: [{ icon: "💸", value: "−450", tone: "loss" }], next: { label: "Suivant", go: "ready" } },
+			ready: IDLE_READY
+		}
+	},
+	{
+		id: "city", group: "La montre ne peut rien faire", tag: "phone", emoji: "🏰", title: "En ville",
+		desc: "Tous les services de la ville se gèrent sur le téléphone. L'écran le dit clairement et propose une seule action.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "inCity", emoji: "🏰", title: "Vous êtes à Ville Forte", message: "Les commerces et services de la ville se gèrent sur votre téléphone.", openOnPhone: true } }
+	},
+	{
+		id: "boss", group: "La montre ne peut rien faire", tag: "phone", emoji: "⚔️", title: "Combat (boss de l'île)",
+		desc: "Les combats demandent l'écran du téléphone.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "fight", emoji: "⚔️", title: "Un combat vous attend", message: "Le gardien de l'île vous barre la route. Lancez le combat depuis votre téléphone.", openOnPhone: true } }
+	},
+	{
+		id: "unsupported", group: "La montre ne peut rien faire", tag: "phone", emoji: "🛐", title: "Event non pris en charge",
+		desc: "Un collecteur d'un type non pris en charge (ici l'autel, qui demande de saisir un montant) n'entraîne jamais de plantage : il est renvoyé au téléphone, avec son titre.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "unsupportedEvent", emoji: "🛐", title: "L'autel des offrandes", message: "Cet événement se joue sur votre téléphone : il faut y choisir un montant.", openOnPhone: true } }
+	},
+	{
+		id: "blocked", group: "La montre ne peut rien faire", tag: "phone", emoji: "⏳", title: "Action en cours ailleurs",
+		desc: "Le joueur est déjà occupé (combat, autre commande) sur le téléphone ou sur Discord.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "blocked", emoji: "⏳", title: "Une action est en cours", message: "Terminez-la sur votre téléphone ou sur Discord, puis réessayez.", action: { label: "Réessayer", go: "ready" } }, ready: IDLE_READY }
+	},
+	{
+		id: "dead", group: "La montre ne peut rien faire", tag: "phone", emoji: "💀", title: "Personnage mort",
+		desc: "Le retour à la vie se fait sur le téléphone.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "dead", emoji: "💀", title: "Votre personnage est mort", message: "Rendez-vous sur votre téléphone pour le relever et repartir à l'aventure.", openOnPhone: true } }
+	},
+	{
+		id: "notstarted", group: "La montre ne peut rien faire", tag: "phone", emoji: "👶", title: "Aventure pas commencée",
+		desc: "Le démarrage et le tutoriel se font sur le téléphone.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "notStarted", emoji: "👶", title: "Votre aventure n'a pas commencé", message: "Lancez-la depuis votre téléphone : la montre prendra le relais sur la route.", openOnPhone: true } }
+	},
+	{
+		id: "unlinked", group: "La montre ne peut rien faire", tag: "phone", emoji: "🔗", title: "Montre non liée",
+		desc: "Première ouverture, ou jeton révoqué depuis les Réglages de l'app téléphone. Sur Garmin, la liaison passe par un code.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "notLinked", emoji: "🔗", title: "Montre non liée", message: "Ouvrez Crownicles sur votre téléphone, puis Réglages › Montre connectée.", pairingCode: "KX7-42P" } }
+	},
+	{
+		id: "offline", group: "La montre ne peut rien faire", tag: "phone", emoji: "📡", title: "Hors ligne",
+		desc: "Jamais de chargement sans fin : au bout du délai maximal, cet écran s'affiche.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "offline", emoji: "📡", title: "Connexion impossible", message: "Vérifiez que votre téléphone est à proximité et connecté.", action: { label: "Réessayer", go: "ready" } }, ready: IDLE_READY }
+	},
+	{
+		id: "outdated", group: "La montre ne peut rien faire", tag: "phone", emoji: "⬆️", title: "App montre trop ancienne",
+		desc: "Version de protocole montre distincte de celle de l'app téléphone.",
+		start: "u", screens: { u: { kind: "unavailable", reason: "outdated", emoji: "⬆️", title: "Mise à jour nécessaire", message: "Mettez à jour Crownicles sur votre montre pour continuer à jouer.", action: { label: "Mettre à jour" } } }
+	},
+	{
+		id: "glance", group: "Voyage", tag: "p1", emoji: "⌚", title: "Complication, tuile, glance",
+		desc: "Le compte à rebours du prochain arrêt, visible sans ouvrir l'app : complication sur le cadran Apple, tuile Wear OS, glance Garmin.",
+		notes: [["Le réflexe", "C'est ce qui donne l'habitude de jouer au poignet : on voit que l'arrêt est prêt, on touche, on joue."]],
+		start: "face", screens: { face: { kind: "face", nextStopIn: "12 min", progress: 0.62, to: "Plage Sentinelle", go: "idle" }, idle: IDLE_BASE }
+	}
+];
+
+/* ===================== Outils ===================== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]));
+const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+const plain = s => String(s).replace(/\*\*(.+?)\*\*/g, "$1");
+const TIME = "10:09";
+
+const GARMIN_GLYPHS = { "💰": "$", "💸": "$", "❤️": "♥", "💔": "♥", "⭐": "★", "⚡": "ϟ", "🕜": "◷", "🕑": "◷", "⌛": "◷", "🏅": "▲", "💎": "◆", "🪙": "◎", "🗡️": "ATQ" };
+const FAMILY_GLYPH = { smallEvent: "✦", bigEvent: "❖", destination: "➤", item: "◈" };
+const garminText = s => plain(s).replace(/\s*[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]\uFE0F?/gu, m => {
+	const key = m.trim();
+	return GARMIN_GLYPHS[key] ? " " + GARMIN_GLYPHS[key] : "";
+});
+
+/* ===================== État ===================== */
+const state = { scenario: SCENARIOS[0], key: null, stack: [], deadline: null, garmin: { phase: "story", focus: 0 } };
+
+function current() {
+	return state.confirm ?? state.scenario.screens[state.key];
+}
+
+function go(key) {
+	if (!key || !state.scenario.screens[key]) return;
+	state.confirm = null;
+	state.key = key;
+	const screen = state.scenario.screens[key];
+	state.deadline = screen.expiresIn ? Date.now() + screen.expiresIn * 1000 : null;
+	state.garmin = { phase: "story", focus: 0 };
+	render();
+}
+
+function choose(index) {
+	const screen = current();
+	if (screen.kind === "confirm") {
+		return index === 0 ? go(screen.choice.go) : cancelConfirm();
+	}
+	const choice = (screen.choices ?? [])[index];
+	if (!choice || choice.disabledReason) return;
+	if (choice.confirm) {
+		state.confirm = { kind: "confirm", choice, from: state.key };
+		state.garmin = { phase: "menu", focus: 0 };
+		return render();
+	}
+	go(choice.go);
+}
+
+function cancelConfirm() {
+	state.confirm = null;
+	state.garmin = { phase: "menu", focus: 0 };
+	render();
+}
+
+function remaining() {
+	return state.deadline ? Math.max(0, Math.ceil((state.deadline - Date.now()) / 1000)) : null;
+}
+
+function fmtSeconds(s) {
+	return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+/* ===================== Rendu Apple Watch ===================== */
+function awButton(c, i, extra = "") {
+	const cls = c.disabledReason ? "disabled" : extra;
+	const detail = c.disabledReason ?? c.detail;
+	return `<button class="aw-choice ${cls}" data-choice="${i}"><span class="e">${c.emoji ?? ""}</span><span class="t"><b>${esc(c.label)}</b>${detail ? `<small>${esc(detail)}</small>` : ""}</span></button>`;
+}
+
+function awTop(left) {
+	return `<div class="aw-top"><span class="app">${left}</span><span class="time">${TIME}</span></div>`;
+}
+
+function awRing(total) {
+	const r = remaining();
+	if (r === null) return "Crownicles";
+	const frac = r / total;
+	return `<svg class="ring" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#3A3A3E" stroke-width="2.5"/><circle class="js-ring" data-total="${total}" cx="8" cy="8" r="6.5" fill="none" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="${2 * Math.PI * 6.5}" stroke-dashoffset="${2 * Math.PI * 6.5 * (1 - frac)}" stroke-linecap="round"/></svg><span class="js-count">${fmtSeconds(r)}</span>`;
+}
+
+function awEffects(effects) {
+	if (!effects.length) return "";
+	return `<div class="aw-effects">${effects.map(e => `<div class="aw-effect ${e.tone}"><span class="i">${e.icon}</span>${esc(e.value)}</div>`).join("")}</div>`;
+}
+
+function compare(c, p) {
+	return `<div class="${p}-compare"><div><span class="lbl">Trouvé</span><b>${esc(c.found.name)}</b>${esc(c.found.rarity)}<br>${c.found.stat}</div><div><span class="lbl">Actuel</span><b>${esc(c.current.name)}</b>${esc(c.current.rarity)}<br>${c.current.stat}</div></div>`;
+}
+
+function renderApple(s) {
+	switch (s.kind) {
+	case "idle": {
+		const t = s.travel;
+		return awTop("Crownicles") + `<div class="scroll">
+			<div class="aw-route">${t.from.emoji} ${esc(t.from.name)} → ${t.to.emoji} ${esc(t.to.name)}</div>
+			<div class="aw-bar"><span style="width:${t.progress * 100}%"></span></div>
+			${s.effect ? `<div class="aw-effectline">${s.effect.emoji} ${esc(s.effect.label)} encore ${esc(s.effect.remaining)}</div>` : `<div class="aw-big">${esc(t.nextStopIn)}</div><div class="aw-sub">${t.nextStopIn === "maintenant" ? "un arrêt vous attend" : "avant le prochain arrêt"}</div>`}
+			<div class="aw-vitals"><span>❤️ ${s.vitals.health.current}/${s.vitals.health.max}</span><span>⚡ ${s.vitals.energy.current}</span></div>
+			${awButton({ emoji: "📜", ...s.report }, "report", "primary")}
+			${(s.choices ?? []).map((c, i) => awButton(c, i)).join("")}
+		</div>`;
+	}
+	case "event":
+		return awTop(awRing(s.expiresIn)) + `<div class="scroll">
+			<div class="aw-hero"><span class="emoji">${s.emoji}</span><span class="eyebrow">${esc(s.eyebrow)}</span></div>
+			${s.resumedFrom ? `<p class="aw-note">Commencé sur Discord</p>` : ""}
+			<p class="aw-story">${rich(s.story)}</p>
+			${s.comparison ? compare(s.comparison, "aw") : ""}
+			${s.note ? `<p class="aw-note">${esc(s.note)}</p>` : ""}
+			${s.choices.map((c, i) => awButton(c, i)).join("")}
+		</div>`;
+	case "confirm":
+		return awTop("Confirmer") + `<div class="scroll"><div class="aw-center">
+			<div class="emoji">${s.choice.emoji}</div><h4>${esc(s.choice.label)}</h4>${s.choice.detail ? `<p>${esc(s.choice.detail)}</p>` : "<p>Ce choix est définitif.</p>"}
+			${awButton({ label: "Confirmer" }, 0, "primary")}${awButton({ label: "Annuler" }, 1, "link")}
+		</div></div>`;
+	case "outcome":
+		return awTop("Crownicles") + `<div class="scroll">
+			<div class="aw-hero"><span class="emoji">${s.emoji}</span><span><span class="eyebrow">${esc(s.eyebrow)}</span>${s.title ? `<div class="title">${esc(s.title)}</div>` : ""}</span></div>
+			<p class="aw-story">${rich(s.story)}</p>
+			${awEffects(s.effects)}
+			<button class="aw-choice primary" data-go="${s.next.go}"><b>${esc(s.next.label)}</b></button>
+		</div>`;
+	case "unavailable":
+		return awTop("Crownicles") + `<div class="scroll"><div class="aw-center">
+			<div class="emoji">${s.emoji}</div><h4>${esc(s.title)}</h4><p>${esc(s.message)}</p>
+			${s.openOnPhone ? `<button class="aw-choice primary"><b>Ouvrir sur l'iPhone</b></button>` : ""}
+			${s.action ? `<button class="aw-choice primary" ${s.action.go ? `data-go="${s.action.go}"` : ""}><b>${esc(s.action.label)}</b></button>` : ""}
+		</div></div>`;
+	case "notification":
+		return `<div class="scroll"><div class="aw-notif">
+			<div class="head"><span class="app-icon">👑</span><span><b>Crownicles</b><span>maintenant</span></span></div>
+			<p class="aw-story"><b>${esc(s.title)}</b><br>${esc(s.body)}</p>
+			${s.actions.map((a, i) => `<button class="aw-choice ${i === 0 ? "primary" : ""}" data-go="${a.go}"><b>${esc(a.label)}</b></button>`).join("")}
+		</div></div>`;
+	case "face":
+		return `<div class="aw-face" data-go="${s.go}" style="cursor:pointer">
+			<div class="date">MER. 15</div><div class="clock">10:09</div>
+			<div class="compl">${circleComplication(s.progress, s.nextStopIn)}<span style="font-size:13px;color:#A1A1A8;align-self:center;max-width:90px">Prochain arrêt<br><b style="color:#fff">${esc(s.to)}</b></span></div>
+		</div>`;
+	}
+	return "";
+}
+
+function circleComplication(progress, label) {
+	const c = 2 * Math.PI * 24;
+	return `<svg width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="24" fill="#1A1A1C" stroke="#3A3A3E" stroke-width="4"/><circle class="ring" style="transform-origin:29px 29px" cx="29" cy="29" r="24" fill="none" stroke="var(--gold)" stroke-width="4" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - progress)}" stroke-linecap="round"/><text x="29" y="27" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="-apple-system, Inter">${label.split(" ")[0]}</text><text x="29" y="40" text-anchor="middle" fill="#A1A1A8" font-size="9" font-family="-apple-system, Inter">${label.split(" ")[1] ?? ""}</text></svg>`;
+}
+
+/* ===================== Rendu Wear OS ===================== */
+function woChip(c, i, extra = "") {
+	const cls = c.disabledReason ? "disabled" : extra;
+	const detail = c.disabledReason ?? c.detail;
+	return `<button class="wo-chip ${cls}" data-choice="${i}">${c.emoji ? `<span class="e">${c.emoji}</span>` : ""}<span><b>${esc(c.label)}</b>${detail ? `<small>${esc(detail)}</small>` : ""}</span></button>`;
+}
+
+function woArc(fraction, color = "var(--gold)", js = false, total = 0) {
+	const r = 105, c = 2 * Math.PI * r;
+	return `<svg class="wo-arc" viewBox="0 0 216 216"><circle cx="108" cy="108" r="${r}" fill="none" stroke="#1F2023" stroke-width="5"/><circle class="ring ${js ? "js-ring" : ""}" data-total="${total}" style="transform-origin:108px 108px" cx="108" cy="108" r="${r}" fill="none" stroke="${color}" stroke-width="5" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - fraction)}" stroke-linecap="round"/></svg>`;
+}
+
+function renderWear(s) {
+	const time = `<div class="wo-time">${TIME}</div>`;
+	switch (s.kind) {
+	case "idle": {
+		const t = s.travel;
+		return time + woArc(t.progress) + `<div class="scroll">
+			<div class="wo-route">${t.to.emoji} ${esc(t.to.name)}</div>
+			${s.effect ? `<div class="wo-emoji">${s.effect.emoji}</div><div class="wo-effectline">${esc(s.effect.label)} encore ${esc(s.effect.remaining)}</div>` : `<div class="wo-big">${esc(t.nextStopIn)}</div><div class="wo-sub">${t.nextStopIn === "maintenant" ? "un arrêt vous attend" : "avant le prochain arrêt"}</div>`}
+			<div class="wo-vitals"><span>❤️ ${s.vitals.health.current}</span><span>⚡ ${s.vitals.energy.current}</span></div>
+			${woChip({ emoji: "📜", ...s.report }, "report", "primary")}
+			${(s.choices ?? []).map((c, i) => woChip(c, i)).join("")}
+		</div>`;
+	}
+	case "event": {
+		const r = remaining();
+		return time + (r === null ? "" : woArc(r / s.expiresIn, "var(--gold)", true, s.expiresIn)) + `<div class="scroll">
+			<div class="wo-emoji">${s.emoji}</div><div class="wo-eyebrow">${esc(s.eyebrow)}</div>
+			${s.resumedFrom ? `<p class="wo-note" style="margin-top:4px">Commencé sur Discord</p>` : ""}
+			<p class="wo-story">${rich(s.story)}</p>
+			${s.comparison ? compare(s.comparison, "wo") : ""}
+			${s.note ? `<p class="wo-note">${esc(s.note)}</p>` : ""}
+			${s.choices.map((c, i) => woChip(c, i)).join("")}
+		</div>`;
+	}
+	case "confirm":
+		return time + `<div class="scroll" style="padding-top:42px">
+			<div class="wo-emoji">${s.choice.emoji}</div><div class="wo-title">${esc(s.choice.label)}</div>
+			<p class="wo-msg">${esc(s.choice.detail ?? "Ce choix est définitif.")}</p>
+			${woChip({ label: "Confirmer" }, 0, "primary")}${woChip({ label: "Annuler" }, 1, "link")}
+		</div>`;
+	case "outcome":
+		return time + `<div class="scroll">
+			<div class="wo-emoji">${s.emoji}</div><div class="wo-eyebrow">${esc(s.eyebrow)}</div>
+			${s.title ? `<div class="wo-title" style="font-size:14px">${esc(s.title)}</div>` : ""}
+			<p class="wo-story">${rich(s.story)}</p>
+			${s.effects.length ? `<div class="wo-effects">${s.effects.map(e => `<div class="wo-effect ${e.tone}">${e.icon} ${esc(e.value)}</div>`).join("")}</div>` : ""}
+			<button class="wo-chip primary" data-go="${s.next.go}"><b>${esc(s.next.label)}</b></button>
+		</div>`;
+	case "unavailable":
+		return time + `<div class="scroll" style="padding-top:28px">
+			<div class="wo-emoji" style="font-size:30px">${s.emoji}</div><div class="wo-title">${esc(s.title)}</div><p class="wo-msg">${esc(s.message)}</p>
+			${s.openOnPhone ? `<button class="wo-chip primary"><span class="e">📱</span><b>Sur le téléphone</b></button>` : ""}
+			${s.action ? `<button class="wo-chip primary" ${s.action.go ? `data-go="${s.action.go}"` : ""}><b>${esc(s.action.label)}</b></button>` : ""}
+		</div>`;
+	case "notification":
+		return time + `<div class="scroll" style="padding-top:36px">
+			<div class="app-icon" style="margin:0 auto 6px">👑</div><div class="wo-eyebrow">Crownicles</div>
+			<div class="wo-title" style="font-size:15px">${esc(s.title)}</div><p class="wo-msg">${esc(s.body)}</p>
+			${s.actions.map((a, i) => `<button class="wo-chip ${i === 0 ? "primary" : ""}" data-go="${a.go}"><b>${esc(a.label)}</b></button>`).join("")}
+		</div>`;
+	case "face":
+		return woArc(s.progress) + `<div class="wo-tile" data-go="${s.go}" style="cursor:pointer">
+			<div class="app-icon" style="margin-bottom:6px">👑</div><div class="wo-eyebrow">Prochain arrêt</div>
+			<div class="wo-big">${esc(s.nextStopIn)}</div><div class="wo-sub">vers ${esc(s.to)}</div>
+			<button class="wo-chip primary" style="width:auto;min-height:36px;padding:6px 16px"><b>Ouvrir</b></button>
+		</div>`;
+	}
+	return "";
+}
+
+/* ===================== Rendu Garmin ===================== */
+function garminMenu(s) {
+	switch (s.kind) {
+	case "idle":
+		return { title: "Actions", items: [{ label: s.report.label, detail: s.report.disabledReason, disabled: Boolean(s.report.disabledReason), act: () => s.report.go && go(s.report.go) }, ...(s.choices ?? []).map((c, i) => ({ label: garminText(c.label), detail: c.disabledReason ?? (c.detail && garminText(c.detail)), disabled: Boolean(c.disabledReason), act: () => choose(i) }))] };
+	case "event":
+		return { title: "Choisir", items: s.choices.map((c, i) => ({ label: garminText(c.label), detail: c.disabledReason ? garminText(c.disabledReason) : c.detail && garminText(c.detail), disabled: Boolean(c.disabledReason), act: () => choose(i) })) };
+	case "confirm":
+		return { title: "Confirmer ?", items: [{ label: "Confirmer", detail: garminText(s.choice.label), act: () => choose(0) }, { label: "Annuler", act: () => choose(1) }] };
+	case "outcome":
+		return null;
+	case "unavailable":
+		return s.action?.go ? { title: s.title, items: [{ label: s.action.label, act: () => go(s.action.go) }] } : null;
+	}
+	return null;
+}
+
+function gmArc(fraction, color, js = false, total = 0) {
+	const r = 113, c = 2 * Math.PI * r;
+	return `<svg class="wo-arc" viewBox="0 0 234 234"><circle class="ring ${js ? "js-ring" : ""}" data-total="${total}" style="transform-origin:117px 117px" cx="117" cy="117" r="${r}" fill="none" stroke="${color}" stroke-width="6" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - fraction)}"/></svg>`;
+}
+
+function renderGarmin(s) {
+	const g = state.garmin;
+	const menu = garminMenu(s);
+	const r = s.kind === "event" ? remaining() : null;
+	const arc = r === null ? "" : gmArc(r / s.expiresIn, "#FFAA00", true, s.expiresIn);
+	if (g.phase === "menu" && menu) {
+		const items = menu.items.map((it, i) => `<div class="gm-item ${i === g.focus ? "focus" : ""} ${it.disabled ? "disabled" : ""}" data-gmitem="${i}">${esc(it.label)}${it.detail ? `<small>${esc(it.detail)}</small>` : ""}</div>`).join("");
+		return arc + `<div class="gm-menu"><div class="t">${esc(menu.title)}</div>${items}</div><div class="gm-hint"><b>START</b> valider</div>`;
+	}
+	switch (s.kind) {
+	case "idle": {
+		const t = s.travel;
+		return gmArc(t.progress, "#FFAA00") + `<div class="scroll" style="padding-top:44px">
+			<div class="gm-head">${esc(t.to.name)}</div>
+			${s.effect ? `<div class="gm-big" style="font-size:26px;margin-top:8px">${esc(s.effect.remaining)}</div><div class="gm-sub">${esc(s.effect.label)}</div>` : `<div class="gm-big" style="margin-top:6px">${esc(t.nextStopIn.replace("maintenant", "PRÊT"))}</div><div class="gm-sub">${t.nextStopIn === "maintenant" ? "un arrêt vous attend" : "prochain arrêt"}</div>`}
+			<div class="gm-text" style="margin-top:8px">♥ ${s.vitals.health.current}/${s.vitals.health.max} &nbsp; ϟ ${s.vitals.energy.current}</div>
+		</div><div class="gm-hint">${s.report.disabledReason && !s.choices ? esc(s.report.disabledReason) : "<b>START</b> " + (s.choices ? "actions" : "rapport")}</div>`;
+	}
+	case "event":
+		return arc + `<div class="scroll js-gmscroll">
+			<div class="gm-glyph">${FAMILY_GLYPH[s.family]}</div><div class="gm-head">${esc(s.eyebrow)}</div>
+			${s.resumedFrom ? `<div class="gm-sub">commencé sur Discord</div>` : ""}
+			<div class="gm-text">${esc(garminText(s.story))}</div>
+			${s.comparison ? `<div class="gm-text" style="color:#AAAAAA;margin-top:6px">Trouvé : ${esc(s.comparison.found.name)} ${garminText(s.comparison.found.stat)}<br>Actuel : ${esc(s.comparison.current.name)} ${garminText(s.comparison.current.stat)}</div>` : ""}
+			${s.note ? `<div class="gm-sub" style="margin-top:4px">${esc(garminText(s.note))}</div>` : ""}
+		</div><div class="gm-page">▾</div><div class="gm-hint"><b>START</b> choisir (${s.choices.length})</div>`;
+	case "outcome":
+		return `<div class="scroll js-gmscroll">
+			<div class="gm-head">${esc(s.title ?? s.eyebrow)}</div>
+			<div class="gm-text">${esc(garminText(s.story))}</div>
+			<div style="margin-top:6px">${s.effects.map(e => `<div class="gm-effect gm-${e.tone === "gain" ? "gain" : "loss"}">${GARMIN_GLYPHS[e.icon] ?? ""} ${esc(e.value)}</div>`).join("")}</div>
+		</div><div class="gm-page">▾</div><div class="gm-hint"><b>START</b> continuer</div>`;
+	case "unavailable":
+		return `<div class="scroll" style="padding-top:46px">
+			<div class="gm-glyph">!</div><div class="gm-head">${esc(s.title)}</div>
+			<div class="gm-text">${esc(s.message)}</div>
+			${s.pairingCode ? `<div class="gm-big" style="font-size:28px;margin-top:8px;color:#FFAA00">${s.pairingCode}</div><div class="gm-sub">code de liaison</div>` : ""}
+		</div><div class="gm-hint">${s.action ? `<b>START</b> ${esc(s.action.label.toLowerCase())}` : s.openOnPhone ? "Continuez sur le téléphone" : ""}</div>`;
+	case "notification":
+		return `<div class="scroll" style="padding-top:50px">
+			<div class="gm-head">Crownicles</div><div class="gm-text"><b>${esc(s.title)}</b><br>${esc(s.body)}</div>
+		</div><div class="gm-hint">Ouvrez le glance Crownicles</div>`;
+	case "face":
+		return gmArc(s.progress, "#FFAA00") + `<div class="scroll" style="padding-top:62px">
+			<div class="gm-head">Crownicles</div><div class="gm-big" style="margin-top:6px">${esc(s.nextStopIn)}</div><div class="gm-sub">prochain arrêt · ${esc(s.to)}</div>
+		</div><div class="gm-hint"><b>START</b> ouvrir</div>`;
+	}
+	return "";
+}
+
+function garminButton(btn) {
+	const s = current();
+	const g = state.garmin;
+	const menu = garminMenu(s);
+	if (g.phase === "menu" && menu) {
+		if (btn === "up") g.focus = (g.focus - 1 + menu.items.length) % menu.items.length;
+		if (btn === "down") g.focus = (g.focus + 1) % menu.items.length;
+		if (btn === "start") {
+			const it = menu.items[g.focus];
+			if (!it.disabled) return it.act();
+		}
+		if (btn === "back") {
+			if (s.kind === "confirm") return cancelConfirm();
+			g.phase = "story";
+		}
+		return render();
+	}
+	const scroller = document.querySelector("#garmin .js-gmscroll");
+	if (btn === "up" && scroller) return scroller.scrollBy({ top: -60, behavior: "smooth" });
+	if (btn === "down" && scroller) return scroller.scrollBy({ top: 60, behavior: "smooth" });
+	if (btn !== "start") return;
+	if (s.kind === "outcome") return go(s.next.go);
+	if (s.kind === "face") return go(s.go);
+	if (s.kind === "idle" && !s.choices) return s.report.go && go(s.report.go);
+	if (menu) {
+		g.phase = "menu";
+		g.focus = 0;
+		render();
+	}
+}
+
+/* ===================== Assemblage ===================== */
+const TAG_LABEL = { p0: "P0", p1: "P1", phone: "Téléphone", os: "Système" };
+
+function buildNav() {
+	const nav = document.getElementById("nav");
+	let group = null;
+	nav.innerHTML = SCENARIOS.map(sc => {
+		const head = sc.group !== group ? `<h3>${esc(sc.group)}</h3>` : "";
+		group = sc.group;
+		return head + `<button data-sc="${sc.id}"><span class="e">${sc.emoji}</span>${esc(sc.title)}<span class="tag ${sc.tag}">${TAG_LABEL[sc.tag]}</span></button>`;
+	}).join("");
+	nav.addEventListener("click", e => {
+		const b = e.target.closest("[data-sc]");
+		if (b) selectScenario(b.dataset.sc);
+	});
+}
+
+function selectScenario(id) {
+	state.scenario = SCENARIOS.find(s => s.id === id);
+	document.querySelectorAll("nav [data-sc]").forEach(b => b.classList.toggle("active", b.dataset.sc === id));
+	document.getElementById("sc-title").textContent = state.scenario.title;
+	document.getElementById("sc-tag").innerHTML = `<span class="tag ${state.scenario.tag}">${TAG_LABEL[state.scenario.tag]}</span>`;
+	document.getElementById("sc-desc").textContent = state.scenario.desc;
+	document.getElementById("notes").innerHTML = (state.scenario.notes ?? []).map(([t, b]) => `<div class="note"><b>${esc(t)}</b>${esc(b)}</div>`).join("");
+	history.replaceState(null, "", "#" + id);
+	go(state.scenario.start);
+}
+
+function withoutMockupFields(screen) {
+	return JSON.parse(JSON.stringify(screen, (k, v) => (k === "go" || k === "onExpire" ? undefined : v)));
+}
+
+function render() {
+	const s = current();
+	document.getElementById("apple").innerHTML = renderApple(s);
+	document.getElementById("wear").innerHTML = renderWear(s);
+	document.getElementById("garmin").innerHTML = renderGarmin(s);
+	const shown = s.kind === "confirm" ? { note: "Écran local à la montre : rien n'est envoyé au serveur avant la confirmation.", choice: withoutMockupFields(s.choice) } : withoutMockupFields(s);
+	document.getElementById("json").textContent = JSON.stringify(shown, null, 2);
+	document.getElementById("screen-key").textContent = `Écran : ${s.kind}${s.family ? " · " + s.family : ""}${s.reason ? " · " + s.reason : ""}`;
+	document.getElementById("expire").disabled = !state.deadline || s.kind !== "event";
+}
+
+function tick() {
+	const r = remaining();
+	if (r === null) return;
+	document.querySelectorAll(".js-count").forEach(el => { el.textContent = fmtSeconds(r); });
+	document.querySelectorAll(".js-ring").forEach(el => {
+		const total = Number(el.dataset.total);
+		const c = Number(el.getAttribute("stroke-dasharray"));
+		el.setAttribute("stroke-dashoffset", String(c * (1 - r / total)));
+	});
+	const s = state.scenario.screens[state.key];
+	if (r === 0 && s.onExpire && !state.confirm) go(s.onExpire);
+}
+
+document.querySelector(".devices").addEventListener("click", e => {
+	const gm = e.target.closest("[data-gm]");
+	if (gm) return garminButton(gm.dataset.gm);
+	const item = e.target.closest("[data-gmitem]");
+	if (item) {
+		state.garmin.focus = Number(item.dataset.gmitem);
+		return garminButton("start");
+	}
+	const choice = e.target.closest("[data-choice]");
+	if (choice) {
+		if (choice.dataset.choice === "report") {
+			const s = current();
+			return s.report.disabledReason ? undefined : go(s.report.go);
+		}
+		return choose(Number(choice.dataset.choice));
+	}
+	const target = e.target.closest("[data-go]");
+	if (target) go(target.dataset.go);
+});
+document.getElementById("restart").addEventListener("click", () => go(state.scenario.start));
+document.getElementById("expire").addEventListener("click", () => { state.deadline = Date.now() + 3000; tick(); });
+
+buildNav();
+selectScenario(SCENARIOS.some(s => s.id === location.hash.slice(1)) ? location.hash.slice(1) : "lottery");
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
