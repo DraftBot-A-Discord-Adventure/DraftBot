@@ -1199,6 +1199,13 @@
           "1": "Parte de novo quando encontra um homem ferido. Ao tentar ajudá-lo, descobre que foi vítima de uma emboscada! Alguns homens aparecem e roubam-te antes de partirem de novo."
         },
         "text": "Volta pelo caminho por onde vieste."
+      },
+      "keepGoing": {
+        "outcomes": {
+          "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
+          "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
+        },
+        "text": "Continue o seu caminho."
       }
     },
     "text": "Entra numa floresta escura e vê a silhueta de um homem ao longe. Decide aproximar-se dele e apercebe-se de que é um eremita que anda à procura de alimentos. Aproxima-se da sua casa, na qual lê a inscrição \"Xetrix\", que é provavelmente o seu nome. Ainda está a pensar no que fazer..."
