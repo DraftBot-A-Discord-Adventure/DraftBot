@@ -18,6 +18,7 @@ import {
 } from "../../../WsPackets/src/AppCompatibility";
 import { announcedCompatibility } from "./AppProtocol";
 import { FromClientPacket } from "../../../WsPackets/src/fromClient/FromClientPacket";
+import { AppPresenceReq } from "../../../WsPackets/src/fromClient/AppPresenceReq";
 import {
 	Server, WebSocket
 } from "ws";
@@ -130,6 +131,10 @@ function handleClientMessage(ws: WebSocket, {
 		if (!parsedMessage) {
 			return;
 		}
+		if (parsedMessage.name === AppPresenceReq.wireName) {
+			WebSocketServer.recordPresence(ws, (parsedMessage.data as Partial<AppPresenceReq>).foreground === true);
+			return;
+		}
 
 		// Log the received message
 		CrowniclesLogger.debug("Received message from client", {
@@ -190,6 +195,12 @@ export class WebSocketServer {
 	 */
 	private static keycloakIdToClients: Map<string, WebSocket> = new Map();
 
+	/** Sockets whose app said it is in front of the player; any other one, older apps included, is in the background. */
+	private static readonly foregroundSockets = new WeakSet<WebSocket>();
+
+	/** Sockets pinged without a pong since: a dead connection must not keep passing for an open app. */
+	private static readonly unansweredSockets = new WeakSet<WebSocket>();
+
 	/**
 	 * Start the WebSocket server
 	 * @param port
@@ -207,6 +218,7 @@ export class WebSocketServer {
 		WebSocketServer.handleListening(port);
 		WebSocketServer.handleConnection();
 		WebSocketServer.programClosedConnectionsPurge();
+		WebSocketServer.programHeartbeat();
 	}
 
 	/**
@@ -236,6 +248,7 @@ export class WebSocketServer {
 
 				// Close the previous connection if it exists and save the new one
 				WebSocketServer.replaceConnection(keycloakId, ws);
+				ws.on("pong", () => WebSocketServer.unansweredSockets.delete(ws));
 
 				// Handle the message received from the client
 				handleClientMessage(ws, connectionData);
@@ -259,6 +272,15 @@ export class WebSocketServer {
 
 	static isActiveConnection(keycloakId: KeycloakId, ws: WebSocket): boolean {
 		return ws.readyState === WebSocket.OPEN && WebSocketServer.keycloakIdToClients.get(keycloakId) === ws;
+	}
+
+	static recordPresence(ws: WebSocket, foreground: boolean): void {
+		if (foreground) {
+			WebSocketServer.foregroundSockets.add(ws);
+		}
+		else {
+			WebSocketServer.foregroundSockets.delete(ws);
+		}
 	}
 
 	private static handleClose(ws: WebSocket, req: IncomingMessage, keycloakId: KeycloakId): void {
@@ -377,11 +399,36 @@ export class WebSocketServer {
 	}
 
 	/**
+	 * Ping the players' sockets regularly, and close those that did not answer the previous ping
+	 */
+	private static programHeartbeat(): void {
+		setInterval(() => {
+			WebSocketServer.keycloakIdToClients.forEach(client => {
+				if (WebSocketServer.unansweredSockets.has(client)) {
+					client.terminate();
+					return;
+				}
+				WebSocketServer.unansweredSockets.add(client);
+				client.ping();
+			});
+		}, WebSocketConstants.HEARTBEAT_INTERVAL);
+	}
+
+	/**
 	 * Whether the player has the app open right now
 	 * @param keycloakId
 	 */
 	static isConnected(keycloakId: string): boolean {
 		return WebSocketServer.keycloakIdToClients.get(keycloakId)?.readyState === WebSocket.OPEN;
+	}
+
+	/**
+	 * Whether the player is looking at the app right now, on whichever device holds their session
+	 * @param keycloakId
+	 */
+	static isInForeground(keycloakId: string): boolean {
+		const client = WebSocketServer.keycloakIdToClients.get(keycloakId);
+		return client?.readyState === WebSocket.OPEN && WebSocketServer.foregroundSockets.has(client);
 	}
 
 	/**

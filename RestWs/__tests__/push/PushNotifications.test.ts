@@ -154,7 +154,7 @@ describe("Firebase push", () => {
 	});
 });
 
-function fakeDispatch(connected: boolean, results: Record<string, string> = {}): AppNotificationDispatch & {pushed: {token: string; body: string}[]} {
+function fakeDispatch(connected: boolean, results: Record<string, string> = {}, foreground = false): AppNotificationDispatch & {pushed: {token: string; body: string}[]} {
 	const pushed: {token: string; body: string}[] = [];
 	return {
 		pushed,
@@ -165,6 +165,7 @@ function fakeDispatch(connected: boolean, results: Record<string, string> = {}):
 		playerName: names,
 		playerLanguage: vi.fn(() => Promise.resolve("fr" as const)),
 		isConnected: () => connected,
+		isInForeground: () => foreground,
 		showLive: vi.fn(),
 		forgetDevice: vi.fn()
 	};
@@ -201,6 +202,19 @@ describe("delivering a notification", () => {
 		expect(dispatch.playerLanguage).toHaveBeenCalledWith(PLAYER);
 		expect(dispatch.showLive).toHaveBeenCalledOnce();
 		expect(dispatch.pushed).toEqual([]);
+	});
+
+	it("keeps every device quiet while the player is looking at the app, which shows it", async () => {
+		const dispatch = fakeDispatch(true, {}, true);
+		await dispatchAppNotification(delivery([IPHONE, ANDROID]), dispatch);
+		expect(dispatch.showLive).toHaveBeenCalledOnce();
+		expect(dispatch.pushed).toEqual([]);
+	});
+
+	it("still pushes to every device while the open app is in the background", async () => {
+		const dispatch = fakeDispatch(true);
+		await dispatchAppNotification(delivery([IPHONE, ANDROID]), dispatch);
+		expect(dispatch.pushed.map(({token}) => token)).toEqual([IPHONE.token, ANDROID.token]);
 	});
 
 	it("forgets only the devices their push service no longer knows", async () => {

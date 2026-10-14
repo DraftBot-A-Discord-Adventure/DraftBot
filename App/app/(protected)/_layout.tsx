@@ -21,6 +21,7 @@ import {
 } from "@/src/design/ThemeContext";
 import { ConnectionStatus } from "@/src/components/ConnectionStatus";
 import { GameServicesLifecycle } from "@/src/gameServices/GameServicesLifecycle";
+import { useAppPresence } from "@/src/networking/AppPresence";
 
 const useStyles = createStyles(colors => ({
 	overlay: {
@@ -147,6 +148,7 @@ function AuthenticatedContent({ state }: { state: AuthStateEnum }): React.ReactE
 }
 
 function AuthenticatedLayout({ state }: { state: AuthStateEnum }): React.ReactElement {
+	useAppPresence(state);
 	return (
 		<SafeAreaProvider>
 			<GameQueryProvider authState={state}>

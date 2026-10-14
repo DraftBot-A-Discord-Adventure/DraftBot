@@ -3,6 +3,8 @@ import {WebSocket} from "ws";
 import {WebSocketServer} from "../../src/services/WebSocketServer";
 import {APP_PROTOCOL_QUERY_PARAMETER, APP_PROTOCOL_VERSION} from "../../../WsPackets/src/AppCompatibility";
 import {WEBSOCKET_AUTH_UNAVAILABLE_REASON, WEBSOCKET_SESSION_REPLACED_REASON} from "../../../WsPackets/src/WebSocketCloseReasons";
+import {AppPresenceReq} from "../../../WsPackets/src/fromClient/AppPresenceReq";
+import {WebSocketConstants} from "../../src/constants/WebSocketConstants";
 
 const mocks = vi.hoisted(() => ({
 	server: {on: vi.fn()},
@@ -28,7 +30,20 @@ class SocketStub {
 	readyState: number = WebSocket.OPEN;
 	on = vi.fn();
 	send = vi.fn();
+	ping = vi.fn();
 	close = vi.fn((): void => { this.readyState = WebSocket.CLOSING; });
+	terminate = vi.fn((): void => {
+		this.readyState = WebSocket.CLOSED;
+		emit(this, "close");
+	});
+}
+
+function emit(socket: SocketStub, event: string): void {
+	(socket.on.mock.calls.find(([name]) => name === event)?.[1] as (() => void) | undefined)?.();
+}
+
+function presence(foreground: boolean): string {
+	return JSON.stringify({name: AppPresenceReq.wireName, data: {foreground}});
 }
 
 const PLAYER = "shared-account";
@@ -150,5 +165,49 @@ describe("WebSocket session ownership", () => {
 		const socket = new SocketStub();
 		await connect(socket);
 		expect(socket.close).toHaveBeenCalledWith(1008, WEBSOCKET_AUTH_UNAVAILABLE_REASON);
+	});
+
+	it("follows whether the app is in front of the player, without bothering Core", async () => {
+		const socket = new SocketStub();
+		await connect(socket);
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(false);
+		await send(socket, presence(true));
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(true);
+		await send(socket, presence(false));
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(false);
+		expect(mocks.translator).not.toHaveBeenCalled();
+		expect(mocks.publish).not.toHaveBeenCalled();
+	});
+
+	it("does not lend the foreground of a replaced phone to the one taking over", async () => {
+		const previous = new SocketStub();
+		await connect(previous);
+		await send(previous, presence(true));
+		await connect(new SocketStub());
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(false);
+	});
+
+	it("closes a connection that stopped answering, so a phone gone silent no longer counts as open", async () => {
+		const silent = new SocketStub();
+		await connect(silent);
+		await send(silent, presence(true));
+		await vi.advanceTimersByTimeAsync(WebSocketConstants.HEARTBEAT_INTERVAL);
+		expect(silent.ping).toHaveBeenCalledOnce();
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(true);
+		await vi.advanceTimersByTimeAsync(WebSocketConstants.HEARTBEAT_INTERVAL);
+		expect(silent.terminate).toHaveBeenCalledOnce();
+		expect(WebSocketServer.isInForeground(PLAYER)).toBe(false);
+		expect(WebSocketServer.isConnected(PLAYER)).toBe(false);
+	});
+
+	it("keeps a connection that answers the heartbeat", async () => {
+		const socket = new SocketStub();
+		await connect(socket);
+		await vi.advanceTimersByTimeAsync(WebSocketConstants.HEARTBEAT_INTERVAL);
+		emit(socket, "pong");
+		await vi.advanceTimersByTimeAsync(WebSocketConstants.HEARTBEAT_INTERVAL);
+		expect(socket.terminate).not.toHaveBeenCalled();
+		expect(socket.ping).toHaveBeenCalledTimes(2);
+		expect(WebSocketServer.isConnected(PLAYER)).toBe(true);
 	});
 });

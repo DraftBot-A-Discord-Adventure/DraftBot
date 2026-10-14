@@ -67,6 +67,7 @@ export class AppNotificationsMqttClient extends RestWsMqttClient {
 			playerName,
 			playerLanguage,
 			isConnected: (keycloakId): boolean => WebSocketServer.isConnected(keycloakId),
+			isInForeground: (keycloakId): boolean => WebSocketServer.isInForeground(keycloakId),
 			showLive,
 			forgetDevice
 		};

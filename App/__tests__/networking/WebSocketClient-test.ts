@@ -277,6 +277,27 @@ describe("WebSocketClient", () => {
 		expect(queuedPackets(client)).toEqual([]);
 	});
 
+	it("sends a state only while connected, without queuing it for the next connection", () => {
+		const {
+			client, socket
+		} = clientWithSocket({
+			readyState: 0, send: jest.fn(), close: jest.fn()
+		});
+		const state = jest.fn();
+		Reflect.set(client, "setState", state);
+		client.sendIfOpen(new TestRequest());
+		expect(socket.send).not.toHaveBeenCalled();
+		expect(queuedPackets(client)).toEqual([]);
+		expect(state).not.toHaveBeenCalled();
+
+		socket.readyState = OPEN_STATE;
+		client.sendIfOpen(new TestRequest());
+		expect(socket.send).toHaveBeenCalledTimes(1);
+		expect(JSON.parse(socket.send.mock.calls[0][0] as string)).toEqual({
+			name: TestRequest.wireName, data: {}
+		});
+	});
+
 	it("expires even uncorrelated packets when resuming with suspended timers", () => {
 		jest.useFakeTimers();
 		try {

@@ -155,6 +155,15 @@ export class WebSocketClient {
 		this.processPacketQueue();
 	}
 
+	/** A state rather than a request: dropped while disconnected, since the next connection announces the current one. */
+	public sendIfOpen(packet: FromClientPacket): void {
+		if (this.socket?.readyState === WebSocket.OPEN) {
+			this.socket.send(JSON.stringify({
+				name: wireNameOf(packet), data: packet
+			}));
+		}
+	}
+
 	private enqueuePacket(packet: FromClientPacket, packetId: string | null, timeout?: PacketTimeout): void {
 		if (packetId && timeout) {
 			this.scheduleResponseHandlerCleanup(packetId, timeout);

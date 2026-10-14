@@ -17,13 +17,15 @@ export type AppNotificationDispatch = {
 	playerName: PlayerNameResolver;
 	playerLanguage: (keycloakId: string) => Promise<Language>;
 	isConnected: (keycloakId: string) => boolean;
+	isInForeground: (keycloakId: string) => boolean;
 	showLive: (keycloakId: string, packet: AppNotificationRes) => void;
 	forgetDevice: (keycloakId: string, token: string) => void;
 };
 
 /**
  * Delivers one notification: shown at once in the app if it is open, and pushed to every device of the
- * player, each in its own language. The app hides the push while in the foreground, so both never show.
+ * player, each in its own language, unless the app is in front of them on one of them: they are playing
+ * there, so their other devices stay quiet. The app hides the push while in the foreground, so both never show.
  */
 export async function dispatchAppNotification(delivery: AppNotificationDelivery, dispatch: AppNotificationDispatch): Promise<void> {
 	const keycloakId = delivery.notification.packet.keycloakId;
@@ -40,6 +42,9 @@ export async function dispatchAppNotification(delivery: AppNotificationDelivery,
 			notificationType: delivery.notificationType,
 			...await textIn(lng)
 		}));
+	}
+	if (dispatch.isInForeground(keycloakId)) {
+		return;
 	}
 
 	await Promise.all(delivery.devices.map(async device => {

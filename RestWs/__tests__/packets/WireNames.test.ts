@@ -58,6 +58,7 @@ const WIRE_NAMES = [
 	"PushDeviceUnregisterReq",
 	"PushDeviceRegisteredRes",
 	"AppNotificationRes",
+	"AppPresenceReq",
 	"ClassesReq",
 	"ClassesInfoReq",
 	"ClassesInfoRes",
