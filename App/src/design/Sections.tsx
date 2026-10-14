@@ -599,7 +599,7 @@ export function BackButton({
 }
 
 export function Standing({
-	emblem, caption, title, subtitle, children, onPress, accessibilityLabel, testID
+	emblem, caption, title, subtitle, children, onPress, accessibilityLabel, testID, captionColor, emblemColor
 }: {
 	emblem?: ReactNode;
 	caption: string;
@@ -609,12 +609,16 @@ export function Standing({
 	onPress?: () => void;
 	accessibilityLabel?: string;
 	testID?: string;
+
+	/** A place with its own warmth, such as a forge, tints the caption and the emblem's backdrop. */
+	captionColor?: string;
+	emblemColor?: string;
 }): ReactNode {
 	const styles = useStyles();
 	const identity = <>
-		{emblem ? <View style={styles.emblem}>{emblem}</View> : null}
+		{emblem ? <View style={[styles.emblem, emblemColor ? { backgroundColor: emblemColor } : null]}>{emblem}</View> : null}
 		<View style={styles.body}>
-			<Text style={styles.caption}>{caption}</Text>
+			<Text style={[styles.caption, captionColor ? { color: captionColor } : null]}>{caption}</Text>
 			<TwemojiText textStyle={styles.title} emojiSize={STANDING_TITLE_EMOJI_SIZE}>{title}</TwemojiText>
 			{subtitle ? <TwemojiText textStyle={styles.caption} emojiSize={Theme.fontSize.caption} iosEmojiVerticalOffset={Theme.emoji.iosCaptionOffset}>{subtitle}</TwemojiText> : null}
 		</View>

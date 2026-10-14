@@ -1,7 +1,10 @@
 import {
-	CITY_REACTION_KINDS, CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction
+	CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
 import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	buysMaterials, upgradeForReaction, upgradeTotalCost
+} from "@/src/collectors/CityUpgrades";
 import { formatMoney } from "@/src/display/Amounts";
 import { formatTimeUntil } from "@/src/display/ItemEffects";
 import {
@@ -53,20 +56,26 @@ const DIRECT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], LockResolv
 	[CITY_REACTION_KINDS.GARDEN_COMPOST]: () => blocked("app:city.locks.nothingToCompost")
 };
 
-function upgradeLock(upgrade: CityMobileUpgradeItem | undefined, playerMoney: number | undefined): Lock | undefined {
+/** Without buying, missing materials block the upgrade; buying them, only the coins for the whole bill can. */
+function upgradeLock(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, playerMoney: number | undefined): Lock | undefined {
+	const upgrade = upgradeForReaction(reaction, snapshot);
 	if (!upgrade) {
 		return blocked("app:city.locks.unavailable");
 	}
-	if (!upgrade.hasAllMaterials && !upgrade.canBuyAndUpgrade) {
+	const buying = buysMaterials(reaction);
+	if (!upgrade.hasAllMaterials && !buying) {
 		return blocked("app:city.locks.missingMaterials");
 	}
-	return missingMoney(upgrade.upgradeCost + upgrade.missingMaterialsCost - (playerMoney ?? 0));
+	const shortfall = upgradeTotalCost(upgrade, buying) - (playerMoney ?? 0);
+
+	// The royal blacksmith also asks for gems, which the snapshot does not price: coins may well be enough.
+	return shortfall > 0 ? missingMoney(shortfall) : blocked("app:city.locks.unavailable");
 }
 
 type ItemMatcher = (candidate: {
 	slot: number; itemCategory: number;
 }) => boolean;
-type EquipmentLockResolver = (snapshot: CityMobileSnapshot | undefined, sameItem: ItemMatcher) => Lock | undefined;
+type EquipmentLockResolver = (snapshot: CityMobileSnapshot | undefined, sameItem: ItemMatcher, reaction: ReactionCollectorReaction) => Lock | undefined;
 
 function disenchantLock(blacksmith: CityMobileSnapshot["blacksmith"], sameItem: ItemMatcher): Lock | undefined {
 	const disenchant = blacksmith?.disenchantableItems.find(sameItem);
@@ -74,8 +83,8 @@ function disenchantLock(blacksmith: CityMobileSnapshot["blacksmith"], sameItem: 
 }
 
 const EQUIPMENT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], EquipmentLockResolver>> = {
-	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: (snapshot, sameItem) => upgradeLock(snapshot?.blacksmith?.upgradeableItems.find(sameItem), snapshot?.blacksmith?.playerMoney),
-	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: (snapshot, sameItem) => upgradeLock(snapshot?.royalBlacksmith?.upgradeableItems.find(sameItem), snapshot?.royalBlacksmith?.playerMoney),
+	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.blacksmith?.playerMoney),
+	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.royalBlacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (snapshot, sameItem) => disenchantLock(snapshot?.blacksmith, sameItem)
 };
 
@@ -85,7 +94,7 @@ function equipmentLock(reaction: ReactionCollectorReaction, snapshot: CityMobile
 	if (!item || !resolver) {
 		return blocked("app:city.locks.unavailable");
 	}
-	return resolver(snapshot, candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory);
+	return resolver(snapshot, candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory, reaction);
 }
 
 /** A foothold earns nothing, which waiting would not change; a let apartment only needs time. */

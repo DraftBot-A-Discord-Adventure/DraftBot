@@ -27,6 +27,7 @@ import { GardenAccessMode } from "../../types/GardenAccessMode";
 import { GardenConstants } from "../../constants/GardenConstants";
 import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
+import { BlacksmithLimit } from "../../constants/BlacksmithConstants";
 
 export class ReactionCollectorCityData extends ReactionCollectorData {
 	mapTypeId!: string;
@@ -283,6 +284,14 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 
 			/** Core-authoritative eligibility: player has enough gold to disenchant */
 			canDisenchant: boolean;
+		}[];
+
+		/** Weapons and armors the player holds that the blacksmith cannot upgrade any further, and why. */
+		beyondReachItems: {
+			slot: number;
+			category: ItemCategory;
+			details: MainItemDetails;
+			limit: BlacksmithLimit;
 		}[];
 
 		/** Current player money for UI display */

@@ -12,6 +12,8 @@ import {
 	Benefit, Benefits
 } from "@/src/components/Benefits";
 import { i18n } from "@/src/translations/i18n";
+import { isUpgradeReaction } from "@/src/collectors/CityUpgrades";
+import { cityUpgradeDetails } from "@/src/collectors/CityUpgradeDetails";
 
 const UPGRADE_CHANGE_ICONS: Record<HomeUpgradeChange, string> = {
 	[HOME_UPGRADE_CHANGES.CHEST]: "city.homeUpgrades.chest",
@@ -54,8 +56,11 @@ function rowBenefits(reaction: ReactionCollectorReaction, snapshot: CityMobileSn
 	return ROW_BENEFITS[reaction.type]?.(snapshot) ?? [];
 }
 
-/** What the player weighs before confirming: everything a home upgrade or an apartment brings. */
+/** What the player weighs before confirming: everything a home upgrade or an apartment brings, or the blacksmith's work order. */
 export function cityRowDetails(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): ReactNode {
+	if (isUpgradeReaction(reaction)) {
+		return cityUpgradeDetails(reaction, snapshot);
+	}
 	const benefits = rowBenefits(reaction, snapshot);
 	return benefits.length > 0 ? <Benefits items={benefits} /> : null;
 }

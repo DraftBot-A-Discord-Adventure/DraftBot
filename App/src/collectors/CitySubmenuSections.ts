@@ -1,7 +1,11 @@
 import {
-	CITY_REACTION_KINDS, CityMobileSnapshot
+	CITY_REACTION_KINDS, CityMobileBeyondReachItem, CityMobileSnapshot
 } from "ws-packets/src/fromServer/collectors";
 import { i18n } from "@/src/translations/i18n";
+import {
+	cityItemIconPath, cityItemName
+} from "@/src/collectors/CityItemPresentation";
+import { isShownUpgradeVariant } from "@/src/collectors/CityUpgrades";
 import type {
 	CityEntry, CityListItem, CitySubmenu, CitySubmenuSection
 } from "@/src/collectors/CityCollector";
@@ -26,10 +30,53 @@ function innSections(entries: CityEntry[]): CitySubmenuSection[] {
 	];
 }
 
+function beyondReachItem(item: CityMobileBeyondReachItem): CityListItem {
+	return {
+		kind: "info",
+		key: `blacksmith-beyond-reach-${item.itemCategory}-${item.slot}`,
+		iconPath: cityItemIconPath(item),
+		title: cityItemName(item),
+		subtitle: i18n.t("app:city.anvil.itemLevel", { level: item.itemLevel }),
+		lock: { reason: i18n.t(`app:city.anvil.${item.limit}`, { level: item.itemLevel }) }
+	};
+}
+
+/** A player holding no weapon nor armor learns why the anvil stays cold; older servers do not say. */
+function emptyAnvil(blacksmith: NonNullable<CityMobileSnapshot["blacksmith"]>): CityListItem[] {
+	const holdsEquipment = blacksmith.upgradeableItems.length + blacksmith.disenchantableItems.length + (blacksmith.beyondReachItems?.length ?? 0) > 0;
+	return blacksmith.beyondReachItems === undefined || holdsEquipment
+		? []
+		: [
+			{
+				kind: "info",
+				key: "blacksmith-empty-anvil",
+				iconPath: "city.services.blacksmith",
+				title: i18n.t("app:city.anvil.empty"),
+				subtitle: i18n.t("app:city.anvil.nothingHeld"),
+				lock: { reason: i18n.t("app:city.anvil.nothingHeld") }
+			}
+		];
+}
+
+/** Every weapon and armor the player holds lies on the anvil: what the blacksmith can upgrade, then what is beyond them and why. */
+function blacksmithSections(entries: CityEntry[], snapshot: CityMobileSnapshot | undefined): CitySubmenuSection[] {
+	const disenchants = (entry: CityEntry): boolean => entry.reaction.type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT;
+	const blacksmith = snapshot?.blacksmith;
+	return [
+		section("app:city.titles.anvil", [
+			...reactionItems(entries.filter(entry => !disenchants(entry))),
+			...(blacksmith?.beyondReachItems ?? []).map(beyondReachItem),
+			...blacksmith ? emptyAnvil(blacksmith) : []
+		]),
+		section("app:city.titles.disenchant", reactionItems(entries.filter(disenchants)))
+	];
+}
+
 function simpleSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityMobileSnapshot | undefined, deps: SubmenuDependencies): CitySubmenuSection[] | undefined {
 	const reactions = reactionItems(entries);
 	const factories: Partial<Record<CitySubmenu, () => CitySubmenuSection[]>> = {
 		inn: () => innSections(entries),
+		blacksmith: () => blacksmithSections(entries, snapshot),
 		home: () => [section("app:city.titles.homeServices", [...reactions, ...deps.homeFeatureItems(snapshot)])],
 		homeBed: () => [section("app:city.titles.actions", reactions)],
 		guild: () => [section("app:city.titles.actions", reactions)],
@@ -48,7 +95,6 @@ const NOTARY_TITLE_KEYS: Partial<Record<string, string>> = {
 
 const GROUPED_TITLE_KEYS: Partial<Record<CitySubmenu, (type: string) => string>> = {
 	notary: type => NOTARY_TITLE_KEYS[type] ?? "app:city.titles.yourHome",
-	blacksmith: type => type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT ? "app:city.titles.disenchant" : "app:city.titles.equipment",
 	scrapDealer: () => "app:city.titles.recycling"
 };
 
@@ -120,7 +166,8 @@ function apartmentRequiringHome(snapshot: CityMobileSnapshot | undefined): CityL
 	];
 }
 
-export function submenuSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityMobileSnapshot | undefined, deps: SubmenuDependencies): CitySubmenuSection[] {
+export function submenuSections(view: CitySubmenu, allEntries: CityEntry[], snapshot: CityMobileSnapshot | undefined, deps: SubmenuDependencies): CitySubmenuSection[] {
+	const entries = allEntries.filter(entry => isShownUpgradeVariant(entry.reaction, snapshot));
 	if (view === "notary") {
 		return groupedSections(view, entries, {
 			"app:city.titles.yourHome": homeUpgradeLimit(snapshot),

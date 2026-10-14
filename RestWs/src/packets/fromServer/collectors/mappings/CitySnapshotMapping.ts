@@ -1,6 +1,7 @@
 import { ReactionCollectorCityData } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { homeUpgradeChanges } from "../../../../../../Lib/src/utils/HomeUpgradeChanges";
 import type {
+	CityMobileBeyondReachItem,
 	CityMobileDisenchantItem,
 	CityMobileItem,
 	CityMobileRecycleItem,
@@ -153,7 +154,10 @@ function mapBlacksmith(data: NonNullable<ReactionCollectorCityData["blacksmith"]
 		upgradeableItems: data.upgradeableItems.map(upgradeItemSnapshot),
 		disenchantableItems: data.disenchantableItems.map(item => ({
 			...itemSnapshot(item), enchantmentId: item.enchantmentId, enchantmentType: item.enchantmentType, disenchantCost: item.disenchantCost, canDisenchant: item.canDisenchant
-		} satisfies CityMobileDisenchantItem))
+		} satisfies CityMobileDisenchantItem)),
+		beyondReachItems: data.beyondReachItems.map(item => ({
+			...itemSnapshot(item), limit: item.limit
+		} satisfies CityMobileBeyondReachItem))
 	};
 }
 

@@ -7,13 +7,8 @@ import { gameRules } from "@/src/rules/GameRules";
 type CityNoteView = string;
 type NoteResolver = (snapshot: CityMobileSnapshot) => string | undefined;
 
-function blacksmithNote(snapshot: CityMobileSnapshot): string {
-	const missingMaterials = snapshot.blacksmith?.upgradeableItems.some(item => !item.hasAllMaterials) ?? false;
-	return missingMaterials ? `${i18n.t("app:city.notes.blacksmithMissingMaterials")} ${i18n.t("app:city.notes.blacksmith")}` : i18n.t("app:city.notes.blacksmith");
-}
-
 const NOTE_RESOLVERS: Record<string, NoteResolver> = {
-	blacksmith: snapshot => snapshot.blacksmith ? blacksmithNote(snapshot) : undefined,
+	blacksmith: snapshot => snapshot.blacksmith ? i18n.t("app:city.notes.blacksmith") : undefined,
 	scrapDealer: snapshot => snapshot.scrapDealer ? i18n.t("app:city.notes.scrapDealer") : undefined,
 	royalBlacksmith: snapshot => snapshot.royalBlacksmith ? i18n.t("app:city.notes.royalBlacksmith") : undefined,
 	inn: snapshot => snapshot.inns

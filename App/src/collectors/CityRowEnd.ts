@@ -1,22 +1,15 @@
 import {
-	CITY_REACTION_KINDS, CityMobileItem, CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction
+	CITY_REACTION_KINDS, CityMobileItem, CityMobileSnapshot, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
 import { formatMoney } from "@/src/display/Amounts";
+import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	buysMaterials, upgradeForReaction, upgradeTotalCost
+} from "@/src/collectors/CityUpgrades";
 
-type UpgradeItemsResolver = (snapshot: CityMobileSnapshot | undefined) => CityMobileUpgradeItem[] | undefined;
-
-const UPGRADE_ITEMS_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], UpgradeItemsResolver>> = {
-	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: snapshot => snapshot?.blacksmith?.upgradeableItems,
-	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: snapshot => snapshot?.royalBlacksmith?.upgradeableItems
-};
-
-function upgradeEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	if (!item) {
-		return undefined;
-	}
-	const upgrades = UPGRADE_ITEMS_RESOLVERS[reaction.type]?.(snapshot);
-	const upgrade = upgrades?.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
-	return upgrade ? formatMoney(upgrade.upgradeCost) : undefined;
+function upgradeEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	const upgrade = upgradeForReaction(reaction, snapshot);
+	return upgrade ? formatMoney(upgradeTotalCost(upgrade, buysMaterials(reaction))) : undefined;
 }
 
 function disenchantEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
@@ -58,10 +51,6 @@ const END_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], EndResolv
 	[CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT]: apartmentRentEnd
 };
 
-function cityRowEndForReaction(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	return END_RESOLVERS[reaction.type]?.(reaction, snapshot, item);
-}
-
-export function cityRowEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	return cityRowEndForReaction(reaction, snapshot, item);
+export function cityRowEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	return END_RESOLVERS[reaction.type]?.(reaction, snapshot, itemSnapshotForReaction(snapshot, reaction));
 }

@@ -97,6 +97,9 @@ export type CityMobileSnapshot = {
 		playerMoney: number;
 		upgradeableItems: CityMobileUpgradeItem[];
 		disenchantableItems: CityMobileDisenchantItem[];
+
+		/** Absent from servers older than the workbench, which only listed what could be upgraded. */
+		beyondReachItems?: CityMobileBeyondReachItem[];
 	};
 	scrapDealer?: {
 		recyclableItems: CityMobileRecycleItem[];
@@ -160,6 +163,17 @@ export type CityMobileDisenchantItem = CityMobileItem & {
 	enchantmentType: string;
 	disenchantCost: number;
 	canDisenchant: boolean;
+};
+
+/** Why the blacksmith cannot upgrade an item: only the royal blacksmith can, or nobody can anymore. */
+export const CITY_BLACKSMITH_LIMITS = {
+	ROYAL_ONLY: "royalOnly",
+	MAXED: "maxed"
+} as const;
+export type CityBlacksmithLimit = typeof CITY_BLACKSMITH_LIMITS[keyof typeof CITY_BLACKSMITH_LIMITS];
+
+export type CityMobileBeyondReachItem = CityMobileItem & {
+	limit: CityBlacksmithLimit;
 };
 
 export type CityMobileRecycleItem = CityMobileItem & {

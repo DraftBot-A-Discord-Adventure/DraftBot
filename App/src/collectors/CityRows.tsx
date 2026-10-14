@@ -13,7 +13,9 @@ import { isChoosable } from "@/src/collectors/CollectorLabels";
 import { cityReactionLock } from "@/src/collectors/CityReactionLocks";
 import { plainStory } from "@/src/display/Markdown";
 import { SectionHeader } from "@/src/design/Primitives";
-import { Check } from "@/src/design/FightIcons";
+import {
+	Check, LucideIcon
+} from "@/src/design/FightIcons";
 import {
 	ActionBanner, ENTRY_CHEVRONS, ExpandableEntry, ExpandableList, Lock, LockHint, useSectionStyles
 } from "@/src/design/Sections";
@@ -55,6 +57,13 @@ type CityRowsProps = {
 
 	/** What the unfolded row explains before the player confirms. */
 	rowDetails?: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => ReactNode;
+
+	/** The confirm button worded after the action, instead of a plain confirmation. */
+	rowConfirm?: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => RowConfirm | undefined;
+};
+
+export type RowConfirm = {
+	label: string; icon: LucideIcon;
 };
 
 type ReactionRowState = {
@@ -124,6 +133,7 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 	} = reactionRowState(reaction, props);
 	const confirms = CITY_REACTIONS_REQUIRING_CONFIRMATION.has(reaction.type);
 	const expanded = confirms && unfolding.isExpanded(key);
+	const confirm = props.rowConfirm?.(reaction, snapshot);
 	const shared = {
 		emblem: rowIcon(reaction, snapshot),
 		label: plainStory(rowTitle(reaction, collector.data, snapshot)),
@@ -153,8 +163,8 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 	>
 		{props.rowDetails?.(reaction, snapshot)}
 		<ActionBanner
-			icon={Check}
-			label={i18n.t("app:collector.accept")}
+			icon={confirm?.icon ?? Check}
+			label={confirm?.label ?? i18n.t("app:collector.accept")}
 			pending={locked}
 			onPress={(): void => {
 				confirmation.defer(() => onChoose(index));

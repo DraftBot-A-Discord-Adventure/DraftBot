@@ -14,6 +14,7 @@ import {
 	cityRowEnd, cityRowSubtitle
 } from "@/src/collectors/CityRowDetails";
 import { cityRowDetails } from "@/src/collectors/CityRowExtras";
+import { cityUpgradeConfirm } from "@/src/collectors/CityUpgradeDetails";
 import {
 	cityReactionAvailable, cityRowIcon, cityRowTitle, iconForPath
 } from "@/src/collectors/CityRowPresentation";
@@ -28,6 +29,7 @@ import { Standing } from "@/src/design/Sections";
 import { Page } from "@/src/design/DetailScreen";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { GuildDomain } from "@/src/components/GuildDomain";
+import { useColors } from "@/src/design/ThemeContext";
 import { i18n } from "@/src/translations/i18n";
 
 const SUBMENU_EMBLEM_SIZE = 34;
@@ -58,11 +60,15 @@ function submenuIcon(view: CitySubmenu, snapshot?: CityMobileSnapshot): string |
 
 const INTERACTIVE_SUBMENUS: Partial<Record<CitySubmenu, () => ReactNode>> = { guild: GuildDomain };
 
+/** The forges glow: their heading takes the gold of hot metal. */
+const WARM_SUBMENUS = new Set<CitySubmenu>(["blacksmith", "royalBlacksmith"]);
+
 function SubmenuHeading({
 	view, snapshot, innId
 }: {
 	view: CitySubmenu; snapshot?: CityMobileSnapshot; innId?: string;
 }): ReactNode {
+	const colors = useColors();
 	const details = submenuTitle(view, innId);
 	const icon = submenuIcon(view, snapshot);
 	return <Standing
@@ -70,6 +76,11 @@ function SubmenuHeading({
 		caption={details.eyebrow}
 		title={plainStory(details.title)}
 		{...details.subtitle ? { subtitle: plainStory(details.subtitle) } : {}}
+		{...WARM_SUBMENUS.has(view)
+			? {
+				captionColor: colors.gold, emblemColor: colors.goldWash
+			}
+			: {}}
 	/>;
 }
 
@@ -113,6 +124,7 @@ export function CitySubmenuView({
 			rowSubtitle={cityRowSubtitle}
 			rowEnd={cityRowEnd}
 			rowDetails={cityRowDetails}
+			rowConfirm={cityUpgradeConfirm}
 			reactionAvailable={cityReactionAvailable}
 		/>)}
 		{citySnapshotNote(view, snapshot)}

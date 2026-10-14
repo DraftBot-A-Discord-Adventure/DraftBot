@@ -812,6 +812,7 @@
       "garden": "Jardin",
       "equipment": "Améliorer un équipement",
       "disenchant": "Désenchanter",
+      "anvil": "Sur l'enclume",
       "recycling": "Équipements recyclables",
       "eligibleEquipment": "Vos équipements éligibles"
     },
@@ -834,7 +835,6 @@
       "buyApartmentFoothold": "Un pied-à-terre : votre coffre et un lit, ici aussi",
       "notaryRent": "{{amount}} de loyer vous attendent",
       "noActions": "Aucune action disponible pour le moment.",
-      "upgradeDetails": "Niveau {{from}} → {{to}} · {{materials}}{{missingMaterials}}",
       "disenchantDetails": "{{enchantment}} · retirer l'enchantement",
       "recycleDetails": "Rend {{materials}}"
     },
@@ -861,6 +861,22 @@
       "empty": "Libre · une graine peut y être plantée",
       "ready": "Prête à récolter",
       "growing": "Croissance · {{progress}} %"
+    },
+    "anvil": {
+      "itemLevel": "Niveau {{level}}",
+      "royalOnly": "Niveau {{level}} : le forgeron ne peut aller plus loin, seul le forgeron royal le peut.",
+      "maxed": "Niveau {{level}} : aucun artisan ne peut aller plus loin.",
+      "empty": "L'enclume reste froide",
+      "nothingHeld": "Vous n'avez ni arme ni armure à confier au forgeron.",
+      "subtitleReady": "Niveau {{from}} → {{to}} · matériaux réunis",
+      "subtitleMissing_one": "Niveau {{from}} → {{to}} · {{count}} matériau à acheter",
+      "subtitleMissing_other": "Niveau {{from}} → {{to}} · {{count}} matériaux à acheter",
+      "levels": "Niveau",
+      "bill": "À payer",
+      "materialsOffer_one": "Le forgeron vous vend le matériau manquant pour {{price}}, compris dans le prix.",
+      "materialsOffer_other": "Le forgeron vous vend les {{count}} matériaux manquants pour {{price}}, compris dans le prix.",
+      "upgrade": "Améliorer au niveau {{level}}",
+      "buyAndUpgrade": "Acheter les matériaux et améliorer"
     },
     "labels": {
       "home": "Votre maison",
@@ -902,12 +918,9 @@
       "enchantment": "Enchantement du jour",
       "compatibleWith": "Compatible avec",
       "price": "Coût",
-      "missingMaterials": " · matériaux manquants achetés pour {{price}}",
       "discount": "Réduction mage",
       "eligibleItems": "Équipements éligibles",
       "money": "Votre argent",
-      "upgrades": "Améliorations possibles",
-      "disenchantable": "Équipements désenchantables",
       "recyclableItems": "Équipements recyclables",
       "status": "État",
       "playerLevel": "Votre niveau",
@@ -947,7 +960,6 @@
       "unavailable": "Cette action n'est pas disponible pour le moment."
     },
     "notes": {
-      "blacksmithMissingMaterials": "Le forgeron peut vendre les matériaux manquants avant l'amélioration.",
       "blacksmith": "Le forgeron peut améliorer jusqu'au niveau 4 ; le niveau 5 est réservé au forgeron royal.",
       "scrapDealer": "Le démontage est définitif : seuls les équipements de réserve non enchantés sont acceptés.",
       "royalBlacksmith": "Le forgeron royal est le seul artisan capable de porter un équipement au niveau 5.",
