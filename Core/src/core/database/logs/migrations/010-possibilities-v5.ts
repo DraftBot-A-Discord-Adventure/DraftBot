@@ -1,4 +1,6 @@
 import { QueryInterface } from "sequelize";
+
+// A namespace import would also expose a `default` entry holding the whole map (#4869)
 import emojiToIdMap from "./010-possibilities-emoji-to-id.json";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {

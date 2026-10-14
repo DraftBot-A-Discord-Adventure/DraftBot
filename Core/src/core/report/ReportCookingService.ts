@@ -63,6 +63,8 @@ import {
 import { PlayerCookingRecipe } from "../database/game/models/PlayerCookingRecipe";
 import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
+import { updateCollectMaterialsMission } from "../utils/MaterialLootUtils";
+import { MaterialQuantity } from "../../../../Lib/src/types/MaterialQuantity";
 import type { CookingUseLogParams } from "../database/logs/LogsCityLogger";
 import type { CookingRecipeId } from "../../../../Lib/src/types/CookingRecipe";
 
@@ -856,6 +858,23 @@ function logCookingUse(params: CookingUseLogParams): void {
 	crowniclesInstance?.logsDatabase.logCookingUse(params).then();
 }
 
+/**
+ * Materials the craft added to the inventory: the recipe output or the recycled pet food surplus.
+ */
+function getCraftedMaterials({
+	material, petFood
+}: CraftOutputResult): MaterialQuantity[] {
+	const surplus = petFood?.surplusMaterialId !== undefined && petFood.surplusMaterialQuantity
+		? [
+			{
+				materialId: petFood.surplusMaterialId,
+				quantity: petFood.surplusMaterialQuantity
+			}
+		]
+		: [];
+	return material ? [material, ...surplus] : surplus;
+}
+
 async function executeReadyCookingCraft(
 	craftContext: ReadyCookingCraftContext,
 	packetContext: PacketContext
@@ -923,6 +942,8 @@ async function executeReadyCookingCraft(
 			params: { rarity: outputResult.potionRarity }
 		});
 	}
+
+	await updateCollectMaterialsMission(craftContext.player, response, getCraftedMaterials(outputResult));
 
 	return response;
 }
