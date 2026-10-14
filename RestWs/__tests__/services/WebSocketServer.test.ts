@@ -2,7 +2,7 @@ import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
 import {WebSocket} from "ws";
 import {WebSocketServer} from "../../src/services/WebSocketServer";
 import {APP_PROTOCOL_QUERY_PARAMETER, APP_PROTOCOL_VERSION} from "../../../WsPackets/src/AppCompatibility";
-import {WEBSOCKET_SESSION_REPLACED_REASON} from "../../../WsPackets/src/WebSocketCloseReasons";
+import {WEBSOCKET_AUTH_UNAVAILABLE_REASON, WEBSOCKET_SESSION_REPLACED_REASON} from "../../../WsPackets/src/WebSocketCloseReasons";
 
 const mocks = vi.hoisted(() => ({
 	server: {on: vi.fn()},
@@ -134,5 +134,21 @@ describe("WebSocket session ownership", () => {
 		expect(socket.close).toHaveBeenCalledWith(1008, "Account collision requires resolution");
 		expect(socket.on.mock.calls.some(([event]) => event === "message")).toBe(false);
 		expect(mocks.publish).not.toHaveBeenCalled();
+	});
+
+	it.each(["collision", "checkToken"] as const)("refuses access without expiring the session when %s is unavailable", async boundary => {
+		mocks[boundary].mockRejectedValue(new TypeError("Network unavailable"));
+		const socket = new SocketStub();
+		await connect(socket);
+		expect(socket.close).toHaveBeenCalledWith(1008, WEBSOCKET_AUTH_UNAVAILABLE_REASON);
+		expect(socket.on.mock.calls.some(([event]) => event === "message")).toBe(false);
+		expect(mocks.publish).not.toHaveBeenCalled();
+	});
+
+	it("keeps a Keycloak server error distinct from an invalid token", async () => {
+		mocks.checkToken.mockResolvedValue({isError: true, status: 503});
+		const socket = new SocketStub();
+		await connect(socket);
+		expect(socket.close).toHaveBeenCalledWith(1008, WEBSOCKET_AUTH_UNAVAILABLE_REASON);
 	});
 });

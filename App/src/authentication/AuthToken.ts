@@ -13,6 +13,8 @@ export interface AuthTokenData {
 export class AuthToken {
 	private data: AuthTokenData;
 
+	private refreshing: Promise<boolean> | null = null;
+
 	constructor(data: AuthTokenData) {
 		this.data = data;
 	}
@@ -37,24 +39,26 @@ export class AuthToken {
 	 * Checks if the access token is valid and not expired.
 	 * @returns True if the access token has been refreshed, false otherwise.
 	 */
-	public async refreshIfNeeded(): Promise<boolean> {
-		if (this.isAccessTokenExpired() && !this.isRefreshTokenExpired()) {
-			try {
-				const refreshedToken = await KeycloakAuth.refresh(this.data.refreshToken);
-				this.data.accessToken = refreshedToken.access_token;
-				this.data.refreshToken = refreshedToken.refresh_token;
-				this.data.accessTokenExpiresAt = new Date(Date.now() + refreshedToken.expires_in * 1000);
-				this.data.refreshTokenExpiresAt = refreshedToken.refresh_expires_in === 0
-					? REFRESH_TOKEN_NEVER_EXPIRES
-					: new Date(Date.now() + refreshedToken.refresh_expires_in * 1000);
-				return true; // Refresh successful
-			}
-			catch {
-				// Ignore
-			}
+	public refreshIfNeeded(): Promise<boolean> {
+		if (this.refreshing) {
+			return this.refreshing;
 		}
-
-		return false; // Access token is still valid
+		if (!this.isAccessTokenExpired() || this.isRefreshTokenExpired()) {
+			return Promise.resolve(false);
+		}
+		this.refreshing = KeycloakAuth.refresh(this.data.refreshToken).then(refreshedToken => {
+			this.data.accessToken = refreshedToken.access_token;
+			this.data.refreshToken = refreshedToken.refresh_token;
+			this.data.accessTokenExpiresAt = new Date(Date.now() + refreshedToken.expires_in * 1000);
+			this.data.refreshTokenExpiresAt = refreshedToken.refresh_expires_in === 0
+				? REFRESH_TOKEN_NEVER_EXPIRES
+				: new Date(Date.now() + refreshedToken.refresh_expires_in * 1000);
+			return true;
+		})
+			.finally((): void => {
+				this.refreshing = null;
+			});
+		return this.refreshing;
 	}
 
 	public toJsonString(): string {

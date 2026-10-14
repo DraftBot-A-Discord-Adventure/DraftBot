@@ -11,7 +11,7 @@ import { getClientTranslator } from "../packets/fromClient/FromClientTranslator"
 import { InvalidClientPacketError } from "../packets/fromClient/InvalidClientPacketError";
 import { AccountCollisionService } from "./AccountCollisionService";
 import {
-	WEBSOCKET_APP_OUTDATED_REASON, WEBSOCKET_SERVER_OUTDATED_REASON, WEBSOCKET_SESSION_REPLACED_REASON, WEBSOCKET_ACCOUNT_COLLISION_REASON, WebSocketCloseReason
+	WEBSOCKET_APP_OUTDATED_REASON, WEBSOCKET_SERVER_OUTDATED_REASON, WEBSOCKET_SESSION_REPLACED_REASON, WEBSOCKET_ACCOUNT_COLLISION_REASON, WEBSOCKET_AUTH_UNAVAILABLE_REASON, WebSocketCloseReason
 } from "../../../WsPackets/src/WebSocketCloseReasons";
 import {
 	APP_COMPATIBILITY_STATUSES, APP_PROTOCOL_QUERY_PARAMETER, APP_PROTOCOL_VERSION, compareProtocolVersions
@@ -293,6 +293,9 @@ export class WebSocketServer {
 
 	private static async tokenOwner(token: string): Promise<KeycloakId | null> {
 		const checkToken = await KeycloakUtils.checkTokenAndGetKeycloakId(keycloakConfig, token);
+		if (checkToken.isError && checkToken.status !== 401) {
+			throw new Error("Token verification unavailable");
+		}
 		return checkToken.isError ? null : checkToken.payload.keycloakId;
 	}
 
@@ -300,13 +303,13 @@ export class WebSocketServer {
 	 * Two accounts sharing an email must be settled first; when that cannot be checked, the session waits too
 	 * @param token
 	 */
-	private static async collisionBlocks(token: string): Promise<boolean> {
+	private static async collisionRefusal(token: string): Promise<WebSocketCloseReason | null> {
 		try {
 			const collision = await new AccountCollisionService(keycloakConfig).check(token);
-			return Boolean(collision.collision || collision.pending);
+			return collision.collision || collision.pending ? WEBSOCKET_ACCOUNT_COLLISION_REASON : null;
 		}
 		catch {
-			return true;
+			return WEBSOCKET_AUTH_UNAVAILABLE_REASON;
 		}
 	}
 
@@ -323,12 +326,19 @@ export class WebSocketServer {
 		}
 
 		const token = query.get("token");
-		const keycloakId = token ? await WebSocketServer.tokenOwner(token) : null;
+		let keycloakId: KeycloakId | null;
+		try {
+			keycloakId = token ? await WebSocketServer.tokenOwner(token) : null;
+		}
+		catch {
+			return WebSocketServer.refuse(ws, WEBSOCKET_AUTH_UNAVAILABLE_REASON);
+		}
 		if (!token || !keycloakId) {
 			return WebSocketServer.refuse(ws, "Unauthorized");
 		}
-		if (await WebSocketServer.collisionBlocks(token)) {
-			return WebSocketServer.refuse(ws, WEBSOCKET_ACCOUNT_COLLISION_REASON);
+		const refusal = await WebSocketServer.collisionRefusal(token);
+		if (refusal) {
+			return WebSocketServer.refuse(ws, refusal);
 		}
 
 		// Get the groups of the user

@@ -3,7 +3,7 @@ import { CrowniclesLogger } from "../../Lib/src/logs/CrowniclesLogger";
 import "source-map-support/register";
 import { RestApi } from "./services/RestApi";
 import { WebSocketServer } from "./services/WebSocketServer";
-import { RegistrationHygiene } from "./services/RegistrationHygiene";
+import { PendingRegistrations } from "./services/PendingRegistrations";
 import { MqttManager } from "./mqtt/MqttManager";
 import { registerAllClientTranslators } from "./packets/fromClient/FromClientTranslator";
 import { registerAllServerTranslators } from "./packets/fromServer/FromServerTranslator";
@@ -62,7 +62,7 @@ async function main(): Promise<void> {
 	// Initialize and start the WebSocket server
 	WebSocketServer.start(restWsConfig.WEB_SOCKET_PORT);
 
-	RegistrationHygiene.start();
+	PendingRegistrations.start();
 
 	// Log the version of the application
 	CrowniclesLogger.info(`Crownicles RestWs ${process.env.npm_package_version}`);

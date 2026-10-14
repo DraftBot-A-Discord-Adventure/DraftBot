@@ -12,6 +12,8 @@ jest.mock("expo-auth-session", () => ({
 	AuthRequest: class {
 		public codeVerifier = "code-verifier";
 
+		public state = "s";
+
 		public promptAsync = mockPromptAsync;
 
 		public constructor(config: Record<string, unknown>) {
@@ -54,6 +56,7 @@ describe("KeycloakAuth", () => {
 		mockAuthRequestConfigs.length = 0;
 		mockPromptAsync.mockReset();
 		mockOpenAuthSession.mockReset();
+		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
 	});
 
 	afterEach((): void => {
@@ -166,7 +169,7 @@ describe("KeycloakAuth", () => {
 		});
 		const fetch = jest.spyOn(globalThis, "fetch");
 
-		await expect(KeycloakAuth.changeEmail()).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.PENDING);
+		await expect(KeycloakAuth.changeEmail({keycloakId: "current-account"})).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.PENDING);
 
 		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
 			kc_action: "UPDATE_EMAIL", prompt: "login"
@@ -182,13 +185,13 @@ describe("KeycloakAuth", () => {
 	it.each([
 		{
 			result: {
-				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=cancelled"
+				type: "success", url: "crownicles://auth?code=c&state=s&kc_action=UPDATE_EMAIL&kc_action_status=cancelled"
 			},
 			outcome: ACCOUNT_ACTION_OUTCOMES.CANCELLED
 		},
 		{
 			result: {
-				type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_EMAIL&kc_action_status=success"
+				type: "success", url: "crownicles://auth?code=c&state=s&kc_action=UPDATE_EMAIL&kc_action_status=success"
 			},
 			outcome: ACCOUNT_ACTION_OUTCOMES.UPDATED
 		},
@@ -201,33 +204,42 @@ describe("KeycloakAuth", () => {
 	}) => {
 		mockOpenAuthSession.mockResolvedValue(result);
 
-		await expect(KeycloakAuth.changeEmail()).resolves.toBe(outcome);
+		await expect(KeycloakAuth.changeEmail({keycloakId: "current-account"})).resolves.toBe(outcome);
 	});
 
 	it.each([
 		"crownicles://auth?error=access_denied&error_description=refused",
-		"crownicles://auth?kc_action=UPDATE_EMAIL&kc_action_status=error"
+		"crownicles://auth?code=c&state=s&kc_action=UPDATE_EMAIL&kc_action_status=error"
 	])("reports a Keycloak failure of the email change: %s", async url => {
 		mockOpenAuthSession.mockResolvedValue({
 			type: "success", url
 		});
 
-		await expect(KeycloakAuth.changeEmail()).rejects.toMatchObject({ reason: AUTH_FAILURES.UNKNOWN });
+		await expect(KeycloakAuth.changeEmail({keycloakId: "current-account"})).rejects.toMatchObject({ reason: AUTH_FAILURES.UNKNOWN });
 	});
 
 	it("opens the password page in the same way, and reads that it was saved", async () => {
 		mockOpenAuthSession.mockResolvedValue({
-			type: "success", url: "crownicles://auth?code=c&kc_action=UPDATE_PASSWORD&kc_action_status=success"
+			type: "success", url: "crownicles://auth?code=c&state=s&kc_action=UPDATE_PASSWORD&kc_action_status=success"
 		});
 
-		await expect(KeycloakAuth.changePassword()).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.UPDATED);
+		await expect(KeycloakAuth.changePassword({keycloakId: "current-account"})).resolves.toBe(ACCOUNT_ACTION_OUTCOMES.UPDATED);
 		expect(mockAuthRequestConfigs.at(-1)).toMatchObject({ extraParams: {
 			kc_action: "UPDATE_PASSWORD", prompt: "login"
 		} });
 	});
 
+	it.each([
+		"crownicles://auth?code=c&state=wrong&kc_action=UPDATE_EMAIL&kc_action_status=success",
+		"crownicles://auth?code=c&state=s&kc_action=UPDATE_PASSWORD&kc_action_status=success",
+		"crownicles://auth?state=s&kc_action=UPDATE_EMAIL&kc_action_status=success"
+	])("rejects an uncorrelated account action: %s", async url => {
+		mockOpenAuthSession.mockResolvedValue({type: "success", url});
+		await expect(KeycloakAuth.changeEmail({keycloakId: "current-account"})).rejects.toMatchObject({reason: AUTH_FAILURES.INVALID_TOKEN});
+	});
+
 	it("reads the current address from Keycloak with the session's access token", async () => {
-		const fetch = jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ email: "player@example.com" }), { status: 200 }));
+		const fetch = jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ sub: "current-account", email: "player@example.com" }), { status: 200 }));
 
 		await expect(KeycloakAuth.accountEmail("access-token")).resolves.toBe("player@example.com");
 		expect(fetch).toHaveBeenCalledWith(

@@ -46,7 +46,7 @@ describe("account adventures asked to Core", () => {
 		const adventures = coreAccountAdventures("requester", ["discord-user"]);
 		await vi.waitFor(() => expect(MqttManager.globalMqttClient.sendToBackEnd).toHaveBeenCalledOnce());
 		await MqttManager.asyncPacketSender.handleResponse(sentRequest().context, ErrorMaintenancePacket.name, {});
-		await expect(adventures).resolves.toEqual([]);
+		await expect(adventures).resolves.toBeNull();
 	});
 
 	it("does not keep the player waiting when Core stays silent", async () => {
@@ -54,7 +54,7 @@ describe("account adventures asked to Core", () => {
 		connect();
 		const adventures = coreAccountAdventures("requester", ["discord-user"]);
 		await vi.advanceTimersByTimeAsync(5_000);
-		await expect(adventures).resolves.toEqual([]);
+		await expect(adventures).resolves.toBeNull();
 	});
 
 	it("ignores an account preview that arrives after the timeout without notifying the game", async () => {
@@ -63,7 +63,7 @@ describe("account adventures asked to Core", () => {
 		const dispatch = vi.spyOn(WebSocketServer, "dispatchPacketsToClient").mockImplementation(() => undefined);
 		const adventures = coreAccountAdventures("requester", ["discord-user"]);
 		await vi.advanceTimersByTimeAsync(5_000);
-		await expect(adventures).resolves.toEqual([]);
+		await expect(adventures).resolves.toBeNull();
 		await MqttManager.globalMqttClient.onMessage(JSON.stringify({
 			context: sentRequest().context,
 			packets: [{name: CommandAccountAdventuresRes.name, packet: {adventures: [{keycloakId: "discord-user", level: 42, score: 1000, classId: 3}]}}]
@@ -77,7 +77,7 @@ describe("account adventures asked to Core", () => {
 		const dispatch = vi.spyOn(WebSocketServer, "dispatchPacketsToClient").mockImplementation(() => undefined);
 		const adventures = coreAccountAdventures("requester", ["discord-user"]);
 		await vi.advanceTimersByTimeAsync(5_000);
-		await expect(adventures).resolves.toEqual([]);
+		await expect(adventures).resolves.toBeNull();
 		await MqttManager.globalMqttClient.onMessage(JSON.stringify({
 			context: sentRequest().context,
 			packets: [{name: ErrorInternalPacket.name, packet: {reason: "Preview unavailable"}}]

@@ -1,9 +1,10 @@
 import {
-	useCallback, useRef, useState
+	useCallback, useContext, useRef, useState
 } from "react";
 import {
-	ACCOUNT_ACTION_OUTCOMES, AccountActionOutcome, KeycloakAuth
+	ACCOUNT_ACTION_OUTCOMES, AccountActionOutcome
 } from "@/src/authentication/KeycloakAuth";
+import { AuthContext } from "./AuthContext";
 
 export type AccountAction = {
 	running: boolean;
@@ -48,12 +49,13 @@ export type PasswordChange = AccountAction & {
 };
 
 export function usePasswordChange(): PasswordChange {
+	const auth = useContext(AuthContext);
 	const [saved, setSaved] = useState(false);
 	const onOutcome = useCallback((outcome: AccountActionOutcome): void => {
 		setSaved(outcome === ACCOUNT_ACTION_OUTCOMES.UPDATED);
 	}, []);
 	return {
-		...useAccountAction(KeycloakAuth.changePassword, onOutcome),
+		...useAccountAction(auth.changePassword, onOutcome),
 		saved
 	};
 }

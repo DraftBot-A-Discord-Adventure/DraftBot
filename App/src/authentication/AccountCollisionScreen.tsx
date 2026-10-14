@@ -27,10 +27,10 @@ import {
 } from "@/src/design/FightIcons";
 import { i18n } from "@/src/translations/i18n";
 import {
-	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionCheck, AccountCollisionChoice, AccountCollisionError, AccountCollisionProof, CollisionAccount
+	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionCheck, AccountCollisionChoice, AccountCollisionError, CollisionAccount
 } from "ws-packets/src/objects/AccountCollision";
 
-const REVERIFIABLE_ERRORS: ReadonlySet<AccountCollisionError> = new Set([ACCOUNT_COLLISION_ERRORS.PROOF_EXPIRED, ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED]);
+const REVERIFIABLE_ERRORS: ReadonlySet<AccountCollisionError> = new Set([ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED]);
 const KEEP_BOTH_EMBLEM_SIZE = 20;
 const COLLISION_RECHECK_MS = 4_000;
 
@@ -38,7 +38,7 @@ export type AccountCollisionLoginState = {
 	token: AuthToken; check: AccountCollisionCheck;
 };
 type VerifiedAccounts = {
-	discord: AuthToken; email: AuthToken; proof: AccountCollisionProof;
+	discord: AuthToken; email: AuthToken;
 };
 
 async function accessToken(token: AuthToken): Promise<string> {
@@ -82,20 +82,19 @@ function signInToOtherAccount(collision: AccountCollision | null, startedFromEma
 async function verifiedAccounts(state: AccountCollisionLoginState, startedFromEmail: boolean): Promise<VerifiedAccounts> {
 	const second = AuthToken.fromKeycloakOAuth2Token(await signInToOtherAccount(state.check.collision, startedFromEmail));
 	const [discord, email] = startedFromEmail ? [second, state.token] : [state.token, second];
-	const proof = await RestApi.verifyAccountCollision(await accessToken(discord), await accessToken(email));
 	return {
-		discord, email, proof
+		discord, email
 	};
 }
 
-/** Sends the choice; a stale proof restarts the verification unless the account got settled meanwhile */
+/** Sends the choice; a stale session restarts authentication unless the account got settled meanwhile */
 async function sendChoice(kept: AuthToken, choice: AccountCollisionChoice, {
-	proof, onStale
+	other, onStale
 }: {
-	proof: string; onStale: () => void;
+	other: AuthToken | null; onStale: () => void;
 }): Promise<void> {
 	try {
-		await RestApi.resolveAccountCollision(await accessToken(kept), proof, choice);
+		await RestApi.resolveAccountCollision(await accessToken(kept), other ? await accessToken(other) : "", choice);
 	}
 	catch (error) {
 		if (!isReverifiable(error)) {
@@ -160,7 +159,7 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 	const auth = useContext(AuthContext);
 	const [choice, setChoice] = useState<AccountCollisionChoice | "">(state.check.pending ?? "");
 	const [confirmed, setConfirmed] = useState<AuthToken | null>(state.check.pending ? state.token : null);
-	const [proof, setProof] = useState("");
+	const [other, setOther] = useState<AuthToken | null>(null);
 	const restored = useRef(false);
 	const {
 		pending, failure, run
@@ -168,15 +167,15 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 
 	const restart = (): void => {
 		setConfirmed(null);
-		setProof("");
+		setOther(null);
 		setChoice("");
 	};
 
-	const settle = useCallback(async (kept: AuthToken, chosen: AccountCollisionChoice, proven: string): Promise<void> => {
+	const settle = useCallback(async (kept: AuthToken, chosen: AccountCollisionChoice, otherAccount: AuthToken | null): Promise<void> => {
 		await auth.saveToken(kept);
 		setConfirmed(kept);
 		await sendChoice(kept, chosen, {
-			proof: proven, onStale: restart
+			other: otherAccount, onStale: restart
 		});
 		await onAuthenticated(kept);
 	}, [auth, onAuthenticated]);
@@ -184,8 +183,9 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 	const keep = (chosen: AccountCollisionChoice): void => run(async (): Promise<void> => {
 		setChoice(chosen);
 		const verified = await verifiedAccounts(state, state.check.current === ACCOUNT_COLLISION_CHOICES.EMAIL);
-		setProof(verified.proof.proof);
-		await settle(verified[chosen], chosen, verified.proof.proof);
+		const second = chosen === ACCOUNT_COLLISION_CHOICES.DISCORD ? verified.email : verified.discord;
+		setOther(second);
+		await settle(verified[chosen], chosen, second);
 	});
 
 	const resume = useCallback((): void => run(async (): Promise<void> => {
@@ -194,14 +194,14 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 			return;
 		}
 		if (confirmed && choice) {
-			await settle(confirmed, choice, proof);
+			await settle(confirmed, choice, other);
 		}
 	}), [
 		state,
 		onAuthenticated,
 		confirmed,
 		choice,
-		proof,
+		other,
 		settle,
 		run
 	]);
@@ -311,7 +311,9 @@ function useKeepBoth(state: AccountCollisionLoginState, onAuthenticated: (token:
 			setAwaitingLink(true);
 		}
 	}, []);
-	const changeEmail = useCallback((): Promise<AccountActionOutcome> => KeycloakAuth.changeEmail(email), [email]);
+	const changeEmail = useCallback((): Promise<AccountActionOutcome> => KeycloakAuth.changeEmail({
+		keycloakId: state.check.collision!.emailAccount.keycloakId, ...email ? { loginHint: email } : {}
+	}), [state.check.collision, email]);
 	const action = useAccountAction(changeEmail, onOutcome);
 	const watch = useCollisionWatch(token, onAuthenticated, awaitingLink && !disabled);
 
@@ -404,7 +406,26 @@ export function AccountCollisionScreen({
 }): ReactElement {
 	const flow = useCollisionChoice(state, onAuthenticated);
 	const keepBoth = useKeepBoth(state, onAuthenticated, flow.pending || flow.confirmed);
-	const collision = state.check.collision;
+	const [preview, setPreview] = useState<AccountCollisionLoginState | null>(null);
+	const collision = state.check.collision && preview?.token === state.token ? preview.check.collision : state.check.collision;
+	useEffect(() => {
+		if (!state.check.collision) {
+			return undefined;
+		}
+		let cancelled = false;
+		accessToken(state.token).then(token => RestApi.previewAccountCollision(token))
+			.then(preview => {
+				if (!cancelled && preview.collision) {
+					setPreview({
+						token: state.token, check: preview
+					});
+				}
+			})
+			.catch(() => undefined);
+		return (): void => {
+			cancelled = true;
+		};
+	}, [state.token, state.check.collision]);
 	if (flow.confirmed || !collision) {
 		return <ResumeView flow={flow} />;
 	}

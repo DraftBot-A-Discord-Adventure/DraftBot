@@ -12,7 +12,6 @@ import Constants from "expo-constants";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
 import { VersionReq } from "ws-packets/src/fromClient/PlayerUtilityReq";
 import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
-import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { AuthContext } from "@/src/authentication/AuthContext";
 import { useEmailChange } from "@/src/authentication/EmailChange";
 import { usePasswordChange } from "@/src/authentication/AccountAction";
@@ -26,7 +25,6 @@ import {
 import { ImpactFeedbackStyle } from "expo-haptics";
 import { Haptics } from "@/src/design/Haptics";
 import { GameClient } from "@/src/networking/GameClient";
-import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useFightSpeed } from "@/src/store/useFightSpeed";
@@ -186,9 +184,7 @@ function NotificationsEntry(): ReactNode {
 async function endSession(authState: React.ContextType<typeof AuthContext>): Promise<void> {
 	await cancelReportNotification();
 	forgetPushDevice();
-	WebSocketClient.getInstance().disconnect();
-	await authState.clearToken();
-	authState.setState(AuthStateEnum.NO_TOKEN);
+	await authState.leave();
 }
 
 type SessionExit = {

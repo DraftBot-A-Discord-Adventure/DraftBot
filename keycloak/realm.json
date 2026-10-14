@@ -1559,6 +1559,26 @@
   ],
   "identityProviderMappers": [
     {
+      "name": "Discord public display name",
+      "identityProviderAlias": "discord",
+      "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+      "config": {
+        "syncMode": "FORCE",
+        "claim": "global_name",
+        "user.attribute": "discordDisplayName"
+      }
+    },
+    {
+      "name": "Discord username",
+      "identityProviderAlias": "discord",
+      "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+      "config": {
+        "syncMode": "FORCE",
+        "claim": "username",
+        "user.attribute": "discordUsername"
+      }
+    },
+    {
       "name": "Verified Discord email for collision detection",
       "identityProviderAlias": "discord",
       "identityProviderMapper": "oidc-user-attribute-idp-mapper",
@@ -2329,6 +2349,31 @@
       "builtIn": false,
       "authenticationExecutions": [
         {
+          "authenticatorFlow": true,
+          "requirement": "REQUIRED",
+          "priority": 0,
+          "autheticatorFlow": true,
+          "flowAlias": "crownicles authentication",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "crownicles-account-target",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "alias": "crownicles authentication",
+      "description": "Existing session, Discord or account sign-in",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
           "authenticator": "auth-cookie",
           "authenticatorFlow": false,
           "requirement": "ALTERNATIVE",
@@ -2371,10 +2416,10 @@
           "userSetupAllowed": false
         },
         {
-          "authenticator": "auth-password-form",
+          "authenticator": "auth-username-password-form",
           "authenticatorFlow": false,
           "requirement": "ALTERNATIVE",
-          "priority": 0,
+          "priority": 20,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         }
@@ -2427,6 +2472,15 @@
           "authenticatorFlow": false,
           "requirement": "REQUIRED",
           "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorConfig": "crownicles-registration-policy",
+          "authenticator": "crownicles-registration-policy",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 30,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         },
@@ -2494,6 +2548,13 @@
       "config": {
         "ext-magic-create-nonexistent-user": "false",
         "TIMEOUT": "15"
+      }
+    },
+    {
+      "alias": "crownicles-registration-policy",
+      "config": {
+        "forbiddenPrefixes": "discord-",
+        "reservedNames": "crownicles,admin,administrateur,administrator,moderateur,modérateur,moderator,staff,support,system,système"
       }
     },
     {

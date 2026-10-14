@@ -5,7 +5,7 @@ export const ACCOUNT_COLLISION_CHOICES = {
 
 export const ACCOUNT_COLLISION_ENDPOINTS = {
 	CHECK: "/account/collision",
-	VERIFY: "/account/collision/verify",
+	PREVIEW: "/account/collision/preview",
 	RESOLVE: "/account/collision/resolve"
 } as const;
 
@@ -15,7 +15,6 @@ export const ACCOUNT_COLLISION_ERRORS = {
 	UNAUTHORIZED: "unauthorized",
 	UNVERIFIED_EMAIL: "unverifiedEmail",
 	ACCOUNT_CHANGED: "accountChanged",
-	PROOF_EXPIRED: "proofExpired",
 	CONFLICT: "conflict",
 	UNAVAILABLE: "unavailable"
 } as const;
@@ -27,6 +26,7 @@ export type CollisionAccountAdventure = {
 };
 
 export type CollisionAccount = {
+	keycloakId: string;
 	name: string;
 
 	/** Milliseconds since the epoch. */
@@ -34,6 +34,7 @@ export type CollisionAccount = {
 
 	/** Absent when the account never started an adventure, or when the game could not tell in time. */
 	adventure?: CollisionAccountAdventure;
+	progressionAvailable?: boolean;
 };
 
 export type AccountCollision = {
@@ -44,8 +45,5 @@ export type AccountCollision = {
 
 export type AccountCollisionCheck = {
 	collision: AccountCollision | null; pending?: AccountCollisionChoice; current?: AccountCollisionChoice;
-};
-export type AccountCollisionProof = {
-	proof: string; collision: AccountCollision;
 };
 export type AccountCollisionResolution = { kept: AccountCollisionChoice };

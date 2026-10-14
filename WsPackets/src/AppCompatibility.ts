@@ -1,5 +1,5 @@
 /** Bump whenever the app and RestWs stop understanding each other: across a mismatch, neither side lets the game start. */
-export const APP_PROTOCOL_VERSION = 1;
+export const APP_PROTOCOL_VERSION = 2;
 
 /** The WebSocket query parameter carrying the app's protocol version. */
 export const APP_PROTOCOL_QUERY_PARAMETER = "protocol";

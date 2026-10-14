@@ -63,6 +63,24 @@ describe("AuthToken", () => {
 		expect(token.getAccessToken()).toBe("new-access-token");
 	});
 
+	it("shares one refresh between concurrent consumers", async () => {
+		const refresh = jest.spyOn(KeycloakAuth, "refresh").mockResolvedValue(refreshedToken());
+		const token = new AuthToken(tokenData({ accessTokenExpiresAt: new Date(Date.now() - 1) }));
+		await expect(Promise.all([token.refreshIfNeeded(), token.refreshIfNeeded()])).resolves.toEqual([true, true]);
+		expect(refresh).toHaveBeenCalledTimes(1);
+	});
+
+	it("preserves a temporary failure and allows a later refresh instead of invalidating the session", async () => {
+		const failure = new TypeError("Network unavailable");
+		const refresh = jest.spyOn(KeycloakAuth, "refresh").mockRejectedValueOnce(failure)
+			.mockResolvedValue(refreshedToken());
+		const token = new AuthToken(tokenData({ accessTokenExpiresAt: new Date(Date.now() - 1) }));
+		await expect(token.refreshIfNeeded()).rejects.toBe(failure);
+		await expect(token.refreshIfNeeded()).resolves.toBe(true);
+		expect(refresh).toHaveBeenCalledTimes(2);
+		expect(token.getAccessToken()).toBe("new-access-token");
+	});
+
 	it("does not refresh when both tokens are expired", async () => {
 		const refresh = jest.spyOn(KeycloakAuth, "refresh");
 		const token = new AuthToken(tokenData({

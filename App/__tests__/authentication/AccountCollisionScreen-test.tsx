@@ -23,7 +23,8 @@ jest.mock("@react-native-async-storage/async-storage", () => require("@react-nat
 jest.mock("@/src/networking/RestApi", () => ({
 	...jest.requireActual<typeof import("@/src/networking/RestApi")>("@/src/networking/RestApi"),
 	RestApi: {
-		verifyAccountCollision: jest.fn(), resolveAccountCollision: jest.fn(), checkAccountCollision: jest.fn()
+		previewAccountCollision: jest.fn().mockResolvedValue({collision: null}),
+		resolveAccountCollision: jest.fn(), checkAccountCollision: jest.fn()
 	}
 }));
 jest.mock("@/src/authentication/KeycloakAuth", () => ({
@@ -40,6 +41,7 @@ jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?:
 const collision = {
 	email: "same@example.test",
 	discord: {
+		keycloakId: "discord-account-id",
 		name: "Historical hero",
 		createdAt: Date.UTC(2021, 2, 12),
 		adventure: {
@@ -47,6 +49,8 @@ const collision = {
 		}
 	},
 	emailAccount: {
+		keycloakId: "email-account-id",
+		progressionAvailable: true,
 		name: "New hero", createdAt: Date.UTC(2026, 8, 30)
 	}
 };
@@ -74,6 +78,8 @@ async function renderCollision(check: AccountCollisionCheck = {
 	collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD
 }, primary = "discord-access"): Promise<void> {
 	const auth: React.ContextType<typeof AuthContext> = {
+		changeEmail: jest.fn(), changePassword: jest.fn(),
+		collision: null, enter: authenticated, leave: jest.fn().mockResolvedValue(undefined), accessToken: jest.fn().mockResolvedValue(primary),
 		state: AuthStateEnum.NO_TOKEN, setState: jest.fn(), saveToken, clearToken: jest.fn().mockResolvedValue(undefined)
 	};
 	await render(<AuthContext.Provider value={auth}><AccountCollisionScreen state={{
@@ -91,9 +97,6 @@ describe("account collision choice", () => {
 		jest.clearAllMocks();
 		jest.mocked(KeycloakAuth.login).mockResolvedValue(keycloakLogin("email-access"));
 		jest.mocked(KeycloakAuth.loginAs).mockResolvedValue(keycloakLogin("email-access"));
-		jest.mocked(RestApi.verifyAccountCollision).mockResolvedValue({
-			proof: "verified-proof", collision
-		});
 		jest.mocked(RestApi.resolveAccountCollision).mockResolvedValue({ kept: ACCOUNT_COLLISION_CHOICES.DISCORD });
 		jest.mocked(RestApi.checkAccountCollision).mockResolvedValue({
 			collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD
@@ -120,7 +123,6 @@ describe("account collision choice", () => {
 		await renderCollision();
 		await keep("email");
 		await waitFor(() => expect(KeycloakAuth.loginAs).toHaveBeenCalledTimes(1));
-		expect(RestApi.verifyAccountCollision).not.toHaveBeenCalled();
 		expect(RestApi.resolveAccountCollision).not.toHaveBeenCalled();
 		expect(saveToken).not.toHaveBeenCalled();
 		expect(screen.getByTestId("collision-account-discord")).toBeTruthy();
@@ -140,8 +142,7 @@ describe("account collision choice", () => {
 		await keep(choice);
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
 		expect(KeycloakAuth.loginAs).toHaveBeenCalledWith(collision.email);
-		expect(RestApi.verifyAccountCollision).toHaveBeenCalledWith("discord-access", "email-access");
-		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith(access, "verified-proof", choice);
+		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith(access, choice === ACCOUNT_COLLISION_CHOICES.DISCORD ? "email-access" : "discord-access", choice);
 		expect(saveToken).toHaveBeenCalledTimes(1);
 		expect((saveToken.mock.calls[0][0] as AuthToken).getAccessToken()).toBe(access);
 	});
@@ -156,8 +157,7 @@ describe("account collision choice", () => {
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
 		expect(KeycloakAuth.login).toHaveBeenCalledWith("discord");
 		expect(KeycloakAuth.loginAs).not.toHaveBeenCalled();
-		expect(RestApi.verifyAccountCollision).toHaveBeenCalledWith("discord-access", "email-access");
-		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "verified-proof", ACCOUNT_COLLISION_CHOICES.EMAIL);
+		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "discord-access", ACCOUNT_COLLISION_CHOICES.EMAIL);
 	});
 
 	it("resumes the already-confirmed choice after interruption instead of offering another account", async () => {
@@ -200,14 +200,14 @@ describe("account collision choice", () => {
 		expect(authenticated).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:auth.collision.resume"));
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
-		expect(RestApi.resolveAccountCollision).toHaveBeenLastCalledWith("discord-access", "verified-proof", ACCOUNT_COLLISION_CHOICES.DISCORD);
+		expect(RestApi.resolveAccountCollision).toHaveBeenLastCalledWith("discord-access", "email-access", ACCOUNT_COLLISION_CHOICES.DISCORD);
 	});
 
-	it("offers both accounts again if the proof expires before any choice was started on the server", async () => {
-		jest.mocked(RestApi.resolveAccountCollision).mockRejectedValueOnce(new AccountCollisionRequestFailure(ACCOUNT_COLLISION_ERRORS.PROOF_EXPIRED));
+	it("offers both accounts again if the second session changed before a choice was recorded", async () => {
+		jest.mocked(RestApi.resolveAccountCollision).mockRejectedValueOnce(new AccountCollisionRequestFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED));
 		await renderCollision();
 		await keep(ACCOUNT_COLLISION_CHOICES.DISCORD);
-		await waitFor(() => expect(screen.getByText("app:auth.collision.errors.proofExpired")).toBeTruthy());
+		await waitFor(() => expect(screen.getByText("app:auth.collision.errors.accountChanged")).toBeTruthy());
 		expect(screen.getAllByText("app:auth.collision.keep")).toHaveLength(2);
 		expect(screen.getByText("app:common.back")).toBeTruthy();
 		expect(screen.queryByText("app:auth.collision.resume")).toBeNull();
@@ -220,7 +220,7 @@ describe("account collision choice", () => {
 		await renderCollision();
 		await fireEvent.press(screen.getByText("app:auth.collision.keepBoth.action"));
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
-		expect(KeycloakAuth.changeEmail).toHaveBeenCalledWith(collision.email);
+		expect(KeycloakAuth.changeEmail).toHaveBeenCalledWith({keycloakId: "email-account-id", loginHint: collision.email});
 		expect((authenticated.mock.calls[0][0] as AuthToken).getAccessToken()).toBe("discord-access");
 		expect(RestApi.resolveAccountCollision).not.toHaveBeenCalled();
 	});
@@ -384,11 +384,11 @@ describe("account collision choice", () => {
 		});
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
 		expect((authenticated.mock.calls[0][0] as AuthToken).getAccessToken()).toBe("email-access");
-		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "verified-proof", ACCOUNT_COLLISION_CHOICES.EMAIL);
+		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "discord-access", ACCOUNT_COLLISION_CHOICES.EMAIL);
 	});
 
 	it("opens the kept account when the server finished but its first response was lost", async () => {
-		jest.mocked(RestApi.resolveAccountCollision).mockRejectedValueOnce(new AccountCollisionRequestFailure(ACCOUNT_COLLISION_ERRORS.PROOF_EXPIRED));
+		jest.mocked(RestApi.resolveAccountCollision).mockRejectedValueOnce(new AccountCollisionRequestFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED));
 		jest.mocked(RestApi.checkAccountCollision).mockResolvedValueOnce({ collision: null });
 		await renderCollision({
 			collision: null, pending: ACCOUNT_COLLISION_CHOICES.EMAIL

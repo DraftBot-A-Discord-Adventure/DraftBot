@@ -11,7 +11,7 @@ import { MqttManager } from "../mqtt/MqttManager";
 const ADVENTURES_TIMEOUT_MS = 3_000;
 
 /** Asks Core where the accounts stand; a refusal, a silence or a failure all answer nothing. */
-export function coreAccountAdventures(requesterId: string, accountIds: string[]): Promise<AccountAdventure[]> {
+export function coreAccountAdventures(requesterId: string, accountIds: string[]): Promise<AccountAdventure[] | null> {
 	return new Promise(resolve => {
 		MqttManager.asyncPacketSender.sendPacketAndHandleResponse({
 			frontEndOrigin: ContextConstants.FRONT_END_ORIGIN,
@@ -19,13 +19,13 @@ export function coreAccountAdventures(requesterId: string, accountIds: string[])
 			keycloakId: requesterId,
 			webSocket: {}
 		}, makePacket(CommandAccountAdventuresReq, { keycloakIds: accountIds }), (_context, packetName, packet) => {
-			resolve(packetName === CommandAccountAdventuresRes.name ? (packet as CommandAccountAdventuresRes).adventures : []);
+			resolve(packetName === CommandAccountAdventuresRes.name ? (packet as CommandAccountAdventuresRes).adventures : null);
 		}, {
-			timeoutMs: ADVENTURES_TIMEOUT_MS, onTimeout: () => resolve([])
+			timeoutMs: ADVENTURES_TIMEOUT_MS, onTimeout: () => resolve(null)
 		})
 			.catch((error: unknown) => {
 				CrowniclesLogger.errorWithObj("Could not ask Core for the accounts progression", error);
-				resolve([]);
+				resolve(null);
 			});
 	});
 }

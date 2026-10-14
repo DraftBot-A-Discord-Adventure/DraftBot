@@ -512,11 +512,6 @@ label .required {
 	font-size: 13.5px;
 }
 
-/* Its label offers the emailed link, which this page already waits for: starting again leads back to the password. */
-body:has(#crownicles-link-status) #kc-select-try-another-way-form {
-	display: none;
-}
-
 /* Choosing how to sign in: one outlined pill per way, like the app's secondary actions. */
 .select-auth-container {
 	display: flex;

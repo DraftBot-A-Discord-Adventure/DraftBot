@@ -1,12 +1,12 @@
 import {
-	useCallback, useEffect, useState
+	useCallback, useContext, useEffect, useState
 } from "react";
 import { AppState } from "react-native";
 import {
 	ACCOUNT_ACTION_OUTCOMES, AccountActionOutcome, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
 import { useAccountAction } from "@/src/authentication/AccountAction";
-import { WebSocketClient } from "@/src/networking/WebSocketClient";
+import { AuthContext } from "./AuthContext";
 
 export type EmailChange = {
 
@@ -20,8 +20,8 @@ export type EmailChange = {
 	change: () => void;
 };
 
-async function readAccountEmail(): Promise<string | null> {
-	const accessToken = await WebSocketClient.getInstance().getCurrentAccessToken();
+async function readAccountEmail(access: () => Promise<string | null>): Promise<string | null> {
+	const accessToken = await access();
 	return accessToken ? KeycloakAuth.accountEmail(accessToken) : null;
 }
 
@@ -32,13 +32,14 @@ async function readAccountEmail(): Promise<string | null> {
  * each time the player comes back to the game.
  */
 export function useEmailChange(): EmailChange {
+	const auth = useContext(AuthContext);
 	const [email, setEmail] = useState<string | null>(null);
 	const [linkSentFrom, setLinkSentFrom] = useState<string | null>(null);
 
 	const refresh = useCallback((): void => {
-		readAccountEmail().then(setEmail)
+		readAccountEmail(auth.accessToken).then(setEmail)
 			.catch((error: unknown) => console.warn("Account email not read:", error));
-	}, []);
+	}, [auth.accessToken]);
 
 	useEffect(() => {
 		refresh();
@@ -56,7 +57,7 @@ export function useEmailChange(): EmailChange {
 		}
 		refresh();
 	}, [email, refresh]);
-	const action = useAccountAction(KeycloakAuth.changeEmail, onOutcome);
+	const action = useAccountAction(auth.changeEmail, onOutcome);
 
 	return {
 		email,

@@ -23,11 +23,15 @@ jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getIns
 const requestLabel = "app:settings.deleteAccount.ask";
 const confirmLabel = "app:settings.deleteAccount.confirm";
 
-async function renderDeletion(clearToken = jest.fn().mockResolvedValue(undefined)): Promise<{
-	clearToken: jest.Mock; setState: jest.Mock; unmount: () => Promise<void>;
-}> {
+type DeletionView = {
+	clearToken: jest.Mock; setState: jest.Mock; leave: jest.Mock; unmount: () => Promise<void>;
+};
+
+async function renderDeletion(leave = jest.fn().mockResolvedValue(undefined)): Promise<DeletionView> {
 	const auth = {
-		clearToken, setState: jest.fn(), state: AuthStateEnum.LOGGED_IN, saveToken: jest.fn()
+		changeEmail: jest.fn(), changePassword: jest.fn(),
+		collision: null, enter: jest.fn(), leave, accessToken: mockAccessToken,
+		clearToken: jest.fn(), setState: jest.fn(), state: AuthStateEnum.LOGGED_IN, saveToken: jest.fn()
 	};
 	const view = await render(<AuthContext.Provider value={auth}><DeleteAccount /></AuthContext.Provider>);
 	return {
@@ -104,25 +108,25 @@ describe("account deletion screen", () => {
 		const auth = await renderDeletion();
 		await fireEvent.changeText(screen.getByLabelText("app:settings.deleteAccount.codeLabel"), " CODE ");
 		await fireEvent.press(screen.getByRole("button", { name: confirmLabel }));
-		await waitFor(() => expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN));
+		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
 		expect(RestApi.deleteAccount).toHaveBeenCalledWith("active-session-token", "CODE");
-		expect(mockDisconnect).toHaveBeenCalledTimes(1);
+		expect(mockDisconnect).not.toHaveBeenCalled();
 		expect(forgetPushDevice).toHaveBeenCalled();
-		expect(auth.clearToken).toHaveBeenCalledTimes(1);
+		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("retries only local cleanup after deletion succeeds but secure storage fails", async () => {
-		const clearToken = jest.fn().mockRejectedValueOnce(new Error("storage unavailable"))
+		const leave = jest.fn().mockRejectedValueOnce(new Error("storage unavailable"))
 			.mockResolvedValue(undefined);
-		const auth = await renderDeletion(clearToken);
+		const auth = await renderDeletion(leave);
 		await fireEvent.changeText(screen.getByLabelText("app:settings.deleteAccount.codeLabel"), "CODE");
 		await fireEvent.press(screen.getByRole("button", { name: confirmLabel }));
 		await screen.findByText("app:settings.deleteAccount.cleanupError");
 		expect(screen.queryByRole("button", { name: confirmLabel })).toBeNull();
 		await fireEvent.press(screen.getByRole("button", { name: "app:settings.deleteAccount.finishLogout" }));
-		await waitFor(() => expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN));
+		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(2));
 		expect(RestApi.deleteAccount).toHaveBeenCalledTimes(1);
-		expect(clearToken).toHaveBeenCalledTimes(2);
+		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("does not send a deletion request after the screen leaves during token refresh", async () => {

@@ -1,11 +1,9 @@
 import React from "react";
 import { useRouter } from "expo-router";
 import { AuthContext } from "@/src/authentication/AuthContext";
-import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import {
 	ACCOUNT_DELETION_FAILURES, AccountDeletionFailure, AccountDeletionRequestFailure, RestApi
 } from "@/src/networking/RestApi";
-import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import { forgetPushDevice } from "@/src/notifications/PushRegistration";
 import { Page } from "@/src/design/DetailScreen";
 import {
@@ -63,12 +61,8 @@ export default function DeleteAccount(): React.ReactElement {
 	const finishDeletion = async (): Promise<void> => {
 		setCleanupFailed(false);
 		forgetPushDevice();
-		WebSocketClient.getInstance().disconnect();
 		try {
-			await authState.clearToken();
-			if (mounted.current) {
-				authState.setState(AuthStateEnum.NO_TOKEN);
-			}
+			await authState.leave();
 		}
 		catch {
 			if (mounted.current) {
@@ -85,13 +79,13 @@ export default function DeleteAccount(): React.ReactElement {
 		setPending(true);
 		setFailure(null);
 
-		WebSocketClient.getInstance().getCurrentAccessToken()
+		authState.accessToken()
 			.then(async accessToken => {
 				if (!mounted.current) {
 					return;
 				}
 				if (!accessToken) {
-					authState.setState(AuthStateEnum.NO_TOKEN);
+					await authState.leave();
 					return;
 				}
 				await action(accessToken);

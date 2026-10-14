@@ -13,9 +13,8 @@ import { WebSocketServer } from "../WebSocketServer";
 import { WEBSOCKET_ACCOUNT_DELETED_REASON } from "../../../../WsPackets/src/WebSocketCloseReasons";
 import { coreAccountAdventures } from "../CoreAccountAdventures";
 
-type VerifyBody = { emailToken: string };
 type ResolveBody = {
-	proof: string; keep: AccountCollisionChoice;
+	otherToken: string; keep: AccountCollisionChoice;
 };
 
 function bearerToken(request: FastifyRequest): string {
@@ -44,31 +43,22 @@ export function setupAccountCollisionRoutes(
 	server.get(ACCOUNT_COLLISION_ENDPOINTS.CHECK, async (request, reply): Promise<void> => {
 		await respond(reply, () => service.check(bearerToken(request)));
 	});
-	server.post<{ Body: VerifyBody }>(ACCOUNT_COLLISION_ENDPOINTS.VERIFY, {
-		schema: { body: {
-			type: "object",
-			required: ["emailToken"],
-			additionalProperties: false,
-			properties: { emailToken: {
-				type: "string", minLength: 1
-			} }
-		} }
-	}, async (request, reply): Promise<void> => {
-		await respond(reply, () => service.verify(bearerToken(request), request.body.emailToken));
+	server.get(ACCOUNT_COLLISION_ENDPOINTS.PREVIEW, async (request, reply): Promise<void> => {
+		await respond(reply, () => service.check(bearerToken(request), true));
 	});
 	server.post<{ Body: ResolveBody }>(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, {
 		schema: { body: {
 			type: "object",
-			required: ["proof", "keep"],
+			required: ["otherToken", "keep"],
 			additionalProperties: false,
 			properties: {
-				proof: { type: "string" },
+				otherToken: { type: "string" },
 				keep: {
 					type: "string", enum: Object.values(ACCOUNT_COLLISION_CHOICES)
 				}
 			}
 		} }
 	}, async (request, reply): Promise<void> => {
-		await respond(reply, () => service.resolve(bearerToken(request), request.body.proof, request.body.keep));
+		await respond(reply, () => service.resolve(bearerToken(request), request.body.otherToken, request.body.keep));
 	});
 }

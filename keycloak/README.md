@@ -29,11 +29,12 @@ docker-compose up -d
 You can find the docker-compose file here:
 [docker-compose.yml](./docker-compose.yml)
 
-The image is built from [Dockerfile](./Dockerfile), which adds the
-[Phase Two magic link extension](https://github.com/p2-inc/keycloak-magic-link) (Elastic License 2.0):
-players sign in and sign up with a link sent by mail, the password staying optional. The browser and
-registration flows of `realm.json` use it, so every Keycloak importing the realm needs that image (or the
-jar in `/opt/keycloak/providers/`). After changing the version, run `docker compose build keycloak`.
+The image is built from [Dockerfile](./Dockerfile). It adds the
+[Phase Two magic link extension](https://github.com/p2-inc/keycloak-magic-link) (Elastic License 2.0)
+and compiles the Crownicles `account-policy` extension. The browser flow uses the account target guard
+for application-initiated email/password actions, and the registration flow refuses reserved bot
+usernames before creating a user. Every Keycloak importing the realm needs this image. After a change,
+run `docker compose build keycloak`.
 
 ## Choosing the address Keycloak answers on
 
@@ -171,14 +172,22 @@ Resolution is serialized in the RestWs process. Run one resolving RestWs instanc
 multi-instance resolution needs a shared coordinator before horizontal scaling.
 Do not run other administrative reassignment operations concurrently.
 
-Keeping both accounts is a separate, intentional path: sign in to the email
-account, change and verify its email first, then sign in through Discord once the
-old address is free. Email change is tracked separately in
-[#4892](https://github.com/Crownicles/Crownicles/issues/4892), not implemented here.
+Keeping both accounts is a separate, intentional path: from the collision screen, the
+player changes and verifies the email account address before entering the game. The
+change is targeted at that account's Keycloak ID; a different authenticated account is
+refused before the required action can run.
+
+The resolver accepts both access tokens in one request. It writes a durable choice on
+the kept account before deleting the other identity, so a lost response or crash resumes
+the same choice. The pair lock is process-local: run one resolving RestWs process.
+
+Unconfirmed form registrations are marked `registrationPending` by the registration
+policy. RestWs reads all marked users before deleting only those still unverified and
+older than one hour; historical bot accounts are never selected by that search.
 
 The Discord provider uses `IMPORT`, not `FORCE`: forcing the remote email onto an
 already-linked historical user fails when another user owns that address. The
-`gameUsername` mapper remains `FORCE`. `VERIFY_PROFILE` is explicitly disabled to
+`gameUsername` mapper is `IMPORT`, so a missing Discord display name never erases it. `VERIFY_PROFILE` is explicitly disabled to
 avoid retroactive email requirements on historical accounts. Email remains required
 by the registration profile and `verifyEmail` stays enabled.
 
@@ -189,6 +198,8 @@ Deployment order:
 2. Apply the targeted provider and required-action changes to the deployed realm.
   Do not replace the live realm with this template: it contains placeholders and
   does not contain live users, keys or service-client configuration.
+  Build/deploy the image before switching the browser and registration flows to the
+  Crownicles extension executions.
 3. Compile Lib with `pnpm --dir Lib run tsc`. Provide `KEYCLOAK_URL`,
   `KEYCLOAK_REALM`, `KEYCLOAK_CLIENT_ID` and `KEYCLOAK_CLIENT_SECRET` through the
   operator's environment, using a service account with query/view/manage-users.
@@ -290,21 +301,13 @@ A few settings in `realm.json` are deliberate and easy to undo by accident:
   everything. The fix is to lower the *running* realm, never the file:
   `kcadm.sh update realms/Crownicles -s sslRequired=NONE`.
 - **Sign-up is Keycloak's own page, with `verifyEmail` on.** The app opens it with `prompt=create`.
-  It asks for a username and an address only: with `verifyEmail` on, Keycloak leaves the password
-  out of the form and asks for it through `UPDATE_PASSWORD` once the address is confirmed, in the
-  same browser session. Nobody can therefore hold a usable account on an address they do not own,
-  and the player comes back to the app signed in. `accessCodeLifespanUserAction` and the
-  `verify-email` action token last 15 minutes, so reading the mail does not time the flow out.
-- **RestWs reviews every sign-up** (`RegistrationHygiene`), since the page offers no hook of its
-  own. It reads the `REGISTER` events — the only type the realm stores, for a day — and, for the
-  accounts created by the form, deletes those named `discord-…` (the name the bot gives the
-  account of a Discord player, which a squatter would otherwise take from them) or after a
-  reserved name, deletes those still unconfirmed after an hour, and copies the username as typed
-  into `gameUsername`: Keycloak lowercases the username, the event keeps the player's case. The
-  `restWs` service account needs `view-events` and `manage-users` on `realm-management`.
-  `registrationEmailAsUsername` would have closed the `discord-` names at the root, but Keycloak
-  then requires an address **through the Admin API too**, and the Discord bot creates its accounts
-  without one. It fails with `error-user-attribute-required`.
+  It asks for a username and an address only. The emailed link confirms ownership and signs the
+  player in; a password remains optional and can be configured later from settings.
+- **Registration validation happens before account creation.** The `crownicles-registration-policy`
+  form action refuses reserved usernames, initializes `gameUsername` with the player's case and
+  marks the registration as pending. It does not apply to the bot's Admin API creation path.
+  `PendingRegistrations` only releases expired unverified registrations through a paginated
+  attribute search; it no longer repairs users from a bounded list of `REGISTER` events.
 - **Unmanaged attributes are `ADMIN_EDIT`.** `discordId`, `gameUsername` and `language` are not
   declared in the user profile, so only the Admin API writes them. Under `ENABLED` a player could
   set their own `discordId` — from the account console, or by adding a field to the sign-up

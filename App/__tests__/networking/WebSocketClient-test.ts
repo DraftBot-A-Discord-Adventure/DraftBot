@@ -37,6 +37,7 @@ function clientWithSocket(socket?: TestSocket): {
 		close: jest.fn()
 	};
 	Reflect.set(client, "socket", testSocket);
+	Reflect.set(client, "accessTokenProvider", jest.fn().mockResolvedValue("local-test"));
 	return {
 		client, socket: testSocket
 	};
@@ -62,70 +63,31 @@ function queuedPackets(client: WebSocketClient): unknown[] {
 }
 
 describe("WebSocketClient", () => {
-	it("shares and persists a rotated token before exposing it to concurrent HTTP callers", async () => {
-		const { client } = clientWithSocket();
-		const token = new AuthToken({
-			accessToken: "old-access", refreshToken: "old-refresh", accessTokenExpiresAt: new Date(Date.now() - 1), refreshTokenExpiresAt: "never"
-		});
-		let finish!: (refreshed: KeycloakOAuth2Token) => void;
-		const refresh = jest.spyOn(KeycloakAuth, "refresh").mockReturnValue(new Promise<KeycloakOAuth2Token>(resolve => {
-			finish = resolve;
-		}));
-		const save = jest.fn().mockResolvedValue(undefined);
-		Reflect.set(client, "activeAuthToken", token);
-		Reflect.set(client, "saveToken", save);
-		const first = client.getCurrentAccessToken();
-		const second = client.getCurrentAccessToken();
-		expect(save).not.toHaveBeenCalled();
-		finish({
-			access_token: "new-access", refresh_token: "new-refresh", expires_in: 60, refresh_expires_in: 120, token_type: "Bearer", session_state: "test-session", scope: "openid"
-		});
-		await expect(Promise.all([first, second])).resolves.toEqual(["new-access", "new-access"]);
-		expect(refresh).toHaveBeenCalledTimes(1);
-		expect(save).toHaveBeenCalledTimes(1);
-		expect(save).toHaveBeenCalledWith(token);
-		client.disconnect();
-		refresh.mockRestore();
+	it("asks the session coordinator for access instead of owning token persistence", async () => {
+		const {client} = clientWithSocket();
+		const access = jest.fn().mockResolvedValue("session-access");
+		Reflect.set(client, "accessTokenProvider", access);
+		await expect(client.getCurrentAccessToken()).resolves.toBe("session-access");
+		expect(access).toHaveBeenCalledTimes(1);
 	});
 
-	it("retries persistence before using a token whose rotation outlived a secure storage failure", async () => {
-		const { client } = clientWithSocket();
-		const token = new AuthToken({
-			accessToken: "old-access", refreshToken: "old-refresh", accessTokenExpiresAt: new Date(Date.now() - 1), refreshTokenExpiresAt: "never"
-		});
-		const refresh = jest.spyOn(KeycloakAuth, "refresh").mockResolvedValue({
-			access_token: "new-access", refresh_token: "new-refresh", expires_in: 60, refresh_expires_in: 120, token_type: "Bearer", session_state: "test-session", scope: "openid"
-		});
-		const save = jest.fn().mockRejectedValueOnce(new Error("storage unavailable"))
-			.mockResolvedValue(undefined);
-		Reflect.set(client, "activeAuthToken", token);
-		Reflect.set(client, "saveToken", save);
-		await expect(client.getCurrentAccessToken()).rejects.toThrow("storage unavailable");
-		await expect(client.getCurrentAccessToken()).resolves.toBe("new-access");
-		expect(refresh).toHaveBeenCalledTimes(1);
-		expect(save).toHaveBeenCalledTimes(2);
-		client.disconnect();
-		refresh.mockRestore();
+	it("propagates temporary session access errors without expiring the account", async () => {
+		const {client} = clientWithSocket();
+		const state = jest.fn();
+		Reflect.set(client, "setState", state);
+		Reflect.set(client, "accessTokenProvider", jest.fn().mockRejectedValue(new TypeError("Network unavailable")));
+		await expect(client.getCurrentAccessToken()).rejects.toThrow("Network unavailable");
+		expect(state).not.toHaveBeenCalled();
 	});
 
-	it("does not expose the previous account token after a disconnect during its refresh", async () => {
-		const { client } = clientWithSocket();
-		const token = new AuthToken({
-			accessToken: "old-access", refreshToken: "old-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
-		});
-		let finish!: (refreshed: boolean) => void;
-		const refresh = jest.spyOn(token, "refreshIfNeeded").mockReturnValue(new Promise<boolean>(resolve => {
-			finish = resolve;
-		}));
-		const save = jest.fn().mockResolvedValue(undefined);
-		Reflect.set(client, "activeAuthToken", token);
-		Reflect.set(client, "saveToken", save);
+	it("does not expose the previous account access after a disconnect", async () => {
+		const {client} = clientWithSocket();
+		let finish!: (token: string) => void;
+		Reflect.set(client, "accessTokenProvider", () => new Promise<string>(resolve => {finish = resolve;}));
 		const pending = client.getCurrentAccessToken();
 		client.disconnect();
-		finish(true);
+		finish("old-access");
 		await expect(pending).resolves.toBeNull();
-		expect(save).not.toHaveBeenCalled();
-		refresh.mockRestore();
 	});
 
 	it("clears the stored token and never reconnects after the account is deleted", async () => {
@@ -138,9 +100,7 @@ describe("WebSocketClient", () => {
 			const clear = jest.fn().mockResolvedValue(undefined);
 			Reflect.set(client, "setState", state);
 			Reflect.set(client, "clearToken", clear);
-			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, new AuthToken({
-				accessToken: "old-access", refreshToken: "old-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
-			}), false);
+			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, false);
 			await jest.runOnlyPendingTimersAsync();
 			expect(clear).toHaveBeenCalledTimes(1);
 			expect(state).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN);
@@ -160,9 +120,7 @@ describe("WebSocketClient", () => {
 		const clear = jest.fn().mockResolvedValue(undefined);
 		Reflect.set(client, "setState", state);
 		Reflect.set(client, "clearToken", clear);
-		Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, new AuthToken({
-			accessToken: "old-access", refreshToken: "old-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
-		}), false);
+		Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, false);
 		Reflect.set(client, "connectionVersion", Reflect.get(client, "connectionVersion") + 1);
 		await Promise.resolve();
 		await Promise.resolve();
@@ -349,7 +307,7 @@ describe("WebSocketClient", () => {
 				accessToken: "local-test", refreshToken: "local-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
 			});
 			Reflect.get(client, "handleSocketError").call(client, socket, {});
-			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: "" }, token, false);
+			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: "" }, false);
 			client.sendPacket(new TestRequest(), { [TestResponse.wireName]: responseHandler as never });
 			await jest.advanceTimersByTimeAsync(1000);
 			replacementSocket.readyState = OPEN_STATE;
@@ -425,7 +383,7 @@ describe("WebSocketClient", () => {
 			});
 			const handleClose = Reflect.get(client, "handleSocketClose");
 
-			handleClose.call(client, socket, { reason: WEBSOCKET_SESSION_REPLACED_REASON }, token, false);
+			handleClose.call(client, socket, { reason: WEBSOCKET_SESSION_REPLACED_REASON }, false);
 			jest.runOnlyPendingTimers();
 
 			expect(onStateChange).toHaveBeenCalledTimes(1);
@@ -467,9 +425,9 @@ describe("WebSocketClient", () => {
 			}));
 			const previousState = jest.fn();
 			const savePrevious = jest.fn().mockResolvedValue(undefined);
-			const pending = client.init(previous, previousState, savePrevious);
+			const pending = client.init(async () => {await previous.refreshIfNeeded(); return previous.getAccessToken();}, previousState, savePrevious);
 			client.disconnect();
-			await client.init(current, jest.fn(), jest.fn().mockResolvedValue(undefined));
+			await client.init(async () => current.getAccessToken(), jest.fn());
 			finishRefresh(true);
 			await pending;
 			expect(socketConstructor).toHaveBeenCalledTimes(1);

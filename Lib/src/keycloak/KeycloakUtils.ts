@@ -1,7 +1,6 @@
 import { KeycloakConfig } from "./KeycloakConfig";
 import { KeycloakUserToRegister } from "./KeycloakUserToRegister";
 import { KeycloakUser } from "./KeycloakUser";
-import { KeycloakRegisterEvent } from "./KeycloakRegisterEvent";
 import { KeycloakFederalIdentity } from "./KeycloakFederalIdentity";
 import { KeycloakSessionIdentity } from "./KeycloakSessionIdentity";
 import { KeycloakConstants } from "../constants/KeycloakConstants";
@@ -371,6 +370,12 @@ export abstract class KeycloakUtils {
 		}));
 	}
 
+	public static getPendingRegistrations(keycloakConfig: KeycloakConfig, first: number, max: number): Promise<ApiCallReturnType<{ users: KeycloakUser[] }>> {
+		return this.searchUsers(keycloakConfig, new URLSearchParams({
+			q: "registrationPending:true", emailVerified: "false", first: String(first), max: String(max)
+		}));
+	}
+
 	public static getFederatedIdentities(keycloakConfig: KeycloakConfig, userId: string): Promise<ApiCallReturnType<{ identities: KeycloakFederalIdentity[] }>> {
 		return this.adminGet(keycloakConfig, `users/${userId}/federated-identity`, (identities: KeycloakFederalIdentity[]) => ({ identities }));
 	}
@@ -419,32 +424,6 @@ export abstract class KeycloakUtils {
 			return unchangedLink(200);
 		}
 		return formatApiCallError(response);
-	}
-
-	/**
-	 * Get the most recent account creations, as long as the realm keeps its `REGISTER` events
-	 * @param keycloakConfig
-	 * @param max
-	 */
-	public static async getRegisterEvents(keycloakConfig: KeycloakConfig, max: number): Promise<ApiCallReturnType<{ events: KeycloakRegisterEvent[] }>> {
-		const checkAndQueryToken = await this.checkAndQueryToken(keycloakConfig);
-		if (checkAndQueryToken.isError) {
-			return checkAndQueryToken;
-		}
-
-		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/events?type=REGISTER&first=0&max=${max}`, {
-			method: "GET",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			}
-		});
-
-		if (!res.ok) {
-			return formatApiCallError(res);
-		}
-
-		return formatApiCallOk(res, { events: await res.json() as KeycloakRegisterEvent[] });
 	}
 
 	/**

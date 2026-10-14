@@ -45,9 +45,16 @@ const KEYCLOAK_ACTIONS = {
 
 type KeycloakAction = typeof KEYCLOAK_ACTIONS[keyof typeof KEYCLOAK_ACTIONS];
 const LOGIN_HINT_PARAMETER = "login_hint";
+const ACCOUNT_TARGET_PARAMETER = "crownicles_account";
+
+export type AccountTarget = {
+	keycloakId: string; loginHint?: string;
+};
+
+export type AccountIdentity = AccountTarget & { email?: string };
 
 type AuthorizationParameters = {
-	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction; [LOGIN_HINT_PARAMETER]?: string;
+	prompt: AuthPrompt; kc_idp_hint?: IdentityProvider; kc_action?: KeycloakAction; [LOGIN_HINT_PARAMETER]?: string; [ACCOUNT_TARGET_PARAMETER]?: string;
 };
 
 /** How an account action ended when its browser window closed. */
@@ -186,31 +193,47 @@ export class KeycloakAuth {
 	}
 
 	/** Opens Keycloak's email change, once the player signed in again; `account` is typed in for them. */
-	public static changeEmail(account?: string): Promise<AccountActionOutcome> {
-		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_EMAIL, account);
+	public static changeEmail(target: AccountTarget): Promise<AccountActionOutcome> {
+		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_EMAIL, target);
 	}
 
 	/** Sets or replaces the password, which spares waiting for a link to sign in. */
-	public static changePassword(): Promise<AccountActionOutcome> {
-		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_PASSWORD);
+	public static changePassword(target: AccountTarget): Promise<AccountActionOutcome> {
+		return KeycloakAuth.runAccountAction(KEYCLOAK_ACTIONS.UPDATE_PASSWORD, target);
 	}
 
-	/**
-	 * The code Keycloak hands back is never exchanged: the app keeps its own session, and only needs
-	 * to know how the action ended.
-	 */
-	private static async runAccountAction(action: KeycloakAction, account?: string): Promise<AccountActionOutcome> {
+	/** The correlated PKCE code confirms the action; the app keeps its original game session. */
+	private static async runAccountAction(action: KeycloakAction, target: AccountTarget): Promise<AccountActionOutcome> {
 		const entryParams: AuthorizationParameters = {
 			prompt: AUTH_PROMPTS.LOGIN,
 			kc_action: action,
-			...account ? { [LOGIN_HINT_PARAMETER]: account } : {}
+			[ACCOUNT_TARGET_PARAMETER]: target.keycloakId,
+			...target.loginHint ? { [LOGIN_HINT_PARAMETER]: target.loginHint } : {}
 		};
-		const url = await KeycloakAuth.authRequest(entryParams).makeAuthUrlAsync(getDiscovery());
-		return accountActionOutcome(await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt)));
+		const request = KeycloakAuth.authRequest(entryParams);
+		const url = await request.makeAuthUrlAsync(getDiscovery());
+		const result = await openAuthSessionAsync(url, getRedirectUri(), browserPresentation(entryParams.prompt));
+		if (result.type === "success" && queryParameter(result.url, "kc_action_status") !== undefined) {
+			if (queryParameter(result.url, "state") !== request.state || queryParameter(result.url, "kc_action") !== action) {
+				throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Account action callback does not match its request.");
+			}
+			const code = queryParameter(result.url, "code");
+			if (!code) {
+				throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Account action did not return an authorization code.");
+			}
+			await KeycloakAuth.requestToken({
+				grant_type: "authorization_code", code, redirect_uri: getRedirectUri(), code_verifier: request.codeVerifier ?? ""
+			});
+		}
+		return accountActionOutcome(result);
 	}
 
 	/** Read from Keycloak rather than from the token, whose copy only changes at its next refresh. */
 	public static async accountEmail(accessToken: string): Promise<string | null> {
+		return (await KeycloakAuth.accountIdentity(accessToken)).email ?? null;
+	}
+
+	public static async accountIdentity(accessToken: string): Promise<AccountIdentity> {
 		const response = await fetch(`${getRealmUrl()}/protocol/openid-connect/userinfo`, {
 			headers: { Authorization: `Bearer ${accessToken}` }
 		});
@@ -219,8 +242,17 @@ export class KeycloakAuth {
 			throw new AuthFailure(AUTH_FAILURES.UNREACHABLE, `Keycloak userinfo request failed with status ${response.status}`);
 		}
 
-		const userInfo = await response.json() as { email?: string };
-		return userInfo.email ?? null;
+		const userInfo = await response.json() as {
+			sub: string; email?: string; preferred_username?: string;
+		};
+		if (!userInfo.sub) {
+			throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Keycloak did not identify the account.");
+		}
+		return {
+			keycloakId: userInfo.sub,
+			...userInfo.email ? { email: userInfo.email } : {},
+			...userInfo.preferred_username || userInfo.email ? { loginHint: userInfo.preferred_username || userInfo.email } : {}
+		};
 	}
 
 	private static authRequest(entryParams: AuthorizationParameters): AuthRequest {
@@ -286,7 +318,11 @@ export class KeycloakAuth {
 		});
 
 		if (!response.ok) {
-			throw new AuthFailure(AUTH_FAILURES.UNREACHABLE, `Keycloak token request failed with status ${response.status}`);
+			const failure = await response.json().catch(() => ({})) as { error?: string };
+			const reason = params.grant_type === "refresh_token" && failure.error === "invalid_grant"
+				? AUTH_FAILURES.INVALID_TOKEN
+				: AUTH_FAILURES.UNREACHABLE;
+			throw new AuthFailure(reason, `Keycloak token request failed with status ${response.status}`);
 		}
 
 		const token = await response.json() as KeycloakOAuth2Token;

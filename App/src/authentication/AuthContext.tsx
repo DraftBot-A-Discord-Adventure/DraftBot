@@ -14,8 +14,9 @@ import { collectorsStore } from "@/src/collectors/CollectorsStore";
 import { reportEventStore } from "@/src/collectors/ReportEventStore";
 import { fightStore } from "@/src/store/FightStore";
 import {
-	isAccountCollisionOpen, RestApi
-} from "@/src/networking/RestApi";
+	CollisionSession, SessionCoordinator
+} from "./SessionCoordinator";
+import { AccountActionOutcome } from "./KeycloakAuth";
 
 /** States of a session already shown to the player: logging in again from them is not a first arrival */
 const SESSION_STATES: ReadonlySet<AuthStateEnum> = new Set([
@@ -40,28 +41,31 @@ const LOGIN_STATES: ReadonlySet<AuthStateEnum> = new Set([
 ]);
 
 async function loadStoredToken(): Promise<AuthToken | null> {
-	const token = await readFullStoredToken().catch(error => {
-		console.error("Failed to load token:", error);
-		return "";
-	});
+	const token = await readFullStoredToken();
 	return token ? AuthToken.fromJsonString(token) : null;
-}
-
-/** Whether two accounts sharing an email must be settled before the session can open */
-async function collisionBlocks(authToken: AuthToken): Promise<boolean> {
-	const accessToken = authToken.getAccessToken();
-	return accessToken ? isAccountCollisionOpen(await RestApi.checkAccountCollision(accessToken)) : false;
 }
 
 type AuthState = {
 	state: AuthStateEnum;
+	collision: CollisionSession | null;
 	setState: (state: AuthStateEnum) => void;
 	saveToken: (token: AuthToken) => Promise<void>;
 	clearToken: () => Promise<void>;
+	enter: (token: AuthToken) => Promise<void>;
+	leave: () => Promise<void>;
+	accessToken: () => Promise<string | null>;
+	changeEmail: () => Promise<AccountActionOutcome>;
+	changePassword: () => Promise<AccountActionOutcome>;
 };
 
 export const AuthContext = React.createContext<AuthState>({
 	state: AuthStateEnum.NOT_READY,
+	collision: null,
+	enter: (): Promise<void> => Promise.reject(new Error("Session provider unavailable")),
+	leave: (): Promise<void> => Promise.reject(new Error("Session provider unavailable")),
+	accessToken: (): Promise<string | null> => Promise.resolve(null),
+	changeEmail: (): Promise<AccountActionOutcome> => Promise.reject(new Error("Session provider unavailable")),
+	changePassword: (): Promise<AccountActionOutcome> => Promise.reject(new Error("Session provider unavailable")),
 	setState: () => {
 		console.warn("setState called without AuthContext.Provider");
 	},
@@ -77,6 +81,15 @@ export const AuthContext = React.createContext<AuthState>({
 
 export function AuthProvider({ children }: PropsWithChildren): React.ReactElement {
 	const [state, setState] = React.useState(AuthStateEnum.NOT_READY); // Persist state: https://youtu.be/yNaOaR2kIa0?t=649
+	const [collision, setCollision] = React.useState<CollisionSession | null>(null);
+	const coordinator = React.useRef<SessionCoordinator | null>(null);
+	const [sessionActions] = React.useState(() => ({
+		enter: (token: AuthToken): Promise<void> => coordinator.current!.enter(token),
+		leave: (): Promise<void> => coordinator.current!.leave(),
+		accessToken: (): Promise<string | null> => coordinator.current!.accessToken(),
+		changeEmail: (): Promise<AccountActionOutcome> => coordinator.current!.changeEmail(),
+		changePassword: (): Promise<AccountActionOutcome> => coordinator.current!.changePassword()
+	}));
 	const currentState = React.useRef(state);
 	const tokenEdits = React.useRef<Promise<void>>(Promise.resolve());
 	const router = useRouter();
@@ -128,9 +141,9 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 		}
 	};
 
-	const runTokenEdit = (edit: () => Promise<void>): Promise<void> => {
+	const runTokenEdit = <Result,>(edit: () => Promise<Result>): Promise<Result> => {
 		const done = tokenEdits.current.then(edit);
-		tokenEdits.current = done.catch((): void => undefined);
+		tokenEdits.current = done.then((): void => undefined).catch((): void => undefined);
 		return done;
 	};
 
@@ -160,49 +173,12 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 		}
 	});
 
-	const startAuthenticationFlow = async (onStateChange: (newState: AuthStateEnum) => void): Promise<void> => {
-		const authToken = await loadStoredToken();
-		if (!authToken) {
-			console.log("No token found, setting state to NO_TOKEN");
-			onStateChange(AuthStateEnum.NO_TOKEN);
-			return;
-		}
-
-		if (await authToken.refreshIfNeeded()) {
-			console.debug("Token refreshed successfully");
-			await saveToken(authToken); // Save the refreshed token
-		}
-
-		if (await collisionBlocks(authToken)) {
-			onStateChange(AuthStateEnum.ACCOUNT_COLLISION);
-			return;
-		}
-
-		await WebSocketClient.getInstance().init(authToken, onStateChange, saveToken, clearToken)
-			.catch(error => {
-				console.error("Failed to initialize WebSocketClient:", error);
-				if (currentState.current === AuthStateEnum.CONNECTING) {
-					onStateChange(AuthStateEnum.CONNECTION_ERROR);
-				}
-			});
-	};
-
 	const returnToLogin = (): void => {
 		WebSocketClient.getInstance().disconnect();
 		collectorsStore.reset();
 		reportEventStore.reset();
 		fightStore.reset();
 		resetRootTo(ROOT_SCREENS.LOGIN);
-	};
-
-	// Happens when the connection cannot be established
-	const restartAuthentication = (onStateChange: (newState: AuthStateEnum) => void): void => {
-		startAuthenticationFlow(onStateChange).then()
-			.catch(err => {
-				console.error("Error during authentication flow restart:", err);
-				onStateChange(AuthStateEnum.NO_TOKEN);
-			});
-		router.replace("/");
 	};
 
 	const setStateInternal = (newState: AuthStateEnum): void => {
@@ -218,24 +194,40 @@ export function AuthProvider({ children }: PropsWithChildren): React.ReactElemen
 			returnToLogin();
 		}
 		else if (newState === AuthStateEnum.NOT_READY) {
-			restartAuthentication(setStateInternal);
+			coordinator.current?.restore();
+			router.replace("/");
 		}
 	};
 
+	const createSession = React.useEffectEvent((): SessionCoordinator => new SessionCoordinator({
+		read: (): Promise<AuthToken | null> => runTokenEdit(loadStoredToken), save: saveToken, clear: clearToken
+	}, {
+		open: (_token, onState): Promise<void> => WebSocketClient.getInstance().init(sessionActions.accessToken, onState, sessionActions.leave),
+		close: (): void => WebSocketClient.getInstance().disconnect()
+	}, {
+		state: setStateInternal, collision: setCollision
+	}));
+
 	useEffect(() => {
-		startAuthenticationFlow(setStateInternal)
-			.then()
-			.catch(error => {
-				console.error("Error during authentication flow:", error);
-				setStateInternal(AuthStateEnum.NO_TOKEN);
-			});
+		const session = createSession();
+		coordinator.current = session;
+		session.restore();
+		return (): void => {
+			session.dispose();
+			coordinator.current = null;
+		};
 	}, []);
 
 	useEffect(() => cancelPendingNavigation, []);
 
 	return (
 		<AuthContext.Provider value={{
-			state, setState: setStateInternal, saveToken, clearToken
+			state,
+			collision,
+			setState: setStateInternal,
+			saveToken,
+			clearToken,
+			...sessionActions
 		}}>
 			{children}
 		</AuthContext.Provider>

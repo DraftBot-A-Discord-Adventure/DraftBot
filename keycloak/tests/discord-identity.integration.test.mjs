@@ -144,6 +144,7 @@ before(async () => {
 	assert.ok([204, 404].includes(removeExisting.status));
 	await admin("", "POST", {
 		realm: REALM, enabled: true, sslRequired: "none", duplicateEmailsAllowed: false, verifyEmail: template.verifyEmail, registrationAllowed: template.registrationAllowed,
+		registrationFlow: template.registrationFlow,
 		authenticationFlows: template.authenticationFlows.map(({id, ...flow}) => flow),
 		authenticatorConfig: template.authenticatorConfig.map(({id, ...config}) => config),
 		requiredActions: template.requiredActions,
@@ -256,6 +257,20 @@ test("real Keycloak: registration refuses an email already belonging to another 
 	assert.equal((await admin(`/${REALM}/users?username=duplicate-email-player&exact=true`)).length, 0);
 });
 
+test("real Keycloak: registration rejects a reserved bot username before creating an identity", async () => {
+	const username = "discord-123456789012349999";
+	const page = await authorize(true);
+	const form = page.document.querySelector("form");
+	const values = new URLSearchParams([...form.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("username", username);
+	values.set("email", "reserved-proof@example.test");
+	const response = await browse(page.jar, form.action, values);
+	const document = new JSDOM(await response.text()).window.document;
+	assert.equal(response.status, 200);
+	assert.ok(document.querySelector("#input-error-username"), document.body.textContent.trim());
+	assert.equal((await admin(`/${REALM}/users?username=${username}&exact=true`)).length, 0);
+});
+
 for (const choice of ["discord", "email"]) {
 	test(`real Keycloak: explicit ${choice} choice deletes only the other identity and retains the chosen subject`, async () => {
 		const discordId = choice === "discord" ? "123456789012345690" : "123456789012345691";
@@ -271,10 +286,9 @@ for (const choice of ["discord", "email"]) {
 		assert.equal(emailSession.sub, otherId, emailSession.document?.body.textContent.trim());
 		const service = new AccountCollisionService(CONFIG);
 		assert.ok((await service.check(discordSession.accessToken)).collision);
-		const verified = await service.verify(discordSession.accessToken, emailSession.accessToken);
-		const kept = choice === "discord" ? discordSession : emailSession;
+				const kept = choice === "discord" ? discordSession : emailSession;
 		const discarded = choice === "discord" ? emailSession : discordSession;
-		assert.deepEqual(await service.resolve(kept.accessToken, verified.proof, choice), {kept: choice});
+		assert.deepEqual(await service.resolve(kept.accessToken, discarded.accessToken, choice), {kept: choice});
 		const deleted = await fetch(`${BASE}/admin/realms/${REALM}/users/${discarded.sub}`, {headers: {Authorization: `Bearer ${adminToken}`}});
 		assert.equal(deleted.status, 404);
 		const current = await admin(`/${REALM}/users/${kept.sub}`);
@@ -298,11 +312,10 @@ test("real Keycloak: an interrupted email choice remains the bot owner and can f
 	const discordSession = await authorize();
 	const emailSession = await authorize(false, {username, password: "synthetic-password-only"});
 	const service = new AccountCollisionService(CONFIG);
-	const proof = await service.verify(discordSession.accessToken, emailSession.accessToken);
-	const linkIdentity = ServiceKeycloakUtils.linkDiscordIdentity;
+		const linkIdentity = ServiceKeycloakUtils.linkDiscordIdentity;
 	ServiceKeycloakUtils.linkDiscordIdentity = async () => ({isError: true, status: 503, payload: {}});
 	try {
-		await assert.rejects(service.resolve(emailSession.accessToken, proof.proof, "email"), {status: 409});
+		await assert.rejects(service.resolve(emailSession.accessToken, discordSession.accessToken, "email"), {status: 409});
 	}
 	finally {
 		ServiceKeycloakUtils.linkDiscordIdentity = linkIdentity;
@@ -318,4 +331,133 @@ test("real Keycloak: an interrupted email choice remains the bot owner and can f
 	assert.deepEqual(kept.attributes.gameUsername, ["Kept bot hero"]);
 	assert.equal(kept.attributes.accountCollisionResolution, undefined);
 	assert.equal((await authorize()).sub, keptId);
+});
+
+test("real Keycloak: Discord's public name survives without a global display name", async () => {
+	const discordId = "123456789012345693";
+	const email = "discord-public-name@example.test";
+	const created = await KeycloakUtils.registerUser(CONFIG, {keycloakUsername: `discord-${discordId}`, discordId, gameUsername: `discord-${discordId}`, language: "fr"});
+	assert.equal(created.isError, false);
+	await createUser({username: "public-name-email", email, emailVerified: true, enabled: true});
+	profile = {...profile, id: discordId, username: "public.discord.name", global_name: null, email, verified: true};
+	const session = await authorize();
+	assert.equal(session.sub, created.payload.user.id);
+	const check = await new AccountCollisionService(CONFIG).check(session.accessToken);
+	assert.equal(check.collision.discord.name, "public.discord.name");
+	profile = {...profile, global_name: "Public display name"};
+	const renamedSession = await authorize();
+	assert.equal((await new AccountCollisionService(CONFIG).check(renamedSession.accessToken)).collision.discord.name, "Public display name");
+	assert.deepEqual((await admin(`/${REALM}/users/${session.sub}`)).attributes.gameUsername, [`discord-${discordId}`]);
+});
+
+test("real Keycloak: a password-bearing account defaults to an emailed link and keeps password optional", async () => {
+	const template = JSON.parse(readFileSync(new URL("../realm.json", import.meta.url), "utf8"));
+	await admin(`/${REALM}`, "PUT", {browserFlow: template.browserFlow, loginTheme: "crownicles", emailTheme: "crownicles", smtpServer: {host: "host.docker.internal", port: "11025", from: "proof@example.test", auth: "false"}});
+	const email = "password-optional-proof@example.test";
+	const username = "password-optional-proof";
+	const userId = await createUser({username, email, emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	const proof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
+	const jar = new CookieJar();
+	const authUrl = new URL(authorizationUrl({credentials: true, ...proof}));
+	authUrl.searchParams.set("login_hint", email);
+	authUrl.searchParams.set("ui_locales", "fr");
+	const login = await browse(jar, authUrl.href);
+	const document = new JSDOM(await login.text()).window.document;
+	const form = document.querySelector("form");
+	const response = await browse(jar, new URL(form.action, authUrl).href, new URLSearchParams({username: email}));
+	const waiting = new JSDOM(await response.text()).window.document;
+	assert.ok(waiting.querySelector("#crownicles-link-status"), "Email must be the default, even when a password exists");
+	assert.equal(waiting.querySelector("input[type=password]"), null);
+	const messages = await fetch("http://127.0.0.1:18025/api/v1/messages").then(result => result.json());
+	const message = messages.messages.find(candidate => candidate.To.some(recipient => recipient.Address === email));
+	assert.ok(message, "A sign-in email must be sent");
+	const mail = await fetch(`http://127.0.0.1:18025/api/v1/message/${message.ID}`).then(result => result.json());
+	const mailDocument = new JSDOM(mail.HTML).window.document;
+	const link = [...mailDocument.querySelectorAll("a[href]")].find(anchor => anchor.href.includes("action-token"));
+	assert.ok(link);
+	const opened = await fetch(link.href);
+	assert.equal(opened.status, 200);
+	const carryOn = waiting.querySelector("#crownicles-link-continue");
+	const completed = await browse(jar, carryOn.href);
+	assert.ok(completed.headers.get("location")?.startsWith(CALLBACK));
+	assert.equal((await exchangeCode(completed.headers.get("location"), proof)).sub, userId);
+	const passwordProof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
+	const passwordJar = new CookieJar();
+	const passwordAuthUrl = new URL(authorizationUrl({credentials: true, ...passwordProof}));
+	passwordAuthUrl.searchParams.set("login_hint", email);
+	const passwordEntry = await browse(passwordJar, passwordAuthUrl.href);
+	const passwordEntryDocument = new JSDOM(await passwordEntry.text()).window.document;
+	const passwordEntryForm = passwordEntryDocument.querySelector("form");
+	const passwordWaitingResponse = await browse(passwordJar, passwordEntryForm.action, new URLSearchParams({username: email}));
+	const passwordWaiting = new JSDOM(await passwordWaitingResponse.text()).window.document;
+	const methodsForm = passwordWaiting.querySelector("#kc-select-try-another-way-form");
+	assert.ok(methodsForm, "The player must still be able to choose another method");
+	const methodsResponse = await browse(passwordJar, methodsForm.action, new URLSearchParams({tryAnotherWay: "on"}));
+	const methods = new JSDOM(await methodsResponse.text()).window.document;
+	const passwordMethod = [...methods.querySelectorAll("button[name=authenticationExecution]")].find(button => !button.textContent.includes("email"));
+	assert.ok(passwordMethod);
+	const passwordFormResponse = await browse(passwordJar, passwordMethod.closest("form").action, new URLSearchParams({authenticationExecution: passwordMethod.value}));
+	const passwordForm = new JSDOM(await passwordFormResponse.text()).window.document.querySelector("form");
+	assert.ok(passwordForm.querySelector("input[type=password]"));
+	const passwordValues = new URLSearchParams([...passwordForm.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	passwordValues.set("password", "synthetic-password-only");
+	const passwordResult = await browse(passwordJar, passwordForm.action, passwordValues);
+	assert.ok(passwordResult.headers.get("location")?.startsWith(CALLBACK));
+	assert.equal((await exchangeCode(passwordResult.headers.get("location"), passwordProof)).sub, userId);
+});
+
+async function openPasswordAction(targetId, username) {
+	const proof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
+	const jar = new CookieJar();
+	const url = new URL(authorizationUrl({credentials: true, ...proof}));
+	url.searchParams.set("kc_action", "UPDATE_PASSWORD");
+	url.searchParams.set("crownicles_account", targetId);
+	const entry = await browse(jar, url.href);
+	const entryDocument = new JSDOM(await entry.text()).window.document;
+	const entryForm = entryDocument.querySelector("form");
+	const waitingResponse = await browse(jar, entryForm.action, new URLSearchParams({username}));
+	const waiting = new JSDOM(await waitingResponse.text()).window.document;
+	const optionsResponse = await browse(jar, waiting.querySelector("#kc-select-try-another-way-form").action, new URLSearchParams({tryAnotherWay: "on"}));
+	const options = new JSDOM(await optionsResponse.text()).window.document;
+	const method = [...options.querySelectorAll("button[name=authenticationExecution]")].find(button => !button.textContent.includes("email"));
+	const passwordResponse = await browse(jar, method.closest("form").action, new URLSearchParams({authenticationExecution: method.value}));
+	const passwordForm = new JSDOM(await passwordResponse.text()).window.document.querySelector("form");
+	const values = new URLSearchParams([...passwordForm.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("password", "synthetic-password-only");
+	let response = await browse(jar, passwordForm.action, values);
+	for (let redirectCount = 0; redirectCount < MAX_REDIRECTS; redirectCount++) {
+		const redirect = response.headers.get("location");
+		if (!redirect || redirect.startsWith(CALLBACK)) break;
+		response = await browse(jar, new URL(redirect, BASE).href);
+	}
+	return {response, jar, proof};
+}
+
+test("real Keycloak: a wrong account cannot reach an application-initiated password action", async () => {
+	const targetId = await createUser({username: "action-target", email: "action-target@example.test", emailVerified: true, enabled: true});
+	const wrongId = await createUser({username: "action-other", email: "action-other@example.test", emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	const {response: refused} = await openPasswordAction(targetId, "action-other");
+	assert.equal(refused.status, 400);
+	assert.equal(new JSDOM(await refused.text()).window.document.querySelector("input[name=password-new]"), null);
+	assert.equal((await admin(`/${REALM}/users/${wrongId}/credentials`)).length, 1);
+	assert.equal((await admin(`/${REALM}/users/${targetId}/credentials`)).length, 0);
+});
+
+test("real Keycloak: the intended account completes its password action with a correlated PKCE code", async () => {
+	const username = "action-success";
+	const targetId = await createUser({username, email: "action-success@example.test", emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	const {response, jar, proof} = await openPasswordAction(targetId, username);
+	assert.equal(response.status, 200);
+	const form = new JSDOM(await response.text()).window.document.querySelector("form");
+	assert.ok(form.querySelector("input[name=password-new]"));
+	const values = new URLSearchParams([...form.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("password-new", "synthetic-new-password-only");
+	values.set("password-confirm", "synthetic-new-password-only");
+	const completed = await browse(jar, form.action, values);
+	const callback = new URL(completed.headers.get("location"));
+	assert.equal(callback.searchParams.get("state"), proof.state);
+	assert.equal(callback.searchParams.get("kc_action_status"), "success");
+	assert.ok(callback.searchParams.get("code"));
+	console.info("Password action callback fields:", [...callback.searchParams.keys()].join(", "));
+	assert.equal((await exchangeCode(callback.href, proof)).sub, targetId);
 });

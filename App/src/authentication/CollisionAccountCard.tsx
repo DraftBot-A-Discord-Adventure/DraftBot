@@ -111,7 +111,7 @@ export function CollisionAccountCard({
 	return <Card>
 		<View testID={`collision-account-${kind}`}>
 			<AccountHead kind={kind} name={account.name} current={current} />
-			{account.adventure ? <AdventureFacts adventure={account.adventure} /> : <Note>{i18n.t("app:auth.collision.noAdventure")}</Note>}
+			{account.adventure ? <AdventureFacts adventure={account.adventure} /> : <Note>{i18n.t(account.progressionAvailable ? "app:auth.collision.noAdventure" : "app:auth.collision.progressionUnavailable")}</Note>}
 			<Fact label={i18n.t("app:auth.collision.fields.createdAt")} value={creationDate(account.createdAt)} />
 			<View style={styles.action}>
 				<ActionBanner

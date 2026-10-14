@@ -12,17 +12,17 @@ afterEach(async () => { await server?.close(); });
 describe("account collision HTTP boundary", () => {
 	it("forwards only authenticated session tokens, never client-supplied account IDs", async () => {
 		const service = new AccountCollisionService({url: "https://keycloak.test", realm: "test", clientId: "test", clientSecret: "test-only"});
-		const verify = vi.spyOn(service, "verify").mockResolvedValue({proof: "proof", collision: {email: "test@example.test", discord: {name: "Discord", createdAt: 0}, emailAccount: {name: "Email", createdAt: 0}}});
+		const resolve = vi.spyOn(service, "resolve").mockResolvedValue({kept: "discord"});
 		server = fastify();
 		setupAccountCollisionRoutes(server, service);
-		const response = await server.inject({method: "POST", url: ACCOUNT_COLLISION_ENDPOINTS.VERIFY, headers: {authorization: "Bearer discord-token"}, payload: {emailToken: "email-token"}});
+		const response = await server.inject({method: "POST", url: ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, headers: {authorization: "Bearer discord-token"}, payload: {otherToken: "email-token", keep: "discord"}});
 		expect(response.statusCode).toBe(200);
-		expect(verify).toHaveBeenCalledWith("discord-token", "email-token");
+		expect(resolve).toHaveBeenCalledWith("discord-token", "email-token", "discord");
 	});
 
 	it.each([
-		{proof: "proof", keep: "email", deletedId: "victim"},
-		{proof: "proof", keep: "invalid"},
+		{otherToken: "email-token", keep: "email", deletedId: "victim"},
+		{otherToken: "email-token", keep: "invalid"},
 		{keep: "discord"}
 	])("rejects a malformed or account-targeting resolution body ($keep)", async payload => {
 		const service = new AccountCollisionService({url: "https://keycloak.test", realm: "test", clientId: "test", clientSecret: "test-only"});

@@ -6,7 +6,7 @@ import {
 } from "../../../WsPackets/src/AppCompatibility";
 import {
 	ACCOUNT_COLLISION_ENDPOINTS, ACCOUNT_COLLISION_ERRORS, AccountCollisionCheck, AccountCollisionChoice,
-	AccountCollisionError, AccountCollisionProof, AccountCollisionResolution
+	AccountCollisionError, AccountCollisionResolution
 } from "../../../WsPackets/src/objects/AccountCollision";
 
 export const REST_TIMEOUT_MS = 15_000;
@@ -39,7 +39,6 @@ export class AccountCollisionRequestFailure extends Error {
 /** A Keycloak access token: the account it belongs to is the one every request acts on */
 type AccessToken = string;
 type DeletionCode = string;
-type CollisionProof = string;
 type AccountCollisionEndpoint = typeof ACCOUNT_COLLISION_ENDPOINTS[keyof typeof ACCOUNT_COLLISION_ENDPOINTS];
 
 /** Whether the account still waits for the player to choose between two accounts sharing an email */
@@ -185,13 +184,13 @@ export class RestApi {
 		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.CHECK, accessToken);
 	}
 
-	public static verifyAccountCollision(discordToken: AccessToken, emailToken: AccessToken): Promise<AccountCollisionProof> {
-		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.VERIFY, discordToken, { emailToken });
+	public static previewAccountCollision(accessToken: AccessToken): Promise<AccountCollisionCheck> {
+		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.PREVIEW, accessToken);
 	}
 
-	public static resolveAccountCollision(accessToken: AccessToken, proof: CollisionProof, keep: AccountCollisionChoice): Promise<AccountCollisionResolution> {
+	public static resolveAccountCollision(accessToken: AccessToken, otherToken: AccessToken, keep: AccountCollisionChoice): Promise<AccountCollisionResolution> {
 		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, accessToken, {
-			proof, keep
+			otherToken, keep
 		});
 	}
 }

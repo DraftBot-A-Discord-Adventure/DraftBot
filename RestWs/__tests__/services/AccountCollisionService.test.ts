@@ -52,21 +52,37 @@ describe("account collision resolution", () => {
 
 	it("detects the two accounts from either account's session", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const collision = {email: EMAIL, discord: {name: "Historical hero", createdAt: 0}, emailAccount: {name: "New hero", createdAt: 0}};
+		const collision = {email: EMAIL, discord: {keycloakId: "discord-user", name: "Historical hero", createdAt: 0}, emailAccount: {keycloakId: "email-user", name: "New hero", createdAt: 0}};
 		await expect(service.check("discord-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD});
 		await expect(service.check("email-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.EMAIL});
+	});
+
+	it.each([
+		{displayName: "Public Discord hero", username: "discord.hero", expected: "Public Discord hero"},
+		{displayName: "", username: "discord.hero", expected: "discord.hero"}
+	])("uses Discord's public profile instead of the internal username ($expected)", async ({displayName, username, expected}) => {
+		const discord = users.get("discord-user")!;
+		discord.attributes.gameUsername = [discord.username];
+		discord.attributes.discordDisplayName = [displayName];
+		discord.attributes.discordUsername = [username];
+		users.get("email-user")!.attributes.discordDisplayName = ["Other linked Discord profile"];
+		const check = await new AccountCollisionService(CONFIG).check("discord-token");
+		expect(check.collision?.discord.name).toBe(expected);
+		expect(check.collision?.emailAccount.name).toBe("New hero");
+		expect(discord.attributes.gameUsername).toEqual([discord.username]);
+		expect(KeycloakUtils.updateUser).not.toHaveBeenCalled();
 	});
 
 	it("describes each account with its creation date and the adventure the game knows of it", async () => {
 		users.get("discord-user")!.createdTimestamp = 1_600_000_000_000;
 		users.get("email-user")!.createdTimestamp = 1_700_000_000_000;
 		const adventures = vi.fn().mockResolvedValue([{keycloakId: "discord-user", level: 42, score: 12_345, classId: 7}]);
-		const check = await new AccountCollisionService(CONFIG, undefined, adventures).check("email-token");
+		const check = await new AccountCollisionService(CONFIG, undefined, adventures).check("email-token", true);
 		expect(adventures).toHaveBeenCalledExactlyOnceWith("email-user", ["discord-user", "email-user"]);
 		expect(check.collision).toEqual({
 			email: EMAIL,
-			discord: {name: "Historical hero", createdAt: 1_600_000_000_000, adventure: {level: 42, score: 12_345, classId: 7}},
-			emailAccount: {name: "New hero", createdAt: 1_700_000_000_000}
+			discord: {keycloakId: "discord-user", name: "Historical hero", createdAt: 1_600_000_000_000, progressionAvailable: true, adventure: {level: 42, score: 12_345, classId: 7}},
+			emailAccount: {keycloakId: "email-user", name: "New hero", createdAt: 1_700_000_000_000, progressionAvailable: true}
 		});
 	});
 
@@ -80,8 +96,7 @@ describe("account collision resolution", () => {
 		{choice: ACCOUNT_COLLISION_CHOICES.EMAIL, token: "email-token", kept: "email-user", removed: "discord-user"}
 	])("keeps only the chosen Keycloak account without changing its subject ($choice)", async ({choice, token, kept, removed}) => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
-		await expect(service.resolve(token, proof.proof, choice)).resolves.toEqual({kept: choice});
+		await expect(service.resolve(token, token === "discord-token" ? "email-token" : "discord-token", choice)).resolves.toEqual({kept: choice});
 		expect(users.has(kept)).toBe(true);
 		expect(users.has(removed)).toBe(false);
 		expect(users.get(kept)?.id).toBe(kept);
@@ -93,7 +108,7 @@ describe("account collision resolution", () => {
 
 	it("does not accept the Discord token as proof of ownership of the email account", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		await expect(service.verify("discord-token", "discord-token")).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED});
+		await expect(service.resolve("discord-token", "discord-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
@@ -102,7 +117,7 @@ describe("account collision resolution", () => {
 		const service = new AccountCollisionService(CONFIG);
 		await expect(service.check("discord-token")).resolves.toEqual({collision: null});
 		await expect(service.check("email-token")).resolves.toEqual({collision: null});
-		await expect(service.verify("discord-token", "email-token")).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
 	});
 
 	it("does not let an account that never verified the address block the Discord account", async () => {
@@ -114,51 +129,43 @@ describe("account collision resolution", () => {
 
 	it("requires the token of the account chosen to be kept", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
-		await expect(service.resolve("discord-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
-	it("rejects an expired second-account proof without deleting either identity", async () => {
-		vi.useFakeTimers();
+	it("rejects an expired second session without deleting either identity", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
-		vi.advanceTimersByTime(16 * 60 * 1000);
-		await expect(service.resolve("discord-token", proof.proof, ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.PROOF_EXPIRED});
+		await expect(service.resolve("discord-token", "expired-email-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED});
 		expect(users.size).toBe(2);
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
 	it("does not delete either account if the email changed after verification", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		users.get("email-user")!.email = "different@example.test";
-		await expect(service.resolve("discord-token", proof.proof, ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
 	it("refuses an incompatible Discord link before deleting the losing account", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.getFederatedIdentities).mockResolvedValue({isError: false, status: 200, payload: {identities: [{identityProvider: "discord", userId: "another-discord-id"}]}});
-		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
+		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 		expect(KeycloakUtils.updateUser).not.toHaveBeenCalled();
 	});
 
 	it("refuses a third identity owner before deleting either account", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.getDiscordIdentityOwners).mockResolvedValue({isError: false, status: 200, payload: {users: [user("third-user")]}});
-		await expect(service.resolve("discord-token", proof.proof, ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
 	it("retains the confirmed intent after deletion failure and can resume after a service restart", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.deleteUser).mockResolvedValueOnce({isError: true, status: 503, payload: {}});
-		await expect(service.resolve("discord-token", proof.proof, ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAVAILABLE});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAVAILABLE});
 		expect(users.has("email-user")).toBe(true);
 		expect(users.get("discord-user")?.attributes.accountCollisionResolution).toBeDefined();
 		const restarted = new AccountCollisionService(CONFIG);
@@ -169,9 +176,8 @@ describe("account collision resolution", () => {
 
 	it("resumes after the losing identity was deleted but linking was interrupted", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockResolvedValueOnce({isError: true, status: 503, payload: {}});
-		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
+		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
 		expect(users.has("discord-user")).toBe(false);
 		await expect(new AccountCollisionService(CONFIG).resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
 		expect(users.get("email-user")?.attributes.discordId).toEqual([DISCORD_ID]);
@@ -179,9 +185,8 @@ describe("account collision resolution", () => {
 
 	it("keeps the selected account discoverable by the bot when Discord linking is interrupted", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockResolvedValueOnce({isError: true, status: 503, payload: {}});
-		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
+		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
 		const botOwners = [...users.values()].filter(account => account.attributes.discordId?.[0] === DISCORD_ID);
 		expect(botOwners.map(account => account.id)).toEqual(["email-user"]);
 		expect(botOwners[0].attributes.accountCollisionResolution).toBeDefined();
@@ -191,7 +196,6 @@ describe("account collision resolution", () => {
 
 	it("preserves account fields updated while the Discord identity is being linked", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const proof = await service.verify("discord-token", "email-token");
 		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockImplementationOnce(async () => {
 			await KeycloakUtils.updateUser(CONFIG, {
 				...users.get("email-user")!,
@@ -199,7 +203,7 @@ describe("account collision resolution", () => {
 			});
 			return {isError: false, status: 204, payload: {changed: true}};
 		});
-		await expect(service.resolve("email-token", proof.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
+		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
 		expect(users.get("email-user")?.attributes.gameUsername).toEqual(["Updated hero"]);
 		expect(users.get("email-user")?.attributes.language).toEqual(["en"]);
 		expect(users.get("email-user")?.attributes.discordId).toEqual([DISCORD_ID]);
@@ -207,14 +211,18 @@ describe("account collision resolution", () => {
 
 	it("serializes opposite confirmations so they cannot delete both accounts", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const first = await service.verify("discord-token", "email-token");
-		const second = await service.verify("discord-token", "email-token");
 		const results = await Promise.allSettled([
-			service.resolve("discord-token", first.proof, ACCOUNT_COLLISION_CHOICES.DISCORD),
-			service.resolve("email-token", second.proof, ACCOUNT_COLLISION_CHOICES.EMAIL)
+			service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.DISCORD),
+			new AccountCollisionService(CONFIG).resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)
 		]);
 		expect(results.filter(result => result.status === "fulfilled")).toHaveLength(1);
 		expect(users.size).toBe(1);
+		expect(KeycloakUtils.deleteUser).toHaveBeenCalledTimes(1);
+	});
+
+	it("can finish a lost response with only the kept session without deleting anything else", async () => {
+		await new AccountCollisionService(CONFIG).resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL);
+		await expect(new AccountCollisionService(CONFIG).resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
 		expect(KeycloakUtils.deleteUser).toHaveBeenCalledTimes(1);
 	});
 });

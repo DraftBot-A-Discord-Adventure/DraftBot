@@ -32,6 +32,8 @@ import {
 
 const mockPush = jest.fn();
 const mockDisconnect = jest.fn();
+const mockChangeEmail = jest.fn();
+const mockChangePassword = jest.fn();
 
 jest.mock("expo-router", () => ({
 	useFocusEffect: jest.fn(),
@@ -102,14 +104,18 @@ function answers(packet: unknown): Promise<unknown> {
 	});
 }
 
-async function renderSettings(auth = {
-	setState: jest.fn(), clearToken: jest.fn(() => Promise.resolve())
-}): Promise<typeof auth> {
+async function renderSettings(overrides: Partial<React.ContextType<typeof AuthContext>> = {}): Promise<React.ContextType<typeof AuthContext>> {
+	const auth = {
+		state: AuthStateEnum.LOGGED_IN, collision: null,
+		setState: jest.fn(), clearToken: jest.fn(() => Promise.resolve()), saveToken: jest.fn(),
+		enter: jest.fn(), leave: jest.fn().mockResolvedValue(undefined), accessToken: jest.fn().mockResolvedValue("access-token"),
+		changeEmail: mockChangeEmail, changePassword: mockChangePassword, ...overrides
+	};
 	const client = new QueryClient({ defaultOptions: { queries: {
 		retry: false, gcTime: Infinity
 	} } });
 	await render(<QueryClientProvider client={client}>
-		<AuthContext.Provider value={auth as unknown as React.ContextType<typeof AuthContext>}><Settings /></AuthContext.Provider>
+		<AuthContext.Provider value={auth}><Settings /></AuthContext.Provider>
 	</QueryClientProvider>);
 	return auth;
 }
@@ -131,14 +137,14 @@ describe("settings", () => {
 	afterEach(() => jest.restoreAllMocks());
 
 	it("shows the account address, then waits for the link sent to the new one", async () => {
-		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.PENDING);
+		mockChangeEmail.mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.PENDING);
 		await renderSettings();
 		await waitFor(() => expect(screen.getByText("player@example.com")).toBeTruthy());
 
 		await fireEvent.press(screen.getByText("app:settings.email.entry"));
 
 		await waitFor(() => expect(screen.getByText("app:settings.email.awaitingLink")).toBeTruthy());
-		expect(KeycloakAuth.changeEmail).toHaveBeenCalledTimes(1);
+		expect(mockChangeEmail).toHaveBeenCalledTimes(1);
 	});
 
 	it("drops the wait once the confirmed address comes back", async () => {
@@ -147,7 +153,7 @@ describe("settings", () => {
 			foregroundListeners.push(listener);
 			return { remove: jest.fn() };
 		});
-		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.PENDING);
+		mockChangeEmail.mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.PENDING);
 		await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.email.entry"));
 		await waitFor(() => expect(screen.getByText("app:settings.email.awaitingLink")).toBeTruthy());
@@ -163,11 +169,11 @@ describe("settings", () => {
 	});
 
 	it("confirms a saved password, and says nothing when the player backs out", async () => {
-		jest.mocked(KeycloakAuth.changePassword).mockResolvedValueOnce(ACCOUNT_ACTION_OUTCOMES.CANCELLED)
+		mockChangePassword.mockResolvedValueOnce(ACCOUNT_ACTION_OUTCOMES.CANCELLED)
 			.mockResolvedValueOnce(ACCOUNT_ACTION_OUTCOMES.UPDATED);
 		await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.password.entry"));
-		await waitFor(() => expect(KeycloakAuth.changePassword).toHaveBeenCalledTimes(1));
+		await waitFor(() => expect(mockChangePassword).toHaveBeenCalledTimes(1));
 		expect(screen.queryByText("app:settings.password.saved")).toBeNull();
 
 		await fireEvent.press(screen.getByText("app:settings.password.entry"));
@@ -176,18 +182,18 @@ describe("settings", () => {
 	});
 
 	it("says nothing when the player backs out of the email change", async () => {
-		jest.mocked(KeycloakAuth.changeEmail).mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.CANCELLED);
+		mockChangeEmail.mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.CANCELLED);
 		await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.email.entry"));
 
-		await waitFor(() => expect(KeycloakAuth.changeEmail).toHaveBeenCalled());
+		await waitFor(() => expect(mockChangeEmail).toHaveBeenCalled());
 		expect(screen.queryByText("app:settings.email.awaitingLink")).toBeNull();
 		expect(screen.queryByText("app:settings.email.failed")).toBeNull();
 	});
 
 	it("lets the player retry an email change that could not open", async () => {
 		jest.spyOn(console, "warn").mockImplementation(() => undefined);
-		jest.mocked(KeycloakAuth.changeEmail).mockRejectedValueOnce(new Error("unreachable"))
+		mockChangeEmail.mockRejectedValueOnce(new Error("unreachable"))
 			.mockResolvedValue(ACCOUNT_ACTION_OUTCOMES.CANCELLED);
 		await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.email.entry"));
@@ -196,7 +202,7 @@ describe("settings", () => {
 		await fireEvent.press(screen.getByText("app:settings.email.entry"));
 
 		await waitFor(() => expect(screen.queryByText("app:settings.email.failed")).toBeNull());
-		expect(KeycloakAuth.changeEmail).toHaveBeenCalledTimes(2);
+		expect(mockChangeEmail).toHaveBeenCalledTimes(2);
 	});
 
 	it.each([
@@ -332,17 +338,17 @@ describe("settings", () => {
 		await fireEvent.press(screen.getAllByText("app:settings.logout").at(-1)!);
 
 		expect(forgetPushDevice).toHaveBeenCalled();
-		expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN);
-		expect(auth.clearToken).toHaveBeenCalled();
+		expect(auth.leave).toHaveBeenCalledTimes(1);
+		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("changes account directly without a confirmation, after forgetting the token and this device", async () => {
 		const auth = await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
-		await waitFor(() => expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN));
-		expect(auth.clearToken).toHaveBeenCalledTimes(1);
+		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
+		expect(auth.clearToken).not.toHaveBeenCalled();
 		expect(forgetPushDevice).toHaveBeenCalledTimes(1);
-		expect(mockDisconnect).toHaveBeenCalledTimes(1);
+		expect(mockDisconnect).not.toHaveBeenCalled();
 		expect(screen.queryByText("app:settings.logoutConfirm.title")).toBeNull();
 	});
 
@@ -352,25 +358,25 @@ describe("settings", () => {
 			finish = resolve;
 		});
 		const auth = await renderSettings({
-			setState: jest.fn(), clearToken: jest.fn(() => clearing)
+			setState: jest.fn(), leave: jest.fn(() => clearing)
 		});
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
-		await waitFor(() => expect(auth.clearToken).toHaveBeenCalledTimes(1));
+		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
 		expect(screen.getByText("app:settings.leavingAccount")).toBeTruthy();
-		expect(mockDisconnect).toHaveBeenCalledTimes(1);
+		expect(mockDisconnect).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
-		expect(auth.clearToken).toHaveBeenCalledTimes(1);
+		expect(auth.leave).toHaveBeenCalledTimes(1);
 		expect(auth.setState).not.toHaveBeenCalled();
 		await act(async (): Promise<void> => {
 			finish();
 		});
-		await waitFor(() => expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN));
+		await waitFor(() => expect(screen.queryByText("app:settings.leavingAccount")).toBeNull());
 	});
 
 	it("keeps the current session recoverable when cleanup fails, then allows retrying", async () => {
 		const auth = {
 			setState: jest.fn(),
-			clearToken: jest.fn().mockRejectedValueOnce(new Error("keychain unavailable"))
+			leave: jest.fn().mockRejectedValueOnce(new Error("keychain unavailable"))
 				.mockResolvedValue(undefined)
 		};
 		await renderSettings(auth);
@@ -378,7 +384,6 @@ describe("settings", () => {
 		await waitFor(() => expect(screen.getByText("app:settings.changeAccountFailed")).toBeTruthy());
 		expect(auth.setState).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
-		await waitFor(() => expect(auth.setState).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN));
-		expect(auth.clearToken).toHaveBeenCalledTimes(2);
+		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(2));
 	});
 });

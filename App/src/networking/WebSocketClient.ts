@@ -1,6 +1,5 @@
 import uuid from "react-native-uuid";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
-import { AuthToken } from "@/src/authentication/AuthToken";
 import { AppConstants } from "@/src/AppConstants";
 import { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
 import { FromClientPacket } from "ws-packets/src/fromClient/FromClientPacket";
@@ -9,7 +8,8 @@ import {
 	PushedPacketHandler, PushedPacketRegistry
 } from "@/src/networking/PushedPacketRegistry";
 import {
-	WEBSOCKET_APP_OUTDATED_REASON, WEBSOCKET_SERVER_OUTDATED_REASON, WEBSOCKET_SESSION_REPLACED_REASON, WEBSOCKET_ACCOUNT_COLLISION_REASON, WEBSOCKET_ACCOUNT_DELETED_REASON
+	WEBSOCKET_APP_OUTDATED_REASON, WEBSOCKET_SERVER_OUTDATED_REASON, WEBSOCKET_SESSION_REPLACED_REASON,
+	WEBSOCKET_ACCOUNT_COLLISION_REASON, WEBSOCKET_ACCOUNT_DELETED_REASON, WEBSOCKET_AUTH_UNAVAILABLE_REASON
 } from "ws-packets/src/WebSocketCloseReasons";
 import {
 	APP_PROTOCOL_QUERY_PARAMETER, APP_PROTOCOL_VERSION
@@ -19,6 +19,7 @@ import {
 const FINAL_CLOSE_STATES: Partial<Record<string, AuthStateEnum>> = {
 	[WEBSOCKET_ACCOUNT_DELETED_REASON]: AuthStateEnum.NO_TOKEN,
 	[WEBSOCKET_ACCOUNT_COLLISION_REASON]: AuthStateEnum.ACCOUNT_COLLISION,
+	[WEBSOCKET_AUTH_UNAVAILABLE_REASON]: AuthStateEnum.CONNECTION_ERROR,
 	[WEBSOCKET_SESSION_REPLACED_REASON]: AuthStateEnum.CONNECTION_ERROR,
 	[WEBSOCKET_APP_OUTDATED_REASON]: AuthStateEnum.APP_OUTDATED,
 	[WEBSOCKET_SERVER_OUTDATED_REASON]: AuthStateEnum.SERVER_OUTDATED
@@ -72,15 +73,9 @@ export class WebSocketClient {
 
 	private setState?: (newState: AuthStateEnum) => void;
 
-	private saveToken?: (token: AuthToken) => Promise<void>;
-
 	private clearToken?: () => Promise<void>;
 
-	private activeAuthToken: AuthToken | null = null;
-
-	private accessTokenRequest: Promise<string | null> | null = null;
-
-	private tokenNeedsSaving = false;
+	private accessTokenProvider: (() => Promise<string | null>) | null = null;
 
 	private processPacketQueueIntervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -105,9 +100,7 @@ export class WebSocketClient {
 
 	public disconnect(): void {
 		this.connectionVersion++;
-		this.activeAuthToken = null;
-		this.accessTokenRequest = null;
-		this.tokenNeedsSaving = false;
+		this.accessTokenProvider = null;
 		const socket = this.socket;
 		this.socket = null;
 		socket?.close();
@@ -117,17 +110,14 @@ export class WebSocketClient {
 		this.clearIntervals();
 	}
 
-	public async init(authToken: AuthToken, setState: (newState: AuthStateEnum) => void, saveToken: (token: AuthToken) => Promise<void>, clearToken?: () => Promise<void>): Promise<void> {
+	public async init(accessTokenProvider: () => Promise<string | null>, setState: (newState: AuthStateEnum) => void, clearToken?: () => Promise<void>): Promise<void> {
 		const connectionVersion = ++this.connectionVersion;
-		this.activeAuthToken = authToken;
-		this.accessTokenRequest = null;
-		this.tokenNeedsSaving = false;
+		this.accessTokenProvider = accessTokenProvider;
 		this.setState = setState;
-		this.saveToken = saveToken;
 		this.clearToken = clearToken;
 
 		this.setState?.(AuthStateEnum.CONNECTING);
-		await this.connect(authToken, true);
+		await this.connect(true);
 		if (connectionVersion !== this.connectionVersion) {
 			return;
 		}
@@ -222,65 +212,17 @@ export class WebSocketClient {
 	}
 
 	public getCurrentAccessToken(): Promise<string | null> {
-		return this.activeAuthToken ? this.getAccessToken(this.activeAuthToken, this.connectionVersion) : Promise.resolve(null);
+		const generation = this.connectionVersion;
+		return this.accessTokenProvider
+			? this.accessTokenProvider().then(token => this.isCurrent(generation) ? token : null)
+			: Promise.resolve(null);
 	}
 
-	private getAccessToken(authToken: AuthToken, connectionVersion: number): Promise<string | null> {
-		if (connectionVersion !== this.connectionVersion) {
-			return Promise.resolve(null);
-		}
-		if (this.accessTokenRequest) {
-			return this.accessTokenRequest;
-		}
-		const request = this.refreshAccessToken(authToken, connectionVersion);
-		this.accessTokenRequest = request;
-		return request.finally((): void => {
-			if (this.accessTokenRequest === request) {
-				this.accessTokenRequest = null;
-			}
-		});
+	private isCurrent(generation: number): boolean {
+		return generation === this.connectionVersion;
 	}
 
-	private isCurrent(connectionVersion: number): boolean {
-		return connectionVersion === this.connectionVersion;
-	}
-
-	/** Saves a refreshed token; whether the connection it was refreshed for is still the current one. */
-	private async saveRefreshedToken(authToken: AuthToken, connectionVersion: number): Promise<boolean> {
-		if (!this.tokenNeedsSaving) {
-			return true;
-		}
-		await this.saveToken?.(authToken);
-		if (!this.isCurrent(connectionVersion)) {
-			return false;
-		}
-		this.tokenNeedsSaving = false;
-		return true;
-	}
-
-	private async refreshAccessToken(authToken: AuthToken, connectionVersion: number): Promise<string | null> {
-		const refreshed = await authToken.refreshIfNeeded();
-		if (!this.isCurrent(connectionVersion)) {
-			return null;
-		}
-		if (refreshed) {
-			console.debug("Token refreshed successfully");
-			this.tokenNeedsSaving = true;
-		}
-		if (!await this.saveRefreshedToken(authToken, connectionVersion)) {
-			return null;
-		}
-
-		const accessToken = authToken.getAccessToken();
-		if (!accessToken) {
-			console.error("No access token available for WebSocket connection.");
-			this.setState?.(AuthStateEnum.TOKEN_INVALID_OR_EXPIRED);
-			return null;
-		}
-		return accessToken;
-	}
-
-	private async connect(authToken: AuthToken, firstConnection: boolean): Promise<void> {
+	private async connect(firstConnection: boolean): Promise<void> {
 		const connectionVersion = this.connectionVersion;
 		if (this.socket) {
 			if (this.socket.readyState === WebSocket.OPEN) {
@@ -293,7 +235,7 @@ export class WebSocketClient {
 		}
 
 		const webSocketUrl = this.getWebSocketUrl();
-		const accessToken = await this.getAccessToken(authToken, connectionVersion);
+		const accessToken = await this.getCurrentAccessToken();
 		if (connectionVersion !== this.connectionVersion) {
 			return;
 		}
@@ -317,7 +259,7 @@ export class WebSocketClient {
 
 		socket.onerror = (error): void => this.handleSocketError(socket, error);
 
-		socket.onclose = (error): void => this.handleSocketClose(socket, error, authToken, firstConnectionFlag);
+		socket.onclose = (error): void => this.handleSocketClose(socket, error, firstConnectionFlag);
 	}
 
 	private handleSocketOpen(socket: WebSocket): void {
@@ -427,7 +369,7 @@ export class WebSocketClient {
 		else { this.setState?.(finalState); }
 	}
 
-	private handleSocketClose(socket: WebSocket, error: CloseEvent, authToken: AuthToken, firstConnection: boolean): void {
+	private handleSocketClose(socket: WebSocket, error: CloseEvent, firstConnection: boolean): void {
 		if (this.socket !== socket) {
 			return;
 		}
@@ -449,7 +391,7 @@ export class WebSocketClient {
 		}
 
 		this.setReconnectingState();
-		this.scheduleReconnect(authToken);
+		this.scheduleReconnect();
 	}
 
 	private handleUnauthorizedClose(): void {
@@ -476,12 +418,12 @@ export class WebSocketClient {
 		this.setState?.(state);
 	}
 
-	private scheduleReconnect(authToken: AuthToken): void {
+	private scheduleReconnect(): void {
 		this.reconnectTimeoutId = setTimeout((): void => {
 			this.reconnectTimeoutId = null;
 			console.log("Attempting to reconnect WebSocket...");
 			this.connectionAttempts++;
-			this.connect(authToken, false).catch(error => {
+			this.connect(false).catch(error => {
 				console.error("Failed to reconnect WebSocket:", error);
 			});
 		}, 1000);

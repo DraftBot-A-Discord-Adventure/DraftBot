@@ -14,6 +14,7 @@ import {
 const mockInit = jest.fn().mockResolvedValue(undefined);
 const mockSaveToken = jest.fn().mockResolvedValue(undefined);
 const mockClearToken = jest.fn().mockResolvedValue(undefined);
+const mockEnter = jest.fn().mockResolvedValue(undefined);
 jest.mock("@/src/networking/RestApi", () => ({
 	...jest.requireActual<typeof import("@/src/networking/RestApi")>("@/src/networking/RestApi"),
 	RestApi: { checkAccountCollision: jest.fn(() => Promise.resolve({ collision: null })) }
@@ -38,7 +39,12 @@ jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string =
 
 async function renderLogin(state: AuthStateEnum = AuthStateEnum.NO_TOKEN): Promise<void> {
 	const value: React.ContextType<typeof AuthContext> = {
+		changeEmail: jest.fn(), changePassword: jest.fn(),
 		state,
+		collision: null,
+		enter: mockEnter,
+		leave: jest.fn().mockResolvedValue(undefined),
+		accessToken: jest.fn().mockResolvedValue(null),
 		setState: jest.fn(),
 		saveToken: mockSaveToken,
 		clearToken: mockClearToken
@@ -52,6 +58,7 @@ describe("login screen", () => {
 		jest.clearAllMocks();
 		mockSaveToken.mockResolvedValue(undefined);
 		mockClearToken.mockResolvedValue(undefined);
+		mockEnter.mockResolvedValue(undefined);
 		jest.mocked(KeycloakAuth.login).mockRejectedValue(new AuthFailure(AUTH_FAILURES.CANCELLED, "dismiss"));
 		jest.mocked(KeycloakAuth.register).mockRejectedValue(new AuthFailure(AUTH_FAILURES.CANCELLED, "dismiss"));
 	});
@@ -109,7 +116,7 @@ describe("login screen", () => {
 		expect(screen.getByText("app:auth.sessionExpired")).toBeTruthy();
 		expect(screen.getByText("app:auth.withAccount")).toBeTruthy();
 		expect(screen.queryByText("app:auth.createAccount")).toBeNull();
-		expect(mockClearToken).toHaveBeenCalledTimes(1);
+		expect(mockClearToken).not.toHaveBeenCalled();
 	});
 
 	it("does not open registration twice while its browser is pending", async () => {
@@ -165,9 +172,9 @@ describe("login screen", () => {
 		expect(screen.queryByText("app:auth.loginFailed")).toBeNull();
 	});
 
-	it("waits until the old token is replaced before opening the new account's socket", async () => {
+	it("delegates admission to the session coordinator instead of opening or storing a session itself", async () => {
 		let saved!: () => void;
-		mockSaveToken.mockReturnValueOnce(new Promise<void>(resolve => {
+		mockEnter.mockReturnValueOnce(new Promise<void>(resolve => {
 			saved = resolve;
 		}));
 		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce({
@@ -176,16 +183,17 @@ describe("login screen", () => {
 		await renderLogin();
 		await fireEvent.press(screen.getByText("app:auth.alreadyHaveAccount"));
 		await fireEvent.press(screen.getByText("app:auth.withDiscord"));
-		await waitFor(() => expect(mockSaveToken).toHaveBeenCalledTimes(1));
+		await waitFor(() => expect(mockEnter).toHaveBeenCalledTimes(1));
+		expect(mockSaveToken).not.toHaveBeenCalled();
 		expect(mockInit).not.toHaveBeenCalled();
 		await act(async (): Promise<void> => {
 			saved();
 		});
-		await waitFor(() => expect(mockInit).toHaveBeenCalledTimes(1));
+		expect(mockInit).not.toHaveBeenCalled();
 	});
 
 	it("never opens the next account's socket when its token cannot be stored", async () => {
-		mockSaveToken.mockRejectedValueOnce(new Error("keychain unavailable"));
+		mockEnter.mockRejectedValueOnce(new Error("keychain unavailable"));
 		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce({
 			access_token: "test-access", refresh_token: "test-refresh", expires_in: 300, refresh_expires_in: 0, token_type: "Bearer", session_state: "test-session", scope: "openid"
 		});
