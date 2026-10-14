@@ -2368,7 +2368,7 @@
     },
     {
       "alias": "crownicles post broker login",
-      "description": "Account actions stay on their intended account after an identity provider",
+      "description": "After an identity provider: account actions stay on their account, and a free verified Discord address is adopted",
       "providerId": "basic-flow",
       "topLevel": true,
       "builtIn": false,
@@ -2378,6 +2378,14 @@
           "authenticatorFlow": false,
           "requirement": "REQUIRED",
           "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "crownicles-discord-email",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         }

@@ -249,4 +249,15 @@ describe("account collision resolution", () => {
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 		expect(KeycloakUtils.patchUser).not.toHaveBeenCalled();
 	});
+
+	it("lets a session opened with the shared address keep its own account alone, which a Discord session never may", async () => {
+		const service = new AccountCollisionService(CONFIG);
+		await expect(service.resolve("discord-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		await expect(service.resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		expect(users.size).toBe(2);
+		await expect(service.resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
+		expect([...users.keys()]).toEqual(["email-user"]);
+		expect(users.get("email-user")?.attributes.discordId).toEqual([DISCORD_ID]);
+		expect(KeycloakUtils.linkDiscordIdentity).toHaveBeenCalledWith(CONFIG, expect.objectContaining({id: "email-user"}), DISCORD_ID);
+	});
 });

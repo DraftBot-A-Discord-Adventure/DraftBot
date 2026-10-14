@@ -57,7 +57,7 @@ const useStyles = createStyles(colors => ({
 
 /** Keeping the account: pressed, the other one is deleted once the player proved it is theirs too. */
 export type KeepAccountAction = {
-	detail: string; pending: boolean; disabled: boolean; onPress: () => void;
+	detail?: string; pending: boolean; disabled: boolean; onPress: () => void;
 };
 
 function classLabel(classId: number): string {

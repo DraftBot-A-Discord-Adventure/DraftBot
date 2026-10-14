@@ -76,6 +76,19 @@ function signInToOtherAccount(collision: AccountCollision | null, startedFromEma
 	return collision ? KeycloakAuth.loginAs(collision.email) : KeycloakAuth.login();
 }
 
+/** The address answers for both accounts: only keeping the account it was not signed in with asks for another sign-in. */
+function needsSecondSignIn(current: AccountCollisionChoice | undefined, chosen: AccountCollisionChoice): boolean {
+	return current !== ACCOUNT_COLLISION_CHOICES.EMAIL || chosen !== ACCOUNT_COLLISION_CHOICES.EMAIL;
+}
+
+/** What keeping this account will ask for, when it asks for anything */
+function signInNotice(current: AccountCollisionChoice, kind: AccountCollisionChoice): string | undefined {
+	if (!needsSecondSignIn(current, kind)) {
+		return undefined;
+	}
+	return i18n.t(current === ACCOUNT_COLLISION_CHOICES.EMAIL ? "app:auth.collision.proveDiscord" : "app:auth.collision.proveEmail");
+}
+
 /** Signs in to the other account, then proves both belong to the player */
 async function verifiedAccounts(state: CollisionSession, startedFromEmail: boolean): Promise<VerifiedAccounts> {
 	const second = AuthToken.fromKeycloakOAuth2Token(await signInToOtherAccount(state.check.collision, startedFromEmail));
@@ -152,7 +165,7 @@ type CollisionChoiceFlow = {
 	resume: () => void;
 };
 
-/** Keeps the chosen account once the other one is proven too; a choice already confirmed resumes without asking again */
+/** Keeps the chosen account; signed in with the shared address, keeping that account needs nothing more, any other choice signs in to the account still missing first */
 function useCollisionChoice(state: CollisionSession, onAuthenticated: (token: AuthToken) => Promise<void>): CollisionChoiceFlow {
 	const auth = useContext(AuthContext);
 	const [choice, setChoice] = useState<AccountCollisionChoice | "">(state.check.pending ?? "");
@@ -180,6 +193,10 @@ function useCollisionChoice(state: CollisionSession, onAuthenticated: (token: Au
 
 	const keep = (chosen: AccountCollisionChoice): void => run(async (): Promise<void> => {
 		setChoice(chosen);
+		if (!needsSecondSignIn(state.check.current, chosen)) {
+			await settle(state.token, chosen, null);
+			return;
+		}
 		const verified = await verifiedAccounts(state, state.check.current === ACCOUNT_COLLISION_CHOICES.EMAIL);
 		const second = chosen === ACCOUNT_COLLISION_CHOICES.DISCORD ? verified.email : verified.discord;
 		setOther(second);
@@ -368,7 +385,6 @@ function ChoiceView({
 	onCancel: () => void;
 }): ReactElement {
 	const busy = flow.pending || keepBoth.changing;
-	const proof = i18n.t(current === ACCOUNT_COLLISION_CHOICES.EMAIL ? "app:auth.collision.proveDiscord" : "app:auth.collision.proveEmail");
 	return <Screen>
 		<Standing caption={i18n.t("app:auth.collision.caption")} title={i18n.t("app:auth.collision.title")} subtitle={collision.email} />
 		<Note>{i18n.t(`app:auth.collision.intro.${current}`)}</Note>
@@ -382,7 +398,7 @@ function ChoiceView({
 			previewing={previewing}
 			current={kind === current}
 			keep={{
-				detail: proof, pending: flow.pending && flow.choice === kind, disabled: busy, onPress: (): void => flow.keep(kind)
+				detail: signInNotice(current, kind), pending: flow.pending && flow.choice === kind, disabled: busy, onPress: (): void => flow.keep(kind)
 			}}
 		/>)}
 		<KeepBothSection keepBoth={keepBoth} disabled={flow.pending} />

@@ -360,6 +360,58 @@ for (const choice of ["discord", "email"]) {
 	});
 }
 
+test("real Keycloak: the shared address alone keeps its account and takes over the Discord identity", async () => {
+	const discordId = "123456789012345694";
+	const email = `address-alone-${randomUUID()}@example.test`;
+	const username = `address-alone-${randomUUID().slice(0, 8)}`;
+	const created = await KeycloakUtils.registerUser(CONFIG, {keycloakUsername: `discord-${discordId}`, discordId, gameUsername: "Discarded by its address", language: "fr"});
+	assert.equal(created.isError, false);
+	const keptId = await createUser({username, email, emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	profile = {...profile, id: discordId, email, verified: true};
+	assert.equal((await authorize()).sub, created.payload.user.id);
+	const emailSession = await authorize(false, {username, password: "synthetic-password-only"});
+	assert.equal(emailSession.sub, keptId, emailSession.document?.body.textContent.trim());
+	const service = new AccountCollisionService(CONFIG);
+	assert.equal((await service.check(emailSession.accessToken)).current, "email");
+	assert.deepEqual(await service.resolve(emailSession.accessToken, "", "email"), {kept: "email"});
+	const deleted = await fetch(`${BASE}/admin/realms/${REALM}/users/${created.payload.user.id}`, {headers: {Authorization: `Bearer ${adminToken}`}});
+	assert.equal(deleted.status, 404);
+	assert.equal((await authorize()).sub, keptId);
+});
+
+test("real Keycloak: a Discord sign-in gives an account without address its verified Discord one, closing sign-up with it", async () => {
+	const discordId = "123456789012345695";
+	const email = `adopted-${randomUUID()}@example.test`;
+	const created = await KeycloakUtils.registerUser(CONFIG, {keycloakUsername: `discord-${discordId}`, discordId, gameUsername: "Adopting hero", language: "fr"});
+	assert.equal(created.isError, false);
+	profile = {...profile, id: discordId, email, verified: true};
+	assert.equal((await authorize()).sub, created.payload.user.id);
+	const adopted = await admin(`/${REALM}/users/${created.payload.user.id}`);
+	assert.equal(adopted.email, email);
+	assert.equal(adopted.emailVerified, true);
+	const signup = await authorize(true);
+	const form = signup.document.querySelector("form");
+	const values = new URLSearchParams([...form.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("username", "adopted-address-copy");
+	values.set("email", email);
+	const refused = await browse(signup.jar, form.action, values);
+	assert.ok(new JSDOM(await refused.text()).window.document.querySelector("#input-error-email"));
+	assert.equal((await admin(`/${REALM}/users?username=adopted-address-copy&exact=true`)).length, 0);
+});
+
+test("real Keycloak: a Discord address another account holds is left to it, and the sign-in still opens the collision", async () => {
+	const discordId = "123456789012345696";
+	const email = `held-${randomUUID()}@example.test`;
+	const created = await KeycloakUtils.registerUser(CONFIG, {keycloakUsername: `discord-${discordId}`, discordId, gameUsername: "Late Discord hero", language: "fr"});
+	assert.equal(created.isError, false);
+	await createUser({username: `held-${randomUUID().slice(0, 8)}`, email, emailVerified: true, enabled: true});
+	profile = {...profile, id: discordId, email, verified: true};
+	const session = await authorize();
+	assert.equal(session.sub, created.payload.user.id);
+	assert.equal((await admin(`/${REALM}/users/${created.payload.user.id}`)).email, undefined);
+	assert.ok((await new AccountCollisionService(CONFIG).check(session.accessToken)).collision);
+});
+
 test("real Keycloak: an interrupted email choice remains the bot owner and can finish", async () => {
 	const discordId = "123456789012345692";
 	const email = "interrupted-choice@example.test";

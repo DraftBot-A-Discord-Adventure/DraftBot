@@ -459,13 +459,35 @@ export class AccountCollisionService {
 		return this.finish(intent);
 	}
 
+	/** Records the choice on the kept account, then finishes it; resolutions of the same pair run one at a time. */
+	private settle(pair: CollisionPair, choice: AccountCollisionChoice): Promise<AccountCollisionResolution> {
+		const accounts = resolvedAccounts(pair, choice);
+		const intent: ResolutionIntent = {
+			version: RESOLUTION_VERSION, ...accounts, discordId: pair.discordId, email: pair.email, choice
+		};
+		return this.underPairLock(accounts, () => this.recordAndFinish(pair, intent));
+	}
+
+	/** The address answers for both accounts, so a session opened with it may keep its own account alone; Discord never answers for the address. */
+	private emailAccountKeepingItself(identity: KeycloakSessionIdentity, user: KeycloakUser, choice: AccountCollisionChoice): Promise<CollisionPair | null> {
+		if (choice !== ACCOUNT_COLLISION_CHOICES.EMAIL || identity.identity_provider === KeycloakConstants.IDENTITY_PROVIDERS.DISCORD) {
+			return Promise.resolve(null);
+		}
+		return this.emailAccountPair(user);
+	}
+
 	public async resolve(token: AccessToken, otherToken: AccessToken, choice: AccountCollisionChoice): Promise<AccountCollisionResolution> {
-		const user = await this.authenticatedUser(token);
+		const identity = await this.sessionIdentity(token);
+		const user = await this.userById(identity.sub);
 		const pending = readIntent(user);
 		if (pending) {
 			return this.underPairLock(pending, () => this.finish(pending));
 		}
 		if (!otherToken) {
+			const ownPair = await this.emailAccountKeepingItself(identity, user, choice);
+			if (ownPair) {
+				return this.settle(ownPair, choice);
+			}
 			if (!(await this.check(token)).collision) {
 				return { kept: choice };
 			}
@@ -477,13 +499,9 @@ export class AccountCollisionService {
 		const pair = choice === ACCOUNT_COLLISION_CHOICES.DISCORD
 			? await this.verifiedPair(token, otherToken)
 			: await this.verifiedPair(otherToken, token);
-		const accounts = resolvedAccounts(pair, choice);
-		if (user.id !== accounts.keptId) {
+		if (user.id !== resolvedAccounts(pair, choice).keptId) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, 401);
 		}
-		const intent: ResolutionIntent = {
-			version: RESOLUTION_VERSION, keptId: accounts.keptId, deletedId: accounts.deletedId, discordId: pair.discordId, email: pair.email, choice
-		};
-		return this.underPairLock(accounts, () => this.recordAndFinish(pair, intent));
+		return this.settle(pair, choice);
 	}
 }

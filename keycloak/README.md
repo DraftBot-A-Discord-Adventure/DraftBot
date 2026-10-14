@@ -178,8 +178,11 @@ conflicting links are never removed or reassigned, and player rows are not updat
 This backfill only establishes the historical identity. It does not resolve a
 collision by letting both accounts remain selectable. When the authenticated
 Discord email is already owned by a distinct Crownicles account, the app stops
-before opening the game and requires authentication of the second account. The
-player then chooses one account and confirms removal of the other Keycloak user.
+before opening the game. The address answers for both accounts, as Discord itself lets
+it recover the Discord account; a Discord session never answers for the address. So,
+signed in with Discord, the player must also sign in to the email account, while signed
+in with the address, they may keep that account at once (keeping the Discord account
+signs in to it first). The player confirms removal of the other Keycloak user.
 The losing account's game data stays retained under the existing deletion policy;
 no progress, items or currencies are merged into the kept character.
 
@@ -206,7 +209,8 @@ player changes and verifies the email account address before entering the game. 
 change is targeted at that account's Keycloak ID; a different authenticated account is
 refused before the required action can run.
 
-The resolver accepts both access tokens in one request. It writes a durable choice on
+The resolver accepts both access tokens in one request, or the email account's own session
+alone when it keeps itself. It writes a durable choice on
 the kept account before deleting the other identity, so a lost response or crash resumes
 the same choice.
 
@@ -218,7 +222,11 @@ and older than one hour; it never rewrites confirmed profiles, and historical bo
 accounts are never selected by that search.
 
 The Discord provider uses `IMPORT`, not `FORCE`: forcing the remote email onto an
-already-linked historical user fails when another user owns that address. The
+already-linked historical user fails when another user owns that address. Instead, the
+`crownicles-discord-email` step of the post-broker flow gives an account without any address
+the one Discord verified, when no other account holds it: that address can then sign in to
+the account by link, and sign-up refuses it. A taken address is left as it is, for the
+collision flow to settle. The
 `gameUsername` mapper is `IMPORT`, so a missing Discord display name never erases it. `VERIFY_PROFILE` is explicitly disabled to
 avoid retroactive email requirements on historical accounts. Email remains required
 by the registration profile and `verifyEmail` stays enabled.

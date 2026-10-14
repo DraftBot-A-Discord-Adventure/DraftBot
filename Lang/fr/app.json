@@ -140,7 +140,7 @@
       "progressionUnavailable": "La progression de ce compte n'est pas disponible pour le moment.",
       "keep": "Garder ce compte",
       "proveEmail": "Connexion au compte e-mail demandée pour confirmer",
-      "proveDiscord": "Connexion à Discord demandée pour confirmer",
+      "proveDiscord": "Connexion à Discord demandée pour continuer sur ce compte",
       "pending": "Vérification et résolution en cours…",
       "keepBoth": {
         "title": "Garder les deux comptes",

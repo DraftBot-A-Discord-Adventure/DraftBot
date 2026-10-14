@@ -192,17 +192,31 @@ describe("account collision choice", () => {
 		expect((checkpoint.mock.calls[0][0] as AuthToken).getAccessToken()).toBe(access);
 	});
 
-	it("authenticates Discord as the second account when starting from email", async () => {
-		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce(keycloakLogin("discord-access"));
+	it("keeps the account of the shared address without a Discord sign-in when starting from it", async () => {
 		await renderCollision({
 			collision, current: ACCOUNT_COLLISION_CHOICES.EMAIL
 		}, "email-access");
 		expect(within(screen.getByTestId("collision-account-email")).getByText("app:auth.collision.current")).toBeTruthy();
+		expect(within(screen.getByTestId("collision-account-email")).queryByText("app:auth.collision.proveDiscord")).toBeNull();
 		await keep(ACCOUNT_COLLISION_CHOICES.EMAIL);
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
-		expect(KeycloakAuth.login).toHaveBeenCalledWith("discord");
+		expect(KeycloakAuth.login).not.toHaveBeenCalled();
 		expect(KeycloakAuth.loginAs).not.toHaveBeenCalled();
-		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "discord-access", ACCOUNT_COLLISION_CHOICES.EMAIL);
+		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("email-access", "", ACCOUNT_COLLISION_CHOICES.EMAIL);
+		expect((checkpoint.mock.calls[0][0] as AuthToken).getAccessToken()).toBe("email-access");
+	});
+
+	it("signs in to Discord to keep it when starting from the shared address", async () => {
+		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce(keycloakLogin("discord-access"));
+		await renderCollision({
+			collision, current: ACCOUNT_COLLISION_CHOICES.EMAIL
+		}, "email-access");
+		expect(within(screen.getByTestId("collision-account-discord")).getByText("app:auth.collision.proveDiscord")).toBeTruthy();
+		await keep(ACCOUNT_COLLISION_CHOICES.DISCORD);
+		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
+		expect(KeycloakAuth.login).toHaveBeenCalledWith("discord");
+		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith("discord-access", "email-access", ACCOUNT_COLLISION_CHOICES.DISCORD);
+		expect((authenticated.mock.calls[0][0] as AuthToken).getAccessToken()).toBe("discord-access");
 	});
 
 	it("resumes the already-confirmed choice after interruption instead of offering another account", async () => {
