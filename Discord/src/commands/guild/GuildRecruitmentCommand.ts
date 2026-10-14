@@ -39,8 +39,8 @@ function localizedChoice<T extends string | number>(key: string, value: T, repla
 }
 
 function getPacket(interaction: CrowniclesInteraction): CommandGuildRecruitmentPacketReq {
-	const status = interaction.options.get("status")?.value;
-	const minimum = interaction.options.get("minimum")?.value;
+	const status = interaction.options.get(SlashCommandBuilderGenerator.optionName("guildRecruitment", "status"))?.value;
+	const minimum = interaction.options.get(SlashCommandBuilderGenerator.optionName("guildRecruitment", "minimum"))?.value;
 	return makePacket(CommandGuildRecruitmentPacketReq, {
 		...typeof status === "string" ? { open: status === RECRUITMENT_STATUSES.OPEN } : {},
 		...typeof minimum === "number" ? { minScore: minimum } : {}

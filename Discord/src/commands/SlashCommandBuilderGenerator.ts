@@ -7,6 +7,13 @@ import {
 import i18n from "../translations/i18n";
 import { LANGUAGE } from "../../../Lib/src/Language";
 
+/** Crowdin only translates develop: a name it has not translated yet registers as its key, a translated one exactly as written (#4864) */
+function englishNameOf(nameKey: string, sectionName: string): string {
+	return i18n.t(nameKey, {
+		lng: LANGUAGE.ENGLISH, defaultValue: sectionName.toLowerCase()
+	});
+}
+
 export class SlashCommandBuilderGenerator {
 	/**
 	 * This is used to avoid having to write the same code for each command this method create a base command with a name and a description from the translation modules of the command
@@ -19,7 +26,7 @@ export class SlashCommandBuilderGenerator {
 			lng: LANGUAGE.FRENCH,
 			defaultValue: commandSectionName
 		});
-		const englishName = i18n.t(nameKey, { lng: LANGUAGE.ENGLISH });
+		const englishName = englishNameOf(nameKey, commandSectionName);
 		const frenchName = i18n.t(nameKey, { lng: LANGUAGE.FRENCH });
 
 		return new SlashCommandBuilder()
@@ -38,7 +45,7 @@ export class SlashCommandBuilderGenerator {
 
 	static generateSubCommand(commandSectionName: string, subCommandSectionName: string): SlashCommandSubcommandBuilder {
 		const nameKey = `discordBuilder:${commandSectionName}.subcommands.${subCommandSectionName}.name`;
-		const englishName = i18n.t(nameKey, { lng: LANGUAGE.ENGLISH });
+		const englishName = englishNameOf(nameKey, subCommandSectionName);
 		const frenchName = i18n.t(nameKey, { lng: LANGUAGE.FRENCH });
 
 		return new SlashCommandSubcommandBuilder()
@@ -58,7 +65,7 @@ export class SlashCommandBuilderGenerator {
 	 * @param optionSectionName Option section name in the translation files
 	 */
 	static optionName(commandSectionName: string, optionSectionName: string): string {
-		return i18n.t(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, { lng: LANGUAGE.ENGLISH });
+		return englishNameOf(`discordBuilder:${commandSectionName}.options.${optionSectionName}.name`, optionSectionName);
 	}
 
 	/**

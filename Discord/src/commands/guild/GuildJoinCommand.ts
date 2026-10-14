@@ -24,7 +24,7 @@ import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 const JOIN_MENU_ID = "guildJoinMenu";
 
 function getPacket(interaction: CrowniclesInteraction): CommandGuildRecruitmentListPacketReq {
-	const search = interaction.options.get("name")?.value;
+	const search = interaction.options.get(SlashCommandBuilderGenerator.optionName("guildJoin", "name"))?.value;
 	return makePacket(CommandGuildRecruitmentListPacketReq, typeof search === "string" ? { search } : {});
 }
 
