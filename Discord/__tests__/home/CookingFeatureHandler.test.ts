@@ -781,6 +781,43 @@ describe("CookingFeatureHandler", () => {
 				expect(DiscordCollectorUtils.sendReaction).not.toHaveBeenCalled();
 			});
 
+			it("should ignore a stale craft click while the answered menu is still being displayed", async () => {
+				const ctx = createHandlerContext({
+					homeData: createCookingHomeData(2),
+					packet: createMockPacket([{ type: ReactionCollectorRefuseReaction.name }]) as HomeFeatureHandlerContext["packet"]
+				});
+				const craftValue = `${HomeMenuIds.COOKING_CRAFT_PREFIX}0:test_recipe`;
+				const nestedMenus = createMockNestedMenus();
+				let finishMenuEdit!: () => void;
+				(nestedMenus.changeMenu as ReturnType<typeof vi.fn>).mockReturnValueOnce(new Promise<void>(resolve => {
+					finishMenuEdit = resolve;
+				}));
+				const sendMock = DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse as ReturnType<typeof vi.fn>;
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				const answerHandled = simulateMqttResponse(CommandReportCookingCraftRes.name, {
+					error: CookingCraftErrors.CRAFT_UNAVAILABLE,
+					recipeId: "testRecipe",
+					cookingXpGained: 0,
+					success: false,
+					cookingLevelUp: false,
+					menu: {
+						cookingLevel: 5,
+						cookingGrade: "apprentice",
+						currentSlots: [createSlotWithRecipe()],
+						isIgnited: true
+					}
+				} as CommandReportCookingCraftRes);
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				expect(sendMock).toHaveBeenCalledTimes(1);
+
+				finishMenuEdit();
+				await answerHandled;
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+				expect(sendMock).toHaveBeenCalledTimes(2);
+			});
+
 			it("should show an unexpected answer instead of swallowing it and close the furnace", async () => {
 				const ctx = createHandlerContext({
 					homeData: createCookingHomeData(2),
