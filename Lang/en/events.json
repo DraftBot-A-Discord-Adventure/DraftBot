@@ -1199,6 +1199,13 @@
           "1": "You set off again, only to find an injured man. As you try to help him, you discover that you've been ambushed! Some men appear and rob you before setting off again."
         },
         "text": "Go back the way you came."
+      },
+      "keepGoing": {
+        "outcomes": {
+          "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
+          "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
+        },
+        "text": "Continue on your way."
       }
     },
     "text": "As you go deep into a dark forest, you see the silhouette of a man in the distance. While moving closer, you realize he's a hermit, out foraging. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do..."
