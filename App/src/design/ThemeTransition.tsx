@@ -55,6 +55,26 @@ function coveringRadius(origin: ThemeOrigin, width: number, height: number): num
 	return Math.hypot(Math.max(origin.x, width - origin.x), Math.max(origin.y, height - origin.y));
 }
 
+type ThemeRequest = {
+	origin?: ThemeOrigin;
+	unchanged: boolean;
+	reducedMotion: boolean;
+	revealing: boolean;
+};
+
+/** Where the circle starts, or null to switch at once: no finger, nothing to change, motion reduced, the web, or a reveal already running. */
+function revealOrigin(request: ThemeRequest): ThemeOrigin | null {
+	const instant = request.unchanged || request.reducedMotion || request.revealing || Platform.OS === "web";
+	return instant ? null : request.origin ?? null;
+}
+
+/** Repaints the screen in the new theme, then pictures it once drawn. */
+async function pictureAfter(reveal: Reveal, root: RefObject<View | null>): Promise<string> {
+	reveal.switchTheme();
+	await nextFrame();
+	return snapshot(root);
+}
+
 function RevealOverlay({
 	reveal, onAfterShown, onDone
 }: {
@@ -97,13 +117,16 @@ export function ThemeTransitionRoot({ children }: { children: ReactNode }): Reac
 	const { setPreference } = theme;
 
 	const change = useCallback<ThemeChange>((preference, origin) => {
-		if (!origin || reducedMotion || Platform.OS === "web" || preference === theme.preference || reveal) {
+		const from = revealOrigin({
+			origin, unchanged: preference === theme.preference, reducedMotion, revealing: reveal !== null
+		});
+		if (!from) {
 			setPreference(preference);
 			return;
 		}
 		snapshot(root)
 			.then(before => setReveal({
-				before, origin, switchTheme: () => setPreference(preference)
+				before, origin: from, switchTheme: () => setPreference(preference)
 			}))
 			.catch(() => setPreference(preference));
 	}, [
@@ -117,9 +140,7 @@ export function ThemeTransitionRoot({ children }: { children: ReactNode }): Reac
 		if (!reveal || reveal.after) {
 			return;
 		}
-		reveal.switchTheme();
-		nextFrame()
-			.then(() => snapshot(root))
+		pictureAfter(reveal, root)
 			.then(after => setReveal(current => current && {
 				...current, after
 			}))

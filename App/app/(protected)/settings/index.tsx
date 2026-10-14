@@ -13,8 +13,12 @@ import { makeFromClientPacket } from "ws-packets/src/MakePackets";
 import { VersionReq } from "ws-packets/src/fromClient/PlayerUtilityReq";
 import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
 import { AuthContext } from "@/src/authentication/AuthContext";
-import { useEmailChange } from "@/src/authentication/EmailChange";
-import { usePasswordChange } from "@/src/authentication/AccountAction";
+import {
+	EmailChange, useEmailChange
+} from "@/src/authentication/EmailChange";
+import {
+	PasswordChange, usePasswordChange
+} from "@/src/authentication/AccountAction";
 import { PreferencesContext } from "@/src/preferences/PreferencesContext";
 import {
 	travelAdvicePreference, useTravelAdvicesShown
@@ -129,7 +133,7 @@ function GameSettings(): ReactNode {
 function DisplaySettings(): ReactNode {
 	const theme = useTheme();
 	const changeTheme = useThemeChange();
-	const touch = useRef<ThemeOrigin | undefined>(undefined);
+	const touch = useRef<ThemeOrigin | null>(null);
 	return <>
 		<SectionHeader>{i18n.t("app:settings.sections.display")}</SectionHeader>
 		<ExpandableList>
@@ -139,7 +143,7 @@ function DisplaySettings(): ReactNode {
 						x: event.nativeEvent.pageX, y: event.nativeEvent.pageY
 					};
 				}}>
-					<SegmentedControl label={i18n.t("app:settings.theme.label")} value={theme.preference} onChange={(preference): void => changeTheme(preference, touch.current)} options={[
+					<SegmentedControl label={i18n.t("app:settings.theme.label")} value={theme.preference} onChange={(preference): void => changeTheme(preference, touch.current ?? undefined)} options={[
 						{
 							value: THEME_PREFERENCES.SYSTEM, label: i18n.t("app:settings.theme.system")
 						},
@@ -237,6 +241,21 @@ function LogoutSheet({
 	</QuestionSheet>;
 }
 
+/** What became of the last account action: shown under the list, apart from the logout sheet which tells its own failure. */
+function AccountFeedback({
+	emailChange, passwordChange, sessionExit, logoutOpen
+}: {
+	emailChange: EmailChange; passwordChange: PasswordChange; sessionExit: SessionExit; logoutOpen: boolean;
+}): ReactNode {
+	return <>
+		{emailChange.awaitingLink ? <Note>{i18n.t("app:settings.email.awaitingLink")}</Note> : null}
+		{emailChange.failed ? <Refusal>{i18n.t("app:settings.email.failed")}</Refusal> : null}
+		{passwordChange.saved ? <Note>{i18n.t("app:settings.password.saved")}</Note> : null}
+		{passwordChange.failed ? <Refusal>{i18n.t("app:settings.password.failed")}</Refusal> : null}
+		{sessionExit.failed && !logoutOpen ? <Refusal>{i18n.t("app:settings.changeAccountFailed")}</Refusal> : null}
+	</>;
+}
+
 function AccountSettings(): ReactNode {
 	const router = useRouter();
 	const [leaving, setLeaving] = useState(false);
@@ -265,11 +284,7 @@ function AccountSettings(): ReactNode {
 			<EntryRow title={i18n.t("app:common.logout")} disabled={sessionExit.pending} onPress={(): void => setLeaving(true)} />
 			<EntryRow title={i18n.t("app:settings.deleteAccount.entry")} disabled={sessionExit.pending} danger onPress={(): void => router.push("/settings/delete-account")} />
 		</ExpandableList>
-		{emailChange.awaitingLink ? <Note>{i18n.t("app:settings.email.awaitingLink")}</Note> : null}
-		{emailChange.failed ? <Refusal>{i18n.t("app:settings.email.failed")}</Refusal> : null}
-		{passwordChange.saved ? <Note>{i18n.t("app:settings.password.saved")}</Note> : null}
-		{passwordChange.failed ? <Refusal>{i18n.t("app:settings.password.failed")}</Refusal> : null}
-		{sessionExit.failed && !leaving ? <Refusal>{i18n.t("app:settings.changeAccountFailed")}</Refusal> : null}
+		<AccountFeedback emailChange={emailChange} passwordChange={passwordChange} sessionExit={sessionExit} logoutOpen={leaving} />
 		{leaving
 			? <LogoutSheet sessionExit={sessionExit} onClose={(): void => {
 				if (!sessionExit.pending) {

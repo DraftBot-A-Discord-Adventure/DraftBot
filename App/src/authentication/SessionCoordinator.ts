@@ -83,6 +83,12 @@ const OUTDATED_PHASES: Record<AppOutdatedStatus, SessionPhase> = {
 	[APP_COMPATIBILITY_STATUSES.SERVER_OUTDATED]: SESSION_PHASES.SERVER_OUTDATED
 };
 
+/** Socket closes that decide the fate of the session itself, and the phase each one ends it in. */
+const ENDING_SOCKET_STATES: Partial<Record<AuthStateEnum, EndedPhase>> = {
+	[AuthStateEnum.TOKEN_INVALID_OR_EXPIRED]: SESSION_PHASES.EXPIRED,
+	[AuthStateEnum.NO_TOKEN]: SESSION_PHASES.SIGNED_OUT
+};
+
 /** Only Keycloak refusing the session ends it; any other failure may be retried. */
 function isRejectedSession(error: unknown): boolean {
 	return error instanceof AuthFailure && error.reason === AUTH_FAILURES.INVALID_TOKEN;
@@ -238,22 +244,24 @@ export class SessionCoordinator {
 
 	/** Some closes decide the fate of the session itself: those never go through the socket state. */
 	private socketChanged(state: AuthStateEnum): void {
-		if (state === AuthStateEnum.TOKEN_INVALID_OR_EXPIRED) {
-			this.end(SESSION_PHASES.EXPIRED).catch((): void => undefined);
-			return;
-		}
-		if (state === AuthStateEnum.NO_TOKEN) {
-			this.end(SESSION_PHASES.SIGNED_OUT).catch((): void => undefined);
+		const ended = ENDING_SOCKET_STATES[state];
+		if (ended) {
+			this.end(ended).catch((): void => undefined);
 			return;
 		}
 		if (state === AuthStateEnum.ACCOUNT_COLLISION) {
-			if (this.phase === SESSION_PHASES.ACTIVE && this.token) {
-				this.enter(this.token).catch((): void => undefined);
-			}
+			this.reenterOnCollision();
 			return;
 		}
 		this.socketState = state;
 		this.publish();
+	}
+
+	/** The server found a collision behind an open session: entering again brings it up. */
+	private reenterOnCollision(): void {
+		if (this.phase === SESSION_PHASES.ACTIVE && this.token) {
+			this.enter(this.token).catch((): void => undefined);
+		}
 	}
 
 	/** Keycloak refused the session or the server ended it: nothing is left to keep, even if the device cannot erase it. */

@@ -83,6 +83,14 @@ function queryParameter(url: string, name: string): string | undefined {
 	return value === undefined ? undefined : decodeURIComponent(value);
 }
 
+/** The address Keycloak sends the browser back to, with the outcome in its query. */
+type CallbackUrl = string;
+
+/** A callback belongs to a request only with the same state and the same action. */
+function answersRequest(callbackUrl: CallbackUrl, request: AuthRequest, action: KeycloakAction): boolean {
+	return queryParameter(callbackUrl, "state") === request.state && queryParameter(callbackUrl, "kc_action") === action;
+}
+
 /**
  * The confirmation page offers a way back to the game which carries no parameter: Keycloak still
  * waits for the link at that point, so it cannot end the action itself.
@@ -229,17 +237,21 @@ export class KeycloakAuth {
 	 * The callback must answer this very request; once the action succeeded, its PKCE code must sign in the
 	 * targeted account, whichever way the player went through Keycloak (another sign-in, a sign-up, a reset).
 	 */
-	private static async confirmActionAccount(callbackUrl: string, request: AuthRequest, {
+	private static async confirmActionAccount(callbackUrl: CallbackUrl, request: AuthRequest, {
 		action, target
 	}: {
 		action: KeycloakAction; target: AccountTarget;
 	}): Promise<void> {
-		if (queryParameter(callbackUrl, "state") !== request.state || queryParameter(callbackUrl, "kc_action") !== action) {
+		if (!answersRequest(callbackUrl, request, action)) {
 			throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Account action callback does not match its request.");
 		}
 		if (queryParameter(callbackUrl, "kc_action_status") !== ACTION_STATUSES.SUCCESS) {
 			return;
 		}
+		await KeycloakAuth.ensureSignsInTarget(callbackUrl, request, target);
+	}
+
+	private static async ensureSignsInTarget(callbackUrl: CallbackUrl, request: AuthRequest, target: AccountTarget): Promise<void> {
 		const code = queryParameter(callbackUrl, "code");
 		if (!code) {
 			throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Account action did not return an authorization code.");

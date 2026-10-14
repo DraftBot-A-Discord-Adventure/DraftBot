@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		return;
 	}
 	let checking = false;
-	let poll;
+	let poll = null;
 
 	/** Whether the flow moved on, which this page then follows. */
 	const moveOnIfConfirmed = async () => {

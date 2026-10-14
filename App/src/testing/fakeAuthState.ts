@@ -9,9 +9,9 @@ export function fakeAuthState(overrides: Partial<AuthState> = {}): AuthState {
 	return {
 		state: AuthStateEnum.LOGGED_IN,
 		collision: null,
-		enter: jest.fn().mockResolvedValue(undefined),
-		checkpoint: jest.fn().mockResolvedValue(undefined),
-		leave: jest.fn().mockResolvedValue(undefined),
+		enter: jest.fn(() => Promise.resolve()),
+		checkpoint: jest.fn(() => Promise.resolve()),
+		leave: jest.fn(() => Promise.resolve()),
 		retry: jest.fn(),
 		accessToken: jest.fn().mockResolvedValue("access-token"),
 		changeEmail: jest.fn(),

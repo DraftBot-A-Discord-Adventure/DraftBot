@@ -138,7 +138,10 @@ function readIntent(user: KeycloakUser): ResolutionIntent | null {
 function discordContact(discord: KeycloakUser): DiscordContact | null {
 	const email = attribute(discord, "discordEmail");
 	const discordId = attribute(discord, "discordId");
-	if (!email || !discordId || !hasVerifiedDiscordEmail(discord)) {
+	if (!email || !discordId) {
+		return null;
+	}
+	if (!hasVerifiedDiscordEmail(discord)) {
 		return null;
 	}
 	return {
@@ -164,6 +167,19 @@ function pairUnchanged(pair: CollisionPair, discord: KeycloakUser, emailAccount:
 }
 function isInPair(user: KeycloakUser, pair: CollisionPair): boolean {
 	return user.id === pair.discord.id || user.id === pair.emailAccount.id;
+}
+
+/** The email session proves the pair only as another account, still holding the address, verified. */
+function checkEmailProof(emailAccount: KeycloakUser, pair: CollisionPair): void {
+	if (emailAccount.id === pair.discord.id) {
+		throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, 401);
+	}
+	if (!stillOwnsEmail(emailAccount, pair)) {
+		throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
+	}
+	if (!emailAccount.emailVerified) {
+		throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNVERIFIED_EMAIL);
+	}
 }
 
 /** Only Discord sign-ins leave a verified Discord address on an account: such a session cannot keep the email account. */
@@ -342,15 +358,7 @@ export class AccountCollisionService {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
 		}
 		const emailAccount = await this.emailSessionUser(emailToken);
-		if (emailAccount.id === pair.discord.id) {
-			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, 401);
-		}
-		if (!stillOwnsEmail(emailAccount, pair)) {
-			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
-		}
-		if (!emailAccount.emailVerified) {
-			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNVERIFIED_EMAIL);
-		}
+		checkEmailProof(emailAccount, pair);
 		return {
 			...pair, emailAccount
 		};
@@ -483,16 +491,25 @@ export class AccountCollisionService {
 		if (pending) {
 			return this.underPairLock(pending, () => this.finish(pending));
 		}
-		if (!otherToken) {
-			const ownPair = await this.emailAccountKeepingItself(identity, user, choice);
-			if (ownPair) {
-				return this.settle(ownPair, choice);
-			}
-			if (!(await this.check(token)).collision) {
-				return { kept: choice };
-			}
-			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
+		return otherToken
+			? this.resolveWithBothSessions(token, otherToken, user, choice)
+			: this.resolveWithOwnSession(token, identity, user, choice);
+	}
+
+	/** Without a second sign-in, only the email account may keep itself; otherwise there must be nothing left to settle. */
+	private async resolveWithOwnSession(token: AccessToken, identity: KeycloakSessionIdentity, user: KeycloakUser, choice: AccountCollisionChoice): Promise<AccountCollisionResolution> {
+		const ownPair = await this.emailAccountKeepingItself(identity, user, choice);
+		if (ownPair) {
+			return this.settle(ownPair, choice);
 		}
+		if (!(await this.check(token)).collision) {
+			return { kept: choice };
+		}
+		throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
+	}
+
+	/** Both accounts signed in prove the pair; the requester must be the one kept. */
+	private async resolveWithBothSessions(token: AccessToken, otherToken: AccessToken, user: KeycloakUser, choice: AccountCollisionChoice): Promise<AccountCollisionResolution> {
 		if (keepsEmailWithDiscordSession(user, choice)) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, 401);
 		}
