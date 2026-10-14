@@ -1199,6 +1199,13 @@
           "1": "Ripartite quando trovate un uomo ferito. Mentre cercate di aiutarlo, scoprite di essere caduti in un'imboscata! Alcuni uomini appaiono e vi derubano prima di ripartire."
         },
         "text": "Tornate indietro da dove siete venuti."
+      },
+      "keepGoing": {
+        "outcomes": {
+          "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
+          "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
+        },
+        "text": "Continuate il vostro cammino."
       }
     },
     "text": "Vi addentrate in una foresta buia e vedete la sagoma di un uomo in lontananza. Decidete di avvicinarvi e vi rendete conto che si tratta di un eremita, in cerca di cibo. Vi avvicinate alla sua casa, sulla quale leggete la scritta \"Xetrix\", che probabilmente è il suo nome. State ancora pensando a cosa fare..."
