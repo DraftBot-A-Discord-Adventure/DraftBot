@@ -80,6 +80,12 @@ interface CookingCraftSelection {
 	recipeId: CookingRecipeId;
 }
 
+interface CookingCraftAnswer {
+	context: PacketContext;
+	packetName: string;
+	packet: CrowniclesPacket;
+}
+
 export class CookingFeatureHandler implements HomeFeatureHandler {
 	public readonly featureId = HomeMenuIds.FEATURE_COOKING;
 
@@ -937,16 +943,37 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	private async handleUnexpectedCraftAnswer(
 		ctx: HomeFeatureHandlerContext,
 		nestedMenus: CrowniclesNestedMenus,
-		answer: {
-			context: PacketContext;
-			packetName: string;
-			packet: CrowniclesPacket;
-		}
+		answer: CookingCraftAnswer
 	): Promise<void> {
 		await DiscordMQTT.packetListener.getListener(answer.packetName)?.(answer.context, answer.packet);
 		this.registerIgnitedMenu(ctx, nestedMenus, "", true);
 		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 		this.releaseCookingSession(ctx);
+	}
+
+	private async handleCraftAnswer(
+		ctx: HomeFeatureHandlerContext,
+		nestedMenus: CrowniclesNestedMenus,
+		answer: CookingCraftAnswer
+	): Promise<void> {
+		if (answer.packetName !== CommandReportCookingCraftRes.name) {
+			await this.handleUnexpectedCraftAnswer(ctx, nestedMenus, answer);
+			return;
+		}
+
+		const response = answer.packet as CommandReportCookingCraftRes;
+		this.applySnapshot(ctx, response.menu);
+		if (response.error) {
+			await this.showBlockedCraft(ctx, nestedMenus, response.error);
+			return;
+		}
+
+		await this.sendCraftFollowup(
+			ctx,
+			nestedMenus,
+			this.buildCraftResultMessage(response, ctx),
+			this.buildLevelUpEmbed(response, ctx)
+		);
 	}
 
 	/**
@@ -969,29 +996,17 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				ctx.context,
 				makePacket(CommandReportCookingCraftReq, craftSelection),
 				async (responseContext, packetName, responsePacket) => {
-					releaseCraft();
-					if (packetName !== CommandReportCookingCraftRes.name) {
-						await this.handleUnexpectedCraftAnswer(ctx, nestedMenus, {
+					// The old craft buttons stay clickable until the menu edit completes
+					try {
+						await this.handleCraftAnswer(ctx, nestedMenus, {
 							context: responseContext,
 							packetName,
 							packet: responsePacket
 						});
-						return;
 					}
-
-					const response = responsePacket as CommandReportCookingCraftRes;
-					this.applySnapshot(ctx, response.menu);
-					if (response.error) {
-						await this.showBlockedCraft(ctx, nestedMenus, response.error);
-						return;
+					finally {
+						releaseCraft();
 					}
-
-					await this.sendCraftFollowup(
-						ctx,
-						nestedMenus,
-						this.buildCraftResultMessage(response, ctx),
-						this.buildLevelUpEmbed(response, ctx)
-					);
 				},
 				{ onTimeout: releaseCraft }
 			);
