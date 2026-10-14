@@ -70,6 +70,14 @@ function creationDate(createdAt: number): string {
 	return new Intl.DateTimeFormat(i18n.language, { dateStyle: "long" }).format(createdAt);
 }
 
+/** An account without progression is told apart from one whose progression the game could not tell, or has not told yet. */
+function progressionNote(account: CollisionAccount, previewing: boolean): string {
+	if (previewing) {
+		return i18n.t("app:common.loading");
+	}
+	return i18n.t(account.progressionAvailable ? "app:auth.collision.noAdventure" : "app:auth.collision.progressionUnavailable");
+}
+
 function AdventureFacts({ adventure }: { adventure: CollisionAccountAdventure }): ReactNode {
 	return <>
 		<Fact label={i18n.t("app:auth.collision.fields.level")} value={formatNumber(adventure.level)} />
@@ -100,10 +108,11 @@ function AccountHead({
 
 /** One of the two accounts, told apart by what the player remembers of it: its name, where it stands, when it began. */
 export function CollisionAccountCard({
-	kind, account, current, keep
+	kind, account, previewing, current, keep
 }: {
 	kind: AccountCollisionChoice;
 	account: CollisionAccount;
+	previewing: boolean;
 	current: boolean;
 	keep: KeepAccountAction;
 }): ReactNode {
@@ -111,7 +120,7 @@ export function CollisionAccountCard({
 	return <Card>
 		<View testID={`collision-account-${kind}`}>
 			<AccountHead kind={kind} name={account.name} current={current} />
-			{account.adventure ? <AdventureFacts adventure={account.adventure} /> : <Note>{i18n.t(account.progressionAvailable ? "app:auth.collision.noAdventure" : "app:auth.collision.progressionUnavailable")}</Note>}
+			{account.adventure ? <AdventureFacts adventure={account.adventure} /> : <Note>{progressionNote(account, previewing)}</Note>}
 			<Fact label={i18n.t("app:auth.collision.fields.createdAt")} value={creationDate(account.createdAt)} />
 			<View style={styles.action}>
 				<ActionBanner

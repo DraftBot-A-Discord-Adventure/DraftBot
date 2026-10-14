@@ -12,6 +12,7 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { WebSocketServer } from "../WebSocketServer";
 import { WEBSOCKET_ACCOUNT_DELETED_REASON } from "../../../../WsPackets/src/WebSocketCloseReasons";
 import { coreAccountAdventures } from "../CoreAccountAdventures";
+import { requireAppProtocol } from "../AppProtocol";
 
 type ResolveBody = {
 	otherToken: string; keep: AccountCollisionChoice;
@@ -40,13 +41,14 @@ export function setupAccountCollisionRoutes(
 	server: FastifyInstance,
 	service: AccountCollisionService = new AccountCollisionService(keycloakConfig, id => WebSocketServer.closeConnection(id, WEBSOCKET_ACCOUNT_DELETED_REASON), coreAccountAdventures)
 ): void {
-	server.get(ACCOUNT_COLLISION_ENDPOINTS.CHECK, async (request, reply): Promise<void> => {
+	server.get(ACCOUNT_COLLISION_ENDPOINTS.CHECK, { onRequest: requireAppProtocol }, async (request, reply): Promise<void> => {
 		await respond(reply, () => service.check(bearerToken(request)));
 	});
-	server.get(ACCOUNT_COLLISION_ENDPOINTS.PREVIEW, async (request, reply): Promise<void> => {
-		await respond(reply, () => service.check(bearerToken(request), true));
+	server.get(ACCOUNT_COLLISION_ENDPOINTS.PREVIEW, { onRequest: requireAppProtocol }, async (request, reply): Promise<void> => {
+		await respond(reply, () => service.preview(bearerToken(request)));
 	});
 	server.post<{ Body: ResolveBody }>(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, {
+		onRequest: requireAppProtocol,
 		schema: { body: {
 			type: "object",
 			required: ["otherToken", "keep"],

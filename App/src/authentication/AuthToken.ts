@@ -1,5 +1,8 @@
 import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
 import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
+import {
+	AUTH_FAILURES, AuthFailure
+} from "@/src/authentication/AuthFailure";
 
 const REFRESH_TOKEN_NEVER_EXPIRES = "never";
 
@@ -85,7 +88,8 @@ export class AuthToken {
 			});
 		}
 		catch {
-			throw new Error("Invalid token string format");
+			// A write interrupted between two keychain parts leaves a session nobody can use: it is to be signed in again.
+			throw new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "Invalid token string format");
 		}
 	}
 

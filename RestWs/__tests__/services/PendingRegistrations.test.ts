@@ -2,11 +2,12 @@ import {beforeEach, describe, expect, it, vi} from "vitest";
 import {PendingRegistrations} from "../../src/services/PendingRegistrations";
 import {KeycloakUtils} from "../../../Lib/src/keycloak/KeycloakUtils";
 import {KeycloakUser} from "../../../Lib/src/keycloak/KeycloakUser";
+import {asMilliseconds} from "../../../Lib/src/types/TimeTypes";
 
 vi.mock("../../src/index", () => ({keycloakConfig: {}}));
 vi.mock("../../../Lib/src/keycloak/KeycloakUtils", () => ({KeycloakUtils: {getPendingRegistrations: vi.fn(), getUserByKeycloakId: vi.fn(), deleteUser: vi.fn()}}));
 
-const NOW = 10_000_000;
+const NOW = asMilliseconds(10_000_000);
 function account(id: string, verified = false): KeycloakUser {
 	return {id, username: id, attributes: {gameUsername: [id], registrationPending: ["true"]}, emailVerified: verified, createdTimestamp: NOW - 4_000_000} as KeycloakUser;
 }
@@ -72,5 +73,21 @@ describe("pending registration cleanup", () => {
 		vi.mocked(KeycloakUtils.getUserByKeycloakId).mockResolvedValue({isError: false, status: 200, payload: {user: current}});
 		await PendingRegistrations.review(NOW);
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
+	});
+
+	it("never deletes a confirmed account that still carries the registration marker", async () => {
+		const confirmed = account("confirmed", true);
+		vi.mocked(KeycloakUtils.getPendingRegistrations).mockResolvedValue({isError: false, status: 200, payload: {users: [confirmed]}});
+		vi.mocked(KeycloakUtils.getUserByKeycloakId).mockResolvedValue({isError: false, status: 200, payload: {user: confirmed}});
+		await PendingRegistrations.review(NOW);
+		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
+	});
+
+	it("keeps reviewing the other registrations after a failed deletion", async () => {
+		vi.mocked(KeycloakUtils.getPendingRegistrations).mockResolvedValue({isError: false, status: 200, payload: {users: [account("first"), account("second")]}});
+		vi.mocked(KeycloakUtils.getUserByKeycloakId).mockImplementation(async (_config, id) => ({isError: false, status: 200, payload: {user: account(id)}}));
+		vi.mocked(KeycloakUtils.deleteUser).mockResolvedValueOnce({isError: true, status: 503, payload: {}});
+		await PendingRegistrations.review(NOW);
+		expect(KeycloakUtils.deleteUser).toHaveBeenLastCalledWith({}, "second");
 	});
 });

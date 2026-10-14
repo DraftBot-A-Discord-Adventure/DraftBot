@@ -14,12 +14,16 @@ import {
 	WEBSOCKET_APP_OUTDATED_REASON, WEBSOCKET_SERVER_OUTDATED_REASON, WEBSOCKET_SESSION_REPLACED_REASON, WEBSOCKET_ACCOUNT_COLLISION_REASON, WEBSOCKET_AUTH_UNAVAILABLE_REASON, WebSocketCloseReason
 } from "../../../WsPackets/src/WebSocketCloseReasons";
 import {
-	APP_COMPATIBILITY_STATUSES, APP_PROTOCOL_QUERY_PARAMETER, APP_PROTOCOL_VERSION, compareProtocolVersions
+	APP_COMPATIBILITY_STATUSES, APP_PROTOCOL_QUERY_PARAMETER
 } from "../../../WsPackets/src/AppCompatibility";
+import { announcedCompatibility } from "./AppProtocol";
 import { FromClientPacket } from "../../../WsPackets/src/fromClient/FromClientPacket";
 import {
 	Server, WebSocket
 } from "ws";
+
+/** What Keycloak answers for a token it refuses, as opposed to being unreachable. */
+const TOKEN_REFUSED_STATUS = 401;
 
 type ClientMessage = {
 	id?: string;
@@ -283,8 +287,7 @@ export class WebSocketServer {
 	 * @param query
 	 */
 	private static outdatedReason(query: URLSearchParams): string | null {
-		// An app without the parameter predates the check, so it is outdated too
-		const compatibility = compareProtocolVersions(Number(query.get(APP_PROTOCOL_QUERY_PARAMETER)), APP_PROTOCOL_VERSION);
+		const compatibility = announcedCompatibility(query.get(APP_PROTOCOL_QUERY_PARAMETER));
 		if (compatibility === APP_COMPATIBILITY_STATUSES.UP_TO_DATE) {
 			return null;
 		}
@@ -293,7 +296,7 @@ export class WebSocketServer {
 
 	private static async tokenOwner(token: string): Promise<KeycloakId | null> {
 		const checkToken = await KeycloakUtils.checkTokenAndGetKeycloakId(keycloakConfig, token);
-		if (checkToken.isError && checkToken.status !== 401) {
+		if (checkToken.isError && checkToken.status !== TOKEN_REFUSED_STATUS) {
 			throw new Error("Token verification unavailable");
 		}
 		return checkToken.isError ? null : checkToken.payload.keycloakId;

@@ -6,7 +6,7 @@ import { ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS } from "../../../Ws
 
 vi.mock("../../../Lib/src/keycloak/KeycloakUtils", () => ({KeycloakUtils: {
 	getSessionIdentity: vi.fn(), getUserByKeycloakId: vi.fn(), getUsersByEmail: vi.fn(), getUsersByDiscordEmail: vi.fn(),
-	updateUser: vi.fn(), deleteUser: vi.fn(), linkDiscordIdentity: vi.fn(), getDiscordIdentityOwners: vi.fn(), getFederatedIdentities: vi.fn()
+	patchUser: vi.fn(), deleteUser: vi.fn(), linkDiscordIdentity: vi.fn(), getDiscordIdentityOwners: vi.fn(), getFederatedIdentities: vi.fn()
 }}));
 
 const CONFIG = {url: "https://keycloak.test", realm: "test", clientId: "test-service", clientSecret: "test-secret"};
@@ -37,8 +37,12 @@ describe("account collision resolution", () => {
 		});
 		vi.mocked(KeycloakUtils.getUsersByEmail).mockImplementation(async (_config, email) => ({isError: false, status: 200, payload: {users: [...users.values()].filter(account => account.email === email).map(account => structuredClone(account))}}));
 		vi.mocked(KeycloakUtils.getUsersByDiscordEmail).mockImplementation(async (_config, email) => ({isError: false, status: 200, payload: {users: [...users.values()].filter(account => account.attributes.discordEmail?.[0] === email).map(account => structuredClone(account))}}));
-		vi.mocked(KeycloakUtils.updateUser).mockImplementation(async (_config, account) => {
-			users.set(account.id, structuredClone(account));
+		vi.mocked(KeycloakUtils.patchUser).mockImplementation(async (_config, id, change) => {
+			const account = users.get(id);
+			if (!account) {
+				return {isError: true, status: 404, payload: {}};
+			}
+			users.set(id, structuredClone(change(structuredClone(account))));
 			return {isError: false, status: 204, payload: {}};
 		});
 		vi.mocked(KeycloakUtils.deleteUser).mockImplementation(async (_config, id) => {
@@ -52,7 +56,7 @@ describe("account collision resolution", () => {
 
 	it("detects the two accounts from either account's session", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		const collision = {email: EMAIL, discord: {keycloakId: "discord-user", name: "Historical hero", createdAt: 0}, emailAccount: {keycloakId: "email-user", name: "New hero", createdAt: 0}};
+		const collision = {email: EMAIL, discord: {name: "Historical hero", createdAt: 0}, emailAccount: {keycloakId: "email-user", name: "New hero", createdAt: 0}};
 		await expect(service.check("discord-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD});
 		await expect(service.check("email-token")).resolves.toEqual({collision, current: ACCOUNT_COLLISION_CHOICES.EMAIL});
 	});
@@ -70,20 +74,33 @@ describe("account collision resolution", () => {
 		expect(check.collision?.discord.name).toBe(expected);
 		expect(check.collision?.emailAccount.name).toBe("New hero");
 		expect(discord.attributes.gameUsername).toEqual([discord.username]);
-		expect(KeycloakUtils.updateUser).not.toHaveBeenCalled();
+		expect(KeycloakUtils.patchUser).not.toHaveBeenCalled();
 	});
 
 	it("describes each account with its creation date and the adventure the game knows of it", async () => {
 		users.get("discord-user")!.createdTimestamp = 1_600_000_000_000;
 		users.get("email-user")!.createdTimestamp = 1_700_000_000_000;
 		const adventures = vi.fn().mockResolvedValue([{keycloakId: "discord-user", level: 42, score: 12_345, classId: 7}]);
-		const check = await new AccountCollisionService(CONFIG, undefined, adventures).check("email-token", true);
+		const check = await new AccountCollisionService(CONFIG, undefined, adventures).preview("email-token");
 		expect(adventures).toHaveBeenCalledExactlyOnceWith("email-user", ["discord-user", "email-user"]);
 		expect(check.collision).toEqual({
 			email: EMAIL,
-			discord: {keycloakId: "discord-user", name: "Historical hero", createdAt: 1_600_000_000_000, progressionAvailable: true, adventure: {level: 42, score: 12_345, classId: 7}},
+			discord: {name: "Historical hero", createdAt: 1_600_000_000_000, progressionAvailable: true, adventure: {level: 42, score: 12_345, classId: 7}},
 			emailAccount: {keycloakId: "email-user", name: "New hero", createdAt: 1_700_000_000_000, progressionAvailable: true}
 		});
+	});
+
+	it("tells a progression the game could not read apart from an account without one", async () => {
+		const check = await new AccountCollisionService(CONFIG, undefined, vi.fn().mockResolvedValue(null)).preview("discord-token");
+		expect(check.collision?.discord).toEqual({name: "Historical hero", createdAt: 0, progressionAvailable: false});
+		expect(check.collision?.emailAccount.progressionAvailable).toBe(false);
+	});
+
+	it("never waits for the game to tell whether a collision blocks the session", async () => {
+		const adventures = vi.fn();
+		const check = await new AccountCollisionService(CONFIG, undefined, adventures).check("discord-token");
+		expect(adventures).not.toHaveBeenCalled();
+		expect(check.collision?.discord).not.toHaveProperty("progressionAvailable");
 	});
 
 	it("detects the Discord side even when the session does not name its identity provider", async () => {
@@ -129,7 +146,7 @@ describe("account collision resolution", () => {
 
 	it("requires the token of the account chosen to be kept", async () => {
 		const service = new AccountCollisionService(CONFIG);
-		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		await expect(service.resolve("discord-token", "email-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
 	});
 
@@ -152,7 +169,7 @@ describe("account collision resolution", () => {
 		vi.mocked(KeycloakUtils.getFederatedIdentities).mockResolvedValue({isError: false, status: 200, payload: {identities: [{identityProvider: "discord", userId: "another-discord-id"}]}});
 		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.CONFLICT});
 		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
-		expect(KeycloakUtils.updateUser).not.toHaveBeenCalled();
+		expect(KeycloakUtils.patchUser).not.toHaveBeenCalled();
 	});
 
 	it("refuses a third identity owner before deleting either account", async () => {
@@ -197,10 +214,10 @@ describe("account collision resolution", () => {
 	it("preserves account fields updated while the Discord identity is being linked", async () => {
 		const service = new AccountCollisionService(CONFIG);
 		vi.mocked(KeycloakUtils.linkDiscordIdentity).mockImplementationOnce(async () => {
-			await KeycloakUtils.updateUser(CONFIG, {
-				...users.get("email-user")!,
-				attributes: {...users.get("email-user")!.attributes, gameUsername: ["Updated hero"], language: ["en"]}
-			});
+			await KeycloakUtils.patchUser(CONFIG, "email-user", current => ({
+				...current,
+				attributes: {...current.attributes, gameUsername: ["Updated hero"], language: ["en"]}
+			}));
 			return {isError: false, status: 204, payload: {changed: true}};
 		});
 		await expect(service.resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
@@ -224,5 +241,12 @@ describe("account collision resolution", () => {
 		await new AccountCollisionService(CONFIG).resolve("email-token", "discord-token", ACCOUNT_COLLISION_CHOICES.EMAIL);
 		await expect(new AccountCollisionService(CONFIG).resolve("email-token", "", ACCOUNT_COLLISION_CHOICES.EMAIL)).resolves.toEqual({kept: ACCOUNT_COLLISION_CHOICES.EMAIL});
 		expect(KeycloakUtils.deleteUser).toHaveBeenCalledTimes(1);
+	});
+
+	it("deletes nothing when only the kept session comes back while both accounts still collide", async () => {
+		await expect(new AccountCollisionService(CONFIG).resolve("discord-token", "", ACCOUNT_COLLISION_CHOICES.DISCORD)).rejects.toMatchObject({reason: ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED});
+		expect(users.size).toBe(2);
+		expect(KeycloakUtils.deleteUser).not.toHaveBeenCalled();
+		expect(KeycloakUtils.patchUser).not.toHaveBeenCalled();
 	});
 });

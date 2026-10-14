@@ -44,8 +44,13 @@ type KeycloakCallStatus = {
 	isError: boolean; status: number;
 };
 
-/** Reads where the accounts stand in the game; answers the ones it could read, never fails. */
+/** Reads where the accounts stand in the game: `null` when it could not tell, never a failure. */
 export type AccountAdventures = (requesterId: KeycloakId, accountIds: KeycloakId[]) => Promise<AccountAdventure[] | null>;
+
+/** Where the game says the accounts stand; left out of the plain check, which never waits for the game. */
+type Progression = {
+	adventures: AccountAdventure[] | null;
+};
 
 export class AccountCollisionFailure extends Error {
 	public constructor(public readonly reason: AccountCollisionError, public readonly status = 409) {
@@ -61,12 +66,12 @@ function accountName(user: KeycloakUser, kind: AccountCollisionChoice): string {
 		? attribute(user, "discordDisplayName") || attribute(user, "discordUsername") || gameName
 		: gameName;
 }
-function accountView(user: KeycloakUser, kind: AccountCollisionChoice, adventures: AccountAdventure[]): CollisionAccount {
-	const adventure = adventures.find(candidate => candidate.keycloakId === user.id);
+function accountView(user: KeycloakUser, kind: AccountCollisionChoice, progression?: Progression): CollisionAccount {
+	const adventure = progression?.adventures?.find(candidate => candidate.keycloakId === user.id);
 	return {
-		keycloakId: user.id,
 		name: accountName(user, kind),
 		createdAt: user.createdTimestamp,
+		...progression ? { progressionAvailable: progression.adventures !== null } : {},
 		...adventure
 			? { adventure: {
 				level: adventure.level, score: adventure.score, classId: adventure.classId
@@ -74,11 +79,13 @@ function accountView(user: KeycloakUser, kind: AccountCollisionChoice, adventure
 			: {}
 	};
 }
-function viewOf(pair: CollisionPair, adventures: AccountAdventure[] = []): AccountCollision {
+function viewOf(pair: CollisionPair, progression?: Progression): AccountCollision {
 	return {
 		email: pair.email,
-		discord: accountView(pair.discord, ACCOUNT_COLLISION_CHOICES.DISCORD, adventures),
-		emailAccount: accountView(pair.emailAccount, ACCOUNT_COLLISION_CHOICES.EMAIL, adventures)
+		discord: accountView(pair.discord, ACCOUNT_COLLISION_CHOICES.DISCORD, progression),
+		emailAccount: {
+			...accountView(pair.emailAccount, ACCOUNT_COLLISION_CHOICES.EMAIL, progression), keycloakId: pair.emailAccount.id
+		}
 	};
 }
 function lockKey(accounts: ResolvedAccounts): string {
@@ -158,6 +165,11 @@ function pairUnchanged(pair: CollisionPair, discord: KeycloakUser, emailAccount:
 function isInPair(user: KeycloakUser, pair: CollisionPair): boolean {
 	return user.id === pair.discord.id || user.id === pair.emailAccount.id;
 }
+
+/** Only Discord sign-ins leave a verified Discord address on an account: such a session cannot keep the email account. */
+function keepsEmailWithDiscordSession(user: KeycloakUser, choice: AccountCollisionChoice): boolean {
+	return choice === ACCOUNT_COLLISION_CHOICES.EMAIL && discordContact(user) !== null;
+}
 function linksAnotherDiscord(identity: KeycloakFederalIdentity, discordId: string): boolean {
 	return identity.identityProvider === KeycloakConstants.IDENTITY_PROVIDERS.DISCORD && identity.userId !== discordId;
 }
@@ -202,11 +214,7 @@ export class AccountCollisionService {
 
 	/** Both accounts as the player sees them, so they recognise the one they want to keep. */
 	private async describe(pair: CollisionPair, requesterId: KeycloakId): Promise<AccountCollision> {
-		const adventures = await this.adventures(requesterId, [pair.discord.id, pair.emailAccount.id]);
-		const collision = viewOf(pair, adventures ?? []);
-		collision.discord.progressionAvailable = adventures !== null;
-		collision.emailAccount.progressionAvailable = adventures !== null;
-		return collision;
+		return viewOf(pair, { adventures: await this.adventures(requesterId, [pair.discord.id, pair.emailAccount.id]) });
 	}
 
 	private async sessionIdentity(token: AccessToken): Promise<KeycloakSessionIdentity> {
@@ -252,7 +260,17 @@ export class AccountCollisionService {
 			: null;
 	}
 
-	public async check(token: AccessToken, includeAdventures = false): Promise<AccountCollisionCheck> {
+	/** Whether the session must settle a collision first; it never waits for the game. */
+	public check(token: AccessToken): Promise<AccountCollisionCheck> {
+		return this.inspect(token, pair => Promise.resolve(viewOf(pair)));
+	}
+
+	/** The same answer, with where the game says each account stands. */
+	public preview(token: AccessToken): Promise<AccountCollisionCheck> {
+		return this.inspect(token, (pair, requesterId) => this.describe(pair, requesterId));
+	}
+
+	private async inspect(token: AccessToken, view: (pair: CollisionPair, requesterId: KeycloakId) => Promise<AccountCollision>): Promise<AccountCollisionCheck> {
 		const user = await this.authenticatedUser(token);
 		const intent = readIntent(user);
 		if (intent) {
@@ -260,13 +278,18 @@ export class AccountCollisionService {
 				collision: null, pending: intent.choice
 			};
 		}
-		const pair = await this.findPair(user);
-		if (pair) {
+		const discordPair = await this.findPair(user);
+		if (discordPair) {
 			return {
-				collision: includeAdventures ? await this.describe(pair, user.id) : viewOf(pair), current: ACCOUNT_COLLISION_CHOICES.DISCORD
+				collision: await view(discordPair, user.id), current: ACCOUNT_COLLISION_CHOICES.DISCORD
 			};
 		}
-		return this.checkEmailAccount(user, includeAdventures);
+		const emailPair = await this.emailAccountPair(user);
+		return emailPair
+			? {
+				collision: await view(emailPair, user.id), current: ACCOUNT_COLLISION_CHOICES.EMAIL
+			}
+			: { collision: null };
 	}
 
 	/** The one Discord account that verified this address, with its Discord identifier, if there is one. */
@@ -290,22 +313,18 @@ export class AccountCollisionService {
 		};
 	}
 
-	private async checkEmailAccount(user: KeycloakUser, includeAdventures: boolean): Promise<AccountCollisionCheck> {
+	/** The verified address of this account, when the one Discord account that verified it too is another account. */
+	private async emailAccountPair(user: KeycloakUser): Promise<CollisionPair | null> {
 		if (!user.email || !user.emailVerified) {
-			return { collision: null };
+			return null;
 		}
 		const email = normalizedEmail(user.email);
 		const discord = await this.discordAccountWithEmail(email, user.id);
-		if (!discord) {
-			return { collision: null };
-		}
-		const pair = {
-			discord: discord.account, emailAccount: user, email, discordId: discord.discordId
-		};
-		return {
-			collision: includeAdventures ? await this.describe(pair, user.id) : viewOf(pair),
-			current: ACCOUNT_COLLISION_CHOICES.EMAIL
-		};
+		return discord
+			? {
+				discord: discord.account, emailAccount: user, email, discordId: discord.discordId
+			}
+			: null;
 	}
 
 	/** The account signed in with its address and password, never through Discord. */
@@ -337,10 +356,13 @@ export class AccountCollisionService {
 		};
 	}
 
-	private async persist(user: KeycloakUser): Promise<void> {
-		const result = await KeycloakUtils.updateUser(this.config, user);
-		if (result.isError) {
+	private async persist(keycloakId: KeycloakId, change: (user: KeycloakUser) => KeycloakUser): Promise<void> {
+		const result = await KeycloakUtils.patchUser(this.config, keycloakId, change);
+		if (failedBeyondMissing(result)) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAVAILABLE, 503);
+		}
+		if (result.isError) {
+			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
 		}
 	}
 
@@ -390,7 +412,7 @@ export class AccountCollisionService {
 		if (identities.isError) {
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.CONFLICT);
 		}
-		await this.persist(resolvedUser(await this.userById(intent.keptId), intent));
+		await this.persist(intent.keptId, current => resolvedUser(current, intent));
 		return { kept: intent.choice };
 	}
 
@@ -426,14 +448,14 @@ export class AccountCollisionService {
 		}
 		const kept = await this.userById(intent.keptId);
 		await this.preflight(pair, kept);
-		await this.persist({
-			...kept,
+		await this.persist(intent.keptId, current => ({
+			...current,
 			attributes: {
-				...kept.attributes,
+				...current.attributes,
 				discordId: [intent.discordId],
 				accountCollisionResolution: [JSON.stringify(intent)]
 			}
-		});
+		}));
 		return this.finish(intent);
 	}
 
@@ -448,6 +470,9 @@ export class AccountCollisionService {
 				return { kept: choice };
 			}
 			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED);
+		}
+		if (keepsEmailWithDiscordSession(user, choice)) {
+			throw new AccountCollisionFailure(ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, 401);
 		}
 		const pair = choice === ACCOUNT_COLLISION_CHOICES.DISCORD
 			? await this.verifiedPair(token, otherToken)

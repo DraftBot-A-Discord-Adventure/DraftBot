@@ -2,7 +2,7 @@ import type {
 	AssetsBundle, AssetsBundleLanguage
 } from "../../../WsPackets/src/objects/AssetsBundle";
 import {
-	APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, compareProtocolVersions
+	APP_PROTOCOL_HEADER, APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, AppIncompatibility, AppOutdatedStatus, compareProtocolVersions
 } from "../../../WsPackets/src/AppCompatibility";
 import {
 	ACCOUNT_COLLISION_ENDPOINTS, ACCOUNT_COLLISION_ERRORS, AccountCollisionCheck, AccountCollisionChoice,
@@ -10,6 +10,9 @@ import {
 } from "../../../WsPackets/src/objects/AccountCollision";
 
 export const REST_TIMEOUT_MS = 15_000;
+
+/** What a versioned route answers an app speaking another protocol. */
+const HTTP_UPGRADE_REQUIRED = 426;
 
 export const ACCOUNT_DELETION_FAILURES = {
 	UNAUTHORIZED: "unauthorized",
@@ -33,6 +36,13 @@ export type AssetsBundleResponse =
 export class AccountCollisionRequestFailure extends Error {
 	public constructor(public readonly reason: AccountCollisionError) {
 		super(reason);
+	}
+}
+
+/** The server and this app stopped speaking the same protocol since the app started: one of them must be updated. */
+export class AppIncompatibilityFailure extends Error {
+	public constructor(public readonly status: AppOutdatedStatus) {
+		super(status);
 	}
 }
 
@@ -169,10 +179,13 @@ export class RestApi {
 		const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}${endpoint}`, {
 			method: body ? "POST" : "GET",
 			headers: {
-				"Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`
+				"Content-Type": "application/json", "Authorization": `Bearer ${accessToken}`, [APP_PROTOCOL_HEADER]: String(APP_PROTOCOL_VERSION)
 			},
 			...body ? { body: JSON.stringify(body) } : {}
 		}, REST_TIMEOUT_MS);
+		if (response.status === HTTP_UPGRADE_REQUIRED) {
+			throw new AppIncompatibilityFailure((await response.json() as AppIncompatibility).error);
+		}
 		if (!response.ok) {
 			const failure = await response.json() as { error?: AccountCollisionError };
 			throw new AccountCollisionRequestFailure(failure.error ?? ACCOUNT_COLLISION_ERRORS.UNAVAILABLE);

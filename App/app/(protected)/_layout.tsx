@@ -36,6 +36,7 @@ const useStyles = createStyles(colors => ({
 		padding: Theme.spacing.xxl,
 		elevation: 4
 	},
+	actions: { gap: Theme.spacing.md },
 	blockingText: {
 		fontFamily: Theme.fonts.regular,
 		color: colors.ink,
@@ -67,30 +68,40 @@ const OUTDATED_NOTICES: Partial<Record<AuthStateEnum, {
 	}
 };
 
+type BlockingActions = {
+	onRetry: () => void; onLeave: () => void;
+};
+
 /** Rendered instead of the whole app, so it is a page of its own rather than a window over it. */
 function BlockingNotice({
-	message, onRetry
+	message, onRetry, onLeave
 }: {
-	message: string; onRetry?: () => void;
+	message: string; onRetry?: () => void; onLeave?: () => void;
 }): React.ReactElement {
 	const styles = useStyles();
 	return (
 		<View style={styles.overlay} pointerEvents="auto">
 			<View style={styles.indicatorContainer}>
 				<Text style={styles.blockingText}>{message}</Text>
-				{onRetry ? <DesignButton variant="primary" onPress={onRetry}>{i18n.t("app:common.reconnect")}</DesignButton> : null}
+				<View style={styles.actions}>
+					{onRetry ? <DesignButton variant="primary" onPress={onRetry}>{i18n.t("app:common.reconnect")}</DesignButton> : null}
+					{onLeave ? <DesignButton onPress={onLeave}>{i18n.t("app:common.logout")}</DesignButton> : null}
+				</View>
 			</View>
 		</View>
 	);
 }
 
-function renderBlockingState(authState: AuthStateEnum, onReconnect: () => void): React.ReactElement | null {
+/** A session that cannot reach the game must never trap the player: leaving it is always offered. */
+function renderBlockingState(authState: AuthStateEnum, {
+	onRetry, onLeave
+}: BlockingActions): React.ReactElement | null {
 	if (authState === AuthStateEnum.CONNECTION_ERROR) {
-		return <BlockingNotice message={i18n.t("app:common.connectionError")} onRetry={onReconnect} />;
+		return <BlockingNotice message={i18n.t("app:common.connectionError")} onRetry={onRetry} onLeave={onLeave} />;
 	}
 	const outdated = OUTDATED_NOTICES[authState];
 	if (outdated) {
-		return <BlockingNotice message={i18n.t(outdated.message)} {...outdated.canRetry ? { onRetry: onReconnect } : {}} />;
+		return <BlockingNotice message={i18n.t(outdated.message)} {...outdated.canRetry ? { onRetry } : {}} />;
 	}
 
 	return null;
@@ -155,10 +166,12 @@ export default function RootLayout(): React.ReactElement | null {
 		return null;
 	}
 
-	const blockingState = renderBlockingState(
-		authState.state,
-		() => authState.setState(AuthStateEnum.NOT_READY)
-	);
+	const blockingState = renderBlockingState(authState.state, {
+		onRetry: authState.retry,
+		onLeave: (): void => {
+			authState.leave().catch((error: unknown) => console.warn("Could not leave the unreachable session", error));
+		}
+	});
 	if (blockingState) {
 		return blockingState;
 	}

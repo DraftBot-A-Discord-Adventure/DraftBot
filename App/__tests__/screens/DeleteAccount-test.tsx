@@ -3,39 +3,34 @@ import {
 } from "@testing-library/react-native";
 import DeleteAccount from "@/app/(protected)/settings/delete-account";
 import { AuthContext } from "@/src/authentication/AuthContext";
-import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import {
 	ACCOUNT_DELETION_FAILURES, AccountDeletionRequestFailure, RestApi
 } from "@/src/networking/RestApi";
 import { forgetPushDevice } from "@/src/notifications/PushRegistration";
+import { fakeAuthState } from "@/src/testing/fakeAuthState";
 
 const mockAccessToken = jest.fn();
-const mockDisconnect = jest.fn();
 jest.mock("expo-router", () => ({
 	useFocusEffect: jest.fn(), useRouter: () => ({ back: jest.fn() })
 }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 jest.mock("@/src/notifications/PushRegistration", () => ({ forgetPushDevice: jest.fn() }));
-jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: () => ({
-	getCurrentAccessToken: mockAccessToken, disconnect: mockDisconnect, registerPushedPacketHandler: (): () => void => (): void => {}
-}) } }));
+jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: () => ({ registerPushedPacketHandler: (): () => void => (): void => {} }) } }));
 
 const requestLabel = "app:settings.deleteAccount.ask";
 const confirmLabel = "app:settings.deleteAccount.confirm";
 
 type DeletionView = {
-	clearToken: jest.Mock; setState: jest.Mock; leave: jest.Mock; unmount: () => Promise<void>;
+	leave: jest.Mock; unmount: () => Promise<void>;
 };
 
 async function renderDeletion(leave = jest.fn().mockResolvedValue(undefined)): Promise<DeletionView> {
-	const auth = {
-		changeEmail: jest.fn(), changePassword: jest.fn(),
-		collision: null, enter: jest.fn(), leave, accessToken: mockAccessToken,
-		clearToken: jest.fn(), setState: jest.fn(), state: AuthStateEnum.LOGGED_IN, saveToken: jest.fn()
-	};
+	const auth = fakeAuthState({
+		leave, accessToken: mockAccessToken
+	});
 	const view = await render(<AuthContext.Provider value={auth}><DeleteAccount /></AuthContext.Provider>);
 	return {
-		...auth, unmount: view.unmount
+		leave, unmount: view.unmount
 	};
 }
 
@@ -54,8 +49,7 @@ describe("account deletion screen", () => {
 		await fireEvent.press(screen.getByRole("button", { name: requestLabel }));
 		await screen.findByText("app:settings.deleteAccount.requested");
 		expect(RestApi.requestAccountDeletion).toHaveBeenCalledWith("active-session-token");
-		expect(auth.clearToken).not.toHaveBeenCalled();
-		expect(mockDisconnect).not.toHaveBeenCalled();
+		expect(auth.leave).not.toHaveBeenCalled();
 	});
 
 	it("does not submit twice while the session token is being refreshed", async () => {
@@ -101,18 +95,16 @@ describe("account deletion screen", () => {
 		await fireEvent.changeText(screen.getByLabelText("app:settings.deleteAccount.codeLabel"), " CODE ");
 		await fireEvent.press(screen.getByRole("button", { name: confirmLabel }));
 		await screen.findByText(message);
-		expect(auth.clearToken).not.toHaveBeenCalled();
+		expect(auth.leave).not.toHaveBeenCalled();
 	});
 
-	it("disconnects and clears the session after confirmed deletion", async () => {
+	it("ends the session after confirmed deletion", async () => {
 		const auth = await renderDeletion();
 		await fireEvent.changeText(screen.getByLabelText("app:settings.deleteAccount.codeLabel"), " CODE ");
 		await fireEvent.press(screen.getByRole("button", { name: confirmLabel }));
 		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
 		expect(RestApi.deleteAccount).toHaveBeenCalledWith("active-session-token", "CODE");
-		expect(mockDisconnect).not.toHaveBeenCalled();
 		expect(forgetPushDevice).toHaveBeenCalled();
-		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("retries only local cleanup after deletion succeeds but secure storage fails", async () => {
@@ -126,7 +118,6 @@ describe("account deletion screen", () => {
 		await fireEvent.press(screen.getByRole("button", { name: "app:settings.deleteAccount.finishLogout" }));
 		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(2));
 		expect(RestApi.deleteAccount).toHaveBeenCalledTimes(1);
-		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("does not send a deletion request after the screen leaves during token refresh", async () => {

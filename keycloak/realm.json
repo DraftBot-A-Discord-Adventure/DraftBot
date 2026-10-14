@@ -1519,14 +1519,13 @@
     "replyToDisplayName": "Crownicles",
     "envelopeFrom": ""
   },
-  "eventsEnabled": true,
+  "eventsEnabled": false,
   "eventsExpiration": 86400,
   "eventsListeners": [
-    "jboss-logging"
+    "jboss-logging",
+    "crownicles-registration-confirmation"
   ],
-  "enabledEventTypes": [
-    "REGISTER"
-  ],
+  "enabledEventTypes": [],
   "adminEventsEnabled": false,
   "adminEventsDetailsEnabled": false,
   "identityProviders": [
@@ -1537,6 +1536,7 @@
       "enabled": true,
       "trustEmail": true,
       "firstBrokerLoginFlowAlias": "first broker login",
+      "postBrokerLoginFlowAlias": "crownicles post broker login",
       "config": {
         "userInfoUrl": "https://discord.com/api/users/@me",
         "clientId": "TO_REPLACE_WITH_YOUR_DISCORD_CLIENT_ID",
@@ -2367,6 +2367,97 @@
       ]
     },
     {
+      "alias": "crownicles post broker login",
+      "description": "Account actions stay on their intended account after an identity provider",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "crownicles-account-target",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "alias": "crownicles reset credentials",
+      "description": "Forgotten password; an account action only continues on its intended account",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "reset-credentials-choose-user",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "reset-credential-email",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "crownicles-account-target",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 25,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "reset-password",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 30,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticatorFlow": true,
+          "requirement": "CONDITIONAL",
+          "priority": 40,
+          "autheticatorFlow": true,
+          "flowAlias": "crownicles reset credentials Reset - Conditional OTP",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "alias": "crownicles reset credentials Reset - Conditional OTP",
+      "description": "Flow to determine if the OTP should be reset or not. Set to REQUIRED to force.",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "conditional-user-configured",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "reset-otp",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
       "alias": "crownicles authentication",
       "description": "Existing session, Discord or account sign-in",
       "providerId": "basic-flow",
@@ -2439,6 +2530,14 @@
           "priority": 0,
           "autheticatorFlow": true,
           "flowAlias": "crownicles registration registration form",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "crownicles-account-target",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 5,
+          "autheticatorFlow": false,
           "userSetupAllowed": false
         },
         {
@@ -2671,7 +2770,7 @@
   "browserFlow": "crownicles browser",
   "registrationFlow": "crownicles registration",
   "directGrantFlow": "direct grant",
-  "resetCredentialsFlow": "reset credentials",
+  "resetCredentialsFlow": "crownicles reset credentials",
   "clientAuthenticationFlow": "clients",
   "dockerAuthenticationFlow": "docker auth",
   "attributes": {

@@ -10,7 +10,7 @@ import { MqttManager } from "../mqtt/MqttManager";
 /** The accounts are still shown without their progression past this: the choice must not wait on the game. */
 const ADVENTURES_TIMEOUT_MS = 3_000;
 
-/** Asks Core where the accounts stand; a refusal, a silence or a failure all answer nothing. */
+/** Asks Core where the accounts stand; a refusal, a silence or a failure resolve to null, shown as an unknown progression rather than none. */
 export function coreAccountAdventures(requesterId: string, accountIds: string[]): Promise<AccountAdventure[] | null> {
 	return new Promise(resolve => {
 		MqttManager.asyncPacketSender.sendPacketAndHandleResponse({

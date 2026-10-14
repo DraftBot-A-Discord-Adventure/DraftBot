@@ -73,8 +73,6 @@ export class WebSocketClient {
 
 	private setState?: (newState: AuthStateEnum) => void;
 
-	private clearToken?: () => Promise<void>;
-
 	private accessTokenProvider: (() => Promise<string | null>) | null = null;
 
 	private processPacketQueueIntervalId: ReturnType<typeof setInterval> | null = null;
@@ -110,11 +108,10 @@ export class WebSocketClient {
 		this.clearIntervals();
 	}
 
-	public async init(accessTokenProvider: () => Promise<string | null>, setState: (newState: AuthStateEnum) => void, clearToken?: () => Promise<void>): Promise<void> {
+	public async init(accessTokenProvider: () => Promise<string | null>, setState: (newState: AuthStateEnum) => void): Promise<void> {
 		const connectionVersion = ++this.connectionVersion;
 		this.accessTokenProvider = accessTokenProvider;
 		this.setState = setState;
-		this.clearToken = clearToken;
 
 		this.setState?.(AuthStateEnum.CONNECTING);
 		await this.connect(true);
@@ -339,34 +336,10 @@ export class WebSocketClient {
 		socket.close();
 	}
 
-	/** The session ended on the server: the stored token goes first, then the state says so, unless a new session began meanwhile. */
-	private endSession(finalState: AuthStateEnum): void {
-		const connectionVersion = this.connectionVersion;
-		const clearToken = this.clearToken;
-		Promise.resolve().then(() => {
-			if (this.isCurrent(connectionVersion)) {
-				return clearToken?.();
-			}
-			return undefined;
-		})
-			.then((): void => {
-				if (this.isCurrent(connectionVersion)) {
-					this.setState?.(finalState);
-				}
-			})
-			.catch((): void => {
-				if (this.isCurrent(connectionVersion)) {
-					this.setState?.(AuthStateEnum.TOKEN_INVALID_OR_EXPIRED);
-				}
-			});
-	}
-
+	/** The session owner decides what a final close means for the account: the socket only stops. */
 	private handleFinalClose(finalState: AuthStateEnum): void {
 		this.disconnect();
-		if (finalState === AuthStateEnum.NO_TOKEN) {
-			this.endSession(finalState);
-		}
-		else { this.setState?.(finalState); }
+		this.setState?.(finalState);
 	}
 
 	private handleSocketClose(socket: WebSocket, error: CloseEvent, firstConnection: boolean): void {
@@ -419,14 +392,28 @@ export class WebSocketClient {
 	}
 
 	private scheduleReconnect(): void {
+		const connectionVersion = this.connectionVersion;
 		this.reconnectTimeoutId = setTimeout((): void => {
 			this.reconnectTimeoutId = null;
 			console.log("Attempting to reconnect WebSocket...");
 			this.connectionAttempts++;
 			this.connect(false).catch(error => {
 				console.error("Failed to reconnect WebSocket:", error);
+				this.retryAfterFailedAttempt(connectionVersion);
 			});
 		}, 1000);
+	}
+
+	/** An attempt that could not even get the session's access counts like a refused connection. */
+	private retryAfterFailedAttempt(connectionVersion: number): void {
+		if (!this.isCurrent(connectionVersion)) {
+			return;
+		}
+		if (this.connectionAttempts >= this.maxConnectionAttempts) {
+			this.handleReconnectFailure(false);
+			return;
+		}
+		this.scheduleReconnect();
 	}
 
 	private processPacketQueue(): void {

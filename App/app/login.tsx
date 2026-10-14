@@ -28,6 +28,7 @@ import {
 } from "@/src/design/FightIcons";
 import { i18n } from "@/src/translations/i18n";
 import { AccountCollisionScreen } from "@/src/authentication/AccountCollisionScreen";
+import { AppIncompatibilityFailure } from "@/src/networking/RestApi";
 
 const styles = StyleSheet.create({
 	screen: {
@@ -97,7 +98,8 @@ async function handleLogin(authState: LoginAuthState, authorize: Authorize, onRe
 
 		console.error("Login error:", error);
 		onRefused({
-			title: i18n.t("app:auth.loginFailed"), detail: i18n.t(`app:auth.failures.${reason}`)
+			title: i18n.t("app:auth.loginFailed"),
+			detail: error instanceof AppIncompatibilityFailure ? i18n.t(`app:boot.${error.status}`) : i18n.t(`app:auth.failures.${reason}`)
 		});
 	}
 }

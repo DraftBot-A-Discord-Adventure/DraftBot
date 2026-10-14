@@ -5,15 +5,16 @@ import React from "react";
 import LoginScreen from "@/app/login";
 import { AuthContext } from "@/src/authentication/AuthContext";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
+import { AuthToken } from "@/src/authentication/AuthToken";
 import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
 import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 import {
 	AUTH_FAILURES, AuthFailure
 } from "@/src/authentication/AuthFailure";
+import { fakeAuthState } from "@/src/testing/fakeAuthState";
+import { AppIncompatibilityFailure } from "@/src/networking/RestApi";
+import { APP_COMPATIBILITY_STATUSES } from "ws-packets/src/AppCompatibility";
 
-const mockInit = jest.fn().mockResolvedValue(undefined);
-const mockSaveToken = jest.fn().mockResolvedValue(undefined);
-const mockClearToken = jest.fn().mockResolvedValue(undefined);
 const mockEnter = jest.fn().mockResolvedValue(undefined);
 jest.mock("@/src/networking/RestApi", () => ({
 	...jest.requireActual<typeof import("@/src/networking/RestApi")>("@/src/networking/RestApi"),
@@ -32,23 +33,13 @@ jest.mock("@/src/authentication/KeycloakAuth", () => ({
 		login: jest.fn(), register: jest.fn()
 	}
 }));
-jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: (): object => ({
-	init: mockInit, registerPushedPacketHandler: (): () => void => (): void => undefined
-}) } }));
+jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: (): object => ({ registerPushedPacketHandler: (): () => void => (): void => undefined }) } }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 
 async function renderLogin(state: AuthStateEnum = AuthStateEnum.NO_TOKEN): Promise<void> {
-	const value: React.ContextType<typeof AuthContext> = {
-		changeEmail: jest.fn(), changePassword: jest.fn(),
-		state,
-		collision: null,
-		enter: mockEnter,
-		leave: jest.fn().mockResolvedValue(undefined),
-		accessToken: jest.fn().mockResolvedValue(null),
-		setState: jest.fn(),
-		saveToken: mockSaveToken,
-		clearToken: mockClearToken
-	};
+	const value = fakeAuthState({
+		state, enter: mockEnter, accessToken: jest.fn().mockResolvedValue(null)
+	});
 
 	await render(<AuthContext.Provider value={value}><LoginScreen /></AuthContext.Provider>);
 }
@@ -56,8 +47,6 @@ async function renderLogin(state: AuthStateEnum = AuthStateEnum.NO_TOKEN): Promi
 describe("login screen", () => {
 	beforeEach((): void => {
 		jest.clearAllMocks();
-		mockSaveToken.mockResolvedValue(undefined);
-		mockClearToken.mockResolvedValue(undefined);
 		mockEnter.mockResolvedValue(undefined);
 		jest.mocked(KeycloakAuth.login).mockRejectedValue(new AuthFailure(AUTH_FAILURES.CANCELLED, "dismiss"));
 		jest.mocked(KeycloakAuth.register).mockRejectedValue(new AuthFailure(AUTH_FAILURES.CANCELLED, "dismiss"));
@@ -116,7 +105,6 @@ describe("login screen", () => {
 		expect(screen.getByText("app:auth.sessionExpired")).toBeTruthy();
 		expect(screen.getByText("app:auth.withAccount")).toBeTruthy();
 		expect(screen.queryByText("app:auth.createAccount")).toBeNull();
-		expect(mockClearToken).not.toHaveBeenCalled();
 	});
 
 	it("does not open registration twice while its browser is pending", async () => {
@@ -172,11 +160,7 @@ describe("login screen", () => {
 		expect(screen.queryByText("app:auth.loginFailed")).toBeNull();
 	});
 
-	it("delegates admission to the session coordinator instead of opening or storing a session itself", async () => {
-		let saved!: () => void;
-		mockEnter.mockReturnValueOnce(new Promise<void>(resolve => {
-			saved = resolve;
-		}));
+	it("hands the authorized account to the session, which alone decides what opens", async () => {
 		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce({
 			access_token: "test-access", refresh_token: "test-refresh", expires_in: 300, refresh_expires_in: 0, token_type: "Bearer", session_state: "test-session", scope: "openid"
 		});
@@ -184,15 +168,10 @@ describe("login screen", () => {
 		await fireEvent.press(screen.getByText("app:auth.alreadyHaveAccount"));
 		await fireEvent.press(screen.getByText("app:auth.withDiscord"));
 		await waitFor(() => expect(mockEnter).toHaveBeenCalledTimes(1));
-		expect(mockSaveToken).not.toHaveBeenCalled();
-		expect(mockInit).not.toHaveBeenCalled();
-		await act(async (): Promise<void> => {
-			saved();
-		});
-		expect(mockInit).not.toHaveBeenCalled();
+		expect((mockEnter.mock.calls[0][0] as AuthToken).getAccessToken()).toBe("test-access");
 	});
 
-	it("never opens the next account's socket when its token cannot be stored", async () => {
+	it("explains a session that could not be entered", async () => {
 		mockEnter.mockRejectedValueOnce(new Error("keychain unavailable"));
 		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce({
 			access_token: "test-access", refresh_token: "test-refresh", expires_in: 300, refresh_expires_in: 0, token_type: "Bearer", session_state: "test-session", scope: "openid"
@@ -201,6 +180,18 @@ describe("login screen", () => {
 		await fireEvent.press(screen.getByText("app:auth.alreadyHaveAccount"));
 		await fireEvent.press(screen.getByText("app:auth.withDiscord"));
 		await waitFor(() => expect(screen.getByText("app:auth.loginFailed")).toBeTruthy());
-		expect(mockInit).not.toHaveBeenCalled();
+		expect(screen.getByText("app:auth.withDiscord")).toBeTruthy();
+	});
+
+	it("asks for an update rather than reporting an unknown failure when the server speaks a newer protocol", async () => {
+		mockEnter.mockRejectedValueOnce(new AppIncompatibilityFailure(APP_COMPATIBILITY_STATUSES.APP_OUTDATED));
+		jest.mocked(KeycloakAuth.login).mockResolvedValueOnce({
+			access_token: "test-access", refresh_token: "test-refresh", expires_in: 300, refresh_expires_in: 0, token_type: "Bearer", session_state: "test-session", scope: "openid"
+		});
+		await renderLogin();
+		await fireEvent.press(screen.getByText("app:auth.alreadyHaveAccount"));
+		await fireEvent.press(screen.getByText("app:auth.withDiscord"));
+		await waitFor(() => expect(screen.getByText("app:boot.appOutdated")).toBeTruthy());
+		expect(screen.queryByText("app:auth.failures.unknown")).toBeNull();
 	});
 });

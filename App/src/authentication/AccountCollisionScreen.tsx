@@ -13,6 +13,7 @@ import {
 } from "@/src/authentication/KeycloakAuth";
 import { useAccountAction } from "@/src/authentication/AccountAction";
 import { CollisionAccountCard } from "@/src/authentication/CollisionAccountCard";
+import type { CollisionSession } from "@/src/authentication/SessionCoordinator";
 import {
 	AccountCollisionRequestFailure, isAccountCollisionOpen, RestApi
 } from "@/src/networking/RestApi";
@@ -27,16 +28,13 @@ import {
 } from "@/src/design/FightIcons";
 import { i18n } from "@/src/translations/i18n";
 import {
-	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionCheck, AccountCollisionChoice, AccountCollisionError, CollisionAccount
+	ACCOUNT_COLLISION_CHOICES, ACCOUNT_COLLISION_ERRORS, AccountCollision, AccountCollisionChoice, AccountCollisionError, CollisionAccount
 } from "ws-packets/src/objects/AccountCollision";
 
 const REVERIFIABLE_ERRORS: ReadonlySet<AccountCollisionError> = new Set([ACCOUNT_COLLISION_ERRORS.UNAUTHORIZED, ACCOUNT_COLLISION_ERRORS.ACCOUNT_CHANGED]);
 const KEEP_BOTH_EMBLEM_SIZE = 20;
 const COLLISION_RECHECK_MS = 4_000;
 
-export type AccountCollisionLoginState = {
-	token: AuthToken; check: AccountCollisionCheck;
-};
 type VerifiedAccounts = {
 	discord: AuthToken; email: AuthToken;
 };
@@ -79,7 +77,7 @@ function signInToOtherAccount(collision: AccountCollision | null, startedFromEma
 }
 
 /** Signs in to the other account, then proves both belong to the player */
-async function verifiedAccounts(state: AccountCollisionLoginState, startedFromEmail: boolean): Promise<VerifiedAccounts> {
+async function verifiedAccounts(state: CollisionSession, startedFromEmail: boolean): Promise<VerifiedAccounts> {
 	const second = AuthToken.fromKeycloakOAuth2Token(await signInToOtherAccount(state.check.collision, startedFromEmail));
 	const [discord, email] = startedFromEmail ? [second, state.token] : [state.token, second];
 	return {
@@ -155,7 +153,7 @@ type CollisionChoiceFlow = {
 };
 
 /** Keeps the chosen account once the other one is proven too; a choice already confirmed resumes without asking again */
-function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: (token: AuthToken) => Promise<void>): CollisionChoiceFlow {
+function useCollisionChoice(state: CollisionSession, onAuthenticated: (token: AuthToken) => Promise<void>): CollisionChoiceFlow {
 	const auth = useContext(AuthContext);
 	const [choice, setChoice] = useState<AccountCollisionChoice | "">(state.check.pending ?? "");
 	const [confirmed, setConfirmed] = useState<AuthToken | null>(state.check.pending ? state.token : null);
@@ -172,7 +170,7 @@ function useCollisionChoice(state: AccountCollisionLoginState, onAuthenticated: 
 	};
 
 	const settle = useCallback(async (kept: AuthToken, chosen: AccountCollisionChoice, otherAccount: AuthToken | null): Promise<void> => {
-		await auth.saveToken(kept);
+		await auth.checkpoint(kept);
 		setConfirmed(kept);
 		await sendChoice(kept, chosen, {
 			other: otherAccount, onStale: restart
@@ -302,7 +300,8 @@ function useCollisionWatch(token: AuthToken, onAuthenticated: (token: AuthToken)
 }
 
 /** Gives the email account another address, then lets the player in as soon as the two accounts no longer collide */
-function useKeepBoth(state: AccountCollisionLoginState, onAuthenticated: (token: AuthToken) => Promise<void>, disabled: boolean): KeepBoth {
+function useKeepBoth(state: CollisionSession, onAuthenticated: (token: AuthToken) => Promise<void>, disabled: boolean): KeepBoth {
+	const emailAccount = state.check.collision?.emailAccount;
 	const email = state.check.collision?.email;
 	const { token } = state;
 	const [awaitingLink, setAwaitingLink] = useState(false);
@@ -311,9 +310,11 @@ function useKeepBoth(state: AccountCollisionLoginState, onAuthenticated: (token:
 			setAwaitingLink(true);
 		}
 	}, []);
-	const changeEmail = useCallback((): Promise<AccountActionOutcome> => KeycloakAuth.changeEmail({
-		keycloakId: state.check.collision!.emailAccount.keycloakId, ...email ? { loginHint: email } : {}
-	}), [state.check.collision, email]);
+	const changeEmail = useCallback((): Promise<AccountActionOutcome> => emailAccount
+		? KeycloakAuth.changeEmail({
+			keycloakId: emailAccount.keycloakId, ...email ? { loginHint: email } : {}
+		})
+		: Promise.reject(new Error("No email account left to change")), [emailAccount, email]);
 	const action = useAccountAction(changeEmail, onOutcome);
 	const watch = useCollisionWatch(token, onAuthenticated, awaitingLink && !disabled);
 
@@ -357,9 +358,10 @@ function KeepBothSection({
 
 /** Both accounts side by side, each with what tells it apart and the button that keeps it */
 function ChoiceView({
-	collision, current, flow, keepBoth, onCancel
+	collision, previewing, current, flow, keepBoth, onCancel
 }: {
 	collision: AccountCollision;
+	previewing: boolean;
 	current: AccountCollisionChoice;
 	flow: CollisionChoiceFlow;
 	keepBoth: KeepBoth;
@@ -377,6 +379,7 @@ function ChoiceView({
 			key={kind}
 			kind={kind}
 			account={accountOf(collision, kind)}
+			previewing={previewing}
 			current={kind === current}
 			keep={{
 				detail: proof, pending: flow.pending && flow.choice === kind, disabled: busy, onPress: (): void => flow.keep(kind)
@@ -397,37 +400,58 @@ function ResumeView({ flow }: { flow: CollisionChoiceFlow }): ReactElement {
 	</Screen>;
 }
 
-export function AccountCollisionScreen({
-	state, onAuthenticated, onCancel
-}: {
-	state: AccountCollisionLoginState;
-	onAuthenticated: (token: AuthToken) => Promise<void>;
-	onCancel: () => void;
-}): ReactElement {
-	const flow = useCollisionChoice(state, onAuthenticated);
-	const keepBoth = useKeepBoth(state, onAuthenticated, flow.pending || flow.confirmed);
-	const [preview, setPreview] = useState<AccountCollisionLoginState | null>(null);
-	const collision = state.check.collision && preview?.token === state.token ? preview.check.collision : state.check.collision;
+type CollisionPreview = {
+	collision: AccountCollision | null;
+
+	/** Where the game says each account stands is still being asked for. */
+	previewing: boolean;
+};
+
+/** The accounts show at once; their progression follows on its own and never holds back the choice. */
+function useCollisionPreview(state: CollisionSession): CollisionPreview {
+	const [preview, setPreview] = useState<{
+		session: CollisionSession; collision: AccountCollision | null;
+	} | null>(null);
 	useEffect(() => {
 		if (!state.check.collision) {
 			return undefined;
 		}
 		let cancelled = false;
-		accessToken(state.token).then(token => RestApi.previewAccountCollision(token))
-			.then(preview => {
-				if (!cancelled && preview.collision) {
+		accessToken(state.token).then(access => RestApi.previewAccountCollision(access))
+			.then(answer => answer.collision)
+			.catch((): null => null)
+			.then(collision => {
+				if (!cancelled) {
 					setPreview({
-						token: state.token, check: preview
+						session: state, collision
 					});
 				}
-			})
-			.catch(() => undefined);
+			});
 		return (): void => {
 			cancelled = true;
 		};
-	}, [state.token, state.check.collision]);
+	}, [state]);
+	const answered = preview?.session === state;
+	return {
+		collision: (answered ? preview.collision : null) ?? state.check.collision,
+		previewing: state.check.collision !== null && !answered
+	};
+}
+
+export function AccountCollisionScreen({
+	state, onAuthenticated, onCancel
+}: {
+	state: CollisionSession;
+	onAuthenticated: (token: AuthToken) => Promise<void>;
+	onCancel: () => void;
+}): ReactElement {
+	const flow = useCollisionChoice(state, onAuthenticated);
+	const keepBoth = useKeepBoth(state, onAuthenticated, flow.pending || flow.confirmed);
+	const {
+		collision, previewing
+	} = useCollisionPreview(state);
 	if (flow.confirmed || !collision) {
 		return <ResumeView flow={flow} />;
 	}
-	return <ChoiceView collision={collision} current={state.check.current ?? ACCOUNT_COLLISION_CHOICES.DISCORD} flow={flow} keepBoth={keepBoth} onCancel={onCancel} />;
+	return <ChoiceView collision={collision} previewing={previewing} current={state.check.current ?? ACCOUNT_COLLISION_CHOICES.DISCORD} flow={flow} keepBoth={keepBoth} onCancel={onCancel} />;
 }

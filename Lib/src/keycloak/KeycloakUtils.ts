@@ -263,7 +263,22 @@ export abstract class KeycloakUtils {
 		}));
 	}
 
-	public static async updateUser(keycloakConfig: KeycloakConfig, user: KeycloakUser): Promise<ApiCallReturnType<Record<string, never>>> {
+	/**
+	 * The only way to change an account. The admin API takes nothing less than the whole account, so it is read
+	 * again right before being written back: a change another writer made since the caller's read survives.
+	 * @param keycloakConfig
+	 * @param keycloakId
+	 * @param change - Returns the account to store from its current state
+	 */
+	public static async patchUser(keycloakConfig: KeycloakConfig, keycloakId: string, change: (user: KeycloakUser) => KeycloakUser): Promise<ApiCallReturnType<Record<string, never>>> {
+		const current = await this.getUserByKeycloakId(keycloakConfig, keycloakId);
+		if (current.isError) {
+			return current;
+		}
+		return this.putUser(keycloakConfig, change(current.payload.user));
+	}
+
+	private static async putUser(keycloakConfig: KeycloakConfig, user: KeycloakUser): Promise<ApiCallReturnType<Record<string, never>>> {
 		const token = await this.checkAndQueryToken(keycloakConfig);
 		if (token.isError) {
 			return token;
@@ -541,13 +556,14 @@ export abstract class KeycloakUtils {
 	/**
 	 * Update the language of a user
 	 */
-	public static async updateUserLanguage(keycloakConfig: KeycloakConfig, user: KeycloakUser, newLanguage: Language): Promise<ApiCallReturnType<Record<string, never>>> {
-		const checkAndQueryToken = await this.checkAndQueryToken(keycloakConfig);
-		if (checkAndQueryToken.isError) {
-			return checkAndQueryToken;
-		}
+	public static updateUserLanguage(keycloakConfig: KeycloakConfig, user: KeycloakUser, newLanguage: Language): Promise<ApiCallReturnType<Record<string, never>>> {
 		user.attributes.language = [newLanguage];
-		return this.updateUser(keycloakConfig, user);
+		return this.patchUser(keycloakConfig, user.id, current => ({
+			...current,
+			attributes: {
+				...current.attributes, language: [newLanguage]
+			}
+		}));
 	}
 
 	/**
@@ -664,34 +680,18 @@ export abstract class KeycloakUtils {
 	 * @param newGameUsername
 	 * @param keycloakConfig
 	 */
-	public static async updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<Record<string, never>>> {
-		const checkAndQueryToken = await this.checkAndQueryToken(keycloakConfig);
-		if (checkAndQueryToken.isError) {
-			return checkAndQueryToken;
-		}
-
+	public static updateGameUsername(user: KeycloakUser, newGameUsername: string, keycloakConfig: KeycloakConfig): Promise<ApiCallReturnType<Record<string, never>>> {
 		// An account created from the sign-up page carries no attribute at all until it gets one
 		user.attributes = {
 			...user.attributes,
 			gameUsername: [newGameUsername]
 		};
-
-		const res = await fetch(`${keycloakConfig.url}/admin/realms/${keycloakConfig.realm}/users/${user.id}`, {
-			method: "PUT",
-			headers: {
-				"Authorization": `Bearer ${this.keycloakToken}`,
-				"Content-Type": "application/json"
-			},
-
-			// The whole account goes back: Keycloak erases the address and the names a partial update omits
-			body: JSON.stringify(user)
-		});
-
-		if (!res.ok) {
-			return formatApiCallError(res);
-		}
-
-		return formatApiCallOk(res, {});
+		return this.patchUser(keycloakConfig, user.id, current => ({
+			...current,
+			attributes: {
+				...current.attributes, gameUsername: [newGameUsername]
+			}
+		}));
 	}
 
 	/**

@@ -31,8 +31,9 @@ You can find the docker-compose file here:
 
 The image is built from [Dockerfile](./Dockerfile). It adds the
 [Phase Two magic link extension](https://github.com/p2-inc/keycloak-magic-link) (Elastic License 2.0)
-and compiles the Crownicles `account-policy` extension. The browser flow uses the account target guard
-for application-initiated email/password actions, and the registration flow refuses reserved bot
+and compiles the Crownicles `account-policy` extension. The browser, post-broker, registration and
+forgotten-password flows use the account target guard, so an application-initiated email/password
+action only ever runs on the account it was opened for; the registration flow also refuses reserved bot
 usernames before creating a user. Every Keycloak importing the realm needs this image. After a change,
 run `docker compose build keycloak`.
 
@@ -82,6 +83,27 @@ You will need to regenerate a client secret here on keycloak:
 Manage -> Clients -> discord -> Credentials -> Client Secret -> Regenerate
 
 ![discord-config.png](images/discord-config.png)
+
+### Keeping a deployed realm in line
+
+A deployed realm is never replaced by [realm.json](realm.json), which holds placeholders instead of
+users, keys and secrets. [realmDrift.mjs](scripts/realmDrift.mjs) compares only the account settings
+the game relies on: the custom browser, registration, forgotten-password and post-broker flows with
+their steps and configuration, their bindings, the Discord provider's post-broker flow, the event
+listeners and the sign-up switches.
+
+```bash
+KEYCLOAK_URL=... KEYCLOAK_REALM=... KEYCLOAK_CLIENT_ID=... KEYCLOAK_CLIENT_SECRET=... \
+  node keycloak/scripts/realmDrift.mjs           # read-only report, exit code 1 on a difference
+node keycloak/scripts/realmDrift.mjs --apply     # same environment: converge, then report again
+```
+
+The service account needs the `realm-management` roles `view-realm`, `manage-realm`,
+`view-identity-providers` and `manage-identity-providers`. Run the read-only check on every deployed
+realm before and after a deployment, after the Keycloak image. `--apply` builds a differing flow beside
+the running one, switches the bindings over, then deletes the old flow and takes back its names, so
+sign-in never runs without its guard. A missing identity provider is only reported: its secrets are not
+in the template.
 
 ## Logging in with Discord
 
@@ -166,11 +188,18 @@ fields. The current provider is exposed through a session-note protocol mapper.
 The resolver rechecks both accounts before deletion, persists the confirmed choice
 on the kept identity and can resume it after an interruption. HTTP requests cannot
 provide an arbitrary account ID to delete. The discarded WebSocket is closed and
-unresolved collisions cannot open a game WebSocket.
+unresolved collisions cannot open a game WebSocket. The collision routes, reached before
+the WebSocket, refuse an app speaking another protocol version with HTTP 426, as the
+WebSocket does.
 
 Resolution is serialized in the RestWs process. Run one resolving RestWs instance;
 multi-instance resolution needs a shared coordinator before horizontal scaling.
-Do not run other administrative reassignment operations concurrently.
+Do not run other administrative reassignment operations concurrently. Every service
+change to a Keycloak account goes through `KeycloakUtils.patchUser`, which reads the
+account again right before writing it back whole (the admin API takes nothing less): a
+change made meanwhile by the bot, a language switch or a resolution is no longer erased
+by a stale copy. Only the instant between that read and the write stays unguarded, as
+Keycloak offers no conditional update.
 
 Keeping both accounts is a separate, intentional path: from the collision screen, the
 player changes and verifies the email account address before entering the game. The
@@ -179,11 +208,14 @@ refused before the required action can run.
 
 The resolver accepts both access tokens in one request. It writes a durable choice on
 the kept account before deleting the other identity, so a lost response or crash resumes
-the same choice. The pair lock is process-local: run one resolving RestWs process.
+the same choice.
 
 Unconfirmed form registrations are marked `registrationPending` by the registration
-policy. RestWs reads all marked users before deleting only those still unverified and
-older than one hour; historical bot accounts are never selected by that search.
+policy. The `crownicles-registration-confirmation` listener removes only that attribute
+when Keycloak confirms the email or signs in its verified owner, within Keycloak's own
+transaction. RestWs reads all pending pages before deleting only those still unverified
+and older than one hour; it never rewrites confirmed profiles, and historical bot
+accounts are never selected by that search.
 
 The Discord provider uses `IMPORT`, not `FORCE`: forcing the remote email onto an
 already-linked historical user fails when another user owns that address. The
@@ -199,7 +231,11 @@ Deployment order:
   Do not replace the live realm with this template: it contains placeholders and
   does not contain live users, keys or service-client configuration.
   Build/deploy the image before switching the browser and registration flows to the
-  Crownicles extension executions.
+  Crownicles extension executions. Set Discord's `postBrokerLoginFlowAlias` to
+  `crownicles post broker login` as well: a brokered login skips the remainder of the
+  browser flow. Enable the `crownicles-registration-confirmation` event listener.
+  `node keycloak/scripts/realmDrift.mjs --apply` does all of this once the image runs
+  (see [Keeping a deployed realm in line](#keeping-a-deployed-realm-in-line)).
 3. Compile Lib with `pnpm --dir Lib run tsc`. Provide `KEYCLOAK_URL`,
   `KEYCLOAK_REALM`, `KEYCLOAK_CLIENT_ID` and `KEYCLOAK_CLIENT_SECRET` through the
   operator's environment, using a service account with query/view/manage-users.
@@ -210,16 +246,19 @@ Deployment order:
   produce a nonzero exit code; repeated successful links are no-ops.
 6. Test a historical player and a distinct email account before leaving maintenance.
 
-The reproducible laboratory test is
-`node --test keycloak/tests/discord-identity.integration.test.mjs`, after compiling
-Lib and RestWs and installing App dependencies for its existing DOM/cookie parsers. It expects
-an isolated Keycloak 26.7.4 on `127.0.0.1:18180` with the synthetic bootstrap account
-`proof-admin` / `local-proof-only-password`. It only recreates the dedicated
-`crownicles-discord-identity-proof` realm and uses a synthetic OAuth provider on
-port 18181; it must not run against a shared or deployed Keycloak. It proves the
-broker/token identity, conflict refusal, backfill behavior, both choices with real
-PKCE tokens, losing-identity deletion, subsequent Discord login, and registration
-email constraints; not a live Discord consent screen or mail delivery.
+The reproducible laboratory test is `bash keycloak/tests/run-integration.sh`, which the
+[Keycloak integration](../.github/workflows/keycloak-integration.yml) workflow also runs. It needs
+Docker and the Lib, RestWs and App dependencies (App only lends its DOM/cookie parsers), compiles Lib
+and RestWs, builds this image, and runs
+[discord-identity.integration.test.mjs](tests/discord-identity.integration.test.mjs) against a
+disposable Keycloak on `127.0.0.1:18180` with the synthetic bootstrap account
+`proof-admin` / `local-proof-only-password`, plus a mail catcher on ports 18025/11025 (an existing one
+is reused). The test only recreates the dedicated `crownicles-discord-identity-proof` realm and uses a
+synthetic OAuth provider on port 18181; it must not run against a shared or deployed Keycloak. It
+proves the broker/token identity, conflict refusal, backfill behavior, both choices with real PKCE
+tokens, losing-identity deletion, subsequent Discord login, registration email constraints, the
+account guard on every way into an application-initiated action (sign-in, Discord, sign-up,
+forgotten password) and the realm drift check; not a live Discord consent screen.
 
 ## Sending mail
 

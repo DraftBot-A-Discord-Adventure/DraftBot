@@ -108,7 +108,7 @@ describe("Keycloak account identity", () => {
 		const fetch = vi.fn(async (url: string, init?: RequestInit): Promise<Response> => {
 			if (url.endsWith("/token")) return Response.json({access_token: "test-token", expires_in: 3600});
 			if (init?.method === "PUT") return new Response(null, {status: 204});
-			return Response.json([account]);
+			return Response.json(url.endsWith(`/users/${USER_ID}`) ? account : [account]);
 		});
 		vi.stubGlobal("fetch", fetch);
 		const result = lookup === "getOrRegisterDiscordUser"
@@ -121,6 +121,22 @@ describe("Keycloak account identity", () => {
 			id: USER_ID, attributes: {gameUsername: ["Restored hero"], discordId: [DISCORD_ID]}
 		});
 		expect(fetch.mock.calls.some(([url, init]) => url.endsWith("/users") && init?.method === "POST")).toBe(false);
+	});
+
+	it("writes a change over the account as stored, keeping what another writer changed since it was read", async () => {
+		const read = legacyUser();
+		const stored = legacyUser({email: "player@example.test", attributes: {...read.attributes, language: ["en"]}});
+		const fetch = vi.fn(async (url: string, init?: RequestInit): Promise<Response> => {
+			if (url.endsWith("/token")) return Response.json({access_token: "test-token", expires_in: 3600});
+			if (init?.method === "PUT") return new Response(null, {status: 204});
+			return Response.json(stored);
+		});
+		vi.stubGlobal("fetch", fetch);
+		await expect(KeycloakUtils.updateGameUsername(read, "Renamed hero", CONFIG)).resolves.toMatchObject({isError: false});
+		const update = fetch.mock.calls.find(([_url, init]) => init?.method === "PUT");
+		expect(JSON.parse(update![1]!.body as string)).toMatchObject({
+			email: "player@example.test", attributes: {gameUsername: ["Renamed hero"], language: ["en"], discordId: [DISCORD_ID]}
+		});
 	});
 
 	it("links the historical Keycloak ID without updating or deleting either account", async () => {

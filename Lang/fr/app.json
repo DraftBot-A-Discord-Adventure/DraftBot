@@ -90,6 +90,7 @@
     "no": "Non",
     "connectionError": "Impossible de joindre le serveur. Vérifiez votre connexion puis réessayez.",
     "reconnect": "Se reconnecter",
+    "logout": "Se déconnecter",
     "reconnecting": "Hors ligne · reconnexion en cours",
     "waitingForConnection": "Connexion interrompue. En attente du serveur.",
     "toCollect": "{{count}} à récupérer"
@@ -280,7 +281,6 @@
     },
     "ping": "Ping",
     "pingValue": "{{value}} ms",
-    "logout": "Se déconnecter",
     "changeAccount": "Changer de compte",
     "leavingAccount": "Fermeture de la session en cours…",
     "changeAccountFailed": "La session n'a pas pu être fermée. Réessayez dans un instant.",

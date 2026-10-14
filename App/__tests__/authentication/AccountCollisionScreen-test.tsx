@@ -8,6 +8,7 @@ import { AuthContext } from "@/src/authentication/AuthContext";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { AuthToken } from "@/src/authentication/AuthToken";
 import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
+import { fakeAuthState } from "@/src/testing/fakeAuthState";
 import {
 	AUTH_FAILURES, AuthFailure
 } from "@/src/authentication/AuthFailure";
@@ -41,7 +42,6 @@ jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string, options?:
 const collision = {
 	email: "same@example.test",
 	discord: {
-		keycloakId: "discord-account-id",
 		name: "Historical hero",
 		createdAt: Date.UTC(2021, 2, 12),
 		adventure: {
@@ -54,7 +54,18 @@ const collision = {
 		name: "New hero", createdAt: Date.UTC(2026, 8, 30)
 	}
 };
-const saveToken = jest.fn().mockResolvedValue(undefined);
+
+/** What the plain check answers: the accounts, without asking the game where they stand. */
+const collisionWithoutProgression = {
+	email: collision.email,
+	discord: {
+		name: collision.discord.name, createdAt: collision.discord.createdAt
+	},
+	emailAccount: {
+		keycloakId: collision.emailAccount.keycloakId, name: collision.emailAccount.name, createdAt: collision.emailAccount.createdAt
+	}
+};
+const checkpoint = jest.fn().mockResolvedValue(undefined);
 const authenticated = jest.fn().mockResolvedValue(undefined);
 
 function token(accessToken: string): AuthToken {
@@ -77,11 +88,9 @@ async function keep(kind: string): Promise<void> {
 async function renderCollision(check: AccountCollisionCheck = {
 	collision, current: ACCOUNT_COLLISION_CHOICES.DISCORD
 }, primary = "discord-access"): Promise<void> {
-	const auth: React.ContextType<typeof AuthContext> = {
-		changeEmail: jest.fn(), changePassword: jest.fn(),
-		collision: null, enter: authenticated, leave: jest.fn().mockResolvedValue(undefined), accessToken: jest.fn().mockResolvedValue(primary),
-		state: AuthStateEnum.NO_TOKEN, setState: jest.fn(), saveToken, clearToken: jest.fn().mockResolvedValue(undefined)
-	};
+	const auth = fakeAuthState({
+		state: AuthStateEnum.NO_TOKEN, enter: authenticated, checkpoint, accessToken: jest.fn().mockResolvedValue(primary)
+	});
 	await render(<AuthContext.Provider value={auth}><AccountCollisionScreen state={{
 		token: token(primary), check
 	}} onAuthenticated={authenticated} onCancel={jest.fn()} /></AuthContext.Provider>);
@@ -115,7 +124,43 @@ describe("account collision choice", () => {
 		expect(email.getByText("app:auth.collision.noAdventure")).toBeTruthy();
 		expect(screen.getByText("app:auth.collision.keepBoth.explanation")).toBeTruthy();
 		expect(RestApi.resolveAccountCollision).not.toHaveBeenCalled();
-		expect(saveToken).not.toHaveBeenCalled();
+		expect(checkpoint).not.toHaveBeenCalled();
+	});
+
+	it("shows both accounts at once, then the progression the game reads for each", async () => {
+		let answer!: (check: AccountCollisionCheck) => void;
+		jest.mocked(RestApi.previewAccountCollision).mockReturnValueOnce(new Promise(resolve => {
+			answer = resolve;
+		}));
+		await renderCollision({
+			collision: collisionWithoutProgression, current: ACCOUNT_COLLISION_CHOICES.DISCORD
+		});
+		const email = within(screen.getByTestId("collision-account-email"));
+		expect(email.getByText("New hero")).toBeTruthy();
+		expect(email.getByText("app:common.loading")).toBeTruthy();
+		await act(async () => answer({
+			collision: {
+				...collisionWithoutProgression,
+				emailAccount: {
+					...collisionWithoutProgression.emailAccount, progressionAvailable: true, adventure: {
+						level: 3, score: 120, classId: 1
+					}
+				}
+			},
+			current: ACCOUNT_COLLISION_CHOICES.DISCORD
+		}));
+		expect(email.getByText("3")).toBeTruthy();
+		expect(email.queryByText("app:common.loading")).toBeNull();
+	});
+
+	it("says a progression is unavailable, never absent, when the game cannot tell it", async () => {
+		jest.mocked(RestApi.previewAccountCollision).mockRejectedValueOnce(new AccountCollisionRequestFailure(ACCOUNT_COLLISION_ERRORS.UNAVAILABLE));
+		await renderCollision({
+			collision: collisionWithoutProgression, current: ACCOUNT_COLLISION_CHOICES.DISCORD
+		});
+		await waitFor(() => expect(within(screen.getByTestId("collision-account-email")).getByText("app:auth.collision.progressionUnavailable")).toBeTruthy());
+		expect(screen.queryByText("app:auth.collision.noAdventure")).toBeNull();
+		expect(screen.queryByText("app:common.loading")).toBeNull();
 	});
 
 	it("deletes nothing when the player backs out of the second sign-in", async () => {
@@ -124,7 +169,7 @@ describe("account collision choice", () => {
 		await keep("email");
 		await waitFor(() => expect(KeycloakAuth.loginAs).toHaveBeenCalledTimes(1));
 		expect(RestApi.resolveAccountCollision).not.toHaveBeenCalled();
-		expect(saveToken).not.toHaveBeenCalled();
+		expect(checkpoint).not.toHaveBeenCalled();
 		expect(screen.getByTestId("collision-account-discord")).toBeTruthy();
 	});
 
@@ -143,8 +188,8 @@ describe("account collision choice", () => {
 		await waitFor(() => expect(authenticated).toHaveBeenCalledTimes(1));
 		expect(KeycloakAuth.loginAs).toHaveBeenCalledWith(collision.email);
 		expect(RestApi.resolveAccountCollision).toHaveBeenCalledWith(access, choice === ACCOUNT_COLLISION_CHOICES.DISCORD ? "email-access" : "discord-access", choice);
-		expect(saveToken).toHaveBeenCalledTimes(1);
-		expect((saveToken.mock.calls[0][0] as AuthToken).getAccessToken()).toBe(access);
+		expect(checkpoint).toHaveBeenCalledTimes(1);
+		expect((checkpoint.mock.calls[0][0] as AuthToken).getAccessToken()).toBe(access);
 	});
 
 	it("authenticates Discord as the second account when starting from email", async () => {

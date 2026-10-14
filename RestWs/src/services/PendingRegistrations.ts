@@ -1,19 +1,31 @@
 import { keycloakConfig } from "../index";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
+import { KeycloakUser } from "../../../Lib/src/keycloak/KeycloakUser";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
+import {
+	hoursToMilliseconds, minutesToMilliseconds
+} from "../../../Lib/src/utils/TimeUtils";
+import {
+	asHours, asMilliseconds, asMinutes, Millisecond
+} from "../../../Lib/src/types/TimeTypes";
 
-const REVIEW_INTERVAL_MS = 60_000;
-const PENDING_LIFETIME_MS = 3_600_000;
+const REVIEW_INTERVAL = minutesToMilliseconds(asMinutes(1));
+const PENDING_LIFETIME = hoursToMilliseconds(asHours(1));
 const PAGE_SIZE = 100;
+
+/** Only an address nobody confirmed, on an account the sign-up form marked, may be removed. */
+function isPending(user: KeycloakUser): boolean {
+	return !user.emailVerified && user.attributes?.registrationPending?.[0] === "true";
+}
 
 export abstract class PendingRegistrations {
 	private static running = false;
 
 	public static start(): void {
-		setInterval(() => PendingRegistrations.review().catch(error => CrowniclesLogger.errorWithObj("Pending registrations cleanup failed", error)), REVIEW_INTERVAL_MS);
+		setInterval(() => PendingRegistrations.review().catch(error => CrowniclesLogger.errorWithObj("Pending registrations cleanup failed", error)), REVIEW_INTERVAL);
 	}
 
-	public static async review(now = Date.now()): Promise<void> {
+	public static async review(now: Millisecond = asMilliseconds(Date.now())): Promise<void> {
 		if (PendingRegistrations.running) {
 			return;
 		}
@@ -25,19 +37,21 @@ export abstract class PendingRegistrations {
 				if (result.isError) {
 					throw new Error("Pending registrations unavailable");
 				}
-				for (const user of result.payload.users) {
-					if (!user.emailVerified && user.attributes?.registrationPending?.[0] === "true" && now - user.createdTimestamp > PENDING_LIFETIME_MS) {
-						expired.push(user.id);
-					}
-				}
+				expired.push(...result.payload.users.filter(user => isPending(user) && now - user.createdTimestamp > PENDING_LIFETIME).map(user => user.id));
 				if (result.payload.users.length < PAGE_SIZE) {
 					break;
 				}
 			}
 			for (const id of expired) {
 				const current = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, id);
-				if (!current.isError && !current.payload.user.emailVerified && current.payload.user.attributes?.registrationPending?.[0] === "true") {
-					await KeycloakUtils.deleteUser(keycloakConfig, id);
+				if (current.isError || !isPending(current.payload.user)) {
+					continue;
+				}
+				const deletion = await KeycloakUtils.deleteUser(keycloakConfig, id);
+				if (deletion.isError) {
+					CrowniclesLogger.warn("An expired registration could not be deleted", {
+						keycloakId: id, status: deletion.status
+					});
 				}
 			}
 		}

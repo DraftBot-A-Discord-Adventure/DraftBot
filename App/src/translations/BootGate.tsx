@@ -10,16 +10,17 @@ import { Theme } from "@/src/design/Theme";
 import { applyServerBundle } from "@/src/translations/i18nLoader";
 import { i18n } from "@/src/translations/i18n";
 import { RestApi } from "@/src/networking/RestApi";
-import { APP_COMPATIBILITY_STATUSES } from "../../../WsPackets/src/AppCompatibility";
+import {
+	APP_COMPATIBILITY_STATUSES, AppOutdatedStatus
+} from "../../../WsPackets/src/AppCompatibility";
 import {
 	createStyles, useColors
 } from "@/src/design/ThemeContext";
 
-type OutdatedState = typeof APP_COMPATIBILITY_STATUSES.APP_OUTDATED | typeof APP_COMPATIBILITY_STATUSES.SERVER_OUTDATED;
-type BootState = "loading" | "ready" | "error" | OutdatedState;
+type BootState = "loading" | "ready" | "error" | AppOutdatedStatus;
 
 /** Only a server being updated can be waited out; an outdated app needs the store. */
-const OUTDATED_NOTICES: Record<OutdatedState, {
+const OUTDATED_NOTICES: Record<AppOutdatedStatus, {
 	message: string; canRetry: boolean;
 }> = {
 	[APP_COMPATIBILITY_STATUSES.APP_OUTDATED]: {

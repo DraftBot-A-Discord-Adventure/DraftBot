@@ -6,8 +6,6 @@ import {
 } from "ws-packets/src/WebSocketCloseReasons";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { AuthToken } from "@/src/authentication/AuthToken";
-import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
-import type { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
 
 // The identifiers deliberately differ from the class names: a minified bundle mangles the latter.
 class TestRequest extends FromClientPacket {
@@ -90,19 +88,17 @@ describe("WebSocketClient", () => {
 		await expect(pending).resolves.toBeNull();
 	});
 
-	it("clears the stored token and never reconnects after the account is deleted", async () => {
+	it("leaves a deleted account to the session owner and never reconnects", async () => {
 		jest.useFakeTimers();
 		try {
 			const {
 				client, socket
 			} = clientWithSocket();
 			const state = jest.fn();
-			const clear = jest.fn().mockResolvedValue(undefined);
 			Reflect.set(client, "setState", state);
-			Reflect.set(client, "clearToken", clear);
 			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, false);
 			await jest.runOnlyPendingTimersAsync();
-			expect(clear).toHaveBeenCalledTimes(1);
+			expect(state).toHaveBeenCalledTimes(1);
 			expect(state).toHaveBeenCalledWith(AuthStateEnum.NO_TOKEN);
 			expect(Reflect.get(client, "reconnectTimeoutId")).toBeNull();
 			await expect(client.getCurrentAccessToken()).resolves.toBeNull();
@@ -112,20 +108,38 @@ describe("WebSocketClient", () => {
 		}
 	});
 
-	it("does not clear another session started before the deletion cleanup runs", async () => {
-		const {
-			client, socket
-		} = clientWithSocket();
-		const state = jest.fn();
-		const clear = jest.fn().mockResolvedValue(undefined);
-		Reflect.set(client, "setState", state);
-		Reflect.set(client, "clearToken", clear);
-		Reflect.get(client, "handleSocketClose").call(client, socket, { reason: WEBSOCKET_ACCOUNT_DELETED_REASON }, false);
-		Reflect.set(client, "connectionVersion", Reflect.get(client, "connectionVersion") + 1);
-		await Promise.resolve();
-		await Promise.resolve();
-		expect(clear).not.toHaveBeenCalled();
-		expect(state).not.toHaveBeenCalled();
+	it("retries a reconnection whose access failed, then gives up once its attempts are spent", async () => {
+		jest.useFakeTimers();
+		const originalUrl = process.env.EXPO_PUBLIC_WEBSOCKET_URL;
+		process.env.EXPO_PUBLIC_WEBSOCKET_URL = "ws://local-test";
+		const errorSpy = jest.spyOn(console, "error").mockImplementation(() => undefined);
+		try {
+			const {
+				client, socket
+			} = clientWithSocket();
+			const state = jest.fn();
+			const access = jest.fn().mockRejectedValue(new TypeError("Network unavailable"));
+			Reflect.set(client, "setState", state);
+			Reflect.set(client, "accessTokenProvider", access);
+			Reflect.set(client, "maxConnectionAttempts", 2);
+			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: "" }, false);
+			await jest.advanceTimersByTimeAsync(1000);
+			expect(access).toHaveBeenCalledTimes(1);
+			expect(state).not.toHaveBeenCalledWith(AuthStateEnum.CONNECTION_ERROR);
+			await jest.advanceTimersByTimeAsync(1000);
+			expect(access).toHaveBeenCalledTimes(2);
+			expect(state).toHaveBeenLastCalledWith(AuthStateEnum.CONNECTION_ERROR);
+			await jest.advanceTimersByTimeAsync(5000);
+			expect(access).toHaveBeenCalledTimes(2);
+		}
+		finally {
+			errorSpy.mockRestore();
+			if (originalUrl === undefined) {
+				delete process.env.EXPO_PUBLIC_WEBSOCKET_URL;
+			}
+			else { process.env.EXPO_PUBLIC_WEBSOCKET_URL = originalUrl; }
+			jest.useRealTimers();
+		}
 	});
 
 	it("correlates a response with the request packet id", () => {
@@ -303,9 +317,6 @@ describe("WebSocketClient", () => {
 		Reflect.set(globalThis, "WebSocket", socketConstructor);
 		process.env.EXPO_PUBLIC_WEBSOCKET_URL = "ws://local-test";
 		try {
-			const token = new AuthToken({
-				accessToken: "local-test", refreshToken: "local-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
-			});
 			Reflect.get(client, "handleSocketError").call(client, socket, {});
 			Reflect.get(client, "handleSocketClose").call(client, socket, { reason: "" }, false);
 			client.sendPacket(new TestRequest(), { [TestResponse.wireName]: responseHandler as never });
@@ -378,9 +389,6 @@ describe("WebSocketClient", () => {
 			} = clientWithSocket();
 			const onStateChange = jest.fn();
 			Reflect.set(client, "setState", onStateChange);
-			const token = new AuthToken({
-				accessToken: "local-test", refreshToken: "local-refresh", accessTokenExpiresAt: new Date(Date.now() + 60_000), refreshTokenExpiresAt: "never"
-			});
 			const handleClose = Reflect.get(client, "handleSocketClose");
 
 			handleClose.call(client, socket, { reason: WEBSOCKET_SESSION_REPLACED_REASON }, false);
@@ -397,7 +405,7 @@ describe("WebSocketClient", () => {
 		}
 	});
 
-	it("does not save or reconnect the old account after its refresh finishes during an account switch", async () => {
+	it("does not reconnect the old account after its access arrives during an account switch", async () => {
 		jest.useFakeTimers();
 		const { client } = clientWithSocket();
 		client.disconnect();
@@ -424,15 +432,14 @@ describe("WebSocketClient", () => {
 				finishRefresh = resolve;
 			}));
 			const previousState = jest.fn();
-			const savePrevious = jest.fn().mockResolvedValue(undefined);
-			const pending = client.init(async () => {await previous.refreshIfNeeded(); return previous.getAccessToken();}, previousState, savePrevious);
+			const pending = client.init(async () => {await previous.refreshIfNeeded(); return previous.getAccessToken();}, previousState);
 			client.disconnect();
 			await client.init(async () => current.getAccessToken(), jest.fn());
 			finishRefresh(true);
 			await pending;
 			expect(socketConstructor).toHaveBeenCalledTimes(1);
 			expect(socketConstructor).toHaveBeenCalledWith(expect.stringContaining("token=new-account"));
-			expect(savePrevious).not.toHaveBeenCalled();
+			expect(previousState).not.toHaveBeenCalledWith(AuthStateEnum.LOGGED_IN);
 			expect(Reflect.get(client, "socket")).toBe(socket);
 		}
 		finally {

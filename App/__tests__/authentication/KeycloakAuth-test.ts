@@ -48,6 +48,11 @@ function offlineToken(): KeycloakOAuth2Token {
 	};
 }
 
+/** Keycloak's token endpoint, and a userinfo naming `subject` as the account signed in. */
+function keycloakAnswers(subject = "current-account"): jest.SpyInstance {
+	return jest.spyOn(globalThis, "fetch").mockImplementation(input => Promise.resolve(new Response(JSON.stringify(String(input).endsWith("/userinfo") ? { sub: subject } : offlineToken()), { status: 200 })));
+}
+
 describe("KeycloakAuth", () => {
 	beforeEach((): void => {
 		process.env.EXPO_PUBLIC_KEYCLOAK_URL = "https://keycloak.example.com";
@@ -56,7 +61,7 @@ describe("KeycloakAuth", () => {
 		mockAuthRequestConfigs.length = 0;
 		mockPromptAsync.mockReset();
 		mockOpenAuthSession.mockReset();
-		jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(offlineToken()), {status: 200}));
+		keycloakAnswers();
 	});
 
 	afterEach((): void => {
@@ -236,6 +241,27 @@ describe("KeycloakAuth", () => {
 	])("rejects an uncorrelated account action: %s", async url => {
 		mockOpenAuthSession.mockResolvedValue({type: "success", url});
 		await expect(KeycloakAuth.changeEmail({keycloakId: "current-account"})).rejects.toMatchObject({reason: AUTH_FAILURES.INVALID_TOKEN});
+	});
+
+	it("refuses an action Keycloak ran on another account than the one targeted", async () => {
+		keycloakAnswers("account-signed-up-meanwhile");
+		mockOpenAuthSession.mockResolvedValue({
+			type: "success", url: "crownicles://auth?code=c&state=s&kc_action=UPDATE_PASSWORD&kc_action_status=success"
+		});
+
+		await expect(KeycloakAuth.changePassword({keycloakId: "current-account"})).rejects.toMatchObject({reason: AUTH_FAILURES.INVALID_TOKEN});
+	});
+
+	it("keeps the offline session for the game sign-in only, not for account actions", async () => {
+		mockPromptAsync.mockResolvedValue({
+			type: "success", params: { code: "authorization-code" }
+		});
+		mockOpenAuthSession.mockResolvedValue({ type: "dismiss" });
+
+		await KeycloakAuth.login();
+		await KeycloakAuth.changePassword({keycloakId: "current-account"});
+
+		expect(mockAuthRequestConfigs.map(config => config.scopes)).toEqual([["openid", "offline_access"], ["openid"]]);
 	});
 
 	it("reads the current address from Keycloak with the session's access token", async () => {

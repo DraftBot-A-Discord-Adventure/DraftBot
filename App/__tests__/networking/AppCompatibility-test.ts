@@ -1,5 +1,5 @@
-import { RestApi } from "@/src/networking/RestApi";
-import { APP_PROTOCOL_VERSION } from "ws-packets/src/AppCompatibility";
+import { AppIncompatibilityFailure, RestApi } from "@/src/networking/RestApi";
+import { APP_PROTOCOL_HEADER, APP_PROTOCOL_VERSION } from "ws-packets/src/AppCompatibility";
 
 function answer(status: number, body: object = {}): void {
 	jest.spyOn(globalThis, "fetch").mockResolvedValue({
@@ -39,5 +39,14 @@ describe("app compatibility check", () => {
 		jest.spyOn(console, "warn").mockImplementation(() => undefined);
 		jest.spyOn(globalThis, "fetch").mockRejectedValue(new Error("offline"));
 		await expect(RestApi.getCompatibility()).resolves.toBeNull();
+	});
+
+	it("announces its protocol before a session opens, and says which side a refusal asks to update", async () => {
+		answer(426, { error: "serverOutdated" });
+		const refusal = RestApi.checkAccountCollision("session-access");
+		await expect(refusal).rejects.toBeInstanceOf(AppIncompatibilityFailure);
+		await expect(refusal).rejects.toMatchObject({ status: "serverOutdated" });
+		const [, init] = jest.mocked(globalThis.fetch).mock.calls[0];
+		expect((init?.headers as Record<string, string>)[APP_PROTOCOL_HEADER]).toBe(String(APP_PROTOCOL_VERSION));
 	});
 });

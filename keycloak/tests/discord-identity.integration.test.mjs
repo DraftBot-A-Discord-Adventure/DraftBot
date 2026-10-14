@@ -17,10 +17,12 @@ const BASE = "http://127.0.0.1:18180";
 const REALM = "crownicles-discord-identity-proof";
 const PROVIDER_PORT = 18181;
 const CALLBACK = "http://127.0.0.1:18182/callback";
+const MAILPIT = "http://127.0.0.1:18025";
 const MAX_REDIRECTS = 20;
 const DISCORD_ID = "123456789012345679";
 const EMAIL = "collision@example.test";
 const CONFIG = {url: BASE, realm: REALM, clientId: "proof-service", clientSecret: "proof-service-local-only"};
+const DRIFT_CLIENT = {clientId: "proof-realm-drift", clientSecret: "proof-realm-drift-local-only"};
 let adminToken;
 let provider;
 let legacyId;
@@ -134,6 +136,55 @@ async function authorize(register = false, credentials) {
 	throw new Error("Too many authentication redirects");
 }
 
+/** The action link of the latest mail sent to an address, or null when none arrived. */
+async function mailedActionLink(address) {
+	const messages = await fetch(`${MAILPIT}/api/v1/messages`).then(response => response.json());
+	const message = messages.messages.find(candidate => candidate.To.some(recipient => recipient.Address === address));
+	if (!message) return null;
+	const mail = await fetch(`${MAILPIT}/api/v1/message/${message.ID}`).then(response => response.json());
+	return [...new JSDOM(mail.HTML).window.document.querySelectorAll("a[href]")].find(anchor => anchor.href.includes("action-token"))?.href ?? null;
+}
+
+/** Opens the sign-in page of an application-initiated action meant for one account. */
+async function openAccountAction(action, targetId) {
+	const proof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
+	const jar = new CookieJar();
+	const url = new URL(authorizationUrl({credentials: true, ...proof}));
+	url.searchParams.set("kc_action", action);
+	url.searchParams.set("crownicles_account", targetId);
+	const entry = await browse(jar, url.href);
+	return {jar, proof, url: url.href, document: new JSDOM(await entry.text()).window.document};
+}
+
+/** Another step of the same authentication session, such as signing up or a forgotten password. */
+function loginActionUrl({document, url}, action) {
+	const form = new URL(document.querySelector("form").action, url);
+	const target = new URL(`${BASE}/realms/${REALM}/login-actions/${action}`);
+	for (const name of ["client_id", "tab_id", "client_data"]) {
+		if (form.searchParams.has(name)) target.searchParams.set(name, form.searchParams.get(name));
+	}
+	return target.href;
+}
+
+/** Fills the sign-up form reached from an account action meant for an existing account. */
+async function signUpDuringAccountAction(targetId) {
+	const email = `signup-action-${randomUUID()}@example.test`;
+	const session = await openAccountAction("UPDATE_EMAIL", targetId);
+	const signup = await browse(session.jar, loginActionUrl(session, "registration"));
+	const form = new JSDOM(await signup.text()).window.document.querySelector("form");
+	const values = new URLSearchParams([...form.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("username", `signup-${randomUUID().slice(0, 8)}`);
+	values.set("email", email);
+	const response = await browse(session.jar, new URL(form.action, session.url).href, values);
+	return {email, response, document: new JSDOM(await response.text()).window.document};
+}
+
+function realmDrift(...flags) {
+	const result = spawnSync(process.execPath, [new URL("../scripts/realmDrift.mjs", import.meta.url).pathname, ...flags], {encoding: "utf8", env: {...process.env, KEYCLOAK_URL: BASE, KEYCLOAK_REALM: REALM, KEYCLOAK_CLIENT_ID: DRIFT_CLIENT.clientId, KEYCLOAK_CLIENT_SECRET: DRIFT_CLIENT.clientSecret}});
+	assert.ok([0, 1].includes(result.status), result.stderr);
+	return {status: result.status, report: JSON.parse(result.stdout)};
+}
+
 before(async () => {
 	const response = await fetch(`${BASE}/realms/master/protocol/openid-connect/token`, {method: "POST", body: new URLSearchParams({client_id: "admin-cli", grant_type: "password", username: "proof-admin", password: "local-proof-only-password"})});
 	assert.equal(response.status, 200, "Only the disposable proof container is supported");
@@ -144,7 +195,10 @@ before(async () => {
 	assert.ok([204, 404].includes(removeExisting.status));
 	await admin("", "POST", {
 		realm: REALM, enabled: true, sslRequired: "none", duplicateEmailsAllowed: false, verifyEmail: template.verifyEmail, registrationAllowed: template.registrationAllowed,
+		resetPasswordAllowed: template.resetPasswordAllowed,
+		eventsListeners: template.eventsListeners,
 		registrationFlow: template.registrationFlow,
+		resetCredentialsFlow: template.resetCredentialsFlow,
 		authenticationFlows: template.authenticationFlows.map(({id, ...flow}) => flow),
 		authenticatorConfig: template.authenticatorConfig.map(({id, ...config}) => config),
 		requiredActions: template.requiredActions,
@@ -152,17 +206,22 @@ before(async () => {
 		identityProviderMappers: template.identityProviderMappers.map(({id, ...mapper}) => mapper),
 		clients: [
 			{clientId: "proof-app", publicClient: true, standardFlowEnabled: true, redirectUris: [CALLBACK], protocolMappers: template.clients.find(client => client.clientId === "crownicles-app").protocolMappers},
-			{clientId: CONFIG.clientId, secret: CONFIG.clientSecret, serviceAccountsEnabled: true, publicClient: false, standardFlowEnabled: false}
+			{clientId: CONFIG.clientId, secret: CONFIG.clientSecret, serviceAccountsEnabled: true, publicClient: false, standardFlowEnabled: false},
+			{clientId: DRIFT_CLIENT.clientId, secret: DRIFT_CLIENT.clientSecret, serviceAccountsEnabled: true, publicClient: false, standardFlowEnabled: false}
 		]
 	});
 	const userProfile = JSON.parse(template.components["org.keycloak.userprofile.UserProfileProvider"][0].config["kc.user.profile.config"][0]);
 	await admin(`/${REALM}/users/profile`, "PUT", userProfile);
 	const clients = await admin(`/${REALM}/clients`);
-	const service = clients.find(client => client.clientId === CONFIG.clientId);
 	const management = clients.find(client => client.clientId === "realm-management");
-	const serviceUser = await admin(`/${REALM}/clients/${service.id}/service-account-user`);
 	const roles = await admin(`/${REALM}/clients/${management.id}/roles`);
-	await admin(`/${REALM}/users/${serviceUser.id}/role-mappings/clients/${management.id}`, "POST", roles.filter(role => ["manage-users", "view-users", "query-users"].includes(role.name)));
+	for (const [clientId, granted] of [
+		[CONFIG.clientId, ["manage-users", "view-users", "query-users"]],
+		[DRIFT_CLIENT.clientId, ["view-realm", "manage-realm", "view-identity-providers", "manage-identity-providers"]]
+	]) {
+		const serviceUser = await admin(`/${REALM}/clients/${clients.find(client => client.clientId === clientId).id}/service-account-user`);
+		await admin(`/${REALM}/users/${serviceUser.id}/role-mappings/clients/${management.id}`, "POST", roles.filter(role => granted.includes(role.name)));
+	}
 	legacyId = await createUser({username: `discord-${DISCORD_ID}`, enabled: true, attributes: {discordId: [DISCORD_ID], gameUsername: ["Historical player"], language: ["fr"]}});
 	emailId = await createUser({username: "email-player", email: EMAIL, emailVerified: true, enabled: true, firstName: "Email", lastName: "Player", credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
 	provider = createServer(providerRequest);
@@ -286,7 +345,7 @@ for (const choice of ["discord", "email"]) {
 		assert.equal(emailSession.sub, otherId, emailSession.document?.body.textContent.trim());
 		const service = new AccountCollisionService(CONFIG);
 		assert.ok((await service.check(discordSession.accessToken)).collision);
-				const kept = choice === "discord" ? discordSession : emailSession;
+		const kept = choice === "discord" ? discordSession : emailSession;
 		const discarded = choice === "discord" ? emailSession : discordSession;
 		assert.deepEqual(await service.resolve(kept.accessToken, discarded.accessToken, choice), {kept: choice});
 		const deleted = await fetch(`${BASE}/admin/realms/${REALM}/users/${discarded.sub}`, {headers: {Authorization: `Bearer ${adminToken}`}});
@@ -312,7 +371,7 @@ test("real Keycloak: an interrupted email choice remains the bot owner and can f
 	const discordSession = await authorize();
 	const emailSession = await authorize(false, {username, password: "synthetic-password-only"});
 	const service = new AccountCollisionService(CONFIG);
-		const linkIdentity = ServiceKeycloakUtils.linkDiscordIdentity;
+	const linkIdentity = ServiceKeycloakUtils.linkDiscordIdentity;
 	ServiceKeycloakUtils.linkDiscordIdentity = async () => ({isError: true, status: 503, payload: {}});
 	try {
 		await assert.rejects(service.resolve(emailSession.accessToken, discordSession.accessToken, "email"), {status: 409});
@@ -368,14 +427,9 @@ test("real Keycloak: a password-bearing account defaults to an emailed link and 
 	const waiting = new JSDOM(await response.text()).window.document;
 	assert.ok(waiting.querySelector("#crownicles-link-status"), "Email must be the default, even when a password exists");
 	assert.equal(waiting.querySelector("input[type=password]"), null);
-	const messages = await fetch("http://127.0.0.1:18025/api/v1/messages").then(result => result.json());
-	const message = messages.messages.find(candidate => candidate.To.some(recipient => recipient.Address === email));
-	assert.ok(message, "A sign-in email must be sent");
-	const mail = await fetch(`http://127.0.0.1:18025/api/v1/message/${message.ID}`).then(result => result.json());
-	const mailDocument = new JSDOM(mail.HTML).window.document;
-	const link = [...mailDocument.querySelectorAll("a[href]")].find(anchor => anchor.href.includes("action-token"));
-	assert.ok(link);
-	const opened = await fetch(link.href);
+	const link = await mailedActionLink(email);
+	assert.ok(link, "A sign-in email must be sent");
+	const opened = await fetch(link);
 	assert.equal(opened.status, 200);
 	const carryOn = waiting.querySelector("#crownicles-link-continue");
 	const completed = await browse(jar, carryOn.href);
@@ -407,13 +461,7 @@ test("real Keycloak: a password-bearing account defaults to an emailed link and 
 });
 
 async function openPasswordAction(targetId, username) {
-	const proof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
-	const jar = new CookieJar();
-	const url = new URL(authorizationUrl({credentials: true, ...proof}));
-	url.searchParams.set("kc_action", "UPDATE_PASSWORD");
-	url.searchParams.set("crownicles_account", targetId);
-	const entry = await browse(jar, url.href);
-	const entryDocument = new JSDOM(await entry.text()).window.document;
+	const {jar, proof, document: entryDocument} = await openAccountAction("UPDATE_PASSWORD", targetId);
 	const entryForm = entryDocument.querySelector("form");
 	const waitingResponse = await browse(jar, entryForm.action, new URLSearchParams({username}));
 	const waiting = new JSDOM(await waitingResponse.text()).window.document;
@@ -458,6 +506,121 @@ test("real Keycloak: the intended account completes its password action with a c
 	assert.equal(callback.searchParams.get("state"), proof.state);
 	assert.equal(callback.searchParams.get("kc_action_status"), "success");
 	assert.ok(callback.searchParams.get("code"));
-	console.info("Password action callback fields:", [...callback.searchParams.keys()].join(", "));
 	assert.equal((await exchangeCode(callback.href, proof)).sub, targetId);
+});
+
+async function brokeredEmailAction(targetId) {
+	const proof = {verifier: randomUUID().replaceAll("-", "").repeat(2), state: randomUUID()};
+	const jar = new CookieJar();
+	const url = new URL(authorizationUrl(proof));
+	url.searchParams.set("kc_action", "UPDATE_EMAIL");
+	url.searchParams.set("crownicles_account", targetId);
+	let current = url.href;
+	let response;
+	for (let redirectCount = 0; redirectCount < MAX_REDIRECTS; redirectCount++) {
+		response = await browse(jar, current);
+		const redirect = response.headers.get("location");
+		if (!redirect || redirect.startsWith(CALLBACK)) break;
+		current = new URL(redirect, current).href;
+	}
+	return response;
+}
+
+test("real Keycloak: signing in through Discord cannot run an account action meant for another account", async () => {
+	const discordId = "923456789012345777";
+	profile = {...profile, id: discordId, email: "brokered-action@example.test", global_name: "Brokered"};
+	const discordUser = await createUser({username: `discord-${discordId}`, enabled: true, attributes: {discordId: [discordId], gameUsername: ["Brokered"]}, federatedIdentities: [{identityProvider: "discord", userId: discordId, userName: "brokered"}]});
+	const emailTarget = await createUser({username: "brokered-target", email: "brokered-target@example.test", emailVerified: true, enabled: true});
+	const refused = await brokeredEmailAction(emailTarget);
+	assert.equal(refused.status, 400);
+	assert.equal(new JSDOM(await refused.text()).window.document.querySelector("input[name=email]"), null);
+	const allowed = await brokeredEmailAction(discordUser);
+	assert.equal(allowed.status, 200);
+	assert.ok(new JSDOM(await allowed.text()).window.document.querySelector("input[name=email]"), "The Discord account keeps its own email action");
+});
+
+test("real Keycloak: confirming a registration retires only its pending marker", async () => {
+	const username = "RegisteredHero";
+	const email = "registration-confirmed-proof@example.test";
+	const signup = await authorize(true);
+	const form = signup.document.querySelector("form");
+	const values = new URLSearchParams([...form.querySelectorAll("input[name]")].map(input => [input.name, input.value]));
+	values.set("username", username);
+	values.set("email", email);
+	const submitted = await browse(signup.jar, form.action, values);
+	assert.equal(submitted.status, 200);
+	const waiting = new JSDOM(await submitted.text()).window.document;
+	const users = await admin(`/${REALM}/users?username=${username.toLowerCase()}&exact=true`);
+	assert.equal(users.length, 1);
+	const pending = await admin(`/${REALM}/users/${users[0].id}`);
+	assert.equal(pending.emailVerified, false);
+	assert.deepEqual(pending.attributes.registrationPending, ["true"]);
+	assert.deepEqual(pending.attributes.gameUsername, [username]);
+	const link = await mailedActionLink(email);
+	assert.ok(link);
+	assert.equal((await fetch(link)).status, 200);
+	const completed = await browse(signup.jar, waiting.querySelector("#crownicles-link-continue").href);
+	assert.ok(completed.headers.get("location")?.startsWith(CALLBACK));
+	const confirmed = await admin(`/${REALM}/users/${pending.id}`);
+	assert.equal(confirmed.email, email);
+	assert.equal(confirmed.emailVerified, true);
+	assert.equal(confirmed.attributes.registrationPending, undefined);
+	assert.deepEqual(confirmed.attributes.gameUsername, [username]);
+});
+
+test("real Keycloak: signing up cannot take over an account action meant for another account", async () => {
+	const targetId = await createUser({username: "signup-action-target", email: "signup-action-target@example.test", emailVerified: true, enabled: true});
+	const {email, response, document} = await signUpDuringAccountAction(targetId);
+	assert.equal(response.status, 400);
+	assert.equal(document.querySelector("#crownicles-link-status"), null);
+	assert.equal(document.querySelector("input[name=email]"), null);
+	assert.equal(await mailedActionLink(email), null, "No sign-up link may be sent for an account action");
+});
+
+test("real Keycloak: a forgotten password cannot take over an account action meant for another account", async () => {
+	const targetId = await createUser({username: "reset-action-target", email: "reset-action-target@example.test", emailVerified: true, enabled: true});
+	const email = `reset-action-${randomUUID()}@example.test`;
+	const otherId = await createUser({username: "reset-action-other", email, emailVerified: true, enabled: true, credentials: [{type: "password", value: "synthetic-password-only", temporary: false}]});
+	const [password] = await admin(`/${REALM}/users/${otherId}/credentials`);
+	const session = await openAccountAction("UPDATE_PASSWORD", targetId);
+	const reset = await browse(session.jar, loginActionUrl(session, "reset-credentials"));
+	const form = new JSDOM(await reset.text()).window.document.querySelector("form");
+	const sent = await browse(session.jar, new URL(form.action, session.url).href, new URLSearchParams({username: email}));
+	assert.equal(sent.status, 200);
+	const link = await mailedActionLink(email);
+	assert.ok(link, "The owner of the other account still receives its reset link");
+	let opened = await browse(session.jar, link);
+	for (let redirectCount = 0; opened.headers.get("location") && redirectCount < MAX_REDIRECTS; redirectCount++) {
+		opened = await browse(session.jar, new URL(opened.headers.get("location"), link).href);
+	}
+	assert.equal(opened.status, 400);
+	assert.equal(new JSDOM(await opened.text()).window.document.querySelector("input[name=password-new]"), null);
+	assert.deepEqual(await admin(`/${REALM}/users/${otherId}/credentials`), [password]);
+});
+
+test("real Keycloak: the realm drift check reports a removed account guard and only --apply restores it", async () => {
+	assert.deepEqual(realmDrift(), {status: 0, report: {mode: "read-only", applied: [], drift: []}});
+	for (const flow of ["crownicles registration", "crownicles post broker login"]) {
+		const guard = (await admin(`/${REALM}/authentication/flows/${encodeURIComponent(flow)}/executions`)).find(execution => execution.providerId === "crownicles-account-target");
+		await admin(`/${REALM}/authentication/executions/${guard.id}`, "DELETE");
+	}
+	await admin(`/${REALM}`, "PUT", {resetCredentialsFlow: "reset credentials"});
+	const changed = ["authenticationFlows.crownicles post broker login", "authenticationFlows.crownicles registration", "resetCredentialsFlow"];
+	const audit = realmDrift();
+	assert.equal(audit.status, 1);
+	assert.deepEqual(audit.report.drift.map(difference => difference.setting).sort(), changed);
+	assert.equal((await admin(`/${REALM}`)).resetCredentialsFlow, "reset credentials", "The default run must not change the realm");
+	const targetId = await createUser({username: "drift-action-target", email: "drift-action-target@example.test", emailVerified: true, enabled: true});
+	assert.equal((await signUpDuringAccountAction(targetId)).response.status, 200, "Without its guard the registration flow lets the action through");
+	const applied = realmDrift("--apply");
+	assert.equal(applied.status, 0, JSON.stringify(applied.report));
+	assert.deepEqual(applied.report.applied.sort(), changed);
+	assert.deepEqual(realmDrift(), {status: 0, report: {mode: "read-only", applied: [], drift: []}});
+	const realm = await admin(`/${REALM}`);
+	assert.equal(realm.registrationFlow, "crownicles registration");
+	assert.equal(realm.resetCredentialsFlow, "crownicles reset credentials");
+	assert.equal((await admin(`/${REALM}/identity-provider/instances/discord`)).postBrokerLoginFlowAlias, "crownicles post broker login");
+	assert.ok(!(await admin(`/${REALM}/authentication/flows`)).some(flow => flow.alias.includes(" staged ")), "No staged copy may remain");
+	assert.equal((await signUpDuringAccountAction(targetId)).response.status, 400);
+	assert.deepEqual(realmDrift("--apply").report, {mode: "apply", applied: [], drift: []});
 });

@@ -26,21 +26,25 @@ export type CollisionAccountAdventure = {
 };
 
 export type CollisionAccount = {
-	keycloakId: string;
 	name: string;
 
 	/** Milliseconds since the epoch. */
 	createdAt: number;
 
-	/** Absent when the account never started an adventure, or when the game could not tell in time. */
+	/** Absent when the account never started an adventure, or when its progression could not be read. */
 	adventure?: CollisionAccountAdventure;
+
+	/** Whether the game told where the account stands; absent until its progression was asked for. */
 	progressionAvailable?: boolean;
 };
+
+/** Keeping both accounts gives this one another address: that change targets it by its identifier. */
+export type CollisionEmailAccount = CollisionAccount & { keycloakId: string };
 
 export type AccountCollision = {
 	email: string;
 	discord: CollisionAccount;
-	emailAccount: CollisionAccount;
+	emailAccount: CollisionEmailAccount;
 };
 
 export type AccountCollisionCheck = {

@@ -233,7 +233,7 @@ function LogoutSheet({
 		testID="logout-sheet"
 	>
 		{sessionExit.failed ? <Refusal>{i18n.t("app:settings.changeAccountFailed")}</Refusal> : null}
-		<ActionBanner icon={LogOut} label={sessionExit.pending ? i18n.t("app:settings.leavingAccount") : i18n.t("app:settings.logout")} pending={sessionExit.pending} onPress={sessionExit.leave} />
+		<ActionBanner icon={LogOut} label={sessionExit.pending ? i18n.t("app:settings.leavingAccount") : i18n.t("app:common.logout")} pending={sessionExit.pending} onPress={sessionExit.leave} />
 	</QuestionSheet>;
 }
 
@@ -262,7 +262,7 @@ function AccountSettings(): ReactNode {
 				onPress={passwordChange.start}
 			/>
 			<EntryRow emblem={<UserRound size={ROW_EMBLEM_SIZE} />} title={i18n.t("app:settings.changeAccount")} disabled={sessionExit.pending} onPress={sessionExit.leave} />
-			<EntryRow title={i18n.t("app:settings.logout")} disabled={sessionExit.pending} onPress={(): void => setLeaving(true)} />
+			<EntryRow title={i18n.t("app:common.logout")} disabled={sessionExit.pending} onPress={(): void => setLeaving(true)} />
 			<EntryRow title={i18n.t("app:settings.deleteAccount.entry")} disabled={sessionExit.pending} danger onPress={(): void => router.push("/settings/delete-account")} />
 		</ExpandableList>
 		{emailChange.awaitingLink ? <Note>{i18n.t("app:settings.email.awaitingLink")}</Note> : null}

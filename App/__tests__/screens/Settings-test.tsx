@@ -14,7 +14,6 @@ import { NOTIFICATION_TYPES } from "ws-packets/src/objects/NotificationPreferenc
 import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
 import Settings from "@/app/(protected)/settings/index";
 import { AuthContext } from "@/src/authentication/AuthContext";
-import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { GameClient } from "@/src/networking/GameClient";
 import { forgetPushDevice } from "@/src/notifications/PushRegistration";
 import {
@@ -29,9 +28,9 @@ import {
 import {
 	ACCOUNT_ACTION_OUTCOMES, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
+import { fakeAuthState } from "@/src/testing/fakeAuthState";
 
 const mockPush = jest.fn();
-const mockDisconnect = jest.fn();
 const mockChangeEmail = jest.fn();
 const mockChangePassword = jest.fn();
 
@@ -56,11 +55,7 @@ jest.mock("@/src/notifications/PushRegistration", () => ({
 }));
 jest.mock("@/src/notifications/ReportNotifications", () => ({ cancelReportNotification: jest.fn() }));
 jest.mock("@/src/networking/GameClient", () => ({ GameClient: { request: jest.fn() } }));
-jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: () => ({
-	disconnect: mockDisconnect,
-	registerPushedPacketHandler: (): () => void => (): void => {},
-	getCurrentAccessToken: (): Promise<string> => Promise.resolve("access-token")
-}) } }));
+jest.mock("@/src/networking/WebSocketClient", () => ({ WebSocketClient: { getInstance: () => ({ registerPushedPacketHandler: (): () => void => (): void => {} }) } }));
 jest.mock("@/src/authentication/KeycloakAuth", () => ({
 	...jest.requireActual("@/src/authentication/KeycloakAuth"),
 	KeycloakAuth: {
@@ -105,12 +100,9 @@ function answers(packet: unknown): Promise<unknown> {
 }
 
 async function renderSettings(overrides: Partial<React.ContextType<typeof AuthContext>> = {}): Promise<React.ContextType<typeof AuthContext>> {
-	const auth = {
-		state: AuthStateEnum.LOGGED_IN, collision: null,
-		setState: jest.fn(), clearToken: jest.fn(() => Promise.resolve()), saveToken: jest.fn(),
-		enter: jest.fn(), leave: jest.fn().mockResolvedValue(undefined), accessToken: jest.fn().mockResolvedValue("access-token"),
+	const auth = fakeAuthState({
 		changeEmail: mockChangeEmail, changePassword: mockChangePassword, ...overrides
-	};
+	});
 	const client = new QueryClient({ defaultOptions: { queries: {
 		retry: false, gcTime: Infinity
 	} } });
@@ -218,8 +210,7 @@ describe("settings", () => {
 		const auth = await renderSettings();
 		await fireEvent.press(screen.getByRole("button", { name: label }));
 		expect(Linking.openURL).toHaveBeenCalledWith(url);
-		expect(auth.clearToken).not.toHaveBeenCalled();
-		expect(mockDisconnect).not.toHaveBeenCalled();
+		expect(auth.leave).not.toHaveBeenCalled();
 	});
 
 	it("keeps legal links recoverable after a browser opening failure", async () => {
@@ -298,8 +289,7 @@ describe("settings", () => {
 		const auth = await renderSettings();
 		await fireEvent.press(screen.getByText(`app:settings.gameServices.connect ${JSON.stringify({ provider: "app:settings.gameServices.providers.gameCenter" })}`));
 		expect(gameServicesStore.connect).toHaveBeenCalledTimes(1);
-		expect(auth.clearToken).not.toHaveBeenCalled();
-		expect(mockDisconnect).not.toHaveBeenCalled();
+		expect(auth.leave).not.toHaveBeenCalled();
 	});
 
 	it("explains missing platform configuration before offering any action", async () => {
@@ -331,24 +321,21 @@ describe("settings", () => {
 
 	it("asks before logging out, then forgets this device and ends the session", async () => {
 		const auth = await renderSettings();
-		await fireEvent.press(screen.getByText("app:settings.logout"));
-		expect(auth.setState).not.toHaveBeenCalled();
+		await fireEvent.press(screen.getByText("app:common.logout"));
+		expect(auth.leave).not.toHaveBeenCalled();
 
 		await waitFor(() => expect(screen.getByText("app:settings.logoutConfirm.title")).toBeTruthy());
-		await fireEvent.press(screen.getAllByText("app:settings.logout").at(-1)!);
+		await fireEvent.press(screen.getAllByText("app:common.logout").at(-1)!);
 
 		expect(forgetPushDevice).toHaveBeenCalled();
 		expect(auth.leave).toHaveBeenCalledTimes(1);
-		expect(auth.clearToken).not.toHaveBeenCalled();
 	});
 
 	it("changes account directly without a confirmation, after forgetting the token and this device", async () => {
 		const auth = await renderSettings();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
 		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
-		expect(auth.clearToken).not.toHaveBeenCalled();
 		expect(forgetPushDevice).toHaveBeenCalledTimes(1);
-		expect(mockDisconnect).not.toHaveBeenCalled();
 		expect(screen.queryByText("app:settings.logoutConfirm.title")).toBeNull();
 	});
 
@@ -357,16 +344,12 @@ describe("settings", () => {
 		const clearing = new Promise<void>(resolve => {
 			finish = resolve;
 		});
-		const auth = await renderSettings({
-			setState: jest.fn(), leave: jest.fn(() => clearing)
-		});
+		const auth = await renderSettings({ leave: jest.fn(() => clearing) });
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
 		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(1));
 		expect(screen.getByText("app:settings.leavingAccount")).toBeTruthy();
-		expect(mockDisconnect).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
 		expect(auth.leave).toHaveBeenCalledTimes(1);
-		expect(auth.setState).not.toHaveBeenCalled();
 		await act(async (): Promise<void> => {
 			finish();
 		});
@@ -374,16 +357,12 @@ describe("settings", () => {
 	});
 
 	it("keeps the current session recoverable when cleanup fails, then allows retrying", async () => {
-		const auth = {
-			setState: jest.fn(),
-			leave: jest.fn().mockRejectedValueOnce(new Error("keychain unavailable"))
-				.mockResolvedValue(undefined)
-		};
-		await renderSettings(auth);
+		const leave = jest.fn().mockRejectedValueOnce(new Error("keychain unavailable"))
+			.mockResolvedValue(undefined);
+		await renderSettings({ leave });
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
 		await waitFor(() => expect(screen.getByText("app:settings.changeAccountFailed")).toBeTruthy());
-		expect(auth.setState).not.toHaveBeenCalled();
 		await fireEvent.press(screen.getByText("app:settings.changeAccount"));
-		await waitFor(() => expect(auth.leave).toHaveBeenCalledTimes(2));
+		await waitFor(() => expect(leave).toHaveBeenCalledTimes(2));
 	});
 });
