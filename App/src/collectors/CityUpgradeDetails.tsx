@@ -5,7 +5,7 @@ import {
 } from "ws-packets/src/fromServer/collectors";
 import { AppIcons } from "@/src/AppIcons";
 import {
-	buysMaterials, missingMaterialUnits, upgradeForReaction, upgradeTotalCost
+	buysMaterials, missingMaterialUnits, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
 import {
 	AMOUNT_UNITS, formatMoney, formatNumber
@@ -48,12 +48,8 @@ function MaterialGauge({ material }: { material: UpgradeMaterial }): ReactNode {
 	/>;
 }
 
-/** The work order the blacksmith lays out before the player commits: levels, bill and every material. */
-function UpgradeWorkOrder({
-	upgrade, buying
-}: {
-	upgrade: CityMobileUpgradeItem; buying: boolean;
-}): ReactNode {
+/** The work order the blacksmith lays out before the player commits: levels, his fee and, above all, the materials. */
+function UpgradeWorkOrder({ upgrade }: { upgrade: CityMobileUpgradeItem }): ReactNode {
 	const styles = useStyles();
 	return <>
 		<Figures items={[
@@ -61,7 +57,7 @@ function UpgradeWorkOrder({
 				caption: i18n.t("app:city.anvil.levels"), value: `${formatNumber(upgrade.itemLevel)} → ${formatNumber(upgrade.nextLevel)}`
 			},
 			{
-				caption: i18n.t("app:city.anvil.bill"), value: formatNumber(upgradeTotalCost(upgrade, buying)), unit: AMOUNT_UNITS.MONEY
+				caption: i18n.t("app:city.anvil.fee"), value: formatNumber(upgrade.upgradeCost), unit: AMOUNT_UNITS.MONEY
 			}
 		]} />
 		{upgrade.materials.length > 0
@@ -79,7 +75,7 @@ function UpgradeWorkOrder({
 
 export function cityUpgradeDetails(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): ReactNode {
 	const upgrade = upgradeForReaction(reaction, snapshot);
-	return upgrade ? <UpgradeWorkOrder upgrade={upgrade} buying={buysMaterials(reaction)} /> : null;
+	return upgrade ? <UpgradeWorkOrder upgrade={upgrade} /> : null;
 }
 
 export function cityUpgradeConfirm(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): RowConfirm | undefined {

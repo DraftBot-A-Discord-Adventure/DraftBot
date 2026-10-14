@@ -1,11 +1,16 @@
+import { createElement } from "react";
 import {
-	CITY_REACTION_KINDS, CityMobileBeyondReachItem, CityMobileSnapshot
+	CITY_BLACKSMITH_LIMITS, CITY_REACTION_KINDS, CityMobileBeyondReachItem, CityMobileSnapshot
 } from "ws-packets/src/fromServer/collectors";
 import { i18n } from "@/src/translations/i18n";
 import {
 	cityItemIconPath, cityItemName
 } from "@/src/collectors/CityItemPresentation";
 import { isShownUpgradeVariant } from "@/src/collectors/CityUpgrades";
+import { BeyondReachStory } from "@/src/collectors/CityBeyondReach";
+import {
+	Castle, Trophy
+} from "@/src/design/FightIcons";
 import type {
 	CityEntry, CityListItem, CitySubmenu, CitySubmenuSection
 } from "@/src/collectors/CityCollector";
@@ -37,7 +42,11 @@ function beyondReachItem(item: CityMobileBeyondReachItem): CityListItem {
 		iconPath: cityItemIconPath(item),
 		title: cityItemName(item),
 		subtitle: i18n.t("app:city.anvil.itemLevel", { level: item.itemLevel }),
-		lock: { reason: i18n.t(`app:city.anvil.${item.limit}`, { level: item.itemLevel }) }
+		lock: {
+			reason: i18n.t(`app:city.anvil.${item.limit}`, { level: item.itemLevel }),
+			icon: item.limit === CITY_BLACKSMITH_LIMITS.ROYAL_ONLY ? Castle : Trophy
+		},
+		details: createElement(BeyondReachStory, { item })
 	};
 }
 

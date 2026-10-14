@@ -865,18 +865,36 @@
     "anvil": {
       "itemLevel": "Niveau {{level}}",
       "royalOnly": "Niveau {{level}} : le forgeron ne peut aller plus loin, seul le forgeron royal le peut.",
-      "maxed": "Niveau {{level}} : aucun artisan ne peut aller plus loin.",
+      "maxed": "Niveau maximal",
       "empty": "L'enclume reste froide",
       "nothingHeld": "Vous n'avez ni arme ni armure à confier au forgeron.",
       "subtitleReady": "Niveau {{from}} → {{to}} · matériaux réunis",
-      "subtitleMissing_one": "Niveau {{from}} → {{to}} · {{count}} matériau à acheter",
-      "subtitleMissing_other": "Niveau {{from}} → {{to}} · {{count}} matériaux à acheter",
+      "subtitleMissing_one": "Niveau {{from}} → {{to}} · {{count}} matériau manquant",
+      "subtitleMissing_other": "Niveau {{from}} → {{to}} · {{count}} matériaux manquants",
       "levels": "Niveau",
-      "bill": "À payer",
-      "materialsOffer_one": "Le forgeron vous vend le matériau manquant pour {{price}}, compris dans le prix.",
-      "materialsOffer_other": "Le forgeron vous vend les {{count}} matériaux manquants pour {{price}}, compris dans le prix.",
+      "fee": "Prix du forgeron",
+      "materialsOffer_one": "Il vous manque {{count}} matériau : rassemblez-le, ou laissez le forgeron vous le vendre pour {{price}}.",
+      "materialsOffer_other": "Il vous manque {{count}} matériaux : rassemblez-les, ou laissez le forgeron vous les vendre pour {{price}}.",
       "upgrade": "Améliorer au niveau {{level}}",
-      "buyAndUpgrade": "Acheter les matériaux et améliorer"
+      "buyAndUpgrade": "Acheter les matériaux et améliorer",
+      "royalOnlyStory": {
+        "eyebrow": "Niveau {{level}} atteint",
+        "title": "Au-delà du savoir du forgeron",
+        "description": "Le forgeron a mené cet équipement aussi loin que son art le permet. Seul le forgeron royal, au château, sait le porter au niveau {{nextLevel}}, contre quelques gemmes."
+      },
+      "maxedStory": {
+        "eyebrow": "Niveau maximal",
+        "title": "Un équipement à son apogée",
+        "description": "Aucun artisan du royaume ne peut le rendre plus fort : il ne reste qu'à le faire briller en combat."
+      }
+    },
+    "upgraded": {
+      "home": "Équipement amélioré",
+      "blacksmith": "Le forgeron a fait son œuvre",
+      "royalBlacksmith": "Chef-d'œuvre du forgeron royal",
+      "level": "Niveau {{level}} atteint",
+      "levelForCost": "Niveau {{level}} atteint pour {{cost}}",
+      "levelForCostAndGems": "Niveau {{level}} atteint pour {{cost}} et {{gems}}"
     },
     "labels": {
       "home": "Votre maison",
@@ -960,7 +978,6 @@
       "unavailable": "Cette action n'est pas disponible pour le moment."
     },
     "notes": {
-      "blacksmith": "Le forgeron peut améliorer jusqu'au niveau 4 ; le niveau 5 est réservé au forgeron royal.",
       "scrapDealer": "Le démontage est définitif : seuls les équipements de réserve non enchantés sont acceptés.",
       "royalBlacksmith": "Le forgeron royal est le seul artisan capable de porter un équipement au niveau 5.",
       "enchanter": "Mernil change de ville chaque jour et propose un seul enchantement quotidien.",

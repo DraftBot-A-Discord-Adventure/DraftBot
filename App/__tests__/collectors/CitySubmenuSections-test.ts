@@ -48,7 +48,7 @@ describe("blacksmith anvil", () => {
 		expect(sections[0].items.map(describeItem)).toEqual([
 			"reaction",
 			expect.stringMatching(/Niveau 4 : le forgeron ne peut aller plus loin, seul le forgeron royal le peut\.$/u),
-			expect.stringMatching(/Niveau 5 : aucun artisan ne peut aller plus loin\.$/u)
+			expect.stringMatching(/Niveau maximal$/u)
 		]);
 		expect(sections[1].items.map(describeItem)).toEqual(["reaction"]);
 	});

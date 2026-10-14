@@ -8,7 +8,6 @@ type CityNoteView = string;
 type NoteResolver = (snapshot: CityMobileSnapshot) => string | undefined;
 
 const NOTE_RESOLVERS: Record<string, NoteResolver> = {
-	blacksmith: snapshot => snapshot.blacksmith ? i18n.t("app:city.notes.blacksmith") : undefined,
 	scrapDealer: snapshot => snapshot.scrapDealer ? i18n.t("app:city.notes.scrapDealer") : undefined,
 	royalBlacksmith: snapshot => snapshot.royalBlacksmith ? i18n.t("app:city.notes.royalBlacksmith") : undefined,
 	inn: snapshot => snapshot.inns

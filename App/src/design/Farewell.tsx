@@ -4,7 +4,9 @@ import {
 import {
 	Animated, Easing, Text, View
 } from "react-native";
-import { LucideIcon } from "@/src/design/FightIcons";
+import {
+	LucideIcon, Sparkles
+} from "@/src/design/FightIcons";
 import {
 	PaletteColor, Theme
 } from "@/src/design/Theme";
@@ -16,6 +18,32 @@ import {
 const FAREWELL_EMBLEM = {
 	area: 132, halo: 104, haloGrowth: 1.06
 } as const;
+
+const SPARKLE_MOTION = {
+	twinkleMs: 2400, dim: 0.2, size: 18, flashSpan: 0.14
+} as const;
+
+/** Where each sparkle sits around the emblem, and when in the cycle it catches the light. */
+const SPARKLES = [
+	{
+		style: {
+			top: 10, left: 14
+		},
+		phase: 0.05
+	},
+	{
+		style: {
+			top: 22, right: 8
+		},
+		phase: 0.35
+	},
+	{
+		style: {
+			bottom: 12, left: 30
+		},
+		phase: 0.65
+	}
+] as const;
 
 export const FAREWELL_TONES = {
 	GAIN: "gain",
@@ -53,6 +81,7 @@ const useStyles = createStyles(colors => ({
 	halo: {
 		position: "absolute", width: FAREWELL_EMBLEM.halo, height: FAREWELL_EMBLEM.halo, borderRadius: FAREWELL_EMBLEM.halo / 2
 	},
+	sparkle: { position: "absolute" },
 	eyebrow: {
 		fontFamily: Theme.fonts.semiBold,
 		fontSize: Theme.fontSize.eyebrow,
@@ -166,6 +195,30 @@ export function FarewellEmblem({
 		]} />
 		{children}
 	</View>;
+}
+
+/** A few gold sparkles catching the light in turn around an emblem. */
+export function FarewellSparkles(): ReactNode {
+	const styles = useStyles();
+	const colors = useColors();
+	const twinkle = useMotionLoop(SPARKLE_MOTION.twinkleMs, false);
+	return SPARKLES.map(sparkle => {
+		const light = cycleWindow(twinkle, {
+			phase: sparkle.phase, span: SPARKLE_MOTION.flashSpan, rest: SPARKLE_MOTION.dim, peak: 1
+		});
+		return <Animated.View
+			key={sparkle.phase}
+			style={[
+				styles.sparkle,
+				sparkle.style,
+				{
+					opacity: light, transform: [{ scale: light }]
+				}
+			]}
+		>
+			<Sparkles size={SPARKLE_MOTION.size} color={colors.gold} />
+		</Animated.View>;
+	});
 }
 
 /** The page a blocked moment of the game opens on: a moving emblem, then what happened, told gently. */

@@ -3,13 +3,12 @@ import {
 } from "ws-packets/src/fromServer/collectors";
 import { formatMoney } from "@/src/display/Amounts";
 import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
-import {
-	buysMaterials, upgradeForReaction, upgradeTotalCost
-} from "@/src/collectors/CityUpgrades";
+import { upgradeForReaction } from "@/src/collectors/CityUpgrades";
 
+/** The blacksmith's own fee: materials are gathered first, buying them is only the fallback. */
 function upgradeEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
 	const upgrade = upgradeForReaction(reaction, snapshot);
-	return upgrade ? formatMoney(upgradeTotalCost(upgrade, buysMaterials(reaction))) : undefined;
+	return upgrade ? formatMoney(upgrade.upgradeCost) : undefined;
 }
 
 function disenchantEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {

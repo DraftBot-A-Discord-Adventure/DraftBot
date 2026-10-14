@@ -76,22 +76,22 @@ describe("blacksmith upgrade", () => {
 		expect(lock?.reason).toMatch(/^Il vous manque 300/u);
 	});
 
-	it("sums the row up: levels, how many materials to buy, and the whole bill", () => {
+	it("sums the row up: levels, how many materials are missing, and the blacksmith's own fee", () => {
 		const snapshot = forge(upgrade());
 
-		expect(cityRowSubtitle(upgradeReaction(true), snapshot)).toBe("Niveau 2 → 3 · 2 matériaux à acheter");
-		expect(cityRowEnd(upgradeReaction(true), snapshot)).toMatch(/^1\s400/u);
+		expect(cityRowSubtitle(upgradeReaction(true), snapshot)).toBe("Niveau 2 → 3 · 2 matériaux manquants");
+		expect(cityRowEnd(upgradeReaction(true), snapshot)).toMatch(/^1\s000/u);
 	});
 
-	it("lays out the work order: levels, bill, each material and what the blacksmith sells", async () => {
+	it("lays out the work order: levels, the blacksmith's fee, each material and the offer to sell the missing ones", async () => {
 		const snapshot = forge(upgrade(), 5_000);
 		await render(<>{cityUpgradeDetails(upgradeReaction(true), snapshot)}</>);
 
 		expect(screen.getByText("2 → 3")).toBeTruthy();
-		expect(screen.getByText("1 400")).toBeTruthy();
+		expect(screen.getByText("1 000")).toBeTruthy();
 		expect(screen.getByText("1 / 3")).toBeTruthy();
 		expect(screen.getByText("4 / 1")).toBeTruthy();
-		expect(screen.getByText(/Le forgeron vous vend les 2 matériaux manquants pour 400/u)).toBeTruthy();
+		expect(screen.getByText(/Il vous manque 2 matériaux : rassemblez-les, ou laissez le forgeron vous les vendre pour 400/u)).toBeTruthy();
 		expect(cityUpgradeConfirm(upgradeReaction(true), snapshot)?.label).toBe("Acheter les matériaux et améliorer");
 	});
 
@@ -101,7 +101,7 @@ describe("blacksmith upgrade", () => {
 		}), 5_000);
 		await render(<>{cityUpgradeDetails(upgradeReaction(false), snapshot)}</>);
 
-		expect(screen.queryByText(/Le forgeron vous vend/u)).toBeNull();
+		expect(screen.queryByText(/Il vous manque/u)).toBeNull();
 		expect(cityUpgradeConfirm(upgradeReaction(false), snapshot)?.label).toBe("Améliorer au niveau 3");
 	});
 });

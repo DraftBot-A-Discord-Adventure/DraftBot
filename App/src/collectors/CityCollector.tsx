@@ -69,6 +69,9 @@ export type CityInfoItem = {
 
 	/** An action the player cannot take yet, written in grey with the reason on the row. */
 	lock?: Lock;
+
+	/** What the row tells once touched, when the reason deserves more than a line. */
+	details?: ReactNode;
 };
 
 export type CityReactionItem = {

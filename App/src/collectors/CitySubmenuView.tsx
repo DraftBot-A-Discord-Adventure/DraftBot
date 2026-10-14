@@ -15,6 +15,7 @@ import {
 } from "@/src/collectors/CityRowDetails";
 import { cityRowDetails } from "@/src/collectors/CityRowExtras";
 import { cityUpgradeConfirm } from "@/src/collectors/CityUpgradeDetails";
+import { isUpgradeReaction } from "@/src/collectors/CityUpgrades";
 import {
 	cityReactionAvailable, cityRowIcon, cityRowTitle, iconForPath
 } from "@/src/collectors/CityRowPresentation";
@@ -125,6 +126,7 @@ export function CitySubmenuView({
 			rowEnd={cityRowEnd}
 			rowDetails={cityRowDetails}
 			rowConfirm={cityUpgradeConfirm}
+			staysBright={isUpgradeReaction}
 			reactionAvailable={cityReactionAvailable}
 		/>)}
 		{citySnapshotNote(view, snapshot)}
