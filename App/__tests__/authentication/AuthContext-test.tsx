@@ -9,7 +9,9 @@ import {
 	AuthContext, AuthProvider, createSessionStorage
 } from "@/src/authentication/AuthContext";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
-import { AUTH_FAILURES } from "@/src/authentication/AuthFailure";
+import {
+	AUTH_FAILURES, AuthFailure
+} from "@/src/authentication/AuthFailure";
 import {
 	deleteStoredToken, readFullStoredToken, readStoredToken, TOKEN_STORAGE_KEY_TEMPLATE, writeStoredToken
 } from "@/src/authentication/TokenStorage";
@@ -171,6 +173,26 @@ describe("account session ownership", () => {
 		expect(mockReset).toHaveBeenCalledWith({
 			index: 0, routes: [{ name: "login" }]
 		});
+	});
+
+	// Without a navigator under it, a root navigation remounts the whole app, boot screen included.
+	it("never moves the root once unmounted, even when the session it was opening is refused afterwards", async () => {
+		let refuse: (error: Error) => void = () => undefined;
+		jest.mocked(readFullStoredToken).mockResolvedValue(storedSession());
+		jest.mocked(RestApi.checkAccountCollision).mockReturnValue(new Promise((_resolve, reject) => {
+			refuse = reject;
+		}));
+		await render(<AuthProvider><AuthProbe /></AuthProvider>);
+		await waitFor(() => expect(RestApi.checkAccountCollision).toHaveBeenCalled());
+		mockReset.mockClear();
+		mockReplace.mockClear();
+
+		await screen.unmount();
+		await act(async () => refuse(new AuthFailure(AUTH_FAILURES.INVALID_TOKEN, "refused after the boot screen took over")));
+		await act(() => jest.advanceTimersByTime(1_000));
+
+		expect(mockReset).not.toHaveBeenCalled();
+		expect(mockReplace).not.toHaveBeenCalled();
 	});
 });
 

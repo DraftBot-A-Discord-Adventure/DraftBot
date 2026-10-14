@@ -35,6 +35,21 @@ describe("app compatibility check", () => {
 		await expect(RestApi.getCompatibility()).resolves.toBe("serverOutdated");
 	});
 
+	it("remembers a refusal until a check finds both sides in step, even across an unreachable server", async () => {
+		jest.spyOn(console, "warn").mockImplementation(() => undefined);
+		answer(200, { protocolVersion: APP_PROTOCOL_VERSION + 1 });
+		await RestApi.getCompatibility();
+		expect(RestApi.knownIncompatibility()).toBe("appOutdated");
+
+		jest.spyOn(globalThis, "fetch").mockRejectedValue(new Error("offline"));
+		await RestApi.getCompatibility();
+		expect(RestApi.knownIncompatibility()).toBe("appOutdated");
+
+		answer(200, { protocolVersion: APP_PROTOCOL_VERSION });
+		await RestApi.getCompatibility();
+		expect(RestApi.knownIncompatibility()).toBeNull();
+	});
+
 	it("leaves the decision to the connection when the server cannot be reached", async () => {
 		jest.spyOn(console, "warn").mockImplementation(() => undefined);
 		jest.spyOn(globalThis, "fetch").mockRejectedValue(new Error("offline"));

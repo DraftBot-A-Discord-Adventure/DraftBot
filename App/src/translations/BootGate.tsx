@@ -50,7 +50,9 @@ const useStyles = createStyles(colors => ({
 export function BootGate({ children }: PropsWithChildren): React.ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
-	const [state, setState] = useState<BootState>("loading");
+
+	// Navigating while the notice hides the routes remounts the whole root: a known refusal must not boot again.
+	const [state, setState] = useState<BootState>(() => RestApi.knownIncompatibility() ?? "loading");
 	const [retryCount, setRetryCount] = useState(0);
 
 	useEffect((): () => void => {

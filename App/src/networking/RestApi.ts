@@ -2,7 +2,7 @@ import type {
 	AssetsBundle, AssetsBundleLanguage
 } from "../../../WsPackets/src/objects/AssetsBundle";
 import {
-	APP_PROTOCOL_HEADER, APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, AppIncompatibility, AppOutdatedStatus, compareProtocolVersions
+	APP_COMPATIBILITY_STATUSES, APP_PROTOCOL_HEADER, APP_PROTOCOL_VERSION, AppCompatibility, AppCompatibilityStatus, AppIncompatibility, AppOutdatedStatus, compareProtocolVersions
 } from "../../../WsPackets/src/AppCompatibility";
 import {
 	ACCOUNT_COLLISION_ENDPOINTS, ACCOUNT_COLLISION_ERRORS, AccountCollisionCheck, AccountCollisionChoice,
@@ -64,6 +64,9 @@ function deletionFailure(status: number, confirming: boolean): AccountDeletionFa
 }
 
 export class RestApi {
+	/** The refusal of the last compatibility check that reached the server, until one finds both sides in step. */
+	private static incompatibility: AppOutdatedStatus | null = null;
+
 	private static getBaseUrl(): string {
 		const url = process.env.EXPO_PUBLIC_REST_API_URL;
 		if (!url) {
@@ -106,6 +109,19 @@ export class RestApi {
 	 * one behind; a network failure answers null and leaves the WebSocket check to decide.
 	 */
 	public static async getCompatibility(): Promise<AppCompatibilityStatus | null> {
+		const compatibility = await RestApi.checkCompatibility();
+		if (compatibility) {
+			RestApi.incompatibility = compatibility === APP_COMPATIBILITY_STATUSES.UP_TO_DATE ? null : compatibility;
+		}
+		return compatibility;
+	}
+
+	/** A refusal already received, so a screen mounted again shows it at once instead of starting over. */
+	public static knownIncompatibility(): AppOutdatedStatus | null {
+		return RestApi.incompatibility;
+	}
+
+	private static async checkCompatibility(): Promise<AppCompatibilityStatus | null> {
 		try {
 			const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}/app/compatibility`, { method: "GET" }, REST_TIMEOUT_MS);
 			if (response.status === 404) {

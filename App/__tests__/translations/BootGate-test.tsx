@@ -16,7 +16,10 @@ jest.mock("@/src/assets/AssetsManager", () => ({ AssetsManager: {
 	syncBundle: jest.fn()
 } }));
 jest.mock("@/src/translations/i18nLoader", () => ({ applyServerBundle: jest.fn() }));
-jest.mock("@/src/networking/RestApi", () => ({ RestApi: { getCompatibility: jest.fn() } }));
+jest.mock("@/src/networking/RestApi", () => ({ RestApi: {
+	getCompatibility: jest.fn(),
+	knownIncompatibility: jest.fn()
+} }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 jest.mock("@/src/design/Primitives", () => {
 	const react = jest.requireActual("react");
@@ -52,6 +55,7 @@ describe("BootGate", () => {
 		mockedLoadCachedBundle.mockResolvedValue(null);
 		mockedSyncBundle.mockResolvedValue(bundle);
 		jest.mocked(RestApi.getCompatibility).mockResolvedValue("upToDate");
+		jest.mocked(RestApi.knownIncompatibility).mockReturnValue(null);
 	});
 
 	it("refuses to open the game to an app older than the server, with no way around it", async () => {
@@ -62,6 +66,18 @@ describe("BootGate", () => {
 		await waitFor(() => expect(view.getByText("app:boot.appOutdated")).toBeTruthy());
 		expect(view.queryByText("route content")).toBeNull();
 		expect(view.queryByText("app:boot.retry")).toBeNull();
+	});
+
+	it("keeps a known refusal on screen when the root remounts, instead of starting the app again behind it", async () => {
+		jest.mocked(RestApi.knownIncompatibility).mockReturnValue("appOutdated");
+		mockedLoadCachedBundle.mockResolvedValue(bundle);
+		jest.mocked(RestApi.getCompatibility).mockReturnValue(new Promise(() => undefined));
+		const view = await renderGate();
+
+		await waitFor(() => expect(mockedSyncBundle).toHaveBeenCalledWith("fr", bundle));
+		expect(view.queryByText("route content")).toBeNull();
+		expect(view.queryByText("app:boot.updating")).toBeNull();
+		expect(view.getByText("app:boot.appOutdated")).toBeTruthy();
 	});
 
 	it("waits for a server being updated and lets the player try again", async () => {
