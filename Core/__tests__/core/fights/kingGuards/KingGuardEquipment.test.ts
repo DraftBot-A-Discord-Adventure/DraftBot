@@ -5,9 +5,10 @@ import {
 	generateKingGuardEquipment, getKingGuardRarityRange
 } from "../../../../src/core/fights/kingGuards/KingGuardEquipment";
 import {
-	FightItemNatures, ItemRarity
+	FightItemNatures, ItemCategory, ItemConstants, ItemRarity
 } from "../../../../../Lib/src/constants/ItemConstants";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
+import { ItemEnchantment } from "../../../../../Lib/src/types/ItemEnchantment";
 
 describe("getKingGuardRarityRange", () => {
 	it("follows the progression of real players: higher levels wear rarer items", () => {
@@ -39,6 +40,18 @@ describe("generateKingGuardEquipment", () => {
 			}
 			expect(FightItemNatures).toContain(equipment.object.item.nature);
 			expect(equipment.potion.item.id === 0 || FightItemNatures.includes(equipment.potion.item.nature)).toBe(true);
+		}
+	});
+
+	it("upgrades and enchants the weapon and the armor at random", () => {
+		const slots = Array.from({ length: 400 }, () => generateKingGuardEquipment(60))
+			.flatMap(equipment => [[ItemCategory.WEAPON, equipment.weapon], [ItemCategory.ARMOR, equipment.armor]] as const);
+
+		expect(new Set(slots.map(([, slot]) => slot.itemLevel))).toEqual(new Set(Array.from({ length: ItemConstants.MAX_UPGRADE_LEVEL + 1 }, (_, level) => level)));
+		const enchanted = slots.filter(([, slot]) => slot.itemEnchantmentId !== null);
+		expect(enchanted.length / slots.length).toBeCloseTo(FightConstants.KING_GUARD.ENCHANTMENT_PROBABILITY, 1);
+		for (const [category, slot] of enchanted) {
+			expect(ItemEnchantment.getById(slot.itemEnchantmentId!)?.kind.slot).toBe(category);
 		}
 	});
 });

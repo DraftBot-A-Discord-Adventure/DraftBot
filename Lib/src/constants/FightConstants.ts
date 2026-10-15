@@ -393,7 +393,10 @@ export abstract class FightConstants {
 		},
 
 		// Share of real players equipped with a fight potion
-		FIGHT_POTION_PROBABILITY: 0.2
+		FIGHT_POTION_PROBABILITY: 0.2,
+
+		// The weapon and the armor each have this chance to carry a random enchantment
+		ENCHANTMENT_PROBABILITY: 0.5
 	};
 
 	/**

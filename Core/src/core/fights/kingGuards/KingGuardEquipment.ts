@@ -1,12 +1,13 @@
 import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
 import {
-	FightItemNatures, ItemCategory, ItemRarity
+	FightItemNatures, ItemCategory, ItemConstants, ItemRarity
 } from "../../../../../Lib/src/constants/ItemConstants";
 import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+import { generateRandomItem } from "../../utils/ItemUtils";
 import {
-	generateRandomItem, generateRandomLootEnchantment, generateRandomLootLevel
-} from "../../utils/ItemUtils";
+	EnchantmentSlot, ItemEnchantment
+} from "../../../../../Lib/src/types/ItemEnchantment";
 import { Weapon } from "../../../data/Weapon";
 import { Armor } from "../../../data/Armor";
 import {
@@ -47,9 +48,9 @@ export function getKingGuardRarityRange(level: number): RarityRange {
 }
 
 /**
- * Generate a weapon or an armor of a rarity drawn uniformly in the range, upgraded and enchanted like any loot
+ * Generate a weapon or an armor of a rarity drawn uniformly in the range, with a random upgrade level and maybe a random enchantment
  */
-function generateMainItem<T extends Weapon | Armor>(category: ItemCategory.WEAPON | ItemCategory.ARMOR, rarityRange: RarityRange): MainItemSlot<T> {
+function generateMainItem<T extends Weapon | Armor>(category: EnchantmentSlot, rarityRange: RarityRange): MainItemSlot<T> {
 	const rarity = RandomUtils.crowniclesRandom.integer(rarityRange.minRarity, rarityRange.maxRarity);
 	const item = generateRandomItem({
 		itemCategory: category,
@@ -58,8 +59,10 @@ function generateMainItem<T extends Weapon | Armor>(category: ItemCategory.WEAPO
 	});
 	return {
 		item: item as T,
-		itemLevel: generateRandomLootLevel(),
-		itemEnchantmentId: generateRandomLootEnchantment(item)
+		itemLevel: RandomUtils.crowniclesRandom.integer(0, ItemConstants.MAX_UPGRADE_LEVEL),
+		itemEnchantmentId: RandomUtils.crowniclesRandom.bool(FightConstants.KING_GUARD.ENCHANTMENT_PROBABILITY)
+			? ItemEnchantment.getRandomEnchantmentForSlot(category).id
+			: null
 	};
 }
 
