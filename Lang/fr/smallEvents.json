@@ -710,7 +710,7 @@
             "Malgré votre intervention, la potion n'a pas l'air d'avoir été améliorée. Vous vous sentez mal à l'aise... {emote:effects.sick}"
           ],
           "freezing": [
-            "Vous décidez de goûter à la potion qui est très froide. La sensation de froid ne disparaît pourtant pas, et vous sentez, impuissant, chacun de vos membres se refroidir... {emote:effects.freezing}",
+            "Vous goûtez la potion, glaciale. Même une fois avalée, le froid ne vous quitte plus et, impuissant, vous sentez vos membres s'engourdir un à un... {emote:effects.freezing}",
             "La sorcière vous charge de maintenir la marmite dans un bac de glace pilée le temps que la potion se stabilise. Lorsque vous la relâchez enfin, vous ne sentez plus vos doigts. {emote:effects.freezing}"
           ],
           "hurt": [
