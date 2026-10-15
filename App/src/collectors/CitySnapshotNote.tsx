@@ -16,7 +16,6 @@ const NOTE_RESOLVERS: Record<string, NoteResolver> = {
 		: undefined,
 	enchanter: snapshot => snapshot.enchanter ? i18n.t("app:city.notes.enchanter") : undefined,
 	homeGarden: snapshot => snapshot.home?.owned?.garden ? i18n.t("app:city.notes.garden", { hours: gameRules().cooldownHours.gardenWatering }) : undefined,
-	homeCooking: snapshot => snapshot.home?.owned?.hasCooking ? i18n.t("app:city.notes.cooking") : undefined,
 	notary: snapshot => snapshot.home?.manage || snapshot.apartmentNotary || snapshot.guildDomainNotary ? i18n.t("app:city.notes.notary") : undefined,
 	guild: snapshot => snapshot.guildDomain || snapshot.guildDomainNotary ? i18n.t("app:city.notes.guildDomain") : undefined
 };

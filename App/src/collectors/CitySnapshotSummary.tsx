@@ -98,15 +98,6 @@ function homeSummary(figures: (home: OwnedHome) => Figure[]): SummaryRenderer {
 	};
 }
 
-const renderHomeCookingSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.cooking"), value: formatNumber(home.cookingLevel ?? 0)
-	},
-	{
-		caption: i18n.t("app:city.summary.cookingSlots"), value: formatNumber(home.cookingSlots ?? 0)
-	}
-]);
-
 /** The remote garden: what is ripe for the harvest, and the seed that waits for the trip home. */
 const renderHomeGardenSummary = homeSummary(home => [
 	{
@@ -234,7 +225,6 @@ const SUMMARY_RENDERERS: Partial<Record<CitySubmenu, SummaryRenderer>> = {
 	inn: renderInnSummary,
 	home: renderHomeSummary,
 	homeBed: renderHomeBedSummary,
-	homeCooking: renderHomeCookingSummary,
 	homeGarden: renderHomeGardenSummary,
 	homeUpgrade: renderHomeUpgradeSummary,
 	notary: renderCityNotarySummary,

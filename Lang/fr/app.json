@@ -37,7 +37,8 @@
     "pin": "Épingler",
     "unpin": "Désépingler",
     "pinned": "Recette épinglée",
-    "recipeLevel": "Niveau de recette",
+    "recipeLevelShort": "Niv. {{level}}",
+    "locks": {"unlit": "Le fourneau est éteint : allumez-le pour cuisiner.", "missingIngredients": "Il manque des ingrédients pour cette recette."},
     "secretRecipe": "Recette mystérieuse",
     "emptySlot": "Emplacement {{slot}} vide.",
     "ingredientQuantity": "{{owned}} / {{required}}",
@@ -969,7 +970,6 @@
       "apartment": "Logis",
       "mainHome": "Maison principale",
       "cooking": "Cuisine",
-      "cookingSlots": "Emplacements de cuisine",
       "bedRegeneration": "Régénération du lit",
       "gardenPlots": "Parcelles du jardin",
       "upgradeableItems": "Équipements améliorables",
@@ -1030,8 +1030,7 @@
       "inn": "Un repas est disponible toutes les {{mealHours}} h et une chambre toutes les {{roomHours}} h.",
       "garden": "L'arrosage est possible toutes les {{hours}} heures. Le jardin à distance permet seulement la récolte.",
       "notary": "Chaque ville applique son propre coefficient de prix pour les logements.",
-      "guildDomain": "Le domaine regroupe la boutique, le refuge, l'entrepôt et la ménagerie de votre guilde.",
-      "cooking": "Le niveau du fourneau est synchronisé ; les recettes en cours apparaîtront dans le flux cuisine."
+      "guildDomain": "Le domaine regroupe la boutique, le refuge, l'entrepôt et la ménagerie de votre guilde."
     },
     "reactions": {
       "enchant": "Aller voir l'enchanteur",
