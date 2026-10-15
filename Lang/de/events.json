@@ -1195,13 +1195,6 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "Sie beschließen, den Weg zurückzugehen, von dem Sie gekommen sind. Auf dem Weg dorthin finden Sie einige Münzen auf dem Boden neben einem löchrigen Geldbeutel.",
-          "1": "Sie machen sich auf den Rückweg, als Sie einen verletzten Mann finden. Als Sie versuchen, ihm zu helfen, stellen Sie fest, dass er in einen Hinterhalt geraten ist. Einige Männer tauchen auf und nehmen Sie aus, bevor sie weiterziehen."
-        },
-        "text": "Von hier aus, wo Sie herkommen."
-      },
-      "keepGoing": {
-        "outcomes": {
           "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
           "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
         },
