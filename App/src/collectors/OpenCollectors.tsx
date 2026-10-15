@@ -31,6 +31,8 @@ import { HomePurchaseOutcome } from "@/src/collectors/HomePurchaseOutcome";
 import { useHomePurchaseOutcome } from "@/src/store/useHomePurchaseOutcome";
 import { ItemUpgradeOutcome } from "@/src/collectors/ItemUpgradeOutcome";
 import { useItemUpgradeOutcome } from "@/src/store/useItemUpgradeOutcome";
+import { ItemRecycleOutcome } from "@/src/collectors/ItemRecycleOutcome";
+import { useItemRecycleOutcome } from "@/src/store/useItemRecycleOutcome";
 import { InnOutcome } from "@/src/collectors/InnOutcome";
 import { useInnOutcome } from "@/src/store/useInnOutcome";
 import { NotEnoughMoneyOutcome } from "@/src/collectors/NotEnoughMoneyOutcome";
@@ -162,6 +164,7 @@ function PendingOutcomes(): ReactNode {
 	const classOutcome = useClassOutcome();
 	const homePurchase = useHomePurchaseOutcome();
 	const itemUpgrade = useItemUpgradeOutcome();
+	const itemRecycle = useItemRecycleOutcome();
 	const innOutcome = useInnOutcome();
 	const notEnoughMoney = useNotEnoughMoneyOutcome();
 	const feedOutcome = usePetFeedOutcome();
@@ -205,6 +208,9 @@ function PendingOutcomes(): ReactNode {
 		},
 		{
 			state: itemUpgrade, node: <PendingOutcome state={itemUpgrade} Content={ItemUpgradeOutcome} />
+		},
+		{
+			state: itemRecycle, node: <PendingOutcome state={itemRecycle} Content={ItemRecycleOutcome} />
 		},
 		{
 			state: innOutcome, node: <PendingOutcome state={innOutcome} Content={InnOutcome} />

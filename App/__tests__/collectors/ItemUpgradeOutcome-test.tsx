@@ -8,7 +8,7 @@ import {
 	ITEM_UPGRADE_ARTISANS, ItemUpgradeRes
 } from "ws-packets/src/fromServer/report/ItemUpgradeRes";
 import { ItemUpgradeOutcome } from "@/src/collectors/ItemUpgradeOutcome";
-import { BeyondReachStory } from "@/src/collectors/CityBeyondReach";
+import { BeyondReachStory } from "@/src/collectors/CityItemStories";
 
 function outcome(overrides: Partial<ItemUpgradeRes>): ItemUpgradeRes {
 	return {

@@ -162,9 +162,12 @@ function mapBlacksmith(data: NonNullable<ReactionCollectorCityData["blacksmith"]
 }
 
 function mapScrapDealer(data: NonNullable<ReactionCollectorCityData["scrapDealer"]>): CityMobileScrapDealer {
-	return { recyclableItems: data.recyclableItems.map(item => ({
-		...itemSnapshot(item), recoveredMaterials: item.recoveredMaterials.map(material => ({ ...material })), recoveredMoney: item.recoveredMoney
-	} satisfies CityMobileRecycleItem)) };
+	return {
+		recyclableItems: data.recyclableItems.map(item => ({
+			...itemSnapshot(item), recoveredMaterials: item.recoveredMaterials.map(material => ({ ...material })), recoveredMoney: item.recoveredMoney
+		} satisfies CityMobileRecycleItem)),
+		enchantedItems: data.enchantedItems.map(itemSnapshot)
+	};
 }
 
 function mapRoyalBlacksmith(data: NonNullable<ReactionCollectorCityData["royalBlacksmith"]>): CityMobileRoyalBlacksmith {

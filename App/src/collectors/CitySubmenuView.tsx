@@ -13,8 +13,9 @@ import { enchantmentCatalogItems } from "@/src/collectors/CityGuildItems";
 import {
 	cityRowEnd, cityRowSubtitle
 } from "@/src/collectors/CityRowDetails";
-import { cityRowDetails } from "@/src/collectors/CityRowExtras";
-import { cityUpgradeConfirm } from "@/src/collectors/CityUpgradeDetails";
+import {
+	cityRowConfirm, cityRowDetails
+} from "@/src/collectors/CityRowExtras";
 import { isUpgradeReaction } from "@/src/collectors/CityUpgrades";
 import {
 	cityReactionAvailable, cityRowIcon, cityRowTitle, iconForPath
@@ -61,8 +62,12 @@ function submenuIcon(view: CitySubmenu, snapshot?: CityMobileSnapshot): string |
 
 const INTERACTIVE_SUBMENUS: Partial<Record<CitySubmenu, () => ReactNode>> = { guild: GuildDomain };
 
-/** The forges glow: their heading takes the gold of hot metal. */
-const WARM_SUBMENUS = new Set<CitySubmenu>(["blacksmith", "royalBlacksmith"]);
+/** The workshops ring with hammers: their heading takes the gold of hot metal. */
+const WARM_SUBMENUS = new Set<CitySubmenu>([
+	"blacksmith",
+	"royalBlacksmith",
+	"scrapDealer"
+]);
 
 function SubmenuHeading({
 	view, snapshot, innId
@@ -125,7 +130,7 @@ export function CitySubmenuView({
 			rowSubtitle={cityRowSubtitle}
 			rowEnd={cityRowEnd}
 			rowDetails={cityRowDetails}
-			rowConfirm={cityUpgradeConfirm}
+			rowConfirm={cityRowConfirm}
 			staysBright={isUpgradeReaction}
 			reactionAvailable={cityReactionAvailable}
 		/>)}

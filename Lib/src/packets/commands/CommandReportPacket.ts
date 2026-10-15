@@ -372,6 +372,12 @@ export class CommandReportBlacksmithDisenchantRes extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportScrapDealerRecycleRes extends CrowniclesPacket {
+	itemId!: number;
+
+	itemCategory!: number;
+
+	itemLevel!: number;
+
 	materialLoot!: MaterialQuantity[];
 
 	moneyGained!: number;

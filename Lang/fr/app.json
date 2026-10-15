@@ -813,7 +813,7 @@
       "equipment": "Améliorer un équipement",
       "disenchant": "Désenchanter",
       "anvil": "Sur l'enclume",
-      "recycling": "Équipements recyclables",
+      "recycling": "À démonter",
       "eligibleEquipment": "Vos équipements éligibles"
     },
     "subtitles": {
@@ -835,8 +835,7 @@
       "buyApartmentFoothold": "Un pied-à-terre : votre coffre et un lit, ici aussi",
       "notaryRent": "{{amount}} de loyer vous attendent",
       "noActions": "Aucune action disponible pour le moment.",
-      "disenchantDetails": "{{enchantment}} · retirer l'enchantement",
-      "recycleDetails": "Rend {{materials}}"
+      "disenchantDetails": "{{enchantment}} · retirer l'enchantement"
     },
     "enchantmentCatalog": {
       "title": "Catalogue des enchantements",
@@ -861,6 +860,25 @@
       "empty": "Libre · une graine peut y être plantée",
       "ready": "Prête à récolter",
       "growing": "Croissance · {{progress}} %"
+    },
+    "scrap": {
+      "subtitle_one": "Niveau {{level}} · rend {{count}} matériau",
+      "subtitle_other": "Niveau {{level}} · rend {{count}} matériaux",
+      "dismantle": "Démonter l'équipement",
+      "definitive": "Le démontage est définitif : l'équipement sera détruit.",
+      "enchanted": "Enchanté : à désenchanter chez un forgeron d'abord",
+      "enchantedStory": {
+        "eyebrow": "Équipement enchanté",
+        "title": "Gorim refuse d'y toucher",
+        "description": "Le démonter détruirait son enchantement. Faites-le d'abord retirer chez un forgeron, puis rapportez-le à Gorim."
+      },
+      "empty": "L'établi de Gorim reste vide",
+      "nothingRecyclable": "Seules les armes et armures de réserve non enchantées se démontent.",
+      "recycled": {
+        "eyebrow": "Gorim a démonté votre équipement",
+        "description_one": "{{count}} matériau rejoint votre réserve",
+        "description_other": "{{count}} matériaux rejoignent votre réserve"
+      }
     },
     "anvil": {
       "itemLevel": "Niveau {{level}}",
@@ -939,7 +957,6 @@
       "discount": "Réduction mage",
       "eligibleItems": "Équipements éligibles",
       "money": "Votre argent",
-      "recyclableItems": "Équipements recyclables",
       "status": "État",
       "playerLevel": "Votre niveau",
       "gems": "Gemmes",
@@ -978,7 +995,6 @@
       "unavailable": "Cette action n'est pas disponible pour le moment."
     },
     "notes": {
-      "scrapDealer": "Le démontage est définitif : seuls les équipements de réserve non enchantés sont acceptés.",
       "royalBlacksmith": "Le forgeron royal est le seul artisan capable de porter un équipement au niveau 5.",
       "enchanter": "Mernil change de ville chaque jour et propose un seul enchantement quotidien.",
       "inn": "Un repas est disponible toutes les {{mealHours}} h et une chambre toutes les {{roomHours}} h.",

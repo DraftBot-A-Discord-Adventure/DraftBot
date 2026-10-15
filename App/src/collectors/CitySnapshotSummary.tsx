@@ -170,17 +170,6 @@ function renderEnchanterSummary(snapshot: CityMobileSnapshot): ReactNode {
 	</>;
 }
 
-function renderScrapDealerSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const data = snapshot.scrapDealer;
-	return data
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.recyclableItems"), value: formatNumber(data.recyclableItems.length)
-			}
-		]} />
-		: null;
-}
-
 function renderRoyalBlacksmithSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const data = snapshot.royalBlacksmith;
 	if (!data) {
@@ -256,7 +245,6 @@ const SUMMARY_RENDERERS: Partial<Record<CitySubmenu, SummaryRenderer>> = {
 	homeUpgrade: renderHomeUpgradeSummary,
 	notary: renderCityNotarySummary,
 	enchanter: renderEnchanterSummary,
-	scrapDealer: renderScrapDealerSummary,
 	royalBlacksmith: renderRoyalBlacksmithSummary,
 	guild: renderGuildSummary
 };

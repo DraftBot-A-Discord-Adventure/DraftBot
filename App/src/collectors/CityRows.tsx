@@ -66,7 +66,11 @@ type CityRowsProps = {
 };
 
 export type RowConfirm = {
-	label: string; icon: LucideIcon;
+	label: string;
+	icon: LucideIcon;
+
+	/** What the player should know before pressing, such as an action that cannot be undone. */
+	hint?: Lock;
 };
 
 type ReactionRowState = {
@@ -175,6 +179,7 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 				unfolding.collapse();
 			}}
 			{...lock ? { lock } : {}}
+			{...confirm?.hint ? { hint: confirm.hint } : {}}
 		/>
 	</ExpandableEntry>;
 }

@@ -3,7 +3,7 @@ import { View } from "react-native";
 import {
 	CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import { AppIcons } from "@/src/AppIcons";
+import { materialName } from "@/src/display/Resources";
 import {
 	buysMaterials, missingMaterialUnits, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
@@ -30,18 +30,12 @@ const useStyles = createStyles(colors => ({
 
 type UpgradeMaterial = CityMobileUpgradeItem["materials"][number];
 
-function materialLabel(materialId: number): string {
-	const icon = AppIcons.getIconOrNull(`materials.${materialId}`);
-	const name = i18n.t(`models:materials.${materialId}`);
-	return icon ? `${icon} ${name}` : name;
-}
-
 /** Each material as a bar filling up to what the upgrade asks: full and green when owned, gold for what the blacksmith will sell. */
 function MaterialGauge({ material }: { material: UpgradeMaterial }): ReactNode {
 	const colors = useColors();
 	const owned = material.playerQuantity >= material.quantity;
 	return <Gauge
-		label={materialLabel(material.materialId)}
+		label={materialName(material.materialId)}
 		value={`${formatNumber(material.playerQuantity)} / ${formatNumber(material.quantity)}`}
 		ratio={material.quantity > 0 ? material.playerQuantity / material.quantity : 1}
 		color={owned ? colors.green : colors.gold}

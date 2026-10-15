@@ -103,6 +103,9 @@ export type CityMobileSnapshot = {
 	};
 	scrapDealer?: {
 		recyclableItems: CityMobileRecycleItem[];
+
+		/** Absent from servers older than the reasons on the scrap dealer's bench. */
+		enchantedItems?: CityMobileItem[];
 	};
 	royalBlacksmith?: {
 		status: string;
