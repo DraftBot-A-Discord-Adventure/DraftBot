@@ -24,7 +24,7 @@ import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { Language } from "../../../Lib/src/Language";
 
 /**
- * Disable the action buttons; a failed acknowledgement is only logged so the chosen action still reaches Core (#4877)
+ * Disable the action buttons; a failed acknowledgement is only logged so the chosen action still reaches Core
  */
 async function acknowledgeActionClick(buttonInteraction: ButtonInteraction, rows: ActionRowBuilder<ButtonBuilder>[]): Promise<void> {
 	try {
