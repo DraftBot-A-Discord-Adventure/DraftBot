@@ -1,6 +1,8 @@
 import {
 	act, fireEvent, render, screen, waitFor, within
 } from "@testing-library/react-native";
+import { Animated } from "react-native";
+import { TRAVEL_DASH_MS } from "@/src/store/TravelDashStore";
 import { ProfileRes } from "ws-packets/src/fromServer/profile/ProfileRes";
 import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
 import { SmallEventResultRes } from "ws-packets/src/fromServer/smallEvents/SmallEventResultRes";
@@ -316,6 +318,22 @@ describe("Adventure screen", () => {
 				kind: "alternative", packetName: SmallEventResultRes.wireName, packet: new SmallEventResultRes()
 			});
 
+		const runTiming = Animated.timing;
+		const dash: { finish?: Animated.EndCallback } = {};
+
+		// Jest's native driver ends any animation after 16 ms: the test holds the dash itself rather than racing it.
+		jest.spyOn(Animated, "timing").mockImplementation((value, config) => {
+			const animation = runTiming(value, config);
+			return config.duration === TRAVEL_DASH_MS
+				? {
+					...animation,
+					start: (callback?: Animated.EndCallback): void => {
+						dash.finish = callback;
+					}
+				}
+				: animation;
+		});
+
 		await render(<Adventure />);
 		await fireEvent.press(screen.getByText("app:adventure.quick.advanceWithCost"));
 		expect(request).toHaveBeenCalledTimes(1);
@@ -323,9 +341,11 @@ describe("Adventure screen", () => {
 		await act(async () => pushFromCore(ReportUseTokensAcceptedRes.wireName, {
 			tokensSpent: 1, isArrived: false
 		}));
+		expect(dash.finish).toBeDefined();
 		expect(request).toHaveBeenCalledTimes(1);
 
-		await waitFor(() => expect(request).toHaveBeenCalledTimes(2), { timeout: 3_000 });
+		await act(async () => dash.finish?.({ finished: true }));
+		await waitFor(() => expect(request).toHaveBeenCalledTimes(2));
 		expect(request.mock.calls[1][0]).toBeInstanceOf(ReportReq);
 		reportEventStore.clearTokens();
 	});
