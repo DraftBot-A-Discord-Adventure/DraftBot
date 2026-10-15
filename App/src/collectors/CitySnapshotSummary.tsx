@@ -97,15 +97,6 @@ function homeSummary(figures: (home: OwnedHome) => Figure[]): SummaryRenderer {
 	};
 }
 
-const renderHomeChestSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.storedItems"), value: formatNumber(home.chestItemCount ?? 0)
-	},
-	{
-		caption: i18n.t("app:city.summary.depositableItems"), value: formatNumber(home.depositableItemCount ?? 0)
-	}
-]);
-
 const renderHomeCookingSummary = homeSummary(home => [
 	{
 		caption: i18n.t("app:city.summary.cooking"), value: formatNumber(home.cookingLevel ?? 0)
@@ -241,7 +232,6 @@ const SUMMARY_RENDERERS: Partial<Record<CitySubmenu, SummaryRenderer>> = {
 	inn: renderInnSummary,
 	home: renderHomeSummary,
 	homeBed: renderHomeBedSummary,
-	homeChest: renderHomeChestSummary,
 	homeCooking: renderHomeCookingSummary,
 	homeGarden: renderHomeGardenSummary,
 	homeUpgrade: renderHomeUpgradeSummary,

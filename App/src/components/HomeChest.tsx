@@ -1,14 +1,16 @@
 import {
 	ReactNode, useState
 } from "react";
-import { Text } from "react-native";
+import {
+	Text, View
+} from "react-native";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
 import {
 	HomeChestInfoReq, HomeChestActionReq, HomePlantTransferReq
 } from "ws-packets/src/fromClient/HomeReq";
 import { HomeChestRes } from "ws-packets/src/fromServer/home/HomeRes";
 import {
-	CHEST_ACTIONS, PLANT_TRANSFER_ACTIONS, HomeChestData, HomeItemSlot, PlayerPlantSlot
+	CHEST_ACTIONS, PLANT_TRANSFER_ACTIONS, ChestCapacity, HomeChestData, HomeItemSlot, PlayerPlantSlot
 } from "ws-packets/src/objects/HomeChest";
 import { PlantId } from "ws-packets/src/objects/PlantId";
 import { GameClient } from "@/src/networking/GameClient";
@@ -26,11 +28,18 @@ import {
 } from "@/src/design/Primitives";
 import { SegmentedControl } from "@/src/design/SegmentedControl";
 import {
-	ActionBanner, ExpandableEntry, ExpandableList, Fact, useSectionStyles
+	ActionBanner, ExpandableEntry, ExpandableList, Gauge, Lock, useSectionStyles
 } from "@/src/design/Sections";
-import { Check } from "@/src/design/FightIcons";
+import {
+	Check, CircleAlert
+} from "@/src/design/FightIcons";
+import { Theme } from "@/src/design/Theme";
+import {
+	createStyles, useColors
+} from "@/src/design/ThemeContext";
 import { itemDisplayName } from "@/src/collectors/CollectorLabels";
 import { plantName } from "@/src/display/Resources";
+import { formatNumber } from "@/src/display/Amounts";
 import { i18n } from "@/src/translations/i18n";
 
 const CHEST_VIEWS = ["equipment", "plants"] as const;
@@ -40,6 +49,41 @@ type ChestActions = {
 	pending: boolean; submit: (action: HomeMutation) => Promise<void>;
 };
 type CarriedPlant = PlayerPlantSlot & { plantId: PlantId };
+type CategoryKey = keyof ChestCapacity;
+
+/** Item categories by their number on the wire. */
+const CATEGORY_KEYS: readonly CategoryKey[] = [
+	"weapon",
+	"armor",
+	"potion",
+	"object"
+];
+
+const useStyles = createStyles(colors => ({
+	capacities: {
+		borderRadius: Theme.radius, backgroundColor: colors.paper, overflow: "hidden"
+	}
+}));
+
+function countOf(items: HomeItemSlot[], category: number): number {
+	return items.filter(item => item.category === category).length;
+}
+
+/** Core refuses a deposit into a full chest row, and a withdrawal into a full inventory row: said before the press, swapping stays possible. */
+function transferLock(item: HomeItemSlot, source: ChestSource, data: HomeChestData): Lock | undefined {
+	const key = CATEGORY_KEYS[item.category];
+	if (!key) {
+		return undefined;
+	}
+	const full = source === "chest"
+		? countOf(data.depositableItems, item.category) >= data.inventoryCapacity[key]
+		: countOf(data.chestItems, item.category) >= data.slotsPerCategory[key];
+	return full
+		? {
+			reason: i18n.t(source === "chest" ? "app:homeChest.locks.inventoryFull" : "app:homeChest.locks.chestFull"), icon: CircleAlert
+		}
+		: undefined;
+}
 
 /** An item names its own transfers: a window over the chest would hide what is being moved. */
 function ChestItem({
@@ -56,6 +100,7 @@ function ChestItem({
 	const sectionStyles = useSectionStyles();
 	const action = source === "chest" ? CHEST_ACTIONS.WITHDRAW : CHEST_ACTIONS.DEPOSIT;
 	const swappable = (source === "chest" ? data.depositableItems : data.chestItems).filter(other => other.category === item.category);
+	const lock = transferLock(item, source, data);
 	const submit = (request: HomeChestActionReq): void => {
 		onToggle();
 		actions.submit({
@@ -75,6 +120,7 @@ function ChestItem({
 			icon={Check}
 			label={i18n.t(`app:homeChest.actions.${action}`)}
 			pending={actions.pending}
+			{...lock ? { lock } : {}}
 			onPress={(): void => submit(makeFromClientPacket(HomeChestActionReq, {
 				action, slot: item.slot, itemCategory: item.category, chestSlot: -1
 			}))}
@@ -99,6 +145,26 @@ function ChestItem({
 	</ExpandableEntry>;
 }
 
+/** How full each row of the chest is, at the top: what decides whether a deposit fits. */
+function ChestCapacities({ data }: { data: HomeChestData }): ReactNode {
+	const styles = useStyles();
+	const colors = useColors();
+	const rows = CATEGORY_KEYS
+		.map((key, category) => ({
+			key, used: countOf(data.chestItems, category), capacity: data.slotsPerCategory[key]
+		}))
+		.filter(row => row.capacity > 0);
+	return <View style={styles.capacities} testID="chest-capacities">
+		{rows.map(row => <Gauge
+			key={row.key}
+			label={i18n.t(`items:${row.key}`, { count: row.capacity })}
+			value={`${formatNumber(row.used)} / ${formatNumber(row.capacity)}`}
+			ratio={row.used / row.capacity}
+			color={colors.gold}
+		/>)}
+	</View>;
+}
+
 function ChestEquipment({
 	data, actions
 }: {
@@ -119,6 +185,7 @@ function ChestEquipment({
 		/>;
 	};
 	return <>
+		<ChestCapacities data={data} />
 		<SectionHeader>{i18n.t("app:homeChest.chest")}</SectionHeader>
 		<ExpandableList>{data.chestItems.length
 			? data.chestItems.map(item => entry(item, "chest", i18n.t("app:homeChest.slot", { slot: item.slot })))
@@ -127,10 +194,6 @@ function ChestEquipment({
 		<ExpandableList>{data.depositableItems.length
 			? data.depositableItems.map(item => entry(item, "inventory", i18n.t(item.slot === 0 ? "app:equipment.equipped" : "app:equipment.slot", { slot: item.slot })))
 			: <Note>{i18n.t("app:homeChest.emptyInventory")}</Note>}</ExpandableList>
-		<SectionHeader>{i18n.t("app:homeChest.capacity")}</SectionHeader>
-		<ExpandableList>{Object.entries(data.slotsPerCategory).map(([category, capacity]) => <Fact key={category} label={i18n.t(`items:${category}`, { count: capacity })} value={i18n.t("app:homeChest.capacities", {
-			chest: capacity, inventory: data.inventoryCapacity[category as keyof HomeChestData["inventoryCapacity"]]
-		})} />)}</ExpandableList>
 	</>;
 }
 

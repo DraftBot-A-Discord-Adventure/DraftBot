@@ -70,8 +70,10 @@
     "emptyChest": "Le coffre ne contient aucun équipement.",
     "emptyInventory": "Aucun équipement à déposer.",
     "noStoredPlants": "Aucune plante dans le coffre.",
-    "capacity": "Capacités",
-    "capacities": "Coffre : {{chest}} · Réserve : {{inventory}}",
+    "locks": {
+      "chestFull": "Le coffre est plein pour cette catégorie : échangez plutôt avec un objet ci-dessous.",
+      "inventoryFull": "Votre inventaire est plein pour cette catégorie : échangez plutôt avec un objet ci-dessous."
+    },
     "plantCapacity_one": "Capacité par plante : {{count}}",
     "plantCapacity_other": "Capacité par plante : {{count}}",
     "swapWith": "Échanger avec",
@@ -974,8 +976,6 @@
       "chest": "coffre",
       "garden": "jardin",
       "forge": "forge",
-      "storedItems": "Objets dans le coffre",
-      "depositableItems": "Objets de la réserve",
       "apartments": "Logis possédés",
       "rents": "Rentes",
       "enchantment": "Enchantement du jour",
@@ -1029,7 +1029,6 @@
       "garden": "L'arrosage est possible toutes les {{hours}} heures. Le jardin à distance permet seulement la récolte.",
       "notary": "Chaque ville applique son propre coefficient de prix pour les logements.",
       "guildDomain": "Le domaine regroupe la boutique, le refuge, l'entrepôt et la ménagerie de votre guilde.",
-      "chest": "Le coffre est consultable ici ; les dépôts et retraits utilisent le flux dédié.",
       "cooking": "Le niveau du fourneau est synchronisé ; les recettes en cours apparaîtront dans le flux cuisine."
     },
     "reactions": {

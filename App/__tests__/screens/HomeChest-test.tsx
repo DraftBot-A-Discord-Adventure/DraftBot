@@ -197,4 +197,23 @@ describe("home chest actions", () => {
 		});
 		expect(result.current.pending).toBe(false);
 	});
+
+	it("shows how full each chest row is, without the rows the chest does not have", async () => {
+		const packet = fixture();
+		packet.data.slotsPerCategory.object = 0;
+		await render(<HomeChest />, { wrapper: provider(packet) });
+
+		expect(screen.getByText("1 / 3")).toBeTruthy();
+		expect(screen.getAllByText("0 / 2")).toHaveLength(2);
+	});
+
+	it("says before the press that a full chest row only allows a swap", async () => {
+		const packet = fixture();
+		packet.data.slotsPerCategory.potion = 1;
+		await render(<HomeChest />, { wrapper: provider(packet) });
+		await fireEvent.press(screen.getByText("models:potions.44"));
+
+		expect(screen.getByText("app:homeChest.locks.chestFull")).toBeTruthy();
+		expect(screen.getByText("app:homeChest.actions.swap")).toBeTruthy();
+	});
 });
