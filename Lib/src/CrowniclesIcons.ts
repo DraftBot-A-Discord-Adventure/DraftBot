@@ -630,8 +630,7 @@ export const CrowniclesIcons: {
 				0: "🚶",
 				1: "🚶"
 			},
-			goBack: "🚶",
-			keepGoing: "🚶"
+			goBack: "🚶"
 		},
 		41: {
 			corrupt: "🕵️",

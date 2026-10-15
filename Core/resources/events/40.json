@@ -47,24 +47,6 @@
       }
     },
     "goBack": {
-      "condition": {
-        "canGoBack": true
-      },
-      "outcomes": {
-        "0": {
-          "money": 150,
-          "goBackToPreviousMap": true
-        },
-        "1": {
-          "money": -250,
-          "goBackToPreviousMap": true
-        }
-      }
-    },
-    "keepGoing": {
-      "condition": {
-        "canGoBack": false
-      },
       "outcomes": {
         "0": {
           "money": 150
