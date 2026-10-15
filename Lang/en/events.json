@@ -1195,13 +1195,6 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "You decide to go back the way you came. On the way, you find a few coins on the ground, next to a purse with a hole in it.",
-          "1": "You set off again, only to find an injured man. As you try to help him, you discover that you've been ambushed! Some men appear and rob you before setting off again."
-        },
-        "text": "Go back the way you came."
-      },
-      "keepGoing": {
-        "outcomes": {
           "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
           "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
         },
