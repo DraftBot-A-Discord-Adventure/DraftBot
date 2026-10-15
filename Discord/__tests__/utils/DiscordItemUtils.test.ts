@@ -18,4 +18,18 @@ describe("DiscordItemUtils.getObjectNatureDisplay", () => {
 
 		expect(display).toMatch(/Attaque \+ 1\s234 /u);
 	});
+
+	it.each([LANGUAGE.ENGLISH, LANGUAGE.SPANISH])("keeps a capped fight object power readable in %s", lng => {
+		expect(DiscordItemUtils.getObjectNatureDisplay(ItemNature.SPEED, 87, 80, lng)).toContain("~~87~~ 80");
+	});
+
+	it.each([
+		[LANGUAGE.ENGLISH, "1,234"],
+		[LANGUAGE.GERMAN, "1.234"]
+	])("groups the digits of an uncapped fight object power in %s", (lng, expected) => {
+		const display = DiscordItemUtils.getObjectNatureDisplay(ItemNature.ATTACK, 1234, 5000, lng);
+
+		expect(display).not.toContain("NaN");
+		expect(display).toContain(`+ ${expected} `);
+	});
 });
