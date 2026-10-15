@@ -233,7 +233,7 @@ function renderGardenView({
 }
 
 function renderSubmenuView({
-	submenu, innId, model, collector, snapshot, choose, navigate, setSubmenu, locked
+	submenu, innId, model, collector, snapshot, choose, navigate, back, locked
 }: {
 	submenu: CitySubmenu;
 	innId: string | undefined;
@@ -242,7 +242,7 @@ function renderSubmenuView({
 	snapshot: CityMobileSnapshot | undefined;
 	choose: (index: number) => void;
 	navigate: (item: CityNavigationItem) => void;
-	setSubmenu: (submenu: CitySubmenu | null) => void;
+	back: () => void;
 	locked: boolean;
 }): ReactNode {
 	const submenuEntries = submenu === "inn" && innId
@@ -257,13 +257,13 @@ function renderSubmenuView({
 		snapshot={snapshot}
 		onChoose={choose}
 		onNavigate={navigate}
-		onBack={() => setSubmenu(null)}
+		onBack={back}
 		locked={locked}
 	/>;
 }
 
 function cityCollectorView({
-	collector, model, snapshot, gardenOnly, gardenCloseIndex, submenu, innId, choose, navigate, setSubmenu, locked, locationName, locationDescription, mapIcon, submitting
+	collector, model, snapshot, gardenOnly, gardenCloseIndex, submenu, innId, choose, navigate, back, locked, locationName, locationDescription, mapIcon, submitting
 }: {
 	collector: CityMenuData;
 	model: CityMenuModel;
@@ -274,7 +274,7 @@ function cityCollectorView({
 	innId: string | undefined;
 	choose: (index: number) => void;
 	navigate: (item: CityNavigationItem) => void;
-	setSubmenu: (submenu: CitySubmenu | null) => void;
+	back: () => void;
 	locked: boolean;
 	locationName: string;
 	locationDescription: string;
@@ -294,7 +294,7 @@ function cityCollectorView({
 		})}
 		{submenu
 			? renderSubmenuView({
-				submenu, innId, model, collector, snapshot, choose, navigate, setSubmenu, locked
+				submenu, innId, model, collector, snapshot, choose, navigate, back, locked
 			})
 			: null}
 	</View>;
@@ -302,15 +302,19 @@ function cityCollectorView({
 
 type CityNavigation = {
 	submenu: CitySubmenu | null;
-	setSubmenu: (submenu: CitySubmenu | null) => void;
+	back: () => void;
 	innId: string | undefined;
 	navigate: (item: CityNavigationItem) => void;
 };
 
-function useCityNavigation(): CityNavigation {
+type SubmenuStep = {
+	view: CitySubmenu; innId: string | undefined;
+};
+
+/** Submenus open on top of each other, so going back returns to the one they were opened from. */
+export function useCityNavigation(): CityNavigation {
 	const router = useRouter();
-	const [submenu, setSubmenu] = useState<CitySubmenu | null>(null);
-	const [innId, setInnId] = useState<string>();
+	const [trail, setTrail] = useState<SubmenuStep[]>([]);
 	const navigate = (item: CityNavigationItem): void => {
 		if (item.view in HOME_SERVICE_DESTINATIONS) {
 			const service = HOME_SERVICE_DESTINATIONS[item.view as keyof typeof HOME_SERVICE_DESTINATIONS];
@@ -319,11 +323,15 @@ function useCityNavigation(): CityNavigation {
 			});
 			return;
 		}
-		setInnId(item.innId);
-		setSubmenu(item.view);
+		setTrail([
+			...trail, {
+				view: item.view, innId: item.innId
+			}
+		]);
 	};
+	const current = trail.at(-1);
 	return {
-		submenu, setSubmenu, innId, navigate
+		submenu: current?.view ?? null, back: (): void => setTrail(trail.slice(0, -1)), innId: current?.innId, navigate
 	};
 }
 
@@ -331,7 +339,7 @@ export function CityMenu({
 	collector, onChoose, submitting
 }: CityMenuProps): ReactNode {
 	const {
-		submenu, setSubmenu, innId, navigate
+		submenu, back, innId, navigate
 	} = useCityNavigation();
 	const locked = submitting;
 	const entries = collector.reactions.map((reaction, index) => ({
@@ -355,7 +363,7 @@ export function CityMenu({
 	const gardenOnly = data.data.gardenOnly === true;
 	const gardenCloseIndex = gardenOnly ? collector.reactions.findIndex(reaction => reaction.type === GENERIC_REACTION_KINDS.REFUSE) : -1;
 	return cityCollectorView({
-		collector, model, snapshot, gardenOnly, gardenCloseIndex, submenu, innId, choose, navigate, setSubmenu, locked, locationName, locationDescription, mapIcon, submitting
+		collector, model, snapshot, gardenOnly, gardenCloseIndex, submenu, innId, choose, navigate, back, locked, locationName, locationDescription, mapIcon, submitting
 	});
 }
 
