@@ -705,7 +705,8 @@
       "animal_lover": "Personne ayant montré tous les familiers à Talvar le nain",
       "expert_expediteur": "Personne ayant réussi de nombreuses expéditions avec son familier",
       "oracle_patron": "Protecteur de l'Oracle, ayant contribué généreusement à de nombreuses bénédictions",
-      "sentimental_crafter": "Personne ayant tenu à faire améliorer une humble relique jusqu'au sommet par le forgeron royal"
+      "sentimental_crafter": "Personne ayant tenu à faire améliorer une humble relique jusqu'au sommet par le forgeron royal",
+      "master_chef": "Cuisinier émérite ayant atteint le niveau 100 de cuisine"
     },
     "fightRanked": {
       "fieldName": "Gloire et ligue :",
@@ -1360,6 +1361,7 @@
           "levelUp": "Vous êtes passé au **niveau {{level}}** de cuisine !",
           "levelUpWithGrade": "Vous êtes passé au **niveau {{level}}** de cuisine ! Nouveau grade : **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}, niveau de cuisine augmenté !",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Vos efforts aux fourneaux sont enfin reconnus : un badge vous a été offert, **Chef cuisinier** !",
           "materialSaved": "{emote:messages.validate} Grâce à votre expertise, un **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** a été économisé !",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **Super réussite !** Votre maîtrise vous a permis de doubler l'XP gagnée et d'améliorer le résultat de cette préparation !",
           "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** ont été ajoutées au stockage de votre guilde.",

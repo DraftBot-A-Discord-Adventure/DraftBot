@@ -812,6 +812,7 @@ function buildCookingCraftResponsePacket({
 		cookingLevelUp: result.levelUp,
 		newCookingLevel: result.newLevel,
 		newCookingGrade: result.newGrade,
+		...result.masterChefBadgeEarned ? { masterChefBadgeEarned: true } : {},
 		materialSaved: result.materialSaved,
 		bonusOutput: result.bonusOutput && (bonusHonored ?? false),
 		discoveredRecipes: result.discoveredRecipes,

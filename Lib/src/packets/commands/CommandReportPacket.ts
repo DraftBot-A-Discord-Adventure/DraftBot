@@ -721,6 +721,8 @@ export class CommandReportCookingCraftRes extends CrowniclesPacket {
 
 	newCookingGrade?: string;
 
+	masterChefBadgeEarned?: boolean;
+
 	materialSaved?: number;
 
 	bonusOutput?: boolean;
