@@ -303,6 +303,20 @@
     "description": "Start a fight.",
     "name": "fight"
   },
+  "friendlyFight": {
+    "description": "Start a friendly fight without any consequence against another player controlled by an AI.",
+    "name": "friendlyfight",
+    "options": {
+      "rank": {
+        "description": "The rank of the player to fight.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The player to fight.",
+        "name": "user"
+      }
+    }
+  },
   "equip": {
     "name": "equip",
     "description": "Manage your equipment: equip, store or swap your items."

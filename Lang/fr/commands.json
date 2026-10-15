@@ -457,6 +457,9 @@
         "description": "Utilisez cette commande pour défier les autres joueurs.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.crownicles.com/notions-principale/combats",
         "image": "https://crownicles.com/public/ressources/fighthelp/fr/5.1.7.png"
       },
+      "FRIENDLY_FIGHT": {
+        "description": "Permet d'affronter un autre joueur, choisi en le mentionnant ou grâce à son classement, dans un combat amical. Le joueur affronté est contrôlé par une IA. Ce combat n'a aucune conséquence : aucune gloire, aucune récompense, aucune énergie perdue et aucune progression de mission."
+      },
       "GLORY_TOP": {
         "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
       },
@@ -2366,6 +2369,7 @@
     "notEnoughEnergy": "Vous n'avez pas assez d'énergie pour démarrer un combat !",
     "monsterNotFound": "Aucun monstre n'a été trouvé pour vous affronter. Veuillez signaler cet incident à notre support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Un combat est lancé entre {{fightInitiator}} et {{opponent}} !",
+    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | Un combat amical est lancé entre {{fightInitiator}} et {{opponent}} ! Il n'aura aucune conséquence.",
     "actionsOf": "**Attaques de {{pseudo}} :**",
     "petOf": "**Familier de {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
@@ -2571,6 +2575,13 @@
         "Ce match a été très serré avec des tactiques astucieuses des deux côtés.",
         "Les spectateurs ont assisté à un match épique entre deux joueurs talentueux qui se sont affrontés à armes égales."
       ]
+    }
+  },
+  "friendlyFight": {
+    "errors": {
+      "opponentNotFound": "Ce joueur est introuvable ou n'a pas encore commencé l'aventure.",
+      "selfFight": "Vous ne pouvez pas lancer un combat amical contre vous-même. Mentionnez un autre joueur ou indiquez son classement.",
+      "opponentLevelTooLow": "Ce joueur n'a pas encore débloqué les combats."
     }
   },
   "equip": {

@@ -40,6 +40,7 @@ type FightControllerOptions = {
 	context: PacketContext;
 	silentMode?: boolean;
 	tournamentContext?: TournamentFightContext;
+	friendly?: boolean;
 };
 
 export class FightController {
@@ -62,6 +63,8 @@ export class FightController {
 	private readonly silentMode: boolean;
 
 	public readonly tournamentContext?: TournamentFightContext;
+
+	public readonly friendly: boolean;
 
 	public petReactionData?: {
 		keycloakId: string;
@@ -88,6 +91,7 @@ export class FightController {
 		this.overtimeBehavior = options.overtimeBehavior;
 		this.silentMode = options.silentMode ?? false;
 		this.tournamentContext = options.tournamentContext;
+		this.friendly = options.friendly ?? false;
 	}
 
 	/**
