@@ -39,8 +39,23 @@ export abstract class PlayerBaseFighter extends Fighter {
 	 * Get the glory value that should be displayed for this fighter.
 	 * Tournament fighters expose their isolated rating instead of the normal player rating.
 	 */
-	public getDisplayedGloryPoints(): number {
+	public getDisplayedGloryPoints(): number | undefined {
 		return this.tournamentGloryPoints ?? this.player.getGloryPoints();
+	}
+
+	/**
+	 * Get the weapon, armor, potion and object currently equipped by the fighter
+	 */
+	public async getMainActiveObjects(): Promise<PlayerActiveObjects> {
+		return await InventorySlots.getMainSlotsItems(this.player.id);
+	}
+
+	/**
+	 * Count the items of the fighter having the given tag
+	 * @param tag
+	 */
+	protected async countItemsWithTag(tag: string): Promise<number> {
+		return await InventorySlots.countObjectsOfPlayer(this.player.id, tag);
 	}
 
 	/**

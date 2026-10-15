@@ -104,6 +104,8 @@ import { FightController } from "../../fights/FightController";
 import { PlayerFighter } from "../../fights/fighter/PlayerFighter";
 import { PlayerBaseFighter } from "../../fights/fighter/PlayerBaseFighter";
 import { MonsterFighter } from "../../fights/fighter/MonsterFighter";
+import type { KingGuardFighter } from "../../fights/fighter/KingGuardFighter";
+import { LogsKingGuardFightsResults } from "./models/LogsKingGuardFightsResults";
 import { Effect } from "../../../../../Lib/src/types/Effect";
 import { getDatabaseConfiguration } from "../../bot/CrowniclesConfig";
 import { botConfig } from "../../../bootstrap";
@@ -1368,6 +1370,28 @@ export class LogsDatabase extends Database {
 				});
 			}
 		}
+	}
+
+	/**
+	 * Log the result of a fight against a king guard
+	 * @param fight
+	 * @param guard
+	 */
+	public async logKingGuardFight(fight: FightController, guard: KingGuardFighter): Promise<void> {
+		const player = fight.fightInitiator;
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(player.player.keycloakId);
+		if (!logPlayer) {
+			return;
+		}
+		await LogsKingGuardFightsResults.create({
+			playerId: logPlayer.id,
+			classId: player.player.class,
+			guardClassId: guard.player.class,
+			guardLevel: guard.level,
+			turn: fight.turn,
+			winner: fight.isADraw() ? 0 : fight.getWinnerFighter() === player ? 1 : 2,
+			date: getDateLogs()
+		});
 	}
 
 	/**

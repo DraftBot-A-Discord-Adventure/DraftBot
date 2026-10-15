@@ -177,6 +177,7 @@ const EXPORTED_TABLES = {
 	"LogsFightsActionsUsed": "logs/46_pvp_fight_actions.csv",
 	"LogsPveFightsResults": "logs/47_pve_fights.csv",
 	"LogsPveFightsActionsUsed": "logs/48_pve_fight_actions.csv",
+	"LogsKingGuardFightsResults": "logs/101_king_guard_fights.csv",
 
 	// ============ LOGS DATABASE - Shop (LogsShopExporter) ============
 	"LogsClassicalShopBuyouts": "logs/49_classical_shop_buyouts.csv",
@@ -526,6 +527,13 @@ const LOG_DATA_EXPORT_FIELD_COVERAGE = {
 			"monsterDefense", "monsterSpeed", "turn", "winner", "date"
 		]
 	},
+	"LogsKingGuardFightsResults": {
+		exporter: "LogsFightsExporter.ts",
+		csvFile: "logs/101_king_guard_fights.csv",
+		fields: [
+			"classId", "guardClassId", "guardLevel", "turn", "winner", "date"
+		]
+	},
 	"LogsPlayersGloryPoints": {
 		exporter: "LogsPlayerStatsExporter.ts",
 		csvFile: "logs/24_glory_points_history.csv",
@@ -585,6 +593,10 @@ const LOG_DATA_MODEL_IGNORED_FIELDS = {
 		"player2Id"
 	],
 	"LogsPveFightsResults": [
+		"id",
+		"playerId"
+	],
+	"LogsKingGuardFightsResults": [
 		"id",
 		"playerId"
 	],

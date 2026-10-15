@@ -8,7 +8,6 @@ import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/F
 import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 import { PlayerFighter } from "../../../fighter/PlayerFighter";
 import { AiPlayerFighter } from "../../../fighter/AiPlayerFighter";
-import { InventorySlots } from "../../../../database/game/models/InventorySlot";
 
 type ArmorStatPart = {
 	stat: FightStatBuffed;
@@ -40,7 +39,7 @@ const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController
 
 	// Check if the opponent is a player or an AI player
 	if (opponent instanceof PlayerFighter || opponent instanceof AiPlayerFighter) {
-		const memberActiveObjects = await InventorySlots.getMainSlotsItems(opponent.player.id);
+		const memberActiveObjects = await opponent.getMainActiveObjects();
 		armorDamages = memberActiveObjects.armor.item.getAttack(memberActiveObjects.armor.itemLevel);
 		armorDefense = memberActiveObjects.armor.item.getDefense(memberActiveObjects.armor.itemLevel);
 		armorSpeed = memberActiveObjects.armor.item.getSpeed(memberActiveObjects.armor.itemLevel);
