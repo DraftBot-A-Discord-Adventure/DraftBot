@@ -55,6 +55,22 @@ const FUNCTION_TYPES = new Set([
 	"FunctionExpression"
 ]);
 
+const LOOP_TYPES = new Set([
+	"DoWhileStatement",
+	"ForInStatement",
+	"ForOfStatement",
+	"ForStatement",
+	"WhileStatement"
+]);
+
+// Statements after which control never reaches the next statement of the same block.
+const JUMP_TYPES = new Set([
+	"BreakStatement",
+	"ContinueStatement",
+	"ReturnStatement",
+	"ThrowStatement"
+]);
+
 // `this.<name>()` calls that leave the instance with no pending change of its own.
 const CHANGE_CLEARING_METHODS = new Set([
 	"save",
@@ -160,9 +176,27 @@ function getAncestors(node) {
 	return ancestors;
 }
 
+// A loop around two exclusive branches can still run both, one per iteration.
+function isInsideLoop(ancestors) {
+	const scopeStart = ancestors.findLastIndex(node => FUNCTION_TYPES.has(node.type));
+	return ancestors.slice(scopeStart + 1).some(node => LOOP_TYPES.has(node.type));
+}
+
+function endsWithJump(statements) {
+	const last = statements.at(-1);
+	return last?.type === "BlockStatement" ? endsWithJump(last.body) : JUMP_TYPES.has(last?.type);
+}
+
+// Whether control cannot fall through from `leftCase` down to `rightCase`.
+function areSeparatedByJump(cases, leftCase, rightCase) {
+	return cases.slice(cases.indexOf(leftCase), cases.indexOf(rightCase))
+		.some(clause => endsWithJump(clause.consequent));
+}
+
 /**
- * Whether `left` and `right` sit in two branches that never both run: two `case`
- * clauses (fall-through ignored) or the two sides of an `if` / ternary.
+ * Whether `left` (before `right` in the source) and `right` sit in two branches that
+ * never both run: the two sides of an `if` / ternary, or two `case` clauses with no
+ * fall-through between them, none of them inside a loop.
  */
 function areInExclusiveBranches(left, right) {
 	const leftAncestors = getAncestors(left);
@@ -174,8 +208,11 @@ function areInExclusiveBranches(left, right) {
 	const common = leftAncestors[depth];
 	const leftBranch = leftAncestors[depth + 1];
 	const rightBranch = rightAncestors[depth + 1];
+	if (isInsideLoop(leftAncestors.slice(0, depth + 1))) {
+		return false;
+	}
 	if (common.type === "SwitchStatement") {
-		return leftBranch !== common.discriminant && rightBranch !== common.discriminant;
+		return leftBranch !== common.discriminant && areSeparatedByJump(common.cases, leftBranch, rightBranch);
 	}
 	return (common.type === "IfStatement" || common.type === "ConditionalExpression")
 		&& leftBranch !== common.test
