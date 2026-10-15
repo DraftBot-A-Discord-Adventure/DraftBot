@@ -43,7 +43,7 @@ class TankFightBehavior implements ClassBehavior {
 				&& lastOpponentAction // Check if lastOpponentAction is not null
 				&& !FightConstants.UNCOUNTERABLE_ACTIONS.includes(lastOpponentAction.id)
 				&& lastOpponentAction.id !== FightConstants.FIGHT_ACTIONS.PLAYER.HEAVY_ATTACK
-				&& FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.COUNTER_ATTACK)
+				&& me.getBreath() >= FightActionDataController.getFightActionBreathCost(FightConstants.FIGHT_ACTIONS.PLAYER.COUNTER_ATTACK)
 				&& lastOpponentAction.breath > 4 // Don't copy attacks that cost a small amount of breath
 				&& RandomUtils.crowniclesRandom.bool(0.95)
 		) {
