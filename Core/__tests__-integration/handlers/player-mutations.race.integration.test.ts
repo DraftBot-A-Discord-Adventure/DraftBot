@@ -219,6 +219,7 @@ describe("Player mutations race", () => {
 		await PlayerMissionsInfo.create({ playerId: player.id });
 		player.class = 2;
 
+		// A gain goes through `MissionsController.update`, a loss through `mutateLocked`.
 		for (const amount of [10, -10]) {
 			await expect(player.addMoney({
 				amount,
