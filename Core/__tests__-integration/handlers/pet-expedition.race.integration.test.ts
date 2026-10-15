@@ -181,4 +181,59 @@ describe("pet expedition races", () => {
 		const freshPet = await PetEntity.findByPk(pet.id);
 		expect(freshPet!.lovePoints).toBe(50);
 	});
+
+	it("logs a recall with every column required by logs_expeditions", async () => {
+		const recallLogs: unknown[][] = [];
+		env.crownicles.setLogsDatabaseForTests(new Proxy({} as CoreTestEnvironment["crownicles"]["logsDatabase"], {
+			get(_target, prop: string | symbol) {
+				if (typeof prop !== "string" || prop === "then") {
+					return undefined;
+				}
+				return (...args: unknown[]): Promise<number> => {
+					if (prop === "logExpeditionRecall") {
+						recallLogs.push(args);
+					}
+					return Promise.resolve(0);
+				};
+			}
+		}));
+		const guild = await Guild.create({
+			name: "LoggedRecallGuild", chiefId: 1
+		});
+		const {
+			player, pet
+		} = await seedPlayer("expedition-logged-recall", guild.id);
+		const startDate = new Date(Date.now() - 30 * 60_000);
+		await PetExpedition.create({
+			playerId: player.id,
+			petId: pet.id,
+			startDate,
+			endDate: new Date(startDate.getTime() + 60 * 60_000),
+			riskRate: 10,
+			difficulty: 10,
+			wealthRate: 1,
+			locationType: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.FOREST,
+			mapLocationId: 1,
+			status: ExpeditionConstants.STATUS.IN_PROGRESS,
+			foodConsumed: FOOD_PER_EXPEDITION,
+			rewardIndex: 2
+		});
+
+		await handlers.handleExpeditionRecall(player, []);
+
+		expect(recallLogs).toEqual([
+			[
+				{
+					keycloakId: player.keycloakId, petGameId: pet.id
+				},
+				expect.objectContaining({
+					mapLocationId: 1,
+					locationType: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.FOREST,
+					durationMinutes: 60,
+					foodConsumed: FOOD_PER_EXPEDITION,
+					rewardIndex: 2
+				})
+			]
+		]);
+	});
 });
