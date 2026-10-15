@@ -235,11 +235,9 @@ export abstract class TravelTime {
 
 		// Move the start of the travel because the effect will have a duration of 0
 		if (Maps.isTravelling(player)) {
-			// Clamped to now: an effect started before the current travel (e.g. while staying in a city) never delayed it
-			player.startTravelDate = new Date(Math.min(
-				player.startTravelDate.valueOf() + minutesToMilliseconds(asMinutes(player.effectDuration)),
-				nowMs()
-			));
+			// Only the part of the effect overlapping the travel delayed it (#4633, #4859)
+			const { effectDuration } = TravelTime.getTravelDataSimplified(player, new Date());
+			player.startTravelDate = new Date(player.startTravelDate.valueOf() + effectDuration);
 		}
 
 		// Now we can safely remove the effect, as the player is after the effect
