@@ -83,23 +83,29 @@ function isMissionUpdateCall(node) {
 		&& MISSION_UPDATE_METHODS.has(callee.property.name);
 }
 
+function getCalledReloaderReceiver(callee, reloaders) {
+	return callee.type === "MemberExpression" && reloaders.has(callee.property.name) ? callee.object : undefined;
+}
+
+function isNonPlayerReceiver(receiver, { isPlayerModel, nonPlayerReceiver }) {
+	if (receiver.type === "ThisExpression") {
+		return !isPlayerModel;
+	}
+	return Boolean(nonPlayerReceiver?.test(receiver.name ?? receiver.property?.name ?? ""));
+}
+
 /**
  * Player whose instance the call re-syncs from a freshly locked row, if any. Without
  * type information, reloader names shared with other models (`Guild.addExperience`)
  * are told apart by the receiver: `this` only inside the model, and no receiver
  * matching `nonPlayerReceiver`.
  */
-function getReloadedPlayerNode(node, { reloaders, isPlayerModel, nonPlayerReceiver }) {
+function getReloadedPlayerNode(node, options) {
 	if (isMissionUpdateCall(node)) {
 		return node.arguments[0];
 	}
-	const callee = node.callee;
-	if (callee.type !== "MemberExpression" || callee.property.type !== "Identifier" || !reloaders.has(callee.property.name)) {
-		return undefined;
-	}
-	const receiver = callee.object;
-	const isForeignThis = receiver.type === "ThisExpression" && !isPlayerModel;
-	return isForeignThis || nonPlayerReceiver?.test(receiver.name ?? receiver.property?.name ?? "") ? undefined : receiver;
+	const receiver = getCalledReloaderReceiver(node.callee, options.reloaders);
+	return receiver && !isNonPlayerReceiver(receiver, options) ? receiver : undefined;
 }
 
 function getEnclosingFunction(node) {
@@ -303,6 +309,12 @@ function getUnsavedMutators(scans) {
 	return mutators;
 }
 
+function getIndirectReloaders(scans, reloaders) {
+	return [...scans]
+		.filter(([name, scan]) => !reloaders.has(name) && [...scan.callees].some(callee => reloaders.has(callee)))
+		.map(([name]) => name);
+}
+
 /**
  * Names of the methods that overwrite `this` with a freshly locked instance, either
  * directly or by calling another such method.
@@ -311,13 +323,11 @@ function getReloaders(scans) {
 	const reloaders = new Set([...scans]
 		.filter(([, scan]) => scan.resyncsThis)
 		.map(([name]) => name));
-	let size;
-	do {
-		size = reloaders.size;
-		[...scans]
-			.filter(([, scan]) => [...scan.callees].some(callee => reloaders.has(callee)))
-			.forEach(([name]) => reloaders.add(name));
-	} while (reloaders.size !== size);
+	let indirectReloaders = getIndirectReloaders(scans, reloaders);
+	while (indirectReloaders.length > 0) {
+		indirectReloaders.forEach(name => reloaders.add(name));
+		indirectReloaders = getIndirectReloaders(scans, reloaders);
+	}
 	return reloaders;
 }
 
