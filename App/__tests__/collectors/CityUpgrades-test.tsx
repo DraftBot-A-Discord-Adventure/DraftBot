@@ -71,7 +71,7 @@ describe("blacksmith upgrade", () => {
 	});
 
 	it("tells a player short of coins how much the whole bill lacks, materials included", () => {
-		const lock = cityReactionLock(upgradeReaction(true), forge(upgrade(), 1_100));
+		const lock = cityReactionLock(upgradeReaction(true), forge(upgrade(), 1_100), Date.UTC(2026, 9, 15));
 
 		expect(lock?.reason).toMatch(/^Il vous manque 300/u);
 	});

@@ -20,11 +20,11 @@ const missingMoney = (amount: number): Lock => ({
 const blocked = (key: string): Lock => ({
 	reason: i18n.t(key), icon: CircleAlert
 });
-const waiting = (key: string, availableAt: number | undefined): Lock => ({
-	reason: i18n.t(key, { time: formatTimeUntil(availableAt ?? Date.now()) }), icon: Clock3
+const waiting = (key: string, availableAt: number | undefined, now: number): Lock => ({
+	reason: i18n.t(key, { time: formatTimeUntil(availableAt ?? now, now) }), icon: Clock3
 });
 
-type LockResolver = (snapshot: CityMobileSnapshot | undefined) => Lock | undefined;
+type LockResolver = (snapshot: CityMobileSnapshot | undefined, now: number) => Lock | undefined;
 
 function homeLock(snapshot: CityMobileSnapshot | undefined, price: number | undefined): Lock | undefined {
 	const manage = snapshot?.home?.manage;
@@ -32,8 +32,8 @@ function homeLock(snapshot: CityMobileSnapshot | undefined, price: number | unde
 }
 
 const DIRECT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], LockResolver>> = {
-	[CITY_REACTION_KINDS.INN_MEAL]: snapshot => waiting("app:city.locks.mealCooldown", snapshot?.innCooldowns?.mealAvailableAt),
-	[CITY_REACTION_KINDS.INN_ROOM]: snapshot => waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt),
+	[CITY_REACTION_KINDS.INN_MEAL]: (snapshot, now) => waiting("app:city.locks.mealCooldown", snapshot?.innCooldowns?.mealAvailableAt, now),
+	[CITY_REACTION_KINDS.INN_ROOM]: (snapshot, now) => waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt, now),
 	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: snapshot => {
 		const notary = snapshot?.guildDomainNotary;
 		return notary
@@ -113,9 +113,9 @@ function rentLock(reaction: ReactionCollectorReaction, snapshot: CityMobileSnaps
 }
 
 /** Why a row the player can see cannot be pressed, so the refusal is readable before the tap. */
-export function cityReactionLock(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): Lock | undefined {
+export function cityReactionLock(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, now: number): Lock | undefined {
 	if (reaction.type === CITY_REACTION_KINDS.APARTMENT_CLAIM_RENT) {
 		return rentLock(reaction, snapshot);
 	}
-	return DIRECT_LOCKS[reaction.type]?.(snapshot) ?? equipmentLock(reaction, snapshot);
+	return DIRECT_LOCKS[reaction.type]?.(snapshot, now) ?? equipmentLock(reaction, snapshot);
 }

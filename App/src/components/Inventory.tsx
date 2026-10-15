@@ -28,6 +28,8 @@ import {
 import {
 	EntryRow, ExpandableList, Fact, Lock
 } from "@/src/design/Sections";
+import { useCurrentTime } from "@/src/store/useCurrentTime";
+import { CLAIMABLES_TICK_MS } from "@/src/store/useClaimables";
 
 export type InventoryData = NonNullable<InventoryRes["data"]>;
 type InventoryArtifacts = Pick<InventoryRes, "hasTalisman" | "hasCloneTalisman" | "hasRemoteHarvestTalisman">;
@@ -202,8 +204,8 @@ function InventoryContent({
 }
 
 /** The daily bonus is the one action with a delay, so the screen says how long it still has to run. */
-function dailyBonusLock(availableAt: number | undefined): Lock | undefined {
-	const remaining = availableAt === undefined ? 0 : availableAt - Date.now();
+function dailyBonusLock(availableAt: number | undefined, now: number): Lock | undefined {
+	const remaining = availableAt === undefined ? 0 : availableAt - now;
 	if (remaining <= 0) {
 		return undefined;
 	}
@@ -218,7 +220,7 @@ type ItemRows = { render: (entry: InventoryItem, category: InventoryCategory) =>
 
 function useItemRows(data: InventoryData, dailyBonusAvailableAt: number | undefined, actions: InventoryItemActions, dailyBonusToClaim: number): ItemRows {
 	const unfolding = useExpandedEntry<string>();
-	const dailyLock = dailyBonusLock(dailyBonusAvailableAt);
+	const dailyLock = dailyBonusLock(dailyBonusAvailableAt, useCurrentTime(CLAIMABLES_TICK_MS));
 	const equippedObjectGivesDaily = givesDailyBonus(data.object);
 	return {
 		render: (entry, category): ReactNode => {

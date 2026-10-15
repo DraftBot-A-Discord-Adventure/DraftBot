@@ -109,6 +109,13 @@ Rules that make this safe, do not work around them:
   screen can be rendered and tested without a socket.
 - `App/.env` is gitignored and machine-specific. On a physical device, use the LAN IP, not
   `localhost` — including in the Keycloak URL, since the login page opens on the device.
+- **The React Compiler memoizes every component** (`experiments.reactCompiler`). A value read during
+  render from outside props, state, context or hooks is frozen until those inputs change: never call
+  `Date.now()` during render, even inside a helper — take the time from `useCurrentTime` and pass it
+  down — and never hand out a stable function that reads a mutable store (`isAnswerPending` gets a new
+  identity with each collectors snapshot for this reason).
+- **Animate with the native driver**: transforms and opacity only. To fill a bar, slide a full-width
+  fill inside an `overflow: hidden` track (see `RoadTrack`) rather than animating a width.
 
 ## The design grammar
 

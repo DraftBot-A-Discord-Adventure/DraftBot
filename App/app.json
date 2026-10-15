@@ -86,10 +86,12 @@
       ],
       "./plugins/withSceneLifecycle",
       "./plugins/withAndroidReleaseSigning",
+      "./plugins/withAndroidReleaseOptimizations",
       "./plugins/withGameServices"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "reactCompiler": true
     }
   }
 }

@@ -75,6 +75,7 @@ import {
 	isAlterationReport, reportReadyAt
 } from "@/src/display/ReportTiming";
 import { useCurrentTime } from "@/src/store/useCurrentTime";
+import { useScreenFocused } from "@/src/store/useScreenFocused";
 import {
 	TRAVEL_DASH_MS, travelDashStore
 } from "@/src/store/TravelDashStore";
@@ -116,7 +117,10 @@ import {
 } from "@/src/store/useReportActions";
 import { GameMutation } from "@/src/store/useGameMutation";
 import { ReportCity } from "@/src/components/ReportCity";
-import { createStyles } from "@/src/design/ThemeContext";
+import {
+	createStyles, useColors
+} from "@/src/design/ThemeContext";
+import { RoadTrack } from "@/src/components/RoadTrack";
 
 const MILLISECONDS_PER_SECOND = 1_000;
 const SECONDS_PER_MINUTE = 60;
@@ -130,7 +134,7 @@ const REPORT_READY_PULSE = {
 
 /** The run to the next stop once tokens are spent. */
 const TRAVEL_DASH = {
-	durationMs: TRAVEL_DASH_MS, strideMs: 110, hop: -7, lean: "10deg"
+	durationMs: TRAVEL_DASH_MS, strideMs: 110
 } as const;
 
 /** Where the runner dashes to, and what happens once it is there. */
@@ -173,23 +177,6 @@ const useStyles = createStyles(colors => ({
 		height: Theme.dimensions.headerIcon,
 		alignItems: "center",
 		justifyContent: "center"
-	},
-	travelTrack: {
-		flex: 1,
-		height: 6,
-		borderRadius: Theme.pillRadius,
-		backgroundColor: colors.line,
-		position: "relative"
-	},
-	travelFill: {
-		height: "100%",
-		borderRadius: Theme.pillRadius,
-		backgroundColor: colors.ink
-	},
-	runner: {
-		position: "absolute",
-		top: -Theme.dimensions.headerIcon + Theme.spacing.xs,
-		marginLeft: -Theme.dimensions.quickActionIcon / 2
 	},
 	actions: {
 		gap: Theme.spacing.md,
@@ -287,34 +274,14 @@ function runnerIcon(packet: ReportTravelSummaryRes): string {
 		: AppIcons.getIcon("other.walking");
 }
 
-/** Twemoji draws the walker and the ferry heading left, so it is mirrored to face the destination on the right. */
-function TravelRunner({
-	packet, position, stride
-}: {
-	packet: ReportTravelSummaryRes; position: Animated.AnimatedInterpolation<string>; stride: Animated.Value;
-}): ReactNode {
-	const styles = useStyles();
-	return <Animated.View style={[styles.runner, { left: position }]}>
-		<Animated.View style={{ transform: [
-			{ translateY: stride.interpolate({
-				inputRange: [0, 1], outputRange: [0, TRAVEL_DASH.hop]
-			}) },
-			{ rotate: stride.interpolate({
-				inputRange: [0, 1], outputRange: ["0deg", TRAVEL_DASH.lean]
-			}) },
-			{ scaleX: -1 }
-		] }}>
-			<TwemojiIcon emoji={runnerIcon(packet)} size={Theme.dimensions.quickActionIcon} />
-		</Animated.View>
-	</Animated.View>;
-}
-
+/** The road between the two maps; after a token spend, the runner dashes to the stop before it opens. */
 function TravelPath({
 	packet, progress, dash
 }: {
 	packet: ReportTravelSummaryRes; progress: number; dash: TravelDash | null;
 }): ReactNode {
 	const styles = useStyles();
+	const colors = useColors();
 	const progressLabel = i18n.t("app:adventure.onTheRoad");
 	const reducedMotion = useReducedMotion();
 	const [shown] = useState(() => new Animated.Value(progress));
@@ -358,7 +325,7 @@ function TravelPath({
 		]));
 		strides.start();
 		Animated.timing(shown, {
-			toValue: dash.to, duration: TRAVEL_DASH.durationMs, easing: Easing.inOut(Easing.cubic), useNativeDriver: false
+			toValue: dash.to, duration: TRAVEL_DASH.durationMs, easing: Easing.inOut(Easing.cubic), useNativeDriver: true
 		}).start(() => {
 			reached.current = dash.to;
 			strides.stop();
@@ -373,9 +340,6 @@ function TravelPath({
 		stride
 	]);
 
-	const position = shown.interpolate({
-		inputRange: [NO_PROGRESS, FULL_PROGRESS], outputRange: ["0%", "100%"]
-	});
 	return (
 		<View
 			accessible
@@ -383,10 +347,7 @@ function TravelPath({
 			style={styles.travelPath}
 		>
 			<View style={styles.mapNode}>{mapIcon(packet.startMap)}</View>
-			<View style={styles.travelTrack}>
-				<Animated.View style={[styles.travelFill, { width: position }]} />
-				<TravelRunner packet={packet} position={position} stride={stride} />
-			</View>
+			<RoadTrack progress={shown} stride={stride} runner={runnerIcon(packet)} fillColor={colors.ink} />
 			<View style={styles.mapNode}>{mapIcon(packet.endMap)}</View>
 		</View>
 	);
@@ -412,9 +373,8 @@ function hasNextStop(packet: ReportTravelSummaryRes): boolean {
 }
 
 /**
- * Tied to the next stop rather than drawn at random: the screen ticks every second to move the
- * traveller along the path, and an advice changing under the player's eyes reads as a glitch.
- * Reaching a stop brings a new one.
+ * Tied to the next stop rather than drawn at random: the screen is drawn again whenever the report
+ * changes, and an advice changing under the player's eyes reads as a glitch. Reaching a stop brings a new one.
  */
 function travelAdvice(stopTime: number): string {
 	const advices = i18n.tArrayWithoutCommands("advices:advices");
@@ -975,14 +935,17 @@ function adventureCaption(context: AdventureContext): string {
 	return i18n.t(journeyStage(context) === JOURNEY_STAGES.ARRIVED ? "app:adventure.travel.arrivedEyebrow" : "app:adventure.travel.eyebrow");
 }
 
+/** The only part of the journey that follows the clock, so the rest of the screen is not drawn again every second. */
 function AdventureHeader({
-	context, dash, cure
+	packet, dash, cure
 }: {
-	context: AdventureContext; dash: TravelDash | null; cure: Cure | null;
+	packet: ReportTravelSummaryRes; dash: TravelDash | null; cure: Cure | null;
 }): ReactNode {
-	const {
-		packet, metrics, currentTime
-	} = context;
+	const currentTime = useCurrentTime(MILLISECONDS_PER_SECOND, useScreenFocused());
+	const metrics = getTravelMetrics(packet, currentTime);
+	const context: AdventureContext = {
+		packet, currentTime, metrics, destination: mapName(packet.endMap)
+	};
 	return <>
 		<Standing
 			emblem={adventureEmblem(packet, cure)}
@@ -1016,25 +979,20 @@ function AdventureActions({
 }
 
 function AdventureSheet({
-	packet, currentTime, actions, tools, dash, cure
+	packet, actions, tools, dash, cure
 }: {
 	packet: ReportTravelSummaryRes;
-	currentTime: number;
 	actions: SheetActions;
 	tools: ReactNode;
 	dash: TravelDash | null;
 	cure: Cure | null;
 }): ReactNode {
-	const metrics = getTravelMetrics(packet, currentTime);
-	const context: AdventureContext = {
-		packet, currentTime, metrics, destination: mapName(packet.endMap)
-	};
 	const contestRunning = useContest()?.running ?? false;
 	const advice = useTravelAdvice(packet.nextStopTime);
 
 	return (
 		<Screen>
-			<AdventureHeader context={context} dash={dash} cure={cure} />
+			<AdventureHeader packet={packet} dash={dash} cure={cure} />
 			<AdventureActions packet={packet} actions={actions} />
 			{contestRunning ? <ContestTips packet={packet} reportReady={actions.reportReady} /> : null}
 			{advice ? <Note>{advice}</Note> : null}
@@ -1073,7 +1031,6 @@ function AdventureBody({ tools }: { tools: ReactNode }): ReactNode {
 	const healOutcome = useHealOutcome();
 	const shopResult = useShopResult();
 	const pveFightOutcome = usePveFightOutcome();
-	const currentTime = useCurrentTime(MILLISECONDS_PER_SECOND);
 	const moments = useOnboardingMoments();
 
 	useEffect(() => {
@@ -1197,7 +1154,6 @@ function AdventureBody({ tools }: { tools: ReactNode }): ReactNode {
 		<>
 			<AdventureSheet
 				packet={travel}
-				currentTime={currentTime}
 				actions={{
 					advance: {
 						pending: advance.pending, onPress: advanceWithTokens
