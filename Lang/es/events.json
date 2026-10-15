@@ -1195,17 +1195,10 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "Decides volver por donde has venido. Por el camino, encuentras unas monedas en el suelo, junto a un monedero con un agujero.",
-          "1": "Te pones de nuevo en marcha cuando encuentras a un hombre herido. Al intentar ayudarle, descubres que te han tendido una emboscada. Aparecen unos hombres y te roban antes de emprender de nuevo la marcha."
-        },
-        "text": "Vuelve por donde has venido."
-      },
-      "keepGoing": {
-        "outcomes": {
           "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
           "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
         },
-        "text": "Continúe su camino."
+        "text": "Continuer votre route."
       }
     },
     "text": "Entras en un bosque oscuro y ves la silueta de un hombre a lo lejos. Decides acercarte a él y te das cuenta de que es un ermitaño que ha salido a buscar comida. Te acercas a su casa, en la que lees la inscripción \"Xetrix\", que probablemente sea su nombre. Todavía estás pensando qué hacer..."
