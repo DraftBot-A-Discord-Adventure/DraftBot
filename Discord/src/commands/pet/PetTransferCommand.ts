@@ -296,10 +296,12 @@ async function handlePetTransferCollect(
 		switchComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[];
 		withdrawComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[];
 		mainMenuComponents: ActionRowBuilder<ButtonBuilder>[];
-	},
-	currentComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[]
+		currentComponents: ActionRowBuilder<MessageActionRowComponentBuilder>[];
+	}
 ): Promise<ActionRowBuilder<MessageActionRowComponentBuilder>[]> {
-	const interaction = discord.collectedInteraction;
+	const {
+		collectedInteraction: interaction, currentComponents
+	} = discord;
 
 	if (interaction.isStringSelectMenu()) {
 		await sendSelectedPetReaction(interaction, packet, context, {
@@ -400,9 +402,9 @@ export async function handlePetTransferReactionCollector(context: PacketContext,
 				mainMenuEmbed,
 				switchComponents,
 				withdrawComponents,
-				mainMenuComponents
-			},
-			currentComponents
+				mainMenuComponents,
+				currentComponents
+			}
 		);
 	});
 

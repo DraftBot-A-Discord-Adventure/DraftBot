@@ -3,7 +3,7 @@ import {
 } from "vitest";
 import type { ModelStatic } from "sequelize";
 import {
-	CoreTestEnvironment, loadProductionModule, runAllOrThrow, setupCoreForTests
+	CoreTestEnvironment, createNoopLogsDatabase, loadProductionModule, runAllOrThrow, setupCoreForTests
 } from "../_coreSetup";
 import type { Player as PlayerType } from "../../src/core/database/game/models/Player";
 import type { Guild as GuildType } from "../../src/core/database/game/models/Guild";
@@ -13,6 +13,8 @@ import type { PlayerTalismans as PlayerTalismansType } from "../../src/core/data
 import type { ScheduledExpeditionNotification as ScheduledExpeditionNotificationType } from "../../src/core/database/game/models/ScheduledExpeditionNotification";
 import { ExpeditionConstants } from "../../../Lib/src/constants/ExpeditionConstants";
 import type { ExpeditionData } from "../../../Lib/src/packets/commands/CommandPetExpeditionPacket";
+import { minutesToMilliseconds } from "../../../Lib/src/utils/TimeUtils";
+import { asMinutes } from "../../../Lib/src/types/TimeTypes";
 
 type ExpeditionActionHandlersModule = typeof import("../../src/core/expeditions/ExpeditionActionHandlers");
 type PendingExpeditionsCacheModule = typeof import("../../src/core/expeditions/PendingExpeditionsCache");
@@ -183,18 +185,11 @@ describe("pet expedition races", () => {
 	});
 
 	it("logs a recall with every column required by logs_expeditions", async () => {
+		const durationMinutes = 60;
 		const recallLogs: unknown[][] = [];
-		env.crownicles.setLogsDatabaseForTests(new Proxy({} as CoreTestEnvironment["crownicles"]["logsDatabase"], {
-			get(_target, prop: string | symbol) {
-				if (typeof prop !== "string" || prop === "then") {
-					return undefined;
-				}
-				return (...args: unknown[]): Promise<number> => {
-					if (prop === "logExpeditionRecall") {
-						recallLogs.push(args);
-					}
-					return Promise.resolve(0);
-				};
+		env.crownicles.setLogsDatabaseForTests(createNoopLogsDatabase((method, args) => {
+			if (method === "logExpeditionRecall") {
+				recallLogs.push(args);
 			}
 		}));
 		const guild = await Guild.create({
@@ -203,12 +198,12 @@ describe("pet expedition races", () => {
 		const {
 			player, pet
 		} = await seedPlayer("expedition-logged-recall", guild.id);
-		const startDate = new Date(Date.now() - 30 * 60_000);
+		const startDate = new Date(Date.now() - minutesToMilliseconds(asMinutes(durationMinutes / 2)));
 		await PetExpedition.create({
 			playerId: player.id,
 			petId: pet.id,
 			startDate,
-			endDate: new Date(startDate.getTime() + 60 * 60_000),
+			endDate: new Date(startDate.getTime() + minutesToMilliseconds(asMinutes(durationMinutes))),
 			riskRate: 10,
 			difficulty: 10,
 			wealthRate: 1,
@@ -220,6 +215,7 @@ describe("pet expedition races", () => {
 		});
 
 		await handlers.handleExpeditionRecall(player, []);
+		env.crownicles.setLogsDatabaseForTests(createNoopLogsDatabase());
 
 		expect(recallLogs).toEqual([
 			[
@@ -229,7 +225,7 @@ describe("pet expedition races", () => {
 				expect.objectContaining({
 					mapLocationId: 1,
 					locationType: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.FOREST,
-					durationMinutes: 60,
+					durationMinutes,
 					foodConsumed: FOOD_PER_EXPEDITION,
 					rewardIndex: 2
 				})
