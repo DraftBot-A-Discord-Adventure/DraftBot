@@ -9,6 +9,7 @@ import {
 } from "@/src/design/Sections";
 import { i18n } from "@/src/translations/i18n";
 import { joinFacts } from "@/src/display/Facts";
+import { plantName } from "@/src/display/Resources";
 import { renderCityNotarySummary } from "@/src/collectors/CityNotarySummary";
 import { useColors } from "@/src/design/ThemeContext";
 import type { Palette } from "@/src/design/Theme";
@@ -106,12 +107,13 @@ const renderHomeCookingSummary = homeSummary(home => [
 	}
 ]);
 
+/** The remote garden: what is ripe for the harvest, and the seed that waits for the trip home. */
 const renderHomeGardenSummary = homeSummary(home => [
 	{
-		caption: i18n.t("app:city.summary.gardenPlots"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
+		caption: i18n.t("app:garden.ready"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
 	},
 	{
-		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+		caption: i18n.t("app:inventory.seed"), value: home.garden?.hasSeed ? plantName(home.garden.seedPlantId) : i18n.t("app:profile.values.none")
 	}
 ]);
 

@@ -6,6 +6,8 @@
     "harvest": "Récolter",
     "compost": "Composter",
     "storage": "Réserve de plantes",
+    "ready": "Prêtes à récolter",
+    "locks": {"watering": "Prochain arrosage dans {{time}}."},
     "refresh": "Actualiser le jardin",
     "remote": "Récolte à distance. Les autres actions nécessitent de rentrer chez vous.",
     "quantity_one": "×{{count}}",

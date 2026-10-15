@@ -140,6 +140,15 @@ describe("garden screen", () => {
 			type: "compost", plantId: 1, quantity: 5
 		} });
 	});
+	it("explains why harvesting and watering are locked instead of greying them out", async () => {
+		const waiting = snapshot();
+		waiting.garden.wateringAvailableAt = Date.now() + 3_600_000;
+		await render(<HomeGarden />, { wrapper: provider(waiting) });
+		expect(screen.getByText("app:garden.errors.noReadyPlants")).toBeTruthy();
+		expect(screen.getByText("app:garden.locks.watering")).toBeTruthy();
+		await fireEvent.press(screen.getByText("app:garden.harvest"));
+		expect(GameClient.request).not.toHaveBeenCalled();
+	});
 	it("renders a server access refusal without a loading loop", async () => {
 		await render(<HomeGarden />, { wrapper: provider({
 			kind: "noAccess", reason: "noTalisman"

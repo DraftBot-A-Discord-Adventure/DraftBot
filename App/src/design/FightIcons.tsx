@@ -44,6 +44,7 @@ import {
 	Skull as NativeSkull,
 	Snowflake as NativeSnowflake,
 	Sparkles as NativeSparkles,
+	Sprout as NativeSprout,
 	Star as NativeStar,
 	Sword as NativeSword,
 	Swords as NativeSwords,
@@ -130,6 +131,7 @@ export const ShoppingBag = iconComponent(NativeShoppingBag);
 export const Skull = iconComponent(NativeSkull);
 export const Snowflake = iconComponent(NativeSnowflake);
 export const Sparkles = iconComponent(NativeSparkles);
+export const Sprout = iconComponent(NativeSprout);
 export const Star = iconComponent(NativeStar);
 export const Swords = iconComponent(NativeSwords);
 export const Sword = iconComponent(NativeSword);
