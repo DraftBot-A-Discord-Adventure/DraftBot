@@ -198,9 +198,7 @@ export interface ExpeditionRewards {
 /**
  * Parameters for logging expedition recall
  */
-export interface ExpeditionRecallParams {
-	mapLocationId: number;
-	locationType: string;
+export interface ExpeditionRecallParams extends ExpeditionStartParams {
 	loveChange: number;
 }
 
