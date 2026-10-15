@@ -10,10 +10,10 @@ type EmojiEntity = ReturnType<typeof parse>[number];
 
 /** Game texts come back screen after screen: past this many, the oldest parse is forgotten. */
 const PARSED_TEXTS_KEPT = 500;
-const parsedTexts = new Map<string, EmojiEntity[]>();
+const parsedTexts = new Map<string, readonly EmojiEntity[]>();
 
 /** Where the emojis of a text sit; the regex scan is kept since the same texts are drawn again and again. */
-export function emojiEntities(text: string): EmojiEntity[] {
+export function emojiEntities(text: string): readonly EmojiEntity[] {
 	const known = parsedTexts.get(text);
 	if (known) {
 		return known;

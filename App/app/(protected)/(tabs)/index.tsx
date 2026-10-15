@@ -74,7 +74,9 @@ import {
 import {
 	isAlterationReport, reportReadyAt
 } from "@/src/display/ReportTiming";
-import { useCurrentTime } from "@/src/store/useCurrentTime";
+import {
+	CLOCK_INTERVALS, useCurrentTime
+} from "@/src/store/useCurrentTime";
 import { useScreenFocused } from "@/src/store/useScreenFocused";
 import {
 	TRAVEL_DASH_MS, travelDashStore
@@ -941,7 +943,7 @@ function AdventureHeader({
 }: {
 	packet: ReportTravelSummaryRes; dash: TravelDash | null; cure: Cure | null;
 }): ReactNode {
-	const currentTime = useCurrentTime(MILLISECONDS_PER_SECOND, useScreenFocused());
+	const currentTime = useCurrentTime(CLOCK_INTERVALS.SECOND_MS, useScreenFocused());
 	const metrics = getTravelMetrics(packet, currentTime);
 	const context: AdventureContext = {
 		packet, currentTime, metrics, destination: mapName(packet.endMap)
