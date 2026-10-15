@@ -20,6 +20,7 @@ import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/Re
 import { DiscordConstants } from "../DiscordConstants";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
+import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
@@ -79,9 +80,18 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 
 			disableRows(rows);
 
-			await buttonInteraction.update({
-				components: rows
-			});
+			try {
+				await buttonInteraction.update({
+					components: rows
+				});
+			}
+			catch (error) {
+				// A late acknowledgement (Unknown interaction) must not swallow the chosen action
+				CrowniclesLogger.warn("Fight action click could not be acknowledged, sending the action anyway", {
+					fightId: data.fightId,
+					reason: error instanceof Error ? error.message : String(error)
+				});
+			}
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
