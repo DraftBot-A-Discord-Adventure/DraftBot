@@ -21,6 +21,7 @@ import { DiscordConstants } from "../DiscordConstants";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
+import { Language } from "../../../Lib/src/Language";
 
 /**
  * Disable the action buttons; a failed acknowledgement is only logged so the chosen action still reaches Core (#4877)
@@ -54,6 +55,41 @@ function buildActionRows(actions: ReactionCollectorFightChooseActionReaction[]):
 	return rows;
 }
 
+/**
+ * Action buttons displayed to the fighter for one turn
+ */
+type DisplayedActionChoice = {
+	packet: ReactionCollectorFightChooseActionPacket;
+	context: PacketContext;
+	rows: ActionRowBuilder<ButtonBuilder>[];
+	lng: Language;
+};
+
+function createActionClickHandler(choice: DisplayedActionChoice): (buttonInteraction: ButtonInteraction) => Promise<void> {
+	const {
+		packet, context, rows, lng
+	} = choice;
+	let actionSent = false;
+	return async (buttonInteraction: ButtonInteraction): Promise<void> => {
+		if (buttonInteraction.user.id !== context.discord?.user) {
+			await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
+			return;
+		}
+
+		// Clicks queued while the shard was lagging: only the first one is the chosen action
+		if (actionSent) {
+			await buttonInteraction.deferUpdate().catch(() => null);
+			return;
+		}
+		actionSent = true;
+
+		disableRows(rows);
+		await acknowledgeActionClick(buttonInteraction, rows);
+		const reactionIndex = packet.reactions.findIndex(reaction => (reaction.data as ReactionCollectorFightChooseActionReaction).id === buttonInteraction.customId);
+		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactionIndex);
+	};
+}
+
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
 
@@ -76,10 +112,7 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 			pseudo: this.usernameCache
 		}), user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng }));
-		const reactions = packet.reactions as {
-			type: string; data: ReactionCollectorFightChooseActionReaction;
-		}[];
-		const rows = buildActionRows(reactions.map(reaction => reaction.data));
+		const rows = buildActionRows(packet.reactions.map(reaction => reaction.data as ReactionCollectorFightChooseActionReaction));
 		const msg = await this.post({
 			embeds: [embed],
 			components: rows
@@ -90,24 +123,12 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 		const buttonCollector = msg.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
-		let actionSent = false;
-		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
-			if (buttonInteraction.user.id !== context.discord?.user) {
-				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
-				return;
-			}
-
-			// Clicks queued while the shard was lagging: only the first one is the chosen action
-			if (actionSent) {
-				await buttonInteraction.deferUpdate().catch(() => null);
-				return;
-			}
-			actionSent = true;
-
-			disableRows(rows);
-			await acknowledgeActionClick(buttonInteraction, rows);
-			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
-		});
+		buttonCollector.on("collect", createActionClickHandler({
+			packet,
+			context,
+			rows,
+			lng
+		}));
 		return [buttonCollector];
 	};
 }
