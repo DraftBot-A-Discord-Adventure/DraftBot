@@ -29,6 +29,12 @@ import { ClassOutcome } from "@/src/collectors/ClassOutcome";
 import { useClassOutcome } from "@/src/store/useClassOutcome";
 import { HomePurchaseOutcome } from "@/src/collectors/HomePurchaseOutcome";
 import { useHomePurchaseOutcome } from "@/src/store/useHomePurchaseOutcome";
+import { ItemUpgradeOutcome } from "@/src/collectors/ItemUpgradeOutcome";
+import { useItemUpgradeOutcome } from "@/src/store/useItemUpgradeOutcome";
+import { ItemRecycleOutcome } from "@/src/collectors/ItemRecycleOutcome";
+import { useItemRecycleOutcome } from "@/src/store/useItemRecycleOutcome";
+import { HomeBedOutcome } from "@/src/collectors/HomeBedOutcome";
+import { useHomeBedOutcome } from "@/src/store/useHomeBedOutcome";
 import { InnOutcome } from "@/src/collectors/InnOutcome";
 import { useInnOutcome } from "@/src/store/useInnOutcome";
 import { NotEnoughMoneyOutcome } from "@/src/collectors/NotEnoughMoneyOutcome";
@@ -159,7 +165,10 @@ function PendingOutcomes(): ReactNode {
 	const inventoryOutcome = useInventoryOutcome();
 	const classOutcome = useClassOutcome();
 	const homePurchase = useHomePurchaseOutcome();
+	const itemUpgrade = useItemUpgradeOutcome();
+	const itemRecycle = useItemRecycleOutcome();
 	const innOutcome = useInnOutcome();
+	const homeBed = useHomeBedOutcome();
 	const notEnoughMoney = useNotEnoughMoneyOutcome();
 	const feedOutcome = usePetFeedOutcome();
 	const expeditionOutcome = useExpeditionOutcome();
@@ -201,7 +210,16 @@ function PendingOutcomes(): ReactNode {
 			state: homePurchase, node: <PendingOutcome state={homePurchase} Content={HomePurchaseOutcome} />
 		},
 		{
+			state: itemUpgrade, node: <PendingOutcome state={itemUpgrade} Content={ItemUpgradeOutcome} />
+		},
+		{
+			state: itemRecycle, node: <PendingOutcome state={itemRecycle} Content={ItemRecycleOutcome} />
+		},
+		{
 			state: innOutcome, node: <PendingOutcome state={innOutcome} Content={InnOutcome} />
+		},
+		{
+			state: homeBed, node: <PendingOutcome state={homeBed} Content={HomeBedOutcome} />
 		},
 		{
 			state: notEnoughMoney, node: <PendingOutcome state={notEnoughMoney} Content={NotEnoughMoneyOutcome} />

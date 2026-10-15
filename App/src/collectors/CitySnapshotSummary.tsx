@@ -8,7 +8,7 @@ import {
 	ExpandableList, Fact, Figure, Figures, Gauge
 } from "@/src/design/Sections";
 import { i18n } from "@/src/translations/i18n";
-import { joinFacts } from "@/src/display/Facts";
+import { plantName } from "@/src/display/Resources";
 import { renderCityNotarySummary } from "@/src/collectors/CityNotarySummary";
 import { useColors } from "@/src/design/ThemeContext";
 import type { Palette } from "@/src/design/Theme";
@@ -17,16 +17,6 @@ type CitySubmenu = "home" | "homeBed" | "homeChest" | "homeGarden" | "homeCookin
 
 type SummaryRenderer = (snapshot: CityMobileSnapshot, colors: Palette) => ReactNode;
 type OwnedHome = NonNullable<NonNullable<CityMobileSnapshot["home"]>["owned"]>;
-
-function homeServices(home: OwnedHome): string {
-	return joinFacts([
-		home.hasBed ? i18n.t("app:city.summary.bed") : null,
-		home.hasChest ? i18n.t("app:city.summary.chest") : null,
-		home.hasGarden ? i18n.t("app:city.summary.garden") : null,
-		home.hasCooking ? i18n.t("app:city.summary.cooking") : null,
-		home.hasUpgradeStation ? i18n.t("app:city.summary.forge") : null
-	]) || "—";
-}
 
 function renderInnSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactNode {
 	if (!snapshot.energy || !snapshot.health) {
@@ -48,53 +38,37 @@ function renderInnSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactN
 	</ExpandableList>;
 }
 
+/** The home itself; each room tells its own figures on its row below. */
 function renderHomeSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const home = snapshot.home?.owned;
 	if (!home) {
 		return null;
 	}
-	return <>
-		<Figures items={[
-			{
-				caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
-			},
-			{
-				caption: i18n.t("app:city.summary.bedRegeneration"), value: `+${formatNumber(home.bedHealthRegeneration)}`, unit: "health"
-			},
-			{
-				caption: i18n.t("app:city.summary.gardenPlots"), value: formatNumber(home.gardenPlots)
-			}
-		]} />
-		<ExpandableList>
-			<Fact label={i18n.t("app:city.summary.homeType")} value={home.isApartment ? i18n.t("app:city.summary.apartment") : i18n.t("app:city.summary.mainHome")} />
-			<Fact label={i18n.t("app:city.summary.services")} value={homeServices(home)} />
-		</ExpandableList>
-	</>;
+	return <Figures items={[
+		{
+			caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
+		},
+		{
+			caption: i18n.t("app:city.summary.homeType"), value: home.isApartment ? i18n.t("app:city.summary.apartment") : i18n.t("app:city.summary.mainHome")
+		}
+	]} />;
 }
 
-function renderHomeBedSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactNode {
+/** Where the player's health stands and where a rest would take it; the bed's own gain is on its row. */
+function renderHomeBedSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const home = snapshot.home?.owned;
 	if (!home || !snapshot.health) {
 		return null;
 	}
-	return <>
-		<Figures items={[
-			{
-				caption: i18n.t("app:city.summary.health"), value: `${formatNumber(snapshot.health.current)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
-			},
-			{
-				caption: i18n.t("app:city.summary.bedRegeneration"), value: `+${formatNumber(home.bedHealthRegeneration)}`, unit: "health"
-			}
-		]} />
-		<ExpandableList>
-			<Gauge
-				label={i18n.t("app:city.summary.health")}
-				value={`${snapshot.health.current} / ${snapshot.health.max} ${AppIcons.getIcon("unitValues.health")}`}
-				ratio={snapshot.health.max > 0 ? snapshot.health.current / snapshot.health.max : 0}
-				color={colors.red}
-			/>
-		</ExpandableList>
-	</>;
+	const rested = Math.min(snapshot.health.max, snapshot.health.current + home.bedHealthRegeneration);
+	return <Figures items={[
+		{
+			caption: i18n.t("app:city.summary.health"), value: `${formatNumber(snapshot.health.current)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
+		},
+		{
+			caption: i18n.t("app:city.bed.afterRest"), value: `${formatNumber(rested)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
+		}
+	]} />;
 }
 
 /** A home room sums itself up in two figures, shown only to the owner. */
@@ -105,41 +79,34 @@ function homeSummary(figures: (home: OwnedHome) => Figure[]): SummaryRenderer {
 	};
 }
 
-const renderHomeChestSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.storedItems"), value: formatNumber(home.chestItemCount ?? 0)
-	},
-	{
-		caption: i18n.t("app:city.summary.depositableItems"), value: formatNumber(home.depositableItemCount ?? 0)
-	}
-]);
-
-const renderHomeCookingSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.cooking"), value: formatNumber(home.cookingLevel ?? 0)
-	},
-	{
-		caption: i18n.t("app:city.summary.cookingSlots"), value: formatNumber(home.cookingSlots ?? 0)
-	}
-]);
-
+/** The remote garden: what is ripe for the harvest, and the seed that waits for the trip home. */
 const renderHomeGardenSummary = homeSummary(home => [
 	{
-		caption: i18n.t("app:city.summary.gardenPlots"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
+		caption: i18n.t("app:garden.ready"), value: `${home.gardenReadyPlots ?? 0} / ${home.gardenTotalPlots ?? home.gardenPlots}`
 	},
 	{
-		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+		caption: i18n.t("app:inventory.seed"), value: home.garden?.hasSeed ? plantName(home.garden.seedPlantId) : i18n.t("app:profile.values.none")
 	}
 ]);
 
-const renderHomeUpgradeSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
-	},
-	{
-		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
-	}
-]);
+/** What the station can take on, so a refused item is understood before it is touched; the list says the rest. */
+const renderHomeUpgradeSummary = homeSummary(home => home.upgradeStation
+	? [
+		{
+			caption: i18n.t("app:city.station.maxLevel"), value: formatNumber(home.upgradeStation.maxItemLevel)
+		},
+		{
+			caption: i18n.t("app:city.station.maxRarity"), value: i18n.t(`items:raritiesWithoutEmote.${home.upgradeStation.maxRarity}`)
+		}
+	]
+	: [
+		{
+			caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
+		},
+		{
+			caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+		}
+	]);
 
 function renderEnchanterSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const data = snapshot.enchanter;
@@ -168,17 +135,6 @@ function renderEnchanterSummary(snapshot: CityMobileSnapshot): ReactNode {
 			{data.mageReduction ? <Fact label={i18n.t("app:city.summary.discount")} value={i18n.t("app:common.yes")} /> : null}
 		</ExpandableList>
 	</>;
-}
-
-function renderScrapDealerSummary(snapshot: CityMobileSnapshot): ReactNode {
-	const data = snapshot.scrapDealer;
-	return data
-		? <Figures items={[
-			{
-				caption: i18n.t("app:city.summary.recyclableItems"), value: formatNumber(data.recyclableItems.length)
-			}
-		]} />
-		: null;
 }
 
 function renderRoyalBlacksmithSummary(snapshot: CityMobileSnapshot): ReactNode {
@@ -250,13 +206,10 @@ const SUMMARY_RENDERERS: Partial<Record<CitySubmenu, SummaryRenderer>> = {
 	inn: renderInnSummary,
 	home: renderHomeSummary,
 	homeBed: renderHomeBedSummary,
-	homeChest: renderHomeChestSummary,
-	homeCooking: renderHomeCookingSummary,
 	homeGarden: renderHomeGardenSummary,
 	homeUpgrade: renderHomeUpgradeSummary,
 	notary: renderCityNotarySummary,
 	enchanter: renderEnchanterSummary,
-	scrapDealer: renderScrapDealerSummary,
 	royalBlacksmith: renderRoyalBlacksmithSummary,
 	guild: renderGuildSummary
 };

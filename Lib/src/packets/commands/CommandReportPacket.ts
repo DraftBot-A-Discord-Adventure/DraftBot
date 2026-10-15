@@ -325,6 +325,8 @@ export class CommandReportMoveHomeRes extends CrowniclesPacket {
 export class CommandReportUpgradeItemRes extends CrowniclesPacket {
 	itemCategory!: number;
 
+	itemId!: number;
+
 	newItemLevel!: number;
 }
 
@@ -339,6 +341,8 @@ export class CommandReportUpgradeItemMaxLevelRes extends CrowniclesPacket {}
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportBlacksmithUpgradeRes extends CrowniclesPacket {
 	itemCategory!: number;
+
+	itemId!: number;
 
 	newItemLevel!: number;
 
@@ -368,6 +372,12 @@ export class CommandReportBlacksmithDisenchantRes extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportScrapDealerRecycleRes extends CrowniclesPacket {
+	itemId!: number;
+
+	itemCategory!: number;
+
+	itemLevel!: number;
+
 	materialLoot!: MaterialQuantity[];
 
 	moneyGained!: number;
@@ -379,6 +389,8 @@ export class CommandReportScrapDealerRecycleRes extends CrowniclesPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportRoyalBlacksmithUpgradeRes extends CrowniclesPacket {
 	itemCategory!: number;
+
+	itemId!: number;
 
 	/** Gold cost component of the total. */
 	upgradeCost!: number;

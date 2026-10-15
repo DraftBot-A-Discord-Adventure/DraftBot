@@ -18,17 +18,22 @@ import {
 	Button, ButtonRow, Note, SectionHeader
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, EntryRow, ExpandableEntry, ExpandableList, Fact, Gauge, useSectionStyles
+	ActionBanner, EFFECT_TONES, Effects, EntryRow, ExpandableEntry, ExpandableList, Fact, Figures, Gauge, Lock, useSectionStyles
 } from "@/src/design/Sections";
-import { Check } from "@/src/design/FightIcons";
+import {
+	Check, Clock3, Droplets, Sprout
+} from "@/src/design/FightIcons";
 import {
 	ExpandedEntry, useExpandedEntry
 } from "@/src/design/useExpandedEntry";
-import {
-	materialName, plantName
-} from "@/src/display/Resources";
+import { plantName } from "@/src/display/Resources";
+import { formatTimeUntil } from "@/src/display/ItemEffects";
+import { AppIcons } from "@/src/AppIcons";
 import { i18n } from "@/src/translations/i18n";
 import { useColors } from "@/src/design/ThemeContext";
+import {
+	CLOCK_INTERVALS, useCurrentTime
+} from "@/src/store/useCurrentTime";
 
 const PERCENTAGE_SCALE = 100;
 type GardenActions = {
@@ -141,7 +146,12 @@ function ReceivedMaterials({ materials }: { materials: number[] }): ReactNode {
 	for (const materialId of materials) {
 		counts.set(materialId, (counts.get(materialId) ?? 0) + 1);
 	}
-	return <ExpandableList>{[...counts].map(([materialId, quantity]) => <Fact key={materialId} label={materialName(materialId)} value={i18n.t("app:garden.quantity", { count: quantity })} />)}</ExpandableList>;
+	return <Effects items={[...counts].map(([materialId, quantity]) => ({
+		label: i18n.t(`models:materials.${materialId}`),
+		value: i18n.t("app:garden.quantity", { count: quantity }),
+		tone: EFFECT_TONES.GAIN,
+		emoji: AppIcons.getIconOrNull(`materials.${materialId}`) ?? AppIcons.getIcon("inventory.stock")
+	}))} />;
 }
 
 function GardenResult({ outcome }: { outcome: GardenOutcome | null }): ReactNode {
@@ -166,19 +176,62 @@ function GardenResult({ outcome }: { outcome: GardenOutcome | null }): ReactNode
 	}
 }
 
+/** Watering waits for its cooldown, or for a plant that needs it. */
+function waterLock(garden: GardenSnapshot, now: number): Lock | undefined {
+	if (garden.eligibility.canWaterGarden) {
+		return undefined;
+	}
+	return garden.wateringAvailableAt !== null && garden.wateringAvailableAt > now
+		? {
+			reason: i18n.t("app:garden.locks.watering", { time: formatTimeUntil(garden.wateringAvailableAt, now) }), icon: Clock3
+		}
+		: { reason: i18n.t("app:garden.errors.noPlantsToWater") };
+}
+
+/** What the garden holds at a glance: how much is ripe, and whether a seed waits to be planted. */
+function GardenFigures({ garden }: { garden: GardenSnapshot }): ReactNode {
+	const ready = garden.plots.filter(plot => plot.isReady).length;
+	return <Figures items={[
+		{
+			caption: i18n.t("app:garden.ready"), value: `${ready} / ${garden.totalPlots}`
+		},
+		{
+			caption: i18n.t("app:inventory.seed"), value: garden.hasSeed ? plantName(garden.seedPlantId) : i18n.t("app:profile.values.none")
+		}
+	]} />;
+}
+
 function GardenPlots({
 	garden, actions
 }: {
 	garden: GardenSnapshot; actions: GardenActions;
 }): ReactNode {
+	const lockFor = (lock: Lock | undefined): { lock?: Lock } => lock ? { lock } : {};
+	const now = useCurrentTime(CLOCK_INTERVALS.MINUTE_MS);
 	return <>
-		<ExpandableList><Fact label={i18n.t("app:inventory.seed")} value={garden.hasSeed ? plantName(garden.seedPlantId) : i18n.t("app:profile.values.none")} /><Fact label={i18n.t("app:city.summary.gardenPlots")} value={String(garden.totalPlots)} /></ExpandableList>
+		<GardenFigures garden={garden} />
 		<SectionHeader>{i18n.t("app:garden.plots")}</SectionHeader>
 		<ExpandableList>{garden.plots.map(plot => <GardenPlotRow key={plot.slot} plot={plot} garden={garden} actions={actions} />)}</ExpandableList>
-		<ButtonRow>
-			<Button variant="primary" disabled={actions.pending || !garden.eligibility.canHarvest} onPress={(): Promise<void> => actions.submit({ type: GARDEN_OPERATIONS.HARVEST })}>{i18n.t("app:garden.harvest")}</Button>
-			{garden.accessMode === GARDEN_ACCESS.FULL ? <Button disabled={actions.pending || !garden.eligibility.canWaterGarden} onPress={(): Promise<void> => actions.submit({ type: GARDEN_OPERATIONS.WATER })}>{i18n.t("app:garden.water")}</Button> : null}
-		</ButtonRow>
+		<ActionBanner
+			icon={Sprout}
+			label={i18n.t("app:garden.harvest")}
+			pending={actions.pending}
+			{...lockFor(garden.eligibility.canHarvest ? undefined : { reason: i18n.t("app:garden.errors.noReadyPlants") })}
+			onPress={(): void => {
+				actions.submit({ type: GARDEN_OPERATIONS.HARVEST }).catch(console.error);
+			}}
+		/>
+		{garden.accessMode === GARDEN_ACCESS.FULL
+			? <ActionBanner
+				icon={Droplets}
+				label={i18n.t("app:garden.water")}
+				pending={actions.pending}
+				{...lockFor(waterLock(garden, now))}
+				onPress={(): void => {
+					actions.submit({ type: GARDEN_OPERATIONS.WATER }).catch(console.error);
+				}}
+			/>
+			: null}
 	</>;
 }
 

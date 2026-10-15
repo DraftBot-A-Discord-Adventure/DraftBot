@@ -64,10 +64,17 @@ type CityRowsProps = {
 
 	/** The confirm button worded after the action, instead of a plain confirmation. */
 	rowConfirm?: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => RowConfirm | undefined;
+
+	/** Rows kept at full contrast while locked, their sheet saying why, when the lock is not what matters. */
+	staysBright?: (reaction: ReactionCollectorReaction) => boolean;
 };
 
 export type RowConfirm = {
-	label: string; icon: LucideIcon;
+	label: string;
+	icon: LucideIcon;
+
+	/** What the player should know before pressing, such as an action that cannot be undone. */
+	hint?: Lock;
 };
 
 type ReactionRowState = {
@@ -138,12 +145,13 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 	const confirms = CITY_REACTIONS_REQUIRING_CONFIRMATION.has(reaction.type);
 	const expanded = confirms && unfolding.isExpanded(key);
 	const confirm = props.rowConfirm?.(reaction, snapshot);
+	const bright = confirms && (props.staysBright?.(reaction) ?? false);
 	const shared = {
 		emblem: rowIcon(reaction, snapshot),
 		label: plainStory(rowTitle(reaction, collector.data, snapshot)),
-		caption: entryCaption(rowSubtitle(reaction, snapshot), lock, expanded),
+		caption: entryCaption(rowSubtitle(reaction, snapshot), bright ? undefined : lock, expanded),
 		end: <EntryEnd value={rowEnd(reaction, snapshot)} />,
-		dimmed: locked || !choosable
+		dimmed: locked || !choosable && !bright
 	};
 	if (!confirms) {
 		return <ExpandableEntry
@@ -175,12 +183,28 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 				unfolding.collapse();
 			}}
 			{...lock ? { lock } : {}}
+			{...confirm?.hint ? { hint: confirm.hint } : {}}
 		/>
 	</ExpandableEntry>;
 }
 
+/** A fact worth telling at length: written at full contrast, it unfolds on what it means instead of looking switched off. */
+function storyEntry(item: CityInfoItem, props: CityRowsProps, { unfolding }: CitySheet): ReactNode {
+	return <ExpandableEntry
+		key={item.key}
+		emblem={props.iconForPath(item.iconPath)}
+		label={item.title}
+		caption={item.lock ? <LockHint lock={item.lock} /> : item.subtitle}
+		expanded={unfolding.isExpanded(item.key)}
+		onToggle={(): void => unfolding.toggle(item.key)}
+	>{item.details}</ExpandableEntry>;
+}
+
 function cityEntry(item: CityListItem, props: CityRowsProps, sheet: CitySheet): ReactNode {
-	return item.kind === "reaction" ? reactionEntry(item, props, sheet) : staticEntry(item, props);
+	if (item.kind === "reaction") {
+		return reactionEntry(item, props, sheet);
+	}
+	return item.kind === "info" && item.details ? storyEntry(item, props, sheet) : staticEntry(item, props);
 }
 
 export function CityRows(props: CityRowsProps): ReactNode {

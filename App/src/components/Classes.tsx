@@ -18,7 +18,9 @@ import { GameClient } from "@/src/networking/GameClient";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { usePlayerProfile } from "@/src/store/usePlayerProfile";
-import { useCurrentTime } from "@/src/store/useCurrentTime";
+import {
+	CLOCK_INTERVALS, useCurrentTime
+} from "@/src/store/useCurrentTime";
 import {
 	CommandMenu, useCommandMenus
 } from "@/src/store/useInventoryMenus";
@@ -55,7 +57,6 @@ const CHANGE_CLASS_MENU: CommandMenu = {
 	request: ClassesReq, emptyPacket: ClassesCancelRes, emptyMessage: "app:classes.cancelled", outcomePackets: [ClassesCooldownRes]
 };
 
-const MILLISECONDS_PER_MINUTE = 60_000;
 const MILLISECONDS_PER_HOUR = 3_600_000;
 const HOURS_PER_DAY = 24;
 const FIGURE_WIDTH = 116;
@@ -125,7 +126,7 @@ function reactionFor(collector: ReactionCollectorCreation, classId: number): num
 
 function useClassChange(nextChangeTimestamp: number | undefined, effect: PlayerEffect | null): ClassChange {
 	const menus = useCommandMenus();
-	const countdown = changeCountdown(nextChangeTimestamp, useCurrentTime(MILLISECONDS_PER_MINUTE));
+	const countdown = changeCountdown(nextChangeTimestamp, useCurrentTime(CLOCK_INTERVALS.MINUTE_MS));
 	const lock: Lock | undefined = countdown
 		? {
 			reason: countdown, icon: Clock3

@@ -92,6 +92,20 @@ describe("cooking screen", () => {
 		await fireEvent.press(screen.getByText("app:cooking.craft"));
 		expect(GameClient.request).not.toHaveBeenCalled();
 	});
+	it("names the missing ingredients as the reason a recipe is locked", async () => {
+		const missing = menu();
+		missing.currentSlots[0].recipe!.canCraft = false;
+		missing.currentSlots[0].recipe!.ingredients.plants[0].playerHas = 1;
+		await render(<HomeCooking />, { wrapper: provider(missing) });
+		expect(screen.getByText("app:cooking.locks.missingIngredients")).toBeTruthy();
+	});
+	it("names the cold furnace before anything else", async () => {
+		const cold = menu();
+		cold.isIgnited = false;
+		cold.currentSlots[0].recipe!.canCraft = false;
+		await render(<HomeCooking />, { wrapper: provider(cold) });
+		expect(screen.getByText("app:cooking.locks.unlit")).toBeTruthy();
+	});
 	it("binds confirmation to the displayed recipe and updates stale menus after a refusal", async () => {
 		const updated = menu();
 		updated.currentSlots[0].recipe!.id = "potion_energy_1";

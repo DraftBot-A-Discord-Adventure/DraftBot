@@ -18,6 +18,7 @@ export function cityItemName(item: {
 function itemCandidates(snapshot: CityMobileSnapshot): CityMobileItem[] {
 	return [
 		...snapshot.enchanter?.enchantableItems ?? [],
+		...snapshot.home?.owned?.upgradeStation?.upgradeableItems ?? [],
 		...snapshot.blacksmith?.upgradeableItems ?? [],
 		...snapshot.blacksmith?.disenchantableItems ?? [],
 		...snapshot.scrapDealer?.recyclableItems ?? [],
@@ -38,7 +39,7 @@ export function itemSnapshotForReaction(snapshot: CityMobileSnapshot | undefined
 	return itemCandidates(snapshot).find(item => item.itemCategory === data.itemCategory && item.itemId !== undefined && item.slot === data.slot);
 }
 
-export function cityItemIconPath(item: CityMobileItem): string {
+export function cityItemIconPath(item: Pick<CityMobileItem, "itemId" | "itemCategory">): string {
 	const itemType = [
 		"weapons",
 		"armors",

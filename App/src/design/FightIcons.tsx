@@ -19,11 +19,13 @@ import {
 	Flag as NativeFlag,
 	Flame as NativeFlame,
 	Footprints as NativeFootprints,
+	Gem as NativeGem,
 	Gift as NativeGift,
 	Hammer as NativeHammer,
 	Heart as NativeHeart,
 	HeartPulse as NativeHeartPulse,
 	History as NativeHistory,
+	House as NativeHouse,
 	Info as NativeInfo,
 	KeyRound as NativeKeyRound,
 	LogOut as NativeLogOut,
@@ -42,6 +44,7 @@ import {
 	Skull as NativeSkull,
 	Snowflake as NativeSnowflake,
 	Sparkles as NativeSparkles,
+	Sprout as NativeSprout,
 	Star as NativeStar,
 	Sword as NativeSword,
 	Swords as NativeSwords,
@@ -104,11 +107,13 @@ export const Droplets = iconComponent(NativeDroplets);
 export const Flame = iconComponent(NativeFlame);
 export const Flag = iconComponent(NativeFlag);
 export const Footprints = iconComponent(NativeFootprints);
+export const Gem = iconComponent(NativeGem);
 export const Gift = iconComponent(NativeGift);
 export const Heart = iconComponent(NativeHeart);
 export const HeartPulse = iconComponent(NativeHeartPulse);
 export const Hammer = iconComponent(NativeHammer);
 export const History = iconComponent(NativeHistory);
+export const House = iconComponent(NativeHouse);
 export const Info = iconComponent(NativeInfo);
 export const LogOut = iconComponent(NativeLogOut);
 export const Maximize2 = iconComponent(NativeMaximize2);
@@ -126,6 +131,7 @@ export const ShoppingBag = iconComponent(NativeShoppingBag);
 export const Skull = iconComponent(NativeSkull);
 export const Snowflake = iconComponent(NativeSnowflake);
 export const Sparkles = iconComponent(NativeSparkles);
+export const Sprout = iconComponent(NativeSprout);
 export const Star = iconComponent(NativeStar);
 export const Swords = iconComponent(NativeSwords);
 export const Sword = iconComponent(NativeSword);

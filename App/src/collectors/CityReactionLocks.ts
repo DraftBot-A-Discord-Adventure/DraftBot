@@ -8,7 +8,7 @@ import {
 import { formatMoney } from "@/src/display/Amounts";
 import { formatTimeUntil } from "@/src/display/ItemEffects";
 import {
-	CircleAlert, Clock3, Coins
+	CircleAlert, Clock3, Coins, HeartPulse
 } from "@/src/design/FightIcons";
 import type { Lock } from "@/src/design/Sections";
 import { gameRules } from "@/src/rules/GameRules";
@@ -34,6 +34,11 @@ function homeLock(snapshot: CityMobileSnapshot | undefined, price: number | unde
 const DIRECT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], LockResolver>> = {
 	[CITY_REACTION_KINDS.INN_MEAL]: (snapshot, now) => waiting("app:city.locks.mealCooldown", snapshot?.innCooldowns?.mealAvailableAt, now),
 	[CITY_REACTION_KINDS.INN_ROOM]: (snapshot, now) => waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt, now),
+	[CITY_REACTION_KINDS.HOME_BED]: (snapshot, now) => snapshot?.health && snapshot.health.current >= snapshot.health.max
+		? {
+			reason: i18n.t("app:city.locks.healthFull"), icon: HeartPulse
+		}
+		: waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt, now),
 	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: snapshot => {
 		const notary = snapshot?.guildDomainNotary;
 		return notary
@@ -83,6 +88,7 @@ function disenchantLock(blacksmith: CityMobileSnapshot["blacksmith"], sameItem: 
 }
 
 const EQUIPMENT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], EquipmentLockResolver>> = {
+	[CITY_REACTION_KINDS.UPGRADE_ITEM]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, 0),
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.blacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.royalBlacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (snapshot, sameItem) => disenchantLock(snapshot?.blacksmith, sameItem)

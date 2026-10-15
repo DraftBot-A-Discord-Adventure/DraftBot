@@ -1,12 +1,13 @@
 import {
-	ReactNode, useMemo, useState
+	ReactNode, useMemo
 } from "react";
 import {
-	Animated, LayoutChangeEvent, StyleSheet, View
+	Animated, StyleSheet, View
 } from "react-native";
 import { Theme } from "@/src/design/Theme";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { createStyles } from "@/src/design/ThemeContext";
+import { useMeasuredWidth } from "@/src/design/useMeasuredWidth";
 
 /** The hop and lean of each stride while the traveller runs. */
 const STRIDE = {
@@ -39,7 +40,9 @@ export function RoadTrack({
 	progress: Animated.Value; stride: Animated.Value; runner: string; fillColor: string;
 }): ReactNode {
 	const styles = useStyles();
-	const [width, setWidth] = useState(0);
+	const {
+		width, onLayout
+	} = useMeasuredWidth();
 	const {
 		fillShift, runnerShift
 	} = useMemo(() => {
@@ -50,7 +53,7 @@ export function RoadTrack({
 			fillShift: along(-width, 0), runnerShift: along(0, width)
 		};
 	}, [progress, width]);
-	return <View style={styles.track} onLayout={(event: LayoutChangeEvent): void => setWidth(event.nativeEvent.layout.width)} testID="road-track">
+	return <View style={styles.track} onLayout={onLayout} testID="road-track">
 		<View style={styles.groove}>
 			<Animated.View testID="road-fill" style={[
 				styles.fill,

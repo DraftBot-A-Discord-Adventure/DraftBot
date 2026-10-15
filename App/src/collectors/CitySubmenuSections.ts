@@ -1,11 +1,19 @@
+import { createElement } from "react";
 import {
-	CITY_REACTION_KINDS, CityMobileBeyondReachItem, CityMobileSnapshot
+	CITY_BLACKSMITH_LIMITS, CITY_REACTION_KINDS, CityMobileBeyondReachItem, CityMobileSnapshot
 } from "ws-packets/src/fromServer/collectors";
 import { i18n } from "@/src/translations/i18n";
 import {
 	cityItemIconPath, cityItemName
 } from "@/src/collectors/CityItemPresentation";
 import { isShownUpgradeVariant } from "@/src/collectors/CityUpgrades";
+import { stationRefusals } from "@/src/collectors/CityStationItems";
+import {
+	BeyondReachStory, EnchantedStory
+} from "@/src/collectors/CityItemStories";
+import {
+	Castle, Sparkles, Trophy
+} from "@/src/design/FightIcons";
 import type {
 	CityEntry, CityListItem, CitySubmenu, CitySubmenuSection
 } from "@/src/collectors/CityCollector";
@@ -37,7 +45,11 @@ function beyondReachItem(item: CityMobileBeyondReachItem): CityListItem {
 		iconPath: cityItemIconPath(item),
 		title: cityItemName(item),
 		subtitle: i18n.t("app:city.anvil.itemLevel", { level: item.itemLevel }),
-		lock: { reason: i18n.t(`app:city.anvil.${item.limit}`, { level: item.itemLevel }) }
+		lock: {
+			reason: i18n.t(`app:city.anvil.${item.limit}`, { level: item.itemLevel }),
+			icon: item.limit === CITY_BLACKSMITH_LIMITS.ROYAL_ONLY ? Castle : Trophy
+		},
+		details: createElement(BeyondReachStory, { item })
 	};
 }
 
@@ -72,17 +84,50 @@ function blacksmithSections(entries: CityEntry[], snapshot: CityMobileSnapshot |
 	];
 }
 
+/** What the scrap dealer will not take: an enchanted item, with why and what to do, or a bench left empty. */
+function scrapDealerRefusals(snapshot: CityMobileSnapshot | undefined): CityListItem[] {
+	const scrapDealer = snapshot?.scrapDealer;
+	if (!scrapDealer) {
+		return [];
+	}
+	const enchanted: CityListItem[] = (scrapDealer.enchantedItems ?? []).map(item => ({
+		kind: "info",
+		key: `scrap-dealer-enchanted-${item.itemCategory}-${item.slot}`,
+		iconPath: cityItemIconPath(item),
+		title: cityItemName(item),
+		subtitle: i18n.t("app:city.anvil.itemLevel", { level: item.itemLevel }),
+		lock: {
+			reason: i18n.t("app:city.scrap.enchanted"), icon: Sparkles
+		},
+		details: createElement(EnchantedStory, { item })
+	}));
+	if (enchanted.length > 0 || scrapDealer.recyclableItems.length > 0) {
+		return enchanted;
+	}
+	return [
+		{
+			kind: "info",
+			key: "scrap-dealer-empty",
+			iconPath: "city.services.scrapDealer",
+			title: i18n.t("app:city.scrap.empty"),
+			subtitle: i18n.t("app:city.scrap.nothingRecyclable"),
+			lock: { reason: i18n.t("app:city.scrap.nothingRecyclable") }
+		}
+	];
+}
+
 function simpleSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityMobileSnapshot | undefined, deps: SubmenuDependencies): CitySubmenuSection[] | undefined {
 	const reactions = reactionItems(entries);
 	const factories: Partial<Record<CitySubmenu, () => CitySubmenuSection[]>> = {
 		inn: () => innSections(entries),
 		blacksmith: () => blacksmithSections(entries, snapshot),
+		scrapDealer: () => [section("app:city.titles.recycling", [...reactions, ...scrapDealerRefusals(snapshot)])],
 		home: () => [section("app:city.titles.homeServices", [...reactions, ...deps.homeFeatureItems(snapshot)])],
 		homeBed: () => [section("app:city.titles.actions", reactions)],
 		guild: () => [section("app:city.titles.actions", reactions)],
 		enchanter: () => [section("app:city.titles.eligibleEquipment", reactions), section("app:city.enchantmentCatalog.title", deps.enchantmentCatalogItems())],
 		homeGarden: () => [section("app:city.titles.garden", [...deps.gardenPlotItems(snapshot), ...reactions])],
-		homeUpgrade: () => [section("app:city.titles.equipment", reactions)]
+		homeUpgrade: () => [section("app:city.titles.station", [...reactions, ...stationRefusals(snapshot)])]
 	};
 	return factories[view]?.();
 }
@@ -94,8 +139,7 @@ const NOTARY_TITLE_KEYS: Partial<Record<string, string>> = {
 };
 
 const GROUPED_TITLE_KEYS: Partial<Record<CitySubmenu, (type: string) => string>> = {
-	notary: type => NOTARY_TITLE_KEYS[type] ?? "app:city.titles.yourHome",
-	scrapDealer: () => "app:city.titles.recycling"
+	notary: type => NOTARY_TITLE_KEYS[type] ?? "app:city.titles.yourHome"
 };
 
 function groupedTitleKey(view: CitySubmenu, type: string): string {

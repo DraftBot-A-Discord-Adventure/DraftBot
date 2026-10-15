@@ -3,9 +3,9 @@ import { View } from "react-native";
 import {
 	CityMobileSnapshot, CityMobileUpgradeItem, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import { AppIcons } from "@/src/AppIcons";
+import { materialName } from "@/src/display/Resources";
 import {
-	buysMaterials, missingMaterialUnits, upgradeForReaction, upgradeTotalCost
+	buysMaterials, missingMaterialUnits, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
 import {
 	AMOUNT_UNITS, formatMoney, formatNumber
@@ -30,56 +30,56 @@ const useStyles = createStyles(colors => ({
 
 type UpgradeMaterial = CityMobileUpgradeItem["materials"][number];
 
-function materialLabel(materialId: number): string {
-	const icon = AppIcons.getIconOrNull(`materials.${materialId}`);
-	const name = i18n.t(`models:materials.${materialId}`);
-	return icon ? `${icon} ${name}` : name;
-}
-
 /** Each material as a bar filling up to what the upgrade asks: full and green when owned, gold for what the blacksmith will sell. */
 function MaterialGauge({ material }: { material: UpgradeMaterial }): ReactNode {
 	const colors = useColors();
 	const owned = material.playerQuantity >= material.quantity;
 	return <Gauge
-		label={materialLabel(material.materialId)}
+		label={materialName(material.materialId)}
 		value={`${formatNumber(material.playerQuantity)} / ${formatNumber(material.quantity)}`}
 		ratio={material.quantity > 0 ? material.playerQuantity / material.quantity : 1}
 		color={owned ? colors.green : colors.gold}
 	/>;
 }
 
-/** The work order the blacksmith lays out before the player commits: levels, bill and every material. */
-function UpgradeWorkOrder({
-	upgrade, buying
-}: {
-	upgrade: CityMobileUpgradeItem; buying: boolean;
-}): ReactNode {
+/** Missing materials: the blacksmiths sell them, the home station only waits for them. */
+function missingMaterialsNote(upgrade: CityMobileUpgradeItem): string {
+	const count = missingMaterialUnits(upgrade);
+	return upgrade.missingMaterialsCost > 0
+		? i18n.t("app:city.anvil.materialsOffer", {
+			count, price: formatMoney(upgrade.missingMaterialsCost)
+		})
+		: i18n.t("app:city.anvil.materialsMissing", { count });
+}
+
+/** The work order laid out before the player commits: levels, the craftsman's fee when there is one and, above all, the materials. */
+function UpgradeWorkOrder({ upgrade }: { upgrade: CityMobileUpgradeItem }): ReactNode {
 	const styles = useStyles();
 	return <>
 		<Figures items={[
 			{
 				caption: i18n.t("app:city.anvil.levels"), value: `${formatNumber(upgrade.itemLevel)} → ${formatNumber(upgrade.nextLevel)}`
 			},
-			{
-				caption: i18n.t("app:city.anvil.bill"), value: formatNumber(upgradeTotalCost(upgrade, buying)), unit: AMOUNT_UNITS.MONEY
-			}
+			...upgrade.upgradeCost > 0
+				? [
+					{
+						caption: i18n.t("app:city.anvil.fee"), value: formatNumber(upgrade.upgradeCost), unit: AMOUNT_UNITS.MONEY
+					}
+				]
+				: []
 		]} />
 		{upgrade.materials.length > 0
 			? <View style={styles.materials} testID="upgrade-materials">
 				{upgrade.materials.map(material => <MaterialGauge key={material.materialId} material={material} />)}
 			</View>
 			: null}
-		{upgrade.hasAllMaterials
-			? null
-			: <Note>{i18n.t("app:city.anvil.materialsOffer", {
-				count: missingMaterialUnits(upgrade), price: formatMoney(upgrade.missingMaterialsCost)
-			})}</Note>}
+		{upgrade.hasAllMaterials ? null : <Note>{missingMaterialsNote(upgrade)}</Note>}
 	</>;
 }
 
 export function cityUpgradeDetails(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): ReactNode {
 	const upgrade = upgradeForReaction(reaction, snapshot);
-	return upgrade ? <UpgradeWorkOrder upgrade={upgrade} buying={buysMaterials(reaction)} /> : null;
+	return upgrade ? <UpgradeWorkOrder upgrade={upgrade} /> : null;
 }
 
 export function cityUpgradeConfirm(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): RowConfirm | undefined {

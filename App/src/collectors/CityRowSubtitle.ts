@@ -8,6 +8,7 @@ import { AppIcons } from "@/src/AppIcons";
 import { apartmentRentedHere } from "@/src/collectors/ApartmentBenefits";
 import { compactCityDescription } from "@/src/collectors/CityText";
 import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import { materialUnits } from "@/src/collectors/CityRecycleDetails";
 import {
 	missingMaterialUnits, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
@@ -108,14 +109,20 @@ function disenchantSubtitle(snapshot: CityMobileSnapshot | undefined, item: City
 	return disenchant ? i18n.t("app:city.subtitles.disenchantDetails", { enchantment: `${AppIcons.getIcon(`enchantmentTypes.${disenchant.enchantmentType}`)} ${i18n.t(`items:enchantments.${disenchant.enchantmentId}`)}` }) : undefined;
 }
 
+/** How much the dismantling gives back, the detail of each material waiting in the unfolded row. */
 function recycleSubtitle(snapshot: CityMobileSnapshot | undefined, item: CityMobileItem): string | undefined {
-	const recycle = snapshot?.scrapDealer?.recyclableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
-	return recycle ? i18n.t("app:city.subtitles.recycleDetails", { materials: recycle.recoveredMaterials.map(material => `${material.quantity} × ${i18n.t(`models:materials.${material.materialId}`)}`).join(", ") }) : undefined;
+	const recycle = snapshot?.scrapDealer?.recyclableItems.find(candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory);
+	return recycle
+		? i18n.t("app:city.scrap.subtitle", {
+			level: item.itemLevel, count: materialUnits(recycle.recoveredMaterials)
+		})
+		: undefined;
 }
 
 function itemSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item: CityMobileItem): string | undefined {
 	switch (reaction.type) {
 		case CITY_REACTION_KINDS.ENCHANT: return enchantSubtitle(snapshot);
+		case CITY_REACTION_KINDS.UPGRADE_ITEM:
 		case CITY_REACTION_KINDS.BLACKSMITH_UPGRADE:
 		case CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE: return upgradeSubtitle(reaction, snapshot, item);
 		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT: return disenchantSubtitle(snapshot, item);

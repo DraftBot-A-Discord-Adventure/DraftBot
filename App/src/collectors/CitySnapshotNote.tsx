@@ -8,8 +8,6 @@ type CityNoteView = string;
 type NoteResolver = (snapshot: CityMobileSnapshot) => string | undefined;
 
 const NOTE_RESOLVERS: Record<string, NoteResolver> = {
-	blacksmith: snapshot => snapshot.blacksmith ? i18n.t("app:city.notes.blacksmith") : undefined,
-	scrapDealer: snapshot => snapshot.scrapDealer ? i18n.t("app:city.notes.scrapDealer") : undefined,
 	royalBlacksmith: snapshot => snapshot.royalBlacksmith ? i18n.t("app:city.notes.royalBlacksmith") : undefined,
 	inn: snapshot => snapshot.inns
 		? i18n.t("app:city.notes.inn", {
@@ -18,8 +16,6 @@ const NOTE_RESOLVERS: Record<string, NoteResolver> = {
 		: undefined,
 	enchanter: snapshot => snapshot.enchanter ? i18n.t("app:city.notes.enchanter") : undefined,
 	homeGarden: snapshot => snapshot.home?.owned?.garden ? i18n.t("app:city.notes.garden", { hours: gameRules().cooldownHours.gardenWatering }) : undefined,
-	homeChest: snapshot => snapshot.home?.owned?.hasChest ? i18n.t("app:city.notes.chest") : undefined,
-	homeCooking: snapshot => snapshot.home?.owned?.hasCooking ? i18n.t("app:city.notes.cooking") : undefined,
 	notary: snapshot => snapshot.home?.manage || snapshot.apartmentNotary || snapshot.guildDomainNotary ? i18n.t("app:city.notes.notary") : undefined,
 	guild: snapshot => snapshot.guildDomain || snapshot.guildDomainNotary ? i18n.t("app:city.notes.guildDomain") : undefined
 };

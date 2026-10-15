@@ -7,6 +7,7 @@ type UpgradeReactionData = {
 };
 
 const UPGRADE_SOURCES: Partial<Record<ReactionCollectorReaction["type"], (snapshot: CityMobileSnapshot | undefined) => CityMobileUpgradeItem[] | undefined>> = {
+	[CITY_REACTION_KINDS.UPGRADE_ITEM]: snapshot => snapshot?.home?.owned?.upgradeStation?.upgradeableItems,
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: snapshot => snapshot?.blacksmith?.upgradeableItems,
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: snapshot => snapshot?.royalBlacksmith?.upgradeableItems
 };
@@ -35,11 +36,11 @@ export function missingMaterialUnits(upgrade: CityMobileUpgradeItem): number {
 }
 
 /**
- * Core offers each upgrade twice, with and without buying the missing materials: the player only
- * sees the one that fits, so an item lies once on the anvil.
+ * The blacksmiths offer each upgrade twice, with and without buying the missing materials: the player
+ * only sees the one that fits, so an item lies once on the anvil. The home station offers it once.
  */
 export function isShownUpgradeVariant(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): boolean {
-	if (!isUpgradeReaction(reaction)) {
+	if (!isUpgradeReaction(reaction) || (reaction.data as UpgradeReactionData).buyMaterials === undefined) {
 		return true;
 	}
 	const upgrade = upgradeForReaction(reaction, snapshot);

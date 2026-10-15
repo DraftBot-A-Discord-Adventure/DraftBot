@@ -29,6 +29,7 @@ export function cityRowTitle(reaction: ReactionCollectorReaction, collectorData:
 		case CITY_REACTION_KINDS.SHOP: return i18n.t(`commands:report.city.shops.${reaction.data.shopId}.label`);
 		case CITY_REACTION_KINDS.EXIT: return i18n.t("commands:report.city.reactions.exit.label");
 		case CITY_REACTION_KINDS.ENCHANT:
+		case CITY_REACTION_KINDS.UPGRADE_ITEM:
 		case CITY_REACTION_KINDS.BLACKSMITH_UPGRADE:
 		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT:
 		case CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE:
