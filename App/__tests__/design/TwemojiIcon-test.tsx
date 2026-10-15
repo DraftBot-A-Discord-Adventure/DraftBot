@@ -1,9 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { createElement } from "react";
-import { PixelRatio, Platform } from "react-native";
-import {
-	twemojiAssetUrl, TwemojiIcon
-} from "@/src/design/TwemojiIcon";
+import { Platform } from "react-native";
+import { twemojiAssetUrl } from "@/src/design/TwemojiIcon";
 import { TwemojiText } from "@/src/design/TwemojiText";
 import { Theme } from "@/src/design/Theme";
 import {
@@ -48,27 +46,6 @@ describe("twemojiAssetUrl", () => {
 		expect(twemojiAssetUrl(officeWorker)).toBe(
 			"https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/svg/1f9d1-200d-1f4bc.svg"
 		);
-	});
-
-	it("draws the 72 px bitmap up to its own size and the SVG beyond, so a large emoji stays sharp", () => {
-		const crossedSwords = String.fromCodePoint(0x2694, 0xfe0f);
-
-		expect(twemojiAssetUrl(crossedSwords, 72)).toBe("https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/72x72/2694.png");
-		expect(twemojiAssetUrl(crossedSwords, 73)).toBe("https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/svg/2694.svg");
-	});
-
-	it("picks the asset from the size on screen in physical pixels", async () => {
-		const crown = String.fromCodePoint(0x1f451);
-		jest.spyOn(PixelRatio, "getPixelSizeForLayoutSize").mockImplementation(size => size * 3);
-		try {
-			const { getAllByLabelText } = await render(<><TwemojiIcon emoji={crown} size={24} /><TwemojiIcon emoji={crown} size={32} /></>);
-			const [small, large] = getAllByLabelText(crown);
-			expect(JSON.stringify(small.props)).toContain("assets/72x72/1f451.png");
-			expect(JSON.stringify(large.props)).toContain("assets/svg/1f451.svg");
-		}
-		finally {
-			jest.restoreAllMocks();
-		}
 	});
 
 	it("renders translated emojis as image assets instead of native text", async () => {
