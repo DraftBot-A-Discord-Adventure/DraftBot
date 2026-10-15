@@ -22,6 +22,21 @@ import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 
+/**
+ * Disable the action buttons; a failed acknowledgement is only logged so the chosen action still reaches Core (#4877)
+ */
+async function acknowledgeActionClick(buttonInteraction: ButtonInteraction, rows: ActionRowBuilder<ButtonBuilder>[]): Promise<void> {
+	try {
+		await buttonInteraction.update({ components: rows });
+	}
+	catch (error) {
+		CrowniclesLogger.warn("Fight action choice could not be acknowledged, sending it anyway", {
+			reason: error instanceof Error ? error.message : String(error),
+			interactionAgeMs: Date.now() - buttonInteraction.createdTimestamp
+		});
+	}
+}
+
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
 
@@ -87,19 +102,7 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 			actionSent = true;
 
 			disableRows(rows);
-
-			try {
-				await buttonInteraction.update({
-					components: rows
-				});
-			}
-			catch (error) {
-				// A click received after the interaction window expired must still reach Core, otherwise the player loses by inactivity (#4877)
-				CrowniclesLogger.warn("Fight action choice could not be acknowledged, sending it anyway", {
-					reason: error instanceof Error ? error.message : String(error),
-					interactionAgeMs: Date.now() - buttonInteraction.createdTimestamp
-				});
-			}
+			await acknowledgeActionClick(buttonInteraction, rows);
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
