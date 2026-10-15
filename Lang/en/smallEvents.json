@@ -710,8 +710,8 @@
             "Despite your intervention, the potion doesn't seem to have improved. You feel uncomfortable... {emote:effects.sick}"
           ],
           "freezing": [
-            "You decide to taste the potion, which is very cold. However, the feeling of cold does not go away, and you helplessly feel each of your limbs growing colder... {emote:effects.freezing}",
-            "As you were about to finish the potion, you fell into the ice-filled chasm in which you were planning to drop the pot. {emote:effects.freezing}"
+            "Vous goûtez la potion, glaciale. Même une fois avalée, le froid ne vous quitte plus et, impuissant, vous sentez vos membres s'engourdir un à un... {emote:effects.freezing}",
+            "La sorcière vous charge de maintenir la marmite dans un bac de glace pilée le temps que la potion se stabilise. Lorsque vous la relâchez enfin, vous ne sentez plus vos doigts. {emote:effects.freezing}"
           ],
           "hurt": [
             "The potion bubbles up violently and splashes you. The burn is intense and you bitterly regret your choice. {emote:effects.hurt}",
@@ -723,12 +723,12 @@
           ]
         },
         "3": [
-          "Once the potion is finished, the witch hands you a glass. Still burning, you clumsily drop it on your foot. You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
+          "Une fois la potion terminée, la sorcière vous tend un verre. Encore brûlant, il vous échappe des mains et se renverse sur votre pied. Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "Just as you're about to finish the potion, the old witch clumsily drops the cauldron on you. You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "Although the potion smells good, it's not as good for your health as you might have hoped. You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
-          "The taste of the potion is very strange. Perhaps you should have listened to your instincts and not tasted it... You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
+          "Le goût de la potion est très étrange. Peut-être auriez-vous dû écouter votre instinct et ne pas y goûter... Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "The fumes from the potion are enough to make you ill. You leave without asking for help, but not without suffering the consequences of inhaling the fumes. You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
-          "Just as the old lady is about to pour the last drop into the cauldron, a thud is heard. The cauldron seems to have exploded. You lose **{{lifeLoss, number}} {emote:unitValues.lostHealth}**."
+          "Alors que la vieille dame s'apprête à verser la dernière goutte dans la marmite, un bruit sourd se fait entendre. Il semblerait que le chaudron ait explosé. Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**."
         ],
         "4": [
           "Unfortunately, the potion seems completely charred and undrinkable. You decide not to take the risk of drinking it and leave quickly.",
