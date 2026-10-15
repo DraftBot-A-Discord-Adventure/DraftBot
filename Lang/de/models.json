@@ -1033,7 +1033,7 @@
       "atParticle": "an die"
     },
     "10": {
-      "description": "Die große Stadt der Stadt, die Stadt Forte, ist nicht mehr nur der Schatten von sich selbst. Es gibt nur ein Dutzend von Häusern und Bauern, die von dem alten Krieg zurückgeschwungen wurden. Der Rest der früheren Pauschalschmiede ist nur ein Ruin.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
       "name": "Stadt Forte",
       "particle": "in Richtung",
       "atParticle": "an die",
@@ -1195,7 +1195,7 @@
       "atParticle": "unter"
     },
     "17": {
-      "description": "Heißes Village, das das Könige-Tal umgeht. Es ist eine warme Oase für Reisende im Transit.",
+      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
       "name": "Coco Village",
       "particle": "in Richtung",
       "atParticle": "unter",
@@ -2163,6 +2163,7 @@
     "0": "Poing",
     "1": "Zeus-Foudre",
     "10": "Schwert aus Holz",
+    "100": "Sentence de la Faucheuse",
     "11": "Leere Pistole",
     "12": "Infizierte Spritze",
     "13": "Bombe",
