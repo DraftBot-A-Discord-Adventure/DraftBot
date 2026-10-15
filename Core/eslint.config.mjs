@@ -50,8 +50,8 @@ export default defineConfig([
 					"setWeeklyScore"
 				],
 				// `Player` methods that overwrite the instance with a freshly locked row (#4829).
-				// Receivers matching `nonPlayerReceiver` hold a model sharing these names.
-				nonPlayerReceiver: "[Gg]uild",
+				// Receivers matching `nonPlayerReceiver` hold a `Guild` (`addExperience`, `addScore`); suffix-anchored so `guildChief` stays checked.
+				nonPlayerReceiver: "[Gg]uild$",
 				playerReloaders: [
 					"addExperience",
 					"addHealth",
