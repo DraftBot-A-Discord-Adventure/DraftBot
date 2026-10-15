@@ -705,7 +705,8 @@
       "animal_lover": "Pessoa que mostrou todos os animais de estimação a Talvar, o anão",
       "expert_expediteur": "Uma pessoa que tenha completado com sucesso numerosas expedições com o seu animal de estimação",
       "oracle_patron": "Protetor do Oráculo, tendo contribuído generosamente para numerosas bênçãos",
-      "sentimental_crafter": "A pessoa que insistiu para que o ferreiro real melhorasse uma relíquia humilde até ao topo"
+      "sentimental_crafter": "A pessoa que insistiu para que o ferreiro real melhorasse uma relíquia humilde até ao topo",
+      "master_chef": "Cuisinier émérite ayant atteint le niveau 100 de cuisine"
     },
     "fightRanked": {
       "fieldName": "Glória e campeonato :",
@@ -1360,6 +1361,7 @@
           "levelUp": "Chegou ao nível de cozinha {{level}}!",
           "levelUpWithGrade": "Foi promovido ao **nível {{level}}** de cozinha! Nova classificação: **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}, um novo nível de cozinha!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Vos efforts aux fourneaux sont enfin reconnus : un badge vous a été offert, **Chef cuisinier** !",
           "materialSaved": "{emote:messages.validate} Graças à tua experiência, um **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** foi poupado!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **A tua mestria permitiu-te duplicar a XP ganha e melhorar o resultado desta preparação!",
           "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** foram adicionados ao armazenamento da tua guilda.",
