@@ -710,8 +710,8 @@
             "Apesar da tua intervenção, a poção não parece ter melhorado. Sente-se desconfortável... {emote:effects.sick}"
           ],
           "freezing": [
-            "Decides provar a poção, que está muito fria. Mas a sensação de frio não desaparece e sentes cada parte do teu corpo a ficar mais fria... {emote:effects.freezing}",
-            "Quando estavas prestes a terminar a poção, tropeçaste e caíste no abismo cheio de gelo onde planeavas colocar o pote. {emote:effects.freezing}"
+            "Vous goûtez la potion, glaciale. Même une fois avalée, le froid ne vous quitte plus et, impuissant, vous sentez vos membres s'engourdir un à un... {emote:effects.freezing}",
+            "La sorcière vous charge de maintenir la marmite dans un bac de glace pilée le temps que la potion se stabilise. Lorsque vous la relâchez enfin, vous ne sentez plus vos doigts. {emote:effects.freezing}"
           ],
           "hurt": [
             "A poção começa a borbulhar violentamente e salpica-te. A queimadura é intensa e arrependes-te amargamente da tua escolha. {emote:effects.hurt}",
@@ -723,12 +723,12 @@
           ]
         },
         "3": [
-          "Quando a poção está pronta, a bruxa dá-te um copo. Ainda a arder, deixas cair desajeitadamente o copo no teu pé. Perdes **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
+          "Une fois la potion terminée, la sorcière vous tend un verre. Encore brûlant, il vous échappe des mains et se renverse sur votre pied. Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "Quando estás prestes a terminar a poção, a bruxa velha deixa cair o caldeirão em cima de ti. Perdeste **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "Embora a poção cheire bem, não é tão saudável como esperavas. Perdeste **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
-          "O sabor da poção é muito estranho. Talvez devesses ter ouvido os teus instintos e não a ter provado... Perdestes **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
+          "Le goût de la potion est très étrange. Peut-être auriez-vous dû écouter votre instinct et ne pas y goûter... Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
           "Os vapores da poção são suficientes para o deixar doente. Vais-te embora sem pedir ajuda, mas não sem sofreres as consequências da inalação dos vapores. Perdeste **{{lifeLoss, number}} {emote:unitValues.lostHealth}**.",
-          "No momento em que a velhota está prestes a deitar a última gota no caldeirão, ouve-se um estrondo. O caldeirão parece ter explodido. Perdeste **{{lifeLoss, number}} {emote:unitValues.lostHealth}**."
+          "Alors que la vieille dame s'apprête à verser la dernière goutte dans la marmite, un bruit sourd se fait entendre. Il semblerait que le chaudron ait explosé. Vous perdez **{{lifeLoss, number}} {emote:unitValues.lostHealth}**."
         ],
         "4": [
           "Infelizmente, a poção parece estar completamente carbonizada e não pode ser bebida. Decide não se arriscar a bebê-la e vai-se embora rapidamente.",
