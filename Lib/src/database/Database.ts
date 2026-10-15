@@ -112,6 +112,7 @@ export abstract class Database {
 					host: this.databaseConfiguration.host,
 					port: this.databaseConfiguration.port,
 					logging: false,
+					pool: this.databaseConfiguration.pool,
 					dialectOptions: {
 						// mariadb defaults to one second, which is too short for transient production network stalls.
 						connectTimeout: DB_CONNECT_TIMEOUT_MS
