@@ -28,7 +28,9 @@ import {
 } from "../../core/fights/FightController";
 import { FightOvertimeBehavior } from "../../core/fights/FightOvertimeBehavior";
 import { PlayerFighter } from "../../core/fights/fighter/PlayerFighter";
-import { ClassDataController } from "../../data/Class";
+import {
+	ClassDataController, Class
+} from "../../data/Class";
 import { crowniclesInstance } from "../../app";
 import { EloUtils } from "../../core/utils/EloUtils";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
@@ -350,44 +352,58 @@ async function findOpponent(player: Player): Promise<Player | null> {
 	return null;
 }
 
+async function startRankedFight(attacker: {
+	player: Player; playerClass: Class;
+}, opponent: Player, context: PacketContext, response: CrowniclesPacket[]): Promise<void> {
+	const opponentClass = ClassDataController.instance.getById(opponent.class);
+	if (!opponentClass) {
+		throw new Error("Class not found for opponent");
+	}
+	const askingFighter = new PlayerFighter(attacker.player, attacker.playerClass);
+	askingFighter.setFightRole(FightConstants.FIGHT_ROLES.ATTACKER);
+	await askingFighter.loadStats();
+	const incomingFighter = new AiPlayerFighter(opponent, opponentClass);
+	incomingFighter.setFightRole(FightConstants.FIGHT_ROLES.DEFENDER);
+	await incomingFighter.loadStats();
+
+	const fightController = new FightController(
+		{
+			fighter1: askingFighter, fighter2: incomingFighter
+		},
+		{
+			overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW,
+			context
+		}
+	);
+	fightController.setEndCallback(fightEndCallback);
+	fightsDefenderCooldowns.set(opponent.keycloakId, Date.now() + minutesToMilliseconds(FightConstants.DEFENDER_COOLDOWN_MINUTES));
+	await fightController.startFight(response);
+}
+
+/**
+ * Start a ranked fight against a real opponent, or against a king guard when nobody is available
+ */
+async function startAcceptedFight(player: Player, context: PacketContext, response: CrowniclesPacket[]): Promise<void> {
+	const playerClass = ClassDataController.instance.getById(player.class);
+	if (!playerClass) {
+		throw new Error("Class not found for player");
+	}
+	const opponent = await findOpponent(player);
+	if (opponent) {
+		await startRankedFight({
+			player, playerClass
+		}, opponent, context, response);
+	}
+	else {
+		await startKingGuardFight(player, playerClass, context, response);
+	}
+}
+
 function fightValidationEndCallback(player: Player, context: PacketContext): EndCallback {
 	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();
 		if (reaction && reaction.reaction.type === ReactionCollectorAcceptReaction.name) {
-			const playerClass = ClassDataController.instance.getById(player.class);
-			if (!playerClass) {
-				throw new Error("Class not found for player");
-			}
-			const opponent = await findOpponent(player);
-			if (!opponent) {
-				await startKingGuardFight(player, playerClass, context, response);
-				BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.FIGHT_CONFIRMATION);
-				return;
-			}
-			const opponentClass = ClassDataController.instance.getById(opponent.class);
-			if (!opponentClass) {
-				throw new Error("Class not found for opponent");
-			}
-			const askingFighter = new PlayerFighter(player, playerClass);
-			askingFighter.setFightRole(FightConstants.FIGHT_ROLES.ATTACKER);
-			await askingFighter.loadStats();
-			const incomingFighter = new AiPlayerFighter(opponent, opponentClass);
-			incomingFighter.setFightRole(FightConstants.FIGHT_ROLES.DEFENDER);
-			await incomingFighter.loadStats();
-
-			// Start fight
-			const fightController = new FightController(
-				{
-					fighter1: askingFighter, fighter2: incomingFighter
-				},
-				{
-					overtimeBehavior: FightOvertimeBehavior.END_FIGHT_DRAW,
-					context
-				}
-			);
-			fightController.setEndCallback(fightEndCallback);
-			fightsDefenderCooldowns.set(opponent.keycloakId, Date.now() + minutesToMilliseconds(FightConstants.DEFENDER_COOLDOWN_MINUTES));
-			await fightController.startFight(response);
+			await startAcceptedFight(player, context, response);
 		}
 		else {
 			response.push(makePacket(CommandFightRefusePacketRes, {}));
