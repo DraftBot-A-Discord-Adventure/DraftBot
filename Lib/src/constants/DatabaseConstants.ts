@@ -6,30 +6,27 @@ import { asMilliseconds } from "../types/TimeTypes";
  * implicit max of 5 with up to 9 queries waiting, the logs pool reached 3 used + 3 waiting.
  * Worst case for all services stays far below MariaDB `max_connections` (151, peak usage 34).
  */
-const ACQUIRE_TIMEOUT = asMilliseconds(60_000);
-const IDLE_TIMEOUT = asMilliseconds(10_000);
+const POOL_TIMEOUTS = {
+	min: 0,
+	acquire: asMilliseconds(60_000),
+	idle: asMilliseconds(10_000)
+};
 
 export abstract class DatabaseConstants {
 	static readonly POOLS = {
 		GAME: {
 			max: 20,
-			min: 0,
-			acquire: ACQUIRE_TIMEOUT,
-			idle: IDLE_TIMEOUT
+			...POOL_TIMEOUTS
 		},
 		LOGS: {
 			max: 10,
-			min: 0,
-			acquire: ACQUIRE_TIMEOUT,
-			idle: IDLE_TIMEOUT
+			...POOL_TIMEOUTS
 		},
 
 		// One pool per Discord shard process
 		DISCORD: {
 			max: 5,
-			min: 0,
-			acquire: ACQUIRE_TIMEOUT,
-			idle: IDLE_TIMEOUT
+			...POOL_TIMEOUTS
 		}
 	} as const satisfies Record<string, DatabasePoolConfiguration>;
 }
