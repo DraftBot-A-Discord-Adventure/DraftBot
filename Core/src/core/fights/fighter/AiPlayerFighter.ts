@@ -103,7 +103,7 @@ export class AiPlayerFighter extends PlayerBaseFighter {
 		this.stats.energy = this.stats.maxEnergy;
 		this.loadCombatStats(playerActiveObjects, isPvE, !this.withoutConsequences);
 		this.glory = this.player.getGloryPoints();
-		this.metallicItemCount = await InventorySlots.countObjectsOfPlayer(this.player.id, ItemConstants.TAGS.METALLIC);
+		this.metallicItemCount = await this.countItemsWithTag(ItemConstants.TAGS.METALLIC);
 		await this.loadPetEntity();
 	}
 

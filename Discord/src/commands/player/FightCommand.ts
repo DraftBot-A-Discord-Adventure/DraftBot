@@ -32,6 +32,7 @@ import {
 	asMilliseconds, millisecondsToMinutes, msDiff, nowMs
 } from "../../../../Lib/src/utils/TimeUtils";
 import { FightRewardPacket } from "../../../../Lib/src/packets/fights/FightRewardPacket";
+import { KingGuardFightRewardPacket } from "../../../../Lib/src/packets/fights/KingGuardFightRewardPacket";
 import {
 	resolveKeycloakPlayerName
 } from "../../utils/KeycloakPlayerUtils";
@@ -213,6 +214,9 @@ function addFightProfileFor(introEmbed: CrowniclesEmbed, lng: Language, fighterN
  * @param lng
  */
 async function resolveOpponentDisplayName(packet: CommandFightIntroduceFightersPacket, lng: Language): Promise<string> {
+	if (packet.fightOpponentKeycloakId === FightConstants.KING_GUARD.KEYCLOAK_ID) {
+		return i18n.t("commands:fight.kingGuard.name", { lng });
+	}
 	if (packet.fightOpponentKeycloakId) {
 		const getUser = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, packet.fightOpponentKeycloakId);
 		if (getUser && !getUser.isError) {
@@ -443,7 +447,7 @@ export async function handleEndOfFight(context: PacketContext, packet: CommandFi
  * @param lng
  * @param player1Username
  */
-function generateFightRewardField(embed: CrowniclesEmbed, packet: FightRewardPacket, lng: Language, player1Username: string): void {
+function generateFightRewardField(embed: CrowniclesEmbed, packet: Pick<FightRewardPacket, "money" | "points">, lng: Language, player1Username: string): void {
 	// Ne pas afficher le field si aucune récompense n'a été gagnée
 	if (packet.money <= 0 && packet.points <= 0) {
 		return;
@@ -479,7 +483,7 @@ function generateFightRewardField(embed: CrowniclesEmbed, packet: FightRewardPac
  * @param lng
  * @param player1Username
  */
-function generatePetLoveChangeField(embed: CrowniclesEmbed, packet: FightRewardPacket, lng: Language, player1Username: string): void {
+function generatePetLoveChangeField(embed: CrowniclesEmbed, packet: Pick<FightRewardPacket, "petLoveChange">, lng: Language, player1Username: string): void {
 	if (packet.petLoveChange && packet.petLoveChange.loveChange > 0) {
 		const petDisplay = PetUtils.petToShortString(lng, packet.petLoveChange.petNickname ?? undefined, packet.petLoveChange.petId, packet.petLoveChange.petSex as SexTypeShort);
 		embed.addFields({
@@ -655,6 +659,32 @@ export async function handleFightReward(context: PacketContext, packet: FightRew
 
 	// Generate a short sentence about the fight result
 	generateFightRecapDescription(embed, packet, lng, player1Username, player2Username);
+
+	await interaction.channel?.send({ embeds: [embed] });
+}
+
+/**
+ * Display the rewards of a fight against a king guard, where no glory is at stake
+ * @param context
+ * @param packet
+ */
+export async function handleKingGuardFightReward(context: PacketContext, packet: KingGuardFightRewardPacket): Promise<void> {
+	const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+	if (!interaction) {
+		return;
+	}
+	const lng = interaction.userLanguage;
+	const playerUsername = escapeUsername(interaction.user.displayName);
+	const result = packet.draw ? "draw" : packet.won ? "win" : "loss";
+
+	const embed = new CrowniclesEmbed()
+		.setTitle(i18n.t("commands:fight.fightReward.title", { lng }))
+		.setDescription(i18n.t(`commands:fight.kingGuard.recap.${result}`, {
+			lng,
+			player: playerUsername
+		}));
+	generateFightRewardField(embed, packet, lng, playerUsername);
+	generatePetLoveChangeField(embed, packet, lng, playerUsername);
 
 	await interaction.channel?.send({ embeds: [embed] });
 }
