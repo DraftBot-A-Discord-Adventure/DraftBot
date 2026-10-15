@@ -26,8 +26,11 @@ export function GameQueryContent<Answer extends FromServerPacket>({
 	if (state.status === "empty") {
 		return <EmptyState>{i18n.t("app:reference.empty")}</EmptyState>;
 	}
+	if (state.rejection) {
+		return <Note>{commandRejectionMessage(state.rejection)}</Note>;
+	}
 	return <>
-		<Note>{state.rejection ? commandRejectionMessage(state.rejection) : i18n.t("app:common.error")}</Note>
+		<Note>{i18n.t("app:common.error")}</Note>
 		<ButtonRow><Button onPress={(): void => { queryClient.invalidateQueries({ queryKey: gameKey(entity) }).catch(console.error); }}>{i18n.t("app:common.retry")}</Button></ButtonRow>
 	</>;
 }

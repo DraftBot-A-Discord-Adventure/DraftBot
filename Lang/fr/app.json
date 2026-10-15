@@ -1609,7 +1609,12 @@
       "topAmount": "Contribution",
       "endsAt": "Fin de la bénédiction",
       "expiresAt": "Expiration de la cagnotte",
-      "pool": "Cagnotte de l'Oracle"
+      "pool": "Cagnotte de l'Oracle",
+      "unmet": {
+        "title": "L'Oracle ne vous a pas encore reçu",
+        "description": "Son autel se dresse parfois au bord des routes. Croisez-le pendant vos voyages pour y déposer une offrande : ses bénédictions profitent à tout le royaume, et vous suivrez ici la cagnotte.",
+        "continue": "Reprendre la route"
+      }
     },
     "badges": {
       "total": "Badges obtenus : {{count}} / {{total}}",

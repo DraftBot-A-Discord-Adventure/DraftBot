@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import {
 	Linking, Pressable, Text, View
 } from "react-native";
+import { useRouter } from "expo-router";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
 import { RarityReq } from "ws-packets/src/fromClient/RarityReq";
 import { BlessingReq } from "ws-packets/src/fromClient/BlessingReq";
@@ -12,6 +13,7 @@ import { ItemRarity } from "ws-packets/src/objects/ItemRarity";
 import {
 	Badge, BADGE_CODES
 } from "ws-packets/src/objects/Badge";
+import { COMMAND_REJECTIONS } from "ws-packets/src/objects/CommandRejection";
 import { GameClient } from "@/src/networking/GameClient";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useGameQuery } from "@/src/store/useGameQuery";
@@ -26,7 +28,12 @@ import {
 import {
 	ActionBanner, EntryRow, ExpandableList, Fact, Figure, Figures, Standing
 } from "@/src/design/Sections";
-import { BookOpen } from "@/src/design/FightIcons";
+import {
+	BookOpen, Footprints
+} from "@/src/design/FightIcons";
+import {
+	FarewellEmblem, FarewellPage, useMotionLoop
+} from "@/src/design/Farewell";
 import { Theme } from "@/src/design/Theme";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { AppIcons } from "@/src/AppIcons";
@@ -42,6 +49,11 @@ export const VISIBLE_BADGES = Object.values(BADGE_CODES).filter(badge => !HIDDEN
 const BLESSING_EMBLEM_SIZE = 40;
 const BADGE_EMOJI_SIZE = 28;
 const GUIDE_URL = "https://guide.crownicles.com";
+
+/** The altar glows softly while the player has yet to come across it. */
+const ORACLE_MOTION = {
+	glowMs: 2600, altar: 60
+} as const;
 
 const useStyles = createStyles(colors => ({
 	badges: {
@@ -145,10 +157,32 @@ export function BlessingContent({ data }: { data: BlessingRes }): ReactNode {
 	</>;
 }
 
+/** Nothing to retry before the Oracle is met: the page says where its altar stands instead. */
+function OracleUnmet(): ReactNode {
+	const router = useRouter();
+	const colors = useColors();
+	const glow = useMotionLoop(ORACLE_MOTION.glowMs, true);
+	return <>
+		<FarewellPage
+			emblem={<FarewellEmblem pulse={glow} haloColor={colors.goldWash}>
+				<TwemojiIcon emoji={AppIcons.getIcon("smallEvents.altar")} size={ORACLE_MOTION.altar} />
+			</FarewellEmblem>}
+			eyebrow={i18n.t("app:profile.titles.blessing")}
+			eyebrowColor={colors.gold}
+			title={i18n.t("app:reference.blessing.unmet.title")}
+			description={i18n.t("app:reference.blessing.unmet.description")}
+		/>
+		<ActionBanner icon={Footprints} label={i18n.t("app:reference.blessing.unmet.continue")} onPress={(): void => router.navigate("/")} />
+	</>;
+}
+
 export function Blessing(): ReactNode {
 	const state = useGameQuery(GAME_ENTITIES.BLESSING, () => GameClient.request(makeFromClientPacket(BlessingReq, {}), BlessingRes));
 	const deadline = state.status === "ready" ? state.data.blessingEndAt ?? state.data.poolExpiresAt : null;
 	useGameDeadline(GAME_ENTITIES.BLESSING, deadline);
+	if (state.status === "failed" && state.rejection?.type === COMMAND_REJECTIONS.ORACLE) {
+		return <OracleUnmet />;
+	}
 	return <GameQueryContent state={state} entity={GAME_ENTITIES.BLESSING}>{data => <BlessingContent data={data} />}</GameQueryContent>;
 }
 

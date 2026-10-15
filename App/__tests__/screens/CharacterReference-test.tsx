@@ -9,9 +9,14 @@ import {
 	BadgesContent, Blessing, BlessingContent, Guide, ProfileBadges, RarityContent
 } from "@/src/components/CharacterReference";
 import { BlessingRes } from "ws-packets/src/fromServer/character/BlessingRes";
+import { CommandRejected } from "ws-packets/src/fromServer/common/CommandRejected";
+import { COMMAND_REJECTIONS } from "ws-packets/src/objects/CommandRejection";
 import { GameClient } from "@/src/networking/GameClient";
 
-jest.mock("expo-router", () => ({ useFocusEffect: jest.fn() }));
+const mockNavigate = jest.fn();
+jest.mock("expo-router", () => ({
+	useFocusEffect: jest.fn(), useRouter: (): object => ({ navigate: mockNavigate })
+}));
 jest.mock("@/src/networking/GameClient", () => ({ GameClient: { request: jest.fn() } }));
 jest.mock("@/src/AppIcons", () => ({ AppIcons: {
 	getIcon: (): string => "", getIconOrNull: (): null => null
@@ -141,5 +146,20 @@ describe("character reference screens", () => {
 		});
 		await waitFor(() => expect(screen.getByText("app:reference.blessing.pool")).toBeTruthy());
 		expect(screen.queryByText("app:reference.blessing.endsAt")).toBeNull();
+	});
+
+	it("tells a player who never met the Oracle where its altar stands, with nothing to retry", async () => {
+		jest.mocked(GameClient.request).mockResolvedValue({
+			kind: "rejected", packet: Object.assign(new CommandRejected(), { rejection: { type: COMMAND_REJECTIONS.ORACLE } })
+		});
+		const client = new QueryClient({ defaultOptions: { queries: {
+			retry: false, gcTime: Infinity
+		} } });
+		await render(<QueryClientProvider client={client}><Blessing /></QueryClientProvider>);
+
+		await waitFor(() => expect(screen.getByText("app:reference.blessing.unmet.title")).toBeTruthy());
+		expect(screen.queryByText("app:common.retry")).toBeNull();
+		await fireEvent.press(screen.getByText("app:reference.blessing.unmet.continue"));
+		expect(mockNavigate).toHaveBeenCalledWith("/");
 	});
 });
