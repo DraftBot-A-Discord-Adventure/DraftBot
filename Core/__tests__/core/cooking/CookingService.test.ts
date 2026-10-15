@@ -431,7 +431,7 @@ describe("CookingService - pure functions", () => {
 			addBadgeSpy.mockRestore();
 		});
 
-		it("should not announce the badge again when the player already owns it", async () => {
+		it("should grant the badge on the next craft to a player already past the threshold, announcing it only once", async () => {
 			const addBadgeSpy = vi.spyOn(PlayerBadgesManager, "addBadge").mockResolvedValue(false);
 
 			const result = await CookingService.addCookingXp({
@@ -439,6 +439,8 @@ describe("CookingService - pure functions", () => {
 				xp: 1
 			});
 
+			expect(result.levelUp).toBe(false);
+			expect(addBadgeSpy).toHaveBeenCalledWith(42, Badge.MASTER_CHEF);
 			expect(result.masterChefBadgeEarned).toBe(false);
 			addBadgeSpy.mockRestore();
 		});
