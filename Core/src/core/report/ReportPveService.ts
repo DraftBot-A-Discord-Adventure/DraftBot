@@ -285,7 +285,7 @@ async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<v
  * the freshly-locked instance to avoid lost-update on concurrent writers and
  * to dodge the latent clobber-by-Object.assign on the local `player`.
  */
-async function persistPveBossPostFightUnderLock(
+export async function persistPveBossPostFightUnderLock(
 	player: Locked<Player>,
 	initialFightPointsLost: number,
 	isWinOrDraw: boolean,
