@@ -705,7 +705,8 @@
       "animal_lover": "Person, die Talvar dem Zwerg alle Vertrauten gezeigt hat",
       "expert_expediteur": "Person, die mit ihrem Vertrauten viele Expeditionen erfolgreich abgeschlossen hat",
       "oracle_patron": "Beschützer des Orakels, der großzügig zu vielen Segnungen beigetragen hat",
-      "sentimental_crafter": "Person, die Wert darauf gelegt hat, eine bescheidene Reliquie vom königlichen Schmied bis zum Gipfel verbessern zu lassen."
+      "sentimental_crafter": "Person, die Wert darauf gelegt hat, eine bescheidene Reliquie vom königlichen Schmied bis zum Gipfel verbessern zu lassen.",
+      "master_chef": "Cuisinier émérite ayant atteint le niveau 100 de cuisine"
     },
     "fightRanked": {
       "fieldName": "Ruhm und Liga :",
@@ -1360,6 +1361,7 @@
           "levelUp": "Sie sind auf die **Kochstufe {{level}}** aufgestiegen!",
           "levelUpWithGrade": "Sie sind auf die **Kochstufe {{level}}** aufgestiegen! Neuer Rang : **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}, erhöhtes Kochniveau!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Vos efforts aux fourneaux sont enfin reconnus : un badge vous a été offert, **Chef cuisinier** !",
           "materialSaved": "{emote:messages.validate} Dank Ihrer Expertise kann ein **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** wurde eingespart!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **Supererfolg!** Ihre Meisterschaft hat es Ihnen ermöglicht, die verdienten XP zu verdoppeln und das Ergebnis dieser Zubereitung zu verbessern!",
           "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** wurden dem Speicher deiner Gilde hinzugefügt.",
