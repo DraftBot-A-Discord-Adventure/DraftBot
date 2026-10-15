@@ -1,4 +1,5 @@
 import { Database } from "../../../../../Lib/src/database/Database";
+import { DatabaseConstants } from "../../../../../Lib/src/constants/DatabaseConstants";
 import { LogsPlayersMoney } from "./models/LogsPlayersMoney";
 import { LogsPlayers } from "./models/LogsPlayers";
 import { findOrCreateLogsPlayer } from "./LogsPlayerResolver";
@@ -213,7 +214,7 @@ export class LogsDatabase extends Database {
 	private readonly cityLogger = new LogsCityLogger();
 
 	constructor() {
-		super(getDatabaseConfiguration(botConfig, "logs"), `${__dirname}/models`, `${__dirname}/migrations`);
+		super(getDatabaseConfiguration(botConfig, "logs", DatabaseConstants.POOLS.LOGS), `${__dirname}/models`, `${__dirname}/migrations`);
 	}
 
 	/**
