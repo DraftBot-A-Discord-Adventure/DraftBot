@@ -1033,7 +1033,7 @@
       "atParticle": "para o"
     },
     "10": {
-      "description": "Outrora uma grande cidade fortificada, Ville Forte é atualmente uma sombra do que foi. Devastada pela antiga guerra, restam apenas uma dezena de casas e camponeses. O resto das antigas fortificações estão em ruínas.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
       "name": "Cidade forte",
       "particle": "para o",
       "atParticle": "para o",
@@ -1195,7 +1195,7 @@
       "atParticle": "em"
     },
     "17": {
-      "description": "Aldeia acolhedora que faz fronteira com o Vale dos Reis. É um oásis acolhedor para os viajantes em trânsito.",
+      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
       "name": "Aldeia do Coco",
       "particle": "para o",
       "atParticle": "em",
@@ -2163,6 +2163,7 @@
     "0": "Punho",
     "1": "O relâmpago de Zeus",
     "10": "Espada de madeira",
+    "100": "Sentence de la Faucheuse",
     "11": "Arma vazia",
     "12": "Seringa infetada",
     "13": "Bomba",
