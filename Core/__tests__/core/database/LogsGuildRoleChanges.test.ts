@@ -1,7 +1,13 @@
 import {
 	beforeEach, describe, expect, it, vi
 } from "vitest";
+
+vi.mock("../../../src/core/database/logs/LogsGuildResolver", () => ({
+	findOrCreateLogsGuild: vi.fn()
+}));
+
 import { LogsDatabase } from "../../../src/core/database/logs/LogsDatabase";
+import { findOrCreateLogsGuild } from "../../../src/core/database/logs/LogsGuildResolver";
 import { Players } from "../../../src/core/database/game/models/Player";
 import { LogsGuildsEldersRemoves } from "../../../src/core/database/logs/models/LogsGuildsEldersRemoves";
 import { LogsGuildsChiefsChanges } from "../../../src/core/database/logs/models/LogsGuildsChiefsChanges";
@@ -19,8 +25,7 @@ describe("LogsDatabase guild role changes", () => {
 	beforeEach(() => {
 		vi.restoreAllMocks();
 		vi.spyOn(Players, "getById").mockRejectedValue(new Error("commit has been called on this transaction"));
-		vi.spyOn(LogsDatabase as unknown as { findOrCreateGuild: () => Promise<{ id: number }> }, "findOrCreateGuild")
-			.mockResolvedValue({ id: LOG_GUILD_ID });
+		vi.mocked(findOrCreateLogsGuild).mockResolvedValue({ id: LOG_GUILD_ID } as never);
 		vi.spyOn(LogsDatabase, "findOrCreatePlayer").mockResolvedValue({ id: LOG_PLAYER_ID } as never);
 		vi.spyOn(LogsGuildsEldersRemoves, "create").mockResolvedValue({} as never);
 		vi.spyOn(LogsGuildsChiefsChanges, "create").mockResolvedValue({} as never);

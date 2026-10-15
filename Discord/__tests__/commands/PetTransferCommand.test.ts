@@ -41,45 +41,38 @@ import { handlePetTransferReactionCollector } from "../../src/commands/pet/PetTr
 import { DiscordCache } from "../../src/bot/DiscordCache";
 import { DiscordCollectorUtils } from "../../src/utils/DiscordCollectorUtils";
 import {
+	ReactionCollectorPetTransfer,
 	ReactionCollectorPetTransferDepositReaction,
 	ReactionCollectorPetTransferPacket,
 	ReactionCollectorPetTransferSwitchReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorPetTransfer";
 import { ReactionCollectorRefuseReaction } from "../../../Lib/src/packets/interaction/ReactionCollectorPacket";
-import { PacketContext } from "../../../Lib/src/packets/CrowniclesPacket";
+import {
+	makePacket, PacketContext
+} from "../../../Lib/src/packets/CrowniclesPacket";
+import { OwnedPet } from "../../../Lib/src/types/OwnedPet";
 
 const USER_ID = "user-id";
+const SHELTER_PET_ENTITY_ID = 5;
 const SWITCH_REACTION_INDEX = 1;
+const COLLECTOR_DURATION_MS = 60_000;
 
-const pet = {
-	nickname: "Rex", typeId: 1, sex: "m", rarity: 1, loveLevel: 1
+const pet: OwnedPet = {
+	nickname: "Rex", typeId: 1, sex: "m", rarity: 1, loveLevel: 1, force: 1, feedDelay: 0
 };
 
 function createPacket(): ReactionCollectorPetTransferPacket {
-	return {
-		id: "collector-id",
-		endTime: Date.now() + 60_000,
-		reactions: [
-			{
-				type: ReactionCollectorPetTransferDepositReaction.name, data: {}
-			},
-			{
-				type: ReactionCollectorPetTransferSwitchReaction.name, data: { petEntityId: 5 }
-			},
-			{
-				type: ReactionCollectorRefuseReaction.name, data: {}
-			}
-		],
-		data: {
-			type: "ReactionCollectorPetTransferData",
-			data: {
-				ownPet: pet,
-				shelterPets: [{
-					petEntityId: 5, pet
-				}]
-			}
-		}
-	} as unknown as ReactionCollectorPetTransferPacket;
+	return new ReactionCollectorPetTransfer(
+		pet,
+		[{
+			petEntityId: SHELTER_PET_ENTITY_ID, pet
+		}],
+		[
+			makePacket(ReactionCollectorPetTransferDepositReaction, {}),
+			makePacket(ReactionCollectorPetTransferSwitchReaction, { petEntityId: SHELTER_PET_ENTITY_ID }),
+			makePacket(ReactionCollectorRefuseReaction, {})
+		]
+	).creationPacket("collector-id", Date.now() + COLLECTOR_DURATION_MS);
 }
 
 function createComponentInteraction(customId: string, values?: string[]): Record<string, unknown> {
