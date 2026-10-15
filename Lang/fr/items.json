@@ -9,9 +9,9 @@
   "objectsNatures": [
     "{emote:itemNatures.0} Aucun effet",
     "{emote:itemNatures.1} Vie + {{power, number}} par jour",
-    "{emote:itemNatures.2} Vitesse + {{power, number}} pendant les combats",
-    "{emote:itemNatures.3} Attaque + {{power, number}} pendant les combats",
-    "{emote:itemNatures.4} Défense + {{power, number}} pendant les combats",
+    "{emote:itemNatures.2} Vitesse + {{power}} pendant les combats",
+    "{emote:itemNatures.3} Attaque + {{power}} pendant les combats",
+    "{emote:itemNatures.4} Défense + {{power}} pendant les combats",
     "{emote:itemNatures.5} Avance le temps de {{power}} chaque jour",
     "{emote:itemNatures.6} Argent + {{power, number}} par jour",
     "{emote:itemNatures.7} Énergie + {{power, number}} par jour"
