@@ -34,11 +34,12 @@ function Summary({ snapshot }: { snapshot: CityMobileSnapshot }): ReturnType<typ
 
 describe("home bed", () => {
 	it("is refused beforehand when health is full, or while the last rest is too recent", () => {
-		expect(cityReactionAvailable(bed, bedroom(40))).toBe(true);
-		expect(cityReactionAvailable(bed, bedroom(66))).toBe(false);
-		expect(cityReactionLock(bed, bedroom(66))?.reason).toBe("Votre vie est déjà au maximum.");
-		expect(cityReactionAvailable(bed, bedroom(40, Date.now() + 60_000))).toBe(false);
-		expect(cityReactionLock(bed, bedroom(40, Date.now() + 60_000))?.reason).toMatch(/^Votre dernier repos dans un lit est trop récent/u);
+		const now = Date.UTC(2026, 9, 15, 12);
+		expect(cityReactionAvailable(bed, bedroom(40), now)).toBe(true);
+		expect(cityReactionAvailable(bed, bedroom(66), now)).toBe(false);
+		expect(cityReactionLock(bed, bedroom(66), now)?.reason).toBe("Votre vie est déjà au maximum.");
+		expect(cityReactionAvailable(bed, bedroom(40, now + 60_000), now)).toBe(false);
+		expect(cityReactionLock(bed, bedroom(40, now + 60_000), now)?.reason).toMatch(/^Votre dernier repos dans un lit est trop récent/u);
 	});
 
 	it("shows where health stands and where a rest would take it", async () => {

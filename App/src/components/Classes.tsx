@@ -19,6 +19,9 @@ import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { usePlayerProfile } from "@/src/store/usePlayerProfile";
 import {
+	CLOCK_INTERVALS, useCurrentTime
+} from "@/src/store/useCurrentTime";
+import {
 	CommandMenu, useCommandMenus
 } from "@/src/store/useInventoryMenus";
 import {
@@ -59,8 +62,8 @@ const HOURS_PER_DAY = 24;
 const FIGURE_WIDTH = 116;
 
 /** The cooldown spans whole weeks, so hours only matter on its last day. */
-function changeCountdown(timestamp?: number): string | null {
-	const hours = timestamp === undefined ? 0 : Math.ceil((timestamp - Date.now()) / MILLISECONDS_PER_HOUR);
+function changeCountdown(timestamp: number | undefined, now: number): string | null {
+	const hours = timestamp === undefined ? 0 : Math.ceil((timestamp - now) / MILLISECONDS_PER_HOUR);
 	if (hours <= 0) {
 		return null;
 	}
@@ -123,7 +126,7 @@ function reactionFor(collector: ReactionCollectorCreation, classId: number): num
 
 function useClassChange(nextChangeTimestamp: number | undefined, effect: PlayerEffect | null): ClassChange {
 	const menus = useCommandMenus();
-	const countdown = changeCountdown(nextChangeTimestamp);
+	const countdown = changeCountdown(nextChangeTimestamp, useCurrentTime(CLOCK_INTERVALS.MINUTE_MS));
 	const lock: Lock | undefined = countdown
 		? {
 			reason: countdown, icon: Clock3

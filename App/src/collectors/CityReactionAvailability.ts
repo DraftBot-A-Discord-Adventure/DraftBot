@@ -6,7 +6,7 @@ import {
 	buysMaterials, isUpgradeReaction, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
 
-type AvailabilityResolver = (snapshot: CityMobileSnapshot | undefined) => boolean;
+type AvailabilityResolver = (snapshot: CityMobileSnapshot | undefined, now: number) => boolean;
 
 type HomeManage = NonNullable<NonNullable<CityMobileSnapshot["home"]>["manage"]>;
 
@@ -17,8 +17,8 @@ function homeManageAvailability(snapshot: CityMobileSnapshot | undefined, grante
 }
 
 /** Core only sends when an inn serves again while that moment is still to come; it may have passed since. */
-function servedNow(availableAt: number | undefined): boolean {
-	return availableAt === undefined || availableAt <= Date.now();
+function servedNow(availableAt: number | undefined, now: number): boolean {
+	return availableAt === undefined || availableAt <= now;
 }
 
 function healthFull(snapshot: CityMobileSnapshot | undefined): boolean {
@@ -26,9 +26,9 @@ function healthFull(snapshot: CityMobileSnapshot | undefined): boolean {
 }
 
 const DIRECT_AVAILABILITY: Partial<Record<ReactionCollectorReaction["type"], AvailabilityResolver>> = {
-	[CITY_REACTION_KINDS.INN_MEAL]: snapshot => servedNow(snapshot?.innCooldowns?.mealAvailableAt),
-	[CITY_REACTION_KINDS.INN_ROOM]: snapshot => servedNow(snapshot?.innCooldowns?.roomAvailableAt),
-	[CITY_REACTION_KINDS.HOME_BED]: snapshot => servedNow(snapshot?.innCooldowns?.roomAvailableAt) && !healthFull(snapshot),
+	[CITY_REACTION_KINDS.INN_MEAL]: (snapshot, now) => servedNow(snapshot?.innCooldowns?.mealAvailableAt, now),
+	[CITY_REACTION_KINDS.INN_ROOM]: (snapshot, now) => servedNow(snapshot?.innCooldowns?.roomAvailableAt, now),
+	[CITY_REACTION_KINDS.HOME_BED]: (snapshot, now) => servedNow(snapshot?.innCooldowns?.roomAvailableAt, now) && !healthFull(snapshot),
 	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: snapshot => snapshot?.guildDomainNotary?.canAfford ?? true,
 	[CITY_REACTION_KINDS.APARTMENT_BUY]: snapshot => snapshot?.apartmentNotary?.forSale?.canAfford ?? true,
 	[CITY_REACTION_KINDS.BUY_HOME]: snapshot => homeManageAvailability(snapshot, manage => manage.canBuy),
@@ -39,8 +39,8 @@ const DIRECT_AVAILABILITY: Partial<Record<ReactionCollectorReaction["type"], Ava
 	[CITY_REACTION_KINDS.GARDEN_COMPOST]: snapshot => snapshot?.home?.owned?.garden?.eligibility.canCompost ?? true
 };
 
-function directAvailability(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): boolean | undefined {
-	return DIRECT_AVAILABILITY[reaction.type]?.(snapshot);
+function directAvailability(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, now: number): boolean | undefined {
+	return DIRECT_AVAILABILITY[reaction.type]?.(snapshot, now);
 }
 
 function apartmentRentAvailability(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): boolean | undefined {
@@ -69,8 +69,8 @@ function equipmentAvailability(reaction: ReactionCollectorReaction, snapshot: Ci
 	return true;
 }
 
-export function cityReactionAvailable(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): boolean {
-	const direct = directAvailability(reaction, snapshot);
+export function cityReactionAvailable(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, now: number): boolean {
+	const direct = directAvailability(reaction, snapshot, now);
 	if (direct !== undefined) {
 		return direct;
 	}

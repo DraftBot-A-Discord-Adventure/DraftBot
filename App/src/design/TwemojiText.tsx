@@ -6,6 +6,27 @@ import {
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { Theme } from "@/src/design/Theme";
 
+type EmojiEntity = ReturnType<typeof parse>[number];
+
+/** Game texts come back screen after screen: past this many, the oldest parse is forgotten. */
+const PARSED_TEXTS_KEPT = 500;
+const parsedTexts = new Map<string, readonly EmojiEntity[]>();
+
+/** Where the emojis of a text sit; the regex scan is kept since the same texts are drawn again and again. */
+export function emojiEntities(text: string): readonly EmojiEntity[] {
+	const known = parsedTexts.get(text);
+	if (known) {
+		return known;
+	}
+	const entities = parse(text);
+	const oldest = parsedTexts.keys().next();
+	if (parsedTexts.size >= PARSED_TEXTS_KEPT && !oldest.done) {
+		parsedTexts.delete(oldest.value);
+	}
+	parsedTexts.set(text, entities);
+	return entities;
+}
+
 /**
  * The text split into words and emojis, ready to be laid out on a wrapping line.
  *
@@ -21,7 +42,7 @@ export function twemojiParts({
 	iosEmojiVerticalOffset?: number;
 	keyPrefix?: string;
 }): ReactNode[] {
-	const entities = parse(text);
+	const entities = emojiEntities(text);
 	const emojiVerticalOffset = Platform.OS === "ios" ? iosEmojiVerticalOffset ?? 0 : 0;
 
 	const parts: ReactNode[] = [];
@@ -63,7 +84,7 @@ export function splitLeadingEmoji(label: string): {
 	emoji?: string; text: string;
 } {
 	const trimmed = label.trimStart();
-	const [first] = parse(trimmed);
+	const [first] = emojiEntities(trimmed);
 	if (first?.indices[0] !== 0) {
 		return { text: trimmed };
 	}

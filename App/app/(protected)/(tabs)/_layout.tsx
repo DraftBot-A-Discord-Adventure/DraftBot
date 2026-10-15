@@ -260,7 +260,11 @@ function TabPager({ journey }: { journey: Journey }): ReactNode {
 		<TopTabs
 			tabBarPosition="bottom"
 			tabBar={(props: NavigatorTabBarProps) => <NavigatorTabBar {...props} journey={journey} hidden={!hasTabs || heldOn(props.state.routes[props.state.index].name)} />}
-			screenOptions={({ route }: { route: { name: string } }) => ({ swipeEnabled: !detailOpen && hasTabs && !heldOn(route.name) })}
+
+			// A tab is drawn once it is reached or next to the one on screen, so a swipe never lands on a blank page.
+			screenOptions={({ route }: { route: { name: string } }) => ({
+				swipeEnabled: !detailOpen && hasTabs && !heldOn(route.name), lazy: true, lazyPreloadDistance: 1
+			})}
 			screenListeners={({ route }: { route: { name: string } }) => ({ focus: (): void => {
 				if (isJourneyTab(route.name)) {
 					journey.visit(route.name);

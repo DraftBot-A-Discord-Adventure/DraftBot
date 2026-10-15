@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import {
 	Platform, Text
 } from "react-native";
-import { parse } from "@twemoji/parser";
 import {
 	StorySpan, storySpans
 } from "@/src/display/Markdown";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { emojiEntities } from "@/src/design/TwemojiText";
 import { Theme } from "@/src/design/Theme";
 import { createStyles } from "@/src/design/ThemeContext";
 
@@ -34,7 +34,7 @@ function inlineSpan(styles: ReturnType<typeof useStyles>, span: StorySpan, key: 
 	const style = [span.strong && styles.strong, span.emphasis && styles.emphasis];
 	const parts: ReactNode[] = [];
 	let lastIndex = 0;
-	for (const entity of parse(span.text)) {
+	for (const entity of emojiEntities(span.text)) {
 		const [start, end] = entity.indices;
 		if (start > lastIndex) {
 			parts.push(<Text key={`${key}-${lastIndex}`} style={style}>{span.text.slice(lastIndex, start)}</Text>);

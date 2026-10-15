@@ -87,7 +87,9 @@ export function CollectorsProvider({
 		track: collectorsStore.track,
 		react: collectorsStore.react,
 		answerWithoutShowing: collectorsStore.answerWithoutShowing,
-		isAnswerPending: collectorsStore.isAnswerPending
+
+		// A new function per snapshot (one is taken when an answer starts or ends), so a memoized screen asks again.
+		isAnswerPending: (collectorId: string): boolean => collectorsStore.isAnswerPending(collectorId)
 	}), [open]);
 
 	return <CollectorsContext.Provider value={value}>{children}</CollectorsContext.Provider>;

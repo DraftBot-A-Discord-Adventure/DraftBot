@@ -4,6 +4,7 @@ import {
 import {
 	Animated, Easing, Text, View
 } from "react-native";
+import { useMeasuredWidth } from "@/src/design/useMeasuredWidth";
 import { LucideIcon } from "@/src/design/FightIcons";
 import { Theme } from "@/src/design/Theme";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
@@ -32,8 +33,9 @@ const useStyles = createStyles(colors => ({
 		height: "100%", borderRadius: 4
 	},
 	lossTrail: {
-		position: "absolute", top: 0, left: 0, opacity: 0.28
+		position: "absolute", top: 0, left: 0, width: "100%", opacity: 0.28
 	},
+	unmeasured: { opacity: 0 },
 	resourceTitle: {
 		fontFamily: Theme.fonts.semiBold, fontSize: 12, color: colors.ink
 	},
@@ -71,9 +73,10 @@ export function FightGauge({
 	const styles = useStyles();
 	const ratio = max ? Math.max(0, Math.min(1, value / max)) : 1;
 	const [fill] = useState(() => new Animated.Value(ratio));
+	const track = useMeasuredWidth();
 	useEffect(() => {
 		const animation = Animated.timing(fill, {
-			toValue: ratio, duration: reducedMotion ? 0 : GAUGE_DURATION, easing: Easing.out(Easing.cubic), useNativeDriver: false
+			toValue: ratio, duration: reducedMotion ? 0 : GAUGE_DURATION, easing: Easing.out(Easing.cubic), useNativeDriver: true
 		});
 		animation.start();
 		return (): void => animation.stop();
@@ -92,16 +95,19 @@ export function FightGauge({
 				: i18n.t("app:profile.formats.progress", {
 					value, max
 				})}</Text></View>
-		<View style={styles.track}>
+		<View style={styles.track} onLayout={track.onLayout}>
 			<Animated.View style={[
 				styles.fill,
 				styles.lossTrail,
 				{
 					backgroundColor: color,
-					width: fill.interpolate({
-						inputRange: [0, 1], outputRange: ["0%", "100%"]
-					})
-				}
+					transform: [
+						{ translateX: fill.interpolate({
+							inputRange: [0, 1], outputRange: [-track.width, 0]
+						}) }
+					]
+				},
+				track.width === 0 && styles.unmeasured
 			]} />
 			<View testID="fight-gauge-fill" style={[
 				styles.fill, {

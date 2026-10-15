@@ -1,5 +1,5 @@
 import {
-	fireEvent, render, screen, waitFor, within
+	act, fireEvent, render, screen, waitFor, within
 } from "@testing-library/react-native";
 import {
 	Inventory, InventoryData
@@ -248,6 +248,22 @@ describe("inventory views", () => {
 		expect(screen.queryByText("app:dailyBonus.locked")).toBeNull();
 		expect(screen.getByRole("button", { name: "app:inventory.actions.daily" })).toBeEnabled();
 		expect(within(screen.getByRole("button", { name: "app:inventory.actions.daily" })).getByTestId("count-badge")).toBeTruthy();
+	});
+
+	it("lifts the daily bonus lock once its delay runs out while the screen stays open", async () => {
+		jest.useFakeTimers({ now: Date.UTC(2026, 9, 15, 12) });
+		try {
+			await renderWithGameQuery(<Inventory inventoryData={inventory()} dailyBonusAvailableAt={Date.now() + 20_000} />);
+			await fireEvent.press(screen.getByRole("button", { name: "models:objects.2" }));
+			expect(screen.getByRole("button", { name: "app:inventory.actions.daily" })).toBeDisabled();
+			await act(async () => {
+				jest.advanceTimersByTime(30_000);
+			});
+			expect(screen.getByRole("button", { name: "app:inventory.actions.daily" })).toBeEnabled();
+		}
+		finally {
+			jest.useRealTimers();
+		}
 	});
 
 	it("guides to the reserve instead when only a stored object gives the daily bonus", async () => {

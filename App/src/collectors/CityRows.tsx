@@ -23,7 +23,11 @@ import {
 	ExpandedEntry, useExpandedEntry
 } from "@/src/design/useExpandedEntry";
 import { useAfterDismissal } from "@/src/design/useAfterDismissal";
+import { useCurrentTime } from "@/src/store/useCurrentTime";
 import { i18n } from "@/src/translations/i18n";
+
+/** Inn cooldowns are worded in minutes: reading the time this often lifts them close enough to their end. */
+const COOLDOWN_CLOCK_MS = 10_000;
 
 /** Actions that spend something, and therefore ask for a second tap inside the unfolded row. */
 const CITY_REACTIONS_REQUIRING_CONFIRMATION = new Set<ReactionCollectorReaction["type"]>([
@@ -53,7 +57,7 @@ type CityRowsProps = {
 	rowTitle: (reaction: ReactionCollectorReaction, collectorData: CityMenuData["data"], snapshot?: CityMobileSnapshot) => string;
 	rowSubtitle: (reaction: ReactionCollectorReaction, snapshot?: CityMobileSnapshot) => string | undefined;
 	rowEnd: (reaction: ReactionCollectorReaction, snapshot?: CityMobileSnapshot) => string | undefined;
-	reactionAvailable: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => boolean;
+	reactionAvailable: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, now: number) => boolean;
 
 	/** What the unfolded row explains before the player confirms. */
 	rowDetails?: (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => ReactNode;
@@ -110,23 +114,23 @@ function staticEntry(item: CityNavigationItem | CityInfoItem, props: CityRowsPro
 
 function reactionRowState(reaction: ReactionCollectorReaction, {
 	collector, reactionAvailable
-}: CityRowsProps): ReactionRowState {
+}: CityRowsProps, now: number): ReactionRowState {
 	const snapshot = collector.data.type === CITY_DATA_KINDS.CITY ? collector.data.data.snapshot : undefined;
-	const available = reactionAvailable(reaction, snapshot);
+	const available = reactionAvailable(reaction, snapshot, now);
 	return {
 		snapshot,
 		choosable: available && isChoosable(reaction, collector.data),
-		lock: available ? undefined : cityReactionLock(reaction, snapshot)
+		lock: available ? undefined : cityReactionLock(reaction, snapshot, now)
 	};
 }
 
-/** The one sheet a list unfolds at a time, and the choice it sends once put away. */
+/** The one sheet a list unfolds at a time, the choice it sends once put away, and the time the cooldowns are read at. */
 type CitySheet = {
-	unfolding: ExpandedEntry<string>; confirmation: ReturnType<typeof useAfterDismissal>;
+	unfolding: ExpandedEntry<string>; confirmation: ReturnType<typeof useAfterDismissal>; now: number;
 };
 
 function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
-	unfolding, confirmation
+	unfolding, confirmation, now
 }: CitySheet): ReactNode {
 	const {
 		collector, locked, onChoose, rowIcon, rowTitle, rowSubtitle, rowEnd
@@ -137,7 +141,7 @@ function reactionEntry(item: CityReactionItem, props: CityRowsProps, {
 	const key = JSON.stringify(reaction);
 	const {
 		snapshot, choosable, lock
-	} = reactionRowState(reaction, props);
+	} = reactionRowState(reaction, props, now);
 	const confirms = CITY_REACTIONS_REQUIRING_CONFIRMATION.has(reaction.type);
 	const expanded = confirms && unfolding.isExpanded(key);
 	const confirm = props.rowConfirm?.(reaction, snapshot);
@@ -205,7 +209,7 @@ function cityEntry(item: CityListItem, props: CityRowsProps, sheet: CitySheet): 
 
 export function CityRows(props: CityRowsProps): ReactNode {
 	const sheet = {
-		unfolding: useExpandedEntry<string>(), confirmation: useAfterDismissal()
+		unfolding: useExpandedEntry<string>(), confirmation: useAfterDismissal(), now: useCurrentTime(COOLDOWN_CLOCK_MS)
 	};
 	return <ExpandableList>{props.items.map(item => cityEntry(item, props, sheet))}</ExpandableList>;
 }

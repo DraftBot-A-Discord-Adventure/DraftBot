@@ -31,6 +31,9 @@ import { formatTimeUntil } from "@/src/display/ItemEffects";
 import { AppIcons } from "@/src/AppIcons";
 import { i18n } from "@/src/translations/i18n";
 import { useColors } from "@/src/design/ThemeContext";
+import {
+	CLOCK_INTERVALS, useCurrentTime
+} from "@/src/store/useCurrentTime";
 
 const PERCENTAGE_SCALE = 100;
 type GardenActions = {
@@ -174,13 +177,13 @@ function GardenResult({ outcome }: { outcome: GardenOutcome | null }): ReactNode
 }
 
 /** Watering waits for its cooldown, or for a plant that needs it. */
-function waterLock(garden: GardenSnapshot): Lock | undefined {
+function waterLock(garden: GardenSnapshot, now: number): Lock | undefined {
 	if (garden.eligibility.canWaterGarden) {
 		return undefined;
 	}
-	return garden.wateringAvailableAt !== null && garden.wateringAvailableAt > Date.now()
+	return garden.wateringAvailableAt !== null && garden.wateringAvailableAt > now
 		? {
-			reason: i18n.t("app:garden.locks.watering", { time: formatTimeUntil(garden.wateringAvailableAt) }), icon: Clock3
+			reason: i18n.t("app:garden.locks.watering", { time: formatTimeUntil(garden.wateringAvailableAt, now) }), icon: Clock3
 		}
 		: { reason: i18n.t("app:garden.errors.noPlantsToWater") };
 }
@@ -204,6 +207,7 @@ function GardenPlots({
 	garden: GardenSnapshot; actions: GardenActions;
 }): ReactNode {
 	const lockFor = (lock: Lock | undefined): { lock?: Lock } => lock ? { lock } : {};
+	const now = useCurrentTime(CLOCK_INTERVALS.MINUTE_MS);
 	return <>
 		<GardenFigures garden={garden} />
 		<SectionHeader>{i18n.t("app:garden.plots")}</SectionHeader>
@@ -222,7 +226,7 @@ function GardenPlots({
 				icon={Droplets}
 				label={i18n.t("app:garden.water")}
 				pending={actions.pending}
-				{...lockFor(waterLock(garden))}
+				{...lockFor(waterLock(garden, now))}
 				onPress={(): void => {
 					actions.submit({ type: GARDEN_OPERATIONS.WATER }).catch(console.error);
 				}}

@@ -276,7 +276,8 @@ describe("live battle presentation", () => {
 		let finish: ((result: { finished: boolean }) => void) | undefined;
 		jest.spyOn(Animated, "timing").mockImplementation((_value, config) => ({
 			start: callback => {
-				if (config.useNativeDriver) {
+				// The gauges and the feed slide on the native driver too, but nothing waits for them.
+				if (config.useNativeDriver && callback) {
 					finish = callback;
 				}
 			},

@@ -20,6 +20,7 @@ import {
 } from "@/src/design/FightIcons";
 import { Theme } from "@/src/design/Theme";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
+import { RoadTrack } from "@/src/components/RoadTrack";
 import { useReportAdvance } from "@/src/store/useReportActions";
 import { useReducedMotion } from "@/src/store/useReducedMotion";
 import { i18n } from "@/src/translations/i18n";
@@ -40,7 +41,7 @@ const WELCOME_MOTION = {
 
 /** The traveller walks out of the village before the first report is sent. */
 const DEPARTURE_MOTION = {
-	durationMs: 1_300, strideMs: 110, hop: -7, lean: "10deg"
+	durationMs: 1_300, strideMs: 110
 } as const;
 
 /** Where each spark glints around the crown, and when in the cycle. */
@@ -95,15 +96,6 @@ const useStyles = createStyles(colors => ({
 		paddingHorizontal: Theme.spacing.lg,
 		borderRadius: Theme.radius,
 		backgroundColor: colors.paper
-	},
-	track: {
-		flex: 1, height: 6, borderRadius: Theme.pillRadius, backgroundColor: colors.line
-	},
-	trackFill: {
-		height: "100%", borderRadius: Theme.pillRadius, backgroundColor: colors.gold
-	},
-	runner: {
-		position: "absolute", top: -Theme.dimensions.headerIcon + Theme.spacing.xs, marginLeft: -Theme.dimensions.quickActionIcon / 2
 	},
 	footer: {
 		paddingTop: Theme.spacing.md,
@@ -198,28 +190,10 @@ function DepartureRoad({
 	progress: Animated.Value; stride: Animated.Value;
 }): ReactNode {
 	const styles = useStyles();
-	const position = progress.interpolate({
-		inputRange: [0, 1], outputRange: ["0%", "100%"]
-	});
+	const colors = useColors();
 	return <View accessible accessibilityLabel={i18n.t("app:welcome.road")} style={styles.road}>
 		<TwemojiIcon emoji={AppIcons.getIcon("mapTypes.vi")} size={Theme.dimensions.headerIcon} />
-		<View style={styles.track}>
-			<Animated.View style={[styles.trackFill, { width: position }]} />
-			<Animated.View style={[styles.runner, { left: position }]}>
-				{/* Twemoji draws the walker heading left, so it is mirrored to face the castle. */}
-				<Animated.View style={{ transform: [
-					{ translateY: stride.interpolate({
-						inputRange: [0, 1], outputRange: [0, DEPARTURE_MOTION.hop]
-					}) },
-					{ rotate: stride.interpolate({
-						inputRange: [0, 1], outputRange: ["0deg", DEPARTURE_MOTION.lean]
-					}) },
-					{ scaleX: -1 }
-				] }}>
-					<TwemojiIcon emoji={AppIcons.getIcon("other.walking")} size={Theme.dimensions.quickActionIcon} />
-				</Animated.View>
-			</Animated.View>
-		</View>
+		<RoadTrack progress={progress} stride={stride} runner={AppIcons.getIcon("other.walking")} fillColor={colors.gold} />
 		<TwemojiIcon emoji={AppIcons.getIcon("mapTypes.castleEntrance")} size={Theme.dimensions.headerIcon} />
 	</View>;
 }
@@ -260,7 +234,7 @@ function useDeparture(start: () => void, failure: string | null): {
 		]));
 		strides.start();
 		Animated.timing(progress, {
-			toValue: 1, duration: DEPARTURE_MOTION.durationMs, easing: Easing.inOut(Easing.cubic), useNativeDriver: false
+			toValue: 1, duration: DEPARTURE_MOTION.durationMs, easing: Easing.inOut(Easing.cubic), useNativeDriver: true
 		}).start(() => {
 			walking.current = false;
 			strides.stop();

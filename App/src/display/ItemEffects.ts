@@ -72,8 +72,8 @@ export function formatDurationMinutes(totalMinutes: number): string {
 const MILLISECONDS_PER_MINUTE = 60_000;
 
 /** The time left before a moment the server sent as an absolute timestamp. */
-export function formatTimeUntil(timestamp: number): string {
-	return formatDurationMinutes((timestamp - Date.now()) / MILLISECONDS_PER_MINUTE);
+export function formatTimeUntil(timestamp: number, now = Date.now()): string {
+	return formatDurationMinutes((timestamp - now) / MILLISECONDS_PER_MINUTE);
 }
 
 /** The power of an effect as a bare amount: a duration for time, a number otherwise. */

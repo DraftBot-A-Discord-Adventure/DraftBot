@@ -97,9 +97,8 @@ function useEntrance(latest: boolean): Animated.Value {
 	const still = useReducedMotion();
 	const [shown] = useState(() => new Animated.Value(latest && !still ? 0 : 1));
 	useEffect(() => {
-		// Off the native driver: the fight's own motions are the ones the playback waits for.
 		Animated.timing(shown, {
-			toValue: 1, duration: ENTRANCE.durationMs, easing: Easing.out(Easing.cubic), useNativeDriver: false
+			toValue: 1, duration: ENTRANCE.durationMs, easing: Easing.out(Easing.cubic), useNativeDriver: true
 		}).start();
 	}, [shown]);
 	return shown;

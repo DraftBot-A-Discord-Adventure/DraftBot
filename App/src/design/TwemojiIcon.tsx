@@ -31,6 +31,7 @@ export function TwemojiIcon({
 			accessibilityRole="image"
 			accessibilityLabel={emoji}
 			contentFit="contain"
+			cachePolicy="memory-disk"
 			source={source}
 			style={[
 				styles.icon, {

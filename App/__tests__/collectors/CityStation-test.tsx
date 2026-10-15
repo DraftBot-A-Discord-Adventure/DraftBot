@@ -97,7 +97,7 @@ describe("home upgrade station", () => {
 
 		expect(cityRowSubtitle(upgradeReaction, snapshot)).toBe("Niveau 1 → 2 · 2 matériaux manquants");
 		expect(cityRowEnd(upgradeReaction, snapshot)).toBeUndefined();
-		expect(cityReactionLock(upgradeReaction, snapshot)?.reason).toBe("Il vous manque des matériaux pour cette amélioration.");
+		expect(cityReactionLock(upgradeReaction, snapshot, Date.UTC(2026, 9, 15))?.reason).toBe("Il vous manque des matériaux pour cette amélioration.");
 	});
 
 	it("lays out the work order without a price nor an offer to buy", async () => {
