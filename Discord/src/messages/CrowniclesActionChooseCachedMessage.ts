@@ -61,13 +61,17 @@ function buildActionRows(actions: ReactionCollectorFightChooseActionReaction[]):
 type DisplayedActionChoice = {
 	packet: ReactionCollectorFightChooseActionPacket;
 	context: PacketContext;
+	actions: ReactionCollectorFightChooseActionReaction[];
 	rows: ActionRowBuilder<ButtonBuilder>[];
 	lng: Language;
 };
 
+/**
+ * Collect handler forwarding the first click of the fighter to Core
+ */
 function createActionClickHandler(choice: DisplayedActionChoice): (buttonInteraction: ButtonInteraction) => Promise<void> {
 	const {
-		packet, context, rows, lng
+		packet, context, actions, rows, lng
 	} = choice;
 	let actionSent = false;
 	return async (buttonInteraction: ButtonInteraction): Promise<void> => {
@@ -85,7 +89,7 @@ function createActionClickHandler(choice: DisplayedActionChoice): (buttonInterac
 
 		disableRows(rows);
 		await acknowledgeActionClick(buttonInteraction, rows);
-		const reactionIndex = packet.reactions.findIndex(reaction => (reaction.data as ReactionCollectorFightChooseActionReaction).id === buttonInteraction.customId);
+		const reactionIndex = actions.findIndex(action => action.id === buttonInteraction.customId);
 		DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactionIndex);
 	};
 }
@@ -112,7 +116,8 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 			pseudo: this.usernameCache
 		}), user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng }));
-		const rows = buildActionRows(packet.reactions.map(reaction => reaction.data as ReactionCollectorFightChooseActionReaction));
+		const actions = packet.reactions.map(reaction => reaction.data as ReactionCollectorFightChooseActionReaction);
+		const rows = buildActionRows(actions);
 		const msg = await this.post({
 			embeds: [embed],
 			components: rows
@@ -126,6 +131,7 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 		buttonCollector.on("collect", createActionClickHandler({
 			packet,
 			context,
+			actions,
 			rows,
 			lng
 		}));
