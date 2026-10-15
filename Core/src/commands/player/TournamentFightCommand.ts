@@ -62,7 +62,7 @@ async function startTournamentFight(flow: TournamentFightFlow): Promise<void> {
 
 	const askingFighter = new PlayerFighter(flow.player, playerClass, {
 		effectiveLevel: getEffectiveLevel(participant.category, flow.player.level, flow.tournament),
-		tournamentMode: true
+		withoutConsequences: true
 	});
 	askingFighter.setFightRole(FightConstants.FIGHT_ROLES.ATTACKER);
 	await askingFighter.loadStats();
@@ -71,7 +71,7 @@ async function startTournamentFight(flow: TournamentFightFlow): Promise<void> {
 	const incomingFighter = new AiPlayerFighter(opponent, opponentClass, {
 		allowPotionConsumption: false,
 		effectiveLevel: getEffectiveLevel(opponentParticipant.category, opponent.level, flow.tournament),
-		tournamentMode: true
+		withoutConsequences: true
 	});
 	incomingFighter.setFightRole(FightConstants.FIGHT_ROLES.DEFENDER);
 	await incomingFighter.loadStats();

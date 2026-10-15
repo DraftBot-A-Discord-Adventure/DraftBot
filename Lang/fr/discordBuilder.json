@@ -303,6 +303,20 @@
     "description": "Lancer un combat.",
     "name": "combat"
   },
+  "friendlyFight": {
+    "description": "Lancer un combat amical sans aucune conséquence contre un autre joueur contrôlé par une IA.",
+    "name": "combatamical",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à affronter.",
+        "name": "classement"
+      },
+      "user": {
+        "description": "L'utilisateur à affronter.",
+        "name": "utilisateur"
+      }
+    }
+  },
   "equip": {
     "name": "equiper",
     "description": "Gérer votre équipement : équiper, ranger ou intervertir vos objets."

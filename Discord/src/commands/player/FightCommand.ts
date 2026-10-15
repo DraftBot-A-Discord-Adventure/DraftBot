@@ -237,7 +237,7 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 		const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
 		const lng = interaction.userLanguage;
 		const opponentDisplayName = await resolveOpponentDisplayName(packet, lng);
-		const embed = new CrowniclesEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
+		const embed = new CrowniclesEmbed().formatAuthor(i18n.t(packet.friendly ? "commands:fight.friendlyFightIntroTitle" : "commands:fight.fightIntroTitle", {
 			lng,
 			fightInitiator: escapeUsername(interaction.user.displayName),
 			opponent: escapeUsername(opponentDisplayName)
@@ -248,6 +248,10 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 
 		if (buttonInteraction) {
 			await buttonInteraction.editReply({ embeds: [embed] });
+		}
+		else if (packet.friendly) {
+			// Friendly fights start without a confirmation collector: answer the deferred command
+			await interaction.editReply({ embeds: [embed] });
 		}
 		await CrowniclesCachedMessages.getOrCreate(interaction.id, CrowniclesHistoryCachedMessage)
 			.post({ content: DiscordConstants.EMPTY_MESSAGE }, context.discord?.channel);

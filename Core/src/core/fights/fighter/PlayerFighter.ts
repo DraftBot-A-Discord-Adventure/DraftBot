@@ -30,7 +30,9 @@ export type PveMemberStats = {
 
 type PlayerFighterOptions = {
 	effectiveLevel?: number;
-	tournamentMode?: boolean;
+
+	// Full energy, no potion, no energy loss and no missions (tournament and friendly fights)
+	withoutConsequences?: boolean;
 };
 
 /**
@@ -44,12 +46,12 @@ export class PlayerFighter extends PlayerBaseFighter {
 
 	protected petAssisted: boolean;
 
-	private readonly tournamentMode: boolean;
+	private readonly withoutConsequences: boolean;
 
 	public constructor(player: Player, playerClass: Class, options: PlayerFighterOptions = {}) {
 		super(player, FightActionDataController.instance.getListById(playerClass.fightActionsIds), options.effectiveLevel);
 		this.petAssisted = false;
-		this.tournamentMode = options.tournamentMode ?? false;
+		this.withoutConsequences = options.withoutConsequences ?? false;
 	}
 
 	/**
@@ -75,7 +77,7 @@ export class PlayerFighter extends PlayerBaseFighter {
 	async startFight(_fightView: FightView, startStatus: FighterStatus, response: CrowniclesPacket[]): Promise<void> {
 		this.status = startStatus;
 
-		if (!this.tournamentMode) {
+		if (!this.withoutConsequences) {
 			await this.consumeFightPotionIfNeeded(response, FightConstants.POTION_NO_DRINK_PROBABILITY.PLAYER);
 		}
 		this.block();
@@ -89,7 +91,7 @@ export class PlayerFighter extends PlayerBaseFighter {
 	 * @param turnCount The number of turns that the fight lasted
 	 */
 	async endFight(winner: boolean, response: CrowniclesPacket[], bug: boolean, turnCount: number): Promise<void> {
-		if (this.tournamentMode) {
+		if (this.withoutConsequences) {
 			return;
 		}
 		await this.player.reload();
@@ -143,10 +145,10 @@ export class PlayerFighter extends PlayerBaseFighter {
 	public async loadStats(isPvE = false): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
 		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy(playerActiveObjects, this.level);
-		this.stats.energy = this.tournamentMode
+		this.stats.energy = this.withoutConsequences
 			? this.stats.maxEnergy
 			: this.player.getCumulativeEnergy(playerActiveObjects);
-		this.loadCombatStats(playerActiveObjects, isPvE, !this.tournamentMode);
+		this.loadCombatStats(playerActiveObjects, isPvE, !this.withoutConsequences);
 		this.metallicItemCount = await InventorySlots.countObjectsOfPlayer(this.player.id, ItemConstants.TAGS.METALLIC);
 		if (this.player.petId) {
 			// Check if pet is available based on fight role
