@@ -1195,13 +1195,6 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "Vous décidez de repartir par là d'où vous venez. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
-          "1": "Vous repartez, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
-        },
-        "text": "Repartir par là d'où vous venez."
-      },
-      "keepGoing": {
-        "outcomes": {
           "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
           "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
         },
