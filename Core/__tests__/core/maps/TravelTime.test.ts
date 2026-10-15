@@ -177,7 +177,7 @@ describe('TravelTime', () => {
 		expect(Maps.isTravelling(player)).toBe(false);
 	});
 
-	it('removeEffect never pushes the travel start into the future', async () => {
+	it('removeEffect never delays a travel with an alteration consumed before it started', async () => {
 		vi.spyOn(TravelTime, 'timeTravelMilliseconds').mockResolvedValue();
 		const player: any = {
 			effectRemainingTime: () => 0,
@@ -191,7 +191,29 @@ describe('TravelTime', () => {
 
 		await TravelTime.removeEffect(player, 0);
 
-		expect(player.startTravelDate.valueOf()).toBe(now);
+		expect(player.startTravelDate.valueOf()).toBe(now - 60_000);
+	});
+
+	it('removeEffect does not move back a long travel when spending tokens after an old alteration (#4859)', async () => {
+		const fiftyMinutes = 50 * 60_000;
+		const player: any = {
+			// 30 minutes occupied in the city, then a travel started 50 minutes ago: the alteration never delayed it
+			effectRemainingTime: () => asMilliseconds(0),
+			effectDuration: 30,
+			startTravelDate: new Date(now - fiftyMinutes),
+			effectEndDate: new Date(now - fiftyMinutes - 20 * 60_000),
+			effectId: Effect.OCCUPIED.id,
+			mapLinkId: 1,
+			id: 1,
+			keycloakId: 'user123',
+			save: vi.fn().mockResolvedValue(undefined)
+		};
+		const travelEndBefore = TravelTime.getTravelDataSimplified(player, new Date(now)).travelEndTime;
+
+		await TravelTime.removeEffect(player, 0);
+
+		expect(player.startTravelDate.valueOf()).toBe(now - fiftyMinutes);
+		expect(TravelTime.getTravelDataSimplified(player, new Date(now)).travelEndTime).toBe(travelEndBefore);
 	});
 
 	it('removeEffect never delays a travel started after the alteration when it is healed early', async () => {
