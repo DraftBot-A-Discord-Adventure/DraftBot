@@ -75,13 +75,13 @@ export class AiPlayerFighter extends PlayerBaseFighter {
 	 * Load the pet entity for the fighter based on availability
 	 */
 	private async loadPetEntity(): Promise<void> {
-		if (!this.player.petId) {
-			this.pet = undefined;
+		if (this.preloadedPetEntity !== undefined) {
+			this.pet = this.preloadedPetEntity ?? undefined;
 			return;
 		}
 
-		if (this.preloadedPetEntity !== undefined) {
-			this.pet = this.preloadedPetEntity ?? undefined;
+		if (!this.player.petId) {
+			this.pet = undefined;
 			return;
 		}
 

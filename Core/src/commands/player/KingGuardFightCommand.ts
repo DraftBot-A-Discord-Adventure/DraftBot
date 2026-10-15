@@ -60,8 +60,7 @@ export async function startKingGuardFight(player: Player, playerClass: Class, co
 	askingFighter.setFightRole(FightConstants.FIGHT_ROLES.ATTACKER);
 	await askingFighter.loadStats();
 
-	const guard = await generateKingGuard(player);
-	const guardFighter = new KingGuardFighter(guard.player, guard.guardClass, guard.activeObjects);
+	const guardFighter = new KingGuardFighter(await generateKingGuard(player));
 	await guardFighter.loadStats();
 
 	const fightController = new FightController(
