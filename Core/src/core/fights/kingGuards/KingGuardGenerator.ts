@@ -1,4 +1,5 @@
 import Player from "../../database/game/models/Player";
+import PetEntity from "../../database/game/models/PetEntity";
 import {
 	Class, ClassDataController
 } from "../../../data/Class";
@@ -8,6 +9,7 @@ import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
 import { LogsKingGuardFightsRequests } from "../../database/logs/requests/LogsKingGuardFightsRequests";
 import { getPveMonsterLevel } from "../../report/ReportPveService";
 import { generateKingGuardEquipment } from "./KingGuardEquipment";
+import { generateKingGuardPet } from "./KingGuardPet";
 
 // Upper bound of the seed given to the PvE level algorithm, which reads its last two digits and the following ones
 const LEVEL_SEED_MAX = 1_000_000;
@@ -16,6 +18,7 @@ export type KingGuard = {
 	player: Player;
 	guardClass: Class;
 	activeObjects: PlayerActiveObjects;
+	pet: PetEntity;
 };
 
 /**
@@ -34,7 +37,7 @@ export async function computeKingGuardLevel(player: Player): Promise<number> {
 }
 
 /**
- * Generate a king guard for a player: an unsaved player of a random class available at its level
+ * Generate a king guard for a player: an unsaved player of a random class available at its level, with a pet
  * @param player The player who will fight the guard
  */
 export async function generateKingGuard(player: Player): Promise<KingGuard> {
@@ -48,6 +51,7 @@ export async function generateKingGuard(player: Player): Promise<KingGuard> {
 	return {
 		player: guard,
 		guardClass,
-		activeObjects: await generateKingGuardEquipment(guard.level, guardClass.id)
+		activeObjects: generateKingGuardEquipment(guard.level),
+		pet: generateKingGuardPet()
 	};
 }

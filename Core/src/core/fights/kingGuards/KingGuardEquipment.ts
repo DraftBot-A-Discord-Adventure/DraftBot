@@ -1,158 +1,95 @@
-import { QueryTypes } from "sequelize";
-import Player from "../../database/game/models/Player";
 import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
-import { ClassInfoConstants } from "../../../../../Lib/src/constants/ClassInfoConstants";
 import { FightConstants } from "../../../../../Lib/src/constants/FightConstants";
-import { ItemCategory } from "../../../../../Lib/src/constants/ItemConstants";
+import {
+	FightItemNatures, ItemCategory, ItemRarity
+} from "../../../../../Lib/src/constants/ItemConstants";
 import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
 import {
-	generateRandomItem, getItemByIdAndCategory
+	generateRandomItem, generateRandomLootEnchantment, generateRandomLootLevel
 } from "../../utils/ItemUtils";
 import { Weapon } from "../../../data/Weapon";
 import { Armor } from "../../../data/Armor";
-import { Potion } from "../../../data/Potion";
+import {
+	Potion, PotionDataController
+} from "../../../data/Potion";
 import { ObjectItem } from "../../../data/ObjectItem";
 
-export type EquippedItemRow = {
-	itemCategory: ItemCategory;
-	itemId: number;
+const NO_POTION_ID = 0;
+
+export type RarityRange = {
+	minRarity: ItemRarity;
+	maxRarity: ItemRarity;
+};
+
+type MainItemSlot<T extends Weapon | Armor> = {
+	item: T;
 	itemLevel: number;
 	itemEnchantmentId: string | null;
 };
 
-type EquipmentSampleRequest = {
-	classIds: readonly number[];
-	minLevel: number;
-	maxLevel: number;
-};
-
-type CachedSample = {
-	rows: EquippedItemRow[];
-	expiresAt: number;
-};
-
-const EQUIPMENT_CATEGORIES = [
-	ItemCategory.WEAPON,
-	ItemCategory.ARMOR,
-	ItemCategory.POTION,
-	ItemCategory.OBJECT
-] as const;
-
-const samplesCache = new Map<string, CachedSample>();
-
-function buildSampleKey(request: EquipmentSampleRequest): string {
-	return `${request.classIds.join(",")}_${request.minLevel}_${request.maxLevel}`;
+function clampRarity(rarity: number): ItemRarity {
+	return Math.min(ItemRarity.MYTHICAL, Math.max(ItemRarity.COMMON, rarity));
 }
 
 /**
- * Fetch what a random sample of real players of this level range and class lineage currently have equipped
+ * Rarity range the equipment of a king guard is drawn in: real players gain about one rarity every few levels
+ * @param level The level of the king guard
  */
-async function fetchEquippedItemsSample(request: EquipmentSampleRequest): Promise<EquippedItemRow[]> {
-	return await Player.sequelize!.query<EquippedItemRow>(`
-		SELECT slot.itemCategory, slot.itemId, slot.itemLevel, slot.itemEnchantmentId
-		FROM inventory_slots slot
-		INNER JOIN (
-			SELECT id
-			FROM players
-			WHERE level BETWEEN :minLevel AND :maxLevel
-			  AND class IN (:classIds)
-			ORDER BY RAND()
-			LIMIT :sampleSize
-		) player ON player.id = slot.playerId
-		WHERE slot.slot = 0
-	`, {
-		replacements: {
-			...request,
-			sampleSize: FightConstants.KING_GUARD.EQUIPMENT_SAMPLE_SIZE
-		},
-		type: QueryTypes.SELECT
-	});
-}
-
-async function getEquippedItemsSample(request: EquipmentSampleRequest): Promise<EquippedItemRow[]> {
-	const key = buildSampleKey(request);
-	const cached = samplesCache.get(key);
-	if (cached && cached.expiresAt > Date.now()) {
-		return cached.rows;
-	}
-	const rows = await fetchEquippedItemsSample(request);
-	samplesCache.set(key, {
-		rows,
-		expiresAt: Date.now() + FightConstants.KING_GUARD.EQUIPMENT_CACHE_DURATION_MS
-	});
-	return rows;
-}
-
-/**
- * Pick one equipped item per category, or null if the sample lacks a category
- */
-export function pickEquipmentFromSample(rows: EquippedItemRow[]): Map<ItemCategory, EquippedItemRow> | null {
-	const equipment = new Map<ItemCategory, EquippedItemRow>();
-	for (const category of EQUIPMENT_CATEGORIES) {
-		const candidates = rows.filter(row => row.itemCategory === category && getItemByIdAndCategory(row.itemId, category));
-		if (candidates.length === 0) {
-			return null;
-		}
-		equipment.set(category, RandomUtils.crowniclesRandom.pick(candidates));
-	}
-	return equipment;
-}
-
-function generateEquipmentByRarity(): Map<ItemCategory, EquippedItemRow> {
-	return new Map(EQUIPMENT_CATEGORIES.map(category => [
-		category,
-		{
-			itemCategory: category,
-			itemId: generateRandomItem({ itemCategory: category }).id,
-			itemLevel: 0,
-			itemEnchantmentId: null
-		}
-	]));
-}
-
-function toActiveObjects(equipment: Map<ItemCategory, EquippedItemRow>): PlayerActiveObjects {
-	const weapon = equipment.get(ItemCategory.WEAPON)!;
-	const armor = equipment.get(ItemCategory.ARMOR)!;
+export function getKingGuardRarityRange(level: number): RarityRange {
+	const {
+		AT_LEVEL_ZERO, LEVELS_PER_RARITY, SPREAD
+	} = FightConstants.KING_GUARD.EQUIPMENT_RARITY;
+	const expectedRarity = Math.round(AT_LEVEL_ZERO + level / LEVELS_PER_RARITY);
 	return {
-		weapon: {
-			item: getItemByIdAndCategory(weapon.itemId, ItemCategory.WEAPON) as Weapon,
-			itemLevel: weapon.itemLevel,
-			itemEnchantmentId: weapon.itemEnchantmentId
-		},
-		armor: {
-			item: getItemByIdAndCategory(armor.itemId, ItemCategory.ARMOR) as Armor,
-			itemLevel: armor.itemLevel,
-			itemEnchantmentId: armor.itemEnchantmentId
-		},
-		potion: { item: getItemByIdAndCategory(equipment.get(ItemCategory.POTION)!.itemId, ItemCategory.POTION) as Potion },
-		object: { item: getItemByIdAndCategory(equipment.get(ItemCategory.OBJECT)!.itemId, ItemCategory.OBJECT) as ObjectItem }
+		minRarity: clampRarity(expectedRarity - SPREAD),
+		maxRarity: clampRarity(expectedRarity + SPREAD)
 	};
 }
 
 /**
- * Generate the equipment of a king guard: copied from what real players of its level and class lineage wear,
- * with a wider level gap when nobody matches, and generated by rarity as a last resort
- * @param level The level of the king guard
- * @param classId The class of the king guard
+ * Generate a weapon or an armor of a rarity drawn uniformly in the range, upgraded and enchanted like any loot
  */
-export async function generateKingGuardEquipment(level: number, classId: number): Promise<PlayerActiveObjects> {
-	const classIds = ClassInfoConstants.getClassLineage(classId);
-	for (const gap of FightConstants.KING_GUARD.EQUIPMENT_LEVEL_GAPS) {
-		const equipment = pickEquipmentFromSample(await getEquippedItemsSample({
-			classIds,
-			minLevel: level - gap,
-			maxLevel: level + gap
-		}));
-		if (equipment) {
-			return toActiveObjects(equipment);
-		}
-	}
-	return toActiveObjects(generateEquipmentByRarity());
+function generateMainItem<T extends Weapon | Armor>(category: ItemCategory.WEAPON | ItemCategory.ARMOR, rarityRange: RarityRange): MainItemSlot<T> {
+	const rarity = RandomUtils.crowniclesRandom.integer(rarityRange.minRarity, rarityRange.maxRarity);
+	const item = generateRandomItem({
+		itemCategory: category,
+		minRarity: rarity,
+		maxRarity: rarity
+	});
+	return {
+		item: item as T,
+		itemLevel: generateRandomLootLevel(),
+		itemEnchantmentId: generateRandomLootEnchantment(item)
+	};
 }
 
 /**
- * Clear the equipment samples cache (used for testing purposes)
+ * Generate a potion or an object boosting attack, defense or speed
  */
-export function clearKingGuardEquipmentCache(): void {
-	samplesCache.clear();
+function generateFightSupportItem<T extends Potion | ObjectItem>(category: ItemCategory.POTION | ItemCategory.OBJECT, rarityRange: RarityRange): T {
+	return generateRandomItem({
+		itemCategory: category,
+		...rarityRange,
+		subType: RandomUtils.crowniclesRandom.pick(FightItemNatures)
+	}) as T;
+}
+
+/**
+ * Generate the equipment of a king guard, as strong as what real players of its level wear.
+ * Item stats are capped by the class and level of their owner, which keeps them coherent with the guard.
+ * @param level The level of the king guard
+ */
+export function generateKingGuardEquipment(level: number): PlayerActiveObjects {
+	const rarityRange = getKingGuardRarityRange(level);
+	const hasFightPotion = RandomUtils.crowniclesRandom.bool(FightConstants.KING_GUARD.FIGHT_POTION_PROBABILITY);
+	return {
+		weapon: generateMainItem<Weapon>(ItemCategory.WEAPON, rarityRange),
+		armor: generateMainItem<Armor>(ItemCategory.ARMOR, rarityRange),
+		potion: {
+			item: hasFightPotion
+				? generateFightSupportItem<Potion>(ItemCategory.POTION, rarityRange)
+				: PotionDataController.instance.getById(NO_POTION_ID)!
+		},
+		object: { item: generateFightSupportItem<ObjectItem>(ItemCategory.OBJECT, rarityRange) }
+	};
 }

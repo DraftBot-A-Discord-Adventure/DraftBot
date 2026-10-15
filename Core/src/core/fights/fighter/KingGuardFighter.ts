@@ -1,22 +1,21 @@
 import { AiPlayerFighter } from "./AiPlayerFighter";
-import Player from "../../database/game/models/Player";
-import { Class } from "../../../data/Class";
+import type { KingGuard } from "../kingGuards/KingGuardGenerator";
 import { PlayerActiveObjects } from "../../database/game/models/PlayerActiveObjects";
 
 /**
  * AI-controlled fighter generated on the fly when /fight finds no opponent.
- * Its player is never persisted: everything the fight needs is preloaded.
+ * Its player and pet are never persisted: everything the fight needs is preloaded.
  */
 export class KingGuardFighter extends AiPlayerFighter {
 	private readonly activeObjects: PlayerActiveObjects;
 
-	public constructor(guard: Player, guardClass: Class, activeObjects: PlayerActiveObjects) {
-		super(guard, guardClass, {
+	public constructor(guard: KingGuard) {
+		super(guard.player, guard.guardClass, {
 			allowPotionConsumption: false,
-			preloadedActiveObjects: activeObjects,
-			preloadedPetEntity: null
+			preloadedActiveObjects: guard.activeObjects,
+			preloadedPetEntity: guard.pet
 		});
-		this.activeObjects = activeObjects;
+		this.activeObjects = guard.activeObjects;
 	}
 
 	/**

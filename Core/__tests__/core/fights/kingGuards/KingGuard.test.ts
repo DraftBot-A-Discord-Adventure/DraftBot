@@ -27,6 +27,7 @@ import { ItemConstants } from "../../../../../Lib/src/constants/ItemConstants";
 import Player from "../../../../src/core/database/game/models/Player";
 import { Class } from "../../../../src/data/Class";
 import { PlayerActiveObjects } from "../../../../src/core/database/game/models/PlayerActiveObjects";
+import PetEntity from "../../../../src/core/database/game/models/PetEntity";
 
 function buildGuardPlayer(): Player {
 	return {
@@ -62,8 +63,17 @@ describe("KingGuardFighter", () => {
 		vi.clearAllMocks();
 	});
 
+	function buildGuardFighter(pet: PetEntity | null = null): KingGuardFighter {
+		return new KingGuardFighter({
+			player: buildGuardPlayer(),
+			guardClass: { fightActionsIds: [] } as unknown as Class,
+			activeObjects,
+			pet: pet as PetEntity
+		});
+	}
+
 	it("loads its stats from the generated equipment without touching the database", async () => {
-		const guard = new KingGuardFighter(buildGuardPlayer(), { fightActionsIds: [] } as unknown as Class, activeObjects);
+		const guard = buildGuardFighter();
 
 		await guard.loadStats();
 
@@ -74,10 +84,17 @@ describe("KingGuardFighter", () => {
 		expect(InventorySlots.countObjectsOfPlayer).not.toHaveBeenCalled();
 	});
 
-	it("has no glory at stake", () => {
-		const guard = new KingGuardFighter(buildGuardPlayer(), { fightActionsIds: [] } as unknown as Class, activeObjects);
+	it("fights with its generated pet although its player has no pet id", async () => {
+		const pet = { typeId: 7 } as PetEntity;
+		const guard = buildGuardFighter(pet);
 
-		expect(guard.getDisplayedGloryPoints()).toBeUndefined();
+		await guard.loadStats();
+
+		expect(guard.pet).toBe(pet);
+	});
+
+	it("has no glory at stake", () => {
+		expect(buildGuardFighter().getDisplayedGloryPoints()).toBeUndefined();
 	});
 });
 
