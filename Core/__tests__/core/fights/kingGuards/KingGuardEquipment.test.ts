@@ -2,7 +2,7 @@ import {
 	describe, expect, it
 } from "vitest";
 import {
-	generateKingGuardEquipment, getKingGuardRarityRange
+	generateKingGuardEquipment, getKingGuardEnhancementOdds, getKingGuardRarityRange
 } from "../../../../src/core/fights/kingGuards/KingGuardEquipment";
 import {
 	FightItemNatures, ItemCategory, ItemConstants, ItemRarity
@@ -43,15 +43,44 @@ describe("generateKingGuardEquipment", () => {
 		}
 	});
 
-	it("upgrades and enchants the weapon and the armor at random", () => {
-		const slots = Array.from({ length: 400 }, () => generateKingGuardEquipment(60))
+	it("upgrades and enchants the weapon and the armor at random once fully equipped", () => {
+		const slots = Array.from({ length: 400 }, () => generateKingGuardEquipment(FightConstants.KING_GUARD.FULLY_EQUIPPED_LEVEL))
 			.flatMap(equipment => [[ItemCategory.WEAPON, equipment.weapon], [ItemCategory.ARMOR, equipment.armor]] as const);
 
 		expect(new Set(slots.map(([, slot]) => slot.itemLevel))).toEqual(new Set(Array.from({ length: ItemConstants.MAX_UPGRADE_LEVEL + 1 }, (_, level) => level)));
 		const enchanted = slots.filter(([, slot]) => slot.itemEnchantmentId !== null);
-		expect(enchanted.length / slots.length).toBeCloseTo(FightConstants.KING_GUARD.ENCHANTMENT_PROBABILITY, 1);
+		expect(enchanted.length / slots.length).toBeCloseTo(FightConstants.KING_GUARD.ENCHANTMENT_PROBABILITY.MAX, 1);
 		for (const [category, slot] of enchanted) {
 			expect(ItemEnchantment.getById(slot.itemEnchantmentId!)?.kind.slot).toBe(category);
+		}
+	});
+
+	it("never upgrades the equipment of the weakest guards", () => {
+		for (let i = 0; i < 100; i++) {
+			const equipment = generateKingGuardEquipment(FightConstants.REQUIRED_LEVEL);
+			expect(equipment.weapon.itemLevel).toBe(0);
+			expect(equipment.armor.itemLevel).toBe(0);
+		}
+	});
+});
+
+describe("getKingGuardEnhancementOdds", () => {
+	it("grows from the loot chances to the full upgrade and enchantment odds", () => {
+		const {
+			MIN, MAX
+		} = FightConstants.KING_GUARD.ENCHANTMENT_PROBABILITY;
+		const levels = [FightConstants.REQUIRED_LEVEL, 30, 60, 90, FightConstants.KING_GUARD.FULLY_EQUIPPED_LEVEL, 200];
+		const odds = levels.map(getKingGuardEnhancementOdds);
+
+		expect(odds[0]).toEqual({
+			maxUpgradeLevel: 0, enchantmentProbability: MIN
+		});
+		expect(odds.at(-1)).toEqual({
+			maxUpgradeLevel: ItemConstants.MAX_UPGRADE_LEVEL, enchantmentProbability: MAX
+		});
+		for (let i = 1; i < odds.length; i++) {
+			expect(odds[i].maxUpgradeLevel).toBeGreaterThanOrEqual(odds[i - 1].maxUpgradeLevel);
+			expect(odds[i].enchantmentProbability).toBeGreaterThanOrEqual(odds[i - 1].enchantmentProbability);
 		}
 	});
 });

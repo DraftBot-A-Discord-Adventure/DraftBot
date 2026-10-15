@@ -402,8 +402,16 @@ export abstract class FightConstants {
 		// Share of real players equipped with a fight potion
 		FIGHT_POTION_PROBABILITY: 0.2,
 
-		// The weapon and the armor each have this chance to carry a random enchantment
-		ENCHANTMENT_PROBABILITY: 0.5
+		/*
+		 * Upgrades and enchantments grow from the required fight level up to this level:
+		 * the weapon and the armor get an upgrade level up to a cap growing to the maximum,
+		 * and an enchantment chance growing from the loot chance to the given maximum
+		 */
+		FULLY_EQUIPPED_LEVEL: 120,
+		ENCHANTMENT_PROBABILITY: {
+			MIN: 0.05,
+			MAX: 0.75
+		}
 	};
 
 	/**
