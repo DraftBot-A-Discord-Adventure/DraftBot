@@ -20,6 +20,7 @@ import { ReactionCollectorReturnTypeOrNull } from "../packetHandlers/handlers/Re
 import { DiscordConstants } from "../DiscordConstants";
 import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
+import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
@@ -71,17 +72,34 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 		const buttonCollector = msg.createMessageComponentCollector({
 			time: packet.endTime - Date.now()
 		});
+		let actionSent = false;
 		buttonCollector.on("collect", async (buttonInteraction: ButtonInteraction) => {
 			if (buttonInteraction.user.id !== context.discord?.user) {
 				await sendInteractionNotForYou(buttonInteraction.user, buttonInteraction, lng);
 				return;
 			}
 
+			// Clicks queued while the shard was lagging: only the first one is the chosen action
+			if (actionSent) {
+				await buttonInteraction.deferUpdate().catch(() => null);
+				return;
+			}
+			actionSent = true;
+
 			disableRows(rows);
 
-			await buttonInteraction.update({
-				components: rows
-			});
+			try {
+				await buttonInteraction.update({
+					components: rows
+				});
+			}
+			catch (error) {
+				// A click received after the interaction window expired must still reach Core, otherwise the player loses by inactivity (#4877)
+				CrowniclesLogger.warn("Fight action choice could not be acknowledged, sending it anyway", {
+					reason: error instanceof Error ? error.message : String(error),
+					interactionAgeMs: Date.now() - buttonInteraction.createdTimestamp
+				});
+			}
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
