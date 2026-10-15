@@ -8,7 +8,7 @@ import {
 import { formatMoney } from "@/src/display/Amounts";
 import { formatTimeUntil } from "@/src/display/ItemEffects";
 import {
-	CircleAlert, Clock3, Coins
+	CircleAlert, Clock3, Coins, HeartPulse
 } from "@/src/design/FightIcons";
 import type { Lock } from "@/src/design/Sections";
 import { gameRules } from "@/src/rules/GameRules";
@@ -34,6 +34,11 @@ function homeLock(snapshot: CityMobileSnapshot | undefined, price: number | unde
 const DIRECT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], LockResolver>> = {
 	[CITY_REACTION_KINDS.INN_MEAL]: snapshot => waiting("app:city.locks.mealCooldown", snapshot?.innCooldowns?.mealAvailableAt),
 	[CITY_REACTION_KINDS.INN_ROOM]: snapshot => waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt),
+	[CITY_REACTION_KINDS.HOME_BED]: snapshot => snapshot?.health && snapshot.health.current >= snapshot.health.max
+		? {
+			reason: i18n.t("app:city.locks.healthFull"), icon: HeartPulse
+		}
+		: waiting("app:city.locks.roomCooldown", snapshot?.innCooldowns?.roomAvailableAt),
 	[CITY_REACTION_KINDS.GUILD_DOMAIN_NOTARY]: snapshot => {
 		const notary = snapshot?.guildDomainNotary;
 		return notary

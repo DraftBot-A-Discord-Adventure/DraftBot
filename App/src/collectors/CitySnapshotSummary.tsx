@@ -72,29 +72,21 @@ function renderHomeSummary(snapshot: CityMobileSnapshot): ReactNode {
 	</>;
 }
 
-function renderHomeBedSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactNode {
+/** Where the player's health stands and where a rest would take it; the bed's own gain is on its row. */
+function renderHomeBedSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const home = snapshot.home?.owned;
 	if (!home || !snapshot.health) {
 		return null;
 	}
-	return <>
-		<Figures items={[
-			{
-				caption: i18n.t("app:city.summary.health"), value: `${formatNumber(snapshot.health.current)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
-			},
-			{
-				caption: i18n.t("app:city.summary.bedRegeneration"), value: `+${formatNumber(home.bedHealthRegeneration)}`, unit: "health"
-			}
-		]} />
-		<ExpandableList>
-			<Gauge
-				label={i18n.t("app:city.summary.health")}
-				value={`${snapshot.health.current} / ${snapshot.health.max} ${AppIcons.getIcon("unitValues.health")}`}
-				ratio={snapshot.health.max > 0 ? snapshot.health.current / snapshot.health.max : 0}
-				color={colors.red}
-			/>
-		</ExpandableList>
-	</>;
+	const rested = Math.min(snapshot.health.max, snapshot.health.current + home.bedHealthRegeneration);
+	return <Figures items={[
+		{
+			caption: i18n.t("app:city.summary.health"), value: `${formatNumber(snapshot.health.current)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
+		},
+		{
+			caption: i18n.t("app:city.bed.afterRest"), value: `${formatNumber(rested)} / ${formatNumber(snapshot.health.max)}`, unit: "health"
+		}
+	]} />;
 }
 
 /** A home room sums itself up in two figures, shown only to the owner. */

@@ -696,6 +696,13 @@
       "bedCooldown": "Pas encore l'heure du repos",
       "availableIn": "De nouveau possible dans {{time}}."
     },
+    "bed": {
+      "rested": "Repos dans votre lit",
+      "restedDetails": "Chez vous, et sans débourser une pièce",
+      "alreadyFull": "Pas besoin de repos",
+      "alreadyFullDetails": "Votre vie est déjà au maximum.",
+      "afterRest": "Après le repos"
+    },
     "missionBoard": {
       "title": "Tableau des missions",
       "description": "Vos missions en cours et leurs récompenses"
@@ -1012,6 +1019,7 @@
       "homeMaxLevel": "Votre maison est déjà au niveau maximum.",
       "mealCooldown": "Votre dernier repas est trop récent : prochain repas dans {{time}}.",
       "roomCooldown": "Votre dernier repos dans un lit est trop récent : prochain repos dans {{time}}.",
+      "healthFull": "Votre vie est déjà au maximum.",
       "unavailable": "Cette action n'est pas disponible pour le moment."
     },
     "notes": {

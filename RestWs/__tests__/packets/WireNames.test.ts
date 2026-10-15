@@ -18,7 +18,7 @@ const WIRE_NAMES = [
 	"ReportViewReq", "ReportViewRes", "ReportCityActionReq", "ReportCityActionRes", "InnRes",
 	"GardenInfoReq", "GardenActionReq", "GardenRes",
 	"CookingMenuReq", "CookingIgniteReq", "CookingReviveReq", "CookingWoodConfirmReq", "CookingCraftReq", "CookingPinReq", "CookingUnpinReq", "CookingRes",
-	"HomeChestInfoReq", "HomeChestActionReq", "HomePlantTransferReq", "HomeChestRes", "HomePlantTransferRes", "HomePurchaseRes", "ItemUpgradeRes", "ItemRecycleRes", "NotEnoughMoneyRes",
+	"HomeChestInfoReq", "HomeChestActionReq", "HomePlantTransferReq", "HomeChestRes", "HomePlantTransferRes", "HomePurchaseRes", "HomeBedRes", "ItemUpgradeRes", "ItemRecycleRes", "NotEnoughMoneyRes",
 	"RespawnReq", "UnlockReq", "JoinBoatReq", "VersionReq", "PlayerUtilityRes", "VersionRes",
 	"MapReq", "MapRes",
 	"FightHistoryReq", "FightHistoryRes", "LeagueRewardReq", "LeagueRewardRes", "LeagueInfoReq", "LeagueInfoRes", "TopReq", "TopRes", "TopEmptyRes",
