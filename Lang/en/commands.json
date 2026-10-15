@@ -705,7 +705,8 @@
       "animal_lover": "Person who has shown all the pets to Talvar the dwarf",
       "expert_expediteur": "Person who has successfully completed numerous expeditions with their pet",
       "oracle_patron": "Protector of the Oracle, having contributed generously to many blessings",
-      "sentimental_crafter": "Person who wanted to improve a humble relic to the top by the royal blacksmith"
+      "sentimental_crafter": "Person who wanted to improve a humble relic to the top by the royal blacksmith",
+      "master_chef": "Cuisinier émérite ayant atteint le niveau 100 de cuisine"
     },
     "fightRanked": {
       "fieldName": "Glory points and league:",
@@ -1360,6 +1361,7 @@
           "levelUp": "You were upgraded to **Level {{level}}** of the Kitchen!",
           "levelUpWithGrade": "You were upgraded to ** {{level}}level**! New level: **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}, cooking level increased!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Vos efforts aux fourneaux sont enfin reconnus : un badge vous a été offert, **Chef cuisinier** !",
           "materialSaved": "{emote:messages.validate} Thanks to your expertise, a **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** has been saved!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **Great Achievement!** Your Mayor has allowed you to double the earned XP and improve the result of this achievement!",
           "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** has been added to your guild storage.",
