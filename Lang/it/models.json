@@ -1033,7 +1033,7 @@
       "atParticle": "al"
     },
     "10": {
-      "description": "Un tempo grande città fortificata, Ville Forte è oggi l'ombra di se stessa. Devastata dalla guerra, sono rimaste solo una decina di case e di contadini. Il resto delle vecchie fortificazioni è in rovina.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
       "name": "Ville Forte",
       "particle": "verso la",
       "atParticle": "al",
@@ -1195,7 +1195,7 @@
       "atParticle": "a"
     },
     "17": {
-      "description": "Caldo villaggio che confina la Valle dei Re. È un'oasi calmo per i viaggiatori in transito.",
+      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
       "name": "Villaggio Coco",
       "particle": "verso lo",
       "atParticle": "a",
@@ -2163,6 +2163,7 @@
     "0": "Pugni",
     "1": "Fulmine di Zeus",
     "10": "Spada di legno",
+    "100": "Sentence de la Faucheuse",
     "11": "Pistola vuota",
     "12": "Siringa sporca",
     "13": "Bomba",
