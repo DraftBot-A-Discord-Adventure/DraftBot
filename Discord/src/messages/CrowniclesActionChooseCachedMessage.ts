@@ -37,6 +37,23 @@ async function acknowledgeActionClick(buttonInteraction: ButtonInteraction, rows
 	}
 }
 
+/**
+ * One button per available fight action, wrapped onto new rows when a row is full
+ */
+function buildActionRows(actions: ReactionCollectorFightChooseActionReaction[]): ActionRowBuilder<ButtonBuilder>[] {
+	const rows = [new ActionRowBuilder<ButtonBuilder>()];
+	for (const action of actions) {
+		if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
+			rows.push(new ActionRowBuilder<ButtonBuilder>());
+		}
+		rows[rows.length - 1].addComponents(new ButtonBuilder()
+			.setEmoji(parseEmoji(CrowniclesIcons.fightActions[action.id])!)
+			.setCustomId(action.id)
+			.setStyle(ButtonStyle.Secondary));
+	}
+	return rows;
+}
+
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
 
@@ -59,24 +76,10 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 			pseudo: this.usernameCache
 		}), user)
 			.setDescription(i18n.t("commands:fight.fightActionChoose.turnIndicationDescription", { lng }));
-		const rows = [new ActionRowBuilder<ButtonBuilder>()];
 		const reactions = packet.reactions as {
 			type: string; data: ReactionCollectorFightChooseActionReaction;
 		}[];
-		reactions.forEach(action => {
-			const react = action.data as ReactionCollectorFightChooseActionReaction;
-			const emoji = CrowniclesIcons.fightActions[react.id];
-
-			const button = new ButtonBuilder()
-				.setEmoji(parseEmoji(emoji)!)
-				.setCustomId(react.id)
-				.setStyle(ButtonStyle.Secondary);
-
-			if (rows[rows.length - 1].components.length >= DiscordConstants.MAX_BUTTONS_PER_ROW) {
-				rows.push(new ActionRowBuilder<ButtonBuilder>());
-			}
-			rows[rows.length - 1].addComponents(button);
-		});
+		const rows = buildActionRows(reactions.map(reaction => reaction.data));
 		const msg = await this.post({
 			embeds: [embed],
 			components: rows
