@@ -8,7 +8,6 @@ import {
 	ExpandableList, Fact, Figure, Figures, Gauge
 } from "@/src/design/Sections";
 import { i18n } from "@/src/translations/i18n";
-import { joinFacts } from "@/src/display/Facts";
 import { plantName } from "@/src/display/Resources";
 import { renderCityNotarySummary } from "@/src/collectors/CityNotarySummary";
 import { useColors } from "@/src/design/ThemeContext";
@@ -18,16 +17,6 @@ type CitySubmenu = "home" | "homeBed" | "homeChest" | "homeGarden" | "homeCookin
 
 type SummaryRenderer = (snapshot: CityMobileSnapshot, colors: Palette) => ReactNode;
 type OwnedHome = NonNullable<NonNullable<CityMobileSnapshot["home"]>["owned"]>;
-
-function homeServices(home: OwnedHome): string {
-	return joinFacts([
-		home.hasBed ? i18n.t("app:city.summary.bed") : null,
-		home.hasChest ? i18n.t("app:city.summary.chest") : null,
-		home.hasGarden ? i18n.t("app:city.summary.garden") : null,
-		home.hasCooking ? i18n.t("app:city.summary.cooking") : null,
-		home.hasUpgradeStation ? i18n.t("app:city.summary.forge") : null
-	]) || "—";
-}
 
 function renderInnSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactNode {
 	if (!snapshot.energy || !snapshot.health) {
@@ -49,28 +38,20 @@ function renderInnSummary(snapshot: CityMobileSnapshot, colors: Palette): ReactN
 	</ExpandableList>;
 }
 
+/** The home itself; each room tells its own figures on its row below. */
 function renderHomeSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const home = snapshot.home?.owned;
 	if (!home) {
 		return null;
 	}
-	return <>
-		<Figures items={[
-			{
-				caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
-			},
-			{
-				caption: i18n.t("app:city.summary.bedRegeneration"), value: `+${formatNumber(home.bedHealthRegeneration)}`, unit: "health"
-			},
-			{
-				caption: i18n.t("app:city.summary.gardenPlots"), value: formatNumber(home.gardenPlots)
-			}
-		]} />
-		<ExpandableList>
-			<Fact label={i18n.t("app:city.summary.homeType")} value={home.isApartment ? i18n.t("app:city.summary.apartment") : i18n.t("app:city.summary.mainHome")} />
-			<Fact label={i18n.t("app:city.summary.services")} value={homeServices(home)} />
-		</ExpandableList>
-	</>;
+	return <Figures items={[
+		{
+			caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
+		},
+		{
+			caption: i18n.t("app:city.summary.homeType"), value: home.isApartment ? i18n.t("app:city.summary.apartment") : i18n.t("app:city.summary.mainHome")
+		}
+	]} />;
 }
 
 /** Where the player's health stands and where a rest would take it; the bed's own gain is on its row. */
