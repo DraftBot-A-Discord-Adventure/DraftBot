@@ -77,7 +77,7 @@ const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController
 				stat: part.stat,
 				operator: FightStatModifierOperation.MULTIPLIER,
 				value: multiplier
-			}, opponent, undefined);
+			}, opponent, null);
 		}
 	}
 
