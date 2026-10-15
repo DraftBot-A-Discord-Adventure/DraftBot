@@ -125,14 +125,18 @@ export class UnsavedPlayerChangesError extends Error {
 	}
 }
 
-export abstract class MissionsController {
-	private static assertPlayerHasNoPendingChanges(player: Player, caller: string): void {
-		const changedFields = player.changed();
-		if (changedFields) {
-			throw new UnsavedPlayerChangesError(caller, player.id, changedFields);
-		}
+/**
+ * Reject a caller instance that is about to be overwritten by a freshly locked one:
+ * its pending changes would be silently lost (#4207, #4817, #4829).
+ */
+export function assertPlayerHasNoPendingChanges(player: Player, caller: string): void {
+	const changedFields = player.changed();
+	if (changedFields) {
+		throw new UnsavedPlayerChangesError(caller, player.id, changedFields);
 	}
+}
 
+export abstract class MissionsController {
 	private static synchronizeCaller(player: Player, updatedPlayer: Player): Player {
 		Object.assign(player, updatedPlayer);
 		return player;
@@ -340,7 +344,7 @@ export abstract class MissionsController {
 			applyOnLockedPlayer
 		}: MissionInformations
 	): Promise<Player> {
-		MissionsController.assertPlayerHasNoPendingChanges(player, MISSION_UPDATE_CALLERS.UPDATE);
+		assertPlayerHasNoPendingChanges(player, MISSION_UPDATE_CALLERS.UPDATE);
 		const updatedPlayer = await MissionsController.runUnderMissionLock(
 			player,
 			MISSION_UPDATE_CALLERS.UPDATE,
@@ -422,7 +426,7 @@ export abstract class MissionsController {
 		response: CrowniclesPacket[],
 		missionInformationsList: MissionInformations[]
 	): Promise<Player> {
-		MissionsController.assertPlayerHasNoPendingChanges(player, MISSION_UPDATE_CALLERS.UPDATE_MULTIPLE);
+		assertPlayerHasNoPendingChanges(player, MISSION_UPDATE_CALLERS.UPDATE_MULTIPLE);
 		const updatedPlayer = await MissionsController.runUnderMissionLock(
 			player,
 			MISSION_UPDATE_CALLERS.UPDATE_MULTIPLE,
