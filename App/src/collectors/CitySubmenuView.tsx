@@ -66,7 +66,8 @@ const INTERACTIVE_SUBMENUS: Partial<Record<CitySubmenu, () => ReactNode>> = { gu
 const WARM_SUBMENUS = new Set<CitySubmenu>([
 	"blacksmith",
 	"royalBlacksmith",
-	"scrapDealer"
+	"scrapDealer",
+	"homeUpgrade"
 ]);
 
 function SubmenuHeading({

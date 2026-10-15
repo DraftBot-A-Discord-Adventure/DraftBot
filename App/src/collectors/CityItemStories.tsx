@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Animated } from "react-native";
 import {
-	CITY_BLACKSMITH_LIMITS, CityMobileBeyondReachItem, CityMobileItem
+	CITY_BLACKSMITH_LIMITS, CITY_STATION_LIMITS, CityMobileBeyondReachItem, CityMobileItem, CityMobileStationBeyondReachItem
 } from "ws-packets/src/fromServer/collectors";
 import { AppIcons } from "@/src/AppIcons";
 import { cityItemIconPath } from "@/src/collectors/CityItemPresentation";
@@ -37,7 +37,7 @@ function FloatingItem({ item }: { item: CityMobileItem }): ReactNode {
 function ItemStory({
 	item, storyKey, params = {}
 }: {
-	item: CityMobileItem; storyKey: string; params?: Record<string, number>;
+	item: CityMobileItem; storyKey: string; params?: Record<string, string | number>;
 }): ReactNode {
 	const colors = useColors();
 	return <FarewellPage
@@ -60,4 +60,21 @@ export function BeyondReachStory({ item }: { item: CityMobileBeyondReachItem }):
 /** Why the scrap dealer will not touch an enchanted item: dismantling it would destroy the enchantment. */
 export function EnchantedStory({ item }: { item: CityMobileItem }): ReactNode {
 	return <ItemStory item={item} storyKey="app:city.scrap.enchantedStory" />;
+}
+
+/** Why the home's station hands an item back: the home is too small for it, or nothing can improve it anymore. */
+export function StationLimitStory({
+	item, station
+}: {
+	item: CityMobileStationBeyondReachItem;
+	station: {
+		maxItemLevel: number; maxRarity: number;
+	};
+}): ReactNode {
+	if (item.limit === CITY_STATION_LIMITS.MAXED) {
+		return <ItemStory item={item} storyKey="app:city.anvil.maxedStory" />;
+	}
+	return <ItemStory item={item} storyKey={`app:city.station.${item.limit}Story`} params={{
+		level: item.itemLevel, max: station.maxItemLevel, rarity: i18n.t(`items:raritiesWithoutEmote.${station.maxRarity}`)
+	}} />;
 }

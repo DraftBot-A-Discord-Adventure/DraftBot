@@ -810,9 +810,9 @@
       "apartments": "Les logis",
       "homeServices": "Services chez vous",
       "garden": "Jardin",
-      "equipment": "Améliorer un équipement",
       "disenchant": "Désenchanter",
       "anvil": "Sur l'enclume",
+      "station": "Sur l'établi",
       "recycling": "À démonter",
       "eligibleEquipment": "Vos équipements éligibles"
     },
@@ -861,6 +861,24 @@
       "ready": "Prête à récolter",
       "growing": "Croissance · {{progress}} %"
     },
+    "station": {
+      "homeLevel": "Votre établi s'arrête au niveau {{max}}",
+      "rarity": "Trop précieux pour votre établi",
+      "homeLevelStory": {
+        "eyebrow": "Niveau {{level}} atteint",
+        "title": "Au-delà de votre établi",
+        "description": "Votre établi ne travaille pas au-delà du niveau {{max}}. Une maison plus grande en ferait davantage, et les forgerons des villes vont plus loin."
+      },
+      "rarityStory": {
+        "eyebrow": "Équipement trop précieux",
+        "title": "Hors de portée de votre établi",
+        "description": "Votre établi ne travaille que les équipements jusqu'à la rareté {{rarity}}. Une maison plus grande en accepterait davantage, et les forgerons des villes acceptent tous les équipements."
+      },
+      "empty": "L'établi attend votre équipement",
+      "nothingHeld": "Vous n'avez ni arme ni armure à améliorer.",
+      "maxLevel": "Jusqu'au niveau",
+      "maxRarity": "Rareté maximale"
+    },
     "scrap": {
       "subtitle_one": "Niveau {{level}} · rend {{count}} matériau",
       "subtitle_other": "Niveau {{level}} · rend {{count}} matériaux",
@@ -893,6 +911,8 @@
       "fee": "Prix du forgeron",
       "materialsOffer_one": "Il vous manque {{count}} matériau : rassemblez-le, ou laissez le forgeron vous le vendre pour {{price}}.",
       "materialsOffer_other": "Il vous manque {{count}} matériaux : rassemblez-les, ou laissez le forgeron vous les vendre pour {{price}}.",
+      "materialsMissing_one": "Il vous manque {{count}} matériau : rassemblez-le pour cette amélioration.",
+      "materialsMissing_other": "Il vous manque {{count}} matériaux : rassemblez-les pour cette amélioration.",
       "upgrade": "Améliorer au niveau {{level}}",
       "buyAndUpgrade": "Acheter les matériaux et améliorer",
       "royalOnlyStory": {

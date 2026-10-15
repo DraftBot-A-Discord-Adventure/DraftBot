@@ -28,6 +28,7 @@ import { GardenConstants } from "../../constants/GardenConstants";
 import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
 import { BlacksmithLimit } from "../../constants/BlacksmithConstants";
+import { UpgradeStationLimit } from "../../constants/HomeConstants";
 
 export class ReactionCollectorCityData extends ReactionCollectorData {
 	mapTypeId!: string;
@@ -135,7 +136,18 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 					})[];
 					canUpgrade: boolean;
 				}[];
+
+				/** Weapons and armors the station cannot work on, and why. */
+				beyondReachItems: {
+					slot: number;
+					category: ItemCategory;
+					details: MainItemDetails;
+					limit: UpgradeStationLimit;
+				}[];
 				maxUpgradeableRarity: ItemRarity;
+
+				/** The highest level the station can bring an item to. */
+				maxItemLevel: number;
 			};
 			chest?: {
 				chestItems: ItemSlot[];

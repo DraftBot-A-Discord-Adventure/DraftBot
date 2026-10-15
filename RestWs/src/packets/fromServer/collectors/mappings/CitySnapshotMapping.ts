@@ -72,6 +72,22 @@ function mapGarden(garden: NonNullable<NonNullable<ReactionCollectorCityData["ho
 	};
 }
 
+type UpgradeStation = NonNullable<NonNullable<ReactionCollectorCityData["home"]["owned"]>["upgradeStation"]>;
+
+/** The station works for free and sells nothing: an upgrade is only a matter of materials. */
+function mapUpgradeStation(station: UpgradeStation): NonNullable<CityMobileOwnedHome["upgradeStation"]> {
+	return {
+		upgradeableItems: station.upgradeableItems.map(item => upgradeItemSnapshot({
+			...item, upgradeCost: 0, missingMaterialsCost: 0, hasAllMaterials: item.canUpgrade, canBuyAndUpgrade: false
+		})),
+		beyondReachItems: station.beyondReachItems.map(item => ({
+			...itemSnapshot(item), limit: item.limit
+		})),
+		maxItemLevel: station.maxItemLevel,
+		maxRarity: station.maxUpgradeableRarity
+	};
+}
+
 function mapOwnedHome(ownedHome: NonNullable<ReactionCollectorCityData["home"]["owned"]>): CityMobileOwnedHome {
 	return {
 		level: ownedHome.level,
@@ -86,6 +102,7 @@ function mapOwnedHome(ownedHome: NonNullable<ReactionCollectorCityData["home"]["
 		hasCooking: ownedHome.features.cookingSlots > 0,
 		hasUpgradeStation: ownedHome.upgradeStation !== undefined,
 		upgradeableItemCount: ownedHome.upgradeStation?.upgradeableItems.length ?? 0,
+		...ownedHome.upgradeStation === undefined ? {} : { upgradeStation: mapUpgradeStation(ownedHome.upgradeStation) },
 		...ownedHome.chest === undefined
 			? {}
 			: {

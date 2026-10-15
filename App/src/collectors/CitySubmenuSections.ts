@@ -7,6 +7,7 @@ import {
 	cityItemIconPath, cityItemName
 } from "@/src/collectors/CityItemPresentation";
 import { isShownUpgradeVariant } from "@/src/collectors/CityUpgrades";
+import { stationRefusals } from "@/src/collectors/CityStationItems";
 import {
 	BeyondReachStory, EnchantedStory
 } from "@/src/collectors/CityItemStories";
@@ -126,7 +127,7 @@ function simpleSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityM
 		guild: () => [section("app:city.titles.actions", reactions)],
 		enchanter: () => [section("app:city.titles.eligibleEquipment", reactions), section("app:city.enchantmentCatalog.title", deps.enchantmentCatalogItems())],
 		homeGarden: () => [section("app:city.titles.garden", [...deps.gardenPlotItems(snapshot), ...reactions])],
-		homeUpgrade: () => [section("app:city.titles.equipment", reactions)]
+		homeUpgrade: () => [section("app:city.titles.station", [...reactions, ...stationRefusals(snapshot)])]
 	};
 	return factories[view]?.();
 }

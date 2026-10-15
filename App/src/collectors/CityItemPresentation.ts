@@ -18,6 +18,7 @@ export function cityItemName(item: {
 function itemCandidates(snapshot: CityMobileSnapshot): CityMobileItem[] {
 	return [
 		...snapshot.enchanter?.enchantableItems ?? [],
+		...snapshot.home?.owned?.upgradeStation?.upgradeableItems ?? [],
 		...snapshot.blacksmith?.upgradeableItems ?? [],
 		...snapshot.blacksmith?.disenchantableItems ?? [],
 		...snapshot.scrapDealer?.recyclableItems ?? [],

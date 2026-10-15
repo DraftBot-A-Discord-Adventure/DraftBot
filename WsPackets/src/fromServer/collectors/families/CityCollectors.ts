@@ -42,6 +42,14 @@ export type CityMobileSnapshot = {
 			hasCooking: boolean;
 			hasUpgradeStation: boolean;
 			upgradeableItemCount: number;
+
+			/** Absent from servers older than the station's own screen. */
+			upgradeStation?: {
+				upgradeableItems: CityMobileUpgradeItem[];
+				beyondReachItems: CityMobileStationBeyondReachItem[];
+				maxItemLevel: number;
+				maxRarity: number;
+			};
 			chestItemCount?: number;
 			depositableItemCount?: number;
 			gardenReadyPlots?: number;
@@ -177,6 +185,18 @@ export type CityBlacksmithLimit = typeof CITY_BLACKSMITH_LIMITS[keyof typeof CIT
 
 export type CityMobileBeyondReachItem = CityMobileItem & {
 	limit: CityBlacksmithLimit;
+};
+
+/** Why the home's upgrade station hands an item back: the home is too small for its level or its rarity, or nothing can improve it. */
+export const CITY_STATION_LIMITS = {
+	HOME_LEVEL: "homeLevel",
+	RARITY: "rarity",
+	MAXED: "maxed"
+} as const;
+export type CityStationLimit = typeof CITY_STATION_LIMITS[keyof typeof CITY_STATION_LIMITS];
+
+export type CityMobileStationBeyondReachItem = CityMobileItem & {
+	limit: CityStationLimit;
 };
 
 export type CityMobileRecycleItem = CityMobileItem & {

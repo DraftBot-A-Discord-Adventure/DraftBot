@@ -42,7 +42,17 @@ function MaterialGauge({ material }: { material: UpgradeMaterial }): ReactNode {
 	/>;
 }
 
-/** The work order the blacksmith lays out before the player commits: levels, his fee and, above all, the materials. */
+/** Missing materials: the blacksmiths sell them, the home station only waits for them. */
+function missingMaterialsNote(upgrade: CityMobileUpgradeItem): string {
+	const count = missingMaterialUnits(upgrade);
+	return upgrade.missingMaterialsCost > 0
+		? i18n.t("app:city.anvil.materialsOffer", {
+			count, price: formatMoney(upgrade.missingMaterialsCost)
+		})
+		: i18n.t("app:city.anvil.materialsMissing", { count });
+}
+
+/** The work order laid out before the player commits: levels, the craftsman's fee when there is one and, above all, the materials. */
 function UpgradeWorkOrder({ upgrade }: { upgrade: CityMobileUpgradeItem }): ReactNode {
 	const styles = useStyles();
 	return <>
@@ -50,20 +60,20 @@ function UpgradeWorkOrder({ upgrade }: { upgrade: CityMobileUpgradeItem }): Reac
 			{
 				caption: i18n.t("app:city.anvil.levels"), value: `${formatNumber(upgrade.itemLevel)} → ${formatNumber(upgrade.nextLevel)}`
 			},
-			{
-				caption: i18n.t("app:city.anvil.fee"), value: formatNumber(upgrade.upgradeCost), unit: AMOUNT_UNITS.MONEY
-			}
+			...upgrade.upgradeCost > 0
+				? [
+					{
+						caption: i18n.t("app:city.anvil.fee"), value: formatNumber(upgrade.upgradeCost), unit: AMOUNT_UNITS.MONEY
+					}
+				]
+				: []
 		]} />
 		{upgrade.materials.length > 0
 			? <View style={styles.materials} testID="upgrade-materials">
 				{upgrade.materials.map(material => <MaterialGauge key={material.materialId} material={material} />)}
 			</View>
 			: null}
-		{upgrade.hasAllMaterials
-			? null
-			: <Note>{i18n.t("app:city.anvil.materialsOffer", {
-				count: missingMaterialUnits(upgrade), price: formatMoney(upgrade.missingMaterialsCost)
-			})}</Note>}
+		{upgrade.hasAllMaterials ? null : <Note>{missingMaterialsNote(upgrade)}</Note>}
 	</>;
 }
 

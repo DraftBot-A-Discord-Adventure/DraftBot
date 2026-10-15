@@ -132,14 +132,24 @@ const renderHomeGardenSummary = homeSummary(home => [
 	}
 ]);
 
-const renderHomeUpgradeSummary = homeSummary(home => [
-	{
-		caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
-	},
-	{
-		caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
-	}
-]);
+/** What the station can take on, so a refused item is understood before it is touched; the list says the rest. */
+const renderHomeUpgradeSummary = homeSummary(home => home.upgradeStation
+	? [
+		{
+			caption: i18n.t("app:city.station.maxLevel"), value: formatNumber(home.upgradeStation.maxItemLevel)
+		},
+		{
+			caption: i18n.t("app:city.station.maxRarity"), value: i18n.t(`items:raritiesWithoutEmote.${home.upgradeStation.maxRarity}`)
+		}
+	]
+	: [
+		{
+			caption: i18n.t("app:city.summary.level"), value: formatNumber(home.level)
+		},
+		{
+			caption: i18n.t("app:city.summary.upgradeableItems"), value: formatNumber(home.upgradeableItemCount)
+		}
+	]);
 
 function renderEnchanterSummary(snapshot: CityMobileSnapshot): ReactNode {
 	const data = snapshot.enchanter;

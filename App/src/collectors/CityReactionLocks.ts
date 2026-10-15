@@ -83,6 +83,7 @@ function disenchantLock(blacksmith: CityMobileSnapshot["blacksmith"], sameItem: 
 }
 
 const EQUIPMENT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], EquipmentLockResolver>> = {
+	[CITY_REACTION_KINDS.UPGRADE_ITEM]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, 0),
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.blacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.royalBlacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (snapshot, sameItem) => disenchantLock(snapshot?.blacksmith, sameItem)

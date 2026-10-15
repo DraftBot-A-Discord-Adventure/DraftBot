@@ -122,6 +122,7 @@ function recycleSubtitle(snapshot: CityMobileSnapshot | undefined, item: CityMob
 function itemSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item: CityMobileItem): string | undefined {
 	switch (reaction.type) {
 		case CITY_REACTION_KINDS.ENCHANT: return enchantSubtitle(snapshot);
+		case CITY_REACTION_KINDS.UPGRADE_ITEM:
 		case CITY_REACTION_KINDS.BLACKSMITH_UPGRADE:
 		case CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE: return upgradeSubtitle(reaction, snapshot, item);
 		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT: return disenchantSubtitle(snapshot, item);
