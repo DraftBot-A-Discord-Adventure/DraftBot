@@ -1033,7 +1033,7 @@
       "atParticle": "at"
     },
     "10": {
-      "description": "An ancient fortified city, Ville Forte is but a shadow of its former self. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification is nothing but ruins.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
       "name": "Ville Forte",
       "particle": "of",
       "atParticle": "at",
@@ -1195,7 +1195,7 @@
       "atParticle": "to"
     },
     "17": {
-      "description": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
+      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
       "name": "Coco Village",
       "particle": "towards the",
       "atParticle": "to",
@@ -2163,6 +2163,7 @@
     "0": "Fist",
     "1": "Zeus's lightning bolt",
     "10": "Wooden sword",
+    "100": "Sentence de la Faucheuse",
     "11": "Unloaded gun",
     "12": "Infected syringe",
     "13": "Bomb",
