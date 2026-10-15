@@ -1198,15 +1198,11 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when an elder is demoted
 	 * @param guild
-	 * @param removedPlayerId
+	 * @param removedElderKeycloakId
 	 */
-	public async logGuildElderRemove(guild: Guild, removedPlayerId: number): Promise<void> {
+	public async logGuildElderRemove(guild: Guild, removedElderKeycloakId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const removedPlayer = await Players.getById(removedPlayerId);
-		if (!removedPlayer) {
-			return;
-		}
-		const logPlayer = await LogsDatabase.findOrCreatePlayer(removedPlayer.keycloakId);
+		const logPlayer = await LogsDatabase.findOrCreatePlayer(removedElderKeycloakId);
 		if (!logPlayer) {
 			return;
 		}
@@ -1220,15 +1216,11 @@ export class LogsDatabase extends Database {
 	/**
 	 * Log when a guild's chief is changed
 	 * @param guild
-	 * @param newChiefId
+	 * @param newChiefKeycloakId
 	 */
-	public async logGuildChiefChange(guild: Guild, newChiefId: number): Promise<void> {
+	public async logGuildChiefChange(guild: Guild, newChiefKeycloakId: string): Promise<void> {
 		const logGuild = await LogsDatabase.findOrCreateGuild(guild);
-		const newChief = await Players.getById(newChiefId);
-		if (!newChief) {
-			return;
-		}
-		const logNewChief = await LogsDatabase.findOrCreatePlayer(newChief.keycloakId);
+		const logNewChief = await LogsDatabase.findOrCreatePlayer(newChiefKeycloakId);
 		if (!logNewChief) {
 			return;
 		}
