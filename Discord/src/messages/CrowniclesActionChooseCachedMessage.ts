@@ -22,6 +22,21 @@ import { sendInteractionNotForYou } from "../utils/ErrorUtils";
 import { DisplayUtils } from "../utils/DisplayUtils";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 
+/**
+ * Disable the action buttons of a click without letting a late acknowledgement (Unknown interaction) swallow the chosen action
+ */
+async function acknowledgeActionClick(buttonInteraction: ButtonInteraction, rows: ActionRowBuilder<ButtonBuilder>[], fightId: string): Promise<void> {
+	try {
+		await buttonInteraction.update({ components: rows });
+	}
+	catch (error) {
+		CrowniclesLogger.warn("Fight action click could not be acknowledged, sending the action anyway", {
+			fightId,
+			reason: error instanceof Error ? error.message : String(error)
+		});
+	}
+}
+
 export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage<ReactionCollectorFightChooseActionPacket> {
 	private usernameCache?: string;
 
@@ -79,19 +94,7 @@ export class CrowniclesActionChooseCachedMessage extends CrowniclesCachedMessage
 			}
 
 			disableRows(rows);
-
-			try {
-				await buttonInteraction.update({
-					components: rows
-				});
-			}
-			catch (error) {
-				// A late acknowledgement (Unknown interaction) must not swallow the chosen action
-				CrowniclesLogger.warn("Fight action click could not be acknowledged, sending the action anyway", {
-					fightId: data.fightId,
-					reason: error instanceof Error ? error.message : String(error)
-				});
-			}
+			await acknowledgeActionClick(buttonInteraction, rows, data.fightId);
 			DiscordCollectorUtils.sendReaction(packet, context, context.keycloakId!, buttonInteraction, reactions.findIndex(reaction => reaction.data.id === buttonInteraction.customId));
 		});
 		return [buttonCollector];
