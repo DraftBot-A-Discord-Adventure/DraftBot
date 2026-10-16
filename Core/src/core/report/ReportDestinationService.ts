@@ -35,6 +35,20 @@ type ChosenDestination = {
 	mapTypeId: string;
 	tripDuration: number;
 	isGoingBack?: boolean;
+	cityStayScore?: number;
+};
+
+type AutomaticDestinationChoice = {
+	forcedLink: MapLink | null;
+	destinationMaps: number[];
+	cityStayScore?: number;
+};
+
+type DestinationCollectorOptions = {
+	destinationMaps: number[];
+	mainPacket: boolean;
+	stayInCityAllowed: boolean;
+	cityStayScore?: number;
 };
 
 const DESTINATION_TRAVEL_RETRY_DELAY_MS = 250;
@@ -89,14 +103,18 @@ function addDestinationResToResponse(response: CrowniclesPacket[], destination: 
 		mapId: destination.mapLink.endMap,
 		mapTypeId: destination.mapTypeId,
 		tripDuration: destination.tripDuration,
-		...destination.isGoingBack ? { isGoingBack: true } : {}
+		...destination.isGoingBack ? { isGoingBack: true } : {},
+		...destination.cityStayScore ? { cityStayScore: destination.cityStayScore } : {}
 	}));
 }
 
 /**
  * Automatically chooses a destination at random / based on the forced link
  */
-async function automaticChooseDestination(forcedLink: MapLink | null, player: Player, destinationMaps: number[], response: CrowniclesPacket[]): Promise<void> {
+async function automaticChooseDestination(player: Player, response: CrowniclesPacket[], choice: AutomaticDestinationChoice): Promise<void> {
+	const {
+		forcedLink, destinationMaps, cityStayScore
+	} = choice;
 	let newLink: MapLink | undefined;
 	if (forcedLink && forcedLink.id !== -1) {
 		newLink = forcedLink;
@@ -122,7 +140,8 @@ async function automaticChooseDestination(forcedLink: MapLink | null, player: Pl
 		mapLink: newLink,
 		mapTypeId: endMap.type,
 		tripDuration: newLink.tripDuration ?? 0,
-		isGoingBack
+		isGoingBack,
+		cityStayScore
 	});
 }
 
@@ -152,8 +171,14 @@ function buildMapReactions(player: Player, destinationMaps: number[]): ReactionC
  */
 async function applyStayInCity(player: Player, response: CrowniclesPacket[]): Promise<void> {
 	await withLockedPlayerSafe(player, "chooseDestination.stayInCity", async lockedPlayer => {
+		const now = new Date();
+
+		// Re-entering while already stationary keeps the original arrival: the stay is still the same one
+		if (!lockedPlayer.insideCity || !lockedPlayer.cityArrivalDate) {
+			lockedPlayer.cityArrivalDate = now;
+		}
 		lockedPlayer.insideCity = true;
-		lockedPlayer.lastActivityAt = new Date();
+		lockedPlayer.lastActivityAt = now;
 
 		// Become stationary on the city map location: no active travel left on the map link.
 		lockedPlayer.startTravelDate = new Date(PlayersConstants.PLAYER_DEFAULT_VALUES.START_TRAVEL_DATE);
@@ -168,11 +193,12 @@ async function applyStayInCity(player: Player, response: CrowniclesPacket[]): Pr
 function sendDestinationCollector(
 	context: PacketContext,
 	player: Player,
-	destinationMaps: number[],
 	response: CrowniclesPacket[],
-	mainPacket: boolean,
-	stayInCityAllowed: boolean
+	options: DestinationCollectorOptions
 ): void {
+	const {
+		destinationMaps, mainPacket, stayInCityAllowed, cityStayScore
+	} = options;
 	const mapReactions = buildMapReactions(player, destinationMaps);
 	const collector = new ReactionCollectorChooseDestination(mapReactions, stayInCityAllowed);
 
@@ -203,7 +229,8 @@ function sendDestinationCollector(
 			addDestinationResToResponse(response, {
 				mapLink: newLink,
 				mapTypeId: endMap.type,
-				tripDuration: newLink.tripDuration ?? 0
+				tripDuration: newLink.tripDuration ?? 0,
+				cityStayScore
 			});
 		}
 		finally {
@@ -268,10 +295,15 @@ export async function chooseDestination(
 		mainPacket?: boolean;
 		allowStayInCity?: boolean;
 		forceStayInCity?: boolean;
+
+		/**
+		 * Points credited for the stay in the city the player is leaving, shown with the chosen destination
+		 */
+		cityStayScore?: number;
 	} = {}
 ): Promise<void> {
 	const {
-		mainPacket = true, allowStayInCity = true, forceStayInCity = false
+		mainPacket = true, allowStayInCity = true, forceStayInCity = false, cityStayScore
 	} = options;
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(player.id);
 
@@ -291,9 +323,13 @@ export async function chooseDestination(
 	const stayInCityAllowed = canStayInCity(player, forcedLink, allowStayInCity);
 
 	if (canAutoChooseDestination(player, forcedLink, destinationMaps, stayInCityAllowed)) {
-		await automaticChooseDestination(forcedLink, player, destinationMaps, response);
+		await automaticChooseDestination(player, response, {
+			forcedLink, destinationMaps, cityStayScore
+		});
 		return;
 	}
 
-	sendDestinationCollector(context, player, destinationMaps, response, mainPacket, stayInCityAllowed);
+	sendDestinationCollector(context, player, response, {
+		destinationMaps, mainPacket, stayInCityAllowed, cityStayScore
+	});
 }

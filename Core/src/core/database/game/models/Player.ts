@@ -198,6 +198,8 @@ export class Player extends Model {
 
 	declare insideCity: boolean;
 
+	declare cityArrivalDate: Date | null;
+
 	declare lastActivityAt: Date;
 
 	declare defenseGloryPoints: number;
@@ -1964,6 +1966,11 @@ export function initModel(sequelize: Sequelize): void {
 		insideCity: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
+		},
+		cityArrivalDate: {
+			type: DataTypes.DATE,
+			allowNull: true,
+			defaultValue: null
 		},
 		lastActivityAt: {
 			type: DataTypes.DATE,

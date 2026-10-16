@@ -469,11 +469,19 @@ export function getMainMenu(params: CityMenuParams): CrowniclesNestedMenu {
 
 	container.addTextDisplayComponents(
 		new TextDisplayBuilder().setContent(
-			i18n.t("commands:report.city.description", {
-				lng,
-				mapLocationId: data.mapLocationId,
-				mapTypeId: data.mapTypeId
-			})
+			StringUtils.joinParagraphs([
+				i18n.t("commands:report.city.description", {
+					lng,
+					mapLocationId: data.mapLocationId,
+					mapTypeId: data.mapTypeId
+				}),
+				data.minimumCityStayScore
+					? i18n.t("commands:report.city.minimumStayScore", {
+						lng,
+						count: data.minimumCityStayScore
+					})
+					: null
+			])
 		)
 	);
 
