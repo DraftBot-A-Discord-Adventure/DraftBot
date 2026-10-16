@@ -909,6 +909,40 @@ describe("CookingFeatureHandler", () => {
 				expect(nestedMenus.message.reply).toHaveBeenCalled();
 				const replyContent = (nestedMenus.message.reply as ReturnType<typeof vi.fn>).mock.calls[0][0];
 				expect(replyContent.content).toContain("petFoodStored");
+				expect(replyContent.content).not.toContain("masterChefBadgeEarned");
+			});
+
+			it("should announce the master chef badge in the craft result", async () => {
+				const ctx = createHandlerContext({
+					homeData: createCookingHomeData(2),
+					packet: createMockPacket([{ type: ReactionCollectorHomeMenuReaction.name }]) as HomeFeatureHandlerContext["packet"]
+				});
+				const craftValue = `${HomeMenuIds.COOKING_CRAFT_PREFIX}0:test_recipe`;
+				const nestedMenus = createMockNestedMenus();
+				nestedMenus.message = {
+					reply: vi.fn().mockResolvedValue(undefined)
+				} as any;
+
+				await handler.handleSubMenuSelection(ctx, craftValue, createMockComponentInteraction(craftValue) as any, nestedMenus as any);
+
+				await simulateMqttResponse(CommandReportCookingCraftRes.name, {
+					success: true,
+					recipeId: "testRecipe",
+					cookingXpGained: 10,
+					outputType: CookingOutputType.POTION,
+					cookingLevelUp: false,
+					masterChefBadgeEarned: true,
+					menu: {
+						cookingLevel: 5,
+						cookingGrade: "apprentice",
+						currentSlots: [createEmptySlot(0)],
+						isIgnited: true
+					}
+				} as CommandReportCookingCraftRes);
+
+				expect(nestedMenus.message.reply).toHaveBeenCalledOnce();
+				const replyContent = (nestedMenus.message.reply as ReturnType<typeof vi.fn>).mock.calls[0][0];
+				expect(replyContent.content).toContain("masterChefBadgeEarned");
 			});
 
 			it("should prevent double craft when craftPending is true", async () => {
