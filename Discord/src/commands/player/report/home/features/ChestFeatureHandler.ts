@@ -537,8 +537,8 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 			disabled: false,
 			lng: ctx.lng
 		});
-		return `\n\n${i18n.t("commands:report.city.homes.chest.swapSection", { lng: ctx.lng })}${result.description}`
-			+ this.buildChestContentSection(ctx, catInfo, items.chestItems);
+		const swapSection = i18n.t("commands:report.city.homes.chest.swapSection", { lng: ctx.lng });
+		return `\n\n${swapSection}${result.description}${this.buildChestContentSection(ctx, catInfo, items.chestItems)}`;
 	}
 
 	/**
