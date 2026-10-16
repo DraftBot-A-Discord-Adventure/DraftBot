@@ -303,6 +303,20 @@
     "description": "Start a fight.",
     "name": "fight"
   },
+  "friendlyFight": {
+    "description": "Start a friendly fight without any consequence against another player controlled by an AI.",
+    "name": "friendlyfight",
+    "options": {
+      "rank": {
+        "description": "The rank of the player to fight.",
+        "name": "rank"
+      },
+      "user": {
+        "description": "The player to fight.",
+        "name": "user"
+      }
+    }
+  },
   "equip": {
     "name": "equip",
     "description": "Manage your equipment: equip, store or swap your items."
@@ -396,15 +410,15 @@
     "description": "See the current state of the global blessing."
   },
   "tournament": {
-    "name": "tournoi",
-    "description": "Consulter le tournoi du serveur et s'y inscrire."
+    "name": "tournament",
+    "description": "Consulter votre tournoi ou vous y inscrire automatiquement."
   },
   "tournament-admin": {
-    "name": "tournoi-admin",
-    "description": "Créer, annuler ou reprendre un tournoi sur ce serveur."
+    "name": "tournament-admin",
+    "description": "Ouvrir la gestion du tournoi dans ce serveur."
   },
   "tournament-owner": {
-    "name": "tournoi-proprietaire",
-    "description": "Autoriser ou reprendre un tournoi (propriétaire du bot)."
+    "name": "tournament-owner",
+    "description": "Ouvrir les opérations owner du tournoi."
   }
 }
