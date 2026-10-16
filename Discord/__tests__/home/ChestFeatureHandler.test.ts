@@ -83,7 +83,7 @@ import {
 } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
 import {
-	ActionRowBuilder, ContainerBuilder
+	ActionRowBuilder, ContainerBuilder, TextDisplayBuilder
 } from "discord.js";
 
 /**
@@ -417,6 +417,15 @@ describe("ChestFeatureHandler", () => {
 				.filter((component): component is ActionRowBuilder<any> => component instanceof ActionRowBuilder)
 				.flatMap(row => row.components);
 			expect(buttons.some(button => button.data.custom_id?.startsWith(HomeMenuIds.CHEST_SWAP_SELECT_PREFIX))).toBe(true);
+
+			// The chest content must stay visible without first selecting an inventory item
+			const text = container.components
+				.filter((component): component is TextDisplayBuilder => component instanceof TextDisplayBuilder)
+				.map(component => component.data.content)
+				.join("\n");
+			expect(text).toContain("commands:report.city.homes.chest.chestContentSection");
+			expect(text.match(/commands:report\.city\.homes\.chest\.chestContentLine/g)).toHaveLength(1);
+			expect(buttons.some(button => button.data.custom_id?.startsWith(HomeMenuIds.CHEST_WITHDRAW_PREFIX))).toBe(false);
 		});
 	});
 
