@@ -29,6 +29,9 @@ import { PlayersConstants } from "../../../../Lib/src/constants/PlayersConstants
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { CityDataController } from "../../data/City";
 import { withLockedPlayerSafe } from "../utils/withLockedPlayerSafe";
+import {
+	cityStayScoreFields, enterCity
+} from "./ReportCityStayScoreService";
 
 type ChosenDestination = {
 	mapLink: MapLink;
@@ -104,7 +107,7 @@ function addDestinationResToResponse(response: CrowniclesPacket[], destination: 
 		mapTypeId: destination.mapTypeId,
 		tripDuration: destination.tripDuration,
 		...destination.isGoingBack ? { isGoingBack: true } : {},
-		...destination.cityStayScore ? { cityStayScore: destination.cityStayScore } : {}
+		...cityStayScoreFields(destination.cityStayScore)
 	}));
 }
 
@@ -172,12 +175,7 @@ function buildMapReactions(player: Player, destinationMaps: number[]): ReactionC
 async function applyStayInCity(player: Player, response: CrowniclesPacket[]): Promise<void> {
 	await withLockedPlayerSafe(player, "chooseDestination.stayInCity", async lockedPlayer => {
 		const now = new Date();
-
-		// Re-entering while already stationary keeps the original arrival: the stay is still the same one
-		if (!lockedPlayer.insideCity || !lockedPlayer.cityArrivalDate) {
-			lockedPlayer.cityArrivalDate = now;
-		}
-		lockedPlayer.insideCity = true;
+		enterCity(lockedPlayer, now);
 		lockedPlayer.lastActivityAt = now;
 
 		// Become stationary on the city map location: no active travel left on the map link.

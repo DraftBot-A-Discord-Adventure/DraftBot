@@ -7,6 +7,24 @@ import {
 	asMinutes, dateToMs, Minute, millisecondsToMinutes, minutesToMilliseconds, msDiff
 } from "../../../../Lib/src/utils/TimeUtils";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
+import { CommandReportChooseDestinationRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
+
+/**
+ * Make the player stationary in the city, keeping the original arrival when they were already staying there
+ */
+export function enterCity(lockedPlayer: Locked<Player>, now: Date): void {
+	if (!lockedPlayer.insideCity || !lockedPlayer.cityArrivalDate) {
+		lockedPlayer.cityArrivalDate = now;
+	}
+	lockedPlayer.insideCity = true;
+}
+
+/**
+ * Destination packet fields announcing the points of the stay, omitted when the stay earned nothing
+ */
+export function cityStayScoreFields(cityStayScore: number | undefined): Pick<CommandReportChooseDestinationRes, "cityStayScore"> {
+	return cityStayScore ? { cityStayScore } : {};
+}
 
 /**
  * Minutes spent in the city since the arrival, capped like the travel time rewarded by a report
