@@ -4,6 +4,7 @@ import type {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { ItemFoundPacket } from "../../../../Lib/src/packets/events/ItemFoundPacket";
 import {
+	TournamentCancellationReasons,
 	TournamentCategories,
 	TournamentLevelLimitModes,
 	TournamentStatuses
@@ -213,7 +214,7 @@ export async function forceTournamentPhase(context: PacketContext, phase: Tourna
 		await cancelTournament({
 			tournamentId: fixture.tournament.id,
 			discordGuildId: context.frontEndSubOrigin,
-			reason: "test",
+			reason: TournamentCancellationReasons.MANUAL,
 			isGuildAdministrator: context.discord?.isGuildAdministrator === true
 		});
 		return await loadFixture(fixture.tournament);
@@ -290,13 +291,13 @@ export async function claimTournamentFixture(context: PacketContext, player: Pla
 	let itemPackets = 0;
 	for (const fixturePlayer of players) {
 		const response: CrowniclesPacket[] = [];
-		await claimTournamentReward(getPlayerContext(context, fixturePlayer.keycloakId), response, fixturePlayer);
+		await claimTournamentReward(response, fixturePlayer);
 		itemPackets += response.filter(packet => packet instanceof ItemFoundPacket).length;
 	}
 	let retryPackets = 0;
 	if (retry) {
 		const response: CrowniclesPacket[] = [];
-		await claimTournamentReward(context, response, player);
+		await claimTournamentReward(response, player);
 		retryPackets = response.length;
 	}
 	const claimed = await TournamentParticipant.count({

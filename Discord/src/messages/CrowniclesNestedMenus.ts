@@ -200,6 +200,16 @@ export class CrowniclesNestedMenus {
 	}
 
 	/**
+	 * Another set of menus now renders this message: stop listening to it and never edit it again
+	 */
+	public handOverMessage(): void {
+		this._messageHandoffPending = true;
+		this._messageHandoffConfirmed = true;
+		this._currentCollector?.stop();
+		this._currentCollector = undefined;
+	}
+
+	/**
 	 * Stops the current collector and (by default) edits the underlying message to disable its components.
 	 *
 	 * Pass `{ editMessage: false }` when the next packet handler is going to replace the message anyway

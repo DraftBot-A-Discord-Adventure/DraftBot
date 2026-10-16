@@ -285,7 +285,7 @@ async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<v
  * the freshly-locked instance to avoid lost-update on concurrent writers and
  * to dodge the latent clobber-by-Object.assign on the local `player`.
  */
-async function persistPveBossPostFightUnderLock(
+export async function persistPveBossPostFightUnderLock(
 	player: Locked<Player>,
 	initialFightPointsLost: number,
 	isWinOrDraw: boolean,
@@ -306,10 +306,10 @@ async function persistPveBossPostFightUnderLock(
 		await lockedPlayer.save();
 
 		/*
-		 * Reflect the persisted state on the local instance for downstream readers
-		 * (`leavePVEIslandIfNoEnergy` below reads `player.fightPointsLost`).
+		 * Resync the local instance for `leavePVEIslandIfNoEnergy` below: a mirrored field would leave it
+		 * dirty and make its locked money loss reject it (#4829).
 		 */
-		player.fightPointsLost = lockedPlayer.fightPointsLost;
+		Object.assign(player, lockedPlayer);
 	});
 }
 

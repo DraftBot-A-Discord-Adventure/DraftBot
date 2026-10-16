@@ -18,7 +18,9 @@ import { Language } from "../../../../../../../Lib/src/Language";
 import { HomeMenuIds } from "../HomeMenuConstants";
 import { getSlotCountForCategory } from "../../../../../../../Lib/src/types/HomeFeatures";
 import { ItemWithDetails } from "../../../../../../../Lib/src/types/ItemWithDetails";
-import { addButtonToRow } from "../../../../../utils/DiscordCollectorUtils";
+import {
+	addButtonToRow, DiscordCollectorUtils
+} from "../../../../../utils/DiscordCollectorUtils";
 import { DiscordConstants } from "../../../../../DiscordConstants";
 import { DiscordMQTT } from "../../../../../bot/DiscordMQTT";
 import { makePacket } from "../../../../../../../Lib/src/packets/CrowniclesPacket";
@@ -30,6 +32,8 @@ import {
 import { HomeConstants } from "../../../../../../../Lib/src/constants/HomeConstants";
 import { CATEGORY_INFO } from "../../../../../utils/ItemCategoryInfo";
 import { ChestPlantHandler } from "./ChestPlantHandler";
+import { ReactionCollectorCreationPacket } from "../../../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
+import { ReactionCollectorHomeChestCloseReaction } from "../../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 
 type ItemSlotDisplay = {
 	slot: number;
@@ -55,6 +59,9 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 		createChestCollector: this.createChestCollector.bind(this),
 		refreshChestCategoriesMenu: this.refreshChestCategoriesMenu.bind(this)
 	});
+
+	/** City visits whose inventory changed through the chest: every service lists stale equipment until the city is rebuilt */
+	private readonly citiesWithMovedEquipment = new WeakSet<ReactionCollectorCreationPacket>();
 
 	private hasAnyChestSlots(ctx: HomeFeatureHandlerContext): boolean {
 		const slots = ctx.homeData.features.chestSlots;
@@ -101,6 +108,12 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 		componentInteraction: ComponentInteraction,
 		nestedMenus: CrowniclesNestedMenus
 	): Promise<boolean> {
+		if (selectedValue === HomeMenuIds.BACK_TO_HOME && this.citiesWithMovedEquipment.has(ctx.packet)) {
+			await componentInteraction.deferUpdate();
+			await this.closeChest(ctx, componentInteraction, nestedMenus);
+			return true;
+		}
+
 		// Exact match navigation
 		const navigationTargets: Record<string, string> = {
 			[HomeMenuIds.BACK_TO_HOME]: HomeMenuIds.HOME_MENU,
@@ -115,6 +128,22 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 
 		// Prefix-based action routing
 		return this.handlePrefixAction(ctx, selectedValue, componentInteraction, nestedMenus);
+	}
+
+	/**
+	 * Leave the chest after moving equipment: Core sends the city again, rebuilt from the current inventory
+	 */
+	private async closeChest(
+		ctx: HomeFeatureHandlerContext,
+		componentInteraction: ComponentInteraction,
+		nestedMenus: CrowniclesNestedMenus
+	): Promise<void> {
+		const reactionIndex = ctx.packet.reactions.findIndex(reaction => reaction.type === ReactionCollectorHomeChestCloseReaction.name);
+		if (reactionIndex === -1) {
+			await nestedMenus.changeMenu(HomeMenuIds.HOME_MENU);
+			return;
+		}
+		DiscordCollectorUtils.sendReaction(ctx.packet, ctx.context, ctx.context.keycloakId!, componentInteraction, reactionIndex);
 	}
 
 	private async handlePrefixAction(
@@ -700,9 +729,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 					ctx.homeData.chest.slotsPerCategory = response.slotsPerCategory;
 					ctx.homeData.chest.inventoryCapacity = response.inventoryCapacity;
 				}
-				if (ctx.homeData.upgradeStation && response.upgradeStation) {
-					ctx.homeData.upgradeStation = response.upgradeStation;
-				}
+				this.citiesWithMovedEquipment.add(ctx.packet);
 
 				// Re-register the chest categories menu with updated counts
 				this.refreshChestCategoriesMenu(ctx, nestedMenus);

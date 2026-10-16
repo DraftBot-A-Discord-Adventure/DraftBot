@@ -18,6 +18,10 @@ import {
 import { Tournament } from "../database/game/models/Tournament";
 import { TournamentCode } from "../database/game/models/TournamentCode";
 import { TournamentDomainError } from "./TournamentErrors";
+import { ACTIVE_STATUSES } from "./TournamentRules";
+import {
+	Language, LANGUAGE
+} from "../../../../Lib/src/Language";
 
 export type TournamentCodeGenerationResult = {
 	code: string;
@@ -41,6 +45,7 @@ type TournamentCreationChannelData = {
 	guildId: string;
 	channelId: string;
 	createdByKeycloakId: string;
+	language: Language;
 };
 
 type TournamentCreationData = TournamentCreationChannelData & {
@@ -100,8 +105,22 @@ function validateChannelAndCreator(context: PacketContext): TournamentCreationCh
 	return {
 		guildId,
 		channelId,
-		createdByKeycloakId: requireTournamentCreator(context)
+		createdByKeycloakId: requireTournamentCreator(context),
+		language: context.discord?.language ?? LANGUAGE.DEFAULT_LANGUAGE
 	};
+}
+
+async function assertChannelIsFree(channelData: TournamentCreationChannelData): Promise<void> {
+	const activeTournament = await Tournament.findOne({
+		where: {
+			discordGuildId: channelData.guildId,
+			discordChannelId: channelData.channelId,
+			status: { [Op.in]: ACTIVE_STATUSES }
+		}
+	});
+	if (activeTournament) {
+		throw new TournamentDomainError(TournamentErrorCodes.CHANNEL_ALREADY_USED);
+	}
 }
 
 function validateGuildSize(guildMemberCount: number | undefined): void {
@@ -228,7 +247,8 @@ function buildTournament(
 		endingNotificationSent: false,
 		endedNotificationSent: false,
 		rewardsDistributed: false,
-		cancellationReason: null
+		cancellationReason: null,
+		language: creationData.language
 	});
 }
 
@@ -256,6 +276,7 @@ export async function createTournament(
 		request.levelLimitMode,
 		request.levelCap
 	);
+	await assertChannelIsFree(creationData);
 	const codeInstance = await findCodeForCreation(request.code, creationData.guildId);
 	if (!codeInstance) {
 		throw new TournamentDomainError(TournamentErrorCodes.INVALID_CODE);

@@ -4,10 +4,12 @@ import {
 	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
+	ReactionCollectorCityData,
 	ReactionCollectorEnchantReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {
 	CommandReportEnchantNotEnoughCurrenciesRes,
+	CommandReportEquipmentChangedRes,
 	CommandReportItemCannotBeEnchantedRes,
 	CommandReportItemEnchantedRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
@@ -85,18 +87,40 @@ function pushMissingCurrenciesResponse(params: {
 	}));
 }
 
+/**
+ * Whether the slot still holds the equipment the enchanter listed when the city was opened
+ */
+function holdsListedItem(
+	item: InventorySlot | null,
+	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData
+): item is InventorySlot {
+	const listedItem = data.enchanter?.enchantableItems.find(listed => listed.slot === reaction.slot && listed.category === reaction.itemCategory);
+	return Boolean(listedItem && item?.holdsItem(listedItem.details));
+}
+
+function canBeEnchanted(item: InventorySlot, enchantment: ItemEnchantment): boolean {
+	return item.isWeaponOrArmor()
+		&& !item.itemEnchantmentId
+		&& item.itemCategory === enchantment.kind.slot;
+}
+
 async function getEnchantableItem(
 	player: Player,
 	reaction: ReactionCollectorEnchantReaction,
-	enchantment: ItemEnchantment,
+	context: {
+		enchantment: ItemEnchantment;
+		data: ReactionCollectorCityData;
+	},
 	response: CrowniclesPacket[]
 ): Promise<InventorySlot | null> {
 	const itemToEnchant = await InventorySlots.getItem(player.id, reaction.slot, reaction.itemCategory);
-	const canBeEnchanted = itemToEnchant?.isWeaponOrArmor()
-		&& !itemToEnchant.itemEnchantmentId
-		&& itemToEnchant.itemCategory === enchantment.kind.slot;
+	if (!holdsListedItem(itemToEnchant, reaction, context.data)) {
+		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
+		return null;
+	}
 
-	if (!canBeEnchanted) {
+	if (!canBeEnchanted(itemToEnchant, context.enchantment)) {
 		CrowniclesLogger.error("Player tried to enchant an item that doesn't exist or cannot be enchanted. It shouldn't happen because the player must not be able to switch items while in the collector.");
 		response.push(makePacket(CommandReportItemCannotBeEnchantedRes, {}));
 		return null;
@@ -111,6 +135,7 @@ async function getEnchantableItem(
 async function checkEnchantmentConditions(
 	player: Player,
 	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData,
 	response: CrowniclesPacket[]
 ): Promise<{
 	enchantment: ItemEnchantment;
@@ -139,7 +164,10 @@ async function checkEnchantmentConditions(
 		return null;
 	}
 
-	const itemToEnchant = await getEnchantableItem(player, reaction, pricingData.enchantment, response);
+	const itemToEnchant = await getEnchantableItem(player, reaction, {
+		enchantment: pricingData.enchantment,
+		data
+	}, response);
 	if (!itemToEnchant) {
 		return null;
 	}
@@ -271,8 +299,13 @@ async function enchantItem(params: EnchantItemParams): Promise<void> {
 /**
  * Handle enchant reaction — player enchants an item at the enchanter
  */
-export async function handleEnchantReaction(player: Player, reaction: ReactionCollectorEnchantReaction, response: CrowniclesPacket[]): Promise<void> {
-	const conditions = await checkEnchantmentConditions(player, reaction, response);
+export async function handleEnchantReaction(
+	player: Player,
+	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<void> {
+	const conditions = await checkEnchantmentConditions(player, reaction, data, response);
 	if (!conditions) {
 		return;
 	}

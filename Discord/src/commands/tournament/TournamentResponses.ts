@@ -1,11 +1,11 @@
 import {
-	ContainerBuilder, EmbedField, TextDisplayBuilder
+	ContainerBuilder, TextDisplayBuilder
 } from "discord.js";
 import { CrowniclesEmbed } from "../../messages/CrowniclesEmbed";
 import { CrowniclesInteraction } from "../../messages/CrowniclesInteraction";
 import i18n from "../../translations/i18n";
 import {
-	CommandTournamentCancelPacketRes, CommandTournamentCreatePacketRes,
+	CommandTournamentCreatePacketRes,
 	CommandTournamentErrorPacketRes, CommandTournamentGenerateCodePacketRes,
 	CommandTournamentResumePacketRes,
 	CommandTournamentStatusPacketRes, CommandTournamentTopPacketRes
@@ -15,41 +15,29 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { Language } from "../../../../Lib/src/Language";
-import {
-	dateDisplay, finishInTimeDisplay
-} from "../../../../Lib/src/utils/TimeUtils";
+import { dateDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { resolveKeycloakPlayerName } from "../../utils/KeycloakPlayerUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { TournamentFightRewardPacket } from "../../../../Lib/src/packets/fights/TournamentFightRewardPacket";
 import {
 	escapeUsername, StringUtils
 } from "../../utils/StringUtils";
-import { DiscordCache } from "../../bot/DiscordCache";
 import { DiscordMQTT } from "../../bot/DiscordMQTT";
 import { CrowniclesPaginatedEmbed } from "../../messages/CrowniclesPaginatedEmbed";
-import {
-	TournamentStatuses, type TournamentLevelLimitMode, type TournamentRewardSummary
-} from "../../../../Lib/src/types/Tournament";
 import { TopDataType } from "../../../../Lib/src/types/TopDataType";
 import { TopTiming } from "../../../../Lib/src/types/TopTimings";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
+import { clearTournamentChannelCache } from "./TournamentCommandGuard";
+import { displayTournamentStatus } from "./TournamentStatusDisplay";
+import { getInteraction } from "./TournamentMenuUtils";
+import {
+	announceTournamentCreation, announceTournamentResume
+} from "./TournamentAnnouncements";
+import {
+	getTournamentCategoryLabel, getTournamentErrorDescription, getTournamentLevelRuleDescription
+} from "./TournamentDisplayUtils";
 
 const COMPONENTS_V2_FLAGS = ["IsComponentsV2"] as const;
-
-function getTournamentLevelRuleDescription(
-	levelLimitMode: TournamentLevelLimitMode,
-	levelCap: number | null,
-	lng: Language
-): string {
-	return i18n.t(`commands:tournament.levelModes.${levelLimitMode}`, {
-		lng,
-		levelCap: levelCap ?? 0
-	});
-}
-
-function getInteraction(context: PacketContext): CrowniclesInteraction | null {
-	return context.discord?.interaction ? DiscordCache.getInteraction(context.discord.interaction) : null;
-}
 
 type TournamentEmbedBuilder = (interaction: CrowniclesInteraction) => CrowniclesEmbed;
 
@@ -59,7 +47,8 @@ async function editTournamentReply(context: PacketContext, buildEmbed: Tournamen
 		return;
 	}
 	await interaction.editReply({
-		embeds: [buildEmbed(interaction)]
+		embeds: [buildEmbed(interaction)],
+		components: []
 	});
 }
 
@@ -87,149 +76,54 @@ async function editTournamentMenuReply(
 }
 
 export function handleTournamentGenerateCode(context: PacketContext, packet: CommandTournamentGenerateCodePacketRes): Promise<void> {
-	return editTournamentMenuReply(context, "commands:tournament.codeTitle", interaction => i18n.t("commands:tournament.codeCreated", {
+	return editTournamentMenuReply(context, "commands:tournament.authorizationTitle", interaction => i18n.t("commands:tournament.authorizationGranted", {
 		lng: interaction.userLanguage,
-		code: packet.code,
 		expiresAt: dateDisplay(new Date(packet.expiresAt))
 	}));
 }
 
-export function handleTournamentCreate(context: PacketContext, packet: CommandTournamentCreatePacketRes): Promise<void> {
-	return editTournamentMenuReply(context, "commands:tournament.createTitle", interaction => i18n.t("commands:tournament.created", {
+export async function handleTournamentCreate(context: PacketContext, packet: CommandTournamentCreatePacketRes): Promise<void> {
+	clearTournamentChannelCache();
+	await editTournamentMenuReply(context, "commands:tournament.createTitle", interaction => i18n.t("commands:tournament.created", {
 		lng: interaction.userLanguage,
-		tournamentId: packet.tournamentId,
 		registrationEndsAt: dateDisplay(new Date(packet.registrationEndsAt)),
 		combatEndsAt: dateDisplay(new Date(packet.combatEndsAt)),
 		channel: `<#${packet.channelId}>`,
-		levelRule: getTournamentLevelRuleDescription(packet.levelLimitMode, packet.levelCap, interaction.userLanguage)
+		levelRule: getTournamentLevelRuleDescription({
+			levelLimitMode: packet.levelLimitMode,
+			levelCap: packet.levelCap
+		}, interaction.userLanguage)
 	}));
-}
-
-function getTournamentRewardDescription(reward: TournamentRewardSummary, lng: Language): string {
-	return i18n.t(reward.granted
-		? "commands:tournament.rewardGranted"
-		: "commands:tournament.rewardPending", {
-		lng,
-		xp: DisplayUtils.formatNumber(reward.xp, lng),
-		money: DisplayUtils.formatNumber(reward.money, lng),
-		itemCount: reward.itemCount
-	});
-}
-
-function getTournamentPhaseEnd(packet: CommandTournamentStatusPacketRes, lng: Language): string {
-	switch (packet.status) {
-		case TournamentStatuses.REGISTRATION:
-			return i18n.t("commands:tournament.phaseEndRegistration", {
-				lng,
-				date: finishInTimeDisplay(new Date(packet.registrationEndsAt))
-			});
-		case TournamentStatuses.COMBAT:
-			return i18n.t("commands:tournament.phaseEndCombat", {
-				lng,
-				date: finishInTimeDisplay(new Date(packet.combatEndsAt))
-			});
-		case TournamentStatuses.PAUSED:
-			return i18n.t("commands:tournament.phaseEndPaused", { lng });
-		default:
-			return i18n.t("commands:tournament.phaseEndOver", { lng });
+	const interaction = getInteraction(context);
+	if (interaction) {
+		await announceTournamentCreation(interaction, packet);
 	}
-}
-
-function buildTournamentStatusFields(packet: CommandTournamentStatusPacketRes, lng: Language): EmbedField[] {
-	const participantsInCategory = packet.category
-		? i18n.t("commands:tournament.participantsInCategory", {
-			lng,
-			count: packet.categoryCounts[packet.category]
-		})
-		: "";
-	const fields: EmbedField[] = [
-		{
-			name: i18n.t("commands:tournament.tournamentField.fieldName", { lng }),
-			value: i18n.t("commands:tournament.tournamentField.fieldValue", {
-				lng,
-				channel: `<#${packet.discordChannelId}>`,
-				phaseEnd: getTournamentPhaseEnd(packet, lng),
-				levelRule: getTournamentLevelRuleDescription(packet.levelLimitMode, packet.levelCap, lng)
-			}),
-			inline: false
-		},
-		{
-			name: i18n.t("commands:tournament.participantsField.fieldName", { lng }),
-			value: `${i18n.t("commands:tournament.participantsField.fieldValue", {
-				lng,
-				count: packet.participantCount
-			})}${participantsInCategory}`,
-			inline: false
-		}
-	];
-	if (packet.category) {
-		fields.push({
-			name: i18n.t("commands:tournament.participationField.fieldName", { lng }),
-			value: i18n.t("commands:tournament.participationField.fieldValue", {
-				lng,
-				category: i18n.t(`commands:tournament.categories.${packet.category}`, { lng }),
-				rank: packet.rank ?? i18n.t("commands:tournament.unranked", { lng }),
-				categoryParticipantCount: packet.categoryCounts[packet.category],
-				totalGloryPoints: DisplayUtils.formatNumber(packet.totalGloryPoints ?? 0, lng)
-			}),
-			inline: false
-		});
-	}
-	else {
-		fields.push({
-			name: i18n.t("commands:tournament.notRegisteredField.fieldName", { lng }),
-			value: i18n.t("commands:tournament.notRegisteredField.fieldValue", { lng }),
-			inline: false
-		});
-	}
-
-	// The reward line is only meaningful once the tournament actually prepared one
-	if (packet.reward) {
-		fields.push({
-			name: i18n.t("commands:tournament.rewardField.fieldName", { lng }),
-			value: getTournamentRewardDescription(packet.reward, lng),
-			inline: false
-		});
-	}
-	return fields;
 }
 
 export async function handleTournamentStatus(context: PacketContext, packet: CommandTournamentStatusPacketRes): Promise<void> {
-	await editTournamentReply(context, interaction => {
-		const lng = interaction.userLanguage;
-		if (packet.newlyRegistered) {
-			return new CrowniclesEmbed()
-				.setTitle(i18n.t("commands:tournament.registerTitle", { lng }))
-				.setDescription(i18n.t("commands:tournament.registered", {
-					lng,
-					category: packet.category
-						? i18n.t(`commands:tournament.categories.${packet.category}`, { lng })
-						: i18n.t("commands:tournament.notRegistered", { lng }),
-					totalGloryPoints: DisplayUtils.formatNumber(packet.totalGloryPoints ?? 0, lng),
-					lateRegistration: packet.lateRegistration ? i18n.t("commands:tournament.lateRegistration", { lng }) : ""
-				}));
-		}
-		return new CrowniclesEmbed()
-			.setTitle(i18n.t("commands:tournament.statusTitle", {
-				lng,
-				status: i18n.t(`commands:tournament.statuses.${packet.status}`, { lng })
-			}))
-			.addFields(buildTournamentStatusFields(packet, lng));
-	});
+	const interaction = getInteraction(context);
+	if (!interaction) {
+		return;
+	}
+	await displayTournamentStatus(context, interaction, packet);
 }
 
-export function handleTournamentResume(context: PacketContext, packet: CommandTournamentResumePacketRes): Promise<void> {
-	return editTournamentMenuReply(context, "commands:tournament.resumeTitle", interaction => i18n.t("commands:tournament.resumed", {
+export async function handleTournamentResume(context: PacketContext, packet: CommandTournamentResumePacketRes): Promise<void> {
+	clearTournamentChannelCache();
+	await editTournamentMenuReply(context, "commands:tournament.resumeTitle", interaction => i18n.t("commands:tournament.resumed", {
 		lng: interaction.userLanguage,
-		tournamentId: packet.tournamentId,
 		channel: `<#${packet.channelId}>`
 	}));
+	const interaction = getInteraction(context);
+	if (interaction) {
+		await announceTournamentResume(interaction);
+	}
 }
 
-export function handleTournamentCancel(context: PacketContext, packet: CommandTournamentCancelPacketRes): Promise<void> {
+export function handleTournamentCancel(context: PacketContext): Promise<void> {
+	clearTournamentChannelCache();
 	return editTournamentMenuReply(context, "commands:tournament.cancelTitle", interaction => i18n.t("commands:tournament.cancelled", {
-		lng: interaction.userLanguage,
-		tournamentId: packet.tournamentId
+		lng: interaction.userLanguage
 	}));
 }
 
@@ -256,7 +150,7 @@ export async function handleTournamentTop(context: PacketContext, packet: Comman
 			}));
 			return i18n.t("commands:tournament.topCategory", {
 				lng,
-				category: i18n.t(`commands:tournament.categories.${category.category}`, { lng }),
+				category: getTournamentCategoryLabel(category.category, lng),
 				totalParticipants: category.totalParticipants,
 				yourRank: category.yourRank ?? i18n.t("commands:tournament.unranked", { lng }),
 				entries: lines.join("\n") || i18n.t("commands:tournament.emptyCategory", { lng })
@@ -313,7 +207,7 @@ export function handleTournamentError(context: PacketContext, packet: CommandTou
 		description: string;
 	} => ({
 		title: i18n.t("commands:tournament.errorTitle", { lng: interaction.userLanguage }),
-		description: i18n.t(`commands:tournament.errors.${packet.errorCode}`, { lng: interaction.userLanguage })
+		description: getTournamentErrorDescription(packet.errorCode, interaction.userLanguage)
 	});
 	if (interaction.isComponentsV2()) {
 		return editTournamentMenuReply(context, "commands:tournament.errorTitle", () => buildErrorContent().description);
@@ -333,7 +227,7 @@ export async function handleTournamentFightReward(context: PacketContext, packet
 	const lng = interaction.userLanguage;
 	const player1 = await resolveKeycloakPlayerName(packet.player1.keycloakId, lng);
 	const player2 = await resolveKeycloakPlayerName(packet.player2.keycloakId, lng);
-	const getChange = (oldValue: number, newValue: number): number => newValue - oldValue;
+	const getChange = (oldValue: number, newValue: number): string => DisplayUtils.formatSignedNumber(newValue - oldValue, lng);
 	await interaction.channel?.send({
 		embeds: [
 			new CrowniclesEmbed()

@@ -1928,6 +1928,7 @@ export const CrowniclesIcons: {
 		0: "👊",
 		1: "⚡",
 		10: "⚔️",
+		100: "⚰️",
 		11: "🔫",
 		12: "💉",
 		13: "💣",
@@ -2396,7 +2397,8 @@ export const CrowniclesIcons: {
 		[Badge.ANIMAL_LOVER]: "🐾",
 		[Badge.EXPERT_EXPEDITEUR]: "🧭",
 		[Badge.ORACLE_PATRON]: "⛩️",
-		[Badge.SENTIMENTAL_CRAFTER]: "❤️‍🔥"
+		[Badge.SENTIMENTAL_CRAFTER]: "❤️‍🔥",
+		[Badge.MASTER_CHEF]: "🍽️"
 	},
 	itemKinds: [
 		"⚔️",

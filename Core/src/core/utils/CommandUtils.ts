@@ -19,9 +19,11 @@ import { MapCache } from "../maps/MapCache";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { verifyCommandAccess } from "../tournaments/TournamentAccess";
-import type { TournamentCommandAccess } from "../tournaments/TournamentTypes";
+import {
+	TournamentAccessResults, type TournamentCommandAccess
+} from "../tournaments/TournamentTypes";
 
-type Requirements = {
+export type CommandRequirements = {
 	disallowedEffects?: Effect[];
 	allowedEffects?: Effect[];
 	level?: number;
@@ -33,7 +35,7 @@ type Requirements = {
 	tournamentAccess?: TournamentCommandAccess;
 };
 
-type RequirementsWithoutBlocked = Omit<Requirements, "notBlocked">;
+type RequirementsWithoutBlocked = Omit<CommandRequirements, "notBlocked">;
 
 type RequirementCheck = () => boolean | Promise<boolean>;
 
@@ -72,12 +74,20 @@ async function runRequirementChecks(
 	response: CrowniclesPacket[],
 	requirements: RequirementsWithoutBlocked
 ): Promise<boolean> {
+	const tournamentAccess = await verifyCommandAccess(player, context, response, requirements.tournamentAccess ?? "none");
+	if (tournamentAccess === TournamentAccessResults.DENIED) {
+		return false;
+	}
+	const inTournamentFight = tournamentAccess === TournamentAccessResults.TOURNAMENT_FIGHT;
 	const checks: RequirementCheck[] = [
-		verifyCommandAccess.bind(undefined, player, context, response, requirements.tournamentAccess ?? "none"),
-		CommandUtils.checkEffects.bind(CommandUtils, player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? []),
+		inTournamentFight
+			? CommandUtils.checkEffects.bind(CommandUtils, player, response, [], CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD)
+			: CommandUtils.checkEffects.bind(CommandUtils, player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? []),
 		verifyLevelRequirement.bind(undefined, player, response, requirements.level),
 		verifyRightGroupRequirement.bind(undefined, context, response, requirements.rightGroup),
-		verifyWhereRequirement.bind(undefined, player, response, requirements.whereAllowed),
+		inTournamentFight
+			? (): boolean => true
+			: verifyWhereRequirement.bind(undefined, player, response, requirements.whereAllowed),
 		verifyGuildRequirement.bind(undefined, player, response, requirements)
 	];
 	for (const check of checks) {
@@ -281,7 +291,7 @@ export abstract class CommandUtils {
 		return allowed;
 	}
 
-	static verifyNotStartedWithoutPlayerInstance(requirements: Requirements, response: CrowniclesPacket[]): boolean {
+	static verifyNotStartedWithoutPlayerInstance(requirements: CommandRequirements, response: CrowniclesPacket[]): boolean {
 		if (requirements.disallowedEffects?.includes(Effect.NOT_STARTED) || (requirements.allowedEffects && !requirements.allowedEffects.includes(Effect.NOT_STARTED))
 		) {
 			response.push(makePacket(RequirementEffectPacket, {
@@ -310,7 +320,7 @@ type WithoutPlayerPacketListenerCallbackServer = (...args: any[]) => void | Prom
  * @param packet
  * @param requirements
  */
-export const commandRequires = <T extends CrowniclesPacket>(packet: PacketLike<T>, requirements: Requirements) =>
+export const commandRequires = <T extends CrowniclesPacket>(packet: PacketLike<T>, requirements: CommandRequirements) =>
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Decorator needs flexible signature to accept methods with varying parameter counts
 	(target: unknown, prop: string, descriptor: TypedPropertyDescriptor<any>): void => {
 		const originalMethod = descriptor.value as WithPlayerPacketListenerCallbackServer;

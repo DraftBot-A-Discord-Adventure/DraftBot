@@ -10,6 +10,8 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { KeycloakUser } from "../../../../Lib/src/keycloak/KeycloakUser";
 import { PacketUtils } from "../../utils/PacketUtils";
+import { getTournamentErrorDescription } from "./TournamentDisplayUtils";
+import { TournamentErrorCode } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import {
 	discordConfig, crowniclesClient
 } from "../../bot/CrowniclesShard";
@@ -50,13 +52,13 @@ export function hasMinimumGuildSize(interaction: CrowniclesInteraction): boolean
 	return (interaction.guild?.memberCount ?? 0) >= TournamentConstants.MINIMUM_SERVER_MEMBER_COUNT;
 }
 
-export async function replyTournamentError(interaction: CrowniclesInteraction, key: string): Promise<null> {
+export async function replyTournamentError(interaction: CrowniclesInteraction, errorCode: TournamentErrorCode): Promise<null> {
 	await interaction.reply({
 		embeds: [
 			new CrowniclesEmbed()
 				.setErrorColor()
 				.setTitle(i18n.t("commands:tournament.errorTitle", { lng: interaction.userLanguage }))
-				.setDescription(i18n.t(`commands:tournament.errors.${key}`, { lng: interaction.userLanguage }))
+				.setDescription(getTournamentErrorDescription(errorCode, interaction.userLanguage))
 		],
 		flags: MessageFlags.Ephemeral
 	});

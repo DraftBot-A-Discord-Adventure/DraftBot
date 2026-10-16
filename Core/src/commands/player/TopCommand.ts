@@ -19,7 +19,7 @@ export default class TopCommand {
 		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED,
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
-		tournamentAccess: "participant"
+		tournamentAccess: "status"
 	})
 	static async execute(
 		response: CrowniclesPacket[],
@@ -27,7 +27,7 @@ export default class TopCommand {
 		packet: CommandTopPacketReq,
 		context: PacketContext
 	): Promise<void> {
-		if (await findTournamentForContext(context, true)) {
+		if (await findTournamentForContext(context, false)) {
 			response.push(makePacket(CommandTournamentTopPacketRes, await getTopData(context, player, packet.page)));
 			return;
 		}

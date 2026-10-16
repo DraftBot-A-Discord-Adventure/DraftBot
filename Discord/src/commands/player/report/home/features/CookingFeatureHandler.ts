@@ -965,6 +965,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		let message = this.buildCraftBaseMessage(response, ctx);
 		message += this.buildCraftOutputMessage(response, ctx);
 		message += this.buildDiscoveredRecipesMessage(response, ctx);
+		if (response.masterChefBadgeEarned) {
+			message += i18n.t("commands:report.city.homes.cooking.masterChefBadgeEarned", { lng: ctx.lng });
+		}
 
 		return {
 			craftResult: message,

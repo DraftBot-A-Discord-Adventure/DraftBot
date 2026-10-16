@@ -1,10 +1,11 @@
 import { Op } from "sequelize";
 import { PacketContext } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
-	TournamentCategories, TournamentStatuses
+	TournamentCategories, TournamentFightRecord, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
+import { TournamentFight } from "../database/game/models/TournamentFight";
 import Player from "../database/game/models/Player";
 import type Tournament from "../database/game/models/Tournament";
 import {
@@ -19,7 +20,7 @@ import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/Comma
 
 type TournamentParticipantStatusData = Partial<Pick<
 	TournamentStatusData,
-	"category" | "totalGloryPoints" | "lateRegistration" | "rank" | "reward"
+	"category" | "totalGloryPoints" | "lateRegistration" | "rank" | "record" | "reward"
 >>;
 
 async function getParticipantRank(
@@ -46,6 +47,22 @@ async function getParticipantRank(
 	return rank === -1 ? undefined : rank + 1;
 }
 
+async function getParticipantRecord(participant: TournamentParticipant): Promise<TournamentFightRecord> {
+	const fights = await TournamentFight.findAll({
+		where: {
+			tournamentId: participant.tournamentId,
+			[Op.or]: [{ attackerParticipantId: participant.id }, { defenderParticipantId: participant.id }]
+		}
+	});
+	const wins = fights.filter(fight => fight.winnerParticipantId === participant.id).length;
+	const draws = fights.filter(fight => fight.draw).length;
+	return {
+		wins,
+		losses: fights.length - wins - draws,
+		draws
+	};
+}
+
 export async function getStatusData(context: PacketContext, player: Player): Promise<TournamentStatusData> {
 	const tournament = await findTournamentForContext(context, false)
 		?? await findTournamentForContext(context, true)
@@ -63,6 +80,7 @@ export async function getStatusData(context: PacketContext, player: Player): Pro
 		participantData.category = participant.category;
 		participantData.totalGloryPoints = participant.getTotalGloryPoints();
 		participantData.lateRegistration = participant.lateRegistration;
+		participantData.record = await getParticipantRecord(participant);
 		if (rank !== undefined) {
 			participantData.rank = rank;
 		}
@@ -91,7 +109,7 @@ export async function getStatusData(context: PacketContext, player: Player): Pro
 }
 
 export async function getTopData(context: PacketContext, player: Player, requestedPage?: number): Promise<TournamentTopData> {
-	const tournament = await findTournamentForContext(context, true);
+	const tournament = await findTournamentForContext(context, false);
 	if (!tournament) {
 		throw new TournamentDomainError(TournamentErrorCodes.NOT_FOUND);
 	}

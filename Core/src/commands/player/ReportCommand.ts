@@ -5,6 +5,7 @@ import {
 	CommandReportBuyHealCannotHealOccupiedPacketRes,
 	CommandReportBuyHealNoAlterationPacketRes,
 	CommandReportBuyHealPacketReq,
+	CommandReportEquipmentChangedRes,
 	CommandReportPacketReq,
 	CommandReportStayInCity,
 	CommandReportUseTokensPacketReq
@@ -45,6 +46,7 @@ import {
 	ReactionCollectorEnchantReaction,
 	ReactionCollectorExitCityReaction,
 	ReactionCollectorHomeBedReaction,
+	ReactionCollectorHomeChestCloseReaction,
 	ReactionCollectorHomeMenuReaction,
 	ReactionCollectorInnMealReaction,
 	ReactionCollectorInnRoomReaction,
@@ -97,6 +99,12 @@ import {
 	CityMenuMask, CityVisitExitReason, CityVisitExitReasonValue
 } from "../../core/database/logs/LogsCityLogger";
 import { runWithDeferredCollectorStop } from "../../core/report/ReportCityShopHandoff";
+import {
+	HomeNestedMenuId, HomeNestedMenuIds
+} from "../../../../Lib/src/constants/HomeNestedMenuIds";
+import {
+	CityNestedMenuId, CityNestedMenuIds
+} from "../../../../Lib/src/constants/CityNestedMenuIds";
 
 const CITY_REACTION_MENU_MASK = new Map<string, number>([
 	[ReactionCollectorInnMealReaction.name, CityMenuMask.INN],
@@ -118,6 +126,7 @@ const CITY_REACTION_MENU_MASK = new Map<string, number>([
 	[ReactionCollectorCityMoveHomeReaction.name, CityMenuMask.HOME],
 	[ReactionCollectorHomeMenuReaction.name, CityMenuMask.HOME],
 	[ReactionCollectorHomeBedReaction.name, CityMenuMask.HOME],
+	[ReactionCollectorHomeChestCloseReaction.name, CityMenuMask.HOME],
 	[ReactionCollectorGuildDomainMenuReaction.name, CityMenuMask.GUILD_DOMAIN],
 	[ReactionCollectorGuildDomainNotaryReaction.name, CityMenuMask.GUILD_DOMAIN],
 	[ReactionCollectorGardenHarvestReaction.name, CityMenuMask.GARDEN_OR_COOKING],
@@ -419,6 +428,36 @@ async function handleCityShopReactionWithDeferredStop(params: CityReactionParams
 
 const NOOP_REACTION = (): Promise<void> => Promise.resolve();
 
+/**
+ * Send the city again, rebuilt from the current inventory, on the given menu
+ */
+async function reopenCity(params: CityReactionParams, initialMenu: HomeNestedMenuId | CityNestedMenuId): Promise<void> {
+	await runWithDeferredCollectorStop(params.response, params.collectorId, () => sendCityCollector(
+		params.context,
+		params.response,
+		params.player,
+		params.city,
+		{
+			forceSpecificEvent: params.forceSpecificEvent,
+			initialMenu
+		}
+	));
+}
+
+/**
+ * Act on an equipment listed by a city menu, and reopen that menu up to date when the equipment changed in the meantime
+ */
+async function runListedEquipmentAction(
+	params: CityReactionParams,
+	initialMenu: HomeNestedMenuId | CityNestedMenuId,
+	action: () => Promise<void>
+): Promise<void> {
+	await action();
+	if (params.response.some(packet => packet instanceof CommandReportEquipmentChangedRes)) {
+		await reopenCity(params, initialMenu);
+	}
+}
+
 const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => Promise<void>>([
 	[
 		ReactionCollectorExitCityReaction.name, async (params): Promise<void> => {
@@ -445,7 +484,12 @@ const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => P
 	],
 	[
 		ReactionCollectorEnchantReaction.name, async (params): Promise<void> => {
-			await handleEnchantReaction(params.player, params.reactionData as ReactionCollectorEnchantReaction, params.response);
+			await runListedEquipmentAction(params, CityNestedMenuIds.ENCHANTER, () => handleEnchantReaction(
+				params.player,
+				params.reactionData as ReactionCollectorEnchantReaction,
+				params.collectorData as ReactionCollectorCityData,
+				params.response
+			));
 		}
 	],
 	[
@@ -470,39 +514,44 @@ const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => P
 	],
 	[ReactionCollectorHomeMenuReaction.name, NOOP_REACTION],
 	[
+		ReactionCollectorHomeChestCloseReaction.name, async (params): Promise<void> => {
+			await reopenCity(params, HomeNestedMenuIds.HOME);
+		}
+	],
+	[
 		ReactionCollectorHomeBedReaction.name, async (params): Promise<void> => {
 			await handleHomeBedReaction(params.player, params.collectorData as ReactionCollectorCityData, params.response);
 		}
 	],
 	[
 		ReactionCollectorUpgradeItemReaction.name, async (params): Promise<void> => {
-			await handleUpgradeItemReaction(
+			await runListedEquipmentAction(params, HomeNestedMenuIds.UPGRADE_STATION, () => handleUpgradeItemReaction(
 				params.player,
 				params.reactionData as ReactionCollectorUpgradeItemReaction,
 				params.collectorData as ReactionCollectorCityData,
 				params.response
-			);
+			));
 		}
 	],
 	[ReactionCollectorBlacksmithMenuReaction.name, NOOP_REACTION],
 	[
 		ReactionCollectorBlacksmithUpgradeReaction.name, async (params): Promise<void> => {
-			await handleBlacksmithUpgradeReaction(
+			await runListedEquipmentAction(params, CityNestedMenuIds.BLACKSMITH, () => handleBlacksmithUpgradeReaction(
 				params.player,
 				params.reactionData as ReactionCollectorBlacksmithUpgradeReaction,
 				params.collectorData as ReactionCollectorCityData,
 				params.response
-			);
+			));
 		}
 	],
 	[
 		ReactionCollectorBlacksmithDisenchantReaction.name, async (params): Promise<void> => {
-			await handleBlacksmithDisenchantReaction(
+			await runListedEquipmentAction(params, CityNestedMenuIds.BLACKSMITH, () => handleBlacksmithDisenchantReaction(
 				params.player,
 				params.reactionData as ReactionCollectorBlacksmithDisenchantReaction,
 				params.collectorData as ReactionCollectorCityData,
 				params.response
-			);
+			));
 		}
 	],
 	[ReactionCollectorScrapDealerMenuReaction.name, NOOP_REACTION],
@@ -519,12 +568,12 @@ const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => P
 	[ReactionCollectorRoyalBlacksmithMenuReaction.name, NOOP_REACTION],
 	[
 		ReactionCollectorRoyalBlacksmithUpgradeReaction.name, async (params): Promise<void> => {
-			await handleRoyalBlacksmithUpgradeReaction(
+			await runListedEquipmentAction(params, CityNestedMenuIds.ROYAL_BLACKSMITH, () => handleRoyalBlacksmithUpgradeReaction(
 				params.player,
 				params.reactionData as ReactionCollectorRoyalBlacksmithUpgradeReaction,
 				params.collectorData as ReactionCollectorCityData,
 				params.response
-			);
+			));
 		}
 	],
 	[ReactionCollectorGardenHarvestReaction.name, NOOP_REACTION],

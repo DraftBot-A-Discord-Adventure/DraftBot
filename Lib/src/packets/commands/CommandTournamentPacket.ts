@@ -2,7 +2,8 @@ import {
 	CrowniclesPacket, PacketDirection, sendablePacket
 } from "../CrowniclesPacket";
 import {
-	TournamentCategory, TournamentLevelLimitMode, TournamentMenuSummary, TournamentRewardSummary, TournamentStatus, TournamentTopCategory
+	TournamentCategory, TournamentFightRecord, TournamentLevelLimitMode, TournamentMenuSummary, TournamentRegistrationChange,
+	TournamentRewardSummary, TournamentStatus, TournamentTopCategory
 } from "../../types/Tournament";
 
 export const TournamentErrorCodes = {
@@ -10,8 +11,6 @@ export const TournamentErrorCodes = {
 	ACCESS_DENIED: "accessDenied",
 	INVALID_PHASE: "invalidPhase",
 	ALREADY_REGISTERED: "alreadyRegistered",
-	LEVEL_TOO_LOW: "levelTooLow",
-	TOO_FEW_PARTICIPANTS: "tooFewParticipants",
 	INVALID_CODE: "invalidCode",
 	EXPIRED_CODE: "expiredCode",
 	USED_CODE: "usedCode",
@@ -23,7 +22,16 @@ export const TournamentErrorCodes = {
 	LEVEL_TOO_HIGH: "levelTooHigh",
 	NO_OPPONENT: "noOpponent",
 	PAUSED: "paused",
-	NOT_REGISTERED: "notRegistered"
+	NOT_REGISTERED: "notRegistered",
+	COMBAT_NOT_STARTED: "combatNotStarted",
+	CHANNEL_ALREADY_USED: "channelAlreadyUsed",
+	UNEXPECTED: "unexpected",
+
+	// Checked by the front before any packet is sent
+	GUILD_ONLY: "guildOnly",
+	OWNER_ONLY: "ownerOnly",
+	ADMINISTRATOR_ONLY: "administratorOnly",
+	MISSING_CHANNEL_PERMISSIONS: "missingChannelPermissions"
 } as const;
 
 export type TournamentErrorCode = typeof TournamentErrorCodes[keyof typeof TournamentErrorCodes];
@@ -35,10 +43,6 @@ export class CommandTournamentContextPacketReq extends CrowniclesPacket {
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentContextPacketRes extends CrowniclesPacket {
 	active!: boolean;
-
-	participant!: boolean;
-
-	status?: TournamentStatus;
 }
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
@@ -74,8 +78,6 @@ export class CommandTournamentGenerateCodePacketReq extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentGenerateCodePacketRes extends CrowniclesPacket {
-	code!: string;
-
 	expiresAt!: number;
 }
 
@@ -94,8 +96,6 @@ export class CommandTournamentCreatePacketReq extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentCreatePacketRes extends CrowniclesPacket {
-	tournamentId!: number;
-
 	registrationEndsAt!: number;
 
 	combatEndsAt!: number;
@@ -111,11 +111,23 @@ export class CommandTournamentCreatePacketRes extends CrowniclesPacket {
 export class CommandTournamentStatusPacketReq extends CrowniclesPacket {
 }
 
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
+export class CommandTournamentRegisterPacketReq extends CrowniclesPacket {
+}
+
+@sendablePacket(PacketDirection.FRONT_TO_BACK)
+export class CommandTournamentUnregisterPacketReq extends CrowniclesPacket {
+}
+
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentStatusPacketRes extends CrowniclesPacket {
 	tournamentId!: number;
 
-	newlyRegistered!: boolean;
+	registrationChange?: TournamentRegistrationChange;
+
+	canRegister!: boolean;
+
+	canUnregister!: boolean;
 
 	status!: TournamentStatus;
 
@@ -143,6 +155,8 @@ export class CommandTournamentStatusPacketRes extends CrowniclesPacket {
 
 	rank?: number;
 
+	record?: TournamentFightRecord;
+
 	reward?: TournamentRewardSummary;
 }
 
@@ -153,8 +167,6 @@ export class CommandTournamentResumePacketReq extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentResumePacketRes extends CrowniclesPacket {
-	tournamentId!: number;
-
 	channelId!: string;
 }
 
@@ -165,7 +177,6 @@ export class CommandTournamentCancelPacketReq extends CrowniclesPacket {
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandTournamentCancelPacketRes extends CrowniclesPacket {
-	tournamentId!: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

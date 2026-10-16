@@ -525,6 +525,9 @@ export class ReactionCollectorHomeMenuReaction extends ReactionCollectorReaction
 
 export class ReactionCollectorHomeBedReaction extends ReactionCollectorReaction {}
 
+/** Leaving the chest after moving equipment: the city is rebuilt so every service lists the current inventory */
+export class ReactionCollectorHomeChestCloseReaction extends ReactionCollectorReaction {}
+
 export class ReactionCollectorUpgradeItemReaction extends ReactionCollectorReaction {
 	slot!: number;
 
@@ -619,6 +622,7 @@ type CityReaction =
 	| ReactionCollectorCityUpgradeHomeReaction
 	| ReactionCollectorCityMoveHomeReaction
 	| ReactionCollectorHomeMenuReaction
+	| ReactionCollectorHomeChestCloseReaction
 	| ReactionCollectorUpgradeItemReaction
 	| ReactionCollectorBlacksmithMenuReaction
 	| ReactionCollectorBlacksmithUpgradeReaction
@@ -743,12 +747,16 @@ export class ReactionCollectorCity extends ReactionCollector {
 			})) ?? [];
 
 		const gardenReactions = this.buildGardenReactions();
+		const chestCloseReactions = this.data.home.owned.chest
+			? [this.buildReaction(ReactionCollectorHomeChestCloseReaction, {})]
+			: [];
 
 		return [
 			homeMenuReaction,
 			...homeBedReactions,
 			...upgradeItemReactions,
-			...gardenReactions
+			...gardenReactions,
+			...chestCloseReactions
 		];
 	}
 

@@ -1033,7 +1033,7 @@
       "atParticle": "à la"
     },
     "10": {
-      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre il ne reste qu'une dizaine de maisons et paysans. Le reste de l'ancienne fortification n'est que ruine.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
       "name": "Ville Forte",
       "particle": "vers la",
       "atParticle": "à la",
@@ -1195,7 +1195,7 @@
       "atParticle": "au"
     },
     "17": {
-      "description": "Village oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
+      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
       "name": "Village Coco",
       "particle": "vers le",
       "atParticle": "au",
@@ -2163,6 +2163,7 @@
     "0": "Poing",
     "1": "Foudre de Zeus",
     "10": "Épée en bois",
+    "100": "Sentence de la Faucheuse",
     "11": "Pistolet vide",
     "12": "Seringue infectée",
     "13": "Bombe",

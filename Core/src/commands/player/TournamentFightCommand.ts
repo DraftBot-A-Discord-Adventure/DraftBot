@@ -19,8 +19,11 @@ import {
 import { ReactionCollectorFight } from "../../../../Lib/src/packets/interaction/ReactionCollectorFight";
 import { ReactionCollectorAcceptReaction } from "../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import {
-	CommandFightOpponentsNotFoundPacket, CommandFightRefusePacketRes
+	CommandFightRefusePacketRes
 } from "../../../../Lib/src/packets/commands/CommandFightPacket";
+import {
+	CommandTournamentErrorPacketRes, TournamentErrorCode, TournamentErrorCodes
+} from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
 import { getPlayerStats } from "./FightPlayerStats";
@@ -35,15 +38,19 @@ type TournamentFightFlow = {
 	fightEndCallback: TournamentFightEndCallback;
 };
 
+function pushTournamentFightError(response: CrowniclesPacket[], errorCode: TournamentErrorCode): void {
+	response.push(makePacket(CommandTournamentErrorPacketRes, { errorCode }));
+}
+
 async function startTournamentFight(flow: TournamentFightFlow): Promise<void> {
 	const participant = await getParticipant(flow.tournament.id, flow.player.id);
 	if (!participant) {
-		flow.response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
+		pushTournamentFightError(flow.response, TournamentErrorCodes.NOT_REGISTERED);
 		return;
 	}
 	const opponentParticipant = await findAndReserveOpponent(flow.tournament, participant);
 	if (!opponentParticipant) {
-		flow.response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
+		pushTournamentFightError(flow.response, TournamentErrorCodes.NO_OPPONENT);
 		return;
 	}
 	const opponent = await Players.getById(opponentParticipant.playerId);
@@ -55,7 +62,7 @@ async function startTournamentFight(flow: TournamentFightFlow): Promise<void> {
 
 	const askingFighter = new PlayerFighter(flow.player, playerClass, {
 		effectiveLevel: getEffectiveLevel(participant.category, flow.player.level, flow.tournament),
-		tournamentMode: true
+		withoutConsequences: true
 	});
 	askingFighter.setFightRole(FightConstants.FIGHT_ROLES.ATTACKER);
 	await askingFighter.loadStats();
@@ -64,7 +71,7 @@ async function startTournamentFight(flow: TournamentFightFlow): Promise<void> {
 	const incomingFighter = new AiPlayerFighter(opponent, opponentClass, {
 		allowPotionConsumption: false,
 		effectiveLevel: getEffectiveLevel(opponentParticipant.category, opponent.level, flow.tournament),
-		tournamentMode: true
+		withoutConsequences: true
 	});
 	incomingFighter.setFightRole(FightConstants.FIGHT_ROLES.DEFENDER);
 	await incomingFighter.loadStats();
@@ -112,8 +119,12 @@ function tournamentFightValidationEndCallback(flow: TournamentFightFlow): EndCal
 
 export async function executeTournamentFightCommand(flow: TournamentFightFlow): Promise<void> {
 	const participant = await getParticipant(flow.tournament.id, flow.player.id);
-	if (!participant || flow.tournament.status !== TournamentStatuses.COMBAT) {
-		flow.response.push(makePacket(CommandFightOpponentsNotFoundPacket, {}));
+	if (!participant) {
+		pushTournamentFightError(flow.response, TournamentErrorCodes.NOT_REGISTERED);
+		return;
+	}
+	if (flow.tournament.status !== TournamentStatuses.COMBAT) {
+		pushTournamentFightError(flow.response, TournamentErrorCodes.INVALID_PHASE);
 		return;
 	}
 	const collector = new ReactionCollectorFight(await getPlayerStats(flow.player, participant, flow.tournament));

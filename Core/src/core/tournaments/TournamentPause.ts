@@ -1,12 +1,14 @@
 import { Op } from "sequelize";
 import {
-	TournamentStatuses
+	TournamentNotificationEvents, TournamentStatuses
 } from "../../../../Lib/src/types/Tournament";
 import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { PacketContext } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { getTournamentPhaseEnd } from "./TournamentRules";
 import { Tournament } from "../database/game/models/Tournament";
+import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
 import { TournamentDomainError } from "./TournamentErrors";
+import { sendTournamentEvent } from "./TournamentNotifications";
 
 function updateResumedPhaseDates(
 	tournament: Tournament,
@@ -46,8 +48,8 @@ function getResumeChannel(context: PacketContext): ResumeChannel {
 	};
 }
 
-function requireBotOwner(context: PacketContext): void {
-	if (context.discord?.isBotOwner !== true) {
+function requireResumeRights(context: PacketContext): void {
+	if (context.discord?.isBotOwner !== true && context.discord?.isGuildAdministrator !== true) {
 		throw new TournamentDomainError(TournamentErrorCodes.ACCESS_DENIED);
 	}
 }
@@ -74,7 +76,7 @@ function getResumeData(tournament: Tournament, context: PacketContext): ResumeDa
 		channelId,
 		guildId
 	} = getResumeChannel(context);
-	requireBotOwner(context);
+	requireResumeRights(context);
 	const previousStatus = getPausedStatus(tournament);
 	requireSameGuild(tournament, guildId);
 	return {
@@ -94,16 +96,24 @@ function applyResume(tournament: Tournament, context: PacketContext, resumeData:
 }
 
 export async function pauseTournament(tournamentId: number): Promise<void> {
-	await Tournament.withLocked(tournamentId, async tournament => {
+	const pausedTournament = await Tournament.withLocked(tournamentId, async tournament => {
 		if (tournament.status !== TournamentStatuses.REGISTRATION && tournament.status !== TournamentStatuses.COMBAT) {
-			return;
+			return null;
 		}
 		const remainingMs = Math.max(0, getTournamentPhaseEnd(tournament).getTime() - Date.now());
 		tournament.pausedFromStatus = tournament.status;
 		tournament.pausedRemainingMs = remainingMs;
 		tournament.status = TournamentStatuses.PAUSED;
 		await tournament.save();
+		return tournament;
 	});
+	if (pausedTournament) {
+		sendTournamentEvent(
+			pausedTournament,
+			await TournamentParticipant.findAll({ where: { tournamentId } }),
+			{ event: TournamentNotificationEvents.PAUSED }
+		);
+	}
 }
 
 export async function pauseTournamentForChannel(discordGuildId: string, discordChannelId: string): Promise<void> {

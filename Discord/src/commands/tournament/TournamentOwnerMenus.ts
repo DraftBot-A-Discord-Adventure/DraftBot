@@ -1,3 +1,4 @@
+import { ContainerBuilder } from "discord.js";
 import {
 	CommandTournamentGenerateCodePacketReq, CommandTournamentOwnerMenuPacketRes, CommandTournamentResumePacketReq
 } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
@@ -14,6 +15,26 @@ import {
 import type { CrowniclesNestedMenu } from "../../messages/CrowniclesNestedMenus";
 import i18n from "../../translations/i18n";
 
+export function addResumeSection(
+	container: ContainerBuilder,
+	context: TournamentMenuContext,
+	pausedTournaments: TournamentMenuSummary[]
+): void {
+	const lng = context.interaction.userLanguage;
+	addCitySection({
+		container,
+		emote: CrowniclesIcons.notifications.types.tournament,
+		title: i18n.t("commands:tournament.menu.resumeTitle", { lng }),
+		description: pausedTournaments.length > 0
+			? i18n.t("commands:tournament.menu.resumeDescription", { lng })
+			: i18n.t("commands:tournament.menu.resumeUnavailable", { lng }),
+		customId: TOURNAMENT_MENU_IDS.RESUME,
+		buttonLabel: i18n.t("commands:tournament.menu.resumeButton", { lng }),
+		buttonStyle: ReportCityButtonStyles.NAVIGATE,
+		disabled: pausedTournaments.length === 0
+	});
+}
+
 function buildOwnerRootMenu(
 	context: TournamentMenuContext,
 	packet: CommandTournamentOwnerMenuPacketRes
@@ -26,24 +47,13 @@ function buildOwnerRootMenu(
 	addCitySection({
 		container,
 		emote: CrowniclesIcons.collectors.accept,
-		title: i18n.t("commands:tournament.menu.codeTitle", { lng }),
-		description: i18n.t("commands:tournament.menu.codeDescription", { lng }),
-		customId: TOURNAMENT_MENU_IDS.OWNER_ROOT,
-		buttonLabel: i18n.t("commands:tournament.menu.codeButton", { lng }),
+		title: i18n.t("commands:tournament.menu.authorizeTitle", { lng }),
+		description: i18n.t("commands:tournament.menu.authorizeDescription", { lng }),
+		customId: TOURNAMENT_MENU_IDS.OWNER_AUTHORIZE,
+		buttonLabel: i18n.t("commands:tournament.menu.authorizeButton", { lng }),
 		buttonStyle: ReportCityButtonStyles.NAVIGATE
 	});
-	addCitySection({
-		container,
-		emote: CrowniclesIcons.collectors.previousPage,
-		title: i18n.t("commands:tournament.menu.resumeTitle", { lng }),
-		description: packet.pausedTournaments.length > 0
-			? i18n.t("commands:tournament.menu.resumeDescription", { lng })
-			: i18n.t("commands:tournament.menu.resumeUnavailable", { lng }),
-		customId: TOURNAMENT_MENU_IDS.OWNER_RESUME,
-		buttonLabel: i18n.t("commands:tournament.menu.resumeButton", { lng }),
-		buttonStyle: ReportCityButtonStyles.NAVIGATE,
-		disabled: packet.pausedTournaments.length === 0
-	});
+	addResumeSection(container, context, packet.pausedTournaments);
 	addMenuNavigation(container, undefined, lng);
 	return {
 		containers: [container],
@@ -51,7 +61,7 @@ function buildOwnerRootMenu(
 			if (!componentInteraction.isButton()) {
 				return;
 			}
-			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.OWNER_ROOT) {
+			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.OWNER_AUTHORIZE) {
 				await sendPacketFromMenu(
 					componentInteraction,
 					nestedMenus,
@@ -60,8 +70,8 @@ function buildOwnerRootMenu(
 				);
 				return;
 			}
-			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.OWNER_RESUME) {
-				await changeMenu(componentInteraction, nestedMenus, TOURNAMENT_MENU_IDS.OWNER_RESUME);
+			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.RESUME) {
+				await changeMenu(componentInteraction, nestedMenus, TOURNAMENT_MENU_IDS.RESUME);
 				return;
 			}
 			if (componentInteraction.customId === TOURNAMENT_MENU_IDS.CLOSE) {
@@ -71,7 +81,7 @@ function buildOwnerRootMenu(
 	};
 }
 
-function buildOwnerResumeConfirmationMenu(
+function buildResumeConfirmationMenu(
 	context: TournamentMenuContext,
 	tournament: TournamentMenuSummary
 ): CrowniclesNestedMenu {
@@ -80,29 +90,30 @@ function buildOwnerResumeConfirmationMenu(
 		tournament,
 		titleKey: "commands:tournament.menu.resumeConfirmTitle",
 		descriptionKey: "commands:tournament.menu.resumeConfirmDescription",
-		confirmCustomId: TOURNAMENT_MENU_IDS.OWNER_RESUME_CONFIRM,
+		confirmCustomId: TOURNAMENT_MENU_IDS.RESUME_CONFIRM,
 		confirmLabelKey: "commands:tournament.menu.resumeConfirmButton",
 		confirmEmoji: CrowniclesIcons.collectors.accept,
 		confirmStyle: ReportCityButtonStyles.CONFIRM,
-		backMenuId: TOURNAMENT_MENU_IDS.OWNER_RESUME,
+		backMenuId: TOURNAMENT_MENU_IDS.RESUME,
 		createPacket: tournamentId => makePacket(CommandTournamentResumePacketReq, { tournamentId })
 	});
 }
 
-function buildOwnerResumeMenu(
+export function buildResumeMenu(
 	context: TournamentMenuContext,
-	tournaments: CommandTournamentOwnerMenuPacketRes["pausedTournaments"]
+	pausedTournaments: TournamentMenuSummary[],
+	rootMenuId: string
 ): CrowniclesNestedMenu {
 	return buildTournamentSelectionMenu({
 		context,
-		tournaments,
+		tournaments: pausedTournaments,
 		titleKey: "commands:tournament.menu.resumeListTitle",
 		descriptionKey: "commands:tournament.menu.resumeListDescription",
 		emptyDescriptionKey: "commands:tournament.menu.resumeUnavailable",
-		selectPrefix: TOURNAMENT_MENU_IDS.OWNER_RESUME_SELECT_PREFIX,
-		backMenuId: TOURNAMENT_MENU_IDS.OWNER_ROOT,
-		confirmationMenuId: TOURNAMENT_MENU_IDS.OWNER_RESUME_CONFIRM,
-		buildConfirmationMenu: tournament => buildOwnerResumeConfirmationMenu(context, tournament)
+		selectPrefix: TOURNAMENT_MENU_IDS.RESUME_SELECT_PREFIX,
+		backMenuId: rootMenuId,
+		confirmationMenuId: TOURNAMENT_MENU_IDS.RESUME_CONFIRM,
+		buildConfirmationMenu: tournament => buildResumeConfirmationMenu(context, tournament)
 	});
 }
 
@@ -113,10 +124,12 @@ export function buildOwnerMenus(
 	mainMenu: CrowniclesNestedMenu;
 	menus: Map<string, CrowniclesNestedMenu>;
 } {
+	const mainMenu = buildOwnerRootMenu(context, packet);
 	const menus = new Map<string, CrowniclesNestedMenu>();
-	menus.set(TOURNAMENT_MENU_IDS.OWNER_RESUME, buildOwnerResumeMenu(context, packet.pausedTournaments));
+	menus.set(TOURNAMENT_MENU_IDS.OWNER_ROOT, mainMenu);
+	menus.set(TOURNAMENT_MENU_IDS.RESUME, buildResumeMenu(context, packet.pausedTournaments, TOURNAMENT_MENU_IDS.OWNER_ROOT));
 	return {
-		mainMenu: buildOwnerRootMenu(context, packet),
+		mainMenu,
 		menus
 	};
 }

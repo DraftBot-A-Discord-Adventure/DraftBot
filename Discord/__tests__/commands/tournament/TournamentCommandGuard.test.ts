@@ -8,21 +8,20 @@ import { commandInfo as tournamentOwnerCommandInfo } from "../../../src/commands
 import { commandInfo } from "../../../src/commands/tournament/TournamentStatusCommand";
 
 describe("TournamentCommandGuard", () => {
-	it("allows the player command for non-participants", () => {
-		expect(isAllowedInTournament("tournament", false, false)).toBe(true);
-		expect(isAllowedInTournament("top", false, false)).toBe(false);
-		expect(isAllowedInTournament("notifications", false, false)).toBe(false);
+	it("lets tournament commands through, the Core checking participation", () => {
+		expect(isAllowedInTournament("tournament")).toBe(true);
+		expect(isAllowedInTournament("fight")).toBe(true);
+		expect(isAllowedInTournament("top")).toBe(true);
 	});
 
-	it("allows tournament gameplay only for participants", () => {
-		expect(isAllowedInTournament("fight", true, false)).toBe(true);
-		expect(isAllowedInTournament("top", true, false)).toBe(true);
-		expect(isAllowedInTournament("inventory", true, false)).toBe(false);
+	it("rejects other commands in a tournament channel", () => {
+		expect(isAllowedInTournament("notifications")).toBe(false);
+		expect(isAllowedInTournament("inventory")).toBe(false);
 	});
 
 	it("allows the dedicated management roots through the context guard", () => {
-		expect(isAllowedInTournament("tournament-admin", false, false)).toBe(true);
-		expect(isAllowedInTournament("tournament-owner", false, false)).toBe(true);
+		expect(isAllowedInTournament("tournament-admin")).toBe(true);
+		expect(isAllowedInTournament("tournament-owner")).toBe(true);
 	});
 
 	it("registers the player command as a global command", () => {

@@ -90,6 +90,20 @@ describe("Tournament menus", () => {
 		expect(container.components.some(component => "accessory" in component)).toBe(true);
 	});
 
+	it("lets sub menus come back to the admin root and resume paused tournaments", async () => {
+		await handleTournamentAdminMenu({
+			discord: { interaction: "interaction-id" }
+		} as never, {
+			tournaments: [buildTournamentSummary(42, TournamentStatuses.PAUSED)],
+			hasAvailableCode: false
+		});
+
+		const buttonIds = getSectionButtonIds(getContainer(state.mainMenu));
+		expect(state.menus?.get(TOURNAMENT_MENU_IDS.ADMIN_ROOT)).toBe(state.mainMenu);
+		expect(buttonIds).toContain(TOURNAMENT_MENU_IDS.RESUME);
+		expect(state.menus?.has(TOURNAMENT_MENU_IDS.RESUME)).toBe(true);
+	});
+
 	it("renders owner paused tournaments without command parameters", async () => {
 		await handleTournamentOwnerMenu({
 			discord: { interaction: "interaction-id" }
@@ -99,8 +113,8 @@ describe("Tournament menus", () => {
 
 		const container = getContainer(state.mainMenu);
 		const buttonIds = getSectionButtonIds(container);
-		expect(buttonIds).toContain(TOURNAMENT_MENU_IDS.OWNER_RESUME);
-		expect(state.menus?.has(TOURNAMENT_MENU_IDS.OWNER_RESUME)).toBe(true);
+		expect(buttonIds).toContain(TOURNAMENT_MENU_IDS.RESUME);
+		expect(state.menus?.has(TOURNAMENT_MENU_IDS.RESUME)).toBe(true);
 	});
 
 	it("offers selectable tournament categories and durations in the create wizard", async () => {

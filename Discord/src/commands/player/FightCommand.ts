@@ -227,6 +227,35 @@ async function resolveOpponentDisplayName(packet: CommandFightIntroduceFightersP
 	return packet.fightOpponentKeycloakId ?? "???";
 }
 
+async function buildFightIntroEmbed(interaction: CrowniclesInteraction, packet: CommandFightIntroduceFightersPacket): Promise<CrowniclesEmbed> {
+	const lng = interaction.userLanguage;
+	const initiatorName = escapeUsername(interaction.user.displayName);
+	const opponentName = escapeUsername(await resolveOpponentDisplayName(packet, lng));
+	const embed = new CrowniclesEmbed().formatAuthor(i18n.t(packet.friendly ? "commands:fight.friendlyFightIntroTitle" : "commands:fight.fightIntroTitle", {
+		lng,
+		fightInitiator: initiatorName,
+		opponent: opponentName
+	}), interaction.user);
+
+	addFightProfileFor(embed, lng, initiatorName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
+	addFightProfileFor(embed, lng, opponentName, packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
+	return embed;
+}
+
+/**
+ * Show the fight intro in place of the confirmation, or of the deferred command for friendly fights which have none
+ */
+async function displayFightIntro(context: PacketContext, interaction: CrowniclesInteraction, packet: CommandFightIntroduceFightersPacket): Promise<void> {
+	const embed = await buildFightIntroEmbed(interaction, packet);
+	const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
+	if (buttonInteraction) {
+		await buttonInteraction.editReply({ embeds: [embed] });
+	}
+	else if (packet.friendly) {
+		await interaction.editReply({ embeds: [embed] });
+	}
+}
+
 export async function handleCommandFightIntroduceFightersRes(context: PacketContext, packet: CommandFightIntroduceFightersPacket): Promise<void> {
 	if (buggedFights.has(packet.fightId)) {
 		return;
@@ -234,21 +263,7 @@ export async function handleCommandFightIntroduceFightersRes(context: PacketCont
 
 	try {
 		const interaction = DiscordCache.getInteraction(context.discord!.interaction)!;
-		const buttonInteraction = DiscordCache.getButtonInteraction(context.discord!.buttonInteraction!);
-		const lng = interaction.userLanguage;
-		const opponentDisplayName = await resolveOpponentDisplayName(packet, lng);
-		const embed = new CrowniclesEmbed().formatAuthor(i18n.t("commands:fight.fightIntroTitle", {
-			lng,
-			fightInitiator: escapeUsername(interaction.user.displayName),
-			opponent: escapeUsername(opponentDisplayName)
-		}), interaction.user);
-
-		addFightProfileFor(embed, lng, escapeUsername(interaction.user.displayName), packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);
-		addFightProfileFor(embed, lng, escapeUsername(opponentDisplayName), packet.fightOpponentActions, packet.fightInitiatorActions.length, packet.fightOpponentPet);
-
-		if (buttonInteraction) {
-			await buttonInteraction.editReply({ embeds: [embed] });
-		}
+		await displayFightIntro(context, interaction, packet);
 		await CrowniclesCachedMessages.getOrCreate(interaction.id, CrowniclesHistoryCachedMessage)
 			.post({ content: DiscordConstants.EMPTY_MESSAGE }, context.discord?.channel);
 		await CrowniclesCachedMessages.getOrCreate(interaction.id, CrowniclesFightStatusCachedMessage)

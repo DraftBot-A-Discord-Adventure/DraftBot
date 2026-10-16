@@ -90,3 +90,25 @@ export async function registerPlayer(context: PacketContext, player: Player): Pr
 		});
 	});
 }
+
+export async function unregisterPlayer(context: PacketContext, player: Player): Promise<void> {
+	await processDueTournaments();
+	const tournament = await findTournamentForContext(context, false);
+	if (!tournament) {
+		throw new TournamentDomainError(TournamentErrorCodes.NOT_FOUND);
+	}
+	await Tournament.withLocked(tournament.id, async lockedTournament => {
+		if (lockedTournament.status !== TournamentStatuses.REGISTRATION || Date.now() >= lockedTournament.registrationEndsAt.getTime()) {
+			throw new TournamentDomainError(TournamentErrorCodes.INVALID_PHASE);
+		}
+		const removed = await TournamentParticipant.destroy({
+			where: {
+				tournamentId: lockedTournament.id,
+				playerId: player.id
+			}
+		});
+		if (removed === 0) {
+			throw new TournamentDomainError(TournamentErrorCodes.NOT_REGISTERED);
+		}
+	});
+}
