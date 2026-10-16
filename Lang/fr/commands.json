@@ -1269,6 +1269,8 @@
           "chestFull": "Coffre plein pour cette catégorie",
           "inventoryFullLabel": "Inventaire plein",
           "swapSection": "{emote:city.chestActions.swap} **Intervertir avec le coffre :**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenu du coffre :**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **Échanger** {{item}} **avec :**",
           "errors": {
             "chestFull": "Votre coffre est plein pour cette catégorie ! Améliorez votre maison pour obtenir plus d'emplacements.",

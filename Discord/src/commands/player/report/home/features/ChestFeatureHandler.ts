@@ -509,7 +509,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 		const bothFull = !capacity.hasEmptySlots && capacity.isInventoryFull;
 		const isSwapMode = bothFull && chestItems.length > 0 && depositableItems.length > 0;
 		const text = isSwapMode
-			? this.buildChestSwapSection(ctx, catInfo, depositableItems, rows)
+			? this.buildChestSwapSection(ctx, catInfo, items, rows)
 			: this.buildChestDepositWithdrawSections(ctx, catInfo, items, capacity, rows);
 
 		// When nothing was displayed at all, no section could add an emote, so a dedicated hint is shown
@@ -524,12 +524,12 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 	private buildChestSwapSection(
 		ctx: HomeFeatureHandlerContext,
 		catInfo: typeof CATEGORY_INFO[number],
-		depositableItems: ItemSlotDisplay[],
+		items: ChestItemLists,
 		rows: ActionRowBuilder<ButtonBuilder>[]
 	): string {
-		// Swap mode: only show inventory items to initiate swap
+		// Swap mode: inventory items initiate the swap, chest items stay visible so the player can pick knowingly
 		const result = this.addItemSectionWithButtons({
-			items: depositableItems,
+			items: items.depositableItems,
 			category: catInfo.category,
 			rows,
 			emoteIndex: 0,
@@ -537,7 +537,23 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 			disabled: false,
 			lng: ctx.lng
 		});
-		return `\n\n${i18n.t("commands:report.city.homes.chest.swapSection", { lng: ctx.lng })}${result.description}`;
+		return `\n\n${i18n.t("commands:report.city.homes.chest.swapSection", { lng: ctx.lng })}${result.description}`
+			+ this.buildChestContentSection(ctx, catInfo, items.chestItems);
+	}
+
+	/**
+	 * Build a read-only list of the items stored in the chest for a category.
+	 */
+	private buildChestContentSection(
+		ctx: HomeFeatureHandlerContext,
+		catInfo: typeof CATEGORY_INFO[number],
+		chestItems: ItemSlotDisplay[]
+	): string {
+		const lines = chestItems.map(item => `\n${i18n.t("commands:report.city.homes.chest.chestContentLine", {
+			lng: ctx.lng,
+			item: DisplayUtils.getItemDisplayWithStats(DisplayUtils.withUnlimitedMaxValue(item.details, catInfo.category), ctx.lng)
+		})}`);
+		return `\n\n${i18n.t("commands:report.city.homes.chest.chestContentSection", { lng: ctx.lng })}${lines.join("")}`;
 	}
 
 	private buildChestDepositWithdrawSections(
