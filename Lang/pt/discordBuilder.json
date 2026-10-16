@@ -303,6 +303,20 @@
     "description": "Começar uma luta.",
     "name": "combate"
   },
+  "friendlyFight": {
+    "description": "Lancer un combat amical sans aucune conséquence contre un autre joueur contrôlé par une IA.",
+    "name": "combatamical",
+    "options": {
+      "rank": {
+        "description": "Le classement du joueur à affronter.",
+        "name": "classificação"
+      },
+      "user": {
+        "description": "L'utilisateur à affronter.",
+        "name": "utilizador"
+      }
+    }
+  },
   "equip": {
     "name": "equipar",
     "description": "Gerir o seu equipamento: equipar, guardar ou trocar os seus objectos."
