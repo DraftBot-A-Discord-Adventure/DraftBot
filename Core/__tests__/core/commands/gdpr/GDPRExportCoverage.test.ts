@@ -278,6 +278,7 @@ const PLAYER_DATA_EXPORT_FIELD_COVERAGE = {
 		"mapLinkId",
 		"startTravelDate",
 		"insideCity",
+		"cityArrivalDate",
 		"lastActivityAt",
 		"defenseGloryPoints",
 		"attackGloryPoints",

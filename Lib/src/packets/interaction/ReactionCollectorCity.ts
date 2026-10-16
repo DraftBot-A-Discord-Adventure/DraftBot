@@ -51,6 +51,11 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 	 */
 	gardenOnly?: boolean;
 
+	/**
+	 * Points the player is guaranteed to receive when leaving the city, the random bonus being drawn on exit
+	 */
+	minimumCityStayScore?: number;
+
 	inns?: {
 		innId: string;
 		meals: {

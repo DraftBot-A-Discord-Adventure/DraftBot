@@ -18,7 +18,6 @@ import {
 	getDateLogs, getTimeFromXHoursAgo
 } from "../../../../Lib/src/utils/TimeUtils";
 import { BlockingUtils } from "../../core/utils/BlockingUtils";
-import { withLockedPlayerSafe } from "../../core/utils/withLockedPlayerSafe";
 import { BlockingConstants } from "../../../../Lib/src/constants/BlockingConstants";
 import { CITY_SERVICES } from "../../../../Lib/src/constants/CityServiceConstants";
 import { MissionsController } from "../../core/missions/MissionsController";
@@ -91,6 +90,10 @@ import {
 } from "../../core/report/ReportValidationConstants";
 import { executeSmallEvent } from "../../core/report/ReportSmallEventService";
 import { chooseDestination } from "../../core/report/ReportDestinationService";
+import {
+	getRewardedCityStayMinutes, leaveCityUnderLock
+} from "../../core/report/ReportCityStayScoreService";
+import { withLockedPlayerAndMissionsSafe } from "../../core/utils/withLockedPlayerAndMissionsSafe";
 import { doRandomBigEvent } from "../../core/report/ReportBigEventService";
 import { doPVEBoss } from "../../core/report/ReportPveService";
 import { sendTravelPath } from "../../core/report/ReportTravelService";
@@ -461,14 +464,15 @@ async function runListedEquipmentAction(
 const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => Promise<void>>([
 	[
 		ReactionCollectorExitCityReaction.name, async (params): Promise<void> => {
-			await withLockedPlayerSafe(params.player, "report.exitCity", async lockedPlayer => {
-				lockedPlayer.insideCity = false;
-				await lockedPlayer.save();
+			let cityStayScore = 0;
+			await withLockedPlayerAndMissionsSafe(params.player, "report.exitCity", async lockedPlayer => {
+				cityStayScore = await leaveCityUnderLock(lockedPlayer, params.response, new Date());
 			});
-			params.player.insideCity = false;
+			await params.player.reload();
 			await chooseDestination(params.context, params.player, null, params.response, {
 				mainPacket: true,
-				allowStayInCity: false
+				allowStayInCity: false,
+				cityStayScore
 			});
 		}
 	],
@@ -812,6 +816,7 @@ async function sendCityCollector(
 		guildFoodShop,
 		guildDomainNotary,
 		apartmentNotary,
+		minimumCityStayScore: getRewardedCityStayMinutes(player, new Date()),
 		initialMenu: options.initialMenu
 	};
 

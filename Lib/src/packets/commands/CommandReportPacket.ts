@@ -143,6 +143,11 @@ export class CommandReportChooseDestinationRes extends CrowniclesPacket {
 	 * The player did not pick this destination: an event outcome sent them back where they came from.
 	 */
 	isGoingBack?: boolean;
+
+	/**
+	 * Points credited for the time spent in the city the player is leaving
+	 */
+	cityStayScore?: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)

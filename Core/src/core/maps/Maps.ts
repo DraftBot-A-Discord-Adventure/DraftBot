@@ -81,6 +81,7 @@ export class Maps {
 		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time);
 		player.insideCity = false;
+		player.cityArrivalDate = null;
 		await player.save();
 
 		const destinationId = player.getDestinationId();
