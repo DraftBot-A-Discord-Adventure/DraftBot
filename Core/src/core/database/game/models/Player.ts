@@ -6,7 +6,7 @@ import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
 import { InventoryInfos } from "./InventoryInfo";
 import {
-	assertPlayerHasNoPendingChanges, LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController
+	assertPlayerHasNoPendingChanges, LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController, PLAYER_RESYNC_CALLERS
 } from "../../../missions/MissionsController";
 import { PlayerActiveObjects } from "./PlayerActiveObjects";
 import {
@@ -320,7 +320,7 @@ export class Player extends Model {
 	}
 
 	private async mutateLocked(mutate: LockedPlayerMutation): Promise<void> {
-		assertPlayerHasNoPendingChanges(this, "Player.mutateLocked");
+		assertPlayerHasNoPendingChanges(this, PLAYER_RESYNC_CALLERS.MUTATE_LOCKED);
 		const updatedPlayer = await Player.withLocked(this.id, async lockedPlayer => {
 			mutate(lockedPlayer);
 			await lockedPlayer.save();
