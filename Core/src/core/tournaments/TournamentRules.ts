@@ -163,9 +163,9 @@ export function getTournamentPhaseEnd(tournament: Tournament): Date {
 export function getEndingNotificationDate(tournament: Tournament): Date {
 	const combatDuration = tournament.combatEndsAt.getTime() - tournament.registrationEndsAt.getTime();
 	const configuredLead = hoursToMilliseconds(asHours(TournamentConstants.ENDING_NOTIFICATION_LEAD_HOURS));
-	const lead = combatDuration < configuredLead
-		? Math.floor(combatDuration / 2)
-		: configuredLead;
+
+	// Never warn during the first half of the combat phase, otherwise a one day phase announces its end with its start
+	const lead = Math.min(configuredLead, Math.floor(combatDuration / 2));
 	return new Date(tournament.combatEndsAt.getTime() - lead);
 }
 
