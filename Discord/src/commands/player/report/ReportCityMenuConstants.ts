@@ -61,6 +61,15 @@ export const ReportCityMenuIds = {
 	/** Prefix for enchant item buttons (followed by index) */
 	ENCHANT_ITEM_PREFIX: "ENCHANT_ITEM_",
 
+	/** Enchanter free disenchant sub-menu */
+	ENCHANTER_DISENCHANT_MENU: "ENCHANTER_DISENCHANT_MENU",
+
+	/** Prefix for enchanter disenchant item buttons (followed by index) */
+	ENCHANTER_DISENCHANT_ITEM_PREFIX: "ENCHANTER_DISENCHANT_ITEM_",
+
+	/** Back to the enchanter from its disenchant sub-menu */
+	BACK_TO_ENCHANTER: "BACK_TO_ENCHANTER",
+
 	// --- Notary actions ---
 	/** Buy a new home */
 	BUY_HOME: "BUY_HOME",

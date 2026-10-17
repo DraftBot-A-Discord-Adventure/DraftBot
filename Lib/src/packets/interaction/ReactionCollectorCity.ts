@@ -28,6 +28,7 @@ import { GardenAccessMode } from "../../types/GardenAccessMode";
 import { GardenConstants } from "../../constants/GardenConstants";
 import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
+import { DisenchantableItem } from "../../types/DisenchantableItem";
 import { MapLocationType } from "../../constants/MapLocationConstants";
 
 /**
@@ -103,7 +104,7 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 			details: MainItemDetails;
 		}[];
 		isInventoryEmpty: boolean; // If true, the inventory is empty, and we can't enchant anything. It is used to display the right message.
-		hasAtLeastOneEnchantedItem: boolean; // If true, the player has at least one enchanted item, so the enchanter must say that it cannot remove enchantments.
+		disenchantableItems: DisenchantableItem[]; // Enchanted equipment the enchanter removes the enchantment from for free.
 		unenchantedItemsInOtherSlotCount: number; // Number of unenchanted items the player has in the wrong slot for today's enchantment (used for plural rendering in stories).
 		enchantmentId: string;
 		enchantmentType: string;
@@ -271,19 +272,14 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 		}[];
 
 		/** Items that can be disenchanted at the blacksmith */
-		disenchantableItems: {
-			slot: number;
-			category: ItemCategory;
-			details: MainItemDetails;
-			enchantmentId: string;
-			enchantmentType: string;
+		disenchantableItems: (DisenchantableItem & {
 
 			/** Gold cost to disenchant this item */
 			disenchantCost: number;
 
 			/** Core-authoritative eligibility: player has enough gold to disenchant */
 			canDisenchant: boolean;
-		}[];
+		})[];
 
 		/** Current player money for UI display */
 		playerMoney: number;
@@ -523,6 +519,13 @@ export class ReactionCollectorEnchantReaction extends ReactionCollectorReaction 
 	itemCategory!: ItemCategory;
 }
 
+/** Reaction for removing an enchantment for free at the enchanter */
+export class ReactionCollectorEnchanterDisenchantReaction extends ReactionCollectorReaction {
+	slot!: number;
+
+	itemCategory!: ItemCategory;
+}
+
 export class ReactionCollectorCityShopReaction extends ReactionCollectorReaction {
 	shopId!: string;
 }
@@ -629,6 +632,7 @@ type CityReaction =
 	| ReactionCollectorInnMealReaction
 	| ReactionCollectorInnRoomReaction
 	| ReactionCollectorEnchantReaction
+	| ReactionCollectorEnchanterDisenchantReaction
 	| ReactionCollectorCityShopReaction
 	| ReactionCollectorCityBuyHomeReaction
 	| ReactionCollectorCityUpgradeHomeReaction
@@ -696,14 +700,21 @@ export class ReactionCollectorCity extends ReactionCollector {
 	private buildEnchanterReactions(): {
 		type: string; data: ReactionCollectorReaction;
 	}[] {
-		if (!this.data.enchanter?.enchantableItems) {
+		if (!this.data.enchanter) {
 			return [];
 		}
-		return this.data.enchanter.enchantableItems.map(item =>
-			this.buildReaction(ReactionCollectorEnchantReaction, {
-				slot: item.slot,
-				itemCategory: item.category
-			}));
+		return [
+			...this.data.enchanter.enchantableItems.map(item =>
+				this.buildReaction(ReactionCollectorEnchantReaction, {
+					slot: item.slot,
+					itemCategory: item.category
+				})),
+			...this.data.enchanter.disenchantableItems.map(item =>
+				this.buildReaction(ReactionCollectorEnchanterDisenchantReaction, {
+					slot: item.slot,
+					itemCategory: item.category
+				}))
+		];
 	}
 
 	private buildShopReactions(): {

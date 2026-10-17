@@ -130,6 +130,7 @@ import {
 	BlacksmithDisenchantLogParams,
 	ScrapDealerRecycleLogParams,
 	EnchanterUseLogParams,
+	EnchanterDisenchantLogParams,
 	HomePurchaseLogParams,
 	HomeUpgradeLogParams,
 	HomeMoveLogParams,
@@ -1789,6 +1790,13 @@ export class LogsDatabase extends Database {
 	 */
 	public logEnchanterUse(params: EnchanterUseLogParams): Promise<void> {
 		return this.cityLogger.logEnchanterUse(params);
+	}
+
+	/**
+	 * Log when a player removes an enchantment for free at the city enchanter
+	 */
+	public logEnchanterDisenchant(params: EnchanterDisenchantLogParams): Promise<void> {
+		return this.cityLogger.logEnchanterDisenchant(params);
 	}
 
 	/** Log when a player buys a home in a city */

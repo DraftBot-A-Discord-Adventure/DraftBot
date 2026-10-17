@@ -15,7 +15,7 @@ function createEnchanterData(enchantmentId: string): EnchanterCityData {
 	return {
 		enchantableItems: [],
 		isInventoryEmpty: true,
-		hasAtLeastOneEnchantedItem: false,
+		disenchantableItems: [],
 		unenchantedItemsInOtherSlotCount: 0,
 		enchantmentId,
 		enchantmentType: "magic",

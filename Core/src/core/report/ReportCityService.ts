@@ -41,12 +41,15 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { OwnedApartmentSummary } from "../../../../Lib/src/types/ApartmentLocation";
 import { Settings } from "../database/game/models/Setting";
 import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
+import { buildDisenchantableItems } from "./ReportBlacksmithService";
 
 // Re-exports for backward compatibility
 export {
 	handleInnMealReaction, handleInnRoomReaction
 } from "./ReportCityInnService";
-export { handleEnchantReaction } from "./ReportCityEnchanterService";
+export {
+	handleEnchantReaction, handleEnchanterDisenchantReaction
+} from "./ReportCityEnchanterService";
 export {
 	handleBuyHomeReaction, handleUpgradeHomeReaction, handleMoveHomeReaction, handleHomeBedReaction
 } from "./ReportCityHomeService";
@@ -177,16 +180,15 @@ export async function buildEnchanterData(
 
 	const enchantableItems: EnchanterData["enchantableItems"] = [];
 	let equipmentCount = 0;
-	let hasEnchantedItem = false;
 	let unenchantedItemsInOtherSlotCount = 0;
 
 	for (const item of playerInventory) {
 		if (item.isPrimaryEquipment()) {
 			equipmentCount++;
 			if (item.itemEnchantmentId) {
-				hasEnchantedItem = true;
+				continue;
 			}
-			else if (item.itemCategory === enchantment.kind.slot) {
+			if (item.itemCategory === enchantment.kind.slot) {
 				enchantableItems.push({
 					category: item.itemCategory,
 					slot: item.slot,
@@ -204,7 +206,7 @@ export async function buildEnchanterData(
 	return {
 		enchantableItems,
 		isInventoryEmpty: equipmentCount === 0,
-		hasAtLeastOneEnchantedItem: hasEnchantedItem,
+		disenchantableItems: buildDisenchantableItems(playerInventory, player),
 		unenchantedItemsInOtherSlotCount,
 		enchantmentId,
 		enchantmentCost: enchantment.getEnchantmentCost(isPlayerMage),
