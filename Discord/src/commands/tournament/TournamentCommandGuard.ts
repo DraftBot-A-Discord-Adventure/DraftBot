@@ -8,6 +8,7 @@ import { TournamentConstants } from "../../../../Lib/src/constants/TournamentCon
 import { CrowniclesInteraction } from "../../messages/CrowniclesInteraction";
 import { DiscordMQTT } from "../../bot/DiscordMQTT";
 import { replyTournamentError } from "./TournamentCommandUtils";
+import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 
 // Participant checks are enforced by the Core: the front only filters the commands that make sense in a tournament channel
 const TOURNAMENT_CHANNEL_COMMAND_NAMES = new Set([
@@ -26,7 +27,17 @@ type TournamentChannelCacheEntry = {
 	expiresAt: number;
 };
 
+/*
+ * Every entry shares the same TTL and is re-inserted on refresh, so the insertion order of this map is also its expiry order:
+ * the oldest entries are always at the front
+ */
 const tournamentChannelCache = new Map<string, TournamentChannelCacheEntry>();
+
+// Channels whose state is being fetched from the Core, so concurrent commands in the same channel send a single query
+const pendingChannelRefreshes = new Set<string>();
+
+// Bumped on every clear so a query sent before the clear cannot store an outdated state afterwards
+let cacheGeneration = 0;
 
 export function isAllowedInTournament(commandName: string): boolean {
 	return TOURNAMENT_CHANNEL_COMMAND_NAMES.has(commandName);
@@ -34,6 +45,8 @@ export function isAllowedInTournament(commandName: string): boolean {
 
 export function clearTournamentChannelCache(): void {
 	tournamentChannelCache.clear();
+	pendingChannelRefreshes.clear();
+	cacheGeneration++;
 }
 
 function queryTournamentChannel(context: PacketContext): Promise<boolean | null> {
@@ -53,21 +66,74 @@ function queryTournamentChannel(context: PacketContext): Promise<boolean | null>
 	});
 }
 
-async function isTournamentChannel(interaction: CrowniclesInteraction, context: PacketContext): Promise<boolean> {
-	const cached = tournamentChannelCache.get(interaction.channelId);
-	if (cached && cached.expiresAt > Date.now()) {
-		return cached.active;
+function getCachedTournamentChannelState(channelId: string): boolean | null {
+	const cached = tournamentChannelCache.get(channelId);
+	if (!cached) {
+		return null;
 	}
-	const active = await queryTournamentChannel(context);
-	if (active === null) {
-		// The Core still rejects the commands it handles, so failing open only matters for front-only commands
+	if (cached.expiresAt <= Date.now()) {
+		tournamentChannelCache.delete(channelId);
+		return null;
+	}
+	return cached.active;
+}
+
+function storeTournamentChannelState(channelId: string, active: boolean): void {
+	const now = Date.now();
+	tournamentChannelCache.delete(channelId);
+	for (const [key, entry] of tournamentChannelCache) {
+		if (entry.expiresAt > now && tournamentChannelCache.size < TournamentConstants.CONTEXT_CACHE_MAX_ENTRIES) {
+			break;
+		}
+		tournamentChannelCache.delete(key);
+	}
+	tournamentChannelCache.set(channelId, {
+		active,
+		expiresAt: now + TournamentConstants.CONTEXT_CACHE_TTL_MS
+	});
+}
+
+async function refreshTournamentChannelState(channelId: string, context: PacketContext, generation: number): Promise<void> {
+	try {
+		// The query must run on its own copy: sending it assigns a packetId to the context, which the command packet must not inherit
+		const active = await queryTournamentChannel({ ...context });
+
+		// A failed query is not cached so the next command retries it: the Core still rejects the commands it handles meanwhile
+		if (active !== null && generation === cacheGeneration) {
+			storeTournamentChannelState(channelId, active);
+		}
+	}
+	catch (error) {
+		CrowniclesLogger.errorWithObj("Failed to refresh the tournament state of a channel", error);
+	}
+	finally {
+		if (generation === cacheGeneration) {
+			pendingChannelRefreshes.delete(channelId);
+		}
+	}
+}
+
+function scheduleTournamentChannelRefresh(channelId: string, context: PacketContext): void {
+	if (pendingChannelRefreshes.has(channelId)) {
+		return;
+	}
+	pendingChannelRefreshes.add(channelId);
+	refreshTournamentChannelState(channelId, context, cacheGeneration).then();
+}
+
+/**
+ * Only reads the local cache so the command is never delayed by the Core, whose answer could exceed the delay Discord gives to acknowledge the interaction.
+ * On a cache miss the command goes through and the channel state is fetched in the background for the next commands
+ * @param interaction
+ * @param context
+ */
+function isKnownTournamentChannel(interaction: CrowniclesInteraction, context: PacketContext): boolean {
+	const cached = getCachedTournamentChannelState(interaction.channelId);
+	if (cached === null) {
+		scheduleTournamentChannelRefresh(interaction.channelId, context);
 		return false;
 	}
-	tournamentChannelCache.set(interaction.channelId, {
-		active,
-		expiresAt: Date.now() + TournamentConstants.CONTEXT_CACHE_TTL_MS
-	});
-	return active;
+	return cached;
 }
 
 export async function checkTournamentCommandAccess(
@@ -77,7 +143,7 @@ export async function checkTournamentCommandAccess(
 	if (!interaction.guild || isAllowedInTournament(interaction.commandName)) {
 		return true;
 	}
-	if (!await isTournamentChannel(interaction, context)) {
+	if (!isKnownTournamentChannel(interaction, context)) {
 		return true;
 	}
 	await replyTournamentError(interaction, TournamentErrorCodes.ACCESS_DENIED);

@@ -636,8 +636,7 @@ export class CommandsManager {
 		}
 		const packet = await commandInfo.getPacket(interaction, user);
 		if (packet) {
-			const context = await PacketUtils.createPacketContext(interaction, user);
-			PacketUtils.sendPacketToBackend(context, packet);
+			PacketUtils.sendPacketToBackend(packetContext, packet);
 		}
 	}
 

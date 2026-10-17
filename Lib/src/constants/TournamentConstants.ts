@@ -84,5 +84,8 @@ export abstract class TournamentConstants {
 
 	static readonly CONTEXT_CACHE_TTL_MS = 60_000;
 
+	// Bounds the memory of the Discord tournament channel cache, the oldest entries being evicted first
+	static readonly CONTEXT_CACHE_MAX_ENTRIES = 1000;
+
 	static readonly TOP_ELEMENTS_PER_PAGE = 15;
 }
