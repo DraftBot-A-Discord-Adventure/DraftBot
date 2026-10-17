@@ -130,23 +130,6 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		state.isIgnited = snapshot.isIgnited;
 	}
 
-	/**
-	 * Pick the pre-ignite vs ignited renderer based on the snapshot's
-	 * `isIgnited` flag (authoritative from Core).
-	 */
-	private registerFromSnapshot(
-		ctx: HomeFeatureHandlerContext,
-		nestedMenus: CrowniclesNestedMenus,
-		snapshot: CookingMenuSnapshot
-	): void {
-		if (snapshot.isIgnited) {
-			this.registerIgnitedMenu(ctx, nestedMenus);
-		}
-		else {
-			this.registerCookingMenu(ctx, nestedMenus);
-		}
-	}
-
 	public isAvailable(ctx: HomeFeatureHandlerContext): boolean {
 		return ctx.homeData.features.cookingSlots > 0;
 	}
@@ -323,7 +306,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingMenuRes.name) {
 					const response = responsePacket as CommandReportCookingMenuRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					this.registerCookingMenu(ctx, nestedMenus);
@@ -347,7 +330,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingPinRes.name) {
 					const response = responsePacket as CommandReportCookingPinRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					// Fallback: re-render whatever menu the user was on.
@@ -370,7 +353,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingUnpinRes.name) {
 					const response = responsePacket as CommandReportCookingUnpinRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					this.registerFromCurrentState(ctx, nestedMenus);
@@ -381,8 +364,8 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
-	 * Re-register the menu corresponding to the cached `isIgnited` flag.
-	 * Used only as a fallback when no Res arrives (kept for safety).
+	 * Register the pre-ignite or ignited menu according to the cached `isIgnited` flag,
+	 * which `applySnapshot` keeps aligned with the Core snapshot.
 	 */
 	private registerFromCurrentState(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus): void {
 		if (this.getState(ctx).isIgnited) {
