@@ -40,6 +40,7 @@ import { getStatusData } from "../../core/tournaments/TournamentRanking";
 import { cancelTournament } from "../../core/tournaments/TournamentCancellation";
 import { claimTournamentReward } from "../../core/tournaments/TournamentRewards";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
+import { TournamentCommandAccesses } from "../../core/tournaments/TournamentTypes";
 
 function pushTournamentError(response: CrowniclesPacket[], error: unknown, reason: string): void {
 	if (error instanceof TournamentDomainError) {
@@ -91,7 +92,7 @@ const PLAYER_TOURNAMENT_REQUIREMENTS: CommandRequirements = {
 	level: TournamentConstants.MINIMUM_PLAYER_LEVEL,
 	whereAllowed: CommandUtils.WHERE.EVERYWHERE,
 	disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED_OR_DEAD,
-	tournamentAccess: "status"
+	tournamentAccess: TournamentCommandAccesses.STATUS
 };
 
 export default class TournamentCommand {

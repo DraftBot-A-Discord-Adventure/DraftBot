@@ -24,7 +24,9 @@ vi.mock("../../../src/core/tournaments/TournamentQueries", () => ({
 }));
 
 import { verifyCommandAccess } from "../../../src/core/tournaments/TournamentAccess";
-import { TournamentAccessResults } from "../../../src/core/tournaments/TournamentTypes";
+import {
+	TournamentAccessResults, TournamentCommandAccesses
+} from "../../../src/core/tournaments/TournamentTypes";
 
 const player = { id: 7 } as never;
 const context = {} as never;
@@ -49,7 +51,7 @@ describe("Tournament command access", () => {
 	it("does not restrict commands outside of an active tournament channel", async () => {
 		mocks.findUpToDateTournamentForContext.mockResolvedValue(null);
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "none")).toBe(TournamentAccessResults.ALLOWED);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.NONE)).toBe(TournamentAccessResults.ALLOWED);
 		expect(mocks.findUpToDateTournamentForContext).toHaveBeenCalledWith(context);
 		expect(mocks.processDueTournaments).not.toHaveBeenCalled();
 		expect(response).toHaveLength(0);
@@ -57,27 +59,27 @@ describe("Tournament command access", () => {
 
 	it("does not look for a tournament when the command bypasses tournament restrictions", async () => {
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "bypass")).toBe(TournamentAccessResults.ALLOWED);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.BYPASS)).toBe(TournamentAccessResults.ALLOWED);
 		expect(mocks.findUpToDateTournamentForContext).not.toHaveBeenCalled();
 	});
 
 	it("never processes every tournament when checking a command in a tournament channel", async () => {
 		givenTournament(TournamentStatuses.COMBAT);
-		await verifyCommandAccess(player, context, [] as never, "fight");
+		await verifyCommandAccess(player, context, [] as never, TournamentCommandAccesses.FIGHT);
 		expect(mocks.processDueTournaments).not.toHaveBeenCalled();
 	});
 
 	it("rejects unrelated commands in an active tournament channel", async () => {
 		givenTournament(TournamentStatuses.COMBAT);
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "none")).toBe(TournamentAccessResults.DENIED);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.NONE)).toBe(TournamentAccessResults.DENIED);
 		expect(getErrorCode(response)).toBe(TournamentErrorCodes.ACCESS_DENIED);
 	});
 
 	it("explains that fights have not started yet during registrations", async () => {
 		givenTournament(TournamentStatuses.REGISTRATION);
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "fight")).toBe(TournamentAccessResults.DENIED);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.FIGHT)).toBe(TournamentAccessResults.DENIED);
 		expect(getErrorCode(response)).toBe(TournamentErrorCodes.COMBAT_NOT_STARTED);
 	});
 
@@ -85,14 +87,14 @@ describe("Tournament command access", () => {
 		givenTournament(TournamentStatuses.COMBAT);
 		mocks.getParticipant.mockResolvedValue(null);
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "fight")).toBe(TournamentAccessResults.DENIED);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.FIGHT)).toBe(TournamentAccessResults.DENIED);
 		expect(getErrorCode(response)).toBe(TournamentErrorCodes.NOT_REGISTERED);
 	});
 
 	it("flags participant fights so world requirements are skipped", async () => {
 		givenTournament(TournamentStatuses.COMBAT);
 		const response: unknown[] = [];
-		expect(await verifyCommandAccess(player, context, response as never, "fight")).toBe(TournamentAccessResults.TOURNAMENT_FIGHT);
+		expect(await verifyCommandAccess(player, context, response as never, TournamentCommandAccesses.FIGHT)).toBe(TournamentAccessResults.TOURNAMENT_FIGHT);
 		expect(response).toHaveLength(0);
 	});
 });

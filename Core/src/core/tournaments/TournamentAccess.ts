@@ -9,7 +9,7 @@ import Player from "../database/game/models/Player";
 import { findUpToDateTournamentForContext } from "./TournamentLifecycle";
 import { getParticipant } from "./TournamentQueries";
 import {
-	TournamentAccessResult, TournamentAccessResults, type TournamentCommandAccess
+	TournamentAccessResult, TournamentAccessResults, type TournamentCommandAccess, TournamentCommandAccesses
 } from "./TournamentTypes";
 import Tournament from "../database/game/models/Tournament";
 
@@ -54,14 +54,14 @@ export async function verifyCommandAccess(
 	response: CrowniclesPacket[],
 	access: TournamentCommandAccess
 ): Promise<TournamentAccessResult> {
-	if (access === "bypass") {
+	if (access === TournamentCommandAccesses.BYPASS) {
 		return TournamentAccessResults.ALLOWED;
 	}
 	const tournament = await findUpToDateTournamentForContext(context);
-	if (!tournament || access === "status") {
+	if (!tournament || access === TournamentCommandAccesses.STATUS) {
 		return TournamentAccessResults.ALLOWED;
 	}
-	if (access === "none") {
+	if (access === TournamentCommandAccesses.NONE) {
 		pushError(response, TournamentErrorCodes.ACCESS_DENIED);
 		return TournamentAccessResults.DENIED;
 	}

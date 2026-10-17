@@ -13,6 +13,7 @@ import {
 	commandRequires, CommandUtils
 } from "../../core/utils/CommandUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
+import { TournamentCommandAccesses } from "../../core/tournaments/TournamentTypes";
 
 /**
  * Execute a single test command
@@ -111,7 +112,7 @@ export default class TestCommand {
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
 
 		// Test commands must stay usable in a tournament channel, otherwise fixtures can no longer be cleaned up
-		tournamentAccess: "bypass"
+		tournamentAccess: TournamentCommandAccesses.BYPASS
 	})
 	async execute(response: CrowniclesPacket[], player: Player, packet: CommandTestPacketReq, context: PacketContext): Promise<void> {
 		if (!botConfig.TEST_MODE) {

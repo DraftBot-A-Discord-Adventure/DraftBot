@@ -13,13 +13,14 @@ import {
 import { CommandTournamentTopPacketRes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { findTournamentForContext } from "../../core/tournaments/TournamentQueries";
 import { getTopData } from "../../core/tournaments/TournamentRanking";
+import { TournamentCommandAccesses } from "../../core/tournaments/TournamentTypes";
 
 export default class TopCommand {
 	@commandRequires(CommandTopPacketReq, {
 		notBlocked: false,
 		disallowedEffects: CommandUtils.DISALLOWED_EFFECTS.NOT_STARTED,
 		whereAllowed: CommandUtils.WHERE.EVERYWHERE,
-		tournamentAccess: "status"
+		tournamentAccess: TournamentCommandAccesses.STATUS
 	})
 	static async execute(
 		response: CrowniclesPacket[],

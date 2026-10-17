@@ -20,7 +20,7 @@ import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/req
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { verifyCommandAccess } from "../tournaments/TournamentAccess";
 import {
-	TournamentAccessResults, type TournamentCommandAccess
+	TournamentAccessResults, type TournamentCommandAccess, TournamentCommandAccesses
 } from "../tournaments/TournamentTypes";
 
 export type CommandRequirements = {
@@ -74,7 +74,7 @@ async function runRequirementChecks(
 	response: CrowniclesPacket[],
 	requirements: RequirementsWithoutBlocked
 ): Promise<boolean> {
-	const tournamentAccess = await verifyCommandAccess(player, context, response, requirements.tournamentAccess ?? "none");
+	const tournamentAccess = await verifyCommandAccess(player, context, response, requirements.tournamentAccess ?? TournamentCommandAccesses.NONE);
 	if (tournamentAccess === TournamentAccessResults.DENIED) {
 		return false;
 	}

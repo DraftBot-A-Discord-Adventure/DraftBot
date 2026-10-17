@@ -55,6 +55,7 @@ import {
 	calculateMoneyReward, calculateScoreReward, FightInitiatorInformation, getGameResultFromFight, handlePostFightPetLove
 } from "./FightRewards";
 import { startKingGuardFight } from "./KingGuardFightCommand";
+import { TournamentCommandAccesses } from "../../core/tournaments/TournamentTypes";
 
 /*
  * Map to store the cooldowns of players who have been defenders in ranked fights
@@ -418,7 +419,7 @@ export default class FightCommand {
 		whereAllowed: [WhereAllowed.CONTINENT],
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
 		level: FightConstants.REQUIRED_LEVEL,
-		tournamentAccess: "fight"
+		tournamentAccess: TournamentCommandAccesses.FIGHT
 	})
 	async execute(response: CrowniclesPacket[], player: Player, _packet: CommandFightPacketReq, context: PacketContext): Promise<void> {
 		const tournament = await findTournamentForContext(context, false);

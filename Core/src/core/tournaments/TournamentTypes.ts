@@ -1,6 +1,20 @@
 import type { TournamentCategory } from "../../../../Lib/src/types/Tournament";
 
-export type TournamentCommandAccess = "none" | "fight" | "status" | "bypass";
+export const TournamentCommandAccesses = {
+	// The command cannot be used in a tournament channel
+	NONE: "none",
+
+	// The command starts a tournament fight in a tournament channel
+	FIGHT: "fight",
+
+	// The command is always allowed, in a tournament channel it shows the tournament state
+	STATUS: "status",
+
+	// The command is always allowed and skips the tournament checks
+	BYPASS: "bypass"
+} as const;
+
+export type TournamentCommandAccess = typeof TournamentCommandAccesses[keyof typeof TournamentCommandAccesses];
 
 export const TournamentAccessResults = {
 	DENIED: "denied",
