@@ -230,12 +230,13 @@ export abstract class TravelTime {
 	 * @param date
 	 */
 	static getCityStayTimeUnderEffect(player: Player, date: Date): Millisecond {
-		if (!player.insideCity || !player.cityArrivalDate || !player.effectEndDate) {
+		const cityArrivalDate = player.insideCity ? player.cityArrivalDate : null;
+		if (!cityArrivalDate || !player.effectEndDate) {
 			return asMilliseconds(0);
 		}
 		const effectEndTime = player.effectEndDate.valueOf();
 		const effectStartTime = effectEndTime - minutesToMilliseconds(asMinutes(player.effectDuration));
-		const overlapStart = Math.max(effectStartTime, player.cityArrivalDate.valueOf());
+		const overlapStart = Math.max(effectStartTime, cityArrivalDate.valueOf());
 		const overlapEnd = Math.min(effectEndTime, date.valueOf());
 		return asMilliseconds(Math.max(overlapEnd - overlapStart, 0));
 	}
