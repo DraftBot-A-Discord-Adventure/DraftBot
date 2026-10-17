@@ -7,9 +7,13 @@ import {
 } from "../../../../Lib/src/types/Tournament";
 import { ItemRarity } from "../../../../Lib/src/constants/ItemConstants";
 import {
-	getCategoryForLevel, getEffectiveLevel, getRankRewardFactor, getRewardMultiplier,
+	asHours, hoursToMilliseconds
+} from "../../../../Lib/src/utils/TimeUtils";
+import {
+	getCategoryForLevel, getEffectiveLevel, getEndingNotificationDate, getRankRewardFactor, getRewardMultiplier,
 	getTournamentRewardAmounts, getTournamentRewardItemMinimumRarity
 } from "../../../src/core/tournaments/TournamentRules";
+import type Tournament from "../../../src/core/database/game/models/Tournament";
 
 describe("Tournament rules", () => {
 	it("assigns the expected category at each level boundary", () => {
@@ -92,5 +96,25 @@ describe("Tournament rules", () => {
 			money: 11500,
 			itemCount: 1
 		});
+	});
+
+	it("sends the ending notification during the second half of a one day combat phase", () => {
+		const registrationEndsAt = new Date("2026-01-01T00:00:00Z");
+		const combatEndsAt = new Date("2026-01-02T00:00:00Z");
+		const endingDate = getEndingNotificationDate({
+			registrationEndsAt,
+			combatEndsAt
+		} as Tournament);
+		expect(endingDate).toEqual(new Date("2026-01-01T12:00:00Z"));
+		expect(endingDate.getTime()).toBeGreaterThan(registrationEndsAt.getTime());
+	});
+
+	it("sends the ending notification the configured lead before the end of a longer combat phase", () => {
+		const endingDate = getEndingNotificationDate({
+			registrationEndsAt: new Date("2026-01-01T00:00:00Z"),
+			combatEndsAt: new Date("2026-01-04T00:00:00Z")
+		} as Tournament);
+		expect(endingDate).toEqual(new Date(new Date("2026-01-04T00:00:00Z").getTime()
+			- hoursToMilliseconds(asHours(TournamentConstants.ENDING_NOTIFICATION_LEAD_HOURS))));
 	});
 });
