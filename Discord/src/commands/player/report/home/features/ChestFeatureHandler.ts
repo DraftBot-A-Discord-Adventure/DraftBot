@@ -217,6 +217,13 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
+	 * Display an item with its stats, without the stat caps irrelevant to storage.
+	 */
+	private formatChestItem(details: ItemWithDetails, category: ItemCategory, lng: Language): string {
+		return DisplayUtils.getItemDisplayWithStats(DisplayUtils.withUnlimitedMaxValue(details, category), lng);
+	}
+
+	/**
 	 * Build a button for an item action (deposit/withdraw/swap).
 	 */
 	private buildItemButton(params: {
@@ -252,8 +259,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 				break;
 			}
 
-			const details = DisplayUtils.withUnlimitedMaxValue(item.details, params.category);
-			const itemDisplay = DisplayUtils.getItemDisplayWithStats(details, params.lng);
+			const itemDisplay = this.formatChestItem(item.details, params.category, params.lng);
 			description += `\n${CrowniclesIcons.choiceEmotes[emoteIndex]} - ${itemDisplay}`;
 
 			const button = this.buildItemButton({
@@ -551,7 +557,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 	): string {
 		const lines = chestItems.map(item => `\n${i18n.t("commands:report.city.homes.chest.chestContentLine", {
 			lng: ctx.lng,
-			item: DisplayUtils.getItemDisplayWithStats(DisplayUtils.withUnlimitedMaxValue(item.details, catInfo.category), ctx.lng)
+			item: this.formatChestItem(item.details, catInfo.category, ctx.lng)
 		})}`);
 		return `\n\n${i18n.t("commands:report.city.homes.chest.chestContentSection", { lng: ctx.lng })}${lines.join("")}`;
 	}
@@ -669,7 +675,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 		let description = i18n.t("commands:report.city.homes.chest.swapHeader", {
 			lng: ctx.lng,
 			item: selectedItem
-				? DisplayUtils.getItemDisplayWithStats(DisplayUtils.withUnlimitedMaxValue(selectedItem.details, catInfo.category), ctx.lng)
+				? this.formatChestItem(selectedItem.details, catInfo.category, ctx.lng)
 				: "?"
 		});
 		description += "\n";
@@ -679,8 +685,7 @@ export class ChestFeatureHandler implements HomeFeatureHandler {
 		// Build swap target buttons using helper
 		for (let j = 0; j < categoryChestItems.length && j < CrowniclesIcons.choiceEmotes.length; j++) {
 			const chestItem = categoryChestItems[j];
-			const details = DisplayUtils.withUnlimitedMaxValue(chestItem.details, catInfo.category);
-			description += `\n${CrowniclesIcons.choiceEmotes[j]} - ${DisplayUtils.getItemDisplayWithStats(details, ctx.lng)}`;
+			description += `\n${CrowniclesIcons.choiceEmotes[j]} - ${this.formatChestItem(chestItem.details, catInfo.category, ctx.lng)}`;
 
 			const button = this.buildItemButton({
 				emoteIndex: j,
