@@ -106,119 +106,129 @@ export abstract class PVEConstants {
 	static readonly BOSS_LOOT_TABLES: Record<number, readonly number[]> = {
 		// Island 1 - Tropical
 		1001: [
-			52,
-			40,
-			45,
-			8,
 			58,
+			51,
+			59,
+			55,
 			2,
-			51
-		], // Forest: nature + wood + rope
+			66,
+			40,
+			31,
+			18
+		], // Forest (Forest Troll, Slimy Mutant): wood + nature + mushrooms
 		1002: [
 			14,
 			7,
+			20,
 			24,
 			13,
 			29,
-			22,
-			81
-		], // Ruins: metal + alloy + leather
+			81,
+			16
+		], // Ruins (Skeleton): old metal + alloy + cloth + leather
 		1003: [
 			70,
-			1,
-			50,
 			21,
-			39,
+			1,
+			44,
+			90,
+			23,
 			4,
-			16,
-			44
-		], // Mine: metal + explosive
+			75
+		], // Mine (Spider): ore + explosive + spider silk
 		1004: [
 			70,
 			24,
-			29,
-			63,
+			54,
+			90,
 			41,
-			11,
-			42
-		], // Mountain: metal + leather + nature
-		1005: [
-			35,
-			1,
-			21,
-			80,
-			82,
-			56,
+			67,
 			86,
-			65
-		], // Volcano (final): explosive + magic + metal
+			5
+		], // Mountain (Rock Golem): ore + gems + mountain plants
+		1005: [
+			82,
+			35,
+			21,
+			23,
+			44,
+			86,
+			62,
+			56
+		], // Volcano (Magma Titan, final): fire + explosive + volcanic metal
 		// Island 2 - Ice
 		1101: [
 			54,
-			25,
-			55,
-			12,
-			15,
 			48,
-			26
-		], // Tundra: nature + leather + rope
+			42,
+			29,
+			26,
+			11,
+			12
+		], // Tundra (White Wolf): hides + moss + rope
 		1102: [
-			53,
-			89,
-			30,
-			71,
-			5,
-			67,
-			69,
-			34
-		], // Crystal Cavern: magic + spiritual
-		1103: [
-			72,
-			89,
-			60,
-			73,
-			33,
-			62,
-			61
-		], // Blessed Doors: spiritual + magic
-		1104: [
-			50,
-			70,
-			23,
-			90,
-			79,
-			85,
-			87
-		], // Ice Peak: metal + nature
-		1105: [
-			40,
-			55,
-			32,
-			28,
-			68,
-			36,
-			3
-		], // Underground Lake: nature + poison
-		1106: [
-			7,
-			20,
-			9,
-			75,
-			43,
-			27,
-			31
-		], // Ruins: alloy + leather + wood
-		1107: [
-			35,
-			1,
-			80,
-			39,
-			76,
 			77,
-			56,
-			6,
-			46
-		], // Dragon's Nest (final): magic + explosive
+			34,
+			89,
+			33,
+			53,
+			80,
+			5,
+			69,
+			67
+		], // Crystal Cavern (Shiny Elementary): crystals + magic
+		1103: [
+			89,
+			73,
+			68,
+			60,
+			30,
+			80,
+			72,
+			61,
+			19
+		], // Blessed Doors (Celestial Guardian): spiritual + celestial
+		1104: [
+			70,
+			24,
+			77,
+			90,
+			53,
+			76,
+			4,
+			87
+		], // Ice Peak (Ice Lord): dragon scale + mountain ore + rare flower
+		1105: [
+			55,
+			54,
+			68,
+			78,
+			66,
+			27,
+			36,
+			40
+		], // Underground Lake (Crocodile): crocodile hide + reptile skin + mushrooms
+		1106: [
+			20,
+			7,
+			43,
+			9,
+			88,
+			75,
+			18,
+			84
+		], // Devastated Village (Yuki-Onna): wood + silk + old alloy
+		1107: [
+			77,
+			34,
+			68,
+			53,
+			80,
+			78,
+			76,
+			69,
+			67
+		], // Ice Nest (Ice Queen, final): dragon scale + magic + dragon hoard
 
 		// Island 3 - Oceanic
 		1201: [
@@ -226,65 +236,61 @@ export abstract class PVEConstants {
 			54,
 			8,
 			78,
-			11,
-			27,
-			67
-		], // Lagoon Hollow (Turtle): water + leather/shell + coral
+			38,
+			67,
+			84
+		], // Lagoon Hollow (Turtle): water + algae + reptile skin + pearls + driftwood
 		1202: [
 			68,
-			35,
 			77,
+			34,
 			33,
 			53,
-			80,
 			5,
 			69
-		], // Maritime Cavern (Water Spirit): magic + spiritual + crystals
+		], // Maritime Cavern (Water Spirit): water magic + crystals
 		1203: [
 			21,
 			14,
 			25,
+			43,
 			44,
 			81,
 			47,
 			35,
 			56,
-			75
-		], // Revenant's Cove (Captain Crow): explosive + metal + rope + spectral
+			12
+		], // Revenant's Cove (Captain Crow): gunpowder + metal + ship ropes + treasure + will-o'-the-wisps
 		1204: [
-			89,
 			68,
-			30,
-			60,
+			77,
+			89,
+			53,
 			78,
 			33,
-			53,
-			76,
-			75
-		], // Whispering Cave (Mermaid): spiritual + magic + scales/silk
-		1205: [
-			47,
-			78,
-			50,
-			49,
-			38,
-			27,
-			28,
-			86,
 			67,
-			11
-		], // Depths Chasm (Kraken): leather/tentacles + alloy + ink + abyssal pressure
+			75
+		], // Whispering Cave (Mermaid): spiritual + magic + scales + pearls + silk
+		1205: [
+			20,
+			14,
+			47,
+			49,
+			78,
+			38,
+			28,
+			57,
+			67
+		], // Depths Chasm (Kraken): shipwreck ropes + tentacle skin + toxins + abyssal oil
 		1206: [
 			34,
 			68,
-			35,
-			80,
-			74,
-			22,
+			77,
+			33,
+			53,
 			76,
-			62,
-			69,
-			87
-		] // Abyssal Ravine (Leviathan): magic + primordial scales + electric
+			87,
+			3
+		] // Abyssal Ravine (Leviathan): primordial magic + scales + abyssal life
 	};
 }

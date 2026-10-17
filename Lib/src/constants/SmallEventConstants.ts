@@ -567,7 +567,8 @@ export abstract class SmallEventConstants {
 			desert: [
 				MaterialType.POISON,
 				MaterialType.EXPLOSIVE,
-				MaterialType.SPIRITUAL
+				MaterialType.SPIRITUAL,
+				MaterialType.NATURE
 			],
 			swamp: [
 				MaterialType.POISON,

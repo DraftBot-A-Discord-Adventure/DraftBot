@@ -4,7 +4,9 @@ import { MapLinkDataController } from "./MapLink";
 import Player from "../core/database/game/models/Player";
 import { Data } from "./Data";
 import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
-import { ExpeditionLocationType } from "../../../Lib/src/constants/ExpeditionConstants";
+import {
+	ExpeditionConstants, ExpeditionLocationType
+} from "../../../Lib/src/constants/ExpeditionConstants";
 
 export class MapLocation extends Data<number> {
 	declare readonly type: string;
@@ -25,6 +27,14 @@ export class MapLocation extends Data<number> {
 	 */
 	declare readonly expeditionType?: ExpeditionLocationType;
 
+	/**
+	 * Get the biome of this map location: the explicit expedition type override if any, otherwise the one derived from the map type
+	 */
+	public getExpeditionLocationType(): ExpeditionLocationType {
+		return this.expeditionType
+			?? ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE[this.type]
+			?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
+	}
 
 	/**
 	 * Count all players that have the given map as their current map of origin

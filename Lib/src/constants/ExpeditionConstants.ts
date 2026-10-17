@@ -108,11 +108,6 @@ export abstract class ExpeditionConstants {
 	static readonly DEFAULT_MAP_LOCATION_ID = 1;
 
 	/**
-	 * Default map type code when not specified
-	 */
-	static readonly DEFAULT_MAP_TYPE = MapLocationConstants.TYPES.ROAD;
-
-	/**
 	 * Number of local expeditions generated (based on player's current map link)
 	 */
 	static readonly LOCAL_EXPEDITIONS_COUNT = 2;
@@ -149,7 +144,24 @@ export abstract class ExpeditionConstants {
 		[MapLocationConstants.TYPES.CITY]: "cave",
 		[MapLocationConstants.TYPES.CASTLE_ENTRANCE]: "ruins",
 		[MapLocationConstants.TYPES.CASTLE_THRONE]: "ruins",
-		[MapLocationConstants.TYPES.CONTINENT]: "plains"
+		[MapLocationConstants.TYPES.CONTINENT]: "plains",
+		[MapLocationConstants.TYPES.MISTY_PATH]: "forest",
+		[MapLocationConstants.TYPES.HAUNTED_HOUSE]: "ruins",
+		[MapLocationConstants.TYPES.PVE_EXIT]: "coast",
+
+		// PVE islands
+		[MapLocationConstants.TYPES.MINE]: "cave",
+		[MapLocationConstants.TYPES.VOLCANO]: "cave",
+		[MapLocationConstants.TYPES.ICE_BEACH]: "coast",
+		[MapLocationConstants.TYPES.TUNDRA]: "plains",
+		[MapLocationConstants.TYPES.CRYSTAL_CAVERN]: "ruins",
+		[MapLocationConstants.TYPES.BLESSED_DOORS]: "ruins",
+		[MapLocationConstants.TYPES.ICE_PEAK]: "mountain",
+		[MapLocationConstants.TYPES.UNDERGROUND_LAKE]: "swamp",
+		[MapLocationConstants.TYPES.DRAGONS_NEST]: "ruins",
+		[MapLocationConstants.TYPES.CAVERN]: "ruins",
+		[MapLocationConstants.TYPES.CREEK]: "coast",
+		[MapLocationConstants.TYPES.ABYSS]: "swamp"
 	};
 
 	/**
@@ -574,73 +586,97 @@ export abstract class ExpeditionConstants {
 
 	/**
 	 * Material loot tables by location type
-	 * Each location has 6 materials with a mix of rarities
-	 * Prioritizes materials not obtainable from boss loot
+	 * Each table only contains materials whose type belongs to SmallEventConstants.FIND_MATERIAL.BIOME_MATERIAL_TYPES of the same biome
 	 */
 	static readonly EXPEDITION_LOOT_TABLES: Record<(typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES)[keyof typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES], readonly number[]> = {
 		forest: [
-			14,
-			20,
+			58,
+			51,
+			64,
+			59,
+			9,
+			88,
 			29,
-			45,
-			6,
+			18,
 			40
 		],
 		mountain: [
-			32,
-			34,
-			44,
-			47,
-			11,
-			31
+			70,
+			24,
+			14,
+			79,
+			90,
+			13,
+			85,
+			4,
+			86,
+			22
 		],
 		desert: [
-			54,
-			55,
-			49,
-			50,
-			61,
+			82,
+			1,
+			73,
+			15,
+			17,
+			74,
+			60,
+			28,
+			72,
 			65
 		],
 		swamp: [
-			63,
-			64,
-			53,
-			60,
-			67,
-			72
+			10,
+			32,
+			55,
+			54,
+			66,
+			8,
+			47,
+			36,
+			19
 		],
 		ruins: [
-			77,
-			79,
-			66,
+			7,
+			43,
+			34,
+			89,
 			71,
-			75,
-			76
+			53,
+			61,
+			5
 		],
 		cave: [
+			21,
 			82,
-			89,
-			74,
-			78,
-			83,
-			84
+			70,
+			23,
+			50,
+			46,
+			6,
+			39,
+			67
 		],
 		plains: [
-			35,
+			52,
+			25,
+			48,
 			42,
-			80,
-			81,
-			85,
-			86
+			63,
+			26,
+			45,
+			41,
+			11,
+			83
 		],
 		coast: [
-			52,
-			58,
-			70,
-			2,
-			88,
-			90
+			20,
+			37,
+			54,
+			47,
+			49,
+			8,
+			57,
+			12
 		]
 	};
 
