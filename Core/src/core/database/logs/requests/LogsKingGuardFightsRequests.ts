@@ -51,6 +51,19 @@ export abstract class LogsKingGuardFightsRequests {
 	}
 
 	/**
+	 * Get the last king guard fights of a player, most recent first
+	 * @param logPlayerId - The id of the player in the logs database
+	 * @param count - The number of fights to get
+	 */
+	static async getLastFightsOfPlayer(logPlayerId: number, count: number): Promise<LogsKingGuardFightsResults[]> {
+		return await LogsKingGuardFightsResults.findAll({
+			where: { playerId: logPlayerId },
+			order: [["date", "DESC"], ["id", "DESC"]],
+			limit: count
+		});
+	}
+
+	/**
 	 * Get the king guard fights played today by a player
 	 * @param playerKeycloakId
 	 */

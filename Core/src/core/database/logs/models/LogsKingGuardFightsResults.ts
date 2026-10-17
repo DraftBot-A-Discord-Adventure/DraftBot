@@ -2,6 +2,14 @@ import {
 	DataTypes, Model, Sequelize
 } from "sequelize";
 
+export const KING_GUARD_FIGHT_WINNER = {
+	DRAW: 0,
+	PLAYER: 1,
+	GUARD: 2
+} as const;
+
+export type KingGuardFightWinner = typeof KING_GUARD_FIGHT_WINNER[keyof typeof KING_GUARD_FIGHT_WINNER];
+
 export class LogsKingGuardFightsResults extends Model {
 	declare readonly id: number;
 
@@ -15,7 +23,7 @@ export class LogsKingGuardFightsResults extends Model {
 
 	declare readonly turn: number;
 
-	declare readonly winner: number;
+	declare readonly winner: KingGuardFightWinner;
 
 	declare readonly date: number;
 }

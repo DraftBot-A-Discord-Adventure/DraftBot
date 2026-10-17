@@ -105,7 +105,9 @@ import { PlayerFighter } from "../../fights/fighter/PlayerFighter";
 import { PlayerBaseFighter } from "../../fights/fighter/PlayerBaseFighter";
 import { MonsterFighter } from "../../fights/fighter/MonsterFighter";
 import type { KingGuardFighter } from "../../fights/fighter/KingGuardFighter";
-import { LogsKingGuardFightsResults } from "./models/LogsKingGuardFightsResults";
+import {
+	KING_GUARD_FIGHT_WINNER, LogsKingGuardFightsResults
+} from "./models/LogsKingGuardFightsResults";
 import { Effect } from "../../../../../Lib/src/types/Effect";
 import { getDatabaseConfiguration } from "../../bot/CrowniclesConfig";
 import { botConfig } from "../../../bootstrap";
@@ -1389,7 +1391,9 @@ export class LogsDatabase extends Database {
 			guardClassId: guard.player.class,
 			guardLevel: guard.level,
 			turn: fight.turn,
-			winner: fight.isADraw() ? 0 : fight.getWinnerFighter() === player ? 1 : 2,
+			winner: fight.isADraw()
+				? KING_GUARD_FIGHT_WINNER.DRAW
+				: fight.getWinnerFighter() === player ? KING_GUARD_FIGHT_WINNER.PLAYER : KING_GUARD_FIGHT_WINNER.GUARD,
 			date: getDateLogs()
 		});
 	}
