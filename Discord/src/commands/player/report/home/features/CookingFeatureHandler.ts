@@ -75,6 +75,16 @@ interface CookingSessionState {
 	pinnedRecipe?: PinnedRecipeInfo;
 }
 
+/**
+ * Notice displayed under the header of the ignited furnace
+ */
+interface CookingIgnitedNotice {
+	text: string;
+
+	// Separate the notice from the header with a blank line instead of a single line break
+	asParagraph?: boolean;
+}
+
 interface CookingCraftSelection {
 	slotIndex: number;
 	recipeId: CookingRecipeId;
@@ -127,17 +137,13 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	private registerFromSnapshot(
 		ctx: HomeFeatureHandlerContext,
 		nestedMenus: CrowniclesNestedMenus,
-		snapshot: CookingMenuSnapshot,
-		extraMessage = ""
+		snapshot: CookingMenuSnapshot
 	): void {
 		if (snapshot.isIgnited) {
-			this.registerIgnitedMenu(ctx, nestedMenus, extraMessage);
+			this.registerIgnitedMenu(ctx, nestedMenus);
 		}
 		else {
-			nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-				containers: [this.buildCookingContainer(ctx, extraMessage)],
-				createCollector: this.createCookingCollector(ctx)
-			});
+			this.registerCookingMenu(ctx, nestedMenus);
 		}
 	}
 
@@ -417,12 +423,14 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	private buildWoodConsumedMessage(
 		response: CommandReportCookingIgniteRes | CommandReportCookingReviveRes,
 		ctx: HomeFeatureHandlerContext
-	): string {
+	): CookingIgnitedNotice {
 		const key = response.woodConsumed ? "woodConsumed" : "woodSaved";
-		return `\n${i18n.t(`commands:report.city.homes.cooking.${key}`, {
-			lng: ctx.lng,
-			woodId: response.woodMaterialId
-		})}`;
+		return {
+			text: i18n.t(`commands:report.city.homes.cooking.${key}`, {
+				lng: ctx.lng,
+				woodId: response.woodMaterialId
+			})
+		};
 	}
 
 	/**
@@ -557,8 +565,8 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Register the ignited furnace menu with slot recipes using Components V2
 	 */
-	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, extraMessage = "", allDisabled = false): void {
-		const container = this.buildIgnitedContainer(ctx, extraMessage, allDisabled);
+	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingIgnitedNotice, allDisabled = false): void {
+		const container = this.buildIgnitedContainer(ctx, notice, allDisabled);
 
 		nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
 			containers: [container],
@@ -567,9 +575,22 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
+	 * Build the ignited furnace header text, followed by the notice if any
+	 */
+	private buildIgnitedHeader(ctx: HomeFeatureHandlerContext, notice: CookingIgnitedNotice | undefined): string {
+		const description = this.buildIgnitedDescription(ctx);
+		if (!notice) {
+			return description;
+		}
+		return notice.asParagraph
+			? StringUtils.joinParagraphs([description, notice.text])
+			: StringUtils.joinLines([description, notice.text]);
+	}
+
+	/**
 	 * Build the V2 container for the ignited furnace
 	 */
-	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, extraMessage: string, allDisabled = false): ContainerBuilder {
+	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, notice: CookingIgnitedNotice | undefined, allDisabled = false): ContainerBuilder {
 		const container = new ContainerBuilder();
 
 		// Title
@@ -579,13 +600,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			)
 		);
 
-		// Furnace uses remaining + extra message
-		let headerText = this.buildIgnitedDescription(ctx);
-		if (extraMessage) {
-			headerText += extraMessage;
-		}
+		// Furnace uses remaining + notice
 		container.addTextDisplayComponents(
-			new TextDisplayBuilder().setContent(headerText)
+			new TextDisplayBuilder().setContent(this.buildIgnitedHeader(ctx, notice))
 		);
 
 		// Build slot sections
@@ -781,13 +798,16 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			makePacket(reqPacket, {}),
 			async (_responseContext, packetName, responsePacket) => {
 				if (packetName === CommandReportCookingNoWoodRes.name) {
-					const noWoodMessage = `\n\n${i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng })}`;
+					const noWoodMessage = i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng });
 					if (isRevive) {
-						this.registerIgnitedMenu(ctx, nestedMenus, noWoodMessage);
+						this.registerIgnitedMenu(ctx, nestedMenus, {
+							text: noWoodMessage,
+							asParagraph: true
+						});
 					}
 					else {
 						nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-							containers: [this.buildCookingContainer(ctx, noWoodMessage)],
+							containers: [this.buildCookingContainer(ctx, `\n\n${noWoodMessage}`)],
 							createCollector: this.createCookingCollector(ctx)
 						});
 					}
@@ -902,7 +922,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		craftResult: string,
 		levelUpEmbed?: CrowniclesEmbed
 	): Promise<void> {
-		this.registerIgnitedMenu(ctx, nestedMenus, "", true);
+		this.registerIgnitedMenu(ctx, nestedMenus, undefined, true);
 		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 
 		const message = nestedMenus.message;
@@ -932,7 +952,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	 */
 	private async showBlockedCraft(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, error: CookingCraftError): Promise<void> {
 		// CookingCraftError values are themselves the i18n key suffixes
-		this.registerIgnitedMenu(ctx, nestedMenus, `\n${i18n.t(`commands:report.city.homes.cooking.${error}`, { lng: ctx.lng })}`);
+		this.registerIgnitedMenu(ctx, nestedMenus, { text: i18n.t(`commands:report.city.homes.cooking.${error}`, { lng: ctx.lng }) });
 		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 	}
 
@@ -946,7 +966,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		answer: CookingCraftAnswer
 	): Promise<void> {
 		await DiscordMQTT.packetListener.getListener(answer.packetName)?.(answer.context, answer.packet);
-		this.registerIgnitedMenu(ctx, nestedMenus, "", true);
+		this.registerIgnitedMenu(ctx, nestedMenus, undefined, true);
 		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 		this.releaseCookingSession(ctx);
 	}
