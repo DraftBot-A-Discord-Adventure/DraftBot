@@ -328,7 +328,7 @@ interface MatchupCsvRowInput {
 
 export const commandInfo: ITestCommand = {
 	name: "aitournament",
-	aliases: ["ait", "tournament"],
+	aliases: ["ait"],
 	commandFormat: "[fightsPerPair:3-10000] [showDetails:true/false]",
 	typeWaited: {
 		fightsPerPair: TypeKey.INTEGER,
