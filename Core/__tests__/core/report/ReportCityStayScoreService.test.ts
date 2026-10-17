@@ -8,11 +8,17 @@ import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 const ONE_MINUTE_MS = 60_000;
 const NOW = new Date(Date.UTC(2026, 9, 17, 12));
 
-function createPlayer(insideCity: boolean, cityArrivalDate: Date | null): Player {
+type PlayerEffect = {
+	effectEndDate: Date;
+	effectDuration: number;
+};
+
+function createPlayer(insideCity: boolean, cityArrivalDate: Date | null, effect?: PlayerEffect): Player {
 	const player = Object.create(Player.prototype) as Player;
 	Object.assign(player, {
 		insideCity,
-		cityArrivalDate
+		cityArrivalDate,
+		...effect
 	});
 	return player;
 }
@@ -42,5 +48,32 @@ describe("getRewardedCityStayMinutes", () => {
 
 	it("rewards nothing for an arrival recorded in the future", () => {
 		expect(getRewardedCityStayMinutes(createPlayer(true, minutesBeforeNow(-10)), NOW)).toBe(0);
+	});
+
+	it("does not reward the time spent under an effect taken on arrival", () => {
+		const player = createPlayer(true, minutesBeforeNow(95), {
+			effectEndDate: minutesBeforeNow(35),
+			effectDuration: 60
+		});
+
+		expect(getRewardedCityStayMinutes(player, NOW)).toBe(35);
+	});
+
+	it("does not reward the elapsed part of an effect still running", () => {
+		const player = createPlayer(true, minutesBeforeNow(95), {
+			effectEndDate: minutesBeforeNow(-30),
+			effectDuration: 120
+		});
+
+		expect(getRewardedCityStayMinutes(player, NOW)).toBe(5);
+	});
+
+	it("rewards the whole stay when the effect ended before the arrival", () => {
+		const player = createPlayer(true, minutesBeforeNow(95), {
+			effectEndDate: minutesBeforeNow(100),
+			effectDuration: 60
+		});
+
+		expect(getRewardedCityStayMinutes(player, NOW)).toBe(95);
 	});
 });
