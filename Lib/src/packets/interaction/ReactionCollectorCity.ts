@@ -491,6 +491,10 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 
 export type EnchanterCityData = NonNullable<ReactionCollectorCityData["enchanter"]>;
 
+export type UpgradeStationData = NonNullable<NonNullable<ReactionCollectorCityData["home"]["owned"]>["upgradeStation"]>;
+
+export type UpgradeStationItem = UpgradeStationData["upgradeableItems"][number];
+
 export class ReactionCollectorExitCityReaction extends ReactionCollectorReaction {}
 
 export class ReactionCollectorInnMealReaction extends ReactionCollectorReaction {

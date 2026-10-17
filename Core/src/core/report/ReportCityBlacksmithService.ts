@@ -5,7 +5,9 @@ import {
 	ReactionCollectorCityData,
 	ReactionCollectorUpgradeItemReaction,
 	ReactionCollectorBlacksmithUpgradeReaction,
-	ReactionCollectorBlacksmithDisenchantReaction
+	ReactionCollectorBlacksmithDisenchantReaction,
+	UpgradeStationData,
+	UpgradeStationItem
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {
 	CrowniclesPacket, makePacket
@@ -49,10 +51,6 @@ export interface UpgradeItemValidationResult {
 type PlayerInventorySlot = Awaited<ReturnType<typeof InventorySlots.getOfPlayer>>[number];
 
 type InventoryMaterialStock = Map<number, number>;
-
-type UpgradeStationData = NonNullable<NonNullable<ReactionCollectorCityData["home"]["owned"]>["upgradeStation"]>;
-
-type UpgradeStationItem = UpgradeStationData["upgradeableItems"][number];
 
 type BlacksmithUpgradeItem = NonNullable<ReactionCollectorCityData["blacksmith"]>["upgradeableItems"][number];
 
