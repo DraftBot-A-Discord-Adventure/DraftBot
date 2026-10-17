@@ -55,10 +55,11 @@ export abstract class RandomUtils {
 	 */
 	public static weightedPick = <T>(values: readonly T[], weightOf: (value: T) => number): T => {
 		let roll = RandomUtils.crowniclesRandom.real(0, values.reduce((total, value) => total + weightOf(value), 0));
-		return values.find(value => {
+		const pickedIndex = values.findIndex(value => {
 			roll -= weightOf(value);
 			return roll < 0;
-		}) ?? values[values.length - 1];
+		});
+		return values[pickedIndex === -1 ? values.length - 1 : pickedIndex];
 	};
 
 	/**
