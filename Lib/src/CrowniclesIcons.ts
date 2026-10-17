@@ -1101,9 +1101,9 @@ export const CrowniclesIcons: {
 		be: "🏖️",
 		castleEntrance: "🏰",
 		castleThrone: "🪑",
-		cavern: "🪨",
+		cavern: "🌊",
 		ci: "🏘️",
-		continent: "🏞️",
+		continent: "🗺️",
 		creek: "🌅",
 		crystalCavern: "💎",
 		de: "🏜️",
@@ -1126,7 +1126,7 @@ export const CrowniclesIcons: {
 		undergroundLake: "💧",
 		dragonsNest: "🪹",
 		mistyPath: "🌫️",
-		hauntedHouse: "🏚️"
+		hauntedHouse: "👻"
 	},
 	smallEvents: {
 		advanceTime: "⌛",

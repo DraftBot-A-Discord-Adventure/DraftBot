@@ -26,6 +26,7 @@ import {
 	ReactionCollectorCityData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { WeaponDataController } from "../../data/Weapon";
+import { MapLocationDataController } from "../../data/MapLocation";
 import { ArmorDataController } from "../../data/Armor";
 import { Material } from "../../data/Material";
 
@@ -235,7 +236,8 @@ export async function buildAvailableEnchanterData(
 	const nextCityId = await Settings.NEXT_ENCHANTER_CITY.getValue();
 	const nextCity = CityDataController.instance.getById(nextCityId);
 	const nextCityMapLocationId = nextCity?.maps[0];
-	if (!nextEnchantment || nextCityMapLocationId === undefined) {
+	const nextCityMapLocation = nextCityMapLocationId === undefined ? undefined : MapLocationDataController.instance.getById(nextCityMapLocationId);
+	if (!nextEnchantment || !nextCityMapLocation) {
 		CrowniclesLogger.error("Invalid next enchanter setting. Cannot display Mernil's next destination.", {
 			nextCityId,
 			nextEnchantmentId
@@ -246,10 +248,11 @@ export async function buildAvailableEnchanterData(
 		enchantment,
 		enchantmentId,
 		isPlayerMage: playerData.player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE,
-		...nextEnchantment && nextCityMapLocationId !== undefined
+		...nextEnchantment && nextCityMapLocation
 			? {
 				tomorrow: {
-					cityMapLocationId: nextCityMapLocationId,
+					cityMapLocationId: nextCityMapLocation.id,
+					cityMapTypeId: nextCityMapLocation.type,
 					enchantmentId: nextEnchantmentId,
 					enchantmentType: nextEnchantment.kind.type.id
 				}

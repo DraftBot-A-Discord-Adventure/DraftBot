@@ -1,6 +1,8 @@
 {
   "type": "tundra",
-  "biome": "plains",
+  "biomes": [
+    "plains"
+  ],
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

@@ -1,6 +1,8 @@
 {
   "type": "hauntedHouse",
-  "biome": "ruins",
+  "biomes": [
+    "ruins"
+  ],
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "haunted"
 }

@@ -1,6 +1,9 @@
 {
   "type": "de",
-  "biome": "desert",
+  "biomes": [
+    "desert",
+    "ruins"
+  ],
   "tags": [
     "detALa"
   ],

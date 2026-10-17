@@ -1,6 +1,8 @@
 {
   "type": "ci",
-  "biome": "cave",
+  "biomes": [
+    "plains"
+  ],
   "tags": [
     "detALa"
   ],

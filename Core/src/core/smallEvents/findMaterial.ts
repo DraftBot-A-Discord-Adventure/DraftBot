@@ -16,10 +16,10 @@ import { Player } from "../database/game/models/Player";
 import { updateCollectMaterialsMission } from "../utils/MaterialLootUtils";
 
 /**
- * Get the biome of a map location, falling back to the plains biome when the map is unknown.
+ * Pick one of the biomes of a map location, falling back to the plains biome when the map is unknown.
  */
-function getBiome(mapLocation: MapLocation | null): ExpeditionLocationType {
-	return mapLocation?.biome ?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
+function pickBiome(mapLocation: MapLocation | null): ExpeditionLocationType {
+	return mapLocation?.pickBiome() ?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
 }
 
 /**
@@ -29,8 +29,8 @@ function getBiome(mapLocation: MapLocation | null): ExpeditionLocationType {
 function pickBiomeExpeditionType(player: Player): ExpeditionLocationType {
 	const progress = TravelTime.getTravelProgress(player);
 	return RandomUtils.crowniclesRandom.realZeroToOneInclusive() < progress
-		? getBiome(player.getDestination())
-		: getBiome(player.getPreviousMap());
+		? pickBiome(player.getDestination())
+		: pickBiome(player.getPreviousMap());
 }
 
 /**

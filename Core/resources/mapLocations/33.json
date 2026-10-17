@@ -1,6 +1,8 @@
 {
   "type": "continent",
-  "biome": "plains",
+  "biomes": [
+    "plains"
+  ],
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "main_continent"
 }

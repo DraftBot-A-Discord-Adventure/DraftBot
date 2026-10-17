@@ -22,9 +22,17 @@ export class MapLocation extends Data<number> {
 	declare readonly cityId: number | null;
 
 	/**
-	 * Biome of this map location (terrain used for expeditions and material loot), independent of its structural type
+	 * Biomes of this map location (terrains used for expeditions and material loot), independent of its structural type.
+	 * A location can mix several terrains, e.g. a mountain whose flanks are riddled with caves.
 	 */
-	declare readonly biome: ExpeditionLocationType;
+	declare readonly biomes: ExpeditionLocationType[];
+
+	/**
+	 * Pick one of the biomes of this map location
+	 */
+	public pickBiome(): ExpeditionLocationType {
+		return RandomUtils.crowniclesRandom.pick(this.biomes);
+	}
 
 	/**
 	 * Count all players that have the given map as their current map of origin
