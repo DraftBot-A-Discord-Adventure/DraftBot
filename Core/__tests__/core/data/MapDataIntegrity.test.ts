@@ -6,6 +6,7 @@ import { resolve } from "path";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
 import { MapLocationConstants } from "../../../../Lib/src/constants/MapLocationConstants";
 import { ExpeditionConstants } from "../../../../Lib/src/constants/ExpeditionConstants";
+import { CrowniclesIcons } from "../../../../Lib/src/CrowniclesIcons";
 
 type MapLocationData = {
 	type: string;
@@ -19,6 +20,7 @@ type MapLinkData = {
 };
 
 const mapLocationsPath = resolve(__dirname, "../../../resources/mapLocations");
+const frenchModelsPath = resolve(__dirname, "../../../../Lang/fr/models.json");
 const mapLinksPath = resolve(__dirname, "../../../resources/mapLinks");
 
 function readIds(path: string): number[] {
@@ -105,5 +107,17 @@ describe("Map data integrity", () => {
 			.map(({ id, mapLocation }) => `${id} (biome '${mapLocation.biome}', legacy expeditionType '${mapLocation.expeditionType}')`);
 
 		expect(invalid).toEqual([]);
+	});
+
+	it("every map location type has a French name, a prefix and an icon", () => {
+		const mapTypeTranslations = (JSON.parse(readFileSync(frenchModelsPath, "utf-8")) as {
+			map_types: Record<string, { name?: string; prefix?: string } | undefined>;
+		}).map_types;
+		const icons: Record<string, string | undefined> = CrowniclesIcons.mapTypes;
+
+		const incomplete = Object.values(MapLocationConstants.TYPES)
+			.filter(type => mapTypeTranslations[type]?.name === undefined || !mapTypeTranslations[type]?.prefix || !icons[type]);
+
+		expect(incomplete).toEqual([]);
 	});
 });
