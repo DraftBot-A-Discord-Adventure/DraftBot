@@ -1,6 +1,6 @@
 {
   "type": "be",
-  "expeditionType": "desert",
+  "biome": "desert",
   "tags": [
     "detA"
   ],

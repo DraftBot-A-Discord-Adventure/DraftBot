@@ -6,7 +6,7 @@ import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventCon
 import {
 	ExpeditionConstants, ExpeditionLocationType
 } from "../../../../Lib/src/constants/ExpeditionConstants";
-import { MapLocationType } from "../../../../Lib/src/constants/MapLocationConstants";
+import { MapLocation } from "../../data/MapLocation";
 import { MaterialRarity } from "../../../../Lib/src/types/MaterialRarity";
 import { MaterialDataController } from "../../data/Material";
 import { Materials } from "../database/game/models/Material";
@@ -16,11 +16,10 @@ import { Player } from "../database/game/models/Player";
 import { updateCollectMaterialsMission } from "../utils/MaterialLootUtils";
 
 /**
- * Resolve the biome of a map location from its terrain type, falling back to the plains biome when the map is unknown.
- * The expeditionType override is ignored on purpose: it is tuned for expedition variety, not for the actual terrain.
+ * Get the biome of a map location, falling back to the plains biome when the map is unknown.
  */
-function getBiomeExpeditionType(mapType: MapLocationType | undefined): ExpeditionLocationType {
-	return mapType ? ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE[mapType] : ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
+function getBiome(mapLocation: MapLocation | null): ExpeditionLocationType {
+	return mapLocation?.biome ?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
 }
 
 /**
@@ -30,8 +29,8 @@ function getBiomeExpeditionType(mapType: MapLocationType | undefined): Expeditio
 function pickBiomeExpeditionType(player: Player): ExpeditionLocationType {
 	const progress = TravelTime.getTravelProgress(player);
 	return RandomUtils.crowniclesRandom.realZeroToOneInclusive() < progress
-		? getBiomeExpeditionType(player.getDestination()?.type)
-		: getBiomeExpeditionType(player.getPreviousMap()?.type);
+		? getBiome(player.getDestination())
+		: getBiome(player.getPreviousMap());
 }
 
 /**

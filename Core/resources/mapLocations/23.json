@@ -1,6 +1,6 @@
 {
   "type": "ci",
-  "expeditionType": "plains",
+  "biome": "cave",
   "tags": [
     "detA"
   ],

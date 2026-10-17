@@ -1,5 +1,6 @@
 {
   "type": "mine",
+  "biome": "cave",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

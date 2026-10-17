@@ -1,6 +1,6 @@
 {
   "type": "ro",
-  "expeditionType": "mountain",
+  "biome": "mountain",
   "tags": [
     "detALa"
   ],

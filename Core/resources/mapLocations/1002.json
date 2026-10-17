@@ -1,5 +1,6 @@
 {
   "type": "ruins",
+  "biome": "ruins",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

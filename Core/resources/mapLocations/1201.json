@@ -1,5 +1,6 @@
 {
   "type": "be",
+  "biome": "coast",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

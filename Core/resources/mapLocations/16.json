@@ -1,6 +1,6 @@
 {
   "type": "ro",
-  "expeditionType": "forest",
+  "biome": "plains",
   "tags": [
     "detAu"
   ],

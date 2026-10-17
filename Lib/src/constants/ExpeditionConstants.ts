@@ -4,9 +4,6 @@ import {
 import {
 	asDays, asHours
 } from "../types/TimeTypes";
-import {
-	MapLocationConstants, MapLocationType
-} from "./MapLocationConstants";
 
 /**
  * Constants for the Pet Expedition system
@@ -128,44 +125,6 @@ export abstract class ExpeditionConstants {
 	 * Rounding factor for display duration (rounds to nearest 10 minutes)
 	 */
 	static readonly DURATION_DISPLAY_ROUNDING = 10;
-
-	/**
-	 * Mapping from map location types to expedition location types
-	 */
-	static readonly MAP_TYPE_TO_EXPEDITION_TYPE: Record<MapLocationType, ExpeditionLocationType> = {
-		[MapLocationConstants.TYPES.FOREST]: "forest",
-		[MapLocationConstants.TYPES.MOUNTAIN]: "mountain",
-		[MapLocationConstants.TYPES.DESERT]: "desert",
-		[MapLocationConstants.TYPES.RUINS]: "ruins",
-		[MapLocationConstants.TYPES.BEACH]: "coast",
-		[MapLocationConstants.TYPES.RIVER]: "coast",
-		[MapLocationConstants.TYPES.LAKE]: "swamp",
-		[MapLocationConstants.TYPES.PLAINS]: "plains",
-		[MapLocationConstants.TYPES.ROAD]: "plains",
-		[MapLocationConstants.TYPES.VILLAGE]: "plains",
-		[MapLocationConstants.TYPES.CITY]: "cave",
-		[MapLocationConstants.TYPES.CASTLE_ENTRANCE]: "ruins",
-		[MapLocationConstants.TYPES.CASTLE_THRONE]: "ruins",
-		[MapLocationConstants.TYPES.CONTINENT]: "plains",
-		[MapLocationConstants.TYPES.MISTY_PATH]: "forest",
-		[MapLocationConstants.TYPES.HAUNTED_HOUSE]: "ruins",
-		[MapLocationConstants.TYPES.PVE_EXIT]: "coast",
-		[MapLocationConstants.TYPES.TEST_ZONE]: "plains",
-
-		// PVE islands
-		[MapLocationConstants.TYPES.MINE]: "cave",
-		[MapLocationConstants.TYPES.VOLCANO]: "cave",
-		[MapLocationConstants.TYPES.ICE_BEACH]: "coast",
-		[MapLocationConstants.TYPES.TUNDRA]: "plains",
-		[MapLocationConstants.TYPES.CRYSTAL_CAVERN]: "ruins",
-		[MapLocationConstants.TYPES.BLESSED_DOORS]: "ruins",
-		[MapLocationConstants.TYPES.ICE_PEAK]: "mountain",
-		[MapLocationConstants.TYPES.UNDERGROUND_LAKE]: "swamp",
-		[MapLocationConstants.TYPES.DRAGONS_NEST]: "ruins",
-		[MapLocationConstants.TYPES.CAVERN]: "ruins",
-		[MapLocationConstants.TYPES.CREEK]: "coast",
-		[MapLocationConstants.TYPES.ABYSS]: "swamp"
-	};
 
 	/**
 	 * Reward index categories for display purposes
