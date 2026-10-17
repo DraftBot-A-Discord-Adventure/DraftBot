@@ -27,7 +27,9 @@ import { CrowniclesPaginatedEmbed } from "../../messages/CrowniclesPaginatedEmbe
 import { TopDataType } from "../../../../Lib/src/types/TopDataType";
 import { TopTiming } from "../../../../Lib/src/types/TopTimings";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
-import { clearTournamentChannelCache } from "./TournamentCommandGuard";
+import {
+	invalidateTournamentChannelCache, setTournamentChannelState
+} from "./TournamentCommandGuard";
 import { displayTournamentStatus } from "./TournamentStatusDisplay";
 import { getInteraction } from "./TournamentMenuUtils";
 import {
@@ -83,7 +85,7 @@ export function handleTournamentGenerateCode(context: PacketContext, packet: Com
 }
 
 export async function handleTournamentCreate(context: PacketContext, packet: CommandTournamentCreatePacketRes): Promise<void> {
-	clearTournamentChannelCache();
+	setTournamentChannelState(packet.channelId, true);
 	await editTournamentMenuReply(context, "commands:tournament.createTitle", interaction => i18n.t("commands:tournament.created", {
 		lng: interaction.userLanguage,
 		registrationEndsAt: dateDisplay(new Date(packet.registrationEndsAt)),
@@ -109,7 +111,7 @@ export async function handleTournamentStatus(context: PacketContext, packet: Com
 }
 
 export async function handleTournamentResume(context: PacketContext, packet: CommandTournamentResumePacketRes): Promise<void> {
-	clearTournamentChannelCache();
+	setTournamentChannelState(packet.channelId, true);
 	await editTournamentMenuReply(context, "commands:tournament.resumeTitle", interaction => i18n.t("commands:tournament.resumed", {
 		lng: interaction.userLanguage,
 		channel: `<#${packet.channelId}>`
@@ -121,7 +123,8 @@ export async function handleTournamentResume(context: PacketContext, packet: Com
 }
 
 export function handleTournamentCancel(context: PacketContext): Promise<void> {
-	clearTournamentChannelCache();
+	// The cancelled tournament is picked from a menu, so its channel is unknown here
+	invalidateTournamentChannelCache();
 	return editTournamentMenuReply(context, "commands:tournament.cancelTitle", interaction => i18n.t("commands:tournament.cancelled", {
 		lng: interaction.userLanguage
 	}));

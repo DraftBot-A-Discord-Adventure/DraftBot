@@ -11,18 +11,22 @@ vi.mock("../../../src/commands/CommandsManager", () => ({
 }));
 
 import {
-	checkTournamentCommandAccess, clearTournamentChannelCache, isAllowedInTournament
+	checkTournamentCommandAccess, invalidateTournamentChannelCache, isAllowedInTournament, resetTournamentChannelCache, setTournamentChannelState
 } from "../../../src/commands/tournament/TournamentCommandGuard";
+import {
+	handleTournamentCancel, handleTournamentCreate, handleTournamentResume
+} from "../../../src/commands/tournament/TournamentResponses";
 import { DiscordMQTT } from "../../../src/bot/DiscordMQTT";
 import { replyTournamentError } from "../../../src/commands/tournament/TournamentCommandUtils";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import {
-	CommandTournamentContextPacketReq, TournamentErrorCodes
+	CommandTournamentContextPacketReq, CommandTournamentCreatePacketRes, CommandTournamentResumePacketRes, TournamentErrorCodes
 } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import {
-	CrowniclesPacket, PacketContext
+	CrowniclesPacket, makePacket, PacketContext
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { CrowniclesInteraction } from "../../../src/messages/CrowniclesInteraction";
+import { TournamentLevelLimitModes } from "../../../../Lib/src/types/Tournament";
 import { commandInfo as tournamentAdminCommandInfo } from "../../../src/commands/tournament/TournamentAdminCommand";
 import { commandInfo as tournamentOwnerCommandInfo } from "../../../src/commands/tournament/TournamentOwnerCommand";
 import { commandInfo } from "../../../src/commands/tournament/TournamentStatusCommand";
@@ -110,7 +114,7 @@ async function markChannel(channelId: string, active: boolean): Promise<void> {
 
 describe("checkTournamentCommandAccess", () => {
 	beforeEach(() => {
-		clearTournamentChannelCache();
+		resetTournamentChannelCache();
 		sendPacketAndHandleResponse.mockReset();
 		sendPacketAndHandleResponse.mockResolvedValue();
 		vi.mocked(replyTournamentError).mockReset();
@@ -160,26 +164,78 @@ describe("checkTournamentCommandAccess", () => {
 		expect(getSentContextQueries()).toHaveLength(1);
 	});
 
-	it("ignores an answer sent before the cache was cleared", async () => {
-		await checkTournamentCommandAccess(makeInteraction("channel"), makeContext());
-		const [staleQuery] = getSentContextQueries();
-		clearTournamentChannelCache();
+	it("keeps denying commands in a tournament channel whose state expired, while refreshing it", async () => {
+		vi.useFakeTimers({ toFake: ["Date"] });
+		await markChannel("channel", true);
 
-		await staleQuery.answer(true);
+		vi.setSystemTime(Date.now() + TournamentConstants.CONTEXT_CACHE_TTL_MS);
+
+		expect(await checkTournamentCommandAccess(makeInteraction("channel"), makeContext())).toBe(false);
+		expect(getSentContextQueries()).toHaveLength(2);
+	});
+
+	it("lets commands through once the refresh of an expired state reports the tournament ended", async () => {
+		vi.useFakeTimers({ toFake: ["Date"] });
+		await markChannel("channel", true);
+		vi.setSystemTime(Date.now() + TournamentConstants.CONTEXT_CACHE_TTL_MS);
+		await checkTournamentCommandAccess(makeInteraction("channel"), makeContext());
+
+		await getSentContextQueries()[1].answer(false);
 		await flushBackgroundRefreshes();
 
 		expect(await checkTournamentCommandAccess(makeInteraction("channel"), makeContext())).toBe(true);
 		expect(getSentContextQueries()).toHaveLength(2);
 	});
 
-	it("queries the Core again once the cached state expired", async () => {
-		vi.useFakeTimers({ toFake: ["Date"] });
-		await markChannel("channel", true);
+	it("marks the channel of a created or resumed tournament without querying the Core", async () => {
+		await handleTournamentCreate(makeContext(), makePacket(CommandTournamentCreatePacketRes, {
+			registrationEndsAt: 0,
+			combatEndsAt: 0,
+			channelId: "created-channel",
+			levelLimitMode: TournamentLevelLimitModes.UNLIMITED,
+			levelCap: null
+		}));
+		await handleTournamentResume(makeContext(), makePacket(CommandTournamentResumePacketRes, { channelId: "resumed-channel" }));
 
-		vi.setSystemTime(Date.now() + TournamentConstants.CONTEXT_CACHE_TTL_MS);
+		expect(await checkTournamentCommandAccess(makeInteraction("created-channel"), makeContext())).toBe(false);
+		expect(await checkTournamentCommandAccess(makeInteraction("resumed-channel"), makeContext())).toBe(false);
+		expect(getSentContextQueries()).toHaveLength(0);
+	});
+
+	it("does not let an answer to an older query overwrite a tournament creation", async () => {
+		await checkTournamentCommandAccess(makeInteraction("channel"), makeContext());
+		const [olderQuery] = getSentContextQueries();
+		setTournamentChannelState("channel", true);
+
+		await olderQuery.answer(false);
+		await flushBackgroundRefreshes();
+
+		expect(await checkTournamentCommandAccess(makeInteraction("channel"), makeContext())).toBe(false);
+	});
+
+	it("keeps the last known states on cancellation but refreshes them and ignores older answers", async () => {
+		await markChannel("channel", true);
+		await checkTournamentCommandAccess(makeInteraction("other-channel"), makeContext());
+		const olderQuery = getSentContextQueries()[1];
+
+		await handleTournamentCancel(makeContext());
+		await olderQuery.answer(true);
+		await flushBackgroundRefreshes();
+
+		expect(await checkTournamentCommandAccess(makeInteraction("channel"), makeContext())).toBe(false);
+		expect(await checkTournamentCommandAccess(makeInteraction("other-channel"), makeContext())).toBe(true);
+		expect(getSentContextQueries()).toHaveLength(4);
+	});
+
+	it("refreshes every known channel after an invalidation", async () => {
+		await markChannel("channel", true);
+		invalidateTournamentChannelCache();
+
+		await checkTournamentCommandAccess(makeInteraction("channel"), makeContext());
+		await getSentContextQueries()[1].answer(false);
+		await flushBackgroundRefreshes();
 
 		expect(await checkTournamentCommandAccess(makeInteraction("channel"), makeContext())).toBe(true);
-		expect(getSentContextQueries()).toHaveLength(2);
 	});
 
 	it("evicts the oldest channel once the cache is full", async () => {
