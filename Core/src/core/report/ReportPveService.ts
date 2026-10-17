@@ -236,16 +236,17 @@ type ApplyPveBossWinRewardsCtx = {
 	rewards: ReturnType<Monster["getRewards"]>;
 	endFightResponse: CrowniclesPacket[];
 	mapId: number;
+	monster: Monster;
 };
 
 async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<void> {
 	const {
-		fight, player, rewards, endFightResponse, mapId
+		fight, player, rewards, endFightResponse, mapId, monster
 	} = ctx;
 	const result = await handlePveFightRewards(fight, player, rewards, endFightResponse);
 
 	// Generate and apply material loot from boss
-	const materialLoot = generateBossLoot(mapId);
+	const materialLoot = generateBossLoot(monster);
 	if (materialLoot.length > 0) {
 		await applyMaterialLoot(player.id, materialLoot);
 		await updateCollectMaterialsMission(player, endFightResponse, materialLoot);
@@ -379,7 +380,7 @@ export async function doPVEBoss(
 
 			if (isWinOrDraw) {
 				await applyPveBossWinRewards({
-					fight, player, rewards, endFightResponse, mapId
+					fight, player, rewards, endFightResponse, mapId, monster: monsterObj
 				});
 			}
 

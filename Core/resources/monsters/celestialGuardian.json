@@ -7,6 +7,17 @@
   "maxBreath": 35,
   "breathRegen": 5,
   "rewardFactor": 0.85,
+  "materialLoot": [
+    89,
+    73,
+    68,
+    60,
+    30,
+    80,
+    72,
+    61,
+    19
+  ],
   "attacks": [
     {
       "id": "divineAttack",

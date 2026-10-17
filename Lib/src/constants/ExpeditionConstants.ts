@@ -547,10 +547,10 @@ export abstract class ExpeditionConstants {
 	};
 
 	/**
-	 * Material loot tables by location type
-	 * Each table only contains materials whose type belongs to SmallEventConstants.FIND_MATERIAL.BIOME_MATERIAL_TYPES of the same biome
+	 * Material loot table of each biome: the single source of the materials found there,
+	 * used by expeditions and by the find material small event
 	 */
-	static readonly EXPEDITION_LOOT_TABLES: Record<(typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES)[keyof typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES], readonly number[]> = {
+	static readonly BIOME_LOOT_TABLES: Record<(typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES)[keyof typeof ExpeditionConstants.EXPEDITION_LOCATION_TYPES], readonly number[]> = {
 		forest: [
 			58,
 			51,

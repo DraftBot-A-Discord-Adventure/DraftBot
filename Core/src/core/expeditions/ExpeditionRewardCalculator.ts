@@ -282,7 +282,7 @@ function generateMaterialLoot(locationType: ExpeditionLocationType, rewardIndex:
 		return [];
 	}
 
-	const lootTable = ExpeditionConstants.EXPEDITION_LOOT_TABLES[locationType];
+	const lootTable = ExpeditionConstants.BIOME_LOOT_TABLES[locationType];
 	if (!lootTable || lootTable.length === 0) {
 		return [];
 	}
