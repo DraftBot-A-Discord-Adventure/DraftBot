@@ -39,6 +39,7 @@ import { TravelTime } from "../maps/TravelTime";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { Maps } from "../maps/Maps";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
+import { MapLocationType } from "../../../../Lib/src/constants/MapLocationConstants";
 import { Effect } from "../../../../Lib/src/types/Effect";
 import { PetUtils } from "../utils/PetUtils";
 import { withLockedPlayerSafe } from "../utils/withLockedPlayerSafe";
@@ -76,7 +77,7 @@ type PetFoodProperties = {
  * @param mapLocation
  */
 function getProbabilities(mapLocation: MapLocation): { [key: string]: number } {
-	if ((SmallEventConstants.PET_FOOD.GOOD_SMELL_TYPES as readonly string[]).includes(mapLocation.type)) {
+	if ((SmallEventConstants.PET_FOOD.GOOD_SMELL_TYPES as readonly MapLocationType[]).includes(mapLocation.type)) {
 		return SmallEventConstants.PET_FOOD.PROBABILITIES.GOOD_SMELL;
 	}
 	return SmallEventConstants.PET_FOOD.PROBABILITIES[SmallEventConstants.PET_FOOD.BIOME_PROBABILITY_PROFILES[mapLocation.pickBiome()]];

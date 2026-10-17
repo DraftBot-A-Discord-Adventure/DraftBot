@@ -33,7 +33,7 @@ export class Monster extends Data<string> {
 	/**
 	 * Material IDs this boss can drop when defeated, weighted by their rarity
 	 */
-	public readonly materialLoot!: number[];
+	public readonly materialLoot!: readonly number[];
 
 
 	/**

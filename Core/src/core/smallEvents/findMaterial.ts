@@ -3,10 +3,9 @@ import { Maps } from "../maps/Maps";
 import { TravelTime } from "../maps/TravelTime";
 import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { SmallEventConstants } from "../../../../Lib/src/constants/SmallEventConstants";
-import {
-	ExpeditionConstants, ExpeditionLocationType
-} from "../../../../Lib/src/constants/ExpeditionConstants";
-import { MapLocation } from "../../data/MapLocation";
+import { ExpeditionConstants } from "../../../../Lib/src/constants/ExpeditionConstants";
+import { Biome } from "../../../../Lib/src/types/Biome";
+import { BiomeDataController } from "../../data/Biome";
 import { MaterialRarity } from "../../../../Lib/src/types/MaterialRarity";
 import {
 	Material, MaterialDataController
@@ -18,21 +17,14 @@ import { Player } from "../database/game/models/Player";
 import { updateCollectMaterialsMission } from "../utils/MaterialLootUtils";
 
 /**
- * Pick one of the biomes of a map location, falling back to the plains biome when the map is unknown.
+ * Pick the biome to loot from: it blends the origin and destination maps, the destination being
+ * more likely the further along the trip the player is. Falls back to the plains biome when the map is unknown.
  */
-function pickBiome(mapLocation: MapLocation | null): ExpeditionLocationType {
+export function pickTravelBiome(player: Player): Biome {
+	const mapLocation = RandomUtils.crowniclesRandom.realZeroToOneInclusive() < TravelTime.getTravelProgress(player)
+		? player.getDestination()
+		: player.getPreviousMap();
 	return mapLocation?.pickBiome() ?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
-}
-
-/**
- * Pick the biome to loot from: it blends the origin and destination biomes, the destination being
- * more likely the further along the trip the player is.
- */
-function pickBiomeExpeditionType(player: Player): ExpeditionLocationType {
-	const progress = TravelTime.getTravelProgress(player);
-	return RandomUtils.crowniclesRandom.realZeroToOneInclusive() < progress
-		? pickBiome(player.getDestination())
-		: pickBiome(player.getPreviousMap());
 }
 
 /**
@@ -52,8 +44,8 @@ function rollMaterialRarity(): MaterialRarity {
 /**
  * Pick a material of the given rarity from the loot table of the biome
  */
-function pickMaterialFromBiome(biome: ExpeditionLocationType, rarity: MaterialRarity): Material {
-	const candidates = ExpeditionConstants.BIOME_LOOT_TABLES[biome]
+export function pickMaterialFromBiome(biome: Biome, rarity: MaterialRarity): Material {
+	const candidates = BiomeDataController.instance.getMaterialLoot(biome)
 		.map(materialId => MaterialDataController.instance.getById(String(materialId)))
 		.filter((material): material is Material => material?.rarity === rarity);
 	if (candidates.length === 0) {
@@ -78,7 +70,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		return Maps.isOnContinent(player);
 	},
 	executeSmallEvent: async (response, player): Promise<void> => {
-		const material = pickMaterialFromBiome(pickBiomeExpeditionType(player), rollMaterialRarity());
+		const material = pickMaterialFromBiome(pickTravelBiome(player), rollMaterialRarity());
 		const quantity = rollQuantity();
 
 		await Materials.giveMaterial(player.id, parseInt(material.id, 10), quantity);

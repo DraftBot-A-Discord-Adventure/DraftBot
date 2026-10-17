@@ -30,6 +30,16 @@ import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
 import { MapLocationType } from "../../constants/MapLocationConstants";
 
+/**
+ * Mernil's next stop: the city where he will be tomorrow and the enchantment he will offer there
+ */
+export type EnchanterTomorrowData = {
+	cityMapLocationId: number;
+	cityMapTypeId: MapLocationType;
+	enchantmentId: string;
+	enchantmentType: string;
+};
+
 export class ReactionCollectorCityData extends ReactionCollectorData {
 	mapTypeId!: string;
 
@@ -93,12 +103,7 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 		enchantmentId: string;
 		enchantmentType: string;
 		enchantmentSlot: ItemCategory; // The slot (WEAPON or ARMOR) that today's enchantment can be applied to.
-		tomorrow?: {
-			cityMapLocationId: number;
-			cityMapTypeId: MapLocationType;
-			enchantmentId: string;
-			enchantmentType: string;
-		};
+		tomorrow?: EnchanterTomorrowData;
 		enchantmentCost: {
 			money: number;
 			gems: number;

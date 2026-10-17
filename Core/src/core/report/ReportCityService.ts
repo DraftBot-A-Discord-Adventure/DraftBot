@@ -23,7 +23,7 @@ import {
 import { ItemEnchantment } from "../../../../Lib/src/types/ItemEnchantment";
 import { MainItemDetails } from "../../../../Lib/src/types/MainItemDetails";
 import {
-	ReactionCollectorCityData
+	EnchanterTomorrowData, ReactionCollectorCityData
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { WeaponDataController } from "../../data/Weapon";
 import { MapLocationDataController } from "../../data/MapLocation";
@@ -165,7 +165,7 @@ export async function buildEnchanterData(
 		enchantment: ItemEnchantment;
 		enchantmentId: string;
 		isPlayerMage: boolean;
-		tomorrow?: EnchanterData["tomorrow"];
+		tomorrow?: EnchanterTomorrowData;
 	}
 ): Promise<EnchanterData> {
 	const {
@@ -220,7 +220,7 @@ export async function buildEnchanterData(
 /**
  * Build Mernil's next stop (city and enchantment), or undefined if the next enchanter settings are invalid
  */
-async function buildEnchanterTomorrowData(): Promise<EnchanterData["tomorrow"]> {
+async function buildEnchanterTomorrowData(): Promise<EnchanterTomorrowData | undefined> {
 	const nextEnchantmentId = await Settings.NEXT_ENCHANTER_ENCHANTMENT_ID.getValue();
 	const nextEnchantment = ItemEnchantment.getById(nextEnchantmentId);
 	const nextCityId = await Settings.NEXT_ENCHANTER_CITY.getValue();
