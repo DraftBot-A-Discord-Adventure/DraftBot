@@ -29,6 +29,9 @@ type TournamentQueriesModule = typeof import("../../src/core/tournaments/Tournam
 type TournamentMatchmakingModule = typeof import("../../src/core/tournaments/TournamentMatchmaking");
 type TournamentPauseModule = typeof import("../../src/core/tournaments/TournamentPause");
 type TournamentLifecycleModule = typeof import("../../src/core/tournaments/TournamentLifecycle");
+type TournamentAccessModule = typeof import("../../src/core/tournaments/TournamentAccess");
+type TournamentTypesModule = typeof import("../../src/core/tournaments/TournamentTypes");
+type TournamentModelModule = typeof import("../../src/core/database/game/models/Tournament");
 type TournamentRankingModule = typeof import("../../src/core/tournaments/TournamentRanking");
 type TournamentRewardsModule = typeof import("../../src/core/tournaments/TournamentRewards");
 type TournamentFightResolverModule = typeof import("../../src/core/tournaments/TournamentFightResolver");
@@ -68,7 +71,9 @@ type TournamentTestApi = {
 const GUILD_ID = "tournament-race-guild";
 const CHANNEL_ID = "tournament-race-channel";
 
-function buildContext(keycloakId: string): PacketContext {
+const UNRELATED_CHANNEL_ID = "tournament-race-unrelated-channel";
+
+function buildContext(keycloakId: string, channel = CHANNEL_ID): PacketContext {
 	return {
 		frontEndOrigin: "discord",
 		frontEndSubOrigin: GUILD_ID,
@@ -76,7 +81,7 @@ function buildContext(keycloakId: string): PacketContext {
 		discord: {
 			user: keycloakId,
 			interaction: `interaction-${keycloakId}`,
-			channel: CHANNEL_ID,
+			channel,
 			language: "fr",
 				shardId: 0,
 				guildMemberCount: 1000,
@@ -166,6 +171,54 @@ describe("Tournament modules integration", () => {
 		finally {
 			await env.crownicles.gameDatabase.sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
 		}
+	});
+
+	it("never locks a finished tournament whose ended notification was already sent", async () => {
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-finished",
+			level: 50
+		});
+		const code = await manager.generateCode(GUILD_ID);
+		const tournament = await manager.createTournament(buildContext(owner.keycloakId), code.code, 1, 1);
+		await Tournament.update({
+			status: TournamentStatuses.COMPLETED,
+			endedNotificationSent: true
+		}, { where: { id: tournament.id } });
+		const tournamentModel = loadProductionModule<TournamentModelModule>("core/database/game/models/Tournament").Tournament;
+		const withLocked = vi.spyOn(tournamentModel, "withLocked");
+
+		await manager.processDueTournaments();
+
+		expect(withLocked).not.toHaveBeenCalled();
+		withLocked.mockRestore();
+	});
+
+	it("processes only the tournament of the command channel before deciding its access", async () => {
+		const access = loadProductionModule<TournamentAccessModule>("core/tournaments/TournamentAccess");
+		const { TournamentAccessResults } = loadProductionModule<TournamentTypesModule>("core/tournaments/TournamentTypes");
+		const tournamentModel = loadProductionModule<TournamentModelModule>("core/database/game/models/Tournament").Tournament;
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-access",
+			level: 50
+		});
+		const code = await manager.generateCode(GUILD_ID);
+		const tournament = await manager.createTournament(buildContext(owner.keycloakId), code.code, 1, 1);
+		await Tournament.update({ registrationEndsAt: new Date(Date.now() - 1) }, { where: { id: tournament.id } });
+		const sendNotifications = vi.spyOn(packetUtils, "sendNotifications").mockImplementation(() => undefined);
+		const withLocked = vi.spyOn(tournamentModel, "withLocked");
+
+		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId, UNRELATED_CHANNEL_ID), [], "none"))
+			.toBe(TournamentAccessResults.ALLOWED);
+		expect(withLocked).not.toHaveBeenCalled();
+		expect((await Tournament.findByPk(tournament.id))?.status).toBe(TournamentStatuses.REGISTRATION);
+
+		// Without participants, the expired registration cancels the tournament: the channel is free again
+		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId), [], "none"))
+			.toBe(TournamentAccessResults.ALLOWED);
+		expect(withLocked).toHaveBeenCalled();
+		expect((await Tournament.findByPk(tournament.id))?.status).toBe(TournamentStatuses.CANCELLED);
+		withLocked.mockRestore();
+		sendNotifications.mockRestore();
 	});
 
 	it("allows only one concurrent registration for the same player", async () => {

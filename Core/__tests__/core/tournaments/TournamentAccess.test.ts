@@ -9,16 +9,17 @@ import {
 } from "../../../../Lib/src/types/Tournament";
 
 const mocks = vi.hoisted(() => ({
-	findTournamentForContext: vi.fn(),
+	findUpToDateTournamentForContext: vi.fn(),
+	processDueTournaments: vi.fn(),
 	getParticipant: vi.fn()
 }));
 
 vi.mock("../../../src/core/tournaments/TournamentLifecycle", () => ({
-	processDueTournaments: vi.fn()
+	findUpToDateTournamentForContext: mocks.findUpToDateTournamentForContext,
+	processDueTournaments: mocks.processDueTournaments
 }));
 
 vi.mock("../../../src/core/tournaments/TournamentQueries", () => ({
-	findTournamentForContext: mocks.findTournamentForContext,
 	getParticipant: mocks.getParticipant
 }));
 
@@ -29,7 +30,7 @@ const player = { id: 7 } as never;
 const context = {} as never;
 
 function givenTournament(status: TournamentStatus): void {
-	mocks.findTournamentForContext.mockResolvedValue({
+	mocks.findUpToDateTournamentForContext.mockResolvedValue({
 		id: 42,
 		status
 	});
@@ -46,11 +47,24 @@ describe("Tournament command access", () => {
 	});
 
 	it("does not restrict commands outside of an active tournament channel", async () => {
-		mocks.findTournamentForContext.mockResolvedValue(null);
+		mocks.findUpToDateTournamentForContext.mockResolvedValue(null);
 		const response: unknown[] = [];
 		expect(await verifyCommandAccess(player, context, response as never, "none")).toBe(TournamentAccessResults.ALLOWED);
-		expect(mocks.findTournamentForContext).toHaveBeenCalledWith(context, false);
+		expect(mocks.findUpToDateTournamentForContext).toHaveBeenCalledWith(context);
+		expect(mocks.processDueTournaments).not.toHaveBeenCalled();
 		expect(response).toHaveLength(0);
+	});
+
+	it("does not look for a tournament when the command bypasses tournament restrictions", async () => {
+		const response: unknown[] = [];
+		expect(await verifyCommandAccess(player, context, response as never, "bypass")).toBe(TournamentAccessResults.ALLOWED);
+		expect(mocks.findUpToDateTournamentForContext).not.toHaveBeenCalled();
+	});
+
+	it("never processes every tournament when checking a command in a tournament channel", async () => {
+		givenTournament(TournamentStatuses.COMBAT);
+		await verifyCommandAccess(player, context, [] as never, "fight");
+		expect(mocks.processDueTournaments).not.toHaveBeenCalled();
 	});
 
 	it("rejects unrelated commands in an active tournament channel", async () => {

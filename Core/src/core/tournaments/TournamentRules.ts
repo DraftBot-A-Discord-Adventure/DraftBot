@@ -54,9 +54,18 @@ export const CONTEXT_STATUSES = [
 	TournamentStatuses.CANCELLED
 ];
 
-export const PROCESSABLE_STATUSES = [
+/**
+ * Statuses whose deadlines must be processed while the tournament runs
+ */
+export const RUNNING_PROCESSABLE_STATUSES = [
 	TournamentStatuses.REGISTRATION,
-	TournamentStatuses.COMBAT,
+	TournamentStatuses.COMBAT
+];
+
+/**
+ * Final statuses: such a tournament only needs processing until its ended notification is sent
+ */
+export const FINISHED_STATUSES = [
 	TournamentStatuses.COMPLETED,
 	TournamentStatuses.CANCELLED
 ];

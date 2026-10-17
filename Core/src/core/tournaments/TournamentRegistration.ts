@@ -5,8 +5,7 @@ import {
 import { Tournament } from "../database/game/models/Tournament";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
 import Player from "../database/game/models/Player";
-import { processDueTournaments } from "./TournamentLifecycle";
-import { findTournamentForContext } from "./TournamentQueries";
+import { findUpToDateTournamentForContext } from "./TournamentLifecycle";
 import { TournamentDomainError } from "./TournamentErrors";
 import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { getCategoryForLevel } from "./TournamentRules";
@@ -46,8 +45,7 @@ function assertPlayerLevelIsAllowed(tournament: Tournament, player: Player): voi
 }
 
 export async function registerPlayer(context: PacketContext, player: Player): Promise<TournamentParticipant> {
-	await processDueTournaments();
-	const tournament = await findTournamentForContext(context, false);
+	const tournament = await findUpToDateTournamentForContext(context);
 	if (!tournament || !isRegistrationStatus(tournament.status)) {
 		throw new TournamentDomainError(TournamentErrorCodes.NOT_FOUND);
 	}
@@ -92,8 +90,7 @@ export async function registerPlayer(context: PacketContext, player: Player): Pr
 }
 
 export async function unregisterPlayer(context: PacketContext, player: Player): Promise<void> {
-	await processDueTournaments();
-	const tournament = await findTournamentForContext(context, false);
+	const tournament = await findUpToDateTournamentForContext(context);
 	if (!tournament) {
 		throw new TournamentDomainError(TournamentErrorCodes.NOT_FOUND);
 	}

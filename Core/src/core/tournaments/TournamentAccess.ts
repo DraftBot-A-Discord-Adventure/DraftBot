@@ -6,10 +6,8 @@ import {
 } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { TournamentStatuses } from "../../../../Lib/src/types/Tournament";
 import Player from "../database/game/models/Player";
-import { processDueTournaments } from "./TournamentLifecycle";
-import {
-	findTournamentForContext, getParticipant
-} from "./TournamentQueries";
+import { findUpToDateTournamentForContext } from "./TournamentLifecycle";
+import { getParticipant } from "./TournamentQueries";
 import {
 	TournamentAccessResult, TournamentAccessResults, type TournamentCommandAccess
 } from "./TournamentTypes";
@@ -59,8 +57,7 @@ export async function verifyCommandAccess(
 	if (access === "bypass") {
 		return TournamentAccessResults.ALLOWED;
 	}
-	await processDueTournaments();
-	const tournament = await findTournamentForContext(context, false);
+	const tournament = await findUpToDateTournamentForContext(context);
 	if (!tournament || access === "status") {
 		return TournamentAccessResults.ALLOWED;
 	}

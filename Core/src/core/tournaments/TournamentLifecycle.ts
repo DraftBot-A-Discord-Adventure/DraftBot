@@ -1,4 +1,5 @@
 import { Op } from "sequelize";
+import { PacketContext } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import {
 	TournamentCancellationReasons, TournamentCategories, TournamentNotificationEvents, TournamentStatus, TournamentStatuses
@@ -12,9 +13,10 @@ import { Tournament } from "../database/game/models/Tournament";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
 import Player from "../database/game/models/Player";
 import {
-	getCategoryCounts, getEndingNotificationDate, getTournamentRewardAmounts,
-	PROCESSABLE_STATUSES, sortParticipants
+	FINISHED_STATUSES, getCategoryCounts, getEndingNotificationDate, getTournamentRewardAmounts,
+	RUNNING_PROCESSABLE_STATUSES, sortParticipants
 } from "./TournamentRules";
+import { findTournamentForContext } from "./TournamentQueries";
 import type { TournamentRewardRank } from "./TournamentTypes";
 import {
 	claimTournamentEvent, TournamentEventData
@@ -162,6 +164,9 @@ async function sendTournamentNotificationIfReady(
 	tournament: Tournament,
 	configuration: TournamentNotificationConfiguration
 ): Promise<void> {
+	if (!configuration.isReady(tournament)) {
+		return;
+	}
 	let shouldSend = false;
 	let eventData: TournamentEventData | null = null;
 	await Tournament.withLocked(tournament.id, lockedTournament => {
@@ -238,6 +243,9 @@ async function freezeTournament(tournament: Tournament): Promise<void> {
 async function finishTournament(tournament: Tournament): Promise<void> {
 	await sendEndingNotificationIfDue(tournament);
 	await freezeTournament(tournament);
+
+	// The freeze updated a locked copy: refresh the status so the ended notification readiness is accurate
+	await tournament.reload();
 	await sendEndedNotificationIfReady(tournament);
 }
 
@@ -270,26 +278,63 @@ const dueTournamentHandlers: Partial<Record<TournamentStatus, DueTournamentHandl
 	[TournamentStatuses.CANCELLED]: processCancelledTournament
 };
 
-async function processDueTournament(tournament: Tournament): Promise<void> {
+/**
+ * Process the deadlines and pending notifications of a single tournament. Failures are logged, never thrown
+ * @param tournament
+ */
+export async function processDueTournament(tournament: Tournament): Promise<void> {
 	const handler = dueTournamentHandlers[tournament.status];
-	if (handler) {
+	if (!handler) {
+		return;
+	}
+	try {
 		await handler(tournament);
+	}
+	catch (error) {
+		CrowniclesLogger.errorWithObj(`Tournament ${tournament.id} processing failed`, error);
 	}
 }
 
+/**
+ * Process every tournament that may still have a deadline or a notification to handle.
+ * Finished tournaments whose ended notification is already sent never change again and are skipped
+ */
 export async function processDueTournaments(): Promise<void> {
 	if (!Tournament.sequelize) {
 		return;
 	}
 	const tournaments = await Tournament.findAll({
-		where: { status: { [Op.in]: PROCESSABLE_STATUSES } }
+		where: {
+			[Op.or]: [
+				{ status: { [Op.in]: RUNNING_PROCESSABLE_STATUSES } },
+				{
+					status: { [Op.in]: FINISHED_STATUSES },
+					endedNotificationSent: false
+				}
+			]
+		}
 	});
 	for (const tournament of tournaments) {
-		try {
-			await processDueTournament(tournament);
-		}
-		catch (error) {
-			CrowniclesLogger.errorWithObj(`Tournament ${tournament.id} processing failed`, error);
-		}
+		await processDueTournament(tournament);
 	}
+}
+
+/**
+ * Find the active tournament of the context after processing its due deadlines,
+ * so the caller decides on its up-to-date status. Contexts without a tournament lock nothing
+ * @param context
+ */
+export async function findUpToDateTournamentForContext(context: PacketContext): Promise<Tournament | null> {
+	let tournament = await findTournamentForContext(context, false);
+	while (tournament) {
+		await processDueTournament(tournament);
+		const refreshedTournament = await findTournamentForContext(context, false);
+		if (refreshedTournament?.id === tournament.id) {
+			return refreshedTournament;
+		}
+
+		// The processed tournament left the active statuses: another active tournament may now match the context
+		tournament = refreshedTournament;
+	}
+	return null;
 }
