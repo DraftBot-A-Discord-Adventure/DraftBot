@@ -81,10 +81,34 @@ import { DiscordCollectorUtils } from "../../src/utils/DiscordCollectorUtils";
 import {
 	ReactionCollectorHomeChestCloseReaction, ReactionCollectorHomeMenuReaction
 } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
-import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
+import {
+	ItemCategory, ItemRarity
+} from "../../../Lib/src/constants/ItemConstants";
+import { MainItemDetails } from "../../../Lib/src/types/MainItemDetails";
 import {
 	ActionRowBuilder, ContainerBuilder, TextDisplayBuilder
 } from "discord.js";
+
+/**
+ * Create valid weapon details so that the item display helpers render its name and stats.
+ */
+function createWeaponDetails(id: number, attack: number): MainItemDetails {
+	return {
+		id,
+		rarity: ItemRarity.COMMON,
+		itemCategory: ItemCategory.WEAPON,
+		itemLevel: 0,
+		attack: {
+			baseValue: attack, upgradeValue: 0, maxValue: attack
+		},
+		defense: {
+			baseValue: 0, upgradeValue: 0, maxValue: 0
+		},
+		speed: {
+			baseValue: 0, upgradeValue: 0, maxValue: 0
+		}
+	};
+}
 
 /**
  * Create home data with chest configuration.
@@ -385,18 +409,18 @@ describe("ChestFeatureHandler", () => {
 					chestItems: [{
 						slot: 1,
 						category: ItemCategory.WEAPON,
-						details: { itemId: 1, attack: 10, defense: 0, speed: 0, level: 1 }
+						details: createWeaponDetails(1, 21)
 					}],
 					depositableItems: [
 						{
 							slot: 0,
 							category: ItemCategory.WEAPON,
-							details: { itemId: 2, attack: 15, defense: 0, speed: 0, level: 1 }
+							details: createWeaponDetails(2, 15)
 						},
 						{
 							slot: 1,
 							category: ItemCategory.WEAPON,
-							details: { itemId: 3, attack: 12, defense: 0, speed: 0, level: 1 }
+							details: createWeaponDetails(3, 12)
 						}
 					]
 				})
@@ -423,8 +447,18 @@ describe("ChestFeatureHandler", () => {
 				.filter((component): component is TextDisplayBuilder => component instanceof TextDisplayBuilder)
 				.map(component => component.data.content)
 				.join("\n");
-			expect(text).toContain("commands:report.city.homes.chest.chestContentSection");
-			expect(text.match(/commands:report\.city\.homes\.chest\.chestContentLine/g)).toHaveLength(1);
+			const chestContentStart = text.indexOf("commands:report.city.homes.chest.chestContentSection");
+			expect(chestContentStart).toBeGreaterThan(-1);
+			const swapSection = text.slice(0, chestContentStart);
+			const chestContentSection = text.slice(chestContentStart);
+			expect(chestContentSection.match(/commands:report\.city\.homes\.chest\.chestContentLine/g)).toHaveLength(1);
+
+			// The read-only section shows the chest item (name and stats) and not the inventory items
+			expect(chestContentSection).toContain("models:weapons.1");
+			expect(chestContentSection).toMatch(/items:stat\|\{\\*"value\\*":21\}/);
+			expect(chestContentSection).not.toContain("models:weapons.2");
+			expect(chestContentSection).not.toContain("models:weapons.3");
+			expect(swapSection).not.toContain("models:weapons.1");
 			expect(buttons.some(button => button.data.custom_id?.startsWith(HomeMenuIds.CHEST_WITHDRAW_PREFIX))).toBe(false);
 		});
 	});
