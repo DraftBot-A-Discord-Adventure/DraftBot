@@ -19,6 +19,7 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { Guild } from "../database/game/models/Guild";
 import { LockedRowNotFoundError } from "../../../../Lib/src/locks/withLockedEntities";
 import { runAfterCommit } from "../../../../Lib/src/locks/scheduleAfterCommit";
+import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 
 enum Outcome {
 	EXPERIENCE = "experience",
@@ -70,6 +71,7 @@ function getEmoteKey(rewardKind: Outcome, isExperienceGain: boolean): SmallEvent
  * Guild members are usually all active on the island at the same time: locking the guild row late from the reporter's
  * transaction failed with ER_CHECKREAD under MariaDB snapshot isolation whenever another member had just updated it (#4924).
  * The packet is already in the response but not sent yet, so it is adjusted if the guild reached its max level meanwhile.
+ * Any failure is logged instead of rethrown: the reporter's changes are already committed, so rethrowing would only add an internal error to the response.
  */
 async function manageGuildReward(response: CrowniclesPacket[], guildId: number, packet: SmallEventBonusGuildPVEIslandPacket): Promise<void> {
 	try {
@@ -94,7 +96,7 @@ async function manageGuildReward(response: CrowniclesPacket[], guildId: number, 
 		if (error instanceof LockedRowNotFoundError) {
 			return;
 		}
-		throw error;
+		CrowniclesLogger.errorWithObj(`Failed to credit the PVE island reward of guild ${guildId}`, error);
 	}
 }
 
