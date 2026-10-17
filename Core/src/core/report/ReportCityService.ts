@@ -23,7 +23,7 @@ import {
 import { ItemEnchantment } from "../../../../Lib/src/types/ItemEnchantment";
 import { MainItemDetails } from "../../../../Lib/src/types/MainItemDetails";
 import {
-	EnchanterTomorrowData, ReactionCollectorCityData
+	EnchanterTomorrowData, ReactionCollectorCityData, UpgradeStationData, UpgradeStationItem
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { WeaponDataController } from "../../data/Weapon";
 import { MapLocationDataController } from "../../data/MapLocation";
@@ -73,8 +73,7 @@ type EnchanterPlayerData = {
 };
 type HomeData = ReactionCollectorCityData["home"];
 type OwnedHomeData = NonNullable<HomeData["owned"]>;
-type UpgradeStationData = NonNullable<OwnedHomeData["upgradeStation"]>;
-type UpgradeStationRequiredMaterials = UpgradeStationData["upgradeableItems"][number]["requiredMaterials"];
+type UpgradeStationRequiredMaterials = UpgradeStationItem["requiredMaterials"];
 type UpgradeStationMaterialsResult = {
 	requiredMaterials: UpgradeStationRequiredMaterials;
 	canUpgrade: boolean;
@@ -571,7 +570,7 @@ export function buildUpgradeStationData(
 	const maxUpgradeableRarity = homeLevel.features.upgradeItemMaximumRarity;
 	const maxLevelAtHome = homeLevel.features.maxItemUpgradeLevel;
 
-	const upgradeableItems: UpgradeStationData["upgradeableItems"] = [];
+	const upgradeableItems: UpgradeStationItem[] = [];
 
 	for (const inventorySlot of playerInventory) {
 		// Only process weapons and armors with a valid item

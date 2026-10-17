@@ -12,7 +12,9 @@ import {
 import i18n from "../../../../translations/i18n";
 import { DisplayUtils } from "../../../../utils/DisplayUtils";
 import { CrowniclesIcons } from "../../../../../../Lib/src/CrowniclesIcons";
-import { ReactionCollectorUpgradeItemReaction } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import {
+	ReactionCollectorUpgradeItemReaction, UpgradeStationItem
+} from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import { DiscordCollectorUtils } from "../../../../utils/DiscordCollectorUtils";
 import { ItemRarity } from "../../../../../../Lib/src/constants/ItemConstants";
 import { CrowniclesEmbed } from "../../../../messages/CrowniclesEmbed";
@@ -165,7 +167,7 @@ export class UpgradeStationFeatureHandler implements HomeFeatureHandler {
 	 */
 	private buildItemDescription(
 		ctx: HomeFeatureHandlerContext,
-		item: NonNullable<typeof ctx.homeData.upgradeStation>["upgradeableItems"][0]
+		item: UpgradeStationItem
 	): string {
 		const materialLines = item.requiredMaterials.map(mat => {
 			const icon = CrowniclesIcons.materials[mat.materialId] ?? CrowniclesIcons.collectors.question;
