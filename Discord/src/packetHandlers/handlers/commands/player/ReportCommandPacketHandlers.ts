@@ -33,6 +33,7 @@ import {
 	CommandReportBedCooldownRes,
 	CommandReportItemCannotBeEnchantedRes,
 	CommandReportItemEnchantedRes,
+	CommandReportEnchanterDisenchantRes,
 	CommandReportMonsterRewardRes,
 	CommandReportMoveHomeRes,
 	CommandReportNotEnoughMoneyRes,
@@ -190,6 +191,19 @@ export default class ReportCommandPacketHandlers {
 			context,
 			titleKey: "commands:report.city.enchanter.acceptTitle",
 			descriptionKey: "commands:report.city.enchanter.acceptStory",
+			descriptionParams: {
+				enchantmentId: packet.enchantmentId,
+				enchantmentType: packet.enchantmentType
+			}
+		});
+	}
+
+	@packetHandler(CommandReportEnchanterDisenchantRes)
+	async reportEnchanterDisenchantRes(context: PacketContext, packet: CommandReportEnchanterDisenchantRes): Promise<void> {
+		await sendBlacksmithReply({
+			context,
+			titleKey: "commands:report.city.enchanter.disenchantSuccessTitle",
+			descriptionKey: "commands:report.city.enchanter.disenchantSuccessStory",
 			descriptionParams: {
 				enchantmentId: packet.enchantmentId,
 				enchantmentType: packet.enchantmentType

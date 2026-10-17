@@ -5,9 +5,11 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
 	ReactionCollectorCityData,
+	ReactionCollectorEnchanterDisenchantReaction,
 	ReactionCollectorEnchantReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {
+	CommandReportEnchanterDisenchantRes,
 	CommandReportEnchantNotEnoughCurrenciesRes,
 	CommandReportEquipmentChangedRes,
 	CommandReportItemCannotBeEnchantedRes,
@@ -22,6 +24,8 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { withLockedEntities } from "../../../../Lib/src/locks/withLockedEntities";
 import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
+import { DisenchantableItem } from "../../../../Lib/src/types/DisenchantableItem";
+import { getListedInventorySlotUnderLock } from "./ReportCityBlacksmithService";
 
 /**
  * Parameters for the enchantItem function
@@ -317,5 +321,59 @@ export async function handleEnchantReaction(
 		playerMissionsInfo: conditions.playerMissionsInfo,
 		itemToEnchant: conditions.itemToEnchant,
 		response
+	});
+}
+
+function getListedDisenchantableItem(
+	player: Player,
+	reaction: ReactionCollectorEnchanterDisenchantReaction,
+	data: ReactionCollectorCityData
+): DisenchantableItem | null {
+	const listedItem = data.enchanter?.disenchantableItems.find(item => item.slot === reaction.slot && item.category === reaction.itemCategory);
+	if (!listedItem) {
+		CrowniclesLogger.error(`Player ${player.keycloakId} tried to disenchant an item that the enchanter did not list.`);
+		return null;
+	}
+	return listedItem;
+}
+
+/**
+ * Handle enchanter disenchant reaction — the enchanter removes an enchantment for free
+ */
+export async function handleEnchanterDisenchantReaction(
+	player: Player,
+	reaction: ReactionCollectorEnchanterDisenchantReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<void> {
+	const listedItem = getListedDisenchantableItem(player, reaction, data);
+	if (!listedItem) {
+		return;
+	}
+
+	await withLockedEntities([Player.lockKey(player.id)] as const, async ([lockedPlayer]) => {
+		const inventorySlot = await getListedInventorySlotUnderLock(lockedPlayer, reaction, listedItem.details, response);
+		if (!inventorySlot) {
+			return;
+		}
+
+		inventorySlot.itemEnchantmentId = null;
+		await inventorySlot.save();
+
+		response.push(makePacket(CommandReportEnchanterDisenchantRes, {
+			enchantmentId: listedItem.enchantmentId,
+			enchantmentType: listedItem.enchantmentType
+		}));
+
+		const cityId = lockedPlayer.getCurrentCityId();
+		if (cityId) {
+			crowniclesInstance?.logsDatabase.logEnchanterDisenchant({
+				keycloakId: lockedPlayer.keycloakId,
+				cityId,
+				itemCategory: reaction.itemCategory,
+				slot: reaction.slot,
+				enchantmentId: listedItem.enchantmentId
+			}).then();
+		}
 	});
 }

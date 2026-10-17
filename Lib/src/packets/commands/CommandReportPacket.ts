@@ -294,6 +294,14 @@ export class CommandReportItemEnchantedRes extends CrowniclesPacket {
 	enchantmentType!: string;
 }
 
+/** The enchanter removed an enchantment for free */
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandReportEnchanterDisenchantRes extends CrowniclesPacket {
+	enchantmentId!: string;
+
+	enchantmentType!: string;
+}
+
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportBuyHomeRes extends CrowniclesPacket {
 	cost!: number;

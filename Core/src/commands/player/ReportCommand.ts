@@ -43,6 +43,7 @@ import {
 	ReactionCollectorCityShopReaction,
 	ReactionCollectorCityUpgradeHomeReaction,
 	ReactionCollectorEnchantReaction,
+	ReactionCollectorEnchanterDisenchantReaction,
 	ReactionCollectorExitCityReaction,
 	ReactionCollectorHomeBedReaction,
 	ReactionCollectorHomeChestCloseReaction,
@@ -121,6 +122,7 @@ const CITY_REACTION_MENU_MASK = new Map<string, number>([
 	[ReactionCollectorRoyalBlacksmithUpgradeReaction.name, CityMenuMask.ROYAL_BLACKSMITH],
 	[ReactionCollectorUpgradeItemReaction.name, CityMenuMask.HOME],
 	[ReactionCollectorEnchantReaction.name, CityMenuMask.ENCHANTER],
+	[ReactionCollectorEnchanterDisenchantReaction.name, CityMenuMask.ENCHANTER],
 	[ReactionCollectorCityShopReaction.name, CityMenuMask.SHOP],
 	[ReactionCollectorApartmentBuyReaction.name, CityMenuMask.NOTARY],
 	[ReactionCollectorApartmentClaimRentReaction.name, CityMenuMask.NOTARY],
@@ -152,6 +154,7 @@ import {
 	handleBuyHomeReaction,
 	handleCityShopReaction,
 	handleEnchantReaction,
+	handleEnchanterDisenchantReaction,
 	handleHomeBedReaction,
 	handleInnMealReaction,
 	handleInnRoomReaction,
@@ -491,6 +494,16 @@ const CITY_REACTION_HANDLERS = new Map<string, (params: CityReactionParams) => P
 			await runListedEquipmentAction(params, CityNestedMenuIds.ENCHANTER, () => handleEnchantReaction(
 				params.player,
 				params.reactionData as ReactionCollectorEnchantReaction,
+				params.collectorData as ReactionCollectorCityData,
+				params.response
+			));
+		}
+	],
+	[
+		ReactionCollectorEnchanterDisenchantReaction.name, async (params): Promise<void> => {
+			await runListedEquipmentAction(params, CityNestedMenuIds.ENCHANTER, () => handleEnchanterDisenchantReaction(
+				params.player,
+				params.reactionData as ReactionCollectorEnchanterDisenchantReaction,
 				params.collectorData as ReactionCollectorCityData,
 				params.response
 			));
