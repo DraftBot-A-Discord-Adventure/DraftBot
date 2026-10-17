@@ -12,6 +12,7 @@ type TournamentRow = {
 	registrationEndsAt: Date;
 	combatEndsAt: Date;
 	startedNotificationSent: boolean;
+	endingNotificationSent: boolean;
 	endedNotificationSent: boolean;
 	cancellationReason: string | null;
 	rewardsDistributed: boolean;
@@ -25,6 +26,7 @@ const mocks = vi.hoisted(() => ({
 	findAll: vi.fn(),
 	withLocked: vi.fn(),
 	findParticipants: vi.fn(),
+	countParticipants: vi.fn(),
 	findTournamentForContext: vi.fn(),
 	claimTournamentEvent: vi.fn()
 }));
@@ -46,6 +48,8 @@ vi.mock("../../../src/core/database/game/models/Tournament", () => {
 vi.mock("../../../src/core/database/game/models/TournamentParticipant", () => {
 	class TournamentParticipant {
 		static findAll = mocks.findParticipants;
+
+		static count = mocks.countParticipants;
 	}
 	return {
 		TournamentParticipant,
@@ -77,6 +81,7 @@ function buildTournament(id: number, status: TournamentStatus, overrides: Partia
 		registrationEndsAt: new Date(Date.now() + DAY_MS),
 		combatEndsAt: new Date(Date.now() + 3 * DAY_MS),
 		startedNotificationSent: true,
+		endingNotificationSent: false,
 		endedNotificationSent: false,
 		cancellationReason: null,
 		rewardsDistributed: false,
@@ -178,6 +183,60 @@ describe("Tournament due processing", () => {
 
 		expect(getLockedTournamentIds()).toEqual([combat.id]);
 		expect(mocks.claimTournamentEvent).not.toHaveBeenCalled();
+	});
+});
+
+describe("Tournament ending notification", () => {
+	const HOUR_MS = 60 * 60 * 1000;
+
+	function buildTournamentInEndingWindow(id: number): TournamentRow {
+		return buildTournament(id, TournamentStatuses.COMBAT, {
+			registrationEndsAt: new Date(Date.now() - 2 * DAY_MS),
+			combatEndsAt: new Date(Date.now() + HOUR_MS),
+			endingNotificationSent: true
+		});
+	}
+
+	beforeEach(() => {
+		vi.clearAllMocks();
+		mocks.withLocked.mockImplementation((id: number, body: (tournament: TournamentRow) => Promise<unknown>) =>
+			body(buildTournamentInEndingWindow(id)));
+	});
+
+	it("takes no lock once every participant received the ending notification", async () => {
+		mocks.countParticipants.mockResolvedValue(0);
+		const tournament = buildTournamentInEndingWindow(11);
+
+		await processDueTournament(tournament as never);
+
+		expect(mocks.countParticipants).toHaveBeenCalledWith({
+			where: {
+				tournamentId: tournament.id,
+				endingNotificationSent: false
+			}
+		});
+		expect(mocks.withLocked).not.toHaveBeenCalled();
+		expect(mocks.claimTournamentEvent).not.toHaveBeenCalled();
+	});
+
+	it("still notifies a late registrant who did not receive the ending notification", async () => {
+		mocks.countParticipants.mockResolvedValue(1);
+		const tournament = buildTournamentInEndingWindow(12);
+
+		await processDueTournament(tournament as never);
+
+		expect(getLockedTournamentIds()).toEqual([tournament.id]);
+		expect(mocks.claimTournamentEvent).toHaveBeenCalledWith(tournament.id, { event: TournamentNotificationEvents.ENDING });
+	});
+
+	it("locks without counting participants while the ending announcement itself is pending", async () => {
+		const tournament = buildTournamentInEndingWindow(13);
+		tournament.endingNotificationSent = false;
+
+		await processDueTournament(tournament as never);
+
+		expect(mocks.countParticipants).not.toHaveBeenCalled();
+		expect(mocks.claimTournamentEvent).toHaveBeenCalledWith(tournament.id, { event: TournamentNotificationEvents.ENDING });
 	});
 });
 

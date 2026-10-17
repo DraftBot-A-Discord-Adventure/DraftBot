@@ -31,6 +31,12 @@ type TournamentRewardPreparationContext = {
 type TournamentNotificationConfiguration = {
 	isReady: (tournament: Tournament) => boolean;
 	eventData: (tournament: Tournament) => TournamentEventData;
+
+	/**
+	 * Unlocked check telling whether the event still has someone to notify. When it answers false, no lock is taken.
+	 * A stale answer is harmless: the event is claimed again by a later processing
+	 */
+	hasPendingRecipients?: (tournament: Tournament) => Promise<boolean>;
 };
 
 type TournamentParticipantId = TournamentParticipant["id"];
@@ -167,6 +173,9 @@ async function sendTournamentNotificationIfReady(
 	if (!configuration.isReady(tournament)) {
 		return;
 	}
+	if (configuration.hasPendingRecipients && !await configuration.hasPendingRecipients(tournament)) {
+		return;
+	}
 	let shouldSend = false;
 	let eventData: TournamentEventData | null = null;
 	await Tournament.withLocked(tournament.id, lockedTournament => {
@@ -180,6 +189,23 @@ async function sendTournamentNotificationIfReady(
 	if (shouldSend) {
 		await claimTournamentEvent(tournament.id, eventData!);
 	}
+}
+
+/**
+ * The ending notification stays ready during the whole end window so late registrants still receive it:
+ * only lock when the announcement or a participant notification is still pending
+ */
+async function hasPendingEndingRecipients(tournament: Tournament): Promise<boolean> {
+	if (!tournament.endingNotificationSent) {
+		return true;
+	}
+	const pendingParticipantCount = await TournamentParticipant.count({
+		where: {
+			tournamentId: tournament.id,
+			endingNotificationSent: false
+		}
+	});
+	return pendingParticipantCount > 0;
 }
 
 function isEndingNotificationReady(tournament: Tournament): boolean {
@@ -207,7 +233,8 @@ function sendStartedNotificationIfNeeded(tournament: Tournament): Promise<void> 
 async function sendEndingNotificationIfDue(tournament: Tournament): Promise<void> {
 	await sendTournamentNotificationIfReady(tournament, {
 		isReady: isEndingNotificationReady,
-		eventData: () => ({ event: TournamentNotificationEvents.ENDING })
+		eventData: () => ({ event: TournamentNotificationEvents.ENDING }),
+		hasPendingRecipients: hasPendingEndingRecipients
 	});
 }
 

@@ -32,6 +32,7 @@ type TournamentLifecycleModule = typeof import("../../src/core/tournaments/Tourn
 type TournamentAccessModule = typeof import("../../src/core/tournaments/TournamentAccess");
 type TournamentTypesModule = typeof import("../../src/core/tournaments/TournamentTypes");
 type TournamentModelModule = typeof import("../../src/core/database/game/models/Tournament");
+type WithLockedEntitiesModule = typeof import("../../../Lib/src/locks/withLockedEntities");
 type TournamentRankingModule = typeof import("../../src/core/tournaments/TournamentRanking");
 type TournamentRewardsModule = typeof import("../../src/core/tournaments/TournamentRewards");
 type TournamentFightResolverModule = typeof import("../../src/core/tournaments/TournamentFightResolver");
@@ -193,9 +194,44 @@ describe("Tournament modules integration", () => {
 		withLocked.mockRestore();
 	});
 
+	it("takes no lock for a command in the channel of a finished and notified tournament", async () => {
+		const access = loadProductionModule<TournamentAccessModule>("core/tournaments/TournamentAccess");
+		const {
+			TournamentAccessResults, TournamentCommandAccesses
+		} = loadProductionModule<TournamentTypesModule>("core/tournaments/TournamentTypes");
+		const tournamentModel = loadProductionModule<TournamentModelModule>("core/database/game/models/Tournament").Tournament;
+		const locks = loadProductionModule<WithLockedEntitiesModule>("../../Lib/src/locks/withLockedEntities");
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-finished-access",
+			level: 50
+		});
+		const code = await manager.generateCode(GUILD_ID);
+		const tournament = await manager.createTournament(buildContext(owner.keycloakId), code.code, 1, 1);
+		await Tournament.update({
+			status: TournamentStatuses.COMPLETED,
+			endedNotificationSent: true
+		}, { where: { id: tournament.id } });
+		const before = (await Tournament.findByPk(tournament.id))!.toJSON();
+		const withLocked = vi.spyOn(tournamentModel, "withLocked");
+		const withLockedEntities = vi.spyOn(locks, "withLockedEntities");
+
+		for (const commandAccess of Object.values(TournamentCommandAccesses)) {
+			expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId), [], commandAccess))
+				.toBe(TournamentAccessResults.ALLOWED);
+		}
+
+		expect(withLocked).not.toHaveBeenCalled();
+		expect(withLockedEntities).not.toHaveBeenCalled();
+		expect((await Tournament.findByPk(tournament.id))!.toJSON()).toEqual(before);
+		withLocked.mockRestore();
+		withLockedEntities.mockRestore();
+	});
+
 	it("processes only the tournament of the command channel before deciding its access", async () => {
 		const access = loadProductionModule<TournamentAccessModule>("core/tournaments/TournamentAccess");
-		const { TournamentAccessResults } = loadProductionModule<TournamentTypesModule>("core/tournaments/TournamentTypes");
+		const {
+			TournamentAccessResults, TournamentCommandAccesses
+		} = loadProductionModule<TournamentTypesModule>("core/tournaments/TournamentTypes");
 		const tournamentModel = loadProductionModule<TournamentModelModule>("core/database/game/models/Tournament").Tournament;
 		const owner = await Player.create({
 			keycloakId: "tournament-owner-access",
@@ -206,18 +242,22 @@ describe("Tournament modules integration", () => {
 		await Tournament.update({ registrationEndsAt: new Date(Date.now() - 1) }, { where: { id: tournament.id } });
 		const sendNotifications = vi.spyOn(packetUtils, "sendNotifications").mockImplementation(() => undefined);
 		const withLocked = vi.spyOn(tournamentModel, "withLocked");
+		const withLockedEntities = vi.spyOn(loadProductionModule<WithLockedEntitiesModule>("../../Lib/src/locks/withLockedEntities"), "withLockedEntities");
 
-		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId, UNRELATED_CHANNEL_ID), [], "none"))
+		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId, UNRELATED_CHANNEL_ID), [], TournamentCommandAccesses.NONE))
 			.toBe(TournamentAccessResults.ALLOWED);
 		expect(withLocked).not.toHaveBeenCalled();
+		expect(withLockedEntities).not.toHaveBeenCalled();
 		expect((await Tournament.findByPk(tournament.id))?.status).toBe(TournamentStatuses.REGISTRATION);
 
 		// Without participants, the expired registration cancels the tournament: the channel is free again
-		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId), [], "none"))
+		expect(await access.verifyCommandAccess(owner, buildContext(owner.keycloakId), [], TournamentCommandAccesses.NONE))
 			.toBe(TournamentAccessResults.ALLOWED);
 		expect(withLocked).toHaveBeenCalled();
+		expect(withLockedEntities).toHaveBeenCalled();
 		expect((await Tournament.findByPk(tournament.id))?.status).toBe(TournamentStatuses.CANCELLED);
 		withLocked.mockRestore();
+		withLockedEntities.mockRestore();
 		sendNotifications.mockRestore();
 	});
 
