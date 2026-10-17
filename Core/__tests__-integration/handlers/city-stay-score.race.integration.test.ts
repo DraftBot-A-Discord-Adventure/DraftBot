@@ -8,9 +8,12 @@ import {
 import type { Player as PlayerType } from "../../src/core/database/game/models/Player";
 import type { PlayerMissionsInfo as PlayerMissionsInfoType } from "../../src/core/database/game/models/PlayerMissionsInfo";
 import type { CrowniclesPacket } from "../../../Lib/src/packets/CrowniclesPacket";
+import { Constants } from "../../../Lib/src/constants/Constants";
+import { NumberChangeReason } from "../../../Lib/src/constants/LogsConstants";
 
 type CityStayScoreModule = typeof import("../../src/core/report/ReportCityStayScoreService");
 type PlayerLockModule = typeof import("../../src/core/utils/withLockedPlayerAndMissions");
+type TravelTimeModule = typeof import("../../src/core/maps/TravelTime");
 
 const N_CONCURRENT = 10;
 const STAY_MINUTES = 120;
@@ -27,6 +30,7 @@ describe("City stay score on exit", () => {
 	let PlayerMissionsInfo: ModelStatic<PlayerMissionsInfoType>;
 	let cityStayScore: CityStayScoreModule;
 	let playerLock: PlayerLockModule;
+	let travelTime: TravelTimeModule;
 
 	beforeAll(async () => {
 		env = await setupCoreForTests("citystayscore");
@@ -34,6 +38,7 @@ describe("City stay score on exit", () => {
 		PlayerMissionsInfo = env.crownicles.gameDatabase.sequelize.models.PlayerMissionsInfo as ModelStatic<PlayerMissionsInfoType>;
 		cityStayScore = loadProductionModule<CityStayScoreModule>("core/report/ReportCityStayScoreService");
 		playerLock = loadProductionModule<PlayerLockModule>("core/utils/withLockedPlayerAndMissions");
+		travelTime = loadProductionModule<TravelTimeModule>("core/maps/TravelTime");
 	});
 
 	afterAll(async () => {
@@ -81,6 +86,29 @@ describe("City stay score on exit", () => {
 		expect(fresh!.score).toBe(credited);
 		expect(fresh!.insideCity).toBe(false);
 		expect(fresh!.cityArrivalDate).toBeNull();
+	});
+
+	it("does not credit an alteration taken on arrival, even after a time bonus moved it", async () => {
+		const alterationMinutes = 60;
+		const player = await createPlayerInCity("city-stay-score-alteration");
+		await player.update({
+			effectId: "sleeping",
+			effectDuration: alterationMinutes,
+			effectEndDate: new Date(player.cityArrivalDate!.valueOf() + alterationMinutes * ONE_MINUTE_MS)
+		});
+
+		// A time bonus (potion, daily, guild daily) taken in the city once the alteration is over
+		await playerLock.withLockedPlayerAndMissions(player.id, async lockedPlayer => {
+			await travelTime.TravelTime.timeTravel(lockedPlayer, alterationMinutes, NumberChangeReason.TEST);
+			await lockedPlayer.save();
+		});
+		const credited = await leaveCity(player.id);
+
+		const rewardedMinutes = STAY_MINUTES - alterationMinutes;
+		expect(credited).toBeGreaterThanOrEqual(rewardedMinutes);
+		expect(credited).toBeLessThanOrEqual(rewardedMinutes + rewardedMinutes / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
+		const fresh = await Player.findByPk(player.id);
+		expect(fresh!.score).toBe(credited);
 	});
 
 	it(`credits the stay exactly once when ${N_CONCURRENT} exits race`, async () => {
