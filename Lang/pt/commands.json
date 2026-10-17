@@ -785,6 +785,8 @@
     "choseMapMinutes_other": "Decidiu ir para {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Esta viagem demorará aproximadamente **{{timeDisplay}}**.",
     "choseMap_one": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} Esta viagem demorará aproximadamente ** hora**.",
     "choseMap_other": "{{mapPrefix}} {{mapType}} {{mapEmote}}{{mapName}}Decidiu dirigir-se para ** **.{{time}} A viagem demorará aproximadamente ** horas**.",
+    "cityStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** point.",
+    "cityStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** points.",
     "goBackMapMinutes_one": "Voltam para trás em direção a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de onde vieram. Este regresso demorará cerca de **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Voltará em direção a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de onde veio. Este regresso demorará cerca de **{{timeDisplay}}**.",
     "goBackMap_one": "Voltará em direção a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de onde veio. Esta viagem de regresso demorará cerca de **{{time}} hora**.",
@@ -832,6 +834,8 @@
       "placeholder": "Escolher algo para fazer",
       "title": "{{pseudo}}estás na cidade!",
       "description": "{emote:commands.report} Entrou em **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)**.\n\nAs ruas de calçada ganham vida à sua volta: comerciantes, aventureiros e artesãos dedicam-se às suas tarefas. Há muitos serviços à sua disposição, mas a estrada não espera por ninguém.",
+      "minimumStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** point à votre départ.",
+      "minimumStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** points à votre départ.",
       "buttons": {
         "enter": "Entrar",
         "visit": "Visitar",
@@ -1266,9 +1270,11 @@
           "noStoredItems": "Não há itens nesta categoria.",
           "depositSection": "{emote:city.chestActions.deposit} **Depositar no cofre:**",
           "withdrawSection": "{emote:city.chestActions.withdraw} **Remover do baú:**",
-          "chestFull": "Cofre completo para esta categoria",
-          "inventoryFullLabel": "Inventário completo",
+          "chestFull": "{emote:collectors.warning} *Coffre plein pour cette catégorie*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventaire plein*",
           "swapSection": "{emote:city.chestActions.swap} **troca com o baú:**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenu du coffre :**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **swap** {{item}} **with :**",
           "errors": {
             "chestFull": "O teu baú está cheio para esta categoria! Melhora a tua casa para obteres mais slots.",
@@ -2579,6 +2585,14 @@
         "Foi um jogo muito disputado, com algumas tácticas inteligentes de ambas as partes.",
         "Os espectadores assistiram a um jogo épico entre dois jogadores talentosos que se defrontaram em igualdade de circunstâncias."
       ]
+    },
+    "kingGuard": {
+      "name": "Garde du roi",
+      "recap": {
+        "win": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et l'a vaincu. Aucune gloire n'était en jeu lors de ce combat.",
+        "draw": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi sans parvenir à le départager. Aucune gloire n'était en jeu lors de ce combat.",
+        "loss": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et a été vaincu. Aucune gloire n'était en jeu lors de ce combat."
+      }
     }
   },
   "friendlyFight": {
@@ -2821,6 +2835,7 @@
     "noHistory": "Ainda não tens nenhum combate no teu historial.",
     "title": "{{pseudo}}A história dos combates",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Resultado:** {{resultSentence}}\n**A tua glória:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}}\n**Glória oposta:** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} Aucun adversaire n'était disponible : vous avez affronté un **garde du roi** de niveau {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Résultat :** {{resultSentence}}\n**Gloire :** {emote:unitValues.glory} aucune gloire n'était en jeu",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Atacou **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Foi atacado por **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
