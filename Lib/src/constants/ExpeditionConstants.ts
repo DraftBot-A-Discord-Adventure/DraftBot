@@ -4,7 +4,9 @@ import {
 import {
 	asDays, asHours
 } from "../types/TimeTypes";
-import { MapLocationConstants } from "./MapLocationConstants";
+import {
+	MapLocationConstants, MapLocationType
+} from "./MapLocationConstants";
 
 /**
  * Constants for the Pet Expedition system
@@ -130,7 +132,7 @@ export abstract class ExpeditionConstants {
 	/**
 	 * Mapping from map location types to expedition location types
 	 */
-	static readonly MAP_TYPE_TO_EXPEDITION_TYPE: Record<string, ExpeditionLocationType> = {
+	static readonly MAP_TYPE_TO_EXPEDITION_TYPE: Record<MapLocationType, ExpeditionLocationType> = {
 		[MapLocationConstants.TYPES.FOREST]: "forest",
 		[MapLocationConstants.TYPES.MOUNTAIN]: "mountain",
 		[MapLocationConstants.TYPES.DESERT]: "desert",
@@ -148,6 +150,7 @@ export abstract class ExpeditionConstants {
 		[MapLocationConstants.TYPES.MISTY_PATH]: "forest",
 		[MapLocationConstants.TYPES.HAUNTED_HOUSE]: "ruins",
 		[MapLocationConstants.TYPES.PVE_EXIT]: "coast",
+		[MapLocationConstants.TYPES.TEST_ZONE]: "plains",
 
 		// PVE islands
 		[MapLocationConstants.TYPES.MINE]: "cave",

@@ -3,13 +3,14 @@ import { QueryTypes } from "sequelize";
 import { MapLinkDataController } from "./MapLink";
 import Player from "../core/database/game/models/Player";
 import { Data } from "./Data";
+import { MapLocationType } from "../../../Lib/src/constants/MapLocationConstants";
 import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
 import {
 	ExpeditionConstants, ExpeditionLocationType
 } from "../../../Lib/src/constants/ExpeditionConstants";
 
 export class MapLocation extends Data<number> {
-	declare readonly type: string;
+	declare readonly type: MapLocationType;
 
 	declare readonly canBeGoToPlaceMissionDestination: boolean;
 

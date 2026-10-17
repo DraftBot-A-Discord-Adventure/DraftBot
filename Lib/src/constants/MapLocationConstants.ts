@@ -40,3 +40,5 @@ export abstract class MapLocationConstants {
 		VOLCANO: "volcano"
 	} as const;
 }
+
+export type MapLocationType = typeof MapLocationConstants.TYPES[keyof typeof MapLocationConstants.TYPES];
