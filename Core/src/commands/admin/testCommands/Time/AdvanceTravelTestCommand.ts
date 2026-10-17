@@ -20,12 +20,11 @@ export const commandInfo: ITestCommand = {
  */
 const advanceTravelTestCommand: ExecuteTestCommandLike = async (player, args) => {
 	const minutes = parseInt(args[0], 10);
-	await TravelTime.timeTravel(player, minutes, NumberChangeReason.TEST);
-	if (player.insideCity && player.cityArrivalDate) {
-		player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() - minutesToMilliseconds(asMinutes(minutes)));
+	if (TravelTime.advanceCityStay(player, minutesToMilliseconds(asMinutes(minutes)))) {
 		await player.save();
 		return `Vous avez avancé votre séjour en ville de ${minutes} minutes !`;
 	}
+	await TravelTime.timeTravel(player, minutes, NumberChangeReason.TEST);
 	await player.save();
 	return `Vous avez avancé votre voyage de ${minutes} minutes !`;
 };
