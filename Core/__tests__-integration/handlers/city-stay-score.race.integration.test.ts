@@ -88,8 +88,9 @@ describe("City stay score on exit", () => {
 		expect(fresh!.cityArrivalDate).toBeNull();
 	});
 
-	it("does not credit an alteration taken on arrival, even after a time bonus moved it", async () => {
+	it("credits a time bonus taken in the city but not the alteration taken on arrival", async () => {
 		const alterationMinutes = 60;
+		const bonusMinutes = 120;
 		const player = await createPlayerInCity("city-stay-score-alteration");
 		await player.update({
 			effectId: "sleeping",
@@ -99,12 +100,12 @@ describe("City stay score on exit", () => {
 
 		// A time bonus (potion, daily, guild daily) taken in the city once the alteration is over
 		await playerLock.withLockedPlayerAndMissions(player.id, async lockedPlayer => {
-			await travelTime.TravelTime.timeTravel(lockedPlayer, alterationMinutes, NumberChangeReason.TEST);
+			await travelTime.TravelTime.timeTravel(lockedPlayer, bonusMinutes, NumberChangeReason.TEST);
 			await lockedPlayer.save();
 		});
 		const credited = await leaveCity(player.id);
 
-		const rewardedMinutes = STAY_MINUTES - alterationMinutes;
+		const rewardedMinutes = STAY_MINUTES - alterationMinutes + bonusMinutes;
 		expect(credited).toBeGreaterThanOrEqual(rewardedMinutes);
 		expect(credited).toBeLessThanOrEqual(rewardedMinutes + rewardedMinutes / Constants.REPORT.BONUS_POINT_TIME_DIVIDER);
 		const fresh = await Player.findByPk(player.id);

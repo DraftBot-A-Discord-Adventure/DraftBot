@@ -171,13 +171,15 @@ export abstract class TravelTime {
 		const currentTime = nowMs();
 
 		// Move the end date of the effect
-		const effectEndTime = asMilliseconds(Math.max(player.effectEndDate.valueOf() - adjustedTimeMs, 0));
-		TravelTime.settleCityStayTimeUnderEffect(player, currentTime, effectEndTime);
-		player.effectEndDate = new Date(effectEndTime);
+		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - adjustedTimeMs, 0));
 
 		// Move the start date, unless the player is not travelling: 0 is the sentinel value meaning "no travel in progress"
 		if (Maps.isTravelling(player)) {
 			player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - adjustedTimeMs, 0));
+		}
+		else if (player.insideCity && player.cityArrivalDate) {
+			// A city stay moves like a trip: the time travel is rewarded, except the part spent under the effect
+			player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() - adjustedTimeMs);
 		}
 
 		// If the effect is not active anymore and was active before
@@ -244,37 +246,14 @@ export abstract class TravelTime {
 	}
 
 	/**
-	 * Simulate time passing during a city stay, for testing: the arrival and the effect move together, so the time under the effect stays excluded
+	 * Like a trip, a city stay does not earn the time spent under an effect being removed
 	 * @param player
-	 * @param time
-	 * @returns whether the player was staying in a city
 	 */
-	static advanceCityStay(player: Player, time: Millisecond): boolean {
-		const cityArrivalDate = player.insideCity ? player.cityArrivalDate : null;
-		if (!cityArrivalDate) {
-			return false;
-		}
-		player.cityArrivalDate = new Date(cityArrivalDate.valueOf() - time);
-		player.effectEndDate = new Date(player.effectEndDate.valueOf() - time);
-		return true;
-	}
-
-	/**
-	 * Before a time travel moves the effect of a player staying in a city, settle into the arrival the time of the stay already spent under it,
-	 * then keep the moved effect covering only its remaining time: shortening the effect can neither reward nor exclude that time again
-	 * @param player
-	 * @param now
-	 * @param movedEffectEndTime The end of the effect once moved by the time travel
-	 */
-	private static settleCityStayTimeUnderEffect(player: Player, now: Millisecond, movedEffectEndTime: Millisecond): void {
-		if (!player.insideCity) {
-			return;
-		}
-		const timeUnderEffect = TravelTime.getCityStayTimeUnderEffect(player, new Date(now));
+	private static excludeCityStayTimeUnderEffect(player: Player): void {
+		const timeUnderEffect = TravelTime.getCityStayTimeUnderEffect(player, new Date());
 		if (player.cityArrivalDate && timeUnderEffect > 0) {
 			player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() + timeUnderEffect);
 		}
-		player.effectDuration = Math.max(millisecondsToMinutes(asMilliseconds(movedEffectEndTime - now)), 0);
 	}
 
 	/**
@@ -292,6 +271,7 @@ export abstract class TravelTime {
 			const { effectDuration } = TravelTime.getTravelDataSimplified(player, new Date());
 			player.startTravelDate = new Date(player.startTravelDate.valueOf() + effectDuration);
 		}
+		TravelTime.excludeCityStayTimeUnderEffect(player);
 
 		// Now we can safely remove the effect, as the player is after the effect
 		player.effectId = Effect.NO_EFFECT.id;
