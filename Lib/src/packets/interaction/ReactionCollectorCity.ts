@@ -28,6 +28,7 @@ import { GardenAccessMode } from "../../types/GardenAccessMode";
 import { GardenConstants } from "../../constants/GardenConstants";
 import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
+import { MapLocationType } from "../../constants/MapLocationConstants";
 
 export class ReactionCollectorCityData extends ReactionCollectorData {
 	mapTypeId!: string;
@@ -94,6 +95,7 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 		enchantmentSlot: ItemCategory; // The slot (WEAPON or ARMOR) that today's enchantment can be applied to.
 		tomorrow?: {
 			cityMapLocationId: number;
+			cityMapTypeId: MapLocationType;
 			enchantmentId: string;
 			enchantmentType: string;
 		};

@@ -1,6 +1,9 @@
 {
   "type": "mo",
-  "biome": "mountain",
+  "biomes": [
+    "mountain",
+    "cave"
+  ],
   "tags": [
     "detAu"
   ],

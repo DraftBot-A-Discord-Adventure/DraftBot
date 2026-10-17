@@ -1,6 +1,9 @@
 {
   "type": "fo",
-  "biome": "forest",
+  "biomes": [
+    "forest",
+    "cave"
+  ],
   "tags": [
     "detAu"
   ],

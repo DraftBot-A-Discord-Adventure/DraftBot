@@ -1,6 +1,9 @@
 {
   "type": "la",
-  "biome": "swamp",
+  "biomes": [
+    "coast",
+    "swamp"
+  ],
   "tags": [
     "detAu"
   ],

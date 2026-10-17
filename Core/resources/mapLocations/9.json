@@ -1,6 +1,9 @@
 {
   "type": "ro",
-  "biome": "plains",
+  "biomes": [
+    "plains",
+    "ruins"
+  ],
   "tags": [
     "detALa"
   ],

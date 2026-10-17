@@ -1,6 +1,8 @@
 {
   "type": "pl",
-  "biome": "swamp",
+  "biomes": [
+    "plains"
+  ],
   "tags": [
     "detA"
   ],

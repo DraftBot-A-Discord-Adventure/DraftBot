@@ -1,6 +1,8 @@
 {
   "type": "ro",
-  "biome": "swamp",
+  "biomes": [
+    "swamp"
+  ],
   "tags": [
     "detALa"
   ],

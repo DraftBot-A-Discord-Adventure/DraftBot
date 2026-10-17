@@ -1,6 +1,8 @@
 {
   "type": "castleThrone",
-  "biome": "ruins",
+  "biomes": [
+    "plains"
+  ],
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "king_castle"
 }

@@ -135,7 +135,7 @@ function generateLocalExpeditions(
 	for (let i = 0; i < ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT && i < localMapLocationIds.length; i++) {
 		const mapLocationId = localMapLocationIds[i];
 		const mapLocation = MapLocationDataController.instance.getById(mapLocationId)!;
-		const locationType = mapLocation.biome;
+		const locationType = mapLocation.pickBiome();
 
 		const expedition = generateExpeditionWithConstraints({
 			durationRange: durationRanges[i],
@@ -225,7 +225,7 @@ function generateDistantExpedition(
 ): ExpeditionData {
 	const distantMapLocationId = getRandomDistantMapLocation(localMapLocationIds);
 	const distantMapLocation = MapLocationDataController.instance.getById(distantMapLocationId)!;
-	const distantLocationType = distantMapLocation.biome;
+	const distantLocationType = distantMapLocation.pickBiome();
 
 	return generateExpeditionWithConstraints({
 		durationRange: durationRanges[ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT],

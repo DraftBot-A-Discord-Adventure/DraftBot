@@ -1,6 +1,9 @@
 {
   "type": "undergroundLake",
-  "biome": "swamp",
+  "biomes": [
+    "swamp",
+    "cave"
+  ],
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

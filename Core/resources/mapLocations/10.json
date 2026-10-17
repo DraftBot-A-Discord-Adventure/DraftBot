@@ -1,6 +1,9 @@
 {
   "type": "vi",
-  "biome": "ruins",
+  "biomes": [
+    "ruins",
+    "cave"
+  ],
   "tags": [
     "detA"
   ],

@@ -13,7 +13,6 @@ import { CrowniclesIcons } from "../../../../../../Lib/src/CrowniclesIcons";
 import { Language } from "../../../../../../Lib/src/Language";
 import { ItemCategory } from "../../../../../../Lib/src/constants/ItemConstants";
 import { ItemEnchantment } from "../../../../../../Lib/src/types/ItemEnchantment";
-import { MapLocationConstants } from "../../../../../../Lib/src/constants/MapLocationConstants";
 import {
 	CrowniclesNestedMenu,
 	CrowniclesNestedMenuCollector,
@@ -210,7 +209,7 @@ export function buildTomorrowStory(data: EnchanterCityData, lng: Language, curre
 		: "commands:report.city.enchanter.tomorrowStory";
 	return i18n.t(translationKey, {
 		lng,
-		nextCity: DisplayUtils.getMapLocationDisplay(MapLocationConstants.TYPES.CITY, data.tomorrow.cityMapLocationId, lng),
+		nextCity: DisplayUtils.getMapLocationDisplay(data.tomorrow.cityMapTypeId, data.tomorrow.cityMapLocationId, lng),
 		nextEnchantmentId: data.tomorrow.enchantmentId,
 		nextEnchantmentType: data.tomorrow.enchantmentType
 	});

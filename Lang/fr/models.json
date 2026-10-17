@@ -1061,7 +1061,7 @@
       "atParticle": "à la"
     },
     "10": {
-      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines.",
+      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines, et sous les remparts effondrés, d'anciennes galeries souterraines s'enfoncent dans la roche.",
       "name": "Ville Forte",
       "particle": "vers la",
       "atParticle": "à la",
@@ -1205,13 +1205,13 @@
       "atParticle": "à la"
     },
     "14": {
-      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
+      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter, et ses rives les plus reculées se perdent en marécages couverts de roseaux.",
       "name": "Lac Mirage",
       "particle": "vers le",
       "atParticle": "au"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B.",
+      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B. Ses flancs sont percés de grottes dont personne n'a jamais trouvé le fond.",
       "name": "Mont Célestrum",
       "particle": "vers le",
       "atParticle": "au"
@@ -1260,7 +1260,7 @@
       "atParticle": "à la"
     },
     "22": {
-      "description": "Forêt mal famée au bord de Claire de Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années.",
+      "description": "Forêt mal famée au bord de Claire de Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années. Les brigands se terrent encore dans les grottes qui creusent ses collines.",
       "name": "Bois Hurlant",
       "particle": "vers le",
       "atParticle": "au"
@@ -1364,7 +1364,7 @@
       "inParticle": "dans"
     },
     "7": {
-      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
+      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région. Leurs tombeaux à demi ensevelis parsèment encore les dunes.",
       "name": "Vallée des Rois",
       "particle": "vers la",
       "atParticle": "à la"
@@ -1502,28 +1502,17 @@
     "mistyPath": {
       "name": "",
       "prefix": "du"
-    },
-    "forest": {
-      "name": "Forêt"
-    },
-    "mountain": {
-      "name": "Montagne"
-    },
-    "desert": {
-      "name": "Désert"
-    },
-    "swamp": {
-      "name": "Marais"
-    },
-    "cave": {
-      "name": "Grotte"
-    },
-    "plains": {
-      "name": "Plaine"
-    },
-    "coast": {
-      "name": "Côte"
     }
+  },
+  "biomes": {
+    "forest": "Forêt",
+    "mountain": "Montagne",
+    "desert": "Désert",
+    "swamp": "Marais",
+    "ruins": "Ruines",
+    "cave": "Grotte",
+    "plains": "Plaine",
+    "coast": "Côte"
   },
   "missions": {
     "anyFight_one": "Faire {{count}} combat",
