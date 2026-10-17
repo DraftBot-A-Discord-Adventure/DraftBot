@@ -167,13 +167,8 @@ describe("City services after a chest action (issue #4789)", () => {
 		}
 	});
 
-	it("upgrades at home the sword withdrawn from the chest after the city was opened", async () => {
-		const player = await setupPlayer({
-			equippedWeapon: SABRE_ID,
-			chestWeapon: SWORD_ID,
-			itemLevel: 0
-		});
-		const openingData = {
+	async function buildUpgradeStationCityData(player: PlayerType): Promise<ReactionCollectorCityData> {
+		return {
 			home: {
 				owned: {
 					features: HOME_LEVEL.features,
@@ -181,28 +176,70 @@ describe("City services after a chest action (issue #4789)", () => {
 				}
 			}
 		} as unknown as ReactionCollectorCityData;
+	}
 
-		await runChestAction(HomeConstants.CHEST_ACTIONS.WITHDRAW, CHEST_SLOT);
-		const freshStation = cityService.buildUpgradeStationData(await inventorySlots.InventorySlots.getOfPlayer(player.id), new Map(), HOME_LEVEL, player);
-		const withdrawnSword = freshStation.upgradeableItems.find(item => item.slot === RESERVE_SLOT)!;
-		for (const material of withdrawnSword.requiredMaterials) {
+	async function giveUpgradeMaterials(player: PlayerType, cityData: ReactionCollectorCityData, slot: number): Promise<Map<number, number>> {
+		const listedItem = cityData.home.owned!.upgradeStation!.upgradeableItems.find(item => item.slot === slot)!;
+		for (const material of listedItem.requiredMaterials) {
 			await Material.create({
 				playerId: player.id,
 				materialId: material.materialId,
 				quantity: material.quantity
 			});
 		}
+		return new Map(listedItem.requiredMaterials.map(material => [material.materialId, material.quantity]));
+	}
+
+	async function getMaterialQuantities(playerId: number): Promise<Map<number, number>> {
+		const materials = await Material.findAll({ where: { playerId } });
+		return new Map(materials.map(material => [material.materialId, material.quantity]));
+	}
+
+	it("upgrades at home the sword withdrawn from the chest once the city was rebuilt", async () => {
+		const player = await setupPlayer({
+			equippedWeapon: SABRE_ID,
+			chestWeapon: SWORD_ID,
+			itemLevel: 0
+		});
+
+		await runChestAction(HomeConstants.CHEST_ACTIONS.WITHDRAW, CHEST_SLOT);
+		const rebuiltData = await buildUpgradeStationCityData(player);
+		await giveUpgradeMaterials(player, rebuiltData, RESERVE_SLOT);
 
 		const response: CrowniclesPacket[] = [];
 		await cityService.handleUpgradeItemReaction(player, {
 			slot: RESERVE_SLOT,
 			itemCategory: ItemCategory.WEAPON
-		}, openingData, response);
+		}, rebuiltData, response);
 
 		expect(packetNames(response)).toContain("CommandReportUpgradeItemRes");
 		const swordSlot = await getWeaponSlot(player.id, RESERVE_SLOT);
 		expect(swordSlot?.itemId).toBe(SWORD_ID);
 		expect(swordSlot?.itemLevel).toBe(1);
+		expect([...(await getMaterialQuantities(player.id)).values()].every(quantity => quantity === 0)).toBe(true);
+	});
+
+	it("refuses a home upgrade of the equipment that was swapped into the listed slot (issue #4973)", async () => {
+		const player = await setupPlayer({
+			equippedWeapon: SABRE_ID,
+			chestWeapon: SWORD_ID,
+			itemLevel: 0
+		});
+		const openingData = await buildUpgradeStationCityData(player);
+		const givenMaterials = await giveUpgradeMaterials(player, openingData, 0);
+
+		await runChestAction(HomeConstants.CHEST_ACTIONS.SWAP, 0);
+		const response: CrowniclesPacket[] = [];
+		await cityService.handleUpgradeItemReaction(player, {
+			slot: 0,
+			itemCategory: ItemCategory.WEAPON
+		}, openingData, response);
+
+		expect(packetNames(response)).toEqual(["CommandReportEquipmentChangedRes"]);
+		expect(await getMaterialQuantities(player.id)).toEqual(givenMaterials);
+		const swordSlot = await getWeaponSlot(player.id, 0);
+		expect(swordSlot?.itemId).toBe(SWORD_ID);
+		expect(swordSlot?.itemLevel).toBe(0);
 	});
 
 	it("refuses a blacksmith upgrade priced for the equipment that was swapped into the chest", async () => {
