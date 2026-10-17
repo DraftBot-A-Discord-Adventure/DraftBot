@@ -15,7 +15,7 @@ export type EquipmentSlotReaction = {
 	itemCategory: number;
 };
 
-export async function findInventorySlotForReaction(playerId: number, reaction: EquipmentSlotReaction): Promise<InventorySlot | undefined> {
+async function findInventorySlotForReaction(playerId: number, reaction: EquipmentSlotReaction): Promise<InventorySlot | undefined> {
 	const slots = await InventorySlots.getOfPlayer(playerId);
 	return slots.find(slot => slot.slot === reaction.slot && slot.itemCategory === reaction.itemCategory);
 }

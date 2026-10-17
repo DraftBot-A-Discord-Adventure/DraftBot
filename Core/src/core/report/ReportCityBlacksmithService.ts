@@ -30,7 +30,7 @@ import { MissionsController } from "../missions/MissionsController";
 import { Homes } from "../database/game/models/Home";
 import { buildUpgradeStationData } from "./ReportCityService";
 import {
-	EquipmentSlotReaction, findInventorySlotForReaction, getListedInventorySlotUnderLock, removeListedEnchantmentUnderLock
+	EquipmentSlotReaction, getListedInventorySlotUnderLock, removeListedEnchantmentUnderLock
 } from "./ReportListedEquipment";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
 
@@ -49,6 +49,10 @@ export interface UpgradeItemValidationResult {
 type PlayerInventorySlot = Awaited<ReturnType<typeof InventorySlots.getOfPlayer>>[number];
 
 type InventoryMaterialStock = Map<number, number>;
+
+type UpgradeStationData = NonNullable<NonNullable<ReactionCollectorCityData["home"]["owned"]>["upgradeStation"]>;
+
+type UpgradeStationItem = UpgradeStationData["upgradeableItems"][number];
 
 type BlacksmithUpgradeItem = NonNullable<ReactionCollectorCityData["blacksmith"]>["upgradeableItems"][number];
 
@@ -72,11 +76,6 @@ function getBlacksmithData(player: Player, data: ReactionCollectorCityData): Non
 	}
 
 	return blacksmith;
-}
-
-function logMissingInventoryItem(player: Player, action: string): null {
-	CrowniclesLogger.error(`Player ${player.keycloakId} tried to ${action} an item that doesn't exist in their inventory.`);
-	return null;
 }
 
 function getBlacksmithItem(
@@ -159,13 +158,13 @@ function pushBlacksmithMissingMoneyResponse(response: CrowniclesPacket[], totalC
 	}));
 }
 
-async function getInventorySlotForReaction(
-	player: Player,
-	reaction: EquipmentSlotReaction,
-	action: string
-): Promise<PlayerInventorySlot | null> {
-	const inventorySlot = await findInventorySlotForReaction(player.id, reaction);
-	return inventorySlot ?? logMissingInventoryItem(player, action);
+function findUpgradeStationItem(
+	upgradeStation: UpgradeStationData,
+	reaction: EquipmentSlotReaction
+): UpgradeStationItem | undefined {
+	return upgradeStation.upgradeableItems.find(
+		item => item.slot === reaction.slot && item.category === reaction.itemCategory
+	);
 }
 
 /**
@@ -181,10 +180,7 @@ export function validateUpgradeItemRequest(
 		return { logError: `Player ${player.keycloakId} tried to upgrade an item but no upgrade station data available.` };
 	}
 
-	const itemToUpgrade = upgradeStation.upgradeableItems.find(
-		item => item.slot === reaction.slot && item.category === reaction.itemCategory
-	);
-
+	const itemToUpgrade = findUpgradeStationItem(upgradeStation, reaction);
 	if (!itemToUpgrade) {
 		return { error: makePacket(CommandReportEquipmentChangedRes, {}) };
 	}
@@ -204,8 +200,10 @@ export function validateUpgradeItemRequest(
 /**
  * Handle upgrade item reaction — player upgrades an item at the home upgrade station.
  *
- * The collector data is not trusted: the chest may have changed the inventory since it
- * was built, so the request is only validated against data rebuilt under the lock.
+ * The slot must still hold the equipment listed by the menu: the chest or an inventory
+ * switch may have moved another equipment there since. The listed values are not trusted
+ * for the upgrade itself though: the materials and the home may have changed too, so the
+ * request is validated against data rebuilt under the lock.
  *
  * Concurrency: the material consume + inventory slot mutation runs
  * inside `withLockedPlayerAndMissions` so two concurrent home-upgrade requests
@@ -253,6 +251,25 @@ async function refreshUpgradeStationDataUnderLock(
 }
 
 /**
+ * The slot targeted by an upgrade station reaction, provided it still holds the equipment the menu listed.
+ * Pushes the equipment-changed response otherwise.
+ */
+async function getListedUpgradeStationSlotUnderLock(
+	lockedPlayer: Locked<Player>,
+	reaction: ReactionCollectorUpgradeItemReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<PlayerInventorySlot | null> {
+	const upgradeStation = data.home.owned?.upgradeStation;
+	const listedItem = upgradeStation ? findUpgradeStationItem(upgradeStation, reaction) : undefined;
+	if (!listedItem) {
+		CrowniclesLogger.error(`Player ${lockedPlayer.keycloakId} tried to upgrade an item that the upgrade station did not list.`);
+		return null;
+	}
+	return await getListedInventorySlotUnderLock(lockedPlayer, reaction, listedItem.details, response);
+}
+
+/**
  * Fallback rarity used when the upgraded item can no longer be resolved.
  * It is below every real rarity so the epic-upgrade mission never matches by mistake.
  */
@@ -278,8 +295,8 @@ export async function updateUpgradeMissionsUnderLock(
 }
 
 /**
- * Inside-lock body of `handleUpgradeItemReaction`: re-validate against
- * the locked row, consume materials, mutate the inventory slot.
+ * Inside-lock body of `handleUpgradeItemReaction`: check the slot still holds the listed
+ * equipment, re-validate against the locked rows, consume materials, mutate the inventory slot.
  */
 async function executeUpgradeItemUnderLock(params: {
 	lockedPlayer: Locked<Player>;
@@ -290,6 +307,11 @@ async function executeUpgradeItemUnderLock(params: {
 	const {
 		lockedPlayer, reaction, data, response
 	} = params;
+
+	const inventorySlot = await getListedUpgradeStationSlotUnderLock(lockedPlayer, reaction, data, response);
+	if (!inventorySlot) {
+		return;
+	}
 
 	const freshData = await refreshUpgradeStationDataUnderLock(lockedPlayer, data);
 	if (!freshData) {
@@ -315,11 +337,6 @@ async function executeUpgradeItemUnderLock(params: {
 	const consumed = await Materials.consumeMaterials(lockedPlayer.id, materialsToConsume);
 	if (!consumed) {
 		response.push(makePacket(CommandReportUpgradeItemMissingMaterialsRes, {}));
-		return;
-	}
-
-	const inventorySlot = await getInventorySlotForReaction(lockedPlayer, reaction, "upgrade");
-	if (!inventorySlot) {
 		return;
 	}
 
