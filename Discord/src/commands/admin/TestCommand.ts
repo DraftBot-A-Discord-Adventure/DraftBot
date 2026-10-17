@@ -183,5 +183,8 @@ export const commandInfo: ICommand = {
 			.setAutocomplete(true)) as SlashCommandBuilder,
 	getPacket,
 	mainGuildCommand: false,
+
+	// Debug commands must stay usable in a tournament channel, otherwise test fixtures can no longer be cleaned up
+	allowedInTournament: true,
 	handleAutocomplete
 };

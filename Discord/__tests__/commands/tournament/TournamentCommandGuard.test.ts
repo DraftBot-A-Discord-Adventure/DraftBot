@@ -1,7 +1,15 @@
 import {
-	afterEach, beforeEach, describe, expect, it, vi
+	afterEach, beforeAll, beforeEach, describe, expect, it, vi
 } from "vitest";
 import { PermissionsBitField } from "discord.js";
+import { ICommand } from "../../../src/commands/ICommand";
+
+const { registeredCommands } = vi.hoisted(() => ({ registeredCommands: new Map<string, ICommand>() }));
+
+vi.mock("../../../src/commands/CommandsManager", () => ({
+	CommandsManager: { commands: registeredCommands }
+}));
+
 import {
 	checkTournamentCommandAccess, clearTournamentChannelCache, isAllowedInTournament
 } from "../../../src/commands/tournament/TournamentCommandGuard";
@@ -18,6 +26,10 @@ import { CrowniclesInteraction } from "../../../src/messages/CrowniclesInteracti
 import { commandInfo as tournamentAdminCommandInfo } from "../../../src/commands/tournament/TournamentAdminCommand";
 import { commandInfo as tournamentOwnerCommandInfo } from "../../../src/commands/tournament/TournamentOwnerCommand";
 import { commandInfo } from "../../../src/commands/tournament/TournamentStatusCommand";
+import { commandInfo as fightCommandInfo } from "../../../src/commands/player/FightCommand";
+import { commandInfo as topCommandInfo } from "../../../src/commands/player/TopCommand";
+import { commandInfo as notificationsCommandInfo } from "../../../src/commands/notifications/NotificationsCommand";
+import { commandInfo as inventoryCommandInfo } from "../../../src/commands/player/InventoryCommand";
 
 vi.mock("../../../src/bot/CrowniclesShard", () => ({
 	discordConfig: {},
@@ -72,6 +84,20 @@ function makeContext(): PacketContext {
 function flushBackgroundRefreshes(): Promise<void> {
 	return new Promise(resolve => setImmediate(resolve));
 }
+
+beforeAll(() => {
+	for (const command of [
+		commandInfo,
+		tournamentAdminCommandInfo,
+		tournamentOwnerCommandInfo,
+		fightCommandInfo,
+		topCommandInfo,
+		notificationsCommandInfo,
+		inventoryCommandInfo
+	]) {
+		registeredCommands.set(command.slashCommandBuilder.name, command);
+	}
+});
 
 async function markChannel(channelId: string, active: boolean): Promise<void> {
 	const queriesBefore = getSentContextQueries().length;
@@ -183,6 +209,10 @@ describe("TournamentCommandGuard", () => {
 	it("allows the dedicated management roots through the context guard", () => {
 		expect(isAllowedInTournament("tournament-admin")).toBe(true);
 		expect(isAllowedInTournament("tournament-owner")).toBe(true);
+	});
+
+	it("rejects an unknown command", () => {
+		expect(isAllowedInTournament("unknown")).toBe(false);
 	});
 
 	it("registers the player command as a global command", () => {

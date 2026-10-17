@@ -39,5 +39,6 @@ export const commandInfo: ICommand = {
 	slashCommandBuilder: SlashCommandBuilderGenerator.generateBaseCommand("tournament-owner")
 		.setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator.toString()),
 	getPacket,
-	mainGuildCommand: false
+	mainGuildCommand: false,
+	allowedInTournament: true
 };

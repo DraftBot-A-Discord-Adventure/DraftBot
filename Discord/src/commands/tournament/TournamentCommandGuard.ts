@@ -9,18 +9,7 @@ import { CrowniclesInteraction } from "../../messages/CrowniclesInteraction";
 import { DiscordMQTT } from "../../bot/DiscordMQTT";
 import { replyTournamentError } from "./TournamentCommandUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
-
-// Participant checks are enforced by the Core: the front only filters the commands that make sense in a tournament channel
-const TOURNAMENT_CHANNEL_COMMAND_NAMES = new Set([
-	"tournament",
-	"tournament-admin",
-	"tournament-owner",
-	"fight",
-	"top",
-
-	// Debug commands must stay usable in a tournament channel, otherwise test fixtures can no longer be cleaned up
-	"test"
-]);
+import { CommandsManager } from "../CommandsManager";
 
 type TournamentChannelCacheEntry = {
 	active: boolean;
@@ -39,8 +28,12 @@ const pendingChannelRefreshes = new Set<string>();
 // Bumped on every clear so a query sent before the clear cannot store an outdated state afterwards
 let cacheGeneration = 0;
 
+/**
+ * Whether a command can be used in a tournament channel, as declared by the command itself
+ * @param commandName
+ */
 export function isAllowedInTournament(commandName: string): boolean {
-	return TOURNAMENT_CHANNEL_COMMAND_NAMES.has(commandName);
+	return CommandsManager.commands.get(commandName)?.allowedInTournament === true;
 }
 
 export function clearTournamentChannelCache(): void {

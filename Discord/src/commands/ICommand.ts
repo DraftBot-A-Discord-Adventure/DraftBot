@@ -18,6 +18,12 @@ export interface ICommand {
 	slashCommandPermissions?: ApplicationCommandPermissions[];
 
 	/**
+	 * Whether the command can be used in a tournament channel. Participant checks are enforced by the Core:
+	 * the front only filters the commands that make sense in a tournament channel
+	 */
+	allowedInTournament?: boolean;
+
+	/**
 	 * Optional handler for autocomplete interactions
 	 */
 	handleAutocomplete?: (interaction: AutocompleteInteraction) => Promise<void>;

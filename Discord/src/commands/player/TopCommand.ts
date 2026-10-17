@@ -110,7 +110,8 @@ export const commandInfo: ICommand = {
 		.addSubcommand(getGlorySubCommand())
 		.addSubcommand(getGuildSubCommand()) as SlashCommandBuilder,
 	getPacket,
-	mainGuildCommand: false
+	mainGuildCommand: false,
+	allowedInTournament: true
 };
 
 function getBadgeForPosition(rank: number, sameContext: boolean, contextElementPosition?: number): string {
