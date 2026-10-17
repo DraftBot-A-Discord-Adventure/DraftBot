@@ -14,7 +14,9 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { DiscordCache } from "../../bot/DiscordCache";
 import i18n from "../../translations/i18n";
-import { escapeUsername } from "../../utils/StringUtils";
+import {
+	escapeUsername, StringUtils
+} from "../../utils/StringUtils";
 import { Language } from "../../../../Lib/src/Language";
 import { dateDisplay } from "../../../../Lib/src/utils/TimeUtils";
 import { DisplayUtils } from "../../utils/DisplayUtils";
@@ -112,17 +114,16 @@ function buildKingGuardFightHistoryLine(fight: KingGuardFightHistoryItem, lng: L
  * @param lng - The language
  */
 export async function buildPacketHistoryDescription(history: FightHistoryItem[], start: number, end: number, lng: Language): Promise<string> {
-	let desc = "";
+	const lines: string[] = [];
 
 	for (let i = end - 1; i >= start; i--) {
 		const fight = history[i];
-		const line = "kingGuard" in fight
+		lines.push("kingGuard" in fight
 			? buildKingGuardFightHistoryLine(fight, lng)
-			: await buildPlayerFightHistoryLine(fight, lng);
-		desc += `${line}\n\n`;
+			: await buildPlayerFightHistoryLine(fight, lng));
 	}
 
-	return desc;
+	return StringUtils.joinParagraphs(lines);
 }
 
 /**
