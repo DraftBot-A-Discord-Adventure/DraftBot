@@ -284,6 +284,7 @@ export const CrowniclesIcons: {
 		blacksmith: {
 			upgrade: string;
 			disenchant: string;
+			enchantmentTransfer: string;
 		};
 		homeUpgrades: {
 			bed: string;
@@ -2760,7 +2761,8 @@ export const CrowniclesIcons: {
 		back: "↩️",
 		blacksmith: {
 			upgrade: "🔧",
-			disenchant: "✨"
+			disenchant: "✨",
+			enchantmentTransfer: "🔀"
 		},
 		homeUpgrades: {
 			bed: "🛏️",

@@ -62,12 +62,6 @@ function findListedEnchantableItem(
 	return data.enchanter?.enchantableItems.find(listed => listed.slot === reaction.slot && listed.category === reaction.itemCategory);
 }
 
-function canBeEnchanted(item: InventorySlot, enchantment: ItemEnchantment): boolean {
-	return item.isWeaponOrArmor()
-		&& !item.itemEnchantmentId
-		&& item.itemCategory === enchantment.kind.slot;
-}
-
 /**
  * The listed equipment, read from the locked inventory, provided it can still receive the enchantment of the day.
  * Pushes the matching response and returns null otherwise.
@@ -82,7 +76,7 @@ async function getEnchantableSlotUnderLock(
 		return null;
 	}
 
-	if (!canBeEnchanted(inventorySlot, context.enchantment)) {
+	if (!inventorySlot.canReceiveEnchantment(context.enchantment)) {
 		CrowniclesLogger.error(`Player ${context.lockedPlayer.keycloakId} tried to enchant an item that cannot receive the enchantment of the day.`);
 		context.response.push(makePacket(CommandReportItemCannotBeEnchantedRes, {}));
 		return null;
