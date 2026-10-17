@@ -2308,7 +2308,17 @@ export const CrowniclesIcons: {
 		waterJet: "💦",
 		wateryGust: "🔘",
 		weak: "🤧",
-		webShotAttack: "🕸️"
+		webShotAttack: "🕸️",
+		leechBite: "🩸",
+		multiHeadBite: "🐍",
+		regrowth: "🌱",
+		sporeCloud: "🍄",
+		mantisScythes: "🦗",
+		rootBind: "🌿",
+		barkArmor: "🪵",
+		featherStorm: "🪶",
+		thornBarrage: "🌵",
+		wrathOfTheForest: "🍂"
 	},
 	classKinds: {
 		basic: "⚖️",
