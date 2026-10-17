@@ -124,8 +124,9 @@ export abstract class PVEConstants {
 			13,
 			29,
 			81,
-			16
-		], // Ruins (Skeleton): old metal + alloy + cloth + leather
+			16,
+			83
+		], // Ruins (Skeleton): old metal + alloy + cloth + leather gear
 		1003: [
 			70,
 			21,
@@ -163,13 +164,11 @@ export abstract class PVEConstants {
 			42,
 			29,
 			26,
-			11,
-			12
-		], // Tundra (White Wolf): hides + moss + rope
+			11
+		], // Tundra (White Wolf): prey hides + moss
 		1102: [
 			77,
 			34,
-			89,
 			33,
 			53,
 			80,
@@ -215,8 +214,7 @@ export abstract class PVEConstants {
 			9,
 			88,
 			75,
-			18,
-			84
+			18
 		], // Devastated Village (Yuki-Onna): wood + silk + old alloy
 		1107: [
 			77,
@@ -236,7 +234,6 @@ export abstract class PVEConstants {
 			54,
 			8,
 			78,
-			38,
 			67,
 			84
 		], // Lagoon Hollow (Turtle): water + algae + reptile skin + pearls + driftwood
@@ -264,7 +261,7 @@ export abstract class PVEConstants {
 		1204: [
 			68,
 			77,
-			89,
+			34,
 			53,
 			78,
 			33,

@@ -312,15 +312,15 @@ describe("Materials consistency", () => {
 		expect(unlootable).toEqual([]);
 	});
 
-	it("every map location resolves to an explicit biome", () => {
+	it("every map location type is mapped to a biome", () => {
 		const mapLocationsDir = path.join(__dirname, "../../../../Core/resources/mapLocations");
 		const unmapped = readdirSync(mapLocationsDir)
 			.filter((file) => file.endsWith(".json"))
 			.map((file) => ({
 				file,
-				mapLocation: loadJsonFile(mapLocationsDir, file) as { type: string; expeditionType?: string }
+				mapLocation: loadJsonFile(mapLocationsDir, file) as { type: string }
 			}))
-			.filter(({ mapLocation }) => !mapLocation.expeditionType && !(mapLocation.type in ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE))
+			.filter(({ mapLocation }) => !(mapLocation.type in ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE))
 			.map(({ file, mapLocation }) => `${file} (type '${mapLocation.type}')`);
 
 		expect(unmapped).toEqual([]);
