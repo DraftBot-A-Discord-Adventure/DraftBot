@@ -1,5 +1,6 @@
 {
   "type": "abyss",
+  "biome": "swamp",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

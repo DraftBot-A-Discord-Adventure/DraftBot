@@ -1,5 +1,6 @@
 {
   "type": "dragonsNest",
+  "biome": "ruins",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

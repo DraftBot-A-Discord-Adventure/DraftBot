@@ -1,5 +1,6 @@
 {
   "type": "blessedDoors",
+  "biome": "ruins",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

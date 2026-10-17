@@ -1,5 +1,6 @@
 {
   "type": "pveExit",
+  "biome": "coast",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_exit",
   "forcedImage": "boat_left"

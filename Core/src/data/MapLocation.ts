@@ -5,9 +5,7 @@ import Player from "../core/database/game/models/Player";
 import { Data } from "./Data";
 import { MapLocationType } from "../../../Lib/src/constants/MapLocationConstants";
 import { RandomUtils } from "../../../Lib/src/utils/RandomUtils";
-import {
-	ExpeditionConstants, ExpeditionLocationType
-} from "../../../Lib/src/constants/ExpeditionConstants";
+import { ExpeditionLocationType } from "../../../Lib/src/constants/ExpeditionConstants";
 
 export class MapLocation extends Data<number> {
 	declare readonly type: MapLocationType;
@@ -24,18 +22,9 @@ export class MapLocation extends Data<number> {
 	declare readonly cityId: number | null;
 
 	/**
-	 * Optional override for expedition type. If not set, the expedition type is derived from the map type.
+	 * Biome of this map location (terrain used for expeditions and material loot), independent of its structural type
 	 */
-	declare readonly expeditionType?: ExpeditionLocationType;
-
-	/**
-	 * Get the biome of this map location: the explicit expedition type override if any, otherwise the one derived from the map type
-	 */
-	public getExpeditionLocationType(): ExpeditionLocationType {
-		return this.expeditionType
-			?? ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE[this.type]
-			?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
-	}
+	declare readonly biome: ExpeditionLocationType;
 
 	/**
 	 * Count all players that have the given map as their current map of origin

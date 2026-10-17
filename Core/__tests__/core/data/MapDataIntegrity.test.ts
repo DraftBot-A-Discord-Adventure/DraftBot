@@ -4,6 +4,14 @@ import {
 } from "fs";
 import { resolve } from "path";
 import { MapConstants } from "../../../../Lib/src/constants/MapConstants";
+import { MapLocationConstants } from "../../../../Lib/src/constants/MapLocationConstants";
+import { ExpeditionConstants } from "../../../../Lib/src/constants/ExpeditionConstants";
+
+type MapLocationData = {
+	type: string;
+	biome?: string;
+	expeditionType?: string;
+};
 
 type MapLinkData = {
 	startMap: number;
@@ -25,6 +33,10 @@ function readMapLinks(): Map<number, MapLinkData> {
 		links.set(id, JSON.parse(readFileSync(resolve(mapLinksPath, `${id}.json`), "utf-8")) as MapLinkData);
 	}
 	return links;
+}
+
+function readMapLocation(id: number): MapLocationData {
+	return JSON.parse(readFileSync(resolve(mapLocationsPath, `${id}.json`), "utf-8")) as MapLocationData;
 }
 
 describe("Map data integrity", () => {
@@ -67,5 +79,31 @@ describe("Map data integrity", () => {
 		const unreachable = [...mapLocationIds].filter(id => !reachable.has(id));
 
 		expect(unreachable).toEqual([]);
+	});
+
+	it("every map location type is declared in MapLocationConstants.TYPES", () => {
+		const knownTypes: readonly string[] = Object.values(MapLocationConstants.TYPES);
+		const unknown = [...mapLocationIds]
+			.map(id => ({
+				id,
+				type: readMapLocation(id).type
+			}))
+			.filter(({ type }) => !knownTypes.includes(type))
+			.map(({ id, type }) => `${id} (type '${type}')`);
+
+		expect(unknown).toEqual([]);
+	});
+
+	it("every map location declares an explicit and valid biome", () => {
+		const biomes: readonly string[] = Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES);
+		const invalid = [...mapLocationIds]
+			.map(id => ({
+				id,
+				mapLocation: readMapLocation(id)
+			}))
+			.filter(({ mapLocation }) => !mapLocation.biome || !biomes.includes(mapLocation.biome) || mapLocation.expeditionType !== undefined)
+			.map(({ id, mapLocation }) => `${id} (biome '${mapLocation.biome}', legacy expeditionType '${mapLocation.expeditionType}')`);
+
+		expect(invalid).toEqual([]);
 	});
 });

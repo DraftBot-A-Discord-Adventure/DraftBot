@@ -1,5 +1,6 @@
 {
   "type": "mo",
+  "biome": "mountain",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

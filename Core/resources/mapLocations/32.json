@@ -1,5 +1,6 @@
 {
   "type": "ro",
+  "biome": "plains",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "king_castle"
 }

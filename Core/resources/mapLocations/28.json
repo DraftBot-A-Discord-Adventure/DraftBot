@@ -1,5 +1,6 @@
 {
   "type": "castleEntrance",
+  "biome": "ruins",
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "king_castle"
 }
