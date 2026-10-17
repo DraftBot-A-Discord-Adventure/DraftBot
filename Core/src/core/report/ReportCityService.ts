@@ -217,6 +217,31 @@ export async function buildEnchanterData(
 	};
 }
 
+/**
+ * Build Mernil's next stop (city and enchantment), or undefined if the next enchanter settings are invalid
+ */
+async function buildEnchanterTomorrowData(): Promise<EnchanterData["tomorrow"]> {
+	const nextEnchantmentId = await Settings.NEXT_ENCHANTER_ENCHANTMENT_ID.getValue();
+	const nextEnchantment = ItemEnchantment.getById(nextEnchantmentId);
+	const nextCityId = await Settings.NEXT_ENCHANTER_CITY.getValue();
+	const nextCityMapLocationId = CityDataController.instance.getById(nextCityId)?.maps[0];
+	const nextCityMapLocation = nextCityMapLocationId === undefined ? undefined : MapLocationDataController.instance.getById(nextCityMapLocationId);
+	if (!nextEnchantment || !nextCityMapLocation) {
+		CrowniclesLogger.error("Invalid next enchanter setting. Cannot display Mernil's next destination.", {
+			nextCityId,
+			nextEnchantmentId
+		});
+		return undefined;
+	}
+
+	return {
+		cityMapLocationId: nextCityMapLocation.id,
+		cityMapTypeId: nextCityMapLocation.type,
+		enchantmentId: nextEnchantmentId,
+		enchantmentType: nextEnchantment.kind.type.id
+	};
+}
+
 export async function buildAvailableEnchanterData(
 	playerData: EnchanterPlayerData,
 	cityId: string
@@ -231,33 +256,11 @@ export async function buildAvailableEnchanterData(
 		return undefined;
 	}
 
-	const nextEnchantmentId = await Settings.NEXT_ENCHANTER_ENCHANTMENT_ID.getValue();
-	const nextEnchantment = ItemEnchantment.getById(nextEnchantmentId);
-	const nextCityId = await Settings.NEXT_ENCHANTER_CITY.getValue();
-	const nextCity = CityDataController.instance.getById(nextCityId);
-	const nextCityMapLocationId = nextCity?.maps[0];
-	const nextCityMapLocation = nextCityMapLocationId === undefined ? undefined : MapLocationDataController.instance.getById(nextCityMapLocationId);
-	if (!nextEnchantment || !nextCityMapLocation) {
-		CrowniclesLogger.error("Invalid next enchanter setting. Cannot display Mernil's next destination.", {
-			nextCityId,
-			nextEnchantmentId
-		});
-	}
-
 	return buildEnchanterData(playerData, {
 		enchantment,
 		enchantmentId,
 		isPlayerMage: playerData.player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE,
-		...nextEnchantment && nextCityMapLocation
-			? {
-				tomorrow: {
-					cityMapLocationId: nextCityMapLocation.id,
-					cityMapTypeId: nextCityMapLocation.type,
-					enchantmentId: nextEnchantmentId,
-					enchantmentType: nextEnchantment.kind.type.id
-				}
-			}
-			: {}
+		tomorrow: await buildEnchanterTomorrowData()
 	});
 }
 
