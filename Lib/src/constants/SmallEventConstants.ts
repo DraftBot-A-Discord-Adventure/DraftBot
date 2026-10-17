@@ -1,5 +1,5 @@
 import { MapLocationConstants } from "./MapLocationConstants";
-import type { ExpeditionLocationType } from "./ExpeditionConstants";
+import type { Biome } from "../types/Biome";
 
 export abstract class SmallEventConstants {
 	static readonly HEALTH = {
@@ -389,7 +389,7 @@ export abstract class SmallEventConstants {
 			swamp: "MEAT",
 			cave: "DEFAULT",
 			ruins: "DEFAULT"
-		} as const satisfies Record<ExpeditionLocationType, string>,
+		} as const satisfies Record<Biome, string>,
 		FOOD_TYPES: {
 			BAD_SMELL: "badSmell",
 			VEGETARIAN: "vegetarian",

@@ -239,9 +239,20 @@ describe("Materials consistency", () => {
 		expect(errors).toEqual([]);
 	});
 
+	const readBiomeLoots = (): [string, readonly number[]][] => {
+		const biomesDir = path.join(__dirname, "../../../../Core/resources/biomes");
+		return readdirSync(biomesDir)
+			.filter((file) => file.endsWith(".json"))
+			.map((file) => [path.parse(file).name, (loadJsonFile(biomesDir, file) as { materialLoot: readonly number[] }).materialLoot]);
+	};
+
+	it("every biome has exactly one loot data file", () => {
+		expect(readBiomeLoots().map(([biome]) => biome).sort()).toEqual(Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES).sort());
+	});
+
 	it("biome loot tables only reference valid material IDs", () => {
 		const validMaterialIds = readValidMaterialIds();
-		const errors = Object.entries(ExpeditionConstants.BIOME_LOOT_TABLES)
+		const errors = readBiomeLoots()
 			.flatMap(([biome, materialIds]) => getLootTableErrors(`Biome ${biome}`, materialIds, validMaterialIds));
 
 		expect(errors).toEqual([]);
@@ -250,7 +261,7 @@ describe("Materials consistency", () => {
 	it("every biome loot table offers each material rarity to the find material small event", () => {
 		const materialsDir = path.join(__dirname, "../../../../Core/resources/materials");
 		const rarities = [MaterialRarity.COMMON, MaterialRarity.UNCOMMON, MaterialRarity.RARE];
-		const missing = Object.entries(ExpeditionConstants.BIOME_LOOT_TABLES).flatMap(([biome, materialIds]) => {
+		const missing = readBiomeLoots().flatMap(([biome, materialIds]) => {
 			const tableRarities = new Set(materialIds.map((materialId) => (loadMaterial(materialsDir, `${materialId}.json`) as { rarity: MaterialRarity }).rarity));
 			return rarities.filter((rarity) => !tableRarities.has(rarity)).map((rarity) => `${biome}: no ${MaterialRarity[rarity]} material`);
 		});
@@ -261,7 +272,7 @@ describe("Materials consistency", () => {
 	it("every material can be looted from at least one boss or biome", () => {
 		const lootableIds = new Set<number>([
 			...readMonsterLoots().flatMap(({ materialLoot }) => (Array.isArray(materialLoot) ? materialLoot as number[] : [])),
-			...Object.values(ExpeditionConstants.BIOME_LOOT_TABLES).flat()
+			...readBiomeLoots().flatMap(([, materialIds]) => materialIds)
 		]);
 
 		const unlootable = [...readValidMaterialIds()].filter((id) => !lootableIds.has(id)).sort((a, b) => a - b);
