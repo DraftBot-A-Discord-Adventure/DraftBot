@@ -257,6 +257,45 @@ describe('TravelTime', () => {
 		expect(player.startTravelDate.valueOf()).toBe(now);
 	});
 
+	it('removeEffect does not reward the elapsed part of an alteration taken in the city', async () => {
+		const thirtyMinutes = 30 * 60_000;
+		const player: any = {
+			// Staying in the city for 30 minutes under a 60 minutes alteration taken on arrival
+			effectRemainingTime: () => asMilliseconds(thirtyMinutes),
+			effectDuration: 60,
+			startTravelDate: new Date(0),
+			effectEndDate: new Date(now + thirtyMinutes),
+			insideCity: true,
+			cityArrivalDate: new Date(now - thirtyMinutes),
+			id: 1,
+			keycloakId: 'user123',
+			save: vi.fn().mockResolvedValue(undefined)
+		};
+
+		await TravelTime.removeEffect(player, 0);
+
+		expect(player.cityArrivalDate.valueOf()).toBe(now);
+		expect(TravelTime.getCityStayTimeUnderEffect(player, new Date(now))).toBe(0);
+	});
+
+	it('removeEffect keeps the city arrival when the alteration ended before it', async () => {
+		const player: any = {
+			effectRemainingTime: () => asMilliseconds(0),
+			effectDuration: 60,
+			startTravelDate: new Date(0),
+			effectEndDate: new Date(now - 90 * 60_000),
+			insideCity: true,
+			cityArrivalDate: new Date(now - 30 * 60_000),
+			id: 1,
+			keycloakId: 'user123',
+			save: vi.fn().mockResolvedValue(undefined)
+		};
+
+		await TravelTime.removeEffect(player, 0);
+
+		expect(player.cityArrivalDate.valueOf()).toBe(now - 30 * 60_000);
+	});
+
 	it('timeTravel keeps a non travelling player stationary', async () => {		const player: any = {
 			effectEndDate: new Date(now + 5_000),
 			startTravelDate: new Date(0),

@@ -4,7 +4,7 @@ import { TravelTime } from "../maps/TravelTime";
 import { ReportConstants } from "../../../../Lib/src/constants/ReportConstants";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import {
-	asMinutes, dateToMs, Minute, millisecondsToMinutes, minutesToMilliseconds, msDiff
+	asMilliseconds, asMinutes, dateToMs, Minute, millisecondsToMinutes, minutesToMilliseconds, msDiff
 } from "../../../../Lib/src/utils/TimeUtils";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
 import { CommandReportChooseDestinationRes } from "../../../../Lib/src/packets/commands/CommandReportPacket";
@@ -27,13 +27,14 @@ export function cityStayScoreFields(cityStayScore: number | undefined): Pick<Com
 }
 
 /**
- * Minutes spent in the city since the arrival, capped like the travel time rewarded by a report
+ * Minutes spent in the city since the arrival, without the time spent under an effect, capped like the travel time rewarded by a report
  */
 export function getRewardedCityStayMinutes(player: Player, now: Date): Minute {
 	if (!player.insideCity || !player.cityArrivalDate) {
 		return asMinutes(0);
 	}
-	const stayMinutes = millisecondsToMinutes(msDiff(dateToMs(now), dateToMs(player.cityArrivalDate)));
+	const stayTime = msDiff(dateToMs(now), dateToMs(player.cityArrivalDate)) - TravelTime.getCityStayTimeUnderEffect(player, now);
+	const stayMinutes = millisecondsToMinutes(asMilliseconds(stayTime));
 	return asMinutes(Math.min(Math.max(stayMinutes, 0), ReportConstants.TIME_LIMIT));
 }
 

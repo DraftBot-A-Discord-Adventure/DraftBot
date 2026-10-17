@@ -225,11 +225,30 @@ export abstract class TravelTime {
 	}
 
 	/**
+	 * Time of the current city stay spent under the effect of the player: like the effect period of a trip, it does not count as time spent in the city
+	 * @param player
+	 * @param date
+	 */
+	static getCityStayTimeUnderEffect(player: Player, date: Date): Millisecond {
+		if (!player.insideCity || !player.cityArrivalDate || !player.effectEndDate) {
+			return asMilliseconds(0);
+		}
+		const effectEndTime = player.effectEndDate.valueOf();
+		const effectStartTime = effectEndTime - minutesToMilliseconds(asMinutes(player.effectDuration));
+		const overlapStart = Math.max(effectStartTime, player.cityArrivalDate.valueOf());
+		const overlapEnd = Math.min(effectEndTime, date.valueOf());
+		return asMilliseconds(Math.max(overlapEnd - overlapStart, 0));
+	}
+
+	/**
 	 * Removes the effect of a player
 	 * @param player
 	 * @param reason
 	 */
 	static async removeEffect(player: Player, reason: NumberChangeReason): Promise<void> {
+		// Measured before the time travel below moves the effect: only the part of the effect already elapsed during the stay
+		const cityStayTimeUnderEffect = TravelTime.getCityStayTimeUnderEffect(player, new Date());
+
 		// Make the player time travel to the end of the effect
 		await TravelTime.timeTravelMilliseconds(player, player.effectRemainingTime(), reason);
 
@@ -238,6 +257,11 @@ export abstract class TravelTime {
 			// Only the part of the effect overlapping the travel delayed it (#4633, #4859)
 			const { effectDuration } = TravelTime.getTravelDataSimplified(player, new Date());
 			player.startTravelDate = new Date(player.startTravelDate.valueOf() + effectDuration);
+		}
+
+		// Like a trip, a city stay does not earn the time already spent under the removed effect
+		if (player.cityArrivalDate && cityStayTimeUnderEffect > 0) {
+			player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() + cityStayTimeUnderEffect);
 		}
 
 		// Now we can safely remove the effect, as the player is after the effect
