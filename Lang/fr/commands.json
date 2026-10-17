@@ -1030,7 +1030,7 @@
         "disenchantOffer": "Mernil remarque aussi vos équipements déjà enchantés. Pour un maître de son rang, effacer des runes n'est qu'une formalité : il propose de les retirer **gratuitement**, ne serait-ce que pour débarrasser le monde d'enchantements qu'il juge indignes de son art.",
         "disenchantTitle": "{{pseudo}}, désenchantement chez Mernil",
         "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil fait craquer ses doigts d'un air suffisant. À l'en croire, effacer un enchantement est un jeu d'enfant qui ne mérite pas la moindre pièce. Il attend que vous lui désigniez l'équipement à libérer de ses runes.",
-        "disenchantItemPreview": "{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "disenchantItemPreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
         "disenchantConfirmDescription": "{emote:collectors.warning} Cette validation retirera définitivement l'enchantement {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** de l'équipement suivant :\n{{item}}\n\nCoût : **gratuit**.",
         "disenchantSuccessTitle": "{{pseudo}}, désenchantement réussi !",
         "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil effleure votre équipement du bout des doigts en murmurant une formule. La lueur de l'enchantement {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** vacille puis s'éteint. Il vous rend l'objet, redevenu vierge, avec l'air satisfait de quelqu'un qui vient de rendre un immense service sans rien demander en retour.",

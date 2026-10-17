@@ -391,16 +391,16 @@ async function handleEnchanterDisenchantCollectorInteraction(params: EnchanterHa
 function addDisenchantableItemsSection(container: ContainerBuilder, data: EnchanterCityData, lng: Language): void {
 	for (let i = 0; i < data.disenchantableItems.length; i++) {
 		const item = data.disenchantableItems[i];
-		const itemDisplay = DisplayUtils.getItemDisplayWithStatsWithoutMaxValues(item.details, lng);
 
 		container.addSeparatorComponents(new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Small));
 		addCitySection({
 			container,
-			text: `${itemDisplay}\n${i18n.t("commands:report.city.enchanter.disenchantItemPreview", {
+			text: i18n.t("commands:report.city.enchanter.disenchantItemPreview", {
 				lng,
+				item: DisplayUtils.getItemDisplayWithStatsWithoutMaxValues(item.details, lng),
 				enchantmentId: item.enchantmentId,
 				enchantmentType: item.enchantmentType
-			})}`,
+			}),
 			customId: `${ReportCityMenuIds.ENCHANTER_DISENCHANT_ITEM_PREFIX}${i}`,
 			buttonLabel: i18n.t("commands:report.city.buttons.disenchant", { lng }),
 			emoji: CrowniclesIcons.city.blacksmith.disenchant

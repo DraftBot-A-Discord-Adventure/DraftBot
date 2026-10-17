@@ -25,7 +25,7 @@ import { withLockedEntities } from "../../../../Lib/src/locks/withLockedEntities
 import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
 import { DisenchantableItem } from "../../../../Lib/src/types/DisenchantableItem";
-import { getListedInventorySlotUnderLock } from "./ReportCityBlacksmithService";
+import { removeListedEnchantmentUnderLock } from "./ReportListedEquipment";
 
 /**
  * Parameters for the enchantItem function
@@ -352,13 +352,9 @@ export async function handleEnchanterDisenchantReaction(
 	}
 
 	await withLockedEntities([Player.lockKey(player.id)] as const, async ([lockedPlayer]) => {
-		const inventorySlot = await getListedInventorySlotUnderLock(lockedPlayer, reaction, listedItem.details, response);
-		if (!inventorySlot) {
+		if (!await removeListedEnchantmentUnderLock(lockedPlayer, reaction, listedItem.details, response)) {
 			return;
 		}
-
-		inventorySlot.itemEnchantmentId = null;
-		await inventorySlot.save();
 
 		response.push(makePacket(CommandReportEnchanterDisenchantRes, {
 			enchantmentId: listedItem.enchantmentId,

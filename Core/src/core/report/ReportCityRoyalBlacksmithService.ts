@@ -30,9 +30,8 @@ import {
 	LockKey, Locked, withLockedEntities
 } from "../../../../Lib/src/locks/withLockedEntities";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
-import {
-	getListedInventorySlotUnderLock, updateUpgradeMissionsUnderLock
-} from "./ReportCityBlacksmithService";
+import { updateUpgradeMissionsUnderLock } from "./ReportCityBlacksmithService";
+import { getListedInventorySlotUnderLock } from "./ReportListedEquipment";
 import { crowniclesInstance } from "../../app";
 
 type RoyalBlacksmithData = NonNullable<ReactionCollectorCityData["royalBlacksmith"]>;

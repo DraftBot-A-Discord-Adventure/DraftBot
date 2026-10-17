@@ -29,8 +29,10 @@ import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
 import { Homes } from "../database/game/models/Home";
 import { buildUpgradeStationData } from "./ReportCityService";
+import {
+	EquipmentSlotReaction, findInventorySlotForReaction, getListedInventorySlotUnderLock, removeListedEnchantmentUnderLock
+} from "./ReportListedEquipment";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
-import { MainItemDetails } from "../../../../Lib/src/types/MainItemDetails";
 
 export interface UpgradeItemValidationResult {
 	itemToUpgrade?: {
@@ -43,11 +45,6 @@ export interface UpgradeItemValidationResult {
 	error?: CrowniclesPacket;
 	logError?: string;
 }
-
-type InventoryReaction = {
-	slot: number;
-	itemCategory: number;
-};
 
 type PlayerInventorySlot = Awaited<ReturnType<typeof InventorySlots.getOfPlayer>>[number];
 
@@ -162,37 +159,13 @@ function pushBlacksmithMissingMoneyResponse(response: CrowniclesPacket[], totalC
 	}));
 }
 
-async function findInventorySlotForReaction(playerId: number, reaction: InventoryReaction): Promise<PlayerInventorySlot | undefined> {
-	return await InventorySlots.getOfPlayer(playerId)
-		.then(slots => slots.find(slot => slot.slot === reaction.slot && slot.itemCategory === reaction.itemCategory));
-}
-
 async function getInventorySlotForReaction(
 	player: Player,
-	reaction: InventoryReaction,
+	reaction: EquipmentSlotReaction,
 	action: string
 ): Promise<PlayerInventorySlot | null> {
 	const inventorySlot = await findInventorySlotForReaction(player.id, reaction);
 	return inventorySlot ?? logMissingInventoryItem(player, action);
-}
-
-/**
- * The slot targeted by a city-menu reaction, provided it still holds the equipment the menu was built for.
- * The chest or an inventory switch may have moved another equipment there since, and the listed prices
- * and levels would then apply to it.
- */
-export async function getListedInventorySlotUnderLock(
-	lockedPlayer: Locked<Player>,
-	reaction: InventoryReaction,
-	listedItem: MainItemDetails,
-	response: CrowniclesPacket[]
-): Promise<PlayerInventorySlot | null> {
-	const inventorySlot = await findInventorySlotForReaction(lockedPlayer.id, reaction);
-	if (!inventorySlot?.holdsItem(listedItem)) {
-		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
-		return null;
-	}
-	return inventorySlot;
 }
 
 /**
@@ -508,14 +481,13 @@ export async function handleBlacksmithDisenchantReaction(
 	}
 
 	await withLockedPlayerAndMissions(player.id, async lockedPlayer => {
-		const inventorySlot = await getListedInventorySlotUnderLock(lockedPlayer, reaction, itemToDisenchant.details, response);
-		if (!inventorySlot) {
-			return;
-		}
-
 		// Re-validate against the freshly-locked row.
 		if (lockedPlayer.money < itemToDisenchant.disenchantCost) {
 			pushBlacksmithMissingMoneyResponse(response, itemToDisenchant.disenchantCost, lockedPlayer.money);
+			return;
+		}
+
+		if (!await removeListedEnchantmentUnderLock(lockedPlayer, reaction, itemToDisenchant.details, response)) {
 			return;
 		}
 
@@ -524,9 +496,6 @@ export async function handleBlacksmithDisenchantReaction(
 			amount: itemToDisenchant.disenchantCost,
 			reason: NumberChangeReason.BLACKSMITH_DISENCHANT
 		});
-
-		inventorySlot.itemEnchantmentId = null;
-		await inventorySlot.save();
 		await lockedPlayer.save();
 
 		response.push(makePacket(CommandReportBlacksmithDisenchantRes, {
