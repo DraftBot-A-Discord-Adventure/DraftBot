@@ -785,6 +785,8 @@
     "choseMapMinutes_other": "Sie haben sich entschieden, eine Reise nach {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** anzutreten. Diese Fahrt wird ungefähr **{{timeDisplay}}** dauern.",
     "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Diese Strecke dauert **{{time}} Stunden**.",
     "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Diese Strecke dauert **{{time}} Stunden**.",
+    "cityStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** point.",
+    "cityStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** points.",
     "goBackMapMinutes_one": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Diese Rückfahrt dauert etwa **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Die Rückfahrt dauert etwa **{{timeDisplay}}**.",
     "goBackMap_one": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Die Rückfahrt dauert etwa **{{time}} Stunde**.",
@@ -832,6 +834,8 @@
       "placeholder": "Wählen Sie etwas, das Sie tun wollen",
       "title": "{{pseudo}}Sie sind in der Stadt!",
       "description": "{emote:commands.report} Ihr seid in **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)** angekommen.\n\nDie gepflasterten Straßen rund um euch sind voller Leben: Händler, Abenteurer und Handwerker gehen ihren Geschäften nach. Es stehen euch zahlreiche Dienstleistungen zur Verfügung, doch die Straße wartet auf niemanden.",
+      "minimumStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** point à votre départ.",
+      "minimumStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** points à votre départ.",
       "buttons": {
         "enter": "Eingeben",
         "visit": "Besuchen Sie",
@@ -1266,9 +1270,11 @@
           "noStoredItems": "Keine Objekte in dieser Kategorie geordnet.",
           "depositSection": "{emote:city.chestActions.deposit} **Deponieren im Tresor:**",
           "withdrawSection": "{emote:city.chestActions.withdraw} **aus dem Tresor entnehmen:**",
-          "chestFull": "Voller Kofferraum für diese Kategorie",
-          "inventoryFullLabel": "Voller Bestand",
+          "chestFull": "{emote:collectors.warning} *Coffre plein pour cette catégorie*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventaire plein*",
           "swapSection": "{emote:city.chestActions.swap} **Switchen mit der Truhe :**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenu du coffre :**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **Tauschen** {{item}} **mit:**",
           "errors": {
             "chestFull": "Ihre Truhe ist für diese Kategorie voll! Verbessere dein Haus, um mehr Slots zu erhalten.",
@@ -2579,6 +2585,14 @@
         "Es war ein sehr enges Spiel mit klugen Taktiken auf beiden Seiten.",
         "Die Zuschauer erlebten ein episches Match zwischen zwei talentierten Spielern, die sich auf Augenhöhe begegneten."
       ]
+    },
+    "kingGuard": {
+      "name": "Garde du roi",
+      "recap": {
+        "win": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et l'a vaincu. Aucune gloire n'était en jeu lors de ce combat.",
+        "draw": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi sans parvenir à le départager. Aucune gloire n'était en jeu lors de ce combat.",
+        "loss": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et a été vaincu. Aucune gloire n'était en jeu lors de ce combat."
+      }
     }
   },
   "friendlyFight": {
@@ -2821,6 +2835,7 @@
     "noHistory": "Sie haben noch keine Kämpfe in Ihrem Verlauf.",
     "title": "{{pseudo}}Geschichte der Kämpfe",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Ergebnis:** {{resultSentence}}\n**Ihr Ruhm:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}} }\n**Gegnerischer Ruhm:** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} Aucun adversaire n'était disponible : vous avez affronté un **garde du roi** de niveau {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Résultat :** {{resultSentence}}\n**Gloire :** {emote:unitValues.glory} aucune gloire n'était en jeu",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Sie haben angegriffen **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Sie wurden von **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}})) angegriffen."
