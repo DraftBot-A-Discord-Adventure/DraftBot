@@ -7,6 +7,11 @@ export abstract class DiscordConstants {
 
 	static COMMAND_TIMEOUT_MS = 3000;
 
+	/**
+	 * Tolerated clock gap between Discord and the shard when telling whether a message was sent before the shard process started
+	 */
+	static ORPHANED_COMPONENT_CLOCK_MARGIN_MS = 10_000;
+
 	static MQTT = {
 		SHARD_CONNECTION_MSG: "connected:",
 		SHARD_DUPLICATED_MSG: "shardDuplicated:"

@@ -48,6 +48,9 @@ import { DiscordConstants } from "../DiscordConstants";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { disableRows } from "../utils/DiscordCollectorUtils";
 import {
+	isOrphanedComponentInteraction, replyToOrphanedComponentInteraction
+} from "../utils/OrphanedComponentUtils";
+import {
 	clearFailedAttempts,
 	clearPendingDeletion,
 	extractDeletionCode,
@@ -448,6 +451,12 @@ export class CommandsManager {
 				return;
 			}
 
+			if (discordInteraction.isMessageComponent() && isOrphanedComponentInteraction(discordInteraction)) {
+				replyToOrphanedComponentInteraction(discordInteraction)
+					.then();
+				return;
+			}
+
 			if (!discordInteraction.isCommand() || discordInteraction.user.bot || discordInteraction.user.id === crowniclesClient!.user!.id) {
 				return;
 			}
@@ -459,11 +468,10 @@ export class CommandsManager {
 				discordInteraction.locale.substring(0, 2)
 			);
 			if (getUser.isError) {
-				const errorLng = discordInteraction.locale.substring(0, 2);
 				replyEphemeralErrorMessage(
 					null,
 					interaction,
-					i18n.t("error:errorOccurred", { lng: (LANGUAGE.LANGUAGES as string[]).includes(errorLng) ? errorLng as Language : LANGUAGE.DEFAULT_LANGUAGE })
+					i18n.t("error:errorOccurred", { lng: LANGUAGE.fromLocale(discordInteraction.locale) })
 				)
 					.finally(() => null);
 				CrowniclesLogger.error("Error while getting user", { apiResult: getUser });

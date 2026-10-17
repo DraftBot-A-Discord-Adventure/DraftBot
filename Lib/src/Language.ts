@@ -20,4 +20,12 @@ export class LANGUAGE {
 	static get DEFAULT_LANGUAGE(): Language {
 		return LANGUAGE.ENGLISH;
 	}
+
+	/**
+	 * Supported language matching a locale such as Discord's "fr" or "en-US", or the default language
+	 */
+	static fromLocale(locale: string): Language {
+		const language = locale.substring(0, 2);
+		return (LANGUAGE.LANGUAGES as string[]).includes(language) ? language as Language : LANGUAGE.DEFAULT_LANGUAGE;
+	}
 }

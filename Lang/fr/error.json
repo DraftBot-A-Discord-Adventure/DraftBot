@@ -54,6 +54,7 @@
     "limogesSmallEvent": "réponse aux questions du voyageur encapuchonné"
   },
   "commandDoesntExist": "ERREUR: Commande inconnue",
+  "interactionExpired": "Ce menu n'est plus actif car le jeu a redémarré depuis son affichage. Relancez la commande pour continuer.",
   "interactionNotForYou": "Cette interaction n'est pas pour vous !",
   "playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente ({{reasons}}) !",
   "playerDoesntExist": "Le joueur demandé n'a pas encore commencé à jouer !",
