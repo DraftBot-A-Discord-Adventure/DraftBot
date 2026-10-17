@@ -7,6 +7,17 @@
   "maxBreath": 20,
   "breathRegen": 5,
   "rewardFactor": 0.65,
+  "materialLoot": [
+    14,
+    7,
+    20,
+    24,
+    13,
+    29,
+    81,
+    16,
+    83
+  ],
   "attacks": [
     {
       "id": "skeletonSimpleAttack",

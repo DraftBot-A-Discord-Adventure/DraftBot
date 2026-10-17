@@ -8,7 +8,9 @@ import {
 } from "../../../../Lib/src/constants/ExpeditionConstants";
 import { MapLocation } from "../../data/MapLocation";
 import { MaterialRarity } from "../../../../Lib/src/types/MaterialRarity";
-import { MaterialDataController } from "../../data/Material";
+import {
+	Material, MaterialDataController
+} from "../../data/Material";
 import { Materials } from "../database/game/models/Material";
 import { makePacket } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { SmallEventFindMaterialPacket } from "../../../../Lib/src/packets/smallEvents/SmallEventFindMaterialPacket";
@@ -48,6 +50,19 @@ function rollMaterialRarity(): MaterialRarity {
 }
 
 /**
+ * Pick a material of the given rarity from the loot table of the biome
+ */
+function pickMaterialFromBiome(biome: ExpeditionLocationType, rarity: MaterialRarity): Material {
+	const candidates = ExpeditionConstants.BIOME_LOOT_TABLES[biome]
+		.map(materialId => MaterialDataController.instance.getById(String(materialId)))
+		.filter((material): material is Material => material?.rarity === rarity);
+	if (candidates.length === 0) {
+		throw new Error(`No ${MaterialRarity[rarity]} material in the ${biome} loot table`);
+	}
+	return RandomUtils.crowniclesRandom.pick(candidates);
+}
+
+/**
  * Roll the looted quantity, with a small chance to multiply the haul for a lucky jackpot.
  */
 function rollQuantity(): number {
@@ -63,16 +78,7 @@ export const smallEventFuncs: SmallEventFuncs = {
 		return Maps.isOnContinent(player);
 	},
 	executeSmallEvent: async (response, player): Promise<void> => {
-		const materialType = RandomUtils.crowniclesRandom.pick(SmallEventConstants.FIND_MATERIAL.BIOME_MATERIAL_TYPES[pickBiomeExpeditionType(player)]);
-		const materialRarity = rollMaterialRarity();
-
-		const material = MaterialDataController.instance.getRandomMaterialFromTypeAndRarity(materialType, materialRarity)
-			?? MaterialDataController.instance.getRandomMaterialFromRarity(materialRarity);
-
-		if (!material) {
-			throw new Error(`No material found for rarity ${MaterialRarity[materialRarity]}`);
-		}
-
+		const material = pickMaterialFromBiome(pickBiomeExpeditionType(player), rollMaterialRarity());
 		const quantity = rollQuantity();
 
 		await Materials.giveMaterial(player.id, parseInt(material.id, 10), quantity);

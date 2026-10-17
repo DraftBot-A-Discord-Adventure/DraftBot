@@ -7,6 +7,16 @@
   "maxBreath": 60,
   "breathRegen": 10,
   "rewardFactor": 1.6,
+  "materialLoot": [
+    34,
+    68,
+    77,
+    33,
+    53,
+    76,
+    87,
+    69
+  ],
   "attacks": [
     {
       "id": "celestialLightning",
