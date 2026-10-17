@@ -76,9 +76,9 @@ interface CookingSessionState {
 }
 
 /**
- * Notice displayed under the header of the ignited furnace
+ * Notice displayed under the description of a cooking menu
  */
-interface CookingIgnitedNotice {
+interface CookingMenuNotice {
 	text: string;
 
 	// Separate the notice from the header with a blank line instead of a single line break
@@ -423,7 +423,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	private buildWoodConsumedMessage(
 		response: CommandReportCookingIgniteRes | CommandReportCookingReviveRes,
 		ctx: HomeFeatureHandlerContext
-	): CookingIgnitedNotice {
+	): CookingMenuNotice {
 		const key = response.woodConsumed ? "woodConsumed" : "woodSaved";
 		return {
 			text: i18n.t(`commands:report.city.homes.cooking.${key}`, {
@@ -521,14 +521,14 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Build a V2 container for the pre-ignite cooking menu
 	 */
-	private buildCookingContainer(ctx: HomeFeatureHandlerContext, extraMessage = ""): ContainerBuilder {
+	private buildCookingContainer(ctx: HomeFeatureHandlerContext, notice?: CookingMenuNotice): ContainerBuilder {
 		const container = new ContainerBuilder();
 		container.addTextDisplayComponents(
 			new TextDisplayBuilder().setContent(StringUtils.formatHeader(this.getSubMenuTitle(ctx, ctx.pseudo)))
 		);
 		const pinnedDisplay = this.buildPinnedRecipeDisplay(ctx);
 		container.addTextDisplayComponents(
-			new TextDisplayBuilder().setContent(this.buildCookingDescription(ctx) + pinnedDisplay + extraMessage)
+			new TextDisplayBuilder().setContent(this.withNotice(this.buildCookingDescription(ctx) + pinnedDisplay, notice))
 		);
 		this.addCookingButtons(ctx, container);
 		return container;
@@ -555,9 +555,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Register the cooking main menu (before ignite)
 	 */
-	private registerCookingMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus): void {
+	private registerCookingMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingMenuNotice): void {
 		nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-			containers: [this.buildCookingContainer(ctx)],
+			containers: [this.buildCookingContainer(ctx, notice)],
 			createCollector: this.createCookingCollector(ctx)
 		});
 	}
@@ -565,7 +565,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Register the ignited furnace menu with slot recipes using Components V2
 	 */
-	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingIgnitedNotice, allDisabled = false): void {
+	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingMenuNotice, allDisabled = false): void {
 		const container = this.buildIgnitedContainer(ctx, notice, allDisabled);
 
 		nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
@@ -575,10 +575,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
-	 * Build the ignited furnace header text, followed by the notice if any
+	 * Append the notice, if any, under a menu description
 	 */
-	private buildIgnitedHeader(ctx: HomeFeatureHandlerContext, notice: CookingIgnitedNotice | undefined): string {
-		const description = this.buildIgnitedDescription(ctx);
+	private withNotice(description: string, notice: CookingMenuNotice | undefined): string {
 		if (!notice) {
 			return description;
 		}
@@ -590,7 +589,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Build the V2 container for the ignited furnace
 	 */
-	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, notice: CookingIgnitedNotice | undefined, allDisabled = false): ContainerBuilder {
+	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, notice: CookingMenuNotice | undefined, allDisabled = false): ContainerBuilder {
 		const container = new ContainerBuilder();
 
 		// Title
@@ -602,7 +601,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 
 		// Furnace uses remaining + notice
 		container.addTextDisplayComponents(
-			new TextDisplayBuilder().setContent(this.buildIgnitedHeader(ctx, notice))
+			new TextDisplayBuilder().setContent(this.withNotice(this.buildIgnitedDescription(ctx), notice))
 		);
 
 		// Build slot sections
@@ -798,18 +797,15 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			makePacket(reqPacket, {}),
 			async (_responseContext, packetName, responsePacket) => {
 				if (packetName === CommandReportCookingNoWoodRes.name) {
-					const noWoodMessage = i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng });
+					const noWoodNotice: CookingMenuNotice = {
+						text: i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng }),
+						asParagraph: true
+					};
 					if (isRevive) {
-						this.registerIgnitedMenu(ctx, nestedMenus, {
-							text: noWoodMessage,
-							asParagraph: true
-						});
+						this.registerIgnitedMenu(ctx, nestedMenus, noWoodNotice);
 					}
 					else {
-						nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-							containers: [this.buildCookingContainer(ctx, `\n\n${noWoodMessage}`)],
-							createCollector: this.createCookingCollector(ctx)
-						});
+						this.registerCookingMenu(ctx, nestedMenus, noWoodNotice);
 					}
 					await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 					return;
