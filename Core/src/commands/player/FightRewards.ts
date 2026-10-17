@@ -22,7 +22,7 @@ export type FightInitiatorInformation = {
  * Calculate the money reward for the initiator of the fight
  * @param fightInitiatorInformation Information about the fight initiator
  * @param response Packet response array
- * @returns The amount of money rewarded
+ * @returns The amount of money actually credited, blessings included
  */
 export async function calculateMoneyReward(
 	fightInitiatorInformation: FightInitiatorInformation,
@@ -57,22 +57,22 @@ export async function calculateMoneyReward(
 		);
 	}
 
-	// Apply fight loot blessing multiplier
-	extraMoneyBonus = Math.round(extraMoneyBonus * BlessingManager.getInstance().getFightLootMultiplier());
-
-	await fightInitiatorInformation.initiatorPlayer.addMoney({
-		amount: extraMoneyBonus,
+	// Apply fight loot blessing multiplier, the money blessing is applied by addMoney
+	const moneyParameters = {
+		amount: Math.round(extraMoneyBonus * BlessingManager.getInstance().getFightLootMultiplier()),
 		response,
 		reason: NumberChangeReason.FIGHT
-	});
+	};
+	await fightInitiatorInformation.initiatorPlayer.addMoney(moneyParameters);
 
-	return BlessingManager.getInstance().applyMoneyBlessing(extraMoneyBonus);
+	return moneyParameters.amount;
 }
 
 /**
  * Calculate the score reward for the initiator of the fight
  * @param fightInitiatorInformation
  * @param response
+ * @returns The score actually credited, blessings included
  */
 export async function calculateScoreReward(fightInitiatorInformation: FightInitiatorInformation, response: CrowniclesPacket[]): Promise<number> {
 	if (fightInitiatorInformation.initiatorGameResult !== EloGameResult.WIN || fightInitiatorInformation.playerDailyFightSummary.won > FightConstants.REWARDS.NUMBER_OF_WIN_THAT_AWARD_SCORE_BONUS) {
@@ -83,15 +83,14 @@ export async function calculateScoreReward(fightInitiatorInformation: FightIniti
 	 * Award extra score points only to the initiator for one of his first wins of the day.
 	 * Apply fight loot blessing multiplier
 	 */
-	const scoreBonus = Math.round(FightConstants.REWARDS.SCORE_BONUS_AWARD * BlessingManager.getInstance().getFightLootMultiplier());
-
-	await fightInitiatorInformation.initiatorPlayer.addScore({
-		amount: scoreBonus,
+	const scoreParameters = {
+		amount: Math.round(FightConstants.REWARDS.SCORE_BONUS_AWARD * BlessingManager.getInstance().getFightLootMultiplier()),
 		response,
 		reason: NumberChangeReason.FIGHT
-	});
+	};
+	await fightInitiatorInformation.initiatorPlayer.addScore(scoreParameters);
 
-	return Math.round(scoreBonus * BlessingManager.getInstance().getScoreMultiplier());
+	return scoreParameters.amount;
 }
 
 /**

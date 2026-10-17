@@ -97,6 +97,28 @@ describe("kingGuardFightEndCallback", () => {
 		});
 	});
 
+	it("reports the money and score actually credited, as modified by the blessings applied in addMoney and addScore", async () => {
+		const creditedMoneyMultiplier = 2;
+		const creditedScoreMultiplier = 3;
+		vi.mocked(player.addMoney as ReturnType<typeof vi.fn>).mockImplementation((parameters: { amount: number }): void => {
+			parameters.amount *= creditedMoneyMultiplier;
+		});
+		vi.mocked(player.addScore as ReturnType<typeof vi.fn>).mockImplementation((parameters: { amount: number }): void => {
+			parameters.amount *= creditedScoreMultiplier;
+		});
+		const {
+			fight, guard
+		} = buildFight("win");
+		const response: unknown[] = [];
+
+		await kingGuardFightEndCallback(fight, guard, response as never);
+
+		expect(response.at(-1)).toMatchObject({
+			money: WIN_MONEY_REWARD * creditedMoneyMultiplier,
+			points: FightConstants.REWARDS.SCORE_BONUS_AWARD * creditedScoreMultiplier
+		});
+	});
+
 	it("shares the daily money cap of ranked fights", async () => {
 		vi.mocked(LogsReadRequests.getPersonalInitiatedFightDailySummary).mockResolvedValue({
 			played: FightConstants.REWARDS.MAX_REWARDED_WINS + 1,
