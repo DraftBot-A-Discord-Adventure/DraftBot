@@ -22,4 +22,11 @@ describe("RandomUtils.weightedPick", () => {
 			expect(RandomUtils.weightedPick(["never", "always"], value => (value === "never" ? 0 : 1))).toBe("always");
 		}
 	});
+
+	it("keeps a drawn null or undefined element instead of replacing it by the last one", () => {
+		for (let i = 0; i < 1000; i++) {
+			expect(RandomUtils.weightedPick([null, "never"], value => (value === null ? 1 : 0))).toBeNull();
+			expect(RandomUtils.weightedPick([undefined, "never"], value => (value === undefined ? 1 : 0))).toBeUndefined();
+		}
+	});
 });
