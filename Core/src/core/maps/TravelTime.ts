@@ -158,6 +158,21 @@ export abstract class TravelTime {
 	}
 
 	/**
+	 * Move the start of the current trip or city stay with the effect, so that the time travel is rewarded except the part spent under the effect
+	 * @param player
+	 * @param timeMs The time in milliseconds in the future (negative for the past)
+	 */
+	private static moveStayStart(player: Player, timeMs: Millisecond): void {
+		// 0 is the sentinel value meaning "no travel in progress"
+		if (Maps.isTravelling(player)) {
+			player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - timeMs, 0));
+		}
+		else if (player.insideCity && player.cityArrivalDate) {
+			player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() - timeMs);
+		}
+	}
+
+	/**
 	 * Move travel-related timers by a duration expressed in milliseconds.
 	 *
 	 * @param player The player
@@ -172,15 +187,7 @@ export abstract class TravelTime {
 
 		// Move the end date of the effect
 		player.effectEndDate = new Date(Math.max(player.effectEndDate.valueOf() - adjustedTimeMs, 0));
-
-		// Move the start date, unless the player is not travelling: 0 is the sentinel value meaning "no travel in progress"
-		if (Maps.isTravelling(player)) {
-			player.startTravelDate = new Date(Math.max(player.startTravelDate.valueOf() - adjustedTimeMs, 0));
-		}
-		else if (player.insideCity && player.cityArrivalDate) {
-			// A city stay moves like a trip: the time travel is rewarded, except the part spent under the effect
-			player.cityArrivalDate = new Date(player.cityArrivalDate.valueOf() - adjustedTimeMs);
-		}
+		TravelTime.moveStayStart(player, adjustedTimeMs);
 
 		// If the effect is not active anymore and was active before
 		if ((player.effectEndDate.valueOf() < currentTime) && (initialEffectEndDate > currentTime)) {
