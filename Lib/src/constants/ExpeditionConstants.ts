@@ -665,8 +665,7 @@ export abstract class ExpeditionConstants {
 			26,
 			45,
 			41,
-			11,
-			83
+			11
 		],
 		coast: [
 			20,
