@@ -310,17 +310,17 @@ describe('TravelTime', () => {
 		};
 	}
 
-	it('a time bonus in a city keeps the alteration taken on arrival excluded', async () => {
+	it('a time bonus in a city is rewarded and keeps the alteration taken on arrival excluded', async () => {
 		// 120 minutes in the city, the first 60 under an alteration
 		const player = createPlayerInCity(120, -60, 60);
 		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(60);
 
-		await TravelTime.timeTravel(player, 60, 0);
+		await TravelTime.timeTravel(player, 120, 0);
 
-		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(60);
+		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(180);
 	});
 
-	it('a time bonus in a city shortens a running alteration without rewarding it', async () => {
+	it('a time bonus in a city rewards nothing while it only shortens a running alteration', async () => {
 		// 30 minutes in the city under a 60 minutes alteration taken on arrival
 		const player = createPlayerInCity(30, 30, 60);
 
@@ -332,30 +332,32 @@ describe('TravelTime', () => {
 		expect(getRewardedCityStayMinutes(player, new Date(now + 30 * 60_000))).toBe(20);
 	});
 
-	it('a time bonus in a city longer than the alteration ends it without rewarding the bonus', async () => {
+	it('a time bonus in a city longer than the alteration rewards the part beyond it', async () => {
 		const player = createPlayerInCity(30, 30, 60);
 
 		await TravelTime.timeTravel(player, 60, 0);
 
-		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(0);
-		expect(getRewardedCityStayMinutes(player, new Date(now + 10 * 60_000))).toBe(10);
+		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(30);
+		expect(getRewardedCityStayMinutes(player, new Date(now + 10 * 60_000))).toBe(40);
 	});
 
-	it('advanceCityStay simulates time passing in the city, under the alteration included', () => {
+	it('a time bonus in a city is rewarded like the same time really spent there', async () => {
 		// 10 minutes in the city under a 180 minutes alteration taken on arrival
 		const player = createPlayerInCity(10, 170, 180);
 
-		expect(TravelTime.advanceCityStay(player, asMilliseconds(60 * 60_000))).toBe(true);
+		await TravelTime.timeTravel(player, 60, 0);
 		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(0);
 
-		TravelTime.advanceCityStay(player, asMilliseconds(140 * 60_000));
+		await TravelTime.timeTravel(player, 140, 0);
 		expect(getRewardedCityStayMinutes(player, new Date(now))).toBe(30);
+		expect(getRewardedCityStayMinutes(createPlayerInCity(210, -30, 180), new Date(now))).toBe(30);
 	});
 
-	it('advanceCityStay leaves a travelling player untouched', () => {
+	it('a time bonus does not move the city arrival of a player who left the city', async () => {
 		const player = {...createPlayerInCity(10, 0, 0), insideCity: false};
 
-		expect(TravelTime.advanceCityStay(player, asMilliseconds(60_000))).toBe(false);
+		await TravelTime.timeTravel(player, 60, 0);
+
 		expect(player.cityArrivalDate.valueOf()).toBe(now - 10 * 60_000);
 	});
 

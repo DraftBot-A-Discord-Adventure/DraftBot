@@ -3,9 +3,6 @@ import {
 	ExecuteTestCommandLike, ITestCommand, TypeKey
 } from "../../../../core/CommandsTest";
 import { TravelTime } from "../../../../core/maps/TravelTime";
-import {
-	asMinutes, minutesToMilliseconds
-} from "../../../../../../Lib/src/utils/TimeUtils";
 
 export const commandInfo: ITestCommand = {
 	name: "advancetravel",
@@ -19,14 +16,11 @@ export const commandInfo: ITestCommand = {
  * Quick travel your travel of a given time
  */
 const advanceTravelTestCommand: ExecuteTestCommandLike = async (player, args) => {
-	const minutes = parseInt(args[0], 10);
-	if (TravelTime.advanceCityStay(player, minutesToMilliseconds(asMinutes(minutes)))) {
-		await player.save();
-		return `Vous avez avancé votre séjour en ville de ${minutes} minutes !`;
-	}
-	await TravelTime.timeTravel(player, minutes, NumberChangeReason.TEST);
+	await TravelTime.timeTravel(player, parseInt(args[0], 10), NumberChangeReason.TEST);
 	await player.save();
-	return `Vous avez avancé votre voyage de ${minutes} minutes !`;
+	return player.insideCity
+		? `Vous avez avancé votre séjour en ville de ${args[0]} minutes !`
+		: `Vous avez avancé votre voyage de ${args[0]} minutes !`;
 };
 
 commandInfo.execute = advanceTravelTestCommand;
