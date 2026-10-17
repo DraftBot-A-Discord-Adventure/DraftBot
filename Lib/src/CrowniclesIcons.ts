@@ -1126,7 +1126,15 @@ export const CrowniclesIcons: {
 		undergroundLake: "💧",
 		dragonsNest: "🪹",
 		mistyPath: "🌫️",
-		hauntedHouse: "👻"
+		hauntedHouse: "👻",
+		delta: "🛶",
+		mangrove: "🌿",
+		peatBog: "🫧",
+		fungalGrove: "🍄",
+		twistedRoots: "🪵",
+		hollowTrunk: "🦉",
+		canopy: "🍃",
+		motherTreeHeart: "💚"
 	},
 	smallEvents: {
 		advanceTime: "⌛",
