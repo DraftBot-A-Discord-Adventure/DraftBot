@@ -8,12 +8,15 @@ export abstract class MapLocationConstants {
 	 * These match the "type" field in Core/resources/mapLocations/*.json.
 	 */
 	static readonly TYPES = {
+		ABYSS: "abyss",
 		BEACH: "be",
 		BLESSED_DOORS: "blessedDoors",
 		CASTLE_ENTRANCE: "castleEntrance",
 		CASTLE_THRONE: "castleThrone",
+		CAVERN: "cavern",
 		CITY: "ci",
 		CONTINENT: "continent",
+		CREEK: "creek",
 		CRYSTAL_CAVERN: "crystalCavern",
 		DESERT: "de",
 		DRAGONS_NEST: "dragonsNest",

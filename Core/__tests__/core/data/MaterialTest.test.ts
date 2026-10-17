@@ -8,6 +8,7 @@ import {CrowniclesIcons} from "../../../../Lib/src/CrowniclesIcons";
 import {PVEConstants} from "../../../../Lib/src/constants/PVEConstants";
 import {ExpeditionConstants} from "../../../../Lib/src/constants/ExpeditionConstants";
 import {MaterialLootConstants} from "../../../../Lib/src/constants/MaterialLootConstants";
+import {SmallEventConstants} from "../../../../Lib/src/constants/SmallEventConstants";
 
 // Helper to get material ID from filename (without extension)
 const getMaterialIdFromFile = (fileName: string): string => {
@@ -276,5 +277,52 @@ describe("Materials consistency", () => {
 		if (errors.length > 0) {
 			throw new Error(`Invalid expedition loot table entries:\n${errors.join("\n")}`);
 		}
+	});
+
+	it("expedition loot tables only contain materials matching their biome material types", () => {
+		const materialsDir = path.join(__dirname, "../../../../Core/resources/materials");
+		const errors: string[] = [];
+		for (const [locationType, materialIds] of Object.entries(ExpeditionConstants.EXPEDITION_LOOT_TABLES) as [keyof typeof SmallEventConstants.FIND_MATERIAL.BIOME_MATERIAL_TYPES, readonly number[]][]) {
+			const allowedTypes: readonly string[] = SmallEventConstants.FIND_MATERIAL.BIOME_MATERIAL_TYPES[locationType];
+			for (const materialId of materialIds) {
+				const material = loadMaterial(materialsDir, `${materialId}.json`) as { type: string };
+				if (!allowedTypes.includes(material.type)) {
+					errors.push(`Location ${locationType}: material ${materialId} has type '${material.type}', expected one of ${allowedTypes.join(", ")}`);
+				}
+			}
+		}
+
+		if (errors.length > 0) {
+			throw new Error(`Expedition loot tables are inconsistent with their biome:\n${errors.join("\n")}`);
+		}
+	});
+
+	it("every material can be looted from at least one boss or expedition", () => {
+		const materialsDir = path.join(__dirname, "../../../../Core/resources/materials");
+		const materialIds = readdirSync(materialsDir)
+			.filter((file) => file.endsWith(".json"))
+			.map((file) => parseInt(getMaterialIdFromFile(file), 10));
+
+		const lootableIds = new Set<number>([
+			...Object.values(PVEConstants.BOSS_LOOT_TABLES).flat(),
+			...Object.values(ExpeditionConstants.EXPEDITION_LOOT_TABLES).flat()
+		]);
+
+		const unlootable = materialIds.filter((id) => !lootableIds.has(id)).sort((a, b) => a - b);
+		expect(unlootable).toEqual([]);
+	});
+
+	it("every map location resolves to an explicit biome", () => {
+		const mapLocationsDir = path.join(__dirname, "../../../../Core/resources/mapLocations");
+		const unmapped = readdirSync(mapLocationsDir)
+			.filter((file) => file.endsWith(".json"))
+			.map((file) => ({
+				file,
+				mapLocation: loadJsonFile(mapLocationsDir, file) as { type: string; expeditionType?: string }
+			}))
+			.filter(({ mapLocation }) => !mapLocation.expeditionType && !(mapLocation.type in ExpeditionConstants.MAP_TYPE_TO_EXPEDITION_TYPE))
+			.map(({ file, mapLocation }) => `${file} (type '${mapLocation.type}')`);
+
+		expect(unmapped).toEqual([]);
 	});
 });
