@@ -6,7 +6,7 @@ import {
 	CommandReportApartmentClaimRentTooLowRes,
 	CommandReportApartmentRequiresHomeRes,
 	CommandReportBigEventResultRes,
-	CommandReportBlacksmithDisenchantRes,
+	CommandReportBlacksmithEnchantmentTransferRes,
 	CommandReportBlacksmithMissingMaterialsRes,
 	CommandReportBlacksmithNotEnoughMoneyRes,
 	CommandReportBlacksmithUpgradeRes,
@@ -397,12 +397,17 @@ export default class ReportCommandPacketHandlers {
 		});
 	}
 
-	@packetHandler(CommandReportBlacksmithDisenchantRes)
-	async reportBlacksmithDisenchantRes(context: PacketContext, _packet: CommandReportBlacksmithDisenchantRes): Promise<void> {
+	@packetHandler(CommandReportBlacksmithEnchantmentTransferRes)
+	async reportBlacksmithEnchantmentTransferRes(context: PacketContext, packet: CommandReportBlacksmithEnchantmentTransferRes): Promise<void> {
 		await sendBlacksmithReply({
 			context,
-			titleKey: "commands:report.city.blacksmith.disenchantTitle",
-			descriptionKey: "commands:report.city.blacksmith.disenchantSuccess"
+			titleKey: "commands:report.city.blacksmith.enchantmentTransferTitle",
+			descriptionKey: "commands:report.city.blacksmith.enchantmentTransferSuccess",
+			descriptionParams: {
+				enchantmentId: packet.enchantmentId,
+				enchantmentType: packet.enchantmentType,
+				cost: packet.cost
+			}
 		});
 	}
 

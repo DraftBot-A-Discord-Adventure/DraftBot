@@ -1,7 +1,6 @@
 import {
 	afterAll, beforeAll, beforeEach, describe, expect, it
 } from "vitest";
-import { loadProductionModule } from "../_coreSetup";
 import {
 	buildEnchanterOpeningData, createPlayerWithCurrencies, EnchanterTestEnvironment, expectCurrencies, setupEnchanterTests, truncateEnchanterTables
 } from "../_enchanterSetup";
@@ -11,7 +10,6 @@ import { ItemEnchantment } from "../../../Lib/src/types/ItemEnchantment";
 import { CrowniclesPacket } from "../../../Lib/src/packets/CrowniclesPacket";
 import { ReactionCollectorCityData } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 
-type BlacksmithDataModule = typeof import("../../src/core/report/ReportBlacksmithService");
 
 const KEYCLOAK_ID = "enchanter-disenchant";
 const PLAYER_MONEY = 1_000;
@@ -31,7 +29,6 @@ const RESERVE_ENCHANTMENT = ItemEnchantment.ALL_ATTACK_1;
  */
 describe("Enchanter free disenchant (issue #4960)", () => {
 	let enchanterEnv: EnchanterTestEnvironment;
-	let blacksmithData: BlacksmithDataModule;
 
 	async function setupPlayer(): Promise<PlayerType> {
 		const player = await createPlayerWithCurrencies(enchanterEnv, {
@@ -88,7 +85,6 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 
 	beforeAll(async () => {
 		enchanterEnv = await setupEnchanterTests("enchanterdisenchant");
-		blacksmithData = loadProductionModule<BlacksmithDataModule>("core/report/ReportBlacksmithService");
 	});
 
 	afterAll(async () => {
@@ -146,25 +142,5 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 		expect(results.filter(packets => packets.includes("CommandReportEquipmentChangedRes"))).toHaveLength(CONCURRENT_REQUESTS - 1);
 		expect(await getWeaponEnchantment(player.id, 0)).toBeNull();
 		await expectCurrenciesUntouched(player);
-	});
-
-	it("keeps charging the blacksmith price for the same operation", async () => {
-		const player = await setupPlayer();
-		const openingData = {
-			blacksmith: blacksmithData.buildBlacksmithData(await enchanterEnv.inventorySlots.InventorySlots.getOfPlayer(player.id), new Map(), player)
-		} as unknown as ReactionCollectorCityData;
-		const listedItem = openingData.blacksmith!.disenchantableItems.find(item => item.slot === 0)!;
-		expect(listedItem.disenchantCost).toBeGreaterThan(0);
-
-		const response: CrowniclesPacket[] = [];
-		await enchanterEnv.cityService.handleBlacksmithDisenchantReaction(player, {
-			slot: 0,
-			itemCategory: ItemCategory.WEAPON
-		}, openingData, response);
-
-		expect(response.map(packet => packet.constructor.name)).toContain("CommandReportBlacksmithDisenchantRes");
-		expect(await getWeaponEnchantment(player.id, 0)).toBeNull();
-		await player.reload();
-		expect(player.money).toBe(PLAYER_MONEY - listedItem.disenchantCost);
 	});
 });
