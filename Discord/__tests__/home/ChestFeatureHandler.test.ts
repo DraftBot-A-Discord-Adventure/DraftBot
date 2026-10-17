@@ -460,6 +460,19 @@ describe("ChestFeatureHandler", () => {
 			expect(chestContentSection).not.toContain("models:weapons.3");
 			expect(swapSection).not.toContain("models:weapons.1");
 			expect(buttons.some(button => button.data.custom_id?.startsWith(HomeMenuIds.CHEST_WITHDRAW_PREFIX))).toBe(false);
+
+			// One paragraph per block: header + inventory info, warnings, swap choices, chest content
+			const description = (container.components.filter(component => component instanceof TextDisplayBuilder)[1] as TextDisplayBuilder).data.content!;
+			const paragraphs = description.split("\n\n");
+			expect(paragraphs).toHaveLength(4);
+			expect(paragraphs[1].split("\n")).toEqual([
+				"commands:report.city.homes.chest.chestFull",
+				"commands:report.city.homes.chest.inventoryFullLabel"
+			]);
+			expect(paragraphs[2].split("\n")).toHaveLength(3);
+			expect(paragraphs[2].startsWith("commands:report.city.homes.chest.swapSection")).toBe(true);
+			expect(paragraphs[3].split("\n")).toHaveLength(2);
+			expect(paragraphs[3].startsWith("commands:report.city.homes.chest.chestContentSection")).toBe(true);
 		});
 	});
 
