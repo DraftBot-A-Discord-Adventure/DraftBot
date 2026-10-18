@@ -4,7 +4,7 @@ import {
 	SectionBuilder, TextDisplayBuilder
 } from "@discordjs/builders";
 import {
-	ActionRowBuilder, ButtonBuilder, Collector, Message
+	ActionRowBuilder, ButtonBuilder, Collector, Message, StringSelectMenuBuilder
 } from "discord.js";
 import { CrowniclesInteraction } from "./CrowniclesInteraction";
 import { editNestedMenuMessage } from "./CrowniclesNestedMenuEditUtils";
@@ -38,11 +38,11 @@ function isV2Menu(menu: CrowniclesNestedMenu): menu is {
 }
 
 /**
- * Disable all button children in an action row
+ * Disable all button and string select menu children in an action row
  */
-function disableActionRowButtons(row: ActionRowBuilder): void {
+function disableActionRowComponents(row: ActionRowBuilder): void {
 	for (const child of row.components) {
-		if (child instanceof ButtonBuilder) {
+		if (child instanceof ButtonBuilder || child instanceof StringSelectMenuBuilder) {
 			child.setDisabled(true);
 		}
 	}
@@ -55,7 +55,7 @@ function disableV2Containers(containers: ContainerBuilder[]): void {
 	for (const container of containers) {
 		for (const component of container.components) {
 			if (component instanceof ActionRowBuilder) {
-				disableActionRowButtons(component);
+				disableActionRowComponents(component);
 			}
 			else if (component instanceof SectionBuilder && component.accessory instanceof ButtonBuilder) {
 				component.accessory.setDisabled(true);

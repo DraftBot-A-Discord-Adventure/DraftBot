@@ -5,6 +5,11 @@ export abstract class DiscordConstants {
 
 	static MAX_SELECT_MENU_OPTIONS = 25;
 
+	/**
+	 * Total components allowed in a Components V2 message, nested ones included
+	 */
+	static MAX_COMPONENTS_V2_PER_MESSAGE = 40;
+
 	static COMMAND_TIMEOUT_MS = 3000;
 
 	static MQTT = {

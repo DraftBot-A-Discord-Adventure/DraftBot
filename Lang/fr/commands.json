@@ -3046,6 +3046,8 @@
       "levelModeCap": "Plafonner le niveau",
       "levelModeReject": "Refuser au-dessus du plafond",
       "levelCap": "Plafond de niveau",
+      "levelCapPlaceholder": "Choisir un plafond de niveau",
+      "levelCapOption": "Niveau {{levelCap}}",
       "levelModeSelected": "-# Règle choisie : {{levelRule}}.",
       "levelCapMissing": "-# Choisissez un plafond de niveau.",
       "createWizardTitle": "Nouveau tournoi",
