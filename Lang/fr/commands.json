@@ -2955,8 +2955,8 @@
       "fieldName": "Votre récompense :",
       "granted_one": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objet",
       "granted_other": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objets",
-      "pending_one": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objet\nEn attente : libérez une place dans votre inventaire puis utilisez à nouveau {command:tournament}.",
-      "pending_other": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objets\nEn attente : libérez une place dans votre inventaire puis utilisez à nouveau {command:tournament}."
+      "pending_one": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objet\nEn attente : libérez une place dans la catégorie **{{category}}** de votre inventaire puis utilisez à nouveau {command:tournament}.",
+      "pending_other": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{count}} objets\nEn attente : libérez une place dans la catégorie **{{category}}** de votre inventaire puis utilisez à nouveau {command:tournament}."
     },
     "phaseEndRegistration": "fin des inscriptions {{date}}",
     "phaseEndCombat": "fin des combats {{date}}",

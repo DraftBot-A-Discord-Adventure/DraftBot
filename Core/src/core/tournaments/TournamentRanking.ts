@@ -16,6 +16,7 @@ import {
 	findLatestTournamentForGuild, findTournamentForContext
 } from "./TournamentQueries";
 import { TournamentDomainError } from "./TournamentErrors";
+import { getTournamentRewardItemCategory } from "./TournamentRewardItemCategory";
 import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 
 type TournamentParticipantStatusData = Partial<Pick<
@@ -89,6 +90,7 @@ export async function getStatusData(context: PacketContext, player: Player): Pro
 				xp: participant.rewardXp,
 				money: participant.rewardMoney,
 				itemCount: participant.rewardItemCount,
+				itemCategory: getTournamentRewardItemCategory(participant),
 				granted: participant.rewardGrantedAt !== null
 			};
 		}

@@ -1,3 +1,5 @@
+import { ItemCategory } from "../constants/ItemConstants";
+
 export const TournamentCategories = {
 	LEVEL_50: "level50",
 	LEVEL_100: "level100"
@@ -72,6 +74,9 @@ export type TournamentRewardSummary = {
 	xp: number;
 	money: number;
 	itemCount: number;
+
+	// Category of the reward item, the one to make room in while the reward is pending
+	itemCategory: ItemCategory;
 	granted: boolean;
 };
 

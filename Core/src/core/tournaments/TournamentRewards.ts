@@ -1,7 +1,5 @@
-import { ItemCategory } from "../../../../Lib/src/constants/ItemConstants";
 import { Op } from "sequelize";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
-import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
 import {
 	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
@@ -17,8 +15,10 @@ import Player from "../database/game/models/Player";
 import { PlayerBadgesManager } from "../database/game/models/PlayerBadges";
 import { Tournament } from "../database/game/models/Tournament";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
-import { RandomUtils } from "../../../../Lib/src/utils/RandomUtils";
 import { getTournamentRewardItemMinimumRarity } from "./TournamentRules";
+import {
+	getTournamentRewardItemCategory, hasTopRankRewardItem
+} from "./TournamentRewardItemCategory";
 import {
 	generateRandomItem, generateRandomLootEnchantment, generateRandomLootLevel,
 	toItemWithDetails
@@ -36,28 +36,26 @@ type TournamentRewardClaim = {
 	participant: TournamentParticipant;
 };
 
-const NON_POTION_ITEM_CATEGORIES = [
-	ItemCategory.WEAPON,
-	ItemCategory.ARMOR,
-	ItemCategory.OBJECT
-] as const;
-
 function generateTournamentRewardItem(participant: TournamentParticipant): GenericItem {
-	if (participant.finalRank === null || participant.finalRank > TournamentConstants.REWARD_ITEM_TOP_RANK_LIMIT) {
-		return generateRandomItem({});
+	const itemCategory = getTournamentRewardItemCategory(participant);
+	if (!hasTopRankRewardItem(participant)) {
+		return generateRandomItem({ itemCategory });
 	}
-	const category = NON_POTION_ITEM_CATEGORIES[RandomUtils.randInt(0, NON_POTION_ITEM_CATEGORIES.length)];
 	return generateRandomItem({
-		itemCategory: category,
+		itemCategory,
 		minRarity: getTournamentRewardItemMinimumRarity(participant.finalRank)
 	});
 }
 
+/**
+ * Grant the reward of a participant, or nothing at all if the reward item does not fit in the inventory
+ * @returns The granted item, or null if the reward stays pending because the inventory is full
+ */
 async function applyTournamentRewardUnderLock(
 	player: Player,
 	participant: Locked<TournamentParticipant>,
 	response: CrowniclesPacket[]
-): Promise<TournamentRewardItem> {
+): Promise<TournamentRewardItem | null> {
 	const item = generateTournamentRewardItem(participant);
 	const rewardItem: TournamentRewardItem = {
 		item,
@@ -65,7 +63,8 @@ async function applyTournamentRewardUnderLock(
 		itemEnchantmentId: generateRandomLootEnchantment(item)
 	};
 	if (!await player.giveItem(rewardItem.item, rewardItem.itemLevel, rewardItem.itemEnchantmentId)) {
-		throw new Error(`Tournament item reward could not fit in player ${player.id} inventory`);
+		CrowniclesLogger.warn(`Tournament reward of participant ${participant.id} kept pending: no room for the reward item in the inventory of player ${player.id}`);
+		return null;
 	}
 	response.push(makePacket(ItemFoundPacket, {
 		itemWithDetails: toItemWithDetails(

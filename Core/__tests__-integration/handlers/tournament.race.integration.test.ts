@@ -609,15 +609,16 @@ describe("Tournament modules integration", () => {
 		await manager.claimTournamentReward(claimResponse, winnerPlayer);
 		const finishedStatus = await manager.getStatusData(buildContext(winnerPlayer.keycloakId), winnerPlayer);
 		const statusParticipant = finishedParticipants.find(participant => participant.playerId === winnerPlayer.id)!;
+		expect(claimResponse.filter(packet => packet.constructor.name === "ItemFoundPacket")).toHaveLength(level100Winner.rewardItemCount);
+		const claimedItem = claimResponse.find(packet => packet.constructor.name === ItemFoundPacket.name) as ItemFoundPacket;
 		expect(finishedStatus.rank).toBe(statusParticipant.finalRank);
 		expect(finishedStatus.reward).toEqual({
 			xp: statusParticipant.rewardXp,
 			money: statusParticipant.rewardMoney,
 			itemCount: statusParticipant.rewardItemCount,
+			itemCategory: claimedItem.itemWithDetails.itemCategory,
 			granted: true
 		});
-		expect(claimResponse.filter(packet => packet.constructor.name === "ItemFoundPacket")).toHaveLength(level100Winner.rewardItemCount);
-		const claimedItem = claimResponse.find(packet => packet.constructor.name === ItemFoundPacket.name) as ItemFoundPacket;
 		expect(claimedItem.itemWithDetails.itemCategory).not.toBe(ItemCategory.POTION);
 		expect(claimedItem.itemWithDetails.rarity).toBeGreaterThanOrEqual(ItemRarity.LEGENDARY);
 		expect((await Tournament.findByPk(tournament.id))?.rewardsDistributed).toBe(false);
@@ -697,31 +698,33 @@ describe("Tournament modules integration", () => {
 		expect(unchangedPlayer?.money).toBe(initialMoney);
 		expect(pendingTournament?.rewardsDistributed).toBe(false);
 
-		await Promise.all([
-			ItemCategory.WEAPON,
-			ItemCategory.ARMOR,
-			ItemCategory.POTION,
-			ItemCategory.OBJECT
-		].map(itemCategory => InventorySlot.update({ itemId: 0 }, {
+		const pendingStatus = await manager.getStatusData(buildContext(fullPlayer.keycloakId), fullPlayer);
+		expect(pendingStatus.reward?.granted).toBe(false);
+		const pendingItemCategory = pendingStatus.reward!.itemCategory;
+		for (let attempt = 0; attempt < 3; attempt++) {
+			const failedResponse: CrowniclesPacket[] = [];
+			await manager.claimTournamentReward(failedResponse, fullPlayer);
+			expect(failedResponse).toHaveLength(0);
+		}
+		expect((await TournamentParticipant.findByPk(participants[0].id))?.rewardGrantedAt).toBeNull();
+		expect((await manager.getStatusData(buildContext(fullPlayer.keycloakId), fullPlayer)).reward?.itemCategory).toBe(pendingItemCategory);
+
+		// Freeing a slot in the announced category only is enough for the reward to be granted
+		await InventorySlot.update({ itemId: 0 }, {
 			where: {
 				playerId: fullPlayer.id,
-				itemCategory,
+				itemCategory: pendingItemCategory,
 				slot: 0
 			}
-		})));
-		await InventoryInfo.upsert({
-			playerId: fullPlayer.id,
-			weaponSlots: 4,
-			armorSlots: 4,
-			potionSlots: 4,
-			objectSlots: 4,
-			plantSlots: 1
 		});
-		await manager.claimTournamentReward([], fullPlayer);
+		const grantedResponse: CrowniclesPacket[] = [];
+		await manager.claimTournamentReward(grantedResponse, fullPlayer);
 
 		const granted = await TournamentParticipant.findByPk(participants[0].id);
 		const completedTournament = await Tournament.findByPk(tournament.id);
 		expect(granted?.rewardGrantedAt).not.toBeNull();
+		const grantedItem = grantedResponse.find(packet => packet.constructor.name === ItemFoundPacket.name) as ItemFoundPacket;
+		expect(grantedItem.itemWithDetails.itemCategory).toBe(pendingItemCategory);
 		expect(completedTournament?.rewardsDistributed).toBe(false);
 		sendNotifications.mockRestore();
 	});

@@ -8,6 +8,7 @@ import {
 	makePacket, PacketContext
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { TournamentConstants } from "../../../../Lib/src/constants/TournamentConstants";
+import { itemCategoryToString } from "../../../../Lib/src/constants/ItemConstants";
 import { Constants } from "../../../../Lib/src/constants/Constants";
 import { CrowniclesIcons } from "../../../../Lib/src/CrowniclesIcons";
 import { Language } from "../../../../Lib/src/Language";
@@ -185,7 +186,8 @@ function buildRewardField(packet: StatusPacket, lng: Language): EmbedField | nul
 			lng,
 			xp: DisplayUtils.formatNumber(packet.reward.xp, lng),
 			money: DisplayUtils.formatNumber(packet.reward.money, lng),
-			count: packet.reward.itemCount
+			count: packet.reward.itemCount,
+			category: i18n.t(`items:categories.${itemCategoryToString(packet.reward.itemCategory)}`, { lng })
 		}),
 		inline: false
 	};
