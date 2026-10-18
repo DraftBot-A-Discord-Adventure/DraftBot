@@ -63,7 +63,10 @@ describe("PvE boss post-fight persistence (#4829)", () => {
 		const player = (await playerMod.Player.findByPk(created.id))!;
 
 		// The fight drained the energy of the former level; mission rewards then raised the level, hence the max energy.
-		const energyLostDuringFight = player.getMaxCumulativeEnergy(NO_ENCHANTMENT_OBJECTS, LEVEL_AFTER_FIGHT - 1);
+		const energyLostDuringFight = playerMod.Player.build({
+			class: player.class,
+			level: LEVEL_AFTER_FIGHT - 1
+		}).getMaxCumulativeEnergy(NO_ENCHANTMENT_OBJECTS);
 		const maxEnergy = player.getMaxCumulativeEnergy(NO_ENCHANTMENT_OBJECTS);
 		expect(maxEnergy).toBeGreaterThan(energyLostDuringFight);
 		player.fightPointsLost = energyLostDuringFight;

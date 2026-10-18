@@ -858,6 +858,9 @@ export class Player extends Model {
 		});
 	}
 
+	/**
+	 * Get the attack, defense and speed of the player class at the player level
+	 */
 	public getMaxStatsValue(): StatValues {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		if (!playerClass) {
