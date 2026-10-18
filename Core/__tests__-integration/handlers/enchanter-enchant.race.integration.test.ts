@@ -85,6 +85,14 @@ describe("Enchanter paid enchantment under lock (issue #4983)", () => {
 	}
 
 	/**
+	 * Attach the rejection handler right away, so a rejection while the test is still polling is not reported as unhandled
+	 */
+	async function settle<T>(operation: Promise<T>): Promise<PromiseSettledResult<T>> {
+		const [result] = await Promise.allSettled([operation]);
+		return result;
+	}
+
+	/**
 	 * Whether another connection of the test user waits on a `SELECT … FOR UPDATE`
 	 */
 	async function hasPendingRowLock(): Promise<boolean> {
@@ -131,7 +139,7 @@ describe("Enchanter paid enchantment under lock (issue #4983)", () => {
 			releaseChestAction = resolve;
 		});
 		let chestActionLocked = false;
-		const chestAction = locks.withLockedEntities([playerModule.Player.lockKey(player.id)] as const, async () => {
+		const chestAction = settle(locks.withLockedEntities([playerModule.Player.lockKey(player.id)] as const, async () => {
 			chestActionLocked = true;
 			await chestActionMayFinish;
 			await enchanterEnv.InventorySlot.update({
@@ -144,15 +152,25 @@ describe("Enchanter paid enchantment under lock (issue #4983)", () => {
 					itemCategory: ItemCategory.WEAPON
 				}
 			});
+		}));
+
+		let confirmation: Promise<PromiseSettledResult<string[]>> | undefined;
+		try {
+			await waitFor(() => chestActionLocked);
+			confirmation = settle(enchant(player, openingData));
+			await waitFor(hasPendingRowLock, { timeoutMs: LOCK_WAIT_TIMEOUT_MS });
+		}
+		finally {
+			// Never leave the chest transaction waiting on its gate, even if the polling failed
+			releaseChestAction();
+			await Promise.all([chestAction, confirmation]);
+		}
+
+		expect(await chestAction).toMatchObject({ status: "fulfilled" });
+		expect(await confirmation).toEqual({
+			status: "fulfilled",
+			value: ["CommandReportEquipmentChangedRes"]
 		});
-		await waitFor(() => chestActionLocked);
-
-		const confirmation = enchant(player, openingData);
-		await waitFor(hasPendingRowLock, { timeoutMs: LOCK_WAIT_TIMEOUT_MS });
-		releaseChestAction();
-		await chestAction;
-
-		expect(await confirmation).toEqual(["CommandReportEquipmentChangedRes"]);
 		const swappedSlot = await getWeaponSlot(player.id);
 		expect(swappedSlot?.itemId).toBe(EPIC_WEAPON_ID);
 		expect(swappedSlot?.itemEnchantmentId).toBe(SWAPPED_ENCHANTMENT.id);
