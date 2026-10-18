@@ -15,15 +15,17 @@ type KingGuardLevelBaseRow = {
 export abstract class LogsKingGuardFightsRequests {
 	/**
 	 * Get the level the next king guard of a player is based on: the best guard beaten with this class lineage,
-	 * or the last guard lost against minus a reduction, like the PvE bosses
+	 * or the last guard lost against minus a reduction, like the PvE bosses.
+	 * The base may be negative: the generated guard level is clamped afterwards by computeKingGuardLevel
 	 */
 	static async getGuardLevelBase(params: {
 		playerKeycloakId: string;
 		classId: number;
 	}): Promise<number | null> {
 		try {
+			// guardLevel is unsigned: subtracting from it directly fails (error 1690) when the result is negative
 			const rows = await LogsKingGuardFightsResults.sequelize!.query<KingGuardLevelBaseRow>(`
-				SELECT guard.guardLevel
+				SELECT CAST(guard.guardLevel AS SIGNED)
 				       - CASE WHEN guard.winner = 1 THEN 0 ELSE :failedFightLevelReduction END AS baseLevel
 				FROM king_guard_fights_results guard
 				INNER JOIN players player ON player.id = guard.playerId

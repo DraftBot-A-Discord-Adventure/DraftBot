@@ -1,5 +1,5 @@
 import {
-	afterAll, beforeAll, beforeEach, describe, expect, it, vi
+	afterAll, beforeAll, beforeEach, describe, expect, it, onTestFinished, vi
 } from "vitest";
 import { QueryInterface } from "sequelize";
 import {
@@ -19,6 +19,9 @@ import {
 } from "../../src/core/database/logs/models/LogsPlayersGloryPoints";
 import { LogsKingGuardFightsRequests } from "../../src/core/database/logs/requests/LogsKingGuardFightsRequests";
 import { LogsFightHistoryRequests } from "../../src/core/database/logs/requests/LogsFightHistoryRequests";
+import { computeKingGuardLevel } from "../../src/core/fights/kingGuards/KingGuardGenerator";
+import type Player from "../../src/core/database/game/models/Player";
+import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { up as createKingGuardTable } from "../../src/core/database/logs/migrations/036-king-guard-fights";
 import { ClassConstants } from "../../../Lib/src/constants/ClassConstants";
 import { FightConstants } from "../../../Lib/src/constants/FightConstants";
@@ -37,6 +40,10 @@ vi.mock("../../src/core/database/logs/LogsDatabase", async () => {
 vi.mock("../../src/data/League", () => ({
 	LeagueDataController: { instance: { getByGlory: (): { id: number } => ({ id: 1 }) } }
 }));
+
+// The king guard generator transitively imports the game singletons: neither the bot nor its config are needed here
+vi.mock("../../src/app", () => ({ crowniclesInstance: {} }));
+vi.mock("../../src/bootstrap", () => ({ botConfig: {} }));
 
 let env: IntegrationTestEnvironment;
 
@@ -221,6 +228,29 @@ describe("King guard fights logs", () => {
 			playerKeycloakId: "loser",
 			classId: ClassConstants.CLASSES_ID.KNIGHT
 		})).resolves.toBe(45 - FightConstants.KING_GUARD.FAILED_FIGHT_LEVEL_REDUCTION);
+	});
+
+	it("lowers the base below zero after a loss against a guard of the minimal level", async () => {
+		const logsPlayer = await LogsPlayers.create({ keycloakId: "lowLevelLoser" });
+		await logGuardFight({
+			playerId: logsPlayer.id, guardLevel: FightConstants.REQUIRED_LEVEL, winner: KING_GUARD_FIGHT_WINNER.GUARD, date: 1_000
+		});
+		const errorSpy = vi.spyOn(CrowniclesLogger, "errorWithObj").mockImplementation((): void => undefined);
+		onTestFinished(() => errorSpy.mockRestore());
+
+		const baseLevel = await LogsKingGuardFightsRequests.getGuardLevelBase({
+			playerKeycloakId: "lowLevelLoser",
+			classId: ClassConstants.CLASSES_ID.KNIGHT
+		});
+
+		expect(errorSpy).not.toHaveBeenCalled();
+		expect(baseLevel).toBe(FightConstants.REQUIRED_LEVEL - FightConstants.KING_GUARD.FAILED_FIGHT_LEVEL_REDUCTION);
+		const player = {
+			keycloakId: "lowLevelLoser",
+			level: 100,
+			class: ClassConstants.CLASSES_ID.KNIGHT
+		} as Player;
+		await expect(computeKingGuardLevel(player)).resolves.toBe(FightConstants.REQUIRED_LEVEL);
 	});
 
 	it("has no base without any guard fight", async () => {
