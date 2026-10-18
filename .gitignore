@@ -15,6 +15,9 @@ mqtt5
 bdd
 .claude
 
+# Local MCP servers configuration, it holds access tokens
+.mcp.json
+
 # Package archives
 **/*.tgz
 
