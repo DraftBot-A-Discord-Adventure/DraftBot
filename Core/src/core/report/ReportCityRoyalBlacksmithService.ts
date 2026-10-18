@@ -33,6 +33,7 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { updateUpgradeMissionsUnderLock } from "./ReportCityBlacksmithService";
 import { getListedInventorySlotUnderLock } from "./ReportListedEquipment";
 import { crowniclesInstance } from "../../app";
+import { DailyMissions } from "../database/game/models/DailyMission";
 
 type RoyalBlacksmithData = NonNullable<ReactionCollectorCityData["royalBlacksmith"]>;
 type RoyalUpgradeableItem = RoyalBlacksmithData["upgradeableItems"][number];
@@ -160,7 +161,8 @@ export async function handleRoyalBlacksmithUpgradeReaction(
 		return;
 	}
 
-	// Ensure PlayerMissionsInfo row exists before attempting to lock it.
+	// Resolve the daily mission rollover and create the missions info row before locking it
+	await DailyMissions.getOrGenerate();
 	await PlayerMissionsInfos.getOfPlayer(player.id);
 
 	const keys: readonly LockKey[] = [

@@ -29,6 +29,7 @@ import { GardenConstants } from "../../constants/GardenConstants";
 import { CityService } from "../../constants/CityServiceConstants";
 import { ScrapDealerData } from "../../types/ScrapDealerData";
 import { DisenchantableItem } from "../../types/DisenchantableItem";
+import { EnchantmentCost } from "../../types/ItemEnchantment";
 import { MapLocationType } from "../../constants/MapLocationConstants";
 
 /**
@@ -110,10 +111,7 @@ export class ReactionCollectorCityData extends ReactionCollectorData {
 		enchantmentType: string;
 		enchantmentSlot: ItemCategory; // The slot (WEAPON or ARMOR) that today's enchantment can be applied to.
 		tomorrow?: EnchanterTomorrowData;
-		enchantmentCost: {
-			money: number;
-			gems: number;
-		};
+		enchantmentCost: EnchantmentCost;
 		mageReduction: boolean;
 
 		playerMoney: number;

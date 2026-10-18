@@ -16,7 +16,9 @@ import {
 	CommandReportItemEnchantedRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
-import { ItemEnchantment } from "../../../../Lib/src/types/ItemEnchantment";
+import {
+	EnchantmentCost, ItemEnchantment
+} from "../../../../Lib/src/types/ItemEnchantment";
 import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 import { Settings } from "../database/game/models/Setting";
 import PlayerMissionsInfo, { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
@@ -26,17 +28,13 @@ import {
 } from "../../../../Lib/src/locks/withLockedEntities";
 import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
+import { DailyMissions } from "../database/game/models/DailyMission";
 import { DisenchantableItem } from "../../../../Lib/src/types/DisenchantableItem";
 import {
 	getListedInventorySlotUnderLock, removeListedEnchantmentUnderLock
 } from "./ReportListedEquipment";
 
 type EnchantableItem = NonNullable<ReactionCollectorCityData["enchanter"]>["enchantableItems"][number];
-
-type EnchantmentPrice = {
-	money: number;
-	gems: number;
-};
 
 /**
  * Locked rows and request data shared by the steps of a paid enchantment
@@ -96,7 +94,7 @@ async function getEnchantableSlotUnderLock(
 /**
  * Whether the locked rows cover the price. Pushes the missing-currencies response otherwise.
  */
-function hasEnoughCurrenciesUnderLock(context: LockedEnchantContext, price: EnchantmentPrice): boolean {
+function hasEnoughCurrenciesUnderLock(context: LockedEnchantContext, price: EnchantmentCost): boolean {
 	const {
 		lockedPlayer, lockedMissionsInfo, response
 	} = context;
@@ -116,7 +114,7 @@ function hasEnoughCurrenciesUnderLock(context: LockedEnchantContext, price: Ench
 async function executeEnchantUnderLock(
 	context: LockedEnchantContext,
 	itemToEnchant: InventorySlot,
-	price: EnchantmentPrice
+	price: EnchantmentCost
 ): Promise<void> {
 	const {
 		lockedPlayer, lockedMissionsInfo, enchantment, response
@@ -207,7 +205,8 @@ export async function handleEnchantReaction(
 		return;
 	}
 
-	// Make sure the missions info row exists before locking it
+	// Resolve the daily mission rollover and create the missions info row before locking it
+	await DailyMissions.getOrGenerate();
 	await PlayerMissionsInfos.getOfPlayer(player.id);
 	await withLockedEntities([Player.lockKey(player.id), PlayerMissionsInfo.lockKey(player.id)] as const, async ([lockedPlayer, lockedMissionsInfo]) => {
 		await enchantListedItemUnderLock({
