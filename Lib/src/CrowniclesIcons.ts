@@ -2426,8 +2426,7 @@ export const CrowniclesIcons: {
 			guildStatusChange: "📜",
 			energy: "⚡",
 			dailyBonus: "📅",
-			petExpedition: "🐾",
-			tournament: "🏆"
+			petExpedition: "🐾"
 		}
 	},
 	missions: {

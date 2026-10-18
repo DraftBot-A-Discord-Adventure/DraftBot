@@ -29,9 +29,8 @@ export type PveMemberStats = {
 };
 
 type PlayerFighterOptions = {
-	effectiveLevel?: number;
 
-	// Full energy, no potion, no energy loss and no missions (tournament and friendly fights)
+	// Full energy, no potion, no energy loss and no missions (friendly fights)
 	withoutConsequences?: boolean;
 };
 
@@ -49,7 +48,7 @@ export class PlayerFighter extends PlayerBaseFighter {
 	private readonly withoutConsequences: boolean;
 
 	public constructor(player: Player, playerClass: Class, options: PlayerFighterOptions = {}) {
-		super(player, FightActionDataController.instance.getListById(playerClass.fightActionsIds), options.effectiveLevel);
+		super(player, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
 		this.petAssisted = false;
 		this.withoutConsequences = options.withoutConsequences ?? false;
 	}
@@ -144,7 +143,7 @@ export class PlayerFighter extends PlayerBaseFighter {
 	 */
 	public async loadStats(isPvE = false): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy(playerActiveObjects, this.level);
+		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy(playerActiveObjects);
 		this.stats.energy = this.withoutConsequences
 			? this.stats.maxEnergy
 			: this.player.getCumulativeEnergy(playerActiveObjects);

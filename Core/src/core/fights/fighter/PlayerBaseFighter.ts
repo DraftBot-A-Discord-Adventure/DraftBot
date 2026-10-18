@@ -22,25 +22,22 @@ import { EnchantmentConstants } from "../../../../../Lib/src/constants/Enchantme
 export abstract class PlayerBaseFighter extends Fighter {
 	public player: Player;
 
-	public tournamentGloryPoints?: number;
-
 	public pet?: PetEntity;
 
 	public metallicItemCount = 0;
 
 	protected fightRole: FightRole = FightConstants.FIGHT_ROLES.ATTACKER;
 
-	protected constructor(player: Player, availableFightActions: FightAction[], effectiveLevel = player.level) {
-		super(effectiveLevel, availableFightActions);
+	protected constructor(player: Player, availableFightActions: FightAction[]) {
+		super(player.level, availableFightActions);
 		this.player = player;
 	}
 
 	/**
 	 * Get the glory value that should be displayed for this fighter.
-	 * Tournament fighters expose their isolated rating instead of the normal player rating.
 	 */
 	public getDisplayedGloryPoints(): number | undefined {
-		return this.tournamentGloryPoints ?? this.player.getGloryPoints();
+		return this.player.getGloryPoints();
 	}
 
 	/**
@@ -92,9 +89,9 @@ export abstract class PlayerBaseFighter extends Fighter {
 		const {
 			player, stats
 		} = this;
-		stats.attack = player.getCumulativeAttack(playerActiveObjects, this.level, includePotion);
-		stats.defense = player.getCumulativeDefense(playerActiveObjects, this.level, includePotion);
-		stats.speed = player.getCumulativeSpeed(playerActiveObjects, this.level, includePotion);
+		stats.attack = player.getCumulativeAttack(playerActiveObjects, includePotion);
+		stats.defense = player.getCumulativeDefense(playerActiveObjects, includePotion);
+		stats.speed = player.getCumulativeSpeed(playerActiveObjects, includePotion);
 		stats.breath = player.getBaseBreath(playerActiveObjects);
 		stats.maxBreath = player.getMaxBreath(playerActiveObjects);
 		stats.breathRegen = player.getBreathRegen();

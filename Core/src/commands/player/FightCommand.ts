@@ -47,10 +47,7 @@ import {
 	LockedRowNotFoundError, withLockedEntities
 } from "../../../../Lib/src/locks/withLockedEntities";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
-import { findTournamentForContext } from "../../core/tournaments/TournamentQueries";
-import { resolveTournamentFight } from "../../core/tournaments/TournamentFightResolver";
 import { getPlayerStats } from "./FightPlayerStats";
-import { executeTournamentFightCommand } from "./TournamentFightCommand";
 import {
 	calculateMoneyReward, calculateScoreReward, FightInitiatorInformation, getGameResultFromFight, handlePostFightPetLove
 } from "./FightRewards";
@@ -168,14 +165,6 @@ function buildPlayerGloryInfo(player: Player, oldGlory: number): FightRewardPack
  * @param response
  */
 async function fightEndCallback(fight: FightController, response: CrowniclesPacket[]): Promise<void> {
-	if (fight.tournamentContext) {
-		await resolveTournamentFight(fight, response);
-		return;
-	}
-	await regularFightEndCallback(fight, response);
-}
-
-async function regularFightEndCallback(fight: FightController, response: CrowniclesPacket[]): Promise<void> {
 	notifyDefenderOfAttack(fight);
 
 	const fightLogId = await crowniclesInstance?.logsDatabase.logFight(fight) ?? null;
@@ -417,21 +406,9 @@ export default class FightCommand {
 		notBlocked: true,
 		whereAllowed: [WhereAllowed.CONTINENT],
 		allowedEffects: CommandUtils.ALLOWED_EFFECTS.NO_EFFECT,
-		level: FightConstants.REQUIRED_LEVEL,
-		tournamentAccess: "fight"
+		level: FightConstants.REQUIRED_LEVEL
 	})
 	async execute(response: CrowniclesPacket[], player: Player, _packet: CommandFightPacketReq, context: PacketContext): Promise<void> {
-		const tournament = await findTournamentForContext(context, false);
-		if (tournament) {
-			await executeTournamentFightCommand({
-				response,
-				player,
-				context,
-				tournament,
-				fightEndCallback
-			});
-			return;
-		}
 		const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 		if (!player.hasEnoughEnergyToFight(playerActiveObjects)) {
 			response.push(makePacket(CommandFightNotEnoughEnergyPacketRes, {}));
