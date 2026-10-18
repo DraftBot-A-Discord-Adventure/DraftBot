@@ -21,7 +21,6 @@ import { ItemConstants } from "../../../../../Lib/src/constants/ItemConstants";
 
 type AiPlayerFighterOptions = {
 	allowPotionConsumption?: boolean;
-	effectiveLevel?: number;
 	withoutConsequences?: boolean;
 	preloadedActiveObjects?: PlayerActiveObjects;
 	preloadedPetEntity?: PetEntity | null;
@@ -47,7 +46,7 @@ export class AiPlayerFighter extends PlayerBaseFighter {
 	private readonly preloadedPetEntity?: PetEntity | null;
 
 	public constructor(player: Player, playerClass: Class, options: AiPlayerFighterOptions = {}) {
-		super(player, FightActionDataController.instance.getListById(playerClass.fightActionsIds), options.effectiveLevel);
+		super(player, FightActionDataController.instance.getListById(playerClass.fightActionsIds));
 		this.fightRole = FightConstants.FIGHT_ROLES.DEFENDER;
 		this.class = playerClass;
 		this.classBehavior = getAiClassBehavior(playerClass.id);
@@ -99,7 +98,7 @@ export class AiPlayerFighter extends PlayerBaseFighter {
 	 */
 	public async loadStats(isPvE = false): Promise<void> {
 		const playerActiveObjects: PlayerActiveObjects = this.preloadedActiveObjects ?? await InventorySlots.getPlayerActiveObjects(this.player.id);
-		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy(playerActiveObjects, this.level);
+		this.stats.maxEnergy = this.player.getMaxCumulativeEnergy(playerActiveObjects);
 		this.stats.energy = this.stats.maxEnergy;
 		this.loadCombatStats(playerActiveObjects, isPvE, !this.withoutConsequences);
 		this.glory = this.player.getGloryPoints();
