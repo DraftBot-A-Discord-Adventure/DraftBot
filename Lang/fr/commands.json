@@ -441,6 +441,9 @@
       "BADGES": {
         "description": "Les badges sont des distinctions difficiles à obtenir qui ont été créées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.crownicles.com/notions-avancees/badges)"
       },
+      "BLESSING": {
+        "description": "Affiche l'état de la bénédiction globale : la cagnotte que les aventuriers alimentent en rencontrant l'Oracle lors de leurs voyages, ou la bénédiction active et le temps qu'il lui reste. Cette commande est accessible après avoir rencontré l'Oracle au moins une fois."
+      },
       "CLASSES": {
         "description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.crownicles.com"
       },
@@ -453,12 +456,21 @@
       "DRINK": {
         "description": "Cette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
       },
+      "EQUIP": {
+        "description": "Permet de gérer votre équipement pour chaque catégorie d'objets : équiper un objet de votre réserve, ranger l'objet équipé dans votre réserve ou intervertir deux objets."
+      },
       "FIGHT": {
         "description": "Utilisez cette commande pour défier les autres joueurs.\nLes combats se déroulent tour par tour. À chaque tour, vous pouvez choisir une action à effectuer.\n\nPour plus d'informations vous pouvez aller voir la page du guide : https://guide.crownicles.com/notions-principale/combats",
         "image": "https://crownicles.com/public/ressources/fighthelp/fr/5.1.7.png"
       },
+      "FIGHT_HISTORY": {
+        "description": "Affiche l'historique de vos derniers combats : l'adversaire affronté, le résultat ainsi que l'évolution de la gloire et de la ligue de chaque combattant."
+      },
       "FRIENDLY_FIGHT": {
         "description": "Permet d'affronter un autre joueur, choisi en le mentionnant ou grâce à son classement, dans un combat amical. Le joueur affronté est contrôlé par une IA. Ce combat n'a aucune conséquence : aucune gloire, aucune récompense, aucune énergie perdue et aucune progression de mission."
+      },
+      "GARDEN": {
+        "description": "Permet de vous occuper du jardin de votre demeure lorsque vous vous trouvez dans sa ville : planter, arroser, composter et récolter vos plantes. Avec le Cœur Sylvestre, un talisman vendu chez l'Herboriste à Coco Village, il devient possible de consulter le jardin et d'y récolter à distance."
       },
       "GLORY_TOP": {
         "description": "Affiche le classement glorieux du jeu par tranche de 15 joueurs. La ligue des joueurs est également affichée. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue."
