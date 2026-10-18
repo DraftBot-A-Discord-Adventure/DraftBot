@@ -17,7 +17,6 @@ import { GuildStatusChangeNotificationPacket } from "../../../Lib/src/packets/no
 import { PlayerFreedFromJailNotificationPacket } from "../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
 import { PlayerWasAttackedNotificationPacket } from "../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 import { ExpeditionFinishedNotificationPacket } from "../../../Lib/src/packets/notifications/ExpeditionFinishedNotificationPacket";
-import { TournamentNotificationPacket } from "../../../Lib/src/packets/notifications/TournamentNotificationPacket";
 import { StringConstants } from "../../../Lib/src/constants/StringConstants";
 
 /** What a notification says, on the lock screen and in the app. */
@@ -26,11 +25,10 @@ export type PushText = {
 	body: string;
 };
 
-/** The only namespaces a notification draws from: its own words, place and pet names, tournament categories, the unknown player. */
+/** The only namespaces a notification draws from: its own words, place and pet names, the unknown player. */
 const NAMESPACES = [
 	"app",
 	"models",
-	"commands",
 	"error"
 ];
 
@@ -73,13 +71,6 @@ function petName(packet: ExpeditionFinishedNotificationPacket, lng: Language): s
 	});
 }
 
-function tournamentText(packet: TournamentNotificationPacket, lng: Language): PushText {
-	return pushText(NOTIFICATION_TYPES.TOURNAMENT, lng, {
-		category: t(`commands:tournament.categories.${packet.category}`, lng),
-		rank: packet.rank ?? t("app:notifications.push.tournament.unranked", lng)
-	}, packet.cancellationReason ? "cancelled" : packet.event);
-}
-
 /** One builder per setting: a new kind of notification does not compile until it says something. */
 const TEXT_BUILDERS: Record<NotificationType, TextBuilder> = {
 	[NOTIFICATION_TYPES.REPORT]: (packet, { lng }) => pushText(NOTIFICATION_TYPES.REPORT, lng, {
@@ -113,8 +104,7 @@ const TEXT_BUILDERS: Record<NotificationType, TextBuilder> = {
 	}),
 	[NOTIFICATION_TYPES.PET_EXPEDITION]: (packet, { lng }) => pushText(NOTIFICATION_TYPES.PET_EXPEDITION, lng, {
 		pet: petName(packet as ExpeditionFinishedNotificationPacket, lng)
-	}),
-	[NOTIFICATION_TYPES.TOURNAMENT]: (packet, { lng }) => tournamentText(packet as TournamentNotificationPacket, lng)
+	})
 };
 
 /**

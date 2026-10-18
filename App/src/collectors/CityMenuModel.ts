@@ -34,6 +34,8 @@ const CITY_REACTION_ORDER: Partial<Record<ReactionCollectorReaction["type"], num
 	[CITY_REACTION_KINDS.UPGRADE_ITEM]: 7,
 	[CITY_REACTION_KINDS.INN_MEAL]: 0,
 	[CITY_REACTION_KINDS.INN_ROOM]: 1,
+	[CITY_REACTION_KINDS.ENCHANT]: 0,
+	[CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]: 1,
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: 0,
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: 1,
 	[CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE]: 0,
@@ -128,6 +130,8 @@ const CITY_NAVIGATION_REACTIONS: Partial<Record<ReactionCollectorReaction["type"
 };
 
 const CITY_SUBMENU_REACTIONS: Partial<Record<ReactionCollectorReaction["type"], CitySubmenu>> = {
+	[CITY_REACTION_KINDS.ENCHANT]: "enchanter",
+	[CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]: "enchanter",
 	[CITY_REACTION_KINDS.BUY_HOME]: "notary",
 	[CITY_REACTION_KINDS.UPGRADE_HOME]: "notary",
 	[CITY_REACTION_KINDS.MOVE_HOME]: "notary",
@@ -223,10 +227,6 @@ function addInnEntry(state: CityGroupingState, entry: CityEntry): boolean {
 }
 
 function addSubmenuEntry(state: CityGroupingState, entry: CityEntry): boolean {
-	if (entry.reaction.type === CITY_REACTION_KINDS.ENCHANT) {
-		state.submenus.enchanter.push(entry);
-		return true;
-	}
 	const submenu = CITY_SUBMENU_REACTIONS[entry.reaction.type];
 	if (!submenu) {
 		return false;
@@ -246,8 +246,11 @@ const CITY_ENTRY_HANDLERS: CityEntryHandler[] = [
 	(state, entry): boolean => addSubmenuEntry(state, entry)
 ];
 
+/** Choices the app never shows: refusing the city, or closing a chest the app manages through its own requests. */
+const HIDDEN_CITY_REACTIONS = new Set<ReactionCollectorReaction["type"]>([GENERIC_REACTION_KINDS.REFUSE, CITY_REACTION_KINDS.HOME_CHEST_CLOSE]);
+
 function addCityEntry(state: CityGroupingState, entry: CityEntry, options: CityGroupingOptions): void {
-	if (entry.reaction.type === GENERIC_REACTION_KINDS.REFUSE) {
+	if (HIDDEN_CITY_REACTIONS.has(entry.reaction.type)) {
 		return;
 	}
 	for (const handler of CITY_ENTRY_HANDLERS) {

@@ -12,14 +12,29 @@ export enum EloGameResult {
 	DRAW = 0.5,
 	WIN = 1
 }
-export type FightHistoryEntry = {
+export const FIGHT_HISTORY_ENTRY_TYPES = {
+	PLAYER: "player",
+	KING_GUARD: "kingGuard"
+} as const;
+
+type FightHistoryEntryBase = {
+
+	/** Unique within an entry type only: both kinds of fight are logged apart. */
 	id: number;
+	result: EloGameResult;
+	classes: {
+		me: number; opponent: number;
+	};
+	date: number;
+};
+
+export type PlayerFightHistoryEntry = FightHistoryEntryBase & {
+	type: typeof FIGHT_HISTORY_ENTRY_TYPES.PLAYER;
 	initiator: boolean;
 	opponentName?: string;
 
 	/** Opens the opponent's profile, as a ranking entry's `playerRef` does. */
 	opponentRef: string;
-	result: EloGameResult;
 	glory: {
 		initial: {
 			me: number; opponent: number;
@@ -36,11 +51,15 @@ export type FightHistoryEntry = {
 			};
 		};
 	};
-	classes: {
-		me: number; opponent: number;
-	};
-	date: number;
 };
+
+/** A fight against a king guard, when the arena found no opponent: no glory was at stake. */
+export type KingGuardFightHistoryEntry = FightHistoryEntryBase & {
+	type: typeof FIGHT_HISTORY_ENTRY_TYPES.KING_GUARD;
+	kingGuard: { level: number };
+};
+
+export type FightHistoryEntry = PlayerFightHistoryEntry | KingGuardFightHistoryEntry;
 export type RankingEntry = {
 	rank: number;
 	sameContext: boolean;

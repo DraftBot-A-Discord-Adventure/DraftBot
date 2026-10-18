@@ -28,6 +28,10 @@ describe("cooking protocol", () => {
 		const answer = await CookingServerTranslator.craft(CONTEXT, makePacket(CommandReportCookingCraftRes, {success: false, recipeId: "potion_health_1", wasSecret: false, outputType: CookingOutputType.POTION, error: CookingCraftErrors.CRAFT_UNAVAILABLE, cookingXpGained: 0, cookingLevelUp: false, menu: MENU}));
 		expect(answer.outcome).toMatchObject({kind: "crafted", result: {error: "craftUnavailable", menu: {currentSlots: [{slotIndex: 2, recipe: {id: "potion_health_1", canCraft: true}}]}}});
 	});
+	it("tells the app the master chef badge was earned with the dish that earned it", async () => {
+		const answer = await CookingServerTranslator.craft(CONTEXT, makePacket(CommandReportCookingCraftRes, {success: true, recipeId: "potion_health_1", wasSecret: false, outputType: CookingOutputType.POTION, potionId: 3, cookingXpGained: 40, cookingLevelUp: true, newCookingLevel: 100, masterChefBadgeEarned: true, menu: MENU}));
+		expect(answer.outcome).toMatchObject({kind: "crafted", result: {masterChefBadgeEarned: true, newCookingLevel: 100}});
+	});
 	it("registers and transports explicit unavailable and no-wood outcomes", async () => {
 		const unavailable = getServerTranslator(CommandReportCookingUnavailableRes.name)!;
 		expect(unavailable.protoName).toBe(CookingRes.wireName);

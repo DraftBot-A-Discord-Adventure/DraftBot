@@ -84,6 +84,16 @@ function blacksmithSections(entries: CityEntry[], snapshot: CityMobileSnapshot |
 	];
 }
 
+/** Mernil enchants what is still bare, and strips for free what already carries an enchantment, before his catalogue. */
+function enchanterSections(entries: CityEntry[], deps: SubmenuDependencies): CitySubmenuSection[] {
+	const disenchants = (entry: CityEntry): boolean => entry.reaction.type === CITY_REACTION_KINDS.ENCHANTER_DISENCHANT;
+	return [
+		section("app:city.titles.eligibleEquipment", reactionItems(entries.filter(entry => !disenchants(entry)))),
+		section("app:city.titles.freeDisenchant", reactionItems(entries.filter(disenchants))),
+		section("app:city.enchantmentCatalog.title", deps.enchantmentCatalogItems())
+	];
+}
+
 /** What the scrap dealer will not take: an enchanted item, with why and what to do, or a bench left empty. */
 function scrapDealerRefusals(snapshot: CityMobileSnapshot | undefined): CityListItem[] {
 	const scrapDealer = snapshot?.scrapDealer;
@@ -125,7 +135,7 @@ function simpleSections(view: CitySubmenu, entries: CityEntry[], snapshot: CityM
 		home: () => [section("app:city.titles.homeServices", [...reactions, ...deps.homeFeatureItems(snapshot)])],
 		homeBed: () => [section("app:city.titles.actions", reactions)],
 		guild: () => [section("app:city.titles.actions", reactions)],
-		enchanter: () => [section("app:city.titles.eligibleEquipment", reactions), section("app:city.enchantmentCatalog.title", deps.enchantmentCatalogItems())],
+		enchanter: () => enchanterSections(entries, deps),
 		homeGarden: () => [section("app:city.titles.garden", [...deps.gardenPlotItems(snapshot), ...reactions])],
 		homeUpgrade: () => [section("app:city.titles.station", [...reactions, ...stationRefusals(snapshot)])]
 	};

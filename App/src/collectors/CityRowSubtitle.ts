@@ -7,7 +7,9 @@ import {
 import { AppIcons } from "@/src/AppIcons";
 import { apartmentRentedHere } from "@/src/collectors/ApartmentBenefits";
 import { compactCityDescription } from "@/src/collectors/CityText";
-import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	enchantedItemForReaction, itemSnapshotForReaction
+} from "@/src/collectors/CityItemPresentation";
 import { materialUnits } from "@/src/collectors/CityRecycleDetails";
 import {
 	missingMaterialUnits, upgradeForReaction
@@ -69,9 +71,15 @@ function homeBedSubtitle(snapshot: CityMobileSnapshot | undefined, reaction: Rea
 	return snapshot?.home?.owned ? i18n.t("commands:report.city.homes.bed.menuDescription", { health: snapshot.home.owned.bedHealthRegeneration }) : defaultSubtitle(reaction);
 }
 
+/** Leaving pays the stay: the points already guaranteed are said on the way out. */
+function exitSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	return snapshot?.minimumCityStayScore ? i18n.t("app:city.subtitles.exitStayScore", { count: snapshot.minimumCityStayScore }) : defaultSubtitle(reaction);
+}
+
 type ContextualResolver = (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined) => string | undefined;
 
 const CONTEXTUAL_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], ContextualResolver>> = {
+	[CITY_REACTION_KINDS.EXIT]: exitSubtitle,
 	[CITY_REACTION_KINDS.SHOP]: reaction => shopSubtitle(reaction),
 	[CITY_REACTION_KINDS.INN_MEAL]: reaction => innSubtitle(reaction),
 	[CITY_REACTION_KINDS.INN_ROOM]: reaction => innSubtitle(reaction),
@@ -104,8 +112,8 @@ function upgradeSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobi
 		});
 }
 
-function disenchantSubtitle(snapshot: CityMobileSnapshot | undefined, item: CityMobileItem): string | undefined {
-	const disenchant = snapshot?.blacksmith?.disenchantableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
+function disenchantSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	const disenchant = enchantedItemForReaction(snapshot, reaction);
 	return disenchant ? i18n.t("app:city.subtitles.disenchantDetails", { enchantment: `${AppIcons.getIcon(`enchantmentTypes.${disenchant.enchantmentType}`)} ${i18n.t(`items:enchantments.${disenchant.enchantmentId}`)}` }) : undefined;
 }
 
@@ -125,7 +133,8 @@ function itemSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileS
 		case CITY_REACTION_KINDS.UPGRADE_ITEM:
 		case CITY_REACTION_KINDS.BLACKSMITH_UPGRADE:
 		case CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE: return upgradeSubtitle(reaction, snapshot, item);
-		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT: return disenchantSubtitle(snapshot, item);
+		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT:
+		case CITY_REACTION_KINDS.ENCHANTER_DISENCHANT: return disenchantSubtitle(reaction, snapshot);
 		case CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE: return recycleSubtitle(snapshot, item);
 		default: return undefined;
 	}

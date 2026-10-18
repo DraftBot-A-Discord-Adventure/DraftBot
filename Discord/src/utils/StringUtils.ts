@@ -60,7 +60,8 @@ export abstract class StringUtils {
 	}
 
 	/**
-	 * Join several lines of the same paragraph. Falsy/empty entries are skipped.
+	 * Join several lines with a single line break.
+	 * Falsy/empty entries are skipped so callers can pass conditional lines directly.
 	 */
 	static joinLines(parts: ReadonlyArray<string | false | null | undefined>): string {
 		return parts.filter((p): p is string => Boolean(p)).join("\n");

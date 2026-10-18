@@ -35,8 +35,7 @@ const ALL_ON: NotificationPreferences = {
 	guildStatusChange: true,
 	playerFreedFromJail: true,
 	fightChallenge: true,
-	petExpedition: true,
-	tournament: true
+	petExpedition: true
 };
 
 function answer(preferences: NotificationPreferences): {
@@ -74,7 +73,7 @@ describe("notification settings", () => {
 	it("shows one switch per kind, with what it tells, once the server answered", async () => {
 		permission(true);
 		await renderSettings();
-		await waitFor(() => expect(screen.getByRole("switch", { name: "app:settings.notifications.types.tournament" })).toBeTruthy());
+		await waitFor(() => expect(screen.getByRole("switch", { name: "app:settings.notifications.types.petExpedition" })).toBeTruthy());
 		expect(screen.getAllByRole("switch")).toHaveLength(Object.values(NOTIFICATION_TYPES).length);
 		expect(screen.getByText("app:settings.notifications.captions.petExpedition")).toBeTruthy();
 		expect(screen.queryByTestId("notifications-permission")).toBeNull();

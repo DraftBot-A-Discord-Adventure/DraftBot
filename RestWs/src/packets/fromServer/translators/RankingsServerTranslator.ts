@@ -1,6 +1,8 @@
 import { fromServerTranslator } from "../FromServerTranslator";
 import { PacketContext } from "../../../../../Lib/src/packets/CrowniclesPacket";
-import { CommandFightHistoryPacketRes } from "../../../../../Lib/src/packets/commands/CommandFightHistoryPacket";
+import {
+	CommandFightHistoryPacketRes, FightHistoryItem
+} from "../../../../../Lib/src/packets/commands/CommandFightHistoryPacket";
 import {
 	CommandLeagueInfoRes, CommandLeagueRewardSuccessPacketRes, CommandLeagueRewardAlreadyClaimedPacketRes,
 	CommandLeagueRewardNoPointsPacketRes, CommandLeagueRewardNotSundayPacketRes
@@ -12,7 +14,7 @@ import {
 	FightHistoryRes, LeagueInfoRes, LeagueRewardRes, TopRes, TopEmptyRes
 } from "../../../../../WsPackets/src/fromServer/fight/RankingsRes";
 import {
-	TopDataType, RankingEntry
+	FIGHT_HISTORY_ENTRY_TYPES, FightHistoryEntry, TopDataType, RankingEntry
 } from "../../../../../WsPackets/src/objects/Rankings";
 import { asyncMakeFromServerPacket } from "../../../../../WsPackets/src/MakePackets";
 import { resolvePlayerName } from "../PlayerDisplay";
@@ -20,6 +22,24 @@ import { playerReference } from "../../../services/PlayerReference";
 import {
 	TopElementScore, TopElementGlory
 } from "../../../../../Lib/src/types/TopElement";
+
+async function fightHistoryEntry(entry: FightHistoryItem): Promise<FightHistoryEntry> {
+	if ("kingGuard" in entry) {
+		return {
+			type: FIGHT_HISTORY_ENTRY_TYPES.KING_GUARD, ...entry
+		};
+	}
+	const {
+		opponentKeycloakId, ...details
+	} = entry;
+	const opponentName = await resolvePlayerName(opponentKeycloakId);
+	return {
+		type: FIGHT_HISTORY_ENTRY_TYPES.PLAYER,
+		...details,
+		opponentRef: playerReference(opponentKeycloakId),
+		...opponentName ? { opponentName } : {}
+	};
+}
 
 type TopPacket = CommandTopPacketResScore | CommandTopPacketResGlory | CommandTopPacketResGuild;
 
@@ -52,17 +72,7 @@ async function playerRankingEntry(entry: TopElementScore | TopElementGlory): Pro
 export default class RankingsServerTranslator {
 	@fromServerTranslator(CommandFightHistoryPacketRes, FightHistoryRes)
 	public static async history(_context: PacketContext, packet: CommandFightHistoryPacketRes): Promise<FightHistoryRes> {
-		return asyncMakeFromServerPacket(FightHistoryRes, { history: await Promise.all(packet.history.map(async entry => {
-			const {
-				opponentKeycloakId, ...details
-			} = entry;
-			const opponentName = await resolvePlayerName(opponentKeycloakId);
-			return {
-				...details,
-				opponentRef: playerReference(opponentKeycloakId),
-				...opponentName ? { opponentName } : {}
-			};
-		})) });
+		return asyncMakeFromServerPacket(FightHistoryRes, { history: await Promise.all(packet.history.map(fightHistoryEntry)) });
 	}
 
 	@fromServerTranslator(CommandLeagueInfoRes, LeagueInfoRes)

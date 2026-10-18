@@ -8,7 +8,7 @@ export type GameAchievementId = typeof GAME_ACHIEVEMENTS[keyof typeof GAME_ACHIE
 export const ACHIEVEMENT_COMPLETION_PERCENT = 100;
 
 export function achievementsForFightEnd(result: FightEnd): GameAchievementId[] {
-	if (result.winner.monsterId || result.loser.monsterId) {
+	if (result.winner.monsterId || result.loser.monsterId || result.winner.isKingGuard || result.loser.isKingGuard) {
 		return [];
 	}
 	if (result.winner.isSelf === result.loser.isSelf) {

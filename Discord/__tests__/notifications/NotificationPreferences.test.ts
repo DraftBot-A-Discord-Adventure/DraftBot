@@ -15,9 +15,9 @@ describe("Discord notification settings shared with the app", () => {
 	});
 
 	it("keeps the kinds the player turned off on Discord", () => {
-		const preferences = discordPreferences(configuration(["report", "tournament"]));
+		const preferences = discordPreferences(configuration(["report", "petExpedition"]));
 		expect(preferences.report).toBe(false);
-		expect(preferences.tournament).toBe(false);
+		expect(preferences.petExpedition).toBe(false);
 		expect(preferences.energy).toBe(true);
 	});
 });

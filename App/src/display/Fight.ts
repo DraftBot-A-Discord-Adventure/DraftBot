@@ -29,6 +29,9 @@ export function fighterName(fighter: FightParticipant): string {
 	if (fighter.isSelf) {
 		return i18n.t("app:arena.you");
 	}
+	if (fighter.isKingGuard) {
+		return i18n.t("commands:fight.kingGuard.name");
+	}
 	if (fighter.monsterId) {
 		return i18n.t(`models:monsters.${fighter.monsterId}.name`, { defaultValue: i18n.t("app:arena.opponent") });
 	}

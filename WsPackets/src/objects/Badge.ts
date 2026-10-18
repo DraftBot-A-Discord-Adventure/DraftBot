@@ -29,7 +29,8 @@ export const BADGE_CODES = {
 	ANIMAL_LOVER: "animal_lover",
 	EXPERT_EXPEDITEUR: "expert_expediteur",
 	ORACLE_PATRON: "oracle_patron",
-	SENTIMENTAL_CRAFTER: "sentimental_crafter"
+	SENTIMENTAL_CRAFTER: "sentimental_crafter",
+	MASTER_CHEF: "master_chef"
 } as const;
 
 export type Badge = typeof BADGE_CODES[keyof typeof BADGE_CODES];

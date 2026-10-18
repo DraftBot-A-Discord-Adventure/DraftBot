@@ -7,6 +7,7 @@ import {
 import {
 	CommandReportPacketReq,
 	CommandReportBigEventResultRes,
+	CommandReportChooseDestinationRes,
 	CommandReportStayInCity,
 	CommandReportTravelSummaryRes
 } from "../../../Lib/src/packets/commands/CommandReportPacket";
@@ -15,6 +16,7 @@ import {ReportReq} from "../../../WsPackets/src/fromClient/ReportReq";
 import {ReportTravelSummaryRes} from "../../../WsPackets/src/fromServer/report/ReportTravelSummaryRes";
 import {ReportBigEventResultRes} from "../../../WsPackets/src/fromServer/report/ReportBigEventResultRes";
 import {ReportStayInCity} from "../../../WsPackets/src/fromServer/report/ReportStayInCity";
+import {ReportDestinationRes} from "../../../WsPackets/src/fromServer/report/ReportDestinationRes";
 import {
 	getClientTranslator
 } from "../../src/packets/fromClient/FromClientTranslator";
@@ -133,5 +135,18 @@ describe("/report over the WebSocket protocol", () => {
 
 		expect(translated).toBeInstanceOf(ReportStayInCity);
 		expect(overTheWire(translated)).toStrictEqual({});
+	});
+
+	it("tells the app the points a city stay earned on leaving, and nothing else of the trip", async () => {
+		expect(getServerTranslator(CommandReportChooseDestinationRes.name)?.protoName).toBe(ReportDestinationRes.wireName);
+		const leaving = await ReportCommandServerTranslator.translateDestination(context(), makePacket(CommandReportChooseDestinationRes, {
+			mapId: 4, mapTypeId: "ro", tripDuration: 30, cityStayScore: 75
+		}));
+		expect(overTheWire(leaving)).toStrictEqual({ cityStayScore: 75 });
+
+		const travelling = await ReportCommandServerTranslator.translateDestination(context(), makePacket(CommandReportChooseDestinationRes, {
+			mapId: 4, mapTypeId: "ro", tripDuration: 30
+		}));
+		expect(overTheWire(travelling)).toStrictEqual({});
 	});
 });

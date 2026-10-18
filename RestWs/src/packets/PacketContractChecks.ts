@@ -32,6 +32,8 @@ import {
 	CommandReportBuyHealPacketReq,
 	CommandReportBuyHealRefusePacketRes,
 	CommandReportBigEventResultRes,
+	CommandReportChooseDestinationRes,
+	CommandReportEnchanterDisenchantRes,
 	CommandReportStayInCity,
 	CommandReportTokenMerchantBoughtRes,
 	CommandReportTokenMerchantCannotAffordRes,
@@ -82,6 +84,8 @@ import { ReportUseTokensReq } from "../../../WsPackets/src/fromClient/ReportUseT
 import { ReportTravelSummaryRes } from "../../../WsPackets/src/fromServer/report/ReportTravelSummaryRes";
 import { ReportBigEventResultRes } from "../../../WsPackets/src/fromServer/report/ReportBigEventResultRes";
 import { ReportStayInCity } from "../../../WsPackets/src/fromServer/report/ReportStayInCity";
+import { ReportDestinationRes } from "../../../WsPackets/src/fromServer/report/ReportDestinationRes";
+import { EnchanterDisenchantRes } from "../../../WsPackets/src/fromServer/report/EnchanterDisenchantRes";
 import {
 	ReportBuyHealAcceptedRes,
 	ReportBuyHealCannotHealOccupiedRes,
@@ -193,6 +197,14 @@ type ReportTravelSummaryContract = Assert<IsEqual<
 type ReportStayInCityContract = Assert<IsEqual<
 	WireShape<CommandReportStayInCity>,
 	WireShape<WirePacketFields<ReportStayInCity>>
+>>;
+type ReportDestinationContract = Assert<IsEqual<
+	WireShape<Pick<CommandReportChooseDestinationRes, "cityStayScore">>,
+	WireShape<WirePacketFields<ReportDestinationRes>>
+>>;
+type EnchanterDisenchantContract = Assert<IsEqual<
+	WireShape<CommandReportEnchanterDisenchantRes>,
+	WireShape<WirePacketFields<EnchanterDisenchantRes>>
 >>;
 type ReportBigEventResultContract = Assert<IsEqual<
 	WireShape<CommandReportBigEventResultRes>,
@@ -327,6 +339,8 @@ export const packetContractChecks: {
 	profileResponse: ProfileResponseContract;
 	reportTravelSummary: ReportTravelSummaryContract;
 	reportStayInCity: ReportStayInCityContract;
+	reportDestination: ReportDestinationContract;
+	enchanterDisenchant: EnchanterDisenchantContract;
 	reportBigEventResult: ReportBigEventResultContract;
 	reportUseTokensAccepted: ReportUseTokensAcceptedContract;
 	reportUseTokensRefused: ReportUseTokensRefusedContract;
@@ -383,6 +397,8 @@ export const packetContractChecks: {
 	profileResponse: true,
 	reportTravelSummary: true,
 	reportStayInCity: true,
+	reportDestination: true,
+	enchanterDisenchant: true,
 	reportBigEventResult: true,
 	reportUseTokensAccepted: true,
 	reportUseTokensRefused: true,

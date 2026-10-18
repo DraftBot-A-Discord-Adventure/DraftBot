@@ -62,6 +62,7 @@
     "xpGained": "Expérience de cuisine gagnée",
     "levelUp": "Cuisine niveau {{level}} · {{grade}}",
     "discovered": "Recette découverte : {{recipe}} · niveau {{level}}",
+    "badge": "Badge obtenu : {{badge}}",
     "errors": {"craftUnavailable": "La recette ou ses ingrédients ont changé. La liste a été actualisée.", "inventoryFull": "Votre inventaire ne peut pas recevoir cette préparation.", "guildRequired": "Cette recette nécessite une guilde.", "guildStorageFull": "La réserve de nourriture de votre guilde est pleine."}
   },
   "homeChest": {
@@ -361,8 +362,7 @@
         "guildStatusChange": "Rôle dans la guilde",
         "playerFreedFromJail": "Libération de prison",
         "fightChallenge": "Attaque",
-        "petExpedition": "Retour d'expédition",
-        "tournament": "Tournois"
+        "petExpedition": "Retour d'expédition"
       },
       "captions": {
         "report": "Quand votre voyage vous mène à destination",
@@ -373,8 +373,7 @@
         "guildStatusChange": "Promotion, rétrogradation ou nouveau chef",
         "playerFreedFromJail": "Quand un joueur vous fait sortir de prison",
         "fightChallenge": "Quand un joueur vous attaque dans l'arène",
-        "petExpedition": "Quand votre familier rentre d'expédition",
-        "tournament": "Début, fin imminente et résultats"
+        "petExpedition": "Quand votre familier rentre d'expédition"
       }
     },
     "deleteAccount": {
@@ -693,6 +692,15 @@
   "city": {
     "staleAction": "La situation a changé. Les actions de la ville ont été actualisées.",
     "notEnoughMoney": "Pas assez d'argent",
+    "free": "Gratuit",
+    "disenchanted": {
+      "title": "Enchantement effacé",
+      "description": "Mernil a retiré {{enchantment}} sans rien demander en retour."
+    },
+    "stayScore": {
+      "title": "Séjour en ville récompensé",
+      "description": "Vos points vous sont crédités en quittant la ville."
+    },
     "inn": {
       "meal": "Repas savouré",
       "room": "Nuit réparatrice",
@@ -823,6 +831,7 @@
       "homeServices": "Services chez vous",
       "garden": "Jardin",
       "disenchant": "Désenchanter",
+      "freeDisenchant": "Désenchanter gratuitement",
       "anvil": "Sur l'enclume",
       "station": "Sur l'établi",
       "recycling": "À démonter",
@@ -847,7 +856,9 @@
       "buyApartmentFoothold": "Un pied-à-terre : votre coffre et un lit, ici aussi",
       "notaryRent": "{{amount}} de loyer vous attendent",
       "noActions": "Aucune action disponible pour le moment.",
-      "disenchantDetails": "{{enchantment}} · retirer l'enchantement"
+      "disenchantDetails": "{{enchantment}} · retirer l'enchantement",
+      "exitStayScore_one": "Au moins {{count}} point garanti à votre départ",
+      "exitStayScore_other": "Au moins {{count}} points garantis à votre départ"
     },
     "enchantmentCatalog": {
       "title": "Catalogue des enchantements",
@@ -896,11 +907,11 @@
       "subtitle_other": "Niveau {{level}} · rend {{count}} matériaux",
       "dismantle": "Démonter l'équipement",
       "definitive": "Le démontage est définitif : l'équipement sera détruit.",
-      "enchanted": "Enchanté : à désenchanter chez un forgeron d'abord",
+      "enchanted": "Enchanté : à désenchanter d'abord",
       "enchantedStory": {
         "eyebrow": "Équipement enchanté",
         "title": "Gorim refuse d'y toucher",
-        "description": "Le démonter détruirait son enchantement. Faites-le d'abord retirer chez un forgeron, puis rapportez-le à Gorim."
+        "description": "Le démonter détruirait son enchantement. Faites-le d'abord retirer chez un forgeron, ou gratuitement par Mernil, l'enchanteur itinérant, puis rapportez-le à Gorim."
       },
       "empty": "L'établi de Gorim reste vide",
       "nothingRecyclable": "Seules les armes et armures de réserve non enchantées se démontent.",
@@ -1023,7 +1034,7 @@
     },
     "notes": {
       "royalBlacksmith": "Le forgeron royal est le seul artisan capable de porter un équipement au niveau 5.",
-      "enchanter": "Mernil change de ville chaque jour et propose un seul enchantement quotidien.",
+      "enchanter": "Mernil change de ville chaque jour et propose un seul enchantement quotidien. Il retire aussi gratuitement les enchantements de vos équipements.",
       "inn": "Un repas est disponible toutes les {{mealHours}} h et une chambre toutes les {{roomHours}} h.",
       "garden": "L'arrosage est possible toutes les {{hours}} heures. Le jardin à distance permet seulement la récolte.",
       "notary": "Chaque ville applique son propre coefficient de prix pour les logements.",
@@ -1036,10 +1047,12 @@
       "moveHome": "Déménager la maison",
       "home": "Rentrer chez vous",
       "bed": "Se reposer chez vous",
+      "closeChest": "Fermer le coffre",
       "upgradeItem": "Améliorer l'équipement",
       "blacksmith": "Aller chez le forgeron",
       "blacksmithUpgrade": "Améliorer un équipement",
       "disenchant": "Désenchanter un équipement",
+      "enchanterDisenchant": "Faire effacer un enchantement",
       "scrapDealer": "Aller chez le ferrailleur",
       "recycle": "Recycler un équipement",
       "royalBlacksmith": "Aller chez le forgeron royal",
@@ -1324,13 +1337,13 @@
   },
   "arena": {
     "pages": {"classes": "Classes", "history": "Historique", "leagues": "Ligues", "rankings": "Classements"},
-    "history": {"empty": "Aucun combat n'est encore enregistré."},
+    "history": {"empty": "Aucun combat n'est encore enregistré.", "noGloryAtStake": "Aucune gloire en jeu"},
     "leagues": {"name": "{{icon}} {{name}}", "reward": "Récompense de ligue", "claim": "Réclamer la récompense", "catalog": "Les ligues", "threshold": "Gloire minimale", "seasonMoney": "Argent de fin de saison", "seasonXp": "Expérience de fin de saison", "winMoney": "Argent gagné par combat remporté", "nextClaim": "La récompense pourra être réclamée le {{date}}.", "noPoints": "Aucune gloire n'a été obtenue pendant la saison précédente.", "alreadyClaimed": "La récompense de cette saison a déjà été réclamée."},
     "rankings": {"title": "Classements", "types": {"Score": "Score", "Glory": "Gloire", "Guild": "Guildes"}, "period": "Période", "timings": {"AllTime": "Général", "Week": "Semaine"}, "positions": "Classement", "yourPlace": "Votre place", "ofTotal": "sur {{total}} classés", "unavailable": "Vous ne pouvez pas figurer dans ce classement pour le moment.", "needFight_one": "Encore un combat avant d'entrer au classement.", "needFight_other": "Encore {{count}} combats avant d'entrer au classement.", "empty": "Ce classement est encore vide.", "page": "Page {{page}} / {{total}}", "pageWithReset": "Page {{page}} / {{total}} · Début", "backToFirst": "Revenir à la première page", "goToMyPage": "Aller à la page où vous êtes classé", "previous": "Précédent", "next": "Suivant", "inactive": "Inactif", "openProfile": "Voir le profil de {{name}}", "openGuild": "Voir la guilde {{name}}"},
     "details": "Statistiques", "eyebrow": "COMBAT", "title": "Arène", "confirm": "Préparer le duel", "start": "Chercher un adversaire", "resume": "Reprendre le combat", "locked": "Les combats se débloquent au niveau {{level}}.", "lowEnergy": "Il faut {{required}} d'énergie pour se battre, vous en avez {{value}}.",
     "you": "Vous", "opponent": "Adversaire", "energy": "Énergie", "breath": "Souffle", "glory": "Gloire", "league": "Ligue", "pet": "Familier",
     "turn": "Tour {{turn}} / {{max}}", "turns": "Tours joués", "waiting": "L'adversaire choisit son action…", "action": "Action de combat", "actionBreath": "{{value}} souffle",
-    "log": "Journal du combat", "victory": "Victoire", "defeat": "Défaite", "draw": "Match nul", "gloryChange": "{{before}} → {{after}}", "petLove": "Votre familier gagne {{count}} points d'amour.",
+    "log": "Journal du combat", "victory": "Victoire", "defeat": "Défaite", "draw": "Match nul", "gloryChange": "{{before}} → {{after}}", "petLove": "Votre familier gagne {{count}} points d'amour.", "kingGuardNoGlory": "Aucun adversaire n'était disponible : ce combat contre un garde du roi ne mettait aucune gloire en jeu.",
     "stats": {"attack": "Attaque", "defense": "Défense", "speed": "Vitesse", "breathRegen": "Souffle récupéré"},
     "effects": {"newAlteration": "Altération"},
     "errors": {"energy": "Votre énergie est insuffisante pour lancer un duel.", "noOpponent": "Aucun adversaire n'est disponible pour le moment.", "bugged": "Le combat a été interrompu par une erreur. Votre état est en cours de rafraîchissement."}
@@ -1649,7 +1662,8 @@
         "animal_lover": "Ami des familiers",
         "expert_expediteur": "Expert des expéditions",
         "oracle_patron": "Mécène de l'Oracle",
-        "sentimental_crafter": "Artisan sentimental"
+        "sentimental_crafter": "Artisan sentimental",
+        "master_chef": "Chef cuisinier"
       }
     }
   },
@@ -1751,8 +1765,7 @@
       "guildStatusChange": "Rôle dans la guilde",
       "playerFreedFromJail": "Libération de prison",
       "fightChallenge": "Attaques dans l'arène",
-      "petExpedition": "Expéditions du familier",
-      "tournament": "Tournois"
+      "petExpedition": "Expéditions du familier"
     },
     "push": {
       "report": {
@@ -1794,16 +1807,6 @@
       "petExpedition": {
         "title": "Retour d'expédition",
         "body": "{{pet}} est de retour d'expédition et a peut-être ramené des trésors."
-      },
-      "tournament": {
-        "title": "Tournoi",
-        "body": {
-          "started": "Le tournoi commence : les combats sont ouverts en catégorie {{category}}.",
-          "ending": "Le tournoi se termine bientôt : il reste peu de temps pour gagner de la gloire en catégorie {{category}}.",
-          "ended": "Le tournoi est terminé. Votre rang en catégorie {{category}} : {{rank}}.",
-          "cancelled": "Le tournoi est annulé, faute d'assez de participants."
-        },
-        "unranked": "non classé"
       }
     }
   }

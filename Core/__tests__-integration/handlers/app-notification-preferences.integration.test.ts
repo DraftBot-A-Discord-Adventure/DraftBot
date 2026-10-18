@@ -84,8 +84,8 @@ describe("app notification preferences", () => {
 	});
 
 	it("creates the row when the app changes a setting before ever reading them", async () => {
-		await preferences.AppNotificationPreferences.set("set-first", "tournament", false);
-		expect((await stored("set-first")).tournament).toBe(false);
+		await preferences.AppNotificationPreferences.set("set-first", "petExpedition", false);
+		expect((await stored("set-first")).petExpedition).toBe(false);
 		expect(await preferences.AppNotificationPreferences.seedFromDiscord("set-first", DISCORD)).toBe(false);
 	});
 });

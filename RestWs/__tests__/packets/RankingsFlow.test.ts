@@ -56,6 +56,14 @@ describe("arena reference data", () => {
 		expect(JSON.stringify(result)).not.toContain("private-opponent");
 		expect(resolvePlayerReference(result.history[0].opponentRef)).toBe("private-opponent");
 	});
+	it("tells a king guard fight apart from a ranked one, without a profile to open", async () => {
+		const result = await RankingsServerTranslator.history(CONTEXT, makePacket(CommandFightHistoryPacketRes, {history: [
+			{id: 7, result: EloGameResult.WIN, date: 223456, classes: {me: 1, opponent: 3}, kingGuard: {level: 37}},
+			{id: 7, initiator: true, opponentKeycloakId: "private-opponent", result: EloGameResult.DRAW, date: 123456, classes: {me: 1, opponent: 2}, glory: {initial: {me: 500, opponent: 600}, change: {me: 0, opponent: 0}, leaguesChanges: {}}}
+		]}));
+		expect(result.history[0]).toEqual({type: "kingGuard", id: 7, result: EloGameResult.WIN, date: 223456, classes: {me: 1, opponent: 3}, kingGuard: {level: 37}});
+		expect(result.history[1]).toMatchObject({type: "player", id: 7, opponentName: "Aventurier"});
+	});
 	it("preserves the claim date and the granted reward amounts", async () => {
 		const date = await RankingsServerTranslator.notSunday(CONTEXT, makePacket(CommandLeagueRewardNotSundayPacketRes, {nextSunday: 1_900_000_000_000}));
 		expect(date.outcome).toEqual({type: "notSunday", nextSunday: 1_900_000_000_000});

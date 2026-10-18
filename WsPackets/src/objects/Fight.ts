@@ -48,7 +48,14 @@ export type FightPlayerStats = {
 	};
 };
 export type FightParticipant = {
-	isSelf: boolean; name?: string; monsterId?: string; classId?: number; level?: number;
+	isSelf: boolean;
+	name?: string;
+	monsterId?: string;
+	classId?: number;
+	level?: number;
+
+	/** A king guard, fought when the arena finds no opponent: it is no player, so it has no name to show. */
+	isKingGuard?: boolean;
 };
 export type FightFighterStats = {
 	power: number; maxEnergy?: number; attack: number; defense: number; speed: number; breath: number; maxBreath: number; breathRegen: number;
@@ -103,8 +110,10 @@ export type FightReward = {
 	money: number;
 	draw: boolean;
 	won: boolean;
-	player1: FightRankingChange;
-	player2: FightRankingChange;
+
+	/** Absent after a fight against a king guard: no glory is at stake. */
+	player1?: FightRankingChange;
+	player2?: FightRankingChange;
 	petLoveChange?: {
 		loveChange: number; reactionType: string; petId: number; petSex: string; petNickname: string | null;
 	};

@@ -273,16 +273,21 @@ type ApplyPveBossWinRewardsCtx = {
 	rewards: ReturnType<Monster["getRewards"]>;
 	endFightResponse: CrowniclesPacket[];
 	mapId: number;
-	monster: PveBossOpponent;
+	monster: Monster;
+	monsterLevel: number;
 };
 
 /** What a boss win adds to the reward packet: its loot, and on a final boss a recipe and maybe a record. */
 async function bossRewardExtras(ctx: ApplyPveBossWinRewardsCtx, materialLoot: MaterialQuantity[], isFinalBoss: boolean): Promise<Parameters<typeof sendMonsterRewardPacket>[4]> {
 	const {
-		fight, player, mapId, monster
+		fight, player, mapId, monster, monsterLevel
 	} = ctx;
 	const bossRecipe = isFinalBoss ? await RecipeDiscoveryService.discoverFromBoss(player, mapId) : null;
-	const bossRecord = isFinalBoss && !fight.isADraw() ? await finalBossNewRecord(player, monster) : null;
+	const bossRecord = isFinalBoss && !fight.isADraw()
+		? await finalBossNewRecord(player, {
+			id: monster.id, level: monsterLevel
+		})
+		: null;
 	return {
 		...materialLoot.length > 0 ? { materialLoot } : {},
 		...bossRecipe ? { discoveredRecipe: RecipeDiscoveryService.toDisplayInfo(bossRecipe) } : {},
@@ -292,12 +297,12 @@ async function bossRewardExtras(ctx: ApplyPveBossWinRewardsCtx, materialLoot: Ma
 
 async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<void> {
 	const {
-		fight, player, rewards, endFightResponse, mapId
+		fight, player, rewards, endFightResponse, monster
 	} = ctx;
 	const result = await handlePveFightRewards(fight, player, rewards, endFightResponse);
 
 	// Generate and apply material loot from boss
-	const materialLoot = generateBossLoot(mapId);
+	const materialLoot = generateBossLoot(monster);
 	if (materialLoot.length > 0) {
 		await applyMaterialLoot(player.id, materialLoot);
 		await updateCollectMaterialsMission(player, endFightResponse, materialLoot);
@@ -332,7 +337,7 @@ async function applyPveBossWinRewards(ctx: ApplyPveBossWinRewardsCtx): Promise<v
  * the freshly-locked instance to avoid lost-update on concurrent writers and
  * to dodge the latent clobber-by-Object.assign on the local `player`.
  */
-async function persistPveBossPostFightUnderLock(
+export async function persistPveBossPostFightUnderLock(
 	player: Locked<Player>,
 	initialFightPointsLost: number,
 	isWinOrDraw: boolean,
@@ -353,10 +358,10 @@ async function persistPveBossPostFightUnderLock(
 		await lockedPlayer.save();
 
 		/*
-		 * Reflect the persisted state on the local instance for downstream readers
-		 * (`leavePVEIslandIfNoEnergy` below reads `player.fightPointsLost`).
+		 * Resync the local instance for `leavePVEIslandIfNoEnergy` below: a mirrored field would leave it
+		 * dirty and make its locked money loss reject it (#4829).
 		 */
-		player.fightPointsLost = lockedPlayer.fightPointsLost;
+		Object.assign(player, lockedPlayer);
 	});
 }
 
@@ -431,9 +436,8 @@ export async function doPVEBoss(
 					rewards,
 					endFightResponse,
 					mapId,
-					monster: {
-						id: monsterObj.id, level: randomLevel
-					}
+					monster: monsterObj,
+					monsterLevel: randomLevel
 				});
 			}
 

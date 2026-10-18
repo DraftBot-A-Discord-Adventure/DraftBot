@@ -136,9 +136,6 @@ const EXPORTED_TABLES = {
 	"Apartment": "21_apartments.csv",
 	"PlayerCookingRecipe": "22_cooking_recipes.csv",
 	"GlobalBlessing": "23_current_blessing.csv",
-	"Tournament": "24_tournaments_created.csv",
-	"TournamentParticipant": "25_tournament_participations.csv",
-	"TournamentFight": "26_tournament_fights.csv",
 
 	// ============ LOGS DATABASE - Player Stats (LogsPlayerStatsExporter) ============
 	"LogsPlayersScore": "logs/15_score_history.csv",
@@ -179,6 +176,7 @@ const EXPORTED_TABLES = {
 	"LogsFightsActionsUsed": "logs/46_pvp_fight_actions.csv",
 	"LogsPveFightsResults": "logs/47_pve_fights.csv",
 	"LogsPveFightsActionsUsed": "logs/48_pve_fight_actions.csv",
+	"LogsKingGuardFightsResults": "logs/101_king_guard_fights.csv",
 
 	// ============ LOGS DATABASE - Shop (LogsShopExporter) ============
 	"LogsClassicalShopBuyouts": "logs/49_classical_shop_buyouts.csv",
@@ -227,6 +225,7 @@ const EXPORTED_TABLES = {
 	"LogsBlacksmithDisenchants": "logs/81_blacksmith_disenchants.csv",
 	"LogsScrapDealerRecycles": "logs/100_scrap_dealer_recycles.csv",
 	"LogsEnchanterUses": "logs/82_enchanter_uses.csv",
+	"LogsEnchanterDisenchants": "logs/101_enchanter_disenchants.csv",
 	"LogsHomePurchases": "logs/83_home_purchases.csv",
 	"LogsHomeUpgrades": "logs/84_home_upgrades.csv",
 	"LogsHomeMoves": "logs/85_home_moves.csv",
@@ -280,6 +279,7 @@ const PLAYER_DATA_EXPORT_FIELD_COVERAGE = {
 		"mapLinkId",
 		"startTravelDate",
 		"insideCity",
+		"cityArrivalDate",
 		"lastActivityAt",
 		"defenseGloryPoints",
 		"attackGloryPoints",
@@ -534,6 +534,13 @@ const LOG_DATA_EXPORT_FIELD_COVERAGE = {
 			"monsterDefense", "monsterSpeed", "turn", "winner", "date"
 		]
 	},
+	"LogsKingGuardFightsResults": {
+		exporter: "LogsFightsExporter.ts",
+		csvFile: "logs/101_king_guard_fights.csv",
+		fields: [
+			"classId", "guardClassId", "guardLevel", "turn", "winner", "date"
+		]
+	},
 	"LogsPlayersGloryPoints": {
 		exporter: "LogsPlayerStatsExporter.ts",
 		csvFile: "logs/24_glory_points_history.csv",
@@ -593,6 +600,10 @@ const LOG_DATA_MODEL_IGNORED_FIELDS = {
 		"player2Id"
 	],
 	"LogsPveFightsResults": [
+		"id",
+		"playerId"
+	],
+	"LogsKingGuardFightsResults": [
 		"id",
 		"playerId"
 	],

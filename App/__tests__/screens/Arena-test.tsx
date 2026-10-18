@@ -18,7 +18,7 @@ import {
 	TopRes, TopEmptyRes, LeagueInfoRes
 } from "ws-packets/src/fromServer/fight/RankingsRes";
 import {
-	TopDataType, TopTiming, EloGameResult
+	TopDataType, TopTiming, EloGameResult, FIGHT_HISTORY_ENTRY_TYPES, PlayerFightHistoryEntry
 } from "ws-packets/src/objects/Rankings";
 
 const mockPush = jest.fn();
@@ -45,7 +45,7 @@ jest.mock("@/src/AppIcons", () => ({ AppIcons: {
 } }));
 jest.mock("@/src/translations/i18n", () => ({ i18n: { t: (key: string): string => key } }));
 
-type HistoryFight = Parameters<typeof FightHistoryContent>[0]["history"][number];
+type HistoryFight = PlayerFightHistoryEntry;
 
 function gloryOf(change: HistoryFight["glory"]["change"], leaguesChanges: HistoryFight["glory"]["leaguesChanges"]): HistoryFight["glory"] {
 	return {
@@ -60,6 +60,7 @@ function gloryOf(change: HistoryFight["glory"]["change"], leaguesChanges: Histor
 /** A defense lost against Arsene, unless the test says otherwise. */
 function historyFight(fight: Partial<HistoryFight> & Pick<HistoryFight, "glory">): HistoryFight {
 	return {
+		type: FIGHT_HISTORY_ENTRY_TYPES.PLAYER,
 		id: 42,
 		initiator: false,
 		opponentName: "Arsene",
@@ -250,6 +251,27 @@ describe("arena references", () => {
 		expect(screen.getByText("Yuno")).toBeTruthy();
 		expect(screen.getByText("+42")).toBeTruthy();
 		expect(screen.getByText("models:leagues.2")).toBeTruthy();
+	});
+	it("lists a fight against a king guard without glory nor profile to open", async () => {
+		await render(<FightHistoryContent history={[
+			historyFight({ glory: gloryOf({
+				me: 5, opponent: -5
+			}, {}) }),
+			{
+				type: FIGHT_HISTORY_ENTRY_TYPES.KING_GUARD,
+				id: 42,
+				result: EloGameResult.WIN,
+				date: 1_900_000_000_000,
+				classes: {
+					me: 1, opponent: 3
+				},
+				kingGuard: { level: 37 }
+			}
+		]} />);
+		expect(screen.getByText("commands:fight.kingGuard.name")).toBeTruthy();
+		expect(screen.getByText("app:arena.history.noGloryAtStake")).toBeTruthy();
+		await fireEvent.press(screen.getByText("commands:fight.kingGuard.name"));
+		expect(mockPush).not.toHaveBeenCalled();
 	});
 	it("selects another league without claiming a reward until explicitly requested", async () => {
 		jest.mocked(GameClient.request).mockResolvedValue({

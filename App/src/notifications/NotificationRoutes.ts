@@ -18,8 +18,7 @@ export const NOTIFICATION_ROUTES: Record<NotificationType, Href> = {
 	[NOTIFICATION_TYPES.GUILD_STATUS_CHANGE]: "/guild",
 	[NOTIFICATION_TYPES.PLAYER_FREED_FROM_JAIL]: "/",
 	[NOTIFICATION_TYPES.FIGHT_CHALLENGE]: "/arena/history",
-	[NOTIFICATION_TYPES.PET_EXPEDITION]: "/pet",
-	[NOTIFICATION_TYPES.TOURNAMENT]: "/arena"
+	[NOTIFICATION_TYPES.PET_EXPEDITION]: "/pet"
 };
 
 /** Every kind, in the order the settings list them. */

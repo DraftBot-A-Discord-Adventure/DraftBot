@@ -13,8 +13,8 @@ import { EnchantmentConstants } from '../../../../../Lib/src/constants/Enchantme
 import { ClassDataController } from '../../../../src/data/Class';
 
 class TestPlayerBaseFighter extends PlayerBaseFighter {
-	constructor(player: Player, effectiveLevel = player.level) {
-		super(player, [], effectiveLevel);
+	constructor(player: Player) {
+		super(player, []);
 	}
 
 	public callApplyWeaponAlterationEnchantment(playerActiveObjects: PlayerActiveObjects): void {
@@ -197,20 +197,8 @@ describe('PlayerBaseFighter', () => {
 		});
 	});
 
-	describe('effective level', () => {
-		it('uses the effective level for stats without mutating the player', () => {
-			const player = buildPlayer(99, 0);
-			const fighter = new TestPlayerBaseFighter(player, 50);
-			const activeObjects = buildZeroStatActiveObjects({});
-
-			fighter.callLoadCombatStats(activeObjects, false);
-
-			expect(fighter.level).toBe(50);
-			expect(player.level).toBe(99);
-			expect(fighter.getAttack()).toBe(ClassDataController.instance.getById(0)!.getAttackValue(50));
-		});
-
-		it('can exclude potion stats for tournament fights', () => {
+	describe('potion stats', () => {
+		it('can exclude potion stats for fights without consequences', () => {
 			const player = buildPlayer(50, 0);
 			const fighter = new TestPlayerBaseFighter(player);
 			const activeObjects = buildZeroStatActiveObjects({});

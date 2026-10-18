@@ -12,7 +12,6 @@ import {GuildStatusChangeNotificationPacket} from "../../../Lib/src/packets/noti
 import {PlayerFreedFromJailNotificationPacket} from "../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
 import {PlayerWasAttackedNotificationPacket} from "../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 import {ExpeditionFinishedNotificationPacket} from "../../../Lib/src/packets/notifications/ExpeditionFinishedNotificationPacket";
-import {TournamentNotificationPacket} from "../../../Lib/src/packets/notifications/TournamentNotificationPacket";
 import {AppNotificationDelivery} from "../../../Lib/src/packets/notifications/AppNotificationsSerializedPacket";
 import {PushDevice} from "../../../Lib/src/types/PushDevices";
 import {loadPushTexts, pushTextOf} from "../../src/push/PushTexts";
@@ -35,10 +34,7 @@ const SAMPLES: Record<NotificationType, NotificationPacket> = {
 	[NOTIFICATION_TYPES.GUILD_STATUS_CHANGE]: makePacket(GuildStatusChangeNotificationPacket, {keycloakId: PLAYER, guildName: "Les Fromages", becomeElder: true}),
 	[NOTIFICATION_TYPES.PLAYER_FREED_FROM_JAIL]: makePacket(PlayerFreedFromJailNotificationPacket, {keycloakId: PLAYER, freedByPlayerKeycloakId: OTHER}),
 	[NOTIFICATION_TYPES.FIGHT_CHALLENGE]: makePacket(PlayerWasAttackedNotificationPacket, {keycloakId: PLAYER, attackedByPlayerKeycloakId: OTHER}),
-	[NOTIFICATION_TYPES.PET_EXPEDITION]: makePacket(ExpeditionFinishedNotificationPacket, {keycloakId: PLAYER, petId: 1, petSex: "f", petNickname: "Brioche"}),
-	[NOTIFICATION_TYPES.TOURNAMENT]: makePacket(TournamentNotificationPacket, {
-		keycloakId: PLAYER, event: "ended", tournamentId: 1, category: "level50", participantCount: 10, categoryParticipantCount: 5, rank: 3
-	})
+	[NOTIFICATION_TYPES.PET_EXPEDITION]: makePacket(ExpeditionFinishedNotificationPacket, {keycloakId: PLAYER, petId: 1, petSex: "f", petNickname: "Brioche"})
 };
 
 const IPHONE: PushDevice = {token: "a".repeat(64), platform: "ios", sandbox: true, language: "fr"};
@@ -82,12 +78,6 @@ describe("push texts", () => {
 		const unnamed = makePacket(ExpeditionFinishedNotificationPacket, {keycloakId: PLAYER, petId: 1, petSex: "f"});
 		const body = (await pushTextOf(NOTIFICATION_TYPES.PET_EXPEDITION, unnamed, "fr", names)).body;
 		expect(body).not.toMatch(/^Brioche|pets\./u);
-	});
-
-	it("gives the rank at the end of a tournament, and the reason of a cancellation", async () => {
-		expect((await pushTextOf(NOTIFICATION_TYPES.TOURNAMENT, SAMPLES.tournament, "fr", names)).body).toBe("Le tournoi est terminé. Votre rang en catégorie Niveau 50 : 3.");
-		const cancelled = makePacket(TournamentNotificationPacket, {...SAMPLES.tournament as TournamentNotificationPacket, cancellationReason: "notEnoughParticipants"});
-		expect((await pushTextOf(NOTIFICATION_TYPES.TOURNAMENT, cancelled, "fr", names)).body).toContain("annulé");
 	});
 });
 

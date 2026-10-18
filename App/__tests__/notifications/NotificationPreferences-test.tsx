@@ -40,8 +40,7 @@ const ALL_ON: NotificationPreferences = {
 	guildStatusChange: true,
 	playerFreedFromJail: true,
 	fightChallenge: true,
-	petExpedition: true,
-	tournament: true
+	petExpedition: true
 };
 
 function preferences(report: boolean): NotificationPreferencesRes {

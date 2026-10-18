@@ -8,6 +8,7 @@ import {
 import { CommandFightHistoryItemPacket } from "../../../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import { CommandFightEndOfFightPacket } from "../../../../../Lib/src/packets/fights/EndOfFightPacket";
 import { FightRewardPacket } from "../../../../../Lib/src/packets/fights/FightRewardPacket";
+import { KingGuardFightRewardPacket } from "../../../../../Lib/src/packets/fights/KingGuardFightRewardPacket";
 import { AIFightActionChoosePacket } from "../../../../../Lib/src/packets/fights/AIFightActionChoosePacket";
 import { BuggedFightPacket } from "../../../../../Lib/src/packets/fights/BuggedFightPacket";
 import {
@@ -18,7 +19,7 @@ import {
 	FightIntroductionRes, FightStatusRes, FightLogRes, FightEndRes, FightRewardRes, FightWaitRes, FightErrorRes, FightResumeRes, FightMonsterRewardRes
 } from "../../../../../WsPackets/src/fromServer/fight/FightRes";
 import {
-	FIGHT_ERRORS, FightError, FightFighter, FightRankingChange, FightStatus
+	FIGHT_ERRORS, FightError, FightFighter, FightRankingChange, FightReward, FightStatus
 } from "../../../../../WsPackets/src/objects/Fight";
 import { asyncMakeFromServerPacket } from "../../../../../WsPackets/src/MakePackets";
 import { fightParticipant } from "../FightDisplay";
@@ -53,6 +54,21 @@ async function rankingChange(context: PacketContext, fighter: FightRewardPacket[
 	return {
 		...await fightParticipant(context, { keycloakId }), ...ranking
 	};
+}
+
+type PetLoveChange = NonNullable<FightRewardPacket["petLoveChange"]>;
+
+/** The pet love change concerns one fighter only: the other side of the fight is not told about it. */
+function ownPetLoveChange(context: PacketContext, petLoveChange: PetLoveChange | undefined): Pick<FightReward, "petLoveChange"> {
+	return petLoveChange && petLoveChange.keycloakId === context.keycloakId
+		? { petLoveChange: {
+			loveChange: petLoveChange.loveChange,
+			reactionType: petLoveChange.reactionType,
+			petId: petLoveChange.petId,
+			petSex: petLoveChange.petSex,
+			petNickname: petLoveChange.petNickname
+		} }
+		: {};
 }
 
 export default class FightServerTranslator {
@@ -112,7 +128,6 @@ export default class FightServerTranslator {
 
 	@fromServerTranslator(FightRewardPacket, FightRewardRes)
 	public static async reward(context: PacketContext, packet: FightRewardPacket): Promise<FightRewardRes> {
-		const petLoveChange = packet.petLoveChange;
 		return asyncMakeFromServerPacket(FightRewardRes, { reward: {
 			points: packet.points,
 			money: packet.money,
@@ -120,15 +135,18 @@ export default class FightServerTranslator {
 			won: packet.winnerKeycloakId === context.keycloakId,
 			player1: await rankingChange(context, packet.player1),
 			player2: await rankingChange(context, packet.player2),
-			...petLoveChange && petLoveChange.keycloakId === context.keycloakId
-				? { petLoveChange: {
-					loveChange: petLoveChange.loveChange,
-					reactionType: petLoveChange.reactionType,
-					petId: petLoveChange.petId,
-					petSex: petLoveChange.petSex,
-					petNickname: petLoveChange.petNickname
-				} }
-				: {}
+			...ownPetLoveChange(context, packet.petLoveChange)
+		} });
+	}
+
+	@fromServerTranslator(KingGuardFightRewardPacket, FightRewardRes)
+	public static kingGuardReward(context: PacketContext, packet: KingGuardFightRewardPacket): Promise<FightRewardRes> {
+		return asyncMakeFromServerPacket(FightRewardRes, { reward: {
+			points: packet.points,
+			money: packet.money,
+			draw: packet.draw,
+			won: packet.won,
+			...ownPetLoveChange(context, packet.petLoveChange)
 		} });
 	}
 

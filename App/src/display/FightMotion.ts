@@ -47,6 +47,7 @@ export function isHeavyMotion(motion: FightMotion | undefined): boolean {
 const MOTION_ACTIONS = {
 	slash: [
 		"simpleAttack",
+		"skeletonSimpleAttack",
 		"intenseAttack",
 		"sabotageAttack",
 		"stealWeapon",
@@ -60,6 +61,7 @@ const MOTION_ACTIONS = {
 	heavy: [
 		"heavyAttack",
 		"powerfulAttack",
+		"guardianPowerfulAttack",
 		"clubSmashAttack",
 		"chargingAttack",
 		"ramAttack",
@@ -72,11 +74,13 @@ const MOTION_ACTIONS = {
 		"horn",
 		"revenge",
 		"shieldAttack",
+		"skeletonShieldAttack",
 		"tailWhipAttack",
 		"tentacleBlowAttack"
 	],
 	pierce: [
 		"piercingAttack",
+		"elementaryPiercingAttack",
 		"aerialDiveAttack",
 		"peck"
 	],
@@ -108,6 +112,7 @@ const MOTION_ACTIONS = {
 	return: ["boomerangAttack"],
 	flame: [
 		"fireAttack",
+		"titanFireAttack",
 		"eruptionAttack",
 		"lavaWaveAttack",
 		"heatMudAttack",
@@ -146,6 +151,7 @@ const MOTION_ACTIONS = {
 	],
 	poison: [
 		"poisonousAttack",
+		"spiderPoisonAttack",
 		"petPoison",
 		"poisonousBite",
 		"poisoned",
@@ -205,6 +211,7 @@ const MOTION_ACTIONS = {
 	curse: [
 		"abyssalAura",
 		"cursedAttack",
+		"skeletonCursedAttack",
 		"cursedOfTheSea",
 		"darkAttack",
 		"mutiny",

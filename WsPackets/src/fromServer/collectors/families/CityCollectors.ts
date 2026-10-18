@@ -21,6 +21,9 @@ export type CityMobileSnapshot = {
 	};
 	inns?: { innId: string }[];
 
+	/** Points the player is sure to receive on leaving the city, a random bonus being drawn on exit. Absent when the stay has earned nothing yet. */
+	minimumCityStayScore?: number;
+
 	/** When an inn serves the player a meal or a room again, as absolute timestamps; absent once it already can. */
 	innCooldowns?: {
 		mealAvailableAt?: number; roomAvailableAt?: number;
@@ -100,6 +103,9 @@ export type CityMobileSnapshot = {
 		playerMoney: number;
 		playerGems: number;
 		enchantableItems: CityMobileItem[];
+
+		/** What Mernil strips of its enchantment for free. Absent from servers older than this service. */
+		disenchantableItems?: CityMobileEnchantedItem[];
 	};
 	blacksmith?: {
 		playerMoney: number;
@@ -169,9 +175,12 @@ export type CityMobileUpgradeItem = CityMobileItem & {
 	}[];
 };
 
-export type CityMobileDisenchantItem = CityMobileItem & {
+export type CityMobileEnchantedItem = CityMobileItem & {
 	enchantmentId: string;
 	enchantmentType: string;
+};
+
+export type CityMobileDisenchantItem = CityMobileEnchantedItem & {
 	disenchantCost: number;
 	canDisenchant: boolean;
 };
@@ -240,6 +249,10 @@ declare module "../ReactionCollectorProtocol" {
 			slot: number;
 			itemCategory: number;
 		};
+		cityEnchanterDisenchant: {
+			slot: number;
+			itemCategory: number;
+		};
 		cityShop: {
 			shopId: string;
 		};
@@ -248,6 +261,9 @@ declare module "../ReactionCollectorProtocol" {
 		cityMoveHome: Record<string, never>;
 		homeMenu: Record<string, never>;
 		homeBed: Record<string, never>;
+
+		/** Discord rebuilds the city when its chest closes; the app never shows it, its chest requests refresh the city on their own. */
+		homeChestClose: Record<string, never>;
 		cityUpgradeItem: {
 			slot: number;
 			itemCategory: number;
@@ -298,12 +314,14 @@ export const CITY_REACTION_KINDS = {
 	INN_MEAL: "cityInnMeal",
 	INN_ROOM: "cityInnRoom",
 	ENCHANT: "cityEnchant",
+	ENCHANTER_DISENCHANT: "cityEnchanterDisenchant",
 	SHOP: "cityShop",
 	BUY_HOME: "cityBuyHome",
 	UPGRADE_HOME: "cityUpgradeHome",
 	MOVE_HOME: "cityMoveHome",
 	HOME_MENU: "homeMenu",
 	HOME_BED: "homeBed",
+	HOME_CHEST_CLOSE: "homeChestClose",
 	UPGRADE_ITEM: "cityUpgradeItem",
 	BLACKSMITH_MENU: "cityBlacksmithMenu",
 	BLACKSMITH_UPGRADE: "cityBlacksmithUpgrade",

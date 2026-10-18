@@ -42,6 +42,7 @@ function CookingProgress({ result }: { result: CraftResult }): ReactNode {
 				level: result.menu.cookingLevel, grade: i18n.t(`models:cooking.grades.${result.menu.cookingGrade}`)
 			})}</Note>
 			: null}
+		{result.masterChefBadgeEarned ? <Note>{i18n.t("app:cooking.badge", { badge: i18n.t("app:reference.badges.names.master_chef") })}</Note> : null}
 		{result.discoveredRecipes?.map(recipe => <Note key={recipe.recipeId}>{i18n.t("app:cooking.discovered", {
 			recipe: i18n.t(`models:cooking.recipes.${recipe.recipeId}`), level: recipe.level
 		})}</Note>)}

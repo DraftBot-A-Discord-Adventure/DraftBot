@@ -3,23 +3,15 @@ import { InventorySlots } from "../../core/database/game/models/InventorySlot";
 import { PetEntities } from "../../core/database/game/models/PetEntity";
 import type { SexTypeShort } from "../../../../Lib/src/constants/StringConstants";
 import { PetUtils } from "../../core/utils/PetUtils";
-import TournamentParticipant from "../../core/database/game/models/TournamentParticipant";
-import { getEffectiveLevel } from "../../core/tournaments/TournamentRules";
 import type { FightPlayerStats } from "../../../../Lib/src/types/FightPlayerStats";
-import type { TournamentLevelSettings } from "../../../../Lib/src/types/Tournament";
 
-export async function getPlayerStats(
-	player: Player,
-	tournamentParticipant?: TournamentParticipant,
-	levelSettings?: TournamentLevelSettings
-): Promise<FightPlayerStats> {
+/**
+ * Get the stats of the player displayed before confirming a fight
+ * @param player
+ */
+export async function getPlayerStats(player: Player): Promise<FightPlayerStats> {
 	const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 	const petEntity = await PetEntities.getById(player.petId);
-	const effectiveLevel = tournamentParticipant
-		? getEffectiveLevel(tournamentParticipant.category, player.level, levelSettings)
-		: player.level;
-	const includePotion = !tournamentParticipant;
-	const maxEnergy = player.getMaxCumulativeEnergy(playerActiveObjects, effectiveLevel);
 
 	return {
 		pet: petEntity
@@ -32,15 +24,15 @@ export async function getPlayerStats(
 			: undefined,
 		classId: player.class,
 		fightRanking: {
-			glory: tournamentParticipant?.getTotalGloryPoints() ?? player.getGloryPoints()
+			glory: player.getGloryPoints()
 		},
 		energy: {
-			value: tournamentParticipant ? maxEnergy : player.getCumulativeEnergy(playerActiveObjects),
-			max: maxEnergy
+			value: player.getCumulativeEnergy(playerActiveObjects),
+			max: player.getMaxCumulativeEnergy(playerActiveObjects)
 		},
-		attack: player.getCumulativeAttack(playerActiveObjects, effectiveLevel, includePotion),
-		defense: player.getCumulativeDefense(playerActiveObjects, effectiveLevel, includePotion),
-		speed: player.getCumulativeSpeed(playerActiveObjects, effectiveLevel, includePotion),
+		attack: player.getCumulativeAttack(playerActiveObjects),
+		defense: player.getCumulativeDefense(playerActiveObjects),
+		speed: player.getCumulativeSpeed(playerActiveObjects),
 		breath: {
 			base: player.getBaseBreath(playerActiveObjects),
 			max: player.getMaxBreath(playerActiveObjects),

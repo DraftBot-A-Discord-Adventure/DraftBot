@@ -19,8 +19,6 @@ import { MapCache } from "../maps/MapCache";
 import { RequirementWherePacket } from "../../../../Lib/src/packets/commands/requirements/RequirementWherePacket";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { AsyncLock } from "../../../../Lib/src/locks/AsyncLock";
-import { verifyCommandAccess } from "../tournaments/TournamentAccess";
-import type { TournamentCommandAccess } from "../tournaments/TournamentTypes";
 
 type Requirements = {
 	disallowedEffects?: Effect[];
@@ -31,13 +29,18 @@ type Requirements = {
 	guildRoleNeeded?: GuildRole;
 	notBlocked: boolean;
 	whereAllowed: WhereAllowed[];
-	tournamentAccess?: TournamentCommandAccess;
 };
 
 type RequirementsWithoutBlocked = Omit<Requirements, "notBlocked">;
 
 type RequirementCheck = () => boolean | Promise<boolean>;
 
+/**
+ * Check that the player reached the level required by the command
+ * @param player
+ * @param response
+ * @param requiredLevel
+ */
 function verifyLevelRequirement(player: Player, response: CrowniclesPacket[], requiredLevel?: number): boolean {
 	if (requiredLevel && player.level < requiredLevel) {
 		response.push(makePacket(RequirementLevelPacket, {
@@ -48,6 +51,12 @@ function verifyLevelRequirement(player: Player, response: CrowniclesPacket[], re
 	return true;
 }
 
+/**
+ * Check that the user belongs to the right group required by the command
+ * @param context
+ * @param response
+ * @param rightGroup
+ */
 function verifyRightGroupRequirement(context: PacketContext, response: CrowniclesPacket[], rightGroup?: RightGroup): boolean {
 	if (rightGroup && (!context.rightGroups || !context.rightGroups.includes(rightGroup))) {
 		response.push(makePacket(RequirementRightPacket, {}));
@@ -56,10 +65,22 @@ function verifyRightGroupRequirement(context: PacketContext, response: Crownicle
 	return true;
 }
 
+/**
+ * Check that the player is at a location where the command is allowed
+ * @param player
+ * @param response
+ * @param whereAllowed
+ */
 function verifyWhereRequirement(player: Player, response: CrowniclesPacket[], whereAllowed: WhereAllowed[]): boolean {
 	return CommandUtils.verifyWhereAllowed(player.mapLinkId, response, whereAllowed);
 }
 
+/**
+ * Check the guild membership and role required by the command, if any
+ * @param player
+ * @param response
+ * @param requirements
+ */
 async function verifyGuildRequirement(player: Player, response: CrowniclesPacket[], requirements: RequirementsWithoutBlocked): Promise<boolean> {
 	if (!requirements.guildNeeded && !requirements.guildRoleNeeded) {
 		return true;
@@ -67,6 +88,13 @@ async function verifyGuildRequirement(player: Player, response: CrowniclesPacket
 	return await CommandUtils.verifyGuildRequirements(player, response, requirements.guildRoleNeeded ?? GuildRole.MEMBER);
 }
 
+/**
+ * Run every requirement check of a command in order, stopping at the first failure
+ * @param player
+ * @param context
+ * @param response
+ * @param requirements
+ */
 async function runRequirementChecks(
 	player: Player,
 	context: PacketContext,
@@ -74,7 +102,6 @@ async function runRequirementChecks(
 	requirements: RequirementsWithoutBlocked
 ): Promise<boolean> {
 	const checks: RequirementCheck[] = [
-		verifyCommandAccess.bind(undefined, player, context, response, requirements.tournamentAccess ?? "none"),
 		CommandUtils.checkEffects.bind(CommandUtils, player, response, requirements.allowedEffects ?? [], requirements.disallowedEffects ?? []),
 		verifyLevelRequirement.bind(undefined, player, response, requirements.level),
 		verifyRightGroupRequirement.bind(undefined, context, response, requirements.rightGroup),
@@ -282,6 +309,11 @@ export abstract class CommandUtils {
 		return allowed;
 	}
 
+	/**
+	 * Check the not started effect requirement when the player does not exist yet
+	 * @param requirements
+	 * @param response
+	 */
 	static verifyNotStartedWithoutPlayerInstance(requirements: Requirements, response: CrowniclesPacket[]): boolean {
 		if (requirements.disallowedEffects?.includes(Effect.NOT_STARTED) || (requirements.allowedEffects && !requirements.allowedEffects.includes(Effect.NOT_STARTED))
 		) {

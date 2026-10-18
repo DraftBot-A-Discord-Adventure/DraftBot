@@ -1,8 +1,12 @@
-import { ReactionCollectorCityData } from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import {
+	EnchanterCityData, ReactionCollectorCityData
+} from "../../../../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import { DisenchantableItem } from "../../../../../../Lib/src/types/DisenchantableItem";
 import { homeUpgradeChanges } from "../../../../../../Lib/src/utils/HomeUpgradeChanges";
 import type {
 	CityMobileBeyondReachItem,
 	CityMobileDisenchantItem,
+	CityMobileEnchantedItem,
 	CityMobileItem,
 	CityMobileRecycleItem,
 	CityMobileSnapshot,
@@ -165,12 +169,18 @@ function mapApartmentNotary(data: ReactionCollectorCityData["apartmentNotary"]):
 	};
 }
 
+function enchantedItemSnapshot(item: DisenchantableItem): CityMobileEnchantedItem {
+	return {
+		...itemSnapshot(item), enchantmentId: item.enchantmentId, enchantmentType: item.enchantmentType
+	};
+}
+
 function mapBlacksmith(data: NonNullable<ReactionCollectorCityData["blacksmith"]>): CityMobileBlacksmith {
 	return {
 		playerMoney: data.playerMoney,
 		upgradeableItems: data.upgradeableItems.map(upgradeItemSnapshot),
 		disenchantableItems: data.disenchantableItems.map(item => ({
-			...itemSnapshot(item), enchantmentId: item.enchantmentId, enchantmentType: item.enchantmentType, disenchantCost: item.disenchantCost, canDisenchant: item.canDisenchant
+			...enchantedItemSnapshot(item), disenchantCost: item.disenchantCost, canDisenchant: item.canDisenchant
 		} satisfies CityMobileDisenchantItem)),
 		beyondReachItems: data.beyondReachItems.map(item => ({
 			...itemSnapshot(item), limit: item.limit
@@ -198,10 +208,17 @@ function mapRoyalBlacksmith(data: NonNullable<ReactionCollectorCityData["royalBl
 	};
 }
 
-function mapEnchanter(data: NonNullable<ReactionCollectorCityData["enchanter"]>): CityMobileEnchanter {
+function mapEnchanter(data: EnchanterCityData): CityMobileEnchanter {
 	return {
-		...data,
-		enchantableItems: data.enchantableItems.map(item => itemSnapshot(item))
+		enchantmentId: data.enchantmentId,
+		enchantmentType: data.enchantmentType,
+		enchantmentSlot: data.enchantmentSlot,
+		enchantmentCost: { ...data.enchantmentCost },
+		mageReduction: data.mageReduction,
+		playerMoney: data.playerMoney,
+		playerGems: data.playerGems,
+		enchantableItems: data.enchantableItems.map(item => itemSnapshot(item)),
+		disenchantableItems: data.disenchantableItems.map(enchantedItemSnapshot)
 	};
 }
 
@@ -233,6 +250,7 @@ export function mapCitySnapshot(data: ReactionCollectorCityData): CityMobileSnap
 		energy: data.energy,
 		health: data.health,
 		inns: data.inns?.map(inn => ({ innId: inn.innId })),
+		...data.minimumCityStayScore ? { minimumCityStayScore: data.minimumCityStayScore } : {},
 		...data.innCooldowns === undefined ? {} : { innCooldowns: { ...data.innCooldowns } },
 		shops: data.shops?.map(shop => ({
 			shopId: shop.shopId, isEmpty: Boolean(shop.isEmpty)

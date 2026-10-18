@@ -1,201 +1,124 @@
-import InventorySlot, { InventorySlots } from "../database/game/models/InventorySlot";
+import InventorySlot from "../database/game/models/InventorySlot";
 import { Player } from "../database/game/models/Player";
 import {
 	CrowniclesPacket, makePacket
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import {
+	ReactionCollectorCityData,
+	ReactionCollectorEnchanterDisenchantReaction,
 	ReactionCollectorEnchantReaction
 } from "../../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {
+	CommandReportEnchanterDisenchantRes,
 	CommandReportEnchantNotEnoughCurrenciesRes,
+	CommandReportEquipmentChangedRes,
 	CommandReportItemCannotBeEnchantedRes,
 	CommandReportItemEnchantedRes
 } from "../../../../Lib/src/packets/commands/CommandReportPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
-import { ItemEnchantment } from "../../../../Lib/src/types/ItemEnchantment";
+import {
+	EnchantmentCost, ItemEnchantment
+} from "../../../../Lib/src/types/ItemEnchantment";
 import { ClassConstants } from "../../../../Lib/src/constants/ClassConstants";
 import { Settings } from "../database/game/models/Setting";
 import PlayerMissionsInfo, { PlayerMissionsInfos } from "../database/game/models/PlayerMissionsInfo";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
-import { withLockedEntities } from "../../../../Lib/src/locks/withLockedEntities";
+import {
+	Locked, withLockedEntities
+} from "../../../../Lib/src/locks/withLockedEntities";
 import { crowniclesInstance } from "../../app";
 import { MissionsController } from "../missions/MissionsController";
+import { DailyMissions } from "../database/game/models/DailyMission";
+import { DisenchantableItem } from "../../../../Lib/src/types/DisenchantableItem";
+import {
+	getListedInventorySlotUnderLock, removeListedEnchantmentUnderLock
+} from "./ReportListedEquipment";
+
+type EnchantableItem = NonNullable<ReactionCollectorCityData["enchanter"]>["enchantableItems"][number];
 
 /**
- * Parameters for the enchantItem function
+ * Locked rows and request data shared by the steps of a paid enchantment
  */
-interface EnchantItemParams {
-	player: Player;
+type LockedEnchantContext = {
+	lockedPlayer: Locked<Player>;
+	lockedMissionsInfo: Locked<PlayerMissionsInfo>;
 	enchantment: ItemEnchantment;
-	price: {
-		money: number; gems: number;
-	};
-	playerMissionsInfo: PlayerMissionsInfo | null;
-	itemToEnchant: InventorySlot;
 	response: CrowniclesPacket[];
-}
-
-type EnchantmentPricingData = {
-	enchantment: ItemEnchantment;
-	price: {
-		money: number; gems: number;
-	};
-	playerMissionsInfo: PlayerMissionsInfo | null;
 };
 
-async function getEnchantmentPricingData(player: Player): Promise<EnchantmentPricingData | null> {
+async function getEnchantmentOfTheDay(): Promise<ItemEnchantment | null> {
 	const enchantment = ItemEnchantment.getById(await Settings.ENCHANTER_ENCHANTMENT_ID.getValue());
 	if (!enchantment) {
 		CrowniclesLogger.error("No enchantment found for enchanter. Check ENCHANTER_ENCHANTMENT_ID setting.");
 		return null;
 	}
-
-	const isPlayerMage = player.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE;
-	const price = enchantment.getEnchantmentCost(isPlayerMage);
-	return {
-		enchantment,
-		price,
-		playerMissionsInfo: price.gems !== 0 ? await PlayerMissionsInfos.getOfPlayer(player.id) : null
-	};
+	return enchantment;
 }
 
-function hasEnoughCurrencies(params: {
-	player: Player;
-	price: EnchantItemParams["price"];
-	playerMissionsInfo: PlayerMissionsInfo | null;
-}): boolean {
-	const {
-		player, price, playerMissionsInfo
-	} = params;
-	return player.money >= price.money && (playerMissionsInfo?.gems ?? price.gems) >= price.gems;
-}
-
-function pushMissingCurrenciesResponse(params: {
-	player: Player;
-	price: EnchantItemParams["price"];
-	playerMissionsInfo: PlayerMissionsInfo | null;
-	response: CrowniclesPacket[];
-}): void {
-	const {
-		player, price, playerMissionsInfo, response
-	} = params;
-	response.push(makePacket(CommandReportEnchantNotEnoughCurrenciesRes, {
-		missingMoney: Math.max(price.money - player.money, 0),
-		missingGems: Math.max(price.gems - (playerMissionsInfo?.gems ?? 0), 0)
-	}));
-}
-
-async function getEnchantableItem(
-	player: Player,
+function findListedEnchantableItem(
 	reaction: ReactionCollectorEnchantReaction,
-	enchantment: ItemEnchantment,
-	response: CrowniclesPacket[]
+	data: ReactionCollectorCityData
+): EnchantableItem | undefined {
+	return data.enchanter?.enchantableItems.find(listed => listed.slot === reaction.slot && listed.category === reaction.itemCategory);
+}
+
+function canBeEnchanted(item: InventorySlot, enchantment: ItemEnchantment): boolean {
+	return item.isWeaponOrArmor()
+		&& !item.itemEnchantmentId
+		&& item.itemCategory === enchantment.kind.slot;
+}
+
+/**
+ * The listed equipment, read from the locked inventory, provided it can still receive the enchantment of the day.
+ * Pushes the matching response and returns null otherwise.
+ */
+async function getEnchantableSlotUnderLock(
+	context: LockedEnchantContext,
+	reaction: ReactionCollectorEnchantReaction,
+	listedItem: EnchantableItem
 ): Promise<InventorySlot | null> {
-	const itemToEnchant = await InventorySlots.getItem(player.id, reaction.slot, reaction.itemCategory);
-	const canBeEnchanted = itemToEnchant?.isWeaponOrArmor()
-		&& !itemToEnchant.itemEnchantmentId
-		&& itemToEnchant.itemCategory === enchantment.kind.slot;
-
-	if (!canBeEnchanted) {
-		CrowniclesLogger.error("Player tried to enchant an item that doesn't exist or cannot be enchanted. It shouldn't happen because the player must not be able to switch items while in the collector.");
-		response.push(makePacket(CommandReportItemCannotBeEnchantedRes, {}));
+	const inventorySlot = await getListedInventorySlotUnderLock(context.lockedPlayer, reaction, listedItem.details, context.response);
+	if (!inventorySlot) {
 		return null;
 	}
 
-	return itemToEnchant;
+	if (!canBeEnchanted(inventorySlot, context.enchantment)) {
+		CrowniclesLogger.error(`Player ${context.lockedPlayer.keycloakId} tried to enchant an item that cannot receive the enchantment of the day.`);
+		context.response.push(makePacket(CommandReportItemCannotBeEnchantedRes, {}));
+		return null;
+	}
+
+	return inventorySlot;
 }
 
 /**
- * Check if the enchantment conditions are met (enough currencies, valid item)
+ * Whether the locked rows cover the price. Pushes the missing-currencies response otherwise.
  */
-async function checkEnchantmentConditions(
-	player: Player,
-	reaction: ReactionCollectorEnchantReaction,
-	response: CrowniclesPacket[]
-): Promise<{
-	enchantment: ItemEnchantment;
-	price: {
-		money: number; gems: number;
-	};
-	playerMissionsInfo: PlayerMissionsInfo | null;
-	itemToEnchant: InventorySlot;
-} | null> {
-	const pricingData = await getEnchantmentPricingData(player);
-	if (!pricingData) {
-		return null;
-	}
-
-	if (!hasEnoughCurrencies({
-		player,
-		price: pricingData.price,
-		playerMissionsInfo: pricingData.playerMissionsInfo
-	})) {
-		pushMissingCurrenciesResponse({
-			player,
-			price: pricingData.price,
-			playerMissionsInfo: pricingData.playerMissionsInfo,
-			response
-		});
-		return null;
-	}
-
-	const itemToEnchant = await getEnchantableItem(player, reaction, pricingData.enchantment, response);
-	if (!itemToEnchant) {
-		return null;
-	}
-
-	return {
-		enchantment: pricingData.enchantment,
-		price: pricingData.price,
-		playerMissionsInfo: pricingData.playerMissionsInfo,
-		itemToEnchant
-	};
-}
-
-/**
- * Re-validate currency availability against the freshly-locked rows.
- * Returns true when both currencies still cover the price, false (and
- * pushes the missing-currencies response) otherwise.
- */
-function hasLockedCurrencies(params: {
-	lockedPlayer: Player;
-	lockedMissionsInfo: PlayerMissionsInfo | null;
-	price: EnchantItemParams["price"];
-	response: CrowniclesPacket[];
-}): boolean {
+function hasEnoughCurrenciesUnderLock(context: LockedEnchantContext, price: EnchantmentCost): boolean {
 	const {
-		lockedPlayer, lockedMissionsInfo, price, response
-	} = params;
-	const moneyOk = price.money <= 0 || lockedPlayer.money >= price.money;
-	const gemsOk = price.gems <= 0 || (lockedMissionsInfo?.gems ?? 0) >= price.gems;
-	if (moneyOk && gemsOk) {
+		lockedPlayer, lockedMissionsInfo, response
+	} = context;
+	if (lockedPlayer.money >= price.money && lockedMissionsInfo.gems >= price.gems) {
 		return true;
 	}
-	pushMissingCurrenciesResponse({
-		player: lockedPlayer,
-		price,
-		playerMissionsInfo: lockedMissionsInfo,
-		response
-	});
+	response.push(makePacket(CommandReportEnchantNotEnoughCurrenciesRes, {
+		missingMoney: Math.max(price.money - lockedPlayer.money, 0),
+		missingGems: Math.max(price.gems - lockedMissionsInfo.gems, 0)
+	}));
 	return false;
 }
 
 /**
- * Inside-lock body of {@link enchantItem}: spend currencies, mutate
- * the item, persist all three rows, and push the success packet.
- * Extracted to keep `enchantItem` below the complexity threshold.
+ * Spend the currencies, enchant the locked slot, persist every row and push the success packet
  */
-async function executeEnchant(params: {
-	lockedPlayer: Player;
-	lockedMissionsInfo: PlayerMissionsInfo | null;
-	enchantment: ItemEnchantment;
-	price: EnchantItemParams["price"];
-	itemToEnchant: InventorySlot;
-	response: CrowniclesPacket[];
-}): Promise<void> {
+async function executeEnchantUnderLock(
+	context: LockedEnchantContext,
+	itemToEnchant: InventorySlot,
+	price: EnchantmentCost
+): Promise<void> {
 	const {
-		lockedPlayer, lockedMissionsInfo, enchantment, price, itemToEnchant, response
-	} = params;
+		lockedPlayer, lockedMissionsInfo, enchantment, response
+	} = context;
 
 	itemToEnchant.itemEnchantmentId = enchantment.id;
 	if (price.money > 0) {
@@ -205,14 +128,14 @@ async function executeEnchant(params: {
 			reason: NumberChangeReason.ENCHANT_ITEM
 		});
 	}
-	if (price.gems > 0 && lockedMissionsInfo) {
+	if (price.gems > 0) {
 		await lockedMissionsInfo.spendGems(price.gems, response, NumberChangeReason.ENCHANT_ITEM);
 	}
 
 	await Promise.all([
 		itemToEnchant.save(),
 		lockedPlayer.save(),
-		lockedMissionsInfo ? lockedMissionsInfo.save() : Promise.resolve()
+		lockedMissionsInfo.save()
 	]);
 
 	response.push(makePacket(CommandReportItemEnchantedRes, {
@@ -238,51 +161,109 @@ async function executeEnchant(params: {
 }
 
 /**
- * Apply the enchantment to the item and spend currencies
- *
- * Concurrency: locks both the Player wallet and (when gems are
- * required) the PlayerMissionsInfo row so concurrent enchant
- * confirmations cannot lost-update either currency.
+ * Locked body of the paid enchantment: the listed equipment is checked against the locked inventory
+ * before anything is spent, so a chest action finishing in the meantime cannot get its item enchanted.
  */
-async function enchantItem(params: EnchantItemParams): Promise<void> {
-	const {
-		player, enchantment, price, playerMissionsInfo, itemToEnchant, response
-	} = params;
+async function enchantListedItemUnderLock(
+	context: LockedEnchantContext,
+	reaction: ReactionCollectorEnchantReaction,
+	listedItem: EnchantableItem
+): Promise<void> {
+	const itemToEnchant = await getEnchantableSlotUnderLock(context, reaction, listedItem);
+	if (!itemToEnchant) {
+		return;
+	}
 
-	await PlayerMissionsInfos.getOfPlayer(player.id);
-	const keys = [Player.lockKey(player.id), PlayerMissionsInfo.lockKey(player.id)] as const;
+	const price = context.enchantment.getEnchantmentCost(context.lockedPlayer.class === ClassConstants.CLASSES_ID.MYSTIC_MAGE);
+	if (!hasEnoughCurrenciesUnderLock(context, price)) {
+		return;
+	}
 
-	await withLockedEntities(keys, async locked => {
-		const lockedPlayer = locked[0] as Player;
-		const lockedMissionsInfo = playerMissionsInfo ? locked[1] : null;
-
-		if (!hasLockedCurrencies({
-			lockedPlayer, lockedMissionsInfo, price, response
-		})) {
-			return;
-		}
-
-		await executeEnchant({
-			lockedPlayer, lockedMissionsInfo, enchantment, price, itemToEnchant, response
-		});
-	});
+	await executeEnchantUnderLock(context, itemToEnchant, price);
 }
 
 /**
  * Handle enchant reaction — player enchants an item at the enchanter
+ *
+ * Concurrency: locks the Player (wallet and inventory) and the PlayerMissionsInfo (gems) rows,
+ * and every check runs against those locked rows.
  */
-export async function handleEnchantReaction(player: Player, reaction: ReactionCollectorEnchantReaction, response: CrowniclesPacket[]): Promise<void> {
-	const conditions = await checkEnchantmentConditions(player, reaction, response);
-	if (!conditions) {
+export async function handleEnchantReaction(
+	player: Player,
+	reaction: ReactionCollectorEnchantReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<void> {
+	const listedItem = findListedEnchantableItem(reaction, data);
+	if (!listedItem) {
+		response.push(makePacket(CommandReportEquipmentChangedRes, {}));
 		return;
 	}
 
-	await enchantItem({
-		player,
-		enchantment: conditions.enchantment,
-		price: conditions.price,
-		playerMissionsInfo: conditions.playerMissionsInfo,
-		itemToEnchant: conditions.itemToEnchant,
-		response
+	const enchantment = await getEnchantmentOfTheDay();
+	if (!enchantment) {
+		return;
+	}
+
+	// Resolve the daily mission rollover and create the missions info row before locking it
+	await DailyMissions.getOrGenerate();
+	await PlayerMissionsInfos.getOfPlayer(player.id);
+	await withLockedEntities([Player.lockKey(player.id), PlayerMissionsInfo.lockKey(player.id)] as const, async ([lockedPlayer, lockedMissionsInfo]) => {
+		await enchantListedItemUnderLock({
+			lockedPlayer,
+			lockedMissionsInfo,
+			enchantment,
+			response
+		}, reaction, listedItem);
+	});
+}
+
+function getListedDisenchantableItem(
+	player: Player,
+	reaction: ReactionCollectorEnchanterDisenchantReaction,
+	data: ReactionCollectorCityData
+): DisenchantableItem | null {
+	const listedItem = data.enchanter?.disenchantableItems.find(item => item.slot === reaction.slot && item.category === reaction.itemCategory);
+	if (!listedItem) {
+		CrowniclesLogger.error(`Player ${player.keycloakId} tried to disenchant an item that the enchanter did not list.`);
+		return null;
+	}
+	return listedItem;
+}
+
+/**
+ * Handle enchanter disenchant reaction — the enchanter removes an enchantment for free
+ */
+export async function handleEnchanterDisenchantReaction(
+	player: Player,
+	reaction: ReactionCollectorEnchanterDisenchantReaction,
+	data: ReactionCollectorCityData,
+	response: CrowniclesPacket[]
+): Promise<void> {
+	const listedItem = getListedDisenchantableItem(player, reaction, data);
+	if (!listedItem) {
+		return;
+	}
+
+	await withLockedEntities([Player.lockKey(player.id)] as const, async ([lockedPlayer]) => {
+		if (!await removeListedEnchantmentUnderLock(lockedPlayer, reaction, listedItem.details, response)) {
+			return;
+		}
+
+		response.push(makePacket(CommandReportEnchanterDisenchantRes, {
+			enchantmentId: listedItem.enchantmentId,
+			enchantmentType: listedItem.enchantmentType
+		}));
+
+		const cityId = lockedPlayer.getCurrentCityId();
+		if (cityId) {
+			crowniclesInstance?.logsDatabase.logEnchanterDisenchant({
+				keycloakId: lockedPlayer.keycloakId,
+				cityId,
+				itemCategory: reaction.itemCategory,
+				slot: reaction.slot,
+				enchantmentId: listedItem.enchantmentId
+			}).then();
+		}
 	});
 }

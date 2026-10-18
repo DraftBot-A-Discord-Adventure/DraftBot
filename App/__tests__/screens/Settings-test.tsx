@@ -84,8 +84,7 @@ const preferences = {
 	guildStatusChange: true,
 	playerFreedFromJail: true,
 	fightChallenge: false,
-	petExpedition: true,
-	tournament: true
+	petExpedition: true
 };
 
 function answers(packet: unknown): Promise<unknown> {
@@ -250,7 +249,7 @@ describe("settings", () => {
 	it("sums up the notifications and opens their page", async () => {
 		await renderSettings();
 		await waitFor(() => expect(screen.getByText(`app:settings.notifications.summary.count ${JSON.stringify({
-			enabled: 8, total: Object.values(NOTIFICATION_TYPES).length
+			enabled: 7, total: Object.values(NOTIFICATION_TYPES).length
 		})}`)).toBeTruthy());
 		await fireEvent.press(screen.getByText("app:settings.notifications.entry"));
 		expect(mockPush).toHaveBeenCalledWith("/settings/notifications");

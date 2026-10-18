@@ -58,23 +58,37 @@ const useStyles = createStyles(colors => ({
 	resultDetails: { gap: 10 }
 }));
 
+type FightRanking = NonNullable<FightReward["player1"]>;
+
+function GloryReward({ ranking }: { ranking: FightRanking }): ReactNode {
+	const styles = useStyles();
+	const colors = useColors();
+	const gloryChange = ranking.newGlory - ranking.oldGlory;
+	return <View style={styles.reward}><Medal size={23} color={colors.gold} /><Text style={[styles.rewardValue, { color: gloryChange < 0 ? colors.red : colors.green }]}>{formatSignedNumber(gloryChange)}</Text><Text style={styles.rewardLabel}>{i18n.t("app:arena.glory")}</Text></View>;
+}
+
+function GloryDetails({ ranking }: { ranking: FightRanking }): ReactNode {
+	const styles = useStyles();
+	return <View style={styles.resultDetails}>
+		<Fact label={i18n.t("app:arena.glory")} value={i18n.t("app:arena.gloryChange", {
+			before: ranking.oldGlory, after: formatGlory(ranking.newGlory)
+		})} />
+		<Fact label={i18n.t("app:arena.league")} value={leagueName(ranking.newLeagueId)} />
+	</View>;
+}
+
+/** A fight against a king guard carries no ranking: no glory was at stake. */
 function FightRewards({ reward }: { reward: FightReward }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
-	const ranking = reward.player1.isSelf ? reward.player1 : reward.player2;
-	const gloryChange = ranking.newGlory - ranking.oldGlory;
+	const ranking = reward.player1?.isSelf ? reward.player1 : reward.player2;
 	return <>
 		<View style={styles.rewards}>
-			<View style={styles.reward}><Medal size={23} color={colors.gold} /><Text style={[styles.rewardValue, { color: gloryChange < 0 ? colors.red : colors.green }]}>{formatSignedNumber(gloryChange)}</Text><Text style={styles.rewardLabel}>{i18n.t("app:arena.glory")}</Text></View>
+			{ranking ? <GloryReward ranking={ranking} /> : null}
 			<View style={styles.reward}><Coins size={23} color={colors.gold} /><Text style={styles.rewardValue}>{formatNumber(reward.money)}</Text><Text style={styles.rewardLabel}>{i18n.t("app:profile.fields.money")}</Text></View>
 			<View style={styles.reward}><Flag size={23} color={colors.blue} /><Text style={styles.rewardValue}>{formatNumber(reward.points)}</Text><Text style={styles.rewardLabel}>{i18n.t("app:profile.fields.score")}</Text></View>
 		</View>
-		<View style={styles.resultDetails}>
-			<Fact label={i18n.t("app:arena.glory")} value={i18n.t("app:arena.gloryChange", {
-				before: ranking.oldGlory, after: formatGlory(ranking.newGlory)
-			})} />
-			<Fact label={i18n.t("app:arena.league")} value={leagueName(ranking.newLeagueId)} />
-		</View>
+		{ranking ? <GloryDetails ranking={ranking} /> : <Note>{i18n.t("app:arena.kingGuardNoGlory")}</Note>}
 		{reward.petLoveChange ? <Note>{i18n.t("app:arena.petLove", { count: reward.petLoveChange.loveChange })}</Note> : null}
 	</>;
 }

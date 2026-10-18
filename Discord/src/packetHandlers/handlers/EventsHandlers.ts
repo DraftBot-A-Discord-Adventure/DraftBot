@@ -20,7 +20,6 @@ import { PlayerLeavePveIslandPacket } from "../../../../Lib/src/packets/events/P
 import { PlayerLevelUpPacket } from "../../../../Lib/src/packets/events/PlayerLevelUpPacket";
 import { PlayerReceivePetPacket } from "../../../../Lib/src/packets/events/PlayerReceivePetPacket";
 import { RoyalLetterPacket } from "../../../../Lib/src/packets/events/RoyalLetterPacket";
-import { StringUtils } from "../../utils/StringUtils";
 import { buildRecipeDiscoveryMessage } from "../../utils/CookingDisplayUtils";
 
 import { GiveFoodToGuildPacket } from "../../../../Lib/src/packets/utils/GiveFoodToGuildPacket";
@@ -34,6 +33,7 @@ import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { DisplayUtils } from "../../utils/DisplayUtils";
 import { CrowniclesErrorEmbed } from "../../messages/CrowniclesErrorEmbed";
 import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
+import { StringUtils } from "../../utils/StringUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 
 type MissionRewardTotals = {
@@ -154,16 +154,24 @@ export default class EventsHandlers {
 			time = Math.round(minutesToHours(asMinutes(packet.tripDuration)));
 			i18nTr = packet.isGoingBack ? "commands:report.goBackMap" : "commands:report.choseMap";
 		}
-		embed.setDescription(i18n.t(i18nTr, {
-			count: time,
-			lng,
-			mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng }),
-			mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
-			mapEmote: CrowniclesIcons.mapTypes[packet.mapTypeId],
-			mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
-			time,
-			timeDisplay
-		}));
+		embed.setDescription(StringUtils.joinParagraphs([
+			i18n.t(i18nTr, {
+				count: time,
+				lng,
+				mapPrefix: i18n.t(`models:map_types.${packet.mapTypeId}.prefix`, { lng }),
+				mapType: (i18n.t(`models:map_types.${packet.mapTypeId}.name`, { lng }) as string).toLowerCase(),
+				mapEmote: CrowniclesIcons.mapTypes[packet.mapTypeId],
+				mapName: i18n.t(`models:map_locations.${packet.mapId}.name`, { lng }),
+				time,
+				timeDisplay
+			}),
+			packet.cityStayScore
+				? i18n.t("commands:report.cityStayScore", {
+					lng,
+					count: packet.cityStayScore
+				})
+				: null
+		]));
 		try {
 			if (context.discord!.buttonInteraction) {
 				await DiscordCache.getButtonInteraction(context.discord!.buttonInteraction)

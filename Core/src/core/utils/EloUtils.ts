@@ -5,11 +5,12 @@ import { LeagueInfoConstants } from "../../../../Lib/src/constants/LeagueInfoCon
 
 export abstract class EloUtils {
 	/**
-	 * Get the K factor from an arbitrary glory value.
-	 * This is shared by regular players and tournament-only ratings.
-	 * @param glory
+	 * Get the k-factor of a player
+	 * @param player
 	 */
-	static getKFactorFromGlory(glory: number): number {
+	static getKFactor(player: Player): number {
+		const glory = player.getGloryPoints();
+
 		if (glory < FightConstants.ELO.LOW_K_FACTOR_THRESHOLD) {
 			return FightConstants.ELO.DEFAULT_K_FACTOR;
 		}
@@ -27,14 +28,6 @@ export abstract class EloUtils {
 		}
 
 		return FightConstants.ELO.MINIMAL_K_FACTOR;
-	}
-
-	/**
-	 * Get the k-factor of a player
-	 * @param player
-	 */
-	static getKFactor(player: Player): number {
-		return EloUtils.getKFactorFromGlory(player.getGloryPoints());
 	}
 
 	/**

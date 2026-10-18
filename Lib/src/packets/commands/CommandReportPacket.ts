@@ -28,9 +28,6 @@ export {
 import {
 	CookingCraftError, CookingMenuSnapshot, RecipeDisplayInfo
 } from "../../types/CookingTypes";
-import type { ReactionCollectorCityData } from "../interaction/ReactionCollectorCity";
-
-type HomeUpgradeStationData = NonNullable<NonNullable<ReactionCollectorCityData["home"]["owned"]>["upgradeStation"]>;
 
 export type ChestError = typeof HomeConstants.CHEST_ERRORS[keyof typeof HomeConstants.CHEST_ERRORS];
 export type { ChestAction } from "../../constants/HomeConstants";
@@ -151,6 +148,11 @@ export class CommandReportChooseDestinationRes extends CrowniclesPacket {
 	 * The player did not pick this destination: an event outcome sent them back where they came from.
 	 */
 	isGoingBack?: boolean;
+
+	/**
+	 * Points credited for the time spent in the city the player is leaving
+	 */
+	cityStayScore?: number;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
@@ -297,6 +299,14 @@ export class CommandReportItemEnchantedRes extends CrowniclesPacket {
 	enchantmentType!: string;
 }
 
+/** The enchanter removed an enchantment for free */
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandReportEnchanterDisenchantRes extends CrowniclesPacket {
+	enchantmentId!: string;
+
+	enchantmentType!: string;
+}
+
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportBuyHomeRes extends CrowniclesPacket {
 	cost!: number;
@@ -335,6 +345,10 @@ export class CommandReportUpgradeItemMissingMaterialsRes extends CrowniclesPacke
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
 export class CommandReportUpgradeItemMaxLevelRes extends CrowniclesPacket {}
+
+/** The targeted inventory slot no longer holds the equipment shown when the city menu was opened (chest, inventory switch...). */
+@sendablePacket(PacketDirection.BACK_TO_FRONT)
+export class CommandReportEquipmentChangedRes extends CrowniclesPacket {}
 
 // Blacksmith packets
 
@@ -537,9 +551,6 @@ export class CommandReportHomeChestActionRes extends CrowniclesPacket {
 	playerPlantSlots?: PlayerPlantSlotEntry[];
 
 	plantMaxCapacity?: number;
-
-	/** Refreshed home upgrade station after inventory mutations */
-	upgradeStation?: HomeUpgradeStationData;
 }
 
 // Garden packets
@@ -758,6 +769,8 @@ export class CommandReportCookingCraftRes extends CrowniclesPacket {
 	newCookingLevel?: number;
 
 	newCookingGrade?: string;
+
+	masterChefBadgeEarned?: boolean;
 
 	materialSaved?: number;
 

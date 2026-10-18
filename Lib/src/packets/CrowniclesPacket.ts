@@ -37,12 +37,8 @@ export interface PacketContext {
 		buttonInteraction?: string;
 		stringSelectMenuInteraction?: string;
 		channel: string;
-		parentChannel?: string;
 		language: Language;
 		shardId: number;
-		guildMemberCount?: number;
-		isGuildAdministrator?: boolean;
-		isBotOwner?: boolean;
 	};
 
 	webSocket?: Record<string, never>;
@@ -54,7 +50,7 @@ export interface PacketContext {
 }
 
 export interface PacketLike<Packet extends CrowniclesPacket> {
-	new(): Packet;
+	new(): Packet; // skipcq: JS-0362 - Construct signature of a packet class, not a call signature
 }
 
 

@@ -8,6 +8,9 @@ import FightServerTranslator from "../../src/packets/fromServer/translators/Figh
 import FightClientTranslator from "../../src/packets/fromClient/translators/FightClientTranslator";
 import {FightResumeReq} from "../../../WsPackets/src/fromClient/FightReq";
 import {CommandFightHistoryItemPacket} from "../../../Lib/src/packets/fights/FightHistoryItemPacket";
+import {KingGuardFightRewardPacket} from "../../../Lib/src/packets/fights/KingGuardFightRewardPacket";
+import {FightConstants} from "../../../Lib/src/constants/FightConstants";
+import {resolvePlayerName} from "../../src/packets/fromServer/PlayerDisplay";
 
 vi.mock("../../src/packets/fromServer/PlayerDisplay", () => ({resolvePlayerName: vi.fn(async () => "Aventurier")}));
 const CONTEXT: PacketContext = {keycloakId: "private-self", frontEndOrigin: "websocket", frontEndSubOrigin: "", webSocket: {}};
@@ -32,6 +35,17 @@ describe("fight protocol", () => {
 		expect(result.status.activeFighter).toMatchObject({classId: 2, level: 45, alteration: "burned"});
 		expect(result.status.defendingFighter).toMatchObject({classId: 1, level: 30});
 		expect(JSON.stringify(result)).not.toContain("private-");
+	});
+	it("names a king guard by its role, never as a player account to resolve", async () => {
+		vi.mocked(resolvePlayerName).mockClear();
+		const result = await FightServerTranslator.introduction(CONTEXT, makePacket(CommandFightIntroduceFightersPacket, {fightId: "guard", fightInitiatorKeycloakId: "private-self", fightOpponentKeycloakId: FightConstants.KING_GUARD.KEYCLOAK_ID, fightInitiatorActions: [], fightOpponentActions: []}));
+		expect(result.introduction.opponent).toEqual({isSelf: false, isKingGuard: true});
+		expect(resolvePlayerName).not.toHaveBeenCalledWith(FightConstants.KING_GUARD.KEYCLOAK_ID);
+	});
+	it("ends a king guard fight on its rewards, with no glory ranking", async () => {
+		const own = {loveChange: 2, reactionType: "loveGain", petId: 1, petSex: "f", petNickname: "Milo", keycloakId: "private-self"};
+		const result = await FightServerTranslator.kingGuardReward(CONTEXT, makePacket(KingGuardFightRewardPacket, {points: 35, money: 42, draw: false, won: true, petLoveChange: own}));
+		expect(result.reward).toEqual({points: 35, money: 42, draw: false, won: true, petLoveChange: {loveChange: 2, reactionType: "loveGain", petId: 1, petSex: "f", petNickname: "Milo"}});
 	});
 	it("keeps monster IDs and exact action breath costs in introductions", async () => {
 		const result = await FightServerTranslator.introduction(CONTEXT, makePacket(CommandFightIntroduceFightersPacket, {fightId: "pve", fightInitiatorKeycloakId: "private-self", fightOpponentMonsterId: "golem", fightInitiatorActions: [["rest", 0], ["simpleAttack", 3]], fightOpponentActions: [["charge", 5]]}));

@@ -20,7 +20,9 @@ import {
 import { HomeMenuIds } from "../HomeMenuConstants";
 
 import { DiscordMQTT } from "../../../../../bot/DiscordMQTT";
-import { makePacket } from "../../../../../../../Lib/src/packets/CrowniclesPacket";
+import {
+	CrowniclesPacket, makePacket, PacketContext
+} from "../../../../../../../Lib/src/packets/CrowniclesPacket";
 import {
 	CommandReportCookingIgniteReq,
 	CommandReportCookingIgniteRes,
@@ -48,6 +50,7 @@ import { buildCustomId } from "../../../../../utils/CustomIdUtils";
 import { buildRecipeDiscoveryMessage } from "../../../../../utils/CookingDisplayUtils";
 import { ReactionCollectorRefuseReaction } from "../../../../../../../Lib/src/packets/interaction/ReactionCollectorPacket";
 import type { CookingRecipeId } from "../../../../../../../Lib/src/types/CookingRecipe";
+import type { CookingCraftError } from "../../../../../../../Lib/src/types/CookingTypes";
 
 /**
  * Cosmetic cache of the last menu state known to the client.
@@ -71,9 +74,25 @@ interface CookingSessionState {
 	pinnedRecipe?: PinnedRecipeInfo;
 }
 
+/**
+ * Notice displayed under the description of a cooking menu
+ */
+interface CookingMenuNotice {
+	text: string;
+
+	// Separate the notice from the header with a blank line instead of a single line break
+	asParagraph?: boolean;
+}
+
 interface CookingCraftSelection {
 	slotIndex: number;
 	recipeId: CookingRecipeId;
+}
+
+interface CookingCraftAnswer {
+	context: PacketContext;
+	packetName: string;
+	packet: CrowniclesPacket;
 }
 
 export class CookingFeatureHandler implements HomeFeatureHandler {
@@ -108,27 +127,6 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		state.pinnedRecipe = snapshot.pinnedRecipe;
 		state.currentSlots = snapshot.currentSlots;
 		state.isIgnited = snapshot.isIgnited;
-	}
-
-	/**
-	 * Pick the pre-ignite vs ignited renderer based on the snapshot's
-	 * `isIgnited` flag (authoritative from Core).
-	 */
-	private registerFromSnapshot(
-		ctx: HomeFeatureHandlerContext,
-		nestedMenus: CrowniclesNestedMenus,
-		snapshot: CookingMenuSnapshot,
-		extraMessage = ""
-	): void {
-		if (snapshot.isIgnited) {
-			this.registerIgnitedMenu(ctx, nestedMenus, extraMessage);
-		}
-		else {
-			nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-				containers: [this.buildCookingContainer(ctx, extraMessage)],
-				createCollector: this.createCookingCollector(ctx)
-			});
-		}
 	}
 
 	public isAvailable(ctx: HomeFeatureHandlerContext): boolean {
@@ -307,7 +305,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingMenuRes.name) {
 					const response = responsePacket as CommandReportCookingMenuRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					this.registerCookingMenu(ctx, nestedMenus);
@@ -331,7 +329,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingPinRes.name) {
 					const response = responsePacket as CommandReportCookingPinRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					// Fallback: re-render whatever menu the user was on.
@@ -354,7 +352,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 				if (packetName === CommandReportCookingUnpinRes.name) {
 					const response = responsePacket as CommandReportCookingUnpinRes;
 					this.applySnapshot(ctx, response.menu);
-					this.registerFromSnapshot(ctx, nestedMenus, response.menu);
+					this.registerFromCurrentState(ctx, nestedMenus);
 				}
 				else {
 					this.registerFromCurrentState(ctx, nestedMenus);
@@ -365,8 +363,8 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
-	 * Re-register the menu corresponding to the cached `isIgnited` flag.
-	 * Used only as a fallback when no Res arrives (kept for safety).
+	 * Register the pre-ignite or ignited menu according to the cached `isIgnited` flag,
+	 * which `applySnapshot` keeps aligned with the Core snapshot.
 	 */
 	private registerFromCurrentState(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus): void {
 		if (this.getState(ctx).isIgnited) {
@@ -407,12 +405,14 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	private buildWoodConsumedMessage(
 		response: CommandReportCookingIgniteRes | CommandReportCookingReviveRes,
 		ctx: HomeFeatureHandlerContext
-	): string {
+	): CookingMenuNotice {
 		const key = response.woodConsumed ? "woodConsumed" : "woodSaved";
-		return `\n${i18n.t(`commands:report.city.homes.cooking.${key}`, {
-			lng: ctx.lng,
-			woodId: response.woodMaterialId
-		})}`;
+		return {
+			text: i18n.t(`commands:report.city.homes.cooking.${key}`, {
+				lng: ctx.lng,
+				woodId: response.woodMaterialId
+			})
+		};
 	}
 
 	/**
@@ -503,14 +503,14 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Build a V2 container for the pre-ignite cooking menu
 	 */
-	private buildCookingContainer(ctx: HomeFeatureHandlerContext, extraMessage = ""): ContainerBuilder {
+	private buildCookingContainer(ctx: HomeFeatureHandlerContext, notice?: CookingMenuNotice): ContainerBuilder {
 		const container = new ContainerBuilder();
 		container.addTextDisplayComponents(
 			new TextDisplayBuilder().setContent(StringUtils.formatHeader(this.getSubMenuTitle(ctx, ctx.pseudo)))
 		);
 		const pinnedDisplay = this.buildPinnedRecipeDisplay(ctx);
 		container.addTextDisplayComponents(
-			new TextDisplayBuilder().setContent(this.buildCookingDescription(ctx) + pinnedDisplay + extraMessage)
+			new TextDisplayBuilder().setContent(this.withNotice(this.buildCookingDescription(ctx) + pinnedDisplay, notice))
 		);
 		this.addCookingButtons(ctx, container);
 		return container;
@@ -537,9 +537,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Register the cooking main menu (before ignite)
 	 */
-	private registerCookingMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus): void {
+	private registerCookingMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingMenuNotice): void {
 		nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-			containers: [this.buildCookingContainer(ctx)],
+			containers: [this.buildCookingContainer(ctx, notice)],
 			createCollector: this.createCookingCollector(ctx)
 		});
 	}
@@ -547,8 +547,8 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	/**
 	 * Register the ignited furnace menu with slot recipes using Components V2
 	 */
-	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, extraMessage = "", allDisabled = false): void {
-		const container = this.buildIgnitedContainer(ctx, extraMessage, allDisabled);
+	private registerIgnitedMenu(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, notice?: CookingMenuNotice, allDisabled = false): void {
+		const container = this.buildIgnitedContainer(ctx, notice, allDisabled);
 
 		nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
 			containers: [container],
@@ -557,9 +557,21 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	}
 
 	/**
+	 * Append the notice, if any, under a menu description
+	 */
+	private withNotice(description: string, notice: CookingMenuNotice | undefined): string {
+		if (!notice) {
+			return description;
+		}
+		return notice.asParagraph
+			? StringUtils.joinParagraphs([description, notice.text])
+			: StringUtils.joinLines([description, notice.text]);
+	}
+
+	/**
 	 * Build the V2 container for the ignited furnace
 	 */
-	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, extraMessage: string, allDisabled = false): ContainerBuilder {
+	private buildIgnitedContainer(ctx: HomeFeatureHandlerContext, notice: CookingMenuNotice | undefined, allDisabled = false): ContainerBuilder {
 		const container = new ContainerBuilder();
 
 		// Title
@@ -569,13 +581,9 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			)
 		);
 
-		// Furnace uses remaining + extra message
-		let headerText = this.buildIgnitedDescription(ctx);
-		if (extraMessage) {
-			headerText += extraMessage;
-		}
+		// Furnace uses remaining + notice
 		container.addTextDisplayComponents(
-			new TextDisplayBuilder().setContent(headerText)
+			new TextDisplayBuilder().setContent(this.withNotice(this.buildIgnitedDescription(ctx), notice))
 		);
 
 		// Build slot sections
@@ -771,15 +779,15 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			makePacket(reqPacket, {}),
 			async (_responseContext, packetName, responsePacket) => {
 				if (packetName === CommandReportCookingNoWoodRes.name) {
-					const noWoodMessage = `\n\n${i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng })}`;
+					const noWoodNotice: CookingMenuNotice = {
+						text: i18n.t("commands:report.city.homes.cooking.noWood", { lng: ctx.lng }),
+						asParagraph: true
+					};
 					if (isRevive) {
-						this.registerIgnitedMenu(ctx, nestedMenus, noWoodMessage);
+						this.registerIgnitedMenu(ctx, nestedMenus, noWoodNotice);
 					}
 					else {
-						nestedMenus.registerMenu(HomeMenuIds.COOKING_MENU, {
-							containers: [this.buildCookingContainer(ctx, noWoodMessage)],
-							createCollector: this.createCookingCollector(ctx)
-						});
+						this.registerCookingMenu(ctx, nestedMenus, noWoodNotice);
 					}
 					await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 					return;
@@ -896,7 +904,7 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		craftResult: string,
 		levelUpEmbed?: CrowniclesEmbed
 	): Promise<void> {
-		this.registerIgnitedMenu(ctx, nestedMenus, "", true);
+		this.registerIgnitedMenu(ctx, nestedMenus, undefined, true);
 		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
 
 		const message = nestedMenus.message;
@@ -907,6 +915,10 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 			}
 		}
 
+		this.releaseCookingSession(ctx);
+	}
+
+	private releaseCookingSession(ctx: HomeFeatureHandlerContext): void {
 		this.sessions.delete(ctx.user.id);
 
 		const reactionIndex = ctx.packet.reactions.findIndex(
@@ -915,6 +927,55 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 		if (reactionIndex !== -1) {
 			DiscordCollectorUtils.sendReaction(ctx.packet, ctx.context, ctx.context.keycloakId!, null, reactionIndex);
 		}
+	}
+
+	/**
+	 * Nothing was consumed and the furnace is still lit: show the refreshed recipes so the player can pick again
+	 */
+	private async showBlockedCraft(ctx: HomeFeatureHandlerContext, nestedMenus: CrowniclesNestedMenus, error: CookingCraftError): Promise<void> {
+		// CookingCraftError values are themselves the i18n key suffixes
+		this.registerIgnitedMenu(ctx, nestedMenus, { text: i18n.t(`commands:report.city.homes.cooking.${error}`, { lng: ctx.lng }) });
+		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
+	}
+
+	/**
+	 * The Core answered with something else than a craft result (e.g. an internal error): show it instead of
+	 * swallowing it, and close the furnace like after a craft since its state is unknown
+	 */
+	private async handleUnexpectedCraftAnswer(
+		ctx: HomeFeatureHandlerContext,
+		nestedMenus: CrowniclesNestedMenus,
+		answer: CookingCraftAnswer
+	): Promise<void> {
+		await DiscordMQTT.packetListener.getListener(answer.packetName)?.(answer.context, answer.packet);
+		this.registerIgnitedMenu(ctx, nestedMenus, undefined, true);
+		await nestedMenus.changeMenu(HomeMenuIds.COOKING_MENU);
+		this.releaseCookingSession(ctx);
+	}
+
+	private async handleCraftAnswer(
+		ctx: HomeFeatureHandlerContext,
+		nestedMenus: CrowniclesNestedMenus,
+		answer: CookingCraftAnswer
+	): Promise<void> {
+		if (answer.packetName !== CommandReportCookingCraftRes.name) {
+			await this.handleUnexpectedCraftAnswer(ctx, nestedMenus, answer);
+			return;
+		}
+
+		const response = answer.packet as CommandReportCookingCraftRes;
+		this.applySnapshot(ctx, response.menu);
+		if (response.error) {
+			await this.showBlockedCraft(ctx, nestedMenus, response.error);
+			return;
+		}
+
+		await this.sendCraftFollowup(
+			ctx,
+			nestedMenus,
+			this.buildCraftResultMessage(response, ctx),
+			this.buildLevelUpEmbed(response, ctx)
+		);
 	}
 
 	/**
@@ -927,52 +988,45 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	): Promise<void> {
 		const state = this.getState(ctx);
 		state.craftPending = true;
+		const releaseCraft = (): void => {
+			state.craftPending = false;
+		};
+
+		// Sending resolves at once: hold the guard until the answer so a slow craft cannot be clicked twice
 		try {
 			await DiscordMQTT.asyncPacketSender.sendPacketAndHandleResponse(
 				ctx.context,
 				makePacket(CommandReportCookingCraftReq, craftSelection),
-				async (_responseContext, packetName, responsePacket) => {
-					if (packetName !== CommandReportCookingCraftRes.name) {
-						return;
+				async (responseContext, packetName, responsePacket) => {
+					// The old craft buttons stay clickable until the menu edit completes
+					try {
+						await this.handleCraftAnswer(ctx, nestedMenus, {
+							context: responseContext,
+							packetName,
+							packet: responsePacket
+						});
 					}
-
-					const response = responsePacket as CommandReportCookingCraftRes;
-					this.applySnapshot(ctx, response.menu);
-
-					const {
-						craftResult,
-						levelUpEmbed
-					} = this.buildCraftResultMessages(response, ctx);
-
-					await this.sendCraftFollowup(ctx, nestedMenus, craftResult, levelUpEmbed);
-				}
+					finally {
+						releaseCraft();
+					}
+				},
+				{ onTimeout: releaseCraft }
 			);
 		}
-		finally {
-			state.craftPending = false;
+		catch (error) {
+			releaseCraft();
+			throw error;
 		}
 	}
 
 	/**
-	 * Build the craft result notification message and optional level-up embed
+	 * Build the craft result notification message
 	 */
-	private buildCraftResultMessages(response: CommandReportCookingCraftRes, ctx: HomeFeatureHandlerContext): {
-		craftResult: string;
-		levelUpEmbed?: CrowniclesEmbed;
-	} {
-		if (response.error) {
-			// CookingCraftError values are themselves the i18n key suffixes
-			return { craftResult: i18n.t(`commands:report.city.homes.cooking.${response.error}`, { lng: ctx.lng }) };
-		}
-
-		let message = this.buildCraftBaseMessage(response, ctx);
-		message += this.buildCraftOutputMessage(response, ctx);
-		message += this.buildDiscoveredRecipesMessage(response, ctx);
-
-		return {
-			craftResult: message,
-			levelUpEmbed: this.buildLevelUpEmbed(response, ctx)
-		};
+	private buildCraftResultMessage(response: CommandReportCookingCraftRes, ctx: HomeFeatureHandlerContext): string {
+		return this.buildCraftBaseMessage(response, ctx)
+			+ this.buildCraftOutputMessage(response, ctx)
+			+ this.buildDiscoveredRecipesMessage(response, ctx)
+			+ (response.masterChefBadgeEarned ? i18n.t("commands:report.city.homes.cooking.masterChefBadgeEarned", { lng: ctx.lng }) : "");
 	}
 
 	/**

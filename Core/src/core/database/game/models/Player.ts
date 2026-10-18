@@ -6,7 +6,7 @@ import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
 import { InventoryInfos } from "./InventoryInfo";
 import {
-	LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController
+	assertPlayerHasNoPendingChanges, LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController, PLAYER_RESYNC_CALLERS
 } from "../../../missions/MissionsController";
 import { PlayerActiveObjects } from "./PlayerActiveObjects";
 import {
@@ -205,6 +205,8 @@ export class Player extends Model {
 
 	declare insideCity: boolean;
 
+	declare cityArrivalDate: Date | null;
+
 	declare lastActivityAt: Date;
 
 	declare defenseGloryPoints: number;
@@ -330,6 +332,7 @@ export class Player extends Model {
 	}
 
 	private async mutateLocked(mutate: LockedPlayerMutation): Promise<void> {
+		assertPlayerHasNoPendingChanges(this, PLAYER_RESYNC_CALLERS.MUTATE_LOCKED);
 		const updatedPlayer = await Player.withLocked(this.id, async lockedPlayer => {
 			mutate(lockedPlayer);
 			await lockedPlayer.save();
@@ -865,7 +868,10 @@ export class Player extends Model {
 		});
 	}
 
-	public getMaxStatsValue(level = this.level): StatValues {
+	/**
+	 * Get the attack, defense and speed of the player class at the player level
+	 */
+	public getMaxStatsValue(): StatValues {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		if (!playerClass) {
 			return {
@@ -873,9 +879,9 @@ export class Player extends Model {
 			};
 		}
 		return {
-			attack: playerClass.getAttackValue(level),
-			defense: playerClass.getDefenseValue(level),
-			speed: playerClass.getSpeedValue(level)
+			attack: playerClass.getAttackValue(this.level),
+			defense: playerClass.getDefenseValue(this.level),
+			speed: playerClass.getSpeedValue(this.level)
 		};
 	}
 
@@ -950,8 +956,8 @@ export class Player extends Model {
 	 * in fights (see {@link EnchantmentUtils.getOutgoingDamageMultiplier}), not on the raw attack stat.
 	 * @param playerActiveObjects
 	 */
-	public getCumulativeAttack(playerActiveObjects: PlayerActiveObjects, level = this.level, includePotion = true): number {
-		const playerAttack = this.getMaxStatsValue(level).attack;
+	public getCumulativeAttack(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
+		const playerAttack = this.getMaxStatsValue().attack;
 		const weaponAttack = playerActiveObjects.weapon.item.getAttack(playerActiveObjects.weapon.itemLevel);
 		const armorAttack = playerActiveObjects.armor.item.getAttack(playerActiveObjects.armor.itemLevel);
 		const objectAttack = playerActiveObjects.object.item.getAttack();
@@ -975,8 +981,8 @@ export class Player extends Model {
 	 * in fights (see {@link EnchantmentUtils.getIncomingDamageMultiplier}), not on the raw defense stat.
 	 * @param playerActiveObjects
 	 */
-	public getCumulativeDefense(playerActiveObjects: PlayerActiveObjects, level = this.level, includePotion = true): number {
-		const playerDefense = this.getMaxStatsValue(level).defense;
+	public getCumulativeDefense(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
+		const playerDefense = this.getMaxStatsValue().defense;
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.item.getDefense(playerActiveObjects.weapon.itemLevel) < playerDefense
 				? playerActiveObjects.weapon.item.getDefense(playerActiveObjects.weapon.itemLevel)
@@ -995,8 +1001,8 @@ export class Player extends Model {
 	 * Calculate the cumulative speed of the player
 	 * @param playerActiveObjects
 	 */
-	public getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects, level = this.level, includePotion = true): number {
-		const playerSpeed = this.getMaxStatsValue(level).speed;
+	public getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
+		const playerSpeed = this.getMaxStatsValue().speed;
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.item.getSpeed(playerActiveObjects.weapon.itemLevel) < playerSpeed
 				? playerActiveObjects.weapon.item.getSpeed(playerActiveObjects.weapon.itemLevel)
@@ -1036,11 +1042,11 @@ export class Player extends Model {
 	/**
 	 * Get the player max cumulative energy
 	 */
-	public getMaxCumulativeEnergy(playerActiveObjects: PlayerActiveObjects, level = this.level): number {
+	public getMaxCumulativeEnergy(playerActiveObjects: PlayerActiveObjects): number {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		const multiplier = EnchantmentUtils.getEnchantmentMultiplier(playerActiveObjects, ItemEnchantmentKind.MAX_ENERGY, EnchantmentConstants.MAX_ENERGY_MULTIPLIER);
 
-		return Math.round((playerClass?.getMaxCumulativeEnergyValue(level) ?? FightConstants.PLAYER_MAX_ENERGY) * multiplier);
+		return Math.round((playerClass?.getMaxCumulativeEnergyValue(this.level) ?? FightConstants.PLAYER_MAX_ENERGY) * multiplier);
 	}
 
 	/**
@@ -2017,6 +2023,11 @@ export function initModel(sequelize: Sequelize): void {
 		insideCity: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
+		},
+		cityArrivalDate: {
+			type: DataTypes.DATE,
+			allowNull: true,
+			defaultValue: null
 		},
 		lastActivityAt: {
 			type: DataTypes.DATE,

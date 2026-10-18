@@ -13,7 +13,7 @@ import {
 } from "ws-packets/src/fromServer/fight/RankingsRes";
 import { PlayerNotFound } from "ws-packets/src/fromServer/common/PlayerNotFound";
 import {
-	EloGameResult, FightHistoryEntry, LeagueInfo, LeagueRewardAvailability
+	EloGameResult, FIGHT_HISTORY_ENTRY_TYPES, FightHistoryEntry, KingGuardFightHistoryEntry, LeagueInfo, LeagueRewardAvailability, PlayerFightHistoryEntry
 } from "ws-packets/src/objects/Rankings";
 import {
 	CommandMenu, useCommandMenus
@@ -153,7 +153,7 @@ function HistoryLeagueChange({ change }: { change: {
 }
 
 /** A tap on a fight opens the opponent's profile, as a line of a ranking does. */
-function HistoryEntry({ entry }: { entry: FightHistoryEntry }): ReactNode {
+function PlayerHistoryEntry({ entry }: { entry: PlayerFightHistoryEntry }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
 	const openPlayer = useOpenPlayer();
@@ -188,6 +188,33 @@ function HistoryEntry({ entry }: { entry: FightHistoryEntry }): ReactNode {
 	</Pressable>;
 }
 
+/** A king guard is no player: there is no profile to open, and no glory was at stake. */
+function KingGuardHistoryEntry({ entry }: { entry: KingGuardFightHistoryEntry }): ReactNode {
+	const styles = useStyles();
+	const colors = useColors();
+	const classIcon = AppIcons.getIconOrNull(`classes.${entry.classes.opponent}`);
+	return <View style={styles.history}>
+		<View style={styles.emblem}><Swords size={18} color={colors.muted} /></View>
+		<View style={styles.body}>
+			<Text style={styles.title} numberOfLines={1}>{i18n.t("commands:fight.kingGuard.name")}</Text>
+			<Text style={[styles.result, { color: colors[RESULT_COLORS[entry.result]] }]}>{i18n.t(RESULT_LABELS[entry.result])}</Text>
+			<View style={styles.meta}>
+				{classIcon ? <TwemojiIcon emoji={classIcon} size={12} /> : null}
+				<Text style={styles.metaText} numberOfLines={1}>{i18n.t(`models:classes.${entry.classes.opponent}`)} · {i18n.t("app:battle.level", { level: entry.kingGuard.level })} · {missionDate(entry.date)}</Text>
+			</View>
+		</View>
+		<View style={styles.end}>
+			<Text style={styles.metaText}>{i18n.t("app:arena.history.noGloryAtStake")}</Text>
+		</View>
+	</View>;
+}
+
+function HistoryEntry({ entry }: { entry: FightHistoryEntry }): ReactNode {
+	return entry.type === FIGHT_HISTORY_ENTRY_TYPES.KING_GUARD
+		? <KingGuardHistoryEntry entry={entry} />
+		: <PlayerHistoryEntry entry={entry} />;
+}
+
 function historyMonth(date: number): string {
 	return new Intl.DateTimeFormat(i18n.language, {
 		month: "long", year: "numeric"
@@ -213,7 +240,7 @@ export function FightHistoryContent({ history }: { history: FightHistoryEntry[] 
 	}
 	return <>{groupHistoryByMonth(history).map((group, index) => <View key={group.label}>
 		<SectionHeader first={index === 0}>{group.label}</SectionHeader>
-		<ExpandableList>{group.entries.map(entry => <HistoryEntry key={entry.id} entry={entry} />)}</ExpandableList>
+		<ExpandableList>{group.entries.map(entry => <HistoryEntry key={`${entry.type}-${entry.id}`} entry={entry} />)}</ExpandableList>
 	</View>)}</>;
 }
 

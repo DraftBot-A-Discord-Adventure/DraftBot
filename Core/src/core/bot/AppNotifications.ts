@@ -14,7 +14,6 @@ import { GuildStatusChangeNotificationPacket } from "../../../../Lib/src/packets
 import { PlayerFreedFromJailNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
 import { PlayerWasAttackedNotificationPacket } from "../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 import { ExpeditionFinishedNotificationPacket } from "../../../../Lib/src/packets/notifications/ExpeditionFinishedNotificationPacket";
-import { TournamentNotificationPacket } from "../../../../Lib/src/packets/notifications/TournamentNotificationPacket";
 import { MqttTopicUtils } from "../../../../Lib/src/utils/MqttTopicUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { AppNotificationPreference } from "../database/game/models/AppNotificationPreference";
@@ -32,8 +31,7 @@ const APP_NOTIFICATION_TYPES: ReadonlyMap<string, NotificationType> = new Map([
 	[GuildStatusChangeNotificationPacket.name, NOTIFICATION_TYPES.GUILD_STATUS_CHANGE],
 	[PlayerFreedFromJailNotificationPacket.name, NOTIFICATION_TYPES.PLAYER_FREED_FROM_JAIL],
 	[PlayerWasAttackedNotificationPacket.name, NOTIFICATION_TYPES.FIGHT_CHALLENGE],
-	[ExpeditionFinishedNotificationPacket.name, NOTIFICATION_TYPES.PET_EXPEDITION],
-	[TournamentNotificationPacket.name, NOTIFICATION_TYPES.TOURNAMENT]
+	[ExpeditionFinishedNotificationPacket.name, NOTIFICATION_TYPES.PET_EXPEDITION]
 ]);
 
 export function appNotificationType(notification: NotificationPacket): NotificationType | undefined {

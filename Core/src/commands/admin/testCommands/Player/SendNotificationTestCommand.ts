@@ -15,10 +15,6 @@ import { GuildStatusChangeNotificationPacket } from "../../../../../../Lib/src/p
 import { PlayerFreedFromJailNotificationPacket } from "../../../../../../Lib/src/packets/notifications/PlayerFreedFromJailNotificationPacket";
 import { PlayerWasAttackedNotificationPacket } from "../../../../../../Lib/src/packets/notifications/PlayerWasAttackedNotificationPacket";
 import { ExpeditionFinishedNotificationPacket } from "../../../../../../Lib/src/packets/notifications/ExpeditionFinishedNotificationPacket";
-import { TournamentNotificationPacket } from "../../../../../../Lib/src/packets/notifications/TournamentNotificationPacket";
-import {
-	TournamentCategories, TournamentNotificationEvents
-} from "../../../../../../Lib/src/types/Tournament";
 import { StringConstants } from "../../../../../../Lib/src/constants/StringConstants";
 
 /** One sample of each notification, sent to the player themselves: the other player named in it is them too. */
@@ -75,15 +71,6 @@ const SAMPLES: Record<string, (keycloakId: string) => NotificationPacket> = {
 		keycloakId,
 		petId: 1,
 		petSex: StringConstants.SEX.FEMALE.short
-	}),
-	tournament: keycloakId => makePacket(TournamentNotificationPacket, {
-		keycloakId,
-		event: TournamentNotificationEvents.ENDED,
-		tournamentId: 0,
-		category: TournamentCategories.LEVEL_50,
-		participantCount: 10,
-		categoryParticipantCount: 5,
-		rank: 3
 	})
 };
 

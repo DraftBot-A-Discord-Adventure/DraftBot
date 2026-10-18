@@ -10,6 +10,7 @@ import {
 	ReactionCollectorCityUpgradeHomeReaction,
 	ReactionCollectorCityBuyHomeReaction,
 	ReactionCollectorEnchantReaction,
+	ReactionCollectorEnchanterDisenchantReaction,
 	ReactionCollectorExitCityReaction,
 	ReactionCollectorGardenCompostReaction,
 	ReactionCollectorGardenHarvestReaction,
@@ -17,6 +18,7 @@ import {
 	ReactionCollectorGuildDomainMenuReaction,
 	ReactionCollectorGuildDomainNotaryReaction,
 	ReactionCollectorHomeBedReaction,
+	ReactionCollectorHomeChestCloseReaction,
 	ReactionCollectorHomeMenuReaction,
 	ReactionCollectorInnMealReaction,
 	ReactionCollectorInnRoomReaction,
@@ -45,12 +47,16 @@ export const cityReactionMappings: ReactionMapping[] = [
 	defineReactionMapping(ReactionCollectorEnchantReaction, CITY_REACTION_KINDS.ENCHANT, reaction => ({
 		slot: reaction.slot, itemCategory: reaction.itemCategory
 	})),
+	defineReactionMapping(ReactionCollectorEnchanterDisenchantReaction, CITY_REACTION_KINDS.ENCHANTER_DISENCHANT, reaction => ({
+		slot: reaction.slot, itemCategory: reaction.itemCategory
+	})),
 	defineReactionMapping(ReactionCollectorCityShopReaction, CITY_REACTION_KINDS.SHOP, reaction => ({ shopId: reaction.shopId })),
 	defineReactionMapping(ReactionCollectorCityBuyHomeReaction, CITY_REACTION_KINDS.BUY_HOME, () => ({})),
 	defineReactionMapping(ReactionCollectorCityUpgradeHomeReaction, CITY_REACTION_KINDS.UPGRADE_HOME, () => ({})),
 	defineReactionMapping(ReactionCollectorCityMoveHomeReaction, CITY_REACTION_KINDS.MOVE_HOME, () => ({})),
 	defineReactionMapping(ReactionCollectorHomeMenuReaction, CITY_REACTION_KINDS.HOME_MENU, () => ({})),
 	defineReactionMapping(ReactionCollectorHomeBedReaction, CITY_REACTION_KINDS.HOME_BED, () => ({})),
+	defineReactionMapping(ReactionCollectorHomeChestCloseReaction, CITY_REACTION_KINDS.HOME_CHEST_CLOSE, () => ({})),
 	defineReactionMapping(ReactionCollectorUpgradeItemReaction, CITY_REACTION_KINDS.UPGRADE_ITEM, reaction => ({
 		slot: reaction.slot, itemCategory: reaction.itemCategory
 	})),

@@ -2,7 +2,10 @@ import {
 	CITY_REACTION_KINDS, CityMobileItem, CityMobileSnapshot, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
 import { formatMoney } from "@/src/display/Amounts";
-import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	enchantedItemForReaction, itemSnapshotForReaction
+} from "@/src/collectors/CityItemPresentation";
+import { i18n } from "@/src/translations/i18n";
 import { upgradeForReaction } from "@/src/collectors/CityUpgrades";
 
 /** The blacksmith's own fee: materials are gathered first, buying them is only the fallback. The home station is free. */
@@ -43,6 +46,7 @@ const END_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], EndResolv
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: upgradeEnd,
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: upgradeEnd,
 	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (_, snapshot, item) => disenchantEnd(snapshot, item),
+	[CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]: (reaction, snapshot) => enchantedItemForReaction(snapshot, reaction) ? i18n.t("app:city.free") : undefined,
 	[CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE]: (_, snapshot, item) => recycleEnd(snapshot, item),
 	[CITY_REACTION_KINDS.BUY_HOME]: (_, snapshot) => snapshot?.home?.manage?.newPrice === undefined ? undefined : formatMoney(snapshot.home.manage.newPrice),
 	[CITY_REACTION_KINDS.UPGRADE_HOME]: (_, snapshot) => snapshot?.home?.manage?.upgradePrice === undefined ? undefined : formatMoney(snapshot.home.manage.upgradePrice),

@@ -8,8 +8,7 @@ export const NOTIFICATION_TYPES = {
 	GUILD_STATUS_CHANGE: "guildStatusChange",
 	PLAYER_FREED_FROM_JAIL: "playerFreedFromJail",
 	FIGHT_CHALLENGE: "fightChallenge",
-	PET_EXPEDITION: "petExpedition",
-	TOURNAMENT: "tournament"
+	PET_EXPEDITION: "petExpedition"
 } as const;
 
 export type NotificationType = typeof NOTIFICATION_TYPES[keyof typeof NOTIFICATION_TYPES];

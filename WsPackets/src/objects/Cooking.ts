@@ -70,6 +70,7 @@ export type CraftResult = {
 	cookingLevelUp: boolean;
 	newCookingLevel?: number;
 	newCookingGrade?: string;
+	masterChefBadgeEarned?: boolean;
 	materialSaved?: number;
 	bonusOutput?: boolean;
 	discoveredRecipes?: RecipeDisplayInfo[];

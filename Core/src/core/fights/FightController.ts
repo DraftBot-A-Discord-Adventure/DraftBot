@@ -33,13 +33,12 @@ import { PetAssistance } from "../../data/PetAssistance";
 import { getAiPetBehavior } from "./PetAssistManager";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { FightsManager } from "./FightsManager";
-import type { TournamentFightContext } from "../tournaments/TournamentTypes";
 
 type FightControllerOptions = {
 	overtimeBehavior: FightOvertimeBehavior;
 	context: PacketContext;
 	silentMode?: boolean;
-	tournamentContext?: TournamentFightContext;
+	friendly?: boolean;
 };
 
 export class FightController {
@@ -61,7 +60,7 @@ export class FightController {
 
 	private readonly silentMode: boolean;
 
-	public readonly tournamentContext?: TournamentFightContext;
+	public readonly friendly: boolean;
 
 	public petReactionData?: {
 		keycloakId: string;
@@ -87,7 +86,7 @@ export class FightController {
 		this._fightView = new FightView(options.context, this);
 		this.overtimeBehavior = options.overtimeBehavior;
 		this.silentMode = options.silentMode ?? false;
-		this.tournamentContext = options.tournamentContext;
+		this.friendly = options.friendly ?? false;
 	}
 
 	/**
@@ -129,13 +128,6 @@ export class FightController {
 		}
 		this._fightView.introduceFight(response, this.fightInitiator, opponent);
 		this._fightView.displayFightStatus(response);
-	}
-
-	/**
-	 * Check whether this fight was cancelled because its Discord interaction failed.
-	 */
-	public isBugged(): boolean {
-		return this.state === FightState.BUG;
 	}
 
 	/**

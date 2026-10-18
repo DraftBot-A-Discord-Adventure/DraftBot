@@ -12,6 +12,7 @@ const CITY_ICON_PATHS: Partial<Record<ReactionCollectorReaction["type"], string>
 	[CITY_REACTION_KINDS.INN_MEAL]: "city.inn",
 	[CITY_REACTION_KINDS.INN_ROOM]: "city.inn",
 	[CITY_REACTION_KINDS.ENCHANT]: "city.services.enchanter",
+	[CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]: "city.blacksmith.disenchant",
 	[CITY_REACTION_KINDS.BUY_HOME]: "city.manageHome",
 	[CITY_REACTION_KINDS.UPGRADE_HOME]: "city.manageHome",
 	[CITY_REACTION_KINDS.MOVE_HOME]: "city.manageHome",

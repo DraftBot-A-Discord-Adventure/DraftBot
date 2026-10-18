@@ -1115,9 +1115,9 @@ export const CrowniclesIcons: {
 		be: "🏖️",
 		castleEntrance: "🏰",
 		castleThrone: "🪑",
-		cavern: "🪨",
+		cavern: "🌊",
 		ci: "🏘️",
-		continent: "🏞️",
+		continent: "🗺️",
 		creek: "🌅",
 		crystalCavern: "💎",
 		de: "🏜️",
@@ -1140,7 +1140,7 @@ export const CrowniclesIcons: {
 		undergroundLake: "💧",
 		dragonsNest: "🪹",
 		mistyPath: "🌫️",
-		hauntedHouse: "🏚️"
+		hauntedHouse: "👻"
 	},
 	smallEvents: {
 		advanceTime: "⌛",
@@ -1942,6 +1942,7 @@ export const CrowniclesIcons: {
 		0: "👊",
 		1: "⚡",
 		10: "⚔️",
+		100: "⚰️",
 		11: "🔫",
 		12: "💉",
 		13: "💣",
@@ -2232,10 +2233,12 @@ export const CrowniclesIcons: {
 		celestialLightning: "⚡",
 		earthquake: "🌎",
 		energeticAttack: "⚡",
+		elementaryPiercingAttack: "🔮",
 		eruptionAttack: "🌋",
 		familyMealAttack: "🍽️",
 		fatalFlight: "🐦‍⬛",
 		fireAttack: "🔥",
+		guardianPowerfulAttack: "🪓",
 		frozen: "🥶",
 		aceratedFangs: "🦷",
 		frozenKissAttack: "💋",
@@ -2289,7 +2292,11 @@ export const CrowniclesIcons: {
 		rockShieldAttack: "⛰️",
 		sabotageAttack: "🛠️",
 		shieldAttack: "🛡️",
+		skeletonCursedAttack: "👿",
+		skeletonShieldAttack: "🦴",
+		skeletonSimpleAttack: "🦴",
 		simpleAttack: "⚔️",
+		spiderPoisonAttack: "🧪",
 		sing: "🎶",
 		slamAttack: "🦶",
 		sleeping: "😴",
@@ -2310,6 +2317,7 @@ export const CrowniclesIcons: {
 		tentacleBlowAttack: "🪢",
 		tentacleShield: "🐙",
 		tidalWave: "🌊",
+		titanFireAttack: "🔥",
 		ultimateAttack: "☄️",
 		waterJet: "💦",
 		wateryGust: "🔘",
@@ -2410,7 +2418,8 @@ export const CrowniclesIcons: {
 		[Badge.ANIMAL_LOVER]: "🐾",
 		[Badge.EXPERT_EXPEDITEUR]: "🧭",
 		[Badge.ORACLE_PATRON]: "⛩️",
-		[Badge.SENTIMENTAL_CRAFTER]: "❤️‍🔥"
+		[Badge.SENTIMENTAL_CRAFTER]: "❤️‍🔥",
+		[Badge.MASTER_CHEF]: "🍽️"
 	},
 	itemKinds: [
 		"⚔️",
@@ -2431,8 +2440,7 @@ export const CrowniclesIcons: {
 			guildStatusChange: "📜",
 			energy: "⚡",
 			dailyBonus: "📅",
-			petExpedition: "🐾",
-			tournament: "🏆"
+			petExpedition: "🐾"
 		}
 	},
 	missions: {

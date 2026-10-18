@@ -140,6 +140,8 @@ describe("packet contracts", () => {
 			profileResponse: true,
 			reportTravelSummary: true,
 			reportStayInCity: true,
+			reportDestination: true,
+			enchanterDisenchant: true,
 			reportBigEventResult: true,
 			reportUseTokensAccepted: true,
 			reportUseTokensRefused: true,

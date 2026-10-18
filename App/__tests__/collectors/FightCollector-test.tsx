@@ -364,6 +364,39 @@ describe("live battle presentation", () => {
 		await fireEvent.press(screen.getByText("app:adventure.continueReport"));
 		expect(close).toHaveBeenCalledTimes(1);
 	});
+	it("ends a fight against a king guard on its rewards, with no glory at stake", async () => {
+		const initial = battle();
+		const guardFight: FightSnapshot = {
+			...initial,
+			introduction: {
+				...initial.introduction!,
+				opponent: {
+					isSelf: false, isKingGuard: true
+				}
+			},
+			result: {
+				winner: {
+					isSelf: true, name: "Aster", finalEnergy: 40, maxEnergy: 100
+				},
+				loser: {
+					isSelf: false, isKingGuard: true, finalEnergy: 0, maxEnergy: 300
+				},
+				draw: false,
+				turns: 9,
+				maxTurns: 26
+			},
+			reward: {
+				points: 35, money: 42, draw: false, won: true
+			}
+		};
+		await render(<FightLiveView fight={guardFight} onChoose={jest.fn()} submitting={false} onClose={jest.fn()} />);
+		expect(screen.getByText("app:arena.victory")).toBeTruthy();
+		expect(screen.getByText("app:arena.kingGuardNoGlory")).toBeTruthy();
+		expect(screen.getAllByText("commands:fight.kingGuard.name").length).toBeGreaterThan(0);
+		expect(screen.getByText("42")).toBeTruthy();
+		expect(screen.queryByText("app:arena.league")).toBeNull();
+		expect(screen.getByText("app:battle.returnToArena")).toBeTruthy();
+	});
 	it("omits moving visual effects when reduced motion is enabled", async () => {
 		jest.spyOn(AccessibilityInfo, "isReduceMotionEnabled").mockResolvedValue(true);
 		const initial = battle();

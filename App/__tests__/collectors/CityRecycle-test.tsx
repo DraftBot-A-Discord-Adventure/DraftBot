@@ -66,7 +66,7 @@ describe("scrap dealer bench", () => {
 		] }), deps);
 
 		expect(sections.map(section => section.title)).toEqual(["À démonter"]);
-		expect(sections[0].items.map(describeItem)).toEqual(["reaction", expect.stringMatching(/Enchanté : à désenchanter chez un forgeron d'abord$/u)]);
+		expect(sections[0].items.map(describeItem)).toEqual(["reaction", expect.stringMatching(/Enchanté : à désenchanter d'abord$/u)]);
 	});
 
 	it("says which items it takes when the bench stays empty", () => {

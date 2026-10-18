@@ -36,8 +36,6 @@ export class AppNotificationPreference extends Model {
 
 	declare petExpedition: boolean;
 
-	declare tournament: boolean;
-
 	declare updatedAt: Date;
 
 	declare createdAt: Date;

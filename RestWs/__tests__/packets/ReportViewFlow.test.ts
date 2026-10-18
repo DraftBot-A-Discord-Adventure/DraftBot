@@ -1,8 +1,13 @@
 import {describe, expect, it} from "vitest";
 import {makePacket, PacketContext} from "../../../Lib/src/packets/CrowniclesPacket";
 import {CommandReportViewRes} from "../../../Lib/src/packets/commands/CommandReportViewPacket";
-import {CommandReportTravelSummaryRes} from "../../../Lib/src/packets/commands/CommandReportPacket";
-import {ReactionCollectorCityData, ReactionCollectorExitCityReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import {CommandReportEquipmentChangedRes, CommandReportTravelSummaryRes} from "../../../Lib/src/packets/commands/CommandReportPacket";
+import {ReactionCollectorCityData, ReactionCollectorEnchanterDisenchantReaction, ReactionCollectorExitCityReaction, ReactionCollectorHomeChestCloseReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
+import {MainItemDetails} from "../../../Lib/src/types/MainItemDetails";
+import {REPORT_CITY_ACTION_RESULTS} from "../../../WsPackets/src/objects/ReportView";
+import {ReportCityActionRes} from "../../../WsPackets/src/fromServer/report/ReportViewRes";
+import {getServerTranslator} from "../../src/packets/fromServer/FromServerTranslator";
 import {ReportCityActionReq, ReportViewReq} from "../../../WsPackets/src/fromClient/ReportViewReq";
 import ReportViewClientTranslator from "../../src/packets/fromClient/translators/ReportViewClientTranslator";
 import ReportViewServerTranslator from "../../src/packets/fromServer/translators/ReportViewServerTranslator";
@@ -34,5 +39,38 @@ describe("read-only adventure protocol", () => {
 		expect(result.city).not.toHaveProperty("endTime");
 		expect(result.city).not.toHaveProperty("id");
 		expect(JSON.stringify(result)).not.toContain("authenticated");
+	});
+
+	it("answers an action on moved equipment as a stale one, the refreshed city following", async () => {
+		const translator = getServerTranslator(CommandReportEquipmentChangedRes.name);
+		expect(translator?.protoName).toBe(ReportCityActionRes.wireName);
+		const result = await ReportViewServerTranslator.equipmentChanged(CONTEXT, makePacket(CommandReportEquipmentChangedRes, {}));
+		expect(result.result).toBe(REPORT_CITY_ACTION_RESULTS.STALE);
+	});
+
+	it("lists the free disenchanting of the enchanter, the guaranteed stay points, and names the Discord-only chest close", async () => {
+		const enchantedItem = {slot: 0, category: ItemCategory.WEAPON, details: {id: 12, itemLevel: 2} as MainItemDetails, enchantmentId: "attack1", enchantmentType: "damage"};
+		const data = Object.assign(new ReactionCollectorCityData(), {
+			mapTypeId: "ci", mapLocationId: 23, availableServices: ["enchanter"], energy: {current: 100, max: 100}, health: {current: 100, max: 100}, home: {}, apartmentNotary: {ownedApartments: []},
+			minimumCityStayScore: 42,
+			enchanter: {
+				enchantableItems: [], isInventoryEmpty: false, disenchantableItems: [enchantedItem], unenchantedItemsInOtherSlotCount: 0,
+				enchantmentId: "defense1", enchantmentType: "defense", enchantmentSlot: ItemCategory.ARMOR, enchantmentCost: {money: 100, gems: 2},
+				mageReduction: false, playerMoney: 500, playerGems: 3
+			}
+		});
+		const result = await ReportViewServerTranslator.view(CONTEXT, makePacket(CommandReportViewRes, {reportReady: false, city: {data, actions: [
+			{id: "b".repeat(64), reaction: {type: ReactionCollectorEnchanterDisenchantReaction.name, data: {slot: 0, itemCategory: ItemCategory.WEAPON}}},
+			{id: "c".repeat(64), reaction: {type: ReactionCollectorHomeChestCloseReaction.name, data: {}}}
+		]}}));
+		expect(result.city?.actions.map(action => action.reaction)).toEqual([
+			{type: "cityEnchanterDisenchant", data: {slot: 0, itemCategory: ItemCategory.WEAPON}},
+			{type: "homeChestClose", data: {}}
+		]);
+		expect(result.city?.data).toMatchObject({type: "city", data: {snapshot: {
+			minimumCityStayScore: 42,
+			enchanter: {disenchantableItems: [{slot: 0, itemId: 12, itemCategory: ItemCategory.WEAPON, itemLevel: 2, enchantmentId: "attack1", enchantmentType: "damage"}]}
+		}}});
+		expect(result.city?.data.data).not.toHaveProperty("snapshot.enchanter.isInventoryEmpty");
 	});
 });

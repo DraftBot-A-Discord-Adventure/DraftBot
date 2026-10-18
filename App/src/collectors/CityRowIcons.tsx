@@ -6,7 +6,7 @@ import {
 	cityIconPath, iconForPath
 } from "@/src/collectors/CityIcons";
 import {
-	cityItemIconPath, itemSnapshotForReaction
+	cityItemIconPath, enchantedItemForReaction, itemSnapshotForReaction
 } from "@/src/collectors/CityItemPresentation";
 
 const ITEM_REACTION_TYPES = new Set<string>([
@@ -17,12 +17,13 @@ const ITEM_REACTION_TYPES = new Set<string>([
 	CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE
 ]);
 
+const DISENCHANT_REACTION_TYPES = new Set<string>([CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT, CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]);
+
 function disenchantIcon(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): ReactNode | undefined {
-	if (reaction.type !== CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT) {
+	if (!DISENCHANT_REACTION_TYPES.has(reaction.type)) {
 		return undefined;
 	}
-	const item = itemSnapshotForReaction(snapshot, reaction);
-	const disenchant = item && snapshot?.blacksmith?.disenchantableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
+	const disenchant = enchantedItemForReaction(snapshot, reaction);
 	return disenchant ? iconForPath(`enchantmentTypes.${disenchant.enchantmentType}`) : undefined;
 }
 
