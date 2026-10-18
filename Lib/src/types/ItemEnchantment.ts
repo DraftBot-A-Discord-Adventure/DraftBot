@@ -5,6 +5,14 @@ import { ItemCategory } from "../constants/ItemConstants";
 
 export type EnchantmentSlot = ItemCategory.WEAPON | ItemCategory.ARMOR;
 
+/**
+ * Price the enchanter charges to apply an enchantment
+ */
+export type EnchantmentCost = {
+	money: number;
+	gems: number;
+};
+
 export class ItemEnchantmentKind {
 	public static readonly PVP_ATTACK = new ItemEnchantmentKind("pvpAttack", ItemEnchantmentType.DAMAGE, ItemCategory.WEAPON);
 
@@ -142,10 +150,7 @@ export class ItemEnchantment {
 		return this.pickWeighted(this.getAllEnchantments().filter(e => e.kind.slot === slot));
 	}
 
-	public getEnchantmentCost(isMage: boolean): {
-		money: number;
-		gems: number;
-	} {
+	public getEnchantmentCost(isMage: boolean): EnchantmentCost {
 		return {
 			money: Math.round(EnchantmentConstants.PROBABILITY_WEIGHT_TO_COST.MONEY[this.probabilityWeight - 1] * (isMage ? EnchantmentConstants.ENCHANTMENT_MAGE_REDUCTION : 1)),
 			gems: Math.round(EnchantmentConstants.PROBABILITY_WEIGHT_TO_COST.GEMS[this.probabilityWeight - 1] * (isMage ? EnchantmentConstants.ENCHANTMENT_MAGE_REDUCTION : 1))

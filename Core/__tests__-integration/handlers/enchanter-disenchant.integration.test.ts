@@ -1,22 +1,16 @@
 import {
 	afterAll, beforeAll, beforeEach, describe, expect, it
 } from "vitest";
-import type { ModelStatic } from "sequelize";
+import { loadProductionModule } from "../_coreSetup";
 import {
-	CoreTestEnvironment, loadProductionModule, setupCoreForTests
-} from "../_coreSetup";
+	buildEnchanterOpeningData, createPlayerWithCurrencies, EnchanterTestEnvironment, expectCurrencies, setupEnchanterTests, truncateEnchanterTables
+} from "../_enchanterSetup";
 import type { Player as PlayerType } from "../../src/core/database/game/models/Player";
-import type { InventorySlot as InventorySlotType } from "../../src/core/database/game/models/InventorySlot";
-import type InventoryInfoType from "../../src/core/database/game/models/InventoryInfo";
-import type { PlayerMissionsInfo as PlayerMissionsInfoType } from "../../src/core/database/game/models/PlayerMissionsInfo";
 import { ItemCategory } from "../../../Lib/src/constants/ItemConstants";
 import { ItemEnchantment } from "../../../Lib/src/types/ItemEnchantment";
 import { CrowniclesPacket } from "../../../Lib/src/packets/CrowniclesPacket";
 import { ReactionCollectorCityData } from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 
-type CityServiceModule = typeof import("../../src/core/report/ReportCityService");
-type EnchanterServiceModule = typeof import("../../src/core/report/ReportCityEnchanterService");
-type InventorySlotModule = typeof import("../../src/core/database/game/models/InventorySlot");
 type BlacksmithDataModule = typeof import("../../src/core/report/ReportBlacksmithService");
 
 const KEYCLOAK_ID = "enchanter-disenchant";
@@ -36,30 +30,17 @@ const RESERVE_ENCHANTMENT = ItemEnchantment.ALL_ATTACK_1;
  * Issue #4960: the enchanter removes enchantments for free
  */
 describe("Enchanter free disenchant (issue #4960)", () => {
-	let env: CoreTestEnvironment;
-	let Player: ModelStatic<PlayerType>;
-	let InventorySlot: ModelStatic<InventorySlotType>;
-	let InventoryInfo: ModelStatic<InventoryInfoType>;
-	let PlayerMissionsInfo: ModelStatic<PlayerMissionsInfoType>;
-	let cityService: CityServiceModule;
-	let enchanterService: EnchanterServiceModule;
-	let inventorySlots: InventorySlotModule;
+	let enchanterEnv: EnchanterTestEnvironment;
 	let blacksmithData: BlacksmithDataModule;
 
 	async function setupPlayer(): Promise<PlayerType> {
-		const player = await Player.create({
+		const player = await createPlayerWithCurrencies(enchanterEnv, {
 			keycloakId: KEYCLOAK_ID,
-			money: PLAYER_MONEY
-		});
-		await PlayerMissionsInfo.create({
-			playerId: player.id,
-			gems: PLAYER_GEMS
-		});
-		await InventoryInfo.create({
-			playerId: player.id,
+			money: PLAYER_MONEY,
+			gems: PLAYER_GEMS,
 			weaponSlots: RESERVE_SLOT + 1
 		});
-		await InventorySlot.create({
+		await enchanterEnv.InventorySlot.create({
 			playerId: player.id,
 			slot: 0,
 			itemCategory: ItemCategory.WEAPON,
@@ -67,7 +48,7 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 			itemLevel: 0,
 			itemEnchantmentId: EQUIPPED_ENCHANTMENT.id
 		});
-		await InventorySlot.create({
+		await enchanterEnv.InventorySlot.create({
 			playerId: player.id,
 			slot: RESERVE_SLOT,
 			itemCategory: ItemCategory.WEAPON,
@@ -78,22 +59,9 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 		return player;
 	}
 
-	async function buildOpeningData(player: PlayerType): Promise<ReactionCollectorCityData> {
-		return {
-			enchanter: await cityService.buildEnchanterData({
-				inventory: await inventorySlots.InventorySlots.getOfPlayer(player.id),
-				player
-			}, {
-				enchantment: ENCHANTMENT_OF_THE_DAY,
-				enchantmentId: ENCHANTMENT_OF_THE_DAY.id,
-				isPlayerMage: false
-			})
-		} as unknown as ReactionCollectorCityData;
-	}
-
 	async function disenchant(player: PlayerType, slot: number, openingData: ReactionCollectorCityData): Promise<string[]> {
 		const response: CrowniclesPacket[] = [];
-		await enchanterService.handleEnchanterDisenchantReaction(player, {
+		await enchanterEnv.enchanterService.handleEnchanterDisenchantReaction(player, {
 			slot,
 			itemCategory: ItemCategory.WEAPON
 		}, openingData, response);
@@ -101,7 +69,7 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 	}
 
 	async function getWeaponEnchantment(playerId: number, slot: number): Promise<string | null | undefined> {
-		const inventorySlot = await InventorySlot.findOne({
+		const inventorySlot = await enchanterEnv.InventorySlot.findOne({
 			where: {
 				playerId,
 				slot,
@@ -112,46 +80,28 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 	}
 
 	async function expectCurrenciesUntouched(player: PlayerType): Promise<void> {
-		await player.reload();
-		expect(player.money).toBe(PLAYER_MONEY);
-		const missionsInfo = await PlayerMissionsInfo.findOne({ where: { playerId: player.id } });
-		expect(missionsInfo?.gems).toBe(PLAYER_GEMS);
+		await expectCurrencies(enchanterEnv, player, {
+			money: PLAYER_MONEY,
+			gems: PLAYER_GEMS
+		});
 	}
 
 	beforeAll(async () => {
-		env = await setupCoreForTests("enchanterdisenchant");
-		const models = env.crownicles.gameDatabase.sequelize.models;
-		Player = models.Player as ModelStatic<PlayerType>;
-		InventorySlot = models.InventorySlot as ModelStatic<InventorySlotType>;
-		InventoryInfo = models.InventoryInfo as ModelStatic<InventoryInfoType>;
-		PlayerMissionsInfo = models.PlayerMissionsInfo as ModelStatic<PlayerMissionsInfoType>;
-		cityService = loadProductionModule<CityServiceModule>("core/report/ReportCityService");
-		enchanterService = loadProductionModule<EnchanterServiceModule>("core/report/ReportCityEnchanterService");
-		inventorySlots = loadProductionModule<InventorySlotModule>("core/database/game/models/InventorySlot");
+		enchanterEnv = await setupEnchanterTests("enchanterdisenchant");
 		blacksmithData = loadProductionModule<BlacksmithDataModule>("core/report/ReportBlacksmithService");
 	});
 
 	afterAll(async () => {
-		await env?.teardown();
+		await enchanterEnv?.env.teardown();
 	});
 
 	beforeEach(async () => {
-		await env.crownicles.gameDatabase.sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
-		try {
-			for (const model of [InventorySlot, InventoryInfo, PlayerMissionsInfo, Player]) {
-				await (model as ModelStatic<PlayerType>).destroy({
-					truncate: true, force: true
-				});
-			}
-		}
-		finally {
-			await env.crownicles.gameDatabase.sequelize.query("SET FOREIGN_KEY_CHECKS = 1");
-		}
+		await truncateEnchanterTables(enchanterEnv);
 	});
 
 	it("lists every enchanted weapon, equipped or in reserve", async () => {
 		const player = await setupPlayer();
-		const openingData = await buildOpeningData(player);
+		const openingData = await buildEnchanterOpeningData(enchanterEnv, player, ENCHANTMENT_OF_THE_DAY);
 
 		expect(openingData.enchanter!.disenchantableItems.map(item => [item.slot, item.enchantmentId])).toEqual([
 			[0, EQUIPPED_ENCHANTMENT.id],
@@ -161,7 +111,7 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 
 	it("removes the enchantment of a reserve weapon without charging anything", async () => {
 		const player = await setupPlayer();
-		const openingData = await buildOpeningData(player);
+		const openingData = await buildEnchanterOpeningData(enchanterEnv, player, ENCHANTMENT_OF_THE_DAY);
 
 		expect(await disenchant(player, RESERVE_SLOT, openingData)).toEqual(["CommandReportEnchanterDisenchantRes"]);
 
@@ -172,8 +122,8 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 
 	it("refuses to disenchant a weapon whose enchantment changed since the menu was opened", async () => {
 		const player = await setupPlayer();
-		const openingData = await buildOpeningData(player);
-		await InventorySlot.update({ itemEnchantmentId: ENCHANTMENT_OF_THE_DAY.id }, {
+		const openingData = await buildEnchanterOpeningData(enchanterEnv, player, ENCHANTMENT_OF_THE_DAY);
+		await enchanterEnv.InventorySlot.update({ itemEnchantmentId: ENCHANTMENT_OF_THE_DAY.id }, {
 			where: {
 				playerId: player.id,
 				slot: 0,
@@ -188,7 +138,7 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 
 	it("disenchants exactly once under concurrent confirmations", async () => {
 		const player = await setupPlayer();
-		const openingData = await buildOpeningData(player);
+		const openingData = await buildEnchanterOpeningData(enchanterEnv, player, ENCHANTMENT_OF_THE_DAY);
 
 		const results = await Promise.all(Array.from({ length: CONCURRENT_REQUESTS }, () => disenchant(player, 0, openingData)));
 
@@ -201,13 +151,13 @@ describe("Enchanter free disenchant (issue #4960)", () => {
 	it("keeps charging the blacksmith price for the same operation", async () => {
 		const player = await setupPlayer();
 		const openingData = {
-			blacksmith: blacksmithData.buildBlacksmithData(await inventorySlots.InventorySlots.getOfPlayer(player.id), new Map(), player)
+			blacksmith: blacksmithData.buildBlacksmithData(await enchanterEnv.inventorySlots.InventorySlots.getOfPlayer(player.id), new Map(), player)
 		} as unknown as ReactionCollectorCityData;
 		const listedItem = openingData.blacksmith!.disenchantableItems.find(item => item.slot === 0)!;
 		expect(listedItem.disenchantCost).toBeGreaterThan(0);
 
 		const response: CrowniclesPacket[] = [];
-		await cityService.handleBlacksmithDisenchantReaction(player, {
+		await enchanterEnv.cityService.handleBlacksmithDisenchantReaction(player, {
 			slot: 0,
 			itemCategory: ItemCategory.WEAPON
 		}, openingData, response);

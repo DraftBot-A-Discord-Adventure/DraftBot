@@ -135,16 +135,16 @@ export async function setupIntegrationDb(suiteName: string): Promise<Integration
 }
 
 /**
- * Resolve when `predicate()` returns true, polling at `intervalMs`. Used by
+ * Resolve when `predicate()` returns (or resolves to) true, polling at `intervalMs`. Used by
  * race tests that need to assert "transaction B is still pending" without
  * sleeping for an arbitrary duration.
  */
 export async function waitFor(
-	predicate: () => boolean,
+	predicate: () => boolean | Promise<boolean>,
 	{ timeoutMs = 2000, intervalMs = 5 } = {}
 ): Promise<void> {
 	const start = Date.now();
-	while (!predicate()) {
+	while (!await predicate()) {
 		if (Date.now() - start > timeoutMs) {
 			throw new Error("waitFor: timeout");
 		}
