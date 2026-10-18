@@ -5,6 +5,10 @@ import type { SexTypeShort } from "../../../../Lib/src/constants/StringConstants
 import { PetUtils } from "../../core/utils/PetUtils";
 import type { FightPlayerStats } from "../../../../Lib/src/types/FightPlayerStats";
 
+/**
+ * Get the stats of the player displayed before confirming a fight
+ * @param player
+ */
 export async function getPlayerStats(player: Player): Promise<FightPlayerStats> {
 	const playerActiveObjects = await InventorySlots.getMainSlotsItems(player.id);
 	const petEntity = await PetEntities.getById(player.petId);

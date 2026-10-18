@@ -50,7 +50,7 @@ export interface PacketContext {
 }
 
 export interface PacketLike<Packet extends CrowniclesPacket> {
-	new(): Packet;
+	new(): Packet; // skipcq: JS-0362 - Construct signature of a packet class, not a call signature
 }
 
 

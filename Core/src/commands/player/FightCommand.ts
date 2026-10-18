@@ -341,6 +341,13 @@ async function findOpponent(player: Player): Promise<Player | null> {
 	return null;
 }
 
+/**
+ * Start a ranked fight between the attacker and a real opponent controlled by the AI
+ * @param attacker
+ * @param opponent
+ * @param context
+ * @param response
+ */
 async function startRankedFight(attacker: {
 	player: Player; playerClass: Class;
 }, opponent: Player, context: PacketContext, response: CrowniclesPacket[]): Promise<void> {
@@ -388,6 +395,11 @@ async function startAcceptedFight(player: Player, context: PacketContext, respon
 	}
 }
 
+/**
+ * Build the callback starting the fight once the player confirmed it
+ * @param player
+ * @param context
+ */
 function fightValidationEndCallback(player: Player, context: PacketContext): EndCallback {
 	return async (collector, response): Promise<void> => {
 		const reaction = collector.getFirstReaction();

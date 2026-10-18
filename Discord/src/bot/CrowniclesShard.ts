@@ -31,6 +31,7 @@ process.on("unhandledRejection", error => {
 	}
 });
 
+// skipcq: JS-E1009 - Live binding assigned once the Discord client is connected
 export let crowniclesClient!: Client;
 export const discordConfig = loadConfig();
 export const keycloakConfig: KeycloakConfig = {
@@ -39,6 +40,8 @@ export const keycloakConfig: KeycloakConfig = {
 	clientId: discordConfig.KEYCLOAK_CLIENT_ID,
 	clientSecret: discordConfig.KEYCLOAK_CLIENT_SECRET
 };
+
+// skipcq: JS-E1009 - Live binding assigned once the shard id is received
 export let shardId = -1;
 let shardCount = -1;
 export const discordDatabase = new DiscordDatabase();
