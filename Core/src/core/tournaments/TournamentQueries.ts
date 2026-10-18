@@ -11,11 +11,45 @@ import {
 } from "../../../../Lib/src/types/Tournament";
 import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
 import { TournamentDomainError } from "./TournamentErrors";
+import { AsyncLock } from "../../../../Lib/src/locks/AsyncLock";
 
 export type TournamentChannel = {
 	guildId: string;
 	channelId: string;
 };
+
+const tournamentChannelLocks = new Map<string, AsyncLock>();
+
+function buildTournamentChannelLockKey(channel: TournamentChannel): string {
+	return `${channel.guildId}:${channel.channelId}`;
+}
+
+function getTournamentChannelLock(channel: TournamentChannel): AsyncLock {
+	const key = buildTournamentChannelLockKey(channel);
+	let lock = tournamentChannelLocks.get(key);
+	if (!lock) {
+		lock = new AsyncLock();
+		tournamentChannelLocks.set(key, lock);
+	}
+	return lock;
+}
+
+/**
+ * Serialize the operations placing a tournament in a channel (creation and resume),
+ * so that the channel availability check and the write it guards cannot interleave.
+ * The body must include both the check and the commit of the write.
+ * @param channel
+ * @param body
+ */
+export async function withTournamentChannelLock<T>(channel: TournamentChannel, body: () => Promise<T>): Promise<T> {
+	const release = await getTournamentChannelLock(channel).acquire();
+	try {
+		return await body();
+	}
+	finally {
+		release();
+	}
+}
 
 /**
  * Ensure no tournament in registration, combat or pause already uses the given channel

@@ -10,7 +10,7 @@ import { TournamentParticipant } from "../database/game/models/TournamentPartici
 import { TournamentDomainError } from "./TournamentErrors";
 import { sendTournamentEvent } from "./TournamentNotifications";
 import {
-	assertChannelIsFree, TournamentChannel
+	assertChannelIsFree, TournamentChannel, withTournamentChannelLock
 } from "./TournamentQueries";
 
 function updateResumedPhaseDates(
@@ -128,14 +128,13 @@ export async function pauseTournamentForChannel(discordGuildId: string, discordC
 }
 
 export async function resumeTournament(tournamentId: number, context: PacketContext): Promise<Tournament> {
-	return await Tournament.withLocked(tournamentId, async tournament => {
+	// The channel lock is taken before the row lock, and released only once the resume is committed
+	const channel = getResumeChannel(context);
+	return await withTournamentChannelLock(channel, () => Tournament.withLocked(tournamentId, async tournament => {
 		const resumeData = getResumeData(tournament, context);
-		await assertChannelIsFree({
-			guildId: tournament.discordGuildId,
-			channelId: resumeData.channelId
-		}, tournament.id);
+		await assertChannelIsFree(channel, tournament.id);
 		applyResume(tournament, context, resumeData);
 		await tournament.save();
 		return tournament;
-	});
+	}));
 }

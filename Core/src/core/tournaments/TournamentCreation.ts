@@ -19,7 +19,7 @@ import { Tournament } from "../database/game/models/Tournament";
 import { TournamentCode } from "../database/game/models/TournamentCode";
 import { TournamentDomainError } from "./TournamentErrors";
 import {
-	assertChannelIsFree, TournamentChannel
+	assertChannelIsFree, TournamentChannel, withTournamentChannelLock
 } from "./TournamentQueries";
 import {
 	Language, LANGUAGE
@@ -263,17 +263,19 @@ export async function createTournament(
 		request.levelLimitMode,
 		request.levelCap
 	);
-	await assertChannelIsFree(creationData);
-	const codeInstance = await findCodeForCreation(request.code, creationData.guildId);
-	if (!codeInstance) {
-		throw new TournamentDomainError(TournamentErrorCodes.INVALID_CODE);
-	}
-	return await TournamentCode.withLocked(codeInstance.id, async lockedCode => {
-		const now = Date.now();
-		validateCode(lockedCode, creationData.guildId, now);
-		const tournament = await buildTournament(creationData, request.duration, now);
-		lockedCode.consumedAt = new Date(now);
-		await lockedCode.save();
-		return tournament;
+	return await withTournamentChannelLock(creationData, async () => {
+		await assertChannelIsFree(creationData);
+		const codeInstance = await findCodeForCreation(request.code, creationData.guildId);
+		if (!codeInstance) {
+			throw new TournamentDomainError(TournamentErrorCodes.INVALID_CODE);
+		}
+		return await TournamentCode.withLocked(codeInstance.id, async lockedCode => {
+			const now = Date.now();
+			validateCode(lockedCode, creationData.guildId, now);
+			const tournament = await buildTournament(creationData, request.duration, now);
+			lockedCode.consumedAt = new Date(now);
+			await lockedCode.save();
+			return tournament;
+		});
 	});
 }

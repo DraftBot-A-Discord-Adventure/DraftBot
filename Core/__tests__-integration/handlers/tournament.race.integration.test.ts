@@ -509,6 +509,66 @@ describe("Tournament modules integration", () => {
 		expect((await Tournament.findByPk(pausedTournament.id))?.status).toBe(TournamentStatuses.REGISTRATION);
 	});
 
+	it("lets only one of two concurrent resumes take the same channel", async () => {
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-concurrent-resumes",
+			level: 100
+		});
+		const pausedTournaments = [];
+		for (const channel of ["race-resume-first", "race-resume-second"]) {
+			const context = buildContext(owner.keycloakId);
+			context.discord!.channel = channel;
+			const code = await manager.generateCode(GUILD_ID);
+			const tournament = await manager.createTournament(context, code.code, 1, 1);
+			await manager.pauseTournament(tournament.id);
+			pausedTournaments.push(tournament);
+		}
+		const targetContext = buildContext(owner.keycloakId);
+		targetContext.discord!.channel = "race-resume-target";
+
+		const results = await Promise.allSettled(pausedTournaments.map(tournament => manager.resumeTournament(tournament.id, targetContext)));
+
+		expect(results.filter(result => result.status === "fulfilled")).toHaveLength(1);
+		expect(results.find(result => result.status === "rejected")).toMatchObject({
+			reason: { code: TournamentErrorCodes.CHANNEL_ALREADY_USED }
+		});
+		expect(await Tournament.count({
+			where: {
+				discordChannelId: targetContext.discord!.channel,
+				status: TournamentStatuses.REGISTRATION
+			}
+		})).toBe(1);
+	});
+
+	it("lets only one of a concurrent resume and creation take the same channel", async () => {
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-resume-create",
+			level: 100
+		});
+		const pausedCode = await manager.generateCode(GUILD_ID);
+		const pausedTournament = await manager.createTournament(buildContext(owner.keycloakId), pausedCode.code, 1, 1);
+		await manager.pauseTournament(pausedTournament.id);
+		const targetContext = buildContext(owner.keycloakId);
+		targetContext.discord!.channel = "race-resume-create";
+		const newCode = await manager.generateCode(GUILD_ID);
+
+		const results = await Promise.allSettled([
+			manager.resumeTournament(pausedTournament.id, targetContext),
+			manager.createTournament(targetContext, newCode.code, 1, 1)
+		]);
+
+		expect(results.filter(result => result.status === "fulfilled")).toHaveLength(1);
+		expect(results.find(result => result.status === "rejected")).toMatchObject({
+			reason: { code: TournamentErrorCodes.CHANNEL_ALREADY_USED }
+		});
+		expect(await Tournament.count({
+			where: {
+				discordChannelId: targetContext.discord!.channel,
+				status: TournamentStatuses.REGISTRATION
+			}
+		})).toBe(1);
+	});
+
 	it("resolves the same fight only once", async () => {
 		const owner = await Player.create({
 			keycloakId: "tournament-owner-idempotence",
