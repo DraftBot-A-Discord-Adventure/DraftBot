@@ -408,17 +408,5 @@
   "blessing": {
     "name": "bênção",
     "description": "Ver o estado atual da bênção global."
-  },
-  "tournament": {
-    "name": "tournoi",
-    "description": "Consulter le tournoi du serveur et s'y inscrire."
-  },
-  "tournament-admin": {
-    "name": "tournoi-admin",
-    "description": "Créer, annuler ou reprendre un tournoi sur ce serveur."
-  },
-  "tournament-owner": {
-    "name": "tournoi-proprietaire",
-    "description": "Autoriser ou reprendre un tournoi (propriétaire du bot)."
   }
 }
