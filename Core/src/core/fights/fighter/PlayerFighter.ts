@@ -177,8 +177,8 @@ export class PlayerFighter extends PlayerBaseFighter {
 	async chooseAction(fightView: FightView, response: CrowniclesPacket[]): Promise<void> {
 		const actions: Map<string, FightAction> = new Map(this.availableFightActions);
 
-		// Add guild attack if on PVE island and members are here
-		if (Maps.isOnPveIsland(this.player)) {
+		// Add guild attack if on PVE island and members are here, never in fights outside the world (tournament and friendly fights)
+		if (!this.withoutConsequences && Maps.isOnPveIsland(this.player)) {
 			if (!this.pveMembersLoaded) {
 				this.pveMembersLoaded = true;
 				const members = await Maps.getGuildMembersOnPveIsland(this.player);

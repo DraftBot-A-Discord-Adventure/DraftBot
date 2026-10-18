@@ -8,12 +8,24 @@ vi.mock("../../../../src/core/missions/MissionsController", () => ({
 vi.mock("../../../../src/core/database/game/models/InventorySlot", () => ({
 	InventorySlots: {
 		getPlayerActiveObjects: vi.fn(),
+		getMainSlotsItems: vi.fn(),
 		countObjectsOfPlayer: vi.fn().mockResolvedValue(0)
 	}
 }));
 vi.mock("../../../../src/data/FightAction", async importOriginal => ({
 	...await importOriginal<typeof import("../../../../src/data/FightAction")>(),
-	FightActionDataController: { instance: { getListById: vi.fn().mockReturnValue([]) } }
+	FightActionDataController: {
+		instance: {
+			getListById: vi.fn().mockReturnValue([]),
+			getById: vi.fn().mockImplementation((id: string) => ({ id }))
+		}
+	}
+}));
+vi.mock("../../../../src/core/maps/Maps", () => ({
+	Maps: {
+		isOnPveIsland: vi.fn(),
+		getGuildMembersOnPveIsland: vi.fn()
+	}
 }));
 
 import { PlayerFighter } from "../../../../src/core/fights/fighter/PlayerFighter";
@@ -21,6 +33,12 @@ import { MissionsController } from "../../../../src/core/missions/MissionsContro
 import { InventorySlots } from "../../../../src/core/database/game/models/InventorySlot";
 import Player from "../../../../src/core/database/game/models/Player";
 import { Class } from "../../../../src/data/Class";
+import { Maps } from "../../../../src/core/maps/Maps";
+import { FightView } from "../../../../src/core/fights/FightView";
+import { FightAction } from "../../../../src/data/FightAction";
+import { RandomUtils } from "../../../../../Lib/src/utils/RandomUtils";
+
+const GUILD_ATTACK_ID = "guildAttack";
 
 function buildPlayer(): Player {
 	return {
@@ -87,5 +105,43 @@ describe("PlayerFighter without consequences", () => {
 		await fighter.loadStats();
 
 		expect(fighter.getEnergy()).toBe(120);
+	});
+});
+
+describe("PlayerFighter guild attack on the PvE island", () => {
+	let displayedActions: Map<string, FightAction> | undefined;
+
+	const fightView = {
+		displayFightActionMenu: vi.fn((_response: unknown, _fighter: unknown, actions: Map<string, FightAction>) => {
+			displayedActions = actions;
+		})
+	} as unknown as FightView;
+
+	beforeEach(() => {
+		vi.clearAllMocks();
+		displayedActions = undefined;
+		vi.mocked(Maps.isOnPveIsland).mockReturnValue(true);
+		vi.mocked(Maps.getGuildMembersOnPveIsland).mockResolvedValue([buildPlayer()]);
+		vi.mocked(InventorySlots.getMainSlotsItems).mockResolvedValue(activeObjects as never);
+		vi.spyOn(RandomUtils.crowniclesRandom, "realZeroToOneInclusive").mockReturnValue(0);
+	});
+
+	it("offers the guild attack to a regular fighter on the island with guild members", async () => {
+		const fighter = new PlayerFighter(buildPlayer(), playerClass);
+
+		await fighter.chooseAction(fightView, []);
+
+		expect(displayedActions?.has(GUILD_ATTACK_ID)).toBe(true);
+		expect(fighter.getPveMembersOnIsland()).toHaveLength(1);
+	});
+
+	it("never loads nor offers the guild attack in a fight without consequences", async () => {
+		const fighter = new PlayerFighter(buildPlayer(), playerClass, { withoutConsequences: true });
+
+		await fighter.chooseAction(fightView, []);
+
+		expect(displayedActions?.has(GUILD_ATTACK_ID)).toBe(false);
+		expect(Maps.getGuildMembersOnPveIsland).not.toHaveBeenCalled();
+		expect(fighter.getPveMembersOnIsland()).toHaveLength(0);
 	});
 });
