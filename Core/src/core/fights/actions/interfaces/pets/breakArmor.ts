@@ -2,31 +2,11 @@ import {
 	PetAssistanceResult, PetAssistanceState
 } from "../../../../../../../Lib/src/types/PetAssistanceResult";
 import { PetAssistanceFunc } from "../../../../../data/PetAssistance";
-import { FightActionController } from "../../FightActionController";
 import { FightStatBuffed } from "../../../../../../../Lib/src/types/FightActionResult";
-import { FightStatModifierOperation } from "../../../../../../../Lib/src/types/FightStatModifierOperation";
 import { RandomUtils } from "../../../../../../../Lib/src/utils/RandomUtils";
 import { PlayerFighter } from "../../../fighter/PlayerFighter";
 import { AiPlayerFighter } from "../../../fighter/AiPlayerFighter";
-
-type ArmorStatPart = {
-	stat: FightStatBuffed;
-	total: number;
-	armor: number;
-};
-
-/**
- * Multiplier removing the armor share of a stat, or `null` when it cannot be computed:
- * a stat already at 0 would otherwise become `0 * Infinity = NaN` and cancel every attack using it (#4883)
- */
-function getArmorRemovalMultiplier({
-	total, armor
-}: ArmorStatPart): number | null {
-	if (armor === 0 || total <= 0) {
-		return null;
-	}
-	return Math.max(0, (total - armor) / total);
-}
+import { applyGearRemovalBuffs } from "../../GearStatRemoval";
 
 const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController): Promise<PetAssistanceResult | null> => {
 	// Execute at the start of the fight
@@ -57,28 +37,17 @@ const use: PetAssistanceFunc = async (_fighter, opponent, turn, _fightController
 	};
 
 	// Lower the opponent's stats by the share its armor was providing
-	const armorStatParts: ArmorStatPart[] = [
+	applyGearRemovalBuffs(result, opponent, [
 		{
-			stat: FightStatBuffed.DEFENSE, total: opponent.getDefense(), armor: armorDefense
+			stat: FightStatBuffed.DEFENSE, total: opponent.getDefense(), gear: armorDefense
 		},
 		{
-			stat: FightStatBuffed.ATTACK, total: opponent.getAttack(), armor: armorDamages
+			stat: FightStatBuffed.ATTACK, total: opponent.getAttack(), gear: armorDamages
 		},
 		{
-			stat: FightStatBuffed.SPEED, total: opponent.getSpeed(), armor: armorSpeed
+			stat: FightStatBuffed.SPEED, total: opponent.getSpeed(), gear: armorSpeed
 		}
-	];
-	for (const part of armorStatParts) {
-		const multiplier = getArmorRemovalMultiplier(part);
-		if (multiplier !== null) {
-			FightActionController.applyBuff(result, {
-				selfTarget: false,
-				stat: part.stat,
-				operator: FightStatModifierOperation.MULTIPLIER,
-				value: multiplier
-			}, opponent, null);
-		}
-	}
+	]);
 
 	return Promise.resolve(result);
 };
