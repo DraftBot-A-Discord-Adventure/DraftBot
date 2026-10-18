@@ -1,7 +1,7 @@
 import { expect } from "vitest";
 import type { ModelStatic } from "sequelize";
 import {
-	CoreTestEnvironment, loadProductionModule, setupCoreForTests
+	CoreTestEnvironment, loadProductionModule, pinInertDailyMission, setupCoreForTests
 } from "./_coreSetup";
 import type { Player as PlayerType } from "../src/core/database/game/models/Player";
 import type { InventorySlot as InventorySlotType } from "../src/core/database/game/models/InventorySlot";
@@ -36,6 +36,9 @@ export type PlayerCurrencies = {
 
 export async function setupEnchanterTests(suiteName: string): Promise<EnchanterTestEnvironment> {
 	const env = await setupCoreForTests(suiteName);
+
+	// A random daily mission (e.g. spendMoney) could reward coins and break the exact balance assertions
+	await pinInertDailyMission(env);
 	const models = env.crownicles.gameDatabase.sequelize.models;
 	return {
 		env,
