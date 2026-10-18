@@ -1,11 +1,17 @@
 import {
 	DataTypes, QueryInterface
 } from "sequelize";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 /** Frozen here rather than read from Lib, so the migration keeps its meaning if the contest week changes. */
 const LETTERS_OF_THE_CONTEST_WEEK = 7;
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
+	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
+	if (await MigrationNameChanger.changeMigrationName(context, "076-royal-mail.js")) {
+		return;
+	}
+
 	await context.addColumn("player_missions_info", "royalLettersReceived", {
 		type: DataTypes.TINYINT.UNSIGNED,
 		allowNull: false,

@@ -8,7 +8,7 @@ import {
 import {
 	initModel as initPlayerBadges, PlayerBadges, PlayerBadgesManager
 } from "../../src/core/database/game/models/PlayerBadges";
-import { up as addBadgeAppReveal } from "../../src/core/database/game/migrations/082-badge-app-reveal";
+import { up as addBadgeAppReveal } from "../../src/core/database/game/migrations/084-badge-app-reveal";
 import { Badge } from "../../../Lib/src/types/Badge";
 
 const PLAYER_ID = 7;
@@ -20,6 +20,9 @@ beforeAll(async () => {
 	env = await setupIntegrationDb("badge_app_reveal");
 	initPlayerBadges(env.sequelize);
 	await env.sequelize.sync();
+
+	// Umzug creates its table before running any migration: the migration looks there for its former name
+	await env.sequelize.query("CREATE TABLE SequelizeMeta (name VARCHAR(255) PRIMARY KEY)");
 }, 60_000);
 
 afterAll(async () => {

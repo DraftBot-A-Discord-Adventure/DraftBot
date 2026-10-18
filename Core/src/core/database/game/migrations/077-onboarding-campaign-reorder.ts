@@ -1,4 +1,5 @@
 import { QueryInterface } from "sequelize";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 type FrozenCampaignMission = {
 	missionId: string;
@@ -161,6 +162,11 @@ async function reorder(context: QueryInterface, order: number[], before: FrozenC
  * move with their mission, so no player loses or regains a finished mission.
  */
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
+	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
+	if (await MigrationNameChanger.changeMigrationName(context, "075-onboarding-campaign-reorder.js")) {
+		return;
+	}
+
 	await reorder(context, ONBOARDING_ORDER, PREVIOUS_ORDER);
 }
 

@@ -1,8 +1,14 @@
 import {
 	DataTypes, QueryInterface
 } from "sequelize";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
+	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
+	if (await MigrationNameChanger.changeMigrationName(context, "079-guild-probation.js")) {
+		return;
+	}
+
 	// Members already in a guild keep full access to its shelter: only those joining from now on are on probation
 	await context.addColumn("players", "guildJoinedAt", {
 		type: DataTypes.DATE,

@@ -1,4 +1,5 @@
 import { QueryInterface } from "sequelize";
+import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 const CAMPAIGN_POSITION = 2;
 const PREVIOUS_MISSION_ID = "commandReport";
@@ -26,6 +27,11 @@ async function replaceActiveMission(context: QueryInterface, previousMissionId: 
 }
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
+	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
+	if (await MigrationNameChanger.changeMigrationName(context, "081-campaign-spend-token.js")) {
+		return;
+	}
+
 	await replaceActiveMission(context, PREVIOUS_MISSION_ID, NEXT_MISSION_ID);
 }
 
