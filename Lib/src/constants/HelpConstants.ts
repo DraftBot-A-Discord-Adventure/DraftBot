@@ -590,6 +590,33 @@ export abstract class HelpConstants {
 			"boat",
 			"bateau",
 			"rejoindrebateau"
+		],
+		BLESSING: [
+			"blessing",
+			"benediction",
+			"bénédiction",
+			"oracle",
+			"cagnotte"
+		],
+		EQUIP: [
+			"equip",
+			"equiper",
+			"équiper",
+			"equipement",
+			"équipement",
+			"equipment",
+			"reserve",
+			"réserve"
+		],
+		FIGHT_HISTORY: [
+			"fighthistory",
+			"fh",
+			"history",
+			"historique",
+			"historiquecombat",
+			"historiquecombats",
+			"historiquedecombat",
+			"combathistory"
 		]
 	};
 
@@ -875,6 +902,24 @@ export abstract class HelpConstants {
 				EMOTE: ":ferry:",
 				NAME: "joinboat",
 				CATEGORY: "guild"
+			},
+		BLESSING:
+			{
+				EMOTE: ":pray:",
+				NAME: "blessing",
+				CATEGORY: "util"
+			},
+		EQUIP:
+			{
+				EMOTE: ":shield:",
+				NAME: "equip",
+				CATEGORY: "player"
+			},
+		FIGHT_HISTORY:
+			{
+				EMOTE: ":books:",
+				NAME: "fighthistory",
+				CATEGORY: "player"
 			}
 	};
 }
