@@ -48,7 +48,9 @@ const createMockInventorySlot = (
 
 // Mock Player
 vi.mock("../../../src/core/database/game/models/Player", () => ({
-	Player: class {},
+	Player: {
+		lockKey: (id: number) => ({ id })
+	},
 	Players: {
 		getByKeycloakId: vi.fn().mockImplementation((keycloakId: string) =>
 			keycloakId === "valid-player"
@@ -59,6 +61,11 @@ vi.mock("../../../src/core/database/game/models/Player", () => ({
 				: Promise.resolve(null)
 		)
 	}
+}));
+
+// Run the locked section directly with the requested player
+vi.mock("../../../../Lib/src/locks/withLockedEntities", () => ({
+	withLockedEntities: vi.fn().mockImplementation((keys: { id: number }[], body: (entities: unknown[]) => Promise<unknown>) => body(keys.map(key => ({ id: key.id }))))
 }));
 
 // Mock InventorySlot
