@@ -22,6 +22,7 @@ import type { FightController } from "../fights/FightController";
 import {
 	getGameResult
 } from "./TournamentRules";
+import { isPairSeriesFinished } from "./TournamentMatchmaking";
 
 type TournamentFightParameters = {
 	fight: FightController;
@@ -92,6 +93,12 @@ async function resolveTournamentFightUnderLock(
 ): Promise<TournamentGloryChanges | null> {
 	if (await TournamentFight.findOne({ where: { fightId: parameters.fight.id } })
 		|| !isValidTournamentFight(tournament, attacker, defender, parameters.fightContext)) {
+		return null;
+	}
+
+	// Two fights started in opposite directions can both end after the series is decided: only the first one counts
+	if (await isPairSeriesFinished(tournament.id, attacker.id, defender.id)) {
+		CrowniclesLogger.info(`Tournament fight ${parameters.fight.id} ignored: the series between participants ${attacker.id} and ${defender.id} is already finished`);
 		return null;
 	}
 	const attackerResult = getGameResult(parameters.attackerWon, parameters.isDraw);

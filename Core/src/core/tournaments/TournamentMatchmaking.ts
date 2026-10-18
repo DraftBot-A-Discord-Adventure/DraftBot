@@ -42,6 +42,31 @@ function hasFinishedSeries(pairFights: TournamentFight[], participantId: number,
 		|| candidateWins >= TournamentConstants.BO3_WINS_TO_FINISH;
 }
 
+/**
+ * Check whether the best-of series between two participants is already over, whoever attacked in each fight
+ * @param tournamentId
+ * @param participantId
+ * @param opponentId
+ */
+export async function isPairSeriesFinished(tournamentId: number, participantId: number, opponentId: number): Promise<boolean> {
+	const pairFights = await TournamentFight.findAll({
+		where: {
+			tournamentId,
+			[Op.or]: [
+				{
+					attackerParticipantId: participantId,
+					defenderParticipantId: opponentId
+				},
+				{
+					attackerParticipantId: opponentId,
+					defenderParticipantId: participantId
+				}
+			]
+		}
+	});
+	return hasFinishedSeries(pairFights, participantId, opponentId);
+}
+
 function isCandidateAvailable(
 	tournamentId: number,
 	candidate: TournamentParticipant,

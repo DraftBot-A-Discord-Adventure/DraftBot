@@ -538,6 +538,84 @@ describe("Tournament modules integration", () => {
 		expect(afterFirstDefenderResolution?.defenseGloryPoints).toBe(expectedDefenderDefense);
 	});
 
+	it("ignores a fight ending after the best-of series of the pair is already decided", async () => {
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-series-overflow",
+			level: 100
+		});
+		const code = await manager.generateCode(GUILD_ID);
+		const tournament = await manager.createTournament(buildContext(owner.keycloakId), code.code, 1, 1);
+		await Tournament.update({ status: TournamentStatuses.COMBAT }, { where: { id: tournament.id } });
+		const firstPlayer = await Player.create({
+			keycloakId: "tournament-series-overflow-first",
+			level: 100
+		});
+		const secondPlayer = await Player.create({
+			keycloakId: "tournament-series-overflow-second",
+			level: 100
+		});
+		const first = await manager.registerPlayer(buildContext(firstPlayer.keycloakId), firstPlayer);
+		const second = await manager.registerPlayer(buildContext(secondPlayer.keycloakId), secondPlayer);
+		await TournamentParticipant.update({ defenseGloryPoints: 750 }, { where: { tournamentId: tournament.id } });
+		const playedAt = new Date();
+		await TournamentFight.bulkCreate([
+			{
+				fightId: "tournament-series-overflow-game-1",
+				tournamentId: tournament.id,
+				attackerParticipantId: first.id,
+				defenderParticipantId: second.id,
+				winnerParticipantId: first.id,
+				draw: false,
+				playedAt
+			},
+			{
+				fightId: "tournament-series-overflow-game-2",
+				tournamentId: tournament.id,
+				attackerParticipantId: second.id,
+				defenderParticipantId: first.id,
+				winnerParticipantId: second.id,
+				draw: false,
+				playedAt
+			}
+		]);
+		const buildAttackerWinFight = (fightId: string, attackerId: number, defenderId: number): never => {
+			const fightInitiator = {};
+			return {
+				id: fightId,
+				isBugged: (): boolean => false,
+				tournamentContext: {
+					tournamentId: tournament.id,
+					attackerParticipantId: attackerId,
+					defenderParticipantId: defenderId,
+					category: TournamentCategories.LEVEL_100
+				},
+				fightInitiator,
+				isADraw: (): boolean => false,
+				getWinnerFighter: (): object => fightInitiator
+			} as never;
+		};
+		const response: CrowniclesPacket[] = [];
+		const sendNotifications = vi.spyOn(packetUtils, "sendNotifications").mockImplementation(() => undefined);
+
+		// Both players attacked each other at 1-1: the two deciding fights end at the same time
+		await Promise.all([
+			manager.resolveFight(buildAttackerWinFight("tournament-series-overflow-game-3a", first.id, second.id), response),
+			manager.resolveFight(buildAttackerWinFight("tournament-series-overflow-game-3b", second.id, first.id), response)
+		]);
+
+		const firstAfter = await TournamentParticipant.findByPk(first.id);
+		const secondAfter = await TournamentParticipant.findByPk(second.id);
+		const attackGloryChanged = [
+			firstAfter!.attackGloryPoints !== first.attackGloryPoints,
+			secondAfter!.attackGloryPoints !== second.attackGloryPoints
+		];
+		expect(await TournamentFight.count({ where: { tournamentId: tournament.id } })).toBe(TournamentConstants.BO3_MAX_GAMES);
+		expect(response.filter(packet => packet.constructor.name === "TournamentFightRewardPacket")).toHaveLength(1);
+		expect(attackGloryChanged.filter(changed => changed)).toHaveLength(1);
+		expect(sendNotifications).toHaveBeenCalledTimes(1);
+		sendNotifications.mockRestore();
+	});
+
 	it("freezes the two category rankings and grants final rewards once", async () => {
 		const owner = await Player.create({
 			keycloakId: "tournament-owner-finish",
