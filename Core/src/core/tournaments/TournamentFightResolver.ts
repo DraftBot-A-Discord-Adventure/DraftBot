@@ -97,7 +97,7 @@ async function resolveTournamentFightUnderLock(
 	}
 
 	// Two fights started in opposite directions can both end after the series is decided: only the first one counts
-	if (await isPairSeriesFinished(tournament.id, attacker.id, defender.id)) {
+	if (await isPairSeriesFinished(attacker, defender)) {
 		CrowniclesLogger.info(`Tournament fight ${parameters.fight.id} ignored: the series between participants ${attacker.id} and ${defender.id} is already finished`);
 		return null;
 	}

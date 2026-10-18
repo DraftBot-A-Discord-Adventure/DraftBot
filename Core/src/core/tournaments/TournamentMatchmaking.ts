@@ -43,28 +43,27 @@ function hasFinishedSeries(pairFights: TournamentFight[], participantId: number,
 }
 
 /**
- * Check whether the best-of series between two participants is already over, whoever attacked in each fight
- * @param tournamentId
- * @param participantId
- * @param opponentId
+ * Check whether the best-of series between two participants of the same tournament is already over, whoever attacked in each fight
+ * @param participant
+ * @param opponent
  */
-export async function isPairSeriesFinished(tournamentId: number, participantId: number, opponentId: number): Promise<boolean> {
+export async function isPairSeriesFinished(participant: TournamentParticipant, opponent: TournamentParticipant): Promise<boolean> {
 	const pairFights = await TournamentFight.findAll({
 		where: {
-			tournamentId,
+			tournamentId: participant.tournamentId,
 			[Op.or]: [
 				{
-					attackerParticipantId: participantId,
-					defenderParticipantId: opponentId
+					attackerParticipantId: participant.id,
+					defenderParticipantId: opponent.id
 				},
 				{
-					attackerParticipantId: opponentId,
-					defenderParticipantId: participantId
+					attackerParticipantId: opponent.id,
+					defenderParticipantId: participant.id
 				}
 			]
 		}
 	});
-	return hasFinishedSeries(pairFights, participantId, opponentId);
+	return hasFinishedSeries(pairFights, participant.id, opponent.id);
 }
 
 function isCandidateAvailable(
