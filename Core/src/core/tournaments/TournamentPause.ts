@@ -9,6 +9,9 @@ import { Tournament } from "../database/game/models/Tournament";
 import { TournamentParticipant } from "../database/game/models/TournamentParticipant";
 import { TournamentDomainError } from "./TournamentErrors";
 import { sendTournamentEvent } from "./TournamentNotifications";
+import {
+	assertChannelIsFree, TournamentChannel
+} from "./TournamentQueries";
 
 function updateResumedPhaseDates(
 	tournament: Tournament,
@@ -32,12 +35,7 @@ type ResumeData = {
 	remainingMs: number;
 };
 
-type ResumeChannel = {
-	channelId: string;
-	guildId: string;
-};
-
-function getResumeChannel(context: PacketContext): ResumeChannel {
+function getResumeChannel(context: PacketContext): TournamentChannel {
 	const channelId = context.discord?.channel;
 	if (!channelId || !context.frontEndSubOrigin) {
 		throw new TournamentDomainError(TournamentErrorCodes.INVALID_CHANNEL);
@@ -131,7 +129,12 @@ export async function pauseTournamentForChannel(discordGuildId: string, discordC
 
 export async function resumeTournament(tournamentId: number, context: PacketContext): Promise<Tournament> {
 	return await Tournament.withLocked(tournamentId, async tournament => {
-		applyResume(tournament, context, getResumeData(tournament, context));
+		const resumeData = getResumeData(tournament, context);
+		await assertChannelIsFree({
+			guildId: tournament.discordGuildId,
+			channelId: resumeData.channelId
+		}, tournament.id);
+		applyResume(tournament, context, resumeData);
 		await tournament.save();
 		return tournament;
 	});

@@ -486,6 +486,29 @@ describe("Tournament modules integration", () => {
 		expect(resumed?.discordChannelId).toBe(CHANNEL_ID);
 	});
 
+	it("refuses to resume a paused tournament in a channel hosting another tournament", async () => {
+		const owner = await Player.create({
+			keycloakId: "tournament-owner-resume-channel-used",
+			level: 100
+		});
+		const pausedCode = await manager.generateCode(GUILD_ID);
+		const pausedTournament = await manager.createTournament(buildContext(owner.keycloakId), pausedCode.code, 1, 1);
+		await manager.pauseTournament(pausedTournament.id);
+		const busyContext = buildContext(owner.keycloakId);
+		busyContext.discord!.channel = "tournament-race-busy-channel";
+		const busyCode = await manager.generateCode(GUILD_ID);
+		await manager.createTournament(busyContext, busyCode.code, 1, 1);
+
+		await expect(manager.resumeTournament(pausedTournament.id, busyContext))
+			.rejects.toMatchObject({ code: TournamentErrorCodes.CHANNEL_ALREADY_USED });
+		const stillPaused = await Tournament.findByPk(pausedTournament.id);
+		expect(stillPaused?.status).toBe(TournamentStatuses.PAUSED);
+		expect(stillPaused?.discordChannelId).toBe(CHANNEL_ID);
+
+		await manager.resumeTournament(pausedTournament.id, buildContext(owner.keycloakId));
+		expect((await Tournament.findByPk(pausedTournament.id))?.status).toBe(TournamentStatuses.REGISTRATION);
+	});
+
 	it("resolves the same fight only once", async () => {
 		const owner = await Player.create({
 			keycloakId: "tournament-owner-idempotence",

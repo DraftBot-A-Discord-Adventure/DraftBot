@@ -9,6 +9,32 @@ import { TournamentCode } from "../database/game/models/TournamentCode";
 import {
 	TournamentStatuses, type TournamentMenuSummary
 } from "../../../../Lib/src/types/Tournament";
+import { TournamentErrorCodes } from "../../../../Lib/src/packets/commands/CommandTournamentPacket";
+import { TournamentDomainError } from "./TournamentErrors";
+
+export type TournamentChannel = {
+	guildId: string;
+	channelId: string;
+};
+
+/**
+ * Ensure no tournament in registration, combat or pause already uses the given channel
+ * @param channel The channel that will host the tournament
+ * @param ignoredTournamentId The tournament about to use the channel, if it already exists
+ */
+export async function assertChannelIsFree(channel: TournamentChannel, ignoredTournamentId?: number): Promise<void> {
+	const tournamentInChannel = await Tournament.findOne({
+		where: {
+			discordGuildId: channel.guildId,
+			discordChannelId: channel.channelId,
+			status: { [Op.in]: ACTIVE_STATUSES },
+			...ignoredTournamentId !== undefined ? { id: { [Op.ne]: ignoredTournamentId } } : {}
+		}
+	});
+	if (tournamentInChannel) {
+		throw new TournamentDomainError(TournamentErrorCodes.CHANNEL_ALREADY_USED);
+	}
+}
 
 export async function findTournamentForContext(context: PacketContext, includeFinished: boolean): Promise<Tournament | null> {
 	if (!Tournament.sequelize) {
