@@ -1,5 +1,5 @@
 import {
-	CAMPAIGN_RECIPE_MILESTONES, PLAYER_LEVEL_RECIPE_MILESTONES, RecipeDiscoverySource, RecipeType
+	CAMPAIGN_RECIPE_MILESTONES, getCookingGrade, PLAYER_LEVEL_RECIPE_MILESTONES, RecipeDiscoverySource, RecipeType
 } from "../../../../Lib/src/constants/CookingConstants";
 import { CookingRecipeDataController } from "../../data/CookingRecipeData";
 import PlayerCookingRecipe from "../database/game/models/PlayerCookingRecipe";
@@ -184,14 +184,16 @@ export class RecipeDiscoveryService {
 	}
 
 	/**
-	 * Discover all COOKING_LEVEL recipes up to the player's current cooking level.
+	 * Discover all COOKING_LEVEL recipes the player's cooking grade can prepare without penalty.
+	 * The recipe level is a tier compared to the grade, not to the raw cooking level.
 	 * Returns all newly discovered recipes.
 	 */
 	static discoverCookingLevelRecipes(player: Player): Promise<RecipeDisplayInfo[]> {
+		const maxRecipeLevel = getCookingGrade(player.cookingLevel).maxRecipeLevelWithoutPenalty;
 		const candidates = RecipeDiscoveryService.getSortedCandidates(
 			r => !r.discoveredByDefault
 				&& r.discoverySource === RecipeDiscoverySource.COOKING_LEVEL
-				&& r.level <= player.cookingLevel
+				&& r.level <= maxRecipeLevel
 		);
 		return RecipeDiscoveryService.discoverAll(player, candidates);
 	}
