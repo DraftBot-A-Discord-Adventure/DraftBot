@@ -228,44 +228,6 @@ function buildDmNoticeField(lng: Language): APIEmbedField {
 }
 
 /**
- * Get the list of available commands and information about what they do
- */
-async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
-	const helpMessage = new CrowniclesEmbed();
-	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", { lng: LANGUAGE.ENGLISH }));
-	const askedCommand = command ? command.value as string : null;
-	const lng = interaction.userLanguage;
-	const isDm = !interaction.inGuild();
-
-	const aliasedCommand = askedCommand ? resolveAliasedCommand(askedCommand) : null;
-	const skipHelpDm = Boolean(askedCommand) && aliasedCommand === null;
-
-	if (aliasedCommand) {
-		buildSpecificCommandEmbed(helpMessage, aliasedCommand, lng);
-	}
-	else {
-		generateGenericHelpMessage(helpMessage, interaction);
-	}
-
-	if (isDm) {
-		helpMessage.addFields([buildDmNoticeField(lng)]);
-	}
-	await interaction.reply({
-		embeds: [helpMessage]
-	});
-
-	// Send help DM if the user is not in the main server (skipped when already in DM or when the command was unknown)
-	if (!isDm && !skipHelpDm) {
-		const dmCooldown = dmHelpCooldowns.get(interaction.user.id);
-		if (!dmCooldown || dmCooldown && dmCooldown.valueOf() < Date.now()) {
-			sendHelpDm(interaction, lng);
-		}
-	}
-
-	return null;
-}
-
-/**
  * Resolve an asked command name to a known command key via the alias map, or null if unknown.
  * @param askedCommand
  */
@@ -305,6 +267,53 @@ function buildSpecificCommandEmbed(helpMessage: CrowniclesEmbed, command: HelpCo
 			value: commandMentionString,
 			inline: true
 		});
+}
+
+/**
+ * Send the help DM unless the user already received one recently
+ * @param interaction
+ * @param lng
+ */
+function sendHelpDmIfNotOnCooldown(interaction: CrowniclesInteraction, lng: Language): void {
+	const dmCooldown = dmHelpCooldowns.get(interaction.user.id);
+	if (!dmCooldown || dmCooldown.valueOf() < Date.now()) {
+		sendHelpDm(interaction, lng);
+	}
+}
+
+/**
+ * Get the list of available commands and information about what they do
+ */
+async function getPacket(interaction: CrowniclesInteraction): Promise<null> {
+	const helpMessage = new CrowniclesEmbed();
+	const command = interaction.options.get(i18n.t("discordBuilder:help.options.commandName.name", { lng: LANGUAGE.ENGLISH }));
+	const askedCommand = command ? command.value as string : null;
+	const lng = interaction.userLanguage;
+	const isDm = !interaction.inGuild();
+
+	const aliasedCommand = askedCommand ? resolveAliasedCommand(askedCommand) : null;
+	const skipHelpDm = Boolean(askedCommand) && aliasedCommand === null;
+
+	if (aliasedCommand) {
+		buildSpecificCommandEmbed(helpMessage, aliasedCommand, lng);
+	}
+	else {
+		generateGenericHelpMessage(helpMessage, interaction);
+	}
+
+	if (isDm) {
+		helpMessage.addFields([buildDmNoticeField(lng)]);
+	}
+	await interaction.reply({
+		embeds: [helpMessage]
+	});
+
+	// Send help DM if the user is not in the main server (skipped when already in DM or when the command was unknown)
+	if (!isDm && !skipHelpDm) {
+		sendHelpDmIfNotOnCooldown(interaction, lng);
+	}
+
+	return null;
 }
 
 /**
