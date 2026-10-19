@@ -12,10 +12,6 @@ const {
 	restGet: vi.fn()
 }));
 
-vi.mock("node:timers/promises", () => ({
-	setTimeout: (): Promise<void> => Promise.resolve()
-}));
-
 vi.mock("discord.js", () => ({
 	fetchRecommendedShardCount,
 	REST: class {
@@ -59,6 +55,35 @@ function createShard({
 		spawn: vi.fn(),
 		on: vi.fn().mockReturnThis()
 	} as unknown as Shard;
+}
+
+const SPAWN_DELAY_MS = 5_500;
+
+function createFleet(count: number): {
+	shards: Shard[];
+	shardingManager: ShardingManager;
+	identifications: number[];
+} {
+	const identifications: number[] = [];
+	const shards = Array.from({ length: count }, (_, id) => {
+		const shard = {
+			...createShard(),
+			id
+		} as unknown as Shard;
+		vi.mocked(shard.spawn).mockImplementation(() => {
+			identifications.push(Date.now());
+			return Promise.resolve(undefined as never);
+		});
+		return shard;
+	});
+	const shardingManager = {
+		totalShards: "auto",
+		shardList: "auto",
+		createShard: vi.fn((id: number) => shards[id])
+	} as unknown as ShardingManager;
+	return {
+		shards, shardingManager, identifications
+	};
 }
 
 function getAvailableSessionLimit(): object {
@@ -184,7 +209,9 @@ describe("ShardSpawnSupervisor", () => {
 		} as unknown as ShardingManager;
 		const supervisor = new ShardSpawnSupervisor("token");
 
-		await supervisor.spawnFleet(shardingManager);
+		const fleetSpawned = supervisor.spawnFleet(shardingManager);
+		await vi.advanceTimersByTimeAsync(SPAWN_DELAY_MS * 3);
+		await fleetSpawned;
 
 		expect(shardingManager.totalShards).toBe(3);
 		expect(shardingManager.createShard).toHaveBeenCalledTimes(3);
@@ -193,5 +220,47 @@ describe("ShardSpawnSupervisor", () => {
 
 		await vi.runAllTimersAsync();
 		expect(shards[0].spawn).toHaveBeenCalledTimes(2);
+	});
+
+	it("keeps every identification, retries included, at least the spawn delay apart", async () => {
+		fetchRecommendedShardCount.mockResolvedValue(3);
+		restGet.mockResolvedValue(getAvailableSessionLimit());
+		const {
+			shards, shardingManager, identifications
+		} = createFleet(3);
+		vi.mocked(shards[0].spawn).mockImplementationOnce(() => {
+			identifications.push(Date.now());
+			return Promise.reject(new Error("ShardingReadyDied"));
+		});
+		const supervisor = new ShardSpawnSupervisor("token");
+
+		const fleetSpawned = supervisor.spawnFleet(shardingManager);
+		await vi.advanceTimersByTimeAsync(SPAWN_DELAY_MS * 5);
+		await fleetSpawned;
+
+		expect(shards[0].spawn).toHaveBeenCalledTimes(2);
+		expect(identifications).toHaveLength(4);
+		const sortedIdentifications = [...identifications].sort((a, b) => a - b);
+		for (let i = 1; i < sortedIdentifications.length; i++) {
+			expect(sortedIdentifications[i] - sortedIdentifications[i - 1]).toBeGreaterThanOrEqual(SPAWN_DELAY_MS);
+		}
+	});
+
+	it("does not respawn a shard whose retry was cancelled while waiting for its slot", async () => {
+		fetchRecommendedShardCount.mockResolvedValue(3);
+		restGet.mockResolvedValue(getAvailableSessionLimit());
+		const {
+			shards, shardingManager
+		} = createFleet(3);
+		vi.mocked(shards[0].spawn).mockRejectedValueOnce(new Error("ShardingReadyDied"));
+		const supervisor = new ShardSpawnSupervisor("token");
+
+		const fleetSpawned = supervisor.spawnFleet(shardingManager);
+		await vi.advanceTimersByTimeAsync(5_000);
+		supervisor.cancelRetry(0);
+		await vi.advanceTimersByTimeAsync(SPAWN_DELAY_MS * 5);
+		await fleetSpawned;
+
+		expect(shards[0].spawn).toHaveBeenCalledOnce();
 	});
 });

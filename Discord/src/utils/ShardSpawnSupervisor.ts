@@ -4,14 +4,13 @@ import {
 import {
 	fetchRecommendedShardCount, REST, type Shard, type ShardingManager
 } from "discord.js";
-import { setTimeout as sleep } from "node:timers/promises";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { getShardSpawnRetryDelay } from "./ShardSpawnRetryUtils";
 
 const REQUIRED_SESSIONS_PER_SHARD = 1;
 const SHARD_RETRY_JITTER_MAX_MS = 5_000;
 
-// Same spacing between two shard identifications as the discord.js ShardingManager default
+// Minimum spacing between two shard identifications, same as the discord.js ShardingManager default
 const SHARD_SPAWN_DELAY_MS = 5_500;
 
 type ShardRetryReason = "Gateway session-start quota exhausted" | "bounded startup backoff";
@@ -37,6 +36,10 @@ export class ShardSpawnSupervisor {
 
 	private readonly ignoredDeaths = new Set<Shard>();
 
+	private readonly retriesWaitingSpawnSlot = new Set<number>();
+
+	private nextSpawnSlotAt = 0;
+
 	public constructor(private readonly discordClientToken: string) {
 		this.rest = new REST({ version: "10" }).setToken(discordClientToken);
 	}
@@ -52,15 +55,27 @@ export class ShardSpawnSupervisor {
 
 		for (const shardId of shardingManager.shardList) {
 			const shard = shardingManager.createShard(shardId);
-			const isLastShard = shardId === shardCount - 1;
-			await Promise.all([
-				shard.spawn().catch(error => {
-					CrowniclesLogger.errorWithObj(`Error while spawning shard ${shardId}`, error);
-					this.handleSpawnFailure(shard);
-				}),
-				isLastShard ? Promise.resolve() : sleep(SHARD_SPAWN_DELAY_MS)
-			]);
+			await this.spawnPaced(shard).catch(error => {
+				CrowniclesLogger.errorWithObj(`Error while spawning shard ${shardId}`, error);
+				this.handleSpawnFailure(shard);
+			});
 		}
+	}
+
+	/**
+	 * Spawn a shard once its identification slot is reached: every launch, first spawn or retry, goes through
+	 * this gate so two identifications are never closer than SHARD_SPAWN_DELAY_MS
+	 */
+	public async spawnPaced(shard: Shard): Promise<void> {
+		await this.waitForSpawnSlot();
+		await shard.spawn();
+	}
+
+	private waitForSpawnSlot(): Promise<void> {
+		const now = Date.now();
+		const slotAt = Math.max(now, this.nextSpawnSlotAt);
+		this.nextSpawnSlotAt = slotAt + SHARD_SPAWN_DELAY_MS;
+		return slotAt > now ? new Promise(resolve => setTimeout(resolve, slotAt - now)) : Promise.resolve();
 	}
 
 	/**
@@ -132,6 +147,7 @@ export class ShardSpawnSupervisor {
 		}
 
 		this.pendingRetries.delete(shardId);
+		this.retriesWaitingSpawnSlot.delete(shardId);
 		this.retryAttempts.delete(shardId);
 	}
 
@@ -157,7 +173,7 @@ export class ShardSpawnSupervisor {
 
 			const retryTimer = setTimeout(() => {
 				this.retryTimers.delete(shard.id);
-				shard.spawn().catch(error => {
+				this.respawnPaced(shard).catch(error => {
 					CrowniclesLogger.errorWithObj(`Error while respawning shard ${shard.id}`, error);
 					this.handleSpawnFailure(shard);
 				});
@@ -168,6 +184,18 @@ export class ShardSpawnSupervisor {
 			this.pendingRetries.delete(shard.id);
 			CrowniclesLogger.errorWithObj(`Error while scheduling shard ${shard.id} retry`, error);
 		}
+	}
+
+	/**
+	 * Respawn a shard through the pacing gate, unless its retry was cancelled while waiting for its slot
+	 */
+	private async respawnPaced(shard: Shard): Promise<void> {
+		this.retriesWaitingSpawnSlot.add(shard.id);
+		await this.waitForSpawnSlot();
+		if (!this.retriesWaitingSpawnSlot.delete(shard.id)) {
+			return;
+		}
+		await shard.spawn();
 	}
 
 	private async getRetryPlan(attempt: number): Promise<ShardRetryPlan> {
