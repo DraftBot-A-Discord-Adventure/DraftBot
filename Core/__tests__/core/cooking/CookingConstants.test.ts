@@ -2,7 +2,7 @@ import {
 	describe, expect, it
 } from "vitest";
 import {
-	getCookingGrade, COOKING_GRADES, CookingXpConstants,
+	getCookingGrade, getMinCookingLevelForRecipeLevel, COOKING_GRADES, CookingXpConstants,
 	GASPARD_JO_RECIPE_COSTS, FARMER_RECIPE_COSTS,
 	SLOT_CONFIGS, SLOT_SEED_OFFSETS
 } from "../../../../Lib/src/constants/CookingConstants";
@@ -125,6 +125,24 @@ describe("CookingConstants", () => {
 
 		it("should have positive failure XP per level", () => {
 			expect(CookingXpConstants.FAILURE_XP_PER_LEVEL).toBeGreaterThan(0);
+		});
+	});
+
+	describe("getMinCookingLevelForRecipeLevel", () => {
+		it.each([
+			[2, 0],
+			[3, 11],
+			[5, 31],
+			[6, 51],
+			[7, 61],
+			[8, 81]
+		])("should unlock recipe level %i at the first grade preparing it without penalty (cooking level %i)", (recipeLevel, cookingLevel) => {
+			expect(getMinCookingLevelForRecipeLevel(recipeLevel)).toBe(cookingLevel);
+		});
+
+		it("should return null when no grade prepares the recipe level without penalty", () => {
+			const maxRecipeLevel = Math.max(...COOKING_GRADES.map(grade => grade.maxRecipeLevelWithoutPenalty));
+			expect(getMinCookingLevelForRecipeLevel(maxRecipeLevel + 1)).toBeNull();
 		});
 	});
 });
