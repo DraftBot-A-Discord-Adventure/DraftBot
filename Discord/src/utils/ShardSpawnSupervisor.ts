@@ -2,13 +2,17 @@ import {
 	type APIGatewaySessionStartLimit, RESTGetAPIGatewayBotResult, Routes
 } from "discord-api-types/v10";
 import {
-	REST, type Shard
+	fetchRecommendedShardCount, REST, type Shard, type ShardingManager
 } from "discord.js";
+import { setTimeout as sleep } from "node:timers/promises";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { getShardSpawnRetryDelay } from "./ShardSpawnRetryUtils";
 
 const REQUIRED_SESSIONS_PER_SHARD = 1;
 const SHARD_RETRY_JITTER_MAX_MS = 5_000;
+
+// Same spacing between two shard identifications as the discord.js ShardingManager default
+const SHARD_SPAWN_DELAY_MS = 5_500;
 
 type ShardRetryReason = "Gateway session-start quota exhausted" | "bounded startup backoff";
 
@@ -33,8 +37,30 @@ export class ShardSpawnSupervisor {
 
 	private readonly ignoredDeaths = new Set<Shard>();
 
-	public constructor(discordClientToken: string) {
+	public constructor(private readonly discordClientToken: string) {
 		this.rest = new REST({ version: "10" }).setToken(discordClientToken);
+	}
+
+	/**
+	 * Spawn every shard of the fleet; unlike ShardingManager.spawn, a shard failing its startup is handed to the
+	 * supervisor instead of aborting the creation of the following shards
+	 */
+	public async spawnFleet(shardingManager: ShardingManager): Promise<void> {
+		const shardCount = await fetchRecommendedShardCount(this.discordClientToken);
+		shardingManager.totalShards = shardCount;
+		shardingManager.shardList = [...Array(shardCount).keys()];
+
+		for (const shardId of shardingManager.shardList) {
+			const shard = shardingManager.createShard(shardId);
+			const isLastShard = shardId === shardCount - 1;
+			await Promise.all([
+				shard.spawn().catch(error => {
+					CrowniclesLogger.errorWithObj(`Error while spawning shard ${shardId}`, error);
+					this.handleSpawnFailure(shard);
+				}),
+				isLastShard ? Promise.resolve() : sleep(SHARD_SPAWN_DELAY_MS)
+			]);
+		}
 	}
 
 	/**

@@ -162,9 +162,7 @@ function main(): void {
 			});
 	}
 
-	shardingManager.spawn({
-		amount: shardCount
-	}).catch(e => {
+	shardSpawnSupervisor.spawnFleet(shardingManager).catch(e => {
 		CrowniclesLogger.errorWithObj("Error while spawning shards", e);
 	});
 }
