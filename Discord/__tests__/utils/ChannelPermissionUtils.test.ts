@@ -12,8 +12,10 @@ function expectTranslationExists(error: string | null): void {
 	if (error === null) {
 		throw new Error("Expected a channel permission error");
 	}
-	for (const language of [LANGUAGE.FRENCH, LANGUAGE.ENGLISH]) {
-		expect(i18n.t(error, { lng: language })).not.toBe(error);
+	// i18next returns the key without its namespace when it is missing
+	const keyWithoutNamespace = error.split(":")[1];
+	for (const language of LANGUAGE.LANGUAGES) {
+		expect(i18n.t(error, { lng: language })).not.toBe(keyWithoutNamespace);
 	}
 }
 
