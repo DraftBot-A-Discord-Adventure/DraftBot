@@ -212,6 +212,14 @@ export function getCookingGrade(cookingLevel: number): CookingGradeDefinition {
 }
 
 /**
+ * Lowest cooking level whose grade prepares recipes of the given level without penalty, used to unlock
+ * the cooking level recipes. Null when no grade reaches that recipe level.
+ */
+export function getMinCookingLevelForRecipeLevel(recipeLevel: number): number | null {
+	return COOKING_GRADES.find(grade => grade.maxRecipeLevelWithoutPenalty >= recipeLevel)?.minLevel ?? null;
+}
+
+/**
  * XP per plant used in cooking (based on growth time)
  */
 export const PLANT_COOKING_XP: Record<PlantId, number> = {
