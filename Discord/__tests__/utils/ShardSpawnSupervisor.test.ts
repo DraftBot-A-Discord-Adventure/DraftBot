@@ -3,15 +3,21 @@ import {
 } from "vitest";
 
 const {
-	loggerError, loggerErrorWithObj, loggerWarn, restGet
+	fetchRecommendedShardCount, loggerError, loggerErrorWithObj, loggerWarn, restGet
 } = vi.hoisted(() => ({
+	fetchRecommendedShardCount: vi.fn(),
 	loggerError: vi.fn(),
 	loggerErrorWithObj: vi.fn(),
 	loggerWarn: vi.fn(),
 	restGet: vi.fn()
 }));
 
+vi.mock("node:timers/promises", () => ({
+	setTimeout: (): Promise<void> => Promise.resolve()
+}));
+
 vi.mock("discord.js", () => ({
+	fetchRecommendedShardCount,
 	REST: class {
 		public setToken(): this {
 			return this;
@@ -31,7 +37,9 @@ vi.mock("../../../Lib/src/logs/CrowniclesLogger", () => ({
 	}
 }));
 
-import type { Shard } from "discord.js";
+import type {
+	Shard, ShardingManager
+} from "discord.js";
 import { ShardSpawnSupervisor } from "../../src/utils/ShardSpawnSupervisor";
 
 interface FakeShardOptions {
@@ -155,5 +163,35 @@ describe("ShardSpawnSupervisor", () => {
 
 		expect(shard.kill).toHaveBeenCalledOnce();
 		expect(restGet).not.toHaveBeenCalled();
+	});
+
+	it("keeps spawning the next shards when a shard fails its startup", async () => {
+		fetchRecommendedShardCount.mockResolvedValue(3);
+		restGet.mockResolvedValue(getAvailableSessionLimit());
+		const shards = [0, 1, 2].map(id => ({
+			...createShard(),
+			id
+		}) as unknown as Shard);
+		vi.mocked(shards[0].spawn)
+			.mockRejectedValueOnce(new Error("ShardingReadyTimeout"))
+			.mockResolvedValue(undefined as never);
+		vi.mocked(shards[1].spawn).mockResolvedValue(undefined as never);
+		vi.mocked(shards[2].spawn).mockResolvedValue(undefined as never);
+		const shardingManager = {
+			totalShards: "auto",
+			shardList: "auto",
+			createShard: vi.fn((id: number) => shards[id])
+		} as unknown as ShardingManager;
+		const supervisor = new ShardSpawnSupervisor("token");
+
+		await supervisor.spawnFleet(shardingManager);
+
+		expect(shardingManager.totalShards).toBe(3);
+		expect(shardingManager.createShard).toHaveBeenCalledTimes(3);
+		expect(shards[1].spawn).toHaveBeenCalledOnce();
+		expect(shards[2].spawn).toHaveBeenCalledOnce();
+
+		await vi.runAllTimersAsync();
+		expect(shards[0].spawn).toHaveBeenCalledTimes(2);
 	});
 });
