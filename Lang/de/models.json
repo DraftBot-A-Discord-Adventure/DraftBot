@@ -416,8 +416,8 @@
       "name_other": "Verfluchungen"
     },
     "skeletonCursedAttack": {
-      "name_one": "Sortilège mortel",
-      "name_other": "Sortilèges mortels"
+      "name_one": "Tödlicher Zauber",
+      "name_other": "Tödliche Zaubersprüche"
     },
     "cursedByTheSea": {
       "name": "vom Meer verdammt",
@@ -498,8 +498,8 @@
       "name_other": "Feuerangriffe"
     },
     "titanFireAttack": {
-      "name_one": "Boule de feu",
-      "name_other": "Boules de feu"
+      "name_one": "Feuerball",
+      "name_other": "Feuerbälle"
     },
     "fishProtectAgainstFire": {
       "afraid": "bittet **{{petNickname}}**, ihm zu helfen, nicht zu verbrennen, aber **{{petNickname}}** ist zu ängstlich, um zu helfen.",
@@ -755,8 +755,8 @@
       "name_other": "Vergiftete Attacken"
     },
     "spiderPoisonAttack": {
-      "name_one": "Jet de poison",
-      "name_other": "Jets de poison"
+      "name_one": "Giftstrahl",
+      "name_other": "Giftstrahlen"
     },
     "poisonousBite": {
       "generalEffect": "braucht **{{petNickname}}**, das Tier braucht Zeit, um sich vorzubereiten...",
@@ -768,8 +768,8 @@
       "name_other": "Ansteigende Attacken"
     },
     "guardianPowerfulAttack": {
-      "name_one": "Attaque tranchante",
-      "name_other": "Attaques tranchantes"
+      "name_one": "Scharfer Angriff",
+      "name_other": "Scharfe Angriffe"
     },
     "protectAgainstCold": {
       "success": "wird von **{{petNickname}}** vor Kälte geschützt."
@@ -849,8 +849,8 @@
       "name_other": "Schutzschilder"
     },
     "skeletonShieldAttack": {
-      "name_one": "Cuirasse osseuse",
-      "name_other": "Cuirasses osseuses"
+      "name_one": "Knochenpanzer",
+      "name_other": "Knochenpanzer"
     },
     "simpleAttack": {
       "description": "Ein einfacher Angriff.",
@@ -858,12 +858,12 @@
       "name_other": "Einfache Attacken"
     },
     "skeletonSimpleAttack": {
-      "name_one": "Frappe osseuse",
-      "name_other": "Frappes osseuses"
+      "name_one": "Knochenprall",
+      "name_other": "Knochenbrüche"
     },
     "elementaryPiercingAttack": {
-      "name_one": "Éclat élémentaire",
-      "name_other": "Éclats élémentaires"
+      "name_one": "Elementarer Blitz",
+      "name_other": "Elementarsplitter"
     },
     "sing": {
       "customMessage": "beginnt zu singen.",
@@ -1061,7 +1061,7 @@
       "atParticle": "an die"
     },
     "10": {
-      "description": "Ancienne grande ville fortifiée, Ville Forte n'est plus que l'ombre d'elle-même. Ravagée par l'ancienne guerre, il ne reste qu'une dizaine de maisons et de paysans. Le reste des anciennes fortifications est en ruines, et sous les remparts effondrés, d'anciennes galeries souterraines s'enfoncent dans la roche.",
+      "description": "Ville Forte, einst eine große Festungsstadt, ist heute nur noch ein Schatten ihrer selbst. Durch den vergangenen Krieg verwüstet, sind nur noch etwa zehn Häuser und Bauern übrig geblieben. Der Rest der ehemaligen Befestigungsanlagen liegt in Trümmern, und unter den eingestürzten Stadtmauern führen alte unterirdische Gänge tief in den Fels hinein.",
       "name": "Stadt Forte",
       "particle": "in Richtung",
       "atParticle": "an die",
@@ -1205,13 +1205,13 @@
       "atParticle": "an die"
     },
     "14": {
-      "description": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter, et ses rives les plus reculées se perdent en marécages couverts de roseaux.",
+      "description": "Ein großer See, an dem sich Familien gerne treffen. Der Fluss Vacarme mündet dort, und seine am weitesten entfernten Ufer gehen in mit Schilf bewachsene Sümpfe über.",
       "name": "Lac Mirage",
       "particle": "in Richtung",
       "atParticle": "unter"
     },
     "15": {
-      "description": "Le Mont Celestrum est la montagne dominante de la région. Haute de plusieurs kilomètres, Celestrum est visible de tous. On raconte qu'elle porte le nom de l'ancienne déesse. Par ailleurs, une seule personne est parvenue à grimper jusqu'au sommet. On ne retient d'elle que ses initiales : M-B. Ses flancs sont percés de grottes dont personne n'a jamais trouvé le fond.",
+      "description": "Der Mont Celestrum ist der markanteste Berg der Region. Mit einer Höhe von mehreren Kilometern ist der Celestrum für alle sichtbar. Man sagt, er sei nach der antiken Göttin benannt. Übrigens hat es bisher nur eine einzige Person geschafft, den Gipfel zu erklimmen. Von ihr sind nur ihre Initialen bekannt: M-B. Seine Hänge sind von Höhlen durchzogen, deren Grund noch niemand gefunden hat.",
       "name": "Mont Célestrum",
       "particle": "in Richtung",
       "atParticle": "unter"
@@ -1223,7 +1223,7 @@
       "atParticle": "unter"
     },
     "17": {
-      "description": "Village-oasis prisé par les nobles de la Vallée des Rois en quête de fraîcheur. Les noix de coco qu'on y récolte sont réputées dans tout le pays et s'échangent à prix d'or sur les marchés du royaume. La rareté des terrains constructibles autour de la source en fait l'un des lieux les plus convoités.",
+      "description": "Ein Oasendorf, das bei den Adligen aus dem Tal der Könige auf der Suche nach Abkühlung sehr beliebt ist. Die dort geernteten Kokosnüsse sind im ganzen Land bekannt und werden auf den Märkten des Königreichs zu hohen Preisen gehandelt. Die Knappheit an Bauland rund um die Quelle macht diesen Ort zu einem der begehrtesten.",
       "name": "Coco Village",
       "particle": "in Richtung",
       "atParticle": "unter",
@@ -1260,7 +1260,7 @@
       "atParticle": "an die"
     },
     "22": {
-      "description": "Forêt mal famée au bord de Claire de Ville, Bois Hurlant a une très mauvaise réputation. Repaire de bandits et hors la loi en tout genre, elle tient surtout son nom de ces pratiques douteuses il y a de ça des centaines d'années. Les brigands se terrent encore dans les grottes qui creusent ses collines.",
+      "description": "Der berüchtigte Wald am Rande von Claire de Ville, „Bois Hurlant“, hat einen sehr schlechten Ruf. Als Zufluchtsort für Banditen und Gesetzlose aller Art verdankt er seinen Namen vor allem den zweifelhaften Machenschaften, die dort vor Hunderten von Jahren stattfanden. Noch immer verstecken sich Räuber in den Höhlen, die sich in die Hügel des Waldes graben.",
       "name": "Bois Hurlant",
       "particle": "in Richtung",
       "atParticle": "unter"
@@ -1364,7 +1364,7 @@
       "inParticle": "in"
     },
     "7": {
-      "description": "Désert de sable chaud nommé en l'honneur des anciens rois de la région. Leurs tombeaux à demi ensevelis parsèment encore les dunes.",
+      "description": "Eine heiße Sandwüste, benannt nach den früheren Königen der Region. Ihre halb verschütteten Gräber sind noch immer über die Dünen verstreut.",
       "name": "Vallée de Rois",
       "particle": "in Richtung",
       "atParticle": "an die"
@@ -1506,13 +1506,13 @@
   },
   "biomes": {
     "forest": "Wälder",
-    "mountain": "Montagne",
+    "mountain": "Berg",
     "desert": "Dessert",
-    "swamp": "Marais",
+    "swamp": "Sumpfgebiet",
     "ruins": "Ruinen",
-    "cave": "Grotte",
+    "cave": "Höhle",
     "plains": "Plain",
-    "coast": "Côte"
+    "coast": "Küste"
   },
   "missions": {
     "anyFight_one": "Machen {{count}} Kampf",
@@ -2184,7 +2184,7 @@
     "0": "Poing",
     "1": "Zeus-Foudre",
     "10": "Schwert aus Holz",
-    "100": "Sentence de la Faucheuse",
+    "100": "Das Urteil des Sensenmannes",
     "11": "Leere Pistole",
     "12": "Infizierte Spritze",
     "13": "Bombe",
