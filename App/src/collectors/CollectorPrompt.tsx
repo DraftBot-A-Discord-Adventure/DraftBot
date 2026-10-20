@@ -24,6 +24,7 @@ import {
 import { Theme } from "@/src/design/Theme";
 import { createStyles } from "@/src/design/ThemeContext";
 import { clockTime } from "@/src/display/Clock";
+import { TwemojiText } from "@/src/design/TwemojiText";
 
 export function useSecondsLeft(endTime: number): number {
 	const [secondsLeft, setSecondsLeft] = useState(() => Math.max(0, Math.ceil((endTime - Date.now()) / 1000)));
@@ -82,18 +83,35 @@ export function CollectorDecision({
 	</View>;
 }
 
-function isServerOnlyChoice(collector: ReactionCollectorCreation, choice: IndexedChoice): boolean {
+/** Letting the countdown of a big event run out picks its "end" outcome: Discord offers it as an emoji. */
+function isEndChoice(collector: ReactionCollectorCreation, choice: IndexedChoice): boolean {
 	return collector.data.type === BIG_EVENT_DATA_KINDS.COLLECTOR
 		&& choice.reaction.type === BIG_EVENT_REACTION_KINDS.POSSIBILITY
 		&& choice.reaction.data.name === BIG_EVENT_END_POSSIBILITY_ID;
 }
 
-function visibleChoices(collector: ReactionCollectorCreation): IndexedChoice[] {
-	return collector.reactions
-		.map((reaction, index) => ({
-			reaction, index, key: `${collector.id}-${index}`
-		}))
-		.filter(choice => !isServerOnlyChoice(collector, choice));
+function indexedChoices(collector: ReactionCollectorCreation): IndexedChoice[] {
+	return collector.reactions.map((reaction, index) => ({
+		reaction, index, key: `${collector.id}-${index}`
+	}));
+}
+
+/** Not answering is a choice of its own: it ends the countdown at once rather than making the player wait for it. */
+function SkipCountdown({
+	choice, locked, onChoose
+}: {
+	choice: IndexedChoice; locked: boolean; onChoose: (choice: IndexedChoice) => void;
+}): ReactNode {
+	const styles = useDecisionStyles();
+	return <Pressable
+		accessibilityRole="button"
+		disabled={locked}
+		onPress={(): void => onChoose(choice)}
+		style={({ pressed }): object[] => [styles.cancel, pressed && styles.pressed].filter(Boolean) as object[]}
+		testID="collector-skip-countdown"
+	>
+		<TwemojiText textStyle={styles.cancelLabel} emojiSize={Theme.fontSize.bodySmall}>{i18n.t("app:collector.skipCountdown")}</TwemojiText>
+	</Pressable>;
 }
 
 export function countdownLabel(secondsLeft: number, submitting: boolean): string {
@@ -149,17 +167,20 @@ export function CollectorChoices({
 		setAnsweredCollectorId(collector.id);
 		onChoose(choice.index);
 	};
+	const choices = indexedChoices(collector);
+	const endChoice = choices.find(choice => isEndChoice(collector, choice));
 
 	return (
 		<View style={styles.choices}>
 			<SectionHeader>{i18n.t("app:collector.yourAction")}</SectionHeader>
-			<View style={styles.actions}>{visibleChoices(collector).map(choice => <CollectorChoiceRow
+			<View style={styles.actions}>{choices.filter(choice => choice !== endChoice).map(choice => <CollectorChoiceRow
 				key={choice.key}
 				choice={choice}
 				collector={collector}
 				locked={locked}
 				onChoose={choose}
 			/>)}</View>
+			{endChoice ? <SkipCountdown choice={endChoice} locked={locked} onChoose={choose} /> : null}
 			<Note>{submitting || answeredCollectorId === collector.id
 				? i18n.t("app:collector.answering")
 				: secondsLeft === 0

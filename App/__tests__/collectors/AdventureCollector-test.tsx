@@ -377,6 +377,24 @@ function merchantCollector(): ReactionCollectorCreation {
 	};
 }
 
+function bigEventWithEnd(): ReactionCollectorCreation {
+	return {
+		id: "big-event",
+		endTime: Date.now() + 60_000,
+		data: {
+			type: BIG_EVENT_DATA_KINDS.COLLECTOR, data: { eventId: 18 }
+		},
+		reactions: [
+			{
+				type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "end" }
+			},
+			{
+				type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "search" }
+			}
+		]
+	};
+}
+
 const collectorScenarios: CollectorScenario[] = [
 	{
 		name: "renders the city menu in the adventure tab and submits its indexed choice",
@@ -423,26 +441,21 @@ const collectorScenarios: CollectorScenario[] = [
 		}
 	},
 	{
-		name: "hides the server-only end possibility without shifting big-event indexes",
-		collector: () => ({
-			id: "big-event",
-			endTime: Date.now() + 60_000,
-			data: {
-				type: BIG_EVENT_DATA_KINDS.COLLECTOR, data: { eventId: 18 }
-			},
-			reactions: [
-				{
-					type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "end" }
-				},
-				{
-					type: BIG_EVENT_REACTION_KINDS.POSSIBILITY, data: { name: "search" }
-				}
-			]
-		}),
+		name: "keeps the end possibility out of the choice list without shifting big-event indexes",
+		collector: bigEventWithEnd,
 		choiceText: "search",
 		expectedIndex: 1,
 		assertView: () => {
 			expect(screen.queryByText("end")).toBeNull();
+		}
+	},
+	{
+		name: "lets the player skip the countdown of a big event by answering its end possibility at once",
+		collector: bigEventWithEnd,
+		choiceText: "app:collector.skipCountdown",
+		expectedIndex: 0,
+		assertView: () => {
+			expect(screen.getByTestId("collector-skip-countdown")).toBeTruthy();
 		}
 	},
 	{

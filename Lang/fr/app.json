@@ -414,6 +414,7 @@
     "replyBefore": "Répondre avant {{time}}",
     "timeLeft": "Délai pour répondre : {{seconds}} s",
     "expired": "Le temps imparti est écoulé",
+    "skipCountdown": "{emote:messages.notReplied} Ne pas réagir et passer le décompte",
     "titles": {
       "drink": "Quelle potion boire ?",
       "bigEvent": "Événement en cours",
