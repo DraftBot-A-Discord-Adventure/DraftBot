@@ -17,7 +17,6 @@ import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { createStyles } from "@/src/design/ThemeContext";
 import { CollectorDecision } from "@/src/collectors/CollectorPrompt";
 import { useCollectorAnswer } from "@/src/collectors/useCollectorAnswer";
-import { formatMoney } from "@/src/display/Amounts";
 import { i18n } from "@/src/translations/i18n";
 
 const GUILD_EMBLEM_SIZE = 40;
@@ -66,9 +65,6 @@ function DescriptionPreview({ description }: { description: string }): ReactNode
 }
 
 function guildConfirmationTitle(data: ReactionCollectorData): string {
-	if (data.type === GUILD_DATA_KINDS.REIMBURSE) {
-		return i18n.t("app:guildDomain.reimburse");
-	}
 	if (data.type === GUILD_DATA_KINDS.INVITE) {
 		return i18n.t("app:guild.invitation");
 	}
@@ -86,9 +82,6 @@ function GuildDepartureDetails({ data }: { data: ReactionCollectorDataOf<typeof 
 }
 
 function GuildConfirmationDetails({ data }: { data: ReactionCollectorData }): ReactNode {
-	if (data.type === GUILD_DATA_KINDS.REIMBURSE) {
-		return <Note>{i18n.t("app:guildDomain.confirmReimburse", { amount: formatMoney(data.data.amount) })}</Note>;
-	}
 	if (data.type === GUILD_DATA_KINDS.INVITE) {
 		return <Note>{i18n.t("app:guild.confirmInvitation", { guild: data.data.guildName })}</Note>;
 	}

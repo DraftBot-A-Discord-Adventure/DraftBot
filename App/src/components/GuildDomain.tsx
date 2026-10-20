@@ -1,5 +1,5 @@
 import {
-	ReactNode, useState
+	ReactNode, useRef, useState
 } from "react";
 import {
 	Text, View
@@ -31,7 +31,7 @@ import {
 	Button, ButtonRow, Note, SectionHeader
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, EntryRow, ExpandableEntry, ExpandableList, Fact, Figures, Lock, Refusal, useSectionStyles, Standing
+	ActionBanner, EntryRow, ExpandableEntry, ExpandableList, Fact, Figures, Lock, LockHint, Refusal, useSectionStyles, Standing
 } from "@/src/design/Sections";
 import { Check } from "@/src/design/FightIcons";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
@@ -45,6 +45,10 @@ import {
 import { i18n } from "@/src/translations/i18n";
 import { useColors } from "@/src/design/ThemeContext";
 import { domainPacketRefusal } from "@/src/collectors/GuildDomainOutcome";
+import { useCollectors } from "@/src/collectors/CollectorsContext";
+import { CollectorDecision } from "@/src/collectors/CollectorPrompt";
+import { GUILD_DATA_KINDS } from "ws-packets/src/fromServer/collectors";
+import { AppConstants } from "@/src/AppConstants";
 
 const DOMAIN_MENUS = {
 	upgrade: {
@@ -128,7 +132,27 @@ function BuildingUpgrade({
 	</>;
 }
 
-/** Buying food states its price on the banner itself, so no window has to ask again. */
+/** The quantities offered for a food: the quick amounts that still fit, then whatever fills the storage. */
+function foodAmounts(maxBuyable: number): number[] {
+	return [...new Set([...AppConstants.GUILD_FOOD_QUICK_AMOUNTS.map(amount => Math.min(amount, maxBuyable)), maxBuyable])].filter(amount => amount > 0);
+}
+
+/** Why no quantity of this food can be bought: the shop, a full storage or an empty treasury. */
+function foodLock(data: GuildFoodShop, foodType: PetFood, index: number): Lock | undefined {
+	return firstLock([
+		{
+			blocked: !data.canUseShop, key: "noShop"
+		},
+		{
+			blocked: data.food[FOOD_FIELDS[foodType]] >= data.foodCaps[index], key: "storageFull"
+		},
+		{
+			blocked: data.maxBuyableFood[index] < 1, key: "notEnoughTreasury"
+		}
+	]);
+}
+
+/** One button per quantity, each saying how many and what it costs: the rest is on the line above. */
 function GuildFoodLine({
 	data, foodType, index, actions
 }: {
@@ -137,14 +161,9 @@ function GuildFoodLine({
 	const name = i18n.t(`models:foods.${foodType}`, {
 		count: 1, context: "capitalized"
 	});
-	const lock = firstLock([
-		{
-			blocked: !data.canUseShop, key: "noShop"
-		},
-		{
-			blocked: data.maxBuyableFood[index] < 1, key: "cannotBuy"
-		}
-	]);
+	const lock = foodLock(data, foodType, index);
+	const foodIcon = AppIcons.getIconOrNull(`foods.${foodType}`);
+	const maxBuyable = data.maxBuyableFood[index];
 	const buy = (amount: number): void => actions.run({
 		kind: "food",
 		request: makeFromClientPacket(GuildDomainFoodReq, {
@@ -152,33 +171,50 @@ function GuildFoodLine({
 		})
 	});
 	return <>
-		<SectionHeader>{name}</SectionHeader>
+		<SectionHeader {...foodIcon ? { icon: foodIcon } : {}}>{name}</SectionHeader>
+		<Note>{i18n.t(`app:guildDomain.foodDescriptions.${foodType}`)}</Note>
 		<ExpandableList>
 			<Fact label={i18n.t("app:guildDomain.stock")} value={i18n.t("app:profile.formats.progress", {
 				value: data.food[FOOD_FIELDS[foodType]], max: data.foodCaps[index]
 			})} />
-			<Fact label={i18n.t("app:pet.care.price")} value={formatMoney(data.foodPrices[index])} />
+			<Fact label={i18n.t("app:guildDomain.unitPrice")} value={formatMoney(data.foodPrices[index])} />
 		</ExpandableList>
-		<ActionBanner
-			icon={Check}
-			label={i18n.t("app:guildDomain.confirmFood", {
-				count: 1, cost: formatMoney(data.foodPrices[index])
-			})}
-			pending={actions.pending}
-			{...lock ? { lock } : {}}
-			onPress={(): void => buy(1)}
+		{lock
+			? <LockHint lock={lock} />
+			: <ButtonRow>{foodAmounts(maxBuyable).map(amount => <Button
+				key={amount}
+				variant="primary"
+				disabled={actions.pending}
+				onPress={(): void => buy(amount)}
+			>{i18n.t("app:guildDomain.buyFood", {
+					amount: formatNumber(amount), cost: formatMoney(amount === maxBuyable ? data.maxFoodCosts[index] : data.foodPrices[index] * amount)
+				})}</Button>)}</ButtonRow>}
+	</>;
+}
+
+/**
+ * The treasury paid for the food: the player may refund it from their own purse. Asked in place, where the
+ * purchase was made, since the shop already holds the screen and no second window may open on top of it.
+ */
+function ReimburseOffer(): ReactNode {
+	const {
+		open, react, isAnswerPending
+	} = useCollectors();
+	const collector = open.find(candidate => candidate.data.type === GUILD_DATA_KINDS.REIMBURSE);
+	if (!collector || collector.data.type !== GUILD_DATA_KINDS.REIMBURSE) {
+		return null;
+	}
+	const amount = formatMoney(collector.data.data.amount);
+	return <>
+		<SectionHeader>{i18n.t("app:guildDomain.outcomes.food")}</SectionHeader>
+		<Note>{i18n.t("app:guildDomain.confirmReimburse", { amount })}</Note>
+		<CollectorDecision
+			collector={collector}
+			onChoose={(reactionIndex): void => react(collector.id, reactionIndex)}
+			submitting={isAnswerPending(collector.id)}
+			acceptLabel={i18n.t("app:guildDomain.reimburseAccept", { amount })}
+			cancelLabel={i18n.t("app:guildDomain.reimburseDecline")}
 		/>
-		{data.maxBuyableFood[index] > 1
-			? <ActionBanner
-				icon={Check}
-				label={i18n.t("app:guildDomain.confirmFood", {
-					count: data.maxBuyableFood[index], cost: formatMoney(data.maxFoodCosts[index])
-				})}
-				pending={actions.pending}
-				{...lock ? { lock } : {}}
-				onPress={(): void => buy(data.maxBuyableFood[index])}
-			/>
-			: null}
 	</>;
 }
 
@@ -254,7 +290,10 @@ function BuildingContents({
 	const colors = useColors();
 	switch (building) {
 		case GuildBuilding.SHOP:
-			return <>{Object.values(PetFood).map((foodType, index) => <GuildFoodLine key={foodType} data={domain} foodType={foodType} index={index} actions={actions} />)}</>;
+			return <>
+				<ReimburseOffer />
+				{Object.values(PetFood).map((foodType, index) => <GuildFoodLine key={foodType} data={domain} foodType={foodType} index={index} actions={actions} />)}
+			</>;
 		case GuildBuilding.SHELTER:
 			return <ExpandableList>
 				<Fact label={i18n.t("app:guildDomain.capacity")} value={i18n.t("app:profile.formats.progress", {
@@ -291,15 +330,29 @@ function BuildingEntry({
 }: BuildingEntryProps): ReactNode {
 	const sectionStyles = useSectionStyles();
 	const icon = AppIcons.getIconOrNull(`city.guildDomain.${building}`);
+
+	// The shelter page opens once the building sheet is put away, so it never piles up under it.
+	const transferRequested = useRef(false);
 	return <ExpandableEntry
 		emblem={icon ? <TwemojiIcon emoji={icon} size={22} /> : null}
 		label={i18n.t(`commands:report.city.guildDomain.buildings.${building}`)}
 		end={<Text style={sectionStyles.caption}>{i18n.t("app:guild.level", { level: domain[BUILDING_LEVEL_FIELDS[building]] })}</Text>}
 		expanded={expanded}
 		onToggle={(): void => onSelect(building)}
+		onDismissed={(): void => {
+			if (transferRequested.current) {
+				transferRequested.current = false;
+				onTransfer();
+			}
+		}}
 	>
 		<BuildingContents domain={domain} building={building} actions={actions} />
-		{building === GuildBuilding.SHELTER ? <ButtonRow><Button onPress={onTransfer}>{i18n.t("app:pet.management.shelter")}</Button></ButtonRow> : null}
+		{building === GuildBuilding.SHELTER
+			? <ButtonRow><Button onPress={(): void => {
+				transferRequested.current = true;
+				onSelect(building);
+			}}>{i18n.t("app:pet.management.shelter")}</Button></ButtonRow>
+			: null}
 		<BuildingUpgrade domain={domain} building={building} actions={actions} />
 	</ExpandableEntry>;
 }
@@ -345,6 +398,7 @@ export function GuildDomainContent({ domain }: { domain: GuildDomainSnapshot }):
 	return <>
 		<DomainStanding domain={domain} />
 		{message ? <Refusal>{message}</Refusal> : null}
+		<ReimburseOffer />
 		{domain.domainCityId === null
 			? <Note>{i18n.t("app:guild.domainLocks.none")}</Note>
 			: <>
@@ -356,7 +410,7 @@ export function GuildDomainContent({ domain }: { domain: GuildDomainSnapshot }):
 					actions={actions}
 					expanded={building === value}
 					onSelect={(selected): void => setBuilding(current => current === selected ? null : selected)}
-					onTransfer={(): void => router.push("/guild/shelter")}
+					onTransfer={(): void => router.navigate("/guild/shelter")}
 				/>)}</ExpandableList>
 				<DomainDeposits domain={domain} actions={actions} openAmount={openAmount} onOpen={setOpenAmount} />
 			</>}

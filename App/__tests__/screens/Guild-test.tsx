@@ -23,7 +23,7 @@ import { JoinBoatReq } from "ws-packets/src/fromClient/PlayerUtilityReq";
 import { GuildDomainContent } from "@/src/components/GuildDomain";
 import { GuildDomainSnapshot } from "ws-packets/src/objects/GuildDomain";
 import {
-	GuildDomainDepositReq, GuildDomainUpgradeReq
+	GuildDomainDepositReq, GuildDomainFoodReq, GuildDomainUpgradeReq
 } from "ws-packets/src/fromClient/GuildDomainReq";
 import { formatNumber } from "@/src/display/Amounts";
 import {
@@ -53,7 +53,11 @@ jest.mock("expo-router", () => ({
 }));
 jest.mock("@/src/networking/GameClient", () => ({ GameClient: { request: jest.fn() } }));
 const mockTrack = jest.fn();
-jest.mock("@/src/collectors/CollectorsContext", () => ({ useCollectors: () => ({ track: mockTrack }) }));
+const mockReact = jest.fn();
+let mockOpenCollectors: ReactionCollectorCreation[] = [];
+jest.mock("@/src/collectors/CollectorsContext", () => ({ useCollectors: () => ({
+	track: mockTrack, open: mockOpenCollectors, react: mockReact, isAnswerPending: (): boolean => false
+}) }));
 jest.mock("@/src/AppIcons", () => ({ AppIcons: {
 	getIcon: (): string => "", getIconOrNull: (): null => null
 } }));
@@ -178,12 +182,29 @@ function guildData(overrides: Partial<GuildData> = {}): GuildData {
 	};
 }
 
-describe("guild screens", () => {
-	beforeEach(() => jest.clearAllMocks());
-	it.each([
-		{
-			type: "guildReimburse", data: { amount: 60 }, message: "app:guildDomain.confirmReimburse"
+function reimburseCollector(): ReactionCollectorCreation {
+	return Object.assign(new ReactionCollectorCreation(), {
+		id: "reimburse",
+		endTime: Date.now() + 60_000,
+		data: {
+			type: "guildReimburse", data: { amount: 60 }
 		},
+		reactions: [
+			{
+				type: "accept", data: {}
+			}, {
+				type: "refuse", data: {}
+			}
+		]
+	});
+}
+
+describe("guild screens", () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+		mockOpenCollectors = [];
+	});
+	it.each([
 		{
 			type: "guildLeave",
 			data: {
@@ -233,6 +254,52 @@ describe("guild screens", () => {
 		expect(screen.getByText("Marchands loyaux")).toBeTruthy();
 		await fireEvent.press(screen.getByText("app:pet.care.save"));
 		expect(choose).toHaveBeenCalledWith(1);
+	});
+	it("offers each food in quick quantities and the amount filling the storage, and buys the one pressed", async () => {
+		jest.mocked(GameClient.request).mockResolvedValue({
+			kind: "alternative", packetName: "GuildDomainRes", packet: {}
+		});
+		await render(<GuildDomainContent domain={{
+			...DOMAIN, maxBuyableFood: [
+				42,
+				2,
+				0,
+				1
+			]
+		}} />);
+		await fireEvent.press(screen.getByText(/commands:report.city.guildDomain.buildings.shop/));
+		expect(screen.getAllByText("app:guildDomain.buyFood")).toHaveLength(3 + 2 + 1);
+		await fireEvent.press(screen.getAllByText("app:guildDomain.buyFood")[1]);
+		await waitFor(() => expect(GameClient.request).toHaveBeenCalled());
+		expect(jest.mocked(GameClient.request).mock.calls[0][0]).toBeInstanceOf(GuildDomainFoodReq);
+		expect(jest.mocked(GameClient.request).mock.calls[0][0]).toMatchObject({
+			foodType: "commonFood", amount: 10
+		});
+	});
+	it("replaces the buttons of a full storage with the reason, before any tap", async () => {
+		await render(<GuildDomainContent domain={{
+			...DOMAIN,
+			food: {
+				...DOMAIN.food, common: 150
+			},
+			maxBuyableFood: [
+				0,
+				2,
+				2,
+				1
+			]
+		}} />);
+		await fireEvent.press(screen.getByText(/commands:report.city.guildDomain.buildings.shop/));
+		expect(screen.getByText("app:guildDomain.errors.storageFull")).toBeTruthy();
+		expect(screen.getAllByText("app:guildDomain.buyFood")).toHaveLength(2 + 2 + 1);
+	});
+	it("asks for the refund in place, inside the open shop, and answers through the server's reactions", async () => {
+		mockOpenCollectors = [reimburseCollector()];
+		await render(<GuildDomainContent domain={DOMAIN} />);
+		await fireEvent.press(screen.getByText(/commands:report.city.guildDomain.buildings.shop/));
+		expect(screen.getAllByText("app:guildDomain.confirmReimburse").length).toBeGreaterThan(0);
+		await fireEvent.press(screen.getAllByText("app:guildDomain.reimburseDecline").at(-1)!);
+		expect(mockReact).toHaveBeenCalledWith("reimburse", 1);
 	});
 	it("tells the chief how to found a domain instead of listing buildings that do not exist yet", async () => {
 		await render(<GuildDomainContent domain={{

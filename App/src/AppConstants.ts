@@ -13,4 +13,11 @@ export abstract class AppConstants {
 
 	// How long a cached entity is served without asking the server again, when no action invalidated it
 	static readonly GAME_STATE_STALE_TIME = 30000; // 30 seconds
+
+	// Quantities the guild food shop offers at a tap, as Discord does; the amount filling the storage is added to them
+	static readonly GUILD_FOOD_QUICK_AMOUNTS = [
+		1,
+		10,
+		100
+	] as const;
 }

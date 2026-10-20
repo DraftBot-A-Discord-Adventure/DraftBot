@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useCollectors } from "@/src/collectors/CollectorsContext";
 import { CollectorPrompt } from "@/src/collectors/CollectorPrompt";
 import {
-	isAdventureCollector, isFoundItemCollector
+	isAdventureCollector, isFoundItemCollector, isGuildShopCollector
 } from "@/src/collectors/CollectorRouting";
 import { useAdventureTelling } from "@/src/components/UnlockCelebration";
 import {
@@ -83,7 +83,6 @@ const COLLECTOR_COMPONENTS: Partial<Record<ReactionCollectorDataKind, (props: Ac
 	[PLAYER_UTILITY_DATA_KINDS.UNLOCK]: PlayerUtilityCollector,
 	[PLAYER_UTILITY_DATA_KINDS.BOAT]: PlayerUtilityCollector,
 	[FIGHT_DATA_KINDS.CONFIRM]: FightConfirmCollector,
-	[GUILD_DATA_KINDS.REIMBURSE]: GuildCreateCollector,
 	[GUILD_DATA_KINDS.INVITE]: GuildCreateCollector,
 	[GUILD_DATA_KINDS.MEMBER]: GuildCreateCollector,
 	[GUILD_DATA_KINDS.DESCRIPTION]: GuildCreateCollector,
@@ -255,7 +254,7 @@ export function OpenCollectors(): ReactNode {
 	const {
 		open, react, isAnswerPending
 	} = useCollectors();
-	const fallbackCollectors = open.filter(collector => !isAdventureCollector(collector) && collector.data.type !== FIGHT_DATA_KINDS.ACTION);
+	const fallbackCollectors = open.filter(collector => !isAdventureCollector(collector) && !isGuildShopCollector(collector) && collector.data.type !== FIGHT_DATA_KINDS.ACTION);
 	return <>
 		<FightSession />
 		<PendingOutcomes />

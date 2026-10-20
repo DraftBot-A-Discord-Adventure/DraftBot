@@ -1,7 +1,7 @@
 import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
 import {
 	BIG_EVENT_DATA_KINDS, ITEM_DATA_KINDS, REPORT_COLLECTOR_DATA_KINDS,
-	SMALL_EVENT_DATA_KINDS, CITY_DATA_KINDS, SHOP_DATA_KINDS
+	SMALL_EVENT_DATA_KINDS, CITY_DATA_KINDS, SHOP_DATA_KINDS, GUILD_DATA_KINDS
 } from "ws-packets/src/fromServer/collectors";
 
 const ADVENTURE_COLLECTOR_TYPES = new Set<string>([
@@ -27,6 +27,11 @@ const ADVENTURE_COLLECTOR_TYPES = new Set<string>([
  */
 export function isAdventureCollector(collector: ReactionCollectorCreation): boolean {
 	return ADVENTURE_COLLECTOR_TYPES.has(collector.data.type);
+}
+
+/** The refund offered after a guild food purchase is asked inside the guild shop, where the purchase was made. */
+export function isGuildShopCollector(collector: ReactionCollectorCreation): boolean {
+	return collector.data.type === GUILD_DATA_KINDS.REIMBURSE;
 }
 
 export function isBigEventCollector(collector: ReactionCollectorCreation): boolean {
