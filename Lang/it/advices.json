@@ -348,8 +348,8 @@
     "Un equipaggiamento raro costa di più da potenziare rispetto a uno comune: la rarità dell'oggetto influisce notevolmente sul prezzo della fonderia.",
     "Alcuni equipaggiamenti molto rari, come quelli leggendari, richiedono una fortuna per essere potenziati al livello successivo.",
     "Prima di intraprendere un intervento di ristrutturazione costoso, controllate nel vostro magazzino se disponete già di tutti i materiali necessari.",
-    "Il disincanto rimuove l'incantesimo da un'armatura incantata: il fabbro fa pagare questa delicata operazione, mentre l'incantatore itinerante Mernil se ne occupa gratuitamente.",
-    "Dal fabbro, i costi di disincanto sono più elevati per gli equipaggiamenti e le rune potenti, poiché l'operazione richiede maggiori competenze.",
+    "Le désenchantement retire la magie d'un équipement enchanté : l'enchanteur itinérant Mernil s'en charge gratuitement.",
+    "Chez le forgeron, transférer un enchantement coûte plus cher lorsque l'équipement qui le reçoit est rare, car l'opération demande plus de savoir-faire.",
     "Una volta disincantato, il tuo equipaggiamento perde l'incantesimo e torna ad essere ordinario, ma l'arma o l'armatura stessa rimane intatta.",
     "L'incantatore visita diverse città e propone una sola runa alla volta, cambiando la sua offerta di giorno in giorno.",
     "Le gemme sono rare e preziose: conservatele con cura.",
@@ -459,7 +459,7 @@
     "Il pulsante “Rimanere in città” ti permette di continuare a esplorare i servizi disponibili senza dover ripartire verso una nuova destinazione.",
     "Se avete mangiato di recente, il messaggio indica l'ora esatta in cui potrete mangiare di nuovo.",
     "I tempi di attesa per i servizi (pasti, sonno, incantesimi) vengono visualizzati con gli orari di Discord, che si aggiornano automaticamente in base al tuo fuso orario.",
-    "Il fabbro potenzia il livello dei tuoi equipaggiamenti, mentre l'incantatore aggiunge loro nuove proprietà. Entrambi sono in grado di rimuovere un incantesimo: i loro ruoli sono complementari.",
+    "Le forgeron améliore le niveau de vos équipements et sait déplacer un enchantement de l'un à l'autre, tandis que l'enchanteur leur ajoute de nouvelles propriétés ou les en débarrasse : leurs rôles sont complémentaires.",
     "Alcune missioni o eventi vi obbligano a rimanere in città per poter proseguire, mentre altre richiedono che continuiate il vostro viaggio: leggete attentamente gli obiettivi.",
     "Le locande offrono ogni giorno pasti diversi secondo un menu a rotazione, il che significa che alcuni bonus di energia sono disponibili solo in determinati giorni.",
     "Accendere o riaccendere i fornelli della vostra cucina comporta il consumo di un combustibile come la legna, privilegiando le risorse più diffuse.",
@@ -478,6 +478,7 @@
     "La Borsa di Claire de Ville offre un servizio di speculazione.",
     "Le gemme possono essere scambiate con ricompense uniche al castello del re.",
     "Se cercate dei materiali, fate un salto alla Città Fortificata: lì troverete un mercante che ve li venderà.",
-    "Un erborista si è stabilito al Village Coco."
+    "Un erborista si è stabilito al Village Coco.",
+    "Une meilleure arme ou armure vient de tomber entre vos mains ? Le forgeron peut y transférer l'enchantement de l'ancienne, à condition qu'elle n'en porte pas déjà un."
   ]
 }
