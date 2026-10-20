@@ -305,7 +305,7 @@
   },
   "friendlyFight": {
     "description": "Starte einen freundschaftlichen Kampf ohne jegliche Konsequenzen gegen einen anderen, von der KI gesteuerten Spieler.",
-    "name": "Freundschaftsspiel",
+    "name": "freundschaftsspiel",
     "options": {
       "rank": {
         "description": "Die Rangliste des Gegners.",
