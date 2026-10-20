@@ -1344,7 +1344,8 @@
     "you": "Vous", "opponent": "Adversaire", "energy": "Énergie", "breath": "Souffle", "glory": "Gloire", "league": "Ligue", "pet": "Familier",
     "turn": "Tour {{turn}} / {{max}}", "turns": "Tours joués", "waiting": "L'adversaire choisit son action…", "action": "Action de combat", "actionBreath": "{{value}} souffle",
     "log": "Journal du combat", "victory": "Victoire", "defeat": "Défaite", "draw": "Match nul", "gloryChange": "{{before}} → {{after}}", "petLove": "Votre familier gagne {{count}} points d'amour.", "kingGuardNoGlory": "Aucun adversaire n'était disponible : ce combat contre un garde du roi ne mettait aucune gloire en jeu.",
-    "stats": {"attack": "Attaque", "defense": "Défense", "speed": "Vitesse", "breathRegen": "Souffle récupéré"},
+    "stats": {"attack": "Attaque", "defense": "Défense", "speed": "Vitesse", "breathRegen": "Récupération de souffle"},
+    "attacks": "Attaques",
     "effects": {"newAlteration": "Altération"},
     "errors": {"energy": "Votre énergie est insuffisante pour lancer un duel.", "noOpponent": "Aucun adversaire n'est disponible pour le moment.", "bugged": "Le combat a été interrompu par une erreur. Votre état est en cours de rafraîchissement."}
   },

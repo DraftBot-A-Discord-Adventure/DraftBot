@@ -249,6 +249,27 @@ describe("live battle presentation", () => {
 		expect(screen.getAllByText("app:arena.stats.attack").length).toBeGreaterThan(0);
 		expect(screen.getAllByText("15").length).toBeGreaterThan(0);
 	});
+	it("lists every attack of the opponent with its breath cost in their details", async () => {
+		const initial = battle();
+		await render(<FightLiveView fight={{
+			...initial,
+			introduction: {
+				...initial.introduction!,
+				opponentActions: [
+					["heavyAttack", 7],
+					["ultimateAttack", 9]
+				]
+			}
+		}} onChoose={jest.fn()} submitting={false} onClose={jest.fn()} />);
+		await fireEvent.press(screen.getByRole("button", { name: "app:arena.details : Arsene" }));
+		expect(screen.getByText("app:arena.attacks")).toBeTruthy();
+		expect(screen.getByText("models:fight_actions.heavyAttack.name")).toBeTruthy();
+		expect(screen.getByText("models:fight_actions.ultimateAttack.name")).toBeTruthy();
+		expect(screen.getByText("9")).toBeTruthy();
+
+		// The player's own attacks stay in the action grid: only one of them is on screen.
+		expect(screen.getAllByText("models:fight_actions.simpleAttack.name")).toHaveLength(1);
+	});
 	it("shows both fighters' current statistics without opening their details", async () => {
 		const initial = battle();
 		const view = await render(<FightLiveView fight={initial} onChoose={jest.fn()} submitting={false} onClose={jest.fn()} />);

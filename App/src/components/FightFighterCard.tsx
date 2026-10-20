@@ -4,9 +4,7 @@ import {
 import {
 	Pressable, Text, View
 } from "react-native";
-import {
-	Info, Shield, Swords, Wind
-} from "@/src/design/FightIcons";
+import { Info } from "@/src/design/FightIcons";
 import { FightFighter } from "ws-packets/src/objects/Fight";
 import { OwnedPet } from "ws-packets/src/objects/OwnedPet";
 import { Theme } from "@/src/design/Theme";
@@ -15,6 +13,7 @@ import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import {
 	ExpandableList, Fact, QuestionSheet
 } from "@/src/design/Sections";
+import { SectionHeader } from "@/src/design/Primitives";
 import {
 	fighterDisplayName, fighterSubtitle, fightActionName
 } from "@/src/display/Fight";
@@ -30,16 +29,15 @@ import {
 } from "@/src/design/ThemeContext";
 
 const COMBAT_STATS = [
-	{
-		key: "attack", Icon: Swords
-	},
-	{
-		key: "defense", Icon: Shield
-	},
-	{
-		key: "speed", Icon: Wind
-	}
+	{ key: "attack" },
+	{ key: "defense" },
+	{ key: "speed" }
 ] as const;
+
+const STAT_EMOJI_SIZE = 22;
+
+/** The attacks a fighter can use, with the breath each one costs. */
+export type FighterActions = [string, number][];
 
 /** Breath is spent a notch at a time, so it is drawn as notches: the player sees at once what they can afford. */
 const BREATH_NOTCH_GAP = 2;
@@ -160,30 +158,44 @@ function FighterCombatStats({ fighter }: { fighter: FightFighter }): ReactNode {
 	</View>)}</View>;
 }
 
+/** Every attack the fighter may play and its breath cost: a boss gains some with its level. */
+function FighterAttacks({ actions }: { actions: FighterActions }): ReactNode {
+	return <>
+		<SectionHeader>{i18n.t("app:arena.attacks")}</SectionHeader>
+		<ExpandableList>{actions.map(([actionId, cost]) => {
+			const icon = AppIcons.getIconOrNull(`fightActions.${actionId}`);
+			return <Fact key={actionId} label={icon ? `${icon} ${fightActionName(actionId)}` : fightActionName(actionId)} value={formatNumber(cost)} unit="breath" />;
+		})}</ExpandableList>
+	</>;
+}
+
 function FighterStats({
-	fighter, pet, onClose
+	fighter, pet, actions, onClose
 }: {
-	fighter: FightFighter; pet?: OwnedPet; onClose: () => void;
+	fighter: FightFighter; pet?: OwnedPet; actions: FighterActions; onClose: () => void;
 }): ReactNode {
 	const styles = useStyles();
-	const colors = useColors();
 	return <QuestionSheet
 		caption={i18n.t("app:arena.details")}
 		title={fighterDisplayName(fighter)}
 		onClose={onClose}
 	>
-		<View style={styles.statRow}>{COMBAT_STATS.map(({
-			key, Icon
-		}) => <View key={key} style={styles.stat}><Icon size={22} color={colors.muted} /><Text style={styles.statValue}>{formatNumber(fighter.stats[key])}</Text><Text style={styles.statLabel}>{i18n.t(`app:arena.stats.${key}`)}</Text></View>)}</View>
+		<View style={styles.statRow}>{COMBAT_STATS.map(({ key }) => <View key={key} style={styles.stat}><TwemojiIcon emoji={AppIcons.getIcon(`unitValues.${key}`)} size={STAT_EMOJI_SIZE} /><Text style={styles.statValue}>{formatNumber(fighter.stats[key])}</Text><Text style={styles.statLabel}>{i18n.t(`app:arena.stats.${key}`)}</Text></View>)}</View>
 		<ExpandableList>
+			{fighter.stats.maxEnergy === undefined
+				? null
+				: <Fact label={i18n.t("app:arena.energy")} value={i18n.t("app:profile.formats.progress", {
+					value: fighter.stats.power, max: fighter.stats.maxEnergy
+				})} unit="energy" />}
 			<Fact label={i18n.t("app:arena.breath")} value={i18n.t("app:profile.formats.progress", {
 				value: fighter.stats.breath, max: fighter.stats.maxBreath
-			})} />
-			<Fact label={i18n.t("app:arena.stats.breathRegen")} value={formatNumber(fighter.stats.breathRegen)} />
+			})} unit="breath" />
+			<Fact label={i18n.t("app:arena.stats.breathRegen")} value={`+${formatNumber(fighter.stats.breathRegen)}`} unit="breath" />
 			{fighter.alteration ? <Fact label={i18n.t("app:arena.effects.newAlteration")} value={fightActionName(fighter.alteration)} /> : null}
-			{fighter.glory === undefined ? null : <Fact label={i18n.t("app:arena.glory")} value={formatNumber(fighter.glory)} />}
+			{fighter.glory === undefined ? null : <Fact label={i18n.t("app:arena.glory")} value={formatNumber(fighter.glory)} unit="glory" />}
 			{pet ? <Fact label={i18n.t("app:arena.pet")} value={petName(pet)} /> : null}
 		</ExpandableList>
+		{actions.length > 0 ? <FighterAttacks actions={actions} /> : null}
 	</QuestionSheet>;
 }
 
@@ -200,9 +212,9 @@ function FighterRole({ fighter }: { fighter: FightFighter }): ReactNode {
 }
 
 export function FightFighterCard({
-	fighter, pet, animation
+	fighter, pet, actions, animation
 }: {
-	fighter: FightFighter; pet?: OwnedPet; animation: FightAnimation;
+	fighter: FightFighter; pet?: OwnedPet; actions: FighterActions; animation: FightAnimation;
 }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
@@ -217,6 +229,6 @@ export function FightFighterCard({
 			<BreathMeter fighter={fighter} />
 			<FighterCombatStats fighter={fighter} />
 		</Pressable>
-		{expanded ? <FighterStats fighter={fighter} pet={pet} onClose={(): void => setExpanded(false)} /> : null}
+		{expanded ? <FighterStats fighter={fighter} pet={pet} actions={actions} onClose={(): void => setExpanded(false)} /> : null}
 	</View>;
 }
