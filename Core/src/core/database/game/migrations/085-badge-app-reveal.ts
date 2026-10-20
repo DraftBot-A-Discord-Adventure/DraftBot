@@ -4,8 +4,8 @@ import {
 import { MigrationNameChanger } from "../../../../../../Lib/src/database/MigrationNameChanger";
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
-	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
-	if (await MigrationNameChanger.changeMigrationName(context, "082-badge-app-reveal.js")) {
+	// Renumbered after the develop migrations up to 077: a database that already ran it under a former name skips it
+	if (await MigrationNameChanger.changeMigrationNameFromAny(context, ["084-badge-app-reveal.js", "082-badge-app-reveal.js"])) {
 		return;
 	}
 

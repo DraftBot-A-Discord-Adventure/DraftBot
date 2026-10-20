@@ -27,8 +27,8 @@ async function replaceActiveMission(context: QueryInterface, previousMissionId: 
 }
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
-	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
-	if (await MigrationNameChanger.changeMigrationName(context, "081-campaign-spend-token.js")) {
+	// Renumbered after the develop migrations up to 077: a database that already ran it under a former name skips it
+	if (await MigrationNameChanger.changeMigrationNameFromAny(context, ["083-campaign-spend-token.js", "081-campaign-spend-token.js"])) {
 		return;
 	}
 

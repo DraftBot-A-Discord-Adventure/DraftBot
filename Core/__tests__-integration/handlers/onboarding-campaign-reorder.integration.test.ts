@@ -7,11 +7,11 @@ import {
 } from "../_setup";
 import {
 	down, up
-} from "../../src/core/database/game/migrations/077-onboarding-campaign-reorder";
+} from "../../src/core/database/game/migrations/078-onboarding-campaign-reorder";
 import { CampaignData } from "../../src/data/Campaign";
 import {
 	down as restoreReportMission, up as migrateSpendTokenMission
-} from "../../src/core/database/game/migrations/083-campaign-spend-token";
+} from "../../src/core/database/game/migrations/084-campaign-spend-token";
 
 const CAMPAIGN_LENGTH = 149;
 
@@ -55,7 +55,7 @@ async function row(id: number): Promise<Row> {
 	return rows[0] as Row;
 }
 
-describe("077-onboarding-campaign-reorder migration", () => {
+describe("078-onboarding-campaign-reorder migration", () => {
 	beforeAll(async () => {
 		env = await setupIntegrationDb("campaign_reorder");
 		// Umzug creates its table before running any migration: the migrations look there for their former name
@@ -159,7 +159,7 @@ describe("077-onboarding-campaign-reorder migration", () => {
 		expect(result.numberDone).toBe(3);
 	});
 
-	describe("083-campaign-spend-token migration", () => {
+	describe("084-campaign-spend-token migration", () => {
 		it("replaces only the active second mission while keeping rewards and campaign completion state", async () => {
 			await insertPlayer(10, {
 				level: 1, classId: 0, progression: 2, blob: blob("1"), slot: {missionId: "commandReport", missionVariant: 0, numberDone: 0}

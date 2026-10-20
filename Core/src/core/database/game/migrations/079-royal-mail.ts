@@ -7,8 +7,8 @@ import { MigrationNameChanger } from "../../../../../../Lib/src/database/Migrati
 const LETTERS_OF_THE_CONTEST_WEEK = 7;
 
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
-	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
-	if (await MigrationNameChanger.changeMigrationName(context, "076-royal-mail.js")) {
+	// Renumbered after the develop migrations up to 077: a database that already ran it under a former name skips it
+	if (await MigrationNameChanger.changeMigrationNameFromAny(context, ["078-royal-mail.js", "076-royal-mail.js"])) {
 		return;
 	}
 

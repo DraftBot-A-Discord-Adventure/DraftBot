@@ -8,7 +8,7 @@ import {
 import {
 	initModel as initPlayerBadges, PlayerBadges, PlayerBadgesManager
 } from "../../src/core/database/game/models/PlayerBadges";
-import { up as addBadgeAppReveal } from "../../src/core/database/game/migrations/084-badge-app-reveal";
+import { up as addBadgeAppReveal } from "../../src/core/database/game/migrations/085-badge-app-reveal";
 import { Badge } from "../../../Lib/src/types/Badge";
 
 const PLAYER_ID = 7;

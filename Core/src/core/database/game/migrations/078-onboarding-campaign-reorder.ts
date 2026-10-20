@@ -162,8 +162,8 @@ async function reorder(context: QueryInterface, order: number[], before: FrozenC
  * move with their mission, so no player loses or regains a finished mission.
  */
 export async function up({ context }: { context: QueryInterface }): Promise<void> {
-	// Renumbered after the 075 and 076 migrations of develop: a database that already ran it under its former name skips it
-	if (await MigrationNameChanger.changeMigrationName(context, "075-onboarding-campaign-reorder.js")) {
+	// Renumbered after the develop migrations up to 077: a database that already ran it under a former name skips it
+	if (await MigrationNameChanger.changeMigrationNameFromAny(context, ["077-onboarding-campaign-reorder.js", "075-onboarding-campaign-reorder.js"])) {
 		return;
 	}
 
