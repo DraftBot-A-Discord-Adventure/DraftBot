@@ -442,7 +442,7 @@
         "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)"
       },
       "BLESSING": {
-        "description": "Affiche l'état de la bénédiction globale : la cagnotte que les aventuriers alimentent en rencontrant l'Oracle lors de leurs voyages, ou la bénédiction active et le temps qu'il lui reste. Cette commande est accessible après avoir rencontré l'Oracle au moins une fois."
+        "description": "Muestra el estado de la bendición general: el fondo común al que contribuyen los aventureros cuando se encuentran con el Oráculo durante sus viajes, o la bendición activa y el tiempo que le queda. Se puede acceder a este comando tras haberse encontrado con el Oráculo al menos una vez."
       },
       "CLASSES": {
         "description": "Te permite cambiar de clase. Más información sobre las clases en la guía del jugador: https://guide.draftbot.com"
@@ -457,20 +457,20 @@
         "description": "Este comando te permite consumir la poción que llevas. Algunas pociones no se pueden beber y se consumen automáticamente durante el combate."
       },
       "EQUIP": {
-        "description": "Permet de gérer votre équipement pour chaque catégorie d'objets : équiper un objet de votre réserve, ranger l'objet équipé dans votre réserve ou intervertir deux objets."
+        "description": "Te permite gestionar tu equipamiento para cada categoría de objetos: equipar un objeto de tu inventario, guardar el objeto equipado en tu inventario o intercambiar dos objetos."
       },
       "FIGHT": {
         "description": "Utiliza este comando para desafiar a otros jugadores.\nLas batallas tienen lugar turno a turno. En cada turno, puedes elegir una acción a realizar.\n\nPara más información, consulta la página de la guía: https://guide.crownicles.com/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/en/5.1.7.png"
       },
       "FIGHT_HISTORY": {
-        "description": "Affiche l'historique de vos derniers combats : l'adversaire affronté, le résultat ainsi que l'évolution de la gloire et de la ligue de chaque combattant."
+        "description": "Muestra el historial de tus últimas peleas: el rival al que te has enfrentado, el resultado y la evolución de la gloria y la liga de cada luchador."
       },
       "FRIENDLY_FIGHT": {
-        "description": "Permet d'affronter un autre joueur, choisi en le mentionnant ou grâce à son classement, dans un combat amical. Le joueur affronté est contrôlé par une IA. Ce combat n'a aucune conséquence : aucune gloire, aucune récompense, aucune énergie perdue et aucune progression de mission."
+        "description": "Permite enfrentarse a otro jugador, elegido mencionándolo o según su clasificación, en un combate amistoso. El jugador al que te enfrentas está controlado por una IA. Este combate no tiene ninguna consecuencia: no se gana gloria, ni recompensas, no se pierde energía ni se avanza en la misión."
       },
       "GARDEN": {
-        "description": "Permet de vous occuper du jardin de votre demeure lorsque vous vous trouvez dans sa ville : planter, arroser, composter et récolter vos plantes. Avec le Cœur Sylvestre, un talisman vendu chez l'Herboriste à Coco Village, il devient possible de consulter le jardin et d'y récolter à distance."
+        "description": "Te permite cuidar el jardín de tu casa cuando te encuentras en tu ciudad: plantar, regar, hacer compost y recolectar tus plantas. Con el «Cœur Sylvestre», un talismán que se vende en la herboristería de Coco Village, es posible consultar el jardín y recolectar sus frutos a distancia."
       },
       "GLORY_TOP": {
         "description": "Muestra la clasificación gloriosa del partido para cada 15 jugadores. También se muestra la liga de los jugadores. Los jugadores que están en el mismo servidor que tú aparecen marcados con un punto azul."
@@ -592,8 +592,8 @@
     },
     "forMoreHelp": ":arrow_forward: Para más ayuda : ",
     "forMoreHelpValue": "Puedes visitar la [wiki] del bot (https://guide.draftbot.com/).",
-    "dmNoticeTitle": "{emote:other.incoming} Jouer à Crownicles",
-    "dmNoticeValue": "Crownicles se joue exclusivement sur des serveurs Discord. Pour utiliser les commandes ci-dessus, rejoignez un serveur où le bot est présent ou le serveur officiel du jeu : {{inviteLink}}",
+    "dmNoticeTitle": "{emote:other.incoming} Jugar a Crownicles",
+    "dmNoticeValue": "Crownicles se juega exclusivamente en servidores de Discord. Para utilizar los comandos anteriores, únete a un servidor en el que esté presente el bot o al servidor oficial del juego: {{inviteLink}}",
     "guildCommands": ":stadium: Gremio :",
     "helpEmbedDescription": ":arrow_forward: Si desea más información sobre un comando en particular, haga clic aquí : {{helpCommandMention}}e introduzca como parámetro el comando con el que tiene problemas. :wink:",
     "helpEmbedTitle": "{{pseudo}}Esta es la lista de comandos disponibles:",
@@ -723,7 +723,7 @@
       "expert_expediteur": "Una persona que ha completado con éxito numerosas expediciones con su mascota",
       "oracle_patron": "Protector del Oráculo, habiendo contribuido generosamente a numerosas bendiciones",
       "sentimental_crafter": "La persona que insistió en que el herrero real mejorara una humilde reliquia hasta la cima...",
-      "master_chef": "Cuisinier émérite ayant atteint le niveau 100 de cuisine"
+      "master_chef": "Cocinero destacado que ha alcanzado el nivel 100 de cocina"
     },
     "fightRanked": {
       "fieldName": "Gloria y liga :",
@@ -799,8 +799,8 @@
     "choseMapMinutes_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{timeDisplay}}**.",
     "choseMap_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{time}} hora**.",
     "choseMap_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. El viaje durará aproximadamente **{{time}} horas**.",
-    "cityStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** point.",
-    "cityStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous a rapporté **{{count, number}}** points.",
+    "cityStayScore_one": "{emote:unitValues.score} Tu estancia en la ciudad te ha valido **{{count, number}}** puntos.",
+    "cityStayScore_other": "{emote:unitValues.score} Tu estancia en la ciudad te ha valido **{{count, number}}** puntos.",
     "goBackMapMinutes_one": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde vienes. El trayecto de vuelta durará aproximadamente **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde venías. Este trayecto de vuelta durará aproximadamente **{{timeDisplay}}**.",
     "goBackMap_one": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde venías. El trayecto de vuelta durará aproximadamente **{{time}} hora**.",
@@ -848,8 +848,8 @@
       "placeholder": "Elija algo que hacer",
       "title": "{{pseudo}}¡Estás en la ciudad!",
       "description": "{emote:commands.report} Has llegado a **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)**.\n\nLas calles empedradas cobran vida a tu alrededor: comerciantes, aventureros y artesanos se afanan en sus quehaceres. Hay muchos servicios a tu disposición, pero el camino no espera a nadie.",
-      "minimumStayScore_one": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** point à votre départ.",
-      "minimumStayScore_other": "{emote:unitValues.score} Votre séjour en ville vous rapportera au moins **{{count, number}}** points à votre départ.",
+      "minimumStayScore_one": "{emote:unitValues.score} Tu estancia en la ciudad te reportará al menos **{{count, number}}** puntos a tu partida.",
+      "minimumStayScore_other": "{emote:unitValues.score} Tu estancia en la ciudad te reportará al menos **{{count, number}}** puntos a tu partida.",
       "buttons": {
         "enter": "Entre en",
         "visit": "Visite",
@@ -882,8 +882,8 @@
       "stayDescription": "Utiliza el comando {command:report} para disfrutar de los servicios disponibles en la ciudad o retomar tu aventura.",
       "stayInCityChoice": "{emote:mapTypes.ci} Entrar en la ciudad",
       "shopEmptyDescription": "No hay servicios que ofrecer por el momento.",
-      "equipmentChangedTitle": "{{pseudo}}, l'équipement a changé !",
-      "equipmentChangedDescription": "L'équipement choisi n'est plus le même à cet emplacement de l'inventaire : il a été déplacé depuis l'ouverture du menu. Rien n'a été dépensé et le menu a été mis à jour avec votre inventaire actuel.",
+      "equipmentChangedTitle": "{{pseudo}}, ¡el equipamiento ha cambiado!",
+      "equipmentChangedDescription": "El equipo seleccionado ya no es el mismo en esa posición del inventario: se ha desplazado desde que se abrió el menú. No se ha gastado nada y el menú se ha actualizado con tu inventario actual.",
       "exitInn": "Fuera de peligro",
       "reactions": {
         "exit": {
@@ -900,7 +900,7 @@
         },
         "enchanter": {
           "label": "Ve a ver al encantador",
-          "description": "Un voyageur aux mains couvertes d'enchantements lumineux attire votre attention. Il prétend pouvoir enchanter n'importe quelle arme ou pièce d'armure, et en effacer les enchantements sans rien demander en retour."
+          "description": "Un viajero con las manos cubiertas de encantamientos luminosos llama tu atención. Afirma que puede encantar cualquier arma o pieza de armadura, y eliminar sus encantamientos sin pedir nada a cambio."
         },
         "blacksmith": {
           "label": "Ir al herrero",
@@ -1022,7 +1022,7 @@
         "runeForWeaponOnlyArmorAvailableStory_other": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona en armas. Solo tienes armas ya encantadas o piezas de armadura que mostrarle: te mira con desdén y suspira diciendo que le estás haciendo perder el tiempo. Es mejor volver otro día, o con una espada sin encantamiento digna de recibirlo.",
         "runeForArmorOnlyWeaponAvailableStory_one": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy en día, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona con piezas de armadura. Solo tienes una armadura ya encantada o armas que ofrecerle: frunce los labios y refunfuña diciendo que ambos estáis perdiendo el tiempo. Vuelve con una pieza de armadura sin encantar, o otro día, cuando su encantamiento sea diferente.",
         "runeForArmorOnlyWeaponAvailableStory_other": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona con piezas de armadura. Solo tienes armaduras ya encantadas o armas que mostrarle: frunce los labios y refunfuña diciendo que ambos estáis perdiendo el tiempo. Vuelve con una pieza de armadura sin encantar, o otro día cuando su encantamiento sea diferente.",
-        "allEnchantedStory": "{emote:city.services.enchanter} Vous rencontrez un enchanteur itinérant qui se présente sous le nom de Mernil. D'un air hautain, il examine vos équipements puis secoue la tête, agacé : tout ce que vous possédez est déjà enchanté et il ne peut rien y ajouter. Il consent toutefois à effacer gratuitement les enchantements qui ne vous conviennent plus, afin que vous lui présentiez enfin un équipement vierge digne de son talent.",
+        "allEnchantedStory": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, examina tu equipo y luego niega con la cabeza, molesto: todo lo que tienes ya está encantado y no puede añadir nada más. No obstante, accede a borrar de forma gratuita los encantamientos que ya no te convienen, para que por fin le presentes un equipo sin encantamientos digno de su talento.",
         "story": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras, y que puede mejorar tu equipamiento gracias a la magia de los encantamientos.",
         "tomorrowStory": "Te tomas un tiempo para pensar en su propuesta. Antes de que te vayas, Mernil te revela la siguiente etapa de su viaje: **{{nextCity}}**, donde ofrecerá el encantamiento {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Te conviene reunirte con él antes de que vuelva a partir.",
         "tomorrowSameCityStory": "Te tomas un tiempo para pensar en su propuesta. Mernil anuncia que va a prolongar su estancia: **{{nextCity}}** le dará la bienvenida de nuevo mañana, con el encanto {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Aprovecha para preparar tu equipo antes de que vuelva a ponerse en marcha.",
@@ -1041,14 +1041,14 @@
           "frozenDamage": "Mernil revela las propiedades de este encantamiento: aumenta el daño por hielo infligido y reduce el daño por quemadura recibido.",
           "poisonedDamage": "Mernil revela las propiedades de este encantamiento: aumenta el daño por veneno infligido y reduce el daño por veneno recibido."
         },
-        "disenchantOffer": "Mernil remarque aussi vos équipements déjà enchantés. Pour un maître de son rang, effacer des runes n'est qu'une formalité : il propose de les retirer **gratuitement**, ne serait-ce que pour débarrasser le monde d'enchantements qu'il juge indignes de son art.",
-        "disenchantTitle": "{{pseudo}}, désenchantement chez Mernil",
-        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil fait craquer ses doigts d'un air suffisant. À l'en croire, effacer un enchantement est un jeu d'enfant qui ne mérite pas la moindre pièce. Il attend que vous lui désigniez l'équipement à libérer de ses runes.",
+        "disenchantOffer": "Mernil también se fija en tu equipo, que ya está encantado. Para un maestro de su rango, borrar runas no es más que una formalidad: se ofrece a eliminarlas **de forma gratuita**, aunque solo sea para librar al mundo de encantamientos que considera indignos de su arte.",
+        "disenchantTitle": "{{pseudo}}, desilusión en Mernil",
+        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil se cruje los dedos con aire de suficiencia. Según él, quitar un encantamiento es pan comido y no merece ni una sola moneda. Espera a que le indiques qué equipo quieres liberar de sus runas.",
         "disenchantItemPreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
-        "disenchantConfirmDescription": "{emote:collectors.warning} Cette validation retirera définitivement l'enchantement {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** de l'équipement suivant :\n{{item}}\n\nCoût : **gratuit**.",
-        "disenchantSuccessTitle": "{{pseudo}}, désenchantement réussi !",
-        "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil effleure votre équipement du bout des doigts en murmurant une formule. La lueur de l'enchantement {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** vacille puis s'éteint. Il vous rend l'objet, redevenu vierge, avec l'air satisfait de quelqu'un qui vient de rendre un immense service sans rien demander en retour.",
-        "backToEnchanter": "Retour auprès de Mernil",
+        "disenchantConfirmDescription": "{emote:collectors.warning} Esta validación eliminará definitivamente el encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** del siguiente equipo:\n{{item}}\n\nCoste: **gratis**.",
+        "disenchantSuccessTitle": "{{pseudo}}, ¡una desilusión muy lograda!",
+        "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil roza tu equipo con la yema de los dedos mientras susurra una fórmula. El resplandor del encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** parpadea y luego se apaga. Te devuelve el objeto, que ha vuelto a quedar en blanco, con el aire satisfecho de alguien que acaba de prestar un gran servicio sin pedir nada a cambio.",
+        "backToEnchanter": "De vuelta a Mernil",
         "confirmDescription": "{emote:collectors.warning} Esta validación aplicará el encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** en el siguiente equipo:\n{{item}}\n\nCoste: **{{price}}**.\n{{balance}}",
         "acceptStory": "Enseguida coge tu equipo y murmura unos cuantos conjuros mientras agita un cristal encantado por encima... Al cabo de unos instantes, te devuelve el objeto y te dice que ya está hecho. Tu equipo ahora está encantado con {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})**. ¡Dale buen uso!",
         "acceptTitle": "{{pseudo}}Es una experiencia encantadora.",
@@ -1291,10 +1291,10 @@
           "noStoredItems": "No hay artículos en esta categoría.",
           "depositSection": "{emote:city.chestActions.deposit} **Depósito en cofre:**",
           "withdrawSection": "{emote:city.chestActions.withdraw} **Retirar del cofre:**",
-          "chestFull": "{emote:collectors.warning} *Coffre plein pour cette catégorie*",
-          "inventoryFullLabel": "{emote:collectors.warning} *Inventaire plein*",
+          "chestFull": "{emote:collectors.warning} *El cofre está lleno para esta categoría*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventario lleno*",
           "swapSection": "{emote:city.chestActions.swap} **intercambiar con cofre:**",
-          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenu du coffre :**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenido del cofre:**",
           "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **swap** {{item}} **with :**",
           "errors": {
@@ -1393,11 +1393,11 @@
           "levelUp": "¡Has alcanzado el nivel de cocina {{level}}!",
           "levelUpWithGrade": "¡Has sido ascendido al **nivel de cocina {{level}}**! Nuevo grado: **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}¡Un nuevo nivel de cocina!",
-          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Vos efforts aux fourneaux sont enfin reconnus : un badge vous a été offert, **Chef cuisinier** !",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Por fin se han reconocido tus esfuerzos en la cocina: ¡te han regalado una insignia de **Chef**!",
           "materialSaved": "{emote:messages.validate} Gracias a su experiencia, un **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})¡** ha sido salvado!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **¡Tu maestría te ha permitido duplicar la XP obtenida y mejorar el resultado de esta preparación!",
-          "petFoodStored_one": "{emote:messages.validate} **{{count}} {{food}}** a été ajoutée au stockage de votre guilde.",
-          "petFoodStored_other": "{emote:messages.validate} **{{count}} {{food}}** ont été ajoutées au stockage de votre guilde.",
+          "petFoodStored_one": "{emote:messages.validate} **{{count}} {{food}}** se ha añadido al almacén de tu gremio.",
+          "petFoodStored_other": "{emote:messages.validate} **{{count}} {{food}}** se han añadido al almacén de tu gremio.",
           "recipeDiscovered": "{emote:city.homeUpgrades.cooking} Has aprendido una nueva receta: **{{recipe}}** !",
           "recipesDiscovered": "{emote:city.homeUpgrades.cooking} ¡Has aprendido nuevas recetas: {{recipes}}!",
           "petFedFromSurplus": "{emote:messages.validate} ¡Tu mascota se ha comido una ración de **{{food}}** directamente del horno!",
@@ -2400,7 +2400,7 @@
     "notEnoughEnergy": "¡No tienes suficiente energía para empezar una pelea!",
     "monsterNotFound": "No se ha encontrado ningún monstruo que se enfrente a ti. Por favor, informa de este incidente a nuestro equipo de soporte (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Hay una pelea entre {{fightInitiator}} y {{opponent}} !",
-    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | Un combat amical est lancé entre {{fightInitiator}} et {{opponent}} ! Il n'aura aucune conséquence.",
+    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Se ha iniciado un combate amistoso entre {{fightInitiator}} y {{opponent}} ! No tendrá ninguna consecuencia.",
     "actionsOf": "**Ataques desde {{pseudo}} :**",
     "petOf": "** {{pseudo}} family:**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
@@ -2608,19 +2608,19 @@
       ]
     },
     "kingGuard": {
-      "name": "Garde du roi",
+      "name": "Guardia del rey",
       "recap": {
-        "win": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et l'a vaincu. Aucune gloire n'était en jeu lors de ce combat.",
-        "draw": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi sans parvenir à le départager. Aucune gloire n'était en jeu lors de ce combat.",
-        "loss": "Aucun adversaire n'était disponible : {{player}} a affronté un garde du roi et a été vaincu. Aucune gloire n'était en jeu lors de ce combat."
+        "win": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey y lo derrotó. En ese combate no había nada en juego en cuanto a gloria.",
+        "draw": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey sin que se decidiera el resultado. En ese combate no había nada en juego.",
+        "loss": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey y fue derrotado. En ese combate no había nada en juego."
       }
     }
   },
   "friendlyFight": {
     "errors": {
-      "opponentNotFound": "Ce joueur est introuvable ou n'a pas encore commencé l'aventure.",
-      "selfFight": "Vous ne pouvez pas lancer un combat amical contre vous-même. Mentionnez un autre joueur ou indiquez son classement.",
-      "opponentLevelTooLow": "Ce joueur n'a pas encore débloqué les combats."
+      "opponentNotFound": "No se encuentra a este jugador o aún no ha comenzado la aventura.",
+      "selfFight": "No puedes iniciar un combate amistoso contra ti mismo. Menciona a otro jugador o indica su clasificación.",
+      "opponentLevelTooLow": "Este jugador aún no ha desbloqueado los combates."
     }
   },
   "equip": {
@@ -2856,7 +2856,7 @@
     "noHistory": "Aún no tienes ningún combate en tu historial.",
     "title": "{{pseudo}}La historia de los combates",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Resultado:** {{resultSentence}}\n**Tu gloria:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}}\n**Gloria del adversario:** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
-    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} Aucun adversaire n'était disponible : vous avez affronté un **garde du roi** de niveau {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Résultat :** {{resultSentence}}\n**Gloire :** {emote:unitValues.glory} aucune gloire n'était en jeu",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} No había ningún adversario disponible: te has enfrentado a un **guardia del rey** de nivel {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Resultado:** {{resultSentence}}\n**Gloria:** {emote:unitValues.glory} no había gloria en juego",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Has atacado **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Has sido atacado por **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
