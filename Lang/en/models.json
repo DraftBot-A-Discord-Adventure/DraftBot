@@ -415,6 +415,10 @@
       "name_one": "Cursed attack",
       "name_other": "Cursed attacks"
     },
+    "skeletonCursedAttack": {
+      "name_one": "Deadly Spell",
+      "name_other": "Deadly Spells"
+    },
     "cursedByTheSea": {
       "name": "damned by the sea",
       "new": "is damned by the sea...",
@@ -492,6 +496,10 @@
       "description": "Burns the opponent. The \"burned\" condition inflicts damage to your opponent over time.",
       "name_one": "Fire attack",
       "name_other": "Fire attacks"
+    },
+    "titanFireAttack": {
+      "name_one": "Fireball",
+      "name_other": "Fireballs"
     },
     "fishProtectAgainstFire": {
       "afraid": "asks **{{petNickname}}** to help him not to burn but **{{petNickname}}** is too scared to help.",
@@ -746,6 +754,10 @@
       "name_one": "Poisonous attack",
       "name_other": "Poisonous attacks"
     },
+    "spiderPoisonAttack": {
+      "name_one": "Poison Spray",
+      "name_other": "Poison Blasts"
+    },
     "poisonousBite": {
       "generalEffect": "needs **{{petNickname}}**, the animal needs time to prepare...",
       "success": "receives support from **{{petNickname}}** who decides to bite his opponent... The latter is suddenly not feeling well."
@@ -754,6 +766,10 @@
       "description": "This attack has a 25% chance to deal more damage, at the cost of stunning the attacker. Reduces the opponent's speed. After 3 uses, the attack's damage is reduced by 70%.",
       "name_one": "Powerful Attack",
       "name_other": "Powerful Attacks"
+    },
+    "guardianPowerfulAttack": {
+      "name_one": "Sharp Attack",
+      "name_other": "Sharp Attacks"
     },
     "protectAgainstCold": {
       "success": "is protected from the cold by **{{petNickname}}**."
@@ -832,10 +848,22 @@
       "name_one": "Shield attack",
       "name_other": "Shield attacks"
     },
+    "skeletonShieldAttack": {
+      "name_one": "Bone Armor",
+      "name_other": "Bone Armor"
+    },
     "simpleAttack": {
       "description": "A simple attack.",
       "name_one": "Simple attack",
       "name_other": "Simple attacks"
+    },
+    "skeletonSimpleAttack": {
+      "name_one": "Bone fracture",
+      "name_other": "Bone Strikes"
+    },
+    "elementaryPiercingAttack": {
+      "name_one": "Elemental Burst",
+      "name_other": "Elemental Shards"
     },
     "sing": {
       "customMessage": "begins to sing.",
@@ -1033,7 +1061,7 @@
       "atParticle": "at"
     },
     "10": {
-      "description": "An ancient fortified city, Ville Forte is but a shadow of its former self. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification is nothing but ruins.",
+      "description": "Once a great fortified city, Ville Forte is now a shadow of its former self. Ravaged by the war of long ago, only about ten houses and a handful of peasants remain. The rest of the old fortifications lie in ruins, and beneath the collapsed ramparts, ancient underground tunnels wind deep into the rock.",
       "name": "Ville Forte",
       "particle": "of",
       "atParticle": "at",
@@ -1177,13 +1205,13 @@
       "atParticle": "at"
     },
     "14": {
-      "description": "A large lake where families enjoy gathering. The Vacarme river flows into it.",
+      "description": "A large lake where families love to gather. The Vacarme River flows into it, and its farthest shores fade into marshes covered with reeds.",
       "name": "Mirage Lake",
       "particle": "towards the",
       "atParticle": "to"
     },
     "15": {
-      "description": "Mount Celestrum is the dominant mountain in the region. Celestrum, being several kilometers high, is visible to all. It is said to bear the name of the ancient goddess. Moreover, only one person managed to climb to the top. Only their initials are known: M-B.",
+      "description": "Mount Celestrum is the region’s most prominent mountain. Standing several kilometers tall, Celestrum is visible to everyone. Legend has it that it is named after an ancient goddess. Furthermore, only one person has ever managed to climb to its summit. All that is known about this person are their initials: M-B. Its slopes are dotted with caves whose depths no one has ever reached.",
       "name": "Mount Celestrum",
       "particle": "towards the",
       "atParticle": "to"
@@ -1195,7 +1223,7 @@
       "atParticle": "to"
     },
     "17": {
-      "description": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
+      "description": "An oasis village popular with the nobles of the Valley of the Kings seeking respite from the heat. The coconuts harvested there are renowned throughout the country and fetch a high price in the kingdom’s markets. The scarcity of buildable land around the spring makes it one of the most coveted locations.",
       "name": "Coco Village",
       "particle": "towards the",
       "atParticle": "to",
@@ -1232,7 +1260,7 @@
       "atParticle": "at"
     },
     "22": {
-      "description": "Ill-famed forest near Claire de Ville. Howling Woods has a bad reputation. Hideout of many bandits and outlaws, it owes its name mainly from its doubtful practices, hundreds of years ago.",
+      "description": "A notorious forest on the outskirts of Claire de Ville, Bois Hurlant has a very bad reputation. A hideout for bandits and outlaws of all kinds, it owes its name primarily to the shady activities that took place there hundreds of years ago. Bandits still lurk in the caves carved into its hills.",
       "name": "Howling Woods",
       "particle": "towards the",
       "atParticle": "to"
@@ -1336,7 +1364,7 @@
       "inParticle": "in"
     },
     "7": {
-      "description": "Hot sandy desert named in honor of the region's ancient kings.",
+      "description": "A hot sand desert named in honor of the region's ancient kings. Their half-buried tombs still dot the dunes.",
       "name": "Kings' Valley",
       "particle": "towards the",
       "atParticle": "at"
@@ -1471,27 +1499,20 @@
       "name": "",
       "prefix": "of the"
     },
-    "forest": {
-      "name": "Forest"
-    },
-    "mountain": {
-      "name": "Mountain"
-    },
-    "desert": {
-      "name": "Desert"
-    },
-    "swamp": {
-      "name": "Marshes"
-    },
-    "cave": {
-      "name": "Grotto"
-    },
-    "plains": {
-      "name": "Plain"
-    },
-    "coast": {
-      "name": "Coast"
+    "mistyPath": {
+      "name": "",
+      "prefix": "of the"
     }
+  },
+  "biomes": {
+    "forest": "Forest",
+    "mountain": "Mountain",
+    "desert": "Desert",
+    "swamp": "Marshes",
+    "ruins": "Ruins",
+    "cave": "Grotto",
+    "plains": "Plain",
+    "coast": "Coast"
   },
   "missions": {
     "anyFight_one": "Do {{count}} fight",
@@ -2163,6 +2184,7 @@
     "0": "Fist",
     "1": "Zeus's lightning bolt",
     "10": "Wooden sword",
+    "100": "The Reaper's Verdict",
     "11": "Unloaded gun",
     "12": "Infected syringe",
     "13": "Bomb",

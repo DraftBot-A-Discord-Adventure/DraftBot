@@ -70,7 +70,7 @@
       "forest": {
         "outcomes": {
           "0": "Te pierdes en el bosque durante varias horas, pero al final sales ileso.",
-          "1": "Pierdes mucho tiempo abriéndote paso por el bosque, pero al final lo consigues. Al salir, recoges un objeto que puede resultarte útil.",
+          "1": "¡Tardas mucho en avanzar por el bosque, pero al final consigues atravesarlo! Al salir, recoges un objeto que quizá te resulte útil.",
           "2": "Mientras cabalgas por el bosque, caes con fuerza en una zanja. La herida es profunda y hay que curarte."
         },
         "text": "Cruza el bosque de todos modos."
@@ -638,7 +638,7 @@
       "end": {
         "outcomes": {
           "0": "Te quedas mirando fijamente el objeto durante 20 minutos, antes de apartar la mirada.",
-          "1": "Inclinado sobre el pozo, observas el objeto. Es entonces cuando vuelcas. Afortunadamente, pronto consigues volver a subir, pero no sin sufrir graves heridas."
+          "1": "Inclinado sobre el pozo, observas el objeto. En ese momento, te caes. Por suerte, consigues salir rápidamente, aunque no sin haber sufrido heridas graves."
         }
       },
       "goDown": {
@@ -936,7 +936,7 @@
       "food": {
         "outcomes": {
           "0": "Uno de ellos te da una sopa bastante apetitosa. Te la bebes sin sospechar nada. Estos bribones te han tendido una trampa. Llevan mucho tiempo esperando para saquearte, y la bebida contenía suficiente agárico de mosca para enfermarte. Sientes que se te escapa mientras observas impotente cómo te roban los bolsillos.",
-          "1": "Estos transeúntes te han preparado un plato delicioso, digno de una poción gala. Mirando más de cerca, te das cuenta de que han dejado un objeto en el fondo del cuenco. Puede ser útil más adelante.",
+          "1": "Estos transeúntes te han preparado un plato de lo más sabroso, digno de una poción gala. Al fijarte mejor, ves un objeto que se ha quedado en el fondo del cuenco. Podría resultarte útil más adelante.",
           "2": "Encantados de haceros un favor, el grupo sale a compraros la especialidad de la zona. Al ver llegar el plato, ponéis buena cara, pero lo probáis con cierto asco: ¡no os gustan las setas! Con bastante esfuerzo, os acabáis el plato."
         },
         "text": "Regalo de comida."
@@ -985,8 +985,8 @@
       },
       "steal": {
         "outcomes": {
-          "0": "Le explicas que en realidad no quieres ser su conejillo de indias, así que el camarero, con cara de decepción, te deja. Así que te pones manos a la obra con la tarea que querías hacer desde que entraste en el bar: robar discretamente en los bolsillos de los clientes. Hurgas en los bolsillos de tres personas sin problemas, pero la cuarta se fija en ti y grita \"ladrón\". Huyes.",
-          "1": "Le explicas que en realidad no quieres ser su conejillo de indias, así que el camarero, con cara de decepción, te deja. Así que te pones manos a la obra con la tarea que querías hacer desde que entraste en el bar: robar discretamente en los bolsillos de los clientes. Robas sin problemas en los bolsillos de tres personas, pero la cuarta se fija en ti y te grita \"ladrón\". Acabas pasando la noche en la cárcel e indemnizas a estas personas."
+          "0": "Le explicas que no te apetece mucho servirle de conejillo de indias, así que el camarero, con aire decepcionado, te deja en paz. Así que te pones manos a la obra con lo que te apetecía hacer desde que entraste en el bar: robar discretamente a los clientes. Registras los bolsillos de tres personas sin problemas, pero la cuarta se da cuenta y grita «¡ladrón!». Sales corriendo.",
+          "1": "Le explicas que no te apetece mucho servirle de conejillo de indias, así que el camarero, con aire decepcionado, te deja en paz. Así que te pones manos a la obra con lo que te apetecía desde que entraste en el bar: robar discretamente a los clientes. Le robas a tres personas sin problemas, pero la cuarta se da cuenta y grita «¡ladrón!». Acabas la noche en la cárcel y indemnizas a esas personas."
         },
         "text": "Rechazar, y tratar de robar a la gente."
       },
@@ -1195,10 +1195,10 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "Decides volver por donde has venido. Por el camino, encuentras unas monedas en el suelo, junto a un monedero con un agujero.",
-          "1": "Te pones de nuevo en marcha cuando encuentras a un hombre herido. Al intentar ayudarle, descubres que te han tendido una emboscada. Aparecen unos hombres y te roban antes de emprender de nuevo la marcha."
+          "0": "Decidís dejar en paz al ermitaño y seguir vuestro camino. Por el camino, encontráis unas monedas en el suelo, junto a una bolsa agujereada.",
+          "1": "Sigues tu camino cuando te encuentras con un hombre herido. Al intentar ayudarle, ¡descubres que se trata de una emboscada! Aparecen unos hombres y te roban antes de marcharse."
         },
-        "text": "Vuelve por donde has venido."
+        "text": "Continúe su camino."
       }
     },
     "text": "Entras en un bosque oscuro y ves la silueta de un hombre a lo lejos. Decides acercarte a él y te das cuenta de que es un ermitaño que ha salido a buscar comida. Te acercas a su casa, en la que lees la inscripción \"Xetrix\", que probablemente sea su nombre. Todavía estás pensando qué hacer..."
@@ -1407,13 +1407,13 @@
       },
       "talk": {
         "outcomes": {
-          "0": "Pasas casi 30 minutos recopilando información sobre este santuario, información que no te resultará útil.",
+          "0": "Pasas unos 30 minutos recabando información sobre este santuario, información que al final no te resultará útil.",
           "1": "El grupo simplemente no quiere hablar, y te lo está haciendo saber."
         },
         "text": "Debate con el grupo."
       }
     },
-    "text": "Al llegar a las afueras de un animado pueblo, oyes a un grupo de personas hablar de un santuario que, al parecer, está embrujado. Como eres curioso, aguzas el oído. Al parecer, el santuario se encuentra a una hora en coche hacia el sur, y la salida es dentro de 30 minutos."
+    "text": "Al llegar a las afueras de un animado pueblo, oyes a un grupo de personas hablar de un santuario que, al parecer, está embrujado. Como eres curioso, aguzas el oído. Al parecer, el santuario está a una hora en coche hacia el sur, y la salida es dentro de 30 minutos."
   },
   "46": {
     "possibilities": {
@@ -1630,8 +1630,8 @@
       },
       "leave": {
         "outcomes": {
-          "0": "Después de una buena noche de descanso, decide ponerse en marcha de nuevo, sin una sola ojera en la cara.",
-          "1": "Justo cuando estás a punto de reemprender la marcha, te das cuenta de que un grupo de aldeanos se dirige hacia ti. Empiezan a alborotarte y les das dinero para que te dejen en paz.",
+          "0": "Después de haber descansado bien, decides volver a ponerte en marcha, sin que se te note ni un atisbo de cansancio en el rostro.",
+          "1": "Justo cuando te disponías a marcharte, te das cuenta de que el grupo de aldeanos se dirige hacia ti; entonces empiezan a extorsionarte y les das dinero para que te dejen en paz.",
           "2": "Decides ponerte en marcha de nuevo, abandonando la aldea Coco para continuar tu búsqueda."
         },
         "text": "Dejando el pueblo sin más preámbulos."
@@ -1645,7 +1645,7 @@
         "text": "Continúa la siesta al pie del árbol."
       }
     },
-    "text": "En tu viaje, llegas a una pequeña aldea llamada Village Coco. Hace mucho calor y necesitas descansar. El lugar no parece hostil, así que te detienes en este oasis. Mientras descansas al pie de un cocotero, ves a un grupo de aldeanos trepando por los árboles para coger una fruta que nunca antes habías visto: redonda como un globo y dura como la madera, no parece apetitosa."
+    "text": "Durante tu viaje, llegas a una pequeña aldea llamada Coco; hace mucho calor y necesitas descansar. Como el lugar no te parece hostil, decides hacer una parada en este oasis. Mientras descansas al pie de una palmera de coco, ves a un grupo de aldeanos trepando a los árboles para recoger unos frutos que nunca habías visto antes; son redondos como globos y duros como la madera, y no te parecen nada apetecibles."
   },
   "51": {
     "possibilities": {
@@ -1991,7 +1991,7 @@
       "goDeeper": {
         "outcomes": {
           "0": "Te perderás rápidamente en este laberinto, ¡pero acabarás emergiendo al cabo de unas horas!",
-          "1": "Pasas unos minutos explorando la cueva de arriba abajo y encuentras un objeto que podría serte útil...",
+          "1": "Dedicas unos minutos a explorar la cueva de arriba abajo y encuentras un objeto que quizá te pueda servir...",
           "2": "La cueva pronto resulta ser un callejón sin salida, pero al salir, te golpeas la cabeza contra el techo y caes aturdido. Necesitarás atención médica."
         },
         "text": "Adéntrate en la cueva."
@@ -2358,7 +2358,7 @@
           "0": "Al forzar la puerta, te estás haciendo mucho daño. ¡Tienes que cuidarte!",
           "1": "Después de pasar casi una hora intentando entrar en la casa, acabas por rendirte. Al alejarte del umbral, encuentras un objeto que quizá te resulte útil.",
           "2": "Entras en la casa y dejas tus cosas para descansar. Abatido por un sueño profundo, te desplomas sobre una cama polvorienta que había tirada en un rincón.",
-          "3": "Entras en la casa y buscas durante unos quince minutos. Cuando sales, ¡encuentras un objeto que puede ser útil!",
+          "3": "Entras en la casa y registras los alrededores durante unos quince minutos. Al salir, encuentras un objeto que quizá te resulte útil.",
           "4": "Entras en la casa y buscas durante unos quince minutos. Finalmente abandonas la búsqueda sin haber encontrado nada."
         },
         "text": "Visite el interior."
@@ -2896,7 +2896,7 @@
       "help": {
         "outcomes": {
           "0": "Tras 15 minutos de búsqueda, encuentras la horca junto a un montón de heno. Para agradecértelo, el granjero te ofrece unas monedas.",
-          "1": "Tras media hora de búsqueda, no encuentras el tenedor. Sin embargo, descubres un objeto que puede serte útil.",
+          "1": "Después de media hora buscando, no encuentras la horquilla. Sin embargo, ¡descubres un objeto que quizá te resulte útil!",
           "2": "Buscando el tenedor, lo pisas y te haces un feo corte.",
           "3": "Buscas la horca durante casi una hora, pero no la encuentras. Dejas educadamente al granjero y continúas tu camino."
         },
