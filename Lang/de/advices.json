@@ -348,8 +348,8 @@
     "Seltene Ausrüstung lässt sich teurer verbessern als gewöhnliche Ausrüstung: Die Seltenheit des Gegenstands hat einen starken Einfluss auf den Preis in der Schmiede.",
     "Bestimmte, sehr seltene Ausrüstungsgegenstände, wie zum Beispiel die legendären, kosten ein Vermögen, um auf die nächste Stufe verbessert zu werden.",
     "Bevor Sie eine kostspielige Modernisierung in Angriff nehmen, sollten Sie in Ihrem Lagerbestand prüfen, ob Sie bereits alle erforderlichen Materialien vorrätig haben.",
-    "Durch das Entzaubern wird die Magie aus einem verzauberten Gegenstand entfernt: Der Schmied stellt diesen heiklen Vorgang in Rechnung, während der wandernde Verzauberer Mernil ihn kostenlos übernimmt.",
-    "Beim Schmied sind die Entzauberungskosten für mächtige Ausrüstungsgegenstände und Runen höher, da dieser Vorgang mehr Fachwissen erfordert.",
+    "Le désenchantement retire la magie d'un équipement enchanté : l'enchanteur itinérant Mernil s'en charge gratuitement.",
+    "Chez le forgeron, transférer un enchantement coûte plus cher lorsque l'équipement qui le reçoit est rare, car l'opération demande plus de savoir-faire.",
     "Sobald die Verzauberung aufgehoben wurde, verliert Ihre Ausrüstung ihre Verzauberung und wird wieder gewöhnlich, doch die Waffe oder Rüstung selbst bleibt erhalten.",
     "Der Zauberer besucht verschiedene Städte und bietet jeweils nur eine Rune an, wobei sich sein Angebot von Tag zu Tag ändert.",
     "Edelsteine sind selten und wertvoll: Geht sparsam damit um.",
@@ -459,7 +459,7 @@
     "Mit der Schaltfläche „In der Stadt bleiben“ können Sie die angebotenen Dienste weiter erkunden, ohne sich auf den Weg zu einem neuen Ziel machen zu müssen.",
     "Wenn Sie kürzlich gegessen haben, gibt die Meldung den genauen Zeitpunkt an, zu dem Sie wieder essen dürfen.",
     "Die Wartezeiten für die verschiedenen Dienste (Mahlzeiten, Schlaf, Verzauberungen) werden mit Discord-Zeiten angezeigt, die automatisch an Ihre Zeitzone angepasst werden.",
-    "Der Schmied verbessert die Stufe deiner Ausrüstung, während der Verzauberer ihr neue Eigenschaften verleiht. Beide können Verzauberungen entfernen: Ihre Rollen ergänzen sich.",
+    "Le forgeron améliore le niveau de vos équipements et sait déplacer un enchantement de l'un à l'autre, tandis que l'enchanteur leur ajoute de nouvelles propriétés ou les en débarrasse : leurs rôles sont complémentaires.",
     "Bei manchen Missionen oder Ereignissen müssen Sie in der Stadt bleiben, um weiterzukommen, während Sie bei anderen Ihre Reise fortsetzen müssen: Lesen Sie die Ziele sorgfältig durch.",
     "Die Gasthäuser bieten jeden Tag verschiedene Gerichte aus einem wechselnden Menü an, was bedeutet, dass bestimmte Energieboni nur an bestimmten Tagen erhältlich sind.",
     "Das Anzünden oder Wiederanzünden des Herdes in Ihrer Küche verbraucht einen Brennstoff wie Holz, wobei die gängigsten Ressourcen bevorzugt werden.",
@@ -478,6 +478,7 @@
     "Die „Bourse de Claire de Ville“ bietet einen Spekulationsservice an.",
     "Die Edelsteine können im Schloss des Königs gegen einzigartige Belohnungen eingetauscht werden.",
     "Wenn Sie nach Materialien suchen, besuchen Sie die Festungsstadt: Dort kann Ihnen ein Händler welche verkaufen.",
-    "Im Village Coco hat sich ein Kräuterkundler niedergelassen."
+    "Im Village Coco hat sich ein Kräuterkundler niedergelassen.",
+    "Une meilleure arme ou armure vient de tomber entre vos mains ? Le forgeron peut y transférer l'enchantement de l'ancienne, à condition qu'elle n'en porte pas déjà un."
   ]
 }
