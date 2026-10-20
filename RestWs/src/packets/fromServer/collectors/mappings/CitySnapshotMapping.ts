@@ -5,7 +5,7 @@ import { DisenchantableItem } from "../../../../../../Lib/src/types/Disenchantab
 import { homeUpgradeChanges } from "../../../../../../Lib/src/utils/HomeUpgradeChanges";
 import type {
 	CityMobileBeyondReachItem,
-	CityMobileDisenchantItem,
+	CityMobileEnchantmentTransfer,
 	CityMobileEnchantedItem,
 	CityMobileItem,
 	CityMobileRecycleItem,
@@ -181,9 +181,16 @@ function mapBlacksmith(data: NonNullable<ReactionCollectorCityData["blacksmith"]
 	return {
 		playerMoney: data.playerMoney,
 		upgradeableItems: data.upgradeableItems.map(upgradeItemSnapshot),
-		disenchantableItems: data.disenchantableItems.map(item => ({
-			...enchantedItemSnapshot(item), disenchantCost: item.disenchantCost, canDisenchant: item.canDisenchant
-		} satisfies CityMobileDisenchantItem)),
+		enchantmentTransfers: data.enchantmentTransfers.map(source => ({
+			...enchantedItemSnapshot(source),
+			targets: source.targets.map(target => ({
+				...itemSnapshot({
+					slot: target.slot, category: source.category, details: target.details
+				}),
+				cost: target.cost,
+				canAfford: target.canAfford
+			}))
+		} satisfies CityMobileEnchantmentTransfer)),
 		beyondReachItems: data.beyondReachItems.map(item => ({
 			...itemSnapshot(item), limit: item.limit
 		} satisfies CityMobileBeyondReachItem))

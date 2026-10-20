@@ -1,7 +1,7 @@
 import {
 	ReactionCollectorApartmentBuyReaction,
 	ReactionCollectorApartmentClaimRentReaction,
-	ReactionCollectorBlacksmithDisenchantReaction,
+	ReactionCollectorBlacksmithEnchantmentTransferReaction,
 	ReactionCollectorBlacksmithMenuReaction,
 	ReactionCollectorBlacksmithUpgradeReaction,
 	ReactionCollectorCityData,
@@ -64,8 +64,8 @@ export const cityReactionMappings: ReactionMapping[] = [
 	defineReactionMapping(ReactionCollectorBlacksmithUpgradeReaction, CITY_REACTION_KINDS.BLACKSMITH_UPGRADE, reaction => ({
 		slot: reaction.slot, itemCategory: reaction.itemCategory, buyMaterials: reaction.buyMaterials
 	})),
-	defineReactionMapping(ReactionCollectorBlacksmithDisenchantReaction, CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT, reaction => ({
-		slot: reaction.slot, itemCategory: reaction.itemCategory
+	defineReactionMapping(ReactionCollectorBlacksmithEnchantmentTransferReaction, CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER, reaction => ({
+		itemCategory: reaction.itemCategory, sourceSlot: reaction.sourceSlot, targetSlot: reaction.targetSlot
 	})),
 	defineReactionMapping(ReactionCollectorScrapDealerMenuReaction, CITY_REACTION_KINDS.SCRAP_DEALER_MENU, () => ({})),
 	defineReactionMapping(ReactionCollectorScrapDealerRecycleReaction, CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE, reaction => ({

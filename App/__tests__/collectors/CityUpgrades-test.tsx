@@ -52,7 +52,7 @@ function upgrade(overrides: Partial<CityMobileUpgradeItem> = {}): CityMobileUpgr
 
 function forge(item: CityMobileUpgradeItem, playerMoney = 0): CityMobileSnapshot {
 	return { blacksmith: {
-		playerMoney, upgradeableItems: [item], disenchantableItems: [], beyondReachItems: []
+		playerMoney, upgradeableItems: [item], enchantmentTransfers: [], beyondReachItems: []
 	} };
 }
 

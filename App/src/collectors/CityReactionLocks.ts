@@ -1,7 +1,9 @@
 import {
 	CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	enchantmentTransferForReaction, itemSnapshotForReaction
+} from "@/src/collectors/CityItemPresentation";
 import {
 	buysMaterials, upgradeForReaction, upgradeTotalCost
 } from "@/src/collectors/CityUpgrades";
@@ -82,16 +84,16 @@ type ItemMatcher = (candidate: {
 }) => boolean;
 type EquipmentLockResolver = (snapshot: CityMobileSnapshot | undefined, sameItem: ItemMatcher, reaction: ReactionCollectorReaction) => Lock | undefined;
 
-function disenchantLock(blacksmith: CityMobileSnapshot["blacksmith"], sameItem: ItemMatcher): Lock | undefined {
-	const disenchant = blacksmith?.disenchantableItems.find(sameItem);
-	return disenchant ? missingMoney(disenchant.disenchantCost - (blacksmith?.playerMoney ?? 0)) : blocked("app:city.locks.unavailable");
+function enchantmentTransferLock(snapshot: CityMobileSnapshot | undefined, reaction: ReactionCollectorReaction): Lock | undefined {
+	const transfer = enchantmentTransferForReaction(snapshot, reaction);
+	return transfer ? missingMoney(transfer.target.cost - (snapshot?.blacksmith?.playerMoney ?? 0)) : blocked("app:city.locks.unavailable");
 }
 
 const EQUIPMENT_LOCKS: Partial<Record<ReactionCollectorReaction["type"], EquipmentLockResolver>> = {
 	[CITY_REACTION_KINDS.UPGRADE_ITEM]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, 0),
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.blacksmith?.playerMoney),
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: (snapshot, _sameItem, reaction) => upgradeLock(reaction, snapshot, snapshot?.royalBlacksmith?.playerMoney),
-	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (snapshot, sameItem) => disenchantLock(snapshot?.blacksmith, sameItem)
+	[CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER]: (snapshot, _sameItem, reaction) => enchantmentTransferLock(snapshot, reaction)
 };
 
 function equipmentLock(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): Lock | undefined {

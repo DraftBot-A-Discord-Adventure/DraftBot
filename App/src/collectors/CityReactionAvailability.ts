@@ -1,7 +1,9 @@
 import {
 	CITY_REACTION_KINDS, CityMobileSnapshot, ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
-import { itemSnapshotForReaction } from "@/src/collectors/CityItemPresentation";
+import {
+	enchantmentTransferForReaction, itemSnapshotForReaction
+} from "@/src/collectors/CityItemPresentation";
 import {
 	buysMaterials, isUpgradeReaction, upgradeForReaction
 } from "@/src/collectors/CityUpgrades";
@@ -59,12 +61,12 @@ function upgradeAvailability(reaction: ReactionCollectorReaction, snapshot: City
 	return buysMaterials(reaction) ? upgrade.canBuyAndUpgrade : upgrade.canUpgrade;
 }
 
-function equipmentAvailability(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item: NonNullable<ReturnType<typeof itemSnapshotForReaction>>): boolean {
+function equipmentAvailability(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): boolean {
 	if (isUpgradeReaction(reaction)) {
 		return upgradeAvailability(reaction, snapshot);
 	}
-	if (reaction.type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT) {
-		return snapshot?.blacksmith?.disenchantableItems.find(candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory)?.canDisenchant ?? true;
+	if (reaction.type === CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER) {
+		return enchantmentTransferForReaction(snapshot, reaction)?.target.canAfford ?? true;
 	}
 	return true;
 }
@@ -79,5 +81,5 @@ export function cityReactionAvailable(reaction: ReactionCollectorReaction, snaps
 		return rent;
 	}
 	const item = itemSnapshotForReaction(snapshot, reaction);
-	return item ? equipmentAvailability(reaction, snapshot, item) : true;
+	return item ? equipmentAvailability(reaction, snapshot) : true;
 }

@@ -21,7 +21,7 @@ const CITY_ICON_PATHS: Partial<Record<ReactionCollectorReaction["type"], string>
 	[CITY_REACTION_KINDS.UPGRADE_ITEM]: "city.homeUpgrades.upgradeEquipment",
 	[CITY_REACTION_KINDS.BLACKSMITH_MENU]: "city.services.blacksmith",
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: "city.services.blacksmith",
-	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: "city.blacksmith.disenchant",
+	[CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER]: "city.blacksmith.enchantmentTransfer",
 	[CITY_REACTION_KINDS.SCRAP_DEALER_MENU]: "city.services.scrapDealer",
 	[CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE]: "city.services.scrapDealer",
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_MENU]: "city.services.royalBlacksmith",

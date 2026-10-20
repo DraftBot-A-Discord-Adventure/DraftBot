@@ -1,5 +1,6 @@
 import {
-	CITY_REACTION_KINDS, CityMobileEnchantedItem, CityMobileItem, CityMobileSnapshot, ReactionCollectorReaction
+	CITY_REACTION_KINDS, CityMobileEnchantedItem, CityMobileEnchantmentTransfer, CityMobileEnchantmentTransferTarget, CityMobileItem, CityMobileSnapshot,
+	ReactionCollectorReaction
 } from "ws-packets/src/fromServer/collectors";
 import { i18n } from "@/src/translations/i18n";
 
@@ -21,7 +22,7 @@ function itemCandidates(snapshot: CityMobileSnapshot): CityMobileItem[] {
 		...snapshot.enchanter?.disenchantableItems ?? [],
 		...snapshot.home?.owned?.upgradeStation?.upgradeableItems ?? [],
 		...snapshot.blacksmith?.upgradeableItems ?? [],
-		...snapshot.blacksmith?.disenchantableItems ?? [],
+		...snapshot.blacksmith?.enchantmentTransfers ?? [],
 		...snapshot.scrapDealer?.recyclableItems ?? [],
 		...snapshot.royalBlacksmith?.upgradeableItems ?? []
 	];
@@ -32,22 +33,45 @@ export function itemSnapshotForReaction(snapshot: CityMobileSnapshot | undefined
 		return undefined;
 	}
 	const data = reaction.data as {
-		slot?: number; itemCategory?: number;
+		slot?: number; sourceSlot?: number; itemCategory?: number;
 	};
-	if (data.itemCategory === undefined || data.slot === undefined) {
+
+	// An enchantment transfer is told by the equipment it takes the enchantment from.
+	const slot = data.slot ?? data.sourceSlot;
+	if (data.itemCategory === undefined || slot === undefined) {
 		return undefined;
 	}
-	return itemCandidates(snapshot).find(item => item.itemCategory === data.itemCategory && item.itemId !== undefined && item.slot === data.slot);
+	return itemCandidates(snapshot).find(item => item.itemCategory === data.itemCategory && item.itemId !== undefined && item.slot === slot);
 }
 
-/** The enchantment a city service would remove from the item, whether the blacksmith charges for it or Mernil does it for free. */
-export function enchantedItemForReaction(snapshot: CityMobileSnapshot | undefined, reaction: ReactionCollectorReaction): CityMobileEnchantedItem | undefined {
-	const item = itemSnapshotForReaction(snapshot, reaction);
-	if (!item) {
+export type EnchantmentTransferChoice = {
+	source: CityMobileEnchantmentTransfer; target: CityMobileEnchantmentTransferTarget;
+};
+
+/** The enchanted equipment and the bare one an enchantment transfer reaction moves it onto. */
+export function enchantmentTransferForReaction(snapshot: CityMobileSnapshot | undefined, reaction: ReactionCollectorReaction): EnchantmentTransferChoice | undefined {
+	if (reaction.type !== CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER) {
 		return undefined;
 	}
-	const enchantedItems = reaction.type === CITY_REACTION_KINDS.ENCHANTER_DISENCHANT ? snapshot?.enchanter?.disenchantableItems : snapshot?.blacksmith?.disenchantableItems;
-	return enchantedItems?.find(candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory);
+	const {
+		itemCategory, sourceSlot, targetSlot
+	} = reaction.data;
+	const source = snapshot?.blacksmith?.enchantmentTransfers.find(candidate => candidate.itemCategory === itemCategory && candidate.slot === sourceSlot);
+	const target = source?.targets.find(candidate => candidate.slot === targetSlot);
+	return source && target
+		? {
+			source, target
+		}
+		: undefined;
+}
+
+/** The enchantment a city service takes off the item: Mernil removes it for free, the blacksmith moves it onto another equipment. */
+export function enchantedItemForReaction(snapshot: CityMobileSnapshot | undefined, reaction: ReactionCollectorReaction): CityMobileEnchantedItem | undefined {
+	if (reaction.type === CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER) {
+		return enchantmentTransferForReaction(snapshot, reaction)?.source;
+	}
+	const item = itemSnapshotForReaction(snapshot, reaction);
+	return item ? snapshot?.enchanter?.disenchantableItems?.find(candidate => candidate.slot === item.slot && candidate.itemCategory === item.itemCategory) : undefined;
 }
 
 export function cityItemIconPath(item: Pick<CityMobileItem, "itemId" | "itemCategory">): string {

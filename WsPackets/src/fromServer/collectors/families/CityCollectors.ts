@@ -110,7 +110,9 @@ export type CityMobileSnapshot = {
 	blacksmith?: {
 		playerMoney: number;
 		upgradeableItems: CityMobileUpgradeItem[];
-		disenchantableItems: CityMobileDisenchantItem[];
+
+		/** Enchanted equipments whose enchantment the blacksmith can move onto a bare one of the same category. */
+		enchantmentTransfers: CityMobileEnchantmentTransfer[];
 
 		/** Absent from servers older than the workbench, which only listed what could be upgraded. */
 		beyondReachItems?: CityMobileBeyondReachItem[];
@@ -182,9 +184,14 @@ export type CityMobileEnchantedItem = CityMobileItem & {
 	enchantmentType: string;
 };
 
-export type CityMobileDisenchantItem = CityMobileEnchantedItem & {
-	disenchantCost: number;
-	canDisenchant: boolean;
+/** An unenchanted equipment able to receive a transferred enchantment, priced by its rarity. */
+export type CityMobileEnchantmentTransferTarget = CityMobileItem & {
+	cost: number;
+	canAfford: boolean;
+};
+
+export type CityMobileEnchantmentTransfer = CityMobileEnchantedItem & {
+	targets: CityMobileEnchantmentTransferTarget[];
 };
 
 /** Why the blacksmith cannot upgrade an item: only the royal blacksmith can, or nobody can anymore. */
@@ -276,9 +283,10 @@ declare module "../ReactionCollectorProtocol" {
 			itemCategory: number;
 			buyMaterials: boolean;
 		};
-		cityBlacksmithDisenchant: {
-			slot: number;
+		cityBlacksmithEnchantmentTransfer: {
 			itemCategory: number;
+			sourceSlot: number;
+			targetSlot: number;
 		};
 		cityScrapDealerMenu: Record<string, never>;
 		cityScrapDealerRecycle: {
@@ -327,7 +335,7 @@ export const CITY_REACTION_KINDS = {
 	UPGRADE_ITEM: "cityUpgradeItem",
 	BLACKSMITH_MENU: "cityBlacksmithMenu",
 	BLACKSMITH_UPGRADE: "cityBlacksmithUpgrade",
-	BLACKSMITH_DISENCHANT: "cityBlacksmithDisenchant",
+	BLACKSMITH_ENCHANTMENT_TRANSFER: "cityBlacksmithEnchantmentTransfer",
 	SCRAP_DEALER_MENU: "cityScrapDealerMenu",
 	SCRAP_DEALER_RECYCLE: "cityScrapDealerRecycle",
 	ROYAL_BLACKSMITH_MENU: "cityRoyalBlacksmithMenu",

@@ -24,7 +24,7 @@ function entry(type: string, index: number): CityEntry {
 
 function blacksmith(overrides: Partial<NonNullable<CityMobileSnapshot["blacksmith"]>>): CityMobileSnapshot {
 	return { blacksmith: {
-		playerMoney: 0, upgradeableItems: [], disenchantableItems: [], ...overrides
+		playerMoney: 0, upgradeableItems: [], enchantmentTransfers: [], ...overrides
 	} };
 }
 
@@ -42,9 +42,9 @@ describe("blacksmith anvil", () => {
 				slot: 1, itemId: 1, itemCategory: 0, itemLevel: 5, limit: CITY_BLACKSMITH_LIMITS.MAXED
 			}
 		] });
-		const sections = submenuSections("blacksmith", [entry(CITY_REACTION_KINDS.BLACKSMITH_UPGRADE, 1), entry(CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT, 2)], snapshot, deps);
+		const sections = submenuSections("blacksmith", [entry(CITY_REACTION_KINDS.BLACKSMITH_UPGRADE, 1), entry(CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER, 2)], snapshot, deps);
 
-		expect(sections.map(section => section.title)).toEqual(["Sur l'enclume", "Désenchanter"]);
+		expect(sections.map(section => section.title)).toEqual(["Sur l'enclume", "Transférer un enchantement"]);
 		expect(sections[0].items.map(describeItem)).toEqual([
 			"reaction",
 			expect.stringMatching(/Niveau 4 : le forgeron ne peut aller plus loin, seul le forgeron royal le peut\.$/u),

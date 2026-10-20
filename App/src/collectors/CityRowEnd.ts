@@ -3,7 +3,7 @@ import {
 } from "ws-packets/src/fromServer/collectors";
 import { formatMoney } from "@/src/display/Amounts";
 import {
-	enchantedItemForReaction, itemSnapshotForReaction
+	enchantedItemForReaction, enchantmentTransferForReaction, itemSnapshotForReaction
 } from "@/src/collectors/CityItemPresentation";
 import { i18n } from "@/src/translations/i18n";
 import { upgradeForReaction } from "@/src/collectors/CityUpgrades";
@@ -14,12 +14,9 @@ function upgradeEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSna
 	return upgrade && upgrade.upgradeCost > 0 ? formatMoney(upgrade.upgradeCost) : undefined;
 }
 
-function disenchantEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
-	if (!item) {
-		return undefined;
-	}
-	const disenchant = snapshot?.blacksmith?.disenchantableItems.find(candidate => candidate.itemId === item.itemId && candidate.itemCategory === item.itemCategory);
-	return disenchant ? formatMoney(disenchant.disenchantCost) : undefined;
+function enchantmentTransferEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	const transfer = enchantmentTransferForReaction(snapshot, reaction);
+	return transfer ? formatMoney(transfer.target.cost) : undefined;
 }
 
 function recycleEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem): string | undefined {
@@ -45,7 +42,7 @@ const END_RESOLVERS: Partial<Record<ReactionCollectorReaction["type"], EndResolv
 	[CITY_REACTION_KINDS.UPGRADE_ITEM]: upgradeEnd,
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: upgradeEnd,
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE]: upgradeEnd,
-	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: (_, snapshot, item) => disenchantEnd(snapshot, item),
+	[CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER]: enchantmentTransferEnd,
 	[CITY_REACTION_KINDS.ENCHANTER_DISENCHANT]: (reaction, snapshot) => enchantedItemForReaction(snapshot, reaction) ? i18n.t("app:city.free") : undefined,
 	[CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE]: (_, snapshot, item) => recycleEnd(snapshot, item),
 	[CITY_REACTION_KINDS.BUY_HOME]: (_, snapshot) => snapshot?.home?.manage?.newPrice === undefined ? undefined : formatMoney(snapshot.home.manage.newPrice),

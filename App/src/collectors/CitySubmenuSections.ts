@@ -55,7 +55,7 @@ function beyondReachItem(item: CityMobileBeyondReachItem): CityListItem {
 
 /** A player holding no weapon nor armor learns why the anvil stays cold; older servers do not say. */
 function emptyAnvil(blacksmith: NonNullable<CityMobileSnapshot["blacksmith"]>): CityListItem[] {
-	const holdsEquipment = blacksmith.upgradeableItems.length + blacksmith.disenchantableItems.length + (blacksmith.beyondReachItems?.length ?? 0) > 0;
+	const holdsEquipment = blacksmith.upgradeableItems.length + blacksmith.enchantmentTransfers.length + (blacksmith.beyondReachItems?.length ?? 0) > 0;
 	return blacksmith.beyondReachItems === undefined || holdsEquipment
 		? []
 		: [
@@ -72,15 +72,15 @@ function emptyAnvil(blacksmith: NonNullable<CityMobileSnapshot["blacksmith"]>): 
 
 /** Every weapon and armor the player holds lies on the anvil: what the blacksmith can upgrade, then what is beyond them and why. */
 function blacksmithSections(entries: CityEntry[], snapshot: CityMobileSnapshot | undefined): CitySubmenuSection[] {
-	const disenchants = (entry: CityEntry): boolean => entry.reaction.type === CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT;
+	const transfers = (entry: CityEntry): boolean => entry.reaction.type === CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER;
 	const blacksmith = snapshot?.blacksmith;
 	return [
 		section("app:city.titles.anvil", [
-			...reactionItems(entries.filter(entry => !disenchants(entry))),
+			...reactionItems(entries.filter(entry => !transfers(entry))),
 			...(blacksmith?.beyondReachItems ?? []).map(beyondReachItem),
 			...blacksmith ? emptyAnvil(blacksmith) : []
 		]),
-		section("app:city.titles.disenchant", reactionItems(entries.filter(disenchants)))
+		section("app:city.titles.enchantmentTransfer", reactionItems(entries.filter(transfers)))
 	];
 }
 

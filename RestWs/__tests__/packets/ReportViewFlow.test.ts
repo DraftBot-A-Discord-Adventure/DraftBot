@@ -2,7 +2,7 @@ import {describe, expect, it} from "vitest";
 import {makePacket, PacketContext} from "../../../Lib/src/packets/CrowniclesPacket";
 import {CommandReportViewRes} from "../../../Lib/src/packets/commands/CommandReportViewPacket";
 import {CommandReportEquipmentChangedRes, CommandReportTravelSummaryRes} from "../../../Lib/src/packets/commands/CommandReportPacket";
-import {ReactionCollectorCityData, ReactionCollectorEnchanterDisenchantReaction, ReactionCollectorExitCityReaction, ReactionCollectorHomeChestCloseReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
+import {ReactionCollectorBlacksmithEnchantmentTransferReaction, ReactionCollectorCityData, ReactionCollectorEnchanterDisenchantReaction, ReactionCollectorExitCityReaction, ReactionCollectorHomeChestCloseReaction} from "../../../Lib/src/packets/interaction/ReactionCollectorCity";
 import {ItemCategory} from "../../../Lib/src/constants/ItemConstants";
 import {MainItemDetails} from "../../../Lib/src/types/MainItemDetails";
 import {REPORT_CITY_ACTION_RESULTS} from "../../../WsPackets/src/objects/ReportView";
@@ -72,5 +72,24 @@ describe("read-only adventure protocol", () => {
 			enchanter: {disenchantableItems: [{slot: 0, itemId: 12, itemCategory: ItemCategory.WEAPON, itemLevel: 2, enchantmentId: "attack1", enchantmentType: "damage"}]}
 		}}});
 		expect(result.city?.data.data).not.toHaveProperty("snapshot.enchanter.isInventoryEmpty");
+	});
+
+	it("offers the blacksmith's enchantment transfers, each source with the bare equipments that can receive it and their price", async () => {
+		const source = {
+			slot: 0, category: ItemCategory.WEAPON, details: {id: 12, itemLevel: 2} as MainItemDetails, enchantmentId: "attack1", enchantmentType: "damage",
+			targets: [{slot: 2, details: {id: 7, itemLevel: 1} as MainItemDetails, cost: 3000, canAfford: false}]
+		};
+		const data = Object.assign(new ReactionCollectorCityData(), {
+			mapTypeId: "ci", mapLocationId: 23, availableServices: ["blacksmith"], energy: {current: 100, max: 100}, health: {current: 100, max: 100}, home: {}, apartmentNotary: {ownedApartments: []},
+			blacksmith: {upgradeableItems: [], enchantmentTransfers: [source], beyondReachItems: [], playerMoney: 500}
+		});
+		const result = await ReportViewServerTranslator.view(CONTEXT, makePacket(CommandReportViewRes, {reportReady: false, city: {data, actions: [
+			{id: "d".repeat(64), reaction: {type: ReactionCollectorBlacksmithEnchantmentTransferReaction.name, data: {itemCategory: ItemCategory.WEAPON, sourceSlot: 0, targetSlot: 2}}}
+		]}}));
+		expect(result.city?.actions[0].reaction).toEqual({type: "cityBlacksmithEnchantmentTransfer", data: {itemCategory: ItemCategory.WEAPON, sourceSlot: 0, targetSlot: 2}});
+		expect(result.city?.data).toMatchObject({data: {snapshot: {blacksmith: {playerMoney: 500, enchantmentTransfers: [{
+			slot: 0, itemId: 12, itemCategory: ItemCategory.WEAPON, itemLevel: 2, enchantmentId: "attack1", enchantmentType: "damage",
+			targets: [{slot: 2, itemId: 7, itemCategory: ItemCategory.WEAPON, itemLevel: 1, cost: 3000, canAfford: false}]
+		}]}}}});
 	});
 });

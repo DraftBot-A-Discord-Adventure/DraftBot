@@ -1,5 +1,6 @@
 import {
 	CITY_REACTION_KINDS,
+	CityMobileEnchantedItem,
 	CityMobileItem,
 	CityMobileSnapshot,
 	ReactionCollectorReaction
@@ -8,7 +9,7 @@ import { AppIcons } from "@/src/AppIcons";
 import { apartmentRentedHere } from "@/src/collectors/ApartmentBenefits";
 import { compactCityDescription } from "@/src/collectors/CityText";
 import {
-	enchantedItemForReaction, itemSnapshotForReaction
+	cityItemName, enchantedItemForReaction, enchantmentTransferForReaction, itemSnapshotForReaction
 } from "@/src/collectors/CityItemPresentation";
 import { materialUnits } from "@/src/collectors/CityRecycleDetails";
 import {
@@ -22,7 +23,6 @@ const CITY_SUBTITLE_KEYS: Partial<Record<ReactionCollectorReaction["type"], stri
 	[CITY_REACTION_KINDS.ENCHANT]: "commands:report.city.reactions.enchanter.description",
 	[CITY_REACTION_KINDS.BLACKSMITH_MENU]: "commands:report.city.blacksmith.menuDescription",
 	[CITY_REACTION_KINDS.BLACKSMITH_UPGRADE]: "commands:report.city.blacksmith.upgradeDescription",
-	[CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT]: "commands:report.city.blacksmith.disenchantDescription",
 	[CITY_REACTION_KINDS.SCRAP_DEALER_MENU]: "commands:report.city.scrapDealer.menuDescription",
 	[CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE]: "commands:report.city.scrapDealer.menuDescription",
 	[CITY_REACTION_KINDS.ROYAL_BLACKSMITH_MENU]: "commands:report.city.royalBlacksmith.menuDescription",
@@ -112,9 +112,23 @@ function upgradeSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobi
 		});
 }
 
+function enchantmentLabel(item: CityMobileEnchantedItem): string {
+	return `${AppIcons.getIcon(`enchantmentTypes.${item.enchantmentType}`)} ${i18n.t(`items:enchantments.${item.enchantmentId}`)}`;
+}
+
 function disenchantSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
 	const disenchant = enchantedItemForReaction(snapshot, reaction);
-	return disenchant ? i18n.t("app:city.subtitles.disenchantDetails", { enchantment: `${AppIcons.getIcon(`enchantmentTypes.${disenchant.enchantmentType}`)} ${i18n.t(`items:enchantments.${disenchant.enchantmentId}`)}` }) : undefined;
+	return disenchant ? i18n.t("app:city.subtitles.disenchantDetails", { enchantment: enchantmentLabel(disenchant) }) : undefined;
+}
+
+/** Which enchantment leaves the equipment named on the row, and the equipment that receives it. */
+function enchantmentTransferSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
+	const transfer = enchantmentTransferForReaction(snapshot, reaction);
+	return transfer
+		? i18n.t("app:city.subtitles.enchantmentTransferDetails", {
+			enchantment: enchantmentLabel(transfer.source), target: cityItemName(transfer.target)
+		})
+		: undefined;
 }
 
 /** How much the dismantling gives back, the detail of each material waiting in the unfolded row. */
@@ -133,7 +147,7 @@ function itemSubtitle(reaction: ReactionCollectorReaction, snapshot: CityMobileS
 		case CITY_REACTION_KINDS.UPGRADE_ITEM:
 		case CITY_REACTION_KINDS.BLACKSMITH_UPGRADE:
 		case CITY_REACTION_KINDS.ROYAL_BLACKSMITH_UPGRADE: return upgradeSubtitle(reaction, snapshot, item);
-		case CITY_REACTION_KINDS.BLACKSMITH_DISENCHANT:
+		case CITY_REACTION_KINDS.BLACKSMITH_ENCHANTMENT_TRANSFER: return enchantmentTransferSubtitle(reaction, snapshot);
 		case CITY_REACTION_KINDS.ENCHANTER_DISENCHANT: return disenchantSubtitle(reaction, snapshot);
 		case CITY_REACTION_KINDS.SCRAP_DEALER_RECYCLE: return recycleSubtitle(snapshot, item);
 		default: return undefined;
