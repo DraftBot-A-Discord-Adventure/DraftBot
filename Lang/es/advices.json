@@ -348,8 +348,8 @@
     "Mejorar un equipo raro cuesta más que mejorar uno común: la rareza del objeto influye mucho en el precio de la forja.",
     "Algunos equipos muy raros, como los legendarios, cuestan una fortuna para poder subirlos al siguiente nivel.",
     "Antes de emprender una reforma costosa, comprueba en tu inventario si ya dispones de todos los materiales necesarios.",
-    "Le désenchantement retire la magie d'un équipement enchanté : l'enchanteur itinérant Mernil s'en charge gratuitement.",
-    "Chez le forgeron, transférer un enchantement coûte plus cher lorsque l'équipement qui le reçoit est rare, car l'opération demande plus de savoir-faire.",
+    "El desencantamiento elimina la magia de un equipo encantado: el encantador itinerante Mernil se encarga de ello de forma gratuita.",
+    "En la herrería, transferir un encantamiento resulta más caro cuando el equipo al que se le aplica es raro, ya que la operación requiere mayor destreza.",
     "Una vez desencantado, tu equipo pierde su encantamiento y vuelve a ser normal, pero el arma o la armadura en sí misma permanece intacta tras la operación.",
     "El hechicero recorre diferentes ciudades y solo ofrece una runa cada vez, cambiando su oferta de un día para otro.",
     "Las gemas son escasas y valiosas: ahórralas.",
@@ -459,7 +459,7 @@
     "El botón «Quedarse en la ciudad» te permite seguir explorando los servicios disponibles sin tener que volver a ponerte en camino hacia un nuevo destino.",
     "Si has comido hace poco, el mensaje te indica la hora exacta a la que podrás volver a comer.",
     "Los tiempos de espera de los servicios (comidas, descanso, encantamientos) se muestran con horarios de Discord que se actualizan automáticamente según tu zona horaria.",
-    "Le forgeron améliore le niveau de vos équipements et sait déplacer un enchantement de l'un à l'autre, tandis que l'enchanteur leur ajoute de nouvelles propriétés ou les en débarrasse : leurs rôles sont complémentaires.",
+    "El herrero mejora el nivel de tu equipamiento y sabe cómo trasladar un encantamiento de un objeto a otro, mientras que el encantador les añade nuevas propiedades o las elimina: sus funciones son complementarias.",
     "Algunas misiones o eventos te obligan a quedarte en la ciudad para seguir avanzando, mientras que otros exigen que sigas tu camino: lee los objetivos con atención.",
     "Las posadas ofrecen comidas diferentes cada día según una selección rotativa, lo que significa que algunas bonificaciones de energía solo están disponibles en días concretos.",
     "Encender o volver a encender la estufa de tu cocina consume un material como la leña, dando prioridad a los recursos más comunes.",
@@ -479,6 +479,6 @@
     "Las gemas se pueden canjear por recompensas únicas en el castillo del rey.",
     "Si buscas materiales, visita la Ciudad Fortificada: allí hay un comerciante que te los puede vender.",
     "Un herbolario se ha instalado en el Village Coco.",
-    "Une meilleure arme ou armure vient de tomber entre vos mains ? Le forgeron peut y transférer l'enchantement de l'ancienne, à condition qu'elle n'en porte pas déjà un."
+    "¿Acabas de conseguir un arma o una armadura mejor? El herrero puede transferirle el encantamiento de la anterior, siempre que esta no tenga ya uno."
   ]
 }
