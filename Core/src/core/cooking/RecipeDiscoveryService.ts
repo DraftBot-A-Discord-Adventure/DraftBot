@@ -1,5 +1,5 @@
 import {
-	CAMPAIGN_RECIPE_MILESTONES, PLAYER_LEVEL_RECIPE_MILESTONES, RecipeDiscoverySource, RecipeType
+	CAMPAIGN_RECIPE_MILESTONES, getMinCookingLevelForRecipeLevel, PLAYER_LEVEL_RECIPE_MILESTONES, RecipeDiscoverySource, RecipeType
 } from "../../../../Lib/src/constants/CookingConstants";
 import { CookingRecipeDataController } from "../../data/CookingRecipeData";
 import PlayerCookingRecipe from "../database/game/models/PlayerCookingRecipe";
@@ -184,15 +184,30 @@ export class RecipeDiscoveryService {
 	}
 
 	/**
-	 * Discover all COOKING_LEVEL recipes up to the player's current cooking level.
+	 * Get every COOKING_LEVEL recipe, the ones the player's cooking grade can prepare without penalty being unlocked
+	 */
+	static getCookingLevelRecipes(): CookingRecipe[] {
+		return RecipeDiscoveryService.getSortedCandidates(
+			r => !r.discoveredByDefault && r.discoverySource === RecipeDiscoverySource.COOKING_LEVEL
+		);
+	}
+
+	/**
+	 * Check whether a COOKING_LEVEL recipe is unlocked at a cooking level. The recipe level is a tier compared
+	 * to the cooking grade, not to the raw cooking level.
+	 */
+	static isCookingLevelRecipeUnlocked(recipe: CookingRecipe, cookingLevel: number): boolean {
+		const requiredCookingLevel = getMinCookingLevelForRecipeLevel(recipe.level);
+		return requiredCookingLevel !== null && cookingLevel >= requiredCookingLevel;
+	}
+
+	/**
+	 * Discover all COOKING_LEVEL recipes unlocked at the player's cooking level.
 	 * Returns all newly discovered recipes.
 	 */
 	static discoverCookingLevelRecipes(player: Player): Promise<RecipeDisplayInfo[]> {
-		const candidates = RecipeDiscoveryService.getSortedCandidates(
-			r => !r.discoveredByDefault
-				&& r.discoverySource === RecipeDiscoverySource.COOKING_LEVEL
-				&& r.level <= player.cookingLevel
-		);
+		const candidates = RecipeDiscoveryService.getCookingLevelRecipes()
+			.filter(recipe => RecipeDiscoveryService.isCookingLevelRecipeUnlocked(recipe, player.cookingLevel));
 		return RecipeDiscoveryService.discoverAll(player, candidates);
 	}
 

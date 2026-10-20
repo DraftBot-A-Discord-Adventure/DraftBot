@@ -25,7 +25,8 @@ function getI18nOptions(): i18next.InitOptions<unknown> {
 	}
 
 	return {
-		fallbackLng: LANGUAGE.DEFAULT_LANGUAGE,
+		// French is the source language: keys not yet synced by Crowdin only exist there
+		fallbackLng: [LANGUAGE.DEFAULT_LANGUAGE, LANGUAGE.FRENCH],
 		interpolation: { escapeValue: false },
 		resources
 	};

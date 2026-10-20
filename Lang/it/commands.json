@@ -441,6 +441,9 @@
       "BADGES": {
         "description": "I badge sono distinzione difficile a ottenere che sono state create per ricompensare le persone che hanno il più sostenuti il sviluppo del bot. La lista dei badge e disponibile sulla guida del bot.\n(link : https://guide.draftbot.com/notions-avancees/badges)"
       },
+      "BLESSING": {
+        "description": "Mostra lo stato della benedizione generale: il fondo comune che gli avventurieri alimentano incontrando l'Oracolo durante i loro viaggi, oppure la benedizione attiva e il tempo che le rimane. Questo comando è accessibile dopo aver incontrato l'Oracolo almeno una volta."
+      },
       "CLASSES": {
         "description": "Permette di cambiare classe. Più informazioni sulle classi sono disponibili nella Guida del giocatore: https://guide.draftbot.com"
       },
@@ -453,9 +456,21 @@
       "DRINK": {
         "description": "Questo comando permette di consumare la pozione che avete con voi. Alcune pozioni non possono essere bevute e vengono consumate automaticamente durante il combattimento."
       },
+      "EQUIP": {
+        "description": "Consente di gestire il proprio equipaggiamento per ogni categoria di oggetti: equipaggiare un oggetto dalla propria riserva, riporre l'oggetto equipaggiato nella propria riserva o scambiare due oggetti."
+      },
       "FIGHT": {
         "description": "Utilizzare questo comando per sfidare altri giocatori.\nLe battaglie si svolgono turno per turno. A ogni turno si può scegliere un'azione da eseguire.\n\nPer ulteriori informazioni, consultare la pagina della guida: https://guide.crownicles.com/notions-principale/combats.",
         "image": "https://draftbot.com/public/ressources/fighthelp/en/5.1.7.png"
+      },
+      "FIGHT_HISTORY": {
+        "description": "Mostra la cronologia dei tuoi ultimi combattimenti: l'avversario affrontato, il risultato e l'andamento della gloria e della classifica di ciascun combattente."
+      },
+      "FRIENDLY_FIGHT": {
+        "description": "Consente di sfidare un altro giocatore, scelto menzionandolo o in base alla sua posizione in classifica, in un combattimento amichevole. Il giocatore sfidato è controllato da un'IA. Questo combattimento non ha alcuna conseguenza: nessuna gloria, nessuna ricompensa, nessuna perdita di energia e nessun avanzamento nella missione."
+      },
+      "GARDEN": {
+        "description": "Vi permette di prendervi cura del giardino della vostra dimora quando vi trovate nella sua città: piantare, innaffiare, fare il compost e raccogliere i frutti delle vostre piante. Con il “Cœur Sylvestre”, un talismano in vendita presso l’Erborista a Coco Village, diventa possibile controllare il giardino e raccoglierne i frutti a distanza."
       },
       "GLORY_TOP": {
         "description": "Visualizza la classifica gloriosa della partita per ogni 15 giocatori. Viene visualizzato anche il campionato dei giocatori. I giocatori sullo stesso server che voi sono contrassegnati da un punto blu."
@@ -577,6 +592,8 @@
     },
     "forMoreHelp": ":arrow_forward: Per ulteriori informazioni: ",
     "forMoreHelpValue": "Potete visitare il [wiki](https://guide.draftbot.com/) del bot !",
+    "dmNoticeTitle": "{emote:other.incoming} Gioca a Crownicles",
+    "dmNoticeValue": "Crownicles si gioca esclusivamente sui server Discord. Per utilizzare i comandi sopra indicati, entra in un server in cui è presente il bot oppure nel server ufficiale del gioco: {{inviteLink}}",
     "guildCommands": ":stadium: Gilda:",
     "helpEmbedDescription": ":arrow_forward: Se volete ulteriori informazioni su un commando in particolare, fai click su: {{helpCommandMention}} e inserisci in parametro il nome del commando con qui hai problemi. :wink:",
     "helpEmbedTitle": "{{pseudo}}, Ecco l'elenco dei comandi disponibili :",
@@ -705,7 +722,8 @@
       "animal_lover": "Persona che ha mostrato tutti gli animali domestici a Talvar il nano",
       "expert_expediteur": "Una persona che ha portato a termine con successo numerose spedizioni con il proprio animale domestico",
       "oracle_patron": "Protettore dell'Oracolo, avendo contribuito generosamente a numerose benedizioni",
-      "sentimental_crafter": "La persona che ha insistito affinché il fabbro reale migliorasse un'umile reliquia fino a raggiungere il massimo livello."
+      "sentimental_crafter": "La persona che ha insistito affinché il fabbro reale migliorasse un'umile reliquia fino a raggiungere il massimo livello.",
+      "master_chef": "Cuoco esperto che ha raggiunto il livello 100 in cucina"
     },
     "fightRanked": {
       "fieldName": "Gloria e lega :",
@@ -781,6 +799,8 @@
     "choseMapMinutes_other": "Hai deciso di dirigerti verso {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Questo viaggio durerà circa **{{timeDisplay}}**.",
     "choseMap_one": "Avete deciso di dirigervi verso {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Il viaggio durerà circa **{{time}} ora**.",
     "choseMap_other": "Avete deciso di partire per {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Il viaggio durerà circa **{{time}} ore**.",
+    "cityStayScore_one": "{emote:unitValues.score} Il tuo soggiorno in città ti ha fatto guadagnare **{{count, number}}** punti.",
+    "cityStayScore_other": "{emote:unitValues.score} Il tuo soggiorno in città ti ha fatto guadagnare **{{count, number}}** punti.",
     "goBackMapMinutes_one": "Tornerete indietro in direzione {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, da dove siete venuti. Il viaggio di ritorno durerà circa **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Tornerete indietro in direzione {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, da dove siete venuti. Il viaggio di ritorno durerà circa **{{timeDisplay}}**.",
     "goBackMap_one": "Tornerete indietro in direzione {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, da dove siete venuti. Il viaggio di ritorno durerà circa **{{time}} ora**.",
@@ -828,6 +848,8 @@
       "placeholder": "Scegliere qualcosa da fare",
       "title": "{{pseudo}}sei in città!",
       "description": "{emote:commands.report} Siete arrivati a **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)**.\n\nLe strade acciottolate si animano intorno a voi: mercanti, avventurieri e artigiani sono indaffarati nelle loro attività. Ci sono molti servizi a vostra disposizione, ma la strada non aspetta nessuno.",
+      "minimumStayScore_one": "{emote:unitValues.score} Il vostro soggiorno in città vi farà guadagnare almeno **{{count, number}}** punti alla partenza.",
+      "minimumStayScore_other": "{emote:unitValues.score} Il vostro soggiorno in città vi farà guadagnare almeno **{{count, number}}** punti alla partenza.",
       "buttons": {
         "enter": "Entrare",
         "visit": "Visita",
@@ -838,6 +860,8 @@
         "confirm": "Confermare",
         "upgrade": "Migliorare",
         "disenchant": "Disincantare",
+        "transfer": "Inoltra",
+        "choose": "Scegliere",
         "goHome": "Tornare a casa",
         "goToApartment": "Entrare in casa",
         "seeNotary": "Visita",
@@ -860,6 +884,8 @@
       "stayDescription": "Utilizza il comando {command:report} per usufruire dei servizi disponibili in città o per riprendere la tua avventura.",
       "stayInCityChoice": "{emote:mapTypes.ci} Entrare in città",
       "shopEmptyDescription": "Al momento non ci sono servizi da offrire.",
+      "equipmentChangedTitle": "{{pseudo}}, l'attrezzatura è cambiata!",
+      "equipmentChangedDescription": "L'equipaggiamento selezionato non è più lo stesso in quella posizione dell'inventario: è stato spostato dopo l'apertura del menu. Non è stato speso nulla e il menu è stato aggiornato con il tuo inventario attuale.",
       "exitInn": "Fuori dal bosco",
       "reactions": {
         "exit": {
@@ -876,11 +902,11 @@
         },
         "enchanter": {
           "label": "Andate a trovare l'incantatore",
-          "description": "Un viaggiatore con le mani ricoperte di incantesimi luminosi attira la tua attenzione. Sostiene di poter incantare qualsiasi arma o pezzo di armatura."
+          "description": "Un viaggiatore con le mani ricoperte di incantesimi luminosi attira la vostra attenzione. Sostiene di poter incantare qualsiasi arma o pezzo di armatura e di poterne rimuovere gli incantesimi senza chiedere nulla in cambio."
         },
         "blacksmith": {
           "label": "Andare dal fabbro",
-          "description": "Visitate il fabbro per migliorare o smantellare il vostro equipaggiamento."
+          "description": "Recatevi dal fabbro per potenziare il vostro equipaggiamento o trasferirne gli incantesimi."
         }
       },
       "shops": {
@@ -998,7 +1024,7 @@
         "runeForWeaponOnlyArmorAvailableStory_other": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, vi spiega di essere l’unico e il migliore incantatore di tutte le regioni. Oggi, il suo incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** funziona solo sulle armi. Avendo solo armi già incantate o pezzi di armatura da mostrargli, ti guarda dall’alto in basso con disprezzo e sospira dicendo che gli stai facendo perdere tempo. Meglio tornare un altro giorno, oppure con una lama vergine degna di ricevere un incantesimo.",
         "runeForArmorOnlyWeaponAvailableStory_one": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, vi spiega di essere l'unico e il migliore incantatore di tutte le regioni. Oggi, il suo incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** funziona solo sulle parti dell’armatura. Avete solo un'armatura già incantata o delle armi da mostrargli: lui stringe le labbra e borbotta che state entrambi perdendo tempo. Tornate con un'armatura non ancora incantata, oppure un altro giorno quando il suo incantesimo sarà diverso.",
         "runeForArmorOnlyWeaponAvailableStory_other": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, vi spiega di essere l’unico e il migliore incantatore di tutte le terre. Oggi, il suo incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** funziona solo sulle parti dell'armatura. Avete solo armature già incantate o armi da mostrargli: stringe le labbra e borbotta che state entrambi perdendo tempo. Tornate con un’armatura non incantata da incantare, oppure un altro giorno quando il suo incantesimo sarà diverso.",
-        "allEnchantedStory": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, esamina il vostro equipaggiamento e poi scuote la testa, infastidito: tutto ciò che indossate è già incantato. Ti ricorda seccamente che sono i fabbri a rimuovere gli incantesimi esistenti, non lui, e che si rifiuta categoricamente di toccare questi oggetti già runici. Torna con un equipaggiamento non incantato, oppure riprova domani.",
+        "allEnchantedStory": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, esamina il vostro equipaggiamento e poi scuote la testa, infastidito: tutto ciò che possedete è già incantato e lui non può aggiungere nulla. Accetta tuttavia di rimuovere gratuitamente gli incantesimi che non ti soddisfano più, in modo che tu possa finalmente presentargli un'attrezzatura \"vergine\" degna del suo talento.",
         "story": "{emote:city.services.enchanter} Incontrate un incantatore itinerante che si presenta con il nome di Mernil. Con aria altezzosa, ti spiega che è l'unico e il migliore incantatore di tutte le regioni e che può potenziare il tuo equipaggiamento grazie alla magia degli incantesimi.",
         "tomorrowStory": "Ti prendi un po' di tempo per riflettere sulla sua proposta. Prima della tua partenza, Mernil ti svela la prossima tappa del suo viaggio: **{{nextCity}}**, dove offrirà l'incantesimo {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Faresti bene a raggiungerlo prima che riparta.",
         "tomorrowSameCityStory": "Ti prendi un po' di tempo per riflettere sulla sua proposta. Mernil annuncia che prolungherà il suo soggiorno: **{{nextCity}}** lo accoglierà anche domani, con grande gioia {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Approfittatene per preparare il vostro equipaggiamento prima che riprenda il viaggio.",
@@ -1017,7 +1043,14 @@
           "frozenDamage": "Mernil svela le proprietà di questo incantesimo: aumenta i danni da gelo inflitti e riduce i danni da fuoco subiti.",
           "poisonedDamage": "Mernil svela le proprietà di questo incantesimo: aumenta i danni da veleno inflitti e riduce quelli subiti."
         },
-        "hasAtLeastOneEnchantedItem": "Inoltre, quando Mernil vede il vostro equipaggiamento già incantato, aggrotta le sopracciglia. Dice che è compito del fabbro disincantare gli oggetti, non suo, e che non li toccherà.",
+        "disenchantOffer": "Mernil nota anche i vostri oggetti già incantati. Per un maestro del suo calibro, cancellare le rune è solo una formalità: si offre di rimuoverle **gratuitamente**, se non altro per liberare il mondo da incantesimi che ritiene indegni della sua arte.",
+        "disenchantTitle": "{{pseudo}}, disillusione a Mernil",
+        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil fa schioccare le dita con aria compiaciuta. A sentirlo, rimuovere un incantesimo è un gioco da ragazzi che non merita nemmeno una moneta. Aspetta che gli indichiate l'equipaggiamento da liberare dalle rune.",
+        "disenchantItemPreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "disenchantConfirmDescription": "{emote:collectors.warning} Questa conferma rimuoverà definitivamente l'incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** dall'equipaggiamento seguente:\n{{item}}\n\nCosto: **gratuito**.",
+        "disenchantSuccessTitle": "{{pseudo}}, un disincanto ben riuscito!",
+        "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil sfiora il tuo equipaggiamento con la punta delle dita, sussurrando una formula. Il bagliore dell'incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** vacilla e poi si spegne. Ti restituisce l'oggetto, tornato al suo stato originario, con l'aria soddisfatta di chi ha appena reso un immenso servizio senza chiedere nulla in cambio.",
+        "backToEnchanter": "Ritorno a Mernil",
         "confirmDescription": "{Questa convalida applicherà l'incantamento {emote:collectors.warning}.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** sul seguente equipaggiamento:\n{{item}}\n\nCosto: **{{price}}**.\n{{balance}}",
         "acceptStory": "Prende subito il vostro equipaggiamento e mormora alcune formule magiche agitando un cristallo incantato sopra di esso... Dopo pochi istanti, vi restituisce l'oggetto dicendovi che il gioco è fatto! Il vostro equipaggiamento è ora incantato con {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})**. Fatene buon uso!",
         "acceptTitle": "{{pseudo}}È un'esperienza incantevole!",
@@ -1033,17 +1066,17 @@
       },
       "blacksmith": {
         "menuLabel": "Andare dal fabbro",
-        "menuDescription": "Il suono regolare dell'incudine riecheggia dalla fucina. Il fabbro può rafforzare il vostro equipaggiamento o rimuoverne gli incantesimi.",
+        "menuDescription": "Il suono cadenzato dell'incudine risuona dalla fucina. Il fabbro può potenziare il tuo equipaggiamento o trasferire gli incantesimi da un oggetto all'altro.",
         "placeholder": "Scegliere un servizio",
         "title": "{{pseudo}}incontrate il fabbro",
         "upgradeLabel": "Miglioramento delle attrezzature",
         "upgradeDescription": "Potenzia le tue armi e armature per ottenere denaro e materiali.",
-        "disenchantLabel": "Smantellamento di attrezzature",
-        "disenchantDescription": "Rimuovi l'incantesimo da uno dei tuoi pezzi di equipaggiamento.",
+        "enchantmentTransferLabel": "Trasferire un incantesimo",
+        "enchantmentTransferDescription": "Rimuovi l'incantesimo da un oggetto per applicarlo a un altro oggetto dello stesso tipo.",
         "backToCity": "Uscire dalla fucina",
-        "descriptionBoth": "{emote:city.services.blacksmith} Il calore dell'incandescente fornace ti avvolge non appena entri nella fucina. Il fabbro, un colosso dalle braccia segnate da anni di duro lavoro, alza lo sguardo dall'incudine e ti saluta con un cenno del capo. Può potenziare il tuo equipaggiamento o rimuovere gli incantesimi che ti appesantiscono.",
+        "descriptionBoth": "{emote:city.services.blacksmith} Il calore dell'incandescente fornace ti avvolge mentre entri nella fucina. Il fabbro, un colosso dalle braccia segnate da anni di duro lavoro, alza lo sguardo dall'incudine e ti saluta con un cenno del capo. Può potenziare il tuo equipaggiamento o rimuovere un incantesimo per applicarlo a un altro oggetto.",
         "descriptionUpgradeOnly": "{emote:city.services.blacksmith} Il calore dell'incandescente focolare ti avvolge non appena entri nella fucina. Il fabbro, un colosso dalle braccia segnate da anni di duro lavoro, esamina il tuo equipaggiamento con occhio esperto. I suoi servizi non sono a buon mercato, ma la qualità del suo lavoro parla da sé.",
-        "descriptionDisenchantOnly": "{emote:city.services.blacksmith} Il calore dell'incandescente focolare ti avvolge non appena entri nella fucina. Il fabbro nota i bagliori magici che emanano dai tuoi equipaggiamenti incantati. È in grado di rimuoverli con cura, senza danneggiare l'equipaggiamento.",
+        "descriptionEnchantmentTransferOnly": "{emote:city.services.blacksmith} Il calore dell'incandescente focolare ti avvolge mentre entri nella fucina. Il fabbro nota i bagliori magici che emanano dai tuoi equipaggiamenti incantati. Sa come rimuovere un incantesimo senza distruggerlo, per poi applicarlo a un altro equipaggiamento dello stesso tipo.",
         "descriptionNoItems": "{emote:city.services.blacksmith} Il calore dell'incudine vi avvolge non appena entrate nella fucina. Il fabbro vi osserva per un istante prima di alzare le spalle. Al momento non avete nulla che lui possa lavorare.",
         "selectItemPlaceholder": "Selezionare un dispositivo",
         "itemUpgradePreview": "liv. {{currentLevel}} -> liv. {{nextLevel}} | {{cost, number}}{emote:unitValues.money}",
@@ -1056,14 +1089,16 @@
         "confirmUpgrade": "Migliorare ({{cost, number}})",
         "buyMaterialsAndUpgrade": "Acquistare e migliorare ({{cost, number}})",
         "backToItems": "Torna all'elenco",
-        "itemDisenchantPreview": "{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}}) | {{cost, number}}{emote:unitValues.money}",
-        "disenchantTitle": "{{pseudo}}disincanto delle attrezzature",
-        "disenchantSelectDescription": "{Il fabbro prepara i suoi strumenti di disincanto, una serie di pinze e cristalli assorbenti. Il disincanto richiede precisione.\n\nHai **{{money, number}}** {emote:unitValues.money} {emote:unitValues.money}",
-        "disenchantItemDetails": "{{itemDisplay}}\n\n**Costo del disincanto:** {{cost, number}} {emote:unitValues.money}\n\nL'incantamento verrà rimosso in modo permanente. L'equipaggiamento tornerà normale, ma rimarrà intatto.",
-        "confirmDisenchant": "Disincantare ({{cost, number}})",
+        "enchantmentTransferSourcePreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "enchantmentTransferTitle": "{{pseudo}}, trasferimento di incantesimo",
+        "enchantmentTransferSourceSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} Il fabbro ha posato sul banco da lavoro un paio di tenaglie d'argento e un cristallo di trasferimento. Aspetta che gli indichiate l'equipaggiamento da cui rimuovere l'incantesimo.\n\n{emote:unitValues.money} Avete **{{money, number}}** {emote:unitValues.money}",
+        "enchantmentTransferTargetSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} L'incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** verrà rimosso dall'equipaggiamento seguente:\n{{item}}\n\nSeleziona l'equipaggiamento su cui applicarlo. Solo gli oggetti dello stesso tipo e privi di incantesimi possono riceverlo, e il prezzo del fabbro dipende dalla rarità dell'oggetto scelto.",
+        "enchantmentTransferTargetPreview": "{{item}}\n**Costo del trasferimento:** {{cost, number}} {emote:unitValues.money}",
+        "enchantmentTransferConfirmDescription": "{emote:collectors.warning} L'incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** verrà rimosso dal seguente equipaggiamento:\n{{sourceItem}}\n\nVerrà poi sigillato su questo equipaggiamento:\n{{targetItem}}\n\n**Costo del trasferimento:** {{cost, number}} {emote:unitValues.money}",
+        "confirmEnchantmentTransfer": "Trasferisci ({{cost, number}})",
         "upgradeSuccess": "{emote:city.blacksmith.upgrade} Il fabbro colpisce l'incudine con precisione, facendo volare scintille nell'aria. Dopo alcuni colpi esperti, vi consegna l'equipaggiamento potenziato {{newLevel}} con soddisfazione.",
         "upgradeSuccessWithBuy": "{emote:city.blacksmith.upgrade} Il fabbro vi fornisce i materiali mancanti e si mette subito al lavoro. Le scintille volano mentre rafforza il vostro equipaggiamento, ora al livello {{newLevel}}.",
-        "disenchantSuccess": "{Il fabbro passa delicatamente i cristalli assorbenti sul vostro equipaggiamento. Il bagliore magico svanisce gradualmente. L'incantesimo è stato rimosso in modo netto e l'equipaggiamento è tornato normale.",
+        "enchantmentTransferSuccess": "{emote:city.blacksmith.enchantmentTransfer} Il fabbro infila le sue pinze d'argento sotto le rune dell'incantesimo {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** e le stacca una ad una. Il cristallo di trasferimento si illumina per un istante, poi alcuni colpi di martello fissano le rune sull’altro tuo equipaggiamento. L'incantesimo ha trovato il suo nuovo ospite senza perdere nulla del suo splendore, e l'equipaggiamento precedente torna ad essere ordinario.\n\n{emote:unitValues.money} Costo del trasferimento: **{{cost, number}}** {emote:unitValues.money}",
         "notEnoughMoney": "{Il fabbro scuote la testa mentre conta le monete. Ti manca **{{missingMoney, number}}** {emote:unitValues.money} per pagare i suoi servizi.",
         "missingMaterialsTitle": "{{pseudo}}materiali insufficienti!",
         "missingMaterialsDescription": "I materiali necessari per questo aggiornamento non sono disponibili presso il fabbro. Raccoglieteli nelle vostre avventure o acquistateli direttamente dal fabbro."
@@ -1152,7 +1187,7 @@
         "goToOwnedApartment": "Visita a casa tua",
         "goToOwnedApartmentDescription": "La casa in affitto sarà il vostro pied-à-terre in questa città. Potrete dormirci, riporre le vostre cose e preparare i pasti come se foste a casa vostra.",
         "homeTitle": "{{pseudo}}Benvenuti a casa vostra!",
-        "homeIntroduction": "{Entrate nella vostra casa. La calma e la serenità di questo luogo vi tranquillizzano.",
+        "homeIntroduction": "{emote:city.home.1} Entrate nella vostra casa. La calma e la serenità di questo luogo vi tranquillizzano.",
         "apartmentTitle": "{{pseudo}} si entra in casa",
         "apartmentIntroduction": "{emote:city.home.1} Aprite la porta di casa vostra. È un posto modesto, ma sembra di essere a casa: un letto accogliente vi aspetta e un corriere consegna regolarmente le vostre cose a casa vostra.",
         "homePlaceholder": "Scegliere un'azione",
@@ -1166,16 +1201,16 @@
         "manageHomeDescriptionMaxLevel": "La vostra casa è già al massimo livello.",
         "manageHomeDescriptionUnavailable": "Il notaio non ha nulla da offrirvi al momento.",
         "notaryTitle": "{{pseudo}}incontrate il notaio",
-        "notaryIntroduction": "{Entrate nell'ufficio di un notaio, una persona responsabile della gestione delle transazioni immobiliari. Il notaio vi accoglierà calorosamente ed esaminerà la vostra pratica prima di offrirvi i suoi servizi.",
+        "notaryIntroduction": "{emote:city.manageHome} Entrate nell'ufficio di un notaio, una persona responsabile della gestione delle transazioni immobiliari. Il notaio vi accoglierà calorosamente ed esaminerà la vostra pratica prima di offrirvi i suoi servizi.",
         "notaryNewHomeNoMoney": "Dopo aver analizzato attentamente la vostra situazione, l'avvocato vi dice che non avete abbastanza soldi per comprare una casa. Una casa nuova costa **{{cost}} {emote:unitValues.money}** e quindi vi manca **{{missingMoney}} {emote:unitValues.money}** il prezzo di acquisto. Vi spiega le diverse opzioni disponibili e vi incoraggia a tornare quando avrete risparmiato abbastanza.",
         "notaryNewHomeEnoughMoney": "Dopo aver analizzato attentamente la vostra situazione, il notaio vi dice che avete abbastanza soldi per comprare una casa che oggi costa **{{cost}} {emote:unitValues.money}**. Le concede del tempo per riflettere sulla sua decisione e attende la sua risposta.\n\nVuole comprare una casa?",
-        "notaryConfirmBuyHome": "{Questa convalida comprerà una casa in questa città per **{{cost}} {emote:unitValues.money}**.",
+        "notaryConfirmBuyHome": "{emote:collectors.warning} Questa convalida comprerà una casa in questa città per **{{cost}} {emote:unitValues.money}**.",
         "notaryUpgradeHomeNoMoney": "Dopo aver analizzato attentamente la vostra situazione, il legale vi informa che non avete abbastanza soldi per migliorare la vostra casa. Una ristrutturazione costa **{{cost}} {emote:unitValues.money}** e quindi vi manca **{{missingMoney}} {emote:unitValues.money}** la somma necessaria per la ristrutturazione. L'esperto spiega le diverse opzioni disponibili e invita a tornare quando si è risparmiato abbastanza.",
         "notaryUpgradeHomeEnoughMoney": "Dopo aver analizzato attentamente la vostra situazione, l'avvocato vi dice che avete abbastanza soldi per migliorare la vostra casa. Questo miglioramento costerà **{{cost}} {emote:unitValues.money}** e comporterà i seguenti cambiamenti:\n{{upgradeChanges}}\nVi dà il tempo di riflettere sulla vostra decisione e attende la vostra risposta.\n\nVolete migliorare la vostra casa?",
-        "notaryConfirmUpgradeHome": "{Questa convalida migliorerà la tua casa per **{{cost}} {emote:unitValues.money}**.\n\nModifiche previste:\n{{upgradeChanges}}",
+        "notaryConfirmUpgradeHome": "{emote:collectors.warning} Questa convalida migliorerà la tua casa per **{{cost}} {emote:unitValues.money}**.\n\nModifiche previste:\n{{upgradeChanges}}",
         "notaryMoveHomeNoMoney": "Dopo aver analizzato attentamente la vostra situazione, il notaio vi informa che non avete abbastanza soldi per trasferirvi in una nuova casa in questa città. Il trasloco costa **{{cost}} {emote:unitValues.money}** e quindi vi manca **{{missingMoney}} {emote:unitValues.money}** la somma necessaria per effettuare il trasloco. Vi spiega le diverse opzioni disponibili e vi incoraggia a tornare quando avrete risparmiato abbastanza.",
         "notaryMoveHomeEnoughMoney": "Dopo aver analizzato attentamente la vostra situazione, l'avvocato vi informa che avete abbastanza soldi per trasferirvi in una nuova casa in questa città per **{{cost}} {emote:unitValues.money}**. La casa sarà dello stesso livello di quella vecchia. Chiarisce che si può avere solo **una casa alla volta** e che la vecchia casa verrà automaticamente venduta. Le concede del tempo per riflettere sulla sua decisione e attende la sua risposta.\n\nVolete trasferirvi in una nuova casa?",
-        "notaryConfirmMoveHome": "{Questa convalida sposterà la vostra casa in questa città per **{{cost}} {emote:unitValues.money}**. La vecchia casa verrà automaticamente venduta, poiché è possibile possedere una sola casa alla volta.",
+        "notaryConfirmMoveHome": "{emote:collectors.warning} Questa convalida sposterà la vostra casa in questa città per **{{cost}} {emote:unitValues.money}**. La vecchia casa verrà automaticamente venduta, poiché è possibile possedere una sola casa alla volta.",
         "notaryLevelRequired": "Dopo aver analizzato attentamente la vostra situazione, il notaio vi informa che purtroppo al momento non può fare nulla per voi. Per apportare le prossime migliorie alla vostra casa, dovrete raggiungere il livello {{level}}. Vi incoraggia a continuare le vostre avventure e a tornare da lui quando avrete acquisito maggiore esperienza.",
         "notaryMaxLevel": "Dopo aver analizzato attentamente la vostra situazione, il vostro notaio si congratulerà calorosamente con voi. La vostra casa è già al **livello massimo** e non può più essere migliorata. Vi assicura che avete la più bella casa possibile e vi augura ogni successo.",
         "buyHome": "Acquisto di una casa",
@@ -1260,9 +1295,11 @@
           "noStoredItems": "Non ci sono articoli in questa categoria.",
           "depositSection": "{emote:city.chestActions.deposit} **Deposito nel forziere:**",
           "withdrawSection": "{emote:city.chestActions.withdraw} **Rimuovi dal forziere:**",
-          "chestFull": "Cassaforte completa per questa categoria",
-          "inventoryFullLabel": "Inventario completo",
+          "chestFull": "{emote:collectors.warning} *Cassaforte piena per questa categoria*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventario pieno*",
           "swapSection": "{emote:city.chestActions.swap} **scambio con il forziere:**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenuto del forziere:**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **scambio** {{item}} **con :**",
           "errors": {
             "chestFull": "Il tuo baule è pieno per questa categoria! Potenzia la tua casa per ottenere più slot.",
@@ -1291,7 +1328,7 @@
           "waterButton": "Acqua",
           "waterCooldown": "{emote:city.gardenStatus.water} È possibile annaffiare di nuovo **{{timeLeft}}**.",
           "waterCooldownError": "{emote:messages.refuse} Hai già irrigato di recente. Riprova **{{timeLeft}}**.",
-          "waterNothingToWater": "{Non ci sono piante in crescita da irrigare.",
+          "waterNothingToWater": "{emote:messages.info} Non ci sono piante in crescita da irrigare.",
           "wateredPlots_one": "{{count}} trama",
           "wateredPlots_other": "{{count}} trame",
           "waterSuccess_zero": "{emote:city.gardenStatus.water} Hai innaffiato **{{wateredPlots}}**. La loro crescita è aumentata del {{growthPercent}} %.",
@@ -1311,14 +1348,14 @@
             "button": "Compost",
             "selectTitle": "{emote:city.gardenStatus.compost} Selezionare una pianta da compostare. Ogni pianta compostata vi darà un materiale dal suo elenco di possibili compost.",
             "selectEntry": "{emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) ({{quantity}})",
-            "confirmDescription": "{emote:city.gardenStatus.compost} Si sta per effettuare il compostaggio di **{emote:piante.{{plantId}}} $t(models:plants.{{plantId}})**.\nHai alcune **{{quantity}}** in riserva.\n\nPossibili materiali ottenuti per ogni pianta compostata:\n{{materialsList}}",
+            "confirmDescription": "{emote:city.gardenStatus.compost} Si sta per effettuare il compostaggio di **{emote:plants.{{plantId}}} $t(models:plants.{{plantId}})**.\nHai alcune **{{quantity}}** in riserva.\n\nPossibili materiali ottenuti per ogni pianta compostata:\n{{materialsList}}",
             "confirmMaterialLine": "- {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})",
             "confirmButton": "Compost {{quantity}}",
             "cancelButton": "← Annullamento",
             "resultTitle": "{{pseudo}}bidone per il compost",
             "resultDescription": "{emote:city.gardenStatus.compost} Hai fatto il compostaggio **{{quantity}}** {emote:plants.{{plantId}}} $t(models:plants.{{plantId}}). Ecco cosa hai ottenuto:\n{{materialsList}}",
             "resultMaterialLine": "• **{{count}}** x {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})",
-            "notEnoughPlants": "{Non avete abbastanza {emote:messages.refuse} piante.{{plantId}}} $t(models:plants.{{plantId}}) per il compost **{{quantity}}**."
+            "notEnoughPlants": "{emote:messages.refuse} Non hai più abbastanza {emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) in riserva per compostarne **{{quantity}}**."
           }
         },
         "cooking": {
@@ -1339,8 +1376,8 @@
             "3": "Distillazione",
             "4": "Brindisi"
           },
-          "noWood": "{Non hai legna per accendere la stufa. Raccogli la legna durante le tue spedizioni!",
-          "woodConfirm": "{Non si dispone più di legno comune. Alcuni **{emote:materiali.{{materialId}}} $t(models:materials.{{materialId}})** saranno utilizzati per accendere la stufa. Confermare?",
+          "noWood": "{emote:messages.refuse} Non hai legna per accendere la stufa. Raccogli la legna durante le tue spedizioni!",
+          "woodConfirm": "{emote:messages.info} Non hai più legno comune. **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** sarà utilizzato per accendere la stufa. Confermare?",
           "confirmButton": "Confermare",
           "cancelButton": "Annullamento",
           "levelInfo": "{emote:unitValues.xp} Livello **{{level}}** ({{grade}}) - Preparare ricette di livello **{{maxLevel}}** o inferiore per ottenere i migliori risultati.",
@@ -1352,23 +1389,25 @@
           "ingredientMaterial": "{emote:materials.{{materialId}}} $t(models:materials.{{materialId}}) {{playerHas}}/{{quantity}}",
           "craftSuccess": "{emote:messages.validate} Cottura riuscita! Hai preparato **{{recipe}}** !",
           "craftFailure": "{emote:messages.refuse} La cottura è fallita... La ricetta **{{recipe}}** non ha dato il risultato atteso.",
-          "craftUnavailable": "{Questa ricetta non è più disponibile. I suggerimenti sono stati aggiornati.",
-          "inventoryFull": "{È finito lo spazio nell'inventario delle pozioni. Libera uno spazio prima di cucinare questa ricetta.",
-          "guildRequired": "{Questo cibo per animali richiede una gilda per essere conservato. Unisciti a una gilda per prepararlo.",
-          "guildStorageFull": "{Il deposito di cibo della tua gilda è pieno. Libera un po' di spazio prima di cucinare questa ricetta.",
+          "craftUnavailable": "{emote:messages.info} Questa ricetta non è più disponibile. I suggerimenti sono stati aggiornati.",
+          "inventoryFull": "{emote:messages.refuse} È finito lo spazio nell'inventario delle pozioni. Libera uno spazio prima di cucinare questa ricetta.",
+          "guildRequired": "{emote:messages.refuse} Questo cibo per animali richiede una gilda per essere conservato. Unisciti a una gilda per prepararlo.",
+          "guildStorageFull": "{emote:messages.refuse} Il deposito di cibo della tua gilda è pieno. Libera un po' di spazio prima di cucinare questa ricetta.",
           "xpGained": "{emote:unitValues.xp} +**{{xp}}** Cucina XP",
           "levelUp": "Avete raggiunto il livello di cottura {{level}}!",
           "levelUpWithGrade": "Sei stato promosso al **livello di cucina {{level}}**! Nuovo grado: **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}Un nuovo livello di cucina!",
-          "materialSaved": "{Grazie alla vostra esperienza, un **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** è stato salvato!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} I tuoi sforzi ai fornelli sono stati finalmente riconosciuti: ti è stato assegnato un badge, **Chef**!",
+          "materialSaved": "{emote:messages.validate} Grazie alla vostra esperienza, un **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** è stato salvato!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **La tua maestria ti ha permesso di raddoppiare gli XP guadagnati e di migliorare il risultato di questa preparazione!",
-          "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** sono stati aggiunti al deposito della tua gilda.",
+          "petFoodStored_one": "{emote:messages.validate} **{{count}} {{food}}** è stata aggiunta al magazzino della tua gilda.",
+          "petFoodStored_other": "{emote:messages.validate} **{{count}} {{food}}** sono stati aggiunti al magazzino della tua gilda.",
           "recipeDiscovered": "{emote:city.homeUpgrades.cooking} Hai imparato una nuova ricetta: **{{recipe}}** !",
           "recipesDiscovered": "{emote:city.homeUpgrades.cooking} Hai imparato alcune nuove ricette: {{recipes}}!",
-          "petFedFromSurplus": "{Il tuo animale ha mangiato una razione di **{{food}}** direttamente dal forno!",
-          "surplusRecycled": "{Il cibo in eccesso è stato riciclato in **{{quantity}} {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})**.",
+          "petFedFromSurplus": "{emote:messages.validate} Il tuo animale ha mangiato una razione di **{{food}}** direttamente dal forno!",
+          "surplusRecycled": "{emote:messages.info} Il cibo in eccesso è stato riciclato in **{{quantity}} {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})**.",
           "materialCrafted": "{emote:messages.validate} Hai ottenuto **{{quantity}} {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** !",
-          "woodConsumed": "{emote:materiali.{{woodId}}} $t(models:materials.{{woodId}}) consumato",
+          "woodConsumed": "{emote:materials.{{woodId}}} $t(models:materials.{{woodId}}) consumato",
           "woodSaved": "{emote:messages.validate} La tua esperienza ti ha fatto risparmiare legno! ({emote:materials.{{woodId}}} $t(models:materials.{{woodId}}))",
           "pinnedRecipeTitle": "{emote:messages.pin} **Ricetta appuntata** - {emote:cookingRecipeTypes.{{recipeType}}} $t(models:cooking.recipes.{{recipeId}}) (Livello {{level}})",
           "pinnedReady": "\n{emote:messages.validate} Avete tutti gli ingredienti per questa ricetta!",
@@ -2223,8 +2262,7 @@
       "guildStatusChange": "Cambio di status all'interno della gilda",
       "energy": "Energia rigenerata",
       "dailyBonus": "Bonus giornaliero",
-      "petExpedition": "Spedizione di animali domestici completata",
-      "tournament": "Tournoi"
+      "petExpedition": "Spedizione di animali domestici completata"
     },
     "enableDisable": "Abilitazione/Disabilitazione",
     "sendLocationField": "Indirizzo di consegna :",
@@ -2366,6 +2404,7 @@
     "notEnoughEnergy": "Non hai abbastanza energia per iniziare una lotta!",
     "monsterNotFound": "Non è stato trovato alcun mostro da affrontare. Si prega di segnalare l'accaduto al nostro team di supporto (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | È in corso una lotta tra {{fightInitiator}} e {{opponent}} !",
+    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | È in corso un combattimento amichevole tra {{fightInitiator}} e {{opponent}} ! Non avrà alcuna conseguenza.",
     "actionsOf": "**Attacchi da {{pseudo}} :**",
     "petOf": "**Animale domestico di {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
@@ -2571,6 +2610,21 @@
         "È stata una partita molto combattuta con alcune tattiche intelligenti da entrambe le parti.",
         "Gli spettatori hanno assistito a una partita epica tra due giocatori di talento che si sono affrontati ad armi pari."
       ]
+    },
+    "kingGuard": {
+      "name": "Guardia del re",
+      "recap": {
+        "win": "Non c'era nessun avversario disponibile: {{player}} ha affrontato una guardia del re e l'ha sconfitto. In questo combattimento non c'era in palio alcuna gloria.",
+        "draw": "Non c'era nessun avversario disponibile: {{player}} ha affrontato una guardia del re senza riuscire a spuntarla. In questo combattimento non c'era in palio alcuna gloria.",
+        "loss": "Non c'era nessun avversario disponibile: {{player}} ha affrontato una guardia del re ed è stato sconfitto. In questo combattimento non c'era in palio alcuna gloria."
+      }
+    }
+  },
+  "friendlyFight": {
+    "errors": {
+      "opponentNotFound": "Questo giocatore non è rintracciabile o non ha ancora iniziato l'avventura.",
+      "selfFight": "Non è possibile avviare una sfida amichevole contro se stessi. Indica un altro giocatore o il suo posizionamento in classifica.",
+      "opponentLevelTooLow": "Questo giocatore non ha ancora sbloccato i combattimenti."
     }
   },
   "equip": {
@@ -2806,6 +2860,7 @@
     "noHistory": "Non hai ancora nessun combattimento nella tua storia.",
     "title": "{{pseudo}}La storia dei combattimenti",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Risultato :** {{resultSentence}}\n**La tua gloria:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}}\n**Gloria opposta :** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} Non c'erano avversari disponibili: hai affrontato una **guardia del re** di livello {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Risultato:** {{resultSentence}}\n**Gloria:** {emote:unitValues.glory} non era in gioco alcuna gloria",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Hai attaccato **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Sei stato attaccato da **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
@@ -2861,154 +2916,6 @@
         "name": "Menagerie",
         "description": "Livello {{level, number}}/{{maxLevel, number}}\nGli animali del rifugio guadagnano punti amore ogni giorno."
       }
-    }
-  },
-  "tournament": {
-    "codeTitle": "Code de tournoi",
-    "codeCreated": "Code : `{{code}}`\nValable jusqu'au {{expiresAt}}. Ce code ne peut être utilisé qu'une seule fois sur ce serveur.",
-    "createTitle": "Tournoi créé",
-    "created": "Le tournoi `{{tournamentId}}` utilisera {{channel}}. Les inscriptions se terminent {{registrationEndsAt}} et les combats se terminent {{combatEndsAt}}. Règle de niveau : {{levelRule}}.",
-    "registerTitle": "Inscription au tournoi",
-    "registered": "Vous êtes inscrit dans la catégorie **{{category}}** avec **{{totalGloryPoints}} gloire de tournoi**.{{lateRegistration}}",
-    "lateRegistration": " Votre inscription est tardive : votre gloire de départ est adaptée.",
-    "statusTitle": "{emote:notifications.types.tournament} Tournoi : {{status}}",
-    "tournamentField": {
-      "fieldName": "Le tournoi :",
-      "fieldValue": "{emote:fightCommand.crossedSwords} {{channel}} | {emote:unitValues.timeGain} {{phaseEnd}}\n{{levelRule}}"
-    },
-    "participantsField": {
-      "fieldName": "Participants :",
-      "fieldValue_one": "{emote:guild.membersCount} **{{count, number}}** joueur inscrit",
-      "fieldValue_other": "{emote:guild.membersCount} **{{count, number}}** joueurs inscrits"
-    },
-    "participantsInCategory_one": " · **{{count, number}}** dans votre catégorie",
-    "participantsInCategory_other": " · **{{count, number}}** dans votre catégorie",
-    "participationField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "{{category}} | {emote:announcements.trophy} {{rank}} / {{categoryParticipantCount, number}} | {emote:unitValues.glory} **{{totalGloryPoints}}**"
-    },
-    "notRegisteredField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "Vous n'êtes pas inscrit à ce tournoi."
-    },
-    "rewardField": {
-      "fieldName": "Votre récompense :"
-    },
-    "phaseEndRegistration": "inscriptions jusqu'à {{date}}",
-    "phaseEndCombat": "combats jusqu'à {{date}}",
-    "phaseEndPaused": "tournoi en pause",
-    "phaseEndOver": "tournoi terminé",
-    "notRegistered": "vous n'êtes pas inscrit",
-    "rewardGranted": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}}",
-    "rewardPending": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}} (en attente de place dans votre inventaire)",
-    "resumeTitle": "Tournoi repris",
-    "resumed": "Le tournoi `{{tournamentId}}` reprend dans {{channel}}.",
-    "cancelTitle": "Tournoi annulé",
-    "cancelled": "Le tournoi `{{tournamentId}}` a été annulé. Aucune récompense ne sera distribuée.",
-    "topTitle": "Classement du tournoi (page {{pageNumber}}/{{totalPages}})",
-    "topCategory": "**{{category}}** ({{totalParticipants}} participants)\nVotre rang : {{yourRank}}\n{{entries}}",
-    "topEntry": "{{rank}}. **{{pseudo}}** · {{totalGloryPoints}} gloire de tournoi, niveau effectif {{effectiveLevel}}",
-    "unranked": "non classé",
-    "emptyCategory": "Aucun participant dans cette catégorie.",
-    "categories": {
-      "level50": "Niveau 50",
-      "level100": "Niveau 100"
-    },
-    "statuses": {
-      "registration": "inscriptions",
-      "combat": "combats",
-      "paused": "en pause",
-      "completed": "terminé",
-      "cancelled": "annulé"
-    },
-    "levelModes": {
-      "category": "plafond par catégorie (niveau 50 ou 100)",
-      "unlimited": "niveaux sans plafond",
-      "cap": "niveau plafonné à {{levelCap}}",
-      "reject": "niveaux supérieurs à {{levelCap}} interdits"
-    },
-    "menu": {
-      "adminTitle": "Gestion du tournoi",
-      "adminDescription_one": "{{count}} tournoi actif ou en pause sur ce serveur.",
-      "adminDescription_other": "{{count}} tournois actifs ou en pause sur ce serveur.",
-      "createTitle": "Créer un tournoi",
-      "createDescription": "Configurer les durées et la règle de niveau.",
-      "createUnavailable": "Aucun code valide n'est disponible pour ce serveur.",
-      "createButton": "Configurer",
-      "cancelTitle": "Annuler un tournoi",
-      "cancelDescription": "Choisir le tournoi à fermer, puis confirmer l'action.",
-      "cancelUnavailable": "Aucun tournoi ne peut être annulé sur ce serveur.",
-      "cancelButton": "Choisir",
-      "cancelListTitle": "Choisir le tournoi à annuler",
-      "cancelListDescription": "La sélection se fait dans cette liste. Aucun identifiant n'est nécessaire.",
-      "cancelConfirmTitle": "Confirmer l'annulation",
-      "cancelConfirmDescription": "L'annulation de {{tournament}} dans {{channel}} ferme le tournoi sans distribuer de récompenses.",
-      "cancelConfirmButton": "Annuler ce tournoi",
-      "ownerTitle": "Opérations tournoi",
-      "ownerDescription": "Actions réservées au propriétaire du bot pour le serveur courant.",
-      "codeTitle": "Générer un code",
-      "codeDescription": "Créer un code d'accès pour le serveur courant.",
-      "codeButton": "Générer",
-      "resumeTitle": "Reprendre un tournoi",
-      "resumeDescription": "Choisir un tournoi en pause et le déplacer dans le salon courant.",
-      "resumeUnavailable": "Aucun tournoi en pause n'est disponible sur ce serveur.",
-      "resumeButton": "Choisir",
-      "resumeListTitle": "Choisir le tournoi à reprendre",
-      "resumeListDescription": "Le temps restant et la phase seront conservés.",
-      "resumeConfirmTitle": "Confirmer la reprise",
-      "resumeConfirmDescription": "{{tournament}} reprendra dans {{channel}} avec son temps restant conservé.",
-      "resumeConfirmButton": "Reprendre ici",
-      "tournamentLabel": "Tournoi {{tournamentId}}",
-      "tournamentSummary_one": "{{status}} · {{count}} participant · {{channel}} · échéance {{phaseEnd}}",
-      "tournamentSummary_other": "{{status}} · {{count}} participants · {{channel}} · échéance {{phaseEnd}}",
-      "chooseButton": "Choisir",
-      "registrationDuration": "Durée des inscriptions",
-      "combatDuration": "Durée des combats",
-      "levelMode": "Règle de niveau",
-      "levelModeCategory": "Par catégorie",
-      "levelModeUnlimited": "Sans plafond",
-      "levelModeCap": "Plafonner le niveau",
-      "levelModeReject": "Refuser au-dessus du plafond",
-      "levelCap": "Plafond de niveau",
-      "levelCapPlaceholder": "Choisir un plafond",
-      "createWizardTitle": "Configuration du tournoi",
-      "createWizardDescription": "Les choix sont modifiables avant la confirmation.",
-      "createConfirmButton": "Créer le tournoi",
-      "day": "{{count}} giorno",
-      "days": "{{count}} giorni",
-      "paused": "temps en pause",
-      "back": "Torna a",
-      "close": "Fermer"
-    },
-    "fightReward": {
-      "title": "Résultat du combat tournoi",
-      "draw": "{{player1}} et {{player2}} font égalité.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi",
-      "result": "{{winner}} remporte le combat.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi"
-    },
-    "errorTitle": "Tournoi indisponible",
-    "errors": {
-      "notFound": "Aucun tournoi correspondant à ce contexte n'est disponible.",
-      "accessDenied": "Cette commande n'est pas disponible dans le salon tournoi.",
-      "invalidPhase": "Cette action n'est pas disponible pendant la phase actuelle.",
-      "alreadyRegistered": "Vous êtes déjà inscrit à ce tournoi.",
-      "levelTooLow": "Le niveau minimum pour participer est le niveau 8.",
-      "tooFewParticipants": "Le tournoi est annulé car les seuils de participants ne sont pas atteints.",
-      "invalidCode": "Ce code de tournoi est invalide.",
-      "expiredCode": "Ce code de tournoi a expiré.",
-      "usedCode": "Ce code de tournoi a déjà été utilisé.",
-      "codeGuildMismatch": "Ce code appartient à un autre serveur.",
-      "guildTooSmall": "Le serveur doit compter au moins 1 000 membres.",
-      "invalidDuration": "Les durées doivent être comprises entre 1 et 7 jours.",
-      "invalidChannel": "Cette commande doit être exécutée dans un salon texte valide.",
-      "invalidLevelLimit": "La configuration de niveau est invalide. Un plafond doit être un niveau entier d'au moins 8 et être associé au mode choisi.",
-      "levelTooHigh": "Votre niveau est trop élevé pour les conditions d'inscription de ce tournoi.",
-      "noOpponent": "Aucun adversaire tournoi n'est disponible pour le moment.",
-      "paused": "Le tournoi est actuellement en pause.",
-      "notRegistered": "Vous devez être inscrit pour utiliser cette commande dans le salon tournoi.",
-      "guildOnly": "Cette commande doit être utilisée sur un serveur Discord.",
-      "ownerOnly": "Cette commande est réservée au propriétaire du bot.",
-      "administratorOnly": "Cette commande est réservée aux administrateurs du serveur.",
-      "missingChannelPermissions": "Le bot n'a pas toutes les permissions nécessaires dans ce salon."
     }
   }
 }

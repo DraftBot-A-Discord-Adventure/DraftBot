@@ -441,6 +441,9 @@
       "BADGES": {
         "description": "Las insignias son difíciles de obtener y se han creado para recompensar a las personas que más han contribuido al desarrollo del bot. La lista de insignias está disponible en la guía del bot.\n(a través de este enlace: https://guide.draftbot.com/notions-avancees/badges)"
       },
+      "BLESSING": {
+        "description": "Muestra el estado de la bendición general: el fondo común al que contribuyen los aventureros cuando se encuentran con el Oráculo durante sus viajes, o la bendición activa y el tiempo que le queda. Se puede acceder a este comando tras haberse encontrado con el Oráculo al menos una vez."
+      },
       "CLASSES": {
         "description": "Te permite cambiar de clase. Más información sobre las clases en la guía del jugador: https://guide.draftbot.com"
       },
@@ -453,9 +456,21 @@
       "DRINK": {
         "description": "Este comando te permite consumir la poción que llevas. Algunas pociones no se pueden beber y se consumen automáticamente durante el combate."
       },
+      "EQUIP": {
+        "description": "Te permite gestionar tu equipamiento para cada categoría de objetos: equipar un objeto de tu inventario, guardar el objeto equipado en tu inventario o intercambiar dos objetos."
+      },
       "FIGHT": {
         "description": "Utiliza este comando para desafiar a otros jugadores.\nLas batallas tienen lugar turno a turno. En cada turno, puedes elegir una acción a realizar.\n\nPara más información, consulta la página de la guía: https://guide.crownicles.com/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/en/5.1.7.png"
+      },
+      "FIGHT_HISTORY": {
+        "description": "Muestra el historial de tus últimas peleas: el rival al que te has enfrentado, el resultado y la evolución de la gloria y la liga de cada luchador."
+      },
+      "FRIENDLY_FIGHT": {
+        "description": "Permite enfrentarse a otro jugador, elegido mencionándolo o según su clasificación, en un combate amistoso. El jugador al que te enfrentas está controlado por una IA. Este combate no tiene ninguna consecuencia: no se gana gloria, ni recompensas, no se pierde energía ni se avanza en la misión."
+      },
+      "GARDEN": {
+        "description": "Te permite cuidar el jardín de tu casa cuando te encuentras en tu ciudad: plantar, regar, hacer compost y recolectar tus plantas. Con el «Cœur Sylvestre», un talismán que se vende en la herboristería de Coco Village, es posible consultar el jardín y recolectar sus frutos a distancia."
       },
       "GLORY_TOP": {
         "description": "Muestra la clasificación gloriosa del partido para cada 15 jugadores. También se muestra la liga de los jugadores. Los jugadores que están en el mismo servidor que tú aparecen marcados con un punto azul."
@@ -577,6 +592,8 @@
     },
     "forMoreHelp": ":arrow_forward: Para más ayuda : ",
     "forMoreHelpValue": "Puedes visitar la [wiki] del bot (https://guide.draftbot.com/).",
+    "dmNoticeTitle": "{emote:other.incoming} Jugar a Crownicles",
+    "dmNoticeValue": "Crownicles se juega exclusivamente en servidores de Discord. Para utilizar los comandos anteriores, únete a un servidor en el que esté presente el bot o al servidor oficial del juego: {{inviteLink}}",
     "guildCommands": ":stadium: Gremio :",
     "helpEmbedDescription": ":arrow_forward: Si desea más información sobre un comando en particular, haga clic aquí : {{helpCommandMention}}e introduzca como parámetro el comando con el que tiene problemas. :wink:",
     "helpEmbedTitle": "{{pseudo}}Esta es la lista de comandos disponibles:",
@@ -705,7 +722,8 @@
       "animal_lover": "Persona que mostró todas las mascotas a Talvar el enano",
       "expert_expediteur": "Una persona que ha completado con éxito numerosas expediciones con su mascota",
       "oracle_patron": "Protector del Oráculo, habiendo contribuido generosamente a numerosas bendiciones",
-      "sentimental_crafter": "La persona que insistió en que el herrero real mejorara una humilde reliquia hasta la cima..."
+      "sentimental_crafter": "La persona que insistió en que el herrero real mejorara una humilde reliquia hasta la cima...",
+      "master_chef": "Cocinero destacado que ha alcanzado el nivel 100 de cocina"
     },
     "fightRanked": {
       "fieldName": "Gloria y liga :",
@@ -781,6 +799,8 @@
     "choseMapMinutes_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{timeDisplay}}**.",
     "choseMap_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{time}} hora**.",
     "choseMap_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. El viaje durará aproximadamente **{{time}} horas**.",
+    "cityStayScore_one": "{emote:unitValues.score} Tu estancia en la ciudad te ha valido **{{count, number}}** puntos.",
+    "cityStayScore_other": "{emote:unitValues.score} Tu estancia en la ciudad te ha valido **{{count, number}}** puntos.",
     "goBackMapMinutes_one": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde vienes. El trayecto de vuelta durará aproximadamente **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde venías. Este trayecto de vuelta durará aproximadamente **{{timeDisplay}}**.",
     "goBackMap_one": "Vuelves sobre tus pasos hacia {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**, de donde venías. El trayecto de vuelta durará aproximadamente **{{time}} hora**.",
@@ -828,6 +848,8 @@
       "placeholder": "Elija algo que hacer",
       "title": "{{pseudo}}¡Estás en la ciudad!",
       "description": "{emote:commands.report} Has llegado a **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)**.\n\nLas calles empedradas cobran vida a tu alrededor: comerciantes, aventureros y artesanos se afanan en sus quehaceres. Hay muchos servicios a tu disposición, pero el camino no espera a nadie.",
+      "minimumStayScore_one": "{emote:unitValues.score} Tu estancia en la ciudad te reportará al menos **{{count, number}}** puntos a tu partida.",
+      "minimumStayScore_other": "{emote:unitValues.score} Tu estancia en la ciudad te reportará al menos **{{count, number}}** puntos a tu partida.",
       "buttons": {
         "enter": "Entre en",
         "visit": "Visite",
@@ -838,6 +860,8 @@
         "confirm": "Confirme",
         "upgrade": "Mejorar",
         "disenchant": "Disenchant",
+        "transfer": "Reenviar",
+        "choose": "Elegir",
         "goHome": "Volver a casa",
         "goToApartment": "Entrar en casa",
         "seeNotary": "Visite",
@@ -860,6 +884,8 @@
       "stayDescription": "Utiliza el comando {command:report} para disfrutar de los servicios disponibles en la ciudad o retomar tu aventura.",
       "stayInCityChoice": "{emote:mapTypes.ci} Entrar en la ciudad",
       "shopEmptyDescription": "No hay servicios que ofrecer por el momento.",
+      "equipmentChangedTitle": "{{pseudo}}, ¡el equipamiento ha cambiado!",
+      "equipmentChangedDescription": "El equipo seleccionado ya no es el mismo en esa posición del inventario: se ha desplazado desde que se abrió el menú. No se ha gastado nada y el menú se ha actualizado con tu inventario actual.",
       "exitInn": "Fuera de peligro",
       "reactions": {
         "exit": {
@@ -876,11 +902,11 @@
         },
         "enchanter": {
           "label": "Ve a ver al encantador",
-          "description": "Un viajero con las manos cubiertas de encantamientos luminosos llama tu atención. Afirma que puede encantar cualquier arma o pieza de armadura."
+          "description": "Un viajero con las manos cubiertas de encantamientos luminosos llama tu atención. Afirma que puede encantar cualquier arma o pieza de armadura, y eliminar sus encantamientos sin pedir nada a cambio."
         },
         "blacksmith": {
           "label": "Ir al herrero",
-          "description": "Visita al herrero para mejorar o desmontar tu equipo."
+          "description": "Acude al herrero para mejorar tu equipamiento o transferir sus encantamientos."
         }
       },
       "shops": {
@@ -998,7 +1024,7 @@
         "runeForWeaponOnlyArmorAvailableStory_other": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona en armas. Solo tienes armas ya encantadas o piezas de armadura que mostrarle: te mira con desdén y suspira diciendo que le estás haciendo perder el tiempo. Es mejor volver otro día, o con una espada sin encantamiento digna de recibirlo.",
         "runeForArmorOnlyWeaponAvailableStory_one": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy en día, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona con piezas de armadura. Solo tienes una armadura ya encantada o armas que ofrecerle: frunce los labios y refunfuña diciendo que ambos estáis perdiendo el tiempo. Vuelve con una pieza de armadura sin encantar, o otro día, cuando su encantamiento sea diferente.",
         "runeForArmorOnlyWeaponAvailableStory_other": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras. Hoy, su encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** solo funciona con piezas de armadura. Solo tienes armaduras ya encantadas o armas que mostrarle: frunce los labios y refunfuña diciendo que ambos estáis perdiendo el tiempo. Vuelve con una pieza de armadura sin encantar, o otro día cuando su encantamiento sea diferente.",
-        "allEnchantedStory": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, examina tu equipo y luego niega con la cabeza, molesto: todo lo que llevas ya está encantado. Te recuerda secamente que son los herreros quienes eliminan los encantamientos existentes, no él, y que se niega rotundamente a tocar esos objetos que ya tienen runas. Vuelve con un equipo sin encantamientos o prueba suerte mañana.",
+        "allEnchantedStory": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, examina tu equipo y luego niega con la cabeza, molesto: todo lo que tienes ya está encantado y no puede añadir nada más. No obstante, accede a borrar de forma gratuita los encantamientos que ya no te convienen, para que por fin le presentes un equipo sin encantamientos digno de su talento.",
         "story": "{emote:city.services.enchanter} Te encuentras con un encantador itinerante que se presenta como Mernil. Con aire altivo, te explica que es el único y el mejor encantador de todas las tierras, y que puede mejorar tu equipamiento gracias a la magia de los encantamientos.",
         "tomorrowStory": "Te tomas un tiempo para pensar en su propuesta. Antes de que te vayas, Mernil te revela la siguiente etapa de su viaje: **{{nextCity}}**, donde ofrecerá el encantamiento {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Te conviene reunirte con él antes de que vuelva a partir.",
         "tomorrowSameCityStory": "Te tomas un tiempo para pensar en su propuesta. Mernil anuncia que va a prolongar su estancia: **{{nextCity}}** le dará la bienvenida de nuevo mañana, con el encanto {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})**. Aprovecha para preparar tu equipo antes de que vuelva a ponerse en marcha.",
@@ -1017,7 +1043,14 @@
           "frozenDamage": "Mernil revela las propiedades de este encantamiento: aumenta el daño por hielo infligido y reduce el daño por quemadura recibido.",
           "poisonedDamage": "Mernil revela las propiedades de este encantamiento: aumenta el daño por veneno infligido y reduce el daño por veneno recibido."
         },
-        "hasAtLeastOneEnchantedItem": "Es más, cuando Mernil ve tu equipo ya encantado, frunce el ceño. Dice que es trabajo del herrero desencantar objetos, no suyo, y que no los tocará.",
+        "disenchantOffer": "Mernil también se fija en tu equipo, que ya está encantado. Para un maestro de su rango, borrar runas no es más que una formalidad: se ofrece a eliminarlas **de forma gratuita**, aunque solo sea para librar al mundo de encantamientos que considera indignos de su arte.",
+        "disenchantTitle": "{{pseudo}}, desilusión en Mernil",
+        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil se cruje los dedos con aire de suficiencia. Según él, quitar un encantamiento es pan comido y no merece ni una sola moneda. Espera a que le indiques qué equipo quieres liberar de sus runas.",
+        "disenchantItemPreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "disenchantConfirmDescription": "{emote:collectors.warning} Esta validación eliminará definitivamente el encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** del siguiente equipo:\n{{item}}\n\nCoste: **gratis**.",
+        "disenchantSuccessTitle": "{{pseudo}}, ¡una desilusión muy lograda!",
+        "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil roza tu equipo con la yema de los dedos mientras susurra una fórmula. El resplandor del encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** parpadea y luego se apaga. Te devuelve el objeto, que ha vuelto a quedar en blanco, con el aire satisfecho de alguien que acaba de prestar un gran servicio sin pedir nada a cambio.",
+        "backToEnchanter": "De vuelta a Mernil",
         "confirmDescription": "{emote:collectors.warning} Esta validación aplicará el encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** en el siguiente equipo:\n{{item}}\n\nCoste: **{{price}}**.\n{{balance}}",
         "acceptStory": "Enseguida coge tu equipo y murmura unos cuantos conjuros mientras agita un cristal encantado por encima... Al cabo de unos instantes, te devuelve el objeto y te dice que ya está hecho. Tu equipo ahora está encantado con {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})**. ¡Dale buen uso!",
         "acceptTitle": "{{pseudo}}Es una experiencia encantadora.",
@@ -1033,17 +1066,17 @@
       },
       "blacksmith": {
         "menuLabel": "Ir al herrero",
-        "menuDescription": "El sonido regular del yunque resuena en la fragua. El herrero puede fortalecer tu equipo o eliminar sus encantamientos.",
+        "menuDescription": "El sonido rítmico del yunque resuena desde la herrería. El herrero puede reforzar tu equipamiento o transferir los encantamientos de una pieza a otra.",
         "placeholder": "Elija un servicio",
         "title": "{{pseudo}}te encuentras con el herrero",
         "upgradeLabel": "Mejora del equipamiento",
         "upgradeDescription": "Mejora tus armas y armaduras a cambio de dinero y materiales.",
-        "disenchantLabel": "Desmontaje de equipos",
-        "disenchantDescription": "Elimina el encantamiento de una de tus piezas de equipo.",
+        "enchantmentTransferLabel": "Transferir un encantamiento",
+        "enchantmentTransferDescription": "Retira el encantamiento de un equipo para aplicarlo a otro equipo del mismo tipo.",
         "backToCity": "Salir de la forja",
-        "descriptionBoth": "{emote:city.services.blacksmith} El calor del hornillo te envuelve al entrar en la herrería. El herrero, un coloso cuyos brazos están marcados por años de trabajo, levanta la vista de su yunque y te saluda con un movimiento de cabeza. Puede reforzar tu equipamiento o eliminar los encantamientos que te estorban.",
+        "descriptionBoth": "{emote:city.services.blacksmith} El calor del hornillo te envuelve al entrar en la herrería. El herrero, un coloso cuyos brazos están marcados por años de trabajo, levanta la vista de su yunque y te saluda con un movimiento de cabeza. Puede reforzar tu equipamiento o separar un encantamiento para sellarlo en otra pieza de equipamiento.",
         "descriptionUpgradeOnly": "{emote:city.services.blacksmith} El calor del horno te envuelve al entrar en la herrería. El herrero, un coloso cuyos brazos llevan la huella de años de trabajo, examina tu equipo con ojo experto. Sus servicios no son baratos, pero la calidad de su trabajo habla por sí sola.",
-        "descriptionDisenchantOnly": "{emote:city.services.blacksmith} El calor del hogar te envuelve al entrar en la herrería. El herrero se fija en los destellos mágicos que emanan de tu equipo encantado. Puede retirarlos con cuidado, sin dañar el equipo.",
+        "descriptionEnchantmentTransferOnly": "{emote:city.services.blacksmith} El calor del hornillo te envuelve al entrar en la forja. El herrero se fija en los destellos mágicos que emanan de tu equipo encantado. Sabe cómo separar un encantamiento sin romperlo y, a continuación, sellarlo en otro equipo del mismo tipo.",
         "descriptionNoItems": "{emote:city.services.blacksmith} El calor del horno te envuelve al entrar en la herrería. El herrero te observa un instante antes de encogerse de hombros. Por el momento, no tienes nada que él pueda trabajar.",
         "selectItemPlaceholder": "Seleccione un dispositivo",
         "itemUpgradePreview": "niv. {{currentLevel}} -> niv. {{nextLevel}} | {{cost, number}}{emote:unitValues.money}",
@@ -1056,14 +1089,16 @@
         "confirmUpgrade": "Mejorar ({{cost, number}})",
         "buyMaterialsAndUpgrade": "Comprar y mejorar ({{cost, number}})",
         "backToItems": "Volver a la lista",
-        "itemDisenchantPreview": "{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}}) | {{cost, number}}{emote:unitValues.money}",
-        "disenchantTitle": "{{pseudo}}desencanto por el equipamiento",
-        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} El herrero prepara sus herramientas de desencantamiento, una serie de pinzas y cristales absorbentes. El desencantamiento requiere precisión.\n\n{emote:unitValues.money} Tienes **{{money, number}}** {emote:unitValues.money}",
-        "disenchantItemDetails": "{{itemDisplay}}\n\n**Coste del desencantamiento:** {{cost, number}} {emote:unitValues.money}\n\nEl encantamiento será eliminado permanentemente. El equipo volverá a ser ordinario, pero permanecerá intacto.",
-        "confirmDisenchant": "Disenchant ({{cost, number}})",
+        "enchantmentTransferSourcePreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "enchantmentTransferTitle": "{{pseudo}}, transferencia de encantamiento",
+        "enchantmentTransferSourceSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} El herrero tiene sobre el banco de trabajo un par de tenazas de plata y un cristal de transferencia. Está esperando a que le indiques el equipo del que quieres separar el encantamiento.\n\n{emote:unitValues.money} Tienes **{{money, number}}** {emote:unitValues.money}",
+        "enchantmentTransferTargetSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} El encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** se separará del siguiente equipo:\n{{item}}\n\nSelecciona el equipo que lo recibirá. Solo los objetos del mismo tipo y sin encantamiento pueden recibirlo, y el precio del herrero depende de la rareza del objeto elegido.",
+        "enchantmentTransferTargetPreview": "{{item}}\n**Coste de la transferencia:** {{cost, number}} {emote:unitValues.money}",
+        "enchantmentTransferConfirmDescription": "{emote:collectors.warning} El encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** se retirará del siguiente equipo:\n{{sourceItem}}\n\nA continuación, se sellará en este equipo:\n{{targetItem}}\n\n**Coste de la transferencia:** {{cost, number}} {emote:unitValues.money}",
+        "confirmEnchantmentTransfer": "Reenviar ({{cost, number}})",
         "upgradeSuccess": "{emote:ciudad.herrero.mejorar} El herrero golpea el yunque con precisión, haciendo saltar chispas por el aire. Tras unos cuantos golpes expertos, te entrega el equipo mejorado {{newLevel}} con satisfacción.",
         "upgradeSuccessWithBuy": "{emote:ciudad.herrero.mejorar} El herrero te proporciona los materiales que te faltan y se pone inmediatamente manos a la obra. Saltan chispas mientras refuerza tu equipo, ahora de nivel {{newLevel}}.",
-        "disenchantSuccess": "{emote:city.blacksmith.disenchant} El herrero pasa suavemente los cristales absorbentes sobre tu equipo. El brillo mágico se desvanece gradualmente. El encantamiento se ha eliminado limpiamente y tu equipo vuelve a la normalidad.",
+        "enchantmentTransferSuccess": "{emote:city.blacksmith.enchantmentTransfer} El herrero desliza sus tenazas de plata bajo las runas del encantamiento {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** y las desprende una a una. El cristal de transferencia se ilumina por un instante y, a continuación, unos cuantos golpes de martillo fijan las runas en tu otro equipo. El encantamiento ha encontrado a su nuevo portador sin perder nada de su esplendor, y el antiguo equipo vuelve a ser ordinario.\n\n{emote:unitValues.money} Coste de la transferencia: **{{cost, number}}** {emote:unitValues.money}",
         "notEnoughMoney": "{emote:messages.refuse} El herrero sacude la cabeza mientras cuenta tus monedas. Te falta **{{missingMoney, number}}** {emote:unitValues.money} para pagar sus servicios.",
         "missingMaterialsTitle": "{{pseudo}}¡materiales insuficientes!",
         "missingMaterialsDescription": "Los materiales necesarios para esta mejora no están disponibles en la herrería. Recógelos en tus aventuras o cómpraselos directamente al herrero."
@@ -1189,7 +1224,7 @@
         "moveHomeDescription": "Enhorabuena. Te has mudado con éxito a una nueva casa en esta ciudad. Has gastado **{{cost}} {emote:unitValues.money}** en esta mudanza. ¡Disfruta de tu nuevo hogar!",
         "moveHomeDescriptionWithRent": "Enhorabuena. Te has mudado a una nueva casa en esta ciudad. Has gastado **{{cost}} {emote:unitValues.money}** en la mudanza, de los cuales **{{rentDeducted}} {emote:unitValues.money}** se han deducido del alquiler de tu antigua casa. Disfruta de tu nueva casa.",
         "apartmentNotary": {
-          "sectionTitle": "{emote:ciudad.apartamentoNotario.menu} El notario hojea su gran registro de viviendas.",
+          "sectionTitle": "{emote:city.apartmentNotary.menu} El notario hojea su gran registro de viviendas.",
           "forSaleDescription": "{emote:city.apartmentNotary.buy} Una casa para vender en esta ciudad por **{{price}} {emote:unitValues.money}**. Una vez que la tengas, puedes usarla como base si tu casa está lejos, o puedes cobrar una renta si ya tienes una casa cerca.",
           "buyNotEnoughMoney": "{emote:city.apartmentNotary.buy} Hay un apartamento disponible en esta ciudad por **{{cost}} {emote:unitValues.money}**, pero su monedero es demasiado pequeño por **{{missingMoney}} {emote:unitValues.money}**.",
           "buyConfirmDescription": "{emote:collectors.warning} Esta validación comprará esta casa por **{{price}} {emote:unitValues.money}**. Se utilizará como base en esta ciudad o generará un ingreso si su casa ya está cerca.",
@@ -1249,29 +1284,31 @@
           "menuLabel": "Caja de almacenamiento",
           "menuDescription": "Guarda tus repuestos",
           "buttonLabel": "Abrir",
-          "available": "{emote:ciudad.homeActualizaciones.cofre} Tu cofre te permite guardar objetos de repuesto.",
+          "available": "{emote:city.homeUpgrades.chest} Tu cofre te permite guardar objetos de repuesto.",
           "title": "{{pseudo}}caja de almacenaje",
           "placeholder": "Elija una categoría",
-          "descriptionWithItems": "{emote:ciudad.homeActualizaciones.cofre} Tu cofre contiene varios objetos. Selecciona una categoría para ver su contenido o añadir nuevos objetos.",
-          "descriptionEmpty": "{emote:ciudad.homeActualizaciones.cofre} Tu cofre está vacío en este momento. Selecciona una categoría para guardar objetos de tu inventario.",
+          "descriptionWithItems": "{emote:city.homeUpgrades.chest} Tu cofre contiene varios objetos. Selecciona una categoría para ver su contenido o añadir nuevos objetos.",
+          "descriptionEmpty": "{emote:city.homeUpgrades.chest} Tu cofre está vacío en este momento. Selecciona una categoría para guardar objetos de tu inventario.",
           "categoryHeader_one": "**{{category}}** — {{count}}/{{total}} puesto ocupado",
           "categoryHeader_other": "**{{category}}** — {{count}}/{{total}} plazas ocupadas",
           "inventoryInfo": "{emote:city.chestActions.inventory} Equipado: {{equipped}} | Reserva: {{backupCount}}/{{maxBackup}}",
           "noStoredItems": "No hay artículos en esta categoría.",
           "depositSection": "{emote:city.chestActions.deposit} **Depósito en cofre:**",
-          "withdrawSection": "{emote:ciudad.chestActions.withdraw} **Retirar del cofre:**",
-          "chestFull": "Caja fuerte completa para esta categoría",
-          "inventoryFullLabel": "Inventario completo",
+          "withdrawSection": "{emote:city.chestActions.withdraw} **Retirar del cofre:**",
+          "chestFull": "{emote:collectors.warning} *El cofre está lleno para esta categoría*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventario lleno*",
           "swapSection": "{emote:city.chestActions.swap} **intercambiar con cofre:**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Contenido del cofre:**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **swap** {{item}} **with :**",
           "errors": {
             "chestFull": "¡Tu baúl está lleno para esta categoría! Mejora tu casa para conseguir más ranuras.",
             "inventoryFull": "Su inventario está lleno para esta categoría. Despeja algo de espacio antes de retirar un objeto del maletero."
           },
           "plantTabLabel": "Plantas",
-          "plantHeader": "{emote:city.homeActualizaciones.jardin} **Plantas** - Max {{max}} por tipo",
-          "plantDepositSection": "{emote:ciudad.chestActions.deposit} **Depósito desde tu inventario:**",
-          "plantWithdrawSection": "{emote:ciudad.chestActions.withdraw} **Retirar a tu inventario:**",
+          "plantHeader": "{emote:city.homeUpgrades.garden} **Plantas** - Max {{max}} por tipo",
+          "plantDepositSection": "{emote:city.chestActions.deposit} **Depósito desde tu inventario:**",
+          "plantWithdrawSection": "{emote:city.chestActions.withdraw} **Retirar a tu inventario:**",
           "plantEmpty": "No se almacenan ni transportan plantas."
         },
         "garden": {
@@ -1281,7 +1318,7 @@
           "available": "{emote:city.homeUpgrades.garden} Puedes cultivar plantas en tu jardín.",
           "title": "{{pseudo}}jardín",
           "placeholder": "Gestión de su jardín",
-          "description": "{emote:city.homeActualizaciones.jardin} Este es el estado de su jardín:",
+          "description": "{emote:city.homeUpgrades.garden} Este es el estado de su jardín:",
           "emptyPlot": "{emote:city.gardenStatus.empty} Parcela {{slot}} - *Vacía*",
           "readyPlot": "{emote:city.gardenStatus.ready} Parcela {{slot}} - {emote:plants.{{plantId}}} **$t(models:plants.{{plantId}})** - ¡Lista para cosechar!",
           "growingPlot": "{emote:city.gardenStatus.growing} Parcela {{slot}} - {emote:plants.{{plantId}}} **$t(models:plants.{{plantId}})** - {{progress}}% (listo <t:{{readyAtTimestamp}}:R>)",
@@ -1291,7 +1328,7 @@
           "waterButton": "Agua",
           "waterCooldown": "{emote:city.gardenStatus.water} Puede regar de nuevo **{{timeLeft}}**.",
           "waterCooldownError": "{emote:messages.refuse} Ya ha regado recientemente. Inténtelo de nuevo **{{timeLeft}}**.",
-          "waterNothingToWater": "{No hay plantas creciendo para regar.",
+          "waterNothingToWater": "{emote:messages.info} No hay plantas creciendo para regar.",
           "wateredPlots_one": "{{count}} parcela",
           "wateredPlots_other": "{{count}} parcelas",
           "waterSuccess_zero": "{emote:city.gardenStatus.water} Has regado **{{wateredPlots}}**. Su crecimiento ha aumentado un {{growthPercent}} %.",
@@ -1299,9 +1336,9 @@
           "waterSuccess_other": "{emote:city.gardenStatus.water} Has regado **{{wateredPlots}}**. **{{slotsBecameReady}}** ¡las plantas ya están listas para ser cosechadas!",
           "waterSuccessTitle": "{{pseudo}} regó su jardín",
           "storageButton": "Reserva ({{count}})",
-          "storageTitle": "{emote:city.homeActualizaciones.jardin} Reserva de plantas :",
+          "storageTitle": "{emote:city.homeUpgrades.garden} Reserva de plantas :",
           "storageEmpty": "Tu reserva de plantas está vacía. Recoge tus plantas y guárdalas aquí.",
-          "storageEntry": "{emote:plantas.{{plantId}}} $t(models:plants.{{plantId}}) - {{quantity}}/{{maxCapacity}}",
+          "storageEntry": "{emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) - {{quantity}}/{{maxCapacity}}",
           "backToGarden": "De vuelta al jardín",
           "putAwayTalisman": "Guardando el Corazón Silvestre",
           "closeGarden": "Salir del jardín",
@@ -1310,15 +1347,15 @@
           "compost": {
             "button": "Compost",
             "selectTitle": "{emote:city.gardenStatus.compost} Selecciona una planta para compostar. Cada planta compostada te dará un material de su lista de posibles compost.",
-            "selectEntry": "{emote:plantas.{{plantId}}} $t(models:plants.{{plantId}}) ({{quantity}})",
+            "selectEntry": "{emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) ({{quantity}})",
             "confirmDescription": "{emote:city.gardenStatus.compost} Está a punto de compostar **{emote:plants.{{plantId}}} $t(models:plants.{{plantId}})**.\nTienes algunos **{{quantity}}** en reserva.\n\nPosibles materiales obtenidos por cada planta compostada:\n{{materialsList}}",
-            "confirmMaterialLine": "- {emote:materiales.{{materialId}}} $t(models:materials.{{materialId}})",
+            "confirmMaterialLine": "- {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})",
             "confirmButton": "Compost {{quantity}}",
             "cancelButton": "← Cancelar",
             "resultTitle": "{{pseudo}}cubo de compostaje",
             "resultDescription": "{emote:city.gardenStatus.compost} Has compostado **{{quantity}}** {emote:plants.{{plantId}}} $t(models:plants.{{plantId}}). Esto es lo que has conseguido:\n{{materialsList}}",
             "resultMaterialLine": "• **{{count}}** x {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})",
-            "notEnoughPlants": "{emote:mensajes.rechazar} No tienes suficientes {emote:plantas.{{plantId}}} $t(models:plants.{{plantId}}) para compostar **{{quantity}}**."
+            "notEnoughPlants": "{emote:messages.refuse} No tienes suficientes {emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) para compostar **{{quantity}}**."
           }
         },
         "cooking": {
@@ -1339,8 +1376,8 @@
             "3": "Destilación",
             "4": "Tostadas"
           },
-          "noWood": "{No tienes leña para encender la estufa. ¡Recoge leña en tus expediciones!",
-          "woodConfirm": "{Ya no tienes madera común. Algunos **{emote:materiales{{materialId}}} $t(models:materials.{{materialId}})** se utilizará para encender la estufa. ¿Confirmar?",
+          "noWood": "{emote:messages.refuse} No tienes leña para encender la estufa. ¡Recoge leña en tus expediciones!",
+          "woodConfirm": "{emote:messages.info} Ya no tienes madera común. Se utilizará **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** para encender la estufa. ¿Confirmar?",
           "confirmButton": "Confirme",
           "cancelButton": "Cancelar",
           "levelInfo": "{emote:unitValues.xp} Nivel **{{level}}** ({{grade}}) - Prepare recetas de nivel **{{maxLevel}}** o inferior para obtener mejores resultados.",
@@ -1348,28 +1385,30 @@
           "slotEmptyContent": "{emote:cookingStations.{{stationId}}} **$t(models:cooking.stations.{{stationId}})**\n$t(commands:report.city.homes.cooking.slotEmpty)",
           "slotSecretName": "{emote:cookingStations.{{stationId}}} **$t(models:cooking.stations.{{stationId}})** - ???? (Nivel {{level}})",
           "slotRecipeName": "{emote:cookingStations.{{stationId}}} **$t(models:cooking.stations.{{stationId}})** - {emote:cookingRecipeTypes.{{recipeType}}} $t(models:cooking.recipes.{{recipeId}}) (Niv. {{level}})",
-          "ingredientPlant": "{emote:plantas.{{plantId}}} $t(models:plants.{{plantId}}) {{playerHas}}/{{quantity}}",
-          "ingredientMaterial": "{emote:materiales.{{materialId}}} $t(models:materials.{{materialId}}) {{playerHas}}/{{quantity}}",
+          "ingredientPlant": "{emote:plants.{{plantId}}} $t(models:plants.{{plantId}}) {{playerHas}}/{{quantity}}",
+          "ingredientMaterial": "{emote:materials.{{materialId}}} $t(models:materials.{{materialId}}) {{playerHas}}/{{quantity}}",
           "craftSuccess": "{emote:messages.validate} ¡Cocina con éxito! ¡Has preparado **{{recipe}}** !",
           "craftFailure": "{emote:messages.refuse} La cocción ha fallado... La receta **{{recipe}}** no ha dado el resultado esperado.",
-          "craftUnavailable": "{Esta receta ya no está disponible. Las sugerencias han sido actualizadas.",
-          "inventoryFull": "{Te has quedado sin espacio en tu inventario de pociones. Despeja un hueco antes de cocinar esta receta.",
+          "craftUnavailable": "{emote:messages.info} Esta receta ya no está disponible. Las sugerencias han sido actualizadas.",
+          "inventoryFull": "{emote:messages.refuse} Te has quedado sin espacio en tu inventario de pociones. Despeja un hueco antes de cocinar esta receta.",
           "guildRequired": "{emote:messages.refuse} Esta comida para mascotas requiere un gremio para almacenarla. Únete a un gremio para prepararla.",
           "guildStorageFull": "{emote:messages.refuse} El almacén de comida de tu gremio está lleno. Despeja algo de espacio antes de cocinar esta receta.",
           "xpGained": "{emote:unitValues.xp} +**{{xp}}** Cocina XP",
           "levelUp": "¡Has alcanzado el nivel de cocina {{level}}!",
           "levelUpWithGrade": "¡Has sido ascendido al **nivel de cocina {{level}}**! Nuevo grado: **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}¡Un nuevo nivel de cocina!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Por fin se han reconocido tus esfuerzos en la cocina: ¡te han regalado una insignia de **Chef**!",
           "materialSaved": "{emote:messages.validate} Gracias a su experiencia, un **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})¡** ha sido salvado!",
-          "bonusOutput": "{emote:ciudad.homeMejoras.cocina} **¡Tu maestría te ha permitido duplicar la XP obtenida y mejorar el resultado de esta preparación!",
-          "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** han sido añadidos al almacén de tu gremio.",
+          "bonusOutput": "{emote:city.homeUpgrades.cooking} **¡Tu maestría te ha permitido duplicar la XP obtenida y mejorar el resultado de esta preparación!",
+          "petFoodStored_one": "{emote:messages.validate} **{{count}} {{food}}** se ha añadido al almacén de tu gremio.",
+          "petFoodStored_other": "{emote:messages.validate} **{{count}} {{food}}** se han añadido al almacén de tu gremio.",
           "recipeDiscovered": "{emote:city.homeUpgrades.cooking} Has aprendido una nueva receta: **{{recipe}}** !",
           "recipesDiscovered": "{emote:city.homeUpgrades.cooking} ¡Has aprendido nuevas recetas: {{recipes}}!",
           "petFedFromSurplus": "{emote:messages.validate} ¡Tu mascota se ha comido una ración de **{{food}}** directamente del horno!",
           "surplusRecycled": "{emote:messages.info} La comida sobrante ha sido reciclada en **{{quantity}} {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})**.",
           "materialCrafted": "{emote:messages.validate} Has obtenido **{{quantity}} {emote:materials.{{materialId}}} $t(models:materials.{{materialId}})¡** !",
-          "woodConsumed": "{emote:materiales.{{woodId}}} $t(models:materials.{{woodId}}) consumido",
-          "woodSaved": "{emote:messages.validate} ¡Tu pericia te ha ahorrado leña! ({emote:materiales.{{woodId}}} $t(models:materials.{{woodId}}))",
+          "woodConsumed": "{emote:materials.{{woodId}}} $t(models:materials.{{woodId}}) consumido",
+          "woodSaved": "{emote:messages.validate} ¡Tu pericia te ha ahorrado leña! ({emote:materials.{{woodId}}} $t(models:materials.{{woodId}}))",
           "pinnedRecipeTitle": "{emote:messages.pin} **Receta guardada** - {emote:cookingRecipeTypes.{{recipeType}}} $t(models:cooking.recipes.{{recipeId}}) (Nivel {{level}})",
           "pinnedReady": "\n{emote:messages.validate} ¡Tienes todos los ingredientes para esta receta!",
           "unpinButton": "Deshilado",
@@ -1384,7 +1423,7 @@
           "garden": "Un jardín para cultivar plantas {emote:city.homeUpgrades.garden}",
           "biggerGarden": "Un jardín más grande para cultivar aún más plantas {emote:city.homeUpgrades.garden}",
           "betterGardenEarth": "Tierra mejorada para un crecimiento más rápido de las plantas {emote:city.homeUpgrades.earthQuality}",
-          "inventoryBonus": "Ubicaciones de inventario permanentes adicionales {emote:ciudad.homeActualizaciones.cofre}.",
+          "inventoryBonus": "Ubicaciones de inventario permanentes adicionales {emote:city.homeUpgrades.chest}.",
           "cookingStation": "Un hornillo para preparar pociones y comida para mascotas {emote:city.homeUpgrades.cooking}",
           "betterCookingStation": "Una cocina mejorada con más ranuras para cocinar {emote:city.homeUpgrades.cooking}"
         }
@@ -2223,8 +2262,7 @@
       "guildStatusChange": "Cambio de estatus dentro del gremio",
       "energy": "Energía regenerada",
       "dailyBonus": "Bonificación diaria",
-      "petExpedition": "Envío de mascotas completado",
-      "tournament": "Tournoi"
+      "petExpedition": "Envío de mascotas completado"
     },
     "enableDisable": "Activar/Desactivar",
     "sendLocationField": "Dirección de entrega :",
@@ -2366,6 +2404,7 @@
     "notEnoughEnergy": "¡No tienes suficiente energía para empezar una pelea!",
     "monsterNotFound": "No se ha encontrado ningún monstruo que se enfrente a ti. Por favor, informa de este incidente a nuestro equipo de soporte (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Hay una pelea entre {{fightInitiator}} y {{opponent}} !",
+    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Se ha iniciado un combate amistoso entre {{fightInitiator}} y {{opponent}} ! No tendrá ninguna consecuencia.",
     "actionsOf": "**Ataques desde {{pseudo}} :**",
     "petOf": "** {{pseudo}} family:**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
@@ -2571,6 +2610,21 @@
         "Fue un partido muy reñido, con algunas tácticas inteligentes por parte de ambos equipos.",
         "Los espectadores presenciaron un partido épico entre dos jugadores de talento que lucharon en igualdad de condiciones."
       ]
+    },
+    "kingGuard": {
+      "name": "Guardia del rey",
+      "recap": {
+        "win": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey y lo derrotó. En ese combate no había nada en juego en cuanto a gloria.",
+        "draw": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey sin que se decidiera el resultado. En ese combate no había nada en juego.",
+        "loss": "No había ningún rival disponible: {{player}} se enfrentó a un guardia del rey y fue derrotado. En ese combate no había nada en juego."
+      }
+    }
+  },
+  "friendlyFight": {
+    "errors": {
+      "opponentNotFound": "No se encuentra a este jugador o aún no ha comenzado la aventura.",
+      "selfFight": "No puedes iniciar un combate amistoso contra ti mismo. Menciona a otro jugador o indica su clasificación.",
+      "opponentLevelTooLow": "Este jugador aún no ha desbloqueado los combates."
     }
   },
   "equip": {
@@ -2806,6 +2860,7 @@
     "noHistory": "Aún no tienes ningún combate en tu historial.",
     "title": "{{pseudo}}La historia de los combates",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Resultado:** {{resultSentence}}\n**Tu gloria:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}}\n**Gloria del adversario:** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} No había ningún adversario disponible: te has enfrentado a un **guardia del rey** de nivel {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Resultado:** {{resultSentence}}\n**Gloria:** {emote:unitValues.glory} no había gloria en juego",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Has atacado **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Has sido atacado por **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))"
@@ -2861,154 +2916,6 @@
         "name": "Menagerie",
         "description": "Nivel {{level, number}}/{{maxLevel, number}}\nLas mascotas del refugio ganan puntos de amor cada día."
       }
-    }
-  },
-  "tournament": {
-    "codeTitle": "Code de tournoi",
-    "codeCreated": "Code : `{{code}}`\nValable jusqu'au {{expiresAt}}. Ce code ne peut être utilisé qu'une seule fois sur ce serveur.",
-    "createTitle": "Tournoi créé",
-    "created": "Le tournoi `{{tournamentId}}` utilisera {{channel}}. Les inscriptions se terminent {{registrationEndsAt}} et les combats se terminent {{combatEndsAt}}. Règle de niveau : {{levelRule}}.",
-    "registerTitle": "Inscription au tournoi",
-    "registered": "Vous êtes inscrit dans la catégorie **{{category}}** avec **{{totalGloryPoints}} gloire de tournoi**.{{lateRegistration}}",
-    "lateRegistration": " Votre inscription est tardive : votre gloire de départ est adaptée.",
-    "statusTitle": "{emote:notifications.types.tournament} Tournoi : {{status}}",
-    "tournamentField": {
-      "fieldName": "Le tournoi :",
-      "fieldValue": "{emote:fightCommand.crossedSwords} {{channel}} | {emote:unitValues.timeGain} {{phaseEnd}}\n{{levelRule}}"
-    },
-    "participantsField": {
-      "fieldName": "Participants :",
-      "fieldValue_one": "{emote:guild.membersCount} **{{count, number}}** joueur inscrit",
-      "fieldValue_other": "{emote:guild.membersCount} **{{count, number}}** joueurs inscrits"
-    },
-    "participantsInCategory_one": " · **{{count, number}}** dans votre catégorie",
-    "participantsInCategory_other": " · **{{count, number}}** dans votre catégorie",
-    "participationField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "{{category}} | {emote:announcements.trophy} {{rank}} / {{categoryParticipantCount, number}} | {emote:unitValues.glory} **{{totalGloryPoints}}**"
-    },
-    "notRegisteredField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "Vous n'êtes pas inscrit à ce tournoi."
-    },
-    "rewardField": {
-      "fieldName": "Votre récompense :"
-    },
-    "phaseEndRegistration": "inscriptions jusqu'à {{date}}",
-    "phaseEndCombat": "combats jusqu'à {{date}}",
-    "phaseEndPaused": "tournoi en pause",
-    "phaseEndOver": "tournoi terminé",
-    "notRegistered": "vous n'êtes pas inscrit",
-    "rewardGranted": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}}",
-    "rewardPending": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}} (en attente de place dans votre inventaire)",
-    "resumeTitle": "Tournoi repris",
-    "resumed": "Le tournoi `{{tournamentId}}` reprend dans {{channel}}.",
-    "cancelTitle": "Tournoi annulé",
-    "cancelled": "Le tournoi `{{tournamentId}}` a été annulé. Aucune récompense ne sera distribuée.",
-    "topTitle": "Classement du tournoi (page {{pageNumber}}/{{totalPages}})",
-    "topCategory": "**{{category}}** ({{totalParticipants}} participants)\nVotre rang : {{yourRank}}\n{{entries}}",
-    "topEntry": "{{rank}}. **{{pseudo}}** · {{totalGloryPoints}} gloire de tournoi, niveau effectif {{effectiveLevel}}",
-    "unranked": "non classé",
-    "emptyCategory": "Aucun participant dans cette catégorie.",
-    "categories": {
-      "level50": "Niveau 50",
-      "level100": "Niveau 100"
-    },
-    "statuses": {
-      "registration": "inscriptions",
-      "combat": "combats",
-      "paused": "en pause",
-      "completed": "terminé",
-      "cancelled": "annulé"
-    },
-    "levelModes": {
-      "category": "plafond par catégorie (niveau 50 ou 100)",
-      "unlimited": "niveaux sans plafond",
-      "cap": "niveau plafonné à {{levelCap}}",
-      "reject": "niveaux supérieurs à {{levelCap}} interdits"
-    },
-    "menu": {
-      "adminTitle": "Gestion du tournoi",
-      "adminDescription_one": "{{count}} tournoi actif ou en pause sur ce serveur.",
-      "adminDescription_other": "{{count}} tournois actifs ou en pause sur ce serveur.",
-      "createTitle": "Créer un tournoi",
-      "createDescription": "Configurer les durées et la règle de niveau.",
-      "createUnavailable": "Aucun code valide n'est disponible pour ce serveur.",
-      "createButton": "Configurer",
-      "cancelTitle": "Annuler un tournoi",
-      "cancelDescription": "Choisir le tournoi à fermer, puis confirmer l'action.",
-      "cancelUnavailable": "Aucun tournoi ne peut être annulé sur ce serveur.",
-      "cancelButton": "Choisir",
-      "cancelListTitle": "Choisir le tournoi à annuler",
-      "cancelListDescription": "La sélection se fait dans cette liste. Aucun identifiant n'est nécessaire.",
-      "cancelConfirmTitle": "Confirmer l'annulation",
-      "cancelConfirmDescription": "L'annulation de {{tournament}} dans {{channel}} ferme le tournoi sans distribuer de récompenses.",
-      "cancelConfirmButton": "Annuler ce tournoi",
-      "ownerTitle": "Opérations tournoi",
-      "ownerDescription": "Actions réservées au propriétaire du bot pour le serveur courant.",
-      "codeTitle": "Générer un code",
-      "codeDescription": "Créer un code d'accès pour le serveur courant.",
-      "codeButton": "Générer",
-      "resumeTitle": "Reprendre un tournoi",
-      "resumeDescription": "Choisir un tournoi en pause et le déplacer dans le salon courant.",
-      "resumeUnavailable": "Aucun tournoi en pause n'est disponible sur ce serveur.",
-      "resumeButton": "Choisir",
-      "resumeListTitle": "Choisir le tournoi à reprendre",
-      "resumeListDescription": "Le temps restant et la phase seront conservés.",
-      "resumeConfirmTitle": "Confirmer la reprise",
-      "resumeConfirmDescription": "{{tournament}} reprendra dans {{channel}} avec son temps restant conservé.",
-      "resumeConfirmButton": "Reprendre ici",
-      "tournamentLabel": "Tournoi {{tournamentId}}",
-      "tournamentSummary_one": "{{status}} · {{count}} participant · {{channel}} · échéance {{phaseEnd}}",
-      "tournamentSummary_other": "{{status}} · {{count}} participants · {{channel}} · échéance {{phaseEnd}}",
-      "chooseButton": "Choisir",
-      "registrationDuration": "Durée des inscriptions",
-      "combatDuration": "Durée des combats",
-      "levelMode": "Règle de niveau",
-      "levelModeCategory": "Par catégorie",
-      "levelModeUnlimited": "Sans plafond",
-      "levelModeCap": "Plafonner le niveau",
-      "levelModeReject": "Refuser au-dessus du plafond",
-      "levelCap": "Plafond de niveau",
-      "levelCapPlaceholder": "Choisir un plafond",
-      "createWizardTitle": "Configuration du tournoi",
-      "createWizardDescription": "Les choix sont modifiables avant la confirmation.",
-      "createConfirmButton": "Créer le tournoi",
-      "day": "{{count}} día",
-      "days": "{{count}} días",
-      "paused": "temps en pause",
-      "back": "Volver",
-      "close": "Fermer"
-    },
-    "fightReward": {
-      "title": "Résultat du combat tournoi",
-      "draw": "{{player1}} et {{player2}} font égalité.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi",
-      "result": "{{winner}} remporte le combat.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi"
-    },
-    "errorTitle": "Tournoi indisponible",
-    "errors": {
-      "notFound": "Aucun tournoi correspondant à ce contexte n'est disponible.",
-      "accessDenied": "Cette commande n'est pas disponible dans le salon tournoi.",
-      "invalidPhase": "Cette action n'est pas disponible pendant la phase actuelle.",
-      "alreadyRegistered": "Vous êtes déjà inscrit à ce tournoi.",
-      "levelTooLow": "Le niveau minimum pour participer est le niveau 8.",
-      "tooFewParticipants": "Le tournoi est annulé car les seuils de participants ne sont pas atteints.",
-      "invalidCode": "Ce code de tournoi est invalide.",
-      "expiredCode": "Ce code de tournoi a expiré.",
-      "usedCode": "Ce code de tournoi a déjà été utilisé.",
-      "codeGuildMismatch": "Ce code appartient à un autre serveur.",
-      "guildTooSmall": "Le serveur doit compter au moins 1 000 membres.",
-      "invalidDuration": "Les durées doivent être comprises entre 1 et 7 jours.",
-      "invalidChannel": "Cette commande doit être exécutée dans un salon texte valide.",
-      "invalidLevelLimit": "La configuration de niveau est invalide. Un plafond doit être un niveau entier d'au moins 8 et être associé au mode choisi.",
-      "levelTooHigh": "Votre niveau est trop élevé pour les conditions d'inscription de ce tournoi.",
-      "noOpponent": "Aucun adversaire tournoi n'est disponible pour le moment.",
-      "paused": "Le tournoi est actuellement en pause.",
-      "notRegistered": "Vous devez être inscrit pour utiliser cette commande dans le salon tournoi.",
-      "guildOnly": "Cette commande doit être utilisée sur un serveur Discord.",
-      "ownerOnly": "Cette commande est réservée au propriétaire du bot.",
-      "administratorOnly": "Cette commande est réservée aux administrateurs du serveur.",
-      "missingChannelPermissions": "Le bot n'a pas toutes les permissions nécessaires dans ce salon."
     }
   }
 }

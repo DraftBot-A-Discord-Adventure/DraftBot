@@ -303,6 +303,20 @@
     "description": "Iniziare una lotta.",
     "name": "combattimento"
   },
+  "friendlyFight": {
+    "description": "Avviare un combattimento amichevole senza alcuna conseguenza contro un altro giocatore controllato dall'IA.",
+    "name": "combattimento amichevole",
+    "options": {
+      "rank": {
+        "description": "La posizione in classifica dell'avversario.",
+        "name": "classifica"
+      },
+      "user": {
+        "description": "L'utente da affrontare.",
+        "name": "giocatore"
+      }
+    }
+  },
   "equip": {
     "name": "equipaggiamento",
     "description": "Gestisci il tuo equipaggiamento: equipaggia, conserva o scambia i tuoi oggetti."
@@ -394,17 +408,5 @@
   "blessing": {
     "name": "benedizione",
     "description": "Vedere lo stato attuale della benedizione globale."
-  },
-  "tournament": {
-    "name": "tournament",
-    "description": "Consulter votre tournoi ou vous y inscrire automatiquement."
-  },
-  "tournament-admin": {
-    "name": "tournament-admin",
-    "description": "Ouvrir la gestion du tournoi dans ce serveur."
-  },
-  "tournament-owner": {
-    "name": "tournament-owner",
-    "description": "Ouvrir les opérations owner du tournoi."
   }
 }

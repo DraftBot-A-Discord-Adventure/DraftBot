@@ -66,7 +66,7 @@ function startShardingManagerMqtt(config: CrowniclesConfig, shardingManager: Sha
 			let newShard: Shard | undefined;
 			try {
 				newShard = shardingManager.createShard(shardId);
-				await newShard.spawn();
+				await shardSpawnSupervisor.spawnPaced(newShard);
 				CrowniclesLogger.info(`New shard ${shardId} created`);
 			}
 			catch (e) {
@@ -162,9 +162,7 @@ function main(): void {
 			});
 	}
 
-	shardingManager.spawn({
-		amount: shardCount
-	}).catch(e => {
+	shardSpawnSupervisor.spawnFleet(shardingManager).catch(e => {
 		CrowniclesLogger.errorWithObj("Error while spawning shards", e);
 	});
 }

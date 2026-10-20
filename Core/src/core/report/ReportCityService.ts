@@ -57,7 +57,7 @@ export {
 	handleBuyHomeReaction, handleUpgradeHomeReaction, handleMoveHomeReaction, handleHomeBedReaction
 } from "./ReportCityHomeService";
 export {
-	validateUpgradeItemRequest, handleUpgradeItemReaction, handleBlacksmithUpgradeReaction, handleBlacksmithDisenchantReaction
+	validateUpgradeItemRequest, handleUpgradeItemReaction, handleBlacksmithUpgradeReaction, handleBlacksmithEnchantmentTransferReaction
 } from "./ReportCityBlacksmithService";
 export type { UpgradeItemValidationResult } from "./ReportCityBlacksmithService";
 export {

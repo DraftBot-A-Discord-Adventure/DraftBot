@@ -441,6 +441,9 @@
       "BADGES": {
         "description": "Bei den Auszeichnungen handelt es sich um komplizierte Unterscheidungen, die geschaffen wurden, um diejenigen zu belohnen, die die Entwicklung des Bots am stärksten unterstützt haben. Die Abzeichenliste ist auf dem Bot Führer erhältlich.\n(über diesen Link: https://guide.draftbot.com/notions-avancees/badges)"
       },
+      "BLESSING": {
+        "description": "Zeigt den Status des allgemeinen Segens an: den Geldtopf, den die Abenteurer auffüllen, wenn sie auf ihren Reisen dem Orakel begegnen, oder den aktiven Segen und dessen verbleibende Dauer. Dieser Befehl ist verfügbar, sobald man dem Orakel mindestens einmal begegnet ist."
+      },
       "CLASSES": {
         "description": "Ermöglicht die Änderung der Klasse. Mehr Informationen zu den Klassen finden Sie auf der Spielerführung: https://guide.draftbot.com"
       },
@@ -453,9 +456,21 @@
       "DRINK": {
         "description": "Dieser Befehl wird verwendet, um den von Ihnen zu transmitenden Trank zu konsumieren. Einige Potionen können nicht bucht werden und werden automatisch in einem Kampf verbraucht."
       },
+      "EQUIP": {
+        "description": "Hiermit können Sie Ihre Ausrüstung für jede Objektkategorie verwalten: ein Objekt aus Ihrem Vorrat anlegen, das angelegte Objekt in Ihren Vorrat zurücklegen oder zwei Objekte vertauschen."
+      },
       "FIGHT": {
         "description": "Verwenden Sie diesen Befehl, um andere Spieler herauszufordern.\nDie Kämpfe werden rundenweise ausgetragen. In jeder Runde können Sie eine Aktion auswählen, die Sie ausführen möchten.\n\nFür weitere Informationen können Sie die Seite des Guides besuchen: https://guide.crownicles.com/notions-principale/combats",
         "image": "https://draftbot.com/public/ressources/fighthelp/en/5.1.7.png"
+      },
+      "FIGHT_HISTORY": {
+        "description": "Zeigt den Verlauf deiner letzten Kämpfe an: den jeweiligen Gegner, das Ergebnis sowie die Entwicklung des Ruhmes und der Liga jedes Kämpfers."
+      },
+      "FRIENDLY_FIGHT": {
+        "description": "Ermöglicht es dir, gegen einen anderen Spieler – den du entweder namentlich nennst oder anhand seiner Rangliste auswählst – in einem Freundschaftskampf anzutreten. Der Gegner wird von einer KI gesteuert. Dieser Kampf hat keinerlei Konsequenzen: kein Ruhm, keine Belohnung, kein Energieverlust und kein Missionsfortschritt."
+      },
+      "GARDEN": {
+        "description": "Damit könnt ihr euch um den Garten eures Hauses kümmern, wenn ihr euch in der Stadt befindet: Pflanzen, gießen, kompostieren und eure Pflanzen ernten. Mit dem „Cœur Sylvestre“, einem Talisman, der beim Kräuterhändler in Coco Village erhältlich ist, könnt ihr den Garten aus der Ferne einsehen und dort ernten."
       },
       "GLORY_TOP": {
         "description": "Zeigt die ruhigeangezeigt. Spieler auf dem gleichen Server, die Sie mit einem blauen Pellet markiert haben."
@@ -577,6 +592,8 @@
     },
     "forMoreHelp": ":arrow_forward: Für weitere Hilfe: ",
     "forMoreHelpValue": "Sie können sich auf den [ wiki](https: //guide.draftbot.com/) des Bots stellen.",
+    "dmNoticeTitle": "{emote:other.incoming} Crownicles spielen",
+    "dmNoticeValue": "Crownicles wird ausschließlich auf Discord-Servern gespielt. Um die oben genannten Befehle zu verwenden, tretet einem Server bei, auf dem der Bot vorhanden ist, oder dem offiziellen Server des Spiels: {{inviteLink}}",
     "guildCommands": ":stadium: Gilde:",
     "helpEmbedDescription": ":arrow_forward: Wenn Sie weitere Informationen zu einem bestimmten Befehl wünschen, klicken Sie hier: {{helpCommandMention}}, und geben Sie den Befehl an, mit dem Sie ein Problem mit dem Parameter haben. :wink:",
     "helpEmbedTitle": "{{pseudo}}, hier ist die Liste der verfügbaren Befehle:",
@@ -705,7 +722,8 @@
       "animal_lover": "Person, die Talvar dem Zwerg alle Vertrauten gezeigt hat",
       "expert_expediteur": "Person, die mit ihrem Vertrauten viele Expeditionen erfolgreich abgeschlossen hat",
       "oracle_patron": "Beschützer des Orakels, der großzügig zu vielen Segnungen beigetragen hat",
-      "sentimental_crafter": "Person, die Wert darauf gelegt hat, eine bescheidene Reliquie vom königlichen Schmied bis zum Gipfel verbessern zu lassen."
+      "sentimental_crafter": "Person, die Wert darauf gelegt hat, eine bescheidene Reliquie vom königlichen Schmied bis zum Gipfel verbessern zu lassen.",
+      "master_chef": "Erfahrener Koch, der Stufe 100 im Kochen erreicht hat"
     },
     "fightRanked": {
       "fieldName": "Ruhm und Liga :",
@@ -781,6 +799,8 @@
     "choseMapMinutes_other": "Sie haben sich entschieden, eine Reise nach {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** anzutreten. Diese Fahrt wird ungefähr **{{timeDisplay}}** dauern.",
     "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Diese Strecke dauert **{{time}} Stunden**.",
     "choseMap_other": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Diese Strecke dauert **{{time}} Stunden**.",
+    "cityStayScore_one": "{emote:unitValues.score} Ihr Aufenthalt in der Stadt hat Ihnen **{{count, number}}** Punkte eingebracht.",
+    "cityStayScore_other": "{emote:unitValues.score} Ihr Aufenthalt in der Stadt hat Ihnen **{{count, number}}** Punkte eingebracht.",
     "goBackMapMinutes_one": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Diese Rückfahrt dauert etwa **{{timeDisplay}}**.",
     "goBackMapMinutes_other": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Die Rückfahrt dauert etwa **{{timeDisplay}}**.",
     "goBackMap_one": "Sie kehren in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zurück, von wo Sie gekommen sind. Die Rückfahrt dauert etwa **{{time}} Stunde**.",
@@ -828,6 +848,8 @@
       "placeholder": "Wählen Sie etwas, das Sie tun wollen",
       "title": "{{pseudo}}Sie sind in der Stadt!",
       "description": "{emote:commands.report} Ihr seid in **{emote:mapTypes.{{mapTypeId}}} $t(models:map_locations.{{mapLocationId}}.name)** angekommen.\n\nDie gepflasterten Straßen rund um euch sind voller Leben: Händler, Abenteurer und Handwerker gehen ihren Geschäften nach. Es stehen euch zahlreiche Dienstleistungen zur Verfügung, doch die Straße wartet auf niemanden.",
+      "minimumStayScore_one": "{emote:unitValues.score} Ihr Aufenthalt in der Stadt bringt Ihnen bei Ihrer Abreise mindestens **{{count, number}}** Punkte ein.",
+      "minimumStayScore_other": "{emote:unitValues.score} Ihr Aufenthalt in der Stadt bringt Ihnen bei Ihrer Abreise mindestens **{{count, number}}** Punkte ein.",
       "buttons": {
         "enter": "Eingeben",
         "visit": "Besuchen Sie",
@@ -838,6 +860,8 @@
         "confirm": "Bestätigen",
         "upgrade": "Verbessern",
         "disenchant": "Entzaubern",
+        "transfer": "Weiterleiten",
+        "choose": "Auswählen",
         "goHome": "Nach Hause gehen",
         "goToApartment": "Betreten des Logis",
         "seeNotary": "Besuchen Sie",
@@ -860,6 +884,8 @@
       "stayDescription": "Verwenden Sie den Befehl {command:report}, um die in der Stadt verfügbaren Dienste zu nutzen oder Ihr Abenteuer fortzusetzen.",
       "stayInCityChoice": "{emote:mapTypes.ci} In die Stadt hineinfahren",
       "shopEmptyDescription": "Derzeit werden keine Dienstleistungen angeboten.",
+      "equipmentChangedTitle": "{{pseudo}}, die Ausrüstung hat sich geändert!",
+      "equipmentChangedDescription": "Die ausgewählte Ausrüstung ist an dieser Stelle im Inventar nicht mehr dieselbe: Sie wurde seit dem Öffnen des Menüs verschoben. Es wurden keine Gegenstände ausgegeben, und das Menü wurde mit deinem aktuellen Inventar aktualisiert.",
       "exitInn": "Aus der Herberge herauskommen",
       "reactions": {
         "exit": {
@@ -876,11 +902,11 @@
         },
         "enchanter": {
           "label": "Zum Zauberer gehen",
-          "description": "Ein Reisender, dessen Hände von leuchtenden Zaubern umhüllt sind, zieht Ihre Aufmerksamkeit auf sich. Er behauptet, jede Waffe und jedes Rüstungsteil verzaubern zu können."
+          "description": "Ein Reisender, dessen Hände von leuchtenden Verzauberungen umhüllt sind, zieht Ihre Aufmerksamkeit auf sich. Er behauptet, jede Waffe oder jedes Rüstungsteil verzaubern und deren Verzauberungen aufheben zu können, ohne dafür eine Gegenleistung zu verlangen."
         },
         "blacksmith": {
           "label": "Zum Schmied gehen",
-          "description": "Besuchen Sie den Schmied, um Ihre Ausrüstung zu verbessern oder zu entschärfen."
+          "description": "Geht zum Schmied, um eure Ausrüstung zu verbessern oder deren Verzauberungen zu übertragen."
         }
       },
       "shops": {
@@ -998,7 +1024,7 @@
         "runeForWeaponOnlyArmorAvailableStory_other": "{emote:city.services.enchanter} Ihr begegnet einem wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene erklärt er euch, dass er der einzige und beste Verzauberer in allen Landen sei. Heute funktioniert sein Zauber {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** nur auf Waffen. Da ihr ihm jedoch nur bereits verzauberte Waffen oder Rüstungsteile vorlegen könnt, mustert er euch verächtlich und seufzt, dass ihr seine Zeit verschwendet. Kommt lieber an einem anderen Tag wieder oder bringt eine unzauberte Klinge mit, die es wert ist, verzaubert zu werden.",
         "runeForArmorOnlyWeaponAvailableStory_one": "{emote:city.services.enchanter} Ihr begegnet einem wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene erklärt er euch, dass er der einzige und beste Verzauberer in der ganzen Gegend sei. Heute funktioniert sein Verzauberungszauber {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** nur noch bei Rüstungsteilen. Ihr habt ihm nur eine bereits verzauberte Rüstung oder Waffen anzubieten: Er presst die Lippen zusammen und brummt, dass ihr beide eure Zeit verschwendet. Kommt mit einem unverzauberten Schutzgegenstand zurück, der verzaubert werden soll, oder an einem anderen Tag, wenn sein Zauber ein anderer ist.",
         "runeForArmorOnlyWeaponAvailableStory_other": "{emote:city.services.enchanter} Ihr begegnet einem wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene erklärt er euch, dass er der einzige und beste Verzauberer in der ganzen Gegend sei. Heute funktioniert sein Verzauberungszauber {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** nur noch bei Rüstungsteilen. Ihr habt jedoch nur bereits verzauberte Rüstungen oder Waffen, die ihr ihm zeigen könnt: Er presst die Lippen zusammen und brummt, dass ihr beide eure Zeit verschwendet. Kommt mit einem noch unverzauberten Schutzgegenstand zurück oder an einem anderen Tag, wenn sein Zauber anders ist.",
-        "allEnchantedStory": "{emote:city.services.enchanter} Ihr trefft einen wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene begutachtet er eure Ausrüstung und schüttelt dann genervt den Kopf: Alles, was ihr tragt, ist bereits verzaubert. Er erinnert euch schroff daran, dass es die Schmiede sind, die bestehende Verzauberungen entfernen, nicht er, und dass er sich kategorisch weigert, diese bereits mit Runen versehenen Gegenstände anzufassen. Kommt mit unverzauberter Ausrüstung zurück oder versucht euer Glück morgen.",
+        "allEnchantedStory": "{emote:city.services.enchanter} Ihr trefft einen wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene begutachtet er eure Ausrüstung und schüttelt dann genervt den Kopf: Alles, was ihr besitzt, ist bereits verzaubert, und er kann nichts mehr hinzufügen. Er ist jedoch bereit, die Verzauberungen, die euch nicht mehr gefallen, kostenlos zu entfernen, damit ihr ihm endlich ein unverzaubertes Ausrüstungsteil vorlegen könnt, das seinem Talent würdig ist.",
         "story": "{emote:city.services.enchanter} Ihr begegnet einem wandernden Verzauberer, der sich als Mernil vorstellt. Mit hochmütiger Miene erklärt er dir, dass er der einzige und beste Verzauberer in der ganzen Gegend sei und dass er deine Ausrüstung mithilfe der Magie der Verzauberungen verbessern könne.",
         "tomorrowStory": "Ihr nehmt euch die Zeit, über seinen Vorschlag nachzudenken. Bevor ihr aufbrecht, verrät euch Mernil die nächste Etappe seiner Reise: **{{nextCity}}**, wo er den Zauber {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})** anbieten wird. Ihr solltet euch unbedingt zu ihm gesellen, bevor er wieder aufbricht.",
         "tomorrowSameCityStory": "Sie nehmen sich Zeit, über seinen Vorschlag nachzudenken. Mernil kündigt an, dass er seinen Aufenthalt verlängert: **{{nextCity}}** wird ihn auch morgen wieder mit der Verzauberung {emote:enchantmentTypes.{{nextEnchantmentType}}} **$t(items:enchantments.{{nextEnchantmentId}})** willkommen heißen. Nutzen Sie die Gelegenheit, um Ihre Ausrüstung vorzubereiten, bevor er sich wieder auf den Weg macht.",
@@ -1017,7 +1043,14 @@
           "frozenDamage": "Mernil erklärt die Wirkungsweise dieses Zaubers: Er verstärkt den verursachten Frostschaden und mindert den erlittenen Feuerschaden.",
           "poisonedDamage": "Mernil enthüllt die Eigenschaften dieses Zaubers: Er verstärkt den verursachten Giftschaden und mindert den erlittenen Giftschaden."
         },
-        "hasAtLeastOneEnchantedItem": "Als Mernil außerdem Ihre bereits verzauberten Ausrüstungsgegenstände sieht, runzelt er die Stirn. Er sagt, dass es die Aufgabe der Schmiede sei, die Gegenstände zu entzaubern, nicht seine, und dass er sie nicht berühren werde.",
+        "disenchantOffer": "Mernil bemerkt auch eure bereits verzauberten Ausrüstungsgegenstände. Für einen Meister seines Ranges ist das Entfernen von Runen nur eine Formalität: Er bietet an, sie **kostenlos** zu entfernen, schon allein, um die Welt von Verzauberungen zu befreien, die er als seiner Kunst unwürdig erachtet.",
+        "disenchantTitle": "{{pseudo}}, Enttäuschung bei Mernil",
+        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Mernil lässt selbstgefällig seine Finger knacken. Ihm zufolge ist das Entfernen einer Verzauberung ein Kinderspiel, das nicht einmal eine Münze wert ist. Er wartet darauf, dass ihr ihm die Ausrüstung nennt, die von ihren Runen befreit werden soll.",
+        "disenchantItemPreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "disenchantConfirmDescription": "{emote:collectors.warning} Durch diese Bestätigung wird die Verzauberung {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** endgültig von folgendem Ausrüstungsgegenstand entfernt:\n{{item}}\n\nKosten: **kostenlos**.",
+        "disenchantSuccessTitle": "{{pseudo}}, gelungene Ernüchterung!",
+        "disenchantSuccessStory": "{emote:city.services.enchanter} Mernil streift mit den Fingerspitzen über eure Ausrüstung und flüstert dabei eine Formel. Der Schimmer der Verzauberung {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** flackert kurz auf und erlischt dann. Er gibt euch den nun wieder unberührten Gegenstand zurück, mit dem zufriedenen Ausdruck eines Menschen, der gerade einen großen Dienst erwiesen hat, ohne dafür eine Gegenleistung zu verlangen.",
+        "backToEnchanter": "Zurück nach Mernil",
         "confirmDescription": "{emote:collectors.warning} Diese Validierung wendet die Verzauberung {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** auf die folgende Ausrüstung:\n{{item}}\n\nKosten: **{{price}}**.\n{{balance}}",
         "acceptStory": "Er nimmt sofort eure Ausrüstung entgegen und flüstert ein paar Zaubersprüche, während er einen verzauberten Kristall darüber schwingt… Nach wenigen Augenblicken gibt er euch den Gegenstand zurück und sagt, dass es erledigt ist! Eure Ausrüstung ist nun mit {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** verzaubert. Nutzt sie gut!",
         "acceptTitle": "{{pseudo}}Der Zauber ist gelungen!",
@@ -1033,17 +1066,17 @@
       },
       "blacksmith": {
         "menuLabel": "Zum Schmied gehen",
-        "menuDescription": "Das gleichmäßige Geräusch des Ambosses hallt aus der Schmiede wider. Der Schmied kann Ihre Ausrüstung verstärken oder Verzauberungen von ihr entfernen.",
+        "menuDescription": "Aus der Schmiede ertönt das gleichmäßige Klopfen des Ambosses. Der Schmied kann eure Ausrüstung verstärken oder deren Verzauberungen von einem Gegenstand auf einen anderen übertragen.",
         "placeholder": "Wählen Sie einen Dienst",
         "title": "{{pseudo}}Sie treffen den Schmied",
         "upgradeLabel": "Ausrüstung verbessern",
         "upgradeDescription": "Verbessern Sie Ihre Waffen und Rüstungen gegen Geld und Materialien.",
-        "disenchantLabel": "Eine Ausrüstung entzaubern",
-        "disenchantDescription": "Entferne die Verzauberung von einer deiner Ausrüstungsgegenstände.",
+        "enchantmentTransferLabel": "Eine Verzauberung übertragen",
+        "enchantmentTransferDescription": "Entferne den Zauber von einem Ausrüstungsgegenstand, um ihn auf einen anderen Ausrüstungsgegenstand desselben Typs zu übertragen.",
         "backToCity": "Die Schmiede verlassen",
-        "descriptionBoth": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, als ihr die Schmiede betretet. Der Schmied, ein Hüne, dessen Arme von jahrelanger Arbeit gezeichnet sind, blickt von seinem Amboss auf und grüßt dich mit einem Nicken. Er kann deine Ausrüstung verstärken oder die Verzauberungen entfernen, die dich behindern.",
+        "descriptionBoth": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, als ihr die Schmiede betretet. Der Schmied, ein Hüne, dessen Arme von jahrelanger Arbeit gezeichnet sind, blickt von seinem Amboss auf und grüßt dich mit einem Nicken. Er kann deine Ausrüstung verstärken oder einen Zauber entfernen, um ihn auf ein anderes Ausrüstungsteil zu übertragen.",
         "descriptionUpgradeOnly": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, als ihr die Schmiede betretet. Der Schmied, ein Hüne, dessen Arme von jahrelanger Arbeit gezeichnet sind, begutachtet deine Ausrüstung mit fachkundigem Blick. Seine Dienste sind nicht billig, aber die Qualität seiner Arbeit spricht für sich.",
-        "descriptionDisenchantOnly": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, sobald ihr die Schmiede betretet. Der Schmied bemerkt das magische Leuchten, das von eurer verzauberten Ausrüstung ausgeht. Er kann die Verzauberungen sauber entfernen, ohne die Ausrüstung zu beschädigen.",
+        "descriptionEnchantmentTransferOnly": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, als ihr die Schmiede betretet. Der Schmied bemerkt das magische Leuchten, das von deiner verzauberten Ausrüstung ausgeht. Er versteht es, einen Zauber zu entfernen, ohne ihn zu zerstören, und ihn dann auf ein anderes Ausrüstungsteil derselben Art zu übertragen.",
         "descriptionNoItems": "{emote:city.services.blacksmith} Die Hitze des Feuers umhüllt euch, als ihr die Schmiede betretet. Der Schmied mustert euch einen Moment lang, bevor er mit den Schultern zuckt. Ihr habt im Moment nichts, was er bearbeiten könnte.",
         "selectItemPlaceholder": "Wählen Sie eine Ausrüstung",
         "itemUpgradePreview": "Level {{currentLevel}} -> Level {{nextLevel}} | {{cost, number}}{emote:unitValues.money}",
@@ -1056,14 +1089,16 @@
         "confirmUpgrade": "Verbessern ({{cost, number}})",
         "buyMaterialsAndUpgrade": "Kaufen & Verbessern ({{cost, number}})",
         "backToItems": "Zurück zur Liste",
-        "itemDisenchantPreview": "{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}}) | {{cost, number}}{emote:unitValues.money}",
-        "disenchantTitle": "{{pseudo}}Die Ernüchterung über die Ausrüstung",
-        "disenchantSelectDescription": "{emote:city.blacksmith.disenchant} Der Schmied bereitet seine Werkzeuge zur Entzauberung vor, eine Reihe von Zangen und absorbierenden Kristallen. Die Entzauberung erfordert Präzision.\n\n{emote:unitValues.money} Sie haben **{{money, number}}** {emote:unitValues.money}",
-        "disenchantItemDetails": "{{itemDisplay}}\n\n**Kosten der Entzauberung:** {{cost, number}} {emote:unitValues.money}\n\nDie Verzauberung wird endgültig entfernt. Die Ausrüstung wird wieder gewöhnlich, bleibt aber intakt.",
-        "confirmDisenchant": "Entzaubern ({{cost, number}})",
+        "enchantmentTransferSourcePreview": "{{item}}\n{emote:enchantmentTypes.{{enchantmentType}}} $t(items:enchantments.{{enchantmentId}})",
+        "enchantmentTransferTitle": "{{pseudo}}, Verzauberungsübertragung",
+        "enchantmentTransferSourceSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} Der Schmied legt eine silberne Zange und einen Transferkristall auf die Werkbank. Er wartet darauf, dass ihr ihm den Gegenstand nennt, von dem die Verzauberung entfernt werden soll.\n\n{emote:unitValues.money} Ihr habt **{{money, number}}** {emote:unitValues.money}",
+        "enchantmentTransferTargetSelectDescription": "{emote:city.blacksmith.enchantmentTransfer} Die Verzauberung {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** wird von folgendem Ausrüstungsgegenstand entfernt:\n{{item}}\n\nWählen Sie den Ausrüstungsgegenstand aus, auf den die Verzauberung übertragen werden soll. Nur Ausrüstungsgegenstände desselben Typs, die noch nicht verzaubert sind, können die Verzauberung aufnehmen, und der Preis beim Schmied hängt von der Seltenheit des ausgewählten Ausrüstungsgegenstands ab.",
+        "enchantmentTransferTargetPreview": "{{item}}\n**Überweisungskosten:** {{cost, number}} {emote:unitValues.money}",
+        "enchantmentTransferConfirmDescription": "{emote:collectors.warning} Die Verzauberung {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** wird von folgendem Ausrüstungsgegenstand entfernt:\n{{sourceItem}}\n\nAnschließend wird sie auf diesen Ausrüstungsgegenstand versiegelt:\n{{targetItem}}\n\n**Kosten der Übertragung:** {{cost, number}} {emote:unitValues.money}",
+        "confirmEnchantmentTransfer": "Weiterleiten ({{cost, number}})",
         "upgradeSuccess": "{emote:city.blacksmith.upgrade} Der Schmied schlägt mit Präzision auf den Amboss, die Funken fliegen durch die Luft. Nach einigen fachmännischen Schlägen reicht er Ihnen zufrieden die auf Stufe {{newLevel}} verbesserte Ausrüstung.",
         "upgradeSuccessWithBuy": "{emote:city.blacksmith.upgrade} Der Schmied versorgt Sie mit den fehlenden Materialien und macht sich sofort an die Arbeit. Die Funken fliegen, während er Ihre Ausrüstung verstärkt, die nun auf Stufe {{newLevel}} ist.",
-        "disenchantSuccess": "{emote:city.blacksmith.disenchant} Der Schmied streicht vorsichtig die absorbierenden Kristalle über Ihre Ausrüstung. Das magische Leuchten wird allmählich schwächer. Die Verzauberung wurde sauber entfernt und Ihre Ausrüstung ist wieder gewöhnlich.",
+        "enchantmentTransferSuccess": "{emote:city.blacksmith.enchantmentTransfer} Der Schmied schiebt seine silbernen Zangen unter die Verzauberungsrunen {emote:enchantmentTypes.{{enchantmentType}}} **$t(items:enchantments.{{enchantmentId}})** und löst sie eine nach der anderen. Der Transferkristall leuchtet kurz auf, dann versiegeln ein paar Hammerschläge die Runen auf eurem anderen Ausrüstungsgegenstand. Die Verzauberung hat ihren neuen Träger gefunden, ohne etwas von ihrem Glanz zu verlieren, und die alte Ausrüstung wird wieder gewöhnlich.\n\n{emote:unitValues.money} Kosten für die Übertragung: **{{cost, number}}** {emote:unitValues.money}",
         "notEnoughMoney": "{emote:messages.refuse} Der Schmied schüttelt den Kopf, während er Ihre Münzen zählt. Ihnen fehlt **{{missingMoney, number}}** {emote:unitValues.money}, um seine Dienste zu bezahlen.",
         "missingMaterialsTitle": "{{pseudo}}Unzureichende Materialien!",
         "missingMaterialsDescription": "Sie haben die für diese Verbesserung benötigten Materialien nicht beim Schmied. Sammle sie auf deinen Abenteuern oder kaufe sie direkt beim Schmied."
@@ -1260,9 +1295,11 @@
           "noStoredItems": "Keine Objekte in dieser Kategorie geordnet.",
           "depositSection": "{emote:city.chestActions.deposit} **Deponieren im Tresor:**",
           "withdrawSection": "{emote:city.chestActions.withdraw} **aus dem Tresor entnehmen:**",
-          "chestFull": "Voller Kofferraum für diese Kategorie",
-          "inventoryFullLabel": "Voller Bestand",
+          "chestFull": "{emote:collectors.warning} *Truhe für diese Kategorie ist voll*",
+          "inventoryFullLabel": "{emote:collectors.warning} *Inventar voll*",
           "swapSection": "{emote:city.chestActions.swap} **Switchen mit der Truhe :**",
+          "chestContentSection": "{emote:city.homeUpgrades.chest} **Inhalt der Truhe:**",
+          "chestContentLine": "• {{item}}",
           "swapHeader": "{emote:city.chestActions.swap} **Tauschen** {{item}} **mit:**",
           "errors": {
             "chestFull": "Ihre Truhe ist für diese Kategorie voll! Verbessere dein Haus, um mehr Slots zu erhalten.",
@@ -1360,9 +1397,11 @@
           "levelUp": "Sie sind auf die **Kochstufe {{level}}** aufgestiegen!",
           "levelUpWithGrade": "Sie sind auf die **Kochstufe {{level}}** aufgestiegen! Neuer Rang : **{{grade}}**",
           "levelUpTitle": "{emote:city.homeUpgrades.cooking} {{pseudo}}, erhöhtes Kochniveau!",
+          "masterChefBadgeEarned": "\n{emote:badges.master_chef} Deine Bemühungen am Herd werden endlich gewürdigt: Du hast ein Abzeichen erhalten, **Chefkoch**!",
           "materialSaved": "{emote:messages.validate} Dank Ihrer Expertise kann ein **{emote:materials.{{materialId}}} $t(models:materials.{{materialId}})** wurde eingespart!",
           "bonusOutput": "{emote:city.homeUpgrades.cooking} **Supererfolg!** Ihre Meisterschaft hat es Ihnen ermöglicht, die verdienten XP zu verdoppeln und das Ergebnis dieser Zubereitung zu verbessern!",
-          "petFoodStored": "{emote:messages.validate} **{{quantity}} {{food}}** wurden dem Speicher deiner Gilde hinzugefügt.",
+          "petFoodStored_one": "{emote:messages.validate} ** „{{count}} {{food}}“ ** wurde dem Lager deiner Gilde hinzugefügt.",
+          "petFoodStored_other": "{emote:messages.validate} **{{count}} {{food}}** wurden dem Lager Ihrer Gilde hinzugefügt.",
           "recipeDiscovered": "{emote:city.homeUpgrades.cooking} Du hast ein neues Rezept gelernt: **{{recipe}}**!",
           "recipesDiscovered": "{emote:city.homeUpgrades.cooking} Du hast neue Rezepte gelernt: {{recipes}}!",
           "petFedFromSurplus": "{emote:messages.validate} Ihr Vertrauter hat eine Ration **{{food}}** direkt vom Herd gegessen!",
@@ -2223,8 +2262,7 @@
       "guildStatusChange": "Änderung des Status innerhalb der Gilde",
       "energy": "Regenerierte Energie",
       "dailyBonus": "Täglicher Bonus",
-      "petExpedition": "Vertrautenversand beendet",
-      "tournament": "Tournoi"
+      "petExpedition": "Vertrautenversand beendet"
     },
     "enableDisable": "Aktivieren/Deaktivieren",
     "sendLocationField": "Ort der Versendung :",
@@ -2366,6 +2404,7 @@
     "notEnoughEnergy": "Sie haben nicht genug Energie, um einen Kampf zu beginnen!",
     "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
+    "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | Zwischen {{fightInitiator}} und {{opponent}} wird ein Freundschaftskampf ausgetragen! Dieser hat keinerlei Konsequenzen.",
     "actionsOf": "**Angriffe von {{pseudo}} :**",
     "petOf": "**Familienmitglied von {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
@@ -2571,6 +2610,21 @@
         "Es war ein sehr enges Spiel mit klugen Taktiken auf beiden Seiten.",
         "Die Zuschauer erlebten ein episches Match zwischen zwei talentierten Spielern, die sich auf Augenhöhe begegneten."
       ]
+    },
+    "kingGuard": {
+      "name": "Königliche Garde",
+      "recap": {
+        "win": "Es war kein Gegner verfügbar: {{player}} trat gegen einen königlichen Wächter an und besiegte ihn. Bei diesem Kampf stand kein Ruhm auf dem Spiel.",
+        "draw": "Es war kein Gegner verfügbar: {{player}} trat gegen einen königlichen Wächter an, ohne einen Sieger zu ermitteln. Bei diesem Kampf stand kein Ruhm auf dem Spiel.",
+        "loss": "Es war kein Gegner verfügbar: {{player}} trat gegen einen königlichen Wächter an und wurde besiegt. Bei diesem Kampf stand kein Ruhm auf dem Spiel."
+      }
+    }
+  },
+  "friendlyFight": {
+    "errors": {
+      "opponentNotFound": "Dieser Spieler ist nicht auffindbar oder hat das Abenteuer noch nicht begonnen.",
+      "selfFight": "Du kannst keinen Freundschaftskampf gegen dich selbst starten. Nenne einen anderen Spieler oder gib dessen Rang an.",
+      "opponentLevelTooLow": "Dieser Spieler hat die Kämpfe noch nicht freigeschaltet."
     }
   },
   "equip": {
@@ -2806,6 +2860,7 @@
     "noHistory": "Sie haben noch keine Kämpfe in Ihrem Verlauf.",
     "title": "{{pseudo}}Geschichte der Kämpfe",
     "historyLine": "{{date}}\n{{attackSentence}}\n**Ergebnis:** {{resultSentence}}\n**Ihr Ruhm:** {emote:unitValues.glory} {{meInitialGlory, number}} -> {{meFinalGlory, number}}{{meLeagueChange}} }\n**Gegnerischer Ruhm:** {emote:unitValues.glory} {{opponentInitialGlory, number}} -> {{opponentFinalGlory, number}}",
+    "kingGuardHistoryLine": "{{date}}\n{emote:fightCommand.crossedSwords} Es war kein Gegner verfügbar: Du hast gegen einen **Königswächter** der Stufe {{guardLevel}} ({emote:classes.{{guardClassId}}} $t(models:classes.{{guardClassId}}))\n**Ergebnis:** {{resultSentence}}\n**Ruhm:** {emote:unitValues.glory} Es stand kein Ruhm auf dem Spiel",
     "attackSentence": {
       "attacker": "{emote:fightCommand.crossedSwords} Sie haben angegriffen **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}}))",
       "defender": "{emote:fightCommand.shield} Sie wurden von **{{opponent}}** ({emote:classes.{{opponentClassId}}} $t(models:classes.{{opponentClassId}})) angegriffen."
@@ -2861,154 +2916,6 @@
         "name": "Menagerie",
         "description": "Stufe {{level, number}}/{{maxLevel, number}}\nVertraute im Tierheim erhalten täglich Liebespunkte."
       }
-    }
-  },
-  "tournament": {
-    "codeTitle": "Code de tournoi",
-    "codeCreated": "Code : `{{code}}`\nValable jusqu'au {{expiresAt}}. Ce code ne peut être utilisé qu'une seule fois sur ce serveur.",
-    "createTitle": "Tournoi créé",
-    "created": "Le tournoi `{{tournamentId}}` utilisera {{channel}}. Les inscriptions se terminent {{registrationEndsAt}} et les combats se terminent {{combatEndsAt}}. Règle de niveau : {{levelRule}}.",
-    "registerTitle": "Inscription au tournoi",
-    "registered": "Vous êtes inscrit dans la catégorie **{{category}}** avec **{{totalGloryPoints}} gloire de tournoi**.{{lateRegistration}}",
-    "lateRegistration": " Votre inscription est tardive : votre gloire de départ est adaptée.",
-    "statusTitle": "{emote:notifications.types.tournament} Tournoi : {{status}}",
-    "tournamentField": {
-      "fieldName": "Le tournoi :",
-      "fieldValue": "{emote:fightCommand.crossedSwords} {{channel}} | {emote:unitValues.timeGain} {{phaseEnd}}\n{{levelRule}}"
-    },
-    "participantsField": {
-      "fieldName": "Participants :",
-      "fieldValue_one": "{emote:guild.membersCount} **{{count, number}}** joueur inscrit",
-      "fieldValue_other": "{emote:guild.membersCount} **{{count, number}}** joueurs inscrits"
-    },
-    "participantsInCategory_one": " · **{{count, number}}** dans votre catégorie",
-    "participantsInCategory_other": " · **{{count, number}}** dans votre catégorie",
-    "participationField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "{{category}} | {emote:announcements.trophy} {{rank}} / {{categoryParticipantCount, number}} | {emote:unitValues.glory} **{{totalGloryPoints}}**"
-    },
-    "notRegisteredField": {
-      "fieldName": "Votre participation :",
-      "fieldValue": "Vous n'êtes pas inscrit à ce tournoi."
-    },
-    "rewardField": {
-      "fieldName": "Votre récompense :"
-    },
-    "phaseEndRegistration": "inscriptions jusqu'à {{date}}",
-    "phaseEndCombat": "combats jusqu'à {{date}}",
-    "phaseEndPaused": "tournoi en pause",
-    "phaseEndOver": "tournoi terminé",
-    "notRegistered": "vous n'êtes pas inscrit",
-    "rewardGranted": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}}",
-    "rewardPending": "{emote:unitValues.xp} **{{xp}}** XP | {emote:unitValues.money} **{{money}}** | {emote:rewards.item} {{itemCount}} (en attente de place dans votre inventaire)",
-    "resumeTitle": "Tournoi repris",
-    "resumed": "Le tournoi `{{tournamentId}}` reprend dans {{channel}}.",
-    "cancelTitle": "Tournoi annulé",
-    "cancelled": "Le tournoi `{{tournamentId}}` a été annulé. Aucune récompense ne sera distribuée.",
-    "topTitle": "Classement du tournoi (page {{pageNumber}}/{{totalPages}})",
-    "topCategory": "**{{category}}** ({{totalParticipants}} participants)\nVotre rang : {{yourRank}}\n{{entries}}",
-    "topEntry": "{{rank}}. **{{pseudo}}** · {{totalGloryPoints}} gloire de tournoi, niveau effectif {{effectiveLevel}}",
-    "unranked": "non classé",
-    "emptyCategory": "Aucun participant dans cette catégorie.",
-    "categories": {
-      "level50": "Niveau 50",
-      "level100": "Niveau 100"
-    },
-    "statuses": {
-      "registration": "inscriptions",
-      "combat": "combats",
-      "paused": "en pause",
-      "completed": "terminé",
-      "cancelled": "annulé"
-    },
-    "levelModes": {
-      "category": "plafond par catégorie (niveau 50 ou 100)",
-      "unlimited": "niveaux sans plafond",
-      "cap": "niveau plafonné à {{levelCap}}",
-      "reject": "niveaux supérieurs à {{levelCap}} interdits"
-    },
-    "menu": {
-      "adminTitle": "Gestion du tournoi",
-      "adminDescription_one": "{{count}} tournoi actif ou en pause sur ce serveur.",
-      "adminDescription_other": "{{count}} tournois actifs ou en pause sur ce serveur.",
-      "createTitle": "Créer un tournoi",
-      "createDescription": "Configurer les durées et la règle de niveau.",
-      "createUnavailable": "Aucun code valide n'est disponible pour ce serveur.",
-      "createButton": "Configurer",
-      "cancelTitle": "Annuler un tournoi",
-      "cancelDescription": "Choisir le tournoi à fermer, puis confirmer l'action.",
-      "cancelUnavailable": "Aucun tournoi ne peut être annulé sur ce serveur.",
-      "cancelButton": "Choisir",
-      "cancelListTitle": "Choisir le tournoi à annuler",
-      "cancelListDescription": "La sélection se fait dans cette liste. Aucun identifiant n'est nécessaire.",
-      "cancelConfirmTitle": "Confirmer l'annulation",
-      "cancelConfirmDescription": "L'annulation de {{tournament}} dans {{channel}} ferme le tournoi sans distribuer de récompenses.",
-      "cancelConfirmButton": "Annuler ce tournoi",
-      "ownerTitle": "Opérations tournoi",
-      "ownerDescription": "Actions réservées au propriétaire du bot pour le serveur courant.",
-      "codeTitle": "Générer un code",
-      "codeDescription": "Créer un code d'accès pour le serveur courant.",
-      "codeButton": "Générer",
-      "resumeTitle": "Reprendre un tournoi",
-      "resumeDescription": "Choisir un tournoi en pause et le déplacer dans le salon courant.",
-      "resumeUnavailable": "Aucun tournoi en pause n'est disponible sur ce serveur.",
-      "resumeButton": "Choisir",
-      "resumeListTitle": "Choisir le tournoi à reprendre",
-      "resumeListDescription": "Le temps restant et la phase seront conservés.",
-      "resumeConfirmTitle": "Confirmer la reprise",
-      "resumeConfirmDescription": "{{tournament}} reprendra dans {{channel}} avec son temps restant conservé.",
-      "resumeConfirmButton": "Reprendre ici",
-      "tournamentLabel": "Tournoi {{tournamentId}}",
-      "tournamentSummary_one": "{{status}} · {{count}} participant · {{channel}} · échéance {{phaseEnd}}",
-      "tournamentSummary_other": "{{status}} · {{count}} participants · {{channel}} · échéance {{phaseEnd}}",
-      "chooseButton": "Choisir",
-      "registrationDuration": "Durée des inscriptions",
-      "combatDuration": "Durée des combats",
-      "levelMode": "Règle de niveau",
-      "levelModeCategory": "Par catégorie",
-      "levelModeUnlimited": "Sans plafond",
-      "levelModeCap": "Plafonner le niveau",
-      "levelModeReject": "Refuser au-dessus du plafond",
-      "levelCap": "Plafond de niveau",
-      "levelCapPlaceholder": "Choisir un plafond",
-      "createWizardTitle": "Configuration du tournoi",
-      "createWizardDescription": "Les choix sont modifiables avant la confirmation.",
-      "createConfirmButton": "Créer le tournoi",
-      "day": "{{count}} Tag",
-      "days": "{{count}} Tage",
-      "paused": "temps en pause",
-      "back": "Zurück",
-      "close": "Fermer"
-    },
-    "fightReward": {
-      "title": "Résultat du combat tournoi",
-      "draw": "{{player1}} et {{player2}} font égalité.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi",
-      "result": "{{winner}} remporte le combat.\n{{player1}} : {{player1GloryChange}} gloire de tournoi\n{{player2}} : {{player2GloryChange}} gloire de tournoi"
-    },
-    "errorTitle": "Tournoi indisponible",
-    "errors": {
-      "notFound": "Aucun tournoi correspondant à ce contexte n'est disponible.",
-      "accessDenied": "Cette commande n'est pas disponible dans le salon tournoi.",
-      "invalidPhase": "Cette action n'est pas disponible pendant la phase actuelle.",
-      "alreadyRegistered": "Vous êtes déjà inscrit à ce tournoi.",
-      "levelTooLow": "Le niveau minimum pour participer est le niveau 8.",
-      "tooFewParticipants": "Le tournoi est annulé car les seuils de participants ne sont pas atteints.",
-      "invalidCode": "Ce code de tournoi est invalide.",
-      "expiredCode": "Ce code de tournoi a expiré.",
-      "usedCode": "Ce code de tournoi a déjà été utilisé.",
-      "codeGuildMismatch": "Ce code appartient à un autre serveur.",
-      "guildTooSmall": "Le serveur doit compter au moins 1 000 membres.",
-      "invalidDuration": "Les durées doivent être comprises entre 1 et 7 jours.",
-      "invalidChannel": "Cette commande doit être exécutée dans un salon texte valide.",
-      "invalidLevelLimit": "La configuration de niveau est invalide. Un plafond doit être un niveau entier d'au moins 8 et être associé au mode choisi.",
-      "levelTooHigh": "Votre niveau est trop élevé pour les conditions d'inscription de ce tournoi.",
-      "noOpponent": "Aucun adversaire tournoi n'est disponible pour le moment.",
-      "paused": "Le tournoi est actuellement en pause.",
-      "notRegistered": "Vous devez être inscrit pour utiliser cette commande dans le salon tournoi.",
-      "guildOnly": "Cette commande doit être utilisée sur un serveur Discord.",
-      "ownerOnly": "Cette commande est réservée au propriétaire du bot.",
-      "administratorOnly": "Cette commande est réservée aux administrateurs du serveur.",
-      "missingChannelPermissions": "Le bot n'a pas toutes les permissions nécessaires dans ce salon."
     }
   }
 }

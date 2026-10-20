@@ -19,11 +19,17 @@ import {
 import {
 	clearItemSlotData, copyItemSlotData, findFirstFreeBackupSlot, ItemSlotData
 } from "./ItemSlotUtils";
+import {
+	Locked, withLockedEntities
+} from "../../../../Lib/src/locks/withLockedEntities";
 
 type EquipActionResult = Omit<CommandEquipActionRes, "name">;
 
 /**
  * Handle an equip/deposit action from AsyncPacketSender.
+ *
+ * The inventory slots are read and saved under the player row lock, like every other inventory mutation
+ * (blacksmith enchantment transfer, chest...), so a concurrent action cannot save a stale copy of a slot.
  */
 export async function handleEquipAction(
 	keycloakId: string,
@@ -35,7 +41,10 @@ export async function handleEquipAction(
 	}
 
 	const itemCategory = packet.itemCategory as ItemCategory;
-	const error = await executeEquipAction(packet.action as EquipAction, player.id, packet.slot, itemCategory);
+	const error = await withLockedEntities(
+		[Player.lockKey(player.id)] as const,
+		([lockedPlayer]) => executeEquipActionUnderLock(packet.action as EquipAction, lockedPlayer, packet.slot, itemCategory)
+	);
 	if (error) {
 		return buildEquipActionError(error);
 	}
@@ -43,12 +52,12 @@ export async function handleEquipAction(
 	return buildRefreshedEquipData(player);
 }
 
-function executeEquipAction(action: EquipAction, playerId: number, slot: number, category: ItemCategory): Promise<EquipError | null> {
+function executeEquipActionUnderLock(action: EquipAction, lockedPlayer: Locked<Player>, slot: number, category: ItemCategory): Promise<EquipError | null> {
 	switch (action) {
 		case ItemConstants.EQUIP_ACTIONS.EQUIP:
-			return processEquip(playerId, slot, category);
+			return equipReserveItemUnderLock(lockedPlayer.id, slot, category);
 		case ItemConstants.EQUIP_ACTIONS.DEPOSIT:
-			return processDeposit(playerId, category);
+			return depositActiveItemUnderLock(lockedPlayer.id, category);
 		default:
 			return Promise.resolve(ItemConstants.EQUIP_ERRORS.INVALID);
 	}
@@ -87,7 +96,7 @@ function buildEquipActionError(error: EquipError): EquipActionResult {
 /**
  * Equip a reserve item (swap with active slot).
  */
-async function processEquip(playerId: number, reserveSlot: number, category: ItemCategory): Promise<EquipError | null> {
+async function equipReserveItemUnderLock(playerId: number, reserveSlot: number, category: ItemCategory): Promise<EquipError | null> {
 	const inventorySlots = await InventorySlots.getOfPlayer(playerId);
 	const toEquip = inventorySlots.find(s => s.itemCategory === category && s.slot === reserveSlot);
 	if (!toEquip || toEquip.itemId === 0) {
@@ -135,7 +144,7 @@ async function computeCategoryMaxSlots(playerId: number, category: ItemCategory)
 	return inventoryInfo.slotLimitForCategory(category) + bonusForCategory;
 }
 
-async function processDeposit(playerId: number, category: ItemCategory): Promise<EquipError | null> {
+async function depositActiveItemUnderLock(playerId: number, category: ItemCategory): Promise<EquipError | null> {
 	const inventorySlots = await InventorySlots.getOfPlayer(playerId);
 	const activeSlot = inventorySlots.find(s => s.itemCategory === category && s.isEquipped());
 	if (!activeSlot || activeSlot.itemId === 0) {
@@ -145,7 +154,7 @@ async function processDeposit(playerId: number, category: ItemCategory): Promise
 	const maxSlots = await computeCategoryMaxSlots(playerId, category);
 	const backupSlots = inventorySlots.filter(s => s.itemCategory === category && !s.isEquipped());
 
-	const placeError = await placeItemInBackupSlot({
+	const placeError = await placeItemInBackupSlotUnderLock({
 		playerId, category, source: activeSlot, backupSlots, maxSlots
 	});
 	if (placeError) {
@@ -159,7 +168,7 @@ async function processDeposit(playerId: number, category: ItemCategory): Promise
 	return null;
 }
 
-async function placeItemInBackupSlot({
+async function placeItemInBackupSlotUnderLock({
 	playerId, category, source, backupSlots, maxSlots
 }: {
 	playerId: number;

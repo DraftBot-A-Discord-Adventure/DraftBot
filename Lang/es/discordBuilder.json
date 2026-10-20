@@ -303,6 +303,20 @@
     "description": "Empezar una pelea.",
     "name": "combate"
   },
+  "friendlyFight": {
+    "description": "Iniciar un combate amistoso sin ninguna consecuencia contra otro jugador controlado por la IA.",
+    "name": "combate amistoso",
+    "options": {
+      "rank": {
+        "description": "La clasificación del jugador al que te vas a enfrentar.",
+        "name": "clasificación"
+      },
+      "user": {
+        "description": "El usuario al que hay que enfrentarse.",
+        "name": "usuario"
+      }
+    }
+  },
   "equip": {
     "name": "equipar",
     "description": "Gestiona tu equipamiento: equipa, guarda o intercambia tus objetos."
@@ -394,17 +408,5 @@
   "blessing": {
     "name": "bendición",
     "description": "Vea el estado actual de la bendición global."
-  },
-  "tournament": {
-    "name": "tournament",
-    "description": "Consulter votre tournoi ou vous y inscrire automatiquement."
-  },
-  "tournament-admin": {
-    "name": "tournament-admin",
-    "description": "Ouvrir la gestion du tournoi dans ce serveur."
-  },
-  "tournament-owner": {
-    "name": "tournament-owner",
-    "description": "Ouvrir les opérations owner du tournoi."
   }
 }

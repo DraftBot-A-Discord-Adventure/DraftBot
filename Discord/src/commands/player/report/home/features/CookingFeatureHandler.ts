@@ -1090,23 +1090,24 @@ export class CookingFeatureHandler implements HomeFeatureHandler {
 	 */
 	private buildPetFoodMessage(petFood: NonNullable<CommandReportCookingCraftRes["petFood"]>, ctx: HomeFeatureHandlerContext): string {
 		let message = "";
-		const foodName = i18n.t(`models:foods.${petFood.type}`, {
+		const getFoodName = (count: number): string => i18n.t(`models:foods.${petFood.type}`, {
 			lng: ctx.lng,
-			count: petFood.storedQuantity
+			count
 		});
 
 		if (petFood.storedQuantity > 0) {
 			message += `\n${i18n.t("commands:report.city.homes.cooking.petFoodStored", {
 				lng: ctx.lng,
-				quantity: petFood.storedQuantity,
-				food: foodName
+				count: petFood.storedQuantity,
+				food: getFoodName(petFood.storedQuantity)
 			})}`;
 		}
 
 		if (petFood.fedFromSurplus) {
+			// The pet eats a single ration, whatever the stored quantity
 			message += `\n${i18n.t("commands:report.city.homes.cooking.petFedFromSurplus", {
 				lng: ctx.lng,
-				food: foodName
+				food: getFoodName(1)
 			})}`;
 		}
 
