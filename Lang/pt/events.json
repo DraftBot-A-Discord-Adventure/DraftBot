@@ -70,7 +70,7 @@
       "forest": {
         "outcomes": {
           "0": "Perde-se na floresta durante várias horas, mas acaba por sair ileso.",
-          "1": "Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant, vous ramassez un objet qui pourra peut-être vous être utile !",
+          "1": "Gastas muito tempo a avançar pela floresta, mas acabas por conseguir atravessá-la! Ao saíres, apanhas um objeto que talvez te possa ser útil!",
           "2": "Enquanto cavalga pela floresta, cai com força numa vala. A ferida é profunda e tens de ser tratado!"
         },
         "text": "Atravessar a floresta na mesma."
@@ -631,20 +631,20 @@
         "text": "Para intervir e evitar que este homem morra."
       }
     },
-    "text": "En arrivant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'Église\"."
+    "text": "Ao chegar a uma aldeia, repara num grupo de pessoas. Ao aproximar-se, percebe rapidamente que está a decorrer um enforcamento. Depois de se informar um pouco, fica a saber que essa pessoa foi condenada à morte por «declarações contrárias aos valores da Igreja»."
   },
   "27": {
     "possibilities": {
       "end": {
         "outcomes": {
           "0": "Fica a olhar fixamente para o objeto durante 20 minutos, antes de desviar o olhar.",
-          "1": "Vous observez, penché au-dessus du puits, l'objet. C'est alors que vous basculez. Heureusement, vous arrivez rapidement à remonter, non sans vous être sévèrement blessé."
+          "1": "Inclinado sobre o poço, observas o objeto. É então que perdes o equilíbrio. Felizmente, consegues voltar rapidamente à superfície, embora não sem teres ficado gravemente ferido."
         }
       },
       "goDown": {
         "outcomes": {
           "0": "Feris-te gravemente durante a descida e ficaste retido no fundo durante algum tempo, até que alguém te encontrou.",
-          "1": "Vous arrivez en bas sans souci et récupérez l'objet.",
+          "1": "Chega ao fundo sem problemas e recupera o objeto.",
           "2": "Salta para dentro do poço, mas não encontra nada. Por isso, volta a subir de mãos vazias.",
           "3": "Assim que chegar lá em baixo, descobre uma grande quantidade de moedas de ouro, que recolhe com alegria."
         },
@@ -936,7 +936,7 @@
       "food": {
         "outcomes": {
           "0": "Um deles dá-lhe uma sopa bastante apetitosa. Bebe-a sem suspeitar. Estes malandros prepararam-te uma armadilha! Há muito tempo que esperavam para te pilhar e a bebida continha agaricus suficiente para te deixar doente. Sentes-te a perder o controlo enquanto observas, impotente, os teus bolsos serem roubados.",
-          "1": "Ces passants ont cuisiné pour vous un mets des plus savoureux, digne d'une potion gauloise. En regardant de plus près, vous apercevez un objet laissé au fond du bol. Il pourrait bien vous être utile pour la suite.",
+          "1": "Estes transeuntes prepararam para vocês um prato delicioso, digno de uma poção gaulesa. Ao olhar mais de perto, apercebem-se de um objeto deixado no fundo da tigela. Pode muito bem ser-vos útil mais à frente.",
           "2": "Encantados por vos poderem ajudar, o grupo vai comprar-vos a especialidade local. Ao ver o prato a chegar, fingis que está tudo bem, mas provam-no com certo nojo: não gostam de cogumelos! Com alguma dificuldade, acabam por comer o prato."
         },
         "text": "Prenda alimentar."
@@ -985,8 +985,8 @@
       },
       "steal": {
         "outcomes": {
-          "0": "Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans souci, mais la quatrième vous remarque et crie au voleur. Vous prenez la fuite.",
-          "1": "Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans souci, mais la quatrième vous remarque et crie au voleur. Vous finissez la nuit en prison et dédommagez ces gens."
+          "0": "Explica-lhe que não lhe apetece muito servir de cobaia, pelo que o barman, parecendo desapontado, deixa-o em paz. Dedica-se, então, à tarefa que lhe despertava interesse desde que entrou no bar: roubar discretamente os clientes. Revistas os bolsos de três pessoas sem problemas, mas a quarta repara em ti e grita «ladrão!». Fugas a correr.",
+          "1": "Explica-lhe que não lhe apetece muito servir de cobaia, pelo que o barman, parecendo desapontado, deixa-o em paz. Dedica-se, então, à tarefa que lhe apetecia desde que entrou no bar: roubar discretamente os clientes. Revistas os bolsos de três pessoas sem problemas, mas a quarta repara em ti e grita «ladrão!». Acabas a noite na prisão e indemnizas essas pessoas."
         },
         "text": "Recusar e tentar roubar as pessoas."
       },
@@ -1195,8 +1195,8 @@
       },
       "goBack": {
         "outcomes": {
-          "0": "Vous décidez de laisser l'ermite tranquille et de poursuivre votre route. Sur le chemin, vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
-          "1": "Vous poursuivez votre route, lorsque vous trouvez un homme blessé. En essayant de l'aider, vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent avant de repartir."
+          "0": "Decides deixar o eremita em paz e seguir o teu caminho. Pelo caminho, encontras algumas moedas no chão, ao lado de uma bolsa furada.",
+          "1": "Continuas o teu caminho, quando encontras um homem ferido. Ao tentares ajudá-lo, descobres que se trata de uma emboscada! Surgem uns homens que te roubam tudo antes de se retirarem."
         },
         "text": "Continue o seu caminho."
       }
@@ -1407,13 +1407,13 @@
       },
       "talk": {
         "outcomes": {
-          "0": "Vous passez près de 30 minutes à prendre des informations sur ce sanctuaire, informations qui ne s'avéreront pas utiles.",
+          "0": "Passa cerca de 30 minutos a recolher informações sobre este santuário, informações que acabarão por não ser úteis.",
           "1": "O grupo simplesmente não quer falar, e está a fazer com que o saiba."
         },
         "text": "Discutir com o grupo."
       }
     },
-    "text": "En arrivant aux abords d'un village animé, vous entendez un groupe de personnes parler d'un sanctuaire qui serait hanté. Curieux que vous êtes, vous tendez l'oreille. Le sanctuaire serait à 1 heure de route au sud, et le départ a lieu dans 30 minutes."
+    "text": "Ao chegar às proximidades de uma aldeia animada, ouves um grupo de pessoas a falar de um santuário que, dizem, está assombrado. Como és curioso, ficas a ouvir com atenção. O santuário fica a 1 hora de carro para sul, e a partida é daqui a 30 minutos."
   },
   "46": {
     "possibilities": {
@@ -1630,8 +1630,8 @@
       },
       "leave": {
         "outcomes": {
-          "0": "Après vous être bien reposé, vous décidez de repartir, sans la moindre trace de fatigue sur le visage.",
-          "1": "Alors que vous vous apprêtiez à repartir, vous vous rendez compte que le groupe de villageois se dirige vers vous, ils se mettent alors à vous racketter et vous leur donnez de l'argent pour qu'ils vous laissent tranquille.",
+          "0": "Depois de ter descansado bem, decide partir novamente, sem o menor sinal de cansaço no rosto.",
+          "1": "Quando se preparava para partir, apercebeu-se de que o grupo de aldeões se dirigia na sua direção; eles começaram então a extorquir-lhe dinheiro e você deu-lhes algum para que o deixassem em paz.",
           "2": "Decide partir de novo, deixando a aldeia Coco para continuar a sua missão."
         },
         "text": "Deixar a aldeia sem mais demoras."
@@ -1645,7 +1645,7 @@
         "text": "Continue a sua sesta ao pé da árvore."
       }
     },
-    "text": "Lors de votre périple, vous atteignez un petit hameau du nom de village Coco, il fait très chaud et vous avez besoin de vous reposer. Les lieux ne vous semblant pas hostiles, vous faites donc une halte dans cette oasis. Alors que vous vous reposez au pied d'un cocotier, vous apercevez un groupe de villageois escaladant les arbres pour attraper des fruits que vous n'aviez jamais vus auparavant, ils sont ronds comme des ballons et durs comme du bois et ne vous semblent pas appétissants."
+    "text": "Durante a vossa viagem, chegam a uma pequena aldeia chamada Coco; está muito calor e precisam de descansar. Como o local não vos parece hostil, decidem fazer uma paragem neste oásis. Enquanto descansa ao pé de um coqueiro, avista um grupo de aldeões a trepar às árvores para apanhar frutos que nunca tinha visto antes; são redondos como balões e duros como madeira e não lhe parecem apetitosos."
   },
   "51": {
     "possibilities": {
@@ -1991,7 +1991,7 @@
       "goDeeper": {
         "outcomes": {
           "0": "Perder-se-á rapidamente neste labirinto, mas acabará por emergir após algumas horas!",
-          "1": "Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut-être vous servir...",
+          "1": "Passas alguns minutos a explorar a gruta de cima a baixo e encontras um objeto que talvez te possa ser útil...",
           "2": "A gruta revela-se rapidamente um beco sem saída, mas, ao sair, bate com a cabeça no teto e cai atordoado! Vais precisar de cuidados médicos!"
         },
         "text": "Entrar mais fundo na gruta."
@@ -2356,9 +2356,9 @@
       "check": {
         "outcomes": {
           "0": "Ao forçar a porta a abrir-se, está a magoar-se profundamente. Tens absolutamente de cuidar de ti!",
-          "1": "Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En vous éloignant du seuil, vous trouvez un objet qui pourra peut-être vous être utile !",
+          "1": "Depois de passar quase uma hora a tentar entrar na casa, acabas por desistir. Ao afastares-te da porta, encontras um objeto que talvez te possa ser útil!",
           "2": "Entras em casa e pousas as tuas coisas para descansares. Tomado por um sono profundo, desabas numa cama empoeirada que estava abandonada num canto.",
-          "3": "Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut-être vous être utile !",
+          "3": "Entras na casa e vasculhas tudo à tua volta durante cerca de quinze minutos. Ao saíres, encontras um objeto que talvez te possa ser útil!",
           "4": "Entra em casa e procura durante cerca de quinze minutos. Por fim, desiste da busca sem ter encontrado nada."
         },
         "text": "Visite o interior."
@@ -2896,7 +2896,7 @@
       "help": {
         "outcomes": {
           "0": "Após 15 minutos de procura, encontra a forquilha junto a um monte de feno. Para te agradecer, o agricultor oferece-te algumas moedas.",
-          "1": "Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut-être vous être utile !",
+          "1": "Após meia hora de buscas, não consegue encontrar o garfo. No entanto, descobre um objeto que talvez lhe possa ser útil!",
           "2": "À procura do garfo, pisa-o e faz um corte feio.",
           "3": "Procura a forquilha durante quase uma hora, mas não a encontra. Educadamente, deixa o agricultor e continua o seu caminho."
         },
