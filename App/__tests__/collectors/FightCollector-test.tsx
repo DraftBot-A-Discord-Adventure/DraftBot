@@ -355,6 +355,11 @@ describe("live battle presentation", () => {
 		};
 		await render(<FightLiveView fight={bossFight} onChoose={jest.fn()} submitting={false} onClose={close} />);
 		expect(screen.getByText("app:arena.victory")).toBeTruthy();
+
+		// Long loot scrolls on its own: the way back to the adventure stays outside it, always in reach.
+		const results = screen.getByTestId("fight-result-scroll");
+		expect(within(results).getByText("+120")).toBeTruthy();
+		expect(within(results).queryByText("app:adventure.continueReport")).toBeNull();
 		expect(screen.getByText("+120")).toBeTruthy();
 		expect(screen.getByText("+340")).toBeTruthy();
 		expect(screen.getByText("+15")).toBeTruthy();

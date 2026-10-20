@@ -2,7 +2,7 @@ import {
 	ReactNode, useState
 } from "react";
 import {
-	ActivityIndicator, Text, View, useWindowDimensions
+	ActivityIndicator, ScrollView, Text, View, useWindowDimensions
 } from "react-native";
 import { CircleAlert } from "@/src/design/FightIcons";
 import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
@@ -51,7 +51,12 @@ const useStyles = createStyles(colors => ({
 		fontFamily: Theme.fonts.regular, fontSize: 10, lineHeight: 15, color: colors.muted
 	},
 	journal: { maxHeight: 480 },
-	resultActions: { marginTop: 18 },
+	resultScroll: {
+		flex: 1, minHeight: 0
+	},
+	resultActions: {
+		flexShrink: 0, paddingTop: 12
+	},
 	loading: {
 		flex: 1, alignItems: "center", justifyContent: "center", gap: 14
 	},
@@ -125,7 +130,12 @@ function FinishedFight({
 }: FightContentProps & { result: FightEnd }): ReactNode {
 	const styles = useStyles();
 	const closeLabel = i18n.t(fight.introduction?.opponent.monsterId ? "app:adventure.continueReport" : "app:battle.returnToArena");
-	return <View style={styles.body}><FightResult result={result} reward={fight.reward} monsterReward={fight.monsterReward} /><View style={styles.resultActions}><ButtonRow><Button variant="primary" onPress={navigation.onClose}>{closeLabel}</Button><Button onPress={navigation.onJournal}>{i18n.t("app:arena.log")}</Button></ButtonRow></View></View>;
+
+	// A boss leaves long rewards behind: they scroll, and the way out stays in reach under them.
+	return <View style={styles.body}>
+		<ScrollView style={styles.resultScroll} testID="fight-result-scroll"><FightResult result={result} reward={fight.reward} monsterReward={fight.monsterReward} /></ScrollView>
+		<View style={styles.resultActions}><ButtonRow><Button variant="primary" onPress={navigation.onClose}>{closeLabel}</Button><Button onPress={navigation.onJournal}>{i18n.t("app:arena.log")}</Button></ButtonRow></View>
+	</View>;
 }
 
 function FightContent(props: FightContentProps): ReactNode {
