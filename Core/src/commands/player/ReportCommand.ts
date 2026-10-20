@@ -657,6 +657,155 @@ function buildCanUpgradeBuildings(guild: Guild): BuildingUpgradeEligibilityMap {
 	return result;
 }
 
+type GuildFoodSnapshot = {
+	food: {
+		common: number;
+		carnivorous: number;
+		herbivorous: number;
+		ultimate: number;
+	};
+	foodCaps: ReturnType<typeof GuildDomainConstants.getFoodCaps>;
+	maxBuyableFood: ReturnType<typeof GuildDomainConstants.getMaxBuyableFood>;
+};
+
+type GuildCityContext = {
+	player: Player;
+	city: City;
+};
+
+function buildGuildFoodSnapshot(guild: Guild): GuildFoodSnapshot {
+	const foodArray = [
+		guild.commonFood,
+		guild.herbivorousFood,
+		guild.carnivorousFood,
+		guild.ultimateFood
+	] as const;
+	const foodCaps = GuildDomainConstants.getFoodCaps(guild.pantryLevel);
+	return {
+		food: {
+			common: guild.commonFood,
+			carnivorous: guild.carnivorousFood,
+			herbivorous: guild.herbivorousFood,
+			ultimate: guild.ultimateFood
+		},
+		foodCaps,
+		maxBuyableFood: GuildDomainConstants.getMaxBuyableFood(guild.treasury, foodArray, foodCaps)
+	};
+}
+
+async function getGuildShelterPets(guild: Guild): Promise<NonNullable<ReactionCollectorCityData["guildDomain"]>["shelterPets"]> {
+	const guildPetEntries = await GuildPets.getOfGuild(guild.id);
+	const shelterPets = await Promise.all(guildPetEntries.map(gp => PetEntities.getById(gp.petEntityId)));
+	return shelterPets.filter(pe => pe !== null).map(pe => pe!.asOwnedPet());
+}
+
+async function buildGuildDomainData(
+	{
+		player, city
+	}: GuildCityContext,
+	guild: Guild,
+	foodSnapshot: GuildFoodSnapshot
+): Promise<ReactionCollectorCityData["guildDomain"]> {
+	if (guild.domainCityId !== city.id) {
+		return undefined;
+	}
+	return {
+		isInCity: true,
+		guildName: guild.name,
+		shopLevel: guild.shopLevel,
+		shelterLevel: guild.shelterLevel,
+		pantryLevel: guild.pantryLevel,
+		trainingGroundLevel: guild.trainingGroundLevel,
+		guildLevel: guild.level,
+		treasury: guild.treasury,
+		playerMoney: player.money,
+		isChief: guild.chiefId === player.id,
+		isElder: guild.elderId === player.id,
+		...foodSnapshot,
+		shelterPets: await getGuildShelterPets(guild),
+		shelterMaxCount: GuildDomainConstants.getShelterSlots(guild.shelterLevel),
+		canUpgradeBuildings: buildCanUpgradeBuildings(guild),
+		canDeposit: {
+			small: player.money >= GuildDomainConstants.SHOP_PRICES.SMALL_DEPOSIT,
+			big: player.money >= GuildDomainConstants.SHOP_PRICES.BIG_DEPOSIT,
+			huge: player.money >= GuildDomainConstants.SHOP_PRICES.HUGE_DEPOSIT
+		}
+	};
+}
+
+function buildGuildDomainNotaryData(
+	{
+		player, city
+	}: GuildCityContext,
+	guild: Guild
+): ReactionCollectorCityData["guildDomainNotary"] {
+	if (guild.chiefId !== player.id || guild.domainCityId === city.id) {
+		return undefined;
+	}
+	const cost = guild.domainCityId
+		? GuildDomainConstants.DOMAIN_RELOCATION_COST
+		: GuildDomainConstants.DOMAIN_PURCHASE_COST;
+	return {
+		hasDomain: guild.domainCityId !== null,
+		cost,
+		treasury: guild.treasury,
+		isChief: true,
+		canAfford: guild.treasury >= cost
+	};
+}
+
+/**
+ * Guild food shop: available when the guild has a shop but is NOT in the domain city (where the full shop is available via the domain entrance)
+ */
+function buildGuildFoodShopData(
+	{
+		player, city
+	}: GuildCityContext,
+	guild: Guild,
+	foodSnapshot: GuildFoodSnapshot
+): ReactionCollectorCityData["guildFoodShop"] {
+	if (guild.shopLevel < 1 || guild.domainCityId === city.id) {
+		return undefined;
+	}
+	return {
+		guildName: guild.name,
+		...foodSnapshot,
+		playerMoney: player.money,
+		treasury: guild.treasury
+	};
+}
+
+type GuildCityData = Pick<ReactionCollectorCityData, "guildDomain" | "guildDomainNotary" | "guildFoodShop">;
+
+async function buildGuildCityData(guildContext: GuildCityContext): Promise<GuildCityData> {
+	const guild = guildContext.player.guildId ? await Guilds.getById(guildContext.player.guildId) : null;
+	if (!guild) {
+		return {};
+	}
+	const foodSnapshot = buildGuildFoodSnapshot(guild);
+	return {
+		guildDomain: await buildGuildDomainData(guildContext, guild, foodSnapshot),
+		guildDomainNotary: buildGuildDomainNotaryData(guildContext, guild),
+		guildFoodShop: buildGuildFoodShopData(guildContext, guild, foodSnapshot)
+	};
+}
+
+function buildCityInnsData(city: City): ReactionCollectorCityData["inns"] {
+	return city.inns.map(inn => ({
+		innId: inn.id,
+		meals: city.getTodayInnMeals(inn, new Date()).map(meal => ({
+			mealId: meal.id,
+			price: meal.price,
+			energy: meal.energy
+		})),
+		rooms: inn.rooms.map(room => ({
+			roomId: room.id,
+			price: room.price,
+			health: room.health
+		}))
+	}));
+}
+
 async function sendCityCollector(
 	context: PacketContext,
 	response: CrowniclesPacket[],
@@ -690,92 +839,15 @@ async function sendCityCollector(
 		? await buildRoyalBlacksmithData(playerInventory, playerMaterialMap, player)
 		: undefined;
 
-	const guild = player.guildId ? await Guilds.getById(player.guildId) : null;
-	let shelterPets: Awaited<ReturnType<typeof PetEntities.getById>>[] = [];
-	if (guild?.domainCityId === city.id) {
-		const guildPetEntries = await GuildPets.getOfGuild(guild.id);
-		shelterPets = await Promise.all(guildPetEntries.map(gp => PetEntities.getById(gp.petEntityId)));
-	}
-	const guildFoodSnapshot = guild
-		? {
-			food: {
-				common: guild.commonFood,
-				carnivorous: guild.carnivorousFood,
-				herbivorous: guild.herbivorousFood,
-				ultimate: guild.ultimateFood
-			},
-			foodArray: [
-				guild.commonFood,
-				guild.herbivorousFood,
-				guild.carnivorousFood,
-				guild.ultimateFood
-			] as const,
-			foodCaps: GuildDomainConstants.getFoodCaps(guild.pantryLevel)
-		}
-		: null;
-	const guildMaxBuyableFood = guild && guildFoodSnapshot
-		? GuildDomainConstants.getMaxBuyableFood(guild.treasury, guildFoodSnapshot.foodArray, guildFoodSnapshot.foodCaps)
-		: null;
-
-	const guildDomain = guild?.domainCityId === city.id
-		? {
-			isInCity: true,
-			guildName: guild.name,
-			shopLevel: guild.shopLevel,
-			shelterLevel: guild.shelterLevel,
-			pantryLevel: guild.pantryLevel,
-			trainingGroundLevel: guild.trainingGroundLevel,
-			guildLevel: guild.level,
-			treasury: guild.treasury,
-			playerMoney: player.money,
-			isChief: guild.chiefId === player.id,
-			isElder: guild.elderId === player.id,
-			food: guildFoodSnapshot!.food,
-			foodCaps: guildFoodSnapshot!.foodCaps,
-			maxBuyableFood: guildMaxBuyableFood!,
-			shelterPets: shelterPets.filter(pe => pe !== null).map(pe => pe!.asOwnedPet()),
-			shelterMaxCount: GuildDomainConstants.getShelterSlots(guild.shelterLevel),
-			canUpgradeBuildings: buildCanUpgradeBuildings(guild),
-			canDeposit: {
-				small: player.money >= GuildDomainConstants.SHOP_PRICES.SMALL_DEPOSIT,
-				big: player.money >= GuildDomainConstants.SHOP_PRICES.BIG_DEPOSIT,
-				huge: player.money >= GuildDomainConstants.SHOP_PRICES.HUGE_DEPOSIT
-			}
-		}
-		: undefined;
-
-	const isGuildChief = guild !== null && guild.chiefId === player.id;
-	let guildDomainNotary: ReactionCollectorCityData["guildDomainNotary"];
-	if (isGuildChief && guild.domainCityId !== city.id) {
-		const cost = guild.domainCityId
-			? GuildDomainConstants.DOMAIN_RELOCATION_COST
-			: GuildDomainConstants.DOMAIN_PURCHASE_COST;
-		guildDomainNotary = {
-			hasDomain: guild.domainCityId !== null,
-			cost,
-			treasury: guild.treasury,
-			isChief: true,
-			canAfford: guild.treasury >= cost
-		};
-	}
+	const guildData = await buildGuildCityData({
+		player, city
+	});
 
 	/*
 	 * Apartment notary: present in every city. Lets the player buy an apartment
 	 * here (if none yet) and/or claim rent from apartments owned in other cities.
 	 */
 	const apartmentNotary = await buildApartmentNotaryData(player, city, home, new Date());
-
-	// Guild food shop: available when the guild has a shop but is NOT in the domain city (where the full shop is available via the domain entrance).
-	const guildFoodShop = guild && guild.shopLevel >= 1 && guild.domainCityId !== city.id
-		? {
-			guildName: guild.name,
-			food: guildFoodSnapshot!.food,
-			foodCaps: guildFoodSnapshot!.foodCaps,
-			maxBuyableFood: guildMaxBuyableFood!,
-			playerMoney: player.money,
-			treasury: guild.treasury
-		}
-		: undefined;
 
 	const collectorData: ReactionCollectorCityData = {
 		mapTypeId: MapLocationDataController.instance.getById(player.getDestinationId()!)!.type,
@@ -787,19 +859,7 @@ async function sendCityCollector(
 			[CITY_SERVICES.ENCHANTER]: enchanter !== undefined,
 			[CITY_SERVICES.BOSS_ARCHIVIST]: city.hasService(CITY_SERVICES.BOSS_ARCHIVIST)
 		}),
-		inns: city.inns.map(inn => ({
-			innId: inn.id,
-			meals: city.getTodayInnMeals(inn, new Date()).map(meal => ({
-				mealId: meal.id,
-				price: meal.price,
-				energy: meal.energy
-			})),
-			rooms: inn.rooms.map(room => ({
-				roomId: room.id,
-				price: room.price,
-				health: room.health
-			}))
-		})),
+		inns: buildCityInnsData(city),
 		shops: await Promise.all((city.shops || []).map(async shopId => ({
 			shopId,
 			isEmpty: await isCityShopEmpty(player, shopId)
@@ -825,9 +885,7 @@ async function sendCityCollector(
 		blacksmith,
 		scrapDealer,
 		royalBlacksmith,
-		guildDomain,
-		guildFoodShop,
-		guildDomainNotary,
+		...guildData,
 		apartmentNotary,
 		minimumCityStayScore: getRewardedCityStayMinutes(player, new Date()),
 		initialMenu: options.initialMenu
