@@ -8,9 +8,13 @@ import i18n from "../translations/i18n";
 import { LANGUAGE } from "../../../Lib/src/Language";
 
 /** Crowdin only translates develop: a name it has not translated yet registers as its key, a translated one exactly as written (#4864) */
+/**
+ * The registered name, which every mention resolves against: a command Crowdin has not translated yet keeps its
+ * section name rather than borrowing the French name through the French fallback.
+ */
 function englishNameOf(nameKey: string, sectionName: string): string {
 	return i18n.t(nameKey, {
-		lng: LANGUAGE.ENGLISH, defaultValue: sectionName.toLowerCase()
+		lng: LANGUAGE.ENGLISH, fallbackLng: false, defaultValue: sectionName.toLowerCase()
 	});
 }
 
