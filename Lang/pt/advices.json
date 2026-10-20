@@ -348,8 +348,8 @@
     "Um equipamento raro é mais caro de melhorar do que um equipamento comum: a raridade do objeto influencia fortemente o preço na forja.",
     "Alguns equipamentos muito raros, como os lendários, exigem uma fortuna para serem melhorados para o nível seguinte.",
     "Antes de iniciar uma remodelação dispendiosa, verifique no seu inventário se já dispõe de todos os materiais necessários.",
-    "O desencantamento retira a magia de um equipamento encantado: o ferreiro cobra por esta delicada operação, enquanto o encantador itinerante Mernil o faz gratuitamente.",
-    "Na oficina do ferreiro, os custos de desencantamento são mais elevados para os equipamentos e runas poderosos, uma vez que o processo exige mais competências.",
+    "O desencantamento retira a magia de um equipamento encantado: o encantador itinerante Mernil trata disso gratuitamente.",
+    "No ferreiro, transferir um encantamento custa mais caro quando o equipamento que o recebe é raro, pois a operação exige mais habilidade.",
     "Depois de desencantado, o seu equipamento perde o encantamento e volta a ser comum, mas a arma ou a armadura em si permanece intacta após o processo.",
     "O feiticeiro visita várias cidades e oferece apenas uma runa de cada vez, alterando a sua oferta de um dia para o outro.",
     "As gemas são raras e valiosas: poupem-nas.",
@@ -459,7 +459,7 @@
     "O botão «Ficar na cidade» permite-lhe continuar a explorar os serviços disponíveis sem ter de retomar a viagem para um novo destino.",
     "Se tiver comido recentemente, a mensagem indica a hora exata em que poderá comer novamente.",
     "Os tempos de espera dos serviços (refeições, sono, encantamentos) são apresentados com horários do Discord que se atualizam automaticamente de acordo com o teu fuso horário.",
-    "O ferreiro melhora o nível do teu equipamento, enquanto o encantador lhes confere novas propriedades. Ambos sabem remover um encantamento: as suas funções são complementares.",
+    "O ferreiro melhora o nível do teu equipamento e sabe transferir um encantamento de um objeto para outro, enquanto o encantador lhes acrescenta novas propriedades ou as remove: as suas funções são complementares.",
     "Algumas missões ou eventos obrigam-no a ficar na cidade para avançar, enquanto outros exigem que continue a sua viagem: leia os objetivos com atenção.",
     "As pousadas oferecem refeições diferentes todos os dias, de acordo com uma seleção rotativa, o que significa que alguns bónus de energia só estão disponíveis em dias específicos.",
     "Acender ou reacender o fogão da sua cozinha consome um material do tipo madeira, dando prioridade aos recursos mais comuns.",
@@ -478,6 +478,7 @@
     "A Bolsa de Claire de Ville oferece um serviço de especulação.",
     "As gemas podem ser trocadas por recompensas únicas no castelo do rei.",
     "Se estiver à procura de materiais, visite a Cidade Fortificada: há um comerciante que lhos pode vender.",
-    "Um herborista instalou-se no Village Coco."
+    "Um herborista instalou-se no Village Coco.",
+    "Acabou de ficar com uma arma ou armadura melhor? O ferreiro pode transferir o encantamento da antiga para ela, desde que esta ainda não tenha nenhum."
   ]
 }
