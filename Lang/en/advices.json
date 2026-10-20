@@ -348,8 +348,8 @@
     "Rare equipment costs more to upgrade than common equipment: the item's rarity has a significant impact on the forging cost.",
     "Some very rare items, such as legendary ones, cost a fortune to upgrade to the next level.",
     "Before undertaking a costly improvement, check your inventory to see if you already have all the necessary materials.",
-    "Disenchantment removes the magic from an enchanted item: the blacksmith charges a fee for this delicate procedure, while the traveling enchanter Mernil performs it for free.",
-    "At the blacksmith's, the costs of disenchanting are higher for powerful gear and runes, since the process requires more skill.",
+    "Disenchantment removes the magic from enchanted gear: Mernil, the traveling enchanter, will do it for free.",
+    "At the blacksmith's, transferring an enchantment costs more if the equipment receiving it is rare, because the process requires more skill.",
     "Once disenchanted, your equipment loses its enchantment and becomes ordinary again, but the weapon or armor itself remains intact.",
     "The enchanter visits different cities and offers only one rune at a time, changing his selection from day to day.",
     "Gems are rare and valuable: save them.",
@@ -459,7 +459,7 @@
     "The \"Stay in Town\" button lets you continue exploring the available services without having to head out to a new destination.",
     "If you've eaten recently, the message tells you the exact time when you can eat again.",
     "Wait times for services (meals, sleep, enchantments) are displayed using Discord timestamps that automatically update to your time zone.",
-    "The blacksmith upgrades your equipment, while the enchanter adds new properties to it. Both can remove an enchantment: their roles complement each other.",
+    "The blacksmith upgrades your equipment and can transfer an enchantment from one item to another, while the enchanter adds new properties to your equipment or removes them: their roles complement each other.",
     "Some missions or events require you to stay in town to make progress, while others require you to continue on your way: read the objectives carefully.",
     "The inns offer different meals each day from a rotating selection, which means that certain energy bonuses are only available on specific days.",
     "Lighting or relighting your kitchen stove burns a wood-like fuel, prioritizing the most common resources.",
@@ -478,6 +478,7 @@
     "Claire de Ville Stock Exchange offers a trading service.",
     "Gems can be exchanged for unique rewards at the King's Castle.",
     "If you're looking for materials, visit the Fortified City: a merchant there can sell them to you.",
-    "An herbalist has opened a shop in Village Coco."
+    "An herbalist has opened a shop in Village Coco.",
+    "Have you just gotten your hands on a better weapon or piece of armor? The blacksmith can transfer the enchantment from your old one to it, as long as it doesn't already have one."
   ]
 }
