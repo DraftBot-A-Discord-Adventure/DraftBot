@@ -20,11 +20,7 @@ import { PushServices } from "../push/PushServices";
 import { PushResult } from "../push/PushSender";
 import { RestWsMqttClient } from "./RestWsMqttClient";
 import { MqttManager } from "./MqttManager";
-
-async function playerName(keycloakId: string): Promise<string | undefined> {
-	const user = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
-	return user.isError ? undefined : user.payload.user.attributes.gameUsername?.[0];
-}
+import { resolvePlayerName } from "../packets/fromServer/PlayerDisplay";
 
 async function playerLanguage(keycloakId: string): Promise<Language> {
 	const user = await KeycloakUtils.getUserByKeycloakId(keycloakConfig, keycloakId);
@@ -64,7 +60,7 @@ export class AppNotificationsMqttClient extends RestWsMqttClient {
 		});
 		this.dispatch = {
 			push: (device, message): Promise<PushResult> => pushServices.send(device, message),
-			playerName,
+			playerName: async (keycloakId): Promise<string | undefined> => await resolvePlayerName(keycloakId) ?? undefined,
 			playerLanguage,
 			isConnected: (keycloakId): boolean => WebSocketServer.isConnected(keycloakId),
 			isInForeground: (keycloakId): boolean => WebSocketServer.isInForeground(keycloakId),
