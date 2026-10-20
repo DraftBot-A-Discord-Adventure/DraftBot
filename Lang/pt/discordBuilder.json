@@ -304,15 +304,15 @@
     "name": "combate"
   },
   "friendlyFight": {
-    "description": "Lancer un combat amical sans aucune conséquence contre un autre joueur contrôlé par une IA.",
-    "name": "combatamical",
+    "description": "Iniciar um combate amigável, sem quaisquer consequências, contra outro jogador controlado pela IA.",
+    "name": "combate amigável",
     "options": {
       "rank": {
-        "description": "Le classement du joueur à affronter.",
+        "description": "A classificação do jogador que se vai enfrentar.",
         "name": "classificação"
       },
       "user": {
-        "description": "L'utilisateur à affronter.",
+        "description": "O utilizador a enfrentar.",
         "name": "utilizador"
       }
     }
