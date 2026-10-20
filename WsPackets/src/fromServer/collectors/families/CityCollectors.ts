@@ -149,6 +149,8 @@ export type CityMobileSnapshot = {
 			canClaim: boolean;
 		}[];
 		ownedCount: number;
+
+		/** The rent waiting across the let apartments; a foothold earns none. */
 		accumulatedRent: number;
 
 		/** The price of this city's apartment, sent instead of `forSale` while the player owns no home yet. */

@@ -164,7 +164,9 @@ function mapApartmentNotary(data: ReactionCollectorCityData["apartmentNotary"]):
 			apartmentId: apartment.apartmentId, mapLocationId: apartment.mapLocationId, accumulatedRent: apartment.accumulatedRent, isRented: apartment.isRented, canClaim: apartment.canClaim
 		})),
 		ownedCount: data.ownedApartments.length,
-		accumulatedRent: data.ownedApartments.reduce((total, apartment) => total + apartment.accumulatedRent, 0),
+
+		// Only a let apartment pays: a foothold's figure is time elapsed, not a rent the notary can hand over.
+		accumulatedRent: data.ownedApartments.filter(apartment => apartment.isRented).reduce((total, apartment) => total + apartment.accumulatedRent, 0),
 		...data.requiresHomePrice === undefined ? {} : { requiresHomePrice: data.requiresHomePrice }
 	};
 }

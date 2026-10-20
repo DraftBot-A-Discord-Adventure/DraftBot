@@ -33,7 +33,7 @@ function recycleEnd(snapshot: CityMobileSnapshot | undefined, item?: CityMobileI
 function apartmentRentEnd(reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined): string | undefined {
 	const apartmentId = (reaction.data as { apartmentId?: number }).apartmentId;
 	const apartment = snapshot?.apartmentNotary?.ownedApartments.find(candidate => candidate.apartmentId === apartmentId);
-	return apartment && apartment.accumulatedRent > 0 ? formatMoney(apartment.accumulatedRent) : undefined;
+	return apartment?.isRented && apartment.accumulatedRent > 0 ? formatMoney(apartment.accumulatedRent) : undefined;
 }
 
 type EndResolver = (reaction: ReactionCollectorReaction, snapshot: CityMobileSnapshot | undefined, item?: CityMobileItem) => string | undefined;

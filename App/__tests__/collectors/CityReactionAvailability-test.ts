@@ -3,6 +3,7 @@ import {
 } from "ws-packets/src/fromServer/collectors";
 import { cityReactionAvailable } from "@/src/collectors/CityReactionAvailability";
 import { cityReactionLock } from "@/src/collectors/CityReactionLocks";
+import { cityRowEnd } from "@/src/collectors/CityRowEnd";
 
 const NOW = Date.UTC(2026, 9, 15, 12);
 
@@ -62,5 +63,10 @@ describe("apartment rent", () => {
 
 	it("tells a let apartment how much rent it still needs", () => {
 		expect(cityReactionLock(claim, owning(true), NOW)?.reason).toMatch(/^40 .* il en faut 100 /);
+	});
+
+	it("shows the rent waiting on a let apartment's row alone, never on a foothold that cannot pay it", () => {
+		expect(cityRowEnd(claim, owning(true))).toMatch(/^40 /);
+		expect(cityRowEnd(claim, owning(false))).toBeUndefined();
 	});
 });
