@@ -644,6 +644,16 @@ describe("Adventure screen", () => {
 		expect(screen.queryByText("app:adventure.continueReport")).toBeNull();
 	});
 
+	it("shows the energy left for the fights in place of the points, on the island", async () => {
+		mockReport(report(true));
+
+		await render(<Adventure />);
+
+		expect(await screen.findByText("app:vitals.energy")).toBeTruthy();
+		expect(screen.getByText("8 / 10")).toBeTruthy();
+		expect(screen.queryByTestId("vitals-score")).toBeNull();
+	});
+
 	it("keeps health, total points and purse above the report", async () => {
 		mockReport();
 

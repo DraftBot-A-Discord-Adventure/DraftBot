@@ -10,6 +10,10 @@ import {
 import { Theme } from "@/src/design/Theme";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
 import { usePlayerProfile } from "@/src/store/usePlayerProfile";
+import { requestReportView } from "@/src/store/useReportActions";
+import { GAME_ENTITIES } from "@/src/store/GameEntities";
+import { useGameQuery } from "@/src/store/useGameQuery";
+import { ReportTravelSummaryRes } from "ws-packets/src/fromServer/report/ReportTravelSummaryRes";
 import { i18n } from "@/src/translations/i18n";
 import {
 	createStyles, useColors
@@ -168,7 +172,13 @@ function Score({ score }: { score: number }): ReactNode {
 	);
 }
 
-function VitalsBand({ profile }: { profile: ProfileRes }): ReactNode {
+type TravelEnergy = ReportTravelSummaryRes["energy"];
+
+function VitalsBand({
+	profile, energy
+}: {
+	profile: ProfileRes; energy: TravelEnergy | undefined;
+}): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
 	return (
@@ -181,7 +191,15 @@ function VitalsBand({ profile }: { profile: ProfileRes }): ReactNode {
 					max={profile.health.max}
 					color={colors.red}
 				/>
-				<Score score={profile.rank.score} />
+				{energy?.show
+					? <Vital
+						icon={AppIcons.getIcon("unitValues.energy")}
+						label={i18n.t("app:vitals.energy")}
+						current={energy.current}
+						max={energy.max}
+						color={colors.green}
+					/>
+					: <Score score={profile.rank.score} />}
 			</View>
 			<View style={styles.wallet}>
 				<Chip unit={AMOUNT_UNITS.MONEY} value={profile.money} />
@@ -193,12 +211,16 @@ function VitalsBand({ profile }: { profile: ProfileRes }): ReactNode {
 }
 
 /**
- * Health, total points and purse, kept above the adventure content.
+ * Health, total points (or energy, on the island) and purse, kept above the adventure content.
  *
  * Reads the shared profile rather than taking values from the screen below it: the same numbers
  * are shown whichever adventure state is on screen, and a resolved action refreshes both at once.
  */
 export function PlayerVitals(): ReactNode {
 	const state = usePlayerProfile();
-	return state.status === "ready" ? <VitalsBand profile={state.data} /> : null;
+	const report = useGameQuery(GAME_ENTITIES.REPORT, requestReportView);
+
+	// On the island and its boat the report tells the energy left for the fights, in place of the points.
+	const energy = report.status === "ready" ? report.data.travel?.energy : undefined;
+	return state.status === "ready" ? <VitalsBand profile={state.data} energy={energy} /> : null;
 }
