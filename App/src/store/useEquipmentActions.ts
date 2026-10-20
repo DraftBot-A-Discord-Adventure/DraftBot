@@ -15,7 +15,9 @@ type EquipmentActions = {
 	categories: EquipCategoryData[];
 	pending: boolean;
 	error: string | null;
-	submit: (action: EquipActionReq) => Promise<void>;
+
+	/** Resolves with the translation key of the refusal, or null once the item moved. */
+	submit: (action: EquipActionReq) => Promise<string | null>;
 };
 
 export function useEquipmentActions(initialCategories: EquipCategoryData[]): EquipmentActions {
@@ -33,34 +35,38 @@ export function useEquipmentActions(initialCategories: EquipCategoryData[]): Equ
 		};
 	}, []);
 
-	const submit = async (action: EquipActionReq): Promise<void> => {
+	const fail = (key: string): string => {
+		if (active.current) {
+			setError(key);
+		}
+		return key;
+	};
+
+	const submit = async (action: EquipActionReq): Promise<string | null> => {
 		if (inFlight.current) {
-			return;
+			return null;
 		}
 		inFlight.current = true;
 		setPending(true);
 		setError(null);
 		try {
 			const answer = await GameClient.request(action, EquipActionRes, [Blocked]);
-			if (!active.current) {
-				return;
-			}
 			if (answer.kind !== "answer") {
-				setError("app:common.connectionError");
-				return;
+				return fail("app:common.connectionError");
 			}
 			if (!answer.packet.success) {
-				setError(`app:equipment.errors.${answer.packet.error ?? "invalid"}`);
-				return;
+				return fail(`app:equipment.errors.${answer.packet.error ?? "invalid"}`);
+			}
+			if (!active.current) {
+				return null;
 			}
 			setCategories(answer.packet.categories);
 			await Promise.all([GAME_ENTITIES.INVENTORY, GAME_ENTITIES.PROFILE].map(entity =>
 				queryClient.invalidateQueries({ queryKey: gameKey(entity) })));
+			return null;
 		}
 		catch {
-			if (active.current) {
-				setError("app:common.connectionError");
-			}
+			return fail("app:common.connectionError");
 		}
 		finally {
 			inFlight.current = false;

@@ -53,6 +53,9 @@ export type CommandMenuState = {
 	pending: boolean;
 	open: (menu: CommandMenu, request?: FromClientPacket, resolve?: MenuResolver) => Promise<void>;
 
+	/** Opens the menu like `open`, resolving with the refusal, or null once the menu opened or its answer was sent. */
+	attempt: (menu: CommandMenu, request?: FromClientPacket, resolve?: MenuResolver) => Promise<string | null>;
+
 	/** Forgets the last refusal, once the player changed what was refused. */
 	clearMessage: () => void;
 };
@@ -89,9 +92,16 @@ export function useCommandMenus(): CommandMenuState {
 		};
 	}, []);
 
-	const open = async (menu: CommandMenu, request?: FromClientPacket, resolve?: MenuResolver): Promise<void> => {
+	const refuse = (refusal: string | null): string | null => {
+		if (active.current) {
+			setMessage(refusal);
+		}
+		return refusal;
+	};
+
+	const attempt = async (menu: CommandMenu, request?: FromClientPacket, resolve?: MenuResolver): Promise<string | null> => {
 		if (inFlight.current) {
-			return;
+			return null;
 		}
 		inFlight.current = true;
 		setPending(true);
@@ -102,23 +112,21 @@ export function useCommandMenus(): CommandMenuState {
 				Blocked,
 				...menu.outcomePackets ?? []
 			]);
-			if (!active.current) {
-				return;
-			}
 			if (answer.kind !== "answer") {
-				setMessage(commandMessage(answer, menu));
-				return;
+				return refuse(commandMessage(answer, menu));
+			}
+			if (!active.current) {
+				return null;
 			}
 			const reactionIndex = resolve?.(answer.packet) ?? null;
 			if (reactionIndex === null) {
 				track(answer.packet);
 			}
 			else { answerWithoutShowing(answer.packet.id, reactionIndex); }
+			return null;
 		}
 		catch {
-			if (active.current) {
-				setMessage(i18n.t("app:common.connectionError"));
-			}
+			return refuse(i18n.t("app:common.connectionError"));
 		}
 		finally {
 			inFlight.current = false;
@@ -128,7 +136,11 @@ export function useCommandMenus(): CommandMenuState {
 		}
 	};
 
+	const open = async (menu: CommandMenu, request?: FromClientPacket, resolve?: MenuResolver): Promise<void> => {
+		await attempt(menu, request, resolve);
+	};
+
 	return {
-		message, pending, open, clearMessage: (): void => setMessage(null)
+		message, pending, open, attempt, clearMessage: (): void => setMessage(null)
 	};
 }

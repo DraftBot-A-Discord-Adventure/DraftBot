@@ -13,7 +13,7 @@ import {
 	Button, ButtonRow, CountBadge, Note
 } from "@/src/design/Primitives";
 import {
-	ActionBanner, ExpandableEntry, LockHint, useSectionStyles
+	ActionBanner, ExpandableEntry, LockHint, Refusal, useSectionStyles
 } from "@/src/design/Sections";
 import { ItemDetails } from "@/src/components/ItemDetails";
 import { ExpandedEntry } from "@/src/design/useExpandedEntry";
@@ -111,7 +111,10 @@ function OtherItemActions({
 	</>;
 }
 
-/** The most likely action as the dark bar, the others as buttons under it; parting with the item asks twice. */
+/**
+ * The most likely action as the dark bar, the others as buttons under it; parting with the item asks twice.
+ * A refusal stays under the buttons that caused it, in the open sheet, rather than closing it unanswered.
+ */
 function ItemActions({
 	entry, choices, actions, onDone, badge
 }: {
@@ -122,13 +125,21 @@ function ItemActions({
 	badge: number;
 }): ReactNode {
 	const [confirming, setConfirming] = useState<ItemAction | null>(null);
+	const [refusal, setRefusal] = useState<string | null>(null);
 	const press = (action: ItemAction): void => {
+		setRefusal(null);
 		if (isIrreversible(action) && confirming !== action) {
 			setConfirming(action);
 			return;
 		}
 		setConfirming(null);
-		actions.run(action, entry).then(onDone)
+		actions.run(action, entry).then(result => {
+			if (result === null) {
+				onDone();
+				return;
+			}
+			setRefusal(result);
+		})
 			.catch(console.error);
 	};
 	const main = isIrreversible(choices[0].action) ? undefined : choices[0];
@@ -137,6 +148,7 @@ function ItemActions({
 		<OtherItemActions choices={main ? choices.slice(1) : choices} state={{
 			confirming, pending: actions.pending, press
 		}} />
+		{refusal ? <Refusal>{refusal}</Refusal> : null}
 	</>;
 }
 

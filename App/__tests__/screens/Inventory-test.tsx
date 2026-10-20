@@ -16,6 +16,8 @@ import { EQUIP_ACTIONS } from "ws-packets/src/objects/EquipCategoryData";
 import { ItemNature } from "ws-packets/src/objects/ItemNature";
 import { PlantId } from "ws-packets/src/objects/PlantId";
 import { renderWithGameQuery } from "@/src/testing/testUtils";
+import { CommandRejected } from "ws-packets/src/fromServer/common/CommandRejected";
+import { COMMAND_REJECTIONS } from "ws-packets/src/objects/CommandRejection";
 import { GameQueryProvider } from "@/src/store/GameQueryProvider";
 
 const mockTrack = jest.fn();
@@ -222,6 +224,24 @@ describe("inventory views", () => {
 		await waitFor(() => expect(mockAnswer).toHaveBeenCalledWith("sell", 1));
 		expect(request.mock.calls[0][0]).toBeInstanceOf(SellReq);
 		expect(mockTrack).not.toHaveBeenCalled();
+	});
+
+	it("keeps the server's refusal of a sale in the item sheet where it was asked, the item kept", async () => {
+		mockAnswer.mockClear();
+		const request = jest.spyOn(GameClient, "request").mockResolvedValue({
+			kind: "rejected", packet: Object.assign(new CommandRejected(), { rejection: { type: COMMAND_REJECTIONS.LOCATION } })
+		});
+		await renderWithGameQuery(<Inventory inventoryData={inventory()} />);
+		await fireEvent.press(screen.getByRole("tab", { name: "app:inventory.views.reserve" }));
+		await fireEvent.press(screen.getByRole("button", { name: "models:weapons.7" }));
+		await fireEvent.press(screen.getByRole("button", { name: "app:inventory.actions.sell" }));
+		await fireEvent.press(screen.getByRole("button", { name: "app:inventory.actions.confirm" }));
+		await waitFor(() => expect(request).toHaveBeenCalled());
+
+		const sheet = screen.getByTestId("inventory-item-weapon-2");
+		expect(await within(sheet).findByText("app:requirements.location")).toBeTruthy();
+		expect(within(sheet).getByRole("button", { name: "app:inventory.actions.sell" })).toBeTruthy();
+		expect(mockAnswer).not.toHaveBeenCalled();
 	});
 
 	it("offers no drink for a fight potion, only to put it away", async () => {

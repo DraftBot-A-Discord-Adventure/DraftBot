@@ -126,27 +126,28 @@ const EQUIPMENT_ACTIONS: Record<EquipmentAction, EquipAction> = {
 
 export type InventoryItemActions = {
 	pending: boolean;
-	message: string | null;
-	run: (action: ItemAction, entry: InventoryItem) => Promise<void>;
+
+	/** Resolves with why the server refused the action, or null once it went through. */
+	run: (action: ItemAction, entry: InventoryItem) => Promise<string | null>;
 };
 
 /** Carries out an action on the item the player tapped, without making them pick it a second time. */
 export function useInventoryItemActions(): InventoryItemActions {
 	const menus = useCommandMenus();
 	const equipment = useEquipmentActions([]);
-	const run = (action: ItemAction, entry: InventoryItem): Promise<void> => {
+	const run = async (action: ItemAction, entry: InventoryItem): Promise<string | null> => {
 		if (action === ITEM_ACTIONS.EQUIP || action === ITEM_ACTIONS.DEPOSIT) {
-			return equipment.submit(makeFromClientPacket(EquipActionReq, {
+			const error = await equipment.submit(makeFromClientPacket(EquipActionReq, {
 				action: EQUIPMENT_ACTIONS[action],
 				itemCategory: entry.item.itemCategory,
 				slot: entry.slot
 			}));
+			return error ? i18n.t(error) : null;
 		}
-		return menus.open(ACTION_MENUS[action], undefined, collector => reactionFor(action, entry, collector));
+		return menus.attempt(ACTION_MENUS[action], undefined, collector => reactionFor(action, entry, collector));
 	};
 	return {
 		pending: menus.pending || equipment.pending,
-		message: menus.message ?? (equipment.error ? i18n.t(equipment.error) : null),
 		run
 	};
 }

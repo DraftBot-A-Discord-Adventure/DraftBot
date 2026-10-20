@@ -261,7 +261,6 @@ function InventoryScreen({
 			...value === dailyBonusView && dailyBonusToClaim > 0 ? { badge: dailyBonusToClaim } : {},
 			...AppIcons.getIconOrNull(VIEW_ICONS[value]) === null ? {} : { icon: AppIcons.getIcon(VIEW_ICONS[value]) }
 		}))} value={view} onChange={setView} label={i18n.t("app:profile.titles.inventory")} />
-		{actions.message ? <Note>{actions.message}</Note> : null}
 		<InventoryContent view={view} data={data} artifacts={artifacts} rows={rows} />
 	</>;
 }
