@@ -11,7 +11,7 @@ import { AppIcons } from "@/src/AppIcons";
 import { useAnnouncementTurn } from "@/src/components/useToastTurn";
 import { Toast } from "@/src/design/Sections";
 import { TwemojiIcon } from "@/src/design/TwemojiIcon";
-import { NOTIFICATION_ROUTES } from "@/src/notifications/NotificationRoutes";
+import { openNotificationRoute } from "@/src/notifications/NotificationRoutes";
 import { WebSocketClient } from "@/src/networking/WebSocketClient";
 import {
 	PushedAnnouncementStore, usePushedAnnouncement
@@ -73,7 +73,7 @@ export function AppNotificationToast(): ReactNode {
 		onDismiss={appNotificationStore.announced}
 		onPress={(): void => {
 			appNotificationStore.announced();
-			router.navigate(NOTIFICATION_ROUTES[packet.notificationType]);
+			openNotificationRoute(router, packet.notificationType);
 		}}
 	/>;
 }

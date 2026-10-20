@@ -61,7 +61,7 @@ describe("a notification received with the app open", () => {
 		expect(screen.getByText("Exclu de la guilde")).toBeTruthy();
 		expect(screen.getByText("Gorgonzola vous a exclu de la guilde Les Fromages.")).toBeTruthy();
 		await fireEvent.press(screen.getByText("Exclu de la guilde"));
-		expect(mockNavigate).toHaveBeenCalledWith("/guild");
+		expect(mockNavigate).toHaveBeenCalledWith("/guild", { withAnchor: true });
 		expect(screen.queryByText("Exclu de la guilde")).toBeNull();
 	});
 

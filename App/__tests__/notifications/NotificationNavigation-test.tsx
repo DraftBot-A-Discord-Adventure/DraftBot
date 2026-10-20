@@ -35,7 +35,13 @@ describe("tapping a notification", () => {
 	it("opens the screen it is about at once when the app is in the foreground", async () => {
 		jest.mocked(useLastNotificationResponse).mockReturnValue(tapped("energy"));
 		await renderHook(useNotificationNavigation);
-		expect(mockNavigate).toHaveBeenCalledWith("/arena");
+		expect(mockNavigate).toHaveBeenCalledWith("/arena", { withAnchor: true });
+	});
+
+	it("opens a sub-page with its tab home under it, so back returns to that home", async () => {
+		jest.mocked(useLastNotificationResponse).mockReturnValue(tapped("fightChallenge"));
+		await renderHook(useNotificationNavigation);
+		expect(mockNavigate).toHaveBeenCalledWith("/arena/history", { withAnchor: true });
 	});
 
 	it("waits for the app to be in the foreground before changing screens", async () => {
@@ -47,6 +53,6 @@ describe("tapping a notification", () => {
 		const onChange = jest.mocked(AppState.addEventListener).mock.calls.at(-1)![1] as (state: AppStateStatus) => void;
 		setAppState("active");
 		await act(async () => onChange("active"));
-		expect(mockNavigate).toHaveBeenCalledWith("/arena");
+		expect(mockNavigate).toHaveBeenCalledWith("/arena", { withAnchor: true });
 	});
 });
