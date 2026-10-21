@@ -28,28 +28,10 @@ export class MapLocation extends Data<number> {
 	declare readonly biomes: readonly Biome[];
 
 	/**
-	 * For a location mixing several biomes: the biome of the side of this location facing each linked location,
-	 * keyed by the id of that linked location. A traveller explores the side by which they arrive or leave,
-	 * so the biome of a trip end is known as soon as the destination is chosen.
-	 */
-	declare readonly sideBiomes?: Readonly<Record<string, Biome>>;
-
-	/**
 	 * Pick one of the biomes of this map location
 	 */
 	public pickBiome(): Biome {
 		return RandomUtils.crowniclesRandom.pick(this.biomes);
-	}
-
-	/**
-	 * Get the biome of the side of this location facing the given linked location
-	 * @param linkedMapLocationId - The location at the other end of the map link
-	 */
-	public getBiomeFacing(linkedMapLocationId: number): Biome {
-		if (this.biomes.length === 1) {
-			return this.biomes[0];
-		}
-		return this.sideBiomes?.[linkedMapLocationId] ?? this.pickBiome();
 	}
 
 	/**

@@ -1,16 +1,8 @@
 {
   "type": "pl",
   "biomes": [
-    "plains",
-    "swamp",
-    "mountain"
+    "plains"
   ],
-  "sideBiomes": {
-    "11": "plains",
-    "13": "swamp",
-    "14": "plains",
-    "15": "mountain"
-  },
   "tags": [
     "detA"
   ],

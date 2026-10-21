@@ -124,7 +124,8 @@ function getRandomDistantMapLocation(excludeIds: number[]): number {
 }
 
 /**
- * Generate local expeditions based on map locations from player's current link
+ * Generate local expeditions based on map locations from player's current link.
+ * A location mixing several biomes offers one expedition per biome, so the player picks the terrain suiting their pet.
  */
 function generateLocalExpeditions(
 	localMapLocationIds: number[],
@@ -136,19 +137,14 @@ function generateLocalExpeditions(
 		const mapLocationId = localMapLocationIds[i];
 		const mapLocation = MapLocationDataController.instance.getById(mapLocationId)!;
 
-		// The pet explores the side of the location facing the other end of the player's current map link
-		const otherEndId = localMapLocationIds.find(id => id !== mapLocationId) ?? mapLocationId;
-		const locationType = mapLocation.getBiomeFacing(otherEndId);
-
-		const expedition = generateExpeditionWithConstraints({
-			durationRange: durationRanges[i],
-			locationType,
-			mapLocationId,
-			isDistantExpedition: false
-		});
-
-
-		expeditions.push(expedition);
+		for (const locationType of mapLocation.biomes) {
+			expeditions.push(generateExpeditionWithConstraints({
+				durationRange: durationRanges[i],
+				locationType,
+				mapLocationId,
+				isDistantExpedition: false
+			}));
+		}
 	}
 
 	return expeditions;
@@ -240,28 +236,29 @@ function generateDistantExpedition(
 
 /**
  * Calculate which expedition should receive the bonus (if any)
+ * @param bonusType - The bonus to apply
+ * @param expeditionsCount - The number of proposed expeditions
  */
-function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType): number {
+function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType, expeditionsCount: number): number {
 	if (bonusType === ExpeditionBonusType.NONE) {
 		return ExpeditionConstants.NO_BONUS_EXPEDITION;
 	}
-	return RandomUtils.randInt(0, ExpeditionConstants.TOTAL_EXPEDITIONS_COUNT);
+	return RandomUtils.randInt(0, expeditionsCount);
 }
 
 /**
- * Generate 3 expeditions based on player's current map position
- * - 2 first expeditions: linked to the 2 mapLocations of player's current mapLink
- * - 3rd expedition: "distant expedition" to a random location on the map
+ * Generate the expeditions proposed from the player's current map position
+ * - Short then medium expeditions: one per biome of each of the 2 mapLocations of player's current mapLink
+ * - Last expedition: "distant expedition" to a random location on the map
  * @param mapLinkId - The player's current mapLink ID
  * @param hasCloneTalisman - Whether the player already has the clone talisman (no bonus if true)
  */
-export function generateThreeExpeditions(mapLinkId: number, hasCloneTalisman: boolean): ExpeditionData[] {
+export function generateExpeditionChoices(mapLinkId: number, hasCloneTalisman: boolean): ExpeditionData[] {
 	const localMapLocationIds = getMapLocationsFromLink(mapLinkId);
 	const durationRanges = getDurationRangesArray();
 
-	// Determine which bonus to apply and to which expedition
+	// Determine which bonus to apply
 	const bonusType = determineBonusType(hasCloneTalisman);
-	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType);
 
 	// Generate local expeditions
 	const localExpeditions = generateLocalExpeditions(localMapLocationIds, durationRanges);
@@ -274,6 +271,7 @@ export function generateThreeExpeditions(mapLinkId: number, hasCloneTalisman: bo
 	const allExpeditions = [...localExpeditions, distantExpedition];
 
 	// Apply bonus to the selected expedition
+	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType, allExpeditions.length);
 	if (bonusExpeditionIndex >= 0 && bonusExpeditionIndex < allExpeditions.length) {
 		applyBonusToExpedition(allExpeditions[bonusExpeditionIndex], bonusType);
 	}

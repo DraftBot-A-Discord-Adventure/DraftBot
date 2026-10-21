@@ -4,12 +4,6 @@
     "plains",
     "coast"
   ],
-  "sideBiomes": {
-    "1": "coast",
-    "2": "plains",
-    "6": "plains",
-    "29": "plains"
-  },
   "tags": [
     "detA"
   ],

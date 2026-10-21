@@ -104,7 +104,7 @@ const fakeLink = {} as MapLink;
 
 const cavernLocation = {
 	type: "cavern",
-	getBiomeFacing: (): Biome => ExpeditionConstants.EXPEDITION_LOCATION_TYPES.RUINS
+	biomes: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.RUINS]
 };
 
 describe("canStayInCity", () => {
@@ -189,7 +189,7 @@ describe("canAutoChooseDestination", () => {
 });
 
 describe("chooseDestination collector", () => {
-	it("tells for each destination the biome explored at both ends of the trip", async () => {
+	it("tells for each destination the biomes the pet can explore there", async () => {
 		capturedCollector = undefined;
 		vi.clearAllMocks();
 		isOnPveIslandMock.mockReturnValue(true);
@@ -197,18 +197,13 @@ describe("chooseDestination collector", () => {
 		getMapLinkByLocationsMock.mockImplementation((_startMap: number, endMap: number) => ({
 			id: endMap, endMap, tripDuration: 10
 		}));
-		const biomesFacing: Record<number, Record<number, Biome>> = {
-			1: {
-				2: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST,
-				3: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP
-			},
-			2: { 1: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS },
-			3: { 1: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.CAVE }
+		const biomes: Record<number, Biome[]> = {
+			2: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS],
+			3: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST, ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP]
 		};
 		getMapLocationByIdMock.mockImplementation((mapId: number) => ({
-			id: mapId,
 			type: "la",
-			getBiomeFacing: (linkedMapId: number): Biome => biomesFacing[mapId][linkedMapId]
+			biomes: biomes[mapId]
 		}));
 
 		const player = {
@@ -225,16 +220,15 @@ describe("chooseDestination collector", () => {
 		expect(capturedCollector?.creationPacket("id", 0).reactions.map(reaction => reaction.data)).toEqual([
 			expect.objectContaining({
 				mapId: 2,
-				departureBiome: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST,
-				destinationBiome: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS
+				biomes: biomes[2]
 			}),
 			expect.objectContaining({
 				mapId: 3,
-				departureBiome: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP,
-				destinationBiome: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.CAVE
+				biomes: biomes[3]
 			})
 		]);
 	});
+
 	it("retries travel persistence after a connection setup timeout", async () => {
 		capturedEndCallback = undefined;
 		vi.clearAllMocks();

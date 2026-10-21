@@ -4,11 +4,6 @@
     "plains",
     "ruins"
   ],
-  "sideBiomes": {
-    "3": "plains",
-    "10": "ruins",
-    "11": "plains"
-  },
   "tags": [
     "detALa"
   ],

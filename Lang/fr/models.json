@@ -1193,7 +1193,7 @@
       "particle": "vers le"
     },
     "12": {
-      "description": "Une grande plaine vide nordique sans grand intérêt. Ses bordures s'enfoncent dans des tourbières du côté de la Route Marécageuse et s'élèvent en piémonts au pied du Mont Célestrum.",
+      "description": "Une grande plaine vide nordique sans grand intérêt.",
       "name": "L'Étendue",
       "particle": "vers",
       "atParticle": "à"
@@ -1217,7 +1217,7 @@
       "atParticle": "au"
     },
     "16": {
-      "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber. Les loups qui lui donnent son nom se terrent dans les bois touffus qui le longent.",
+      "description": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
       "name": "Chemin aux Loups",
       "particle": "vers le",
       "atParticle": "au"
@@ -1254,7 +1254,7 @@
       "atParticle": "à la"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Du côté de La Dune, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
+      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
       "name": "Route des Merveilles",
       "particle": "vers la",
       "atParticle": "à la"
@@ -1266,7 +1266,7 @@
       "atParticle": "au"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Du côté de la Route Grimpante, d'anciens bas-quartiers troglodytes restent creusés dans la falaise, vestiges de ses débuts misérables.",
+      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
       "name": "Claire de Ville",
       "particle": "vers",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "à la"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. Du côté de la Route Marécageuse, ses rives se perdent en vasières boueuses où pullulent les crabes.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
       "name": "Rivière aux Crabes",
       "particle": "vers la",
       "atParticle": "à la"
@@ -1292,7 +1292,7 @@
       "inParticle": "dans"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum.",
+      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
       "name": "Forêt Célestrum",
       "particle": "vers la",
       "atParticle": "à la"
@@ -1338,7 +1338,7 @@
       "particle": "vers la"
     },
     "41": {
-      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Du côté de la Vallée des Rois, les vieilles fortifications abandonnées du château tombent en ruines.",
+      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
       "name": "Cour du Château",
       "particle": "vers la",
       "atParticle": "à la",
@@ -1351,13 +1351,13 @@
       "atParticle": "à la"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Du côté de Boug-Coton, la végétation recouvre les murets d'un ancien labyrinthe oublié.",
+      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
       "name": "Chemin du Dédale",
       "particle": "vers le",
       "atParticle": "au"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante.",
+      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
       "name": "Boug-Coton",
       "particle": "vers",
       "atParticle": "à",
@@ -1370,7 +1370,7 @@
       "atParticle": "à la"
     },
     "8": {
-      "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum. Du côté du Mont Célestrum, la route s'élève déjà sur les premiers contreforts de la montagne.",
+      "description": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
       "name": "Croisement des Destins",
       "particle": "vers le",
       "atParticle": "au"

@@ -4,11 +4,6 @@
     "ruins",
     "cave"
   ],
-  "sideBiomes": {
-    "8": "cave",
-    "9": "ruins",
-    "29": "ruins"
-  },
   "tags": [
     "detA"
   ],

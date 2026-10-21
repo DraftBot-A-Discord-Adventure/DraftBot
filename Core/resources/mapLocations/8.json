@@ -1,14 +1,8 @@
 {
   "type": "ro",
   "biomes": [
-    "plains",
-    "mountain"
+    "plains"
   ],
-  "sideBiomes": {
-    "7": "plains",
-    "10": "plains",
-    "15": "mountain"
-  },
   "tags": [
     "detAu"
   ],

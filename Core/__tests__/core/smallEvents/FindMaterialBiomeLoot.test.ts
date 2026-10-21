@@ -14,14 +14,10 @@ import { Biome } from "../../../../Lib/src/types/Biome";
 import Player from "../../../src/core/database/game/models/Player";
 
 const DRAWS_PER_CASE = 20;
-const PREVIOUS_MAP_ID = 7;
 
 function travellingPlayer(previousBiome: Biome, destination: MapLocation | null): Player {
 	return {
-		getPreviousMap: () => Object.assign(new MapLocation(), {
-			id: PREVIOUS_MAP_ID,
-			biomes: [previousBiome]
-		}),
+		getPreviousMap: () => Object.assign(new MapLocation(), { biomes: [previousBiome] }),
 		getDestination: () => destination
 	} as Player;
 }
@@ -61,19 +57,6 @@ describe("find material small event biome loot", () => {
 
 		expect(pickTravelBiome(travellingPlayer(ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST, destination)))
 			.toBe(ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST);
-	});
-
-	it("loots in the side of a mixed destination facing the departure", () => {
-		vi.spyOn(TravelTime, "getTravelProgress").mockReturnValue(0.8);
-		vi.spyOn(RandomUtils.crowniclesRandom, "realZeroToOneInclusive").mockReturnValue(0.5);
-		const destination = Object.assign(new MapLocation(), {
-			id: PREVIOUS_MAP_ID + 1,
-			biomes: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST, ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP],
-			sideBiomes: { [PREVIOUS_MAP_ID]: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP }
-		});
-
-		expect(pickTravelBiome(travellingPlayer(ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS, destination)))
-			.toBe(ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP);
 	});
 
 	it("falls back to the plains biome when the map is unknown", () => {

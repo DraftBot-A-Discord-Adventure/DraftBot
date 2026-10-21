@@ -14,14 +14,9 @@ export class ReactionCollectorChooseDestinationReaction extends ReactionCollecto
 	tripDuration?: number;
 
 	/**
-	 * Biome explored by expeditions on the current location during this trip: its side facing the destination
+	 * Biomes of the destination: once there, the pet can explore each of them in expedition
 	 */
-	departureBiome!: Biome;
-
-	/**
-	 * Biome explored by expeditions on the destination during this trip: its side facing the current location
-	 */
-	destinationBiome!: Biome;
+	biomes!: readonly Biome[];
 }
 
 /**

@@ -4,12 +4,6 @@
     "forest",
     "cave"
   ],
-  "sideBiomes": {
-    "14": "cave",
-    "18": "forest",
-    "23": "forest",
-    "24": "cave"
-  },
   "tags": [
     "detAu"
   ],

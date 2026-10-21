@@ -107,7 +107,8 @@ export abstract class ExpeditionConstants {
 	static readonly DEFAULT_MAP_LOCATION_ID = 1;
 
 	/**
-	 * Number of local expeditions generated (based on player's current map link)
+	 * Number of map locations offering local expeditions: both ends of the player's current map link,
+	 * each of them offering one expedition per biome
 	 */
 	static readonly LOCAL_EXPEDITIONS_COUNT = 2;
 
@@ -115,11 +116,6 @@ export abstract class ExpeditionConstants {
 	 * Value indicating no bonus expedition is selected
 	 */
 	static readonly NO_BONUS_EXPEDITION = -1;
-
-	/**
-	 * Total number of expeditions proposed (local + distant)
-	 */
-	static readonly TOTAL_EXPEDITIONS_COUNT = 3;
 
 	/**
 	 * Rounding factor for display duration (rounds to nearest 10 minutes)

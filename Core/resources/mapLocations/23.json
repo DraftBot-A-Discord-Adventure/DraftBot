@@ -1,15 +1,8 @@
 {
   "type": "ci",
   "biomes": [
-    "plains",
     "cave"
   ],
-  "sideBiomes": {
-    "21": "plains",
-    "22": "plains",
-    "24": "cave",
-    "29": "plains"
-  },
   "tags": [
     "detA"
   ],

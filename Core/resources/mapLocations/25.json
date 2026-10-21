@@ -4,12 +4,6 @@
     "coast",
     "swamp"
   ],
-  "sideBiomes": {
-    "13": "swamp",
-    "14": "coast",
-    "24": "coast",
-    "1999": "coast"
-  },
   "tags": [
     "detALa"
   ],

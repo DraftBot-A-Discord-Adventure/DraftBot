@@ -12,7 +12,6 @@ type MapLocationData = {
 	type: string;
 	attribute: string;
 	biomes?: string[];
-	sideBiomes?: Record<string, string>;
 	biome?: string;
 	expeditionType?: string;
 };
@@ -124,45 +123,6 @@ describe("Map data integrity", () => {
 		expect(invalid).toEqual([]);
 	});
 
-	it("every map location mixing several biomes declares the biome of its side facing each linked location", () => {
-		const linkedLocations = new Map<number, Set<number>>();
-		for (const link of mapLinks.values()) {
-			if (!linkedLocations.has(link.startMap)) {
-				linkedLocations.set(link.startMap, new Set());
-			}
-			if (!linkedLocations.has(link.endMap)) {
-				linkedLocations.set(link.endMap, new Set());
-			}
-			linkedLocations.get(link.startMap)!.add(link.endMap);
-			linkedLocations.get(link.endMap)!.add(link.startMap);
-		}
-
-		const invalid = [...mapLocationIds]
-			.map(id => ({
-				id,
-				mapLocation: readMapLocation(id),
-				linked: [...linkedLocations.get(id) ?? []].map(String).sort()
-			}))
-			.filter(({ mapLocation, linked }) => {
-				const biomes = mapLocation.biomes ?? [];
-				const sideBiomes = mapLocation.sideBiomes;
-				if (biomes.length <= 1) {
-					return sideBiomes !== undefined;
-				}
-				if (!sideBiomes) {
-					return true;
-				}
-				const sides = Object.keys(sideBiomes).sort();
-				const facingBiomes = new Set(Object.values(sideBiomes));
-				return JSON.stringify(sides) !== JSON.stringify(linked)
-					|| [...facingBiomes].some(biome => !biomes.includes(biome))
-					|| biomes.some(biome => !facingBiomes.has(biome));
-			})
-			.map(({ id, mapLocation, linked }) => `${id} (biomes ${JSON.stringify(mapLocation.biomes)}, sides ${JSON.stringify(mapLocation.sideBiomes)}, linked ${JSON.stringify(linked)})`);
-
-		expect(invalid).toEqual([]);
-	});
-
 	it("every biome of an expedition location has its own French expedition name, and every name matches a biome", () => {
 		const expeditionNames = (JSON.parse(readFileSync(frenchCommandsPath, "utf-8")) as {
 			petExpedition: { mapLocationExpeditions: Record<string, string> };
@@ -191,6 +151,18 @@ describe("Map data integrity", () => {
 		const missing = Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES).filter(biome => !continentBiomes.has(biome));
 
 		expect(missing).toEqual([]);
+	});
+
+	it("every biome is offered by two neighbouring locations of the main continent, so a player can loop on it", () => {
+		const continentIds = [...mapLocationIds].filter(id => readMapLocation(id).attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1);
+		const offers = (id: number, biome: string): boolean => readMapLocation(id).biomes?.includes(biome) ?? false;
+		const withoutLoop = Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES)
+			.filter(biome => ![...mapLinks.values()].some(link => continentIds.includes(link.startMap)
+				&& continentIds.includes(link.endMap)
+				&& offers(link.startMap, biome)
+				&& offers(link.endMap, biome)));
+
+		expect(withoutLoop).toEqual([]);
 	});
 
 	it("every map location type has a French name, a prefix and an icon", () => {

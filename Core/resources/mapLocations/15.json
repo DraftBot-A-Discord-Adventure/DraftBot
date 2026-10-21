@@ -4,12 +4,6 @@
     "mountain",
     "cave"
   ],
-  "sideBiomes": {
-    "8": "mountain",
-    "12": "mountain",
-    "16": "cave",
-    "27": "cave"
-  },
   "tags": [
     "detAu"
   ],

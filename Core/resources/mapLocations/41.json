@@ -2,12 +2,8 @@
   "type": "ci",
   "biomes": [
     "plains",
-    "ruins"
+    "cave"
   ],
-  "sideBiomes": {
-    "6": "plains",
-    "7": "ruins"
-  },
   "tags": [
     "detALa"
   ],

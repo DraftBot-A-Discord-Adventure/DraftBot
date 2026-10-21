@@ -263,8 +263,7 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 				mapTypeIcon: CrowniclesIcons.mapTypes[destinationReaction.mapTypeId],
 				location: i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng }),
 				duration,
-				departureBiome: CrowniclesIcons.expedition.locations[destinationReaction.departureBiome],
-				destinationBiome: CrowniclesIcons.expedition.locations[destinationReaction.destinationBiome]
+				biomes: destinationReaction.biomes.map(biome => CrowniclesIcons.expedition.locations[biome]).join("")
 			});
 		})
 	}, {

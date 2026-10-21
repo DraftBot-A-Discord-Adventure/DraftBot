@@ -4,10 +4,6 @@
     "forest",
     "ruins"
   ],
-  "sideBiomes": {
-    "4": "forest",
-    "6": "ruins"
-  },
   "tags": [
     "detAu"
   ],

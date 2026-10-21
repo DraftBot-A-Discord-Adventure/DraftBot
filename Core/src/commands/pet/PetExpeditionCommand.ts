@@ -25,7 +25,7 @@ import {
 	ExpeditionData
 } from "../../../../Lib/src/packets/commands/CommandPetExpeditionPacket";
 import {
-	generateThreeExpeditions,
+	generateExpeditionChoices,
 	calculateEffectiveRisk,
 	determineExpeditionOutcome
 } from "../../core/expeditions/ExpeditionService";
@@ -375,7 +375,7 @@ export default class PetExpeditionCommand {
 
 		// All requirements met - show expedition choice
 		const guildInfo = await getGuildFoodInfo(player, petModel);
-		const expeditions = generateThreeExpeditions(player.mapLinkId!, talismans.hasCloneTalisman);
+		const expeditions = generateExpeditionChoices(player.mapLinkId!, talismans.hasCloneTalisman);
 
 		// Store expeditions in cache for later retrieval
 		PendingExpeditionsCache.set(context.keycloakId!, expeditions);
