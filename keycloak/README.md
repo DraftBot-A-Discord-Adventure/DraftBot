@@ -163,6 +163,16 @@ address no longer captures their Discord identity.
 > the load-bearing assumption here. Replay both cases against a real Keycloak before deploying: a
 > legacy `discord-<id>` account, and an account holding a password.
 
+### Discord Activity sessions
+
+The Discord Activity signs players in with a Discord token instead of these pages: RestWs has Keycloak
+exchange it for a session (external-to-internal token exchange). This needs Keycloak started with
+`--features=token-exchange,admin-fine-grained-authz:v1`, the extension of this image, which lets the generic
+OAuth v2 provider validate a Discord token, and the permissions granted by
+`scripts/discordActivityTokenExchange.mjs --apply`. The account is matched through its Discord link, as
+above; an account holding the same name without the link is refused, never captured. See
+`App/docs/discord-activity.md`.
+
 ## Historical Discord Accounts and Email Collisions
 
 The game owns progress by the Keycloak user ID, not by email. A bot-created user

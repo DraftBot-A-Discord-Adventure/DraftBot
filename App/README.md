@@ -244,6 +244,11 @@ in TypeScript is served by Metro and reloads on the fly.
 stop on a confirmation prompt that the progress spinner draws over, so it looks like a build that
 never finishes when it is in fact waiting for an answer.
 
+## Discord Activity
+
+The web build also runs inside Discord as an Activity. How it signs in, what the server needs and how to
+test it locally are in [docs/discord-activity.md](docs/discord-activity.md).
+
 ## Project layout
 
 - `app/` — screens, using [file-based routing](https://docs.expo.dev/router/introduction)
