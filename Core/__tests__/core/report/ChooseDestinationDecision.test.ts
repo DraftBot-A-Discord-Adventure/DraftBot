@@ -206,6 +206,7 @@ describe("chooseDestination collector", () => {
 			3: { 1: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.CAVE }
 		};
 		getMapLocationByIdMock.mockImplementation((mapId: number) => ({
+			id: mapId,
 			type: "la",
 			getBiomeFacing: (linkedMapId: number): Biome => biomesFacing[mapId][linkedMapId]
 		}));
