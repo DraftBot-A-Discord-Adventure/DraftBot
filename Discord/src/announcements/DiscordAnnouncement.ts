@@ -10,6 +10,9 @@ import { TopWeekFightAnnouncementPacket } from "../../../Lib/src/packets/announc
 import { ChristmasBonusAnnouncementPacket } from "../../../Lib/src/packets/announcements/ChristmasBonusAnnouncementPacket";
 import { ReleaseGiftAnnouncementPacket } from "../../../Lib/src/packets/announcements/ReleaseGiftAnnouncementPacket";
 import { ReleaseGiftConstants } from "../../../Lib/src/constants/ReleaseGiftConstants";
+import {
+	TopWeekRewardConstants, TopWeekRewardedPlayersPerTier
+} from "../../../Lib/src/constants/TopWeekRewardConstants";
 import { BlessingAnnouncementPacket } from "../../../Lib/src/packets/announcements/BlessingAnnouncementPacket";
 import { CrowniclesIcons } from "../../../Lib/src/CrowniclesIcons";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
@@ -103,6 +106,20 @@ export abstract class DiscordAnnouncement {
 			noWinnerTranslationKey: "bot:topWeekAnnouncementNoWinner",
 			errorLogContext: "top week"
 		});
+		await this.announceTopWeekRewards(topWeekAnnouncementPacket.rewardedPlayersPerTier);
+	}
+
+	private static async announceTopWeekRewards(rewardedPlayersPerTier: TopWeekRewardedPlayersPerTier): Promise<void> {
+		const count = Object.values(rewardedPlayersPerTier)
+			.reduce((sum, playersInTier) => sum + playersInTier, 0);
+		if (count === 0) {
+			return;
+		}
+		await this.sendBilingualMessage(this.buildBilingualMessage("bot:topWeekRewardsAnnouncement", {
+			...rewardedPlayersPerTier,
+			count,
+			minWeeklyScore: TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE
+		}));
 	}
 
 	static async announceTopWeekFight(topWeekFightAnnouncementPacket: TopWeekFightAnnouncementPacket): Promise<void> {

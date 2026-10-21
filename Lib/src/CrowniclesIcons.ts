@@ -1,4 +1,7 @@
 import { Badge } from "./types/Badge";
+import {
+	TOP_WEEK_REWARD_TIERS, TopWeekRewardTierId
+} from "./constants/TopWeekRewardConstants";
 
 type EventPossibilities = {
 	end: { [outcomeId: string]: string };
@@ -200,6 +203,7 @@ export const CrowniclesIcons: {
 		congrats: string;
 		error: string;
 		guild: string;
+		weeklyRewardTiers: { [tierId in TopWeekRewardTierId]: string };
 	};
 	petTransfer: {
 		deposit: string;
@@ -2427,7 +2431,8 @@ export const CrowniclesIcons: {
 			guildStatusChange: "📜",
 			energy: "⚡",
 			dailyBonus: "📅",
-			petExpedition: "🐾"
+			petExpedition: "🐾",
+			topWeekReward: "🏆"
 		}
 	},
 	missions: {
@@ -2584,7 +2589,13 @@ export const CrowniclesIcons: {
 		weekly: "🕤",
 		congrats: "🏆",
 		error: "❌",
-		guild: "🏟️"
+		guild: "🏟️",
+		weeklyRewardTiers: {
+			[TOP_WEEK_REWARD_TIERS.BRONZE]: "🥉",
+			[TOP_WEEK_REWARD_TIERS.SILVER]: "🥈",
+			[TOP_WEEK_REWARD_TIERS.GOLD]: "🥇",
+			[TOP_WEEK_REWARD_TIERS.DIAMOND]: "💎"
+		}
 	},
 	petTransfer: {
 		deposit: "📥",

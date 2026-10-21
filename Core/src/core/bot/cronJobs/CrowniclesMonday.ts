@@ -18,6 +18,7 @@ import {
 import PlayerMissionsInfo from "../../database/game/models/PlayerMissionsInfo";
 import { MapCache } from "../../maps/MapCache";
 import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
+import { distributeTopWeekRewards } from "../TopWeekRewards";
 
 export class CrowniclesMonday {
 	public static async programCronJob(): Promise<void> {
@@ -48,8 +49,9 @@ export class CrowniclesMonday {
 	 * End the top week
 	 */
 	static async topWeekEnd(): Promise<void> {
-		crowniclesInstance?.logsDatabase.log15BestTopWeek()
-			.then();
+		// The best players must be logged before the rewards reset their weekly score
+		await crowniclesInstance?.logsDatabase.log15BestTopWeek()
+			.catch(error => CrowniclesLogger.errorWithObj("Failed to log the 15 best players of the top week", error));
 		const winner = await Player.findOne({
 			where: {
 				weeklyScore: { [Op.gt]: 100 }
@@ -60,15 +62,21 @@ export class CrowniclesMonday {
 			],
 			limit: 1
 		});
+		const {
+			rewardedPlayersPerTier, notifications
+		} = await distributeTopWeekRewards();
+		PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {
+			...winner ? { winnerKeycloakId: winner.keycloakId } : {},
+			rewardedPlayersPerTier
+		}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		if (winner !== null) {
-			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 			await PlayerBadgesManager.addBadge(winner.id, Badge.TOP_WEEK);
-		}
-		else {
-			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
 		await Player.update({ weeklyScore: 0 }, { where: {} });
 		CrowniclesLogger.info("Weekly leaderboard has been reset !");
+		if (notifications.length > 0) {
+			PacketUtils.sendNotifications(notifications);
+		}
 		await PlayerMissionsInfo.resetShopBuyout();
 		CrowniclesLogger.info("All players can now buy again points from the mission shop !");
 		crowniclesInstance?.logsDatabase.logTopWeekEnd()
