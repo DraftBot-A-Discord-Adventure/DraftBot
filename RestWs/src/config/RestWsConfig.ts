@@ -24,6 +24,18 @@ export interface RestWsConfig {
 	DEBUG: boolean;
 	ACCOUNT_DELETION: AccountDeletionConfig;
 	PUSH: PushConfig;
+	DISCORD_ACTIVITY: DiscordActivityConfig;
+}
+
+/**
+ * The Discord application hosting the Activity. An empty client id leaves the Activity routes off.
+ */
+export interface DiscordActivityConfig {
+	CLIENT_ID: string;
+	CLIENT_SECRET: string;
+
+	/** The Keycloak client of the app: the sessions opened for the Activity are shaped as its own. */
+	APP_CLIENT_ID: string;
 }
 
 /**
@@ -99,6 +111,11 @@ type ConfigStructure = {
 			serviceAccountPath?: string;
 		};
 	};
+	discordActivity?: {
+		clientId?: string;
+		clientSecret?: string;
+		appClientId?: string;
+	};
 	logs: {
 		level: string;
 		locations: string[];
@@ -132,6 +149,7 @@ function loadAccountDeletionConfig(section: ConfigStructure["accountDeletion"] =
 }
 
 const DEFAULT_BUNDLE_ID = "com.crownicles.app";
+const DEFAULT_APP_CLIENT_ID = "crownicles-app";
 
 function loadPushConfig(section: ConfigStructure["push"] = {}): PushConfig {
 	return {
@@ -169,7 +187,12 @@ export function loadConfig(): RestWsConfig {
 		PREFIX: createMqttPrefix(config.global.prefix),
 		DEBUG: config.global.debug,
 		ACCOUNT_DELETION: loadAccountDeletionConfig(config.accountDeletion),
-		PUSH: loadPushConfig(config.push)
+		PUSH: loadPushConfig(config.push),
+		DISCORD_ACTIVITY: {
+			CLIENT_ID: config.discordActivity?.clientId ?? "",
+			CLIENT_SECRET: config.discordActivity?.clientSecret ?? "",
+			APP_CLIENT_ID: config.discordActivity?.appClientId ?? DEFAULT_APP_CLIENT_ID
+		}
 	};
 }
 

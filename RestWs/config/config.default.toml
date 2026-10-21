@@ -58,6 +58,15 @@ bundleId = "com.crownicles.app"
 # Leave empty to push nothing to Android. Keep the file outside the repository, readable by this service only.
 serviceAccountPath = ""
 
+[discordActivity]
+# Discord application hosting the Activity (Developer Portal > OAuth2). It must be the application of the
+# realm's "discord" identity provider, so a player keeps the account they sign in to with Discord elsewhere.
+# Leave the client id empty to turn the Activity routes off.
+clientId = ""
+clientSecret = ""
+# Keycloak client of the app: the Activity sessions are issued for it
+appClientId = "crownicles-app"
+
 [logs]
 # The log level of the bot. It can be one of: "error", "warn", "info", "debug"
 level = "info"

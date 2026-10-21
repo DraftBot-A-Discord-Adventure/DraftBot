@@ -2,6 +2,7 @@ import { loadConfig } from "./config/RestWsConfig";
 import { CrowniclesLogger } from "../../Lib/src/logs/CrowniclesLogger";
 import "source-map-support/register";
 import { RestApi } from "./services/RestApi";
+import { DiscordActivitySessions } from "./services/DiscordActivitySessions";
 import { WebSocketServer } from "./services/WebSocketServer";
 import { PendingRegistrations } from "./services/PendingRegistrations";
 import { MqttManager } from "./mqtt/MqttManager";
@@ -56,7 +57,8 @@ async function main(): Promise<void> {
 	// Initialize and start the Rest API server
 	await new RestApi({
 		debugMode: restWsConfig.DEBUG,
-		accountDeletion: restWsConfig.ACCOUNT_DELETION
+		accountDeletion: restWsConfig.ACCOUNT_DELETION,
+		discordActivity: new DiscordActivitySessions(keycloakConfig, restWsConfig.DISCORD_ACTIVITY)
 	}).start(restWsConfig.REST_API_PORT);
 
 	// Initialize and start the WebSocket server

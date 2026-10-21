@@ -6,6 +6,8 @@ import { setupAssetsRoutes } from "./routes/AssetsRoute";
 import { setupAccountDeletionRoutes } from "./routes/AccountDeletionRoute";
 import { setupAccountCollisionRoutes } from "./routes/AccountCollisionRoute";
 import { setupAppCompatibilityRoutes } from "./routes/AppCompatibilityRoute";
+import { setupDiscordActivityRoutes } from "./routes/DiscordActivityRoute";
+import { DiscordActivitySessions } from "./DiscordActivitySessions";
 import { AccountDeletionConfig } from "../config/RestWsConfig";
 
 /**
@@ -52,16 +54,23 @@ export class RestApi {
 	private readonly accountDeletion: AccountDeletionConfig;
 
 	/**
+	 * Sessions of the players signed in through the Discord Activity.
+	 */
+	private readonly discordActivity: DiscordActivitySessions;
+
+	/**
 	 * Constructor for the RestApi class.
 	 * @param options
 	 */
 	constructor(options: {
 		debugMode: boolean;
 		accountDeletion: AccountDeletionConfig;
+		discordActivity: DiscordActivitySessions;
 	}) {
 		this.server = fastify();
 		this.debugMode = options.debugMode;
 		this.accountDeletion = options.accountDeletion;
+		this.discordActivity = options.discordActivity;
 	}
 
 	/**
@@ -78,6 +87,7 @@ export class RestApi {
 		setupAppCompatibilityRoutes(this.server);
 		setupAccountDeletionRoutes(this.server, this.accountDeletion);
 		setupAccountCollisionRoutes(this.server);
+		setupDiscordActivityRoutes(this.server, this.discordActivity);
 		await setupAssetsRoutes(this.server, this.debugMode);
 	}
 
