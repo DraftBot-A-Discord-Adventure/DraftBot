@@ -36,7 +36,6 @@ import { CrowniclesIcons } from "../../../../Lib/src/CrowniclesIcons";
 import { StringUtils } from "../../utils/StringUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { Constants } from "../../../../Lib/src/constants/Constants";
-import { DiscordConstants } from "../../DiscordConstants";
 
 const MISSIONS_BUTTON_IDS = {
 	KING_CHALLENGE: "missions_king_challenge",
@@ -163,21 +162,24 @@ function getSideMissionsPart(packet: CommandMissionsPacketRes, lng: Language): s
 }
 
 /**
- * Line showing the progress toward the next tier of the king's challenge, or the completion of the challenge
+ * Objective of the next tier of the king's challenge, displayed like a mission, or the completion of the challenge
  */
-function getKingChallengeNextTierLine(progress: KingChallengeProgress, lng: Language): string {
+function getKingChallengeObjective(progress: KingChallengeProgress, lng: Language): string {
+	const time = finishInTimeDisplay(new Date(progress.nextResetDate));
 	if (progress.tier >= progress.thresholds.length) {
-		return i18n.t("commands:missions.kingChallenge.completed", { lng });
+		return i18n.t("commands:missions.kingChallenge.completed", {
+			lng,
+			time
+		});
 	}
-	const previousThreshold = progress.tier > 0 ? progress.thresholds[progress.tier - 1] : 0;
-	const nextThreshold = progress.thresholds[progress.tier];
+	const objective = progress.thresholds[progress.tier];
 	return i18n.t("commands:missions.kingChallenge.nextTier", {
 		lng,
-
-		// The weekly score can drop below the last rewarded tier (e.g. after a respawn), tiers are never taken back
-		progressionBar: MissionUtils.generateDisplayProgression(Math.max(0, progress.weeklyScore - previousThreshold), nextThreshold - previousThreshold),
-		points: Math.max(0, nextThreshold - progress.weeklyScore),
-		nextTier: progress.tier + 1
+		time,
+		nextTier: progress.tier + 1,
+		progressionBar: MissionUtils.generateDisplayProgression(progress.weeklyScore, objective),
+		current: progress.weeklyScore,
+		objective
 	});
 }
 
@@ -189,11 +191,14 @@ function getKingChallengeTierLines(progress: KingChallengeProgress, lng: Languag
 		const reward = KingChallengeConstants.REWARDS[index];
 		return i18n.t("commands:missions.kingChallenge.tier", {
 			lng,
-			...reward.gems > 0 ? { context: DiscordConstants.KING_CHALLENGE_GEMS_CONTEXT } : {},
 			status: index < progress.tier ? "tierReached" : "tierPending",
 			tier: index + 1,
 			threshold,
-			...reward
+			rewards: MissionUtils.formatRewards({
+				moneyDisplay: reward.money,
+				tokensDisplay: reward.tokens,
+				gemsDisplay: reward.gems
+			}, lng)
 		});
 	});
 }
@@ -203,18 +208,14 @@ function getKingChallengeTierLines(progress: KingChallengeProgress, lng: Languag
  */
 function getKingChallengeDescription(progress: KingChallengeProgress, lng: Language): string {
 	return StringUtils.joinParagraphs([
-		i18n.t("commands:missions.kingChallenge.description", {
-			lng,
-			time: finishInTimeDisplay(new Date(progress.nextResetDate))
-		}),
+		i18n.t("commands:missions.kingChallenge.description", { lng }),
 		StringUtils.joinLines([
-			i18n.t("commands:missions.kingChallenge.progress", {
+			i18n.t("commands:missions.kingChallenge.header", {
 				lng,
-				weeklyScore: progress.weeklyScore,
 				tier: progress.tier,
 				tierCount: progress.thresholds.length
 			}),
-			getKingChallengeNextTierLine(progress, lng)
+			getKingChallengeObjective(progress, lng)
 		]),
 		StringUtils.joinLines(getKingChallengeTierLines(progress, lng))
 	]);
@@ -232,7 +233,7 @@ function buildToggleButton(showKingChallenge: boolean, lng: Language): ButtonBui
 	return new ButtonBuilder()
 		.setCustomId(showKingChallenge ? MISSIONS_BUTTON_IDS.KING_CHALLENGE : MISSIONS_BUTTON_IDS.MISSIONS)
 		.setLabel(i18n.t(showKingChallenge ? "commands:missions.kingChallenge.button" : "commands:missions.kingChallenge.backButton", { lng }))
-		.setEmoji(showKingChallenge ? CrowniclesIcons.kingChallenge.icon : CrowniclesIcons.missions.campaign)
+		.setEmoji(showKingChallenge ? CrowniclesIcons.kingChallenge.icon : CrowniclesIcons.collectors.back)
 		.setStyle(ButtonStyle.Secondary);
 }
 

@@ -19,7 +19,7 @@ import PlayerMissionsInfo from "../../database/game/models/PlayerMissionsInfo";
 import { MapCache } from "../../maps/MapCache";
 import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
 import {
-	getKingChallengeThresholds, getKingChallengeWeekSummary, getWeeklyReferenceScores, recordKingChallengeReferenceScores
+	getKingChallengeThresholds, getWeeklyReferenceScores, recordKingChallengeReferenceScores
 } from "../../kingChallenge/KingChallenge";
 
 export class CrowniclesMonday {
@@ -64,14 +64,13 @@ export class CrowniclesMonday {
 			],
 			limit: 1
 		});
-		const kingChallenge = await getKingChallengeWeekSummary();
 		const referenceScores = await getWeeklyReferenceScores();
-		PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {
-			...winner ? { winnerKeycloakId: winner.keycloakId } : {},
-			kingChallenge
-		}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		if (winner !== null) {
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, { winnerKeycloakId: winner.keycloakId }), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 			await PlayerBadgesManager.addBadge(winner.id, Badge.TOP_WEEK);
+		}
+		else {
+			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
 		await Player.update({
 			weeklyScore: 0,
@@ -84,7 +83,6 @@ export class CrowniclesMonday {
 			await recordKingChallengeReferenceScores(referenceScores);
 		}
 		CrowniclesLogger.info("King's challenge week ended", {
-			...kingChallenge,
 			referenceScores,
 			nextThresholds: await getKingChallengeThresholds()
 		});

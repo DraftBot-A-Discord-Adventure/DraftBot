@@ -14,9 +14,6 @@ export abstract class DiscordConstants {
 
 	static EMPTY_MESSAGE = "_ _";
 
-	/** Translation context of the king's challenge rewards that include gems */
-	static KING_CHALLENGE_GEMS_CONTEXT = "gems";
-
 	/**
 	 * Discord.js cache configuration for RAM optimization
 	 */

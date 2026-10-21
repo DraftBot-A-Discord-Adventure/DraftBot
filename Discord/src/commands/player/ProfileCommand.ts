@@ -181,9 +181,7 @@ function addRankAndEffectFields(fields: EmbedField[], packet: CommandProfilePack
 		lng,
 		score: packet.playerData.rank.score,
 		rank: packet.playerData.rank.rank,
-		numberOfPlayer: packet.playerData.rank.numberOfPlayers,
-		kingChallengeTier: packet.playerData.kingChallengeTier,
-		kingChallengeTierCount: KingChallengeConstants.TIER_COUNT
+		numberOfPlayer: packet.playerData.rank.numberOfPlayers
 	});
 
 	const effectFieldKey = packet.playerData.effect.healed ? "noTimeLeft" : "timeLeft";
@@ -231,7 +229,9 @@ function generateFields(packet: CommandProfilePacketRes, lng: Language): EmbedFi
 	addField(fields, "mission", true, {
 		lng,
 		gems: packet.playerData.missions.gems,
-		campaign: packet.playerData.missions.campaignProgression
+		campaign: packet.playerData.missions.campaignProgression,
+		kingChallengeTier: packet.playerData.kingChallengeTier,
+		kingChallengeTierCount: KingChallengeConstants.TIER_COUNT
 	});
 
 	addRankAndEffectFields(fields, packet, lng);

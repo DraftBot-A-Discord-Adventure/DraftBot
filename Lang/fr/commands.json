@@ -751,7 +751,7 @@
     },
     "mission": {
       "fieldName": "Missions :",
-      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% | {emote:kingChallenge.icon} {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "noTimeLeft": {
       "fieldName": "Temps restant :",
@@ -771,11 +771,11 @@
     },
     "ranking": {
       "fieldName": "Classement et Score :",
-      "fieldValue": "{emote:announcements.trophy} {{rank, number}} / {{numberOfPlayer, number}} | {emote:unitValues.score} {{score, number}}\n{emote:kingChallenge.icon} Défi du roi : {{kingChallengeTier}}/{{kingChallengeTierCount}}"
+      "fieldValue": "{emote:announcements.trophy} {{rank, number}} / {{numberOfPlayer, number}} | {emote:unitValues.score} {{score, number}}"
     },
     "unranked": {
       "fieldName": "Classement et Score :",
-      "fieldValue": "{emote:announcements.trophy} Non classé | {emote:unitValues.score} {{score, number}}\n{emote:kingChallenge.icon} Défi du roi : {{kingChallengeTier}}/{{kingChallengeTierCount}}"
+      "fieldValue": "{emote:announcements.trophy} Non classé | {emote:unitValues.score} {{score, number}}"
     },
     "statistics": {
       "fieldName": "Statistiques :",
@@ -2284,14 +2284,13 @@
   "missions": {
     "kingChallenge": {
       "button": "Défi du roi",
-      "backButton": "Missions",
+      "backButton": "Retour",
       "title": "Défi du roi de {{pseudo}}",
-      "description": "Chaque lundi, le roi lance un nouveau défi aux aventuriers du royaume et récompense ceux qui le relèvent. Le dernier palier, réservé aux champions, demande d'égaler le meilleur score moyen des quatre dernières semaines. Prochain défi {{time}}.",
-      "progress": "{emote:unitValues.score} **{{weeklyScore, number}}** points gagnés cette semaine · palier **{{tier}}/{{tierCount}}**",
-      "nextTier": "{{progressionBar}} Encore **{{points, number}}** {emote:unitValues.score} avant le palier {{nextTier}}.",
-      "completed": "{emote:kingChallenge.tierReached} Défi relevé jusqu'au palier des champions cette semaine !",
-      "tier": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token}",
-      "tier_gems": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token} · {{gems}} {emote:unitValues.gem}"
+      "description": "Chaque lundi, le roi lance un nouveau défi aux aventuriers du royaume et récompense ceux qui le relèvent.",
+      "header": "{emote:kingChallenge.icon} **Défi du roi ({{tier}}/{{tierCount}})**",
+      "nextTier": "Gagner {{objective, number}} {emote:unitValues.score} cette semaine pour relever le palier {{nextTier}} (expire {{time}})\n{{progressionBar}} {{current, number}}/{{objective, number}}",
+      "completed": "Vous avez relevé le défi du roi jusqu'au dernier palier ! Un nouveau défi sera lancé {{time}}.",
+      "tier": "{emote:kingChallenge.{{status}}} Palier {{tier}} : {{threshold, number}} {emote:unitValues.score} ({{rewards}})"
     },
     "title": "Missions de {{pseudo}}",
     "subcategories": {

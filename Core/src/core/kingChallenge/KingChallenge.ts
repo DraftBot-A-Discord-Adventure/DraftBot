@@ -5,7 +5,7 @@ import { Settings } from "../database/game/models/Setting";
 import { withLockedPlayerAndMissions } from "../utils/withLockedPlayerAndMissions";
 import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 import {
-	KingChallengeProgress, KingChallengeReferenceScores, KingChallengeWeekScores, KingChallengeWeekSummary
+	KingChallengeProgress, KingChallengeReferenceScores, KingChallengeWeekScores
 } from "../../../../Lib/src/types/KingChallenge";
 import { KingChallengeTierReachedPacket } from "../../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
 import {
@@ -127,16 +127,6 @@ export async function getKingChallengeProgress(player: Player): Promise<KingChal
 
 		// NEXT_WEEKLY_RESET only catches up a missed reset at startup, the reset itself runs every Monday at midnight
 		nextResetDate: getNextSundayMidnight()
-	};
-}
-
-/**
- * Summary of the king's challenge of the week ending. Must run before the weekly reset.
- */
-export async function getKingChallengeWeekSummary(): Promise<KingChallengeWeekSummary> {
-	return {
-		rewardedPlayers: await Player.count({ where: { kingChallengeTier: { [Op.gte]: 1 } } }),
-		completedPlayers: await Player.count({ where: { kingChallengeTier: KingChallengeConstants.TIER_COUNT } })
 	};
 }
 
