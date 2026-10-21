@@ -10,7 +10,7 @@ import { AuthContext } from "@/src/authentication/AuthContext";
 import {
 	IDENTITY_PROVIDERS, KeycloakAuth
 } from "@/src/authentication/KeycloakAuth";
-import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
+import { SessionGrant } from "@/src/authentication/KeycloakOAuth2Token";
 import {
 	AUTH_FAILURES, reasonOfUnknownError
 } from "@/src/authentication/AuthFailure";
@@ -29,6 +29,8 @@ import {
 import { i18n } from "@/src/translations/i18n";
 import { AccountCollisionScreen } from "@/src/authentication/AccountCollisionScreen";
 import { AppIncompatibilityFailure } from "@/src/networking/RestApi";
+import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
+import { signInThroughDiscord } from "@/src/activity/DiscordActivityAuth";
 
 const styles = StyleSheet.create({
 	screen: {
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
 });
 
 type LoginAuthState = React.ContextType<typeof AuthContext>;
-type Authorize = () => Promise<KeycloakOAuth2Token>;
+type Authorize = () => Promise<SessionGrant>;
 
 const LOGIN_ENTRIES = {
 	WELCOME: "welcome",
@@ -128,6 +130,41 @@ function LoginChoices({
 	</>;
 }
 
+/** One sign-in on its own per arrival on this screen; a failed one leaves the next attempt to the player. */
+let automaticSignInAllowed = true;
+
+async function signInAgainLater(): Promise<SessionGrant> {
+	const grant = await signInThroughDiscord();
+	automaticSignInAllowed = true;
+	return grant;
+}
+
+/**
+ * Inside Discord, the player is already signed in to Discord: the game opens with that account, with no
+ * choice to make, when the Activity opens as when a session expires.
+ */
+function ActivityChoices({
+	connecting, onAuthorize
+}: {
+	connecting: boolean; onAuthorize: (authorize: Authorize) => void;
+}): React.ReactElement {
+	const signInOnArrival = React.useEffectEvent((): void => {
+		if (!automaticSignInAllowed) {
+			return;
+		}
+		automaticSignInAllowed = false;
+		onAuthorize(signInAgainLater);
+	});
+	useEffect(() => signInOnArrival(), []);
+	return <ActionBanner
+		icon={MessageCircle}
+		label={connecting ? i18n.t("app:auth.connecting") : i18n.t("app:auth.withDiscord")}
+		pending={connecting}
+		onPress={(): void => onAuthorize(signInAgainLater)}
+		testID="login-discord-activity"
+	/>;
+}
+
 /** States during which a login is already under way */
 const CONNECTING_STATES: ReadonlySet<AuthStateEnum> = new Set([AuthStateEnum.CONNECTING]);
 
@@ -206,6 +243,18 @@ export default function LoginScreen(): React.ReactElement {
 
 	if (collision) {
 		return <AccountCollisionScreen state={collision} onAuthenticated={authState.enter} onCancel={leaveCollision} />;
+	}
+
+	if (isDiscordActivity()) {
+		return (
+			<Screen contentContainerStyle={styles.screen}>
+				<LoginStanding welcome />
+				<LoginNoticeView notice={notice} />
+				<View style={styles.choices}>
+					<ActivityChoices connecting={connecting} onAuthorize={start} />
+				</View>
+			</Screen>
+		);
 	}
 
 	const welcome = entry === LOGIN_ENTRIES.WELCOME;

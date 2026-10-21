@@ -1,6 +1,8 @@
 import uuid from "react-native-uuid";
 import { AuthStateEnum } from "@/src/authentication/AuthStateEnum";
 import { AppConstants } from "@/src/AppConstants";
+import { activityWebSocketUrl } from "@/src/activity/ActivityRoutes";
+import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
 import { FromServerPacket } from "ws-packets/src/fromServer/FromServerPacket";
 import { FromClientPacket } from "ws-packets/src/fromClient/FromClientPacket";
 import { wireNameOf } from "ws-packets/src/MakePackets";
@@ -210,6 +212,9 @@ export class WebSocketClient {
 	}
 
 	private getWebSocketUrl(): string {
+		if (isDiscordActivity()) {
+			return activityWebSocketUrl();
+		}
 		const webSocketUrl = process.env.EXPO_PUBLIC_WEBSOCKET_URL;
 		if (!webSocketUrl) {
 			throw new Error("WebSocket URL is not defined in environment variables.");

@@ -16,6 +16,9 @@ import {
 	ThemeRoot, useColors, useTheme
 } from "@/src/design/ThemeContext";
 import { ThemeTransitionRoot } from "@/src/design/ThemeTransition";
+import { captureDiscordLaunch } from "@/src/activity/DiscordLaunch";
+
+captureDiscordLaunch();
 
 SplashScreen.preventAutoHideAsync().catch((error: unknown) => {
 	console.warn("Unable to keep the native splash screen visible:", error);

@@ -8,6 +8,13 @@ import {
 	ACCOUNT_COLLISION_ENDPOINTS, ACCOUNT_COLLISION_ERRORS, AccountCollisionCheck, AccountCollisionChoice,
 	AccountCollisionError, AccountCollisionResolution
 } from "../../../WsPackets/src/objects/AccountCollision";
+import {
+	DISCORD_ACTIVITY_ENDPOINTS, DISCORD_ACTIVITY_ERRORS, DiscordActivityError, DiscordActivitySession
+} from "../../../WsPackets/src/objects/DiscordActivity";
+import {
+	activityUrl, ACTIVITY_ROUTES
+} from "@/src/activity/ActivityRoutes";
+import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
 
 export const REST_TIMEOUT_MS = 15_000;
 
@@ -39,6 +46,12 @@ export class AccountCollisionRequestFailure extends Error {
 	}
 }
 
+export class DiscordActivityRequestFailure extends Error {
+	public constructor(public readonly reason: DiscordActivityError) {
+		super(reason);
+	}
+}
+
 /** The server and this app stopped speaking the same protocol since the app started: one of them must be updated. */
 export class AppIncompatibilityFailure extends Error {
 	public constructor(public readonly status: AppOutdatedStatus) {
@@ -50,6 +63,7 @@ export class AppIncompatibilityFailure extends Error {
 type AccessToken = string;
 type DeletionCode = string;
 type AccountCollisionEndpoint = typeof ACCOUNT_COLLISION_ENDPOINTS[keyof typeof ACCOUNT_COLLISION_ENDPOINTS];
+type DiscordActivityEndpoint = typeof DISCORD_ACTIVITY_ENDPOINTS[keyof typeof DISCORD_ACTIVITY_ENDPOINTS];
 
 /** Whether the account still waits for the player to choose between two accounts sharing an email */
 export function isAccountCollisionOpen(check: AccountCollisionCheck): boolean {
@@ -68,6 +82,9 @@ export class RestApi {
 	private static incompatibility: AppOutdatedStatus | null = null;
 
 	private static getBaseUrl(): string {
+		if (isDiscordActivity()) {
+			return activityUrl(ACTIVITY_ROUTES.REST_API);
+		}
 		const url = process.env.EXPO_PUBLIC_REST_API_URL;
 		if (!url) {
 			throw new Error("REST_API_URL is not defined in the environment variables.");
@@ -221,5 +238,33 @@ export class RestApi {
 		return RestApi.accountCollisionRequest(ACCOUNT_COLLISION_ENDPOINTS.RESOLVE, accessToken, {
 			otherToken, keep
 		});
+	}
+
+	private static async discordActivityRequest(endpoint: DiscordActivityEndpoint, body: object): Promise<DiscordActivitySession> {
+		const response = await RestApi.fetchWithTimeout(`${RestApi.getBaseUrl()}${endpoint}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json", [APP_PROTOCOL_HEADER]: String(APP_PROTOCOL_VERSION)
+			},
+			body: JSON.stringify(body)
+		}, REST_TIMEOUT_MS);
+		if (response.status === HTTP_UPGRADE_REQUIRED) {
+			throw new AppIncompatibilityFailure((await response.json() as AppIncompatibility).error);
+		}
+		if (!response.ok) {
+			const failure = await response.json().catch(() => ({})) as { error?: DiscordActivityError };
+			throw new DiscordActivityRequestFailure(failure.error ?? DISCORD_ACTIVITY_ERRORS.UNAVAILABLE);
+		}
+		return response.json() as Promise<DiscordActivitySession>;
+	}
+
+	/** Turns the code Discord handed the Activity into a session of the player's game account. */
+	public static openDiscordActivitySession(code: string): Promise<DiscordActivitySession> {
+		return RestApi.discordActivityRequest(DISCORD_ACTIVITY_ENDPOINTS.SESSION, { code });
+	}
+
+	/** A session opened inside Discord belongs to RestWs, which is the one able to refresh it. */
+	public static refreshDiscordActivitySession(refreshToken: string): Promise<DiscordActivitySession> {
+		return RestApi.discordActivityRequest(DISCORD_ACTIVITY_ENDPOINTS.REFRESH, { refreshToken });
 	}
 }

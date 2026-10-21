@@ -44,6 +44,7 @@
     }
   },
   "dependencies": {
+    "@discord/embedded-app-sdk": "^2.5.0",
     "@expo-google-fonts/inter": "^0.4.2",
     "@expo/metro-runtime": "~57.0.10",
     "@expo/vector-icons": "^15.0.3",

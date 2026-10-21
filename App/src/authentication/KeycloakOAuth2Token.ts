@@ -10,3 +10,6 @@ export interface KeycloakOAuth2Token {
 	session_state: string;
 	scope: string;
 }
+
+/** What opening a session hands the app, whichever way the player signed in. */
+export type SessionGrant = Pick<KeycloakOAuth2Token, "access_token" | "refresh_token" | "expires_in" | "refresh_expires_in">;

@@ -2,7 +2,7 @@ import {
 	createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState
 } from "react";
 import {
-	Appearance, StyleSheet, useColorScheme
+	Appearance, Platform, StyleSheet, useColorScheme
 } from "react-native";
 import { setBackgroundColorAsync } from "expo-system-ui";
 import {
@@ -29,6 +29,10 @@ const ThemeContext = createContext<ThemeState>({
 
 /** Lets native surfaces (keyboard, alerts) follow the choice, and hands them back to the system otherwise. */
 function applyNativeScheme(preference: ThemePreference): void {
+	// The browser keeps its own scheme: react-native-web offers no way to override it.
+	if (Platform.OS === "web") {
+		return;
+	}
 	Appearance.setColorScheme(preference === THEME_PREFERENCES.SYSTEM ? "unspecified" : preference);
 }
 

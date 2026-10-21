@@ -7,6 +7,9 @@ export const AUTH_FAILURES = {
 	DENIED: "denied",
 	UNREACHABLE: "unreachable",
 	INVALID_TOKEN: "invalidToken",
+
+	/** Inside Discord: the Discord account has no link yet to the game account it would open. */
+	ACCOUNT_NOT_LINKED: "accountNotLinked",
 	UNKNOWN: "unknown"
 } as const;
 

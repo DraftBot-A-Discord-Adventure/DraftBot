@@ -172,6 +172,7 @@
       "denied": "L'autorisation a été refusée. Acceptez de partager votre identité pour rejoindre le royaume.",
       "unreachable": "Le royaume est injoignable. Vérifiez votre connexion, puis réessayez.",
       "invalidToken": "La réponse reçue est inexploitable. Réessayez dans un instant.",
+      "accountNotLinked": "Ce compte Discord n'est pas encore relié à votre aventure. Connectez-vous une fois avec Discord dans l'application, puis relancez l'activité.",
       "unknown": "La connexion n'a pas abouti. Réessayez dans un instant."
     }
   },

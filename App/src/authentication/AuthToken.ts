@@ -1,5 +1,7 @@
 import { KeycloakAuth } from "@/src/authentication/KeycloakAuth";
-import { KeycloakOAuth2Token } from "@/src/authentication/KeycloakOAuth2Token";
+import { SessionGrant } from "@/src/authentication/KeycloakOAuth2Token";
+import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
+import { refreshThroughDiscordActivity } from "@/src/activity/DiscordActivityAuth";
 import {
 	AUTH_FAILURES, AuthFailure
 } from "@/src/authentication/AuthFailure";
@@ -49,7 +51,8 @@ export class AuthToken {
 		if (!this.isAccessTokenExpired() || this.isRefreshTokenExpired()) {
 			return Promise.resolve(false);
 		}
-		this.refreshing = KeycloakAuth.refresh(this.data.refreshToken).then(refreshedToken => {
+		const refresh = isDiscordActivity() ? refreshThroughDiscordActivity : KeycloakAuth.refresh;
+		this.refreshing = refresh(this.data.refreshToken).then(refreshedToken => {
 			this.data.accessToken = refreshedToken.access_token;
 			this.data.refreshToken = refreshedToken.refresh_token;
 			this.data.accessTokenExpiresAt = new Date(Date.now() + refreshedToken.expires_in * 1000);
@@ -93,7 +96,7 @@ export class AuthToken {
 		}
 	}
 
-	public static fromKeycloakOAuth2Token(keycloakOAuth2Token: KeycloakOAuth2Token): AuthToken {
+	public static fromKeycloakOAuth2Token(keycloakOAuth2Token: SessionGrant): AuthToken {
 		return new AuthToken({
 			accessToken: keycloakOAuth2Token.access_token,
 			refreshToken: keycloakOAuth2Token.refresh_token,
