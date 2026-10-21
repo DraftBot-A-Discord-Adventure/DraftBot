@@ -188,6 +188,19 @@ describe("canAutoChooseDestination", () => {
 	});
 });
 
+/**
+ * Player standing on map location 1, about to choose the destination of their next trip
+ */
+const makeTravellingPlayer = (): Player =>
+	({
+		id: 1,
+		keycloakId: "destination-player",
+		mapLinkId: 1,
+		getDestinationId: (): number => 1,
+		getPreviousMapId: (): number => 0,
+		effectRemainingTime: (): number => 0
+	} as Player);
+
 describe("chooseDestination collector", () => {
 	it("tells for each destination the biomes the pet can explore there", async () => {
 		capturedCollector = undefined;
@@ -206,14 +219,7 @@ describe("chooseDestination collector", () => {
 			biomes: biomes[mapId]
 		}));
 
-		const player = {
-			id: 1,
-			keycloakId: "destination-player",
-			mapLinkId: 1,
-			getDestinationId: (): number => 1,
-			getPreviousMapId: (): number => 0,
-			effectRemainingTime: (): number => 0
-		} as Player;
+		const player = makeTravellingPlayer();
 
 		await chooseDestination({} as never, player, null, [], { allowStayInCity: false });
 
@@ -250,14 +256,7 @@ describe("chooseDestination collector", () => {
 			.mockRejectedValueOnce(connectionTimeout)
 			.mockResolvedValueOnce(undefined);
 
-		const player = {
-			id: 1,
-			keycloakId: "destination-player",
-			mapLinkId: 1,
-			getDestinationId: (): number => 1,
-			getPreviousMapId: (): number => 0,
-			effectRemainingTime: (): number => 0
-		} as Player;
+		const player = makeTravellingPlayer();
 
 		await chooseDestination({} as never, player, null, [], { allowStayInCity: false });
 
@@ -300,14 +299,7 @@ describe("chooseDestination collector", () => {
 		});
 		startTravelMock.mockRejectedValue(ambiguousConnectionTimeout);
 
-		const player = {
-			id: 1,
-			keycloakId: "destination-player",
-			mapLinkId: 1,
-			getDestinationId: (): number => 1,
-			getPreviousMapId: (): number => 0,
-			effectRemainingTime: (): number => 0
-		} as Player;
+		const player = makeTravellingPlayer();
 
 		await chooseDestination({} as never, player, null, [], { allowStayInCity: false });
 
@@ -342,14 +334,7 @@ describe("chooseDestination collector", () => {
 		getMapLocationByIdMock.mockReturnValue(cavernLocation);
 		startTravelMock.mockRejectedValue(new Error("Database connection timed out"));
 
-		const player = {
-			id: 1,
-			keycloakId: "destination-player",
-			mapLinkId: 1,
-			getDestinationId: (): number => 1,
-			getPreviousMapId: (): number => 0,
-			effectRemainingTime: (): number => 0
-		} as Player;
+		const player = makeTravellingPlayer();
 
 		await chooseDestination({} as never, player, null, [], { allowStayInCity: false });
 
