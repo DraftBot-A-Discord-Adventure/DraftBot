@@ -35,6 +35,8 @@ import { ItemRecycleOutcome } from "@/src/collectors/ItemRecycleOutcome";
 import { useItemRecycleOutcome } from "@/src/store/useItemRecycleOutcome";
 import { EnchanterDisenchantOutcome } from "@/src/collectors/EnchanterDisenchantOutcome";
 import { useEnchanterDisenchantOutcome } from "@/src/store/useEnchanterDisenchantOutcome";
+import { EnchantmentTransferOutcome } from "@/src/collectors/EnchantmentTransferOutcome";
+import { useEnchantmentTransferOutcome } from "@/src/store/useEnchantmentTransferOutcome";
 import { HomeBedOutcome } from "@/src/collectors/HomeBedOutcome";
 import { ApartmentRentOutcome } from "@/src/collectors/ApartmentRentOutcome";
 import { useApartmentRentOutcome } from "@/src/store/useApartmentRentOutcome";
@@ -171,6 +173,7 @@ function PendingOutcomes(): ReactNode {
 	const itemUpgrade = useItemUpgradeOutcome();
 	const itemRecycle = useItemRecycleOutcome();
 	const enchanterDisenchant = useEnchanterDisenchantOutcome();
+	const enchantmentTransfer = useEnchantmentTransferOutcome();
 	const innOutcome = useInnOutcome();
 	const homeBed = useHomeBedOutcome();
 	const apartmentRent = useApartmentRentOutcome();
@@ -222,6 +225,9 @@ function PendingOutcomes(): ReactNode {
 		},
 		{
 			state: enchanterDisenchant, node: <PendingOutcome state={enchanterDisenchant} Content={EnchanterDisenchantOutcome} />
+		},
+		{
+			state: enchantmentTransfer, node: <PendingOutcome state={enchantmentTransfer} Content={EnchantmentTransferOutcome} />
 		},
 		{
 			state: innOutcome, node: <PendingOutcome state={innOutcome} Content={InnOutcome} />

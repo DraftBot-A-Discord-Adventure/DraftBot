@@ -699,6 +699,10 @@
       "title": "Enchantement effacé",
       "description": "Mernil a retiré {{enchantment}} sans rien demander en retour."
     },
+    "enchantmentTransferred": {
+      "title": "Enchantement transféré",
+      "description": "Le forgeron a scellé {{enchantment}} sur l'équipement choisi pour {{cost}}."
+    },
     "stayScore": {
       "title": "Séjour en ville récompensé",
       "description": "Vos points vous sont crédités en quittant la ville."

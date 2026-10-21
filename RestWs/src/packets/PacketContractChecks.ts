@@ -33,6 +33,7 @@ import {
 	CommandReportBuyHealRefusePacketRes,
 	CommandReportBigEventResultRes,
 	CommandReportChooseDestinationRes,
+	CommandReportBlacksmithEnchantmentTransferRes,
 	CommandReportEnchanterDisenchantRes,
 	CommandReportStayInCity,
 	CommandReportTokenMerchantBoughtRes,
@@ -86,6 +87,7 @@ import { ReportBigEventResultRes } from "../../../WsPackets/src/fromServer/repor
 import { ReportStayInCity } from "../../../WsPackets/src/fromServer/report/ReportStayInCity";
 import { ReportDestinationRes } from "../../../WsPackets/src/fromServer/report/ReportDestinationRes";
 import { EnchanterDisenchantRes } from "../../../WsPackets/src/fromServer/report/EnchanterDisenchantRes";
+import { BlacksmithEnchantmentTransferRes } from "../../../WsPackets/src/fromServer/report/BlacksmithEnchantmentTransferRes";
 import {
 	ReportBuyHealAcceptedRes,
 	ReportBuyHealCannotHealOccupiedRes,
@@ -205,6 +207,10 @@ type ReportDestinationContract = Assert<IsEqual<
 type EnchanterDisenchantContract = Assert<IsEqual<
 	WireShape<CommandReportEnchanterDisenchantRes>,
 	WireShape<WirePacketFields<EnchanterDisenchantRes>>
+>>;
+type BlacksmithEnchantmentTransferContract = Assert<IsEqual<
+	WireShape<CommandReportBlacksmithEnchantmentTransferRes>,
+	WireShape<WirePacketFields<BlacksmithEnchantmentTransferRes>>
 >>;
 type ReportBigEventResultContract = Assert<IsEqual<
 	WireShape<CommandReportBigEventResultRes>,
@@ -341,6 +347,7 @@ export const packetContractChecks: {
 	reportStayInCity: ReportStayInCityContract;
 	reportDestination: ReportDestinationContract;
 	enchanterDisenchant: EnchanterDisenchantContract;
+	blacksmithEnchantmentTransfer: BlacksmithEnchantmentTransferContract;
 	reportBigEventResult: ReportBigEventResultContract;
 	reportUseTokensAccepted: ReportUseTokensAcceptedContract;
 	reportUseTokensRefused: ReportUseTokensRefusedContract;
@@ -399,6 +406,7 @@ export const packetContractChecks: {
 	reportStayInCity: true,
 	reportDestination: true,
 	enchanterDisenchant: true,
+	blacksmithEnchantmentTransfer: true,
 	reportBigEventResult: true,
 	reportUseTokensAccepted: true,
 	reportUseTokensRefused: true,
