@@ -163,7 +163,8 @@ function buildMapReactions(player: Player, destinationMaps: number[]): ReactionC
 		return {
 			mapId,
 			mapTypeId: mapLocation.type,
-			tripDuration: isPveMap || RandomUtils.crowniclesRandom.bool() ? mapLink.tripDuration : undefined
+			tripDuration: isPveMap || RandomUtils.crowniclesRandom.bool() ? mapLink.tripDuration : undefined,
+			biomes: mapLocation.biomes
 		};
 	});
 }
