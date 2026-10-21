@@ -51,7 +51,7 @@ export async function createPetExpeditionCollector(
 	const lng = interaction.userLanguage;
 
 	const locationEmoji = CrowniclesIcons.expedition.locations[data.locationType];
-	const locationName = getExpeditionLocationName(lng, data.mapLocationId, data.isDistantExpedition);
+	const locationName = getExpeditionLocationName(lng, data.mapLocationId, data.locationType, data.isDistantExpedition);
 	const petDisplay = getPetDisplayString(data.pet, lng);
 	const sexContext = getSexContext(data.pet.petSex);
 
@@ -140,7 +140,7 @@ function addExpeditionMenuOption(
 	lng: Language
 ): void {
 	const locationEmoji = CrowniclesIcons.expedition.locations[exp.locationType];
-	const locationName = getExpeditionLocationName(lng, exp.mapLocationId, exp.isDistantExpedition);
+	const locationName = getExpeditionLocationName(lng, exp.mapLocationId, exp.locationType, exp.isDistantExpedition);
 	const displayDuration = i18n.formatDuration(exp.displayDurationMinutes, lng);
 
 	selectMenu.addOptions({
@@ -286,7 +286,7 @@ function buildFinishedExpeditionEmbed(
 	user: User
 ): CrowniclesEmbed {
 	const locationEmoji = CrowniclesIcons.expedition.locations[data.locationType];
-	const locationName = getExpeditionLocationName(lng, data.mapLocationId, data.isDistantExpedition);
+	const locationName = getExpeditionLocationName(lng, data.mapLocationId, data.locationType, data.isDistantExpedition);
 	const petDisplay = getPetDisplayString(data.pet, lng);
 	const sexContext = getSexContext(data.pet.petSex);
 

@@ -25,7 +25,7 @@ import {
 	ExpeditionData
 } from "../../../../Lib/src/packets/commands/CommandPetExpeditionPacket";
 import {
-	generateThreeExpeditions,
+	generateExpeditionChoices,
 	calculateEffectiveRisk,
 	determineExpeditionOutcome
 } from "../../core/expeditions/ExpeditionService";
@@ -33,6 +33,7 @@ import { validateExpeditionPrerequisites } from "../../core/expeditions/Expediti
 import { applyExpeditionRewards } from "../../core/expeditions/ExpeditionRewardApplicator";
 import { PendingExpeditionsCache } from "../../core/expeditions/PendingExpeditionsCache";
 import { Maps } from "../../core/maps/Maps";
+import { TravelTime } from "../../core/maps/TravelTime";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { crowniclesInstance } from "../../app";
 import { LogsReadRequests } from "../../core/database/logs/LogsReadRequests";
@@ -375,7 +376,7 @@ export default class PetExpeditionCommand {
 
 		// All requirements met - show expedition choice
 		const guildInfo = await getGuildFoodInfo(player, petModel);
-		const expeditions = generateThreeExpeditions(player.mapLinkId!, talismans.hasCloneTalisman);
+		const expeditions = generateExpeditionChoices(player.mapLinkId!, TravelTime.getTravelProgress(player), talismans.hasCloneTalisman);
 
 		// Store expeditions in cache for later retrieval
 		PendingExpeditionsCache.set(context.keycloakId!, expeditions);
