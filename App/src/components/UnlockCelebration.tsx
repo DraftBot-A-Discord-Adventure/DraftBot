@@ -67,7 +67,14 @@ const useStyles = createStyles(colors => ({
 		...FILL, backgroundColor: colors.overlay
 	},
 	card: {
-		alignItems: "center", paddingTop: Theme.spacing.xl, paddingBottom: Theme.spacing.xl, paddingHorizontal: Theme.spacing.xl, borderRadius: Theme.radius, backgroundColor: colors.paper
+		...Theme.layout.column,
+		maxWidth: Theme.layout.columnMaxWidth - 2 * Theme.spacing.xxl,
+		alignItems: "center",
+		paddingTop: Theme.spacing.xl,
+		paddingBottom: Theme.spacing.xl,
+		paddingHorizontal: Theme.spacing.xl,
+		borderRadius: Theme.radius,
+		backgroundColor: colors.paper
 	},
 	burst: {
 		position: "absolute", alignItems: "center", justifyContent: "center"

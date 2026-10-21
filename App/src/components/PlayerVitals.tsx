@@ -29,6 +29,7 @@ const useStyles = createStyles(colors => ({
 		paddingTop: Theme.spacing.sm
 	},
 	vitals: {
+		...Theme.layout.column,
 		flexDirection: "row",
 		alignItems: "center",
 		gap: Theme.spacing.lg,
@@ -69,6 +70,7 @@ const useStyles = createStyles(colors => ({
 		borderRadius: Theme.pillRadius
 	},
 	wallet: {
+		...Theme.layout.column,
 		flexDirection: "row",
 		gap: Theme.spacing.titleGap,
 		paddingHorizontal: Theme.spacing.xl,

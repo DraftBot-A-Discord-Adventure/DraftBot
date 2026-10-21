@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>ADR 0002 — Formats d'écran sur grand écran (Discord Activity)</title>
+<style>
+:root { --ink:#0B0B0C; --muted:#6E6E73; --wash:#F4F4F5; --line:#E6E6E8; --gold:#C8963C; --goldwash:#F8EFDD; --green:#3F9A5C; }
+* { box-sizing:border-box; }
+body { margin:0; font:15px/1.5 -apple-system, "Inter", system-ui, sans-serif; color:var(--ink); background:var(--wash); }
+header { padding:32px 40px 8px; }
+h1 { margin:0 0 4px; font-size:28px; }
+header p { margin:0; color:var(--muted); }
+nav { position:sticky; top:0; z-index:2; display:flex; flex-wrap:wrap; gap:8px; padding:12px 40px; background:rgba(244,244,245,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+nav a { text-decoration:none; color:var(--ink); background:#fff; border-radius:999px; padding:4px 12px; font-size:13px; font-weight:600; }
+nav a span, .count { color:var(--gold); }
+main { padding:24px 40px 60px; display:grid; gap:20px; }
+section, .review { background:#fff; border-radius:16px; padding:22px; box-shadow:0 4px 12px rgba(0,0,0,.04); scroll-margin-top:110px; }
+.review { border:2px solid var(--goldwash); }
+.review li { margin:6px 0; }
+.head { display:flex; gap:24px; align-items:flex-start; }
+h2 { margin:0 0 6px; font-size:20px; }
+.head p { margin:4px 0; max-width:760px; }
+.when { color:var(--muted); }
+.src { font-size:13px; }
+ul { margin:16px 0 0; padding:0; list-style:none; columns:2 420px; column-gap:24px; }
+ul li { break-inside:avoid; padding:6px 0; border-top:1px solid var(--line); display:grid; grid-template-columns:1fr; font-size:13.5px; }
+.label { font-weight:600; }
+code { color:var(--muted); font-size:12px; }
+a { color:#2F6FD0; font-size:12px; }
+/* phone mockups */
+.phone { position:relative; flex:none; width:120px; height:220px; border-radius:18px; border:3px solid var(--ink); background:var(--wash); overflow:hidden; }
+.phone .page { position:absolute; inset:14px 8px 8px; display:flex; flex-direction:column; gap:6px; }
+.phone .page.white { background:#fff; inset:0; padding:16px 8px; }
+.phone .page.center { align-items:center; justify-content:center; }
+.phone.dim::after { content:""; position:absolute; inset:0; background:rgba(11,11,12,.35); }
+.phone b { display:block; height:8px; width:70%; border-radius:4px; background:var(--ink); }
+.phone b.small { height:5px; width:40%; background:var(--muted); }
+.phone b.big { height:11px; width:60%; }
+.phone b.gold { background:var(--gold); height:5px; width:50%; }
+.phone i { display:block; height:5px; width:90%; border-radius:3px; background:var(--line); }
+.phone .dot { flex:none; width:16px; height:16px; border-radius:50%; background:var(--wash); }
+.phone .chip { display:block; height:10px; width:55%; border-radius:6px; background:#EAF5EE; }
+.phone .banner { display:block; height:16px; width:100%; border-radius:999px; background:var(--ink); margin-top:auto; }
+.phone .back { display:block; height:10px; width:34%; border-radius:999px; background:var(--wash); border:1px solid var(--line); }
+.phone .list { background:#fff; border-radius:8px; padding:6px; display:grid; gap:6px; }
+.phone .card { background:#fff; border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:5px; }
+.phone .toast { position:absolute; z-index:1; top:8px; left:6px; right:6px; display:flex; gap:6px; align-items:center; padding:6px; border-radius:12px; background:var(--ink); }
+.phone .toast b { background:#fff; width:50px; height:5px; }
+.phone .toast i { background:#6E6E73; width:36px; margin-top:4px; }
+.phone .celeb { position:absolute; z-index:1; left:12px; right:12px; top:50px; background:#fff; border-radius:12px; padding:10px 8px; display:flex; flex-direction:column; gap:6px; align-items:center; }
+.phone .halo { display:block; width:34px; height:34px; border-radius:50%; background:var(--goldwash); border:2px solid var(--gold); }
+.phone .bottom { position:absolute; z-index:1; left:0; right:0; bottom:0; height:62%; background:#fff; border-radius:14px 14px 0 0; padding:8px; display:flex; flex-direction:column; gap:6px; }
+.phone .grab { align-self:center; width:22px; height:3px; border-radius:2px; background:var(--line); }
+.phone .live { height:22px; border-radius:8px; background:#fff; padding:8px 6px; }
+.phone .live span { display:block; height:5px; width:60%; border-radius:3px; background:var(--green); }
+.phone .tiles { display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; }
+.phone .tiles span { height:22px; border-radius:8px; background:#fff; }
+.phone .alert { position:absolute; z-index:1; left:14px; right:14px; top:70px; background:#f7f7f7; border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px; align-items:center; }
+.phone .alert .btns { display:flex; gap:4px; width:100%; }
+.phone .alert .btns span { flex:1; height:12px; border-radius:4px; background:#2F6FD0; opacity:.6; }
+
+.intro { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+.stat { background:#fff; border-radius:14px; padding:14px 16px; }
+.stat b { display:block; font-size:28px; }
+.role { font-size:13px; font-weight:600; color:var(--gold); margin-left:6px; }
+.bul { columns:1; margin:4px 0 6px; padding-left:18px; list-style:disc; }
+.bul li { border:0; padding:1px 0; display:list-item; }
+.budget { margin-bottom:0 !important; }
+.dont { color:#D2504B; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; background:#fff; border-radius:12px; overflow:hidden; }
+th, td { text-align:left; vertical-align:top; padding:8px 10px; border-top:1px solid var(--line); }
+th { background:var(--wash); font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+tr.same { color:var(--muted); }
+tr.same b { font-weight:500; }
+tr.change td:nth-child(3) b { background:var(--goldwash); padding:1px 6px; border-radius:6px; color:var(--ink); }
+.effort { white-space:nowrap; font-weight:700; color:var(--gold); }
+h3 { margin:22px 0 8px; }
+.tree { background:#fff; border-radius:16px; padding:18px 22px; }
+.tree .q { font-weight:700; margin:12px 0 4px; }
+.tree .branch { margin:2px 0 2px 16px; }
+.tree .split { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.tree .col { border-left:3px solid var(--line); padding-left:14px; }
+.yes, .no { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; padding:1px 7px; border-radius:999px; }
+.yes { background:#EAF5EE; color:var(--green); }
+.no { background:#FBEDEC; color:#D2504B; }
+.plan li { margin:10px 0; }
+.legend { color:var(--muted); font-size:13px; }
+.adr dl { display:grid; grid-template-columns:max-content 1fr; gap:6px 16px; margin:0; }
+.adr dt { font-weight:700; }
+.adr dd { margin:0; }
+.status { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; background:#EAF5EE; color:var(--green); }
+.primitive { margin:8px 0 0; font-size:13px; }
+.primitive code { color:var(--ink); background:var(--wash); padding:1px 6px; border-radius:6px; }
+</style>
+<style>
+/* large-screen mockups: a 16:9 frame holding the phone column */
+.desk { position:relative; flex:none; width:240px; height:135px; border-radius:10px; border:3px solid var(--ink); background:var(--wash); overflow:hidden; }
+.desk .bar { position:absolute; left:0; right:0; top:0; height:12px; background:#fff; border-bottom:1px solid var(--line); }
+.desk .col { position:absolute; top:16px; bottom:4px; left:50%; width:84px; margin-left:-42px; display:flex; flex-direction:column; gap:4px; }
+.desk .col.wide { width:168px; margin-left:-84px; flex-direction:row; }
+.desk .col.wide > div { flex:1; display:flex; flex-direction:column; gap:4px; }
+.desk b { display:block; height:6px; width:70%; border-radius:3px; background:var(--ink); }
+.desk i { display:block; height:4px; width:90%; border-radius:2px; background:var(--line); }
+.desk .card { background:#fff; border-radius:6px; padding:5px; display:flex; flex-direction:column; gap:3px; }
+.desk .banner { display:block; height:9px; width:100%; border-radius:999px; background:var(--ink); margin-top:auto; }
+.desk .tabs { position:absolute; bottom:4px; left:50%; width:84px; margin-left:-42px; height:9px; border-radius:999px; background:#fff; border:1px solid var(--line); }
+.desk.dim::after { content:""; position:absolute; inset:0; background:rgba(11,11,12,.35); }
+.desk .sheet { position:absolute; z-index:1; bottom:0; left:50%; width:84px; margin-left:-42px; height:60%; background:#fff; border-radius:8px 8px 0 0; padding:5px; display:flex; flex-direction:column; gap:4px; }
+.desk .toast { position:absolute; z-index:1; top:16px; left:50%; width:84px; margin-left:-42px; height:14px; border-radius:7px; background:var(--ink); }
+.desk .gutter { position:absolute; top:12px; bottom:0; width:72px; background:repeating-linear-gradient(45deg, transparent 0 5px, rgba(200,150,60,.12) 5px 10px); }
+.desk .gutter.l { left:0; } .desk .gutter.r { right:0; }
+</style>
+</head><body>
+<header><h1>ADR 0002 — Les 8 formats sur grand écran</h1>
+<p>Comment les formats de l'<a href="0001-formats-ecran.html">ADR 0001</a> se posent quand l'app tourne dans un cadre paysage, à la souris : la Discord Activity sur PC. <span class="status">Acceptée</span></p></header>
+<nav><a href="#adr">Décision</a><a href="#cadre">Le cadre</a><a href="#principes">Règles</a><a href="#formats">Les 8 formats</a><a href="#ecrans">Écran par écran</a><a href="#ecarte">Écarté</a><a href="#ouvert">Ouvert</a><a href="#maintenir">Maintenir</a></nav>
+<main>
+<section id="adr" class="adr"><h2>Décision</h2><dl>
+	<dt>Statut</dt><dd>Acceptée le 21/10/2026, mise en œuvre sur la branche <code>feat/discord-activity</code>.</dd>
+	<dt>Contexte</dt><dd>Lancée dans Discord sur PC, l'app occupe un cadre paysage de 1100 à 1600 px de large pour 600 à 850 de haut. Chaque écran s'étirait sur toute cette largeur : lignes de texte de 200 caractères, chiffres collés au bord opposé de leur libellé, barre d'onglets et bottom sheets de 1500 px, tandis que le combat, empilé en hauteur, ne tenait plus dans les 720 px disponibles.</dd>
+	<dt>Décision</dt><dd>Aucun nouveau format, aucun écran propre au PC : les 8 formats de l'ADR 0001 gardent leur arbre et leurs budgets. Seul leur <b>cadre</b> change, une fois, dans les primitives de <code>App/src/design</code> : le contenu tient dans une colonne de 640 px centrée, les surfaces gardent toute la largeur, et le combat passe en deux colonnes quand la hauteur manque.</dd>
+	<dt>Conséquences</dt><dd>Un écran construit avec les primitives est juste sur PC sans y penser. Une largeur fixe ou une mise en page posée à la main hors des primitives est un bug sur grand écran. Les tablettes en profitent aussi : la colonne ne fait rien sous 640 px, donc rien ne change sur téléphone.</dd>
+</dl></section>
+<div id="resume" class="intro">
+	<div class="stat"><b>640 px</b>colonne de contenu, centrée, à toute taille d'écran</div>
+	<div class="stat"><b>1</b>seul écran en deux colonnes : le combat, en paysage</div>
+	<div class="stat"><b>0</b>nouveau format, 0 écran propre au PC</div>
+</div>
+
+<section id="cadre"><h2>Le cadre : ce que Discord donne à l'Activity</h2><ul class="bul plan">
+	<li><b>Focused, sur PC</b><br>Le cadre principal du salon : paysage, environ 1100–1600 × 600–850 px, souris et clavier, aucun geste tactile. C'est le cas que cette décision traite.</li>
+	<li><b>Discord mobile</b><br>Portrait, à la largeur du téléphone : l'app y est déjà chez elle, rien ne change.</li>
+	<li><b>Vignette (PiP, grille)</b><br>Une tuile d'environ 300 × 170 px quand le joueur regarde autre chose. Hors de cette décision : voir <a href="#ouvert">Ouvert</a>.</li>
+</ul></section>
+
+<section id="principes"><h2>Quatre règles</h2><ul class="bul plan">
+	<li><b>Une colonne, pas un écran étiré</b><br>Le contenu tient dans une colonne de 640 px centrée : une ligne de récit reste sous 90 caractères, un chiffre reste à portée d'œil de son libellé, et l'écran ressemble à celui du téléphone que le joueur connaît. Les surfaces (fond, bande d'en-tête, zone de défilement, voile d'une fenêtre) gardent toute la largeur : la molette fait défiler la page même la souris posée dans la marge.</li>
+	<li><b>La hauteur est la ressource rare</b><br>En paysage, la largeur abonde et la hauteur manque. Ce qui s'empile et doit rester visible en entier (le combat : scène, fil, actions) passe côte à côte plutôt que de rapetisser. Le reste défile, comme sur téléphone.</li>
+	<li><b>Un geste a toujours son équivalent souris</b><br>Le glissement depuis le bord et le glissement vers le bas n'existent pas à la souris. Toute page garde son « Retour » visible, toute bottom sheet se ferme d'un clic sur le voile ou avec Échap, et rien ne se fait qu'au geste.</li>
+	<li><b>Une seule règle, posée dans les primitives</b><br>La colonne est une largeur maximale, pas un mode : sous 640 px elle ne fait rien. Pas de détection « PC », pas de deuxième version d'écran à maintenir. Seul le combat lit la taille du cadre, parce que sa mise en page en dépend.</li>
+</ul></section>
+
+<section id="formats"><h2>Les 8 formats sur grand écran</h2><p class="legend">Le budget et le rôle de chaque format sont ceux de l'ADR 0001 ; seul le cadre est décrit ici.</p></section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar"></div><span class="gutter l"></span><span class="gutter r"></span><div class="col"><div class="card"><b></b><i></i></div><div class="card"><i></i><i></i></div><span class="banner"></span></div><span class="tabs"></span></div><div>
+		<h2>Accueil d'onglet <span class="role">Colonne + en-tête et barre alignés</span></h2>
+		<p>Le bandeau d'identité, le bloc vivant et les raccourcis tiennent dans la colonne. La bande d'en-tête (pseudo, réglages) court sur toute la largeur mais son contenu s'aligne sur la colonne ; la barre capsule se pose sous la colonne, à sa largeur, au lieu de traverser l'écran. Le dock de l'accueil Aventure (trajet, action du moment) suit la colonne.</p>
+		<p class="primitive"><b>Code :</b> <code>Screen</code> (largeur du contenu), <code>TabsHeader</code>, <code>CapsuleTabBar</code>, dock du rapport.</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar"></div><div class="col"><div class="card"><i></i></div></div><span class="toast"></span></div><div>
+		<h2>Toast <span class="role">En haut de la colonne</span></h2>
+		<p>Descend en haut de la colonne, à sa largeur : il reste au-dessus de ce dont il parle au lieu de s'étaler d'un bord à l'autre.</p>
+		<p class="primitive"><b>Code :</b> <code>Toast</code>.</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk dim"><div class="bar"></div><div class="col"><div class="card"><i></i></div></div><div class="sheet"><b></b><i></i><span class="banner"></span></div></div><div>
+		<h2>Bottom sheet <span class="role">Posée sous la colonne</span></h2>
+		<p>Monte du bas, à la largeur de la colonne d'où elle vient, centrée. Le voile couvre tout le cadre ; un clic dessus ou Échap la range, comme le glissement vers le bas sur téléphone.</p>
+		<p class="primitive"><b>Code :</b> <code>BottomSheet</code> (donc <code>QuestionSheet</code> et toutes les fiches).</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar"></div><div class="col"><div class="card"><b></b><i></i><i></i><i></i></div><div class="card"><i></i></div><div class="card"><i></i></div></div></div><div>
+		<h2>Journal <span class="role">Dans la colonne</span></h2>
+		<p>Le récit garde une longueur de ligne de lecture ; les choix restent des lignes pleines de la colonne, avec leur flèche à portée.</p>
+		<p class="primitive"><b>Code :</b> <code>JournalEntry</code> dans <code>Screen</code> ou dans une bottom sheet : rien de spécifique.</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk dim"><div class="bar"></div><div class="col"><div class="card" style="z-index:1;margin-top:10px;height:80px"><b></b><i></i></div></div></div><div>
+		<h2>Célébration <span class="role">Inchangée</span></h2>
+		<p>Déjà une carte de largeur bornée centrée sur un voile : elle est juste telle quelle.</p>
+		<p class="primitive"><b>Code :</b> <code>CelebrationModal</code>, <code>MemorableMoment</code>.</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar"></div><div class="col"><i style="width:30%"></i><b></b><div class="card"><i></i><i></i><i></i></div></div></div><div>
+		<h2>Page <span class="role">Dans la colonne, « Retour » visible</span></h2>
+		<p>Listes et fiches dans la colonne. Le « Retour » en tête reste la sortie : le geste de bord n'a pas d'équivalent souris.</p>
+		<p class="primitive"><b>Code :</b> <code>Page</code>, <code>DetailScreen</code> (via <code>Screen</code>).</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar" style="display:none"></div><div class="col wide" style="top:6px"><div><div class="card" style="height:60px"><b></b><i></i></div><div class="card"><i></i></div></div><div><div class="card"><i></i></div><div class="card"><i></i></div><div class="card"><i></i></div></div></div></div><div>
+		<h2>Plein écran <span class="role">Colonne ; combat en deux colonnes</span></h2>
+		<p>La variante standard (listes à comparer, formulaires) tient dans la colonne. La variante immersive du combat, quand le cadre est large et paysage, met la scène et le fil à gauche et les actions à droite, dans 1040 px : tout le tour se lit sans défiler, ce que la pile verticale ne permet pas en 720 px de haut. La visionneuse de carte garde tout le cadre : elle sert à zoomer.</p>
+		<p class="primitive"><b>Code :</b> <code>FullScreen</code>, <code>Sheet</code> (via <code>Screen</code>) ; combat : <code>FightBattle</code>.</p>
+	</div></div>
+</section>
+<section class="fmt">
+	<div class="head"><div class="desk"><div class="bar"></div><div class="col" style="align-items:center;justify-content:center"><span style="display:block;width:22px;height:22px;border-radius:50%;background:var(--goldwash);border:2px solid var(--gold)"></span><b></b><i></i><span class="banner" style="margin-top:4px"></span></div></div><div>
+		<h2>État de page <span class="role">Dans la colonne</span></h2>
+		<p>Emblème, titre et actions centrés dans la colonne : l'action de sortie garde une largeur de bouton, pas de bandeau.</p>
+		<p class="primitive"><b>Code :</b> <code>DeathScreen</code>, <code>PetAbsent</code>, <code>GuildAbsent</code>, <code>AdventureWelcome</code>, connexion (via <code>Screen</code>).</p>
+	</div></div>
+</section>
+
+<section id="ecrans"><h2>Écran par écran</h2><p class="legend">Seuls les écrans dont le cadre change autrement que par la colonne commune sont listés ; tous les autres la reçoivent de leur primitive. Effort : S = quelques lignes, M = un composant à adapter.</p>
+<table class="map"><thead><tr><th>Écran</th><th>Avant</th><th>Grand écran</th><th>Pourquoi</th><th>Effort</th></tr></thead><tbody>
+<tr class="change"><td>Tous les écrans défilants (accueils, pages, journaux, réglages, connexion)</td><td>Contenu sur toute la largeur</td><td><b>Colonne de 640 px, zone de défilement pleine largeur</b></td><td>Une règle dans <code>Screen</code> couvre tous les formats qui défilent ; la molette reste active dans les marges.</td><td class="effort">S</td></tr>
+<tr class="change"><td>En-tête des onglets (pseudo, niveau, réglages)</td><td>Réglages collés au bord droit du cadre</td><td><b>Bande pleine largeur, contenu aligné sur la colonne</b></td><td>La roue des réglages reste à côté du reste, pas à 600 px de lui.</td><td class="effort">S</td></tr>
+<tr class="change"><td>Barre d'onglets</td><td>Capsule de toute la largeur</td><td><b>Capsule à la largeur de la colonne</b></td><td>Cinq onglets sur 1500 px s'écartent au point de ne plus se lire comme une barre.</td><td class="effort">S</td></tr>
+<tr class="change"><td>Dock de l'accueil Aventure (trajet, action du moment)</td><td>Toute la largeur</td><td><b>Colonne</b></td><td>Le trajet et le bouton du moment se lisent avec le rapport au-dessus d'eux.</td><td class="effort">S</td></tr>
+<tr class="change"><td>Toasts</td><td>Toute la largeur</td><td><b>Haut de la colonne</b></td><td>Même place que sur téléphone, au-dessus du contenu.</td><td class="effort">S</td></tr>
+<tr class="change"><td>Bottom sheets (fiches, questions, journal en fiche)</td><td>Toute la largeur</td><td><b>Largeur de la colonne, centrée</b></td><td>Une fiche de 1500 px éloigne le bouton de ce qu'il confirme.</td><td class="effort">S</td></tr>
+<tr class="change"><td>Combat (tour, actions, fil)</td><td>Pile verticale de 600 px de large, compactée selon la hauteur</td><td><b>Deux colonnes en paysage large : scène et fil à gauche, actions à droite</b></td><td>En 720 px de haut, la pile coupait les dernières actions ; côte à côte, tout le tour tient sans défiler.</td><td class="effort">M</td></tr>
+<tr class="same"><td>Célébrations, moment à partager</td><td>Carte bornée centrée</td><td><b>Inchangé</b></td><td>Déjà dimensionnées pour n'importe quel écran.</td><td class="effort"></td></tr>
+<tr class="same"><td>Visionneuse de carte</td><td>Tout le cadre</td><td><b>Inchangé</b></td><td>Zoomer demande toute la place.</td><td class="effort"></td></tr>
+</tbody></table></section>
+
+<section id="ecarte"><h2>Écarté</h2><table><thead><tr><th>Option</th><th>Pourquoi non</th></tr></thead><tbody>
+<tr><td>Rail de navigation vertical à gauche, à la place de la barre capsule</td><td>Le rail est la convention du bureau et rendrait de la hauteur, mais la capsule suit le glissement du pager et porte les anneaux de progression : la refaire à la verticale double un composant clé pour gagner 70 px. À reconsidérer si la hauteur manque ailleurs que dans le combat.</td></tr>
+<tr><td>Accueils d'onglet en deux colonnes (bandeau et bloc vivant à gauche, raccourcis à droite)</td><td>Chaque accueil devrait être recomposé et maintenu en double. Le budget d'un accueil tient déjà dans une colonne et une hauteur d'écran.</td></tr>
+<tr><td>Bottom sheet remplacée par une fenêtre centrée</td><td>Sur un voile, une fiche qui monte sous la colonne se lit aussi bien qu'une fenêtre centrée, et garde le même code et les mêmes animations que sur téléphone.</td></tr>
+<tr><td>Envelopper toute l'app dans une colonne à la racine</td><td>Une seule ligne, mais la molette ne fait plus rien dans les marges et les voiles s'arrêtent au bord de la colonne.</td></tr>
+</tbody></table></section>
+
+<section id="ouvert"><h2>Ouvert</h2><ul class="bul plan">
+	<li><b>Vignette PiP et grille</b><br>Le SDK annonce le mode d'affichage (<code>subscribeToLayoutModeUpdatesCompat</code>). Dans une tuile de 300 × 170, une vue réduite (pseudo, trajet, rapport prêt) serait plus lisible que le haut de l'écran courant. À décider avec un essai réel dans Discord.</li>
+	<li><b>Survol et clavier</b><br>Pas d'état de survol ni de navigation au clavier au-delà de ce que react-native-web donne. À ajouter dans les primitives si les retours le demandent.</li>
+</ul></section>
+
+<section id="maintenir"><h2>Maintenir ce document</h2><ol class="plan">
+	<li><b>Un nouvel écran</b><br>Le construire avec les primitives : il reçoit la colonne. Une largeur fixe ou une mise en page à la main hors des primitives se signale en revue.</li>
+	<li><b>Un écran qui a besoin de la largeur</b><br>Comme le combat, il le justifie ici par la hauteur qui manque, avec sa ligne dans « Écran par écran ».</li>
+	<li><b>Changer la largeur de la colonne</b><br>Une seule constante, <code>Theme.layout.columnMaxWidth</code>, et ce document.</li>
+</ol></section>
+</main></body></html>

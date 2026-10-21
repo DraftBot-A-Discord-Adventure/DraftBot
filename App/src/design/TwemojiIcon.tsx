@@ -6,6 +6,7 @@ import {
 	activityUrl, ACTIVITY_ROUTES
 } from "@/src/activity/ActivityRoutes";
 import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
+import { inlineEmojiStyle } from "@/src/design/InlineEmoji";
 
 const TWEMOJI_CDN = "https://cdn.jsdelivr.net";
 const TWEMOJI_ASSET_PATH = "/gh/jdecked/twemoji@17.0.3/assets/svg";
@@ -44,7 +45,9 @@ export function TwemojiIcon({
 			cachePolicy="memory-disk"
 			source={source}
 			style={[
-				styles.icon, {
+				styles.icon,
+				inlineEmojiStyle,
+				{
 					width: size, height: size, opacity, transform: [{ translateY: verticalOffset }]
 				}
 			]}

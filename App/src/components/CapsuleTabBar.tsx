@@ -75,6 +75,10 @@ const useStyles = createStyles(colors => ({
 		paddingHorizontal: CAPSULE.sideInset, paddingTop: CAPSULE.gapAbove, backgroundColor: colors.wash
 	},
 	capsule: {
+		...Theme.layout.column,
+
+		// Lined up with the cards of the screen above, which sit inside the column's own margins.
+		maxWidth: Theme.layout.columnMaxWidth - 2 * Theme.spacing.xl,
 		height: CAPSULE.height,
 		padding: CAPSULE.padding,
 		borderRadius: CAPSULE.height / 2,

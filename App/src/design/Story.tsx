@@ -28,7 +28,10 @@ const useStyles = createStyles(colors => ({
 	emphasis: { fontStyle: "italic" }
 }));
 
-const EMOJI_OFFSET = Platform.OS === "ios" ? Theme.emoji.iosFieldOffset : Theme.emoji.androidStoryOffset;
+// The browser sets an inline emoji on the text's bottom by itself (`InlineEmoji.web.ts`): no offset there.
+const EMOJI_OFFSET = Platform.select({
+	ios: Theme.emoji.iosFieldOffset, android: Theme.emoji.androidStoryOffset, default: 0
+});
 
 function inlineSpan(styles: ReturnType<typeof useStyles>, span: StorySpan, key: string): ReactNode[] {
 	const style = [span.strong && styles.strong, span.emphasis && styles.emphasis];

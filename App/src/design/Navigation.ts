@@ -3,14 +3,19 @@ import { createStyles } from "@/src/design/ThemeContext";
 
 export const useNavigationStyles = createStyles(colors => ({
 	header: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between",
-		paddingHorizontal: Theme.spacing.lg,
 		paddingBottom: Theme.spacing.md,
 		backgroundColor: colors.paper,
 		borderBottomWidth: 1,
 		borderBottomColor: colors.line
+	},
+
+	/** The band spans the screen; what it holds lines up with the content below. */
+	headerRow: {
+		...Theme.layout.column,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		paddingHorizontal: Theme.spacing.lg
 	},
 
 	/** Balances the settings button so the identity stays centred. */

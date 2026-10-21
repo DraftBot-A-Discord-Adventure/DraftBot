@@ -118,7 +118,26 @@ export const BOSS_MOMENT_PALETTES: Readonly<Partial<Record<string, MomentPalette
  * Style tokens taken from `App/mockups/mobile.html`. A screen declares no colour and no spacing of
  * its own: it composes these. Colours come from `useColors()`, since the palette follows the theme live.
  */
+/** Widest the content gets, whatever the screen: see docs/adr/0002-grand-ecran.html. */
+const COLUMN_MAX_WIDTH = 640;
+
 export const Theme = {
+	layout: {
+		columnMaxWidth: COLUMN_MAX_WIDTH,
+
+		/**
+		 * The content of a screen, centred, while its surfaces (background, header band, scroll area, veil) keep
+		 * the whole width. Below the maximum it changes nothing: phones are untouched.
+		 */
+		column: {
+			width: "100%", maxWidth: COLUMN_MAX_WIDTH, alignSelf: "center"
+		},
+
+		/** The fight lays its stage beside its actions in a landscape frame at least this wide, up to the second width. */
+		sideBySideFight: {
+			minWidth: 900, maxWidth: 1040
+		}
+	},
 	fonts: {
 		regular: "Inter_400Regular",
 		medium: "Inter_500Medium",

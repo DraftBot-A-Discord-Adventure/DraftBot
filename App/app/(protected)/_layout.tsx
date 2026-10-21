@@ -32,6 +32,7 @@ const useStyles = createStyles(colors => ({
 		zIndex: 9999
 	},
 	indicatorContainer: {
+		maxWidth: Theme.layout.columnMaxWidth - 2 * Theme.spacing.xxl,
 		backgroundColor: colors.paper,
 		borderRadius: Theme.radius,
 		padding: Theme.spacing.xxl,

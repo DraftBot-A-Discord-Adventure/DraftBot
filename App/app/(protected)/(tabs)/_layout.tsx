@@ -239,11 +239,13 @@ function TabsHeader(): ReactNode {
 	const insets = useSafeAreaInsets();
 	return (
 		<View style={[navigationStyles.header, { paddingTop: insets.top }]}>
-			<View style={navigationStyles.headerSpacer} />
-			<ProfileHeader />
-			<TouchableOpacity style={navigationStyles.settingsButton} onPress={(): void => router.push("/settings")}>
-				<TwemojiIcon emoji={AppIcons.getIcon("other.gear")} size={Theme.dimensions.headerIcon} />
-			</TouchableOpacity>
+			<View style={navigationStyles.headerRow}>
+				<View style={navigationStyles.headerSpacer} />
+				<ProfileHeader />
+				<TouchableOpacity accessibilityRole="button" accessibilityLabel={i18n.t("app:settings.title")} style={navigationStyles.settingsButton} onPress={(): void => router.push("/settings")}>
+					<TwemojiIcon emoji={AppIcons.getIcon("other.gear")} size={Theme.dimensions.headerIcon} />
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 }

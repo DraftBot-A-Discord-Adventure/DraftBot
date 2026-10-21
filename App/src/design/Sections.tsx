@@ -523,6 +523,7 @@ export function Toast({
 	]);
 	return <View pointerEvents="box-none" style={[styles.toastLayer, { paddingTop: insets.top + Theme.spacing.sm }]}>
 		<Animated.View style={{
+			...Theme.layout.column,
 			opacity: entrance,
 			transform: [
 				{ translateY: entrance.interpolate({

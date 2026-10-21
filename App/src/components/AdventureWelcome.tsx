@@ -99,10 +99,14 @@ const useStyles = createStyles(colors => ({
 	},
 	footer: {
 		paddingTop: Theme.spacing.md,
-		paddingHorizontal: Theme.spacing.xl,
 		borderTopWidth: StyleSheet.hairlineWidth,
 		borderTopColor: colors.line,
 		backgroundColor: colors.wash
+	},
+
+	/** The band spans the screen; the road and the button line up with the page above. */
+	footerColumn: {
+		...Theme.layout.column, paddingHorizontal: Theme.spacing.xl
 	}
 }));
 
@@ -277,9 +281,11 @@ export function AdventureWelcome(): ReactNode {
 		{/* Pinned so setting off never needs a scroll; with no tab bar yet, it clears the home indicator itself. */}
 		<Rise order={2}>
 			<View style={[styles.footer, { paddingBottom: Theme.spacing.md + insets.bottom }]}>
-				<DepartureRoad progress={progress} stride={stride} />
-				<ActionBanner icon={Footprints} label={i18n.t("app:welcome.depart")} pending={reportAction.pending || leaving} onPress={depart} testID="welcome-depart" />
-				{reportAction.message ? <Note>{reportAction.message}</Note> : null}
+				<View style={styles.footerColumn}>
+					<DepartureRoad progress={progress} stride={stride} />
+					<ActionBanner icon={Footprints} label={i18n.t("app:welcome.depart")} pending={reportAction.pending || leaving} onPress={depart} testID="welcome-depart" />
+					{reportAction.message ? <Note>{reportAction.message}</Note> : null}
+				</View>
 			</View>
 		</Rise>
 	</View>;

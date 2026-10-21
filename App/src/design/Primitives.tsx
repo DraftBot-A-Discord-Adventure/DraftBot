@@ -23,7 +23,9 @@ import { i18n } from "@/src/translations/i18n";
 const SCROLL_EVENT_THROTTLE_MS = 16;
 
 const screenStylesOf = styleGroup(colors => StyleSheet.create({
+	screen: { backgroundColor: colors.wash },
 	screenContent: {
+		...Theme.layout.column,
 		flexGrow: 1,
 		paddingTop: Theme.spacing.screenTop,
 		paddingHorizontal: Theme.spacing.xl,
@@ -329,7 +331,7 @@ export function Screen({
 
 	return <ScrollView
 		ref={scrollRef}
-		style={{ marginBottom: clearance }}
+		style={[styles.screen, { marginBottom: clearance }]}
 		contentContainerStyle={[styles.screenContent, contentContainerStyle]}
 		automaticallyAdjustKeyboardInsets
 		keyboardShouldPersistTaps="handled"

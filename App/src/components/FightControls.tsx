@@ -61,6 +61,17 @@ export function BattleHeightProvider({
 	return <BattleHeightContext.Provider value={height}>{children}</BattleHeightContext.Provider>;
 }
 
+/**
+ * A landscape frame wide enough to lay the stage beside the actions: on a PC, height is what runs short
+ * and the stacked turn no longer fits. See docs/adr/0002-grand-ecran.html.
+ */
+export function useSideBySideFight(): boolean {
+	const {
+		width, height
+	} = useWindowDimensions();
+	return width > height && width >= Theme.layout.sideBySideFight.minWidth;
+}
+
 export function useCompactFight(): boolean {
 	const measured = useContext(BattleHeightContext);
 	const window = useWindowDimensions().height;

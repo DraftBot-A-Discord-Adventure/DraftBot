@@ -21,7 +21,14 @@ const useStyles = createStyles(colors => ({
 		...StyleSheet.absoluteFill, backgroundColor: colors.overlay
 	},
 	card: {
-		backgroundColor: colors.paper, borderTopLeftRadius: Theme.radius * 2, borderTopRightRadius: Theme.radius * 2, paddingHorizontal: Theme.spacing.xl, paddingTop: Theme.spacing.md, gap: Theme.spacing.lg, maxHeight: "85%"
+		...Theme.layout.column,
+		backgroundColor: colors.paper,
+		borderTopLeftRadius: Theme.radius * 2,
+		borderTopRightRadius: Theme.radius * 2,
+		paddingHorizontal: Theme.spacing.xl,
+		paddingTop: Theme.spacing.md,
+		gap: Theme.spacing.lg,
+		maxHeight: "85%"
 	},
 	grabber: {
 		alignSelf: "center", width: 40, height: 4, borderRadius: 2, backgroundColor: colors.line

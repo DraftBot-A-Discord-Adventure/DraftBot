@@ -23,7 +23,7 @@ import { FightLog } from "@/src/components/FightDetails";
 import { FightResult } from "@/src/components/FightResult";
 import { FightStage } from "@/src/components/FightStage";
 import {
-	FIGHT_PHASES, BattleHeightProvider, FightHeader, FightNavigation, FightPhase, useCompactFight
+	FIGHT_PHASES, BattleHeightProvider, FightHeader, FightNavigation, FightPhase, useCompactFight, useSideBySideFight
 } from "@/src/components/FightControls";
 import { FightFeed } from "@/src/components/FightFeed";
 import {
@@ -43,6 +43,18 @@ const useStyles = createStyles(colors => ({
 	body: {
 		flex: 1, minHeight: 0, overflow: "hidden"
 	},
+
+	// A PC frame has no status bar above it: the heading needs its own room.
+	sideBySideContent: {
+		maxWidth: Theme.layout.sideBySideFight.maxWidth, paddingTop: Theme.spacing.lg
+	},
+	sideBySideBody: {
+		flexDirection: "row", gap: Theme.spacing.xxl
+	},
+	sideBySideColumn: {
+		flex: 1, minHeight: 0
+	},
+
 	stage: { flexShrink: 0 },
 	actions: {
 		flexShrink: 0, overflow: "hidden"
@@ -90,30 +102,36 @@ function FightTurn({
 }: FightContentProps): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
+	const sideBySide = useSideBySideFight();
 	const status = playback.status;
 	if (!status) {
 		return <View style={styles.loading}><ActivityIndicator color={colors.muted} /><Text style={styles.activitySubtitle}>{i18n.t("app:battle.preparing")}</Text></View>;
 	}
 	const pending = submitting || Boolean(playback.record);
-	return <View style={styles.body}>
-		<View style={styles.stage}>
-			<FightStage
-				status={status}
-				introduction={fight.introduction}
-				record={playback.record}
-				onImpact={playback.impact}
-				onComplete={playback.finishMotion}
-				reducedMotion={playback.reducedMotion}
-				speed={speed}
-			/>
-		</View>
-		<FightFeed entries={playback.logs} ownTurn={Boolean(collector) && !pending} opponentThinking={!collector && !pending && !fight.result} />
-		<View style={styles.actions}>
-			{collector
-				? <FightActions key={collector.id} collector={collector} onChoose={onChoose} submitting={pending} />
-				: <FightActionsWaiting actions={fight.introduction?.initiatorActions ?? []} />}
-		</View>
+	const stage = <View style={styles.stage}>
+		<FightStage
+			status={status}
+			introduction={fight.introduction}
+			record={playback.record}
+			onImpact={playback.impact}
+			onComplete={playback.finishMotion}
+			reducedMotion={playback.reducedMotion}
+			speed={speed}
+		/>
 	</View>;
+	const feed = <FightFeed entries={playback.logs} ownTurn={Boolean(collector) && !pending} opponentThinking={!collector && !pending && !fight.result} />;
+	const actions = <View style={styles.actions}>
+		{collector
+			? <FightActions key={collector.id} collector={collector} onChoose={onChoose} submitting={pending} />
+			: <FightActionsWaiting actions={fight.introduction?.initiatorActions ?? []} />}
+	</View>;
+	if (sideBySide) {
+		return <View style={[styles.body, styles.sideBySideBody]}>
+			<View style={styles.sideBySideColumn}>{stage}{feed}</View>
+			<View style={styles.sideBySideColumn}>{actions}</View>
+		</View>;
+	}
+	return <View style={styles.body}>{stage}{feed}{actions}</View>;
 }
 
 function FightFailure({
@@ -167,13 +185,17 @@ function FightJournal({
 
 /** Measures the room the battle really has, so the layout adapts to the device instead of guessing. */
 function BattleFrame({
-	height, onHeight, children
+	height, onHeight, wide, children
 }: {
-	height: number | null; onHeight: (height: number) => void; children: ReactNode;
+	height: number | null; onHeight: (height: number) => void; wide: boolean; children: ReactNode;
 }): ReactNode {
 	const styles = useStyles();
 	const compact = useCompactFight();
-	return <View testID="fight-frame" style={[styles.content, compact && styles.compactContent]} onLayout={(event): void => {
+	return <View testID="fight-frame" style={[
+		styles.content,
+		wide && styles.sideBySideContent,
+		compact && styles.compactContent
+	]} onLayout={(event): void => {
 		const measured = event.nativeEvent.layout.height;
 		if (measured > 0 && measured !== height) {
 			onHeight(measured);
@@ -193,9 +215,13 @@ export function FightLiveView(props: FightLiveProps): ReactNode {
 	const navigation = {
 		onClose: props.onClose, onJournal: (): void => setJournal(true)
 	};
+	const phase = fightPhase(props, playback);
+
+	// Only the turn lays out side by side: the result and a failure read as a column again.
+	const wide = useSideBySideFight() && phase !== FIGHT_PHASES.FINISHED && phase !== FIGHT_PHASES.ERROR;
 	return <BattleHeightProvider height={height}>
-		<BattleFrame height={height} onHeight={setHeight}>
-			<FightHeader fight={props.fight} playback={playback} phase={fightPhase(props, playback)} />
+		<BattleFrame height={height} onHeight={setHeight} wide={wide}>
+			<FightHeader fight={props.fight} playback={playback} phase={phase} />
 			<FightContent {...props} playback={playback} navigation={navigation} speed={speedSetting.speed} />
 			{journal ? <FightJournal entries={playback.logs} onClose={(): void => setJournal(false)} /> : null}
 		</BattleFrame>
