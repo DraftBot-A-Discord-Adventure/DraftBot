@@ -6,6 +6,8 @@ import { Constants } from "../../../../Lib/src/constants/Constants";
 import type { Player } from "../../../src/core/database/game/models/Player";
 import type { MapLink } from "../../../src/data/MapLink";
 import { BlockingUtils } from "../../../src/core/utils/BlockingUtils";
+import { ExpeditionConstants } from "../../../../Lib/src/constants/ExpeditionConstants";
+import type { Biome } from "../../../../Lib/src/types/Biome";
 
 // Mock Maps so we can control whether the player is on the PvE island
 const isOnPveIslandMock = vi.fn();
@@ -67,9 +69,11 @@ vi.mock("../../../src/core/utils/BlockingUtils", () => ({
 }));
 
 let capturedEndCallback: ((collector: { getFirstReaction: () => unknown }, response: unknown[]) => Promise<void>) | undefined;
+let capturedCollector: { creationPacket: (id: string, endTime: number) => { reactions: { data: unknown }[] } } | undefined;
 vi.mock("../../../src/core/utils/ReactionsCollector", () => ({
 	ReactionCollectorInstance: class {
-		constructor(_collector: unknown, _context: unknown, _options: unknown, endCallback: typeof capturedEndCallback) {
+		constructor(collector: typeof capturedCollector, _context: unknown, _options: unknown, endCallback: typeof capturedEndCallback) {
+			capturedCollector = collector;
 			capturedEndCallback = endCallback;
 		}
 
@@ -97,6 +101,11 @@ const makePlayer = (mapLinkId: number, destinationId: number): Player =>
 	} as unknown as Player);
 
 const fakeLink = {} as MapLink;
+
+const cavernLocation = {
+	type: "cavern",
+	biomes: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.RUINS]
+};
 
 describe("canStayInCity", () => {
 	it("is false when staying in city is not allowed", () => {
@@ -180,6 +189,46 @@ describe("canAutoChooseDestination", () => {
 });
 
 describe("chooseDestination collector", () => {
+	it("tells for each destination the biomes the pet can explore there", async () => {
+		capturedCollector = undefined;
+		vi.clearAllMocks();
+		isOnPveIslandMock.mockReturnValue(true);
+		getNextPlayerAvailableMapsMock.mockReturnValue([2, 3]);
+		getMapLinkByLocationsMock.mockImplementation((_startMap: number, endMap: number) => ({
+			id: endMap, endMap, tripDuration: 10
+		}));
+		const biomes: Record<number, Biome[]> = {
+			2: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS],
+			3: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST, ExpeditionConstants.EXPEDITION_LOCATION_TYPES.SWAMP]
+		};
+		getMapLocationByIdMock.mockImplementation((mapId: number) => ({
+			type: "la",
+			biomes: biomes[mapId]
+		}));
+
+		const player = {
+			id: 1,
+			keycloakId: "destination-player",
+			mapLinkId: 1,
+			getDestinationId: (): number => 1,
+			getPreviousMapId: (): number => 0,
+			effectRemainingTime: (): number => 0
+		} as Player;
+
+		await chooseDestination({} as never, player, null, [], { allowStayInCity: false });
+
+		expect(capturedCollector?.creationPacket("id", 0).reactions.map(reaction => reaction.data)).toEqual([
+			expect.objectContaining({
+				mapId: 2,
+				biomes: biomes[2]
+			}),
+			expect.objectContaining({
+				mapId: 3,
+				biomes: biomes[3]
+			})
+		]);
+	});
+
 	it("retries travel persistence after a connection setup timeout", async () => {
 		capturedEndCallback = undefined;
 		vi.clearAllMocks();
@@ -188,7 +237,7 @@ describe("chooseDestination collector", () => {
 		getMapLinkByLocationsMock.mockReturnValue({
 			id: 12, endMap: 2, tripDuration: 10
 		});
-		getMapLocationByIdMock.mockReturnValue({ type: "cavern" });
+		getMapLocationByIdMock.mockReturnValue(cavernLocation);
 
 		const connectionTimeout = Object.assign(new Error("Connection timeout: failed to create socket"), {
 			name: "SequelizeConnectionError",
@@ -240,7 +289,7 @@ describe("chooseDestination collector", () => {
 		getMapLinkByLocationsMock.mockReturnValue({
 			id: 12, endMap: 2, tripDuration: 10
 		});
-		getMapLocationByIdMock.mockReturnValue({ type: "cavern" });
+		getMapLocationByIdMock.mockReturnValue(cavernLocation);
 
 		const ambiguousConnectionTimeout = Object.assign(new Error("Connection timeout after a query was sent"), {
 			name: "SequelizeConnectionError",
@@ -290,7 +339,7 @@ describe("chooseDestination collector", () => {
 		getMapLinkByLocationsMock.mockReturnValue({
 			id: 12, endMap: 2, tripDuration: 10
 		});
-		getMapLocationByIdMock.mockReturnValue({ type: "cavern" });
+		getMapLocationByIdMock.mockReturnValue(cavernLocation);
 		startTravelMock.mockRejectedValue(new Error("Database connection timed out"));
 
 		const player = {

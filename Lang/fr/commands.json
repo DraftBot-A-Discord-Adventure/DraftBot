@@ -805,7 +805,7 @@
   },
   "report": {
     "adviceTitle": "Conseil :",
-    "chooseDestinationIndications": "Choisissez une destination pour votre voyage:",
+    "chooseDestinationIndications": "Choisissez une destination pour votre voyage. Les terrains indiqués sont ceux que votre familier pourra y explorer en expédition :",
     "choseMapMinutes_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{timeDisplay}}**.",
     "choseMapMinutes_other": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{timeDisplay}}**.",
     "choseMap_one": "Vous avez décidé de partir en direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Ce trajet durera environ **{{time}} heure**.",
@@ -819,6 +819,7 @@
     "collectedPointsTitle": "Points récoltés :",
     "commandDescription": "Obtenir un rapport sur la situation de votre personnage.",
     "commandName": "rapport",
+    "destinationChoice": "{{mapTypeIcon}} {{location}} ({{duration}}) | {{biomes}}",
     "destinationTitle": "{{pseudo}}, destination du voyage",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": "{emote:commands.report} **Journal de {{pseudo}} :** {{event}}\n*- Utilisez les boutons pour effectuer une action {emote:collectors.warning} Ne pas répondre est considéré comme un choix à part.*",

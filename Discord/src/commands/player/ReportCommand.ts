@@ -258,10 +258,13 @@ export async function chooseDestinationCollector(context: PacketContext, packet:
 				? minutesDisplayIntl(destinationReaction.tripDuration, lng)
 				: minutesDisplayIntl(120, lng)
 					.replace("2", "?");
-			return `${
-				CrowniclesIcons.mapTypes[destinationReaction.mapTypeId]
-			} ${
-				i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng })} (${duration})`;
+			return i18n.t("commands:report.destinationChoice", {
+				lng,
+				mapTypeIcon: CrowniclesIcons.mapTypes[destinationReaction.mapTypeId],
+				location: i18n.t(`models:map_locations.${destinationReaction.mapId}.name`, { lng }),
+				duration,
+				biomes: destinationReaction.biomes.map(biome => CrowniclesIcons.expedition.locations[biome]).join("")
+			});
 		})
 	}, {
 		refuse: { can: false },
