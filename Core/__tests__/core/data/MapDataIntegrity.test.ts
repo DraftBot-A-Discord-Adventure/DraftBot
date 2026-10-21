@@ -127,6 +127,18 @@ describe("Map data integrity", () => {
 		expect(missing).toEqual([]);
 	});
 
+	it("every biome is offered by two neighbouring locations of the main continent, so a player can loop on it", () => {
+		const continentIds = [...mapLocationIds].filter(id => readMapLocation(id).attribute === MapConstants.MAP_ATTRIBUTES.CONTINENT1);
+		const offers = (id: number, biome: string): boolean => readMapLocation(id).biomes?.includes(biome) ?? false;
+		const withoutLoop = Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES)
+			.filter(biome => ![...mapLinks.values()].some(link => continentIds.includes(link.startMap)
+				&& continentIds.includes(link.endMap)
+				&& offers(link.startMap, biome)
+				&& offers(link.endMap, biome)));
+
+		expect(withoutLoop).toEqual([]);
+	});
+
 	it("every map location type has a French name, a prefix and an icon", () => {
 		const mapTypeTranslations = (JSON.parse(readFileSync(frenchModelsPath, "utf-8")) as {
 			map_types: Record<string, { name?: string; prefix?: string } | undefined>;
