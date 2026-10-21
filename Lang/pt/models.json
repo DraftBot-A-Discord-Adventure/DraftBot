@@ -1254,7 +1254,7 @@
       "atParticle": "para o"
     },
     "21": {
-      "description": "Uma estrada muito utilizada pelos habitantes da aldeia. Muitos pequenos vendedores ambulantes instalam-se aqui durante um dia, criando um enorme mercado.",
+      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
       "name": "Rota das Merveiras",
       "particle": "para o",
       "atParticle": "para o"
@@ -1266,7 +1266,7 @@
       "atParticle": "em"
     },
     "23": {
-      "description": "Grande cidade mercantil e cruzamento económico, Claire de Ville nem sempre foi tão acolhedora. Inicialmente muito pobre, desenvolveu-se rapidamente graças às suas numerosas lojas e hotéis que oferecem uma vasta escolha aos viajantes da região. Claire de Ville é também conhecida pela sua calma e respeito pela ordem.",
+      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
       "name": "Claire de Ville",
       "particle": "para",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "para o"
     },
     "25": {
-      "description": "Está tudo no nome. Um rio muito apreciado pelas peixarias de Claire de Ville.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
       "name": "Rio dos Caranguejos",
       "particle": "para o",
       "atParticle": "para o"
@@ -1292,7 +1292,7 @@
       "inParticle": "em"
     },
     "27": {
-      "description": "Uma floresta à beira do Monte Celestrum.",
+      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
       "name": "Floresta de Celestrum",
       "particle": "para o",
       "atParticle": "para o"
@@ -1338,7 +1338,7 @@
       "particle": "para o"
     },
     "41": {
-      "description": "Esplanada pavimentada que liga Boug-Coton às portas do castelo real. Os mensageiros passam uns pelos outros a caminho dos apartamentos do rei.",
+      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
       "name": "Pátio do Castelo",
       "particle": "para o",
       "atParticle": "para o",
@@ -1351,13 +1351,13 @@
       "atParticle": "para o"
     },
     "5": {
-      "description": "A alcunha do caminho deve-se ao facto de se cruzar na parte sul da Floresta do Velho.",
+      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
       "name": "Caminho do Dédale",
       "particle": "para o",
       "atParticle": "em"
     },
     "6": {
-      "description": "Uma aldeia tranquila conhecida pela sua pousada acolhedora.",
+      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
       "name": "Boug-Cotton",
       "particle": "para",
       "atParticle": "à",
