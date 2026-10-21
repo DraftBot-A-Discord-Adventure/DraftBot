@@ -34,6 +34,9 @@ import { CrowniclesErrorEmbed } from "../../messages/CrowniclesErrorEmbed";
 import { escapeUsername } from "../../../../Lib/src/utils/StringUtils";
 import { StringUtils } from "../../utils/StringUtils";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
+import { KingChallengeTierReachedPacket } from "../../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
+import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
+import { TokensConstants } from "../../../../Lib/src/constants/TokensConstants";
 
 type MissionRewardTotals = {
 	gems: number;
@@ -121,6 +124,35 @@ async function buildPlayerNotificationEmbed(
 	return discordUser
 		? new CrowniclesEmbed().formatAuthor(titleText, discordUser)
 		: new CrowniclesEmbed().setTitle(titleText);
+}
+
+/**
+ * Lines describing a king's challenge crossing: the rewards, then the next goal
+ */
+function buildKingChallengeTierReachedLines(packet: KingChallengeTierReachedPacket, lng: Language): string[] {
+	const lines = [
+		i18n.t(packet.reward.gems > 0 ? "notifications:kingChallenge.rewardsWithGems" : "notifications:kingChallenge.rewards", {
+			lng,
+			...packet.reward
+		})
+	];
+	if (packet.pointsToNextTier === undefined) {
+		lines.push(i18n.t("notifications:kingChallenge.completed", { lng }));
+		return lines;
+	}
+	lines.push(i18n.t("notifications:kingChallenge.nextTier", {
+		lng,
+		points: packet.pointsToNextTier
+	}));
+
+	// Many players keep their tokens unused out of fear of running short: remind them what they are for
+	if (packet.ownedTokens >= TokensConstants.MAX) {
+		lines.push(i18n.t("notifications:kingChallenge.useTokens", {
+			lng,
+			tokens: packet.ownedTokens
+		}));
+	}
+	return lines;
 }
 
 export default class EventsHandlers {
@@ -349,6 +381,30 @@ export default class EventsHandlers {
 					}), interaction.user)
 					.setDescription(desc)
 			]
+		});
+	}
+
+	@packetHandler(KingChallengeTierReachedPacket)
+	async kingChallengeTierReached(context: PacketContext, packet: KingChallengeTierReachedPacket): Promise<void> {
+		const interaction = DiscordCache.getInteraction(context.discord!.interaction);
+		if (!interaction) {
+			return;
+		}
+
+		const lng = interaction.userLanguage;
+		const embed = await buildPlayerNotificationEmbed(packet.keycloakId, "king's challenge tier reached", pseudo => i18n.t("notifications:kingChallenge.title", {
+			lng,
+			count: packet.crossedTiers,
+			tier: packet.tier,
+			tierCount: KingChallengeConstants.TIER_COUNT,
+			pseudo
+		}));
+		if (!embed) {
+			return;
+		}
+
+		await interaction.channel.send({
+			embeds: [embed.setDescription(StringUtils.joinLines(buildKingChallengeTierReachedLines(packet, lng)))]
 		});
 	}
 

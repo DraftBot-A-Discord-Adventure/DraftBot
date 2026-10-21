@@ -43,6 +43,7 @@ import { CrowniclesMonday } from "./cronJobs/CrowniclesMonday";
 import { CrowniclesEach10Minutes } from "./cronJobs/CrowniclesEach10Minutes";
 import { CrowniclesChristmas } from "./cronJobs/CrowniclesChristmas";
 import { ReleaseGift } from "./ReleaseGift";
+import { getKingChallengeThresholds } from "../kingChallenge/KingChallenge";
 import {
 	PERIODIC_LOOPS, startResilientLoop
 } from "./ResilientLoop";
@@ -282,6 +283,9 @@ export class Crownicles {
 		FightsManager.init();
 		await BlessingManager.getInstance()
 			.init();
+
+		// Creates the setting row of the thresholds before concurrent score gains could race to insert it
+		await getKingChallengeThresholds();
 		if (botConfig.TEST_MODE) {
 			await CommandsTest.init();
 		}

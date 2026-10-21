@@ -5,6 +5,7 @@ import { PotionDataController } from "../../../../data/Potion";
 import { MapCache } from "../../../maps/MapCache";
 import { CityDataController } from "../../../../data/City";
 import { ItemEnchantment } from "../../../../../../Lib/src/types/ItemEnchantment";
+import { KingChallengeConstants } from "../../../../../../Lib/src/constants/KingChallengeConstants";
 
 // skipcq: JS-C1003 - moment does not expose itself as an ES Module.
 import moment from "moment";
@@ -137,6 +138,14 @@ export abstract class Settings {
 	public static readonly RELEASE_GIFT_600_APPLIED = new SettingClassNumber(
 		"releaseGift600Applied",
 		(): Promise<number> => Promise.resolve(0)
+	);
+
+	/**
+	 * Reference weekly scores of the last weeks (comma separated), used to compute the king's challenge thresholds
+	 */
+	public static readonly KING_CHALLENGE_REFERENCE_SCORES = new SettingClassString(
+		"kingChallengeReferenceScores",
+		(): Promise<string> => Promise.resolve(KingChallengeConstants.DEFAULT_REFERENCE_SCORES.join(","))
 	);
 
 	/**

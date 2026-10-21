@@ -118,6 +118,11 @@ export const CrowniclesIcons: {
 	missions: {
 		[missionId: string]: string;
 	};
+	kingChallenge: {
+		icon: string;
+		tierReached: string;
+		tierPending: string;
+	};
 	messages: {
 		validate: string;
 		refuse: string;
@@ -2427,9 +2432,13 @@ export const CrowniclesIcons: {
 			guildStatusChange: "📜",
 			energy: "⚡",
 			dailyBonus: "📅",
-			petExpedition: "🐾",
-			topWeekReward: "🏆"
+			petExpedition: "🐾"
 		}
+	},
+	kingChallenge: {
+		icon: "⚜️",
+		tierReached: "✅",
+		tierPending: "▫️"
 	},
 	missions: {
 		expired: "📤",

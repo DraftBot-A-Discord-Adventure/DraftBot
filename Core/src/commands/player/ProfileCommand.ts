@@ -291,6 +291,7 @@ async function buildProfilePacket(
 			},
 			money: toCheckPlayer.money,
 			tokens: tokenData,
+			kingChallengeTier: toCheckPlayer.kingChallengeTier,
 			cooking: cookingData
 		}
 	});

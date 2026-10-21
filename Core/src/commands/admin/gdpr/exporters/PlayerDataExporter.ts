@@ -453,6 +453,7 @@ export async function exportPlayerData(
 			health: player.getHealthValue(),
 			score: player.score,
 			weeklyScore: player.weeklyScore,
+			kingChallengeTier: player.kingChallengeTier,
 			level: player.level,
 			experience: player.experience,
 			money: player.money,

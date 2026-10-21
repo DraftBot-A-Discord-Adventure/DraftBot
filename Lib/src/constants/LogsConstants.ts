@@ -78,8 +78,8 @@ export enum NumberChangeReason {
 	CITY_STAY,
 	BLACKSMITH_ENCHANTMENT_TRANSFER,
 
-	// Top week
-	TOP_WEEK_REWARD
+	// King's challenge
+	KING_CHALLENGE
 }
 
 export enum ShopItemType {
