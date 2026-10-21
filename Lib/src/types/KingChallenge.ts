@@ -23,17 +23,6 @@ export type KingChallengeProgress = {
 	nextResetDate: number;
 };
 
-/**
- * Summary of the finished week announced on Monday
- */
-export type KingChallengeWeekSummary = {
-
-	/** Players who reached at least the first tier */
-	rewardedPlayers: number;
-
-	/** Players who reached the last tier */
-	completedPlayers: number;
-};
 
 /**
  * Weekly scores of the previous weeks the thresholds are computed from

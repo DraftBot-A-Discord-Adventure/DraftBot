@@ -181,18 +181,13 @@ describe("king's challenge", () => {
 		expect(new Date(progress.nextResetDate + 1).getDay()).toBe(1);
 	});
 
-	it("summarizes the week and records the reference score that sets the next thresholds", async () => {
+	it("records the reference scores of the week that set the next thresholds", async () => {
 		await seed("king-summary-completed", 0);
 		await gainScore((await Player.findOne({ where: { keycloakId: "king-summary-completed" } }))!.id, THRESHOLDS[THRESHOLDS.length - 1]);
 		const weeklyScores = [THRESHOLDS[0], 50_000, 40_000, 30_000, 20_000];
 		for (const [index, weeklyScore] of weeklyScores.entries()) {
 			await seed(`king-summary-${index}`, weeklyScore);
 		}
-
-		expect(await kingChallenge.getKingChallengeWeekSummary()).toEqual({
-			rewardedPlayers: 1,
-			completedPlayers: 1
-		});
 
 		// Best weekly scores: the champion threshold, 50 000, 40 000, 30 000, then 20 000 as the fifth one
 		const weekScores = await kingChallenge.getWeeklyReferenceScores();

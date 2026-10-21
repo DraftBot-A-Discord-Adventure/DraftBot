@@ -37,7 +37,6 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { KingChallengeTierReachedPacket } from "../../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
 import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 import { TokensConstants } from "../../../../Lib/src/constants/TokensConstants";
-import { DiscordConstants } from "../../DiscordConstants";
 
 type MissionRewardTotals = {
 	gems: number;
@@ -134,8 +133,11 @@ function buildKingChallengeTierReachedLines(packet: KingChallengeTierReachedPack
 	const lines = [
 		i18n.t("notifications:kingChallenge.rewards", {
 			lng,
-			...packet.reward.gems > 0 ? { context: DiscordConstants.KING_CHALLENGE_GEMS_CONTEXT } : {},
-			...packet.reward
+			rewards: MissionUtils.formatRewards({
+				moneyDisplay: packet.reward.money,
+				tokensDisplay: packet.reward.tokens,
+				gemsDisplay: packet.reward.gems
+			}, lng)
 		})
 	];
 	if (packet.pointsToNextTier === undefined) {

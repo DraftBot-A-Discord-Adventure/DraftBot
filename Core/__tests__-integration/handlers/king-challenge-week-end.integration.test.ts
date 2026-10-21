@@ -14,9 +14,8 @@ type PacketUtilsModule = typeof import("../../src/core/utils/PacketUtils");
 type KingChallengeModule = typeof import("../../src/core/kingChallenge/KingChallenge");
 
 /**
- * End of the week: the king's challenge of the week ending is summarized and its reference scores are read
- * before the reset, the weekly scores and the rewarded tiers are reset together, then the reference scores
- * of the week ending set the thresholds of the new week.
+ * End of the week: the reference scores of the week ending are read before the reset, the weekly scores
+ * and the rewarded tiers are reset together, then those reference scores set the thresholds of the new week.
  */
 describe("king's challenge week end", () => {
 	let env: CoreTestEnvironment;
@@ -41,7 +40,7 @@ describe("king's challenge week end", () => {
 		await env?.teardown();
 	});
 
-	it("announces the challenge, resets the tiers with the weekly scores and sets the thresholds of the new week", async () => {
+	it("announces the winner, resets the tiers with the weekly scores and sets the thresholds of the new week", async () => {
 		const seededPlayers = [
 			{
 				keycloakId: "weekend-champion", weeklyScore: 60_000, kingChallengeTier: KingChallengeConstants.TIER_COUNT
@@ -72,15 +71,7 @@ describe("king's challenge week end", () => {
 
 		await CrowniclesMonday.topWeekEnd();
 
-		expect(announcements).toEqual([
-			expect.objectContaining({
-				winnerKeycloakId: "weekend-champion",
-				kingChallenge: {
-					rewardedPlayers: 5,
-					completedPlayers: 1
-				}
-			})
-		]);
+		expect(announcements).toEqual([{ winnerKeycloakId: "weekend-champion" }]);
 		const players = await Player.findAll({ attributes: ["weeklyScore", "kingChallengeTier"] });
 		expect(players.map(player => [player.weeklyScore, player.kingChallengeTier])).toEqual(seededPlayers.map(() => [0, 0]));
 		expect(await kingChallenge.getKingChallengeThresholds()).toEqual(KingChallengeConstants.computeThresholds(

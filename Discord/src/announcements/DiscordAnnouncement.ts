@@ -10,7 +10,6 @@ import { TopWeekFightAnnouncementPacket } from "../../../Lib/src/packets/announc
 import { ChristmasBonusAnnouncementPacket } from "../../../Lib/src/packets/announcements/ChristmasBonusAnnouncementPacket";
 import { ReleaseGiftAnnouncementPacket } from "../../../Lib/src/packets/announcements/ReleaseGiftAnnouncementPacket";
 import { ReleaseGiftConstants } from "../../../Lib/src/constants/ReleaseGiftConstants";
-import { KingChallengeWeekSummary } from "../../../Lib/src/types/KingChallenge";
 import { BlessingAnnouncementPacket } from "../../../Lib/src/packets/announcements/BlessingAnnouncementPacket";
 import { CrowniclesIcons } from "../../../Lib/src/CrowniclesIcons";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
@@ -104,20 +103,6 @@ export abstract class DiscordAnnouncement {
 			noWinnerTranslationKey: "bot:topWeekAnnouncementNoWinner",
 			errorLogContext: "top week"
 		});
-		await this.announceKingChallengeWeek(topWeekAnnouncementPacket.kingChallenge);
-	}
-
-	private static async announceKingChallengeWeek(summary: KingChallengeWeekSummary): Promise<void> {
-		if (summary.rewardedPlayers === 0) {
-			return;
-		}
-		await this.sendBilingualMessage(this.buildBilingualMessage(
-			summary.completedPlayers > 0 ? "bot:kingChallengeAnnouncement" : "bot:kingChallengeAnnouncementNoCompletion",
-			{
-				count: summary.rewardedPlayers,
-				completedPlayers: summary.completedPlayers
-			}
-		));
 	}
 
 	static async announceTopWeekFight(topWeekFightAnnouncementPacket: TopWeekFightAnnouncementPacket): Promise<void> {
