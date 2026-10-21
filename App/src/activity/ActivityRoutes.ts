@@ -14,20 +14,15 @@ export const ACTIVITY_ROUTES = {
 
 export type ActivityRoute = typeof ACTIVITY_ROUTES[keyof typeof ACTIVITY_ROUTES];
 
-const SECURE_PROTOCOLS = {
-	HTTP: "https:",
-	WEBSOCKET: "wss:"
-} as const;
-
-type SecureProtocol = typeof SECURE_PROTOCOLS[keyof typeof SECURE_PROTOCOLS];
-
 /** The scopes the realm's Discord provider reads, so the account is matched as with a browser sign-in. */
 export const ACTIVITY_SCOPES = ["identify", "email"] as const;
 
-export function activityUrl(route: ActivityRoute, protocol: SecureProtocol = SECURE_PROTOCOLS.HTTP): string {
-	return `${protocol}//${window.location.host}${route}`;
+/** Same origin as the page, which Discord always serves over HTTPS. */
+export function activityUrl(route: ActivityRoute): string {
+	return `${window.location.origin}${route}`;
 }
 
 export function activityWebSocketUrl(): string {
-	return activityUrl(ACTIVITY_ROUTES.WEBSOCKET, SECURE_PROTOCOLS.WEBSOCKET);
+	const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+	return `${protocol}//${window.location.host}${ACTIVITY_ROUTES.WEBSOCKET}`;
 }

@@ -45,3 +45,4 @@ app-example
 # Customise them through a config plugin in plugins/, never by hand.
 /ios
 /android
+dist-activity/

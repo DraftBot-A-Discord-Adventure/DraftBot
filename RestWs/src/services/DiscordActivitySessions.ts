@@ -15,6 +15,9 @@ const TOKEN_EXCHANGE_GRANT = "urn:ietf:params:oauth:grant-type:token-exchange";
 const ACCESS_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:access_token";
 const REFRESH_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:refresh_token";
 
+/** Without it, Keycloak's userinfo, through which RestWs identifies every session, refuses the token. */
+const OPENID_SCOPE = "openid";
+
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_FORBIDDEN = 403;
 const HTTP_SERVICE_UNAVAILABLE = 503;
@@ -80,7 +83,8 @@ export class DiscordActivitySessions {
 			subject_issuer: DISCORD_IDENTITY_PROVIDER,
 			subject_token_type: ACCESS_TOKEN_TYPE,
 			requested_token_type: REFRESH_TOKEN_TYPE,
-			audience: this.activity.APP_CLIENT_ID
+			audience: this.activity.APP_CLIENT_ID,
+			scope: OPENID_SCOPE
 		});
 		if (answer.status >= HTTP_SERVER_ERROR) {
 			throw unavailable();
