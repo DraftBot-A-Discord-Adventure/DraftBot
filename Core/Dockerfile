@@ -16,6 +16,7 @@ RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Core/package.json ./Core/pnpm-lock.yaml ./Core/tsconfig.json ./
+COPY ./Core/patches ./patches
 # Create the config directory
 RUN mkdir config
 
@@ -25,6 +26,7 @@ RUN pnpm install
 # Copy the lib
 RUN mkdir ../Lib
 COPY ./Lib/package.json ./Lib/pnpm-lock.yaml ../Lib/
+COPY ./Lib/patches ../Lib/patches
 COPY ./Lib/src ../Lib/src
 
 # Copy the source code
@@ -53,6 +55,7 @@ RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Core/package.json ./Core/pnpm-lock.yaml ./Core/tsconfig.json ./
+COPY ./Core/patches ./patches
 # Create the directories
 RUN mkdir config resources
 
