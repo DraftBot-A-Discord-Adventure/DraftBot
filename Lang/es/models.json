@@ -1254,7 +1254,7 @@
       "atParticle": "a la"
     },
     "21": {
-      "description": "Una carretera muy utilizada por los aldeanos. Muchos pequeños vendedores ambulantes se instalan aquí durante un día, creando un enorme mercado.",
+      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
       "name": "Ruta de las maravillas",
       "particle": "a la",
       "atParticle": "a la"
@@ -1266,7 +1266,7 @@
       "atParticle": "en"
     },
     "23": {
-      "description": "Claire de Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire de Ville también es conocida por su tranquilidad y respeto al orden.",
+      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
       "name": "Claire de Ville",
       "particle": "a",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "a la"
     },
     "25": {
-      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire de Ville.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
       "name": "Rivière aux Crabes",
       "particle": "a la",
       "atParticle": "a la"
@@ -1292,7 +1292,7 @@
       "inParticle": "en"
     },
     "27": {
-      "description": "Un bosque al borde del monte Celestrum.",
+      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
       "name": "Bosque de Celestrum",
       "particle": "a la",
       "atParticle": "a la"
@@ -1338,7 +1338,7 @@
       "particle": "a la"
     },
     "41": {
-      "description": "Explanada pavimentada que une Boug-Coton con las puertas del castillo real. Los mensajeros se cruzan en su camino hacia los pisos del rey.",
+      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
       "name": "Cour du Château",
       "particle": "a la",
       "atParticle": "a la",
@@ -1351,13 +1351,13 @@
       "atParticle": "a la"
     },
     "5": {
-      "description": "El sendero debe su apodo a su naturaleza entrecruzada en la parte sur del Bosque del Viejo.",
+      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
       "name": "Camino de Dédale",
       "particle": "a la",
       "atParticle": "en"
     },
     "6": {
-      "description": "Un pueblo tranquilo conocido por su acogedora posada.",
+      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
       "name": "Algodón Boug",
       "particle": "a",
       "atParticle": "à",
