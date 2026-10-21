@@ -5,7 +5,7 @@
     "rewards": "{emote:kingChallenge.icon} Le roi vous récompense : +{{money, number}} {emote:unitValues.money} · +{{tokens}} {emote:unitValues.token}",
     "rewardsWithGems": "{emote:kingChallenge.icon} Le roi vous récompense : +{{money, number}} {emote:unitValues.money} · +{{tokens}} {emote:unitValues.token} · +{{gems}} {emote:unitValues.gem}",
     "nextTier": "Palier suivant dans **{{points, number}}** {emote:unitValues.score}.",
-    "completed": "Vous avez relevé le défi du roi jusqu'au dernier palier cette semaine !",
+    "completed": "Vous avez relevé le défi du roi jusqu'au palier des champions cette semaine !",
     "useTokens": "Vous avez **{{tokens, number}}** {emote:unitValues.token} : dépensez-les pendant vos rapports pour atteindre le palier suivant plus vite."
   },
   "missions": {

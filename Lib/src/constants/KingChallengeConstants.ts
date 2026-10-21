@@ -1,4 +1,6 @@
-import { KingChallengeReward } from "../types/KingChallenge";
+import {
+	KingChallengeReferenceScores, KingChallengeReward, KingChallengeWeekScores
+} from "../types/KingChallenge";
 
 /**
  * The king's challenge: every week, players cross tiers with the score they gain and are rewarded at each crossed tier.
@@ -7,6 +9,9 @@ import { KingChallengeReward } from "../types/KingChallenge";
  * are spaced geometrically: each tier asks for the same ratio of points over the previous one, so the gaps feel even, the
  * lower tiers barely move and the upper ones follow the evolution of the scores. On the logged 2026 weeks, ~78 % of the
  * active players reached the first tier, the median one reached 4 tiers and a tier was crossed every ~1.2 to 1.5 active day.
+ *
+ * A last "champion" tier stands outside of the ladder: it asks for the average best weekly score of the previous weeks,
+ * so it is only reached by the best player of a good week (about one week out of four) and does not stretch the ladder.
  */
 export abstract class KingChallengeConstants {
 	/**
@@ -27,13 +32,21 @@ export abstract class KingChallengeConstants {
 	/** The last threshold never goes below this value, even if the best players are less active */
 	static readonly MIN_LAST_TIER_SCORE = 30_000;
 
-	/** Fifth best weekly scores of the four weeks before the release, used until enough weeks are recorded */
-	static readonly DEFAULT_REFERENCE_SCORES: readonly number[] = [
-		30_890,
-		31_358,
-		28_827,
-		29_155
-	];
+	/** Weekly scores of the four weeks before the release, used until enough weeks are recorded */
+	static readonly DEFAULT_REFERENCE_SCORES: KingChallengeReferenceScores = {
+		ladder: [
+			30_890,
+			31_358,
+			28_827,
+			29_155
+		],
+		champion: [
+			55_599,
+			55_807,
+			54_772,
+			57_002
+		]
+	};
 
 	static readonly THRESHOLD_ROUNDING = 100;
 
@@ -62,37 +75,62 @@ export abstract class KingChallengeConstants {
 		},
 		{
 			money: 5_500, tokens: 6, gems: 2
+		},
+
+		// Champion tier
+		{
+			money: 7_000, tokens: 8, gems: 3
 		}
 	];
 
 	static readonly TIER_COUNT = KingChallengeConstants.REWARDS.length;
 
+	/** Tiers spaced geometrically, the champion tier excluded */
+	static readonly LADDER_TIER_COUNT = KingChallengeConstants.TIER_COUNT - 1;
+
+	private static roundThreshold(threshold: number): number {
+		return Math.round(threshold / KingChallengeConstants.THRESHOLD_ROUNDING) * KingChallengeConstants.THRESHOLD_ROUNDING;
+	}
+
+	private static average(scores: readonly number[], fallback: readonly number[]): number {
+		const usedScores = scores.length > 0 ? scores : fallback;
+		return usedScores.reduce((sum, score) => sum + score, 0) / usedScores.length;
+	}
+
 	/**
 	 * Compute the thresholds of the week from the reference scores of the previous weeks
 	 * @param referenceScores
 	 */
-	static computeThresholds(referenceScores: readonly number[]): number[] {
-		const scores = referenceScores.length > 0 ? referenceScores : KingChallengeConstants.DEFAULT_REFERENCE_SCORES;
-		const averageReference = scores.reduce((sum, score) => sum + score, 0) / scores.length;
-		const lastThreshold = Math.max(
+	static computeThresholds(referenceScores: KingChallengeReferenceScores): number[] {
+		const lastLadderThreshold = Math.max(
 			KingChallengeConstants.MIN_LAST_TIER_SCORE,
-			averageReference * KingChallengeConstants.LAST_TIER_REFERENCE_MULTIPLIER
+			KingChallengeConstants.average(referenceScores.ladder, KingChallengeConstants.DEFAULT_REFERENCE_SCORES.ladder) * KingChallengeConstants.LAST_TIER_REFERENCE_MULTIPLIER
 		);
-		const ratio = lastThreshold / KingChallengeConstants.FIRST_TIER_SCORE;
-		const lastIndex = KingChallengeConstants.TIER_COUNT - 1;
-		return Array.from({ length: KingChallengeConstants.TIER_COUNT }, (_, index) => {
-			const threshold = KingChallengeConstants.FIRST_TIER_SCORE * ratio ** (index / lastIndex);
-			return Math.round(threshold / KingChallengeConstants.THRESHOLD_ROUNDING) * KingChallengeConstants.THRESHOLD_ROUNDING;
-		});
+		const ratio = lastLadderThreshold / KingChallengeConstants.FIRST_TIER_SCORE;
+		const lastLadderIndex = KingChallengeConstants.LADDER_TIER_COUNT - 1;
+		const ladder = Array.from(
+			{ length: KingChallengeConstants.LADDER_TIER_COUNT },
+			(_, index) => KingChallengeConstants.roundThreshold(KingChallengeConstants.FIRST_TIER_SCORE * ratio ** (index / lastLadderIndex))
+		);
+
+		// The champion tier always stays above the ladder, even after a weak week of the best player
+		const championThreshold = Math.max(
+			ladder[lastLadderIndex] + KingChallengeConstants.THRESHOLD_ROUNDING,
+			KingChallengeConstants.roundThreshold(KingChallengeConstants.average(referenceScores.champion, KingChallengeConstants.DEFAULT_REFERENCE_SCORES.champion))
+		);
+		return [...ladder, championThreshold];
 	}
 
 	/**
-	 * Add a weekly reference score to the history, keeping only the last weeks used for the smoothing
+	 * Add the scores of the week ending to the history, keeping only the last weeks used for the smoothing
 	 * @param referenceScores
-	 * @param newReferenceScore
+	 * @param weekScores
 	 */
-	static pushReferenceScore(referenceScores: readonly number[], newReferenceScore: number): number[] {
-		return [...referenceScores, newReferenceScore].slice(-KingChallengeConstants.REFERENCE_WEEKS);
+	static pushReferenceScores(referenceScores: KingChallengeReferenceScores, weekScores: KingChallengeWeekScores): KingChallengeReferenceScores {
+		return {
+			ladder: [...referenceScores.ladder, weekScores.ladder].slice(-KingChallengeConstants.REFERENCE_WEEKS),
+			champion: [...referenceScores.champion, weekScores.champion].slice(-KingChallengeConstants.REFERENCE_WEEKS)
+		};
 	}
 
 	/**

@@ -19,7 +19,7 @@ import PlayerMissionsInfo from "../../database/game/models/PlayerMissionsInfo";
 import { MapCache } from "../../maps/MapCache";
 import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
 import {
-	getKingChallengeThresholds, getKingChallengeWeekSummary, getWeeklyReferenceScore, recordKingChallengeReferenceScore
+	getKingChallengeThresholds, getKingChallengeWeekSummary, getWeeklyReferenceScores, recordKingChallengeReferenceScores
 } from "../../kingChallenge/KingChallenge";
 
 export class CrowniclesMonday {
@@ -65,7 +65,7 @@ export class CrowniclesMonday {
 			limit: 1
 		});
 		const kingChallenge = await getKingChallengeWeekSummary();
-		const referenceScore = await getWeeklyReferenceScore();
+		const referenceScores = await getWeeklyReferenceScores();
 		PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {
 			...winner ? { winnerKeycloakId: winner.keycloakId } : {},
 			kingChallenge
@@ -80,12 +80,12 @@ export class CrowniclesMonday {
 		CrowniclesLogger.info("Weekly leaderboard has been reset !");
 
 		// Recorded after the reset: the new thresholds only apply to the scores of the new week
-		if (referenceScore !== null) {
-			await recordKingChallengeReferenceScore(referenceScore);
+		if (referenceScores !== null) {
+			await recordKingChallengeReferenceScores(referenceScores);
 		}
 		CrowniclesLogger.info("King's challenge week ended", {
 			...kingChallenge,
-			referenceScore,
+			referenceScores,
 			nextThresholds: await getKingChallengeThresholds()
 		});
 		await PlayerMissionsInfo.resetShopBuyout();

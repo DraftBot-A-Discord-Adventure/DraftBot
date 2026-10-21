@@ -34,3 +34,23 @@ export type KingChallengeWeekSummary = {
 	/** Players who reached the last tier */
 	completedPlayers: number;
 };
+
+/**
+ * Weekly scores of the previous weeks the thresholds are computed from
+ */
+export type KingChallengeReferenceScores = {
+
+	/** Weekly score of the reference rank, for the ladder of tiers */
+	ladder: readonly number[];
+
+	/** Weekly score of the best player, for the champion tier */
+	champion: readonly number[];
+};
+
+/**
+ * Weekly scores of the week ending added to the reference history
+ */
+export type KingChallengeWeekScores = {
+	ladder: number;
+	champion: number;
+};
