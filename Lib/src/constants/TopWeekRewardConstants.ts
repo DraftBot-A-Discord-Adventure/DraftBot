@@ -1,78 +1,92 @@
-export const TOP_WEEK_REWARD_TIERS = {
-	BRONZE: "bronze",
-	SILVER: "silver",
-	GOLD: "gold",
-	DIAMOND: "diamond"
-} as const;
-
-export type TopWeekRewardTierId = typeof TOP_WEEK_REWARD_TIERS[keyof typeof TOP_WEEK_REWARD_TIERS];
+import { LeagueInfoConstants } from "./LeagueInfoConstants";
 
 export type TopWeekRewardTier = {
-	id: TopWeekRewardTierId;
+	leagueId: number;
 	minWeeklyScore: number;
 	money: number;
 	gems: number;
 };
 
-export type TopWeekRewardedPlayersPerTier = Record<TopWeekRewardTierId, number>;
+/**
+ * Number of rewarded players, indexed by league id
+ */
+export type TopWeekRewardedPlayersPerLeague = number[];
 
 /**
- * Rewards granted to every player at the end of the top week, depending on the weekly score they reached.
+ * Rewards granted to every player at the end of the top week. The tiers follow the leagues ladder (indexed by league id),
+ * so a player ends the week in the "week league" matching the score they gained.
  *
- * Thresholds are calibrated on the weekly scores logged in 2026 (Bronze ≈ 75 % of the active players,
- * Silver ≈ 50 %, Gold ≈ 25 %, Diamond ≈ 7 %), and the money is worth ~40 % of the weekly income
- * of a Bronze player down to ~20 % for a Diamond one, so the reward mostly matters to casual players.
+ * Thresholds are calibrated on the weekly scores logged in 2026: every league holds between 12 and 25 players per week,
+ * except the last two ones (~4 and ~2 players), which give the most active players a goal too. The money is worth ~30 to
+ * ~45 % of the weekly income of the lower and middle leagues, down to ~12 % for the highest ones.
  */
 export abstract class TopWeekRewardConstants {
-	/**
-	 * Sorted by decreasing threshold: only the highest reached tier is granted
-	 */
-	static readonly TIERS: readonly TopWeekRewardTier[] = [
-		{
-			id: TOP_WEEK_REWARD_TIERS.DIAMOND,
-			minWeeklyScore: 25_000,
-			money: 8_000,
-			gems: 5
-		},
-		{
-			id: TOP_WEEK_REWARD_TIERS.GOLD,
-			minWeeklyScore: 15_000,
-			money: 5_000,
-			gems: 3
-		},
-		{
-			id: TOP_WEEK_REWARD_TIERS.SILVER,
-			minWeeklyScore: 7_500,
-			money: 3_000,
-			gems: 2
-		},
-		{
-			id: TOP_WEEK_REWARD_TIERS.BRONZE,
-			minWeeklyScore: 2_500,
-			money: 1_500,
-			gems: 1
-		}
+	static readonly MIN_WEEKLY_SCORE = [
+		500, // Wood
+		1_500, // Rock
+		3_000, // Iron
+		5_000, // Bronze
+		7_500, // Silver
+		10_000, // Gold
+		13_500, // Diamond
+		17_500, // Elite
+		22_500, // Infinite
+		30_000, // Legendary
+		45_000 // Royal
 	];
 
-	static readonly MIN_REWARDED_WEEKLY_SCORE = TopWeekRewardConstants.TIERS[TopWeekRewardConstants.TIERS.length - 1].minWeeklyScore;
+	static readonly MONEY = [
+		750, // Wood
+		1_000, // Rock
+		1_500, // Iron
+		2_000, // Bronze
+		2_500, // Silver
+		3_000, // Gold
+		4_000, // Diamond
+		5_000, // Elite
+		6_000, // Infinite
+		7_000, // Legendary
+		8_000 // Royal
+	];
+
+	static readonly GEMS = [
+		0, // Wood
+		0, // Rock
+		1, // Iron
+		1, // Bronze
+		1, // Silver
+		2, // Gold
+		2, // Diamond
+		3, // Elite
+		3, // Infinite
+		4, // Legendary
+		5 // Royal
+	];
+
+	static readonly MIN_REWARDED_WEEKLY_SCORE = TopWeekRewardConstants.MIN_WEEKLY_SCORE[0];
 
 	/**
 	 * Get the highest tier reached with the given weekly score, or null if no tier is reached
 	 * @param weeklyScore
 	 */
 	static getTier(weeklyScore: number): TopWeekRewardTier | null {
-		return TopWeekRewardConstants.TIERS.find(tier => weeklyScore >= tier.minWeeklyScore) ?? null;
+		for (let leagueId = LeagueInfoConstants.ROYAL_LEAGUE_ID; leagueId >= 0; leagueId--) {
+			if (weeklyScore >= TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId]) {
+				return {
+					leagueId,
+					minWeeklyScore: TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId],
+					money: TopWeekRewardConstants.MONEY[leagueId],
+					gems: TopWeekRewardConstants.GEMS[leagueId]
+				};
+			}
+		}
+		return null;
 	}
 
 	/**
-	 * Build a per-tier counter initialized to zero
+	 * Build a per-league counter initialized to zero
 	 */
-	static emptyRewardedPlayersPerTier(): TopWeekRewardedPlayersPerTier {
-		return {
-			[TOP_WEEK_REWARD_TIERS.BRONZE]: 0,
-			[TOP_WEEK_REWARD_TIERS.SILVER]: 0,
-			[TOP_WEEK_REWARD_TIERS.GOLD]: 0,
-			[TOP_WEEK_REWARD_TIERS.DIAMOND]: 0
-		};
+	static emptyRewardedPlayersPerLeague(): TopWeekRewardedPlayersPerLeague {
+		return TopWeekRewardConstants.MIN_WEEKLY_SCORE.map(() => 0);
 	}
 }

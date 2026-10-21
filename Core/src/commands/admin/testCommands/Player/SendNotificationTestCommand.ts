@@ -57,12 +57,12 @@ const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 		]);
 	}
 	else if (args[0] === "topweek") {
-		const tier = TopWeekRewardConstants.TIERS[0];
+		const tier = TopWeekRewardConstants.getTier(player.weeklyScore) ?? TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE)!;
 		PacketUtils.sendNotifications([
 			makePacket(TopWeekRewardNotificationPacket, {
 				keycloakId: player.keycloakId,
-				tierId: tier.id,
-				weeklyScore: tier.minWeeklyScore,
+				leagueId: tier.leagueId,
+				weeklyScore: Math.max(player.weeklyScore, tier.minWeeklyScore),
 				money: tier.money,
 				gems: tier.gems
 			})

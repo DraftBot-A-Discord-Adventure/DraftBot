@@ -1,9 +1,10 @@
 import {
 	describe, expect, it
 } from "vitest";
-import {
-	TOP_WEEK_REWARD_TIERS, TopWeekRewardConstants
-} from "../../src/constants/TopWeekRewardConstants";
+import { TopWeekRewardConstants } from "../../src/constants/TopWeekRewardConstants";
+import { LeagueInfoConstants } from "../../src/constants/LeagueInfoConstants";
+
+const LEAGUES_COUNT = LeagueInfoConstants.ROYAL_LEAGUE_ID + 1;
 
 describe("TopWeekRewardConstants", () => {
 	describe("getTier", () => {
@@ -12,42 +13,43 @@ describe("TopWeekRewardConstants", () => {
 			expect(TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE - 1)).toBeNull();
 		});
 
-		it("grants the bronze tier exactly at the lowest threshold", () => {
-			expect(TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE)?.id).toBe(TOP_WEEK_REWARD_TIERS.BRONZE);
-		});
-
-		it("grants only the highest reached tier", () => {
-			expect(TopWeekRewardConstants.getTier(7_499)?.id).toBe(TOP_WEEK_REWARD_TIERS.BRONZE);
-			expect(TopWeekRewardConstants.getTier(7_500)?.id).toBe(TOP_WEEK_REWARD_TIERS.SILVER);
-			expect(TopWeekRewardConstants.getTier(15_000)?.id).toBe(TOP_WEEK_REWARD_TIERS.GOLD);
-			expect(TopWeekRewardConstants.getTier(25_000)?.id).toBe(TOP_WEEK_REWARD_TIERS.DIAMOND);
-			expect(TopWeekRewardConstants.getTier(1_000_000)?.id).toBe(TOP_WEEK_REWARD_TIERS.DIAMOND);
-		});
-	});
-
-	describe("TIERS", () => {
-		it("defines exactly one tier per tier id", () => {
-			expect(TopWeekRewardConstants.TIERS.map(tier => tier.id)
-				.sort()).toEqual(Object.values(TOP_WEEK_REWARD_TIERS)
-				.sort());
-		});
-
-		it("gives strictly more money and at least as many gems to each higher tier", () => {
-			const ascending = [...TopWeekRewardConstants.TIERS].reverse();
-			for (let i = 1; i < ascending.length; i++) {
-				expect(ascending[i].minWeeklyScore).toBeGreaterThan(ascending[i - 1].minWeeklyScore);
-				expect(ascending[i].money).toBeGreaterThan(ascending[i - 1].money);
-				expect(ascending[i].gems).toBeGreaterThanOrEqual(ascending[i - 1].gems);
+		it("grants the league whose threshold is exactly reached, with its rewards", () => {
+			for (let leagueId = 0; leagueId < LEAGUES_COUNT; leagueId++) {
+				expect(TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId])).toEqual({
+					leagueId,
+					minWeeklyScore: TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId],
+					money: TopWeekRewardConstants.MONEY[leagueId],
+					gems: TopWeekRewardConstants.GEMS[leagueId]
+				});
 			}
 		});
+
+		it("stays in the lower league one point below the next threshold", () => {
+			for (let leagueId = 1; leagueId < LEAGUES_COUNT; leagueId++) {
+				expect(TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId] - 1)?.leagueId).toBe(leagueId - 1);
+			}
+		});
+
+		it("caps at the royal league", () => {
+			expect(TopWeekRewardConstants.getTier(10_000_000)?.leagueId).toBe(LeagueInfoConstants.ROYAL_LEAGUE_ID);
+		});
 	});
 
-	it("starts every tier counter at zero", () => {
-		expect(TopWeekRewardConstants.emptyRewardedPlayersPerTier()).toEqual({
-			[TOP_WEEK_REWARD_TIERS.BRONZE]: 0,
-			[TOP_WEEK_REWARD_TIERS.SILVER]: 0,
-			[TOP_WEEK_REWARD_TIERS.GOLD]: 0,
-			[TOP_WEEK_REWARD_TIERS.DIAMOND]: 0
-		});
+	it("defines one tier per league", () => {
+		expect(TopWeekRewardConstants.MIN_WEEKLY_SCORE).toHaveLength(LEAGUES_COUNT);
+		expect(TopWeekRewardConstants.MONEY).toHaveLength(LEAGUES_COUNT);
+		expect(TopWeekRewardConstants.GEMS).toHaveLength(LEAGUES_COUNT);
+	});
+
+	it("asks for a strictly higher score and gives strictly more money and at least as many gems in each higher league", () => {
+		for (let leagueId = 1; leagueId < LEAGUES_COUNT; leagueId++) {
+			expect(TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId]).toBeGreaterThan(TopWeekRewardConstants.MIN_WEEKLY_SCORE[leagueId - 1]);
+			expect(TopWeekRewardConstants.MONEY[leagueId]).toBeGreaterThan(TopWeekRewardConstants.MONEY[leagueId - 1]);
+			expect(TopWeekRewardConstants.GEMS[leagueId]).toBeGreaterThanOrEqual(TopWeekRewardConstants.GEMS[leagueId - 1]);
+		}
+	});
+
+	it("starts every league counter at zero", () => {
+		expect(TopWeekRewardConstants.emptyRewardedPlayersPerLeague()).toEqual(new Array(LEAGUES_COUNT).fill(0));
 	});
 });

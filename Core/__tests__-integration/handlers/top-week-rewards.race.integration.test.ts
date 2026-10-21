@@ -7,9 +7,8 @@ import {
 } from "../_coreSetup";
 import type { Player as PlayerType } from "../../src/core/database/game/models/Player";
 import type { PlayerMissionsInfo as PlayerMissionsInfoType } from "../../src/core/database/game/models/PlayerMissionsInfo";
-import {
-	TOP_WEEK_REWARD_TIERS, TopWeekRewardConstants, TopWeekRewardTierId
-} from "../../../Lib/src/constants/TopWeekRewardConstants";
+import { TopWeekRewardConstants } from "../../../Lib/src/constants/TopWeekRewardConstants";
+import { LeagueInfoConstants } from "../../../Lib/src/constants/LeagueInfoConstants";
 
 type TopWeekRewardsModule = typeof import("../../src/core/bot/TopWeekRewards");
 
@@ -19,8 +18,19 @@ const INITIAL_GEMS = 2;
 
 const N_CONCURRENT_DISTRIBUTIONS = 5;
 
-function tierOf(tierId: TopWeekRewardTierId): typeof TopWeekRewardConstants.TIERS[number] {
-	return TopWeekRewardConstants.TIERS.find(tier => tier.id === tierId)!;
+const WOOD_LEAGUE_ID = 0;
+
+const SILVER_LEAGUE_ID = 4;
+
+const GOLD_LEAGUE_ID = 5;
+
+const ROYAL_LEAGUE_ID = LeagueInfoConstants.ROYAL_LEAGUE_ID;
+
+function rewardsOf(leagueId: number): { money: number; gems: number } {
+	return {
+		money: TopWeekRewardConstants.MONEY[leagueId],
+		gems: TopWeekRewardConstants.GEMS[leagueId]
+	};
 }
 
 /**
@@ -89,9 +99,9 @@ describe("top week rewards distribution", () => {
 
 	it("pays the highest reached tier, consumes the weekly score and ignores players below the lowest tier", async () => {
 		const belowTiers = await seed("topweek-below", TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE - 1);
-		const bronze = await seed("topweek-bronze", tierOf(TOP_WEEK_REWARD_TIERS.BRONZE).minWeeklyScore);
-		const silver = await seed("topweek-silver", tierOf(TOP_WEEK_REWARD_TIERS.GOLD).minWeeklyScore - 1);
-		const diamond = await seed("topweek-diamond", 60_000);
+		const wood = await seed("topweek-wood", TopWeekRewardConstants.MIN_WEEKLY_SCORE[WOOD_LEAGUE_ID]);
+		const silver = await seed("topweek-silver", TopWeekRewardConstants.MIN_WEEKLY_SCORE[GOLD_LEAGUE_ID] - 1);
+		const royal = await seed("topweek-royal", 100_000);
 
 		const distribution = await distributeTopWeekRewards();
 
@@ -100,49 +110,47 @@ describe("top week rewards distribution", () => {
 			gems: INITIAL_GEMS,
 			weeklyScore: TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE - 1
 		});
-		for (const [player, tierId] of [
-			[bronze, TOP_WEEK_REWARD_TIERS.BRONZE],
-			[silver, TOP_WEEK_REWARD_TIERS.SILVER],
-			[diamond, TOP_WEEK_REWARD_TIERS.DIAMOND]
+		for (const [player, leagueId] of [
+			[wood, WOOD_LEAGUE_ID],
+			[silver, SILVER_LEAGUE_ID],
+			[royal, ROYAL_LEAGUE_ID]
 		] as const) {
 			await expectPlayerState(player, {
-				money: INITIAL_MONEY + tierOf(tierId).money,
-				gems: INITIAL_GEMS + tierOf(tierId).gems,
+				money: INITIAL_MONEY + rewardsOf(leagueId).money,
+				gems: INITIAL_GEMS + rewardsOf(leagueId).gems,
 				weeklyScore: 0
 			});
 		}
 
-		expect(distribution.rewardedPlayersPerTier).toEqual({
-			[TOP_WEEK_REWARD_TIERS.BRONZE]: 1,
-			[TOP_WEEK_REWARD_TIERS.SILVER]: 1,
-			[TOP_WEEK_REWARD_TIERS.GOLD]: 0,
-			[TOP_WEEK_REWARD_TIERS.DIAMOND]: 1
-		});
-		expect(distribution.notifications.find(notification => notification.keycloakId === diamond.keycloakId)).toMatchObject({
-			tierId: TOP_WEEK_REWARD_TIERS.DIAMOND,
-			weeklyScore: 60_000,
-			money: tierOf(TOP_WEEK_REWARD_TIERS.DIAMOND).money,
-			gems: tierOf(TOP_WEEK_REWARD_TIERS.DIAMOND).gems
+		const expectedPerLeague = TopWeekRewardConstants.emptyRewardedPlayersPerLeague();
+		expectedPerLeague[WOOD_LEAGUE_ID] = 1;
+		expectedPerLeague[SILVER_LEAGUE_ID] = 1;
+		expectedPerLeague[ROYAL_LEAGUE_ID] = 1;
+		expect(distribution.rewardedPlayersPerLeague).toEqual(expectedPerLeague);
+		expect(distribution.notifications.find(notification => notification.keycloakId === royal.keycloakId)).toMatchObject({
+			leagueId: ROYAL_LEAGUE_ID,
+			weeklyScore: 100_000,
+			...rewardsOf(ROYAL_LEAGUE_ID)
 		});
 		expect(distribution.notifications).toHaveLength(3);
 	});
 
 	it(`pays each player exactly once when ${N_CONCURRENT_DISTRIBUTIONS} distributions overlap`, async () => {
-		const gold = await seed("topweek-race-gold", tierOf(TOP_WEEK_REWARD_TIERS.GOLD).minWeeklyScore);
-		const bronze = await seed("topweek-race-bronze", tierOf(TOP_WEEK_REWARD_TIERS.BRONZE).minWeeklyScore);
+		const gold = await seed("topweek-race-gold", TopWeekRewardConstants.MIN_WEEKLY_SCORE[GOLD_LEAGUE_ID]);
+		const wood = await seed("topweek-race-wood", TopWeekRewardConstants.MIN_WEEKLY_SCORE[WOOD_LEAGUE_ID]);
 
 		const distributions = await runAllOrThrow(
 			Array.from({ length: N_CONCURRENT_DISTRIBUTIONS }, () => distributeTopWeekRewards())
 		);
 
 		await expectPlayerState(gold, {
-			money: INITIAL_MONEY + tierOf(TOP_WEEK_REWARD_TIERS.GOLD).money,
-			gems: INITIAL_GEMS + tierOf(TOP_WEEK_REWARD_TIERS.GOLD).gems,
+			money: INITIAL_MONEY + rewardsOf(GOLD_LEAGUE_ID).money,
+			gems: INITIAL_GEMS + rewardsOf(GOLD_LEAGUE_ID).gems,
 			weeklyScore: 0
 		});
-		await expectPlayerState(bronze, {
-			money: INITIAL_MONEY + tierOf(TOP_WEEK_REWARD_TIERS.BRONZE).money,
-			gems: INITIAL_GEMS + tierOf(TOP_WEEK_REWARD_TIERS.BRONZE).gems,
+		await expectPlayerState(wood, {
+			money: INITIAL_MONEY + rewardsOf(WOOD_LEAGUE_ID).money,
+			gems: INITIAL_GEMS + rewardsOf(WOOD_LEAGUE_ID).gems,
 			weeklyScore: 0
 		});
 		expect(distributions.flatMap(distribution => distribution.notifications)).toHaveLength(2);

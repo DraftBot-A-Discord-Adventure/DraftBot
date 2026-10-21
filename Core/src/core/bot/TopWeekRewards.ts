@@ -4,7 +4,7 @@ import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import { withLockedPlayerAndMissions } from "../utils/withLockedPlayerAndMissions";
 import { LockedRowNotFoundError } from "../../../../Lib/src/locks/withLockedEntities";
 import {
-	TopWeekRewardConstants, TopWeekRewardedPlayersPerTier
+	TopWeekRewardConstants, TopWeekRewardedPlayersPerLeague
 } from "../../../../Lib/src/constants/TopWeekRewardConstants";
 import { TopWeekRewardNotificationPacket } from "../../../../Lib/src/packets/notifications/TopWeekRewardNotificationPacket";
 import { makePacket } from "../../../../Lib/src/packets/CrowniclesPacket";
@@ -12,7 +12,7 @@ import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants"
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 
 export type TopWeekRewardsDistribution = {
-	rewardedPlayersPerTier: TopWeekRewardedPlayersPerTier;
+	rewardedPlayersPerLeague: TopWeekRewardedPlayersPerLeague;
 	notifications: TopWeekRewardNotificationPacket[];
 };
 
@@ -35,13 +35,15 @@ async function rewardPlayerUnderLock(lockedPlayer: Player): Promise<TopWeekRewar
 		reason: NumberChangeReason.TOP_WEEK_REWARD,
 		ignoreBlessing: true
 	});
-	await PlayerMissionsInfo.withLocked(lockedPlayer.id, lockedMissionsInfo => lockedMissionsInfo.addGems(tier.gems, lockedPlayer.keycloakId, NumberChangeReason.TOP_WEEK_REWARD));
+	if (tier.gems > 0) {
+		await PlayerMissionsInfo.withLocked(lockedPlayer.id, lockedMissionsInfo => lockedMissionsInfo.addGems(tier.gems, lockedPlayer.keycloakId, NumberChangeReason.TOP_WEEK_REWARD));
+	}
 	lockedPlayer.weeklyScore = 0;
 	await lockedPlayer.save();
 
 	return makePacket(TopWeekRewardNotificationPacket, {
 		keycloakId: lockedPlayer.keycloakId,
-		tierId: tier.id,
+		leagueId: tier.leagueId,
 		weeklyScore,
 		money: tier.money,
 		gems: tier.gems
@@ -53,7 +55,7 @@ async function rewardPlayerUnderLock(lockedPlayer: Player): Promise<TopWeekRewar
  */
 export async function distributeTopWeekRewards(): Promise<TopWeekRewardsDistribution> {
 	const distribution: TopWeekRewardsDistribution = {
-		rewardedPlayersPerTier: TopWeekRewardConstants.emptyRewardedPlayersPerTier(),
+		rewardedPlayersPerLeague: TopWeekRewardConstants.emptyRewardedPlayersPerLeague(),
 		notifications: []
 	};
 	const candidates = await Player.findAll({
@@ -65,7 +67,7 @@ export async function distributeTopWeekRewards(): Promise<TopWeekRewardsDistribu
 		try {
 			const notification = await withLockedPlayerAndMissions(candidate.id, rewardPlayerUnderLock);
 			if (notification) {
-				distribution.rewardedPlayersPerTier[notification.tierId]++;
+				distribution.rewardedPlayersPerLeague[notification.leagueId]++;
 				distribution.notifications.push(notification);
 			}
 		}
@@ -80,6 +82,6 @@ export async function distributeTopWeekRewards(): Promise<TopWeekRewardsDistribu
 		}
 	}
 
-	CrowniclesLogger.info("Top week rewards distributed", { rewardedPlayersPerTier: distribution.rewardedPlayersPerTier });
+	CrowniclesLogger.info("Top week rewards distributed", { rewardedPlayersPerLeague: distribution.rewardedPlayersPerLeague });
 	return distribution;
 }
