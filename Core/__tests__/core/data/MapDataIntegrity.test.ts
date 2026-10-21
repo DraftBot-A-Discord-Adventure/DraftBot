@@ -27,10 +27,17 @@ const frenchCommandsPath = resolve(__dirname, "../../../../Lang/fr/commands.json
 const mapLinksPath = resolve(__dirname, "../../../resources/mapLinks");
 
 /**
- * Map attributes of the locations where a pet expedition can take place (the local expeditions use both ends of the
- * player's map link, which can also be a road of the king's castle)
+ * Attributes of the ends of the map links where a pet expedition cannot be launched, mirroring MapCache.continentMapLinks:
+ * the PVE island links and the links inside the haunted area. Expeditions are proposed on both ends of the other links.
  */
-const EXPEDITION_MAP_ATTRIBUTES: readonly string[] = [MapConstants.MAP_ATTRIBUTES.CONTINENT1, MapConstants.MAP_ATTRIBUTES.KING_CASTLE];
+const NON_EXPEDITION_LINK_ATTRIBUTES: readonly (readonly [string, string])[] = [
+	[MapConstants.MAP_ATTRIBUTES.MAIN_CONTINENT, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY],
+	[MapConstants.MAP_ATTRIBUTES.PVE_ISLAND_ENTRY, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND],
+	[MapConstants.MAP_ATTRIBUTES.PVE_ISLAND, MapConstants.MAP_ATTRIBUTES.PVE_ISLAND],
+	[MapConstants.MAP_ATTRIBUTES.PVE_ISLAND, MapConstants.MAP_ATTRIBUTES.PVE_EXIT],
+	[MapConstants.MAP_ATTRIBUTES.PVE_EXIT, MapConstants.MAP_ATTRIBUTES.CONTINENT1],
+	[MapConstants.MAP_ATTRIBUTES.HAUNTED, MapConstants.MAP_ATTRIBUTES.HAUNTED]
+];
 
 function readIds(path: string): number[] {
 	return readdirSync(path)
@@ -127,12 +134,15 @@ describe("Map data integrity", () => {
 		const expeditionNames = (JSON.parse(readFileSync(frenchCommandsPath, "utf-8")) as {
 			petExpedition: { mapLocationExpeditions: Record<string, string> };
 		}).petExpedition.mapLocationExpeditions;
-		const expectedKeys = [...mapLocationIds]
+		const expeditionLocationIds = new Set([...mapLinks.values()]
+			.filter(link => !NON_EXPEDITION_LINK_ATTRIBUTES.some(([start, end]) => readMapLocation(link.startMap).attribute === start
+				&& readMapLocation(link.endMap).attribute === end))
+			.flatMap(link => [link.startMap, link.endMap]));
+		const expectedKeys = [...expeditionLocationIds]
 			.map(id => ({
 				id,
 				mapLocation: readMapLocation(id)
 			}))
-			.filter(({ mapLocation }) => EXPEDITION_MAP_ATTRIBUTES.includes(mapLocation.attribute))
 			.flatMap(({ id, mapLocation }) => {
 				const biomes = mapLocation.biomes ?? [];
 				return biomes.length === 1 ? [String(id)] : biomes.map(biome => `${id}_${biome}`);

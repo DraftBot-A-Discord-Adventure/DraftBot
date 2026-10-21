@@ -38,14 +38,19 @@ function localOffers(expeditions: ExpeditionData[]): string[] {
 		.map(expedition => `${expedition.mapLocationId}:${expedition.locationType}`);
 }
 
-function isShort(expedition: ExpeditionData): boolean {
-	return expedition.durationMinutes >= ExpeditionConstants.DURATION_RANGES.SHORT.MIN
-		&& expedition.durationMinutes <= ExpeditionConstants.DURATION_RANGES.SHORT.MAX;
-}
+/**
+ * Check that the expeditions at the given positions of every generation are short ones and the others medium ones.
+ * The medium range overlaps the short one, so a medium draw is only told apart once it exceeds the short range.
+ */
+function expectDurations(generations: ExpeditionData[][], shortIndexes: number[], mediumIndexes: number[]): void {
+	const shorts = generations.flatMap(expeditions => shortIndexes.map(index => expeditions[index].durationMinutes));
+	const mediums = generations.flatMap(expeditions => mediumIndexes.map(index => expeditions[index].durationMinutes));
 
-function isMedium(expedition: ExpeditionData): boolean {
-	return expedition.durationMinutes >= ExpeditionConstants.DURATION_RANGES.MEDIUM.MIN
-		&& expedition.durationMinutes <= ExpeditionConstants.DURATION_RANGES.MEDIUM.MAX;
+	expect(shorts.every(duration => duration >= ExpeditionConstants.DURATION_RANGES.SHORT.MIN
+		&& duration <= ExpeditionConstants.DURATION_RANGES.SHORT.MAX)).toBe(true);
+	expect(mediums.every(duration => duration >= ExpeditionConstants.DURATION_RANGES.MEDIUM.MIN
+		&& duration <= ExpeditionConstants.DURATION_RANGES.MEDIUM.MAX)).toBe(true);
+	expect(mediums.some(duration => duration > ExpeditionConstants.DURATION_RANGES.SHORT.MAX)).toBe(true);
 }
 
 describe("expedition choices", () => {
@@ -54,26 +59,24 @@ describe("expedition choices", () => {
 	});
 
 	it("offers short expeditions at the departure at the start of the trip, then one medium expedition per biome of the destination", () => {
-		for (let i = 0; i < GENERATIONS_PER_CASE; i++) {
-			const expeditions = expeditionChoices(ETENDUE, LAKE_MIRAGE, TRIP_START);
+		const generations = Array.from({ length: GENERATIONS_PER_CASE }, () => expeditionChoices(ETENDUE, LAKE_MIRAGE, TRIP_START));
 
+		for (const expeditions of generations) {
 			expect(localOffers(expeditions)).toEqual([`${ETENDUE}:${PLAINS}`, `${LAKE_MIRAGE}:${COAST}`, `${LAKE_MIRAGE}:${SWAMP}`]);
-			expect(isShort(expeditions[0])).toBe(true);
-			expect(isMedium(expeditions[1]) && isMedium(expeditions[2])).toBe(true);
 			expect(expeditions).toHaveLength(4);
 			expect(expeditions[3].isDistantExpedition).toBe(true);
 		}
+		expectDurations(generations, [0], [1, 2]);
 	});
 
 	it("offers the short expeditions at the destination once the player is closer to it, and when arrived", () => {
 		for (const travelProgress of [TRIP_END, ARRIVED]) {
-			for (let i = 0; i < GENERATIONS_PER_CASE; i++) {
-				const expeditions = expeditionChoices(ETENDUE, LAKE_MIRAGE, travelProgress);
+			const generations = Array.from({ length: GENERATIONS_PER_CASE }, () => expeditionChoices(ETENDUE, LAKE_MIRAGE, travelProgress));
 
+			for (const expeditions of generations) {
 				expect(localOffers(expeditions)).toEqual([`${LAKE_MIRAGE}:${COAST}`, `${LAKE_MIRAGE}:${SWAMP}`, `${ETENDUE}:${PLAINS}`]);
-				expect(isShort(expeditions[0]) && isShort(expeditions[1])).toBe(true);
-				expect(isMedium(expeditions[2])).toBe(true);
 			}
+			expectDurations(generations, [0, 1], [2]);
 		}
 	});
 
