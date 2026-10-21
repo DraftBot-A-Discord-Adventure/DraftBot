@@ -142,12 +142,36 @@ describe("WebSocket session ownership", () => {
 		expect(mocks.publish).toHaveBeenCalledTimes(1);
 	});
 
+	it("publishes what the client sent while its token was still being verified, in order", async (): Promise<void> => {
+		let grant!: (answer: object) => void;
+		mocks.checkToken.mockReturnValueOnce(new Promise<object>(resolve => { grant = resolve; }));
+		const socket = new SocketStub();
+		const connecting = connect(socket);
+		const first = send(socket, JSON.stringify({id: "first", name: "command", data: {}}));
+		const second = send(socket, JSON.stringify({id: "second", name: "command", data: {}}));
+		expect(mocks.publish).not.toHaveBeenCalled();
+		grant({isError: false, payload: {keycloakId: PLAYER}});
+		await Promise.all([connecting, first, second]);
+		expect(mocks.publish.mock.calls.map(([context]) => context.packetId)).toEqual(["first", "second"]);
+	});
+
+	it("ignores what an unverified client sends beyond the bound", async (): Promise<void> => {
+		let grant!: (answer: object) => void;
+		mocks.checkToken.mockReturnValueOnce(new Promise<object>(resolve => { grant = resolve; }));
+		const socket = new SocketStub();
+		const connecting = connect(socket);
+		const sent = Array.from({length: WebSocketConstants.MAX_MESSAGES_BEFORE_ADMISSION + 1}, () => send(socket));
+		grant({isError: false, payload: {keycloakId: PLAYER}});
+		await Promise.all([connecting, ...sent]);
+		expect(mocks.publish).toHaveBeenCalledTimes(WebSocketConstants.MAX_MESSAGES_BEFORE_ADMISSION);
+	});
+
 	it("does not let a custom client enter the game while its collision is unresolved", async (): Promise<void> => {
 		mocks.collision.mockResolvedValue({collision: {email: "same@example.test"}});
 		const socket = new SocketStub();
 		await connect(socket);
 		expect(socket.close).toHaveBeenCalledWith(1008, "Account collision requires resolution");
-		expect(socket.on.mock.calls.some(([event]) => event === "message")).toBe(false);
+		await send(socket);
 		expect(mocks.publish).not.toHaveBeenCalled();
 	});
 
@@ -156,7 +180,7 @@ describe("WebSocket session ownership", () => {
 		const socket = new SocketStub();
 		await connect(socket);
 		expect(socket.close).toHaveBeenCalledWith(1008, WEBSOCKET_AUTH_UNAVAILABLE_REASON);
-		expect(socket.on.mock.calls.some(([event]) => event === "message")).toBe(false);
+		await send(socket);
 		expect(mocks.publish).not.toHaveBeenCalled();
 	});
 
