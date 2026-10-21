@@ -21,7 +21,7 @@ import {
 	Snowflake
 } from "discord.js";
 import {
-	RESTPostAPIChatInputApplicationCommandsJSONBody, Routes
+	APIApplicationCommand, ApplicationCommandType, RESTPostAPIApplicationCommandsJSONBody, RESTPostAPIChatInputApplicationCommandsJSONBody, Routes
 } from "discord-api-types/v10";
 import {
 	crowniclesClient, discordConfig, keycloakConfig
@@ -92,7 +92,7 @@ export class CommandsManager {
 	 * @param commands
 	 * @param regFunc
 	 */
-	static async registerCommands(clientId: Snowflake, commands: RESTPostAPIChatInputApplicationCommandsJSONBody[], regFunc: (clientId: Snowflake, serverId: Snowflake) => RouteLike): Promise<void> {
+	static async registerCommands(clientId: Snowflake, commands: RESTPostAPIApplicationCommandsJSONBody[], regFunc: (clientId: Snowflake, serverId: Snowflake) => RouteLike): Promise<void> {
 		const rest = new REST({ version: "10" }).setToken(discordConfig.DISCORD_CLIENT_TOKEN);
 		try {
 			CrowniclesLogger.info(`Started refreshing ${commands.length} application (/) commands.`);
@@ -114,6 +114,38 @@ export class CommandsManager {
 	}
 
 	/**
+	 * The Entry Point command launching the Discord Activity, which Discord creates when the Activity is enabled.
+	 * Discord refuses a bulk overwrite of the global commands leaving it out (error 50240): it is sent back as it is.
+	 * @param clientId
+	 */
+	private static async entryPointCommands(clientId: Snowflake): Promise<RESTPostAPIApplicationCommandsJSONBody[]> {
+		const rest = new REST({ version: "10" }).setToken(discordConfig.DISCORD_CLIENT_TOKEN);
+		let registered: APIApplicationCommand[];
+		try {
+			registered = await rest.get(Routes.applicationCommands(clientId)) as APIApplicationCommand[];
+		}
+		catch (error) {
+			// Like a failed registration, this must not keep the bot from starting
+			CrowniclesLogger.errorWithObj("Failed to read the registered commands", error);
+			return [];
+		}
+		return registered
+			.filter(command => command.type === ApplicationCommandType.PrimaryEntryPoint)
+			.map(command => ({
+				name: command.name,
+				description: command.description,
+				type: command.type,
+				handler: command.handler,
+
+				// Discord API naming conventions
+				/* eslint-disable camelcase */
+				...command.integration_types ? { integration_types: command.integration_types } : {},
+				/* eslint-enable camelcase */
+				...command.contexts ? { contexts: command.contexts } : {}
+			}) as RESTPostAPIApplicationCommandsJSONBody);
+	}
+
+	/**
 	 * Register all commands at launch
 	 * @param client
 	 * @param isMainShard
@@ -123,7 +155,8 @@ export class CommandsManager {
 			const allCommandToRegister = await this.getAllCommandsToRegister();
 			if (isMainShard) {
 				await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[1], Routes.applicationGuildCommands);
-				await CommandsManager.registerCommands(client.application!.id, allCommandToRegister[0], Routes.applicationCommands);
+				const globalCommands = [...allCommandToRegister[0], ...await CommandsManager.entryPointCommands(client.application!.id)];
+				await CommandsManager.registerCommands(client.application!.id, globalCommands, Routes.applicationCommands);
 			}
 			await this.refreshCommands(client);
 		}
