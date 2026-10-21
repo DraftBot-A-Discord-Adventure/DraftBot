@@ -1254,7 +1254,7 @@
       "atParticle": "al"
     },
     "21": {
-      "description": "Una strada molto utilizzata dagli abitanti del villaggio. Molti piccoli venditori ambulanti si installano qui per un giorno, creando un grande mercato.",
+      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
       "name": "Strada delle Meraviglie",
       "particle": "verso la",
       "atParticle": "al"
@@ -1266,7 +1266,7 @@
       "atParticle": "a"
     },
     "23": {
-      "description": "Importante città mercantile e crocevia economico, Claire de Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire de Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
+      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
       "name": "Claire de Ville",
       "particle": "verso",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "al"
     },
     "25": {
-      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire de Ville.",
+      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
       "name": "Fiume dei Granchi",
       "particle": "verso la",
       "atParticle": "al"
@@ -1292,7 +1292,7 @@
       "inParticle": "in"
     },
     "27": {
-      "description": "Una foresta ai margini del Monte Celestrum.",
+      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
       "name": "Foresta di Celestrum",
       "particle": "verso la",
       "atParticle": "al"
@@ -1338,7 +1338,7 @@
       "particle": "verso la"
     },
     "41": {
-      "description": "Spianata pavimentata che collega Boug-Coton alle porte del castello reale. I messaggeri si incrociano per raggiungere gli appartamenti del re.",
+      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
       "name": "Corte dello Château",
       "particle": "verso la",
       "atParticle": "al",
@@ -1351,13 +1351,13 @@
       "atParticle": "al"
     },
     "5": {
-      "description": "Il sentiero deriva il suo soprannome dalla sua natura di attraversamento della parte meridionale della Foresta del Vecchio.",
+      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
       "name": "Strada di Dedale",
       "particle": "verso lo",
       "atParticle": "a"
     },
     "6": {
-      "description": "Un villaggio tranquillo, rinomato per la sua accogliente locanda.",
+      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
       "name": "Boug-Coton",
       "particle": "verso",
       "atParticle": "à",
