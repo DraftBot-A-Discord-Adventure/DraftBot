@@ -1053,6 +1053,12 @@
     "9": "Ligue légende",
     "10": "Ligue royale"
   },
+  "topWeekRewardTiers": {
+    "bronze": "Bronze",
+    "silver": "Argent",
+    "gold": "Or",
+    "diamond": "Diamant"
+  },
   "map_locations": {
     "1": {
       "description": "Une grande plage de sable fin au bord de la ville.",

@@ -178,6 +178,24 @@ export abstract class NotificationsTypes {
 		}
 	};
 
+	static TOP_WEEK_REWARD: NotificationType = {
+		emote: CrowniclesIcons.notifications.types.topWeekReward,
+		customId: "topWeekReward",
+		i18nKey: "commands:notifications.types.topWeekReward",
+		value: notificationsConfiguration => ({
+			enabled: notificationsConfiguration.topWeekRewardEnabled,
+			sendType: notificationsConfiguration.topWeekRewardSendType,
+			channelId: notificationsConfiguration.topWeekRewardChannelId
+		}),
+		toggleCallback: (notificationsConfiguration): void => {
+			notificationsConfiguration.topWeekRewardEnabled = !notificationsConfiguration.topWeekRewardEnabled;
+		},
+		changeSendTypeCallback: (notificationsConfiguration, sendType, channelId): void => {
+			notificationsConfiguration.topWeekRewardSendType = sendType;
+			notificationsConfiguration.topWeekRewardChannelId = channelId;
+		}
+	};
+
 	static ALL: NotificationType[] = [
 		NotificationsTypes.REPORT,
 		NotificationsTypes.GUILD_DAILY,
@@ -187,6 +205,7 @@ export abstract class NotificationsTypes {
 		NotificationsTypes.GUILD_STATUS_CHANGE,
 		NotificationsTypes.ENERGY,
 		NotificationsTypes.DAILY_BONUS,
-		NotificationsTypes.PET_EXPEDITION
+		NotificationsTypes.PET_EXPEDITION,
+		NotificationsTypes.TOP_WEEK_REWARD
 	];
 }
