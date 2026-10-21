@@ -63,11 +63,11 @@ export class CrowniclesMonday {
 			limit: 1
 		});
 		const {
-			rewardedPlayersPerTier, notifications
+			rewardedPlayersPerLeague, notifications
 		} = await distributeTopWeekRewards();
 		PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {
 			...winner ? { winnerKeycloakId: winner.keycloakId } : {},
-			rewardedPlayersPerTier
+			rewardedPlayersPerLeague
 		}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		if (winner !== null) {
 			await PlayerBadgesManager.addBadge(winner.id, Badge.TOP_WEEK);

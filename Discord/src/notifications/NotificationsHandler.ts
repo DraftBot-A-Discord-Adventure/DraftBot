@@ -194,9 +194,9 @@ export abstract class NotificationsHandler {
 			}
 			case TopWeekRewardNotificationPacket.name: {
 				const packet = notification.packet as TopWeekRewardNotificationPacket;
-				notificationContent = i18n.t("bot:notificationTopWeekReward", {
+				notificationContent = i18n.t(packet.gems > 0 ? "bot:notificationTopWeekReward.moneyAndGems" : "bot:notificationTopWeekReward.money", {
 					lng,
-					tierId: packet.tierId,
+					leagueId: packet.leagueId,
 					weeklyScore: packet.weeklyScore,
 					money: packet.money,
 					gems: packet.gems
