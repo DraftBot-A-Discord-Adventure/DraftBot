@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 import {
 	getItem, setItem
-} from "expo-secure-store";
+} from "@/src/storage/DeviceStorage";
 
 /** A choice kept on this device only, read synchronously so the first frame already follows it. */
 export class DevicePreference<Value extends string> {

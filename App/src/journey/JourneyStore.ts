@@ -1,6 +1,6 @@
 import {
 	getItem, setItem
-} from "expo-secure-store";
+} from "@/src/storage/DeviceStorage";
 import { AppStateFlag } from "ws-packets/src/objects/AppState";
 import {
 	isJourneyTab, JOURNEY_FEATURES, JourneyFeature, JourneyTab

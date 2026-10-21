@@ -1,6 +1,6 @@
 import {
 	getItem, setItem
-} from "expo-secure-store";
+} from "@/src/storage/DeviceStorage";
 
 export const THEME_PREFERENCES = {
 	SYSTEM: "system",
