@@ -6,6 +6,7 @@ import {
 	CommandReportCookingIgniteReq,
 	CommandReportCookingIgniteRes,
 	CommandReportCookingNoWoodRes,
+	CommandReportCookingUnavailableRes,
 	CommandReportCookingWoodConfirmRes,
 	CommandReportCookingWoodConfirmReq,
 	CommandReportCookingReviveReq,
@@ -268,6 +269,7 @@ async function igniteOrReviveFurnace(
 ): Promise<void> {
 	const data = await getPlayerAndHome(keycloakId);
 	if (!data) {
+		response.push(makePacket(CommandReportCookingUnavailableRes, {}));
 		return;
 	}
 	const {
@@ -343,14 +345,16 @@ export async function handleCookingWoodConfirm(
 	const response: CrowniclesPacket[] = [];
 	const pending = consumePendingWoodConfirmation(keycloakId);
 
-	if (!packet.accepted || !pending) {
-		// Cancelled — return empty so Discord goes back to cooking menu
-		return response;
+	if (!packet.accepted) {
+		return buildCookingMenuResponse(await getPlayerAndHome(keycloakId), pending?.isRevive ?? false);
+	}
+	if (!pending) {
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 
 	const data = await getPlayerAndHome(keycloakId);
 	if (!data) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 	const {
 		player, home, cookingSlots
@@ -955,7 +959,7 @@ export async function handleCookingCraft(
 ): Promise<CrowniclesPacket[]> {
 	const craftContext = await loadCookingCraftContext(keycloakId, packet);
 	if (craftContext === null) {
-		return [];
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 
 	const validationError = validateCraftRequest(
@@ -976,23 +980,23 @@ export async function handleCookingCraft(
 	return await executeReadyCookingCraft(readyCraftContext, context);
 }
 
-export async function handleCookingMenu(
-	keycloakId: string,
-	_packet: CommandReportCookingMenuReq
-): Promise<CrowniclesPacket[]> {
+async function buildCookingMenuResponse(data: PlayerAndHome | null, isIgnited: boolean): Promise<CrowniclesPacket[]> {
 	const response: CrowniclesPacket[] = [];
-	const data = await getPlayerAndHome(keycloakId);
 	if (!data) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 	const menu = await buildCookingMenuSnapshot({
 		player: data.player,
 		home: data.home,
 		cookingSlots: data.cookingSlots,
-		isIgnited: false
+		isIgnited
 	});
 	response.push(makePacket(CommandReportCookingMenuRes, { menu }));
 	return response;
+}
+
+export async function handleCookingMenu(keycloakId: string, _packet: CommandReportCookingMenuReq): Promise<CrowniclesPacket[]> {
+	return buildCookingMenuResponse(await getPlayerAndHome(keycloakId), false);
 }
 
 async function validatePinRecipe(player: Player, recipeId: string): Promise<ValidatedPinRecipe | null> {
@@ -1022,7 +1026,7 @@ export async function handleCookingPin(
 	const response: CrowniclesPacket[] = [];
 	const data = await getPlayerAndHome(keycloakId);
 	if (!data) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 	const {
 		player, home, cookingSlots
@@ -1030,7 +1034,7 @@ export async function handleCookingPin(
 
 	const validated = await validatePinRecipe(player, packet.recipeId);
 	if (!validated) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 
 	const pinnedRecipe = await CookingService.getPinnedRecipeInfo({
@@ -1040,7 +1044,7 @@ export async function handleCookingPin(
 		guild: validated.guild
 	});
 	if (!pinnedRecipe) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 
 	await Player.withLocked(player.id, async lockedPlayer => {
@@ -1063,7 +1067,7 @@ export async function handleCookingUnpin(
 	const response: CrowniclesPacket[] = [];
 	const data = await getPlayerAndHome(keycloakId);
 	if (!data) {
-		return response;
+		return [makePacket(CommandReportCookingUnavailableRes, {})];
 	}
 	const {
 		player, home, cookingSlots
