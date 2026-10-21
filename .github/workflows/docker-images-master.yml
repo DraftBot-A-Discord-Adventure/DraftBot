@@ -31,6 +31,7 @@ jobs:
         context: .
         file: ./Core/Dockerfile
         push: true
+        pull: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/core:latest,${{ secrets.DOCKER_HUB_USERNAME }}/core:${{ steps.date.outputs.date }}
     -
       name: Build and push Discord
@@ -39,4 +40,5 @@ jobs:
         context: .
         file: ./Discord/Dockerfile
         push: true
+        pull: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/discord:latest,${{ secrets.DOCKER_HUB_USERNAME }}/discord:${{ steps.date.outputs.date }}

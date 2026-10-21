@@ -68,8 +68,8 @@ RUN mkdir -p /.cache/node/corepack
 RUN chmod -R 777 /.cache/node/corepack
 RUN chmod o+rx /root
 
-# Install wget for healthcheck
-RUN apk add --no-cache wget
+# Install wget for healthcheck and refresh the system CA bundle (distrusts the compromised eMudhra intermediates)
+RUN apk upgrade --no-cache ca-certificates-bundle && apk add --no-cache wget
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
