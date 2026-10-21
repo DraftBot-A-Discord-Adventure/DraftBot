@@ -1,6 +1,7 @@
 services:
   mariadb_keycloak:
-    image: mariadb
+    # Pinned on the LTS branch: an untagged image follows `latest`, which jumps across major versions
+    image: mariadb:12.3
     container_name: mariadb_keycloak
     volumes:
       - ../../keycloak/mariadb:/var/lib/mysql
@@ -9,13 +10,15 @@ services:
       MYSQL_DATABASE: keycloak
       MYSQL_USER: keycloak
       MYSQL_PASSWORD: password
+      # Runs mariadb-upgrade on startup when the data directory comes from an older version
+      MARIADB_AUTO_UPGRADE: "1"
     # Copy-pasted from https://github.com/docker-library/mariadb/issues/94
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "--silent" ]
     ports:
       - 3307:3306
   keycloak:
-    image: quay.io/keycloak/keycloak
+    image: quay.io/keycloak/keycloak:26.8
     container_name: keycloak
     ports:
       - 8080:8080
