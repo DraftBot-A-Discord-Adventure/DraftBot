@@ -289,6 +289,7 @@
     "ping": "Ping",
     "pingValue": "{{value}} ms",
     "changeAccount": "Changer de compte",
+    "discordActivityAccount": "Dans Discord, vous jouez avec le compte relié à votre Discord. Son adresse email et son mot de passe se gèrent depuis l'application.",
     "leavingAccount": "Fermeture de la session en cours…",
     "changeAccountFailed": "La session n'a pas pu être fermée. Réessayez dans un instant.",
     "email": {

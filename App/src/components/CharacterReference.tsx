@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import {
-	Linking, Pressable, Text, View
+	Pressable, Text, View
 } from "react-native";
 import { useRouter } from "expo-router";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
@@ -15,6 +15,7 @@ import {
 } from "ws-packets/src/objects/Badge";
 import { COMMAND_REJECTIONS } from "ws-packets/src/objects/CommandRejection";
 import { GameClient } from "@/src/networking/GameClient";
+import { openExternalUrl } from "@/src/activity/ExternalLink";
 import { GAME_ENTITIES } from "@/src/store/GameEntities";
 import { useGameQuery } from "@/src/store/useGameQuery";
 import { useGameDeadline } from "@/src/store/useGameDeadline";
@@ -235,7 +236,7 @@ export function Badges(): ReactNode {
 export function Guide(): ReactNode {
 	return <>
 		<ActionBanner icon={BookOpen} label={i18n.t("app:reference.guide")} onPress={(): void => {
-			Linking.openURL(GUIDE_URL).catch(console.error);
+			openExternalUrl(GUIDE_URL).catch(console.error);
 		}} />
 		<SectionHeader>{i18n.t("app:profile.titles.rarity")}</SectionHeader>
 		<Rarity />

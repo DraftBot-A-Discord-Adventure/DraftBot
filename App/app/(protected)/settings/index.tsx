@@ -1,15 +1,15 @@
 import React, {
 	ReactNode, useContext, useRef, useState
 } from "react";
-import {
-	Linking, View
-} from "react-native";
+import { View } from "react-native";
 import { useRouter } from "expo-router";
 import {
 	nativeApplicationVersion, nativeBuildVersion
 } from "expo-application";
 import Constants from "expo-constants";
 import { makeFromClientPacket } from "ws-packets/src/MakePackets";
+import { isDiscordActivity } from "@/src/activity/DiscordLaunch";
+import { openExternalUrl } from "@/src/activity/ExternalLink";
 import { VersionReq } from "ws-packets/src/fromClient/PlayerUtilityReq";
 import { VersionRes } from "ws-packets/src/fromServer/common/PlayerUtilityRes";
 import { AuthContext } from "@/src/authentication/AuthContext";
@@ -256,6 +256,21 @@ function AccountFeedback({
 	</>;
 }
 
+/**
+ * Inside Discord, the player plays the account linked to their Discord: its address and password are managed
+ * from the app, through Keycloak pages the Activity cannot open, and leaving it would sign them straight back in.
+ */
+function ActivityAccountSettings(): ReactNode {
+	const router = useRouter();
+	return <>
+		<SectionHeader>{i18n.t("app:settings.sections.account")}</SectionHeader>
+		<Note>{i18n.t("app:settings.discordActivityAccount")}</Note>
+		<ExpandableList>
+			<EntryRow title={i18n.t("app:settings.deleteAccount.entry")} danger onPress={(): void => router.push("/settings/delete-account")} />
+		</ExpandableList>
+	</>;
+}
+
 function AccountSettings(): ReactNode {
 	const router = useRouter();
 	const [leaving, setLeaving] = useState(false);
@@ -316,7 +331,7 @@ function AboutSettings(): ReactNode {
 	const version = useGameQuery(GAME_ENTITIES.VERSION, () => GameClient.request(makeFromClientPacket(VersionReq, {}), VersionRes));
 	const openLegalPage = (url: LegalPageUrl): void => {
 		setLegalLinkFailed(false);
-		Linking.openURL(url).catch(() => setLegalLinkFailed(true));
+		openExternalUrl(url).catch(() => setLegalLinkFailed(true));
 	};
 	return <>
 		<SectionHeader>{i18n.t("app:settings.sections.about")}</SectionHeader>
@@ -346,7 +361,7 @@ export default function Settings(): ReactNode {
 		<DisplaySettings />
 		<NotificationsEntry />
 		<GameServicesSettings />
-		<AccountSettings />
+		{isDiscordActivity() ? <ActivityAccountSettings /> : <AccountSettings />}
 		<AboutSettings />
 	</Page>;
 }
