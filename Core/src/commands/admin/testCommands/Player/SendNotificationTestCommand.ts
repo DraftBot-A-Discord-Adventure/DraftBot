@@ -7,15 +7,13 @@ import { ReachDestinationNotificationPacket } from "../../../../../../Lib/src/pa
 import { MapLocationDataController } from "../../../../data/MapLocation";
 import { GuildDailyNotificationPacket } from "../../../../../../Lib/src/packets/notifications/GuildDailyNotificationPacket";
 import { CommandGuildDailyRewardPacket } from "../../../../../../Lib/src/packets/commands/CommandGuildDailyPacket";
-import { TopWeekRewardNotificationPacket } from "../../../../../../Lib/src/packets/notifications/TopWeekRewardNotificationPacket";
-import { TopWeekRewardConstants } from "../../../../../../Lib/src/constants/TopWeekRewardConstants";
 
 export const commandInfo: ITestCommand = {
 	name: "sendnotification",
 	aliases: ["sendnotif"],
 	commandFormat: "<type>",
 	typeWaited: { type: TypeKey.STRING },
-	description: "Envoie une notification de test au joueur. Types disponibles : 'report' (destination atteinte), 'gd' (bonus de guilde), 'topweek' (récompense de fin de top week). Utile pour tester l'affichage des notifications"
+	description: "Envoie une notification de test au joueur. Types disponibles : 'report' (destination atteinte), 'guildDaily' (mission de guilde). Utile pour tester l'affichage des notifications"
 };
 
 /**
@@ -53,18 +51,6 @@ const sendNotificationTestCommand: ExecuteTestCommandLike = (player, args) => {
 					},
 					advanceTime: 666
 				})
-			})
-		]);
-	}
-	else if (args[0] === "topweek") {
-		const tier = TopWeekRewardConstants.getTier(player.weeklyScore) ?? TopWeekRewardConstants.getTier(TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE)!;
-		PacketUtils.sendNotifications([
-			makePacket(TopWeekRewardNotificationPacket, {
-				keycloakId: player.keycloakId,
-				leagueId: tier.leagueId,
-				weeklyScore: Math.max(player.weeklyScore, tier.minWeeklyScore),
-				money: tier.money,
-				gems: tier.gems
 			})
 		]);
 	}

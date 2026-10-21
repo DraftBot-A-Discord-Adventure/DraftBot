@@ -29,6 +29,7 @@ import { resolveKeycloakDiscordUser } from "../../utils/KeycloakPlayerUtils";
 import { Badge } from "../../../../Lib/src/types/Badge";
 import { TokensConstants } from "../../../../Lib/src/constants/TokensConstants";
 import { ColorConstants } from "../../../../Lib/src/constants/ColorConstants";
+import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 
 /**
  * Display the profile of a player
@@ -180,7 +181,9 @@ function addRankAndEffectFields(fields: EmbedField[], packet: CommandProfilePack
 		lng,
 		score: packet.playerData.rank.score,
 		rank: packet.playerData.rank.rank,
-		numberOfPlayer: packet.playerData.rank.numberOfPlayers
+		numberOfPlayer: packet.playerData.rank.numberOfPlayers,
+		kingChallengeTier: packet.playerData.kingChallengeTier,
+		kingChallengeTierCount: KingChallengeConstants.TIER_COUNT
 	});
 
 	const effectFieldKey = packet.playerData.effect.healed ? "noTimeLeft" : "timeLeft";

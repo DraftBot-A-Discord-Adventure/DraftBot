@@ -20,6 +20,7 @@ import { MissionType } from "../../../../Lib/src/types/CompletedMission";
 import { DailyMissions } from "../../core/database/game/models/DailyMission";
 import { Campaign } from "../../core/missions/Campaign";
 import { MissionsController } from "../../core/missions/MissionsController";
+import { getKingChallengeProgress } from "../../core/kingChallenge/KingChallenge";
 
 export default class MissionsCommand {
 	@commandRequires(CommandMissionsPacketReq, {
@@ -63,7 +64,8 @@ export default class MissionsCommand {
 			missions: baseMissions,
 			maxCampaignNumber: Campaign.getMaxCampaignNumber(),
 			campaignProgression: missionInfo.campaignProgression,
-			maxSideMissionSlots: toCheckPlayer.getMissionSlotsNumber()
+			maxSideMissionSlots: toCheckPlayer.getMissionSlotsNumber(),
+			kingChallenge: await getKingChallengeProgress(toCheckPlayer)
 		}));
 	}
 }

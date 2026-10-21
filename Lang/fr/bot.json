@@ -22,12 +22,10 @@
   "supportAlert": "{emote:messages.dm} | **Nouveau message privé reçu !** \n`Auteur: {{username}} (id : {{id}})\n\n`",
   "topWeekAnnouncement": "{emote:announcements.trophy} **Le classement de la semaine est terminé ! Le gagnant est :** {{mention}}",
   "topWeekAnnouncementNoWinner": "{emote:announcements.trophy} **Le classement de la semaine est terminé ! Malheureusement, il n'y a pas de participant et donc de gagnant cette semaine.**",
-  "topWeekRewardsAnnouncement": {
-    "header_one": "{emote:announcements.gift} **Récompenses de la semaine :** {{count, number}} aventurier a été récompensé pour son assiduité !",
-    "header_other": "{emote:announcements.gift} **Récompenses de la semaine :** {{count, number}} aventuriers ont été récompensés pour leur assiduité !",
-    "league": "{emote:leagues.{{leagueId}}} $t(models:leagues.{{leagueId}}) : {{count, number}}",
-    "footer": "Cumulez au moins {{minWeeklyScore, number}} {emote:unitValues.score} d'ici la fin de la semaine pour être récompensé à votre tour !"
-  },
+  "kingChallengeAnnouncement_one": "{emote:kingChallenge.icon} **Défi du roi :** cette semaine, le roi a récompensé {{count, number}} aventurier ayant relevé son défi, dont {{completedPlayers, number}} jusqu'au dernier palier. Un nouveau défi commence !",
+  "kingChallengeAnnouncement_other": "{emote:kingChallenge.icon} **Défi du roi :** cette semaine, le roi a récompensé {{count, number}} aventuriers ayant relevé son défi, dont {{completedPlayers, number}} jusqu'au dernier palier. Un nouveau défi commence !",
+  "kingChallengeAnnouncementNoCompletion_one": "{emote:kingChallenge.icon} **Défi du roi :** cette semaine, le roi a récompensé {{count, number}} aventurier ayant relevé son défi. Un nouveau défi commence !",
+  "kingChallengeAnnouncementNoCompletion_other": "{emote:kingChallenge.icon} **Défi du roi :** cette semaine, le roi a récompensé {{count, number}} aventuriers ayant relevé son défi. Un nouveau défi commence !",
   "totalUsersCount": "**Nombre total d'utilisateurs : `{{count}}`**",
   "notificationTitle": "Notification",
   "notificationFooter": "Vous recevez ce message car les notifications sont activées. Pour changer ce paramètre, utilisez la commande /notifications",
@@ -43,10 +41,6 @@
   "notificationEnergyFull": "Vous avez récupéré toute votre énergie.",
   "notificationDailyBonus": "Votre bonus journalier est disponible.",
   "notificationPetExpedition": "{{petDisplay}} est de retour d'expédition et a peut-être ramené des trésors !",
-  "notificationTopWeekReward": {
-    "money": "{emote:leagues.{{leagueId}}} Le classement de la semaine est terminé ! Avec **{{weeklyScore, number}}** {emote:unitValues.score} gagnés cette semaine, vous terminez la semaine en **$t(models:leagues.{{leagueId}})** et recevez {{money, number}} {emote:unitValues.money}.",
-    "moneyAndGems": "{emote:leagues.{{leagueId}}} Le classement de la semaine est terminé ! Avec **{{weeklyScore, number}}** {emote:unitValues.score} gagnés cette semaine, vous terminez la semaine en **$t(models:leagues.{{leagueId}})** et recevez {{money, number}} {emote:unitValues.money} et {{gems, number}} {emote:unitValues.gem}."
-  },
   "christmasBonusPreAnnouncement": "{emote:announcements.christmas} **Bonus de Noël à venir !** {emote:announcements.christmas}\n\nDans quelques heures, tous les joueurs recevront un cadeau spécial : leur stock de jetons sera rempli au maximum ! Profitez bien de cette période festive !",
   "christmasBonusApplied": "{emote:announcements.christmas} **Joyeux Noël !** {emote:announcements.gift}\n\nLe Père Noël est passé ! Votre stock de jetons a été rempli au maximum. Profitez de ce cadeau pour partir à l'aventure !",
   "releaseGiftApplied": "{emote:announcements.gift} **Crownicles 6.0.0 est là !** {emote:announcements.gift}\n\nPour célébrer cette nouvelle version, tous les aventuriers reçoivent un cadeau : {{money, number}} {emote:unitValues.money} et un stock de jetons rempli au maximum. Bonne aventure !",

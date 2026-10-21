@@ -783,11 +783,11 @@
     },
     "ranking": {
       "fieldName": "Classement et Score :",
-      "fieldValue": "{emote:announcements.trophy} {{rank, number}} / {{numberOfPlayer, number}} | {emote:unitValues.score} {{score, number}}"
+      "fieldValue": "{emote:announcements.trophy} {{rank, number}} / {{numberOfPlayer, number}} | {emote:unitValues.score} {{score, number}}\n{emote:kingChallenge.icon} Défi du roi : {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "unranked": {
       "fieldName": "Classement et Score :",
-      "fieldValue": "{emote:announcements.trophy} Non classé | {emote:unitValues.score} {{score, number}}"
+      "fieldValue": "{emote:announcements.trophy} Non classé | {emote:unitValues.score} {{score, number}}\n{emote:kingChallenge.icon} Défi du roi : {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "statistics": {
       "fieldName": "Statistiques :",
@@ -2275,8 +2275,7 @@
       "guildStatusChange": "Changement de statut au sein de la guilde",
       "energy": "Énergie régénérée",
       "dailyBonus": "Bonus journalier",
-      "petExpedition": "Expédition de familier terminée",
-      "topWeekReward": "Récompense de fin de semaine"
+      "petExpedition": "Expédition de familier terminée"
     },
     "enableDisable": "Activer/Désactiver",
     "sendLocationField": "Endroit d'envoi :",
@@ -2296,6 +2295,17 @@
     "off": "Le bot a été sorti de maintenance avec succès."
   },
   "missions": {
+    "kingChallenge": {
+      "button": "Défi du roi",
+      "backButton": "Missions",
+      "title": "Défi du roi de {{pseudo}}",
+      "description": "Chaque lundi, le roi lance un nouveau défi aux aventuriers du royaume et récompense ceux qui le relèvent. Prochain défi {{time}}.",
+      "progress": "{emote:unitValues.score} **{{weeklyScore, number}}** points gagnés cette semaine · palier **{{tier}}/{{tierCount}}**",
+      "nextTier": "{{progressionBar}} Encore **{{points, number}}** {emote:unitValues.score} avant le palier {{nextTier}}.",
+      "completed": "{emote:kingChallenge.tierReached} Défi relevé jusqu'au dernier palier cette semaine !",
+      "tier": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token}",
+      "tierWithGems": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token} · {{gems}} {emote:unitValues.gem}"
+    },
     "title": "Missions de {{pseudo}}",
     "subcategories": {
       "campaignCurrent": "{emote:missions.campaign} **Campagne ({{current}}/{{max}})**",

@@ -264,6 +264,7 @@ const PLAYER_DATA_EXPORT_FIELD_COVERAGE = {
 		"fightPointsLost",
 		"score",
 		"weeklyScore",
+		"kingChallengeTier",
 		"level",
 		"experience",
 		"money",

@@ -29,7 +29,6 @@ import { EnergyFullNotificationPacket } from "../../../Lib/src/packets/notificat
 import { DailyBonusNotificationPacket } from "../../../Lib/src/packets/notifications/DailyBonusNotificationPacket";
 import { ExpeditionFinishedNotificationPacket } from "../../../Lib/src/packets/notifications/ExpeditionFinishedNotificationPacket";
 import { GDPRExportCompleteNotificationPacket } from "../../../Lib/src/packets/notifications/GDPRExportCompleteNotificationPacket";
-import { TopWeekRewardNotificationPacket } from "../../../Lib/src/packets/notifications/TopWeekRewardNotificationPacket";
 import { SexTypeShort } from "../../../Lib/src/constants/StringConstants";
 import { ZipArchive } from "archiver";
 import { DiscordConstants } from "../DiscordConstants";
@@ -190,18 +189,6 @@ export abstract class NotificationsHandler {
 					petDisplay: `${petIcon} **${petName}**`
 				});
 				notificationType = NotificationsTypes.PET_EXPEDITION;
-				break;
-			}
-			case TopWeekRewardNotificationPacket.name: {
-				const packet = notification.packet as TopWeekRewardNotificationPacket;
-				notificationContent = i18n.t(packet.gems > 0 ? "bot:notificationTopWeekReward.moneyAndGems" : "bot:notificationTopWeekReward.money", {
-					lng,
-					leagueId: packet.leagueId,
-					weeklyScore: packet.weeklyScore,
-					money: packet.money,
-					gems: packet.gems
-				});
-				notificationType = NotificationsTypes.TOP_WEEK_REWARD;
 				break;
 			}
 			case GDPRExportCompleteNotificationPacket.name: {

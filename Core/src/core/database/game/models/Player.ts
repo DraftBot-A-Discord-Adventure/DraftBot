@@ -83,6 +83,7 @@ import { RecipeDiscoveryService } from "../../../cooking/RecipeDiscoveryService"
 import { RecipeDisplayInfo } from "../../../../../../Lib/src/types/CookingTypes";
 import { RecipeDiscoverySource } from "../../../../../../Lib/src/constants/CookingConstants";
 import { buildNewItemSlotData } from "../../../utils/ItemSlotUtils";
+import { applyKingChallengeProgress } from "../../../kingChallenge/KingChallenge";
 
 export type PlayerEditValueParameters = {
 	player: Player;
@@ -106,6 +107,12 @@ const OVER_CAP_TOKEN_REASONS: ReadonlySet<NumberChangeReason> = new Set([
 	NumberChangeReason.BIG_EVENT
 ]);
 
+/**
+ * Reasons whose token gains ignore the cap entirely, even when the player already holds more than the cap:
+ * the reward would otherwise be silently lost for the many players who hoard their tokens.
+ */
+const UNCAPPED_TOKEN_REASONS: ReadonlySet<NumberChangeReason> = new Set([NumberChangeReason.KING_CHALLENGE]);
+
 const PLAYERS_LEVELING_UP_CONTEXT_KEY = "playersLevelingUp" as const;
 
 /**
@@ -120,6 +127,9 @@ function computeNewTokens(currentTokens: number, amount: number, reason: NumberC
 	if (amount <= 0) {
 		// When spending or doing a no-op, don't clamp to MAX (preserve over-cap tokens from expeditions)
 		return Math.max(0, currentTokens + amount);
+	}
+	if (UNCAPPED_TOKEN_REASONS.has(reason)) {
+		return currentTokens + amount;
 	}
 	if (currentTokens >= TokensConstants.MAX) {
 		// Block all gains when already at or above max (including over-cap reward sources)
@@ -167,6 +177,9 @@ export class Player extends Model {
 	declare score: number;
 
 	declare weeklyScore: number;
+
+	/** Number of king's challenge tiers already rewarded this week */
+	declare kingChallengeTier: number;
 
 	declare level: number;
 
@@ -361,6 +374,9 @@ export class Player extends Model {
 		});
 		crowniclesInstance?.logsDatabase.logScoreChange(this.keycloakId, this.score, parameters.reason)
 			.then();
+		if (delta > 0) {
+			await applyKingChallengeProgress(this, parameters.response);
+		}
 		return this;
 	}
 
@@ -1927,6 +1943,11 @@ export function initModel(sequelize: Sequelize): void {
 		weeklyScore: {
 			type: DataTypes.INTEGER,
 			defaultValue: PlayersConstants.PLAYER_DEFAULT_VALUES.WEEKLY_SCORE
+		},
+		kingChallengeTier: {
+			type: DataTypes.TINYINT.UNSIGNED,
+			allowNull: false,
+			defaultValue: 0
 		},
 		level: {
 			type: DataTypes.INTEGER,

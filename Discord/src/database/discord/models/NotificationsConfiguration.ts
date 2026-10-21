@@ -63,12 +63,6 @@ export class NotificationsConfiguration extends Model {
 
 	declare petExpeditionChannelId?: string;
 
-	declare topWeekRewardEnabled: boolean;
-
-	declare topWeekRewardSendType: number;
-
-	declare topWeekRewardChannelId?: string;
-
 	declare updatedAt: Date;
 
 	declare createdAt: Date;
@@ -194,18 +188,6 @@ export function initModel(sequelize: Sequelize): void {
 			defaultValue: NotificationSendTypeEnum.DM
 		},
 		petExpeditionChannelId: {
-			// eslint-disable-next-line new-cap
-			type: DataTypes.STRING(32)
-		},
-		topWeekRewardEnabled: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true
-		},
-		topWeekRewardSendType: {
-			type: DataTypes.INTEGER,
-			defaultValue: NotificationSendTypeEnum.DM
-		},
-		topWeekRewardChannelId: {
 			// eslint-disable-next-line new-cap
 			type: DataTypes.STRING(32)
 		},

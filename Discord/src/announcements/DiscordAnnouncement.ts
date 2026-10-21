@@ -4,23 +4,17 @@ import {
 import { TextChannel } from "discord.js";
 import i18n from "../translations/i18n";
 import { TopWeekAnnouncementPacket } from "../../../Lib/src/packets/announcements/TopWeekAnnouncementPacket";
-import {
-	Language, LANGUAGE
-} from "../../../Lib/src/Language";
+import { LANGUAGE } from "../../../Lib/src/Language";
 import { KeycloakUtils } from "../../../Lib/src/keycloak/KeycloakUtils";
 import { TopWeekFightAnnouncementPacket } from "../../../Lib/src/packets/announcements/TopWeekFightAnnouncementPacket";
 import { ChristmasBonusAnnouncementPacket } from "../../../Lib/src/packets/announcements/ChristmasBonusAnnouncementPacket";
 import { ReleaseGiftAnnouncementPacket } from "../../../Lib/src/packets/announcements/ReleaseGiftAnnouncementPacket";
 import { ReleaseGiftConstants } from "../../../Lib/src/constants/ReleaseGiftConstants";
-import {
-	TopWeekRewardConstants, TopWeekRewardedPlayersPerLeague
-} from "../../../Lib/src/constants/TopWeekRewardConstants";
+import { KingChallengeWeekSummary } from "../../../Lib/src/types/KingChallenge";
 import { BlessingAnnouncementPacket } from "../../../Lib/src/packets/announcements/BlessingAnnouncementPacket";
 import { CrowniclesIcons } from "../../../Lib/src/CrowniclesIcons";
 import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
-import {
-	escapeUsername, StringUtils
-} from "../utils/StringUtils";
+import { escapeUsername } from "../utils/StringUtils";
 import { resolveKeycloakPlayerName } from "../utils/KeycloakPlayerUtils";
 
 /**
@@ -110,44 +104,20 @@ export abstract class DiscordAnnouncement {
 			noWinnerTranslationKey: "bot:topWeekAnnouncementNoWinner",
 			errorLogContext: "top week"
 		});
-		await this.announceTopWeekRewards(topWeekAnnouncementPacket.rewardedPlayersPerLeague);
+		await this.announceKingChallengeWeek(topWeekAnnouncementPacket.kingChallenge);
 	}
 
-	/**
-	 * Summary of the week leagues reached by the players, from the highest league to the lowest, skipping the empty ones
-	 */
-	private static buildTopWeekRewardsMessage(rewardedPlayersPerLeague: TopWeekRewardedPlayersPerLeague, count: number, lng: Language): string {
-		const leagueLines = rewardedPlayersPerLeague
-			.map((playersInLeague, leagueId) => playersInLeague > 0 && i18n.t("bot:topWeekRewardsAnnouncement.league", {
-				lng,
-				leagueId,
-				count: playersInLeague
-			}))
-			.reverse();
-		return StringUtils.joinParagraphs([
-			StringUtils.joinLines([
-				i18n.t("bot:topWeekRewardsAnnouncement.header", {
-					lng,
-					count
-				}),
-				...leagueLines
-			]),
-			i18n.t("bot:topWeekRewardsAnnouncement.footer", {
-				lng,
-				minWeeklyScore: TopWeekRewardConstants.MIN_REWARDED_WEEKLY_SCORE
-			})
-		]);
-	}
-
-	private static async announceTopWeekRewards(rewardedPlayersPerLeague: TopWeekRewardedPlayersPerLeague): Promise<void> {
-		const count = rewardedPlayersPerLeague.reduce((sum, playersInLeague) => sum + playersInLeague, 0);
-		if (count === 0) {
+	private static async announceKingChallengeWeek(summary: KingChallengeWeekSummary): Promise<void> {
+		if (summary.rewardedPlayers === 0) {
 			return;
 		}
-		await this.sendBilingualMessage({
-			fr: this.buildTopWeekRewardsMessage(rewardedPlayersPerLeague, count, LANGUAGE.FRENCH),
-			en: this.buildTopWeekRewardsMessage(rewardedPlayersPerLeague, count, LANGUAGE.ENGLISH)
-		});
+		await this.sendBilingualMessage(this.buildBilingualMessage(
+			summary.completedPlayers > 0 ? "bot:kingChallengeAnnouncement" : "bot:kingChallengeAnnouncementNoCompletion",
+			{
+				count: summary.rewardedPlayers,
+				completedPlayers: summary.completedPlayers
+			}
+		));
 	}
 
 	static async announceTopWeekFight(topWeekFightAnnouncementPacket: TopWeekFightAnnouncementPacket): Promise<void> {

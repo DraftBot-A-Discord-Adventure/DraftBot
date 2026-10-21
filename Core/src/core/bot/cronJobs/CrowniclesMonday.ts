@@ -18,7 +18,9 @@ import {
 import PlayerMissionsInfo from "../../database/game/models/PlayerMissionsInfo";
 import { MapCache } from "../../maps/MapCache";
 import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
-import { distributeTopWeekRewards } from "../TopWeekRewards";
+import {
+	getKingChallengeThresholds, getKingChallengeWeekSummary, getWeeklyReferenceScore, recordKingChallengeReferenceScore
+} from "../../kingChallenge/KingChallenge";
 
 export class CrowniclesMonday {
 	public static async programCronJob(): Promise<void> {
@@ -49,7 +51,7 @@ export class CrowniclesMonday {
 	 * End the top week
 	 */
 	static async topWeekEnd(): Promise<void> {
-		// The best players must be logged before the rewards reset their weekly score
+		// The best players must be logged before their weekly score is reset
 		await crowniclesInstance?.logsDatabase.log15BestTopWeek()
 			.catch(error => CrowniclesLogger.errorWithObj("Failed to log the 15 best players of the top week", error));
 		const winner = await Player.findOne({
@@ -62,21 +64,30 @@ export class CrowniclesMonday {
 			],
 			limit: 1
 		});
-		const {
-			rewardedPlayersPerLeague, notifications
-		} = await distributeTopWeekRewards();
+		const kingChallenge = await getKingChallengeWeekSummary();
+		const referenceScore = await getWeeklyReferenceScore();
 		PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {
 			...winner ? { winnerKeycloakId: winner.keycloakId } : {},
-			rewardedPlayersPerLeague
+			kingChallenge
 		}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		if (winner !== null) {
 			await PlayerBadgesManager.addBadge(winner.id, Badge.TOP_WEEK);
 		}
-		await Player.update({ weeklyScore: 0 }, { where: {} });
+		await Player.update({
+			weeklyScore: 0,
+			kingChallengeTier: 0
+		}, { where: {} });
 		CrowniclesLogger.info("Weekly leaderboard has been reset !");
-		if (notifications.length > 0) {
-			PacketUtils.sendNotifications(notifications);
+
+		// Recorded after the reset: the new thresholds only apply to the scores of the new week
+		if (referenceScore !== null) {
+			await recordKingChallengeReferenceScore(referenceScore);
 		}
+		CrowniclesLogger.info("King's challenge week ended", {
+			...kingChallenge,
+			referenceScore,
+			nextThresholds: await getKingChallengeThresholds()
+		});
 		await PlayerMissionsInfo.resetShopBuyout();
 		CrowniclesLogger.info("All players can now buy again points from the mission shop !");
 		crowniclesInstance?.logsDatabase.logTopWeekEnd()

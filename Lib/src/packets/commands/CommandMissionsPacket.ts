@@ -2,6 +2,7 @@ import {
 	CrowniclesPacket, PacketDirection, sendablePacket
 } from "../CrowniclesPacket";
 import { BaseMission } from "../../types/CompletedMission";
+import { KingChallengeProgress } from "../../types/KingChallenge";
 
 @sendablePacket(PacketDirection.FRONT_TO_BACK)
 export class CommandMissionsPacketReq extends CrowniclesPacket {
@@ -22,6 +23,8 @@ export class CommandMissionsPacketRes extends CrowniclesPacket {
 	maxCampaignNumber!: number;
 
 	maxSideMissionSlots!: number;
+
+	kingChallenge!: KingChallengeProgress;
 }
 
 @sendablePacket(PacketDirection.BACK_TO_FRONT)
