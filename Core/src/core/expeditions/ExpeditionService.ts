@@ -118,16 +118,26 @@ function generateExpedition(params: ExpeditionGenerationParams): ExpeditionData 
 }
 
 /**
- * Get the two map locations linked to a mapLink, the closest one to the player first
- * @param mapLinkId - The player's current mapLink ID
- * @param travelProgress - Progress of the player on the map link, from 0 (departure) to 1 (arrived)
+ * Position of the player on the map when choosing an expedition
  */
-function getMapLocationsFromLinkByProximity(mapLinkId: number, travelProgress: number): number[] {
-	const mapLink = MapLinkDataController.instance.getById(mapLinkId);
+export interface ExpeditionPlayerPosition {
+	mapLinkId: number;
+
+	/**
+	 * Progress of the player on the map link, from 0 (departure) to 1 (arrived)
+	 */
+	travelProgress: number;
+}
+
+/**
+ * Get the two map locations linked to the player's mapLink, the closest one to the player first
+ */
+function getMapLocationsFromLinkByProximity(position: ExpeditionPlayerPosition): number[] {
+	const mapLink = MapLinkDataController.instance.getById(position.mapLinkId);
 	if (!mapLink) {
 		return [];
 	}
-	return travelProgress < ExpeditionConstants.DESTINATION_CLOSER_TRAVEL_PROGRESS
+	return position.travelProgress < ExpeditionConstants.DESTINATION_CLOSER_TRAVEL_PROGRESS
 		? [mapLink.startMap, mapLink.endMap]
 		: [mapLink.endMap, mapLink.startMap];
 }
@@ -262,15 +272,13 @@ function generateDistantExpedition(
 }
 
 /**
- * Calculate which expedition should receive the bonus (if any)
- * @param bonusType - The bonus to apply
- * @param expeditionsCount - The number of proposed expeditions
+ * Calculate which of the proposed expeditions should receive the bonus (if any)
  */
-function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType, expeditionsCount: number): number {
+function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType, expeditions: ExpeditionData[]): number {
 	if (bonusType === ExpeditionBonusType.NONE) {
 		return ExpeditionConstants.NO_BONUS_EXPEDITION;
 	}
-	return RandomUtils.randInt(0, expeditionsCount);
+	return RandomUtils.randInt(0, expeditions.length);
 }
 
 /**
@@ -278,12 +286,11 @@ function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType, expeditio
  * - Short expeditions: one per biome of the mapLocation of the player's current mapLink closest to the player
  * - Medium expeditions: one per biome of the other mapLocation of the mapLink
  * - Last expedition: "distant expedition" to a random location on the map
- * @param mapLinkId - The player's current mapLink ID
- * @param travelProgress - Progress of the player on the map link, from 0 (departure) to 1 (arrived)
+ * @param position - The player's position on the map
  * @param hasCloneTalisman - Whether the player already has the clone talisman (no bonus if true)
  */
-export function generateExpeditionChoices(mapLinkId: number, travelProgress: number, hasCloneTalisman: boolean): ExpeditionData[] {
-	const localMapLocationIds = getMapLocationsFromLinkByProximity(mapLinkId, travelProgress);
+export function generateExpeditionChoices(position: ExpeditionPlayerPosition, hasCloneTalisman: boolean): ExpeditionData[] {
+	const localMapLocationIds = getMapLocationsFromLinkByProximity(position);
 	const durationRanges = getDurationRangesArray();
 
 	// Determine which bonus to apply
@@ -300,7 +307,7 @@ export function generateExpeditionChoices(mapLinkId: number, travelProgress: num
 	const allExpeditions = [...localExpeditions, distantExpedition];
 
 	// Apply bonus to the selected expedition
-	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType, allExpeditions.length);
+	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType, allExpeditions);
 	if (bonusExpeditionIndex >= 0 && bonusExpeditionIndex < allExpeditions.length) {
 		applyBonusToExpedition(allExpeditions[bonusExpeditionIndex], bonusType);
 	}
