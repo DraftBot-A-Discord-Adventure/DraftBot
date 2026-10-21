@@ -165,6 +165,22 @@ describe("king's challenge", () => {
 		expect(responses.flatMap(tierReachedPackets)).toHaveLength(1);
 	});
 
+	it("shows the progress of the week with the coming Monday reset", async () => {
+		const player = await seed("king-progress", 0);
+		await gainScore(player.id, THRESHOLDS[1]);
+
+		const progress = await kingChallenge.getKingChallengeProgress((await Player.findByPk(player.id))!);
+
+		expect(progress).toMatchObject({
+			weeklyScore: THRESHOLDS[1],
+			tier: 2,
+			thresholds: THRESHOLDS
+		});
+		expect(progress.nextResetDate).toBeGreaterThan(Date.now());
+		expect(progress.nextResetDate).toBeLessThanOrEqual(Date.now() + 7 * 24 * 60 * 60 * 1000);
+		expect(new Date(progress.nextResetDate + 1).getDay()).toBe(1);
+	});
+
 	it("summarizes the week and records the reference score that sets the next thresholds", async () => {
 		await seed("king-summary-completed", 0);
 		await gainScore((await Player.findOne({ where: { keycloakId: "king-summary-completed" } }))!.id, THRESHOLDS[THRESHOLDS.length - 1]);

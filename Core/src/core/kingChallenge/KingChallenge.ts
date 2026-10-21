@@ -13,6 +13,7 @@ import {
 } from "../../../../Lib/src/packets/CrowniclesPacket";
 import { NumberChangeReason } from "../../../../Lib/src/constants/LogsConstants";
 import { Locked } from "../../../../Lib/src/locks/withLockedEntities";
+import { getNextSundayMidnight } from "../../../../Lib/src/utils/TimeUtils";
 
 /**
  * The thresholds only change on the weekly reset, they are computed once and kept until then.
@@ -123,7 +124,9 @@ export async function getKingChallengeProgress(player: Player): Promise<KingChal
 		weeklyScore: player.weeklyScore,
 		tier: player.kingChallengeTier,
 		thresholds: await getKingChallengeThresholds(),
-		nextResetDate: await Settings.NEXT_WEEKLY_RESET.getValue()
+
+		// NEXT_WEEKLY_RESET only catches up a missed reset at startup, the reset itself runs every Monday at midnight
+		nextResetDate: getNextSundayMidnight()
 	};
 }
 
