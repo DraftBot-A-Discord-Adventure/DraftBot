@@ -4,6 +4,13 @@
     "desert",
     "ruins"
   ],
+  "sideBiomes": {
+    "6": "ruins",
+    "8": "ruins",
+    "17": "desert",
+    "19": "desert",
+    "41": "ruins"
+  },
   "tags": [
     "detALa"
   ],

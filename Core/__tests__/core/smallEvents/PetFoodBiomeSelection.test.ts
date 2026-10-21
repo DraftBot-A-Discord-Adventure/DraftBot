@@ -81,6 +81,24 @@ describe("pet food biome selection", () => {
 		expect(getFoodType(player)).toBe("badSmell");
 	});
 
+	it("uses the side of a mixed location facing the other end of the trip", () => {
+		vi.spyOn(MapLocationDataController.instance, "getById").mockImplementation(mapId => Object.assign(new MapLocation(), {
+			id: mapId,
+			type: MapLocationConstants.TYPES.ROAD,
+			biomes: [ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST, ExpeditionConstants.EXPEDITION_LOCATION_TYPES.DESERT],
+			sideBiomes: {
+				[startMapId]: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.DESERT,
+				[endMapId]: ExpeditionConstants.EXPEDITION_LOCATION_TYPES.COAST
+			}
+		}));
+		vi.spyOn(TravelTime, "getTravelProgress").mockReturnValue(0.8);
+		vi.spyOn(RandomUtils.crowniclesRandom, "realZeroToOneInclusive")
+			.mockReturnValueOnce(0.7)
+			.mockReturnValueOnce(0.5);
+
+		expect(getFoodType(player)).toBe("badSmell");
+	});
+
 	it("keeps the Route des Merveilles soup outcome", () => {
 		const random = vi.spyOn(RandomUtils.crowniclesRandom, "realZeroToOneInclusive");
 		vi.spyOn(MapLinkDataController.instance, "getById").mockReturnValue({

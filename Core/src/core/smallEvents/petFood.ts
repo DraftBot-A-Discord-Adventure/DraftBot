@@ -74,13 +74,15 @@ type PetFoodProperties = {
 
 /**
  * Get the food probabilities of a map location: cooked food smells good in settlements, otherwise it depends on the biome
+ * of the side of the location facing the other end of the trip
  * @param mapLocation
+ * @param otherEndId - The location at the other end of the player's map link
  */
-function getProbabilities(mapLocation: MapLocation): { [key: string]: number } {
+function getProbabilities(mapLocation: MapLocation, otherEndId: number): { [key: string]: number } {
 	if ((SmallEventConstants.PET_FOOD.GOOD_SMELL_TYPES as readonly MapLocationType[]).includes(mapLocation.type)) {
 		return SmallEventConstants.PET_FOOD.PROBABILITIES.GOOD_SMELL;
 	}
-	return SmallEventConstants.PET_FOOD.PROBABILITIES[SmallEventConstants.PET_FOOD.BIOME_PROBABILITY_PROFILES[mapLocation.pickBiome()]];
+	return SmallEventConstants.PET_FOOD.PROBABILITIES[SmallEventConstants.PET_FOOD.BIOME_PROBABILITY_PROFILES[mapLocation.getBiomeFacing(otherEndId)]];
 }
 
 /**
@@ -97,10 +99,10 @@ export function getFoodType(player: Player): string {
 		return SmallEventConstants.PET_FOOD.FOOD_TYPES.SOUP;
 	}
 
-	const selectedMap = RandomUtils.crowniclesRandom.realZeroToOneInclusive() < TravelTime.getTravelProgress(player)
-		? endMap
-		: startMap;
-	const probabilities = getProbabilities(selectedMap);
+	const nearDestination = RandomUtils.crowniclesRandom.realZeroToOneInclusive() < TravelTime.getTravelProgress(player);
+	const probabilities = nearDestination
+		? getProbabilities(endMap, startMap.id)
+		: getProbabilities(startMap, endMap.id);
 	const rand = RandomUtils.crowniclesRandom.realZeroToOneInclusive();
 	let cumulativeProbability = 0;
 	for (const [foodType, probability] of Object.entries(probabilities)) {

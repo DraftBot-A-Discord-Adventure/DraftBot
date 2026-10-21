@@ -4,6 +4,7 @@ import {
 	ReactionCollectorData,
 	ReactionCollectorReaction
 } from "./ReactionCollectorPacket";
+import { Biome } from "../../types/Biome";
 
 export class ReactionCollectorChooseDestinationReaction extends ReactionCollectorReaction {
 	mapId!: number;
@@ -11,6 +12,16 @@ export class ReactionCollectorChooseDestinationReaction extends ReactionCollecto
 	mapTypeId!: string;
 
 	tripDuration?: number;
+
+	/**
+	 * Biome explored by expeditions on the current location during this trip: its side facing the destination
+	 */
+	departureBiome!: Biome;
+
+	/**
+	 * Biome explored by expeditions on the destination during this trip: its side facing the current location
+	 */
+	destinationBiome!: Biome;
 }
 
 /**

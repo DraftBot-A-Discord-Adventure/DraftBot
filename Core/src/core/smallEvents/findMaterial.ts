@@ -18,13 +18,19 @@ import { updateCollectMaterialsMission } from "../utils/MaterialLootUtils";
 
 /**
  * Pick the biome to loot from: it blends the origin and destination maps, the destination being
- * more likely the further along the trip the player is. Falls back to the plains biome when the map is unknown.
+ * more likely the further along the trip the player is. Each end of the trip is explored on its side
+ * facing the other end, like the expeditions. Falls back to the plains biome when the map is unknown.
  */
 export function pickTravelBiome(player: Player): Biome {
-	const mapLocation = RandomUtils.crowniclesRandom.realZeroToOneInclusive() < TravelTime.getTravelProgress(player)
-		? player.getDestination()
-		: player.getPreviousMap();
-	return mapLocation?.pickBiome() ?? ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
+	const previousMap = player.getPreviousMap();
+	const destination = player.getDestination();
+	const nearDestination = RandomUtils.crowniclesRandom.realZeroToOneInclusive() < TravelTime.getTravelProgress(player);
+	const mapLocation = nearDestination ? destination : previousMap;
+	const otherEnd = nearDestination ? previousMap : destination;
+	if (!mapLocation) {
+		return ExpeditionConstants.EXPEDITION_LOCATION_TYPES.PLAINS;
+	}
+	return otherEnd ? mapLocation.getBiomeFacing(otherEnd.id) : mapLocation.pickBiome();
 }
 
 /**

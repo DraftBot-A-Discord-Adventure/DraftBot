@@ -4,6 +4,11 @@
     "swamp",
     "cave"
   ],
+  "sideBiomes": {
+    "1102": "cave",
+    "1106": "swamp",
+    "1999": "swamp"
+  },
   "canBeGoToPlaceMissionDestination": false,
   "attribute": "pve_island"
 }

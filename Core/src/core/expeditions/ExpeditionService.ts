@@ -135,7 +135,10 @@ function generateLocalExpeditions(
 	for (let i = 0; i < ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT && i < localMapLocationIds.length; i++) {
 		const mapLocationId = localMapLocationIds[i];
 		const mapLocation = MapLocationDataController.instance.getById(mapLocationId)!;
-		const locationType = mapLocation.pickBiome();
+
+		// The pet explores the side of the location facing the other end of the player's current map link
+		const otherEndId = localMapLocationIds.find(id => id !== mapLocationId) ?? mapLocationId;
+		const locationType = mapLocation.getBiomeFacing(otherEndId);
 
 		const expedition = generateExpeditionWithConstraints({
 			durationRange: durationRanges[i],

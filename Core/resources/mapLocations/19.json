@@ -4,6 +4,12 @@
     "desert",
     "coast"
   ],
+  "sideBiomes": {
+    "7": "desert",
+    "18": "coast",
+    "21": "desert",
+    "1999": "coast"
+  },
   "tags": [
     "detA"
   ],

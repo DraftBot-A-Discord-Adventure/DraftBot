@@ -4,6 +4,14 @@
     "coast",
     "swamp"
   ],
+  "sideBiomes": {
+    "12": "swamp",
+    "16": "coast",
+    "22": "swamp",
+    "25": "coast",
+    "40": "swamp",
+    "1999": "coast"
+  },
   "tags": [
     "detAu"
   ],

@@ -152,18 +152,22 @@ async function automaticChooseDestination(player: Player, response: CrowniclesPa
  * Build the map reaction options for the destination collector
  */
 function buildMapReactions(player: Player, destinationMaps: number[]): ReactionCollectorChooseDestinationReaction[] {
+	const currentMapId = player.getDestinationId()!;
+	const currentLocation = MapLocationDataController.instance.getById(currentMapId);
 	return destinationMaps.map(mapId => {
-		const mapLink = MapLinkDataController.instance.getLinkByLocations(player.getDestinationId()!, mapId);
+		const mapLink = MapLinkDataController.instance.getLinkByLocations(currentMapId, mapId);
 		const mapLocation = MapLocationDataController.instance.getById(mapId);
-		if (!mapLink || !mapLocation) {
-			throw new Error(`No map link or location found for destination ${player.getDestinationId()} -> ${mapId}`);
+		if (!mapLink || !mapLocation || !currentLocation) {
+			throw new Error(`No map link or location found for destination ${currentMapId} -> ${mapId}`);
 		}
 		const isPveMap = MapCache.allPveMapLinks.includes(mapLink.id);
 
 		return {
 			mapId,
 			mapTypeId: mapLocation.type,
-			tripDuration: isPveMap || RandomUtils.crowniclesRandom.bool() ? mapLink.tripDuration : undefined
+			tripDuration: isPveMap || RandomUtils.crowniclesRandom.bool() ? mapLink.tripDuration : undefined,
+			departureBiome: currentLocation.getBiomeFacing(mapId),
+			destinationBiome: mapLocation.getBiomeFacing(currentMapId)
 		};
 	});
 }

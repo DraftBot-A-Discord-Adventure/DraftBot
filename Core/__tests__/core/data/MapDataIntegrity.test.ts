@@ -12,6 +12,7 @@ type MapLocationData = {
 	type: string;
 	attribute: string;
 	biomes?: string[];
+	sideBiomes?: Record<string, string>;
 	biome?: string;
 	expeditionType?: string;
 };
@@ -23,7 +24,14 @@ type MapLinkData = {
 
 const mapLocationsPath = resolve(__dirname, "../../../resources/mapLocations");
 const frenchModelsPath = resolve(__dirname, "../../../../Lang/fr/models.json");
+const frenchCommandsPath = resolve(__dirname, "../../../../Lang/fr/commands.json");
 const mapLinksPath = resolve(__dirname, "../../../resources/mapLinks");
+
+/**
+ * Map attributes of the locations where a pet expedition can take place (the local expeditions use both ends of the
+ * player's map link, which can also be a road of the king's castle)
+ */
+const EXPEDITION_MAP_ATTRIBUTES: readonly string[] = [MapConstants.MAP_ATTRIBUTES.CONTINENT1, MapConstants.MAP_ATTRIBUTES.KING_CASTLE];
 
 function readIds(path: string): number[] {
 	return readdirSync(path)
@@ -114,6 +122,64 @@ describe("Map data integrity", () => {
 			.map(({ id, mapLocation }) => `${id} (biomes ${JSON.stringify(mapLocation.biomes)})`);
 
 		expect(invalid).toEqual([]);
+	});
+
+	it("every map location mixing several biomes declares the biome of its side facing each linked location", () => {
+		const linkedLocations = new Map<number, Set<number>>();
+		for (const link of mapLinks.values()) {
+			if (!linkedLocations.has(link.startMap)) {
+				linkedLocations.set(link.startMap, new Set());
+			}
+			if (!linkedLocations.has(link.endMap)) {
+				linkedLocations.set(link.endMap, new Set());
+			}
+			linkedLocations.get(link.startMap)!.add(link.endMap);
+			linkedLocations.get(link.endMap)!.add(link.startMap);
+		}
+
+		const invalid = [...mapLocationIds]
+			.map(id => ({
+				id,
+				mapLocation: readMapLocation(id),
+				linked: [...linkedLocations.get(id) ?? []].map(String).sort()
+			}))
+			.filter(({ mapLocation, linked }) => {
+				const biomes = mapLocation.biomes ?? [];
+				const sideBiomes = mapLocation.sideBiomes;
+				if (biomes.length <= 1) {
+					return sideBiomes !== undefined;
+				}
+				if (!sideBiomes) {
+					return true;
+				}
+				const sides = Object.keys(sideBiomes).sort();
+				const facingBiomes = new Set(Object.values(sideBiomes));
+				return JSON.stringify(sides) !== JSON.stringify(linked)
+					|| [...facingBiomes].some(biome => !biomes.includes(biome))
+					|| biomes.some(biome => !facingBiomes.has(biome));
+			})
+			.map(({ id, mapLocation, linked }) => `${id} (biomes ${JSON.stringify(mapLocation.biomes)}, sides ${JSON.stringify(mapLocation.sideBiomes)}, linked ${JSON.stringify(linked)})`);
+
+		expect(invalid).toEqual([]);
+	});
+
+	it("every biome of an expedition location has its own French expedition name, and every name matches a biome", () => {
+		const expeditionNames = (JSON.parse(readFileSync(frenchCommandsPath, "utf-8")) as {
+			petExpedition: { mapLocationExpeditions: Record<string, string> };
+		}).petExpedition.mapLocationExpeditions;
+		const expectedKeys = [...mapLocationIds]
+			.map(id => ({
+				id,
+				mapLocation: readMapLocation(id)
+			}))
+			.filter(({ mapLocation }) => EXPEDITION_MAP_ATTRIBUTES.includes(mapLocation.attribute))
+			.flatMap(({ id, mapLocation }) => {
+				const biomes = mapLocation.biomes ?? [];
+				return biomes.length === 1 ? [String(id)] : biomes.map(biome => `${id}_${biome}`);
+			})
+			.sort();
+
+		expect(Object.keys(expeditionNames).sort()).toEqual(expectedKeys);
 	});
 
 	it("every biome can be reached by expeditions on the main continent", () => {
