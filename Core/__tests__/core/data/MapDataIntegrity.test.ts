@@ -23,7 +23,14 @@ type MapLinkData = {
 
 const mapLocationsPath = resolve(__dirname, "../../../resources/mapLocations");
 const frenchModelsPath = resolve(__dirname, "../../../../Lang/fr/models.json");
+const frenchCommandsPath = resolve(__dirname, "../../../../Lang/fr/commands.json");
 const mapLinksPath = resolve(__dirname, "../../../resources/mapLinks");
+
+/**
+ * Map attributes of the locations where a pet expedition can take place (the local expeditions use both ends of the
+ * player's map link, which can also be a road of the king's castle)
+ */
+const EXPEDITION_MAP_ATTRIBUTES: readonly string[] = [MapConstants.MAP_ATTRIBUTES.CONTINENT1, MapConstants.MAP_ATTRIBUTES.KING_CASTLE];
 
 function readIds(path: string): number[] {
 	return readdirSync(path)
@@ -114,6 +121,25 @@ describe("Map data integrity", () => {
 			.map(({ id, mapLocation }) => `${id} (biomes ${JSON.stringify(mapLocation.biomes)})`);
 
 		expect(invalid).toEqual([]);
+	});
+
+	it("every biome of an expedition location has its own French expedition name, and every name matches a biome", () => {
+		const expeditionNames = (JSON.parse(readFileSync(frenchCommandsPath, "utf-8")) as {
+			petExpedition: { mapLocationExpeditions: Record<string, string> };
+		}).petExpedition.mapLocationExpeditions;
+		const expectedKeys = [...mapLocationIds]
+			.map(id => ({
+				id,
+				mapLocation: readMapLocation(id)
+			}))
+			.filter(({ mapLocation }) => EXPEDITION_MAP_ATTRIBUTES.includes(mapLocation.attribute))
+			.flatMap(({ id, mapLocation }) => {
+				const biomes = mapLocation.biomes ?? [];
+				return biomes.length === 1 ? [String(id)] : biomes.map(biome => `${id}_${biome}`);
+			})
+			.sort();
+
+		expect(Object.keys(expeditionNames).sort()).toEqual(expectedKeys);
 	});
 
 	it("every biome can be reached by expeditions on the main continent", () => {

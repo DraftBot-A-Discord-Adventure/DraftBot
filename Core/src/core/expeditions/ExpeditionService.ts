@@ -43,47 +43,69 @@ interface DurationRange {
 }
 
 /**
+ * Random draw of an outing to a map location. The biomes of a location share the same outing:
+ * only the terrain changes, which drives the risk, the kind of rewards and the loot.
+ */
+interface ExpeditionOuting {
+	durationMinutes: number;
+	difficulty: number;
+	wealthRate: number;
+
+	/**
+	 * Uniform roll turned into a risk by the difficulty curve of each terrain
+	 */
+	riskRoll: number;
+}
+
+/**
  * Parameters for generating an expedition
  */
 interface ExpeditionGenerationParams {
-	durationRange: DurationRange;
+	outing: ExpeditionOuting;
 	locationType: ExpeditionLocationType;
 	mapLocationId?: number;
 	isDistantExpedition?: boolean;
 }
 
 /**
- * Generate a single random expedition with specified duration range and location
+ * Draw an outing whose duration is in the given range
  */
-function generateExpeditionWithConstraints(params: ExpeditionGenerationParams): ExpeditionData {
-	const {
-		durationRange, locationType, mapLocationId, isDistantExpedition
-	} = params;
-
+function rollExpeditionOuting(durationRange: DurationRange): ExpeditionOuting {
 	const durationMinutes = RandomUtils.crowniclesRandom.integer(
 		durationRange.min,
 		durationRange.max
 	);
-
-	// Generate terrain-based risk using the location type's difficulty curve
-	const riskRate = generateTerrainBasedRisk(
-		locationType,
-		RandomUtils.crowniclesRandom.realZeroToOneInclusive()
-	);
-
+	const riskRoll = RandomUtils.crowniclesRandom.realZeroToOneInclusive();
 	const difficulty = RandomUtils.rangedInt(ExpeditionConstants.DIFFICULTY);
-
 	const wealthRate = RandomUtils.crowniclesRandom.realZeroToOneInclusive()
 		* (ExpeditionConstants.WEALTH_RATE.MAX - ExpeditionConstants.WEALTH_RATE.MIN)
 		+ ExpeditionConstants.WEALTH_RATE.MIN;
 
-	const expeditionData: ExpeditionData = {
-		id: generateExpeditionId(),
+	return {
 		durationMinutes,
-		displayDurationMinutes: Math.round(durationMinutes / ExpeditionConstants.DURATION_DISPLAY_ROUNDING) * ExpeditionConstants.DURATION_DISPLAY_ROUNDING,
-		riskRate,
 		difficulty,
 		wealthRate: Math.round(wealthRate * ExpeditionConstants.PERCENTAGE.DECIMAL_PRECISION) / ExpeditionConstants.PERCENTAGE.DECIMAL_PRECISION,
+		riskRoll
+	};
+}
+
+/**
+ * Generate an expedition of the given outing in the given terrain
+ */
+function generateExpedition(params: ExpeditionGenerationParams): ExpeditionData {
+	const {
+		outing, locationType, mapLocationId, isDistantExpedition
+	} = params;
+
+	const expeditionData: ExpeditionData = {
+		id: generateExpeditionId(),
+		durationMinutes: outing.durationMinutes,
+		displayDurationMinutes: Math.round(outing.durationMinutes / ExpeditionConstants.DURATION_DISPLAY_ROUNDING) * ExpeditionConstants.DURATION_DISPLAY_ROUNDING,
+
+		// Terrain-based risk using the location type's difficulty curve
+		riskRate: generateTerrainBasedRisk(locationType, outing.riskRoll),
+		difficulty: outing.difficulty,
+		wealthRate: outing.wealthRate,
 		locationType,
 		mapLocationId,
 		isDistantExpedition
@@ -96,14 +118,18 @@ function generateExpeditionWithConstraints(params: ExpeditionGenerationParams): 
 }
 
 /**
- * Get the two map locations linked to a mapLink
+ * Get the two map locations linked to a mapLink, the closest one to the player first
+ * @param mapLinkId - The player's current mapLink ID
+ * @param travelProgress - Progress of the player on the map link, from 0 (departure) to 1 (arrived)
  */
-function getMapLocationsFromLink(mapLinkId: number): number[] {
+function getMapLocationsFromLinkByProximity(mapLinkId: number, travelProgress: number): number[] {
 	const mapLink = MapLinkDataController.instance.getById(mapLinkId);
 	if (!mapLink) {
 		return [];
 	}
-	return [mapLink.startMap, mapLink.endMap];
+	return travelProgress < ExpeditionConstants.DESTINATION_CLOSER_TRAVEL_PROGRESS
+		? [mapLink.startMap, mapLink.endMap]
+		: [mapLink.endMap, mapLink.startMap];
 }
 
 /**
@@ -124,7 +150,8 @@ function getRandomDistantMapLocation(excludeIds: number[]): number {
 }
 
 /**
- * Generate local expeditions based on map locations from player's current link
+ * Generate local expeditions based on map locations from player's current link, the closest one being the shortest.
+ * A location mixing several biomes offers one expedition per biome, so the player picks the terrain suiting their pet.
  */
 function generateLocalExpeditions(
 	localMapLocationIds: number[],
@@ -135,17 +162,16 @@ function generateLocalExpeditions(
 	for (let i = 0; i < ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT && i < localMapLocationIds.length; i++) {
 		const mapLocationId = localMapLocationIds[i];
 		const mapLocation = MapLocationDataController.instance.getById(mapLocationId)!;
-		const locationType = mapLocation.pickBiome();
+		const outing = rollExpeditionOuting(durationRanges[i]);
 
-		const expedition = generateExpeditionWithConstraints({
-			durationRange: durationRanges[i],
-			locationType,
-			mapLocationId,
-			isDistantExpedition: false
-		});
-
-
-		expeditions.push(expedition);
+		for (const locationType of mapLocation.biomes) {
+			expeditions.push(generateExpedition({
+				outing,
+				locationType,
+				mapLocationId,
+				isDistantExpedition: false
+			}));
+		}
 	}
 
 	return expeditions;
@@ -160,8 +186,8 @@ function fillMissingLocalExpeditions(
 ): void {
 	while (expeditions.length < ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT) {
 		const allLocationTypes = Object.values(ExpeditionConstants.EXPEDITION_LOCATION_TYPES) as ExpeditionLocationType[];
-		const expedition = generateExpeditionWithConstraints({
-			durationRange: durationRanges[expeditions.length],
+		const expedition = generateExpedition({
+			outing: rollExpeditionOuting(durationRanges[expeditions.length]),
 			locationType: RandomUtils.crowniclesRandom.pick(allLocationTypes)
 		});
 
@@ -227,8 +253,8 @@ function generateDistantExpedition(
 	const distantMapLocation = MapLocationDataController.instance.getById(distantMapLocationId)!;
 	const distantLocationType = distantMapLocation.pickBiome();
 
-	return generateExpeditionWithConstraints({
-		durationRange: durationRanges[ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT],
+	return generateExpedition({
+		outing: rollExpeditionOuting(durationRanges[ExpeditionConstants.LOCAL_EXPEDITIONS_COUNT]),
 		locationType: distantLocationType,
 		mapLocationId: distantMapLocationId,
 		isDistantExpedition: true
@@ -237,28 +263,31 @@ function generateDistantExpedition(
 
 /**
  * Calculate which expedition should receive the bonus (if any)
+ * @param bonusType - The bonus to apply
+ * @param expeditionsCount - The number of proposed expeditions
  */
-function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType): number {
+function calculateBonusExpeditionIndex(bonusType: ExpeditionBonusType, expeditionsCount: number): number {
 	if (bonusType === ExpeditionBonusType.NONE) {
 		return ExpeditionConstants.NO_BONUS_EXPEDITION;
 	}
-	return RandomUtils.randInt(0, ExpeditionConstants.TOTAL_EXPEDITIONS_COUNT);
+	return RandomUtils.randInt(0, expeditionsCount);
 }
 
 /**
- * Generate 3 expeditions based on player's current map position
- * - 2 first expeditions: linked to the 2 mapLocations of player's current mapLink
- * - 3rd expedition: "distant expedition" to a random location on the map
+ * Generate the expeditions proposed from the player's current map position
+ * - Short expeditions: one per biome of the mapLocation of the player's current mapLink closest to the player
+ * - Medium expeditions: one per biome of the other mapLocation of the mapLink
+ * - Last expedition: "distant expedition" to a random location on the map
  * @param mapLinkId - The player's current mapLink ID
+ * @param travelProgress - Progress of the player on the map link, from 0 (departure) to 1 (arrived)
  * @param hasCloneTalisman - Whether the player already has the clone talisman (no bonus if true)
  */
-export function generateThreeExpeditions(mapLinkId: number, hasCloneTalisman: boolean): ExpeditionData[] {
-	const localMapLocationIds = getMapLocationsFromLink(mapLinkId);
+export function generateExpeditionChoices(mapLinkId: number, travelProgress: number, hasCloneTalisman: boolean): ExpeditionData[] {
+	const localMapLocationIds = getMapLocationsFromLinkByProximity(mapLinkId, travelProgress);
 	const durationRanges = getDurationRangesArray();
 
-	// Determine which bonus to apply and to which expedition
+	// Determine which bonus to apply
 	const bonusType = determineBonusType(hasCloneTalisman);
-	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType);
 
 	// Generate local expeditions
 	const localExpeditions = generateLocalExpeditions(localMapLocationIds, durationRanges);
@@ -271,6 +300,7 @@ export function generateThreeExpeditions(mapLinkId: number, hasCloneTalisman: bo
 	const allExpeditions = [...localExpeditions, distantExpedition];
 
 	// Apply bonus to the selected expedition
+	const bonusExpeditionIndex = calculateBonusExpeditionIndex(bonusType, allExpeditions.length);
 	if (bonusExpeditionIndex >= 0 && bonusExpeditionIndex < allExpeditions.length) {
 		applyBonusToExpedition(allExpeditions[bonusExpeditionIndex], bonusType);
 	}
