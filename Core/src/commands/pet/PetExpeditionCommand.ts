@@ -376,7 +376,10 @@ export default class PetExpeditionCommand {
 
 		// All requirements met - show expedition choice
 		const guildInfo = await getGuildFoodInfo(player, petModel);
-		const expeditions = generateExpeditionChoices(player.mapLinkId!, TravelTime.getTravelProgress(player), talismans.hasCloneTalisman);
+		const expeditions = generateExpeditionChoices({
+			mapLinkId: player.mapLinkId!,
+			travelProgress: TravelTime.getTravelProgress(player)
+		}, talismans.hasCloneTalisman);
 
 		// Store expeditions in cache for later retrieval
 		PendingExpeditionsCache.set(context.keycloakId!, expeditions);

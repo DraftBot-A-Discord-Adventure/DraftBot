@@ -24,7 +24,9 @@ const {
  */
 function expeditionChoices(startMap: number, endMap: number, travelProgress: number): ExpeditionData[] {
 	const mapLinkId = MapLinkDataController.instance.getLinkByLocations(startMap, endMap)!.id;
-	return generateExpeditionChoices(mapLinkId, travelProgress, true);
+	return generateExpeditionChoices({
+		mapLinkId, travelProgress
+	}, true);
 }
 
 /**
@@ -99,7 +101,9 @@ describe("expedition choices", () => {
 		vi.spyOn(RandomUtils, "randInt").mockImplementation((_min: number, max: number) => max - 1);
 		const mapLinkId = MapLinkDataController.instance.getLinkByLocations(ETENDUE, LAKE_MIRAGE)!.id;
 
-		const expeditions = generateExpeditionChoices(mapLinkId, TRIP_START, false);
+		const expeditions = generateExpeditionChoices({
+			mapLinkId, travelProgress: TRIP_START
+		}, false);
 
 		expect(expeditions.map(expedition => expedition.hasCloneTalismanBonus === true)).toEqual([false, false, false, true]);
 	});
