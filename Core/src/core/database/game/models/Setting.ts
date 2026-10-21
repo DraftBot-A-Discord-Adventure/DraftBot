@@ -141,11 +141,19 @@ export abstract class Settings {
 	);
 
 	/**
-	 * Reference weekly scores of the last weeks (comma separated), used to compute the king's challenge thresholds
+	 * Weekly scores of the reference rank of the last weeks (comma separated), used to compute the king's challenge ladder
 	 */
 	public static readonly KING_CHALLENGE_REFERENCE_SCORES = new SettingClassString(
 		"kingChallengeReferenceScores",
-		(): Promise<string> => Promise.resolve(KingChallengeConstants.DEFAULT_REFERENCE_SCORES.join(","))
+		(): Promise<string> => Promise.resolve(KingChallengeConstants.DEFAULT_REFERENCE_SCORES.ladder.join(","))
+	);
+
+	/**
+	 * Best weekly scores of the last weeks (comma separated), used to compute the king's challenge champion tier
+	 */
+	public static readonly KING_CHALLENGE_CHAMPION_SCORES = new SettingClassString(
+		"kingChallengeChampionScores",
+		(): Promise<string> => Promise.resolve(KingChallengeConstants.DEFAULT_REFERENCE_SCORES.champion.join(","))
 	);
 
 	/**

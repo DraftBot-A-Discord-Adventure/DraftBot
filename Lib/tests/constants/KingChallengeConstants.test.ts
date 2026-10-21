@@ -5,42 +5,71 @@ import { KingChallengeConstants } from "../../src/constants/KingChallengeConstan
 
 const DEFAULT_THRESHOLDS = KingChallengeConstants.computeThresholds(KingChallengeConstants.DEFAULT_REFERENCE_SCORES);
 
+const CHAMPION_INDEX = KingChallengeConstants.TIER_COUNT - 1;
+
+const LAST_LADDER_INDEX = KingChallengeConstants.LADDER_TIER_COUNT - 1;
+
+function thresholdsFor(ladder: number[], champion: number[] = [100_000]): number[] {
+	return KingChallengeConstants.computeThresholds({
+		ladder, champion
+	});
+}
+
 describe("KingChallengeConstants", () => {
 	describe("computeThresholds", () => {
-		it("keeps the first threshold fixed and sets the last one from the averaged reference score", () => {
-			const thresholds = KingChallengeConstants.computeThresholds([30_000, 40_000]);
+		it("keeps the first threshold fixed and sets the last ladder threshold from the averaged reference score", () => {
+			const thresholds = thresholdsFor([30_000, 40_000]);
 			expect(thresholds).toHaveLength(KingChallengeConstants.TIER_COUNT);
 			expect(thresholds[0]).toBe(KingChallengeConstants.FIRST_TIER_SCORE);
-			expect(thresholds[thresholds.length - 1]).toBe(35_000 * KingChallengeConstants.LAST_TIER_REFERENCE_MULTIPLIER);
+			expect(thresholds[LAST_LADDER_INDEX]).toBe(35_000 * KingChallengeConstants.LAST_TIER_REFERENCE_MULTIPLIER);
 		});
 
-		it("spaces the tiers geometrically, rounded to the hundred", () => {
-			expect(KingChallengeConstants.computeThresholds([30_000])).toEqual([2_000, 3_300, 5_400, 8_800, 14_500, 23_800, 39_000]);
+		it("spaces the ladder geometrically, rounded to the hundred, and adds the champion tier", () => {
+			expect(thresholdsFor([30_000], [55_000, 57_000])).toEqual([2_000, 3_300, 5_400, 8_800, 14_500, 23_800, 39_000, 56_000]);
 		});
 
-		it("moves the upper tiers much more than the lower ones when the reference changes", () => {
-			const low = KingChallengeConstants.computeThresholds([30_000]);
-			const high = KingChallengeConstants.computeThresholds([40_000]);
-			const relativeMoves = low.map((threshold, index) => high[index] / threshold);
+		it("moves the upper ladder tiers much more than the lower ones when the reference changes", () => {
+			const low = thresholdsFor([30_000]);
+			const high = thresholdsFor([40_000]);
+			const relativeMoves = low.slice(0, KingChallengeConstants.LADDER_TIER_COUNT)
+				.map((threshold, index) => high[index] / threshold);
 			for (let index = 1; index < relativeMoves.length; index++) {
 				expect(relativeMoves[index]).toBeGreaterThanOrEqual(relativeMoves[index - 1]);
 			}
 			expect(relativeMoves[0]).toBe(1);
 		});
 
-		it("never lowers the last threshold below its floor", () => {
-			const thresholds = KingChallengeConstants.computeThresholds([1_000]);
-			expect(thresholds[thresholds.length - 1]).toBe(KingChallengeConstants.MIN_LAST_TIER_SCORE);
+		it("does not stretch the ladder when the best players get stronger", () => {
+			const weakChampion = thresholdsFor([30_000], [50_000]);
+			const strongChampion = thresholdsFor([30_000], [90_000]);
+			expect(strongChampion.slice(0, CHAMPION_INDEX)).toEqual(weakChampion.slice(0, CHAMPION_INDEX));
+			expect(strongChampion[CHAMPION_INDEX]).toBe(90_000);
+		});
+
+		it("keeps the champion tier above the ladder after a weak week of the best players", () => {
+			const thresholds = thresholdsFor([40_000], [10_000]);
+			expect(thresholds[CHAMPION_INDEX]).toBe(thresholds[LAST_LADDER_INDEX] + KingChallengeConstants.THRESHOLD_ROUNDING);
+		});
+
+		it("never lowers the last ladder threshold below its floor", () => {
+			expect(thresholdsFor([1_000])[LAST_LADDER_INDEX]).toBe(KingChallengeConstants.MIN_LAST_TIER_SCORE);
 		});
 
 		it("falls back to the default reference scores without history", () => {
-			expect(KingChallengeConstants.computeThresholds([])).toEqual(DEFAULT_THRESHOLDS);
+			expect(KingChallengeConstants.computeThresholds({
+				ladder: [], champion: []
+			})).toEqual(DEFAULT_THRESHOLDS);
 		});
 	});
 
-	it("only keeps the reference scores of the last weeks", () => {
-		expect(KingChallengeConstants.pushReferenceScore([1, 2, 3, 4], 5)).toEqual([2, 3, 4, 5]);
-		expect(KingChallengeConstants.pushReferenceScore([1], 2)).toEqual([1, 2]);
+	it("only keeps the scores of the last weeks", () => {
+		expect(KingChallengeConstants.pushReferenceScores({
+			ladder: [1, 2, 3, 4], champion: [10]
+		}, {
+			ladder: 5, champion: 20
+		})).toEqual({
+			ladder: [2, 3, 4, 5], champion: [10, 20]
+		});
 	});
 
 	describe("getReachedTier", () => {

@@ -178,12 +178,15 @@ describe("king's challenge", () => {
 			completedPlayers: 1
 		});
 
-		// Fifth best weekly score: 50 000, 40 000, 39 100 (last threshold), 30 000, then 20 000
-		const referenceScore = await kingChallenge.getWeeklyReferenceScore();
-		expect(referenceScore).toBe(20_000);
+		// Best weekly scores: the champion threshold, 50 000, 40 000, 30 000, then 20 000 as the fifth one
+		const weekScores = await kingChallenge.getWeeklyReferenceScores();
+		expect(weekScores).toEqual({
+			ladder: 20_000,
+			champion: THRESHOLDS[THRESHOLDS.length - 1]
+		});
 
-		await kingChallenge.recordKingChallengeReferenceScore(referenceScore!);
-		const expectedReferences = KingChallengeConstants.pushReferenceScore(KingChallengeConstants.DEFAULT_REFERENCE_SCORES, 20_000);
+		await kingChallenge.recordKingChallengeReferenceScores(weekScores!);
+		const expectedReferences = KingChallengeConstants.pushReferenceScores(KingChallengeConstants.DEFAULT_REFERENCE_SCORES, weekScores!);
 		expect(await kingChallenge.getKingChallengeThresholds()).toEqual(KingChallengeConstants.computeThresholds(expectedReferences));
 	});
 });

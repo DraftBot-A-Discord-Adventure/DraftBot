@@ -5,7 +5,7 @@ import { Settings } from "../database/game/models/Setting";
 import { withLockedPlayerAndMissions } from "../utils/withLockedPlayerAndMissions";
 import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 import {
-	KingChallengeProgress, KingChallengeWeekSummary
+	KingChallengeProgress, KingChallengeReferenceScores, KingChallengeWeekScores, KingChallengeWeekSummary
 } from "../../../../Lib/src/types/KingChallenge";
 import { KingChallengeTierReachedPacket } from "../../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
 import {
@@ -26,8 +26,11 @@ function parseReferenceScores(serializedScores: string): number[] {
 		.filter(score => Number.isFinite(score) && score > 0);
 }
 
-async function getReferenceScores(): Promise<number[]> {
-	return parseReferenceScores(await Settings.KING_CHALLENGE_REFERENCE_SCORES.getValue());
+async function getReferenceScores(): Promise<KingChallengeReferenceScores> {
+	return {
+		ladder: parseReferenceScores(await Settings.KING_CHALLENGE_REFERENCE_SCORES.getValue()),
+		champion: parseReferenceScores(await Settings.KING_CHALLENGE_CHAMPION_SCORES.getValue())
+	};
 }
 
 /**
@@ -135,24 +138,32 @@ export async function getKingChallengeWeekSummary(): Promise<KingChallengeWeekSu
 }
 
 /**
- * Weekly score of the reference rank for the week ending, or null if too few players scored. Must run before the weekly reset.
+ * Weekly scores of the best player and of the reference rank for the week ending, or null if too few players scored.
+ * Must run before the weekly reset.
  */
-export async function getWeeklyReferenceScore(): Promise<number | null> {
-	const referencePlayer = await Player.findOne({
+export async function getWeeklyReferenceScores(): Promise<KingChallengeWeekScores | null> {
+	const bestPlayers = await Player.findAll({
 		attributes: ["weeklyScore"],
 		where: { weeklyScore: { [Op.gt]: 0 } },
 		order: [["weeklyScore", "DESC"]],
-		offset: KingChallengeConstants.REFERENCE_RANK - 1
+		limit: KingChallengeConstants.REFERENCE_RANK
 	});
-	return referencePlayer?.weeklyScore ?? null;
+	if (bestPlayers.length < KingChallengeConstants.REFERENCE_RANK) {
+		return null;
+	}
+	return {
+		ladder: bestPlayers[KingChallengeConstants.REFERENCE_RANK - 1].weeklyScore,
+		champion: bestPlayers[0].weeklyScore
+	};
 }
 
 /**
- * Add the reference score of the week ending to the history, which sets the thresholds of the new week
- * @param referenceScore
+ * Add the scores of the week ending to the history, which sets the thresholds of the new week
+ * @param weekScores
  */
-export async function recordKingChallengeReferenceScore(referenceScore: number): Promise<void> {
-	const referenceScores = KingChallengeConstants.pushReferenceScore(await getReferenceScores(), referenceScore);
-	await Settings.KING_CHALLENGE_REFERENCE_SCORES.setValue(referenceScores.join(","));
+export async function recordKingChallengeReferenceScores(weekScores: KingChallengeWeekScores): Promise<void> {
+	const referenceScores = KingChallengeConstants.pushReferenceScores(await getReferenceScores(), weekScores);
+	await Settings.KING_CHALLENGE_REFERENCE_SCORES.setValue(referenceScores.ladder.join(","));
+	await Settings.KING_CHALLENGE_CHAMPION_SCORES.setValue(referenceScores.champion.join(","));
 	cachedThresholds = null;
 }
