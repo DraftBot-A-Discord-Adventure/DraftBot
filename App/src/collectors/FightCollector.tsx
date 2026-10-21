@@ -18,7 +18,10 @@ import { FightLiveView } from "@/src/components/FightBattle";
 
 function useFightCompletion(fight: FightSnapshot): boolean {
 	const queryClient = useQueryClient();
-	const completed = fight.reward ?? (fight.introduction?.opponent.monsterId ? fight.result : null) ?? (fight.error === FIGHT_ERRORS.BUGGED ? fight.error : null);
+
+	// Neither a monster nor a friendly fight sends a reward: their end is the result itself.
+	const endsOnResult = Boolean(fight.introduction?.opponent.monsterId ?? fight.introduction?.friendly);
+	const completed = fight.reward ?? (endsOnResult ? fight.result : null) ?? (fight.error === FIGHT_ERRORS.BUGGED ? fight.error : null);
 	useEffect(() => {
 		if (!completed) {
 			return;

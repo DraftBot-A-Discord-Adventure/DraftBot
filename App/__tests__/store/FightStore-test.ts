@@ -242,6 +242,17 @@ describe("fight session", () => {
 		});
 		record.mockRestore();
 	});
+	it("records no platform achievement for a friendly fight", () => {
+		const record = jest.spyOn(gameServicesStore, "recordFightEnd").mockResolvedValue(undefined);
+		const registry = Reflect.get(WebSocketClient.getInstance(), "pushedPacketRegistry");
+		registry.dispatch(FightIntroductionRes.wireName, { introduction: {
+			...INTRO, friendly: true
+		} });
+		registry.dispatch(FightEndRes.wireName, { result: END });
+		expect(fightStore.getSnapshot().result).toEqual(END);
+		expect(record).not.toHaveBeenCalled();
+		record.mockRestore();
+	});
 	it("does not let an old account's resume response clear the new account's fight", () => {
 		const sendPacket = jest.spyOn(WebSocketClient.getInstance(), "sendPacket").mockImplementation();
 		sendPacket.mockClear();

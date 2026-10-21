@@ -34,7 +34,7 @@ import {
 import { usePlayerProfile } from "@/src/store/usePlayerProfile";
 import { RequestState } from "@/src/store/useGameQuery";
 import {
-	fightStore, useFight
+	fightStore, isFightOngoing, useFight
 } from "@/src/store/FightStore";
 import {
 	gameKey, GAME_ENTITIES
@@ -284,7 +284,7 @@ function useArenaFight(): {
 		pending, message, open
 	} = useCommandMenus();
 	return {
-		ongoing: Boolean(fight.introduction && !fight.result && !fight.error),
+		ongoing: isFightOngoing(fight),
 		startError: fight.visible ? null : fight.error,
 		pending,
 		message,

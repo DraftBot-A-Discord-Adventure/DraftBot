@@ -6,7 +6,9 @@ import {ReactionCollectorFightChooseAction} from "../../../Lib/src/packets/inter
 import {mapCollectorCreation} from "../../src/packets/fromServer/collectors/ReactionCollectorMapper";
 import FightServerTranslator from "../../src/packets/fromServer/translators/FightServerTranslator";
 import FightClientTranslator from "../../src/packets/fromClient/translators/FightClientTranslator";
-import {FightResumeReq} from "../../../WsPackets/src/fromClient/FightReq";
+import {FightResumeReq, FriendlyFightReq} from "../../../WsPackets/src/fromClient/FightReq";
+import {CommandFriendlyFightErrorPacketRes, FRIENDLY_FIGHT_ERRORS} from "../../../Lib/src/packets/commands/CommandFriendlyFightPacket";
+import {playerReference} from "../../src/services/PlayerReference";
 import {CommandFightHistoryItemPacket} from "../../../Lib/src/packets/fights/FightHistoryItemPacket";
 import {KingGuardFightRewardPacket} from "../../../Lib/src/packets/fights/KingGuardFightRewardPacket";
 import {FightConstants} from "../../../Lib/src/constants/FightConstants";
@@ -65,5 +67,23 @@ describe("fight protocol", () => {
 		expect(result.entry.stateAfter).toMatchObject({activeFighter: {isSelf: true, stats: {power: 100}}, defendingFighter: {isSelf: false, stats: {power: 73}}});
 		expect(result.entry.fightActionEffectDealt?.damages).toBe(27);
 		expect(JSON.stringify(result)).not.toContain("private-");
+	});
+	it("aims a friendly fight at the player behind the reference, never at the requester", async () => {
+		const packet = await FightClientTranslator.friendly(CONTEXT, Object.assign(new FriendlyFightReq(), {playerRef: playerReference("private-opponent")}));
+		expect(packet.askedPlayer).toEqual({keycloakId: "private-opponent"});
+		const forged = await FightClientTranslator.friendly(CONTEXT, Object.assign(new FriendlyFightReq(), {playerRef: "forged"}));
+		expect(forged.askedPlayer.keycloakId).not.toBe(CONTEXT.keycloakId);
+		expect(forged.askedPlayer.rank).toBeUndefined();
+	});
+	it("tells the app a fight is friendly, and only then", async () => {
+		const base = {fightId: "duel", fightInitiatorKeycloakId: "private-self", fightOpponentKeycloakId: "private-opponent", fightInitiatorActions: [], fightOpponentActions: []};
+		const friendly = await FightServerTranslator.introduction(CONTEXT, makePacket(CommandFightIntroduceFightersPacket, {...base, friendly: true}));
+		const ranked = await FightServerTranslator.introduction(CONTEXT, makePacket(CommandFightIntroduceFightersPacket, base));
+		expect(friendly.introduction.friendly).toBe(true);
+		expect(ranked.introduction).not.toHaveProperty("friendly");
+	});
+	it("forwards why a friendly fight could not start", async () => {
+		const result = await FightServerTranslator.friendlyError(CONTEXT, makePacket(CommandFriendlyFightErrorPacketRes, {error: FRIENDLY_FIGHT_ERRORS.OPPONENT_LEVEL_TOO_LOW}));
+		expect(result.error).toBe(FRIENDLY_FIGHT_ERRORS.OPPONENT_LEVEL_TOO_LOW);
 	});
 });

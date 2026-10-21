@@ -14,9 +14,10 @@ import { BuggedFightPacket } from "../../../../../Lib/src/packets/fights/BuggedF
 import {
 	CommandFightNotEnoughEnergyPacketRes, CommandFightOpponentsNotFoundPacket, CommandFightRefusePacketRes, CommandFightResumeRes
 } from "../../../../../Lib/src/packets/commands/CommandFightPacket";
+import { CommandFriendlyFightErrorPacketRes } from "../../../../../Lib/src/packets/commands/CommandFriendlyFightPacket";
 import { CommandReportMonsterRewardRes } from "../../../../../Lib/src/packets/commands/CommandReportPacket";
 import {
-	FightIntroductionRes, FightStatusRes, FightLogRes, FightEndRes, FightRewardRes, FightWaitRes, FightErrorRes, FightResumeRes, FightMonsterRewardRes
+	FightIntroductionRes, FightStatusRes, FightLogRes, FightEndRes, FightRewardRes, FightWaitRes, FightErrorRes, FightResumeRes, FightMonsterRewardRes, FriendlyFightErrorRes
 } from "../../../../../WsPackets/src/fromServer/fight/FightRes";
 import {
 	FIGHT_ERRORS, FightError, FightFighter, FightRankingChange, FightReward, FightStatus
@@ -88,7 +89,8 @@ export default class FightServerTranslator {
 			initiatorActions: packet.fightInitiatorActions,
 			opponentActions: packet.fightOpponentActions,
 			...packet.fightInitiatorPet ? { initiatorPet: packet.fightInitiatorPet } : {},
-			...packet.fightOpponentPet ? { opponentPet: packet.fightOpponentPet } : {}
+			...packet.fightOpponentPet ? { opponentPet: packet.fightOpponentPet } : {},
+			...packet.friendly ? { friendly: true } : {}
 		} });
 	}
 
@@ -175,6 +177,11 @@ export default class FightServerTranslator {
 
 	@fromServerTranslator(CommandFightRefusePacketRes, FightErrorRes)
 	public static refused(_context: PacketContext, _packet: CommandFightRefusePacketRes): Promise<FightErrorRes> { return failure(FIGHT_ERRORS.REFUSED); }
+
+	@fromServerTranslator(CommandFriendlyFightErrorPacketRes, FriendlyFightErrorRes)
+	public static friendlyError(_context: PacketContext, packet: CommandFriendlyFightErrorPacketRes): Promise<FriendlyFightErrorRes> {
+		return asyncMakeFromServerPacket(FriendlyFightErrorRes, { error: packet.error });
+	}
 
 	@fromServerTranslator(BuggedFightPacket, FightErrorRes)
 	public static bugged(_context: PacketContext, _packet: BuggedFightPacket): Promise<FightErrorRes> { return failure(FIGHT_ERRORS.BUGGED); }

@@ -6,7 +6,9 @@ import {
 } from "react-native";
 import { CircleAlert } from "@/src/design/FightIcons";
 import { ReactionCollectorCreation } from "ws-packets/src/fromServer/common/ReactionCollectorCreation";
-import { FightEnd } from "ws-packets/src/objects/Fight";
+import {
+	FightEnd, FightIntroduction
+} from "ws-packets/src/objects/Fight";
 import {
 	Button, ButtonRow, Note
 } from "@/src/design/Primitives";
@@ -116,25 +118,31 @@ function FightTurn({
 	</View>;
 }
 
+/** A boss leads back to the report, a friendly fight to the profile it was asked from, any other duel to the arena. */
+function closeLabel(introduction: FightIntroduction | null): string {
+	if (introduction?.opponent.monsterId) {
+		return i18n.t("app:adventure.continueReport");
+	}
+	return i18n.t(introduction?.friendly ? "app:common.back" : "app:battle.returnToArena");
+}
+
 function FightFailure({
 	fight, navigation
 }: FightContentProps): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
-	const closeLabel = i18n.t(fight.introduction?.opponent.monsterId ? "app:adventure.continueReport" : "app:battle.returnToArena");
-	return <View style={styles.loading}><CircleAlert size={38} color={colors.muted} /><Note>{i18n.t(`app:arena.errors.${fight.error}`)}</Note><Button onPress={navigation.onClose}>{closeLabel}</Button></View>;
+	return <View style={styles.loading}><CircleAlert size={38} color={colors.muted} /><Note>{i18n.t(`app:arena.errors.${fight.error}`)}</Note><Button onPress={navigation.onClose}>{closeLabel(fight.introduction)}</Button></View>;
 }
 
 function FinishedFight({
 	fight, navigation, result
 }: FightContentProps & { result: FightEnd }): ReactNode {
 	const styles = useStyles();
-	const closeLabel = i18n.t(fight.introduction?.opponent.monsterId ? "app:adventure.continueReport" : "app:battle.returnToArena");
 
 	// A boss leaves long rewards behind: they scroll, and the way out stays in reach under them.
 	return <View style={styles.body}>
-		<ScrollView style={styles.resultScroll} testID="fight-result-scroll"><FightResult result={result} reward={fight.reward} monsterReward={fight.monsterReward} /></ScrollView>
-		<View style={styles.resultActions}><ButtonRow><Button variant="primary" onPress={navigation.onClose}>{closeLabel}</Button><Button onPress={navigation.onJournal}>{i18n.t("app:arena.log")}</Button></ButtonRow></View>
+		<ScrollView style={styles.resultScroll} testID="fight-result-scroll"><FightResult result={result} reward={fight.reward} monsterReward={fight.monsterReward} friendly={Boolean(fight.introduction?.friendly)} /></ScrollView>
+		<View style={styles.resultActions}><ButtonRow><Button variant="primary" onPress={navigation.onClose}>{closeLabel(fight.introduction)}</Button><Button onPress={navigation.onJournal}>{i18n.t("app:arena.log")}</Button></ButtonRow></View>
 	</View>;
 }
 

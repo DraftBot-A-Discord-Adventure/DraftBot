@@ -57,6 +57,11 @@ class FightStore {
 		this.update({
 			result, waiting: false, visible: true
 		});
+
+		// A friendly fight counts for nothing, platform achievements included.
+		if (this.snapshot.introduction?.friendly) {
+			return;
+		}
 		gameServicesStore.recordFightEnd(result).catch((error: unknown): void => {
 			console.warn("Unable to record the PvP achievement:", error);
 		});
@@ -167,6 +172,12 @@ class FightStore {
 }
 
 export const fightStore = new FightStore();
+
+/** A fight that started and has neither ended nor failed: it can only be resumed. */
+export function isFightOngoing(fight: FightSnapshot): boolean {
+	return Boolean(fight.introduction && !fight.result && !fight.error);
+}
+
 export function useFight(): FightSnapshot {
 	return useSyncExternalStore(fightStore.subscribe, fightStore.getSnapshot, fightStore.getSnapshot);
 }

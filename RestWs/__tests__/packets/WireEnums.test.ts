@@ -50,6 +50,8 @@ import {PUSH_PLATFORMS as LibPushPlatforms} from "../../../Lib/src/types/PushDev
 import {PUSH_PLATFORMS} from "../../../WsPackets/src/objects/PushDevices";
 import {ONBOARDING_TRIALS} from "../../../Lib/src/constants/OnboardingConstants";
 import {ONBOARDING_MISSION_IDS, ONBOARDING_TRIAL_IDS} from "../../../WsPackets/src/objects/Onboarding";
+import {FRIENDLY_FIGHT_ERRORS as LibFriendlyFightErrors} from "../../../Lib/src/packets/commands/CommandFriendlyFightPacket";
+import {FRIENDLY_FIGHT_ERRORS} from "../../../WsPackets/src/objects/Fight";
 
 /**
  * `WsPackets` is standalone by design, so it redeclares the enums it puts on the wire instead of
@@ -99,7 +101,8 @@ describe("wire enums mirror their back-end counterpart", () => {
 		["EquipAction", EQUIP_ACTIONS, ItemConstants.EQUIP_ACTIONS],
 		["EquipError", EQUIP_ERRORS, ItemConstants.EQUIP_ERRORS],
 		["NotificationTypes", NOTIFICATION_TYPES, LibNotificationTypes],
-		["PushPlatforms", PUSH_PLATFORMS, LibPushPlatforms]
+		["PushPlatforms", PUSH_PLATFORMS, LibPushPlatforms],
+		["FriendlyFightErrors", FRIENDLY_FIGHT_ERRORS, LibFriendlyFightErrors]
 	])("%s has the same members in the same order", (_name, wireEnum, libEnum) => {
 		expect(wireEnum).toStrictEqual(libEnum);
 	});

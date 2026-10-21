@@ -71,6 +71,9 @@ export type FightIntroduction = {
 	opponentActions: [string, number][];
 	initiatorPet?: OwnedPet;
 	opponentPet?: OwnedPet;
+
+	/** A friendly fight leaves no trace: no reward, no glory, nothing logged. */
+	friendly?: boolean;
 };
 export type FightStatus = {
 	fightId: string; numberOfTurn: number; maxNumberOfTurn: number; activeFighter: FightFighter; defendingFighter: FightFighter;
@@ -122,3 +125,9 @@ export const FIGHT_ERRORS = {
 	ENERGY: "energy", NO_OPPONENT: "noOpponent", REFUSED: "refused", BUGGED: "bugged"
 } as const;
 export type FightError = typeof FIGHT_ERRORS[keyof typeof FIGHT_ERRORS];
+export const FRIENDLY_FIGHT_ERRORS = {
+	OPPONENT_NOT_FOUND: "opponentNotFound",
+	SELF_FIGHT: "selfFight",
+	OPPONENT_LEVEL_TOO_LOW: "opponentLevelTooLow"
+} as const;
+export type FriendlyFightError = typeof FRIENDLY_FIGHT_ERRORS[keyof typeof FRIENDLY_FIGHT_ERRORS];

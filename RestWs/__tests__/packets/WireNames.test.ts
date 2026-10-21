@@ -22,7 +22,7 @@ const WIRE_NAMES = [
 	"RespawnReq", "UnlockReq", "JoinBoatReq", "VersionReq", "PlayerUtilityRes", "VersionRes",
 	"MapReq", "MapRes",
 	"FightHistoryReq", "FightHistoryRes", "LeagueRewardReq", "LeagueRewardRes", "LeagueInfoReq", "LeagueInfoRes", "TopReq", "TopRes", "TopEmptyRes",
-	"FightReq", "FightResumeReq", "FightResumeRes", "FightIntroductionRes", "FightStatusRes", "FightLogRes", "FightEndRes", "FightRewardRes", "FightMonsterRewardRes", "FightWaitRes", "FightErrorRes",
+	"FightReq", "FightResumeReq", "FightResumeRes", "FightIntroductionRes", "FightStatusRes", "FightLogRes", "FightEndRes", "FightRewardRes", "FightMonsterRewardRes", "FightWaitRes", "FightErrorRes", "FriendlyFightReq", "FriendlyFightErrorRes",
 	"GuildDomainInfoReq", "GuildDomainInfoRes", "GuildDomainUpgradeReq", "GuildDomainFoodReq", "GuildDomainDepositReq", "GuildDomainRes",
 	"GuildInviteReq", "GuildInvitePlayerReq", "GuildPromoteReq", "GuildDemoteReq", "GuildKickReq",
 	"GuildDescriptionReq", "GuildLeaveReq",

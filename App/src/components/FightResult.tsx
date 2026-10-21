@@ -126,9 +126,9 @@ function MonsterRewards({ reward }: { reward: MonsterReward }): ReactNode {
 }
 
 export function FightResult({
-	result, reward, monsterReward
+	result, reward, monsterReward, friendly
 }: {
-	result: FightEnd; reward: FightReward | null; monsterReward: MonsterReward | null;
+	result: FightEnd; reward: FightReward | null; monsterReward: MonsterReward | null; friendly: boolean;
 }): ReactNode {
 	const styles = useStyles();
 	const colors = useColors();
@@ -140,6 +140,7 @@ export function FightResult({
 			opponent: fighterName(opponent), turns: result.turns
 		})}</Text></View>
 		{reward ? <FightRewards reward={reward} /> : null}
+		{friendly ? <Note>{i18n.t("app:arena.friendlyNoConsequence")}</Note> : null}
 		{monsterReward ? <MonsterRewards reward={monsterReward} /> : null}
 		<ExpandableList>
 			<Fact label={i18n.t("app:arena.turns")} value={formatNumber(result.turns)} />

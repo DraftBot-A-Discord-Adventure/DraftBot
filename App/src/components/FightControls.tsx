@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { LucideIcon } from "@/src/design/FightIcons";
 import { Theme } from "@/src/design/Theme";
+import type { FightIntroduction } from "ws-packets/src/objects/Fight";
 import type { FightSnapshot } from "@/src/store/FightStore";
 import type { FightPlayback } from "@/src/store/useFightPlayback";
 import { i18n } from "@/src/translations/i18n";
@@ -94,6 +95,14 @@ export type FightNavigation = {
 	onClose: () => void; onJournal: () => void;
 };
 
+/** The kind of fight, as its header names it. */
+function fightKindKey(introduction: FightIntroduction | null): string {
+	if (introduction?.opponent.monsterId) {
+		return "app:battle.encounter";
+	}
+	return introduction?.friendly ? "app:battle.friendly" : "app:battle.duel";
+}
+
 export function FightHeader({
 	fight, playback, phase
 }: {
@@ -103,7 +112,7 @@ export function FightHeader({
 	const compact = useCompactFight();
 	const status = playback.status;
 	return <View style={[styles.header, compact && styles.compactHeader]}>
-		<View style={styles.headerBody}><Text style={styles.eyebrow}>{i18n.t(fight.introduction?.opponent.monsterId ? "app:battle.encounter" : "app:battle.duel")}</Text><Text style={styles.title}>{i18n.t(`app:battle.${phase}`)}</Text></View>
+		<View style={styles.headerBody}><Text style={styles.eyebrow}>{i18n.t(fightKindKey(fight.introduction))}</Text><Text style={styles.title}>{i18n.t(`app:battle.${phase}`)}</Text></View>
 		<Text style={styles.turn}>{status
 			? i18n.t("app:arena.turn", {
 				turn: status.numberOfTurn, max: status.maxNumberOfTurn

@@ -4,6 +4,7 @@ import {
 } from "expo-router";
 import { ProfileView } from "@/src/components/ProfileView";
 import { GuildInvitePlayer } from "@/src/components/GuildMembers";
+import { FriendlyFightPlayer } from "@/src/components/FriendlyFight";
 import { GameQueryContent } from "@/src/components/GameQueryContent";
 import { EmptyState } from "@/src/design/Primitives";
 import { Page } from "@/src/design/DetailScreen";
@@ -43,7 +44,10 @@ function OtherPlayerProfile({
 		return <EmptyState>{i18n.t("app:profile.notFound")}</EmptyState>;
 	}
 	return <GameQueryContent state={state} entity={GAME_ENTITIES.PROFILE}>{profile =>
-		<ProfileView profile={profile} onGuild={openGuild} lead={<GuildInvitePlayer playerRef={playerRef} profile={profile} />} />}</GameQueryContent>;
+		<ProfileView profile={profile} onGuild={openGuild} lead={<>
+			<FriendlyFightPlayer playerRef={playerRef} profile={profile} />
+			<GuildInvitePlayer playerRef={playerRef} profile={profile} />
+		</>} />}</GameQueryContent>;
 }
 
 /** Someone met in a ranking, read-only: their own profile card is the page's heading. */
