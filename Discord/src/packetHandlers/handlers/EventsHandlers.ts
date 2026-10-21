@@ -37,6 +37,7 @@ import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { KingChallengeTierReachedPacket } from "../../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
 import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 import { TokensConstants } from "../../../../Lib/src/constants/TokensConstants";
+import { DiscordConstants } from "../../DiscordConstants";
 
 type MissionRewardTotals = {
 	gems: number;
@@ -131,8 +132,9 @@ async function buildPlayerNotificationEmbed(
  */
 function buildKingChallengeTierReachedLines(packet: KingChallengeTierReachedPacket, lng: Language): string[] {
 	const lines = [
-		i18n.t(packet.reward.gems > 0 ? "notifications:kingChallenge.rewardsWithGems" : "notifications:kingChallenge.rewards", {
+		i18n.t("notifications:kingChallenge.rewards", {
 			lng,
+			...packet.reward.gems > 0 ? { context: DiscordConstants.KING_CHALLENGE_GEMS_CONTEXT } : {},
 			...packet.reward
 		})
 	];

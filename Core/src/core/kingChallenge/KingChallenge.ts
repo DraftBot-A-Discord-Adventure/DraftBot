@@ -66,16 +66,28 @@ async function rewardKingChallengeTiersUnderLock(lockedPlayer: Locked<Player>, r
 	lockedPlayer.kingChallengeTier = reachedTier;
 	await lockedPlayer.save();
 
-	// The crossing is announced before the missions completed by its rewards
-	const packetIndex = response.length;
+	/*
+	 * Built before granting anything: the rewards can complete a mission whose points cross the next tier,
+	 * which would make the remaining points of this crossing negative. It is also announced before those missions.
+	 * The tokens of the challenge ignore the cap, so the granted amount is the reward itself.
+	 */
 	const reward = KingChallengeConstants.sumRewards(previousTier, reachedTier);
+	response.push(makePacket(KingChallengeTierReachedPacket, {
+		keycloakId: lockedPlayer.keycloakId,
+		tier: reachedTier,
+		crossedTiers: reachedTier - previousTier,
+		reward,
+		...reachedTier < thresholds.length ? { pointsToNextTier: thresholds[reachedTier] - lockedPlayer.weeklyScore } : {},
+		ownedTokens: lockedPlayer.tokens + reward.tokens
+	}));
+
 	await lockedPlayer.addMoney({
 		response,
 		amount: reward.money,
 		reason: NumberChangeReason.KING_CHALLENGE,
 		ignoreBlessing: true
 	});
-	const grantedTokens = await lockedPlayer.addTokensAndGetActualGain({
+	await lockedPlayer.addTokens({
 		response,
 		amount: reward.tokens,
 		reason: NumberChangeReason.KING_CHALLENGE
@@ -83,18 +95,6 @@ async function rewardKingChallengeTiersUnderLock(lockedPlayer: Locked<Player>, r
 	if (reward.gems > 0) {
 		await PlayerMissionsInfo.withLocked(lockedPlayer.id, lockedMissionsInfo => lockedMissionsInfo.addGems(reward.gems, lockedPlayer.keycloakId, NumberChangeReason.KING_CHALLENGE));
 	}
-
-	response.splice(packetIndex, 0, makePacket(KingChallengeTierReachedPacket, {
-		keycloakId: lockedPlayer.keycloakId,
-		tier: reachedTier,
-		crossedTiers: reachedTier - previousTier,
-		reward: {
-			...reward,
-			tokens: grantedTokens
-		},
-		...reachedTier < thresholds.length ? { pointsToNextTier: thresholds[reachedTier] - lockedPlayer.weeklyScore } : {},
-		ownedTokens: lockedPlayer.tokens
-	}));
 }
 
 /**

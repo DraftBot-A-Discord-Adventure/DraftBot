@@ -3,7 +3,7 @@
     "title_one": "{{pseudo}} relève le palier {{tier}}/{{tierCount}} du défi du roi !",
     "title_other": "{{pseudo}} relève {{count}} paliers du défi du roi d'un coup, jusqu'au palier {{tier}}/{{tierCount}} !",
     "rewards": "{emote:kingChallenge.icon} Le roi vous récompense : +{{money, number}} {emote:unitValues.money} · +{{tokens}} {emote:unitValues.token}",
-    "rewardsWithGems": "{emote:kingChallenge.icon} Le roi vous récompense : +{{money, number}} {emote:unitValues.money} · +{{tokens}} {emote:unitValues.token} · +{{gems}} {emote:unitValues.gem}",
+    "rewards_gems": "{emote:kingChallenge.icon} Le roi vous récompense : +{{money, number}} {emote:unitValues.money} · +{{tokens}} {emote:unitValues.token} · +{{gems}} {emote:unitValues.gem}",
     "nextTier": "Palier suivant dans **{{points, number}}** {emote:unitValues.score}.",
     "completed": "Vous avez relevé le défi du roi jusqu'au palier des champions cette semaine !",
     "useTokens": "Vous avez **{{tokens, number}}** {emote:unitValues.token} : dépensez-les pendant vos rapports pour atteindre le palier suivant plus vite."

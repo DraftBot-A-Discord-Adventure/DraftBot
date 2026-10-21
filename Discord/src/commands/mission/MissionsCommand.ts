@@ -36,6 +36,7 @@ import { CrowniclesIcons } from "../../../../Lib/src/CrowniclesIcons";
 import { StringUtils } from "../../utils/StringUtils";
 import { sendInteractionNotForYou } from "../../utils/ErrorUtils";
 import { Constants } from "../../../../Lib/src/constants/Constants";
+import { DiscordConstants } from "../../DiscordConstants";
 
 const MISSIONS_BUTTON_IDS = {
 	KING_CHALLENGE: "missions_king_challenge",
@@ -186,8 +187,9 @@ function getKingChallengeNextTierLine(progress: KingChallengeProgress, lng: Lang
 function getKingChallengeTierLines(progress: KingChallengeProgress, lng: Language): string[] {
 	return progress.thresholds.map((threshold, index) => {
 		const reward = KingChallengeConstants.REWARDS[index];
-		return i18n.t(reward.gems > 0 ? "commands:missions.kingChallenge.tierWithGems" : "commands:missions.kingChallenge.tier", {
+		return i18n.t("commands:missions.kingChallenge.tier", {
 			lng,
+			...reward.gems > 0 ? { context: DiscordConstants.KING_CHALLENGE_GEMS_CONTEXT } : {},
 			status: index < progress.tier ? "tierReached" : "tierPending",
 			tier: index + 1,
 			threshold,

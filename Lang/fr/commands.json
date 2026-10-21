@@ -2304,7 +2304,7 @@
       "nextTier": "{{progressionBar}} Encore **{{points, number}}** {emote:unitValues.score} avant le palier {{nextTier}}.",
       "completed": "{emote:kingChallenge.tierReached} Défi relevé jusqu'au palier des champions cette semaine !",
       "tier": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token}",
-      "tierWithGems": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token} · {{gems}} {emote:unitValues.gem}"
+      "tier_gems": "{emote:kingChallenge.{{status}}} **Palier {{tier}}** · {{threshold, number}} {emote:unitValues.score} : {{money, number}} {emote:unitValues.money} · {{tokens}} {emote:unitValues.token} · {{gems}} {emote:unitValues.gem}"
     },
     "title": "Missions de {{pseudo}}",
     "subcategories": {
