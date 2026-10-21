@@ -20,7 +20,7 @@
   "dependencies": {
     "@types/node": "26.2.0",
     "cls-hooked": "4.2.2",
-    "mariadb": "3.0.2",
+    "mariadb": "3.5.4",
     "random-js": "2.1.0",
     "sequelize": "6.37.8",
     "triple-beam": "1.4.1",
@@ -41,5 +41,10 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.67.0",
     "vitest": "4.1.11"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "sequelize@6.37.8": "patches/sequelize@6.37.8.patch"
+    }
   }
 }

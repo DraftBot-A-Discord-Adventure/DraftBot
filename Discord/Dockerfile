@@ -16,6 +16,7 @@ RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
+COPY ./Discord/patches ./patches
 # Create the config directory
 RUN mkdir config
 
@@ -25,6 +26,7 @@ RUN pnpm install
 # Copy the lib
 RUN mkdir ../Lib
 COPY ./Lib/package.json ./Lib/pnpm-lock.yaml ../Lib/
+COPY ./Lib/patches ../Lib/patches
 COPY ./Lib/src ../Lib/src
 
 # Copy the translations
@@ -56,6 +58,7 @@ RUN corepack use pnpm@"${PNPM_VERSION}"
 
 # Copy files in the workdir
 COPY ./Discord/package.json ./Discord/pnpm-lock.yaml ./Discord/tsconfig.json ./
+COPY ./Discord/patches ./patches
 # Create the directories
 RUN mkdir config
 
