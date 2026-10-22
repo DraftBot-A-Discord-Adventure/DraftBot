@@ -1,0 +1,25 @@
+name: Translations
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - Lang/fr/**
+      - .github/scripts/check-emojis.py
+      - .github/workflows/translations.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  no-hardcoded-emojis-in-translations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+
+      # Other languages are synced from French by Crowdin, so only the source locale is checked
+      - name: Forbid hardcoded emojis in French translations
+        run: find Lang/fr -name '*.json' -print0 | xargs -0 python3 .github/scripts/check-emojis.py files
