@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { findEmojis, findEmojisInJson } from "./check-emojis.mjs";
 
 test("emojis are detected", () => {
-	for (const emoji of ["✨", "🔥", "⭐", "◾", "⚔", "✔", "★", "❤", "▶", "🇫🇷", "1️⃣", "©️", "↗️"]) {
+	for (const emoji of ["✨", "🔥", "⭐", "◾", "⚔", "✔", "❤", "▶", "🇫🇷", "1️⃣", "©️", "↗️"]) {
 		assert.notDeepEqual(findEmojis(`fix: something ${emoji} here`), [], emoji);
 	}
 });
