@@ -40,31 +40,46 @@ export class FightView {
 	}
 
 	/**
+	 * Get the id and breath cost of each fight action available to a fighter
+	 * @param fighter
+	 */
+	private static getActionsBreathCosts(fighter: PlayerFighter | MonsterFighter | AiPlayerFighter): Array<[string, number]> {
+		return Array.from(fighter.availableFightActions, ([id, action]): [string, number] => [id, action.breath]);
+	}
+
+	/**
+	 * Get the fields of the intro packet describing the opponent, which is either a monster or a player
+	 * @param opponent
+	 */
+	private static getOpponentIntroFields(opponent: MonsterFighter | AiPlayerFighter): Pick<CommandFightIntroduceFightersPacket, "fightOpponentKeycloakId" | "fightOpponentMonsterId" | "fightOpponentPet"> {
+		if (opponent instanceof MonsterFighter) {
+			return { fightOpponentMonsterId: opponent.monster.id };
+		}
+		return {
+			fightOpponentKeycloakId: opponent.player.keycloakId,
+			...opponent.pet ? { fightOpponentPet: opponent.pet.asOwnedPet() } : {}
+		};
+	}
+
+	/**
 	 * Send the fight intro message
 	 * @param fighter
 	 * @param opponent
 	 * @param response
 	 */
 	introduceFight(response: CrowniclesPacket[], fighter: PlayerFighter | AiPlayerFighter, opponent: MonsterFighter | AiPlayerFighter): void {
-		const fightInitiatorActions = new Array<[string, number]>();
-		for (const action of fighter.availableFightActions) {
-			fightInitiatorActions.push([action[0], action[1].breath]);
-		}
-		const fightOpponentActions = new Array<[string, number]>();
-		for (const action of opponent.availableFightActions) {
-			fightOpponentActions.push([action[0], action[1].breath]);
-		}
+		const {
+			id, friendly, levelCap
+		} = this.fightController;
 		response.push(makePacket(CommandFightIntroduceFightersPacket, {
-			fightId: this.fightController.id,
+			fightId: id,
 			fightInitiatorKeycloakId: fighter.player.keycloakId,
-			fightOpponentKeycloakId: opponent instanceof MonsterFighter ? undefined : opponent.player.keycloakId,
-			fightOpponentMonsterId: opponent instanceof MonsterFighter ? opponent.monster.id : undefined,
-			fightInitiatorActions,
-			fightOpponentActions,
-			fightInitiatorPet: fighter.pet ? fighter.pet.asOwnedPet() : undefined,
-			fightOpponentPet: opponent instanceof MonsterFighter || !opponent.pet ? undefined : opponent.pet.asOwnedPet(),
-			friendly: this.fightController.friendly,
-			...this.fightController.levelCap !== undefined ? { levelCap: this.fightController.levelCap } : {}
+			fightInitiatorActions: FightView.getActionsBreathCosts(fighter),
+			fightOpponentActions: FightView.getActionsBreathCosts(opponent),
+			...FightView.getOpponentIntroFields(opponent),
+			...fighter.pet ? { fightInitiatorPet: fighter.pet.asOwnedPet() } : {},
+			friendly,
+			...levelCap !== undefined ? { levelCap } : {}
 		}));
 	}
 
