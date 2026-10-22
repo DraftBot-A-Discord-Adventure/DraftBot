@@ -40,9 +40,15 @@ import { assertUnderLock } from "../../../../Lib/src/locks/CLSNamespace";
 import { CrowniclesLogger } from "../../../../Lib/src/logs/CrowniclesLogger";
 import { RecipeDiscoveryService } from "../cooking/RecipeDiscoveryService";
 import { RecipeDiscoverySource } from "../../../../Lib/src/constants/CookingConstants";
+import { bufferUntilCommit } from "../../../../Lib/src/locks/scheduleAfterCommit";
 
 
 export type LockedPlayerMutation = (lockedPlayer: Player) => void;
+
+/**
+ * Asynchronous work run on the locked player once the mission updates are saved, in the same critical section
+ */
+export type LockedPlayerFollowUp = (lockedPlayer: Locked<Player>, response: CrowniclesPacket[]) => Promise<void>;
 
 // Methods that overwrite a caller `Player` instance with a freshly locked row.
 export const PLAYER_RESYNC_CALLERS = {
@@ -424,20 +430,45 @@ export abstract class MissionsController {
 	 * @param player
 	 * @param response the response packets
 	 * @param missionInformationsList the mission updates to apply together
+	 * @param followUpUnderLock work committed with the mission updates, run once they are saved
 	 */
 	static async updateMultiple(
 		player: Player,
 		response: CrowniclesPacket[],
-		missionInformationsList: MissionInformations[]
+		missionInformationsList: MissionInformations[],
+		followUpUnderLock?: LockedPlayerFollowUp
 	): Promise<Player> {
 		assertPlayerHasNoPendingChanges(player, PLAYER_RESYNC_CALLERS.UPDATE_MULTIPLE);
 		const updatedPlayer = await MissionsController.runUnderMissionLock(
 			player,
 			PLAYER_RESYNC_CALLERS.UPDATE_MULTIPLE,
-			(lockedPlayer, lockedMissionInfo, dailyMission) =>
-				MissionsController.runBatchUpdateUnderLock(lockedPlayer, lockedMissionInfo, response, missionInformationsList, dailyMission)
+			(lockedPlayer, lockedMissionInfo, dailyMission) => followUpUnderLock
+				? MissionsController.runBatchUpdateWithFollowUpUnderLock({
+					player: lockedPlayer,
+					missionInfo: lockedMissionInfo,
+					dailyMission,
+					response
+				}, missionInformationsList, followUpUnderLock)
+				: MissionsController.runBatchUpdateUnderLock(lockedPlayer, lockedMissionInfo, response, missionInformationsList, dailyMission)
 		);
 		return MissionsController.synchronizeCaller(player, updatedPlayer);
+	}
+
+	/**
+	 * Run the batch, then its follow-up. A failing follow-up rolls the batch back with it,
+	 * so the packets of both are only added to the response once committed.
+	 */
+	private static async runBatchUpdateWithFollowUpUnderLock(
+		context: MissionLockContext,
+		missionInformationsList: MissionInformations[],
+		followUpUnderLock: LockedPlayerFollowUp
+	): Promise<Player> {
+		let batchUpdatedPlayer = context.player;
+		await bufferUntilCommit(context.response, async batchResponse => {
+			batchUpdatedPlayer = await MissionsController.runBatchUpdateUnderLock(context.player, context.missionInfo, batchResponse, missionInformationsList, context.dailyMission);
+			await followUpUnderLock(batchUpdatedPlayer, batchResponse);
+		});
+		return batchUpdatedPlayer;
 	}
 
 	private static async runBatchUpdateUnderLock(

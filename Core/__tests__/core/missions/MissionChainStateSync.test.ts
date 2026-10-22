@@ -20,12 +20,7 @@ vi.mock("../../../src/app", () => ({
 
 // The king's challenge reads its thresholds from the database, it is covered by its own integration test
 vi.mock("../../../src/core/kingChallenge/KingChallenge", () => ({
-	applyKingChallengeProgress: vi.fn().mockResolvedValue(undefined)
-}));
-
-// A score gain runs with its king's challenge payment in one transaction, covered by the same integration test
-vi.mock("../../../src/core/utils/withLockedPlayerAndMissions", () => ({
-	withLockedPlayerAndMissions: vi.fn((_playerId: number, body: () => Promise<unknown>) => body())
+	applyKingChallengeProgressUnderLock: vi.fn().mockResolvedValue(undefined)
 }));
 
 /**

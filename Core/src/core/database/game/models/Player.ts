@@ -6,7 +6,7 @@ import PetEntity from "./PetEntity";
 import MissionSlot from "./MissionSlot";
 import { InventoryInfos } from "./InventoryInfo";
 import {
-	assertPlayerHasNoPendingChanges, LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController, PLAYER_RESYNC_CALLERS
+	assertPlayerHasNoPendingChanges, LockedPlayerFollowUp, LockedPlayerMutation, MissionInformationsWithoutMutation, MissionsController, PLAYER_RESYNC_CALLERS
 } from "../../../missions/MissionsController";
 import { PlayerActiveObjects } from "./PlayerActiveObjects";
 import {
@@ -42,7 +42,7 @@ import {
 	Class, ClassDataController
 } from "../../../../data/Class";
 import {
-	LockKey, LockedRowNotFoundError, withLockedEntities
+	LockKey, withLockedEntities
 } from "../../../../../../Lib/src/locks/withLockedEntities";
 import { getCrowniclesNamespace } from "../../../../../../Lib/src/locks/CLSNamespace";
 import {
@@ -83,8 +83,7 @@ import { RecipeDiscoveryService } from "../../../cooking/RecipeDiscoveryService"
 import { RecipeDisplayInfo } from "../../../../../../Lib/src/types/CookingTypes";
 import { RecipeDiscoverySource } from "../../../../../../Lib/src/constants/CookingConstants";
 import { buildNewItemSlotData } from "../../../utils/ItemSlotUtils";
-import { applyKingChallengeProgress } from "../../../kingChallenge/KingChallenge";
-import { withLockedPlayerAndMissions } from "../../../utils/withLockedPlayerAndMissions";
+import { applyKingChallengeProgressUnderLock } from "../../../kingChallenge/KingChallenge";
 
 export type PlayerEditValueParameters = {
 	player: Player;
@@ -323,7 +322,8 @@ export class Player extends Model {
 	private async mutateWithMissions(
 		response: CrowniclesPacket[],
 		missions: MissionInformationsWithoutMutation[],
-		mutate: LockedPlayerMutation
+		mutate: LockedPlayerMutation,
+		followUpUnderLock?: LockedPlayerFollowUp
 	): Promise<void> {
 		const [firstMission, ...otherMissions] = missions;
 		await MissionsController.updateMultiple(this, response, [
@@ -332,7 +332,7 @@ export class Player extends Model {
 				applyOnLockedPlayer: mutate
 			},
 			...otherMissions
-		]);
+		], followUpUnderLock);
 	}
 
 	private async mutateLocked(mutate: LockedPlayerMutation): Promise<void> {
@@ -369,41 +369,20 @@ export class Player extends Model {
 				set: true
 			}
 		];
-		const applyScoreChange = async (): Promise<void> => {
-			await this.mutateWithMissions(parameters.response, scoreMissions, locked => {
+		await this.mutateWithMissions(
+			parameters.response,
+			scoreMissions,
+			locked => {
 				locked.score = Math.max(0, locked.score + delta);
 				locked.addWeeklyScore(delta);
-			});
-			crowniclesInstance?.logsDatabase.logScoreChange(this.keycloakId, this.score, parameters.reason)
-				.then();
-			if (delta > 0) {
-				await applyKingChallengeProgress(this, parameters.response);
-			}
-		};
-		if (delta > 0) {
-			await this.runInScoreGainTransaction(applyScoreChange);
-		}
-		else {
-			await applyScoreChange();
-		}
-		return this;
-	}
+			},
 
-	/**
-	 * Run a score gain and the payment of the king's challenge tiers it reaches in a single transaction:
-	 * committed apart, a weekly reset between them would reset the score before its tiers are paid.
-	 * A player deleted meanwhile is skipped, like the mission updates do.
-	 */
-	private async runInScoreGainTransaction(applyScoreGain: () => Promise<void>): Promise<void> {
-		try {
-			await withLockedPlayerAndMissions(this.id, applyScoreGain);
-		}
-		catch (error) {
-			if (!(error instanceof LockedRowNotFoundError)) {
-				throw error;
-			}
-			CrowniclesLogger.warn(`Player.addScore: locked row vanished for player ${this.id} — skipping the score gain`);
-		}
+			// Paid in the critical section of the gain: committed apart, a weekly reset between them would reset the score before its tiers are paid
+			applyKingChallengeProgressUnderLock
+		);
+		crowniclesInstance?.logsDatabase.logScoreChange(this.keycloakId, this.score, parameters.reason)
+			.then();
+		return this;
 	}
 
 	/**
