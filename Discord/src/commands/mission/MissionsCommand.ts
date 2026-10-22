@@ -298,11 +298,11 @@ export async function handleCommandMissionsPacketRes(packet: CommandMissionsPack
 		missions: buildMissionsCommandEmbed(author, i18n.t("commands:missions.title", {
 			lng,
 			pseudo: author.pseudo
-		}), [
+		}), StringUtils.joinLines([
 			getCampaignMissionPart(packet, lng),
 			getDailyMissionPart(packet, lng),
 			getSideMissionsPart(packet, lng)
-		].filter(Boolean).join("\n")),
+		])),
 		kingChallenge: buildMissionsCommandEmbed(author, i18n.t("commands:missions.kingChallenge.title", {
 			lng,
 			pseudo: author.pseudo
