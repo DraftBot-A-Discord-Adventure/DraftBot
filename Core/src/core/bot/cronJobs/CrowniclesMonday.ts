@@ -19,7 +19,7 @@ import PlayerMissionsInfo from "../../database/game/models/PlayerMissionsInfo";
 import { MapCache } from "../../maps/MapCache";
 import { PlayerBadgesManager } from "../../database/game/models/PlayerBadges";
 import {
-	getKingChallengeThresholds, getWeeklyReferenceScores, recordKingChallengeReferenceScores
+	getKingChallengeThresholds, getWeeklyReferenceScores, startNewKingChallengeWeek
 } from "../../kingChallenge/KingChallenge";
 
 export class CrowniclesMonday {
@@ -72,16 +72,8 @@ export class CrowniclesMonday {
 		else {
 			PacketUtils.announce(makePacket(TopWeekAnnouncementPacket, {}), MqttTopicUtils.getDiscordTopWeekAnnouncementTopic(botConfig.PREFIX));
 		}
-		await Player.update({
-			weeklyScore: 0,
-			kingChallengeTier: 0
-		}, { where: {} });
+		await startNewKingChallengeWeek(referenceScores);
 		CrowniclesLogger.info("Weekly leaderboard has been reset !");
-
-		// Recorded after the reset: the new thresholds only apply to the scores of the new week
-		if (referenceScores !== null) {
-			await recordKingChallengeReferenceScores(referenceScores);
-		}
 		CrowniclesLogger.info("King's challenge week ended", {
 			referenceScores,
 			nextThresholds: await getKingChallengeThresholds()

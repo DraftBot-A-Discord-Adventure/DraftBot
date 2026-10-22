@@ -284,7 +284,10 @@ export class Crownicles {
 		await BlessingManager.getInstance()
 			.init();
 
-		// Creates the setting row of the thresholds before concurrent score gains could race to insert it
+		/*
+		 * Creates the setting rows of the thresholds before concurrent score gains could race to insert them,
+		 * or read under lock a row inserted after the snapshot of their transaction
+		 */
 		await getKingChallengeThresholds();
 		if (botConfig.TEST_MODE) {
 			await CommandsTest.init();

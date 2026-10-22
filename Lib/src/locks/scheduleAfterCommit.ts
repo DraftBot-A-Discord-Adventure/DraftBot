@@ -57,3 +57,61 @@ export async function runAfterCommit(task: AsyncTask): Promise<void> {
 
 	await runAwaitedOutsideTransaction(task);
 }
+
+type BufferedItems = {
+	target: unknown[];
+	position: number;
+	items: unknown[];
+};
+
+const bufferedItemsByTransaction = new WeakMap<Transaction, BufferedItems[]>();
+
+function insertBufferedItems(bufferedItemsList: BufferedItems[]): void {
+	/*
+	 * Inserted from the last registered to the first: a later buffer of the same target never sits
+	 * before an earlier one, so inserting it first keeps the positions of the earlier ones valid,
+	 * and a buffer nested in another one is filled before its parent is inserted.
+	 */
+	for (const bufferedItems of [...bufferedItemsList].reverse()) {
+		bufferedItems.target.splice(bufferedItems.position, 0, ...bufferedItems.items);
+	}
+}
+
+/**
+ * Runs `fill` with a buffer whose items are inserted into `target` once the current transaction has committed,
+ * at the position `target` had when `fill` started, so they keep their order relative to the other items.
+ * The items are dropped if the transaction rolls back or if `fill` throws.
+ *
+ * Use it for packets announcing what the transaction granted: pushed directly, they would reach the player
+ * even when a later write fails and rolls the grant back. Outside any transaction, `fill` writes to `target` directly.
+ */
+export async function bufferUntilCommit<T>(target: T[], fill: (buffer: T[]) => Promise<void>): Promise<void> {
+	const transaction = getCurrentTransaction();
+	if (!transaction) {
+		await fill(target);
+		return;
+	}
+
+	const bufferedItems: BufferedItems = {
+		target,
+		position: target.length,
+		items: []
+	};
+	let bufferedItemsList = bufferedItemsByTransaction.get(transaction);
+	if (!bufferedItemsList) {
+		const newBufferedItemsList: BufferedItems[] = [];
+		bufferedItemsList = newBufferedItemsList;
+		bufferedItemsByTransaction.set(transaction, newBufferedItemsList);
+		transaction.afterCommit(() => insertBufferedItems(newBufferedItemsList));
+	}
+
+	// Registered before filling, so the buffers nested in this one come after it in the list
+	bufferedItemsList.push(bufferedItems);
+	try {
+		await fill(bufferedItems.items as T[]);
+	}
+	catch (error) {
+		bufferedItems.items.length = 0;
+		throw error;
+	}
+}
