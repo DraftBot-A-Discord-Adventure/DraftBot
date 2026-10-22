@@ -24,16 +24,27 @@ import { CrowniclesLogger } from "../../../Lib/src/logs/CrowniclesLogger";
 import { Language } from "../../../Lib/src/Language";
 
 /**
- * Disable the action buttons; a failed acknowledgement is only logged so the chosen action still reaches Core
+ * Acknowledge the click and disable the action buttons; failures are only logged so the chosen action still reaches Core.
+ * The buttons are not disabled through the interaction response: Discord can apply an UPDATE_MESSAGE response after the
+ * following edits of the message, which then shows the next turn with disabled buttons (#5024). A message edit shares the
+ * REST queue of every later edit of this message, so the next turn display always lands after it.
  */
 async function acknowledgeActionClick(buttonInteraction: ButtonInteraction, rows: ActionRowBuilder<ButtonBuilder>[]): Promise<void> {
 	try {
-		await buttonInteraction.update({ components: rows });
+		await buttonInteraction.deferUpdate();
 	}
 	catch (error) {
 		CrowniclesLogger.warn("Fight action choice could not be acknowledged, sending it anyway", {
 			reason: error instanceof Error ? error.message : String(error),
 			interactionAgeMs: Date.now() - buttonInteraction.createdTimestamp
+		});
+	}
+	try {
+		await buttonInteraction.message.edit({ components: rows });
+	}
+	catch (error) {
+		CrowniclesLogger.warn("Fight action buttons could not be disabled, sending the choice anyway", {
+			reason: error instanceof Error ? error.message : String(error)
 		});
 	}
 }
