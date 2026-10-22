@@ -63,7 +63,8 @@ export class FightView {
 			fightOpponentActions,
 			fightInitiatorPet: fighter.pet ? fighter.pet.asOwnedPet() : undefined,
 			fightOpponentPet: opponent instanceof MonsterFighter || !opponent.pet ? undefined : opponent.pet.asOwnedPet(),
-			friendly: this.fightController.friendly
+			friendly: this.fightController.friendly,
+			...this.fightController.levelCap !== undefined ? { levelCap: this.fightController.levelCap } : {}
 		}));
 	}
 

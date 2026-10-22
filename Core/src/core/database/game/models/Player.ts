@@ -859,9 +859,10 @@ export class Player extends Model {
 	}
 
 	/**
-	 * Get the attack, defense and speed of the player class at the player level
+	 * Get the attack, defense and speed of the player class at the given level
+	 * @param level The level at which the stats are computed, the player level by default
 	 */
-	public getMaxStatsValue(): StatValues {
+	public getMaxStatsValue(level = this.level): StatValues {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		if (!playerClass) {
 			return {
@@ -869,9 +870,9 @@ export class Player extends Model {
 			};
 		}
 		return {
-			attack: playerClass.getAttackValue(this.level),
-			defense: playerClass.getDefenseValue(this.level),
-			speed: playerClass.getSpeedValue(this.level)
+			attack: playerClass.getAttackValue(level),
+			defense: playerClass.getDefenseValue(level),
+			speed: playerClass.getSpeedValue(level)
 		};
 	}
 
@@ -945,9 +946,11 @@ export class Player extends Model {
 	 * Attack enchantments are not applied here: they act as a multiplier on the effective damage dealt
 	 * in fights (see {@link EnchantmentUtils.getOutgoingDamageMultiplier}), not on the raw attack stat.
 	 * @param playerActiveObjects
+	 * @param includePotion
+	 * @param level The level at which the stat is computed, the player level by default
 	 */
-	public getCumulativeAttack(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
-		const playerAttack = this.getMaxStatsValue().attack;
+	public getCumulativeAttack(playerActiveObjects: PlayerActiveObjects, includePotion = true, level = this.level): number {
+		const playerAttack = this.getMaxStatsValue(level).attack;
 		const weaponAttack = playerActiveObjects.weapon.item.getAttack(playerActiveObjects.weapon.itemLevel);
 		const armorAttack = playerActiveObjects.armor.item.getAttack(playerActiveObjects.armor.itemLevel);
 		const objectAttack = playerActiveObjects.object.item.getAttack();
@@ -970,9 +973,11 @@ export class Player extends Model {
 	 * The defense enchantment is not applied here: it acts as a multiplier on the effective damage received
 	 * in fights (see {@link EnchantmentUtils.getIncomingDamageMultiplier}), not on the raw defense stat.
 	 * @param playerActiveObjects
+	 * @param includePotion
+	 * @param level The level at which the stat is computed, the player level by default
 	 */
-	public getCumulativeDefense(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
-		const playerDefense = this.getMaxStatsValue().defense;
+	public getCumulativeDefense(playerActiveObjects: PlayerActiveObjects, includePotion = true, level = this.level): number {
+		const playerDefense = this.getMaxStatsValue(level).defense;
 		const defense = playerDefense
 			+ (playerActiveObjects.weapon.item.getDefense(playerActiveObjects.weapon.itemLevel) < playerDefense
 				? playerActiveObjects.weapon.item.getDefense(playerActiveObjects.weapon.itemLevel)
@@ -990,9 +995,11 @@ export class Player extends Model {
 	/**
 	 * Calculate the cumulative speed of the player
 	 * @param playerActiveObjects
+	 * @param includePotion
+	 * @param level The level at which the stat is computed, the player level by default
 	 */
-	public getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects, includePotion = true): number {
-		const playerSpeed = this.getMaxStatsValue().speed;
+	public getCumulativeSpeed(playerActiveObjects: PlayerActiveObjects, includePotion = true, level = this.level): number {
+		const playerSpeed = this.getMaxStatsValue(level).speed;
 		const speed = playerSpeed
 			+ (playerActiveObjects.weapon.item.getSpeed(playerActiveObjects.weapon.itemLevel) < playerSpeed
 				? playerActiveObjects.weapon.item.getSpeed(playerActiveObjects.weapon.itemLevel)
@@ -1031,12 +1038,14 @@ export class Player extends Model {
 
 	/**
 	 * Get the player max cumulative energy
+	 * @param playerActiveObjects
+	 * @param level The level at which the max energy is computed, the player level by default
 	 */
-	public getMaxCumulativeEnergy(playerActiveObjects: PlayerActiveObjects): number {
+	public getMaxCumulativeEnergy(playerActiveObjects: PlayerActiveObjects, level = this.level): number {
 		const playerClass = ClassDataController.instance.getById(this.class);
 		const multiplier = EnchantmentUtils.getEnchantmentMultiplier(playerActiveObjects, ItemEnchantmentKind.MAX_ENERGY, EnchantmentConstants.MAX_ENERGY_MULTIPLIER);
 
-		return Math.round((playerClass?.getMaxCumulativeEnergyValue(this.level) ?? FightConstants.PLAYER_MAX_ENERGY) * multiplier);
+		return Math.round((playerClass?.getMaxCumulativeEnergyValue(level) ?? FightConstants.PLAYER_MAX_ENERGY) * multiplier);
 	}
 
 	/**

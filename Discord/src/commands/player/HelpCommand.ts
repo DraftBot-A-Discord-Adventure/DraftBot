@@ -13,6 +13,7 @@ import {
 } from "discord.js";
 import { PetConstants } from "../../../../Lib/src/constants/PetConstants";
 import { HelpConstants } from "../../../../Lib/src/constants/HelpConstants";
+import { FightConstants } from "../../../../Lib/src/constants/FightConstants";
 import {
 	crowniclesClient, discordConfig
 } from "../../bot/CrowniclesShard";
@@ -260,7 +261,8 @@ function buildSpecificCommandEmbed(helpMessage: CrowniclesEmbed, command: HelpCo
 		.setDescription(i18n.t(`commands:help.commands.${command}.description`, {
 			lng,
 			petSellMinPrice: PetConstants.SELL_PRICE.MIN,
-			petSellMaxPrice: PetConstants.SELL_PRICE.MAX
+			petSellMaxPrice: PetConstants.SELL_PRICE.MAX,
+			tournamentLevelCap: FightConstants.TOURNAMENT_LEVEL_CAP
 		}))
 		.addFields({
 			name: i18n.t("commands:help.usageFieldTitle", { lng }),
