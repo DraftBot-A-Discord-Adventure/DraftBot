@@ -99,8 +99,8 @@ import { LogsPveFightsResults } from "./models/LogsPveFightsResults";
 import { LogsPveFightsActionsUsed } from "./models/LogsPveFightsActionsUsed";
 import { LogsPlayersRage } from "./models/LogsPlayersRage";
 import { GenericItem } from "../../../data/GenericItem";
-import { 
-	MapLink, MapLinkDataController 
+import {
+	MapLink, MapLinkDataController
 } from "../../../data/MapLink";
 import { FightController } from "../../fights/FightController";
 import { PlayerFighter } from "../../fights/fighter/PlayerFighter";
@@ -1657,7 +1657,7 @@ export class LogsDatabase extends Database {
 	 */
 	public async logTeleportation(keycloakId: string, originMapLinkId: number, newMapLinkId: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
-		
+
 		if (!player) {
 			return;
 		}
@@ -1665,7 +1665,9 @@ export class LogsDatabase extends Database {
 		const newMapLinkGame = MapLinkDataController.instance.getById(newMapLinkId);
 		const originMapLinkGame = MapLinkDataController.instance.getById(originMapLinkId);
 
-		if (!newMapLinkGame || !originMapLinkGame) return;
+		if (!newMapLinkGame || !originMapLinkGame) {
+			return;
+		}
 
 		const [newMapLinkLog] = await LogsMapLinks.findOrCreate({
 			where: {
@@ -1680,7 +1682,7 @@ export class LogsDatabase extends Database {
 				end: originMapLinkGame?.endMap
 			}
 		});
-		
+
 		await LogsPlayersTeleportations.create({
 			playerId: player.id,
 			originMapLinkId: originMapLinkLog.id,
