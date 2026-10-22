@@ -99,7 +99,9 @@ import { LogsPveFightsResults } from "./models/LogsPveFightsResults";
 import { LogsPveFightsActionsUsed } from "./models/LogsPveFightsActionsUsed";
 import { LogsPlayersRage } from "./models/LogsPlayersRage";
 import { GenericItem } from "../../../data/GenericItem";
-import { MapLink } from "../../../data/MapLink";
+import { 
+	MapLink, MapLinkDataController 
+} from "../../../data/MapLink";
 import { FightController } from "../../fights/FightController";
 import { PlayerFighter } from "../../fights/fighter/PlayerFighter";
 import { PlayerBaseFighter } from "../../fights/fighter/PlayerBaseFighter";
@@ -1655,13 +1657,34 @@ export class LogsDatabase extends Database {
 	 */
 	public async logTeleportation(keycloakId: string, originMapLinkId: number, newMapLinkId: number): Promise<void> {
 		const player = await LogsDatabase.findOrCreatePlayer(keycloakId);
+		
 		if (!player) {
 			return;
 		}
+
+		const newMapLinkGame = MapLinkDataController.instance.getById(newMapLinkId);
+		const originMapLinkGame = MapLinkDataController.instance.getById(originMapLinkId);
+
+		if (!newMapLinkGame || !originMapLinkGame) return;
+
+		const [newMapLinkLog] = await LogsMapLinks.findOrCreate({
+			where: {
+				start: newMapLinkGame?.startMap,
+				end: newMapLinkGame?.endMap
+			}
+		});
+
+		const [originMapLinkLog] = await LogsMapLinks.findOrCreate({
+			where: {
+				start: originMapLinkGame?.startMap,
+				end: originMapLinkGame?.endMap
+			}
+		});
+		
 		await LogsPlayersTeleportations.create({
 			playerId: player.id,
-			originMapLinkId,
-			newMapLinkId,
+			originMapLinkId: originMapLinkLog.id,
+			newMapLinkId: newMapLinkLog.id,
 			date: getDateLogs()
 		});
 	}
