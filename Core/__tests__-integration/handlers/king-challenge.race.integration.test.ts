@@ -1,5 +1,5 @@
 import {
-	afterAll, beforeAll, beforeEach, describe, expect, it
+	afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi
 } from "vitest";
 import type { ModelStatic } from "sequelize";
 import {
@@ -14,6 +14,7 @@ import type { CrowniclesPacket } from "../../../Lib/src/packets/CrowniclesPacket
 import type { KingChallengeTierReachedPacket } from "../../../Lib/src/packets/events/KingChallengeTierReachedPacket";
 
 type KingChallengeModule = typeof import("../../src/core/kingChallenge/KingChallenge");
+type WithLockedPlayerAndMissionsModule = typeof import("../../src/core/utils/withLockedPlayerAndMissions");
 
 const THRESHOLDS = KingChallengeConstants.computeThresholds(KingChallengeConstants.DEFAULT_REFERENCE_SCORES);
 
@@ -22,6 +23,10 @@ const INITIAL_MONEY = 100;
 const INITIAL_GEMS = 2;
 
 const N_CONCURRENT_GAINS = 10;
+
+const ENCLOSING_GEMS = 5;
+
+const FIRST_GEM_TIER = KingChallengeConstants.REWARDS.findIndex(reward => reward.gems > 0) + 1;
 
 function tierReachedPackets(response: CrowniclesPacket[]): KingChallengeTierReachedPacket[] {
 	return response.filter(packet => packet.constructor.name === "KingChallengeTierReachedPacket") as KingChallengeTierReachedPacket[];
@@ -38,12 +43,21 @@ describe("king's challenge", () => {
 	let Player: ModelStatic<PlayerType>;
 	let PlayerMissionsInfo: ModelStatic<PlayerMissionsInfoType>;
 	let kingChallenge: KingChallengeModule;
+	let withLockedPlayerAndMissions: WithLockedPlayerAndMissionsModule["withLockedPlayerAndMissions"];
 
 	beforeAll(async () => {
 		env = await setupCoreForTests("kingchallenge");
 		Player = env.crownicles.gameDatabase.sequelize.models.Player as ModelStatic<PlayerType>;
 		PlayerMissionsInfo = env.crownicles.gameDatabase.sequelize.models.PlayerMissionsInfo as ModelStatic<PlayerMissionsInfoType>;
 		kingChallenge = loadProductionModule<KingChallengeModule>("core/kingChallenge/KingChallenge");
+		withLockedPlayerAndMissions = loadProductionModule<WithLockedPlayerAndMissionsModule>("core/utils/withLockedPlayerAndMissions").withLockedPlayerAndMissions;
+
+		// Creates the setting rows of the thresholds, like at startup
+		await kingChallenge.getKingChallengeThresholds();
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
 	});
 
 	afterAll(async () => {
@@ -165,6 +179,37 @@ describe("king's challenge", () => {
 		expect(responses.flatMap(tierReachedPackets)).toHaveLength(1);
 	});
 
+	it("keeps the gems of a tier paid while an enclosing mission completion credits its own gems", async () => {
+		const player = await seed("king-enclosing-gems", THRESHOLDS[FIRST_GEM_TIER - 1] - 1);
+
+		// Like a daily mission completed after its streak mission crossed a tier: the enclosing instance predates the tier gems
+		await withLockedPlayerAndMissions(player.id, async lockedPlayer => {
+			const enclosingMissionsInfo = (await PlayerMissionsInfo.findByPk(player.id))!;
+			await lockedPlayer.addScore({
+				response: [],
+				amount: 1,
+				reason: NumberChangeReason.TEST,
+				ignoreBlessing: true
+			});
+			await enclosingMissionsInfo.addGems(ENCLOSING_GEMS, lockedPlayer.keycloakId, NumberChangeReason.TEST);
+		});
+
+		const missionsInfo = (await PlayerMissionsInfo.findByPk(player.id))!;
+		expect(missionsInfo.gems).toBe(INITIAL_GEMS + KingChallengeConstants.sumRewards(0, FIRST_GEM_TIER).gems + ENCLOSING_GEMS);
+	});
+
+	it("announces nothing and grants nothing when crediting the rewards fails", async () => {
+		const player = await seed("king-failed-credit", THRESHOLDS[FIRST_GEM_TIER - 1] - 1);
+		vi.spyOn(PlayerMissionsInfo.prototype, "addGems").mockRejectedValueOnce(new Error("gem credit failed"));
+		const response: CrowniclesPacket[] = [];
+
+		await expect(gainScore(player.id, 1, response)).rejects.toThrow("gem credit failed");
+
+		expect(tierReachedPackets(response)).toHaveLength(0);
+		await expectRewarded(player.id, 0);
+		expect((await Player.findByPk(player.id))!.weeklyScore).toBe(THRESHOLDS[FIRST_GEM_TIER - 1] - 1);
+	});
+
 	it("shows the progress of the week with the coming Monday reset", async () => {
 		const player = await seed("king-progress", 0);
 		await gainScore(player.id, THRESHOLDS[1]);
@@ -196,7 +241,7 @@ describe("king's challenge", () => {
 			champion: THRESHOLDS[THRESHOLDS.length - 1]
 		});
 
-		await kingChallenge.recordKingChallengeReferenceScores(weekScores!);
+		await kingChallenge.startNewKingChallengeWeek(weekScores);
 		const expectedReferences = KingChallengeConstants.pushReferenceScores(KingChallengeConstants.DEFAULT_REFERENCE_SCORES, weekScores!);
 		expect(await kingChallenge.getKingChallengeThresholds()).toEqual(KingChallengeConstants.computeThresholds(expectedReferences));
 	});

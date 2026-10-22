@@ -1,5 +1,5 @@
 import {
-	DataTypes, Model, Sequelize
+	DataTypes, Model, Sequelize, Transaction
 } from "sequelize";
 import { PotionDataController } from "../../../../data/Potion";
 import { MapCache } from "../../../maps/MapCache";
@@ -58,11 +58,24 @@ class SettingClassString {
 		this.defaultValue = defaultValue;
 	}
 
-	public async getValue(): Promise<string> {
+	public getValue(): Promise<string> {
+		return this.readValue(false);
+	}
+
+	/**
+	 * Read the latest committed value and keep it from changing until the current transaction ends,
+	 * so it stays consistent with the rows locked by this transaction
+	 */
+	public getValueUnderShareLock(): Promise<string> {
+		return this.readValue(true);
+	}
+
+	private async readValue(lockForShare: boolean): Promise<string> {
 		let value: string;
 
 		const settingInstance = await Setting.findOne({
-			where: { name: this.name }
+			where: { name: this.name },
+			...lockForShare ? { lock: Transaction.LOCK.SHARE } : {}
 		});
 
 		if (settingInstance) {

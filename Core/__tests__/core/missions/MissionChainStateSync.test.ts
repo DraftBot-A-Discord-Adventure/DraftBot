@@ -23,6 +23,11 @@ vi.mock("../../../src/core/kingChallenge/KingChallenge", () => ({
 	applyKingChallengeProgress: vi.fn().mockResolvedValue(undefined)
 }));
 
+// A score gain runs with its king's challenge payment in one transaction, covered by the same integration test
+vi.mock("../../../src/core/utils/withLockedPlayerAndMissions", () => ({
+	withLockedPlayerAndMissions: vi.fn((_playerId: number, body: () => Promise<unknown>) => body())
+}));
+
 /**
  * This test suite verifies that MissionsController synchronizes the caller
  * before Player mutation methods resume.
