@@ -314,6 +314,10 @@
       "user": {
         "description": "Der Gegner, dem man sich stellen muss.",
         "name": "spieler"
+      },
+      "tournament": {
+        "description": "Activer le mode tournoi : le niveau des deux combattants est plafonné.",
+        "name": "tournoi"
       }
     }
   },
