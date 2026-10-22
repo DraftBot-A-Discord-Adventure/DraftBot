@@ -5,7 +5,7 @@ on:
       - '**'
     paths:
       - Lang/fr/**
-      - .github/scripts/check-emojis.py
+      - .github/scripts/check-emojis.*
       - .github/workflows/translations.yml
   workflow_dispatch:
 
@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
       # Other languages are synced from French by Crowdin, so only the source locale is checked
       - name: Forbid hardcoded emojis in French translations
-        run: find Lang/fr -name '*.json' -print0 | xargs -0 python3 .github/scripts/check-emojis.py files
+        run: node .github/scripts/check-emojis.mjs translations Lang/fr
