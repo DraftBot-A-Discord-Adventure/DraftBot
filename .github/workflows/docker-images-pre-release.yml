@@ -8,7 +8,8 @@ on:
       - 'Lang/**'
   workflow_dispatch:
 
-# Serialize the pushes so that the latest tag always points to the most recent build
+# Serialize the pushes so that the latest tag always points to the most recent build.
+# A pending run is replaced by a newer push, which only skips intermediate commits of the branch.
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
