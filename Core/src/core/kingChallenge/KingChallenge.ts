@@ -2,7 +2,6 @@ import { Op } from "sequelize";
 import Player from "../database/game/models/Player";
 import PlayerMissionsInfo from "../database/game/models/PlayerMissionsInfo";
 import { Settings } from "../database/game/models/Setting";
-import { withLockedPlayerAndMissions } from "../utils/withLockedPlayerAndMissions";
 import { KingChallengeConstants } from "../../../../Lib/src/constants/KingChallengeConstants";
 import {
 	KingChallengeProgress, KingChallengeReferenceScores, KingChallengeWeekScores
@@ -89,7 +88,8 @@ async function rewardKingChallengeTiersUnderLock(lockedPlayer: Locked<Player>, r
 		/*
 		 * Built before granting anything: the rewards can complete a mission whose points cross the next tier,
 		 * which would make the remaining points of this crossing negative. It is also announced before those missions.
-		 * The tokens of the challenge ignore the cap, so the granted amount is the reward itself.
+		 * The tokens of the challenge ignore the cap, so the granted amount is the reward itself, and they are credited
+		 * first so that a next tier crossed by the missions of the other rewards counts them in its owned tokens.
 		 */
 		const reward = KingChallengeConstants.sumRewards(previousTier, reachedTier);
 		rewardResponse.push(makePacket(KingChallengeTierReachedPacket, {
@@ -101,16 +101,16 @@ async function rewardKingChallengeTiersUnderLock(lockedPlayer: Locked<Player>, r
 			ownedTokens: lockedPlayer.tokens + reward.tokens
 		}));
 
+		await lockedPlayer.addTokens({
+			response: rewardResponse,
+			amount: reward.tokens,
+			reason: NumberChangeReason.KING_CHALLENGE
+		});
 		await lockedPlayer.addMoney({
 			response: rewardResponse,
 			amount: reward.money,
 			reason: NumberChangeReason.KING_CHALLENGE,
 			ignoreBlessing: true
-		});
-		await lockedPlayer.addTokens({
-			response: rewardResponse,
-			amount: reward.tokens,
-			reason: NumberChangeReason.KING_CHALLENGE
 		});
 		if (reward.gems > 0) {
 			await PlayerMissionsInfo.withLocked(lockedPlayer.id, lockedMissionsInfo => lockedMissionsInfo.addGems(reward.gems, lockedPlayer.keycloakId, NumberChangeReason.KING_CHALLENGE));
@@ -119,22 +119,20 @@ async function rewardKingChallengeTiersUnderLock(lockedPlayer: Locked<Player>, r
 }
 
 /**
- * Reward the king's challenge tiers newly reached by the player. Called after each weekly score gain,
- * in the same transaction, so a weekly reset cannot slip between the gain and its reward.
- * @param player The player who gained points, synchronized with the database afterward
+ * Reward the king's challenge tiers newly reached by a locked player. Called after each weekly score change,
+ * in the critical section of the change, so a weekly reset cannot slip between a gain and its reward.
+ * @param lockedPlayer
  * @param response
  */
-export async function applyKingChallengeProgress(player: Player, response: CrowniclesPacket[]): Promise<void> {
-	// Quick check against the cached thresholds, which can only defer a reward to the next gain if they lag behind the reset
+export async function applyKingChallengeProgressUnderLock(lockedPlayer: Locked<Player>, response: CrowniclesPacket[]): Promise<void> {
+	/*
+	 * Quick check against the cached thresholds, which can only defer a reward to the next gain if they lag behind the reset.
+	 * It keeps most score changes from locking the reference scores, which the weekly reset has to wait for.
+	 */
 	const thresholds = await getKingChallengeThresholds();
-	if (KingChallengeConstants.getReachedTier(player.weeklyScore, thresholds) <= player.kingChallengeTier) {
-		return;
-	}
-	const updatedPlayer = await withLockedPlayerAndMissions(player.id, async lockedPlayer => {
+	if (KingChallengeConstants.getReachedTier(lockedPlayer.weeklyScore, thresholds) > lockedPlayer.kingChallengeTier) {
 		await rewardKingChallengeTiersUnderLock(lockedPlayer, response);
-		return lockedPlayer;
-	});
-	Object.assign(player, updatedPlayer);
+	}
 }
 
 /**

@@ -1,7 +1,9 @@
 import {
 	afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi
 } from "vitest";
-import type { ModelStatic } from "sequelize";
+import {
+	DatabaseError, type ModelStatic
+} from "sequelize";
 import { setTimeout as sleep } from "node:timers/promises";
 import {
 	CoreTestEnvironment, loadProductionModule, pinInertDailyMission, setupCoreForTests
@@ -29,6 +31,14 @@ const INITIAL_MONEY = 100;
 
 // Long enough for the blocked side of the race to reach its row lock
 const LOCK_WAIT_MS = 300;
+
+function deadlockError(): DatabaseError {
+	return new DatabaseError(Object.assign(new Error("Deadlock found when trying to get lock"), {
+		code: "ER_LOCK_DEADLOCK",
+		sql: "",
+		parameters: {}
+	}));
+}
 
 type Gate = {
 	reached: Promise<void>;
@@ -156,6 +166,50 @@ describe("king's challenge week end", () => {
 				champion: 60_000
 			})
 		));
+	});
+
+	async function seedWeekEndingPlayers(): Promise<void> {
+		for (const [index, weeklyScore] of [50_000, 40_000, 30_000, 20_000, 10_000].entries()) {
+			await Player.create({
+				keycloakId: `weekend-retry-${index}`,
+				weeklyScore,
+				kingChallengeTier: 1
+			});
+		}
+		vi.spyOn(PacketUtils, "announce").mockImplementation(() => undefined);
+	}
+
+	it("retries a weekly reset rolled back by a deadlock and applies it exactly once", async () => {
+		await seedWeekEndingPlayers();
+
+		// The champion scores are written last: the scores reset and the ladder written by the failed attempt must be rolled back
+		vi.spyOn(Settings.KING_CHALLENGE_CHAMPION_SCORES, "setValue").mockRejectedValueOnce(deadlockError());
+
+		// Only the wait between two attempts is skipped, the timers of the database driver keep their delay
+		const realSetTimeout = globalThis.setTimeout;
+		vi.spyOn(globalThis, "setTimeout").mockImplementation((callback, delay) =>
+			realSetTimeout(callback, delay === CrowniclesMonday.WEEK_RESET_RETRY_DELAY_MS ? 0 : delay));
+
+		await CrowniclesMonday.topWeekEnd();
+
+		const players = await Player.findAll({ attributes: ["weeklyScore", "kingChallengeTier"] });
+		expect(players.map(player => [player.weeklyScore, player.kingChallengeTier])).toEqual(players.map(() => [0, 0]));
+		expect(await kingChallenge.getKingChallengeThresholds()).toEqual(KingChallengeConstants.computeThresholds(
+			KingChallengeConstants.pushReferenceScores(KingChallengeConstants.DEFAULT_REFERENCE_SCORES, {
+				ladder: 10_000,
+				champion: 50_000
+			})
+		));
+	});
+
+	it("does not retry a weekly reset whose outcome is unknown", async () => {
+		await seedWeekEndingPlayers();
+		const startNewWeek = vi.spyOn(kingChallenge, "startNewKingChallengeWeek");
+		vi.spyOn(Settings.KING_CHALLENGE_CHAMPION_SCORES, "setValue").mockRejectedValueOnce(new Error("connection lost"));
+
+		await expect(CrowniclesMonday.topWeekEnd()).rejects.toThrow("connection lost");
+
+		expect(startNewWeek).toHaveBeenCalledOnce();
 	});
 
 	async function gainScore(playerId: number, amount: number): Promise<void> {

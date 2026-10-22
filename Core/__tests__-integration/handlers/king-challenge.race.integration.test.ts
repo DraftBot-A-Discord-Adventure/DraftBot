@@ -7,6 +7,7 @@ import {
 } from "../_coreSetup";
 import type { Player as PlayerType } from "../../src/core/database/game/models/Player";
 import type { PlayerMissionsInfo as PlayerMissionsInfoType } from "../../src/core/database/game/models/PlayerMissionsInfo";
+import type { MissionSlot as MissionSlotType } from "../../src/core/database/game/models/MissionSlot";
 import { KingChallengeConstants } from "../../../Lib/src/constants/KingChallengeConstants";
 import { NumberChangeReason } from "../../../Lib/src/constants/LogsConstants";
 import { TokensConstants } from "../../../Lib/src/constants/TokensConstants";
@@ -42,6 +43,7 @@ describe("king's challenge", () => {
 	let env: CoreTestEnvironment;
 	let Player: ModelStatic<PlayerType>;
 	let PlayerMissionsInfo: ModelStatic<PlayerMissionsInfoType>;
+	let MissionSlot: ModelStatic<MissionSlotType>;
 	let kingChallenge: KingChallengeModule;
 	let withLockedPlayerAndMissions: WithLockedPlayerAndMissionsModule["withLockedPlayerAndMissions"];
 
@@ -49,6 +51,7 @@ describe("king's challenge", () => {
 		env = await setupCoreForTests("kingchallenge");
 		Player = env.crownicles.gameDatabase.sequelize.models.Player as ModelStatic<PlayerType>;
 		PlayerMissionsInfo = env.crownicles.gameDatabase.sequelize.models.PlayerMissionsInfo as ModelStatic<PlayerMissionsInfoType>;
+		MissionSlot = env.crownicles.gameDatabase.sequelize.models.MissionSlot as ModelStatic<MissionSlotType>;
 		kingChallenge = loadProductionModule<KingChallengeModule>("core/kingChallenge/KingChallenge");
 		withLockedPlayerAndMissions = loadProductionModule<WithLockedPlayerAndMissionsModule>("core/utils/withLockedPlayerAndMissions").withLockedPlayerAndMissions;
 
@@ -67,6 +70,9 @@ describe("king's challenge", () => {
 	beforeEach(async () => {
 		await env.crownicles.gameDatabase.sequelize.query("SET FOREIGN_KEY_CHECKS = 0");
 		try {
+			await MissionSlot.destroy({
+				truncate: true, force: true
+			});
 			await PlayerMissionsInfo.destroy({
 				truncate: true, force: true
 			});
@@ -200,14 +206,57 @@ describe("king's challenge", () => {
 
 	it("announces nothing and grants nothing when crediting the rewards fails", async () => {
 		const player = await seed("king-failed-credit", THRESHOLDS[FIRST_GEM_TIER - 1] - 1);
-		vi.spyOn(PlayerMissionsInfo.prototype, "addGems").mockRejectedValueOnce(new Error("gem credit failed"));
+
+		// Its expiry is announced by the mission update of the gain, which is rolled back with the rewards
+		await MissionSlot.create({
+			playerId: player.id,
+			missionId: "earnPoints",
+			missionVariant: 0,
+			missionObjective: 1_000,
+			numberDone: 0,
+			expiresAt: new Date(Date.now() - 3_600_000),
+			gemsToWin: 0,
+			xpToWin: 0,
+			pointsToWin: 0,
+			moneyToWin: 0
+		});
+		vi.spyOn(PlayerMissionsInfo.prototype as PlayerMissionsInfoType, "addGems").mockRejectedValueOnce(new Error("gem credit failed"));
 		const response: CrowniclesPacket[] = [];
 
 		await expect(gainScore(player.id, 1, response)).rejects.toThrow("gem credit failed");
 
-		expect(tierReachedPackets(response)).toHaveLength(0);
+		expect(response).toEqual([]);
+		expect(await MissionSlot.count({ where: { playerId: player.id } })).toBe(1);
 		await expectRewarded(player.id, 0);
 		expect((await Player.findByPk(player.id))!.weeklyScore).toBe(THRESHOLDS[FIRST_GEM_TIER - 1] - 1);
+	});
+
+	it("pays a tier crossed by the missions completed with the rewards of the previous one", async () => {
+		const player = await seed("king-chained-tiers", THRESHOLDS[0] - 1);
+
+		// Completed by the money of the first tier, its points cross the second one
+		await MissionSlot.create({
+			playerId: player.id,
+			missionId: "earnMoney",
+			missionVariant: 0,
+			missionObjective: 1,
+			numberDone: 0,
+			expiresAt: new Date(Date.now() + 3_600_000),
+			gemsToWin: 0,
+			xpToWin: 0,
+			pointsToWin: THRESHOLDS[1] - THRESHOLDS[0],
+			moneyToWin: 0
+		});
+		const response: CrowniclesPacket[] = [];
+
+		await gainScore(player.id, 1, response);
+
+		await expectRewarded(player.id, 2);
+		const firstTierTokens = KingChallengeConstants.REWARDS[0].tokens;
+		expect(tierReachedPackets(response).map(packet => [packet.tier, packet.ownedTokens])).toEqual([
+			[1, firstTierTokens],
+			[2, firstTierTokens + KingChallengeConstants.REWARDS[1].tokens]
+		]);
 	});
 
 	it("shows the progress of the week with the coming Monday reset", async () => {
