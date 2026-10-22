@@ -21,7 +21,7 @@ COPY ./Core/patches ./patches
 RUN mkdir config
 
 # Install all dependencies (including devDependencies for typescript compilation)
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy the lib
 RUN mkdir ../Lib
@@ -35,7 +35,7 @@ COPY ./Core/resources ./resources
 
 # Install all lib dependencies (including devDependencies for typescript compilation)
 WORKDIR /crownicles/Lib
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 WORKDIR /crownicles/Core
 
 # Compile the source code
@@ -60,7 +60,7 @@ COPY ./Core/patches ./patches
 RUN mkdir config resources
 
 # Install the dependencies
-RUN pnpm install --prod
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy the built app from the builder
 COPY --from=builder /crownicles/Core/dist ./dist

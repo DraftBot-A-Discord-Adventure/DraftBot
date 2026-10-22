@@ -3,11 +3,15 @@ on:
   pull_request:
     branches:
       - '**'
-  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   no-emojis-in-commit-messages:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
         with:
@@ -17,48 +21,4 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        shell: python
-        run: |
-          import os
-          import re
-          import subprocess
-          import sys
-
-          base = os.environ.get("BASE_SHA")
-          head = os.environ.get("HEAD_SHA")
-          if not base or not head:
-              print("Not running on a pull request, nothing to check.")
-              sys.exit(0)
-
-          emoji_pattern = re.compile(
-              "["
-              "\U0001F000-\U0001FAFF"  # pictographs, emoticons, transport, flags, supplemental symbols
-              "\u2300-\u23FF"          # misc technical (hourglass, alarm clock, play buttons...)
-              "\u2600-\u27BF"          # misc symbols and dingbats
-              "\u2B00-\u2BFF"          # stars, big arrows and squares
-              "\uFE0F"                 # emoji variation selector
-              "]"
-          )
-
-          log = subprocess.run(
-              ["git", "log", "--no-merges", "--format=%H%x00%B%x1e", f"{base}..{head}"],
-              check=True,
-              capture_output=True,
-              text=True,
-          ).stdout
-
-          offenders = []
-          for entry in filter(str.strip, log.split("\x1e")):
-              sha, message = entry.strip().split("\x00", 1)
-              emojis = sorted(set(emoji_pattern.findall(message)))
-              if emojis:
-                  subject = message.strip().splitlines()[0] if message.strip() else ""
-                  offenders.append((sha, subject, emojis))
-
-          if offenders:
-              for sha, subject, emojis in offenders:
-                  print(f"::error title=Emoji in commit message::{sha[:10]} \"{subject}\" contains {' '.join(emojis)}")
-              print(f"\n{len(offenders)} commit(s) contain emojis. Please reword them (git rebase -i) without emojis.")
-              sys.exit(1)
-
-          print("No emoji found in the commit messages of this pull request.")
+        run: python3 .github/scripts/check-emojis.py commits "$BASE_SHA" "$HEAD_SHA"

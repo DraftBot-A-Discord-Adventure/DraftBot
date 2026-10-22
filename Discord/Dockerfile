@@ -21,7 +21,7 @@ COPY ./Discord/patches ./patches
 RUN mkdir config
 
 # Install all dependencies (including devDependencies for typescript compilation)
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy the lib
 RUN mkdir ../Lib
@@ -37,7 +37,7 @@ COPY ./Discord/src ./src
 
 # Install all lib dependencies (including devDependencies for typescript compilation)
 WORKDIR /crownicles/Lib
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 WORKDIR /crownicles/Discord
 
 # Compile the source code
@@ -63,7 +63,7 @@ COPY ./Discord/patches ./patches
 RUN mkdir config
 
 # Install the dependencies
-RUN pnpm install --prod
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy the built app from the builder
 COPY --from=builder /crownicles/Discord/dist ./dist
