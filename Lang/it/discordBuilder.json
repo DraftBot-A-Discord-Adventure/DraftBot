@@ -314,6 +314,10 @@
       "user": {
         "description": "L'utente da affrontare.",
         "name": "giocatore"
+      },
+      "tournament": {
+        "description": "Activer le mode tournoi : le niveau des deux combattants est plafonné.",
+        "name": "tournoi"
       }
     }
   },
