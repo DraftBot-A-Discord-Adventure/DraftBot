@@ -1,3 +1,5 @@
+import { Millisecond } from "./TimeTypes";
+
 /**
  * What a player receives when crossing one or several tiers of the king's challenge
  */
@@ -19,8 +21,8 @@ export type KingChallengeProgress = {
 	/** Weekly score required by each tier, in increasing order */
 	thresholds: number[];
 
-	/** Date (in ms) at which the challenge resets */
-	nextResetDate: number;
+	/** Date at which the challenge resets */
+	nextResetDate: Millisecond;
 };
 
 

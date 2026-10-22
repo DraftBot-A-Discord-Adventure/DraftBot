@@ -62,6 +62,7 @@ type BufferedItems = {
 	target: unknown[];
 	position: number;
 	items: unknown[];
+	dropped: boolean;
 };
 
 const bufferedItemsByTransaction = new WeakMap<Transaction, BufferedItems[]>();
@@ -73,7 +74,9 @@ function insertBufferedItems(bufferedItemsList: BufferedItems[]): void {
 	 * and a buffer nested in another one is filled before its parent is inserted.
 	 */
 	for (const bufferedItems of [...bufferedItemsList].reverse()) {
-		bufferedItems.target.splice(bufferedItems.position, 0, ...bufferedItems.items);
+		if (!bufferedItems.dropped) {
+			bufferedItems.target.splice(bufferedItems.position, 0, ...bufferedItems.items);
+		}
 	}
 }
 
@@ -95,7 +98,8 @@ export async function bufferUntilCommit<T>(target: T[], fill: (buffer: T[]) => P
 	const bufferedItems: BufferedItems = {
 		target,
 		position: target.length,
-		items: []
+		items: [],
+		dropped: false
 	};
 	let bufferedItemsList = bufferedItemsByTransaction.get(transaction);
 	if (!bufferedItemsList) {
@@ -111,7 +115,8 @@ export async function bufferUntilCommit<T>(target: T[], fill: (buffer: T[]) => P
 		await fill(bufferedItems.items as T[]);
 	}
 	catch (error) {
-		bufferedItems.items.length = 0;
+		// Flagged rather than emptied: the buffers nested in this one would otherwise fill it again on commit
+		bufferedItems.dropped = true;
 		throw error;
 	}
 }
