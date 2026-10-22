@@ -231,14 +231,22 @@ async function resolveOpponentDisplayName(packet: CommandFightIntroduceFightersP
 	return packet.fightOpponentKeycloakId ?? "???";
 }
 
+function getFightIntroTitleKey(packet: CommandFightIntroduceFightersPacket): string {
+	if (!packet.friendly) {
+		return "commands:fight.fightIntroTitle";
+	}
+	return packet.levelCap === undefined ? "commands:fight.friendlyFightIntroTitle" : "commands:fight.tournamentFriendlyFightIntroTitle";
+}
+
 async function buildFightIntroEmbed(interaction: CrowniclesInteraction, packet: CommandFightIntroduceFightersPacket): Promise<CrowniclesEmbed> {
 	const lng = interaction.userLanguage;
 	const initiatorName = escapeUsername(interaction.user.displayName);
 	const opponentName = escapeUsername(await resolveOpponentDisplayName(packet, lng));
-	const embed = new CrowniclesEmbed().formatAuthor(i18n.t(packet.friendly ? "commands:fight.friendlyFightIntroTitle" : "commands:fight.fightIntroTitle", {
+	const embed = new CrowniclesEmbed().formatAuthor(i18n.t(getFightIntroTitleKey(packet), {
 		lng,
 		fightInitiator: initiatorName,
-		opponent: opponentName
+		opponent: opponentName,
+		levelCap: packet.levelCap
 	}), interaction.user);
 
 	addFightProfileFor(embed, lng, initiatorName, packet.fightInitiatorActions, packet.fightOpponentActions.length, packet.fightInitiatorPet);

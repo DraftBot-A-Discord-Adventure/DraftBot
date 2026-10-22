@@ -9,6 +9,9 @@ export abstract class FightConstants {
 
 	static readonly REQUIRED_LEVEL = 8;
 
+	// In the tournament mode of friendly fights, the fighters above this level are fought as if they were at this level
+	static readonly TOURNAMENT_LEVEL_CAP = 100;
+
 	static readonly POINTS_REGEN_MINUTES: Minute = asMinutes(7);
 
 	static readonly POINTS_REGEN_AMOUNT = 130;
