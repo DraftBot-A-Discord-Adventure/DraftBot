@@ -63,17 +63,19 @@ function getEndCallback(player: Player) {
 		}) > 0) {
 			const shouldCountAsSoldItem = sellItem.item.category !== ItemCategory.POTION;
 
+			// The menu price already includes the money blessing: credit exactly what was announced
 			await player.addMoney({
 				amount: sellItem.price,
 				response,
-				reason: NumberChangeReason.ITEM_SELL
+				reason: NumberChangeReason.ITEM_SELL,
+				ignoreBlessing: true
 			});
 			await player.save();
 
 			if (shouldCountAsSoldItem) {
 				await MissionsController.update(player, response, {
 					missionId: "sellItemWithGivenCost",
-					params: { itemCost: sellItem.price }
+					params: { itemCost: getItemValue(itemInstance) }
 				});
 				await MissionsController.update(player, response, {
 					missionId: "sellItems"
@@ -87,7 +89,7 @@ function getEndCallback(player: Player) {
 
 			response.push(makePacket(CommandSellItemSuccessPacket, {
 				item: sellItem.item,
-				price: BlessingManager.getInstance().applyMoneyBlessing(sellItem.price)
+				price: sellItem.price
 			}));
 		}
 	};
@@ -119,7 +121,7 @@ export default class SellCommand {
 						category: slot.itemCategory
 					},
 					slot: slot.slot,
-					price: slot.itemCategory === ItemCategory.POTION || !item ? 0 : getItemValue(item)
+					price: slot.itemCategory === ItemCategory.POTION || !item ? 0 : BlessingManager.getInstance().applyMoneyBlessing(getItemValue(item))
 				};
 			})
 		);
