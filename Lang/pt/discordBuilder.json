@@ -316,8 +316,8 @@
         "name": "utilizador"
       },
       "tournament": {
-        "description": "Activer le mode tournoi : le niveau des deux combattants est plafonné.",
-        "name": "tournoi"
+        "description": "Ativar o modo torneio: o nível dos dois combatentes é limitado.",
+        "name": "torneio"
       }
     }
   },
