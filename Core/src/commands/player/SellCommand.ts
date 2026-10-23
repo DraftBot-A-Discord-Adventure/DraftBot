@@ -32,6 +32,18 @@ import { BlessingManager } from "../../core/blessings/BlessingManager";
 import { MissionsController } from "../../core/missions/MissionsController";
 import { WhereAllowed } from "../../../../Lib/src/types/WhereAllowed";
 
+/**
+ * Get the money the player receives when selling the item of the given slot, money blessing included
+ * @param slot
+ */
+function getSellPrice(slot: InventorySlot): number {
+	const item = slot.getItem();
+	if (slot.itemCategory === ItemCategory.POTION || !item) {
+		return 0;
+	}
+	return BlessingManager.getInstance().applyMoneyBlessing(getItemValue(item));
+}
+
 function getEndCallback(player: Player) {
 	return async (collector: ReactionCollectorInstance, response: CrowniclesPacket[]): Promise<void> => {
 		BlockingUtils.unblockPlayer(player.keycloakId, BlockingConstants.REASONS.SELL);
@@ -113,17 +125,14 @@ export default class SellCommand {
 		toSellItems = sortPlayerItemList(toSellItems);
 
 		const collector = new ReactionCollectorSell(
-			toSellItems.map(slot => {
-				const item = slot.getItem();
-				return {
-					item: {
-						id: slot.itemId,
-						category: slot.itemCategory
-					},
-					slot: slot.slot,
-					price: slot.itemCategory === ItemCategory.POTION || !item ? 0 : BlessingManager.getInstance().applyMoneyBlessing(getItemValue(item))
-				};
-			})
+			toSellItems.map(slot => ({
+				item: {
+					id: slot.itemId,
+					category: slot.itemCategory
+				},
+				slot: slot.slot,
+				price: getSellPrice(slot)
+			}))
 		);
 
 		const packet = new ReactionCollectorInstance(
