@@ -1,11 +1,11 @@
 {
   "kingChallenge": {
-    "title_one": "{{pseudo}}, vous relevez le palier {{tier}}/{{tierCount}} du défi du roi !",
-    "title_other": "{{pseudo}}, vous relevez {{count}} paliers du défi du roi, jusqu'au palier {{tier}}/{{tierCount}} !",
-    "rewards": "{emote:kingChallenge.icon} Le roi vous récompense ({{rewards}}).",
-    "nextTier": "Palier suivant dans **{{points, number}}** {emote:unitValues.score}.",
-    "completed": "Vous avez relevé le défi du roi jusqu'au dernier palier !",
-    "useTokens": "Vous avez **{{tokens, number}}** {emote:unitValues.token} : utilisez-les avec la commande {command:report} pour atteindre le palier suivant plus vite."
+    "title_one": "{{pseudo}}, you have cleared the level {{tier}}/{{tierCount}} of the King's Challenge!",
+    "title_other": "{{pseudo}}, you've completed {{count}} levels of the King's Challenge, all the way up to level {{tier}}/{{tierCount}}!",
+    "rewards": "{emote:kingChallenge.icon} The king rewards you ({{rewards}}).",
+    "nextTier": "Next level in **{{points, number}}** {emote:unitValues.score}.",
+    "completed": "You've risen to the king's challenge all the way to the final level!",
+    "useTokens": "You have **{{tokens, number}}** {emote:unitValues.token}: use them with the {command:report} command to reach the next tier faster."
   },
   "missions": {
     "expired": {
