@@ -147,7 +147,7 @@
     "recallButton": "Rückruf",
     "closeButton": "Die Erkundung fortsetzen",
     "chooseExpeditionTitle": "{{pseudo}}Neue Sendungen verfügbar",
-    "chooseExpedition": "Der $t(models:talisman.anchor) vibriert leise in Ihrer Satteltasche. Vor Ihrem geistigen Auge erscheinen drei Reiseziele, die durch die Magie des Artefakts enthüllt werden. {{petDisplay}} stampft ungeduldig auf und ist bereit, eines dieser Länder zu erkunden:",
+    "chooseExpedition": "Das „ $t(models:talisman.anchor) “ vibriert sanft in deiner Tasche. Dir kommen mehrere Reiseziele in den Sinn, die durch die Magie des Artefakts offenbart werden. „ {{petDisplay}} “ trippelt vor Ungeduld und ist bereit, eines dieser Gebiete zu erkunden:",
     "selectPlaceholder": "Wählen Sie ein Ziel aus...",
     "distantExpeditionPrefix": "Fernexpedition: {{location}}",
     "expeditionOption": {
@@ -299,32 +299,44 @@
       "2": "die geheimen Pfade des Feldwegs",
       "3": "die Versteckten Wiesen der Wiege",
       "4": "die Tiefen des Alten Waldes",
-      "5": "die Vergessenen Labyrinthe des Daedaluspfades",
+      "5_forest": "das gewundene Unterholz am Labyrinthweg",
+      "5_ruins": "die Vergessenen Labyrinthe des Daedaluspfades",
       "6": "die Geheimen Keller von Boug-Coton",
-      "7": "die Vergessenen Gräber im Tal der Könige",
+      "7_desert": "die Brennenden Dünen des Tals der Könige",
+      "7_ruins": "die Vergessenen Gräber im Tal der Könige",
       "8": "die Mystischen Passagen der Kreuzung der Schicksale",
-      "9": "die Alten Pflastersteine in der Großen Straße",
-      "10": "die Verlorenen Katakomben von Ville Forte",
+      "9_plains": "die Seitenschiffe der Grande Rue",
+      "9_ruins": "die Alten Pflastersteine in der Großen Straße",
+      "10_cave": "die Verlorenen Katakomben von Ville Forte",
+      "10_ruins": "die eingestürzten Stadtmauern der Festungsstadt",
       "11": "die Hinterhalte der Grand Axe",
       "12": "die Ebenen der Ausdehnung",
       "13": "die Verfluchten Sümpfe der Sumpfstraße",
-      "14": "die bezaubernden Nebel des Mirage-Sees",
-      "15": "die schneebedeckten Gipfel des Berges Celestrum",
+      "14_coast": "Die friedlichen Ufer des Mirage-Sees",
+      "14_swamp": "Die nebligen Schilfgürtel am Lac Mirage",
+      "15_cave": "die bodenlosen Höhlen des Mont Célestrum",
+      "15_mountain": "die schneebedeckten Gipfel des Berges Celestrum",
       "16": "die Tanières du Chemin aux Loups",
       "17": "die versteckten Oasen des Coco-Resorts",
       "18": "die tumultartigen Stromschnellen des Flusses Vacarme",
-      "19": "der Treibsand von La Dune",
+      "19_coast": "Das windige Ufer von La Dune",
+      "19_desert": "der Treibsand von La Dune",
       "21": "die Verlassenen Schenken der Wunderstraße",
-      "22": "die dunklen Galerien des Schreienden Holzes",
-      "23": "die geheimen Gassen von Claire de Ville",
+      "22": "die Dickichte der Räuber aus dem Heulenden Wald",
+      "23": "Die vergessenen unterirdischen Gänge von Claire de Ville",
       "24": "die Steilhänge der Kletterroute",
-      "25": "die Mäander des Flusses Rivière aux Crabes",
-      "26": "die Altstadtviertel von Mergagnan",
-      "27": "die mystischen Lichtungen des Celestrum-Waldes",
-      "28": "die Unterirdischen Gänge der Schlosstore",
+      "25_coast": "die Mäander des Flusses Rivière aux Crabes",
+      "25_swamp": "die Wattgebiete des Flusses „Rivière aux Crabes“",
+      "26_coast": "der Hafen von Mergagnan",
+      "26_plains": "Die Gärten von Mergagnan",
+      "27_forest": "die mystischen Lichtungen des Celestrum-Waldes",
+      "27_mountain": "die steilen Hänge des Célestrum-Waldes",
+      "28": "die Umgebung der Burgtore",
       "29": "die Alkoven im Empfangssaal",
       "32": "die Königlichen Pflastersteine auf der Straße zum Schloss",
-      "41": "Die geheimen Gänge im Schlosshof"
+      "40": "Die Spukgänge des Spukhauses",
+      "41_cave": "Die geheimen Gänge im Schlosshof",
+      "41_plains": "die Esplanade des Schlosshofs"
     },
     "errors": {
       "noPet": "Die Naturgeister weigern sich, Sie einen Vertrauten schicken zu lassen - weil Sie keinen besitzen!",
@@ -467,7 +479,7 @@
         "description": "Zeigt den Verlauf deiner letzten Kämpfe an: den jeweiligen Gegner, das Ergebnis sowie die Entwicklung des Ruhmes und der Liga jedes Kämpfers."
       },
       "FRIENDLY_FIGHT": {
-        "description": "Ermöglicht es dir, gegen einen anderen Spieler – den du entweder namentlich nennst oder anhand seiner Rangliste auswählst – in einem Freundschaftskampf anzutreten. Der Gegner wird von einer KI gesteuert. Dieser Kampf hat keinerlei Konsequenzen: kein Ruhm, keine Belohnung, kein Energieverlust und kein Missionsfortschritt."
+        "description": "Ermöglicht es dir, gegen einen anderen Spieler – den du entweder namentlich nennst oder anhand seiner Rangliste auswählst – in einem Freundschaftskampf anzutreten. Der Gegner wird von einer KI gesteuert. Dieser Kampf hat keinerlei Konsequenzen: kein Ruhm, keine Belohnung, kein Energieverlust und kein Missionsfortschritt. Die Turnieroption begrenzt das Level beider Kämpfer auf {{tournamentLevelCap}} : Ein Spieler mit niedrigerem Level behält sein Level bei."
       },
       "GARDEN": {
         "description": "Damit könnt ihr euch um den Garten eures Hauses kümmern, wenn ihr euch in der Stadt befindet: Pflanzen, gießen, kompostieren und eure Pflanzen ernten. Mit dem „Cœur Sylvestre“, einem Talisman, der beim Kräuterhändler in Coco Village erhältlich ist, könnt ihr den Garten aus der Ferne einsehen und dort ernten."
@@ -751,7 +763,7 @@
     },
     "mission": {
       "fieldName": "Aufgaben:",
-      "fieldValue": ":gem: {{gems, number}} | :book: {{campaign, number}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% | {emote:kingChallenge.icon} {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "noTimeLeft": {
       "fieldName": "Restdauer:",
@@ -794,7 +806,7 @@
   },
   "report": {
     "adviceTitle": "Tipp:",
-    "chooseDestinationIndications": "Wählen Sie ein Ziel für Ihre Reise:",
+    "chooseDestinationIndications": "Wählen Sie ein Reiseziel aus. Die angegebenen Gebiete sind diejenigen, die Ihr Begleiter dort auf einer Expedition erkunden kann:",
     "choseMapMinutes_one": "Sie haben sich entschieden, eine Reise nach {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** anzutreten. Diese Fahrt wird ungefähr **{{timeDisplay}}** dauern.",
     "choseMapMinutes_other": "Sie haben sich entschieden, eine Reise nach {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** anzutreten. Diese Fahrt wird ungefähr **{{timeDisplay}}** dauern.",
     "choseMap_one": "Sie haben entschieden, in Richtung {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}** zu gehen. Diese Strecke dauert **{{time}} Stunden**.",
@@ -808,6 +820,7 @@
     "collectedPointsTitle": "geerntete Punkte:",
     "commandDescription": "Holen Sie sich einen Bericht über die Situation Ihres Charakters.",
     "commandName": "Bericht",
+    "destinationChoice": "{{mapTypeIcon}} {{location}} ({{duration}}) | {{biomes}}",
     "destinationTitle": "{{pseudo}}, Reiseziel",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": "{emote:commands.report} **Tagebuch von {{pseudo}} :** {{event}}\n*- Verwenden Sie die Schaltflächen, um eine Aktion auszuführen. {emote:collectors.warning} Nicht zu antworten wird als eigene Wahl betrachtet.*",
@@ -2282,6 +2295,16 @@
     "off": "Der Bot wurde erfolgreich aus der Wartung geholt."
   },
   "missions": {
+    "kingChallenge": {
+      "button": "Die Herausforderung des Königs",
+      "backButton": "Zurück",
+      "title": "Die Herausforderung des Königs von {{pseudo}}",
+      "description": "Jeden Montag stellt der König den Abenteurern des Königreichs eine neue Herausforderung und belohnt diejenigen, die sie meistern.",
+      "header": "{emote:kingChallenge.icon} **Herausforderung des Königs ({{tier}}/{{tierCount}})**",
+      "nextTier": "Erreiche diese Woche {{objective, number}} {emote:unitValues.score}, um die Stufe {{nextTier}} zu erreichen (läuft ab am {{time}})\n{{progressionBar}} {{current, number}}/{{objective, number}}",
+      "completed": "Ihr habt die Herausforderung des Königs bis zur letzten Stufe gemeistert! Eine neue Herausforderung wird gestartet: {{time}}.",
+      "tier": "{emote:kingChallenge.{{status}}} Stufe {{tier}}: {{threshold, number}} {emote:unitValues.score} ({{rewards}})"
+    },
     "title": "Aufgaben von {{pseudo}}",
     "subcategories": {
       "campaignCurrent": "{emote:missions.campaign} **Land ({{current}}/{{max}})**",
@@ -2405,6 +2428,7 @@
     "monsterNotFound": "Es wurden keine Monster gefunden, die gegen dich antreten können. Bitte melden Sie diesen Vorfall unserem Support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | Ein Kampf wird zwischen {{fightInitiator}} und {{opponent}} gestartet!",
     "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | Zwischen {{fightInitiator}} und {{opponent}} wird ein Freundschaftskampf ausgetragen! Dieser hat keinerlei Konsequenzen.",
+    "tournamentFriendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | Ein freundschaftlicher Kampf im Turniermodus zwischen {{fightInitiator}} und {{opponent}} beginnt! Die Kämpfer werden auf die maximale Stufe {{levelCap}} zurückgesetzt, und der Kampf hat keinerlei Konsequenzen.",
     "actionsOf": "**Angriffe von {{pseudo}} :**",
     "petOf": "**Familienmitglied von {{pseudo}} :**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
