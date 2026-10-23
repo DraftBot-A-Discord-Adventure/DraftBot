@@ -147,7 +147,7 @@
     "recallButton": "Recordar",
     "closeButton": "Continuar la exploración",
     "chooseExpeditionTitle": "{{pseudo}}, nuevas expediciones disponibles",
-    "chooseExpedition": "El $t(models:talisman.anchor) vibra suavemente en tu bolsa. Tres destinos aparecen en tu mente, revelados por la magia del artefacto. {{petDisplay}} patalea de impaciencia, listo para partir a explorar una de estas tierras:",
+    "chooseExpedition": "El $t(models:talisman.anchor) vibra suavemente en tu bolso. Te vienen a la mente varios destinos, revelados por la magia del artefacto. {{petDisplay}} está impaciente, listo para salir a explorar una de esas tierras:",
     "selectPlaceholder": "Elige un destino...",
     "distantExpeditionPrefix": "Expedición de larga distancia: {{location}}",
     "expeditionOption": {
@@ -299,32 +299,44 @@
       "2": "Los senderos secretos de la Voie Champêtre",
       "3": "los Prados Ocultos de la Cuna",
       "4": "las Profundidades del Bosque del Anciano",
-      "5": "los Laberintos Olvidados del Camino del Dédalo",
+      "5_forest": "Los sinuosos matorrales del Camino del Laberinto",
+      "5_ruins": "los Laberintos Olvidados del Camino del Dédalo",
       "6": "las bodegas secretas de Boug-Coton",
-      "7": "las tumbas olvidadas del Valle de los Reyes",
+      "7_desert": "Las Dunas Ardientes del Valle de los Reyes",
+      "7_ruins": "las tumbas olvidadas del Valle de los Reyes",
       "8": "los Pasajes Místicos de la Encrucijada del Destino",
-      "9": "los Adoquines Antiguos de la Gran Calle",
-      "10": "las Catacumbas perdidas de Ville Forte",
+      "9_plains": "las naves laterales de la Gran Calle",
+      "9_ruins": "los Adoquines Antiguos de la Gran Calle",
+      "10_cave": "las Catacumbas perdidas de Ville Forte",
+      "10_ruins": "Las murallas derruidas de Ville Forte",
       "11": "las Grandes Emboscadas del Eje",
       "12": "las Llanuras de la Extensión",
       "13": "los pantanos malditos del camino pantanoso",
-      "14": "las Nieblas Encantadas del Lago Mirage",
-      "15": "las Cumbres Nevadas del Monte Celestrum",
+      "14_coast": "Las tranquilas orillas del lago Mirage",
+      "14_swamp": "Los juncales brumosos del lago Mirage",
+      "15_cave": "Las cuevas sin fondo del Monte Célestrum",
+      "15_mountain": "las Cumbres Nevadas del Monte Celestrum",
       "16": "las Guaridas del Camino de los Lobos",
       "17": "los Oasis ocultos de Coco Village",
       "18": "los tumultuosos rápidos del Río Estruendo",
-      "19": "las Arenas Movedizas de La Duna",
+      "19_coast": "La costa ventosa de La Dune",
+      "19_desert": "las Arenas Movedizas de La Duna",
       "21": "las Tiendas abandonadas de la Ruta de las Maravillas",
-      "22": "las Galerías Oscuras del Bosque Aullante",
-      "23": "los callejones secretos de Claire de Ville",
+      "22": "Los matorrales de los bandidos del Bosque Aullante",
+      "23": "«Los subterráneos olvidados», de Claire de Ville",
       "24": "los Escarpes del Camino de Escalada",
-      "25": "los meandros del Río de los Cangrejos",
-      "26": "el casco antiguo de Mergagnan",
-      "27": "los calveros místicos del bosque de Celestrum",
-      "28": "los Subterráneos de las Puertas del Castillo",
+      "25_coast": "los meandros del Río de los Cangrejos",
+      "25_swamp": "Las marismas del río de los cangrejos",
+      "26_coast": "el puerto de Mergagnan",
+      "26_plains": "Los Jardines de Mergagnan",
+      "27_forest": "los calveros místicos del bosque de Celestrum",
+      "27_mountain": "Las empinadas laderas del bosque de Célestrum",
+      "28": "Los alrededores de las puertas del castillo",
       "29": "las Alcobas de la Sala de Recepción",
       "32": "los Adoquines Reales del Camino al Castillo",
-      "41": "Los pasadizos secretos de los patios del castillo"
+      "40": "Los pasillos embrujados de la casa encantada",
+      "41_cave": "Los pasadizos secretos del patio del castillo",
+      "41_plains": "la Explanada del Patio del Castillo"
     },
     "errors": {
       "noPet": "Los espíritus de la naturaleza se niegan a que envíes una mascota... ¡porque no tienes!",
@@ -467,7 +479,7 @@
         "description": "Muestra el historial de tus últimas peleas: el rival al que te has enfrentado, el resultado y la evolución de la gloria y la liga de cada luchador."
       },
       "FRIENDLY_FIGHT": {
-        "description": "Permite enfrentarse a otro jugador, elegido mencionándolo o según su clasificación, en un combate amistoso. El jugador al que te enfrentas está controlado por una IA. Este combate no tiene ninguna consecuencia: no se gana gloria, ni recompensas, no se pierde energía ni se avanza en la misión."
+        "description": "Permite enfrentarse a otro jugador, elegido mencionándolo o según su clasificación, en un combate amistoso. El jugador al que te enfrentas está controlado por una IA. Este combate no tiene ninguna consecuencia: ni gloria, ni recompensas, ni pérdida de energía, ni avance en la misión. La opción «torneo» limita el nivel de ambos combatientes a {{tournamentLevelCap}} : un jugador de nivel inferior conserva su nivel."
       },
       "GARDEN": {
         "description": "Te permite cuidar el jardín de tu casa cuando te encuentras en tu ciudad: plantar, regar, hacer compost y recolectar tus plantas. Con el «Cœur Sylvestre», un talismán que se vende en la herboristería de Coco Village, es posible consultar el jardín y recolectar sus frutos a distancia."
@@ -751,7 +763,7 @@
     },
     "mission": {
       "fieldName": "Tareas :",
-      "fieldValue": ":gem: {{gems, number}} | :book: {{campaign, number}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% | {emote:kingChallenge.icon} {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "noTimeLeft": {
       "fieldName": "Tiempo restante :",
@@ -794,7 +806,7 @@
   },
   "report": {
     "adviceTitle": "Consejos :",
-    "chooseDestinationIndications": "Elija un destino para su viaje:",
+    "chooseDestinationIndications": "Elige un destino para tu viaje. Los terrenos indicados son aquellos que tu mascota podrá explorar allí durante la expedición:",
     "choseMapMinutes_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{timeDisplay}}**.",
     "choseMapMinutes_other": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{timeDisplay}}**.",
     "choseMap_one": "Ha decidido dirigirse a {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. Este viaje durará aproximadamente **{{time}} hora**.",
@@ -808,6 +820,7 @@
     "collectedPointsTitle": "Puntos recogidos :",
     "commandDescription": "Obtén un informe sobre la situación de tu personaje.",
     "commandName": "informe",
+    "destinationChoice": "{{mapTypeIcon}} {{location}} ({{duration}}) | {{biomes}}",
     "destinationTitle": "{{pseudo}}destino de viaje",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": "{emote:commands.report} ** {{pseudo}} :** {{event}}\n*- Utilice los botones para realizar una acción {emote:collectors.warning} No contestar se considera una opción independiente.*",
@@ -2282,6 +2295,16 @@
     "off": "El bot ha sido liberado con éxito del mantenimiento."
   },
   "missions": {
+    "kingChallenge": {
+      "button": "El desafío del rey",
+      "backButton": "Volver",
+      "title": "El desafío del rey de {{pseudo}}",
+      "description": "Cada lunes, el rey plantea un nuevo reto a los aventureros del reino y recompensa a quienes lo superan.",
+      "header": "{emote:kingChallenge.icon} **Desafío del rey ({{tier}}/{{tierCount}})**",
+      "nextTier": "Consigue {{objective, number}} {emote:unitValues.score} esta semana para superar el nivel {{nextTier}} (caduca {{time}})\n{{progressionBar}} {{current, number}}/{{objective, number}}",
+      "completed": "¡Has superado el reto del rey hasta el último nivel! Se lanzará un nuevo reto en {{time}}.",
+      "tier": "{emote:kingChallenge.{{status}}} Nivel {{tier}}: {{threshold, number}} {emote:unitValues.score} ({{rewards}})"
+    },
     "title": "{{pseudo}}",
     "subcategories": {
       "campaignCurrent": "{emote:missions.campaign} **Campaña ({{current}}/{{max}})**",
@@ -2405,6 +2428,7 @@
     "monsterNotFound": "No se ha encontrado ningún monstruo que se enfrente a ti. Por favor, informa de este incidente a nuestro equipo de soporte (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Hay una pelea entre {{fightInitiator}} y {{opponent}} !",
     "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Se ha iniciado un combate amistoso entre {{fightInitiator}} y {{opponent}} ! No tendrá ninguna consecuencia.",
+    "tournamentFriendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | ¡Se ha iniciado un combate amistoso en modo torneo entre {{fightInitiator}} y {{opponent}} ! Los combatientes se restablecerán al nivel máximo de {{levelCap}} y el combate no tendrá ninguna consecuencia.",
     "actionsOf": "**Ataques desde {{pseudo}} :**",
     "petOf": "** {{pseudo}} family:**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
