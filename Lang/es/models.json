@@ -1254,7 +1254,7 @@
       "atParticle": "a la"
     },
     "21": {
-      "description": "Una carretera muy utilizada por los aldeanos. Muchos pequeños vendedores ambulantes se instalan aquí durante un día, creando un enorme mercado.",
+      "description": "Una carretera muy transitada por los vecinos del pueblo. Muchos pequeños vendedores ambulantes se instalan allí durante todo el día, creando al final un mercado inmenso. Más allá, antiguas casetas abandonadas desde hace mucho tiempo se desmoronan bajo la arena.",
       "name": "Ruta de las maravillas",
       "particle": "a la",
       "atParticle": "a la"
@@ -1266,7 +1266,7 @@
       "atParticle": "en"
     },
     "23": {
-      "description": "Claire de Ville, gran ciudad comercial y encrucijada económica, no siempre ha sido tan acogedora. Inicialmente muy pobre, se ha desarrollado rápidamente gracias a sus numerosos comercios y hoteles que ofrecen una amplia oferta a los viajeros de la región. Claire de Ville también es conocida por su tranquilidad y respeto al orden.",
+      "description": "Claire de Ville, una gran ciudad comercial y cruce de caminos económico, no siempre ha sido tan acogedora. Aunque al principio era muy pobre, supo desarrollarse rápidamente gracias a sus numerosos comercios y hoteles, que ofrecen una amplia variedad de opciones a los viajeros de la región. Claire de Ville también es conocida por su tranquilidad y su respeto por el orden. Bajo sus calles, los pasadizos subterráneos excavados en tiempos de penuria aún serpentean entre la roca.",
       "name": "Claire de Ville",
       "particle": "a",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "a la"
     },
     "25": {
-      "description": "Todo está en el nombre. Un río muy apreciado por los pescaderos de Claire de Ville.",
+      "description": "El nombre lo dice todo. Un río muy apreciado por los pescaderos de Claire de Ville. Río abajo, sus orillas se pierden en marismas fangosas donde abundan los cangrejos.",
       "name": "Rivière aux Crabes",
       "particle": "a la",
       "atParticle": "a la"
@@ -1292,7 +1292,7 @@
       "inParticle": "en"
     },
     "27": {
-      "description": "Un bosque al borde del monte Celestrum.",
+      "description": "Un bosque a las faldas del Monte Célestrum. Sus laderas se extienden por las escarpadas laderas de la montaña.",
       "name": "Bosque de Celestrum",
       "particle": "a la",
       "atParticle": "a la"
@@ -1338,7 +1338,7 @@
       "particle": "a la"
     },
     "41": {
-      "description": "Explanada pavimentada que une Boug-Coton con las puertas del castillo real. Los mensajeros se cruzan en su camino hacia los pisos del rey.",
+      "description": "Esplanada empedrada que une Boug-Coton con las puertas del castillo real. Los mensajeros se cruzan allí antes de acceder a los aposentos del rey. Bajo sus adoquines discurren pasadizos secretos excavados en la roca hasta los cimientos del castillo.",
       "name": "Cour du Château",
       "particle": "a la",
       "atParticle": "a la",
@@ -1351,13 +1351,13 @@
       "atParticle": "a la"
     },
     "5": {
-      "description": "El sendero debe su apodo a su naturaleza entrecruzada en la parte sur del Bosque del Viejo.",
+      "description": "Camino que debe su nombre a su recorrido por la exuberante naturaleza del sur del bosque del anciano. Bajo la vegetación aún se adivinan los muretes de un antiguo laberinto olvidado.",
       "name": "Camino de Dédale",
       "particle": "a la",
       "atParticle": "en"
     },
     "6": {
-      "description": "Un pueblo tranquilo conocido por su acogedora posada.",
+      "description": "Un tranquilo pueblo famoso por su acogedora posada. Bajo la posada se extienden unas amplias bodegas secretas excavadas directamente en la roca.",
       "name": "Algodón Boug",
       "particle": "a",
       "atParticle": "à",
