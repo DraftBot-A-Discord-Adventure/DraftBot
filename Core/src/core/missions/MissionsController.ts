@@ -251,18 +251,16 @@ export abstract class MissionsController {
 	/**
 	 * Handle the dailyStreak mission update when a daily mission is completed.
 	 * Resets the streak if the player missed a day (last completion was not yesterday).
-	 * This MUST be called BEFORE updating lastDailyMissionCompleted to get accurate streak tracking.
-	 * @param player
+	 * @param context
 	 * @param missionSlots
-	 * @param missionInfo
-	 * @param response
+	 * @param previousCompletion The daily mission completion before this one, as lastDailyMissionCompleted is already updated
 	 */
 	private static async handleDailyStreakMissionUnderLock(
 		context: MissionLockContext,
-		missionSlots: MissionSlot[]
+		missionSlots: MissionSlot[],
+		previousCompletion: Date | null
 	): Promise<void> {
 		assertUnderLock("MissionsController.handleDailyStreakMissionUnderLock");
-		const { missionInfo } = context;
 		const streakMission = missionSlots.find(slot => slot.missionId === "dailyStreak");
 		if (!streakMission || streakMission.isCompleted()) {
 			// Update the mission if the player doesn't have it or has already completed it
@@ -276,9 +274,8 @@ export abstract class MissionsController {
 		yesterday.setDate(yesterday.getDate() - 1);
 
 		// Check the last completion date
-		const lastCompleted = missionInfo.lastDailyMissionCompleted;
-		if (lastCompleted) {
-			const lastCompletedDate = new Date(lastCompleted);
+		if (previousCompletion) {
+			const lastCompletedDate = new Date(previousCompletion);
 
 			// If the last completion was NOT yesterday and NOT today, reset the streak
 			if (!datesAreOnSameDay(lastCompletedDate, yesterday) && !datesAreOnSameDay(lastCompletedDate, today)) {
@@ -782,20 +779,27 @@ export abstract class MissionsController {
 			missionInfo.dailyMissionNumberDone += count;
 		}
 		missionInfo.dailyMissionNumberDone = Math.min(missionInfo.dailyMissionNumberDone, dailyMission.missionObjective);
-		await missionInfo.save();
-
-		if (missionInfo.dailyMissionNumberDone >= dailyMission.missionObjective) {
-			await MissionsController.handleDailyStreakMissionUnderLock({
-				player,
-				missionInfo,
-				dailyMission,
-				response
-			}, missionSlots);
+		const completed = missionInfo.dailyMissionNumberDone >= dailyMission.missionObjective;
+		const previousCompletion = missionInfo.lastDailyMissionCompleted;
+		if (completed) {
+			/*
+			 * Saved before the streak: its rewards update the missions again in this transaction (e.g. its money for an
+			 * earnMoney daily mission, or a king's challenge tier its points cross), which must not complete this daily mission twice
+			 */
 			missionInfo.lastDailyMissionCompleted = new Date();
-			await missionInfo.save();
-			return true;
 		}
-		return false;
+		await missionInfo.save();
+		if (!completed) {
+			return false;
+		}
+
+		await MissionsController.handleDailyStreakMissionUnderLock({
+			player,
+			missionInfo,
+			dailyMission,
+			response
+		}, missionSlots, previousCompletion);
+		return true;
 	}
 
 	private static async updateMissionsCountsUnderLock(
