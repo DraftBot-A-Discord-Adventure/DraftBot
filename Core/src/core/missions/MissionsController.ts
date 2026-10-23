@@ -154,12 +154,13 @@ export abstract class MissionsController {
 
 	static getMissionInterface(missionId: string): IMission {
 		try {
+			// skipcq: JS-0359 - Mission interfaces are discovered dynamically from mission ids.
 			return (require(`./interfaces/${missionId}`) as {
 				missionInterface: IMission;
 			}).missionInterface;
 		}
 		catch {
-			// Forced to use a require, as importing the base interface directly will result in a cyclic import (DefaultInterface -> IMission -> Player -> MissionController)
+			// skipcq: JS-0359 - Importing the base interface directly would be a cyclic import (DefaultInterface -> IMission -> Player -> MissionController).
 			return require("./DefaultInterface").missionInterface;
 		}
 	}
