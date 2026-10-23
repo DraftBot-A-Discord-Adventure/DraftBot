@@ -1127,7 +1127,15 @@ export const CrowniclesIcons: {
 		undergroundLake: "💧",
 		dragonsNest: "🪹",
 		mistyPath: "🌫️",
-		hauntedHouse: "👻"
+		hauntedHouse: "👻",
+		delta: "🛶",
+		mangrove: "🌿",
+		peatBog: "🫧",
+		fungalGrove: "🍄",
+		twistedRoots: "🪵",
+		hollowTrunk: "🦉",
+		canopy: "🍃",
+		motherTreeHeart: "💚"
 	},
 	smallEvents: {
 		advanceTime: "⌛",
@@ -1612,7 +1620,14 @@ export const CrowniclesIcons: {
 		mermaid: "🧜‍♀️",
 		kraken: "🦑",
 		captainCrow: "🏴‍☠️",
-		leviathan: "🐉"
+		leviathan: "🐉",
+		giantLeech: "🪱",
+		swampHydra: "🐍",
+		mycelialLord: "🍄",
+		orchidMantis: "🦗",
+		corruptedSylvan: "🌲",
+		featheredSerpent: "🪶",
+		motherTree: "🌳"
 	},
 	armors: {
 		0: "⬛",
@@ -2309,7 +2324,17 @@ export const CrowniclesIcons: {
 		waterJet: "💦",
 		wateryGust: "🔘",
 		weak: "🤧",
-		webShotAttack: "🕸️"
+		webShotAttack: "🕸️",
+		leechBite: "🩸",
+		multiHeadBite: "🐍",
+		regrowth: "🌱",
+		sporeCloud: "🍄",
+		mantisScythes: "🦗",
+		rootBind: "🌿",
+		barkArmor: "🪵",
+		featherStorm: "🪶",
+		thornBarrage: "🌵",
+		wrathOfTheForest: "🍂"
 	},
 	classKinds: {
 		basic: "⚖️",
