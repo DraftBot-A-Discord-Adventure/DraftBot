@@ -147,7 +147,7 @@
     "recallButton": "Call back",
     "closeButton": "Continue exploring",
     "chooseExpeditionTitle": "{{pseudo}}, new expeditions available",
-    "chooseExpedition": "The $t(models:talisman.anchor) vibrates gently in your satchel. Three destinations appear in your mind's eye, revealed by the artifact's magic. {{petDisplay}} can't wait to explore one of these lands:",
+    "chooseExpedition": "The $t(models:talisman.anchor) vibrates gently in your bag. Several destinations come to mind, revealed by the artifact’s magic. {{petDisplay}} is bursting with impatience, ready to set out and explore one of these lands:",
     "selectPlaceholder": "Choose a destination...",
     "distantExpeditionPrefix": "Long-distance expedition: {{location}}",
     "expeditionOption": {
@@ -299,32 +299,44 @@
       "2": "Secret Trails of the Rural Path",
       "3": "Hidden Meadows of The Cradle",
       "4": "Depths of the Older's Forest",
-      "5": "Forgotten Labyrinths of the Daedalus Path",
+      "5_forest": "The Winding Underbrush of the Labyrinth Path",
+      "5_ruins": "Forgotten Labyrinths of the Daedalus Path",
       "6": "the Secret Cellars of Boug-Coton",
-      "7": "the Forgotten Tombs of the Valley of the Kings",
+      "7_desert": "The Burning Dunes of the Valley of the Kings",
+      "7_ruins": "the Forgotten Tombs of the Valley of the Kings",
       "8": "the Mystical Passages of the Crossroads of Destiny",
-      "9": "Old Cobblestones of Main Road",
-      "10": "the Lost Catacombs of Ville Forte",
+      "9_plains": "the side streets off the Grande Rue",
+      "9_ruins": "Old Cobblestones of Main Road",
+      "10_cave": "the Lost Catacombs of Ville Forte",
+      "10_ruins": "The Collapsed Ramparts of Ville Forte",
       "11": "The Great Road Ambushes",
       "12": "the Plains of the Expanse",
       "13": "the Cursed Swamps of the Swampy Road",
-      "14": "the Enchanted Mists of Lake Mirage",
-      "15": "the snow-covered peaks of Mount Celestrum",
+      "14_coast": "The Peaceful Shores of Lake Mirage",
+      "14_swamp": "The Misty Reed Beds of Lake Mirage",
+      "15_cave": "The Bottomless Caves of Mount Célestrum",
+      "15_mountain": "the snow-covered peaks of Mount Celestrum",
       "16": "Dens of The wolves Path",
       "17": "Coco Village Hidden Oases",
       "18": "Tumultuous Rapids of Vacarme River",
-      "19": "the Quicksand of La Dune",
+      "19_coast": "The Windy Shore of La Dune",
+      "19_desert": "the Quicksand of La Dune",
       "21": "Abandoned Shops of the Road Of Wonders",
-      "22": "Dark Galleries of Howling Woods",
-      "23": "the Secret Alleys of Claire de Ville",
+      "22": "The Thickets of the Bandits of the Howling Forest",
+      "23": "The Forgotten Underground by Claire de Ville",
       "24": "the Escarpments of the Climbing Road",
-      "25": "Crab's River Meanders",
-      "26": "Mergagnan old quarters",
-      "27": "the Mystic Glades of the Celestrum Forest",
-      "28": "Undergrounds of Castle Doors",
+      "25_coast": "Crab's River Meanders",
+      "25_swamp": "The Mudflats of the Rivière aux Crabes",
+      "26_coast": "the Port of Mergagnan",
+      "26_plains": "The Gardens of Mergagnan",
+      "27_forest": "the Mystic Glades of the Celestrum Forest",
+      "27_mountain": "The Steep Slopes of the Célestrum Forest",
+      "28": "The Area Around the Castle Gates",
       "29": "the Alcoves in the Reception Room",
       "32": "Royal Cobblestones of Castle Road",
-      "41": "The Secret Passages of the Castle Courtyard"
+      "40": "The Haunted Hallways of the Haunted House",
+      "41_cave": "The Secret Passages of the Castle Courtyard",
+      "41_plains": "the Esplanade of the Castle Courtyard"
     },
     "errors": {
       "noPet": "Nature spirits refuse to let you send a pet... because you don't have one!",
@@ -467,7 +479,7 @@
         "description": "Displays a history of your most recent battles: the opponent you faced, the result, and each fighter's progress in terms of glory and league rank."
       },
       "FRIENDLY_FIGHT": {
-        "description": "Allows you to face off against another player—chosen by mentioning them or based on their ranking—in a friendly battle. The opponent is controlled by AI. This battle has no consequences: no glory, no rewards, no energy lost, and no mission progress."
+        "description": "Allows you to face off against another player—chosen by naming them or based on their ranking—in a friendly battle. The opponent is controlled by AI. This battle has no consequences: no glory, no rewards, no energy lost, and no mission progress. The tournament option caps both combatants’ levels at {{tournamentLevelCap}} : a player with a lower level retains their current level."
       },
       "GARDEN": {
         "description": "Allows you to tend to your home's garden while you're in town: plant, water, compost, and harvest your plants. With the Cœur Sylvestre—a talisman sold at the Herbalist's in Coco Village—you can check on your garden and harvest from it remotely."
@@ -751,7 +763,7 @@
     },
     "mission": {
       "fieldName": "Missions:",
-      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% | {emote:kingChallenge.icon} {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "noTimeLeft": {
       "fieldName": "Time left:",
@@ -794,7 +806,7 @@
   },
   "report": {
     "adviceTitle": "Advice:",
-    "chooseDestinationIndications": "Choose a destination for your journey:",
+    "chooseDestinationIndications": "Choose a destination for your trip. The areas listed are the ones your pet can explore there on an expedition:",
     "choseMapMinutes_one": "You have decided to head for {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. This journey will take approximately **{{timeDisplay}}**.",
     "choseMapMinutes_other": "You have decided to head for {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. This journey will take approximately **{{timeDisplay}}**.",
     "choseMap_one": "You chose to go in the direction {{mapPrefix}} {{mapType}} {{mapEmote}} **{{mapName}}**. You'll travel for about **{{time}} hour**.",
@@ -808,6 +820,7 @@
     "collectedPointsTitle": "Collected points:",
     "commandDescription": "Get a report on your character's situation.",
     "commandName": "report",
+    "destinationChoice": "{{mapTypeIcon}} {{location}} ({{duration}}) | {{biomes}}",
     "destinationTitle": "{{pseudo}}, travel destination",
     "doChoice": "{{emoji}} {{choiceText}}\n",
     "doEvent": "{emote:commands.report} **{{pseudo}}'s log:** {{event}}\n*- Use the buttons to perform an action {emote:collectors.warning} Not answering is considered a separate choice.*",
@@ -2282,6 +2295,16 @@
     "off": "The bot was successfully released from maintenance."
   },
   "missions": {
+    "kingChallenge": {
+      "button": "The King's Challenge",
+      "backButton": "Back",
+      "title": "The King's Challenge {{pseudo}}",
+      "description": "Every Monday, the king issues a new challenge to the kingdom's adventurers and rewards those who rise to it.",
+      "header": "{emote:kingChallenge.icon} **King's Challenge ({{tier}}/{{tierCount}})**",
+      "nextTier": "Earn {{objective, number}} {emote:unitValues.score} this week to reach the {{nextTier}} milestone (expires {{time}})\n{{progressionBar}} {{current, number}}/{{objective, number}}",
+      "completed": "You've risen to the king's challenge all the way to the final level! A new challenge will be launched at {{time}}.",
+      "tier": "{emote:kingChallenge.{{status}}} Level {{tier}}: {{threshold, number}} {emote:unitValues.score} ({{rewards}})"
+    },
     "title": "{{pseudo}}'s missions",
     "subcategories": {
       "campaignCurrent": "{emote:missions.campaign} **Campaign ({{current}}/{{max}})**",
@@ -2405,6 +2428,7 @@
     "monsterNotFound": "No monster has been found to face you. Please report this incident to our support (discord.gg/AP3Wmzb).",
     "fightIntroTitle": "{emote:fightCommand.crossedSwords} | A fight between {{fightInitiator}} and {{opponent}} has begun!",
     "friendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | A friendly battle has begun between {{fightInitiator}} and {{opponent}} ! It will have no consequences.",
+    "tournamentFriendlyFightIntroTitle": "{emote:fightCommand.crossedSwords} | A friendly tournament-style battle has begun between {{fightInitiator}} and {{opponent}} ! The combatants are reset to a maximum level of {{levelCap}} , and the battle will have no consequences.",
     "actionsOf": "**{{pseudo}}'s attacks:**",
     "petOf": "**{{pseudo}}'s pet:**",
     "fightActionNameDisplay": "{{fightActionEmote}} - {{fightActionName}} | {emote:unitValues.breath} {{breathCost, number}}",
