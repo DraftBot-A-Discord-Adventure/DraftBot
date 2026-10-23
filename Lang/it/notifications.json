@@ -1,11 +1,11 @@
 {
   "kingChallenge": {
-    "title_one": "{{pseudo}}, vous relevez le palier {{tier}}/{{tierCount}} du défi du roi !",
-    "title_other": "{{pseudo}}, vous relevez {{count}} paliers du défi du roi, jusqu'au palier {{tier}}/{{tierCount}} !",
-    "rewards": "{emote:kingChallenge.icon} Le roi vous récompense ({{rewards}}).",
-    "nextTier": "Palier suivant dans **{{points, number}}** {emote:unitValues.score}.",
-    "completed": "Vous avez relevé le défi du roi jusqu'au dernier palier !",
-    "useTokens": "Vous avez **{{tokens, number}}** {emote:unitValues.token} : utilisez-les avec la commande {command:report} pour atteindre le palier suivant plus vite."
+    "title_one": "{{pseudo}}, superate la fase {{tier}}/{{tierCount}} della sfida del re!",
+    "title_other": "{{pseudo}}, superate {{count}} i livelli della sfida del re, fino al livello {{tier}}/{{tierCount}}!",
+    "rewards": "{emote:kingChallenge.icon} Il re vi ricompensa ({{rewards}}).",
+    "nextTier": "Prossimo livello in **{{points, number}}** {emote:unitValues.score}.",
+    "completed": "Avete superato la sfida del re fino all'ultimo livello!",
+    "useTokens": "Hai **{{tokens, number}}** {emote:unitValues.token}: usali con il comando {command:report} per raggiungere più velocemente il livello successivo."
   },
   "missions": {
     "expired": {
