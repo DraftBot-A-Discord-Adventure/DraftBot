@@ -1254,7 +1254,7 @@
       "atParticle": "para o"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
+      "description": "Uma estrada muito frequentada pelos habitantes da aldeia. Muitos pequenos vendedores ambulantes instalam-se ali durante o dia, acabando por criar um imenso mercado. Mais adiante, antigas barracas abandonadas há muito tempo estão a ruir sob a areia.",
       "name": "Rota das Merveiras",
       "particle": "para o",
       "atParticle": "para o"
@@ -1266,7 +1266,7 @@
       "atParticle": "em"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
+      "description": "Grande cidade comercial e centro económico, Claire de Ville nem sempre foi tão acolhedora. Inicialmente muito pobre, conseguiu desenvolver-se rapidamente graças aos seus inúmeros comércios e hotéis, que oferecem uma vasta escolha aos viajantes da região. Claire de Ville é também conhecida pela sua tranquilidade e pelo respeito pela ordem. Sob as suas ruas, os túneis escavados na época da sua miséria ainda serpenteiam pela rocha.",
       "name": "Claire de Ville",
       "particle": "para",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "para o"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
+      "description": "O nome diz tudo. Um rio muito apreciado pelos pescadores de Claire de Ville. A jusante, as suas margens perdem-se em bancos de lodo lamacentos onde abundam os caranguejos.",
       "name": "Rio dos Caranguejos",
       "particle": "para o",
       "atParticle": "para o"
@@ -1292,7 +1292,7 @@
       "inParticle": "em"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
+      "description": "Uma floresta nas encostas do Monte Célestrum. As suas orlas estendem-se pelas encostas íngremes da montanha.",
       "name": "Floresta de Celestrum",
       "particle": "para o",
       "atParticle": "para o"
@@ -1338,7 +1338,7 @@
       "particle": "para o"
     },
     "41": {
-      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
+      "description": "Esplanada pavimentada que liga Boug-Coton às portas do castelo real. Os mensageiros cruzam-se ali antes de acederem aos aposentos do rei. Sob os seus paralelepípedos correm passagens secretas escavadas na rocha até às fundações do castelo.",
       "name": "Pátio do Castelo",
       "particle": "para o",
       "atParticle": "para o",
@@ -1351,13 +1351,13 @@
       "atParticle": "para o"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
+      "description": "Trilha que deve o seu nome ao facto de serpentear no seio da natureza exuberante do sul da Floresta do Velho. Por baixo da vegetação, ainda se adivinham os muretes de um antigo labirinto esquecido.",
       "name": "Caminho do Dédale",
       "particle": "para o",
       "atParticle": "em"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
+      "description": "Uma aldeia tranquila, conhecida pela sua pousada acolhedora. Por baixo da pousada estendem-se vastas caves secretas escavadas diretamente na rocha.",
       "name": "Boug-Cotton",
       "particle": "para",
       "atParticle": "à",
