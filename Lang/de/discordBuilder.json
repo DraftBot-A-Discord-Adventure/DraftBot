@@ -317,7 +317,7 @@
       },
       "tournament": {
         "description": "Turniermodus aktivieren: Das Level beider Kämpfer wird begrenzt.",
-        "name": "Turnier"
+        "name": "turnier"
       }
     }
   },
