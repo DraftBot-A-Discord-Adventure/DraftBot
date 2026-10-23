@@ -1254,7 +1254,7 @@
       "atParticle": "an die"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
+      "description": "Eine Straße, die von den Dorfbewohnern sehr stark frequentiert wird. Viele kleine Straßenhändler lassen sich dort für einen Tag nieder und schaffen so letztendlich einen riesigen Markt. Etwas weiter verfallen alte, längst verlassene Verkaufsstände unter dem Sand.",
       "name": "Route der Merwachles",
       "particle": "in Richtung",
       "atParticle": "an die"
@@ -1266,7 +1266,7 @@
       "atParticle": "unter"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
+      "description": "Claire de Ville, eine große Handelsstadt und wirtschaftliche Drehscheibe, war nicht immer so einladend. Ursprünglich sehr arm, gelang es ihr, sich dank ihrer zahlreichen Geschäfte und Hotels, die Reisenden aus der Region eine große Auswahl bieten, rasch zu entwickeln. Claire de Ville ist zudem für seine Ruhe und seine Ordnungsliebe bekannt. Unter den Straßen schlängeln sich noch immer die in Zeiten der Armut gegrabenen unterirdischen Gänge durch den Fels.",
       "name": "Claire de Ville",
       "particle": "in",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "an die"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
+      "description": "Der Name sagt schon alles. Ein Fluss, der bei den Fischhändlern von Claire de Ville sehr beliebt ist. Stromabwärts gehen seine Ufer in schlammige Wattgebiete über, in denen es von Krabben nur so wimmelt.",
       "name": "Rivière in Crabes",
       "particle": "in Richtung",
       "atParticle": "an die"
@@ -1292,7 +1292,7 @@
       "inParticle": "in"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
+      "description": "Ein Wald am Fuße des Mont Célestrum. Seine Waldränder erstrecken sich bis zu den steilen Hängen des Berges.",
       "name": "Wälder Célestrum",
       "particle": "in Richtung",
       "atParticle": "an die"
@@ -1338,7 +1338,7 @@
       "particle": "in Richtung"
     },
     "41": {
-      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
+      "description": "Eine gepflasterte Esplanade, die Boug-Coton mit den Toren des Königsschlosses verbindet. Dort kreuzen sich die Wege der Boten, bevor sie die Gemächer des Königs betreten. Unter dem Pflaster verlaufen geheime, in den Fels gehauene Gänge, die bis zu den Fundamenten des Schlosses reichen.",
       "name": "Hof des Schlosses",
       "particle": "in Richtung",
       "atParticle": "an die",
@@ -1351,13 +1351,13 @@
       "atParticle": "an die"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
+      "description": "Ein Weg, der seinen Namen der Tatsache verdankt, dass er sich durch die üppige Natur im südlichen Teil des „Forêt du Vieillard“ schlängelt. Unter der Vegetation lassen sich noch die kleinen Mauern eines längst vergessenen Labyrinths erahnen.",
       "name": "Pfad für Dedale",
       "particle": "in Richtung",
       "atParticle": "unter"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
+      "description": "Ein beschauliches Dorf, das für sein gastfreundliches Gasthaus bekannt ist. Unter dem Gasthaus erstrecken sich weitläufige, geheime Keller, die direkt in den Fels gehauen wurden.",
       "name": "Boug-Coton",
       "particle": "in",
       "atParticle": "à",
