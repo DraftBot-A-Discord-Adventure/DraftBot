@@ -1254,7 +1254,7 @@
       "atParticle": "al"
     },
     "21": {
-      "description": "Una strada molto utilizzata dagli abitanti del villaggio. Molti piccoli venditori ambulanti si installano qui per un giorno, creando un grande mercato.",
+      "description": "Una strada molto frequentata dagli abitanti del villaggio. Molti piccoli venditori ambulanti vi si sistemano per l’arco della giornata, dando vita a un immenso mercato. Più avanti, vecchie bancarelle abbandonate da tempo stanno cadendo in rovina sotto la sabbia.",
       "name": "Strada delle Meraviglie",
       "particle": "verso la",
       "atParticle": "al"
@@ -1266,7 +1266,7 @@
       "atParticle": "a"
     },
     "23": {
-      "description": "Importante città mercantile e crocevia economico, Claire de Ville non è sempre stata così accogliente. Inizialmente molto povera, si è sviluppata rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un'ampia scelta ai viaggiatori della regione. Claire de Ville è anche rinomata per la sua calma e il rispetto dell'ordine.",
+      "description": "Grande città commerciale e crocevia economico, Claire de Ville non è sempre stata così accogliente. Inizialmente molto povera, ha saputo svilupparsi rapidamente grazie ai suoi numerosi negozi e alberghi che offrono un’ampia scelta ai viaggiatori della regione. Claire de Ville è nota anche per la sua tranquillità e il rispetto dell’ordine pubblico. Sotto le sue strade, i cunicoli scavati ai tempi della sua povertà serpeggiano ancora nella roccia.",
       "name": "Claire de Ville",
       "particle": "verso",
       "atParticle": "à",
@@ -1279,7 +1279,7 @@
       "atParticle": "al"
     },
     "25": {
-      "description": "È tutto nel nome. Un fiume molto apprezzato dai pescivendoli di Claire de Ville.",
+      "description": "Il nome dice già tutto. Un fiume molto apprezzato dai pescivendoli di Claire de Ville. A valle, le sue rive si perdono in distese fangose dove pullulano i granchi.",
       "name": "Fiume dei Granchi",
       "particle": "verso la",
       "atParticle": "al"
@@ -1292,7 +1292,7 @@
       "inParticle": "in"
     },
     "27": {
-      "description": "Una foresta ai margini del Monte Celestrum.",
+      "description": "Una foresta ai piedi del Monte Célestrum. I suoi margini si arrampicano sui ripidi pendii della montagna.",
       "name": "Foresta di Celestrum",
       "particle": "verso la",
       "atParticle": "al"
@@ -1338,7 +1338,7 @@
       "particle": "verso la"
     },
     "41": {
-      "description": "Spianata pavimentata che collega Boug-Coton alle porte del castello reale. I messaggeri si incrociano per raggiungere gli appartamenti del re.",
+      "description": "Spianata lastricata che collega Boug-Coton alle porte del castello reale. I messaggeri vi si incrociano prima di accedere agli appartamenti del re. Sotto i suoi ciottoli si snodano passaggi segreti scavati nella roccia fino alle fondamenta del castello.",
       "name": "Corte dello Château",
       "particle": "verso la",
       "atParticle": "al",
@@ -1351,13 +1351,13 @@
       "atParticle": "al"
     },
     "5": {
-      "description": "Il sentiero deriva il suo soprannome dalla sua natura di attraversamento della parte meridionale della Foresta del Vecchio.",
+      "description": "Sentiero che deve il suo soprannome al percorso che traccia nel cuore della rigogliosa natura a sud della foresta del Vecchio. Sotto la vegetazione si intravedono ancora i muretti di un antico labirinto ormai dimenticato.",
       "name": "Strada di Dedale",
       "particle": "verso lo",
       "atParticle": "a"
     },
     "6": {
-      "description": "Un villaggio tranquillo, rinomato per la sua accogliente locanda.",
+      "description": "Un tranquillo paesino famoso per la sua accogliente locanda. Sotto la locanda si estendono vaste cantine segrete scavate direttamente nella roccia.",
       "name": "Boug-Coton",
       "particle": "verso",
       "atParticle": "à",

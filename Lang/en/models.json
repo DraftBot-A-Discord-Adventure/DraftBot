@@ -1254,7 +1254,7 @@
       "atParticle": "at"
     },
     "21": {
-      "description": "A road, very popular with the villagers. Lots of small sellers settle there for a day ultimately creating a huge market.",
+      "description": "A road heavily used by villagers. Many small street vendors set up shop there for the day, eventually creating a huge market. Further on, old stalls that have long been abandoned are crumbling into ruins beneath the sand.",
       "name": "Road of Wonders",
       "particle": "towards the",
       "atParticle": "at"
@@ -1266,7 +1266,7 @@
       "atParticle": "to"
     },
     "23": {
-      "description": "Large commercial city and economical crossroad, Claire de Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire de Ville is also known for its calm and its order.",
+      "description": "A major commercial city and economic hub, Claire de Ville hasn’t always been so welcoming. Initially very poor, it grew rapidly thanks to its many shops and hotels, which offer a wide variety of options to travelers in the region. Claire de Ville is also renowned for its tranquility and respect for law and order. Beneath its streets, the underground passages dug during its days of poverty still wind through the rock.",
       "name": "Claire de Ville",
       "particle": "towards",
       "atParticle": "in",
@@ -1279,7 +1279,7 @@
       "atParticle": "at"
     },
     "25": {
-      "description": "Everything is in the name. A river well appreciated by fishmongers from Claire de Ville.",
+      "description": "The name says it all. A river much loved by the fishmongers of Claire de Ville. Downstream, its banks give way to muddy mudflats teeming with crabs.",
       "name": "Crabs' River",
       "particle": "towards the",
       "atParticle": "at"
@@ -1292,7 +1292,7 @@
       "inParticle": "in"
     },
     "27": {
-      "description": "A forest at the foot of Mount Celestrum",
+      "description": "A forest at the foot of Mount Célestrum. Its edges climb up the mountain's steep slopes.",
       "name": "Celestrum Forest",
       "particle": "towards the",
       "atParticle": "at"
@@ -1338,7 +1338,7 @@
       "particle": "of the"
     },
     "41": {
-      "description": "A pavement flank connecting Boug-Coton with the gates of the royal chateau, where messengers meet before entering the king’s apartments.",
+      "description": "A cobblestone esplanade connecting Boug-Coton to the gates of the royal castle. Messengers cross paths here before entering the king’s apartments. Beneath the cobblestones run secret passages carved into the rock, extending all the way to the castle’s foundations.",
       "name": "Court of Chapel",
       "particle": "of the",
       "atParticle": "at",
@@ -1351,13 +1351,13 @@
       "atParticle": "at"
     },
     "5": {
-      "description": "A path named after its furrow within the lush nature in the south of the Oldster's forest.",
+      "description": "A path that gets its nickname from the way it winds through the lush natural landscape of the southern part of the Old Man's Forest. Beneath the vegetation, one can still make out the low walls of an ancient, forgotten labyrinth.",
       "name": "Daedalus Path",
       "particle": "towards the",
       "atParticle": "to"
     },
     "6": {
-      "description": "A peaceful village known for its welcoming inn.",
+      "description": "A peaceful village known for its welcoming inn. Beneath the inn lie vast secret cellars carved directly into the rock.",
       "name": "Boug-Coton",
       "particle": "towards",
       "atParticle": "in",
