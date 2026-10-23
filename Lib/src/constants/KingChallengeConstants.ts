@@ -77,9 +77,9 @@ export abstract class KingChallengeConstants {
 			money: 5_500, tokens: 6, gems: 2
 		},
 
-		// Champion tier
+		// Champion tier: only reached by the best player of a good week, its reward stands out from the ladder
 		{
-			money: 7_000, tokens: 8, gems: 3
+			money: 10_000, tokens: 8, gems: 3
 		}
 	];
 
