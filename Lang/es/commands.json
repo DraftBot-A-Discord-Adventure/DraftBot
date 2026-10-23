@@ -763,7 +763,7 @@
     },
     "mission": {
       "fieldName": "Tareas :",
-      "fieldValue": ":gem: {{gems, number}} | :book: {{campaign, number}}% "
+      "fieldValue": "{emote:unitValues.gem} {{gems, number}} | {emote:missions.book} {{campaign, number}}% | {emote:kingChallenge.icon} {{kingChallengeTier}}/{{kingChallengeTierCount}}"
     },
     "noTimeLeft": {
       "fieldName": "Tiempo restante :",
@@ -2295,6 +2295,16 @@
     "off": "El bot ha sido liberado con éxito del mantenimiento."
   },
   "missions": {
+    "kingChallenge": {
+      "button": "Défi du roi",
+      "backButton": "Retour",
+      "title": "Défi du roi de {{pseudo}}",
+      "description": "Chaque lundi, le roi lance un nouveau défi aux aventuriers du royaume et récompense ceux qui le relèvent.",
+      "header": "{emote:kingChallenge.icon} **Défi du roi ({{tier}}/{{tierCount}})**",
+      "nextTier": "Gagner {{objective, number}} {emote:unitValues.score} cette semaine pour relever le palier {{nextTier}} (expire {{time}})\n{{progressionBar}} {{current, number}}/{{objective, number}}",
+      "completed": "Vous avez relevé le défi du roi jusqu'au dernier palier ! Un nouveau défi sera lancé {{time}}.",
+      "tier": "{emote:kingChallenge.{{status}}} Palier {{tier}} : {{threshold, number}} {emote:unitValues.score} ({{rewards}})"
+    },
     "title": "{{pseudo}}",
     "subcategories": {
       "campaignCurrent": "{emote:missions.campaign} **Campaña ({{current}}/{{max}})**",
