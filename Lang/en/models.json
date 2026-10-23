@@ -1254,7 +1254,7 @@
       "atParticle": "at"
     },
     "21": {
-      "description": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s'y installent le temps d'une journée pour au final créer un immense marché. Plus loin, d'anciennes échoppes désertées depuis longtemps tombent en ruines sous le sable.",
+      "description": "A road heavily used by villagers. Many small street vendors set up shop there for the day, eventually creating a huge market. Further on, old stalls that have long been abandoned are crumbling into ruins beneath the sand.",
       "name": "Road of Wonders",
       "particle": "towards the",
       "atParticle": "at"
@@ -1266,7 +1266,7 @@
       "atParticle": "to"
     },
     "23": {
-      "description": "Grande ville marchande et carrefour économique, Claire de Ville n'a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ses nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire de Ville est aussi réputée pour son calme et son respect de l'ordre. Sous ses rues, les souterrains creusés au temps de sa misère serpentent encore dans la roche.",
+      "description": "A major commercial city and economic hub, Claire de Ville hasn’t always been so welcoming. Initially very poor, it grew rapidly thanks to its many shops and hotels, which offer a wide variety of options to travelers in the region. Claire de Ville is also renowned for its tranquility and respect for law and order. Beneath its streets, the underground passages dug during its days of poverty still wind through the rock.",
       "name": "Claire de Ville",
       "particle": "towards",
       "atParticle": "in",
@@ -1279,7 +1279,7 @@
       "atParticle": "at"
     },
     "25": {
-      "description": "Tout est dans le nom. Une rivière très appréciée des poissonniers de Claire de Ville. En aval, ses rives se perdent en vasières boueuses où pullulent les crabes.",
+      "description": "The name says it all. A river much loved by the fishmongers of Claire de Ville. Downstream, its banks give way to muddy mudflats teeming with crabs.",
       "name": "Crabs' River",
       "particle": "towards the",
       "atParticle": "at"
@@ -1292,7 +1292,7 @@
       "inParticle": "in"
     },
     "27": {
-      "description": "Une forêt au bord du Mont Célestrum. Ses lisières grimpent sur les pentes escarpées de la montagne.",
+      "description": "A forest at the foot of Mount Célestrum. Its edges climb up the mountain's steep slopes.",
       "name": "Celestrum Forest",
       "particle": "towards the",
       "atParticle": "at"
@@ -1338,7 +1338,7 @@
       "particle": "of the"
     },
     "41": {
-      "description": "Esplanade pavée reliant Boug-Coton aux portes du château royal. Les messagers s’y croisent avant d’accéder aux appartements du roi. Sous ses pavés courent des passages secrets creusés dans la roche jusqu'aux fondations du château.",
+      "description": "A cobblestone esplanade connecting Boug-Coton to the gates of the royal castle. Messengers cross paths here before entering the king’s apartments. Beneath the cobblestones run secret passages carved into the rock, extending all the way to the castle’s foundations.",
       "name": "Court of Chapel",
       "particle": "of the",
       "atParticle": "at",
@@ -1351,13 +1351,13 @@
       "atParticle": "at"
     },
     "5": {
-      "description": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard. Sous la végétation se devinent encore les murets d'un ancien labyrinthe oublié.",
+      "description": "A path that gets its nickname from the way it winds through the lush natural landscape of the southern part of the Old Man's Forest. Beneath the vegetation, one can still make out the low walls of an ancient, forgotten labyrinth.",
       "name": "Daedalus Path",
       "particle": "towards the",
       "atParticle": "to"
     },
     "6": {
-      "description": "Un village paisible réputé pour son auberge accueillante. Sous l'auberge s'étendent de vastes caves secrètes creusées à même la roche.",
+      "description": "A peaceful village known for its welcoming inn. Beneath the inn lie vast secret cellars carved directly into the rock.",
       "name": "Boug-Coton",
       "particle": "towards",
       "atParticle": "in",
